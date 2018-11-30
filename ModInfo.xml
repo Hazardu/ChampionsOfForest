@@ -1,0 +1,74 @@
+<Mod ID="ChampionsOfForest">
+  <Compatible>1.09</Compatible>
+  <Button Standard="Tab" ID="MenuToggle">
+    <Name>
+      <EN>Toggle Menu</EN>
+    </Name>
+    <Description>
+      <EN>opens and closes the main menu</EN>
+    </Description>
+  </Button>
+  <Button Standard="F1" ID="spell1">
+    <Name>
+      <EN> First Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="F2" ID="spell2">
+    <Name>
+      <EN>Second Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="F3" ID="spell3">
+    <Name>
+      <EN>Third Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="F4" ID="spell4">
+    <Name>
+      <EN>Forth Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="F5" ID="spell5">
+    <Name>
+      <EN> Fifth Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="F6" ID="spell6">
+    <Name>
+      <EN>Sixth Spell</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Button Standard="E" ID="ItemPickUp">
+    <Name>
+      <EN>Pick up items</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
+  <Name>
+    <EN>Champions Of The Forest</EN>
+  </Name>
+  <Description>
+    <EN>WORK IN PROGRESS \n This is yet another mod made by Hazard. It features plenty of changes that completely change how you play the game. Please do not use it with PUP, this mod its successor.  Also give me that like on Modapi hub</EN>
+  </Description>
+  <Version>1.0.0.14</Version>
+</Mod>
