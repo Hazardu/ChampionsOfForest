@@ -38,6 +38,7 @@ namespace ChampionsOfForest.Player
     public static class SpellActions
     {
 
+
         public static void BUFF_MultMS(float f)
         {
             ModdedPlayer.instance.MoveSpeed *= f;

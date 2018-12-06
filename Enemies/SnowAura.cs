@@ -56,8 +56,8 @@ namespace ChampionsOfForest.Enemies
             transform.Rotate(Vector3.up * 720 * Time.deltaTime, Space.World);                   //rotates
             if ((LocalPlayer.Transform.position- transform.position).sqrMagnitude < _radius* _radius) //if player is in range, slows him
             {
-                BuffDB.AddBuff(1, 30, 0.35f, 5);
-                BuffDB.AddBuff(2, 31, 0.35f, 5);
+                BuffDB.AddBuff(1, 30, 0.6f, 5);
+                BuffDB.AddBuff(2, 31, 0.6f, 5);
             }
         }
     }

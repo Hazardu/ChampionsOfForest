@@ -29,7 +29,7 @@ namespace ChampionsOfForest
         public float SteadFest;
         private int SteadFestCap;
         private float DamageMult;
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Mines, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Mines, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser,Poisonous }
         public List<Abilities> abilities;
 
         public static string[] Mnames = new string[]
@@ -90,7 +90,7 @@ namespace ChampionsOfForest
         private Vector3 preRainScale;
         private float prerainDmg;
         private int prerainArmor;
-        private readonly float agroRange = 1600;
+        private readonly float agroRange = 1800;
         private float freezeauraCD;
         private float blackholeCD;
         private float blinkCD;
@@ -99,7 +99,13 @@ namespace ChampionsOfForest
         public bool CCimmune = false;
 
 
-
+        public float DamageAmp
+        {
+            get
+            {
+                return DamageMult;
+            }
+        }
 
 
         private void RollName()
@@ -366,6 +372,7 @@ namespace ChampionsOfForest
             {
                 CCimmune = true;
             }
+            DualLifeSpend = false;
             RollName();
             setupComplete = true;
             Invoke("SetHealthToMax", 10);
@@ -612,18 +619,26 @@ namespace ChampionsOfForest
         {
             try
             {
-                if (abilities.Contains(Abilities.DoubleLife) && !DualLifeSpend)
+                if (abilities.Contains(Abilities.DoubleLife))
                 {
-                    DualLifeSpend = true;
-                    _Health.Health = _Health.maxHealth / 2;
-                    _Health.MySkin.material.color = Color.red;
-                    setup.animator.speed *= 1.2f;
-                    _AI.animSpeed *= 1.2f;
-                    _AI.rotationSpeed *= 1.2f;
-                    prerainSpeed = setup.animator.speed;
-                    DamageMult *= 2;
-                    TimeToDie = 240;
+                    if (!DualLifeSpend) {
+                        DualLifeSpend = true;
+                        _Health.Health = _Health.maxHealth / 2;
+                        _Health.MySkin.material.color = Color.red;
+                        setup.animator.speed *= 1.2f;
+                        _AI.animSpeed *= 1.2f;
+                        _AI.rotationSpeed *= 1.2f;
+                        prerainSpeed = setup.animator.speed;
+                        DamageMult *= 2;
+                        TimeToDie = 240;
+                        ModAPI.Log.Write("Enemy undying proc");
+                    }else
+                    {
+                        ModAPI.Log.Write("Enemy died with undying");
+
+                    }
                     return false;
+
                 }
 
                 if (abilities.Contains(Abilities.Molten))
@@ -642,7 +657,6 @@ namespace ChampionsOfForest
                 {
                     return true;
                 }
-                ModAPI.Console.Write("Enemy died");
                 if (Random.value < 0.2f || _AI.creepy_boss)
                 {
 
@@ -661,7 +675,7 @@ namespace ChampionsOfForest
             catch (Exception ex)
             {
 
-                ModAPI.Log.Write(ex.ToString());
+                ModAPI.Log.Write("DIEING ENEMY EXCEPTION  "+ex.ToString());
             }
 
             return true;

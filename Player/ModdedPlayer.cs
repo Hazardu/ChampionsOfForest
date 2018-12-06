@@ -120,10 +120,32 @@ namespace ChampionsOfForest
 
             try
             {
+                float dmgPerSecond = 0;
+                int poisonCount = 0;
                 foreach (KeyValuePair<int, Buff> item in BuffDB.activeBuffs)
                 {
-                    item.Value.UpdateBuff(item.Key);
+                    activeBuffs[item.Key].UpdateBuff(item.Key);
+                    if(item.Value._ID == 3)
+                    {
+                        poisonCount++;
+                        dmgPerSecond += item.Value.amount;
+                    }
                 }
+                LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
+                LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime;
+
+                if(poisonCount > 1)
+                {
+                    BuffDB.AddBuff(1, 33, 0.7f, 1);
+                }
+
+                if (LocalPlayer.Stats.Health<= 0)
+                {
+                    LocalPlayer.Stats.Hit(1, true);
+                }
+                
+
+
             }
             catch (Exception e)
             {
