@@ -1,8 +1,10 @@
 ﻿using ChampionsOfForest.Player;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
+using static ChampionsOfForest.Player.BuffDB;
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
@@ -110,7 +112,7 @@ namespace ChampionsOfForest
             Main,
             Inventory,
             Hud,
-            Skills,
+            Spells,
             Stats,
             Perks,
         }
@@ -169,6 +171,9 @@ namespace ChampionsOfForest
                 DraggedItemIndex = -1;
                 DraggedItem = null;
                 ModAPI.Log.Write("SETUP: Created Main Menu");
+
+
+                semiBlack = new Texture2D(1, 1);
             }
             catch (Exception ex)
             {
@@ -186,6 +191,12 @@ namespace ChampionsOfForest
             if (ModAPI.Input.GetButtonDown("MenuToggle"))
             {
                 MenuKeyPressAction();
+            }
+
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+            {
+                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position);
             }
 
         }
@@ -259,14 +270,14 @@ namespace ChampionsOfForest
                             InventoryScrollAmount = 0;
                             DrawHUD();
                             break;
-                        case OpenedMenuMode.Skills:
+                        case OpenedMenuMode.Spells:
                             GUI.DrawTexture(wholeScreen, _black);
-                            GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Skills");
+                            DrawSpellMenu();
 
                             break;
                         case OpenedMenuMode.Stats:
                             GUI.DrawTexture(wholeScreen, _black);
-                            GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Stats");
+                            DrawStats();
 
                             break;
                         case OpenedMenuMode.Perks:
@@ -313,7 +324,7 @@ namespace ChampionsOfForest
                     center = center
                 };
 
-
+                GUI.Label(new Rect(10 * rr, 10 * rr, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft });
 
                 Rect r1 = new Rect(wholeScreen.center, new Vector2(Screen.height / 2, Screen.height / 2));
                 Rect r2 = new Rect(r1);
@@ -323,13 +334,15 @@ namespace ChampionsOfForest
                 Mindist *= r1.width;
                 MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Inventory", new Vector2(1, -1), ref Opacity1);
                 r2.position = center - r1.size;
-                MenuButton(Mindist, r2, OpenedMenuMode.Skills, "Skills", new Vector2(-1, 1), ref Opacity2);
+                MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Skills", new Vector2(-1, 1), ref Opacity2);
                 r3.position = center - new Vector2(0, r1.width);
                 MenuButton(Mindist, r3, OpenedMenuMode.Stats, "Stats", Vector2.one, ref Opacity3);
                 r4.position = center - new Vector2(r1.width, 0);
                 MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Perks", -Vector2.one, ref Opacity4);
                 GUI.Label(MiddleR, "Level \n " + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
 
+
+                semiblackValue = 0;
             }
             catch (Exception ex)
             {
@@ -510,7 +523,7 @@ namespace ChampionsOfForest
                 }
             }
             //PlayerSlots
-            Rect eq = new Rect(SlotsRect.xMax, 0, 400 * rr, 700 * rr);
+            Rect eq = new Rect(SlotsRect.xMax + 300 * rr, 0, 400 * rr, 700 * rr);
             GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
             Rect head = new Rect(Vector2.zero, slotDim)
             {
@@ -519,13 +532,13 @@ namespace ChampionsOfForest
             head.y -= 2 * head.height;
 
             Rect chest = new Rect(head);
-            chest.y += chest.height + 35 * rr;
+            chest.y += chest.height + 50 * rr;
 
             Rect pants = new Rect(chest);
-            pants.y += pants.height + 35 * rr;
+            pants.y += pants.height + 50 * rr;
 
             Rect boots = new Rect(pants);
-            boots.y += boots.height + 35 * rr;
+            boots.y += boots.height + 50 * rr;
 
             Rect shoulders = new Rect(chest);
             shoulders.position += new Vector2(-chest.width, -chest.height / 2);
@@ -534,22 +547,22 @@ namespace ChampionsOfForest
             tallisman.position += new Vector2(chest.width, -chest.height / 2);
 
             Rect gloves = new Rect(shoulders);
-            gloves.y += gloves.height + 35 * rr;
+            gloves.y += gloves.height + 50 * rr;
 
             Rect bracer = new Rect(tallisman);
-            bracer.y += bracer.height + 35 * rr;
+            bracer.y += bracer.height + 50 * rr;
 
             Rect ringR = new Rect(bracer);
-            ringR.position += new Vector2(chest.width / 2, chest.height);
+            ringR.position += new Vector2(chest.width / 2, chest.height + 50 * rr);
 
             Rect ringL = new Rect(gloves);
-            ringL.position += new Vector2(-chest.width / 2, chest.height);
+            ringL.position += new Vector2(-chest.width / 2, chest.height + 50 * rr);
 
             Rect weapon = new Rect(ringL);
-            weapon.y += weapon.height * 1.5f + 35 * rr;
+            weapon.y += weapon.height * 1.5f + 50 * rr;
 
             Rect offhand = new Rect(ringR);
-            offhand.y += offhand.height * 1.5f + 35 * rr;
+            offhand.y += offhand.height * 1.5f + 50 * rr;
 
             DrawInvSlot(head, -2, "Head");
             DrawInvSlot(chest, -3, "Chest");
@@ -590,6 +603,10 @@ namespace ChampionsOfForest
                 }
             }
         }
+
+
+
+
 
         private void DrawItemInfo(Vector2 pos, Item item)
         {
@@ -647,7 +664,7 @@ namespace ChampionsOfForest
             {
                 GUI.color = RarityColors[item.Stats[i].Rarity];
                 GUI.Label(StatRects[i], item.Stats[i].Name, StatNameStyle);
-                GUI.Label(StatRects[i], Mathf.Round(item.Stats[i].Amount).ToString(), StatValueStyle);
+                GUI.Label(StatRects[i], item.Stats[i].Amount.ToString(), StatValueStyle);
 
             }
             GUI.color = Color.white;
@@ -742,9 +759,10 @@ namespace ChampionsOfForest
                             GUI.color = new Color(1, 1, 1, 0.5f);
 
                         }
-                    }else if(ModdedPlayer.instance.Level > Inventory.Instance.ItemList[index].level)
+                    }
+                    if (ModdedPlayer.instance.Level > Inventory.Instance.ItemList[index].level && index < -1)
                     {
-                        GUI.color = new Color(1, 0, 0, 0.5f);
+                        frameColor = new Color(1, 0, 0, 1f);
                     }
 
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
@@ -1060,7 +1078,7 @@ namespace ChampionsOfForest
 
 
             Rect TitleR = new Rect(r.x, r.y - 35 * rr, r.width, 35 * rr);
-            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(29 * rr),wordWrap = false,alignment = TextAnchor.MiddleCenter});
+            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(25 * rr), wordWrap = true, alignment = TextAnchor.MiddleCenter });
             DrawInvSlot(r, index);
 
         }
@@ -1077,6 +1095,19 @@ namespace ChampionsOfForest
                 {
                     return;
                 }
+
+                float BuffOffset = 0;
+                foreach (KeyValuePair<int,Buff>  buff in BuffDB.activeBuffs)
+                {
+                    Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
+                    string s = String.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont});
+                    BuffOffset += 30 * rr;
+
+                }
+                GUI.Label(new Rect(0, 0, 100, 100), activeBuffs.Count.ToString());
+
+
 
                 GUI.color = Color.blue;
                 GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina) + "/" + ModdedPlayer.instance.MaxEnergy, HUDStatStyle);
@@ -1148,7 +1179,7 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
-                    RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 1000);
+                    RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 10000);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
@@ -1298,7 +1329,6 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.Illusionist:
                                                     DrawScannedEnemyLabel("Illusionist", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     y += rr * 65;
-                                                    GUILayout.Label("Illusionist", infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Blink:
                                                     DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -1401,5 +1431,274 @@ namespace ChampionsOfForest
             MenuInteractable = true;
         }
 
+        #region SpellsMethods;
+        private Spell displayedSpellInfo;
+        private Texture2D semiBlack;
+        private float semiblackValue;
+        private float spellOffset;
+
+        private void DrawSpellMenu()
+        {
+            GUIStyle style = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), alignment = TextAnchor.MiddleLeft };
+            float y = spellOffset;
+            foreach (System.Collections.Generic.KeyValuePair<int, Spell> pair in SpellDataBase.spellDictionary)
+            {
+                DrawSpell(ref y, pair.Value, style);
+            }
+            if (displayedSpellInfo == null)
+            {
+                //scrolling the list
+                spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 140;
+                spellOffset = Mathf.Clamp(spellOffset, -100 * rr, 100 * rr * (SpellDataBase.spellDictionary.Count + 4));
+            }
+            else
+            {
+                //background effect
+                
+                semiblackValue += Time.deltaTime/5 ;
+                semiBlack.SetPixel(0, 0, new Color(0.6f, 0.16f, 0, 0.6f + Mathf.Sin(semiblackValue*Mathf.PI) * 0.2f));
+                semiBlack.Apply();
+                GUI.DrawTexture(wholeScreen, semiBlack);
+                Rect bg = new Rect(Screen.width / 2 - 325 * rr, 0, 650 * rr, Screen.height);
+                GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[27]);
+
+                //go back btn
+                if (UnityEngine.Input.GetMouseButtonDown(1))
+                {
+                    displayedSpellInfo = null;
+                    return;
+                }
+
+                //drawing pretty info
+                Rect SpellIcon = new Rect(Screen.width / 2 - 100 * rr, 25 * rr, 200 * rr, 200 * rr);
+                GUI.DrawTexture(SpellIcon, displayedSpellInfo.icon);
+                if (GUI.Button(new Rect(Screen.width - 170 * rr, 25 * rr, 150 * rr, 50 * rr), "GO BACK TO SPELLS\n(Right Mouse Button)", new GUIStyle(GUI.skin.button) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15) }))
+                {
+                    displayedSpellInfo = null;
+                    return;
+                }
+
+                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 225 * rr, 600 * rr, 70 * rr), displayedSpellInfo.Name, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * rr, 325 * rr, 300 * rr, 35 * rr), Res.ResourceLoader.instance.LoadedTextures[30]);
+                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr), displayedSpellInfo.Description + "\nStamina cost:  " + displayedSpellInfo.EnergyCost + "\nRequired level:  " + displayedSpellInfo.Levelrequirement, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 38), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+
+                if (displayedSpellInfo.Bought)
+                {
+                    //select equip slot
+                    for (int i = 0; i < SpellCaster.instance.infos.Length; i++)
+                    {
+                        try
+                        {
+                            Rect btn = new Rect(bg.x + 25f * rr + i * 100 * rr, 800 * rr, 100 * rr, 100 * rr);
+
+                            GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[5]);
+
+                            if (displayedSpellInfo.EquippedSlot == i)
+                            {
+                                GUI.DrawTexture(btn, displayedSpellInfo.icon);
+                                if (GUI.Button(btn, "ASSIGNED\nHERE", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
+                                {
+                                    //Clears the spot
+                                    SpellCaster.instance.SetSpell(i);
+                                }
+                            }
+                            else
+                            {
+                                if (SpellCaster.instance.infos[i].spell != null)
+                                {
+                                    GUI.DrawTexture(btn, SpellCaster.instance.infos[i].spell.icon);
+                                    if (GUI.Button(btn, SpellCaster.instance.infos[i].spell.Name, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15), alignment = TextAnchor.MiddleCenter }))
+                                    {
+                                        //Replaces spell
+                                        if (displayedSpellInfo.IsEquipped)
+                                        {
+                                            SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
+                                        }
+
+                                        SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+                                    }
+                                }
+                                else
+                                {
+                                    if (GUI.Button(btn, "", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 34), alignment = TextAnchor.MiddleCenter }))
+                                    {
+                                        //Assigns spell onto empty slot
+                                        if (displayedSpellInfo.IsEquipped)
+                                        {
+                                            SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
+                                        }
+
+                                        SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+                                    }
+                                }
+                            }
+                            GUI.color = Color.gray;
+                            GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 40), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                            GUI.color = Color.white;
+                            GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[6]);
+                        }
+                        catch (Exception ex)
+                        {
+                            ModAPI.Log.Write(i + "   " + ex.ToString());
+
+                        }
+                    }
+                }
+                else
+                {
+                    //buy button
+                }
+                GUI.color = Color.white;
+
+            }
+
+        }
+
+        private void DrawSpell(ref float y, Spell s, GUIStyle style)
+        {
+            Rect bg = new Rect(0, y, Screen.width * 3 / 5, 100 * rr);
+            GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
+            Rect nameRect = new Rect(30 * rr, y, bg.width / 2, 100 * rr);
+
+            if (s.Levelrequirement > ModdedPlayer.instance.Level)
+            {
+                GUI.color = Color.gray;
+            }
+            else
+            {
+                if (bg.Contains(mousepos))
+                {
+                    if (displayedSpellInfo == null)
+                    {
+                        style.fontStyle = FontStyle.Bold;
+                        if (UnityEngine.Input.GetMouseButtonDown(0))
+                        {
+
+                            displayedSpellInfo = SpellDataBase.spellDictionary[s.ID];
+                        }
+                    }
+                }
+            }
+            GUI.Label(nameRect, s.Name + "  (LEVEL: " + s.Levelrequirement + ")", style);
+            Rect iconRect = new Rect(bg.width - 140 * rr, y + 15 * rr, 70 * rr, 70 * rr);
+            GUI.DrawTexture(iconRect, s.icon);
+
+            GUI.color = Color.white;
+            y += 100 * rr;
+
+        }
+
+        private void BuySpell(Spell s)
+        {
+            ModdedPlayer.instance.PerkPoints--;
+            s.Bought = true;
+        }
+        #endregion
+
+        #region StatsMenu
+        private void DrawStats()
+        {
+            GUILayout.BeginArea(new Rect(0, 0, Screen.width / 3, Screen.height));
+            GUIStyle header = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = Mathf.RoundToInt(40f * rr),
+                font = MainFont,
+                fontStyle = FontStyle.Bold,
+                margin = new RectOffset(Mathf.RoundToInt(50 * rr), 0, 0, 0)
+            };
+            GUIStyle label = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = Mathf.RoundToInt(30f * rr),
+                font = MainFont,
+            };
+            GUILayout.Label("Stats", header);
+            GUILayout.Space(75 * rr);
+
+            GUILayout.Label("HEALTH: " + ModdedPlayer.instance.MaxHealth, header);
+            GUILayout.Label("Base health: 10", label);
+            GUILayout.Label("Bonus from vitality: " + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality, label);
+            GUILayout.Label("Bonus health: " + ModdedPlayer.instance.HealthBonus, label);
+            GUILayout.Label("Bonus health percent: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%", label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.Label("HEALTH REGEN", header);
+            GUILayout.Label("Health per second: " + ModdedPlayer.instance.LifeRegen, label);
+            GUILayout.Label("Health per second multipier: " + ModdedPlayer.instance.HealthRegenPercent * 100 + "%", label);
+            GUILayout.Label("Health per hit: " + ModdedPlayer.instance.LifeOnHit, label);
+            GUILayout.Label("Healing multipier: " + ModdedPlayer.instance.HealingMultipier * 100 + "%", label);
+            GUILayout.Space(50 * rr);
+
+
+
+
+            GUILayout.Label("ENERGY: " + ModdedPlayer.instance.MaxEnergy, header);
+            GUILayout.Label("Base energy: 10", label);
+            GUILayout.Label("Bonus from agility: " + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility, label);
+            GUILayout.Label("Bonus energy: " + ModdedPlayer.instance.EnergyBonus, label);
+            GUILayout.Label("Bonus energy percent: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%", label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.Label("STAMINA REGEN", header);
+            GUILayout.Label("Stamina per second: " + ModdedPlayer.instance.StaminaRecover, label);
+            GUILayout.Label("Stamina per second bonus: " + ModdedPlayer.instance.EnergyRegen, label);
+            GUILayout.Label("Stamina regen multipier: " + ModdedPlayer.instance.EnergyRegenPercent * 100 + "%", label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.EndArea();
+            GUILayout.BeginArea(new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height));
+
+            GUILayout.Label("ATTRIBUTES", header);
+            GUILayout.Label("Strenght: " + ModdedPlayer.instance.strenght, label);
+            GUILayout.Label("Intelligence: " + ModdedPlayer.instance.intelligence, label);
+            GUILayout.Label("Agility: " + ModdedPlayer.instance.agility, label);
+            GUILayout.Label("Vitality: " + ModdedPlayer.instance.vitality, label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.Label("OFFENSIVE", header);
+            GUILayout.Label("Spell damage amplification: " + ModdedPlayer.instance.SpellAMP * 100 + "%", label);
+
+            GUILayout.Space(10 * rr);
+
+            GUILayout.Label("Critical hit chance: " + ModdedPlayer.instance.CritChance, label);
+            GUILayout.Label("Critical hit damage: " + ModdedPlayer.instance.CritDamage, label);
+            GUILayout.Space(10 * rr);
+
+            GUILayout.Label("Outgoing damage increase: " + ModdedPlayer.instance.DamageOutputMult * 100 + "%", label);
+            GUILayout.Label("Strenght meele damage increase: " + ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100 + "%", label);
+            GUILayout.Space(10 * rr);
+
+            GUILayout.Label("Meele damage: " + ModdedPlayer.instance.MeeleDamageBonus, label);
+            GUILayout.Label("Meele damage multipier: " + ModdedPlayer.instance.MeeleDamageAmplifier * 100 + "%", label);
+            GUILayout.Space(10 * rr);
+
+            GUILayout.Label("Ranged damage: " + ModdedPlayer.instance.RangedDamageBonus, label);
+            GUILayout.Label("Ranged damage multipier: " + ModdedPlayer.instance.RangedDamageAmplifier * 100 + "%", label);
+            GUILayout.Space(10 * rr);
+
+            GUILayout.Label("Spell damage: " + ModdedPlayer.instance.SpellDamageBonus, label);
+            GUILayout.Label("Spell damage multipier: " + ModdedPlayer.instance.SpellDamageAmplifier * 100 + "%", label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.Label("DEFENSIVE", header);
+            GUILayout.Label("Damage reduction: " + ModdedPlayer.instance.DamageReduction * 100 + "%", label);
+            GUILayout.Label("Dodge chance: " + ModdedPlayer.instance.DodgeChance * 100 + "%", label);
+            GUILayout.Label("Armor: " + ModdedPlayer.instance.Armor, label);
+            GUILayout.Label("Damage reduction from armor: " + ModdedPlayer.instance.ArmorDmgRed, label);
+            GUILayout.Label("Magic resistance: " + ModdedPlayer.instance.MagicResistance, label);
+            GUILayout.Space(50 * rr);
+
+            GUILayout.EndArea();
+            GUILayout.BeginArea(new Rect((Screen.width / 3) * 2, 0, Screen.width / 3, Screen.height));
+
+            GUILayout.Label("ADVENTURE", header);
+            GUILayout.Label("Movement speed: " + ModdedPlayer.instance.MoveSpeed * 100 + "%", label);
+            GUILayout.Label("Swing speed: " + ModdedPlayer.instance.AttackSpeed * 100 + "%", label);
+            GUILayout.Label("Experience gain: " + ModdedPlayer.instance.ExpFactor * 100 + "%", label);
+            GUILayout.Label("Massacre duration: " + ModdedPlayer.instance.MaxMassacreTime + " seconds", label);
+            GUILayout.Space(50 * rr);
+            GUILayout.EndArea();
+
+        }
+        #endregion
     }
 }

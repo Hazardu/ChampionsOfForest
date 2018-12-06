@@ -23,16 +23,36 @@
 
         public void HitPhysical(int damage)
         {
-            damage = progression.ClampDamage(false, damage);
-            HitReal(damage);
+          
+          int    dmg = progression.ClampDamage(false, damage);
+            HitReal(dmg);
+        }
+
+
+
+
+        protected override void dieExplode()
+        {
+            if (progression.OnDie())
+            {
+                base.dieExplode();
+            }
+        }
+        protected override void DieTrap(int type)
+        {
+            if (progression.OnDie())
+            {
+                base.DieTrap(type);
+            }
+
         }
 
         public override void Die()
         {
-            progression.OnDie();
-            //here will go code for progressions dual life ability
-
-            base.Die();
+            if (progression.OnDie())
+            {
+                base.Die();
+            }
         }
     }
 

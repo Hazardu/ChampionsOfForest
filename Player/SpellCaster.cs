@@ -27,24 +27,34 @@ namespace ChampionsOfForest.Player
         public bool[] Ready;
         public static int SpellCount = 6;
 
-        
+
         public void SetSpell(int i, Spell spell = null)
         {
-            if (spell == null)
+            if (infos[i].spell != null)
             {
+                if (infos[i].spell.passive != null) infos[i].spell.passive(false);
                 infos[i].spell.EquippedSlot = -1;
                 infos[i].spell = null;
             }
-            else
+
+            else if (spell != null)
             {
-                spell.EquippedSlot = i;
                 infos[i].spell = spell;
+                infos[i].spell.EquippedSlot = i;
+            }
+
+            if (infos[i].spell != null)
+            {
+                if (infos[i].spell.passive != null) infos[i].spell.passive(false);
+
             }
             SetMaxCooldowns();
         }
 
         private void Start()
         {
+            try
+            {
             infos = new SpellInfo[SpellCount];
             Ready = new bool[SpellCount];
             for (int i = 0; i < SpellCount; i++)
@@ -56,56 +66,37 @@ namespace ChampionsOfForest.Player
             }
 
             //Testing 
-                Spell bhole = new Spell()
-                {
-                    Bought = true,
-                    CanCast = true,
-                    BaseCooldown = 10,
-                    Description = "creates a black hole",
-                    EnergyCost = 5,
-                    icon = Texture2D.whiteTexture,
-                    ID = 1,
-                    level = 1,
-                    Levelrequirement = 1,
-                    Name = "Black Hole",
-                };
-                bhole.active = new Spell.Active(CreatePlayerBlackHole);
-                SetSpell(0, bhole);
-                MaxCooldown(0);
-                  }
 
-        public void CreatePlayerBlackHole()
-        {
-            try
-            {
-                float damage = 30 * ModdedPlayer.instance.SpellAMP;
-                float duration = 12;
-                float radius = 50;
-                float pullforce = 25;
-                RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 100);
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    if (hits[i].transform.root != LocalPlayer.Transform.root)
-                    {
-                        if (Vector3.Distance(hits[i].point, LocalPlayer.Transform.position) > 3)
-                        {
-                            Network.NetworkManager.SendLine("SC1;" + Math.Round(hits[i].point.x, 5) + ";" + Math.Round(hits[i].point.y, 5) + ";" + Math.Round(hits[i].point.z, 5) + ";" +
-                                "f;" + damage + ";" + duration + ";" + radius + ";" + pullforce + ";", Network.NetworkManager.Target.Everyone);
-                            return;
+            //Spell bhole = new Spell()
+            //{
+            //    Bought = true,
+            //    CanCast = true,
+            //    BaseCooldown = 10,
+            //    Description = "creates a black hole",
+            //    EnergyCost = 5,
+            //    icon = Texture2D.whiteTexture,
+            //    ID = 1,
+            //    level = 1,
+            //    Levelrequirement = 1,
+            //    Name = "Black Hole",
+            //};
+            //bhole.active = new Spell.Active(CreatePlayerBlackHole);
+          
+   SetSpell(0, SpellDataBase.spellDictionary[1]);
+            ModAPI.Log.Write(infos[0].spell.Name);
+                SetMaxCooldowns();
 
-                        }
-                    }
-                }
-                Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 50;
-                Network.NetworkManager.SendLine("SC1;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" +
-                           "f;" + damage + ";" + duration + ";" + radius + ";" + pullforce + ";", Network.NetworkManager.Target.Everyone);
             }
             catch (Exception ex)
             {
-
                 ModAPI.Log.Write(ex.ToString());
+          
             }
+         
+            //MaxCooldown(0);
         }
+
+    
 
 
         private void Update()
@@ -123,6 +114,7 @@ namespace ChampionsOfForest.Player
                             {
                                 infos[i].Cooldown = 0;
                                 Ready[i] = true;
+                                infos[i].spell.CanCast = true;
                             }
                         }
                         else
@@ -147,6 +139,10 @@ namespace ChampionsOfForest.Player
                                 LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost;
 
                             }
+                            else
+                            {
+                                ModAPI.Console.Write("Conditions not met to cast a spell");
+                            }
                         }
                     }
                 }
@@ -164,7 +160,7 @@ namespace ChampionsOfForest.Player
             {
                 if (infos[i].spell != null)
                 {
-                    infos[i].Cooldown = infos[i].spell.BaseCooldown;
+                    infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
                 }
             }
         }
@@ -172,7 +168,7 @@ namespace ChampionsOfForest.Player
         {
             if (infos[i].spell != null)
             {
-                infos[i].Cooldown = infos[i].spell.BaseCooldown;
+                infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
             }
         }
         public class SpellInfo

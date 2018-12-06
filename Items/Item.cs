@@ -19,7 +19,9 @@ namespace ChampionsOfForest
         public Item(BaseItem b, int amount = 1,int increasedLevel = 0,bool roll =true)
         {
             base.description = b.description;
-            base.level = b.level+increasedLevel;
+            base.minLevel = b.minLevel;
+            base.maxLevel = b.maxLevel;
+            base.level =(int)UnityEngine.Random.Range(minLevel , maxLevel+1 )+ increasedLevel; 
             base.lore = b.lore;
             base.name = b.name;
             base.onEquip = b.onEquip;
@@ -36,8 +38,8 @@ namespace ChampionsOfForest
             Amount = amount;
             Equipped = false;
             Stats = new List<ItemStat>();
-            if(roll)
-            RollStats();
+            if (roll)
+                RollStats();
         }
 
 
@@ -50,10 +52,38 @@ namespace ChampionsOfForest
             {
 
                 int random = UnityEngine.Random.Range(0, PS.Count);
-
-                ItemStat stat = new ItemStat( PS[random],level);
-                Stats.Add(stat);
-
+                if (PS[random] != null)
+                {
+                    ItemStat stat = new ItemStat(PS[random], level);
+                    switch (Rarity)
+                    {
+                        case 0:
+                            stat.Amount *= 0.7f;
+                            break;
+                        case 1:
+                            stat.Amount *= 1;
+                            break;
+                        case 2:
+                            stat.Amount *= 1.25f;
+                            break;
+                        case 3:
+                            stat.Amount *= 1.6f;
+                            break;
+                        case 4:
+                            stat.Amount *= 2f;
+                            break;
+                        case 5:
+                            stat.Amount *= 2.4f;
+                            break;
+                        case 6:
+                            stat.Amount *= 3f;
+                            break;
+                        case 7:
+                            stat.Amount *= 3.5f;
+                            break;
+                    }
+                    Stats.Add(stat);
+                }
             }
         }
         public void OnEquip()

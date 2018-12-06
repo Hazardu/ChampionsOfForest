@@ -4,13 +4,11 @@ namespace ChampionsOfForest.Player
     public class Spell
     {
         public int ID;
-      
-        public Texture2D icon;
+              public Texture2D icon;
         public int Levelrequirement;
         public float EnergyCost;
-        public int BaseCooldown;
+        public float BaseCooldown;
 
-        public int EquippedSlot;
         public bool IsEquipped
         {
             get
@@ -22,23 +20,38 @@ namespace ChampionsOfForest.Player
                 return false;
             }
         }
-  public delegate void Active();
+
+         public delegate void Active();
         public Active active;
-        public delegate void Passive();
+        public delegate void Passive(bool on);
         public Passive passive;
 
-
-
         public bool Bought;
-        public int level;
         public bool CanCast = false;
+
+        //Display
         public string Name;
         public string Description;
-
+        public int EquippedSlot;
 
         public Spell()
         {
 
+        }
+
+        public Spell(int iD,int TextureID, int levelrequirement, float energyCost, float baseCooldown, string name, string description)
+        {
+            ID = iD;
+            Levelrequirement = levelrequirement;
+            EnergyCost = energyCost;
+            BaseCooldown = baseCooldown;
+            Name = name;
+            Description = description;
+            CanCast = true;
+            Bought = false;
+            icon = Res.ResourceLoader.instance.LoadedTextures[TextureID];
+            SpellDataBase.spellDictionary.Add(iD, this);
+            ModAPI.Log.Write("Added spell " + name + " " + ID);
         }
     }
 }

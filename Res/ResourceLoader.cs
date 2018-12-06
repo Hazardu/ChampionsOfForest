@@ -142,7 +142,10 @@ namespace ChampionsOfForest.Res
                     case Resource.ResourceType.Texture:
                         Texture2D t = new Texture2D(1, 1);
                         t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
+                        
                         t.Apply();
+                        t.Compress(true);
+
                         LoadedTextures.Add(resource.ID, t);
                         LabelText = LabelText + " \n LOADED IMAGE | " + resource.ID;
 
@@ -247,7 +250,6 @@ namespace ChampionsOfForest.Res
         {
             new Resource(1, "wheel.png");
             new Resource(2, "wheelOn.png");
-
             new Resource(5, "SpellBG.png");
             new Resource(6, "SpellFrame.png");
             new Resource(8, "CoolDownFill.png");
@@ -257,7 +259,6 @@ namespace ChampionsOfForest.Res
             new Resource(16, "ProgressFill.png");
             new Resource(17, "ProgressFront.png");
             new Resource(18, "CombatTimer.png");
-
             new Resource(20, "BlackHoleTex.png");
             new Resource(21, "BlackHole.obj");
             new Resource(22, "Leaf.png");
@@ -265,6 +266,9 @@ namespace ChampionsOfForest.Res
             new Resource(24, "SmallCircle.png");
             new Resource(25, "Row.png");
             new Resource(26, "snowflake.png");
+            new Resource(27, "Background.png");
+            new Resource(28, "HorizontalListItem.png");
+            new Resource(30, "Space.png");
 
         }
 

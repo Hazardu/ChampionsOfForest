@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChampionsOfForest
+﻿namespace ChampionsOfForest
 {
     public class ModSettings
     {
@@ -11,5 +6,5 @@ namespace ChampionsOfForest
         public static Difficulty difficulty = Difficulty.Normal;
         public static bool DifficultyChoosen = false;
         public static string Version = "0.0.0.1";
-            }
+    }
 }

@@ -50,18 +50,6 @@ namespace ChampionsOfForest.Player
             ItemList.Add(-12, null);//mainHand
             ItemList.Add(-13, null);//offhand
 
-
-
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1]));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1]));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 10));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 20));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 30));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 40));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 50));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 60));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 70));
-            AddItem(new Item(ItemDataBase.Instance.ItemBases[1], 1, 80));
         }
         private void Update()
         {

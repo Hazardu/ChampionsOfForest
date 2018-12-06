@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ChampionsOfForest.Player;
+using System;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
+using static ChampionsOfForest.Player.BuffDB;
+
 namespace ChampionsOfForest
 {
     public class ModdedPlayer : MonoBehaviour
@@ -36,7 +39,7 @@ namespace ChampionsOfForest
                 return (1 + f) * SpellDamageAmplifier;
             }
         }
-
+        public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100) ;
         public int Level = 1;
 
         public float HealingMultipier = 1;
@@ -55,7 +58,7 @@ namespace ChampionsOfForest
         public int EnergyBonus = 0;
         public float MaxHealthPercent = 0;
         public float MaxEnergyPercent = 0;
-
+        public float CoolDownMultipier = 1;
         public float SpellDamageAmplifier = 1;
         public float MeeleDamageAmplifier = 1;
         public float RangedDamageAmplifier = 1;
@@ -64,6 +67,7 @@ namespace ChampionsOfForest
         public float RangedDamageBonus = 0;
 
         public float DamageReduction = 0;
+        public float DamageOutputMult = 1;
         public float CritChance = 0;
         public float CritDamage = 50;
         public float LifeOnHit = 0;
@@ -116,9 +120,9 @@ namespace ChampionsOfForest
 
             try
             {
-                foreach (KeyValuePair<int, Buff> item in BuffDataBase.activeBuffs)
+                foreach (KeyValuePair<int, Buff> item in BuffDB.activeBuffs)
                 {
-                    item.Value.Update();
+                    item.Value.UpdateBuff(item.Key);
                 }
             }
             catch (Exception e)
@@ -154,26 +158,6 @@ namespace ChampionsOfForest
             }
             LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
 
-        }
-
-
-
-        public static void BUFF_MultMS(float f)
-        {
-            instance.MoveSpeed *= f;
-        }
-        public static void BUFF_DivideMS(float f)
-        {
-            instance.MoveSpeed *= f;
-        }
-
-        public static void BUFF_MultAS(float f)
-        {
-            instance.AttackSpeed *= f;
-        }
-        public static void BUFF_DivideAS(float f)
-        {
-            instance.AttackSpeed *= f;
         }
         
         public void AddKillExperience(long Amount)

@@ -34,6 +34,8 @@ namespace ChampionsOfForest
                 {
                     ModAPI.Log.Write("Other Scene");
                     Res.ResourceLoader.InMainMenu = false;
+                    SpellDataBase.Initialize();
+
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
                     ItemDataBase.Initialize();
                     GameObject go = new GameObject("Playerobj");
@@ -42,9 +44,10 @@ namespace ChampionsOfForest
                     go.AddComponent<ModReferences>();
                     go.AddComponent<SpellCaster>();
                     go.AddComponent<ClinetItemPicker>();
+                    BuffDB.FillBuffList();
+
                     EnemyManager.Initialize();  
                         new GameObject("MainMenuObj").AddComponent<MainMenu>();
-                    BuffDataBase.Init();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     Buildings.InitBuildings();
 

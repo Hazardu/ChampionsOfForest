@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Network
         /// <param name="s">Content of the message, make sure it ends with ';'</param>
         public static void SendLine(string s, Target target)
         {
-            ModAPI.Console.Write("SEND:" + s);
+            ModAPI.Log.Write("SEND:" + s);
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
                 RecieveLine(s);
@@ -70,7 +70,7 @@ namespace ChampionsOfForest.Network
         }
         public static void SendLine(string s, BoltConnection con)
         {
-            ModAPI.Console.Write("SEND:" + s);
+            ModAPI.Log.Write("SEND:" + s);
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
                 RecieveLine(s);
@@ -97,7 +97,7 @@ namespace ChampionsOfForest.Network
             try
             {
                 //For testing purposes
-                ModAPI.Console.Write("RECIEVED:" + s);
+                ModAPI.Log.Write("RECIEVED:" + s);
 
                 instance.onGetMessage(s);
             }

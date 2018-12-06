@@ -28,15 +28,16 @@ namespace ChampionsOfForest
         public string lore;                 //some cool story to make this item have any sense, or a place for a joke
         public string tooltip;              //what should be displayed in the tooltip of this item
         public int level;                   //level of this item
+        public int minLevel;
+        public int maxLevel;
         public Texture2D icon;              //texture of this item
         public bool PickUpAll;              //should the item be picked one by one, or grab all at once
-
 
         public BaseItem()
         {
 
         }
-        public BaseItem(List<List<ItemStat>> possibleStats, int rarity, int iD, int StackSize , ItemType itemType, string name, string description, string lore, string tooltip, int level, Texture2D texture,bool pickupAll = false)
+        public BaseItem(List<List<ItemStat>> possibleStats, int rarity, int iD, int StackSize , ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture,bool pickupAll = false)
         { 
             PossibleStats = possibleStats;
             Rarity = rarity;
@@ -48,7 +49,42 @@ namespace ChampionsOfForest
             this.description = description;
             this.lore = lore;
             this.tooltip = tooltip;
-            this.level = level;
+            this.minLevel = minlevel;
+            this.maxLevel = maxlevel;
+
+            ItemDataBase.Instance._Item_Bases.Add(this);
+            icon = texture;
+        }
+        public BaseItem(int[][] possibleStats, int rarity, int iD, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+        {
+            PossibleStats = new List<List<ItemStat>>();
+            foreach (int[] a in possibleStats)
+            {
+                List<ItemStat> list = new List<ItemStat>();
+                foreach (int b in a)
+                {
+                    if (b == 0)
+                    {
+                        list.Add(null);
+                    }
+                    else
+                    {
+                        list.Add(ItemDataBase.Instance.Stats[b]);
+                    }
+                }
+                PossibleStats.Add(list);
+            }
+            Rarity = rarity;
+            ID = iD;
+            this.StackSize = StackSize;
+            _itemType = itemType;
+            PickUpAll = pickupAll;
+            this.name = name;
+            this.description = description;
+            this.lore = lore;
+            this.tooltip = tooltip;
+            this.minLevel = minlevel;
+            this.maxLevel = maxlevel;
             ItemDataBase.Instance._Item_Bases.Add(this);
             icon = texture;
         }

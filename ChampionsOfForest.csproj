@@ -183,7 +183,6 @@
 <Compile Include="ModReferences.cs"  />
 <Compile Include="ModSettings.cs"  />
 <Compile Include="BlackHole.cs"  />
-<Compile Include="Player\Buff.cs"  />
 <Compile Include="Player\BuffDataBase.cs"  />
 <Compile Include="Network\CommandReader.cs"  />
 <Compile Include="Player\FPCharacterMod.cs"  />
@@ -192,9 +191,11 @@
 <Compile Include="Network\ChatBoxMod.cs"  />
 <Compile Include="Network\NetworkManager.cs"  />
 <Compile Include="Player\ModdedPlayer.cs"  />
+<Compile Include="Player\PlayerInventoryMod.cs"  />
 <Compile Include="Player\PlayerStatsEx.cs"  />
 <Compile Include="Player\Spell.cs"  />
 <Compile Include="Player\SpellCaster.cs"  />
+<Compile Include="Player\SpellDataBase.cs"  />
 <Compile Include="Res\Resource.cs"  />
 <Compile Include="Res\ResourceLoader.cs"  />
 

@@ -1,4 +1,5 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest.Enemies
@@ -26,31 +27,37 @@ namespace ChampionsOfForest.Enemies
 
             //Creating particle effect
             ParticleSystem p = gameObject.AddComponent<ParticleSystem>();
+            p.transform.Rotate(Vector3.right * 90);
             Renderer r = p.GetComponent<Renderer>();
             r.material = _particleMaterial;
             ParticleSystem.ShapeModule s = p.shape;
-            s.arcMode = ParticleSystemShapeMultiModeValue.Random;
-            s.arcSpeed = 3.4f;
-            s.shapeType = ParticleSystemShapeType.Cone;
+            s.shapeType = ParticleSystemShapeType.Circle;
+           
             s.radius = _radius;
             ParticleSystem.EmissionModule e = p.emission;
-            e.rateOverTime = 100;
+            e.rateOverTime = 350;
             var main = p.main;
-            main.startSize = 0.3f;
+            main.startSize = 0.4f;
             main.startSpeed = 0;
-            main.gravityModifier = -0.5f;
-
-
+            main.gravityModifier = -0.4f;
+            main.prewarm = false;
+            main.startLifetime = 2;
+            var vel = p.velocityOverLifetime;
+            vel.enabled = true;
+            vel.space = ParticleSystemSimulationSpace.World;
+            vel.y = new ParticleSystem.MinMaxCurve(3,0);
+            var siz = p.sizeOverLifetime;
+            siz.size = new ParticleSystem.MinMaxCurve(2, 0);
         }
 
         private void Update()
         {
             transform.position = followTarget.position;                                         //copies position of the caster
             transform.Rotate(Vector3.up * 720 * Time.deltaTime, Space.World);                   //rotates
-            if (Vector3.Distance(LocalPlayer.Transform.position, transform.position) < _radius) //if player is in range, slows him
+            if ((LocalPlayer.Transform.position- transform.position).sqrMagnitude < _radius* _radius) //if player is in range, slows him
             {
-                BuffDataBase.AddBuff(1, 30, 0.35f, 5);
-                BuffDataBase.AddBuff(2, 30, 0.35f, 5);
+                BuffDB.AddBuff(1, 30, 0.35f, 5);
+                BuffDB.AddBuff(2, 31, 0.35f, 5);
             }
         }
     }

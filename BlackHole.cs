@@ -132,7 +132,6 @@ namespace ChampionsOfForest
                             if (hit.transform.root.GetComponentInChildren<EnemyHealth>() != null)
                             {
                                 CoughtEnemies.Add(hit.transform.root);
-                                ModAPI.Console.Write("Adding enemy");
                             }
                         }
                     }
@@ -153,6 +152,8 @@ namespace ChampionsOfForest
             {
                 foreach (Transform t in CoughtEnemies)
                 {
+                    EnemyProgression p = t.GetComponentInChildren<EnemyProgression>();
+                    if(!p.CCimmune)
                     Pull(t);
                 }
             }
@@ -165,16 +166,11 @@ namespace ChampionsOfForest
 
                 foreach (Transform t in CoughtEnemies)
                 {
-                    EnemyHealth hp = t.GetComponentInChildren<EnemyHealth>();
-                    if (hp != null)
+                  EnemyProgression ep = t.GetComponentInChildren<EnemyProgression>();
+                    if (ep != null)
                     {
-                        ModAPI.Console.Write("Hitting an enemy for " + damage);
-                        hp.Hit(Mathf.RoundToInt(damage));
-                    }
-                    else
-                    {
-                        ModAPI.Console.Write("No HP in  " + t.name);
-
+                        
+                        ep.HitMagic(Mathf.RoundToInt(damage));
                     }
                 }
                 yield return new WaitForSeconds(1);

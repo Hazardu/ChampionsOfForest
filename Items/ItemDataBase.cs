@@ -17,6 +17,7 @@ namespace ChampionsOfForest
         public List<ItemStat> statList = new List<ItemStat>();
         public Dictionary<int, ItemStat> Stats = new Dictionary<int, ItemStat>();
 
+        private Dictionary<int, List<int>> ItemRarityGroups = new Dictionary<int, List<int>>();
         //Called from Initializer
         public static void Initialize()
         {
@@ -59,6 +60,14 @@ namespace ChampionsOfForest
                 try
                 {
                     Instance.ItemBases.Add(Instance._Item_Bases[i].ID, Instance._Item_Bases[i]);
+                    if (Instance.ItemRarityGroups.ContainsKey(Instance._Item_Bases[i].Rarity)){
+                        Instance.ItemRarityGroups[Instance._Item_Bases[i].Rarity].Add(Instance._Item_Bases[i].ID);
+                    }
+                    else
+                    {
+                        Instance.ItemRarityGroups.Add(Instance._Item_Bases[i].Rarity, new List<int>() { Instance._Item_Bases[i].ID });
+
+                    }
                 }
                 catch (System.Exception ex)
                 {
@@ -85,6 +94,57 @@ namespace ChampionsOfForest
             return ItemDataBase.Instance.Stats[id];
         }
 
+        public static Item GetRandomItem(float Worth)
+        {   
+            int randomLevel = Random.Range(Mathf.Max(ModdedPlayer.instance.Level - 8, 1), ModdedPlayer.instance.Level + 10);
+            float w = Worth / randomLevel;
+            int rarity = 0;
+
+            if(w > 200&& w<= 350)
+            {
+                rarity = 1;
+            }
+            else if (w > 350 && w <= 500)
+            {
+                rarity = 2;
+
+            }
+            else if (w > 500 && w <= 625)
+            {
+                rarity = 3;
+
+            }
+            else if (w > 625 && w <= 700)
+            {
+                rarity = 4;
+
+            }
+            else if (w > 700 && w <= 800)
+            {
+                rarity = 5;
+
+            }
+            else if (w > 800 && w <= 950)
+            {
+                rarity = 6;
+
+            }
+            else if (w > 950)
+            {
+                rarity = 7;
+
+            }
+            int increasedLvl = 0;
+            while (!Instance.ItemRarityGroups.ContainsKey(rarity)&&rarity >0)
+            {
+                increasedLvl += 2;
+                rarity--;
+            }
+            int randomID = Instance.ItemRarityGroups[rarity][Random.Range(0, Instance.ItemRarityGroups[rarity].Count)];
+            Item item = new Item(Instance.ItemBases[randomID], 1, increasedLvl);
+            return item;
+
+        }
 
         public void FillStats()
         {
@@ -129,14 +189,124 @@ namespace ChampionsOfForest
         }
         public void FillItems()
         {
-            new BaseItem(new List<List<ItemStat>> {
-                new List<ItemStat>() {statList[0], statList[1] },
-                new List<ItemStat>() {statList[0], statList[1] ,statList[2]},
-                new List<ItemStat>() {statList[0], statList[1] ,statList[2]},
-                new List<ItemStat>() { statList[2]}
-            }, 5, 1, 1, BaseItem.ItemType.Weapon, "My dick", "this is my dig bick", "its ancient, and kinda immortal", "it simply oneshots everything", 1, Texture2D.whiteTexture);
+            int ID = 1;
+            new BaseItem(
+                new int[][] { new int[] { 1, 2, 3, 4 }, new int[] { 0, 34 } },
+                0,              //rarity
+                ID,             //ID
+                1,              //Stack size
+                BaseItem.ItemType.Boot,                                                                                     //item type
+                "Broken Shoes",                                                                                               //item name
+                "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner.",          //description
+                "Worn by one of the passengers of the plane that Eric also flew in.",                                        //lore
+                "Shoes can provide movement speed bonuses.",                                                                 //tooltip
+                1, 4,                                                                                                       //Min and max levels
+                Texture2D.whiteTexture                                                                                      //Icon
+            );
+            ID++;
 
-            
+            new BaseItem(
+    new int[][] { new int[] { 1, 2, 3, 4 }, new int[] { 34 } },
+    1,              //rarity
+    ID,             //ID
+    1,              //Stack size
+    BaseItem.ItemType.Boot,                                                                                     //item type
+    "Worn Shoes",                                                                                               //item name
+    "They look used, through are usable.",          //description
+    "Worn by one of the passengers of the plane that Eric also flew in.",                                        //lore
+    "Shoes can provide movement speed bonuses",                                                                 //tooltip
+    3, 8,                                                                                                       //Min and max levels
+    Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+
+            new BaseItem(
+new int[][] { new int[] { 1, 2, 3, 4, 8 }, new int[] { 34 } },
+2,              //rarity
+ID,             //ID
+1,              //Stack size
+BaseItem.ItemType.Boot,                                                                                     //item type
+"Leather Shoes",                                                                                               //item name
+"High quality footwear.",                                                                       //description
+"They look unused. Maybe they were too big for the previous owner. Luckily, it's my size.",                                        //lore
+"Shoes can provide movement speed bonuses",                                                                 //tooltip
+8, 14,                                                                                                       //Min and max levels
+Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+
+            new BaseItem(
+new int[][] { new int[] { 16 }, new int[] { 0,0,0,0,16,7 } },
+0,                                                                                                      //rarity
+ID,                                                                                                      //ID
+1,                                                                                                      //Stack size
+BaseItem.ItemType.Pants,                                                                                     //item type
+"Shorts",                                                                                               //item name
+"Cheap pants, offer almost no protection.",                                                                       //description
+"They smell, but it's better than walking butt naked.",                                        //lore
+"Pants mainly offer armor, sometimes they come with additional stats",                                                                 //tooltip
+1, 5,                                                                                                       //Min and max levels
+Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+
+            new BaseItem(
+new int[][] { new int[] { 16 }, new int[] { 16,7,1,2,3,4 },new int[] { 7,8,0,0,0} },
+0,                                                                                                      //rarity
+ID,                                                                                                      //ID
+1,                                                                                                      //Stack size
+BaseItem.ItemType.Pants,                                                                                     //item type
+"Trousers",                                                                                               //item name
+"Long pants that offer protection to legs.",                                                                       //description
+"They smell, but it's better than walking butt naked.",                                        //lore
+"Pants mainly offer armor, sometimes they come with additional stats",                                                                 //tooltip
+7, 13,                                                                                                       //Min and max levels
+Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+
+
+            new BaseItem(
+new int[][] { new int[] { 16 }, new int[] {1, 2, 3, 4 }, new int[] { 7, 8 }, new int[] { 16,0,0,3,1 } },
+2,                                                                                                      //rarity
+ID,                                                                                                      //ID
+1,                                                                                                      //Stack size
+BaseItem.ItemType.ChestArmor,                                                                                     //item type
+"Worn jacket",                                                                                               //item name
+"Offers plenty of protection for it's level.",                                                                       //description
+"They smell, but it's better than walking butt naked.",                                        //lore
+"Chest armor offers good protection",                                                                 //tooltip
+5, 8,                                                                                                       //Min and max levels
+Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 

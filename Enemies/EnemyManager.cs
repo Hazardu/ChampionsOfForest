@@ -28,7 +28,7 @@ namespace ChampionsOfForest
                 spProgression = new Dictionary<Transform, ClinetEnemyProgression>();
             }
         }
-        
+
         public static void AddHostEnemy(EnemyProgression ep)
         {
             hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
@@ -105,6 +105,21 @@ namespace ChampionsOfForest
                 LastAskedTime = Time.time;
             }
             return null;
+        }
+
+        public static void RemoveEnemy(EnemyProgression ep)
+        {
+            if (ep.entity != null)
+            {
+                if (ep.entity.networkId != null)
+                {
+                    if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+{
+                        hostDictionary.Remove(ep.entity.networkId.PackedValue);
+                    }
+                }
+            }
+
         }
     }
 }
