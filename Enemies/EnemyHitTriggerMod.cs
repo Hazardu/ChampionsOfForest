@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using Bolt;
+﻿using Bolt;
+using ChampionsOfForest.Player;
 using TheForest.Utils;
 using TheForest.Utils.Settings;
 using TheForest.World;
+using UnityEngine;
 using Scene = TheForest.Utils.Scene;
-using ChampionsOfForest.Player;
 
 namespace ChampionsOfForest.Enemies
 {
     public class EnemyHitTriggerMod : enemyWeaponMelee
     {
+        public static readonly float poisonDuration = 10;
+
+        [ModAPI.Attributes.Priority(100)]
         protected override void OnTriggerEnter(Collider other)
         {
-         
+            try
+            {
+
+
                 currState = animator.GetCurrentAnimatorStateInfo(0);
                 nextState = animator.GetNextAnimatorStateInfo(0);
                 if (currState.tagHash != damagedHash && currState.tagHash != staggerHash && currState.tagHash != hitStaggerHash && currState.tagHash != deathHash && nextState.tagHash != damagedHash && nextState.tagHash != staggerHash && nextState.tagHash != hitStaggerHash && nextState.tagHash != deathHash)
@@ -24,7 +27,7 @@ namespace ChampionsOfForest.Enemies
                     {
                         other.gameObject.SendMessage("CutRope", SendMessageOptions.DontRequireReceiver);
                     }
-                    if (!netPrefab && (bool)LocalPlayer.Animator && LocalPlayer.Animator.GetBool("deathBool"))
+                    if (!netPrefab && LocalPlayer.Animator && LocalPlayer.Animator.GetBool("deathBool"))
                     {
                         return;
                     }
@@ -33,10 +36,10 @@ namespace ChampionsOfForest.Enemies
                         if (!Scene.SceneTracker.hasAttackedPlayer)
                         {
                             Scene.SceneTracker.hasAttackedPlayer = true;
-                            Scene.SceneTracker.Invoke("resetHasAttackedPlayer", (float)Random.Range(120, 240));
+                            Scene.SceneTracker.Invoke("resetHasAttackedPlayer", Random.Range(120, 240));
                         }
-                        targetStats component = ((Component)other.transform.root).GetComponent<targetStats>();
-                        if ((bool)component && component.targetDown)
+                        targetStats component = other.transform.root.GetComponent<targetStats>();
+                        if (component && component.targetDown)
                         {
                             return;
                         }
@@ -46,7 +49,7 @@ namespace ChampionsOfForest.Enemies
                         Vector3 direction = other.transform.position - position;
                         if (!Physics.Raycast(position, direction, out hit, direction.magnitude, enemyHitMask, QueryTriggerInteraction.Ignore))
                         {
-                            if (!creepy_male && !creepy && !creepy_baby && !creepy_fat && (bool)events && (bool)componentInParent)
+                            if (!creepy_male && !creepy && !creepy_baby && !creepy_fat && events && componentInParent)
                             {
                                 bool flag = InFront(other.gameObject);
                                 if ((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && (componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash))
@@ -58,7 +61,7 @@ namespace ChampionsOfForest.Enemies
                                         BoltSetReflectedShim.SetTriggerReflected(animator, "ClientParryTrigger");
                                         hitPrediction.StartParryPrediction();
                                         parryEnemy parryEnemy = parryEnemy.Create(GlobalTargets.OnlyServer);
-                                        parryEnemy.Target = ((Component)base.transform.root).GetComponent<BoltEntity>();
+                                        parryEnemy.Target = transform.root.GetComponent<BoltEntity>();
                                         parryEnemy.Send();
                                         FMODCommon.PlayOneshot(parryEvent, base.transform);
                                     }
@@ -68,7 +71,7 @@ namespace ChampionsOfForest.Enemies
                                     }
                                     events.StartCoroutine("disableAllWeapons");
                                     playerHitReactions componentInParent2 = other.gameObject.GetComponentInParent<playerHitReactions>();
-                                    if ((Object)componentInParent2 != (Object)null)
+                                    if (componentInParent2 != null)
                                     {
                                         componentInParent2.enableParryState();
                                     }
@@ -94,7 +97,7 @@ namespace ChampionsOfForest.Enemies
                                     num = Mathf.FloorToInt(13f * GameSettings.Ai.skinnyDamageRatio);
                                     if (maleSkinny && props.regularStick.activeSelf && events.leftHandWeapon)
                                     {
-                                        num = Mathf.FloorToInt((float)num * 1.35f);
+                                        num = Mathf.FloorToInt(num * 1.35f);
                                     }
                                 }
                             }
@@ -125,7 +128,7 @@ namespace ChampionsOfForest.Enemies
                             else if (firemanMain)
                             {
                                 num = Mathf.FloorToInt(12f * GameSettings.Ai.regularMaleDamageRatio);
-                                if ((bool)events && !enemyAtStructure && !events.noFireAttack)
+                                if (events && !enemyAtStructure && !events.noFireAttack)
                                 {
                                     if (BoltNetwork.isRunning && netPrefab)
                                     {
@@ -148,26 +151,66 @@ namespace ChampionsOfForest.Enemies
                                     num += 15;
                                 }
                             }
-                            if ((bool)setup && setup.health.poisoned)
+                            if (setup && setup.health.poisoned)
                             {
-                                num = Mathf.FloorToInt((float)num / 1.6f);
+                                num = Mathf.FloorToInt(num / 1.6f);
                             }
-                        EnemyHealthMod healthMod = (EnemyHealthMod)setup.health;
-                        //POISON ATTACKS
-                     
 
-                        num = Mathf.RoundToInt(num * healthMod.progression.DamageAmp);
+                            try
+                            {
 
-                        if (healthMod.progression.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-                        {
-                            BuffDB.AddBuff(3, 32, num / 4, 3);
-                        }
+                                EnemyProgression EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+                                //POISON ATTACKS
+                                if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+                                {
 
-                        PlayerStats component2 = ((Component)other.transform.root).GetComponent<PlayerStats>();
+
+                                    if (BoltNetwork.isRunning)
+                                    {
+                                        if (BoltNetwork.isServer)
+                                        {
+                                            if (other.transform.root == LocalPlayer.Transform.root)
+                                            {
+                                                BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
+                                            }
+                                            else
+                                            {
+                                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                                if (bo != null)
+                                                {
+                                                    for (int i = 0; i < ModReferences.PlayerRemoteSetups.Count; i++)
+                                                    {
+                                                        if (ModReferences.PlayerRemoteSetups[i]._entity == bo)
+                                                        {
+                                                            Network.NetworkManager.SendLine("PO" + i + ";32;" + num / 15 + ";" + poisonDuration, Network.NetworkManager.Target.Others);
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
+                                    }
+                                }
+
+                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
+
+                            }
+                            catch (System.Exception ex)
+                            {
+
+                                ModAPI.Console.Write(ex.ToString());
+                            }
+
+
+                            PlayerStats component2 = other.transform.root.GetComponent<PlayerStats>();
                             if (male || female || creepy_male || creepy_fat || creepy || creepy_baby)
                             {
-                                netId component3 = ((Component)other.transform).GetComponent<netId>();
-                                if (BoltNetwork.isServer && (bool)component3)
+                                netId component3 = other.transform.GetComponent<netId>();
+                                if (BoltNetwork.isServer && component3)
                                 {
                                     other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
                                     return;
@@ -186,17 +229,20 @@ namespace ChampionsOfForest.Enemies
                                         other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
                                     }
                                 }
-                                else if (!BoltNetwork.isRunning && (bool)component2)
+                                else if (!BoltNetwork.isRunning && component2)
                                 {
                                     component2.setCurrentAttacker(this);
                                     component2.hitFromEnemy(num);
                                 }
                             }
-                            else if (!netPrefab && (bool)component2)
+                            else if (!netPrefab && component2)
                             {
                                 component2.setCurrentAttacker(this);
                                 component2.hitFromEnemy(num);
                             }
+
+
+
                             goto IL_092f;
                         }
                         return;
@@ -205,10 +251,10 @@ namespace ChampionsOfForest.Enemies
                 }
                 return;
             IL_092f:
-                if (other.gameObject.CompareTag("enemyCollide") && mainTrigger && (bool)bodyCollider && !enemyAtStructure)
+                if (other.gameObject.CompareTag("enemyCollide") && mainTrigger && bodyCollider && !enemyAtStructure)
                 {
                     setupAttackerType();
-                    if ((Object)other.gameObject != (Object)bodyCollider)
+                    if (other.gameObject != bodyCollider)
                     {
                         other.transform.SendMessageUpwards("getAttackDirection", Random.Range(0, 2), SendMessageOptions.DontRequireReceiver);
                         other.transform.SendMessageUpwards("getCombo", Random.Range(1, 4), SendMessageOptions.DontRequireReceiver);
@@ -247,7 +293,7 @@ namespace ChampionsOfForest.Enemies
                 }
                 getStructureStrength component4 = other.gameObject.GetComponent<getStructureStrength>();
                 bool flag2 = false;
-                if ((Object)component4 == (Object)null)
+                if (component4 == null)
                 {
                     flag2 = true;
                 }
@@ -265,15 +311,20 @@ namespace ChampionsOfForest.Enemies
                 num2 = ((!creepy_baby) ? Mathf.FloorToInt(30f * GameSettings.Ai.creepyStructureDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.creepyStructureDamageRatio));
                 goto IL_0d63;
             IL_0d63:
-                if ((bool)setup && setup.health.poisoned)
+                if (setup && setup.health.poisoned)
                 {
                     num2 /= 2;
                 }
                 other.SendMessage("Hit", num2, SendMessageOptions.DontRequireReceiver);
-                other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, (float)num2), SendMessageOptions.DontRequireReceiver);
+                other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, num2), SendMessageOptions.DontRequireReceiver);
                 FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
-            
 
+            }
+            catch (System.Exception ee)
+            {
+
+                ModAPI.Log.Write(ee.ToString());
+            }
         }
     }
 }

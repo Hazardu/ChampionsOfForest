@@ -170,9 +170,6 @@ namespace ChampionsOfForest
                 //Inventory
                 DraggedItemIndex = -1;
                 DraggedItem = null;
-                ModAPI.Log.Write("SETUP: Created Main Menu");
-
-
                 semiBlack = new Texture2D(1, 1);
             }
             catch (Exception ex)
@@ -1101,7 +1098,7 @@ namespace ChampionsOfForest
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
                     string s = String.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont});
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont,fontSize = Mathf.RoundToInt(rr*21)});
                     BuffOffset += 30 * rr;
 
                 }
@@ -1543,7 +1540,7 @@ namespace ChampionsOfForest
                         }
                         catch (Exception ex)
                         {
-                            ModAPI.Log.Write(i + "   " + ex.ToString());
+                            ModAPI.Log.Write(i + " spell failure   ........ " + ex.ToString());
 
                         }
                     }

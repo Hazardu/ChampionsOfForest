@@ -270,6 +270,22 @@ namespace ChampionsOfForest.Res
             new Resource(28, "HorizontalListItem.png");
             new Resource(30, "Space.png");
 
+            new Resource(40, "amulet.obj");
+            new Resource(41, "Glove.obj");
+            new Resource(42, "jacket.obj");
+            new Resource(43, "ring.obj");
+            new Resource(44, "shoe.obj");
+            new Resource(45, "Bracer.obj");
+            //new Resource(46, "Boots1.obj");
+            //new Resource(47, "Boots2.obj");
+            new Resource(48, "helmet_armet_2.obj");
+            new Resource(49, "Shield.obj");
+            new Resource(50, "Pants.obj");
+            new Resource(51, "Sword.obj");
+            new Resource(52, "HeavySword.obj");
+            new Resource(53, "Shoulder.obj");
+
+
         }
 
 

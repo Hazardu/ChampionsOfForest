@@ -60,7 +60,8 @@ namespace ChampionsOfForest
                 try
                 {
                     Instance.ItemBases.Add(Instance._Item_Bases[i].ID, Instance._Item_Bases[i]);
-                    if (Instance.ItemRarityGroups.ContainsKey(Instance._Item_Bases[i].Rarity)){
+                    if (Instance.ItemRarityGroups.ContainsKey(Instance._Item_Bases[i].Rarity))
+                    {
                         Instance.ItemRarityGroups[Instance._Item_Bases[i].Rarity].Add(Instance._Item_Bases[i].ID);
                     }
                     else
@@ -95,12 +96,12 @@ namespace ChampionsOfForest
         }
 
         public static Item GetRandomItem(float Worth)
-        {   
+        {
             int randomLevel = Random.Range(Mathf.Max(ModdedPlayer.instance.Level - 8, 1), ModdedPlayer.instance.Level + 10);
             float w = Worth / randomLevel;
             int rarity = 0;
 
-            if(w > 200&& w<= 350)
+            if (w > 200 && w <= 350)
             {
                 rarity = 1;
             }
@@ -135,7 +136,7 @@ namespace ChampionsOfForest
 
             }
             int increasedLvl = 0;
-            while (!Instance.ItemRarityGroups.ContainsKey(rarity)&&rarity >0)
+            while (!Instance.ItemRarityGroups.ContainsKey(rarity) && rarity > 0)
             {
                 increasedLvl += 2;
                 rarity--;
@@ -236,7 +237,7 @@ Texture2D.whiteTexture                                                          
             ID++;
 
             new BaseItem(
-new int[][] { new int[] { 16 }, new int[] { 0,0,0,0,16,7 } },
+new int[][] { new int[] { 16 }, new int[] { 0, 0, 0, 0, 16, 7 } },
 0,                                                                                                      //rarity
 ID,                                                                                                      //ID
 1,                                                                                                      //Stack size
@@ -251,7 +252,7 @@ Texture2D.whiteTexture                                                          
             ID++;
 
             new BaseItem(
-new int[][] { new int[] { 16 }, new int[] { 16,7,1,2,3,4 },new int[] { 7,8,0,0,0} },
+new int[][] { new int[] { 16 }, new int[] { 16, 7, 1, 2, 3, 4 }, new int[] { 7, 8, 0, 0, 0 } },
 0,                                                                                                      //rarity
 ID,                                                                                                      //ID
 1,                                                                                                      //Stack size
@@ -266,8 +267,7 @@ Texture2D.whiteTexture                                                          
             ID++;
 
 
-            new BaseItem(
-new int[][] { new int[] { 16 }, new int[] {1, 2, 3, 4 }, new int[] { 7, 8 }, new int[] { 16,0,0,3,1 } },
+            new BaseItem(new int[][] { new int[] { 16 }, new int[] { 1, 2, 3, 4 }, new int[] { 7, 8 }, new int[] { 16, 0, 0, 3, 1 } },
 2,                                                                                                      //rarity
 ID,                                                                                                      //ID
 1,                                                                                                      //Stack size
@@ -280,7 +280,39 @@ BaseItem.ItemType.ChestArmor,                                                   
 Texture2D.whiteTexture                                                                                      //Icon
 );
             ID++;
-
+            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 }, new int[] { 7, 8 }, new int[] { 16, 0, 0, 3, 1 } },
+2,                                                                                                      //rarity
+ID,                                                                                                      //ID
+1,                                                                                                      //Stack size
+BaseItem.ItemType.Weapon,                                                                                     //item type
+"Dull Sword",                                                                                               //item name
+"",                                                                       //description
+"",                                        //lore
+"",                                                                 //tooltip
+1, 3,                                                                                                       //Min and max levels
+Texture2D.whiteTexture                                                                                      //Icon
+);
+            ID++;
+            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.ShoulderArmor, "Shoulder armor", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.Shield, "Shield", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 4, ID, 1, BaseItem.ItemType.Ring, "Ring", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 5, ID, 1, BaseItem.ItemType.Pants, "Pants", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 6, ID, 1, BaseItem.ItemType.Helmet, "Helmet", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 7, ID, 1, BaseItem.ItemType.Glove, "Gloves", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 5, ID, 1, BaseItem.ItemType.ChestArmor, "Breastplate", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 4, ID, 1, BaseItem.ItemType.Bracer, "Bracer", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+               new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.Amulet, "Amulet", "", "", "", 1, 4, Texture2D.whiteTexture);
+            ID++;
+            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.Weapon, "Name", "Description", "Lore", "Tooltip", 1, 4, Texture2D.whiteTexture);
+            ID++;
 
 
 

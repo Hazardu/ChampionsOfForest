@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
-using static ChampionsOfForest.Player.BuffDB;
 
 namespace ChampionsOfForest
 {
@@ -82,6 +81,7 @@ namespace ChampionsOfForest
         public float MagicResistance = 0;
         public float AttackSpeed = 1;
         public bool StunImmune = false;
+        public bool DebuffImmune = false;
         public float MoveSpeed = 1f;
 
 
@@ -122,13 +122,25 @@ namespace ChampionsOfForest
             {
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
-                foreach (KeyValuePair<int, Buff> item in BuffDB.activeBuffs)
+                foreach (KeyValuePair<int, BuffDB.Buff> item in BuffDB.activeBuffs)
                 {
-                    activeBuffs[item.Key].UpdateBuff(item.Key);
-                    if(item.Value._ID == 3)
+                    if (DebuffImmune && item.Value.isNegative && item.Value.DispellAmount <= 2)
                     {
-                        poisonCount++;
-                        dmgPerSecond += item.Value.amount;
+                        BuffDB.activeBuffs[item.Key].ForceEndBuff(item.Key);
+                    }
+                    else if (StunImmune && item.Value.isNegative && item.Value.DispellAmount <= 1)
+                    {
+                        BuffDB.activeBuffs[item.Key].ForceEndBuff(item.Key);
+
+                    }
+                    else
+                    {
+                        BuffDB.activeBuffs[item.Key].UpdateBuff(item.Key);
+                        if (item.Value._ID == 3)
+                        {
+                            poisonCount++;
+                            dmgPerSecond += item.Value.amount;
+                        }
                     }
                 }
                 LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;

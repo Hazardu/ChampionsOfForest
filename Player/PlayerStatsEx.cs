@@ -659,35 +659,10 @@ namespace ChampionsOfForest
         //armor now only can absorb 70% of the damage taken;
         public override int HitArmor(int damage)
         {
-            int PureDamage = Mathf.RoundToInt(damage * 0.3f);
-            damage -= PureDamage;
-            ArmorTypes armorTypes = ArmorTypes.LizardSkin | ArmorTypes.DeerSkin | ArmorTypes.Leaves | ArmorTypes.Bone;
-            for (int i = 0; i < CurrentArmorTypes.Length; i++)
-            {
-                int num = (int)Mathf.Repeat((float)(ArmorVis + i), 10f);
-                if ((CurrentArmorTypes[num] & armorTypes) != 0)
-                {
-                    CurrentArmorHP[num] -= damage;
-                    if (CurrentArmorHP[num] > 0)
-                    {
-                        return PureDamage;
-                    }
-                    int armorSetIndex = GetArmorSetIndex(CurrentArmorTypes[num]);
-                    ArmorSet armorSet = ArmorSets[armorSetIndex];
-                    ItemUtils.ApplyEffectsToStats(armorSet.Effects, false, 1);
-                    ToggleArmorPiece(armorSet.ModelType, armorSet.Mat, num, false);
-                    ToggleArmorPiece(armorSet.ModelType2, armorSet.Mat2, num, false);
-                    CurrentArmorTypes[num] = ArmorTypes.None;
-                    UpdateArmorNibbles();
-                    if (CurrentArmorHP[num] == 0)
-                    {
-                        return PureDamage;
-                    }
-                    damage = -CurrentArmorHP[num];
-                    CurrentArmorHP[num] = 0;
-                }
-            }
-            return damage+PureDamage;
+
+            int pureDmg = Mathf.RoundToInt(damage * 0.3f);
+
+            return base.HitArmor(damage-pureDmg) + pureDmg;
         }
         public override void HealthChange(float amount)
         {

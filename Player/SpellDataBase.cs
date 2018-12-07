@@ -30,14 +30,29 @@ namespace ChampionsOfForest.Player
 
         public static void FillSpells()
         {
-            Spell bh = new Spell(1, 22, 1, 12, 5, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second");
-            bh.active =SpellActions.CreatePlayerBlackHole;
-        bh.Bought = true;
+            Spell bh = new Spell(1, 22, 1, 12, 25, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
+            {
+                active = SpellActions.CreatePlayerBlackHole,
+                Bought = true
+            };
+            Spell healingDome = new Spell(2, 22, 1, 10, 25, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.");
+            healingDome.active = SpellActions.CreateHealingDome;
+            healingDome.Bought = true;
         }
     }
     public static class SpellActions
     {
-
+        public static bool HealingDomeGivesImmunity=true;
+      public static void CreateHealingDome()
+        {
+            Vector3 pos = LocalPlayer.Transform.position;
+            float radius = 7.5f;
+            float healing = (ModdedPlayer.instance.LifeRegen/10 + 0.5f) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
+            string immunity = "0;";
+            if (HealingDomeGivesImmunity) immunity = "1;";
+            float duration = 7;
+            Network.NetworkManager.SendLine("SC2;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + radius + ";" + healing + ";" + immunity + duration + ";", Network.NetworkManager.Target.Everyone);
+        }
 
         public static void BUFF_MultMS(float f)
         {

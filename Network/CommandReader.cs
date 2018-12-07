@@ -1,4 +1,5 @@
 ﻿using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Player;
 using System;
 using TheForest.Utils;
 using UnityEngine;
@@ -42,15 +43,17 @@ namespace ChampionsOfForest.Network
                 i = 2;
                 ch = s.ToCharArray();
                 int spellid = int.Parse(Read());
-                switch (spellid)
+                if (spellid == 1)
                 {
-                    case 1:
-                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-
-                        BlackHole.CreateBlackHole(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-
-                        break;
+                    Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                                    BlackHole.CreateBlackHole(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                 }
+                else if (spellid == 2)
+                {
+                    Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                    HealingDome.CreateHealingDome(pos, float.Parse(Read()), float.Parse(Read()), ReadBool(), float.Parse(Read()));
+                }
+
             }
             else if (s.StartsWith("RI"))    //remove item
             {
@@ -120,6 +123,22 @@ namespace ChampionsOfForest.Network
                     default:
                         break;
                 }
+            }
+            else if (s.StartsWith("PO"))    //poison Player
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                int playerID = int.Parse(Read());
+                if (ModReferences.ThisPlayerID == playerID)
+                {
+                    int source = int.Parse(Read());
+                    float amount = float.Parse(Read());
+                    float duration = float.Parse(Read());
+
+                    BuffDB.AddBuff(3, source, amount, duration);
+                }
+
+
             }
             else if (s.StartsWith("KX"))
             {

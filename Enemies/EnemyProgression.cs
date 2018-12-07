@@ -132,20 +132,6 @@ namespace ChampionsOfForest
 
         }
 
-        private void Start()
-        {
-            try
-            {
-                ModAPI.Log.Write("SETUP: Created EnemyProgression");
-            }
-
-            catch (Exception ex)
-            {
-                ModAPI.Log.Write(ex.ToString());
-
-            }
-        }
-
         private void Setup()
         {
             try
@@ -155,26 +141,22 @@ namespace ChampionsOfForest
                     entity = transform.root.GetComponentInChildren<BoltEntity>();
                     if (entity == null)
                     {
-                        ModAPI.Log.Write("NULL1");
                         entity = _Health.entity;
 
                     }
                     if (entity == null)
                     {
-                        ModAPI.Log.Write("NULL2");
 
                         entity = transform.root.GetComponent<BoltEntity>();
 
                     }
                     if (entity == null)
                     {
-                        ModAPI.Log.Write("NULL3");
 
                     }
                     else
                     {
                         EnemyManager.AddHostEnemy(this);
-                        ModAPI.Log.Write("Adding enemy " + entity.networkId.PackedValue);
                     }
                 }
             }
@@ -184,7 +166,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>() { Abilities.FreezingAura };
+            abilities = new List<Abilities>() { Abilities.DoubleLife };
 
             if (UnityEngine.Random.value < 0.1)
             {
