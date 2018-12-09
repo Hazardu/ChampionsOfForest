@@ -64,11 +64,19 @@
       <EN></EN>
     </Description>
   </Button>
+  <Button Standard="D5" ID="EquipWeapon">
+    <Name>
+      <EN>Equip custom weapon</EN>
+    </Name>
+    <Description>
+      <EN></EN>
+    </Description>
+  </Button>
   <Name>
     <EN>Champions Of The Forest</EN>
   </Name>
   <Description>
     <EN>WORK IN PROGRESS                I thought that the progress was pretty nice so i decided that i will share it on mapi hub ;)                      This is yet another mod made by Hazard. It features plenty of changes that completely change how you play the game. Please do not use it with PUP, this mod its successor.  Also give me that like on Modapi hub</EN>
   </Description>
-  <Version>0.0.0.1</Version>
+  <Version>0.0.0.2</Version>
 </Mod>

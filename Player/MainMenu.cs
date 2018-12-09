@@ -193,7 +193,7 @@ namespace ChampionsOfForest
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
             {
-                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position);
+                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position+Vector3.up + LocalPlayer.Transform.forward);
             }
 
         }
@@ -203,6 +203,18 @@ namespace ChampionsOfForest
         {
             GUI.backgroundColor = Color.white;
             GUI.contentColor = Color.white;
+
+
+           //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x,-5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+           // GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+           // PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+           // GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+           // foreach (var item in PlayerInventoryMod.customWeapons)
+           // {
+           //     item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+           //     item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+           //     item.obj.transform.Rotate(PlayerInventoryMod.Rot+item.rotation, Space.Self);
+           // }
 
 
 

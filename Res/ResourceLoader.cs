@@ -285,7 +285,14 @@ namespace ChampionsOfForest.Res
             new Resource(52, "HeavySword.obj");
             new Resource(53, "Shoulder.obj");
 
+            new Resource(60, "SwordTexture.png");
+            new Resource(61, "SwordColor.png");
+            new Resource(62, "SwordEmissive.png");
+            new Resource(64, "SwordNormal.png");
+            new Resource(65, "SwordRoughness.png");
+            new Resource(66, "SwordAmbientOcculusion.png");
 
+             
         }
 
 

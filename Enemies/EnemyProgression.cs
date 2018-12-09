@@ -166,7 +166,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>() { Abilities.DoubleLife };
+            abilities = new List<Abilities>();
 
             if (UnityEngine.Random.value < 0.1)
             {
@@ -196,8 +196,13 @@ namespace ChampionsOfForest
                     {
                         if (abilities.Contains(Abilities.Huge) || abilities.Contains(Abilities.Tiny))
                         {
-
+                            success = false;
                         }
+                    }
+                    else if (ab == Abilities.DoubleLife &&!(_AI.creepy|| _AI.creepy_boss|| _AI.creepy_fat|| _AI.creepy_male))
+                    {
+                        success = false;
+
                     }
                     if (abilities.Contains(ab))
                     {
@@ -429,28 +434,27 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.Shielding))
             {
+
                 if (shieldingON > 0)
                 {
                     shieldingON -= Time.deltaTime;
-                    if(shieldingON <= 0)
+                    _Health.MySkin.material.color = Color.black;
+
+                    if (shieldingON <= 0)
                     {
                         _Health.MySkin.material.color =normalColor;
                     }
                 }
-                else if (shieldingCD > 0)
+                if (shieldingCD > 0)
                 {
                     shieldingCD -= Time.deltaTime;
                 }
             }
             if (DualLifeSpend)
             {
-                gameObject.transform.localScale = gameObject.transform.localScale * 1.25f;
-                TimeToDie -= Time.deltaTime;
-                _Health.MySkin.material.color = Color.red;
-                if (TimeToDie <= 0)
-                {
-                    _Health.Die();
-                }
+                transform.localScale *= 1.2f;
+                _Health.MySkin.material.color = Color.green;
+               
             }
 
 
@@ -573,7 +577,7 @@ namespace ChampionsOfForest
                     }
                     normalColor = _Health.MySkin.material.color;
                     _Health.MySkin.material.color = Color.black;
-                    shieldingON = 2;
+                    shieldingON = 3;
                     return 0;
                 }
             }
@@ -596,31 +600,25 @@ namespace ChampionsOfForest
         }
 
         private bool DualLifeSpend = false;
-        private float TimeToDie = 240;
         public bool OnDie()
         {
             try
             {
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
-                    if (!DualLifeSpend) {
+                    if (!DualLifeSpend)
+                    {
                         DualLifeSpend = true;
                         _Health.Health = _Health.maxHealth / 2;
-                        _Health.MySkin.material.color = Color.red;
+                        _Health.MySkin.material.color = Color.green;
                         setup.animator.speed *= 1.2f;
                         _AI.animSpeed *= 1.2f;
                         _AI.rotationSpeed *= 1.2f;
                         prerainSpeed = setup.animator.speed;
                         DamageMult *= 2;
-                        TimeToDie = 240;
-                        ModAPI.Log.Write("Enemy undying proc");
-                    }else
-                    {
-                        ModAPI.Log.Write("Enemy died with undying");
-
+                        _Health.releaseFromTrap();
+                        return false;
                     }
-                    return false;
-
                 }
 
                 if (abilities.Contains(Abilities.Molten))
@@ -666,7 +664,7 @@ namespace ChampionsOfForest
     }
     public class ClinetEnemyProgression
     {
-        public static float LifeTime = 15;
+        public static float LifeTime = 10;
         public BoltEntity Entity;
         public ulong Packed;
         public string EnemyName;

@@ -114,12 +114,21 @@ namespace ChampionsOfForest
             LocalPlayer.Stats.Skills.TotalRunDuration = 0;
         }
 
+
+        int customW = 0;
         private void Update()
         {
-
-
+           
             try
+            { if(ModAPI.Input.GetButtonDown("EquipWeapon"))
             {
+                    ModAPI.Console.Write("Equipping " + customW);
+                PlayerInventoryMod.CustomEquipID=customW;
+                LocalPlayer.Inventory.Equip(80, false);
+                customW++;
+                if (customW == 2) customW = 0;
+                PlayerInventoryMod.CustomEquipID = -1;
+            }
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
                 foreach (KeyValuePair<int, BuffDB.Buff> item in BuffDB.activeBuffs)
