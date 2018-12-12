@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ModAPI;
+﻿using ChampionsOfForest.Player;
 using ModAPI.Attributes;
-using TheForest.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ChampionsOfForest.Network;
-using ChampionsOfForest;
-using ChampionsOfForest.Player;
 
 namespace ChampionsOfForest
 {
@@ -35,7 +28,7 @@ namespace ChampionsOfForest
                     ModAPI.Log.Write("Other Scene");
                     Res.ResourceLoader.InMainMenu = false;
                     SpellDataBase.Initialize();
-
+                    Perk.FillPerkList();
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
                     ItemDataBase.Initialize();
                     GameObject go = new GameObject("Playerobj");
@@ -46,8 +39,8 @@ namespace ChampionsOfForest
                     go.AddComponent<ClinetItemPicker>();
                     BuffDB.FillBuffList();
 
-                    EnemyManager.Initialize();  
-                        new GameObject("MainMenuObj").AddComponent<MainMenu>();
+                    EnemyManager.Initialize();
+                    new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     Buildings.InitBuildings();
 

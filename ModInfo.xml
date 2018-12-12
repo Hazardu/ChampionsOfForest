@@ -1,5 +1,5 @@
 <Mod ID="ChampionsOfForest">
-  <Compatible>1.09</Compatible>
+  <Compatible>1.10d</Compatible>
   <Button Standard="Tab" ID="MenuToggle">
     <Name>
       <EN>Toggle Menu</EN>
@@ -73,10 +73,10 @@
     </Description>
   </Button>
   <Name>
-    <EN>Champions Of The Forest</EN>
+    <EN>Champions Of The Forest Alpha</EN>
   </Name>
   <Description>
     <EN>WORK IN PROGRESS                I thought that the progress was pretty nice so i decided that i will share it on mapi hub ;)                      This is yet another mod made by Hazard. It features plenty of changes that completely change how you play the game. Please do not use it with PUP, this mod its successor.  Also give me that like on Modapi hub</EN>
   </Description>
-  <Version>0.0.0.2</Version>
+  <Version>0.0.0.4</Version>
 </Mod>

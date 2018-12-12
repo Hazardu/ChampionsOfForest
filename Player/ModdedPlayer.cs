@@ -13,7 +13,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                float x = 10 + vitality * HealthPerVitality;
+                float x = 20 + vitality * HealthPerVitality;
                 x += HealthBonus;
                 x *= 1 + MaxHealthPercent;
                 return x;
@@ -38,7 +38,7 @@ namespace ChampionsOfForest
                 return (1 + f) * SpellDamageAmplifier;
             }
         }
-        public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100) ;
+        public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100);
         public int Level = 1;
 
         public float HealingMultipier = 1;
@@ -47,10 +47,12 @@ namespace ChampionsOfForest
         public int agility = 1;     //increases energy
         public int vitality = 1;     //increases health
         public float StaminaRecover => (4 + EnergyRegen) * (1 + EnergyRegenPercent);
-        public float DamagePerStrenght = 0.01f;
-        public float SpellDamageperInt = 0.01f;
-        public float EnergyPerAgility = 2f;
-        public float HealthPerVitality = 10f;
+        public float DamagePerStrenght = 0.0f;
+        public float SpellDamageperInt = 0.0f;
+        public float RangedDamageperAgi = 0.0f;
+        public float EnergyRegenPerInt = 0.0f;
+        public float EnergyPerAgility = 0f;
+        public float HealthPerVitality = 0f;
         public float HealthRegenPercent = 0;
         public float EnergyRegenPercent = 0;
         public int HealthBonus = 0;
@@ -59,10 +61,10 @@ namespace ChampionsOfForest
         public float MaxEnergyPercent = 0;
         public float CoolDownMultipier = 1;
         public float SpellDamageAmplifier = 1;
-        public float MeeleDamageAmplifier = 1;
+        public float MeleeDamageAmplifier = 1;
         public float RangedDamageAmplifier = 1;
         public float SpellDamageBonus = 0;
-        public float MeeleDamageBonus = 0;
+        public float MeleeDamageBonus = 0;
         public float RangedDamageBonus = 0;
 
         public float DamageReduction = 0;
@@ -115,20 +117,19 @@ namespace ChampionsOfForest
         }
 
 
-        int customW = 0;
         private void Update()
         {
-           
+
             try
-            { if(ModAPI.Input.GetButtonDown("EquipWeapon"))
             {
-                    ModAPI.Console.Write("Equipping " + customW);
-                PlayerInventoryMod.CustomEquipID=customW;
-                LocalPlayer.Inventory.Equip(80, false);
-                customW++;
-                if (customW == 2) customW = 0;
-                PlayerInventoryMod.CustomEquipID = -1;
-            }
+                if (ModAPI.Input.GetButtonDown("EquipWeapon"))
+                {
+                    PlayerInventoryMod.CustomEquipModel = Inventory.Instance.ItemList[-12].weaponModel;
+                    //LocalPlayer.Inventory.StashEquipedWeapon(false);
+                    LocalPlayer.Inventory.Equip(80, false);
+
+                    PlayerInventoryMod.CustomEquipModel = BaseItem.WeaponModelType.None;
+                }
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
                 foreach (KeyValuePair<int, BuffDB.Buff> item in BuffDB.activeBuffs)
@@ -155,16 +156,16 @@ namespace ChampionsOfForest
                 LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
                 LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime;
 
-                if(poisonCount > 1)
+                if (poisonCount > 1)
                 {
                     BuffDB.AddBuff(1, 33, 0.7f, 1);
                 }
 
-                if (LocalPlayer.Stats.Health<= 0)
+                if (LocalPlayer.Stats.Health <= 0)
                 {
                     LocalPlayer.Stats.Hit(1, true);
                 }
-                
+
 
 
             }
@@ -202,7 +203,7 @@ namespace ChampionsOfForest
             LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
 
         }
-        
+
         public void AddKillExperience(long Amount)
         {
             MassacreKills++;

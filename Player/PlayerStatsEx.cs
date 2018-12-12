@@ -1,7 +1,6 @@
 ﻿using FMOD.Studio;
 using System;
 using TheForest.Items.Inventory;
-using TheForest.Items.Utils;
 using TheForest.Tools;
 using TheForest.Utils;
 using TheForest.Utils.Settings;
@@ -477,7 +476,8 @@ namespace ChampionsOfForest
             }
             if (Health < HealthTarget)
             {
-                Health = Mathf.MoveTowards(Health, HealthTarget, GameSettings.Survival.HealthRegenPerSecond * Time.deltaTime);
+                Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
+
                 TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
             }
             else
@@ -646,7 +646,7 @@ namespace ChampionsOfForest
         public override void AteMeds()
         {
             NormalizeHealthTarget();
-            HealthTarget += Mathf.Max(60f * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier, ModdedPlayer.instance.MaxHealth * 0.05f * ModdedPlayer.instance.HealingMultipier);
+            HealthTarget += Mathf.Max(60f * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier, ModdedPlayer.instance.MaxHealth * 0.2f);
             BleedBehavior.BloodReductionRatio = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 1.5f;
         }
         public override void AteAloe()
@@ -662,7 +662,21 @@ namespace ChampionsOfForest
 
             int pureDmg = Mathf.RoundToInt(damage * 0.3f);
 
-            return base.HitArmor(damage-pureDmg) + pureDmg;
+            return base.HitArmor(damage - pureDmg) + pureDmg;
+        }
+        public override void Hit(int damage, bool ignoreArmor, DamageType type = DamageType.Physical)
+        {
+            float f = damage * ModdedPlayer.instance.DamageReduction;
+            if (!ignoreArmor)
+            {
+                f *= ModdedPlayer.instance.ArmorDmgRed;
+            }
+            if (type == DamageType.Fire)
+            {
+                f *= ModdedPlayer.instance.MagicResistance;
+            }
+            damage = Mathf.RoundToInt(f);
+            base.Hit(damage, ignoreArmor, type);
         }
         public override void HealthChange(float amount)
         {

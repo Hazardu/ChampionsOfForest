@@ -16,12 +16,12 @@ namespace ChampionsOfForest
         /// <summary>
         /// creates a item based on a BaseItem object, rolls values
         /// </summary>
-        public Item(BaseItem b, int amount = 1,int increasedLevel = 0,bool roll =true)
+        public Item(BaseItem b, int amount = 1, int increasedLevel = 0, bool roll = true)
         {
             base.description = b.description;
             base.minLevel = b.minLevel;
             base.maxLevel = b.maxLevel;
-            base.level =(int)UnityEngine.Random.Range(minLevel , maxLevel+1 )+ increasedLevel; 
+            base.level = UnityEngine.Random.Range(minLevel, maxLevel + 1) + increasedLevel;
             base.lore = b.lore;
             base.name = b.name;
             base.onEquip = b.onEquip;
@@ -35,11 +35,14 @@ namespace ChampionsOfForest
             base.icon = b.icon;
             base.onConsume = b.onConsume;
             base.CanConsume = b.CanConsume;
+            base.weaponModel = b.weaponModel;
             Amount = amount;
             Equipped = false;
             Stats = new List<ItemStat>();
             if (roll)
+            {
                 RollStats();
+            }
         }
 
 

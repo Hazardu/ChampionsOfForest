@@ -7,7 +7,7 @@ namespace ChampionsOfForest
 {
     public class BaseItem
     {
-        public enum ItemType{Shield,Offhand, Weapon, Other, Material,Helmet,Boot,Pants,ChestArmor,ShoulderArmor,Glove,Bracer,Amulet,Ring}
+        public enum ItemType { Shield, Offhand, Weapon, Other, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring }
         public delegate void OnItemEquip();
         public delegate void OnItemUnequip();
         public delegate void OnItemConsume();
@@ -19,10 +19,11 @@ namespace ChampionsOfForest
         public int StackSize;               //how many items can be placed in one item slot?
         public bool CanConsume;             //can you eat this bad boy?
         public ItemType _itemType;          //determines on which inv slot can this item be placed in
-        
+        public enum WeaponModelType {None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Helberd, Gauntlet, Staff, Dagger, Boomerang };
+        public WeaponModelType weaponModel;
         public OnItemEquip onEquip;
         public OnItemUnequip onUnequip;
-        public OnItemConsume onConsume;     
+        public OnItemConsume onConsume;
         public string name;                 //name of item, 
         public string description;          //what is this item basically
         public string lore;                 //some cool story to make this item have any sense, or a place for a joke
@@ -37,8 +38,8 @@ namespace ChampionsOfForest
         {
 
         }
-        public BaseItem(List<List<ItemStat>> possibleStats, int rarity, int iD, int StackSize , ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture,bool pickupAll = false)
-        { 
+        public BaseItem(List<List<ItemStat>> possibleStats, int rarity, int iD, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+        {
             PossibleStats = possibleStats;
             Rarity = rarity;
             ID = iD;
@@ -88,5 +89,40 @@ namespace ChampionsOfForest
             ItemDataBase.Instance._Item_Bases.Add(this);
             icon = texture;
         }
+        public BaseItem(int[][] possibleStats, int rarity, int iD, int StackSize, WeaponModelType weaponModel, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+        {
+            PossibleStats = new List<List<ItemStat>>();
+            foreach (int[] a in possibleStats)
+            {
+                List<ItemStat> list = new List<ItemStat>();
+                foreach (int b in a)
+                {
+                    if (b == 0)
+                    {
+                        list.Add(null);
+                    }
+                    else
+                    {
+                        list.Add(ItemDataBase.Instance.Stats[b]);
+                    }
+                }
+                PossibleStats.Add(list);
+            }
+            Rarity = rarity;
+            ID = iD;
+            this.StackSize = StackSize;
+            _itemType = ItemType.Weapon;
+            this.weaponModel = weaponModel;
+            PickUpAll = pickupAll;
+            this.name = name;
+            this.description = description;
+            this.lore = lore;
+            this.tooltip = tooltip;
+            this.minLevel = minlevel;
+            this.maxLevel = maxlevel;
+            ItemDataBase.Instance._Item_Bases.Add(this);
+            icon = texture;
+        }
     }
 }
+

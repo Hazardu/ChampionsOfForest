@@ -35,7 +35,10 @@ namespace ChampionsOfForest.Player
                             Buff b = new Buff(id, amount, duration);
                             activeBuffs.Add(source, b);
                             if (b.OnStart != null)
+                            {
                                 b.OnStart(b.amount);
+                            }
+
                             return true;
 
                         }
@@ -60,12 +63,12 @@ namespace ChampionsOfForest.Player
         {
             try
             {
-                            activeBuffs.Clear();
+                activeBuffs.Clear();
                 BuffsByID.Clear();
-                new Buff(1, "Move speed reduced", true,false,1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
-                new Buff(2, "Attack speed reduced", true,false,1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
-                new Buff(3, "Poisoned", true, true,2);
-                new Buff(4, "CC Immune", false, false,0, (f) =>  ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true);
+                new Buff(1, "Move speed reduced", true, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
+                new Buff(2, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
+                new Buff(3, "Poisoned", true, true, 2);
+                new Buff(4, "CC Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true);
 
             }
             catch (System.Exception ex)
@@ -105,7 +108,7 @@ namespace ChampionsOfForest.Player
             }
 
 
-            public Buff(int BuffID, string name, bool IsNegative,bool accumulate,int dispellamount = 0, onBuffEnd END = null, onBuffStart START = null)
+            public Buff(int BuffID, string name, bool IsNegative, bool accumulate, int dispellamount = 0, onBuffEnd END = null, onBuffStart START = null)
             {
                 _ID = BuffID;
                 AccumulateEffect = accumulate;
@@ -122,9 +125,11 @@ namespace ChampionsOfForest.Player
 
             public void ForceEndBuff(int source)
             {
-  BuffDB.activeBuffs.Remove(source);
-                    if (OnEnd != null)
+                BuffDB.activeBuffs.Remove(source);
+                if (OnEnd != null)
+                {
                     OnEnd(amount);
+                }
             }
 
 
@@ -141,7 +146,9 @@ namespace ChampionsOfForest.Player
                 {
                     BuffDB.activeBuffs.Remove(source);
                     if (OnEnd != null)
+                    {
                         OnEnd(amount);
+                    }
                 }
 
             }

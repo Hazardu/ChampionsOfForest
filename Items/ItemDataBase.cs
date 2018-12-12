@@ -171,10 +171,10 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.02f, 0.06f, 1.1f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor); i++;
             new ItemStat(i, 1f, 2f, 1.1f, "Massacre Duration", 5, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
             new ItemStat(i, 0.01f, 0.02f, 1.7f, "Spell Damage %", 7, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier); i++;
-            new ItemStat(i, 0.01f, 0.02f, 1.7f, "Meele Damage %", 7, StatActions.AddMeeleDamageAmplifier, StatActions.RemoveMeeleDamageAmplifier, StatActions.AddMeeleDamageAmplifier); i++;
+            new ItemStat(i, 0.01f, 0.02f, 1.7f, "Melee Damage %", 7, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier); i++;
             new ItemStat(i, 0.01f, 0.02f, 1.7f, "Ranged Damage %", 7, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier); i++;
             new ItemStat(i, 1f, 2f, 1.5f, "Bonus Spell Damage", 5, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
-            new ItemStat(i, 1f, 2f, 1.5f, "Bonus Meele Damage", 5, StatActions.AddMeeleDamageBonus, StatActions.RemoveMeeleDamageBonus, StatActions.AddMeeleDamageBonus); i++;
+            new ItemStat(i, 1f, 2f, 1.5f, "Bonus Melee Damage", 5, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
             new ItemStat(i, 1f, 2f, 1.5f, "Bonus Ranged Damage", 5, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
             new ItemStat(i, 0.005f, 0.01f, 1.2f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility); i++;
             new ItemStat(i, 0.05f, 0.1f, 1.2f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality); i++;
@@ -284,7 +284,7 @@ Texture2D.whiteTexture                                                          
 2,                                                                                                      //rarity
 ID,                                                                                                      //ID
 1,                                                                                                      //Stack size
-BaseItem.ItemType.Weapon,                                                                                     //item type
+BaseItem.WeaponModelType.LongSword,                                                                                     //item type
 "Dull Sword",                                                                                               //item name
 "",                                                                       //description
 "",                                        //lore
@@ -311,7 +311,9 @@ Texture2D.whiteTexture                                                          
             ID++;
                new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.Amulet, "Amulet", "", "", "", 1, 4, Texture2D.whiteTexture);
             ID++;
-            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.ItemType.Weapon, "Name", "Description", "Lore", "Tooltip", 1, 4, Texture2D.whiteTexture);
+            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.WeaponModelType.GreatSword, "Great sword", "Description", "Lore", "Tooltip", 1, 4, Texture2D.whiteTexture);
+            ID++;
+            new BaseItem(new int[][] { new int[] { 25 }, new int[] { 1, 2, 3, 4 } }, 3, ID, 1, BaseItem.WeaponModelType.LongSword, "Long sword", "Description", "Lore", "Tooltip", 1, 4, Texture2D.whiteTexture);
             ID++;
 
 

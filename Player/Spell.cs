@@ -4,7 +4,7 @@ namespace ChampionsOfForest.Player
     public class Spell
     {
         public int ID;
-              public Texture2D icon;
+        public Texture2D icon;
         public int Levelrequirement;
         public float EnergyCost;
         public float BaseCooldown;
@@ -21,7 +21,7 @@ namespace ChampionsOfForest.Player
             }
         }
 
-         public delegate void Active();
+        public delegate void Active();
         public Active active;
         public delegate void Passive(bool on);
         public Passive passive;
@@ -39,7 +39,7 @@ namespace ChampionsOfForest.Player
 
         }
 
-        public Spell(int iD,int TextureID, int levelrequirement, float energyCost, float baseCooldown, string name, string description)
+        public Spell(int iD, int TextureID, int levelrequirement, float energyCost, float baseCooldown, string name, string description)
         {
             ID = iD;
             Levelrequirement = levelrequirement;
@@ -51,7 +51,7 @@ namespace ChampionsOfForest.Player
             Bought = false;
             icon = Res.ResourceLoader.instance.LoadedTextures[TextureID];
             SpellDataBase.spellDictionary.Add(iD, this);
-            ModAPI.Log.Write("Added spell " + name + " " + ID);
+           // ModAPI.Log.Write("Added spell " + name + " " + ID);
         }
     }
 }

@@ -193,7 +193,7 @@ namespace ChampionsOfForest
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
             {
-                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position+Vector3.up + LocalPlayer.Transform.forward);
+                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward);
             }
 
         }
@@ -205,16 +205,16 @@ namespace ChampionsOfForest
             GUI.contentColor = Color.white;
 
 
-           //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x,-5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-           // GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-           // PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-           // GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-           // foreach (var item in PlayerInventoryMod.customWeapons)
-           // {
-           //     item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-           //     item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-           //     item.obj.transform.Rotate(PlayerInventoryMod.Rot+item.rotation, Space.Self);
-           // }
+            //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x,-5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+            // GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+            // PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+            // GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+            // foreach (var item in PlayerInventoryMod.customWeapons)
+            // {
+            //     item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+            //     item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+            //     item.obj.transform.Rotate(PlayerInventoryMod.Rot+item.rotation, Space.Self);
+            // }
 
 
 
@@ -291,7 +291,7 @@ namespace ChampionsOfForest
                             break;
                         case OpenedMenuMode.Perks:
                             GUI.DrawTexture(wholeScreen, _black);
-                            GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Perks");
+                            DrawPerks();
 
                             break;
                     }
@@ -1106,11 +1106,11 @@ namespace ChampionsOfForest
                 }
 
                 float BuffOffset = 0;
-                foreach (KeyValuePair<int,Buff>  buff in BuffDB.activeBuffs)
+                foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = String.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) {alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont,fontSize = Mathf.RoundToInt(rr*21)});
+                    string s = string.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 21) });
                     BuffOffset += 30 * rr;
 
                 }
@@ -1241,7 +1241,7 @@ namespace ChampionsOfForest
                                 float y = 0;
                                 DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * rr, 66 * rr), infoStyle);
                                 y += rr * 60;
-                                DrawScannedEnemyLabel("Level: "+cp.Level, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                 y += rr * 60;
                                 if (ScanTime > 1.5f)
                                 {
@@ -1250,19 +1250,19 @@ namespace ChampionsOfForest
                                 }
                                 if (ScanTime > 3f)
                                 {
-                                    DrawScannedEnemyLabel("Armor: "+cp.Armor , new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel("Armor: " + cp.Armor, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 60;
                                     if (cp.ArmorReduction != 0)
                                     {
                                         GUI.color = Color.red;
-                                        DrawScannedEnemyLabel("Armor debuff: -" + cp.ArmorReduction , new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                        DrawScannedEnemyLabel("Armor debuff: -" + cp.ArmorReduction, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                         y += rr * 60;
                                         GUI.color = Color.white;
                                     }
                                 }
                                 if (ScanTime > 4.5f)
                                 {
-                                    DrawScannedEnemyLabel("Bounty: "+cp.ExpBounty, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 85;
                                 }
                                 if (ScanTime > 6f)
@@ -1467,9 +1467,9 @@ namespace ChampionsOfForest
             else
             {
                 //background effect
-                
-                semiblackValue += Time.deltaTime/5 ;
-                semiBlack.SetPixel(0, 0, new Color(0.6f, 0.16f, 0, 0.6f + Mathf.Sin(semiblackValue*Mathf.PI) * 0.2f));
+
+                semiblackValue += Time.deltaTime / 5;
+                semiBlack.SetPixel(0, 0, new Color(0.6f, 0.16f, 0, 0.6f + Mathf.Sin(semiblackValue * Mathf.PI) * 0.2f));
                 semiBlack.Apply();
                 GUI.DrawTexture(wholeScreen, semiBlack);
                 Rect bg = new Rect(Screen.width / 2 - 325 * rr, 0, 650 * rr, Screen.height);
@@ -1677,11 +1677,11 @@ namespace ChampionsOfForest
             GUILayout.Space(10 * rr);
 
             GUILayout.Label("Outgoing damage increase: " + ModdedPlayer.instance.DamageOutputMult * 100 + "%", label);
-            GUILayout.Label("Strenght meele damage increase: " + ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100 + "%", label);
+            GUILayout.Label("Strenght melee damage increase: " + ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100 + "%", label);
             GUILayout.Space(10 * rr);
 
-            GUILayout.Label("Meele damage: " + ModdedPlayer.instance.MeeleDamageBonus, label);
-            GUILayout.Label("Meele damage multipier: " + ModdedPlayer.instance.MeeleDamageAmplifier * 100 + "%", label);
+            GUILayout.Label("Melee damage: " + ModdedPlayer.instance.MeleeDamageBonus, label);
+            GUILayout.Label("Melee damage multipier: " + ModdedPlayer.instance.MeleeDamageAmplifier * 100 + "%", label);
             GUILayout.Space(10 * rr);
 
             GUILayout.Label("Ranged damage: " + ModdedPlayer.instance.RangedDamageBonus, label);
@@ -1713,5 +1713,56 @@ namespace ChampionsOfForest
 
         }
         #endregion
+
+
+        private Perk.PerkCategory _perkpage = Perk.PerkCategory.MeleeOffense;
+        private void DrawPerks()
+        {
+            Array menus = Enum.GetValues(typeof(Perk.PerkCategory));
+            float btnSize = 100 * rr;
+            float bigBtnSize = 40 * rr;
+            float offset = Screen.width - (menus.Length * btnSize + bigBtnSize) / 2;
+            for (int i = 0; i < menus.Length; i++)
+            {
+                Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);
+                if ((Perk.PerkCategory)menus.GetValue(i) == _perkpage)
+                {
+                    topButton.width += btnSize;
+                    topButton.height += btnSize;
+                }
+                offset += topButton.width;
+                string content = string.Empty;
+                switch ((Perk.PerkCategory)menus.GetValue(i))
+                {
+                    case Perk.PerkCategory.MeleeOffense:
+                        content = "Offensive Melee";
+                        break;
+                    case Perk.PerkCategory.RangedOffense:
+                        content = "Offensive Ranged";
+                        break;
+                    case Perk.PerkCategory.MagicOffense:
+                        content = "Offensive Magic";
+                        break;
+                    case Perk.PerkCategory.Defense:
+                        content = "Defensive";
+                        break;
+                    case Perk.PerkCategory.Support:
+                        content = "Support";
+                        break;
+                    case Perk.PerkCategory.Utility:
+                        content = "Utility";
+                        break;
+                    default:
+                        content = ((Perk.PerkCategory)menus.GetValue(i)).ToString();
+                        break;
+                }
+                if (GUI.Button(topButton, content))
+                {
+                    _perkpage = (Perk.PerkCategory)menus.GetValue(i);
+                }
+
+
+            }
+        }
     }
 }

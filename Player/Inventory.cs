@@ -88,7 +88,7 @@ namespace ChampionsOfForest.Player
                 {
                     amount = i.Amount;
                 }
-                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position+Vector3.up + LocalPlayer.Transform.forward, amount);
+                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward, amount);
                 ItemList[key].Amount -= amount;
                 if (ItemList[key].Amount <= 0)
                 {

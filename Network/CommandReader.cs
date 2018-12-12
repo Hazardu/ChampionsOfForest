@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Network
                 if (spellid == 1)
                 {
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-                                    BlackHole.CreateBlackHole(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                    BlackHole.CreateBlackHole(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                 }
                 else if (spellid == 2)
                 {

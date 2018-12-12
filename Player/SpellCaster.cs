@@ -32,7 +32,11 @@ namespace ChampionsOfForest.Player
         {
             if (infos[i].spell != null)
             {
-                if (infos[i].spell.passive != null) infos[i].spell.passive(false);
+                if (infos[i].spell.passive != null)
+                {
+                    infos[i].spell.passive(false);
+                }
+
                 infos[i].spell.EquippedSlot = -1;
                 infos[i].spell = null;
             }
@@ -45,8 +49,10 @@ namespace ChampionsOfForest.Player
 
             if (infos[i].spell != null)
             {
-                if (infos[i].spell.passive != null) infos[i].spell.passive(false);
-
+                if (infos[i].spell.passive != null)
+                {
+                    infos[i].spell.passive(false);
+                }
             }
             SetMaxCooldowns();
         }
@@ -55,48 +61,48 @@ namespace ChampionsOfForest.Player
         {
             try
             {
-            infos = new SpellInfo[SpellCount];
-            Ready = new bool[SpellCount];
-            for (int i = 0; i < SpellCount; i++)
-            {
-                infos[i] = new SpellInfo()
+                infos = new SpellInfo[SpellCount];
+                Ready = new bool[SpellCount];
+                for (int i = 0; i < SpellCount; i++)
                 {
-                    spell = null
-                };
-            }
+                    infos[i] = new SpellInfo()
+                    {
+                        spell = null
+                    };
+                }
 
-            //Testing 
+                //Testing 
 
-            //Spell bhole = new Spell()
-            //{
-            //    Bought = true,
-            //    CanCast = true,
-            //    BaseCooldown = 10,
-            //    Description = "creates a black hole",
-            //    EnergyCost = 5,
-            //    icon = Texture2D.whiteTexture,
-            //    ID = 1,
-            //    level = 1,
-            //    Levelrequirement = 1,
-            //    Name = "Black Hole",
-            //};
-            //bhole.active = new Spell.Active(CreatePlayerBlackHole);
-          
-   SetSpell(0, SpellDataBase.spellDictionary[1]);
-            ModAPI.Log.Write(infos[0].spell.Name);
+                //Spell bhole = new Spell()
+                //{
+                //    Bought = true,
+                //    CanCast = true,
+                //    BaseCooldown = 10,
+                //    Description = "creates a black hole",
+                //    EnergyCost = 5,
+                //    icon = Texture2D.whiteTexture,
+                //    ID = 1,
+                //    level = 1,
+                //    Levelrequirement = 1,
+                //    Name = "Black Hole",
+                //};
+                //bhole.active = new Spell.Active(CreatePlayerBlackHole);
+
+                SetSpell(0, SpellDataBase.spellDictionary[1]);
+                ModAPI.Log.Write(infos[0].spell.Name);
                 SetMaxCooldowns();
 
             }
             catch (Exception ex)
             {
                 ModAPI.Log.Write(ex.ToString());
-          
+
             }
-         
+
             //MaxCooldown(0);
         }
 
-    
+
 
 
         private void Update()

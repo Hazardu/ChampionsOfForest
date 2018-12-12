@@ -1,24 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TheForest.UI.Multiplayer;
-using Bolt;
+﻿using Bolt;
 using System.Collections;
-using ModAPI;
+using TheForest.UI.Multiplayer;
 namespace ChampionsOfForest.Network
 {
     public class ChatBoxMod : ChatBox
-    { 
+    {
         //UNIQUE ID OF THE FAKE PLAYER
-        public static ulong ModSenderPacked = 999999421;  
-              
+        public static ulong ModSenderPacked = 999999421;
+
         public static NetworkId ModNetwokrID;
 
         public static ChatBoxMod instance = null;
 
         protected override IEnumerator Start()
         {
-            if(instance ==null)
+            if (instance == null)
             {
                 instance = this;
                 ModNetwokrID = new NetworkId(ModSenderPacked);
@@ -52,6 +48,6 @@ namespace ChampionsOfForest.Network
                 ModAPI.Log.Write(ex.ToString());
             }
         }
-     
+
     }
 }

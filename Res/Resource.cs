@@ -1,8 +1,4 @@
-﻿using BuilderCore;
-using System.Linq;
-using System.Text;
-
-namespace ChampionsOfForest.Res
+﻿namespace ChampionsOfForest.Res
 {
     public class Resource
     {
@@ -17,16 +13,16 @@ namespace ChampionsOfForest.Res
         {
 
         }
-        public Resource(int id,string FileName)
+        public Resource(int id, string FileName)
         {
             ID = id;
             fileName = FileName;
             loaded = false;
-            if(fileName.EndsWith(".png",true,System.Globalization.CultureInfo.CurrentCulture)|| fileName.EndsWith(".jpeg", true, System.Globalization.CultureInfo.CurrentCulture))
+            if (fileName.EndsWith(".png", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".jpeg", true, System.Globalization.CultureInfo.CurrentCulture))
             {
                 type = ResourceType.Texture;
             }
-            else if(fileName.EndsWith(".txt", true, System.Globalization.CultureInfo.CurrentCulture))
+            else if (fileName.EndsWith(".txt", true, System.Globalization.CultureInfo.CurrentCulture))
             {
                 type = ResourceType.Text;
 
@@ -34,12 +30,14 @@ namespace ChampionsOfForest.Res
             else if (fileName.EndsWith(".obj", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".mesh", true, System.Globalization.CultureInfo.CurrentCulture))
             {
                 type = ResourceType.Mesh;
-            }else
+            }
+            else
             {
                 type = ResourceType.Audio;
 
             }
-            ResourceLoader.instance.unloadedResources.Add(this);
+            ResourceLoader.instance.unloadedResources.Add( this);
+           // ResourceLoader.instance.unloadedResources.Add(id, this);
         }
         public Resource(int id, string FileName, ResourceType t)
         {
@@ -48,6 +46,7 @@ namespace ChampionsOfForest.Res
             loaded = false;
             type = t;
             ResourceLoader.instance.unloadedResources.Add(this);
+            //ResourceLoader.instance.unloadedResources.Add(id, this);
 
         }
 

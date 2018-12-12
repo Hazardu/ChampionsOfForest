@@ -1,17 +1,45 @@
-﻿using System;
+﻿using BuilderCore;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using BuilderCore;
 namespace ChampionsOfForest.Res
 {
     public class ResourceLoader : MonoBehaviour
     {
         public static ResourceLoader instance = null;
+        //public static Texture2D GetTexture(int i)
+        //{
+        //    if (instance.LoadedTextures.ContainsKey(i))
+        //    {
+        //        return instance.LoadedTextures[i];
+        //    }
+        //    else if (instance.unloadedResources.ContainsKey(i))
+        //    {
+        //        LoadTexture(instance.unloadedResources[i]);
+        //        return instance.LoadedTextures[i];
+        //    }
+        //    return null;
+
+        //}
+        //public static void UnloadTexture(int i)
+        //{
+        //    Destroy(instance.LoadedTextures[i]);
+        //    instance.LoadedTextures.Remove(i);
+        //}
+        //public static void LoadTexture(Resource r)
+        //{
+        //    Texture2D t = new Texture2D(1, 1);
+        //    t.LoadImage(File.ReadAllBytes(Resource.path + r.fileName));
+        //    t.Apply();
+        //    t.Compress(true);
+        //    instance.LoadedTextures.Add(r.ID, t);
+
+        //}
 
 
+       // public Dictionary<int, Resource> unloadedResources;
         public List<Resource> unloadedResources;
         public List<Resource> toDownload;
         public List<Resource> toLoad;
@@ -25,7 +53,7 @@ namespace ChampionsOfForest.Res
         public bool FinishedLoading = false;
         private WWW download;
 
-        void Start()
+        private void Start()
         {
             if (instance == null)
             {
@@ -44,19 +72,20 @@ namespace ChampionsOfForest.Res
                 Destroy(gameObject);
             }
             FinishedLoading = false;
+            //unloadedResources = new Dictionary<int, Resource>();
             unloadedResources = new List<Resource>();
             FillResources();
             LoadedMeshes = new Dictionary<int, Mesh>();
             LoadedTextures = new Dictionary<int, Texture2D>();
             toLoad = new List<Resource>();
             toDownload = new List<Resource>();
-          
-                StartCoroutine(FileVerification());
-                StartCoroutine(VersionCheck());
+
+            StartCoroutine(FileVerification());
+            StartCoroutine(VersionCheck());
 
         }
-    
-        IEnumerator VersionCheck()
+
+        private IEnumerator VersionCheck()
         {
             WWW ModapiWebsite = new WWW("https://modapi.survivetheforest.net/mod/101/champions-of-the-forest");
             yield return ModapiWebsite;
@@ -93,7 +122,7 @@ namespace ChampionsOfForest.Res
         {
             LabelText = "";
 
-         if(DirExists())
+            if (DirExists())
             {
                 foreach (Resource resource in unloadedResources)
                 {
@@ -142,7 +171,7 @@ namespace ChampionsOfForest.Res
                     case Resource.ResourceType.Texture:
                         Texture2D t = new Texture2D(1, 1);
                         t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
-                        
+
                         t.Apply();
                         t.Compress(true);
 
@@ -171,12 +200,15 @@ namespace ChampionsOfForest.Res
             FinishedLoading = true;
         }
 
+        private float p;
 
-        float p;
-
-        void OnGUI()
+        private void OnGUI()
         {
-            if (!InMainMenu) return;
+            if (!InMainMenu)
+            {
+                return;
+            }
+
             if (!FinishedLoading)
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label)
@@ -228,7 +260,8 @@ namespace ChampionsOfForest.Res
 
             GUILayout.EndArea();
         }
-        bool DirExists()
+
+        private bool DirExists()
         {
             if (!Directory.Exists(Resource.path))
             {
@@ -246,7 +279,7 @@ namespace ChampionsOfForest.Res
             }
         }
 
-        void FillResources()
+        private void FillResources()
         {
             new Resource(1, "wheel.png");
             new Resource(2, "wheelOn.png");
@@ -291,8 +324,8 @@ namespace ChampionsOfForest.Res
             new Resource(64, "SwordNormal.png");
             new Resource(65, "SwordRoughness.png");
             new Resource(66, "SwordAmbientOcculusion.png");
+            new Resource(67, "ManyParticles.png");
 
-             
         }
 
 
