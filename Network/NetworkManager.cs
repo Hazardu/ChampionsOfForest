@@ -70,7 +70,6 @@ namespace ChampionsOfForest.Network
         }
         public static void SendLine(string s, BoltConnection con)
         {
-            ModAPI.Log.Write("SEND:" + s);
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
                 RecieveLine(s);

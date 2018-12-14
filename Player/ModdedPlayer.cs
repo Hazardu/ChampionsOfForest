@@ -38,6 +38,25 @@ namespace ChampionsOfForest
                 return (1 + f) * SpellDamageAmplifier;
             }
         }
+        public float MeleeAMP
+        {
+            get
+            {
+                return DamageOutputMult * (strenght * DamagePerStrenght + 1) * MeleeDamageAmplifier;
+            }
+        }
+        public float CritDamageBuff
+        {
+            get
+            {
+                if (Critted)
+                {
+                    return CritDamage / 100 + 1;
+                }
+                return 1;
+            }
+        }
+
         public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100);
         public int Level = 1;
 
@@ -47,12 +66,12 @@ namespace ChampionsOfForest
         public int agility = 1;     //increases energy
         public int vitality = 1;     //increases health
         public float StaminaRecover => (4 + EnergyRegen) * (1 + EnergyRegenPercent);
-        public float DamagePerStrenght = 0.0f;
-        public float SpellDamageperInt = 0.0f;
-        public float RangedDamageperAgi = 0.0f;
-        public float EnergyRegenPerInt = 0.0f;
-        public float EnergyPerAgility = 0f;
-        public float HealthPerVitality = 0f;
+        public float DamagePerStrenght = 0.01f;
+        public float SpellDamageperInt = 0.01f;
+        public float RangedDamageperAgi = 0.01f;
+        public float EnergyRegenPerInt = 0.075f;
+        public float EnergyPerAgility = 0.25f;
+        public float HealthPerVitality = 2f;
         public float HealthRegenPercent = 0;
         public float EnergyRegenPercent = 0;
         public int HealthBonus = 0;
@@ -76,7 +95,6 @@ namespace ChampionsOfForest
         public float EnergyRegen = 0;
         public float DodgeChance = 0;
         public float SlowAmount = 0;
-        public bool Rooted = false;
         public bool Silenced = false;
         public bool Stunned = false;
         public int Armor = 0;
@@ -101,19 +119,17 @@ namespace ChampionsOfForest
         public string MassacreText = "";
         private float MassacreMultipier = 1;
         public float TimeUntillMassacreReset;
-        public float MaxMassacreTime = 60;
+        public float MaxMassacreTime = 20;
         public float TimeBonusPerKill;
 
+
+        private float StunDuration = 0;
         private void Start()
         {
             ModAPI.Log.Write("SETUP: Created Player");
             instance = this;
             MoveSpeed = 1f;
-            LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
-            LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
-            LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
-            LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
-            LocalPlayer.Stats.Skills.TotalRunDuration = 0;
+         
         }
 
 
@@ -124,11 +140,17 @@ namespace ChampionsOfForest
             {
                 if (ModAPI.Input.GetButtonDown("EquipWeapon"))
                 {
-                    PlayerInventoryMod.CustomEquipModel = Inventory.Instance.ItemList[-12].weaponModel;
-                    //LocalPlayer.Inventory.StashEquipedWeapon(false);
-                    LocalPlayer.Inventory.Equip(80, false);
+                    if (Inventory.Instance.ItemList[-12] != null)
+                    {
+                        if (Inventory.Instance.ItemList[-12].Equipped)
+                        {
+                            PlayerInventoryMod.CustomEquipModel = Inventory.Instance.ItemList[-12].weaponModel;
+                            LocalPlayer.Inventory.StashEquipedWeapon(false);
+                            LocalPlayer.Inventory.Equip(80, false);
 
-                    PlayerInventoryMod.CustomEquipModel = BaseItem.WeaponModelType.None;
+                            PlayerInventoryMod.CustomEquipModel = BaseItem.WeaponModelType.None;
+                        }
+                    }
                 }
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
@@ -173,8 +195,14 @@ namespace ChampionsOfForest
             {
                 ModAPI.Log.Write(e.ToString());
             }
-
-
+            if (Time.time % 10 == 5)
+            {
+                LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
+                LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
+                LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
+                LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
+                LocalPlayer.Stats.Skills.TotalRunDuration = 0;
+            }
             if (TimeUntillMassacreReset > 0)
             {
                 TimeUntillMassacreReset -= Time.deltaTime;
@@ -202,8 +230,25 @@ namespace ChampionsOfForest
             }
             LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
 
+            if (Stunned)
+            {
+                if (StunImmune) Stunned = false;
+                StunDuration -= Time.deltaTime;
+                if(StunDuration < 0)
+                {
+                    Stunned = false;
+                }
+            }
         }
-
+        public void Stun(float duration)
+        {
+            if (StunImmune) return;
+            Stunned = true;
+            if(StunDuration < duration)
+            {
+                StunDuration = duration;
+            }
+        }
         public void AddKillExperience(long Amount)
         {
             MassacreKills++;

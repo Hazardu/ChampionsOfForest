@@ -89,7 +89,6 @@ namespace ChampionsOfForest.Player
                 //bhole.active = new Spell.Active(CreatePlayerBlackHole);
 
                 SetSpell(0, SpellDataBase.spellDictionary[1]);
-                ModAPI.Log.Write(infos[0].spell.Name);
                 SetMaxCooldowns();
 
             }
@@ -145,10 +144,7 @@ namespace ChampionsOfForest.Player
                                 LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost;
 
                             }
-                            else
-                            {
-                                ModAPI.Console.Write("Conditions not met to cast a spell");
-                            }
+                         
                         }
                     }
                 }

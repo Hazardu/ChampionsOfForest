@@ -204,17 +204,33 @@ namespace ChampionsOfForest
             GUI.backgroundColor = Color.white;
             GUI.contentColor = Color.white;
 
+            //DETAIL-----------------------------------------------------------------------------
+            //GUI.skin.horizontalSlider.fixedWidth = 150;
+            //GUI.skin.horizontalSlider.fontSize = 30;
+            //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
+            //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
+            //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
+            //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
+            ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+            ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+            //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+            //{
+            //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+            //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+            //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+            //}
 
-            //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x,-5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-            // GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-            // PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y,-180,180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-            // GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-            // foreach (var item in PlayerInventoryMod.customWeapons)
-            // {
-            //     item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-            //     item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-            //     item.obj.transform.Rotate(PlayerInventoryMod.Rot+item.rotation, Space.Self);
-            // }
+            //BIG OFFSET-----------------------------------------------------------------------------
+            //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+            //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+            //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+            //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+            //foreach (var item in PlayerInventoryMod.customWeapons)
+            //{
+            //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+            //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+            //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+            //}
 
 
 
@@ -350,6 +366,12 @@ namespace ChampionsOfForest
                 MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Perks", -Vector2.one, ref Opacity4);
                 GUI.Label(MiddleR, "Level \n " + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
 
+                string HudHideStatus = "[ HUD ]";
+                if(HideHud) HudHideStatus = "[ NO HUD ]";
+                if (GUI.Button(new Rect(Screen.width - 120*rr,40*rr,120*rr,40*rr), HudHideStatus,new GUIStyle(GUI.skin.label) { font = MainFont,fontSize = Mathf.RoundToInt(23*rr),alignment = TextAnchor.MiddleCenter })){
+                    HideHud = !HideHud;
+                }
+
 
                 semiblackValue = 0;
             }
@@ -446,6 +468,20 @@ namespace ChampionsOfForest
                 alignment = TextAnchor.MiddleCenter,
                 fontSize = Mathf.FloorToInt(16 * rr),
             };
+
+            if (ModSettings.FriendlyFire) {
+                GUI.color = Color.red;
+
+                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button) { fontSize = Mathf.FloorToInt(30 * rr) }))
+                { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
+            }
+            else
+            {
+                GUI.color = Color.gray;
+                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button) { fontSize = Mathf.FloorToInt(30 * rr) }))
+                { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
+            }
+            GUI.color = Color.white;
             for (int i = 0; i < 4; i++)
             {
                 int ii = i + DiffSelPage * 4;
@@ -769,9 +805,9 @@ namespace ChampionsOfForest
 
                         }
                     }
-                    if (ModdedPlayer.instance.Level > Inventory.Instance.ItemList[index].level && index < -1)
+                    if (ModdedPlayer.instance.Level < Inventory.Instance.ItemList[index].level && index < -1)
                     {
-                        frameColor = new Color(1, 0, 0, 1f);
+                        frameColor = Color.black;
                     }
 
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
@@ -922,21 +958,30 @@ namespace ChampionsOfForest
                                         DraggedItemIndex = -1;
                                         isDragging = false;
                                     }
-
-
                                 }
                             }
                         }
                     }
                     else
                     {
-                        if (r.Contains(mousepos) && UnityEngine.Input.GetMouseButtonDown(0))
+                        if (r.Contains(mousepos))
                         {
-
-                            isDragging = true;
-                            DraggedItem = Inventory.Instance.ItemList[index];
-                            DraggedItemIndex = index;
-
+                            if (UnityEngine.Input.GetMouseButtonDown(0))
+                            {
+                                isDragging = true;
+                                DraggedItem = Inventory.Instance.ItemList[index];
+                                DraggedItemIndex = index;
+                            }else if (UnityEngine.Input.GetMouseButtonDown(1)&& index >-1)
+                            {
+                                if (Inventory.Instance.ItemList[index].OnConsume())
+                                {
+                                    Inventory.Instance.ItemList[index].Amount--;
+                                    if (Inventory.Instance.ItemList[index].Amount <= 0)
+                                    {
+                                        Inventory.Instance.ItemList[index] = null;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1308,14 +1353,14 @@ namespace ChampionsOfForest
                                                     y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Rooting:
-                                                    DrawScannedEnemyLabel("Nature's wrath", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.BlackHole:
                                                     DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     y += rr * 50;
                                                     break;
-                                                case EnemyProgression.Abilities.Mines:
+                                                case EnemyProgression.Abilities.Trapper:
                                                     DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     y += rr * 50;
                                                     break;
@@ -1721,14 +1766,14 @@ namespace ChampionsOfForest
             Array menus = Enum.GetValues(typeof(Perk.PerkCategory));
             float btnSize = 100 * rr;
             float bigBtnSize = 40 * rr;
-            float offset = Screen.width - (menus.Length * btnSize + bigBtnSize) / 2;
+            float offset = Screen.width /2- (menus.Length * btnSize + bigBtnSize) / 2;
             for (int i = 0; i < menus.Length; i++)
             {
                 Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);
                 if ((Perk.PerkCategory)menus.GetValue(i) == _perkpage)
                 {
-                    topButton.width += btnSize;
-                    topButton.height += btnSize;
+                    topButton.width += bigBtnSize;
+                    topButton.height += bigBtnSize / 2;
                 }
                 offset += topButton.width;
                 string content = string.Empty;

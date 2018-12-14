@@ -9,38 +9,38 @@ namespace ChampionsOfForest.Res
     public class ResourceLoader : MonoBehaviour
     {
         public static ResourceLoader instance = null;
-        //public static Texture2D GetTexture(int i)
-        //{
-        //    if (instance.LoadedTextures.ContainsKey(i))
-        //    {
-        //        return instance.LoadedTextures[i];
-        //    }
-        //    else if (instance.unloadedResources.ContainsKey(i))
-        //    {
-        //        LoadTexture(instance.unloadedResources[i]);
-        //        return instance.LoadedTextures[i];
-        //    }
-        //    return null;
+        public static Texture2D GetTexture(int i)
+        {
+            if (instance.LoadedTextures.ContainsKey(i))
+            {
+                return instance.LoadedTextures[i];
+            }
+            else if (instance.unloadedResources.ContainsKey(i))
+            {
+                LoadTexture(instance.unloadedResources[i]);
+                return instance.LoadedTextures[i];
+            }
+            return null;
 
-        //}
-        //public static void UnloadTexture(int i)
-        //{
-        //    Destroy(instance.LoadedTextures[i]);
-        //    instance.LoadedTextures.Remove(i);
-        //}
-        //public static void LoadTexture(Resource r)
-        //{
-        //    Texture2D t = new Texture2D(1, 1);
-        //    t.LoadImage(File.ReadAllBytes(Resource.path + r.fileName));
-        //    t.Apply();
-        //    t.Compress(true);
-        //    instance.LoadedTextures.Add(r.ID, t);
+        }
+        public static void UnloadTexture(int i)
+        {
+            Destroy(instance.LoadedTextures[i]);
+            instance.LoadedTextures.Remove(i);
+        }
+        public static void LoadTexture(Resource r)
+        {
+            Texture2D t = new Texture2D(1, 1);
+            t.LoadImage(File.ReadAllBytes(Resource.path + r.fileName));
+            t.Apply();
+            t.Compress(true);
+            instance.LoadedTextures.Add(r.ID, t);
 
-        //}
+        }
 
 
-       // public Dictionary<int, Resource> unloadedResources;
-        public List<Resource> unloadedResources;
+        public Dictionary<int, Resource> unloadedResources;
+        //public List<Resource> unloadedResources;
         public List<Resource> toDownload;
         public List<Resource> toLoad;
         public Dictionary<int, Mesh> LoadedMeshes;
@@ -72,8 +72,8 @@ namespace ChampionsOfForest.Res
                 Destroy(gameObject);
             }
             FinishedLoading = false;
-            //unloadedResources = new Dictionary<int, Resource>();
-            unloadedResources = new List<Resource>();
+            unloadedResources = new Dictionary<int, Resource>();
+           // unloadedResources = new List<Resource>();
             FillResources();
             LoadedMeshes = new Dictionary<int, Mesh>();
             LoadedTextures = new Dictionary<int, Texture2D>();
@@ -124,7 +124,7 @@ namespace ChampionsOfForest.Res
 
             if (DirExists())
             {
-                foreach (Resource resource in unloadedResources)
+                foreach (Resource resource in unloadedResources.Values)
                 {
                     if (File.Exists(Resource.path + resource.fileName))
                     {
@@ -267,7 +267,7 @@ namespace ChampionsOfForest.Res
             {
                 LabelText = LabelText + " \n NO DIRECTORY FOUND, DOWNLOADING \n Please wait... ";
                 Directory.CreateDirectory(Resource.path);
-                foreach (Resource resource in unloadedResources)
+                foreach (Resource resource in unloadedResources.Values)
                 {
                     toDownload.Add(resource);
                 }
@@ -325,7 +325,8 @@ namespace ChampionsOfForest.Res
             new Resource(65, "SwordRoughness.png");
             new Resource(66, "SwordAmbientOcculusion.png");
             new Resource(67, "ManyParticles.png");
-
+            new Resource(68, "InverseSphere.obj");
+            new Resource(69, "ChainPart.obj");
         }
 
 

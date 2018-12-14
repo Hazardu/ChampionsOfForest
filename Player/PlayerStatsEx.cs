@@ -664,20 +664,23 @@ namespace ChampionsOfForest
 
             return base.HitArmor(damage - pureDmg) + pureDmg;
         }
-        public override void Hit(int damage, bool ignoreArmor, DamageType type = DamageType.Physical)
-        {
-            float f = damage * ModdedPlayer.instance.DamageReduction;
-            if (!ignoreArmor)
-            {
-                f *= ModdedPlayer.instance.ArmorDmgRed;
-            }
-            if (type == DamageType.Fire)
-            {
-                f *= ModdedPlayer.instance.MagicResistance;
-            }
-            damage = Mathf.RoundToInt(f);
-            base.Hit(damage, ignoreArmor, type);
-        }
+
+
+        //public override void Hit(int damage, bool ignoreArmor, DamageType type)
+        //{
+        //    //float f = damage * ModdedPlayer.instance.DamageReduction;
+        //    //if (!ignoreArmor)
+        //    //{
+        //    //    f *= ModdedPlayer.instance.ArmorDmgRed;
+        //    //}
+        //    //if (type == DamageType.Fire)
+        //    //{
+        //    //    f *= ModdedPlayer.instance.MagicResistance;
+        //    //}
+        //    //damage = Mathf.RoundToInt(f);
+        //    //base.Hit(damage, ignoreArmor, type);
+        //    return;
+        //}
         public override void HealthChange(float amount)
         {
 
@@ -692,6 +695,20 @@ namespace ChampionsOfForest
                 HealthTarget = Mathf.Min(HealthTarget + amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier, ChampionsOfForest.ModdedPlayer.instance.MaxHealth);
             }
 
+        }
+        public override void Hit(int damage, bool ignoreArmor, DamageType type )
+        {
+            float f = damage *1- ModdedPlayer.instance.DamageReduction;
+            if (!ignoreArmor)
+            {
+                f *=1- ModdedPlayer.instance.ArmorDmgRed;
+            }
+            if (type == DamageType.Fire)
+            {
+                f *= 1-ModdedPlayer.instance.MagicResistance;
+            }
+            damage = Mathf.RoundToInt(f);
+            base.Hit(damage, ignoreArmor, type);
         }
     }
 }

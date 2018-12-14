@@ -73,7 +73,7 @@ namespace ChampionsOfForest.Player
             }
             catch (System.Exception ex)
             {
-                ModAPI.Console.Write(ex.ToString());
+                ModAPI.Log.Write(ex.ToString());
 
             }
         }

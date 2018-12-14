@@ -168,8 +168,9 @@
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\EnemyHitTriggerMod.cs"  />
 <Compile Include="Enemies\EnemyManager.cs"  />
+<Compile Include="Enemies\RootingProjectile.cs"  />
 <Compile Include="Enemies\SnowAura.cs"  />
-<Compile Include="Enemies\WaterDeathEx.cs"  />
+<Compile Include="Enemies\TrapSphereSpell.cs"  />
 <Compile Include="Items\BaseItem.cs"  />
 <Compile Include="Enemies\EnemyHealthMod.cs"  />
 <Compile Include="Enemies\EnemyProgression.cs"  />

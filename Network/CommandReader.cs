@@ -20,7 +20,17 @@ namespace ChampionsOfForest.Network
             {
                 if (GameSetup.IsMpServer && ModSettings.DifficultyChoosen)
                 {
-                    Network.NetworkManager.SendLine("AA" + (int)ModSettings.difficulty + ";", Network.NetworkManager.Target.Clinets);
+                    string answer = "AA" + (int)ModSettings.difficulty + ";";
+                    if (ModSettings.FriendlyFire)
+                    {
+                        answer += "t;";
+                    }
+                    else
+                    {
+                        answer += "f;";
+                    }
+
+                    Network.NetworkManager.SendLine(answer, Network.NetworkManager.Target.Clinets);
                 }
             }
             else if (s.StartsWith("AA"))    //answer for the what is the difficulty query
@@ -198,6 +208,39 @@ namespace ChampionsOfForest.Network
                     }
                 }
             }
+            else if (s.StartsWith("RO"))    //answer for the what is the difficulty query
+            {
+                if (!ModdedPlayer.instance.StunImmune)
+                {
+                    i = 2;
+                    ch = s.ToCharArray();
+                    Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                    if ((LocalPlayer.Transform.position - pos).sqrMagnitude < 1200)
+                    {
+                        float duration = float.Parse(Read());
+                        NetworkManager.SendLine("RE" + LocalPlayer.Transform.position.x + ";" + LocalPlayer.Transform.position.y + ";" + LocalPlayer.Transform.position.z + ";" + duration + ";", NetworkManager.Target.Everyone);
+                        ModdedPlayer.instance.Stun(duration);
+                    }
+                }
+            }
+            else if (s.StartsWith("RE"))    //answer for the what is the difficulty query
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                float duration = float.Parse(Read());
+                RootSpell.Create(pos, duration);
+            }
+            else if (s.StartsWith("TR"))    //answer for the what is the difficulty query
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                float duration = float.Parse(Read());
+                float radius = float.Parse(Read());
+                TrapSphereSpell.Create(pos, radius, duration);
+
+            }
         }
         private static string Read()
         {
@@ -219,7 +262,6 @@ namespace ChampionsOfForest.Network
                 i++;
             }
             i++;
-            //ModAPI.Console.Write(parseval);
             if (parseval[0] == '1' || parseval[0] == 't')
             {
                 return true;

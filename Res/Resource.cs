@@ -36,8 +36,8 @@
                 type = ResourceType.Audio;
 
             }
-            ResourceLoader.instance.unloadedResources.Add( this);
-           // ResourceLoader.instance.unloadedResources.Add(id, this);
+           // ResourceLoader.instance.unloadedResources.Add( this);
+            ResourceLoader.instance.unloadedResources.Add(id, this);
         }
         public Resource(int id, string FileName, ResourceType t)
         {
@@ -45,8 +45,8 @@
             fileName = FileName;
             loaded = false;
             type = t;
-            ResourceLoader.instance.unloadedResources.Add(this);
-            //ResourceLoader.instance.unloadedResources.Add(id, this);
+           // ResourceLoader.instance.unloadedResources.Add(this);
+           ResourceLoader.instance.unloadedResources.Add(id, this);
 
         }
 

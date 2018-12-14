@@ -7,8 +7,8 @@ namespace ChampionsOfForest.Player
     internal class PlayerInventoryMod : PlayerInventory
     {
 
-        //public static Vector3 Rot;
-        //public static Vector3 Pos;
+       public static Vector3 Rot;
+       public static Vector3 Pos;
 
 
         public static InventoryItemView originalPlaneAxe;
@@ -88,8 +88,8 @@ namespace ChampionsOfForest.Player
                                 OriginalTreeDmg = itemView._heldWeaponInfo.treeDamage;
                                 originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
                                 noMesh = new Mesh();
-                                new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f, EmissionColor = new Color(0.03f, 0.03f, 0.03f) }), new Vector3(0.2f, -1.5f, 0.3f), new Vector3(0, -90, 0), 2f, 0.9f, 40, 80, 0.7f, 0.6f, 10, false, 80);
-                                new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { Smoothness = 0.6f, Metalic = 0.5f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66], EmissionColor = Color.white }), new Vector3(0.15f, -2.13f, 0.19f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
+                                new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f, EmissionColor = new Color(0.03f, 0.03f, 0.03f) }), new Vector3(0.2f-0.04347827f, -1.5f + 0.173913f, 0.3f-0.05797101f), new Vector3(0, -90, 0), 2f, 0.9f, 40, 80, 0.7f, 0.6f, 10, false, 80);
+                                new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { Smoothness = 0.6f, Metalic = 0.5f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f-0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
                             }
                             catch (System.Exception e)
                             {

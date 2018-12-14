@@ -1,5 +1,6 @@
 ﻿using ChampionsOfForest.Enemies;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace ChampionsOfForest
         public float SteadFest;
         private int SteadFestCap;
         private float DamageMult;
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Mines, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser,Poisonous }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser,Poisonous }
         public List<Abilities> abilities;
 
         public static string[] Mnames = new string[]
@@ -90,7 +91,7 @@ namespace ChampionsOfForest
         private Vector3 preRainScale;
         private float prerainDmg;
         private int prerainArmor;
-        private readonly float agroRange = 1800;
+        private readonly float agroRange = 1200;
         private float freezeauraCD;
         private float blackholeCD;
         private float blinkCD;
@@ -166,7 +167,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>();
+            abilities = new List<Abilities>() { Abilities.Trapper,Abilities.Rooting};
 
             if (UnityEngine.Random.value < 0.1)
             {
@@ -359,6 +360,10 @@ namespace ChampionsOfForest
             {
                 CCimmune = true;
             }
+            if (abilities.Contains(Abilities.FireAura))
+            {
+                StartCoroutine(FireAuraLoop());
+            }
             DualLifeSpend = false;
             RollName();
             setupComplete = true;
@@ -373,15 +378,47 @@ namespace ChampionsOfForest
             prerainSpeed = setup.animator.speed;
 
         }
-
+        IEnumerator FireAuraLoop()
+        {
+            float dmg = 40f +Level*Level;
+            if (BoltNetwork.isRunning)
+            {
+                while (true)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    foreach (var item in ModReferences.PlayerRemoteSetups)
+                    {
+                        if ((item.transform.position - transform.position).sqrMagnitude < 40)
+                        {
+                            item.hitFromEnemy((int)dmg/2);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 40)
+                    {
+                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg;
+                    }
+                    yield return null;
+                }
+            }
+        }
         private GameObject closestPlayer;
         private float closestPlayerMagnitude;
+        private float StunCD;
+        private float TrapCD;
         private void Update()
         {
             if (!setupComplete)
             {
                 Setup();
             }
+           if(TrapCD > 0) TrapCD -= Time.deltaTime;
+           if(StunCD > 0) StunCD -= Time.deltaTime;
             Health = _Health.Health;
             bool inRange = false;
             closestPlayerMagnitude = agroRange;
@@ -432,6 +469,7 @@ namespace ChampionsOfForest
 
                 }
             }
+          
             if (abilities.Contains(Abilities.Shielding))
             {
 
@@ -464,7 +502,7 @@ namespace ChampionsOfForest
                 {
                     if (blinkCD <= 0)
                     {
-                        transform.position = closestPlayer.transform.position + closestPlayer.transform.forward * -2;
+                        transform.root.position = closestPlayer.transform.position + transform.forward * -2;
                         blinkCD = Random.Range(15, 25);
                     }
                     else
@@ -473,7 +511,50 @@ namespace ChampionsOfForest
                     }
 
                 }
+                if (abilities.Contains(Abilities.Rooting)&& StunCD <= 0)
+                {
+                    float duration = 2;
+                    switch (ModSettings.difficulty)
+                    {
+                        case ModSettings.Difficulty.Hard:
+                            duration = 2.4f;
+                            break;
+                        case ModSettings.Difficulty.Elite:
+                            duration = 2.8f;
+                            break;
+                        case ModSettings.Difficulty.Master:
+                            duration = 3;
+                            break;
+                        case ModSettings.Difficulty.Challenge1:
+                            duration = 3.3f;
+                            break;
+                        case ModSettings.Difficulty.Challenge2:
+                            duration = 3.6f;
+                            break;
+                        case ModSettings.Difficulty.Challenge3:
+                            duration = 4;
+                            break;
+                        case ModSettings.Difficulty.Challenge4:
+                            duration = 4.5f;
+                            break;
+                        case ModSettings.Difficulty.Challenge5:
+                            duration = 5f;
+                            break;
+                        default:
+                            break;
+                    }
+                    Network.NetworkManager.SendLine("RO" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + duration + ";", Network.NetworkManager.Target.Everyone);
+                    StunCD = 20;
+                }
 
+                if (abilities.Contains(Abilities.Trapper)&&TrapCD <=0)
+                {
+                    float radius = 10f;
+                  
+                        Network.NetworkManager.SendLine("TR" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";14;" + radius + ";", Network.NetworkManager.Target.Everyone);
+                        TrapCD = 50;
+                    
+                }
 
                 if (abilities.Contains(Abilities.FreezingAura))
                 {

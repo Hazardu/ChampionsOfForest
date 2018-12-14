@@ -19,16 +19,13 @@ namespace ChampionsOfForest
                 ModSettings.DifficultyChoosen = false;
                 if (SceneManager.GetActiveScene().name == "TitleScene")
                 {
-                    ModAPI.Log.Write("Title Scene");
                     new GameObject("Resource Manager").AddComponent<Res.ResourceLoader>();
                     Res.ResourceLoader.InMainMenu = true;
                 }
                 else
                 {
-                    ModAPI.Log.Write("Other Scene");
                     Res.ResourceLoader.InMainMenu = false;
                     SpellDataBase.Initialize();
-                    Perk.FillPerkList();
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
                     ItemDataBase.Initialize();
                     GameObject go = new GameObject("Playerobj");
@@ -43,6 +40,7 @@ namespace ChampionsOfForest
                     new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     Buildings.InitBuildings();
+                    Perk.FillPerkList();
 
                 }
 

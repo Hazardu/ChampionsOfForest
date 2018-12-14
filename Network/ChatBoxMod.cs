@@ -12,7 +12,7 @@ namespace ChampionsOfForest.Network
 
         public static ChatBoxMod instance = null;
 
-        protected override IEnumerator Start()
+        protected override void Awake()
         {
             if (instance == null)
             {
@@ -25,14 +25,13 @@ namespace ChampionsOfForest.Network
             {
                 ModAPI.Log.Write("WARNING: ChatBoxMod already defined instance");
             }
-            return base.Start();
+            base.Awake();
         }
+
+        [ModAPI.Attributes.Priority(200)]
         public override void AddLine(NetworkId? playerId, string message, bool system)
         {
-            try
-            {
-
-
+          
                 if (playerId == ModNetwokrID)
                 {
                     NetworkManager.RecieveLine(message);
@@ -42,11 +41,7 @@ namespace ChampionsOfForest.Network
                 {
                     base.AddLine(playerId, message, system);
                 }
-            }
-            catch (System.Exception ex)
-            {
-                ModAPI.Log.Write(ex.ToString());
-            }
+        
         }
 
     }

@@ -58,38 +58,44 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.Helmet:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[48];
-
+                        spawn.transform.localScale *= 1.1f;
                             break;
                         case BaseItem.ItemType.Boot:
 
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[44];
+                        spawn.transform.localScale *= 1.1f;
 
-                            break;
+                        break;
                         case BaseItem.ItemType.Pants:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[50];
+                        spawn.transform.localScale *= 1.7f;
 
-                            break;
+                        break;
                         case BaseItem.ItemType.ChestArmor:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[42];
+                        spawn.transform.localScale *= 1.5f;
 
-                            break;
+                        break;
                         case BaseItem.ItemType.ShoulderArmor:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[53];
+                        spawn.transform.localScale *= 1.6f;
 
 
-                            break;
+                        break;
                         case BaseItem.ItemType.Glove:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[41];
+                        spawn.transform.localScale *= 2.2f;
 
-                            break;
+                        break;
                         case BaseItem.ItemType.Bracer:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[45];
 
                             break;
                         case BaseItem.ItemType.Amulet:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[40];
+                        spawn.transform.localScale *= 0.9f;
 
-                            break;
+                        break;
                         case BaseItem.ItemType.Ring:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[43];
 
