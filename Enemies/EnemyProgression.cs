@@ -167,7 +167,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>() { Abilities.Trapper,Abilities.Rooting};
+            abilities = new List<Abilities>() { Abilities.Laser};
 
             if (UnityEngine.Random.value < 0.1)
             {
@@ -411,6 +411,7 @@ namespace ChampionsOfForest
         private float closestPlayerMagnitude;
         private float StunCD;
         private float TrapCD;
+        private float LaserCD;
         private void Update()
         {
             if (!setupComplete)
@@ -419,6 +420,7 @@ namespace ChampionsOfForest
             }
            if(TrapCD > 0) TrapCD -= Time.deltaTime;
            if(StunCD > 0) StunCD -= Time.deltaTime;
+           if(LaserCD > 0) LaserCD -= Time.deltaTime;
             Health = _Health.Health;
             bool inRange = false;
             closestPlayerMagnitude = agroRange;
@@ -511,6 +513,15 @@ namespace ChampionsOfForest
                     }
 
                 }
+                if (abilities.Contains(Abilities.Laser) && LaserCD <=0)
+                {
+                    Vector3 dir = closestPlayer.transform.position;
+                   
+                    LaserCD = 100;
+                    Network.NetworkManager.SendLine("LA" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + dir.x + ";" + dir.y + ";" + dir.z + ";",Network.NetworkManager.Target.Everyone);
+
+
+                }
                 if (abilities.Contains(Abilities.Rooting)&& StunCD <= 0)
                 {
                     float duration = 2;
@@ -544,16 +555,18 @@ namespace ChampionsOfForest
                             break;
                     }
                     Network.NetworkManager.SendLine("RO" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + duration + ";", Network.NetworkManager.Target.Everyone);
-                    StunCD = 20;
+                    StunCD = Random.Range(15,30);
                 }
 
                 if (abilities.Contains(Abilities.Trapper)&&TrapCD <=0)
                 {
-                    float radius = 10f;
-                  
+                    if (closestPlayerMagnitude < agroRange / 2)
+                    {
+                        float radius = 10f;
+
                         Network.NetworkManager.SendLine("TR" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";14;" + radius + ";", Network.NetworkManager.Target.Everyone);
                         TrapCD = 50;
-                    
+                    }
                 }
 
                 if (abilities.Contains(Abilities.FreezingAura))

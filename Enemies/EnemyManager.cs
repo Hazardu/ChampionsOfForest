@@ -70,8 +70,12 @@ namespace ChampionsOfForest
                     spProgression.Remove(tr);
                 }
             }
-            ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr);
-            spProgression.Add(tr, cpr);
+            else
+            {
+                ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr);
+                spProgression.Add(tr, cpr);
+                return cpr;
+            }
             return null;
         }
         //Returns clinet progression for Multiplayer
@@ -91,7 +95,7 @@ namespace ChampionsOfForest
                 else
                 {
                     clinetProgressions.Remove(e);
-
+                    return null;
                 }
             }
             if (!GameSetup.IsMpClient)

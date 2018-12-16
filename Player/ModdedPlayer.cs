@@ -103,7 +103,7 @@ namespace ChampionsOfForest
         public bool StunImmune = false;
         public bool DebuffImmune = false;
         public float MoveSpeed = 1f;
-
+        public float SpellCostToStamina = 0;
 
         public float ExpFactor = 1;
         public long ExpCurrent = 15;

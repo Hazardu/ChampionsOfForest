@@ -241,6 +241,15 @@ namespace ChampionsOfForest.Network
                 TrapSphereSpell.Create(pos, radius, duration);
 
             }
+            else if (s.StartsWith("LA"))
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                Vector3 dir = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+
+                EnemyLaser.CreateLaser(pos, dir);
+            }
         }
         private static string Read()
         {

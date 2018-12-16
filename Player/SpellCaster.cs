@@ -136,12 +136,13 @@ namespace ChampionsOfForest.Player
                         string btnname = "spell" + (i + 1).ToString();
                         if (ModAPI.Input.GetButton(btnname))
                         {
-                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost && infos[i].spell.CanCast)
+                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina && infos[i].spell.CanCast)
                             {
                                 Ready[i] = false;
                                 MaxCooldown(i);
                                 infos[i].spell.active();
-                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost;
+                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina;
+                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina);
 
                             }
                          

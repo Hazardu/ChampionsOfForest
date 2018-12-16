@@ -167,6 +167,7 @@
     <Compile Include="Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\EnemyHitTriggerMod.cs"  />
+<Compile Include="Enemies\EnemyLaser.cs"  />
 <Compile Include="Enemies\EnemyManager.cs"  />
 <Compile Include="Enemies\RootingProjectile.cs"  />
 <Compile Include="Enemies\SnowAura.cs"  />

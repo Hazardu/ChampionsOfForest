@@ -165,19 +165,21 @@ namespace ChampionsOfForest.Res
 
             foreach (Resource resource in toLoad)
             {
-
+                
+              
                 switch (resource.type)
                 {
                     case Resource.ResourceType.Texture:
-                        Texture2D t = new Texture2D(1, 1);
-                        t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
+                        LabelText = LabelText + " \n LOADING IMAGE... | " + resource.ID;
 
+                        Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32,true, true);
+                        //Texture2D t = new Texture2D(1, 1);
+                        t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
                         t.Apply();
                         t.Compress(true);
 
                         LoadedTextures.Add(resource.ID, t);
-                        LabelText = LabelText + " \n LOADED IMAGE | " + resource.ID;
-
+                        LabelText = LabelText + " ...DONE";
                         break;
                     case Resource.ResourceType.Mesh:
                         Mesh mesh = Core.ReadMeshFromOBJ(Resource.path + resource.fileName);
@@ -189,7 +191,7 @@ namespace ChampionsOfForest.Res
                         break;
                     case Resource.ResourceType.Text:
                         break;
-                }
+                } 
                 yield return null;
             }
             LabelText = "DONE! \n Files downloaded and loaded";
@@ -318,6 +320,7 @@ namespace ChampionsOfForest.Res
             new Resource(52, "HeavySword.obj");
             new Resource(53, "Shoulder.obj");
 
+            new Resource(59, "SwordMetalic.png");
             new Resource(60, "SwordTexture.png");
             new Resource(61, "SwordColor.png");
             new Resource(62, "SwordEmissive.png");
@@ -327,6 +330,8 @@ namespace ChampionsOfForest.Res
             new Resource(67, "ManyParticles.png");
             new Resource(68, "InverseSphere.obj");
             new Resource(69, "ChainPart.obj");
+            new Resource(70, "Spike.obj");
+            new Resource(71, "particle.png");
         }
 
 

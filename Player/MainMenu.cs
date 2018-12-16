@@ -51,7 +51,6 @@ namespace ChampionsOfForest
         private float Opacity4 = 0;
         private readonly float OpacityGainSpeed = 3;    //speed at which the highlights gain alpha - curently gains full opacity after 0.33 seconds
 
-
         //HUD variables
         private float ScanTime = 0;
         private float ScanRotation = 0;
@@ -166,7 +165,6 @@ namespace ChampionsOfForest
                 _SpellInactive = ResourceLoader.instance.LoadedTextures[5];
                 _SpellFrame = ResourceLoader.instance.LoadedTextures[6];
                 _SpellCoolDownFill = ResourceLoader.instance.LoadedTextures[8];
-
                 //Inventory
                 DraggedItemIndex = -1;
                 DraggedItem = null;
@@ -232,9 +230,16 @@ namespace ChampionsOfForest
             //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
             //}
 
+            GUI.skin.label.normal.textColor = Color.white;
+            GUI.skin.label.onNormal.textColor = Color.white;
+            GUI.contentColor = Color.white;
+            GUI.backgroundColor = Color.white;
+            GUI.color = Color.white;
+            GUI.skin.label.clipping = TextClipping.Overflow;
+            GUI.skin.label.richText = true;
 
 
-            mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
+        mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
 
             if (!ModSettings.DifficultyChoosen)
             {
@@ -355,8 +360,8 @@ namespace ChampionsOfForest
                 Rect r2 = new Rect(r1);
                 Rect r3 = new Rect(r1);
                 Rect r4 = new Rect(r1);
-                float Mindist = 375 / 1500;
-                Mindist *= r1.width;
+                float Mindist = 500f / 1500f;
+                Mindist *=(float) r1.width;
                 MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Inventory", new Vector2(1, -1), ref Opacity1);
                 r2.position = center - r1.size;
                 MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Skills", new Vector2(-1, 1), ref Opacity2);
@@ -367,8 +372,13 @@ namespace ChampionsOfForest
                 GUI.Label(MiddleR, "Level \n " + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
 
                 string HudHideStatus = "[ HUD ]";
-                if(HideHud) HudHideStatus = "[ NO HUD ]";
-                if (GUI.Button(new Rect(Screen.width - 120*rr,40*rr,120*rr,40*rr), HudHideStatus,new GUIStyle(GUI.skin.label) { font = MainFont,fontSize = Mathf.RoundToInt(23*rr),alignment = TextAnchor.MiddleCenter })){
+                if (HideHud)
+                {
+                    HudHideStatus = "[ NO HUD ]";
+                }
+
+                if (GUI.Button(new Rect(Screen.width - 120 * rr, 40 * rr, 120 * rr, 40 * rr), HudHideStatus, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(23 * rr), alignment = TextAnchor.MiddleCenter }))
+                {
                     HideHud = !HideHud;
                 }
 
@@ -469,7 +479,8 @@ namespace ChampionsOfForest
                 fontSize = Mathf.FloorToInt(16 * rr),
             };
 
-            if (ModSettings.FriendlyFire) {
+            if (ModSettings.FriendlyFire)
+            {
                 GUI.color = Color.red;
 
                 if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button) { fontSize = Mathf.FloorToInt(30 * rr) }))
@@ -971,7 +982,8 @@ namespace ChampionsOfForest
                                 isDragging = true;
                                 DraggedItem = Inventory.Instance.ItemList[index];
                                 DraggedItemIndex = index;
-                            }else if (UnityEngine.Input.GetMouseButtonDown(1)&& index >-1)
+                            }
+                            else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1)
                             {
                                 if (Inventory.Instance.ItemList[index].OnConsume())
                                 {
@@ -1155,13 +1167,10 @@ namespace ChampionsOfForest
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
                     string s = string.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 21) });
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 26) });
                     BuffOffset += 30 * rr;
 
                 }
-                GUI.Label(new Rect(0, 0, 100, 100), activeBuffs.Count.ToString());
-
-
 
                 GUI.color = Color.blue;
                 GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina) + "/" + ModdedPlayer.instance.MaxEnergy, HUDStatStyle);
@@ -1170,7 +1179,7 @@ namespace ChampionsOfForest
                 GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + ModdedPlayer.instance.MaxHealth, HUDStatStyle);
                 GUI.color = Color.white;
 
-                float SquareSize = 100 * rr;
+                float SquareSize = 50 * rr;
                 for (int i = 0; i < SpellCaster.SpellCount; i++)
                 {
                     Rect r = new Rect(
@@ -1214,20 +1223,20 @@ namespace ChampionsOfForest
                 Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal;
-                Rect CombatBar = new Rect(XPbar.x, XPbar.y - combatHeight, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
+                Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
                 GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
-                GUI.DrawTexture(XPbarFill, _expBarFillTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
+                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0,0,(float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, 1));
                 GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
-                GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
-                {
-                    font = MainFont,
-                    fontSize = Mathf.RoundToInt(22 * rr),
-                    alignment = TextAnchor.LowerCenter,
-                    wordWrap = false,
-                    clipping = TextClipping.Overflow,
-                };
-                GUI.Label(XPbar, ModdedPlayer.instance.ExpCurrent + "/" + ModdedPlayer.instance.ExpGoal + "       " + Mathf.Floor(ModdedPlayer.instance.ExpCurrent * 100 / ModdedPlayer.instance.ExpGoal) + "%", expInfoStyle);
-                GUI.DrawTexture(CombatBar, _combatDurationTex, ScaleMode.ScaleAndCrop, true, 1500 / 63);
+                // GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
+                //{
+                //    font = MainFont,
+                //    fontSize = Mathf.RoundToInt(22 * rr),
+                //    alignment = TextAnchor.LowerCenter,
+                //    wordWrap = false,
+                //    clipping = TextClipping.Overflow,
+                //};
+                //GUI.Label(XPbar, ModdedPlayer.instance.ExpCurrent + "/" + ModdedPlayer.instance.ExpGoal + "       " + Mathf.Floor(ModdedPlayer.instance.ExpCurrent * 100 / ModdedPlayer.instance.ExpGoal) + "%", expInfoStyle);
+                GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex,new Rect(0,0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime),1));
 
 
 
@@ -1274,10 +1283,12 @@ namespace ChampionsOfForest
                                 GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
                                 {
                                     font = MainFont,
-                                    fontSize = Mathf.RoundToInt(35 * rr),
+                                    fontSize = Mathf.RoundToInt(32 * rr),
                                     alignment = TextAnchor.MiddleRight,
                                     wordWrap = false,
                                     clipping = TextClipping.Overflow,
+                                    richText = true,
+                                   
                                 };
 
                                 Vector2 origin = wholeScreen.center;
@@ -1766,7 +1777,7 @@ namespace ChampionsOfForest
             Array menus = Enum.GetValues(typeof(Perk.PerkCategory));
             float btnSize = 100 * rr;
             float bigBtnSize = 40 * rr;
-            float offset = Screen.width /2- (menus.Length * btnSize + bigBtnSize) / 2;
+            float offset = Screen.width / 2 - (menus.Length * btnSize + bigBtnSize) / 2;
             for (int i = 0; i < menus.Length; i++)
             {
                 Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);

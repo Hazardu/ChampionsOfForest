@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Enemies
                 main.scalingMode = ParticleSystemScalingMode.Hierarchy;
                 main.startRotationX = 90;
                 main.startRotationY = 90;
-                main.startRotationZ = 90;
+                main.startRotationZ = new ParticleSystem.MinMaxCurve(0,90);
                 main.simulationSpace = ParticleSystemSimulationSpace.World;
 
                 var e = ps.emission;
