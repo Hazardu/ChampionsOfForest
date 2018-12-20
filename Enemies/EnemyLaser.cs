@@ -29,11 +29,14 @@ namespace ChampionsOfForest.Enemies
         {
             if (mat == null)
             {
-                mat = Core.CreateMaterial(new BuildingData() { renderMode = BuildingData.RenderMode.Transparent, EmissionColor = new Color(0, 0.15f, 0.20f), MainColor = new Color(0.04f, 1, 0, 0.25f), Metalic = 0.3f, Smoothness = 0.67f });
-                mat1= new Material(Shader.Find("Particles/Additive"))
+                mat = Core.CreateMaterial(new BuildingData() { renderMode = BuildingData.RenderMode.Transparent, EmissionColor = new Color(0, 0.15f, 0.20f), MainColor = new Color(0.2f, 1, 0, 0.5f), Metalic = 0.3f, Smoothness = 0.67f });
+                mat1 = new Material(Shader.Find("Unlit/Transparent"))
                 {
                     color = new Color(0.203f, 1, 0.629f, 0.2117647f),
-                    mainTexture = Res.ResourceLoader.GetTexture(71)
+                    mainTexture = Res.ResourceLoader.GetTexture(71),
+                    renderQueue = 2000,
+                    doubleSidedGI = true,
+                    
                 };
             }
 
@@ -50,7 +53,8 @@ namespace ChampionsOfForest.Enemies
 
             m.startRotation3D = true;
             m.startSpeed = 0;
-            m.startLifetime = 20;
+            m.startLifetime = 8;
+            m.duration = 30;
             m.startSize = 0.3f;
             ParticleSystem.EmissionModule e = particleSystem.emission;
             e.rateOverTime = 0;
@@ -66,7 +70,7 @@ namespace ChampionsOfForest.Enemies
             for (int i = 0; i < 10; i++)
             {
 
-                particleSystem.Emit(new ParticleSystem.EmitParams() {startLifetime = 20, position = transform.forward * Mathf.Sin(f) * 2.5f + transform.right * Mathf.Cos(f) * 2.5f }, 10);
+                particleSystem.Emit(new ParticleSystem.EmitParams() { position = transform.forward * Mathf.Sin(f) * 2.5f + transform.right * Mathf.Cos(f) * 2.5f }, 10);
 
                 yield return new WaitForSeconds(0.1f);
                 f += Mathf.PI * 0.2f;
@@ -93,17 +97,11 @@ namespace ChampionsOfForest.Enemies
             }
             yield return new WaitForSeconds(1f);
             rotSpeed += 40;
-            for (int i = 0; i < 50; i++)
-            {
-                particleSystem.Emit(new ParticleSystem.EmitParams() { position = transform.position + Vector3.up * 13, velocity = Vector3.forward * 100, rotation3D = Vector3.right * 90, startSize = (51f - i) / 50f }, 1);
-                yield return null;
-
-            }
             StartCoroutine(Shoot());
             yield return new WaitForSeconds(3f);
-            Direction.RotateY(-90f);
+            Direction.RotateY(-180f);
             StartCoroutine(Shoot());
-            yield return new WaitForSeconds(12f);
+            yield return new WaitForSeconds(15f);
             Destroy(gameObject);
 
         }
@@ -158,25 +156,28 @@ namespace ChampionsOfForest.Enemies
             m.simulationSpace = ParticleSystemSimulationSpace.Local;
             m.startSpeed = 100;
             m.startLifetime = 0.5f;
-            m.startSize = 2f;
+            m.startSize = 0.1f;
             yield return null;
 
             ParticleSystem.EmissionModule e = ps.emission;
-            e.rateOverTime = 30f;
+            e.rateOverTime = 10f;
             var sol = ps.sizeOverLifetime;
             sol.enabled = true;
-            sol.sizeMultiplier = 4;
+            sol.sizeMultiplier = 3;
             sol.size = new ParticleSystem.MinMaxCurve(4, new AnimationCurve(new Keyframe[] {  new Keyframe(0f, 0f, 11.34533f, 11.34533f), new Keyframe(0.1365601f, 1f, 0.4060947f, 0.4060947f), new Keyframe(1f, 0.2881376f, -0.8223371f, -0.8223371f) }));
             yield return null;
             var trail = ps.trails;
             trail.enabled = true;
             trail.dieWithParticles = false;
+            trail.inheritParticleColor = true;
+            trail.ratio = 0.5f;
+            trail.textureMode = ParticleSystemTrailTextureMode.Stretch;
             float time = 0;
             while (time < 5) 
             {
                 time += Time.deltaTime;
-                go.transform.Rotate(Vector3.up * Time.deltaTime*10, Space.World);
-                go.transform.Rotate(Vector3.right * Time.deltaTime*2, Space.Self);
+                go.transform.Rotate(Vector3.up * Time.deltaTime*25, Space.World);
+                go.transform.Rotate(Vector3.right * Time.deltaTime*4*Mathf.Sin(time), Space.Self);
               
                 yield return null;
 
@@ -208,7 +209,7 @@ namespace ChampionsOfForest.Enemies
             {
 
            
-         RaycastHit[] hits =   Physics.RaycastAll(transform.position, transform.forward, 30);
+         RaycastHit[] hits =   Physics.RaycastAll(transform.position, transform.forward, 50);
             foreach (RaycastHit hit in hits)
             {
                 if (hit.transform != null)
@@ -219,18 +220,17 @@ namespace ChampionsOfForest.Enemies
                         {
                             LocalPlayer.Stats.Hit((int)dmg / 10, false, PlayerStats.DamageType.Fire);
                             hit.transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                            yield return new WaitForSeconds(0.1f);
                         }
                     }
-                    else if (hit.transform.CompareTag("structure") && (!BoltNetwork.isRunning || BoltNetwork.isServer || !BoltNetwork.isClient || !PlayerPreferences.NoDestructionRemote))
+                    else if (hit.transform.CompareTag("structure"))// && (!BoltNetwork.isRunning || BoltNetwork.isServer || !BoltNetwork.isClient || !PlayerPreferences.NoDestructionRemote))
                     {
-                        hit.transform.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
-                        hit.transform.SendMessage("LocalizedHit", new LocalizedHitData(hit.transform.position, dmg / 10), SendMessageOptions.DontRequireReceiver);
-                        yield return new WaitForSeconds(0.1f);
+                        hit.transform.SendMessage("Hit", dmg / 10, SendMessageOptions.DontRequireReceiver);
+                        hit.transform.SendMessage("LocalizedHit", new LocalizedHitData(hit.point, dmg / 10), SendMessageOptions.DontRequireReceiver);
                     }
                 }
             }
-                yield return null;
+                                   yield return new WaitForSeconds(0.1f);
+
             }
         }
     }

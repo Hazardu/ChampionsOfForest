@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Player;
+﻿using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Player;
 using ModAPI.Attributes;
 using System;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace ChampionsOfForest
                     go.AddComponent<ModReferences>();
                     go.AddComponent<SpellCaster>();
                     go.AddComponent<ClinetItemPicker>();
+                    go.AddComponent<MeteorSpawner>();
                     BuffDB.FillBuffList();
 
                     EnemyManager.Initialize();

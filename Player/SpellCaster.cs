@@ -138,11 +138,12 @@ namespace ChampionsOfForest.Player
                         {
                             if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina && infos[i].spell.CanCast)
                             {
+                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina;
+                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina);
                                 Ready[i] = false;
                                 MaxCooldown(i);
                                 infos[i].spell.active();
-                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina;
-                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina);
+                             
 
                             }
                          

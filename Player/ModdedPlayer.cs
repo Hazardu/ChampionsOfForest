@@ -35,7 +35,7 @@ namespace ChampionsOfForest
             get
             {
                 float f = SpellDamageperInt * intelligence;
-                return (1 + f) * SpellDamageAmplifier;
+                return (1 + f) * SpellDamageAmplifier * DamageOutputMult;
             }
         }
         public float MeleeAMP
@@ -43,6 +43,15 @@ namespace ChampionsOfForest
             get
             {
                 return DamageOutputMult * (strenght * DamagePerStrenght + 1) * MeleeDamageAmplifier;
+            }
+        }
+        public float RangedAMP
+        {
+            get
+            {
+                float f = agility * RangedDamageperAgi;
+                return (1 + f) * RangedDamageAmplifier * DamageOutputMult;
+
             }
         }
         public float CritDamageBuff
@@ -85,6 +94,8 @@ namespace ChampionsOfForest
         public float SpellDamageBonus = 0;
         public float MeleeDamageBonus = 0;
         public float RangedDamageBonus = 0;
+        public float MeleeRange = 1;
+
 
         public float DamageReduction = 0;
         public float DamageOutputMult = 1;
@@ -104,7 +115,8 @@ namespace ChampionsOfForest
         public bool DebuffImmune = false;
         public float MoveSpeed = 1f;
         public float SpellCostToStamina = 0;
-
+        public float StaminaAttackCostReduction = 0;
+        public float BlockFactor = 1;
         public float ExpFactor = 1;
         public long ExpCurrent = 15;
         public long ExpGoal = 20;
@@ -112,7 +124,7 @@ namespace ChampionsOfForest
 
 
         public int PermanentBonusPerkPoints;
-        public int PerkPoints;
+        public int PerkPoints = 10;
         public long NewlyGainedExp;
 
         public int MassacreKills;

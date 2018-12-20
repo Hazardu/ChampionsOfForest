@@ -169,6 +169,7 @@
 <Compile Include="Enemies\EnemyHitTriggerMod.cs"  />
 <Compile Include="Enemies\EnemyLaser.cs"  />
 <Compile Include="Enemies\EnemyManager.cs"  />
+<Compile Include="Enemies\Meteor.cs"  />
 <Compile Include="Enemies\RootingProjectile.cs"  />
 <Compile Include="Enemies\SnowAura.cs"  />
 <Compile Include="Enemies\TrapSphereSpell.cs"  />
@@ -186,8 +187,10 @@
 <Compile Include="ModReferences.cs"  />
 <Compile Include="ModSettings.cs"  />
 <Compile Include="BlackHole.cs"  />
+<Compile Include="Player\ArrowDamageMod.cs"  />
 <Compile Include="Player\BuffDataBase.cs"  />
 <Compile Include="Network\CommandReader.cs"  />
+<Compile Include="Player\CustomWeapon.cs"  />
 <Compile Include="Player\FPCharacterMod.cs"  />
 <Compile Include="Player\HealingDome.cs"  />
 <Compile Include="Player\Inventory.cs"  />
@@ -198,6 +201,7 @@
 <Compile Include="Player\Perk.cs"  />
 <Compile Include="Player\PlayerInventoryMod.cs"  />
 <Compile Include="Player\PlayerStatsEx.cs"  />
+<Compile Include="Player\SlingShotMod.cs"  />
 <Compile Include="Player\Spell.cs"  />
 <Compile Include="Player\SpellCaster.cs"  />
 <Compile Include="Player\SpellDataBase.cs"  />

@@ -10,11 +10,170 @@ namespace ChampionsOfForest.Player
 {
     public class WeaponInfoMod : weaponInfo
     {
+        protected override void Update()
+        {
+            if (mainTriggerScript != null)
+            {
+                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = mainTriggerScript.animSpeed * ModdedPlayer.instance.AttackSpeed;
+                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = mainTriggerScript.staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = mainTriggerScript.animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
+                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = mainTriggerScript.staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * mainTriggerScript.blockDamagePercent / 5;
+
+            
+            }
+            base.Update();
+        }
+        protected override void setupMainTrigger()
+        {
+            if ((bool)mainTriggerScript)
+            {
+                if (stick)
+                {
+                    mainTriggerScript.stick = true;
+                }
+                else
+                {
+                    mainTriggerScript.stick = false;
+                }
+                if (axe)
+                {
+                    mainTriggerScript.axe = true;
+                }
+                else
+                {
+                    mainTriggerScript.axe = false;
+                }
+                if (rock)
+                {
+                    mainTriggerScript.rock = true;
+                }
+                else
+                {
+                    mainTriggerScript.rock = false;
+                }
+                if (fireStick)
+                {
+                    mainTriggerScript.fireStick = true;
+                }
+                else
+                {
+                    mainTriggerScript.fireStick = false;
+                }
+                if (spear)
+                {
+                    mainTriggerScript.spear = true;
+                }
+                else
+                {
+                    mainTriggerScript.spear = false;
+                }
+                if (shell)
+                {
+                    mainTriggerScript.spear = true;
+                }
+                else
+                {
+                    mainTriggerScript.shell = false;
+                }
+                if (chainSaw)
+                {
+                    mainTriggerScript.chainSaw = true;
+                }
+                else
+                {
+                    mainTriggerScript.chainSaw = false;
+                }
+                if (machete)
+                {
+                    mainTriggerScript.machete = true;
+                }
+                else
+                {
+                    mainTriggerScript.machete = false;
+                }
+                mainTriggerScript.repairTool = repairTool;
+                mainTriggerScript.weaponDamage = WeaponDamage;
+                mainTriggerScript.smashDamage = smashDamage;
+                mainTriggerScript.smallAxe = smallAxe;
+                if (weaponRange == 0f)
+                {
+                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f *ModdedPlayer.instance.MeleeRange);
+                }
+                else if (BoltNetwork.isClient)
+                {
+                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp(weaponRange*ModdedPlayer.instance.MeleeRange, 1f, weaponRange * ModdedPlayer.instance.MeleeRange));
+                }
+                else
+                {
+                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, weaponRange * ModdedPlayer.instance.MeleeRange);
+                }
+            }
+        }
         protected override void setupHeldWeapon()
         {
-
-
-            base.setupHeldWeapon();
+            if (!mainTrigger && !remotePlayer)
+            {
+                if ((bool)mainTriggerScript)
+                {
+                    mainTriggerScript.currentWeaponScript = this;
+                    mainTriggerScript.weaponAudio = base.transform;
+                    setupMainTrigger();
+                    if (canDoGroundAxeChop)
+                    {
+                        mainTriggerScript.enableSpecialWeaponVars();
+                    }
+                }
+                if (!(bool)thisCollider && (bool)base.transform.parent)
+                {
+                    thisCollider = base.transform.parent.GetComponentsInChildren<Collider>(true)[0];
+                }
+                if (sendColliderToEvents && (bool)thisCollider)
+                {
+                    setup.events.heldWeaponCollider = thisCollider;
+                }
+                base.Invoke("cleanUpSpearedFish", 0.2f);
+                if ((bool)animator)
+                {
+                    checkBurnableCloth();
+                }
+                animSpeed = Mathf.Clamp(weaponSpeed, 0.01f, 20f) / 20f;
+                animSpeed += 0.5f;
+                animTiredSpeed = tiredSpeed / 10f * (animSpeed - 0.5f);
+                animTiredSpeed += 0.5f;
+                if ((bool)setup)
+                {
+                    if ((bool)setup.pmStamina)
+                    {
+                        if (animControl.tiredCheck)
+                        {
+                            animControl.tempTired = animSpeed;
+                            setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
+                        }
+                        else
+                        {
+                            setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
+                        }
+                    }
+                    if ((bool)setup && (bool)setup.pmStamina)
+                    {
+                        setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed;
+               
+                        setup.pmControl.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f;
+                  
+                        setup.pmControl.FsmVariables.GetFsmFloat("blockStaminaDrain").Value = blockStaminaDrain * -1f;
+                    }
+                    if ((bool)LocalPlayer.Stats)
+                    {
+                        LocalPlayer.Stats.blockDamagePercent =ModdedPlayer.instance.BlockFactor* blockDamagePercent/5 ;
+                    }
+                    damageAmount = (int)WeaponDamage;
+                    if ((bool)setup && (bool)setup.pmStamina)
+                    {
+                        setup.pmStamina.SendEvent("toSetStats");
+                    }
+                }
+            }
         }
 
         //MEELE HIT

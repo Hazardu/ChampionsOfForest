@@ -12,12 +12,12 @@ namespace ChampionsOfForest
             private set;
         }
 
-        public List<BaseItem> _Item_Bases = new List<BaseItem>();
-        public Dictionary<int, BaseItem> ItemBases = new Dictionary<int, BaseItem>();
-        public List<ItemStat> statList = new List<ItemStat>();
-        public Dictionary<int, ItemStat> Stats = new Dictionary<int, ItemStat>();
+        public List<BaseItem> _Item_Bases;
+        public Dictionary<int, BaseItem> ItemBases;
+        public List<ItemStat> statList;
+        public Dictionary<int, ItemStat> Stats;
 
-        private Dictionary<int, List<int>> ItemRarityGroups = new Dictionary<int, List<int>>();
+        private Dictionary<int, List<int>> ItemRarityGroups;
         //Called from Initializer
         public static void Initialize()
         {
@@ -29,7 +29,11 @@ namespace ChampionsOfForest
             {
                 return;
             }
-
+            Instance._Item_Bases = new List<BaseItem>();
+            Instance.ItemBases = new Dictionary<int, BaseItem>();
+            Instance.statList = new List<ItemStat>();
+            Instance.Stats = new Dictionary<int, ItemStat>();
+            Instance.ItemRarityGroups = new Dictionary<int, List<int>>();
             Instance.FillStats();
 
             Instance.Stats.Clear();

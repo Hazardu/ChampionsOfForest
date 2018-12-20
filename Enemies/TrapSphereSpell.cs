@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheForest.Utils;
+﻿using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest.Enemies
@@ -10,7 +9,7 @@ namespace ChampionsOfForest.Enemies
         public float Radius;
         private float Lifetime;
         private readonly float rotSpeed = 50f;
-        private List<Transform> coughtPlayers = new List<Transform>();
+        private bool coughtPlayer = false;
         public static GameObject Prefab;
 
         public static void Create(Vector3 pos, float radius, float duration)
@@ -63,35 +62,16 @@ namespace ChampionsOfForest.Enemies
             Lifetime += Time.deltaTime;
             if (Lifetime < Duration)
             {
-                if (BoltNetwork.isRunning)
-                {
 
-                    foreach (CoopPlayerRemoteSetup item in ModReferences.PlayerRemoteSetups)
-                    {
-                        if (!coughtPlayers.Contains(item.transform.root))
-                        {
-                            if ((item.transform.root.position - transform.position).sqrMagnitude < Radius * Radius)
-                            {
-                                coughtPlayers.Add(item.transform.root);
-                            }
-                        }
-                    }
-                }
-                else
+                if ((LocalPlayer.Transform.root.position - transform.position).sqrMagnitude < Radius * Radius - 2)
                 {
-                    if (coughtPlayers.Count < 1)
-                    {
-                        if ((LocalPlayer.Transform.root.position - transform.position).sqrMagnitude < Radius * Radius -2)
-                        {
-                            coughtPlayers.Add(LocalPlayer.Transform.root);
-                        }
-                    }
+                    coughtPlayer = true;
                 }
-                foreach (Transform tr in coughtPlayers)
+                if (coughtPlayer && !ModdedPlayer.instance.StunImmune)
                 {
-                    if ((tr.position - transform.position).sqrMagnitude > Radius * Radius)
+                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude > Radius * Radius)
                     {
-                        tr.position = Vector3.MoveTowards(tr.position, transform.position, 40 * Time.deltaTime);
+                        LocalPlayer.Transform.position = Vector3.MoveTowards(LocalPlayer.Transform.position, transform.position, 40 * Time.deltaTime);
                     }
                 }
             }

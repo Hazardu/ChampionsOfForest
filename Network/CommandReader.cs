@@ -250,6 +250,14 @@ namespace ChampionsOfForest.Network
 
                 EnemyLaser.CreateLaser(pos, dir);
             }
+            else if (s.StartsWith("MT"))
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+
+                Meteor.CreateEnemy(pos, int.Parse(Read()));
+            }
         }
         private static string Read()
         {

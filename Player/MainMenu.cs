@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -347,7 +348,8 @@ namespace ChampionsOfForest
                     DraggedItemIndex = -1;
                     isDragging = false;
                 }
-
+                targetPerkOffset = wholeScreen.center;
+                currentPerkOffset = targetPerkOffset;
                 Vector2 center = wholeScreen.center;
                 Rect MiddleR = new Rect(Vector2.zero, new Vector2(300 * rr, 300 * rr))
                 {
@@ -1772,32 +1774,68 @@ namespace ChampionsOfForest
 
 
         private Perk.PerkCategory _perkpage = Perk.PerkCategory.MeleeOffense;
+        private float[] _perkCategorySizes = new float[6];
+        private int[] DisplayedPerkIDs = new int[0];
+        private Vector2 currentPerkOffset;
+        private Vector2 targetPerkOffset;
+        private float _perkDetailAlpha;
+        private float _timeToBuyPerk;
         private void DrawPerks()
         {
+            if(mousepos.y > Screen.height - 30 * rr)
+            {
+                targetPerkOffset += Vector2.down * Time.deltaTime * 300;
+            }
+            else if (mousepos.y <30 * rr)
+            {
+                targetPerkOffset += Vector2.down * Time.deltaTime *-300;
+
+            }
+            if (mousepos.x > Screen.width - 30 * rr)
+            {
+                targetPerkOffset += Vector2.right * Time.deltaTime * -300;
+            }
+            else if (mousepos.x < 30 * rr)
+            {
+                targetPerkOffset += Vector2.right * Time.deltaTime * 300;
+            }
+            currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.deltaTime * 45);
+
+
+            DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
+
             Array menus = Enum.GetValues(typeof(Perk.PerkCategory));
-            float btnSize = 100 * rr;
+            float btnSize = 250 * rr;
             float bigBtnSize = 40 * rr;
             float offset = Screen.width / 2 - (menus.Length * btnSize + bigBtnSize) / 2;
+            
             for (int i = 0; i < menus.Length; i++)
             {
                 Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);
                 if ((Perk.PerkCategory)menus.GetValue(i) == _perkpage)
                 {
+                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] + Time.deltaTime * 40, 0, bigBtnSize);
                     topButton.width += bigBtnSize;
                     topButton.height += bigBtnSize / 2;
                 }
+                else
+                {
+                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] - Time.deltaTime * 30, 0, bigBtnSize);
+                }
+                topButton.width += _perkCategorySizes[i];
+                topButton.height += _perkCategorySizes[i] / 2;
                 offset += topButton.width;
                 string content = string.Empty;
                 switch ((Perk.PerkCategory)menus.GetValue(i))
                 {
                     case Perk.PerkCategory.MeleeOffense:
-                        content = "Offensive Melee";
+                        content = "Melee";
                         break;
                     case Perk.PerkCategory.RangedOffense:
-                        content = "Offensive Ranged";
+                        content = "Ranged";
                         break;
                     case Perk.PerkCategory.MagicOffense:
-                        content = "Offensive Magic";
+                        content = "Magic";
                         break;
                     case Perk.PerkCategory.Defense:
                         content = "Defensive";
@@ -1812,13 +1850,84 @@ namespace ChampionsOfForest
                         content = ((Perk.PerkCategory)menus.GetValue(i)).ToString();
                         break;
                 }
-                if (GUI.Button(topButton, content))
+                if (GUI.Button(topButton, content,new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }))
                 {
                     _perkpage = (Perk.PerkCategory)menus.GetValue(i);
+                    targetPerkOffset = wholeScreen.center;
+                    currentPerkOffset = targetPerkOffset;
+                }
+               
+
+            }bool Hovered =false;
+            bool Buying = false;
+            foreach (int a in DisplayedPerkIDs) 
+                {
+                Perk p = Perk.AllPerks[a];
+                Vector2 pos = new Vector2(Mathf.Cos(p.Angle), Mathf.Sin(p.Angle)) * p.Radius*rr;
+                pos += currentPerkOffset;
+                Vector2 size = new Vector2(50 * rr, 50 * rr) * (1+p.Tier/3);
+                Rect r = new Rect(pos, size);
+                if (r.Contains(mousepos))
+                {
+                    //draw detail about the perk
+                    _perkDetailAlpha = Mathf.Clamp(_perkDetailAlpha + Time.deltaTime, 0.0f, 1.7f);
+                    r.size = new Vector2(100 * rr, 100 * rr) * (1 + p.Tier / 3);
+                    r.position -= Vector2.one * 25 * (1 + p.Tier / 3);
+                    Hovered = true;
+
+                    if (_perkDetailAlpha >= 0.7f) {
+                        GUI.color = new Color(1, 1, 1, _perkDetailAlpha - 0.7f);
+                        Rect Name = new Rect(r.x - 200 * rr, r.y- 100 * rr, 400 * rr + r.width, 100 * rr);
+                        Rect Desc = new Rect(r.x - 200 * rr, r.yMax+ 30 * rr, 400 * rr + r.width, 1000 * rr);
+                        string desctext = p.Description;
+                        if (!p.IsBought)
+                        {
+                            desctext = "HOLD LEFT MOUSE BUTTON TO BUY\n \n" + p.Description;
+                            Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
+                            Rect Cost = new Rect(r.xMax+40*rr, r.y, 400 * rr, r.height);
+                            GUI.Label(LevelReq, "Level "+p.LevelRequirement+" required", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
+                            GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
+                            if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.PerkPoints >= p.PointsToBuy)
+                            {
+                                _timeToBuyPerk += Time.deltaTime;
+                                Buying = true;
+                                if (_timeToBuyPerk >= 1)
+                                {
+                                    ModdedPlayer.instance.PerkPoints -= p.PointsToBuy;
+                                    Perk.AllPerks[a].IsBought = true;
+                                    Perk.AllPerks[a].ApplyMethods();
+                                    Buying = false;
+
+                                }
+                            }
+                        }
+                        GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        GUI.Label(Desc, desctext, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
+
+
+
+
+
+                        GUI.color = new Color(1, 1, 1, 1);
+
+                    }
+                }
+                              if (!Buying)
+                {
+                    _timeToBuyPerk =0;
+                }
+                if (!Hovered)
+                {
+                    _perkDetailAlpha = Mathf.Clamp(_perkDetailAlpha - Time.deltaTime*3, 0.0f, 1.7f);
+
+                }
+
+                GUI.DrawTexture(r, Texture2D.whiteTexture);
+
                 }
 
 
-            }
+
         }
     }
 }

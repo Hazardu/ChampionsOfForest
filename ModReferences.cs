@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -7,54 +6,67 @@ namespace ChampionsOfForest
     public class ModReferences : MonoBehaviour
     {
         public static ClinetItemPicker ItemPicker => ClinetItemPicker.Instance;
-        public static List<CoopPlayerRemoteSetup> PlayerRemoteSetups
+        public static List<GameObject> Players
         {
             get;
-            private set;
+                       private set;
         }
         public static int ThisPlayerID
         {
             get;
             private set;
         }
-        private List<CoopPlayerRemoteSetup> _playerSetups;
+        public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
+     
         private void Start()
         {
-            _playerSetups = new List<CoopPlayerRemoteSetup>();
-            StartCoroutine(UpdateSetups());
-
+            if (BoltNetwork.isRunning)
+            {
+                Players = new List<GameObject>();
+                InvokeRepeating("UpdateSetups", 1, 10);
+            }
+            else
+            {
+                Players = new List<GameObject>() { LocalPlayer.GameObject };
+            }
         }
         /// <summary>
         /// Updates the player setups and changes the static variable accordingly
         /// </summary>
-        private IEnumerator UpdateSetups()
+        private void UpdateSetups()
         {
-            if (GameSetup.IsMpServer)
+            try
             {
-                while (true)
+  
+                Players.Clear();
+                AllPlayerEntities.Clear();
+                for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
-                    _playerSetups.Clear();
-                    for (int i = 0; i < Scene.SceneTracker.allPlayerEntities.Count; i++)
+                    Players.Add(Scene.SceneTracker.allPlayers[i]);
+                    if(Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
                     {
-                        BoltEntity o = Scene.SceneTracker.allPlayerEntities[i];
-                        if (o.isAttached && o.StateIs<IPlayerState>() && (o.gameObject.activeSelf && o.gameObject.activeInHierarchy))
-                        {
-                            CoopPlayerRemoteSetup s = o.GetComponent<CoopPlayerRemoteSetup>();
-                            if (s != null)
-                            {
-                                int ID = _playerSetups.Count;
-                                _playerSetups.Add(s);
-                                if (s.entity == LocalPlayer.Entity)
-                                {
-                                    ThisPlayerID = ID;
-                                }
-                            }
-                        }
+                        ThisPlayerID = i;
                     }
-                    PlayerRemoteSetups = _playerSetups;
-                    yield return new WaitForSeconds(1);
+                    BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
+                    if (b != null)
+                    {
+                        AllPlayerEntities.Add(b);
+
+                    }
                 }
+
+                
+                    ModAPI.Console.Write("ThisPlayerID " + ThisPlayerID);
+                    ModAPI.Console.Write("AllPlayerEntities " + AllPlayerEntities.Count);
+                    ModAPI.Console.Write("Players " + Players.Count);
+                
             }
+            catch (System.Exception e)
+            {
+
+                ModAPI.Log.Write(e.ToString());
+            }
+
         }
     }
 

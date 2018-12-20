@@ -167,7 +167,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>() { Abilities.Laser};
+            abilities = new List<Abilities>() { Abilities.Laser, Abilities.Meteor};
 
             if (UnityEngine.Random.value < 0.1)
             {
@@ -301,6 +301,9 @@ namespace ChampionsOfForest
             {
                 gameObject.transform.localScale *= 0.35f;
 
+                    BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
+
+                
             }
 
             ArmorReduction = 0;
@@ -380,17 +383,20 @@ namespace ChampionsOfForest
         }
         IEnumerator FireAuraLoop()
         {
-            float dmg = 40f +Level*Level;
+            
+            float dmg = 40f *DamageAmp;
             if (BoltNetwork.isRunning)
             {
                 while (true)
                 {
                     yield return new WaitForSeconds(0.5f);
-                    foreach (var item in ModReferences.PlayerRemoteSetups)
+                    foreach (var item in ModReferences.AllPlayerEntities)
                     {
-                        if ((item.transform.position - transform.position).sqrMagnitude < 40)
+                        if ((item.transform.position - transform.position).sqrMagnitude < 80)
                         {
-                            item.hitFromEnemy((int)dmg/2);
+                            PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
+                            playerHitByEnemey.Damage = (int)dmg;
+                            playerHitByEnemey.Send();
                         }
                     }
                 }
@@ -399,7 +405,7 @@ namespace ChampionsOfForest
             {
                 while (true)
                 {
-                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 40)
+                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
                     {
                         LocalPlayer.Stats.Health -= Time.deltaTime * dmg;
                     }
@@ -412,6 +418,7 @@ namespace ChampionsOfForest
         private float StunCD;
         private float TrapCD;
         private float LaserCD;
+        private float MeteorCD;
         private void Update()
         {
             if (!setupComplete)
@@ -421,6 +428,7 @@ namespace ChampionsOfForest
            if(TrapCD > 0) TrapCD -= Time.deltaTime;
            if(StunCD > 0) StunCD -= Time.deltaTime;
            if(LaserCD > 0) LaserCD -= Time.deltaTime;
+           if(MeteorCD > 0) MeteorCD -= Time.deltaTime;
             Health = _Health.Health;
             bool inRange = false;
             closestPlayerMagnitude = agroRange;
@@ -468,6 +476,7 @@ namespace ChampionsOfForest
                 else if (abilities.Contains(Abilities.Tiny))
                 {
                     gameObject.transform.localScale = Vector3.one * 0.35f;
+                    BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
 
                 }
             }
@@ -500,7 +509,15 @@ namespace ChampionsOfForest
 
             if (inRange)
             {
-                if (abilities.Contains(Abilities.Blink))
+                if (abilities.Contains(Abilities.Meteor)&& MeteorCD<= 0)
+                {
+                    Vector3 dir = closestPlayer.transform.position;
+                    Network.NetworkManager.SendLine("MT" + dir.x + ";" + dir.y + ";" + dir.z + ";"+(int)Random.Range(-100000,100000)+";", Network.NetworkManager.Target.Everyone);
+                    MeteorCD = 50f;
+                }
+
+
+                    if (abilities.Contains(Abilities.Blink))
                 {
                     if (blinkCD <= 0)
                     {
@@ -518,7 +535,7 @@ namespace ChampionsOfForest
                     Vector3 dir = closestPlayer.transform.position;
                    
                     LaserCD = 100;
-                    Network.NetworkManager.SendLine("LA" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + dir.x + ";" + dir.y + ";" + dir.z + ";",Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("LA" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + dir.x + ";" + dir.y+2 + ";" + dir.z + ";",Network.NetworkManager.Target.Everyone);
 
 
                 }
@@ -739,7 +756,7 @@ namespace ChampionsOfForest
                 }
                 if (BoltNetwork.isRunning)
                 {
-                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt((float)ExpBounty / ModReferences.PlayerRemoteSetups.Count) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt((float)ExpBounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
                 }
                 else
                 {

@@ -12,12 +12,24 @@ namespace ChampionsOfForest.Enemies
     {
         public static readonly float poisonDuration = 10;
 
+        private Vector3 originalScale = Vector3.zero;
+        public void SetTriggerScaleForTiny()
+        {
+            if(originalScale == Vector3.zero)
+            {
+                originalScale = transform.localScale;
+            }
+            transform.localScale = originalScale* 3;
+
+        }
+
+
         [ModAPI.Attributes.Priority(100)]
         protected override void OnTriggerEnter(Collider other)
         {
             try
             {
-
+                
 
                 currState = animator.GetCurrentAnimatorStateInfo(0);
                 nextState = animator.GetNextAnimatorStateInfo(0);
@@ -178,9 +190,9 @@ namespace ChampionsOfForest.Enemies
                                                 BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
                                                 if (bo != null)
                                                 {
-                                                    for (int i = 0; i < ModReferences.PlayerRemoteSetups.Count; i++)
+                                                    for (int i = 0; i < ModReferences.AllPlayerEntities.Count; i++)
                                                     {
-                                                        if (ModReferences.PlayerRemoteSetups[i]._entity == bo)
+                                                        if (ModReferences.AllPlayerEntities[i] == bo)
                                                         {
                                                             Network.NetworkManager.SendLine("PO" + i + ";32;" + num / 15 + ";" + poisonDuration, Network.NetworkManager.Target.Others);
                                                             break;

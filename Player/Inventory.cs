@@ -92,6 +92,7 @@ namespace ChampionsOfForest.Player
                 ItemList[key].Amount -= amount;
                 if (ItemList[key].Amount <= 0)
                 {
+                    if (ItemList[key].Equipped) ItemList[key].onUnequip();
                     ItemList[key] = null;
                 }
                 return true;
