@@ -73,10 +73,29 @@
     </Description>
   </Button>
   <Name>
-    <EN>Champions Of The Forest Alpha</EN>
+    <EN>Champions of The Forest Alpha</EN>
   </Name>
   <Description>
-    <EN>WORK IN PROGRESS                I thought that the progress was pretty nice so i decided that i will share it on mapi hub ;)                      This is yet another mod made by Hazard. It features plenty of changes that completely change how you play the game. Please do not use it with PUP, this mod its successor.  Also give me that like on Modapi hub</EN>
+    <EN>	PERSONAL REQUEST: 
+ Hi there, Hazard here. Thank you for checking out whats new in v0.0.0.3 of Champions of The Forest.
+ If you use this mod and happen to find something spectacular, please make a screenshot with key F12. 
+ Soon i will be updating the COTF page on ModAPI website, and i thought that it would be cool to put 
+ some pretty images in there of the mod. 
+Anyways, after you make them, you can send them in a DM on discord (add me: Hazard#3003) or post them somewhere on ModAPI discord server. Thanks 
+	
+	WORK IN PROGRESS      
+ Mod is still in developement
+ Here are some tricks I left for easier testing: 
+ ○ Pressing F5 will spawn a random item pickup (works on MP)
+ And yeah, i think thats it. Wow.
+	
+ I'd be very grateful for any feedback related to Multiplayer.
+	
+ I thought that the progress was pretty nice so i decided that i will share it on mapi hub ;)                      
+	
+ This is yet another mod made by Hazard. It features plenty of changes that completely change how you play the game.
+ In order to use this mod, you also need BUILDER CORE and BUILDER MENU installed.
+ Please do not use it with PUP, this mod it's successor.  Also give me that like on Modapi hub</EN>
   </Description>
-  <Version>0.0.0.64</Version>
+  <Version>0.0.0.3</Version>
 </Mod>

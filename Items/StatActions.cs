@@ -1,54 +1,56 @@
-﻿namespace ChampionsOfForest.Items
+﻿using UnityEngine;
+
+namespace ChampionsOfForest.Items
 {
     internal class StatActions
     {
         public static void AddVitality(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.vitality += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.vitality += Mathf.RoundToInt( f);
         }
         public static void RemoveVitality(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.vitality -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.vitality -= Mathf.RoundToInt(f);
         }
         public static void AddStrenght(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.strenght += Mathf.RoundToInt(f);
         }
         public static void RemoveStrenght(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.strenght -= Mathf.RoundToInt(f);
         }
         public static void AddAgility(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.agility += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.agility += Mathf.RoundToInt(f);
         }
         public static void RemoveAgility(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.agility -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.agility -= Mathf.RoundToInt(f);
         }
         public static void AddIntelligence(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.intelligence += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.intelligence += Mathf.RoundToInt(f);
         }
         public static void RemoveIntelligence(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.intelligence -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.intelligence -= Mathf.RoundToInt(f);
         }
         public static void AddHealth(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealthBonus += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.HealthBonus += Mathf.RoundToInt(f);
         }
         public static void RemoveHealth(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealthBonus -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.HealthBonus -= Mathf.RoundToInt(f);
         }
         public static void AddEnergy(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus += Mathf.RoundToInt(f);
         }
         public static void RemoveEnergy(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus += Mathf.RoundToInt(f);
         }
         public static void AddHPRegen(float f)
         {
@@ -84,19 +86,19 @@
         }
         public static void AddDamageReduction(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DamageReduction *= 1 - f;
+            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f); 
         }
         public static void RemoveDamageReduction(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DamageReduction /= 1 - f;
+            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f);
         }
         public static void AddCritChance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.CritChance += f;
+            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.CritChance, f);
         }
         public static void RemoveCritChance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.CritChance -= f;
+            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.CritChance, f);
         }
         public static void AddCritDamage(float f)
         {
@@ -116,27 +118,27 @@
         }
         public static void AddDodgeChance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DodgeChance += f;
+            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.DodgeChance, f);
         }
         public static void RemoveDodgeChance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DodgeChance -= f;
+            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.DodgeChance, f);
         }
         public static void AddArmor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.Armor += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.Armor += Mathf.RoundToInt(f);
         }
         public static void RemoveArmor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.Armor -= (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f);
         }
         public static void AddMagicResistance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MagicResistance += f;
+            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.MagicResistance, f);
         }
         public static void RemoveMagicResistance(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MagicResistance -= f;
+            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.MagicResistance, f);
         }
         public static void AddAttackSpeed(float f)
         {
@@ -148,11 +150,11 @@
         }
         public static void AddExpFactor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.ExpFactor += f;
+            ChampionsOfForest.ModdedPlayer.instance.ExpFactor *= f;
         }
         public static void RemoveExpFactor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.ExpFactor -= f;
+            ChampionsOfForest.ModdedPlayer.instance.ExpFactor /= f;
         }
         public static void AddMaxMassacreTime(float f)
         {
@@ -164,27 +166,27 @@
         }
         public static void AddSpellDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier += f;
+            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier *= f;
         }
         public static void RemoveSpellDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier -= f;
+            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier /= f;
         }
         public static void AddMeleeDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier += f;
+            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier *= f;
         }
         public static void RemoveMeleeDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier -= f;
+            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier /= f;
         }
         public static void AddRangedDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier += f;
+            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier *= f;
         }
         public static void RemoveRangedDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier -= f;
+            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier /= f;
         }
         public static void AddSpellDamageBonus(float f)
         {
@@ -244,19 +246,19 @@
         }
         public static void AddHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier += f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier *= f;
         }
         public static void RemoveHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier -= f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier /= f;
         }
         public static void AddMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed += f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed *= f;
         }
         public static void RemoveMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed -= f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /= f;
         }
 
         //   public static void Add(float f)

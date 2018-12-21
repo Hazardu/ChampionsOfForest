@@ -12,7 +12,8 @@ namespace ChampionsOfForest
         public float MaxAmount = 0;
         public float Amount = 1;
         public float Multipier = 1;
-
+        public bool DisplayAsPercent = false;
+        public int RoundingCount = 0;
         public delegate void OnEquipDelegate(float f);
         public OnEquipDelegate OnEquip;
         public delegate void OnUnequipDelegate(float f);

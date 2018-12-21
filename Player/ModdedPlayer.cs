@@ -114,8 +114,11 @@ namespace ChampionsOfForest
         public bool StunImmune = false;
         public bool DebuffImmune = false;
         public float MoveSpeed = 1f;
-        public float SpellCostToStamina = 0;
+        public float SpellCostToStamina =0;
+        public float SpellCostRatio = 0;
         public float StaminaAttackCostReduction = 0;
+
+
         public float BlockFactor = 1;
         public float ExpFactor = 1;
         public long ExpCurrent = 15;
@@ -187,19 +190,21 @@ namespace ChampionsOfForest
                         }
                     }
                 }
-                LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
-                LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime;
-
-                if (poisonCount > 1)
+                if (dmgPerSecond != 0)
                 {
-                    BuffDB.AddBuff(1, 33, 0.7f, 1);
-                }
+                    LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
+                    LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime;
 
-                if (LocalPlayer.Stats.Health <= 0)
-                {
-                    LocalPlayer.Stats.Hit(1, true);
-                }
+                    if (poisonCount > 1)
+                    {
+                        BuffDB.AddBuff(1, 33, 0.7f, 1);
+                    }
 
+                    if (LocalPlayer.Stats.Health <= 0)
+                    {
+                        LocalPlayer.Stats.Hit(1, true);
+                    }
+                }
 
 
             }
@@ -207,15 +212,29 @@ namespace ChampionsOfForest
             {
                 ModAPI.Log.Write(e.ToString());
             }
-            if (Time.time % 10 == 5)
+            if (LocalPlayer.Stats != null)
             {
                 LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
                 LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
                 LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
                 LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
                 LocalPlayer.Stats.Skills.TotalRunDuration = 0;
+
+
+                if (LocalPlayer.Stats.Health < MaxHealth)
+                {
+                    if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
+                    {
+                        LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier;
+                    }
+                    else
+                    {
+                        LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier / 10;
+                    }
+                }
+                LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
             }
-            if (TimeUntillMassacreReset > 0)
+ if (TimeUntillMassacreReset > 0)
             {
                 TimeUntillMassacreReset -= Time.deltaTime;
                 if (TimeUntillMassacreReset <= 0)
@@ -229,19 +248,6 @@ namespace ChampionsOfForest
 
 
             }
-            if (LocalPlayer.Stats.Health < MaxHealth)
-            {
-                if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
-                {
-                    LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier;
-                }
-                else
-                {
-                    LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier / 10;
-                }
-            }
-            LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
-
             if (Stunned)
             {
                 if (StunImmune) Stunned = false;

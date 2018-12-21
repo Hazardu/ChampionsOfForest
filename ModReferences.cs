@@ -9,15 +9,21 @@ namespace ChampionsOfForest
         public static List<GameObject> Players
         {
             get;
-                       private set;
+            private set;
         }
+
         public static int ThisPlayerID
         {
             get;
             private set;
         }
+        public static ulong ThisPlayerPacked
+        {
+            get;
+            private set;
+        }
         public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
-     
+
         private void Start()
         {
             if (BoltNetwork.isRunning)
@@ -37,13 +43,13 @@ namespace ChampionsOfForest
         {
             try
             {
-  
+
                 Players.Clear();
                 AllPlayerEntities.Clear();
                 for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
                     Players.Add(Scene.SceneTracker.allPlayers[i]);
-                    if(Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
+                    if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
                     {
                         ThisPlayerID = i;
                     }
@@ -55,11 +61,7 @@ namespace ChampionsOfForest
                     }
                 }
 
-                
-                    ModAPI.Console.Write("ThisPlayerID " + ThisPlayerID);
-                    ModAPI.Console.Write("AllPlayerEntities " + AllPlayerEntities.Count);
-                    ModAPI.Console.Write("Players " + Players.Count);
-                
+                ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue;
             }
             catch (System.Exception e)
             {

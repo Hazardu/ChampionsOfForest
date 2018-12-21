@@ -16,10 +16,13 @@ namespace ChampionsOfForest
         /// <summary>
         /// spawns a pickup for the clinet.
         /// </summary>
-        public static void SpawnPickUp(Item item, Vector3 pos, int amount = 1, int id = -1)
+        public static void SpawnPickUp(Item item, Vector3 pos, int amount, int id)
         {
             try
             {
+
+
+
                 GameObject spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 spawn.AddComponent<Rigidbody>().mass = 25;
                 spawn.transform.position = pos;
@@ -111,7 +114,7 @@ namespace ChampionsOfForest
 
                 if (pickupMaterial == null)
                 {
-                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.yellow, Metalic = 0.8f, Smoothness = 0.9f, EmissionColor = new Color(0.2f, 0.2f, 0.2f) });
+                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.2f, Smoothness = 0.6f });
 
                 }
                 renderer.material = pickupMaterial;
@@ -124,23 +127,19 @@ namespace ChampionsOfForest
                     l.shadowStrength = 1;
                     l.color = MainMenu.RarityColors[item.Rarity];
                     l.intensity = 1f;
-                    l.range = 6f;
+                    l.range = 4f;
                     if (item.Rarity > 4)
                     {
-
+                        //particle effect
+                        l.range = 6f;
+                        l.intensity = 1.5f;
+                        l.cookie = Res.ResourceLoader.GetTexture(24);
                     }
                 }
                 spawn.AddComponent<MeshCollider>().convex = true;
 
                 ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
-                if (id == -1)
-                {
-                    id = 0;
-                    while (PickUps.ContainsKey(id))
-                    {
-                        id++;
-                    }
-                }
+             
                 pickup.item = item;
                 pickup.amount = amount;
                 pickup.ID = id;

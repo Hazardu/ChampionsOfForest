@@ -1,4 +1,5 @@
-﻿using FMOD.Studio;
+﻿using ChampionsOfForest.Player;
+using FMOD.Studio;
 using System;
 using TheForest.Items.Inventory;
 using TheForest.Tools;
@@ -10,6 +11,13 @@ namespace ChampionsOfForest
 {
     public class PlayerStatsEx : PlayerStats
     {
+
+        protected override void Start()
+        {
+            PlayerInventoryMod.SetupComplete = false;
+            base.Start();
+        }
+
         protected override void Update()
         {
             if (!(Scene.Atmosphere == null) && !SteamDSConfig.isDedicatedServer)

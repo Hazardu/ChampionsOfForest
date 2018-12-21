@@ -6,6 +6,6 @@
         public static Difficulty difficulty = Difficulty.Normal;
         public static bool DifficultyChoosen = false;
         public static bool FriendlyFire = true;
-        public static string Version = "0.0.0.2";
+        public static string Version = "0.0.0.3";
     }
 }

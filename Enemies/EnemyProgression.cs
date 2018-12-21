@@ -18,7 +18,6 @@ namespace ChampionsOfForest
         public BoltEntity entity;
         public mutantScriptSetup setup;
 
-
         public string EnemyName;
         public int Level;
         public float Health;
@@ -54,7 +53,6 @@ namespace ChampionsOfForest
             "NightOwl",
             "PuffedRice",
             "PhoenixDeath",
-            "PlsunbanmeonBBdiscord",
             "Lyon the weeb",
             "Danny Parker",
             "Kaspito",
@@ -167,7 +165,7 @@ namespace ChampionsOfForest
             }
             SteadFest = 100;
 
-            abilities = new List<Abilities>() { Abilities.Laser, Abilities.Meteor};
+            abilities = new List<Abilities>();
 
             if (UnityEngine.Random.value < 0.1)
             {

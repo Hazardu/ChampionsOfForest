@@ -21,10 +21,10 @@ namespace ChampionsOfForest.Player
                     color = Color.green
                 };
             }
-            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            go.GetComponent<Renderer>().material = material;
-            Destroy(go.GetComponent<Collider>());
-            go.transform.localScale = Vector3.one * radius * 2;
+            GameObject go = new GameObject();
+            go.AddComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[68];
+            go.AddComponent<MeshRenderer>().material = material;
+            go.transform.localScale = Vector3.one * radius;
             go.transform.position = pos;
             HealingDome d = go.AddComponent<HealingDome>();
             d.radius = radius;

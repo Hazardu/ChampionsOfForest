@@ -62,8 +62,6 @@ namespace ChampionsOfForest.Res
                 if (string.IsNullOrEmpty(Resource.path))
                 {
                     Resource.path = Application.dataPath + "/COTF Files/";
-
-                    //ModAPI.Console.Write(Resource.path);
                 }
 
             }

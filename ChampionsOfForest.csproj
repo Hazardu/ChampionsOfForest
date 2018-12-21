@@ -190,6 +190,7 @@
 <Compile Include="Player\ArrowDamageMod.cs"  />
 <Compile Include="Player\BuffDataBase.cs"  />
 <Compile Include="Network\CommandReader.cs"  />
+<Compile Include="Player\CrossBowControllerMod.cs"  />
 <Compile Include="Player\CustomWeapon.cs"  />
 <Compile Include="Player\FPCharacterMod.cs"  />
 <Compile Include="Player\HealingDome.cs"  />

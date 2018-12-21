@@ -71,23 +71,6 @@ namespace ChampionsOfForest.Player
                     };
                 }
 
-                //Testing 
-
-                //Spell bhole = new Spell()
-                //{
-                //    Bought = true,
-                //    CanCast = true,
-                //    BaseCooldown = 10,
-                //    Description = "creates a black hole",
-                //    EnergyCost = 5,
-                //    icon = Texture2D.whiteTexture,
-                //    ID = 1,
-                //    level = 1,
-                //    Levelrequirement = 1,
-                //    Name = "Black Hole",
-                //};
-                //bhole.active = new Spell.Active(CreatePlayerBlackHole);
-
                 SetSpell(0, SpellDataBase.spellDictionary[1]);
                 SetMaxCooldowns();
 
@@ -136,10 +119,10 @@ namespace ChampionsOfForest.Player
                         string btnname = "spell" + (i + 1).ToString();
                         if (ModAPI.Input.GetButton(btnname))
                         {
-                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina && infos[i].spell.CanCast)
+                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
                             {
-                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina;
-                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina);
+                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina *(1-ModdedPlayer.instance.SpellCostRatio);
+                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
                                 Ready[i] = false;
                                 MaxCooldown(i);
                                 infos[i].spell.active();
@@ -165,6 +148,7 @@ namespace ChampionsOfForest.Player
                 if (infos[i].spell != null)
                 {
                     infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
+                    Ready[i] = false;
                 }
             }
         }
@@ -173,6 +157,8 @@ namespace ChampionsOfForest.Player
             if (infos[i].spell != null)
             {
                 infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
+                Ready[i] = false;
+
             }
         }
         public class SpellInfo

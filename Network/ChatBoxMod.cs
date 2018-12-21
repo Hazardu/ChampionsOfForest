@@ -41,8 +41,6 @@ namespace ChampionsOfForest.Network
                 {
                     base.AddLine(playerId, message, system);
                 }
-        
-        }
-
+                }
     }
 }

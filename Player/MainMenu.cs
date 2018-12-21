@@ -126,7 +126,7 @@ namespace ChampionsOfForest
                 Instance = this;
             }
         }
-
+        private Matrix4x4 matrixBackup;
         private void Start()
         {
 
@@ -144,7 +144,7 @@ namespace ChampionsOfForest
                 _blackTexture = new Texture2D(1, 1);
                 _blackTexture.SetPixel(0, 0, new Color(0, 0, 0, 0));
                 _blackTexture.Apply();
-
+                matrixBackup = GUI.matrix;
                 MenuInteractable = true;
 
 
@@ -167,7 +167,9 @@ namespace ChampionsOfForest
                 _SpellFrame = ResourceLoader.instance.LoadedTextures[6];
                 _SpellCoolDownFill = ResourceLoader.instance.LoadedTextures[8];
                 //Inventory
+
                 DraggedItemIndex = -1;
+
                 DraggedItem = null;
                 semiBlack = new Texture2D(1, 1);
             }
@@ -200,130 +202,140 @@ namespace ChampionsOfForest
         //Draws everything
         private void OnGUI()
         {
-            GUI.backgroundColor = Color.white;
-            GUI.contentColor = Color.white;
-
-            //DETAIL-----------------------------------------------------------------------------
-            //GUI.skin.horizontalSlider.fixedWidth = 150;
-            //GUI.skin.horizontalSlider.fontSize = 30;
-            //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
-            //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
-            //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
-            //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-            ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-            ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-            //foreach (var item in PlayerInventoryMod.customWeapons.Values)
-            //{
-            //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-            //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-            //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-            //}
-
-            //BIG OFFSET-----------------------------------------------------------------------------
-            //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-            //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-            //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-            //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-            //foreach (var item in PlayerInventoryMod.customWeapons)
-            //{
-            //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-            //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-            //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-            //}
-
-            GUI.skin.label.normal.textColor = Color.white;
-            GUI.skin.label.onNormal.textColor = Color.white;
-            GUI.contentColor = Color.white;
-            GUI.backgroundColor = Color.white;
-            GUI.color = Color.white;
-            GUI.skin.label.clipping = TextClipping.Overflow;
-            GUI.skin.label.richText = true;
-
-
-        mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
-
-            if (!ModSettings.DifficultyChoosen)
+            try
             {
-                if (GameSetup.IsMpClient)
+
+
+                GUI.backgroundColor = Color.white;
+                GUI.contentColor = Color.white;
+
+                //DETAIL-----------------------------------------------------------------------------
+                //GUI.skin.horizontalSlider.fixedWidth = 150;
+                //GUI.skin.horizontalSlider.fontSize = 30;
+                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
+                //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
+                ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                //}
+
+                //BIG OFFSET-----------------------------------------------------------------------------
+                //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+                //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+                //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                //}
+
+                GUI.skin.label.normal.textColor = Color.white;
+                GUI.skin.label.onNormal.textColor = Color.white;
+                GUI.contentColor = Color.white;
+                GUI.backgroundColor = Color.white;
+                GUI.color = Color.white;
+                GUI.skin.label.clipping = TextClipping.Overflow;
+                GUI.skin.label.richText = true;
+
+
+                mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
+
+                if (!ModSettings.DifficultyChoosen)
                 {
-                    DifficultySelectionClinet();
+                    if (GameSetup.IsMpClient)
+                    {
+                        DifficultySelectionClinet();
+                    }
+                    else
+                    {
+                        DifficultySelectionHost();
+                    }
                 }
                 else
                 {
-                    DifficultySelectionHost();
+                    if (HUDStatStyle == null)
+                    {
+                        HUDStatStyle = new GUIStyle(GUI.skin.label)
+                        {
+                            font = MainFont,
+                            fontSize = Mathf.RoundToInt(33 * rr),
+                            alignment = TextAnchor.LowerRight,
+                            wordWrap = false,
+                            clipping = TextClipping.Overflow,
+                        };
+                    }
+
+                    if (MenuBtnStyle == null)
+                    {
+                        MenuBtnStyle = new GUIStyle(GUI.skin.label)
+                        {
+                            font = MainFont,
+                            alignment = TextAnchor.MiddleCenter,
+                            fontSize = Mathf.RoundToInt(37 * rr),
+                            wordWrap = false,
+                        };
+                    }
+
+                    try
+                    {
+
+
+                        switch (_openedMenu)
+                        {
+                            case OpenedMenuMode.Main:
+                                GUI.DrawTexture(wholeScreen, _black);
+
+                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
+
+                                DrawMain();
+                                break;
+                            case OpenedMenuMode.Inventory:
+                                GUI.DrawTexture(wholeScreen, _black);
+                                DrawInventory();
+
+                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
+                                break;
+                            case OpenedMenuMode.Hud:
+                                InventoryScrollAmount = 0;
+                                DrawHUD();
+                                break;
+                            case OpenedMenuMode.Spells:
+                                GUI.DrawTexture(wholeScreen, _black);
+                                DrawSpellMenu();
+
+                                break;
+                            case OpenedMenuMode.Stats:
+                                GUI.DrawTexture(wholeScreen, _black);
+                                DrawStats();
+
+                                break;
+                            case OpenedMenuMode.Perks:
+                                GUI.DrawTexture(wholeScreen, _black);
+                                DrawPerks();
+
+                                break;
+                        }
+                        GUI.DrawTexture(wholeScreen, _blackTexture);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        ModAPI.Log.Write(ex.ToString());
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                if (HUDStatStyle == null)
-                {
-                    HUDStatStyle = new GUIStyle(GUI.skin.label)
-                    {
-                        font = MainFont,
-                        fontSize = Mathf.RoundToInt(33 * rr),
-                        alignment = TextAnchor.LowerRight,
-                        wordWrap = false,
-                        clipping = TextClipping.Overflow,
-                    };
-                }
 
-                if (MenuBtnStyle == null)
-                {
-                    MenuBtnStyle = new GUIStyle(GUI.skin.label)
-                    {
-                        font = MainFont,
-                        alignment = TextAnchor.MiddleCenter,
-                        fontSize = Mathf.RoundToInt(37 * rr),
-                        wordWrap = false,
-                    };
-                }
-
-                try
-                {
-
-
-                    switch (_openedMenu)
-                    {
-                        case OpenedMenuMode.Main:
-                            GUI.DrawTexture(wholeScreen, _black);
-
-                            //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
-
-                            DrawMain();
-                            break;
-                        case OpenedMenuMode.Inventory:
-                            GUI.DrawTexture(wholeScreen, _black);
-                            DrawInventory();
-
-                            //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
-                            break;
-                        case OpenedMenuMode.Hud:
-                            InventoryScrollAmount = 0;
-                            DrawHUD();
-                            break;
-                        case OpenedMenuMode.Spells:
-                            GUI.DrawTexture(wholeScreen, _black);
-                            DrawSpellMenu();
-
-                            break;
-                        case OpenedMenuMode.Stats:
-                            GUI.DrawTexture(wholeScreen, _black);
-                            DrawStats();
-
-                            break;
-                        case OpenedMenuMode.Perks:
-                            GUI.DrawTexture(wholeScreen, _black);
-                            DrawPerks();
-
-                            break;
-                    }
-                    GUI.DrawTexture(wholeScreen, _blackTexture);
-                }
-                catch (Exception ex)
-                {
-
-                    ModAPI.Log.Write(ex.ToString());
-                }
+                ModAPI.Log.Write(e.ToString());
             }
         }
 
@@ -363,7 +375,7 @@ namespace ChampionsOfForest
                 Rect r3 = new Rect(r1);
                 Rect r4 = new Rect(r1);
                 float Mindist = 500f / 1500f;
-                Mindist *=(float) r1.width;
+                Mindist *= r1.width;
                 MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Inventory", new Vector2(1, -1), ref Opacity1);
                 r2.position = center - r1.size;
                 MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Skills", new Vector2(-1, 1), ref Opacity2);
@@ -643,7 +655,6 @@ namespace ChampionsOfForest
 
                 DrawItemInfo(itemPos, Inventory.Instance.ItemList[SelectedItem]);
             }
-            //ModAPI.Console.Write(DraggedItemIndex.ToString());
 
             if (isDragging)
             {
@@ -665,12 +676,12 @@ namespace ChampionsOfForest
 
 
 
-
         private void DrawItemInfo(Vector2 pos, Item item)
         {
             float width = 390 * rr;
             Vector2 originalPos = pos;
             pos.x += 5 * rr;
+
             if (pos.x + width > Screen.width)
             {
                 pos.x -= width + slotDim.x;
@@ -713,7 +724,18 @@ namespace ChampionsOfForest
             descriptionBox.height = toolTipRect.yMax - descriptionBox.y + 5;
             if (descriptionBox.yMax > Screen.height)
             {
-
+                float f = Screen.height - descriptionBox.yMax;
+                descriptionBox.y += f;
+                ItemNameRect.y += f;
+                for (int i = 0; i < StatRects.Length; i++)
+                {
+                    StatRects[i].y += f;
+                }
+                LevelAndTypeRect.y += f;
+                DescrRect.y += f;
+                LoreRect.y += f;
+                toolTipTitleRect.y += f;
+                toolTipRect.y += f;
             }
             GUI.DrawTexture(descriptionBox, _black);
             GUI.color = RarityColors[item.Rarity];
@@ -722,8 +744,21 @@ namespace ChampionsOfForest
             {
                 GUI.color = RarityColors[item.Stats[i].Rarity];
                 GUI.Label(StatRects[i], item.Stats[i].Name, StatNameStyle);
-                GUI.Label(StatRects[i], item.Stats[i].Amount.ToString(), StatValueStyle);
-
+                double amount = item.Stats[i].Amount;
+                if (item.Stats[i].DisplayAsPercent)
+                {
+                    amount *= 100;
+                }
+                    amount = Math.Round(amount, item.Stats[i].RoundingCount);
+                
+                if (item.Stats[i].DisplayAsPercent)
+                {
+                    GUI.Label(StatRects[i], amount.ToString() + "%", StatValueStyle);
+                }
+                else
+                {
+                    GUI.Label(StatRects[i], amount.ToString(), StatValueStyle);
+                }
             }
             GUI.color = Color.white;
             switch (item._itemType)
@@ -1227,7 +1262,7 @@ namespace ChampionsOfForest
                 XPbarFill.width *= (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal;
                 Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
                 GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
-                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0,0,(float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, 1));
+                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, 1));
                 GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
                 // GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
                 //{
@@ -1238,7 +1273,7 @@ namespace ChampionsOfForest
                 //    clipping = TextClipping.Overflow,
                 //};
                 //GUI.Label(XPbar, ModdedPlayer.instance.ExpCurrent + "/" + ModdedPlayer.instance.ExpGoal + "       " + Mathf.Floor(ModdedPlayer.instance.ExpCurrent * 100 / ModdedPlayer.instance.ExpGoal) + "%", expInfoStyle);
-                GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex,new Rect(0,0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime),1));
+                GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
 
 
 
@@ -1290,7 +1325,7 @@ namespace ChampionsOfForest
                                     wordWrap = false,
                                     clipping = TextClipping.Overflow,
                                     richText = true,
-                                   
+
                                 };
 
                                 Vector2 origin = wholeScreen.center;
@@ -1771,24 +1806,57 @@ namespace ChampionsOfForest
 
         }
         #endregion
+        private void DrawLine(Vector2 pointA, Vector2 pointB, float length, Color color)
+        {
 
+            Color c = GUI.color;
+
+            float width = 20.0f * rr;
+            GUI.color = color;
+            float angle = Mathf.Atan2(pointB.y - pointA.y, pointB.x - pointA.x) * 180f / Mathf.PI;
+
+            GUIUtility.RotateAroundPivot(angle, pointA);
+            GUI.DrawTexture(new Rect(pointA.x, pointA.y, length, width), Res.ResourceLoader.GetTexture(71));
+            GUI.matrix = matrixBackup;
+            GUI.color = c;
+
+        }
 
         private Perk.PerkCategory _perkpage = Perk.PerkCategory.MeleeOffense;
-        private float[] _perkCategorySizes = new float[6];
+        private readonly float[] _perkCategorySizes = new float[6];
         private int[] DisplayedPerkIDs = new int[0];
         private Vector2 currentPerkOffset;
         private Vector2 targetPerkOffset;
         private float _perkDetailAlpha;
         private float _timeToBuyPerk;
+
+        private bool PerkEnabled(Perk perk)
+        {
+            if (perk.InheritIDs.Length == 0)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < perk.InheritIDs.Length; i++)
+            {
+                if (perk.InheritIDs[i] == -1) { return true; }
+                else if (Perk.AllPerks[perk.InheritIDs[i]].IsBought)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void DrawPerks()
         {
-            if(mousepos.y > Screen.height - 30 * rr)
+            if (mousepos.y > Screen.height - 30 * rr)
             {
                 targetPerkOffset += Vector2.down * Time.deltaTime * 300;
             }
-            else if (mousepos.y <30 * rr)
+            else if (mousepos.y < 30 * rr)
             {
-                targetPerkOffset += Vector2.down * Time.deltaTime *-300;
+                targetPerkOffset += Vector2.down * Time.deltaTime * -300;
 
             }
             if (mousepos.x > Screen.width - 30 * rr)
@@ -1808,7 +1876,7 @@ namespace ChampionsOfForest
             float btnSize = 250 * rr;
             float bigBtnSize = 40 * rr;
             float offset = Screen.width / 2 - (menus.Length * btnSize + bigBtnSize) / 2;
-            
+
             for (int i = 0; i < menus.Length; i++)
             {
                 Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);
@@ -1850,47 +1918,115 @@ namespace ChampionsOfForest
                         content = ((Perk.PerkCategory)menus.GetValue(i)).ToString();
                         break;
                 }
-                if (GUI.Button(topButton, content,new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }))
+                if (GUI.Button(topButton, content, new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }))
                 {
                     _perkpage = (Perk.PerkCategory)menus.GetValue(i);
                     targetPerkOffset = wholeScreen.center;
                     currentPerkOffset = targetPerkOffset;
                 }
-               
 
-            }bool Hovered =false;
+
+            }
+
+            bool Hovered = false;
             bool Buying = false;
-            foreach (int a in DisplayedPerkIDs) 
+            foreach (int a in DisplayedPerkIDs)
+            {
+                //Bought color - white,
+                //Enabled color - gray,
+                //Disabled - no line,
+
+                Perk p1 = Perk.AllPerks[a];
+                Vector2 pos1 = new Vector2(Mathf.Cos(p1.Angle), Mathf.Sin(p1.Angle)) * p1.Radius * rr + currentPerkOffset;
+
+                for (int i = 0; i < p1.InheritIDs.Length; i++)
                 {
+                    if (p1.IsBought)
+                    {
+                        if (p1.InheritIDs[i] != -1)
+                        {
+                            Vector2 pos2 = new Vector2(Mathf.Cos(Perk.AllPerks[p1.InheritIDs[i]].Angle), Mathf.Sin(Perk.AllPerks[p1.InheritIDs[i]].Angle)) * Perk.AllPerks[p1.InheritIDs[i]].Radius * rr;
+
+                            if (Perk.AllPerks[p1.InheritIDs[i]].IsBought)
+                            {
+                                //Draw full bought line
+                                DrawLine(pos1, pos2, (pos1 - pos2).magnitude, Color.white);
+                            }
+                            else
+                            {
+                                //Draw enabled line
+                                DrawLine(pos1, pos2, (pos1 - pos2).magnitude, Color.gray);
+
+                            }
+                        }
+                        else
+                        {
+                            DrawLine(pos1, currentPerkOffset, (pos1 - currentPerkOffset).magnitude, Color.white);
+
+                        }
+                    }
+                    else
+                    {
+                        if (p1.InheritIDs[i] != -1)
+                        {
+                            Vector2 pos2 = new Vector2(Mathf.Cos(Perk.AllPerks[p1.InheritIDs[i]].Angle), Mathf.Sin(Perk.AllPerks[p1.InheritIDs[i]].Angle)) * Perk.AllPerks[p1.InheritIDs[i]].Radius * rr;
+                            if (Perk.AllPerks[p1.InheritIDs[i]].IsBought)
+                            {
+                                DrawLine(pos1, pos2, (pos1 - pos2).magnitude, Color.gray);
+                            }
+                        }
+                        else
+                        {
+                            //If is a tier 0 perk, which is always enabled
+                            if (PerkEnabled(p1))
+                            {
+                                DrawLine(pos1, currentPerkOffset, (pos1 - currentPerkOffset).magnitude, Color.gray);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            foreach (int a in DisplayedPerkIDs)
+            {
                 Perk p = Perk.AllPerks[a];
-                Vector2 pos = new Vector2(Mathf.Cos(p.Angle), Mathf.Sin(p.Angle)) * p.Radius*rr;
+                Vector2 pos = new Vector2(Mathf.Cos(p.Angle), Mathf.Sin(p.Angle)) * p.Radius * rr;
                 pos += currentPerkOffset;
-                Vector2 size = new Vector2(50 * rr, 50 * rr) * (1+p.Tier/3);
+                Vector2 size = new Vector2(50 * rr, 50 * rr) * (1 + p.Tier / 3);
                 Rect r = new Rect(pos, size);
                 if (r.Contains(mousepos))
                 {
+                    Hovered = true;
+
                     //draw detail about the perk
                     _perkDetailAlpha = Mathf.Clamp(_perkDetailAlpha + Time.deltaTime, 0.0f, 1.7f);
                     r.size = new Vector2(100 * rr, 100 * rr) * (1 + p.Tier / 3);
                     r.position -= Vector2.one * 25 * (1 + p.Tier / 3);
-                    Hovered = true;
 
-                    if (_perkDetailAlpha >= 0.7f) {
+                    if (_perkDetailAlpha >= 0.7f)
+                    {
                         GUI.color = new Color(1, 1, 1, _perkDetailAlpha - 0.7f);
-                        Rect Name = new Rect(r.x - 200 * rr, r.y- 100 * rr, 400 * rr + r.width, 100 * rr);
-                        Rect Desc = new Rect(r.x - 200 * rr, r.yMax+ 30 * rr, 400 * rr + r.width, 1000 * rr);
+                        Rect Name = new Rect(r.x - 200 * rr, r.y - 100 * rr, 400 * rr + r.width, 100 * rr);
+                        Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
                         string desctext = p.Description;
                         if (!p.IsBought)
                         {
                             desctext = "HOLD LEFT MOUSE BUTTON TO BUY\n \n" + p.Description;
                             Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
-                            Rect Cost = new Rect(r.xMax+40*rr, r.y, 400 * rr, r.height);
-                            GUI.Label(LevelReq, "Level "+p.LevelRequirement+" required", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
+                            Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
+                            GUI.Label(LevelReq, "Level " + p.LevelRequirement + " required", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
                             GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
-                            if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.PerkPoints >= p.PointsToBuy)
+                            if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.PerkPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[a]) && Perk.AllPerks[a].LevelRequirement <= ModdedPlayer.instance.Level)
                             {
                                 _timeToBuyPerk += Time.deltaTime;
                                 Buying = true;
+                                Rect buyRect = new Rect(r);
+                                buyRect.width *= _timeToBuyPerk;
+                                GUI.color = Color.red;
+                                GUI.DrawTexture(buyRect, Texture2D.whiteTexture);
+                                GUI.color = Color.white;
                                 if (_timeToBuyPerk >= 1)
                                 {
                                     ModdedPlayer.instance.PerkPoints -= p.PointsToBuy;
@@ -1912,17 +2048,17 @@ namespace ChampionsOfForest
 
                     }
                 }
-                              if (!Buying)
+      
+                GUI.DrawTexture(r, Texture2D.whiteTexture);
+
+            }
+          if (!Buying)
                 {
-                    _timeToBuyPerk =0;
+                    _timeToBuyPerk = 0;
                 }
                 if (!Hovered)
                 {
-                    _perkDetailAlpha = Mathf.Clamp(_perkDetailAlpha - Time.deltaTime*3, 0.0f, 1.7f);
-
-                }
-
-                GUI.DrawTexture(r, Texture2D.whiteTexture);
+                    _perkDetailAlpha = 0;
 
                 }
 

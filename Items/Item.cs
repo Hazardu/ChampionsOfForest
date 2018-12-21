@@ -94,7 +94,10 @@ namespace ChampionsOfForest
             Equipped = true;
             foreach (ItemStat item in Stats)
             {
-                item.OnEquip(item.Amount);
+                if (item.Amount != 0)
+                {
+                    item.OnEquip(item.Amount);
+                }
             }
             onEquip();
         }
@@ -103,7 +106,10 @@ namespace ChampionsOfForest
             Equipped = false;
             foreach (ItemStat item in Stats)
             {
-                item.OnUnequip(item.Amount);
+                if (item.Amount != 0)
+                {
+                    item.OnUnequip(item.Amount);
+                }
             }
             onUnequip();
         }
@@ -113,7 +119,10 @@ namespace ChampionsOfForest
             {
                 foreach (ItemStat item in Stats)
                 {
-                    item.OnConsume(item.Amount);
+                    if (item.Amount != 0)
+                    {
+                        item.OnConsume(item.Amount);
+                    }
                 }
                 return true;
             }

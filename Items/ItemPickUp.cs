@@ -22,7 +22,7 @@ namespace ChampionsOfForest
                 rb = gameObject.AddComponent<Rigidbody>();
             }
 
-            rb.mass = 10;
+            rb.mass = 1;
             if (mainCam == null)
             {
                 mainCam = Camera.main;
@@ -54,15 +54,15 @@ namespace ChampionsOfForest
                     center = pos
                 };
                 label = item.name;
-                if (constantViewTime > 1)
+                if (constantViewTime > 0.5f)
                 {
                     label += " \n x" + amount;
                 }
-                if (constantViewTime > 2)
+                if (constantViewTime > 1f)
                 {
                     label += " \n Level " + item.level;
                 }
-                GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
+                GUIStyle style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
                 float height = style.CalcHeight(new GUIContent(label), r.width);
                 style.margin = new RectOffset(10, 10, 10, 10);
                 Rect bg = new Rect(r)
@@ -86,7 +86,14 @@ namespace ChampionsOfForest
         {
             Destroy(gameObject);
         }
-
+        void Update()
+        {
+            if (amount <= 0)
+            {
+                PickUpManager.RemovePickup(ID);
+                Destroy(gameObject);
+            }
+        }
         public bool PickUp()
         {
             if (item.PickUpAll)
@@ -94,8 +101,9 @@ namespace ChampionsOfForest
                 if (Player.Inventory.Instance.AddItem(item, amount))
                 {
                     Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
+                    PickUpManager.RemovePickup(ID);
+                    Destroy(gameObject);
                     return true;
-
                 }
             }
             else
@@ -106,7 +114,8 @@ namespace ChampionsOfForest
                     if (amount <= 0)
                     {
                         Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
-
+                        PickUpManager.RemovePickup(ID);
+                        Destroy(gameObject);
                     }
                     return true;
 

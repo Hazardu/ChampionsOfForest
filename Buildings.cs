@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BuilderCore;
-using BuilderMenu;
+﻿using BuilderCore;
 using ChampionsOfForest.Res;
 using UnityEngine;
 
 namespace ChampionsOfForest
-{  
+{
     //adds prefabs using Builder core
     public class Buildings
     {
@@ -22,8 +17,9 @@ namespace ChampionsOfForest
                     {
                         mesh = ResourceLoader.instance.LoadedMeshes[21],
                         MainTexture = ResourceLoader.instance.LoadedTextures[20],
-                        renderMode = BuildingData.RenderMode.Fade,
-                        //EmissionColor = Color.white,
+                        renderMode = BuildingData.RenderMode.Transparent,
+                        EmissionColor = new Color(0.2f,0.2f,0.2f),
+                        Smoothness =0,
                         EmissionMap = ResourceLoader.instance.LoadedTextures[20],
                         AddCollider = false,
                     }
@@ -31,13 +27,12 @@ namespace ChampionsOfForest
             };
             Core.AddBuilding(blackHole, 401);
             Core.prefabs[401].SetActive(true);
-            //Core.prefabs[401].GetComponent<Renderer>().material.mainTexture = ResourceLoader.instance.LoadedTextures[20];
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             sphere.transform.localScale = Vector3.one * 2;
             sphere.GetComponent<Renderer>().material = Core.CreateMaterial(new BuildingData() { MainColor = Color.black, Smoothness = 0, Metalic = 1 });
             sphere.transform.SetParent(Core.prefabs[401].transform);
             sphere.transform.localPosition = Vector3.zero;
-          
+
             Light l = sphere.AddComponent<Light>();
             l.intensity = 2.3f;
             l.range = 60;
@@ -46,7 +41,7 @@ namespace ChampionsOfForest
             l.cookieSize = 4;
             l.type = LightType.Point;
             Core.prefabs[401].SetActive(false);
-
+            ModAPI.Log.Write("Successfully added black hole [building with id 401]");
 
         }
     }
