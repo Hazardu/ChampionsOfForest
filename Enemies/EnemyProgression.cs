@@ -38,7 +38,7 @@ namespace ChampionsOfForest
             "Hazard",
             "Moritz",
             "Souldrinker",
-            "Broadbent",
+            "Olivier Broadbent",
             "Subscribe to Pewds",
             "Kutie",
             "Axt",
@@ -73,12 +73,32 @@ namespace ChampionsOfForest
             "Komissar bAv",
             "The Strange Man",
             "Micha",
+            "MiikaHD",
             "NÜT",
             "AssPirate",
             "Azpect",
             "LumaR",
             "TeigRolle",
             "Foreck",
+            "Gaullin",
+            "Alichipmunk",
+            "Chad",
+            "Blight",
+            "Cheddar",
+            "CHUNGUS",
+            "Do you want anything from MC Donalds?\n🅱orgar",
+            "MaVladd",
+            "Wren",
+            "Ross Draws",
+            "Sam Gorski",
+            "Mike Diva",
+            "Niko Pueringer",
+            "Freddy Wong",
+            "PewDiePie",
+            "Salad Ass",
+            "Morgan Page",
+            "Hex Cougar",
+            "Unlike Pluto",
             "Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan",
             "Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi",
             "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon",
@@ -110,13 +130,28 @@ namespace ChampionsOfForest
         private void RollName()
         {
             List<string> names = new List<string>();
+            string prefix = "";
             if (_AI.female || _AI.creepy || _AI.femaleSkinny)    //is female
             {
-                names.AddRange(new string[] { "Lizz Plays", "Wolfskull", "Wiktoria", "Olivier Broadbent, who put '!' in the title of every single one of his videos.", "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "CharlotteAmelia", "Evelyn", "Abigail", "Harper", "Emily", "Elizabeth", "Avery", "Sofia", "Ella", "Madison", "Scarlett", "Victoria", "Aria", "GraceChloe", "Camila", "Penelope", "Riley", "Layla", "Lillian", "Nora", "Zoey", "Mila", "Aubrey", "Hannah", "Lily", "Addison", "Eleanor", "Natalie", "Luna", "Savannah", "Brooklyn", "Leah", "Zoe", "Stella", "Hazel", "Ellie", "Paisley", "Audrey", "Skylar", "Violet", "Claire", "Bella", "Aurora", "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Kinsley", "Allison", "Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice", "Sadie", "Hailey", "Eva", "Emilia", "Autumn", "Quinn", "Nevaeh", "Piper", "Ruby", "Serenity", "Willow", "Everly", "Cora", "Kaylee", "Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina", "Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Brielle", "Delilah", "Isla", "Rylee", "Katherine", "Sophie", "Josephine", "Ivy", "Liliana", "Jade", "Maria", "Taylor", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia", "Annabelle", "Faith", "Alexandra", "Ximena", "Ashley", "Brianna", "Raelynn", "Bailey", "Mary", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa", "Adalyn", "Arya", "Norah", "Khloe", "Kayla", "Eden", "Eliza", "Rose", "Ariel", "Melody", "Alexis" });
+                prefix = "♀ ";
+                names.AddRange(new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
+                    "Olivier Broadbent, who put '!' in the title of every single one of his videos.",
+                    "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia", 
+                    "Victoria",  "Chloe", "Camila", "Layla", "Lillian","Dora the explorer", "Zoey", "Hannah", "Lily",
+                    "Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
+                    "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
+                    "Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice",
+                    "Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Ruby", "Serenity", "Willow", "Everly",  "Kaylee",
+                    "Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina",
+                    "Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Brielle", "Delilah", "Isla", "Rylee",
+                    "Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
+                    "Annabelle", "Faith", "Alexandra", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa",
+                    "Eliza", "Rose", "Ariel", "Alexis","xKito","Sophie Francis","Albedo" });
 
             }
             else                                                 // is male
             {
+                prefix = "♂ ";
                 names.AddRange(Mnames);
             }
             if (_AI.creepy_male)
@@ -127,7 +162,7 @@ namespace ChampionsOfForest
             {
                 names.Add("Zebulon");
             }
-            EnemyName = names[Random.Range(0, names.Count)];
+            EnemyName = prefix + names[Random.Range(0, names.Count)];
 
         }
 

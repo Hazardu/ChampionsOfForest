@@ -33,7 +33,15 @@ namespace ChampionsOfForest
                 amount = item.Amount;
             }
             item.Amount = 1;
-
+            Destroy(gameObject, 1500);  //delete after 25 minutes
+            try
+            {
+                PickUpManager.RemovePickup(ID);
+            }
+            catch (System.Exception e)
+            {
+                ModAPI.Console.Write(e.ToString());
+            }
         }
 
         public void EnableDisplay()

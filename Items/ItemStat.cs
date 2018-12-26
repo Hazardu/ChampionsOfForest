@@ -5,6 +5,7 @@ namespace ChampionsOfForest
     public class ItemStat
     {
         public float LevelPow = 1;
+        public float ValueCap = 0;
         public int StatID = 0;
         public string Name = "";
         public int Rarity = 0;
@@ -13,7 +14,7 @@ namespace ChampionsOfForest
         public float Amount = 1;
         public float Multipier = 1;
         public bool DisplayAsPercent = false;
-        public int RoundingCount = 0;
+        public int RoundingCount;
         public delegate void OnEquipDelegate(float f);
         public OnEquipDelegate OnEquip;
         public delegate void OnUnequipDelegate(float f);
@@ -43,7 +44,7 @@ namespace ChampionsOfForest
             ItemDataBase.AddStat(this);
             ModAPI.Log.Write("Added Item stat: "+id + " " + name);
         }
-        public ItemStat(ItemStat s, int level = 1, float Multipier = 1)
+        public ItemStat(ItemStat s, int level = 1, float Multipier = 0)
         {
             Name = s.Name;
             LevelPow = s.LevelPow;
@@ -54,8 +55,16 @@ namespace ChampionsOfForest
             OnEquip = s.OnEquip;
             OnUnequip = s.OnUnequip;
             OnConsume = s.OnConsume;
-            this.Multipier = Multipier;
-            Amount = Multipier * RollValue(level);
+            RoundingCount = s.RoundingCount;
+            DisplayAsPercent = s.DisplayAsPercent;
+            this.ValueCap = s.ValueCap;
+            if (Multipier != 0)
+            {
+                this.Multipier = Multipier;
+            }
+            else { this.Multipier = s.Multipier; }
+            Amount = this.Multipier * RollValue(level);
+            if (ValueCap != 0) Amount = Mathf.Min(ValueCap,Amount);
         }
         public ItemStat()
         {
@@ -64,14 +73,8 @@ namespace ChampionsOfForest
         
         public float RollValue(int level = 1)
         {
-            return UnityEngine.Random.Range(MinAmount * Mathf.Pow(level, LevelPow), MaxAmount * Mathf.Pow(level, LevelPow));
+            float f = UnityEngine.Random.Range(MinAmount * Mathf.Pow(level, LevelPow), MaxAmount * Mathf.Pow(level, LevelPow));
+            return f;
         }
-        public float RollRoundedValue(int level = 1)
-        {
-            return Mathf.Max(1, Mathf.Round(UnityEngine.Random.Range(MinAmount * Mathf.Pow(level, LevelPow), MaxAmount * Mathf.Pow(level, LevelPow))));
-
-        }
-
-
-    }
+         }
 }

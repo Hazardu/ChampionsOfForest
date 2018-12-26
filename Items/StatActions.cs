@@ -60,21 +60,29 @@ namespace ChampionsOfForest.Items
         {
             ChampionsOfForest.ModdedPlayer.instance.LifeRegen -= f;
         }
-        public static void AddERegen(float f)
+        public static void AddStaminaRegen(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyRegen += f;
+            ChampionsOfForest.ModdedPlayer.instance.StaminaRegen += f;
         }
-        public static void RemoveERegen(float f)
+        public static void RemoveStaminaRegen(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyRegen -= f;
+            ChampionsOfForest.ModdedPlayer.instance.StaminaRegen -= f;
         }
-        public static void AddEnergyRegenPercent(float f)
+        public static void AddEnergyRegen(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyRegenPercent += f;
+            ChampionsOfForest.ModdedPlayer.instance.EnergyPerSecond += f;
         }
-        public static void RemoveEnergyRegenPercent(float f)
+        public static void RemoveEnergyRegen(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyRegenPercent -= f;
+            ChampionsOfForest.ModdedPlayer.instance.EnergyPerSecond -= f;
+        }
+        public static void AddStaminaRegenPercent(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.StaminaRegenPercent += f;
+        }
+        public static void RemoveStaminaRegenPercent(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.StaminaRegenPercent -= f;
         }
         public static void AddHealthRegenPercent(float f)
         {
@@ -254,11 +262,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed *= f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed *= 1+ f;
         }
         public static void RemoveMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /= f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /=1+ f;
         }
 
         //   public static void Add(float f)

@@ -1,8 +1,11 @@
-﻿using ChampionsOfForest.Player;
+﻿using Bolt;
+using ChampionsOfForest.Network;
+using ChampionsOfForest.Player;
 using System;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
@@ -74,7 +77,7 @@ namespace ChampionsOfForest
         public int intelligence = 1; //increases spell damage
         public int agility = 1;     //increases energy
         public int vitality = 1;     //increases health
-        public float StaminaRecover => (4 + EnergyRegen) * (1 + EnergyRegenPercent);
+        public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
         public float DamagePerStrenght = 0.01f;
         public float SpellDamageperInt = 0.01f;
         public float RangedDamageperAgi = 0.01f;
@@ -82,9 +85,9 @@ namespace ChampionsOfForest
         public float EnergyPerAgility = 0.25f;
         public float HealthPerVitality = 2f;
         public float HealthRegenPercent = 0;
-        public float EnergyRegenPercent = 0;
+        public float StaminaRegenPercent = 0;
         public int HealthBonus = 0;
-        public int EnergyBonus = 0;
+        public int EnergyBonus = 100;
         public float MaxHealthPercent = 0;
         public float MaxEnergyPercent = 0;
         public float CoolDownMultipier = 1;
@@ -103,7 +106,7 @@ namespace ChampionsOfForest
         public float CritDamage = 50;
         public float LifeOnHit = 0;
         public float LifeRegen = 0;
-        public float EnergyRegen = 0;
+        public float StaminaRegen = 0;
         public float DodgeChance = 0;
         public float SlowAmount = 0;
         public bool Silenced = false;
@@ -137,8 +140,68 @@ namespace ChampionsOfForest
         public float MaxMassacreTime = 20;
         public float TimeBonusPerKill;
 
-
+        //TO DO:
+        public float EnergyOnHit = 0;
+        public float EnergyPerSecond = 0;
+        public float StealthDamage = 1;
+        public float ThirstRate = 1;
+        public float HungerRate = 1;
+        public float AreaDamageProcChance = 0.15f;
+        public float AreaDamage = 0;
+        public float AreaDamageRadius = 4;
+        public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
+     
+        public int LastDayOfGeneration = 0;
         private float StunDuration = 0;
+
+        public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
+        public struct ExtraItemCapacity
+        {
+            public int ID;
+            public int Amount;
+            public bool applied;
+            public ExtraItemCapacity(int id,int amount)
+            {
+                ID = id;
+                Amount = amount;
+                applied = false;
+            }
+            public void NewApply()
+            {
+                applied = true;
+                LocalPlayer.Inventory.AddMaxAmountBonus(ID, Amount);
+            }
+            public void ExistingApply(int NewAmount)
+            {
+                if (applied) Remove();
+                Amount = NewAmount;
+                NewApply();
+            }
+            public void Remove()
+            {
+                applied = false;
+                LocalPlayer.Inventory.AddMaxAmountBonus(ID, -Amount);
+
+            }
+        }
+        public void AddExtraItemCapacity(int ID, int Amount)
+        {
+            if (ExtraCarryingCapactity.ContainsKey(ID))
+            {
+                ExtraCarryingCapactity[ID].ExistingApply(Amount);
+            }
+            else
+            {
+                ExtraItemCapacity EIC = new ExtraItemCapacity(ID, Amount);
+                EIC.NewApply();
+                ExtraCarryingCapactity.Add(ID,EIC);
+            }
+            if(ExtraCarryingCapactity[ID].Amount == 0)
+            {
+                ExtraCarryingCapactity.Remove(ID);
+            }
+        }
+
         private void Start()
         {
             ModAPI.Log.Write("SETUP: Created Player");
@@ -233,6 +296,19 @@ namespace ChampionsOfForest
                     }
                 }
                 LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
+
+                if(Clock.Day> LastDayOfGeneration)
+                {
+                    for (int i = 0; i < Clock.Day - LastDayOfGeneration; i++)
+                    {
+                        foreach (KeyValuePair<int,int> pair in GeneratedResources)
+                        {
+                            LocalPlayer.Inventory.AddItem(pair.Key, pair.Value);
+                        }
+                    }
+                    LastDayOfGeneration = Clock.Day;
+                }
+
             }
  if (TimeUntillMassacreReset > 0)
             {
@@ -283,15 +359,97 @@ namespace ChampionsOfForest
         }
         public void AddFinalExperience(long Amount)
         {
+            int i = 0;
             ExpCurrent += Amount;
             while (ExpCurrent >= ExpGoal)
             {
                 ExpCurrent -= ExpGoal;
                 LevelUp();
+                i++;
+            }
+            if(i > 0)
+            {
+                if (GameSetup.IsMultiplayer)
+                {
+                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                }
+            }
+        }
+        public void DoOnHit()
+        {
+            try
+            {
+                LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
+                LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
+                LocalPlayer.Stats.Energy += EnergyOnHit;
+            }
+            catch (Exception exc)
+            {
+
+                ModAPI.Log.Write("Area dmg exception " + exc.ToString());
+            }
+        }
+        public bool DoAreaDamage(Transform rootTR, float damage)
+        {
+            try
+            {
+                if (Random.value < AreaDamageProcChance && AreaDamage > 0)
+                {
+                    DoGuaranteedAreaDamage(rootTR, damage);
+                    return true;
+                }
+            }
+            catch (Exception exc)
+            {
+
+                ModAPI.Log.Write("Area dmg exception " + exc.ToString());
+            }
+            return false;
+        }
+        public void DoGuaranteedAreaDamage(Transform rootTR, float damage)
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, AreaDamageRadius, Vector3.one);
+            int d = Mathf.FloorToInt(damage * AreaDamage);
+            if (d > 0)
+            {
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    if (hits[i].transform.root != rootTR.root)
+                    {
+                        if (hits[i].transform.tag == "enemyCollide")
+                        {
+                            if (GameSetup.IsMpClient)
+                            {
+                                BoltEntity entity = hits[i].transform.GetComponent<BoltEntity>();
+                                if (entity == null)
+                                {
+                                    entity = hits[i].transform.GetComponentInParent<BoltEntity>();
+                                }
+                                if (entity != null)
+                                {
+                                    PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                                    playerHitEnemy.Hit = d;
+                                    playerHitEnemy.Target = entity;
+                                    playerHitEnemy.Send();
+                                }
+                            }
+                            else
+                            {
+                                hits[i].transform.root.SendMessage("Hit", d, SendMessageOptions.DontRequireReceiver);
+                            }
+                        }
+                        else if (hits[i].transform.tag == "BreakableWood" || hits[i].transform.tag == "animalCollide")
+                        {
+                            hits[i].transform.root.SendMessage("Hit", d, SendMessageOptions.DontRequireReceiver);
+
+                        }
+                    }
+                }
             }
         }
         public void LevelUp()
         {
+
             Level++;
 
             ExpGoal = GetGoalExp();
@@ -299,9 +457,9 @@ namespace ChampionsOfForest
         private long GetGoalExp()
         {
             int x = Level;
-            float a = 1.7f;
+            float a = 2.5f;
             float b = 4;
-            float c = 55;
+            float c = 65;
             float d = 0.7f;
             double y = Mathf.Pow(x, a) * b + Mathf.Sin(d * x) * c + c * x;
             return Convert.ToInt64(y);

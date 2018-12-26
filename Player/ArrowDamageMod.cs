@@ -109,6 +109,8 @@ namespace ChampionsOfForest.Player
                     }
                 }
                 base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
+                ModdedPlayer.instance.DoAreaDamage(target.root, damage);
+                ModdedPlayer.instance.DoOnHit();
                 if (flag2)
                 {
                     base.StartCoroutine(HitFish(target, hit.point - base.transform.forward * 0.35f));
@@ -126,7 +128,7 @@ namespace ChampionsOfForest.Player
                     }
                     if ((bool)boltEntity && ModSettings.FriendlyFire)
                     {
-                        HitPlayer HP = HitPlayer.Create(boltEntity, EntityTargets.OnlyOwner);
+                        HitPlayer HP = HitPlayer.Create(boltEntity, EntityTargets.Everyone);
                         HP.damage = damage;
                         HP.Send();
                         disableLive();

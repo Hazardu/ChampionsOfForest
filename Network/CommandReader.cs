@@ -258,6 +258,26 @@ namespace ChampionsOfForest.Network
 
                 Meteor.CreateEnemy(pos, int.Parse(Read()));
             }
+            else if (s.StartsWith("RL"))
+            {
+                if (s.Length > 2) ModReferences.PlayerLevels.Clear();
+                NetworkManager.SendLine("AL"+ModReferences.ThisPlayerPacked+";"+ModdedPlayer.instance.Level+";", NetworkManager.Target.Everyone);
+            }
+            else if (s.StartsWith("AL"))
+            {
+                i = 2;
+                ch = s.ToCharArray();
+                ulong packed = ulong.Parse(Read());
+                int level = int.Parse(Read());
+                if (ModReferences.PlayerLevels.ContainsKey(packed))
+                {
+                    ModReferences.PlayerLevels[packed] = level;
+                }
+                else
+                {
+                    ModReferences.PlayerLevels.Add(packed, level);
+                }
+            }
         }
         private static string Read()
         {

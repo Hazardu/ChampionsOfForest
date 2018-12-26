@@ -14,12 +14,12 @@ namespace ChampionsOfForest.Player
         {
             if (mainTriggerScript != null)
             {
-                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = mainTriggerScript.animSpeed * ModdedPlayer.instance.AttackSpeed;
-                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = mainTriggerScript.staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
-                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = mainTriggerScript.animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
-                mainTriggerScript.setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = mainTriggerScript.staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
-                LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * mainTriggerScript.blockDamagePercent / 5;
-
+                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
+                ModAPI.Console.Write(mainTriggerScript.name + " setting variables");
             
             }
             base.Update();
@@ -137,10 +137,10 @@ namespace ChampionsOfForest.Player
                 {
                     checkBurnableCloth();
                 }
-                animSpeed = Mathf.Clamp(weaponSpeed, 0.01f, 20f) / 20f;
-                animSpeed += 0.5f;
-                animTiredSpeed = tiredSpeed / 10f * (animSpeed - 0.5f);
-                animTiredSpeed += 0.5f;
+                animSpeed = Mathf.Clamp(weaponSpeed,0.0005f, 200f) / 20f;
+                //animSpeed += 0.5f;
+                animTiredSpeed = tiredSpeed / 20f;// * (animSpeed - 0.5f);
+                //animTiredSpeed += 0.5f;
                 if ((bool)setup)
                 {
                     if ((bool)setup.pmStamina)
@@ -227,6 +227,7 @@ namespace ChampionsOfForest.Player
                 mutantTargetSwitching component2 = other.transform.GetComponent<mutantTargetSwitching>();
                 if ((other.CompareTag("enemyCollide") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("EnemyBodyPart")) && (mainTrigger || animControl.smashBool || chainSaw))
                 {
+
                     bool flag = false;
                     if (component2 && component2.regular)
                     {
@@ -261,6 +262,8 @@ namespace ChampionsOfForest.Player
                         lastPlayerHit = Time.time;
                         if (BoltNetwork.isRunning)
                         {
+                            ModdedPlayer.instance.DoOnHit();
+
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
                             hitPlayer.damage = Mathf.FloorToInt((weaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
                             hitPlayer.Send();
@@ -390,6 +393,8 @@ namespace ChampionsOfForest.Player
                 component6 = other.GetComponent<mutantHitReceiver>();
                 if ((other.gameObject.CompareTag("enemyCollide") || other.gameObject.CompareTag("animalCollide")) && mainTrigger && !enemyDelay && !animControl.smashBool)
                 {
+                    ModdedPlayer.instance.DoOnHit();
+
                     if (BoltNetwork.isClient && other.gameObject.CompareTag("enemyCollide"))
                     {
                         CoopMutantClientHitPrediction componentInChildren = other.transform.root.gameObject.GetComponentInChildren<CoopMutantClientHitPrediction>();
@@ -561,6 +566,7 @@ namespace ChampionsOfForest.Player
                             {
                                 component6.getCombo(3);
                                 component6.hitRelay((int)num2 * 3);
+
                             }
                         }
                         else
@@ -569,6 +575,8 @@ namespace ChampionsOfForest.Player
                             other.transform.SendMessageUpwards("getCombo", 3, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("Hit", (int)num2 * 3, SendMessageOptions.DontRequireReceiver);
+                            //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
+
                             if (playerHitEnemy != null)
                             {
                                 playerHitEnemy.getAttackDirection = animalHitDirection;
@@ -732,12 +740,15 @@ namespace ChampionsOfForest.Player
             if ((other.CompareTag("enemyCollide") || other.CompareTag("lb_bird") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("EnemyBodyPart")) && !mainTrigger && !enemyDelay && (animControl.smashBool || chainSaw))
             {
                 float num3 = smashDamage+ModdedPlayer.instance.MeleeDamageBonus;
-                num3 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+
                 if (chainSaw && !mainTrigger)
                 {
                     base.StartCoroutine(chainSawClampRotation(0.25f));
-                    num3 = smashDamage / 2f;
+                    num3 = (smashDamage+ModdedPlayer.instance.MeleeDamageBonus) / 2f;
                 }
+                num3 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+                //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num3);
+
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);
                 enemyDelay = true;
                 base.Invoke("resetEnemyDelay", 0.25f);
@@ -815,6 +826,7 @@ namespace ChampionsOfForest.Player
             }
             if (!mainTrigger && (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock")))
             {
+
                 other.transform.SendMessage("Hit", WeaponDamage, SendMessageOptions.DontRequireReceiver);
                 Mood.HitRumble();
                 other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, WeaponDamage), SendMessageOptions.DontRequireReceiver);
@@ -924,7 +936,10 @@ namespace ChampionsOfForest.Player
                 {
                     playerHitEnemy.getCombo = Random.Range(2, 4);
                 }
+
                 playerHitEnemy.Send();
+                //ModdedPlayer.instance.DoAreaDamage(other.transform.root, playerHitEnemy.Hit);
+
             }
         }
     }

@@ -32,7 +32,7 @@ namespace ChampionsOfForest.Player
         //Display
         public string Name;
         public string Description;
-        public int EquippedSlot;
+        public int EquippedSlot =-1;
 
         public Spell()
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ChampionsOfForest
 {
@@ -61,30 +62,31 @@ namespace ChampionsOfForest
                     switch (Rarity)
                     {
                         case 0:
-                            stat.Amount *= 0.7f;
+                            stat.Amount *= 0.5f;
                             break;
                         case 1:
-                            stat.Amount *= 1;
+                            stat.Amount *= 0.75f;
                             break;
                         case 2:
-                            stat.Amount *= 1.25f;
+                            stat.Amount *= 1f;
                             break;
                         case 3:
-                            stat.Amount *= 1.6f;
+                            stat.Amount *= 1.5f;
                             break;
                         case 4:
-                            stat.Amount *= 2f;
+                            stat.Amount *= 2.5f;
                             break;
                         case 5:
-                            stat.Amount *= 2.4f;
-                            break;
-                        case 6:
-                            stat.Amount *= 3f;
-                            break;
-                        case 7:
                             stat.Amount *= 3.5f;
                             break;
+                        case 6:
+                            stat.Amount *= 5f;
+                            break;
+                        case 7:
+                            stat.Amount *=7.5f;
+                            break;
                     }
+                    if (stat.ValueCap != 0) stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
                     Stats.Add(stat);
                 }
             }

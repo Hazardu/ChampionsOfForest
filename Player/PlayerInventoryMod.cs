@@ -26,11 +26,15 @@ namespace ChampionsOfForest.Player
 
 
         public static BaseItem.WeaponModelType CustomEquipModel = BaseItem.WeaponModelType.None;
+        public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
+
+        public static bool ChangeMaxAmount= false;
 
         protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
         {
             if (itemView != null)
             {
+                EquippedModel = BaseItem.WeaponModelType.None;
                 if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                 {
                     if (!SetupComplete)
@@ -84,8 +88,9 @@ namespace ChampionsOfForest.Player
                             originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
                             noMesh = new Mesh();
 
-                            new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f, EmissionColor = new Color(0.03f, 0.03f, 0.03f) }), new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f), new Vector3(0, -90, 0), 2f, 0.9f, 40, 80, 0.7f, 0.6f, 10, false, 80);
-                            new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 1, MetalicTexture = Res.ResourceLoader.instance.LoadedTextures[59], Smoothness = 0.5f, Metalic = 0.3f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66], BumpScale = 1.2f }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
+                            new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f}), new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f), new Vector3(0, -90, 0), 1.4f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
+                           // new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.3f, MetalicTexture = Res.ResourceLoader.instance.LoadedTextures[59], Smoothness = 0.4f, Metalic = 0.0f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
+                            new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.45f, Smoothness = 0.5f, Metalic = 0.4f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.05f, 0.005f, 85, false, 1000);
                         }
                         catch (System.Exception eee)
                         {
@@ -95,7 +100,7 @@ namespace ChampionsOfForest.Player
                     if (CustomEquipModel != BaseItem.WeaponModelType.None)
                     {
                         ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
-
+                        EquippedModel = CustomEquipModel;
                         try
                         {
 

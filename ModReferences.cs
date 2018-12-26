@@ -23,7 +23,7 @@ namespace ChampionsOfForest
             private set;
         }
         public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
-
+        public static Dictionary<ulong,int> PlayerLevels = new Dictionary<ulong, int>();
         private void Start()
         {
             if (BoltNetwork.isRunning)
@@ -36,6 +36,37 @@ namespace ChampionsOfForest
                 Players = new List<GameObject>() { LocalPlayer.GameObject };
             }
         }
+        float LevelRequestCooldown = 10;
+        void Update()
+        {  if (GameSetup.IsMpServer)
+            {
+                LevelRequestCooldown -= Time.deltaTime;
+                if (LevelRequestCooldown < 0)
+                {
+                    LevelRequestCooldown = 60;
+                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+
+                }
+                else if (Players.Count != PlayerLevels.Count)
+                {
+                    LevelRequestCooldown = 60;
+
+                    Network.NetworkManager.SendLine("RL", Network.NetworkManager.Target.Clinets);
+
+                }
+            }
+        }
+        public static void Host_RequestLevels()
+        {
+            if(GameSetup.IsMpServer)
+            {
+                Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+            }
+        }
+
+
+
+
         /// <summary>
         /// Updates the player setups and changes the static variable accordingly
         /// </summary>

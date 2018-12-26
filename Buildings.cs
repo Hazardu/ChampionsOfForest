@@ -17,11 +17,10 @@ namespace ChampionsOfForest
                     {
                         mesh = ResourceLoader.instance.LoadedMeshes[21],
                         MainTexture = ResourceLoader.instance.LoadedTextures[20],
-                        renderMode = BuildingData.RenderMode.Transparent,
-                        EmissionColor = new Color(0.2f,0.2f,0.2f),
-                        Smoothness =0,
+                        renderMode = BuildingData.RenderMode.Fade,
                         EmissionMap = ResourceLoader.instance.LoadedTextures[20],
                         AddCollider = false,
+                        
                     }
                 }
             };
@@ -29,16 +28,23 @@ namespace ChampionsOfForest
             Core.prefabs[401].SetActive(true);
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             sphere.transform.localScale = Vector3.one * 2;
-            sphere.GetComponent<Renderer>().material = Core.CreateMaterial(new BuildingData() { MainColor = Color.black, Smoothness = 0, Metalic = 1 });
+          sphere.GetComponent<Renderer>().material = Core.CreateMaterial(new BuildingData() { MainColor = Color.black, Smoothness = 0, Metalic = 1 });
+
             sphere.transform.SetParent(Core.prefabs[401].transform);
             sphere.transform.localPosition = Vector3.zero;
 
+            Renderer r = Core.prefabs[401].GetComponent<Renderer>();
+            r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            r.receiveShadows = false;
+            
+
             Light l = sphere.AddComponent<Light>();
-            l.intensity = 2.3f;
+            l.intensity = 2f;
             l.range = 60;
-            l.color = Color.blue;
+            l.color = new Color(0.4f, 0.274f, 0.884f);
             l.cookie = Res.ResourceLoader.instance.LoadedTextures[23];
-            l.cookieSize = 4;
+            l.cookieSize = 30;
+            l.shadows = LightShadows.None;
             l.type = LightType.Point;
             Core.prefabs[401].SetActive(false);
             ModAPI.Log.Write("Successfully added black hole [building with id 401]");

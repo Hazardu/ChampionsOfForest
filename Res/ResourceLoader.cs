@@ -330,6 +330,36 @@ namespace ChampionsOfForest.Res
             new Resource(69, "ChainPart.obj");
             new Resource(70, "Spike.obj");
             new Resource(71, "particle.png");
+
+            new Resource(72, "Melee.jpg");
+            new Resource(73, "Magic.jpg");
+            new Resource(74, "Ranged.jpg");
+            new Resource(75, "Defensive.jpg");
+            new Resource(76, "Utility.jpg");
+            new Resource(77, "Support.jpg");
+
+            new Resource(81, "PerkNode1.png");
+            new Resource(82, "PerkNode2.png");
+            new Resource(83, "PerkNode3.png");
+            new Resource(84, "PerkNode4.png");
+
+            new Resource(85, "ItemBoots.png");
+            new Resource(86, "ItemGloves.png");
+            new Resource(87, "ItemPants.png");
+            new Resource(88, "ItemGreatSword.png");
+            new Resource(89, "ItemLongSword.png");
+            new Resource(90, "ItemRing.png");
+            new Resource(91, "ItemHelmet.png");
+            new Resource(92, "ItemBoots1.png");
+            new Resource(93, "ItemBracer.png");
+            new Resource(94, "ItemBracer2.png");
+            new Resource(95, "ItemShoulder.png");
+            new Resource(96, "ItemChest.png");
+            new Resource(97, "ItemPants.png");
+
+
+
+
         }
 
 
