@@ -21,7 +21,7 @@ namespace ChampionsOfForest
             try
             {
                 GameObject spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                spawn.AddComponent<Rigidbody>().mass = 2;
+                spawn.AddComponent<Rigidbody>().mass = 5;
                 spawn.transform.position = pos;
                 MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                 MeshFilter filter = spawn.GetComponent<MeshFilter>();

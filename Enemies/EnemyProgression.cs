@@ -10,6 +10,20 @@ namespace ChampionsOfForest
 {
     public class EnemyProgression : MonoBehaviour
     {
+        public class SlowDebuff
+        {
+            public int Source;
+            public float duration;
+            public float amount;
+        }
+
+        public Dictionary<int, SlowDebuff> slows = new Dictionary<int, SlowDebuff>();
+
+
+
+
+
+
         public enum EnemyType { Normal, Elite, Miniboss, Boss }
         public EnemyType type;
 
@@ -104,9 +118,8 @@ namespace ChampionsOfForest
             "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon",
 
         };
-        private float prerainSpeed;
         public float AnimSpeed = 1;
-        private Vector3 preRainScale;
+        public float BaseAnimSpeed = 1;
         private float prerainDmg;
         private int prerainArmor;
         private readonly float agroRange = 1200;
@@ -205,8 +218,8 @@ namespace ChampionsOfForest
                 Array arr = Enum.GetValues(typeof(Abilities));
 
 
-                if (count > 5) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
-                else if (count > 4) { type = EnemyType.Miniboss; }
+                if (count > 6&&Random.value<0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
+                else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadFest); type = EnemyType.Miniboss;}
                 else { type = EnemyType.Elite; }
 
                 while (i < count)
@@ -319,41 +332,45 @@ namespace ChampionsOfForest
             Level = Mathf.RoundToInt(Level * lvlMult);
             DamageMult = (float)Level / 6 + 0.45f;
             Armor = Mathf.RoundToInt(Random.Range(Level * 0.1f, Level * Level * 3));
+          
+
+            ArmorReduction = 0;
+
+            int hp = (int)(_Health.Health * Level*Random.Range(0.8f,1.2f));
+            _Health.Health = hp;
+            
+            Health = hp;
+            
+
+            AnimSpeed = 0.7f + (float)Level / 125;
+
+            ExpBounty = (int)Random.Range(Health * 0.35f, Health * 0.7f);
+            ExpBounty += (int)Random.Range(Armor * 0.10f, Armor * 0.45f);
+            ExpBounty *= Mathf.RoundToInt(abilities.Count * 1.5f + 1);
             if (abilities.Contains(Abilities.Huge))
             {
                 Armor *= 2;
                 gameObject.transform.localScale *= 2;
+                MaxHealth *= 2;
+                DamageMult *= 2;
             }
             else if (abilities.Contains(Abilities.Tiny))
             {
                 gameObject.transform.localScale *= 0.35f;
+                MaxHealth *= 2;
+                DamageMult *= 1.5f;
 
                 BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
 
 
             }
-
-            ArmorReduction = 0;
-
-            int hp = _Health.Health * Level;
-            _Health.Health = hp;
-            MaxHealth = hp;
-            _Health.maxHealth = hp;
-            Health = hp;
-            _Health.maxHealthFloat = hp;
-
-            AnimSpeed = 1 + (float)Level / 100;
-
-            ExpBounty = (int)Random.Range(Health * 0.35f, Health * 0.7f);
-            ExpBounty += (int)Random.Range(Armor * 0.10f, Armor * 0.45f);
-            ExpBounty *= Mathf.RoundToInt(abilities.Count * 1.5f + 1);
             if (abilities.Contains(Abilities.SteadFest))
             {
-                SteadFest = 10;
+                SteadFest = 8;
             }
             if (abilities.Contains(Abilities.EliteSteadFest))
             {
-                SteadFest = 2.5f;
+                SteadFest = 2f;
             }
             if (abilities.Contains(Abilities.BossSteadFest))
             {
@@ -381,10 +398,8 @@ namespace ChampionsOfForest
 
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
-                preRainScale = transform.localScale;
                 prerainDmg = DamageMult;
                 prerainArmor = Armor;
-                prerainSpeed = setup.animator.speed;
             }
             if (abilities.Contains(Abilities.Juggernaut))
             {
@@ -394,20 +409,42 @@ namespace ChampionsOfForest
             {
                 StartCoroutine(FireAuraLoop());
             }
+            MaxHealth = hp;
+            _Health.maxHealth = hp;
+            _Health.maxHealthFloat = hp;
+            _Health.Health = (int)MaxHealth;
             DualLifeSpend = false;
             RollName();
             setupComplete = true;
-            Invoke("SetHealthToMax", 10);
+            BaseAnimSpeed = AnimSpeed;
+            Invoke("SetHealthToMax", 3);
         }
         private void SetHealthToMax()
         {
             _Health.Health = (int)MaxHealth;
-            setup.animator.speed *= AnimSpeed;
-            _AI.animSpeed *= AnimSpeed;
-            _AI.rotationSpeed *= AnimSpeed;
-            prerainSpeed = setup.animator.speed;
 
         }
+
+      public void Slow(int source,float amount,float time)
+        {
+            if (slows.ContainsKey(source))
+            {
+                slows[source].duration = Mathf.Max(slows[source].duration, time);
+                slows[source].amount = amount;
+            }
+            else
+            {
+                slows.Add(source, new SlowDebuff()
+                {
+                    Source = source,
+                    amount = amount,
+                    duration = time,
+                }
+                    );
+            }
+        }
+
+
 
         private IEnumerator FireAuraLoop()
         {
@@ -452,6 +489,7 @@ namespace ChampionsOfForest
             if (!setupComplete)
             {
                 Setup();
+                return;
             }
             if (TrapCD > 0)
             {
@@ -472,7 +510,16 @@ namespace ChampionsOfForest
             {
                 MeteorCD -= Time.deltaTime;
             }
-
+            AnimSpeed = BaseAnimSpeed;
+            foreach (var pair in slows)
+            {
+                AnimSpeed *=pair.Value.amount;
+                slows[pair.Key].duration -= Time.deltaTime;
+                if (slows[pair.Key].duration < 0)
+                {
+                    slows.Remove(pair.Key);
+                }
+            }
             Health = _Health.Health;
             bool inRange = false;
             closestPlayerMagnitude = agroRange;
@@ -490,6 +537,7 @@ namespace ChampionsOfForest
 
                 }
             }
+
             transform.localScale = Vector3.one;
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
@@ -497,30 +545,36 @@ namespace ChampionsOfForest
                 {
                     Armor = prerainArmor * 5;
                     DamageMult = prerainDmg * 5;
-                    transform.localScale = preRainScale * 1.5f;
+                    transform.localScale *= 1.5f;
 
-                    setup.animator.speed = prerainSpeed * 2;
+                 AnimSpeed*= 2;
 
                 }
                 else
                 {
                     Armor = prerainArmor;
                     DamageMult = prerainDmg;
-                    transform.localScale = preRainScale;
-                    setup.animator.speed = prerainSpeed;
 
                 }
             }
-            else
-            {
+         
                 if (abilities.Contains(Abilities.Huge))
                 {
-                    gameObject.transform.localScale = Vector3.one * 2;
-                }
+                    gameObject.transform.localScale *= 2f;
+            }
                 else if (abilities.Contains(Abilities.Tiny))
                 {
-                    gameObject.transform.localScale = Vector3.one * 0.35f;
+                    gameObject.transform.localScale *= 0.35f;
                     BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
+
+                }
+            if (abilities.Contains(Abilities.DoubleLife))
+            {
+                if (DualLifeSpend)
+                {
+                    _Health.MySkin.material.color = Color.magenta;
+                   AnimSpeed *= 1.2f;
+                    gameObject.transform.localScale *=1.3f;
 
                 }
             }
@@ -547,7 +601,7 @@ namespace ChampionsOfForest
             {
                 transform.localScale *= 1.2f;
                 _Health.MySkin.material.color = Color.green;
-
+                AnimSpeed *= 1.2f;
             }
 
 
@@ -610,7 +664,7 @@ namespace ChampionsOfForest
                             duration = 4.5f;
                             break;
                         case ModSettings.Difficulty.Challenge5:
-                            duration = 5f;
+                            duration = 6f;
                             break;
                         default:
                             break;
@@ -669,6 +723,9 @@ namespace ChampionsOfForest
                     }
                 }
             }
+            _AI.animSpeed = AnimSpeed;
+            setup.animator.speed = AnimSpeed;
+
 
         }
         public void HitMagic(int damage)
@@ -755,6 +812,7 @@ namespace ChampionsOfForest
         }
 
         private bool DualLifeSpend = false;
+        private bool OnDieCalled = false;
         public bool OnDie()
         {
             try
@@ -765,12 +823,9 @@ namespace ChampionsOfForest
                     {
                         DualLifeSpend = true;
                         _Health.Health = _Health.maxHealth / 2;
-                        _Health.MySkin.material.color = Color.green;
-                        setup.animator.speed *= 1.2f;
-                        _AI.animSpeed *= 1.2f;
-                        _AI.rotationSpeed *= 1.2f;
-                        prerainSpeed = setup.animator.speed;
-                        DamageMult *= 2;
+                        _Health.MySkin.material.color = Color.magenta;
+                        prerainDmg *= 2;
+
                         _Health.releaseFromTrap();
                         return false;
                     }
@@ -778,6 +833,7 @@ namespace ChampionsOfForest
 
                 if (abilities.Contains(Abilities.Molten))
                 {
+                    //not working, find a fix or replacement
                     BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
                     BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
                     BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
@@ -785,14 +841,15 @@ namespace ChampionsOfForest
                     BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
 
                 }
-
+                if (OnDieCalled) return true;
+                OnDieCalled = true;
                 EnemyManager.RemoveEnemy(this);
 
                 if (setup.waterDetect.drowned)
                 {
                     return true;
                 }
-                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
+                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 3)
                 {
                     int itemCount = Random.Range(1, 4);
                     if (_AI.creepy_boss)
@@ -829,7 +886,7 @@ namespace ChampionsOfForest
     }
     public class ClinetEnemyProgression
     {
-        public static float LifeTime = 10;
+        public static float LifeTime = 5;
         public BoltEntity Entity;
         public ulong Packed;
         public string EnemyName;

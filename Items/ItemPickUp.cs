@@ -13,7 +13,7 @@ namespace ChampionsOfForest
         private float DisplayTime;
         private static Camera mainCam;
         private float constantViewTime;
-        private float lifetime = 600;
+        private float lifetime = 300;
         private void Start()
         {
             if (mainCam == null)
@@ -27,7 +27,10 @@ namespace ChampionsOfForest
             }
             item.Amount = 1;
             lifetime = 2500;
-
+            rb = GetComponent<Rigidbody>();
+            rb.drag = 0.3f;
+            rb.angularDrag = 0.2f;
+            lifetime = 300;
         }
 
         public void EnableDisplay()

@@ -24,16 +24,16 @@ namespace ChampionsOfForest
 
         public void HitPhysical(int damage)
         {
-          
-          int    dmg = progression.ClampDamage(false, damage);
+
+            int dmg = progression.ClampDamage(false, damage);
             HitReal(dmg);
         }
 
         public override void HitReal(int damage)
-        {  
-            Network.NetworkManager.SendHitmarker(transform.position+Vector3.up, damage);
+        {
+            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage);
 
-            if(Health - damage < 1)
+            if (Health - damage < 1)
             {
                 if (!progression.OnDie())
                 {
@@ -44,28 +44,27 @@ namespace ChampionsOfForest
             base.HitReal(damage);
 
         }
-
-        //protected override void dieExplode()
-        //{
-        //    if (progression.OnDie())
-        //    {
-        //        base.dieExplode();
-        //    }
-        //}
-        //protected override void DieTrap(int type)
-        //{
-        //    if (progression.OnDie())
-        //    {
-        //        base.DieTrap(type);
-        //    }
-        //}
-        //public override void Die()
-        //{
-        //    if (progression.OnDie())
-        //    {
-        //        base.Die();
-        //    }
-        //}
+        protected override void dieExplode()
+        {
+            if (progression.OnDie())
+            {
+                base.dieExplode();
+            }
+        }
+        protected override void DieTrap(int type)
+        {
+            if (progression.OnDie())
+            {
+                base.DieTrap(type);
+            }
+        }
+        public override void Die()
+        {
+            if (progression.OnDie())
+            {
+                base.Die();
+            }
+        }
     }
 
 }

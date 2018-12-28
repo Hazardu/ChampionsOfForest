@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Enemies
     public class SnowAura : MonoBehaviour
     {
         private readonly float _radius = 20;
-        private readonly float _duration = 60;
+        private readonly float _duration = 50;
         public Transform followTarget;
 
         private static Material _particleMaterial;
@@ -37,9 +37,9 @@ namespace ChampionsOfForest.Enemies
             ParticleSystem.EmissionModule e = p.emission;
             e.rateOverTime = 350;
             var main = p.main;
-            main.startSize = 0.4f;
+            main.startSize = 0.3f;
             main.startSpeed = 0;
-            main.gravityModifier = -0.4f;
+            main.gravityModifier = -0.6f;
             main.prewarm = false;
             main.startLifetime = 2;
             var vel = p.velocityOverLifetime;

@@ -105,17 +105,24 @@ System.Random random = new System.Random(seed);
         void OnTriggerEnter(Collider other)
         {
 
-            if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") ||other.CompareTag("SmallTree") || other.CompareTag("playerHitDetect")||other.CompareTag("Player")) {
+            if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") ||other.CompareTag("SmallTree") ) {
                 other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
                 other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
-                LocalPlayer.HitReactions.enableFootShake(Vector3.Distance(transform.position, LocalPlayer.Transform.position), 0.4f);
+                LocalPlayer.HitReactions.enableFootShake(1, 0.4f);
+
+            }
+            else if (other.CompareTag("Player") || other.CompareTag("playerHitDetect"))
+            {
+                LocalPlayer.Stats.Hit((int)(Damage * ModdedPlayer.instance.MagicResistance),true,PlayerStats.DamageType.Fire);
+                other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
+                LocalPlayer.HitReactions.enableFootShake(1, 1.2f);
 
             }
             else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") ||other.CompareTag("BreakableRock") || other.CompareTag("structure"))
             {
                 other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
                 other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position,Damage), SendMessageOptions.DontRequireReceiver);
-                LocalPlayer.HitReactions.enableFootShake(Vector3.Distance(transform.position,LocalPlayer.Transform.position), 0.4f);
+                LocalPlayer.HitReactions.enableFootShake(1, 0.4f);
 
             }
         }
