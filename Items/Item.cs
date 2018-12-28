@@ -90,6 +90,7 @@ namespace ChampionsOfForest
                     Stats.Add(stat);
                 }
             }
+            Stats.Sort((y, x) => x.Rarity.CompareTo(y.Rarity));
         }
         public void OnEquip()
         {

@@ -130,7 +130,7 @@ namespace ChampionsOfForest
 
 
         public int PermanentBonusPerkPoints;
-        public int PerkPoints = 10;
+        public int MutationPoints = 10;
         public long NewlyGainedExp;
 
         public int MassacreKills;
@@ -140,7 +140,6 @@ namespace ChampionsOfForest
         public float MaxMassacreTime = 20;
         public float TimeBonusPerKill;
 
-        //TO DO:
         public float EnergyOnHit = 0;
         public float EnergyPerSecond = 0;
         public float StealthDamage = 1;
@@ -150,7 +149,12 @@ namespace ChampionsOfForest
         public float AreaDamage = 0;
         public float AreaDamageRadius = 4;
         public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
-     
+
+
+        public static bool IsSacredArrow = false;
+        public static bool IsHuge = false;
+
+
         public int LastDayOfGeneration = 0;
         private float StunDuration = 0;
 
@@ -449,7 +453,7 @@ namespace ChampionsOfForest
         }
         public void LevelUp()
         {
-
+            MutationPoints++;
             Level++;
 
             ExpGoal = GetGoalExp();

@@ -99,7 +99,7 @@ namespace ChampionsOfForest.Player
                     }
                     if (CustomEquipModel != BaseItem.WeaponModelType.None)
                     {
-                        ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
+                        //ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
                         EquippedModel = CustomEquipModel;
                         try
                         {
@@ -131,7 +131,7 @@ namespace ChampionsOfForest.Player
                     }
                     else
                     {
-                        ModAPI.Console.Write("EQUIPPING normal plane axe");
+                        //ModAPI.Console.Write("EQUIPPING normal plane axe");
 
                         itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
                         foreach (CustomWeapon item in customWeapons.Values)
@@ -156,10 +156,81 @@ namespace ChampionsOfForest.Player
 
             return base.Equip(itemView, pickedUpFromWorld);
         }
+
+
+        //RANGED MOD CHANGES---------------------------------------------------
+
+
         protected override void FireRangedWeapon()
         {
-            base.FireRangedWeapon();
+            InventoryItemView inventoryItemView = _equipmentSlots[0];
+           TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
+            bool flag = itemCache._maxAmount < 0;
+            bool flag2 = false;
+            if (flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
+            {
+                InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
+                TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
+                FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
+                if (UseAltWorldPrefab)
+                {
+                    Debug.Log("Firing " + itemCache._name + " with '" + inventoryItemView.ActiveBonus + "' ammo (alt=" + UseAltWorldPrefab + ")");
+                }
+                GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, inventoryItemView2._held.transform.position, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
+                if ((bool)gameObject.GetComponent<Rigidbody>())
+                {
+                    if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
+                    {
+                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * (float)(int)itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+                    }
+                    else
+                    {
+                        float num = Time.time - _weaponChargeStartTime;
+                        if (ForestVR.Enabled)
+                        {
+                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * (float)(int)itemCache._projectileThrowForceRange);
+                        }
+                        else
+                        {
+                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * (float)(int)itemCache._projectileThrowForceRange);
+                        }
+                        if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
+                        {
+                            gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
+                        }
+                    }
+                    inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
+                }
+                if (itemCache._attackReleaseSFX != 0)
+                {
+                    LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                }
+                Mood.HitRumble();
+            }
+            else
+            {
+                flag2 = true;
+                if (itemCache._dryFireSFX != 0)
+                {
+                    LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                }
+            }
+            if (flag)
+            {
+                UnequipItemAtSlot(itemCache._equipmentSlot, false, false, flag);
+            }
+            else
+            {
+                ToggleAmmo(inventoryItemView, true);
+            }
+            _weaponChargeStartTime = 0f;
+            SetReloadDelay((!flag2) ? itemCache._reloadDuration : itemCache._dryFireReloadDuration);
+            _isThrowing = false;
         }
+
+
+
+
 
         protected override void ThrowProjectile()
         {

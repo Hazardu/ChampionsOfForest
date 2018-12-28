@@ -73,7 +73,7 @@ namespace ChampionsOfForest
         
         public float RollValue(int level = 1)
         {
-            float f = UnityEngine.Random.Range(MinAmount * Mathf.Pow(level, LevelPow), MaxAmount * Mathf.Pow(level, LevelPow));
+            float f = UnityEngine.Random.Range(MinAmount , MaxAmount) *Mathf.Pow(level, LevelPow);
             return f;
         }
          }

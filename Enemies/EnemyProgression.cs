@@ -29,7 +29,7 @@ namespace ChampionsOfForest
         public float SteadFest;
         private int SteadFestCap;
         private float DamageMult;
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser,Poisonous }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
         public List<Abilities> abilities;
 
         public static string[] Mnames = new string[]
@@ -118,13 +118,7 @@ namespace ChampionsOfForest
         public bool CCimmune = false;
 
 
-        public float DamageAmp
-        {
-            get
-            {
-                return DamageMult;
-            }
-        }
+        public float DamageAmp => DamageMult;
 
 
         private void RollName()
@@ -136,7 +130,7 @@ namespace ChampionsOfForest
                 prefix = "♀ ";
                 names.AddRange(new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
                     "Olivier Broadbent, who put '!' in the title of every single one of his videos.",
-                    "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia", 
+                    "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
                     "Victoria",  "Chloe", "Camila", "Layla", "Lillian","Dora the explorer", "Zoey", "Hannah", "Lily",
                     "Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
                     "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
@@ -233,7 +227,7 @@ namespace ChampionsOfForest
                             success = false;
                         }
                     }
-                    else if (ab == Abilities.DoubleLife &&!(_AI.creepy|| _AI.creepy_boss|| _AI.creepy_fat|| _AI.creepy_male))
+                    else if (ab == Abilities.DoubleLife && !(_AI.creepy || _AI.creepy_boss || _AI.creepy_fat || _AI.creepy_male))
                     {
                         success = false;
 
@@ -334,9 +328,9 @@ namespace ChampionsOfForest
             {
                 gameObject.transform.localScale *= 0.35f;
 
-                    BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
+                BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
 
-                
+
             }
 
             ArmorReduction = 0;
@@ -414,16 +408,17 @@ namespace ChampionsOfForest
             prerainSpeed = setup.animator.speed;
 
         }
-        IEnumerator FireAuraLoop()
+
+        private IEnumerator FireAuraLoop()
         {
-            
-            float dmg = 40f *DamageAmp;
+
+            float dmg = 40f * DamageAmp;
             if (BoltNetwork.isRunning)
             {
                 while (true)
                 {
                     yield return new WaitForSeconds(0.5f);
-                    foreach (var item in ModReferences.AllPlayerEntities)
+                    foreach (BoltEntity item in ModReferences.AllPlayerEntities)
                     {
                         if ((item.transform.position - transform.position).sqrMagnitude < 80)
                         {
@@ -458,10 +453,26 @@ namespace ChampionsOfForest
             {
                 Setup();
             }
-           if(TrapCD > 0) TrapCD -= Time.deltaTime;
-           if(StunCD > 0) StunCD -= Time.deltaTime;
-           if(LaserCD > 0) LaserCD -= Time.deltaTime;
-           if(MeteorCD > 0) MeteorCD -= Time.deltaTime;
+            if (TrapCD > 0)
+            {
+                TrapCD -= Time.deltaTime;
+            }
+
+            if (StunCD > 0)
+            {
+                StunCD -= Time.deltaTime;
+            }
+
+            if (LaserCD > 0)
+            {
+                LaserCD -= Time.deltaTime;
+            }
+
+            if (MeteorCD > 0)
+            {
+                MeteorCD -= Time.deltaTime;
+            }
+
             Health = _Health.Health;
             bool inRange = false;
             closestPlayerMagnitude = agroRange;
@@ -513,7 +524,7 @@ namespace ChampionsOfForest
 
                 }
             }
-          
+
             if (abilities.Contains(Abilities.Shielding))
             {
 
@@ -524,7 +535,7 @@ namespace ChampionsOfForest
 
                     if (shieldingON <= 0)
                     {
-                        _Health.MySkin.material.color =normalColor;
+                        _Health.MySkin.material.color = normalColor;
                     }
                 }
                 if (shieldingCD > 0)
@@ -536,21 +547,21 @@ namespace ChampionsOfForest
             {
                 transform.localScale *= 1.2f;
                 _Health.MySkin.material.color = Color.green;
-               
+
             }
 
 
             if (inRange)
             {
-                if (abilities.Contains(Abilities.Meteor)&& MeteorCD<= 0)
+                if (abilities.Contains(Abilities.Meteor) && MeteorCD <= 0)
                 {
                     Vector3 dir = closestPlayer.transform.position;
-                    Network.NetworkManager.SendLine("MT" + dir.x + ";" + dir.y + ";" + dir.z + ";"+(int)Random.Range(-100000,100000)+";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("MT" + dir.x + ";" + dir.y + ";" + dir.z + ";" + Random.Range(-100000, 100000) + ";", Network.NetworkManager.Target.Everyone);
                     MeteorCD = 50f;
                 }
 
 
-                    if (abilities.Contains(Abilities.Blink))
+                if (abilities.Contains(Abilities.Blink))
                 {
                     if (blinkCD <= 0)
                     {
@@ -563,16 +574,16 @@ namespace ChampionsOfForest
                     }
 
                 }
-                if (abilities.Contains(Abilities.Laser) && LaserCD <=0)
+                if (abilities.Contains(Abilities.Laser) && LaserCD <= 0)
                 {
                     Vector3 dir = closestPlayer.transform.position;
-                   
+
                     LaserCD = 100;
-                    Network.NetworkManager.SendLine("LA" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + dir.x + ";" + dir.y+2 + ";" + dir.z + ";",Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("LA" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + dir.x + ";" + dir.y + 2 + ";" + dir.z + ";", Network.NetworkManager.Target.Everyone);
 
 
                 }
-                if (abilities.Contains(Abilities.Rooting)&& StunCD <= 0)
+                if (abilities.Contains(Abilities.Rooting) && StunCD <= 0)
                 {
                     float duration = 2;
                     switch (ModSettings.difficulty)
@@ -605,10 +616,10 @@ namespace ChampionsOfForest
                             break;
                     }
                     Network.NetworkManager.SendLine("RO" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" + duration + ";", Network.NetworkManager.Target.Everyone);
-                    StunCD = Random.Range(15,30);
+                    StunCD = Random.Range(15, 30);
                 }
 
-                if (abilities.Contains(Abilities.Trapper)&&TrapCD <=0)
+                if (abilities.Contains(Abilities.Trapper) && TrapCD <= 0)
                 {
                     if (closestPlayerMagnitude < agroRange / 2)
                     {
@@ -667,7 +678,7 @@ namespace ChampionsOfForest
 
         }
 
-        Color normalColor;
+        private Color normalColor;
         public int ClampDamage(bool pure, int damage)
         {
 
@@ -781,11 +792,21 @@ namespace ChampionsOfForest
                 {
                     return true;
                 }
-                if (Random.value < 0.2f || _AI.creepy_boss)
+                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
                 {
-
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(ExpBounty), transform.position+ Vector3.up *2);
-
+                    int itemCount = Random.Range(1, 4);
+                    if (_AI.creepy_boss)
+                    {
+                        itemCount += 12;
+                    }
+                    else if (abilities.Count >= 2)
+                    {
+                            itemCount += Random.Range(1, 5);
+                    }
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(ExpBounty), transform.position + Vector3.up * 2);
+                    }
                 }
                 if (BoltNetwork.isRunning)
                 {
@@ -799,7 +820,7 @@ namespace ChampionsOfForest
             catch (Exception ex)
             {
 
-                ModAPI.Log.Write("DIEING ENEMY EXCEPTION  "+ex.ToString());
+                ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex.ToString());
             }
 
             return true;

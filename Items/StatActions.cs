@@ -281,7 +281,7 @@ namespace ChampionsOfForest.Items
 
         public static void PERMANENT_perkPointIncrease(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.PermanentBonusPerkPoints += (int)f;
+            ChampionsOfForest.ModdedPlayer.instance.PermanentBonusPerkPoints += Mathf.RoundToInt(f);
         }
         public static void PERMANENT_expIncrease(float f)
         {

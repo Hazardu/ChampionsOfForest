@@ -9,6 +9,7 @@
         public enum ResourceType { Texture, Mesh, Audio, Text }
         public ResourceType type;
         public int ID;
+        public bool CompressTexture = true;
         public Resource()
         {
 
@@ -18,7 +19,7 @@
             ID = id;
             fileName = FileName;
             loaded = false;
-            if (fileName.EndsWith(".png", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".jpeg", true, System.Globalization.CultureInfo.CurrentCulture))
+            if (fileName.EndsWith(".png", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".jpeg", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".jpg", true, System.Globalization.CultureInfo.CurrentCulture))
             {
                 type = ResourceType.Texture;
             }

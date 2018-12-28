@@ -26,9 +26,8 @@ namespace ChampionsOfForest
                 else
                 {
                     Res.ResourceLoader.InMainMenu = false;
-                    SpellDataBase.Initialize();
+
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
-                    ItemDataBase.Initialize();
                     GameObject go = new GameObject("Playerobj");
                     go.AddComponent<ModdedPlayer>();
                     go.AddComponent<Inventory>();
@@ -37,7 +36,8 @@ namespace ChampionsOfForest
                     go.AddComponent<ClinetItemPicker>();
                     go.AddComponent<MeteorSpawner>();
                     BuffDB.FillBuffList();
-
+                    ItemDataBase.Initialize();
+                    SpellDataBase.Initialize();
                     EnemyManager.Initialize();
                     new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;

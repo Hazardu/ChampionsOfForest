@@ -19,7 +19,6 @@ namespace ChampionsOfForest.Player
                 setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
                 LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
-                ModAPI.Console.Write(mainTriggerScript.name + " setting variables");
             
             }
             base.Update();

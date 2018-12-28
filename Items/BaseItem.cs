@@ -53,13 +53,13 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        list.Add(ItemDataBase.Instance.Stats[b]);
+                        list.Add(new ItemStat(ItemDataBase.Stats[b]));
                     }
                 }
                 PossibleStats.Add(list);
             }
-            ID = ItemDataBase.Instance._Item_Bases.Count; ;
-            ItemDataBase.Instance._Item_Bases.Add(this);
+            ID = ItemDataBase._Item_Bases.Count; ;
+            ItemDataBase._Item_Bases.Add(this);
 
         }
 
@@ -69,7 +69,7 @@ namespace ChampionsOfForest
         {
             PossibleStats = possibleStats;
             Rarity = rarity;
-            ID = ItemDataBase.Instance._Item_Bases.Count; ;
+            ID = ItemDataBase._Item_Bases.Count; ;
             this.StackSize = StackSize;
             _itemType = itemType;
             PickUpAll = pickupAll;
@@ -80,7 +80,7 @@ namespace ChampionsOfForest
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
 
-            ItemDataBase.Instance._Item_Bases.Add(this);
+            ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
         public BaseItem(int[][] possibleStats, int rarity,  int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
@@ -97,13 +97,13 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        list.Add(ItemDataBase.Instance.Stats[b]);
+                        list.Add(ItemDataBase.Stats[b]);
                     }
                 }
                 PossibleStats.Add(list);
             }
             Rarity = rarity;
-            ID = ItemDataBase.Instance._Item_Bases.Count;
+            ID = ItemDataBase._Item_Bases.Count;
             this.StackSize = StackSize;
             _itemType = itemType;
             PickUpAll = pickupAll;
@@ -113,7 +113,7 @@ namespace ChampionsOfForest
             this.tooltip = tooltip;
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
-            ItemDataBase.Instance._Item_Bases.Add(this);
+            ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
         public BaseItem(int[][] possibleStats, int rarity, int iD, int StackSize, WeaponModelType weaponModel, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
@@ -130,7 +130,7 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        list.Add(ItemDataBase.Instance.Stats[b]);
+                        list.Add(ItemDataBase.Stats[b]);
                     }
                 }
                 PossibleStats.Add(list);
@@ -147,7 +147,7 @@ namespace ChampionsOfForest
             this.tooltip = tooltip;
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
-            ItemDataBase.Instance._Item_Bases.Add(this);
+            ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
     }

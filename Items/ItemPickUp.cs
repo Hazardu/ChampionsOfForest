@@ -13,16 +13,9 @@ namespace ChampionsOfForest
         private float DisplayTime;
         private static Camera mainCam;
         private float constantViewTime;
-
+        private float lifetime = 2500;
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            if (rb == null)
-            {
-                rb = gameObject.AddComponent<Rigidbody>();
-            }
-
-            rb.mass = 1;
             if (mainCam == null)
             {
                 mainCam = Camera.main;
@@ -33,15 +26,8 @@ namespace ChampionsOfForest
                 amount = item.Amount;
             }
             item.Amount = 1;
-            Destroy(gameObject, 1500);  //delete after 25 minutes
-            try
-            {
-                PickUpManager.RemovePickup(ID);
-            }
-            catch (System.Exception e)
-            {
-                ModAPI.Console.Write(e.ToString());
-            }
+            lifetime = 2500;
+
         }
 
         public void EnableDisplay()
@@ -69,7 +55,12 @@ namespace ChampionsOfForest
                 if (constantViewTime > 1f)
                 {
                     label += " \n Level " + item.level;
+                    if(lifetime < 61)
+                    {
+                        label += " \n Deleting in " + lifetime.ToString();
+                    }
                 }
+                
                 GUIStyle style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
                 float height = style.CalcHeight(new GUIContent(label), r.width);
                 style.margin = new RectOffset(10, 10, 10, 10);
@@ -98,6 +89,17 @@ namespace ChampionsOfForest
         {
             if (amount <= 0)
             {
+                PickUpManager.RemovePickup(ID);
+                Destroy(gameObject);
+            }
+            if(lifetime > 0)
+            {
+                lifetime -= Time.deltaTime;
+
+            }
+            else
+            {
+                Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
                 PickUpManager.RemovePickup(ID);
                 Destroy(gameObject);
             }

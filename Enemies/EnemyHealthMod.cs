@@ -28,32 +28,41 @@
             HitReal(dmg);
         }
 
-
-
-
-        protected override void dieExplode()
+        public override void HitReal(int damage)
         {
-            if (progression.OnDie())
+            if(Health - damage < 1)
             {
-                base.dieExplode();
+                if (!progression.OnDie())
+                {
+                    Health -= damage;
+                    return;
+                }
             }
-        }
-        protected override void DieTrap(int type)
-        {
-            if (progression.OnDie())
-            {
-                base.DieTrap(type);
-            }
+            base.HitReal(damage);
 
         }
 
-        public override void Die()
-        {
-            if (progression.OnDie())
-            {
-                base.Die();
-            }
-        }
+        //protected override void dieExplode()
+        //{
+        //    if (progression.OnDie())
+        //    {
+        //        base.dieExplode();
+        //    }
+        //}
+        //protected override void DieTrap(int type)
+        //{
+        //    if (progression.OnDie())
+        //    {
+        //        base.DieTrap(type);
+        //    }
+        //}
+        //public override void Die()
+        //{
+        //    if (progression.OnDie())
+        //    {
+        //        base.Die();
+        //    }
+        //}
     }
 
 }

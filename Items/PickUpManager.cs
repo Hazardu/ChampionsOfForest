@@ -20,13 +20,10 @@ namespace ChampionsOfForest
         {
             try
             {
-
-
-
                 GameObject spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                spawn.AddComponent<Rigidbody>().mass = 25;
+                spawn.AddComponent<Rigidbody>().mass = 2;
                 spawn.transform.position = pos;
-                Renderer renderer = spawn.GetComponent<Renderer>();
+                MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                 MeshFilter filter = spawn.GetComponent<MeshFilter>();
               
                     switch (item._itemType)
@@ -107,10 +104,10 @@ namespace ChampionsOfForest
                             break;
                     }
 
-                
-            
 
-                //spawn.AddComponent<BoxCollider>();
+
+
+                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.3f ;
 
                 if (pickupMaterial == null)
                 {
@@ -128,12 +125,13 @@ namespace ChampionsOfForest
                     l.color = MainMenu.RarityColors[item.Rarity];
                     l.intensity = 1f;
                     l.range = 4f;
-                    if (item.Rarity > 4)
+                    renderer.material.color = MainMenu.RarityColors[item.Rarity]; 
+                    if (item.Rarity > 5)
                     {
-                        //particle effect
-                        l.range = 6f;
-                        l.intensity = 1.5f;
+                        l.range = 7f;
+                        l.intensity = 1.7f;
                         l.cookie = Res.ResourceLoader.GetTexture(24);
+                        l.cookieSize =5f;
                     }
                 }
                 spawn.AddComponent<MeshCollider>().convex = true;

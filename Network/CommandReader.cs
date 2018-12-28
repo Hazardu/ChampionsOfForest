@@ -16,6 +16,10 @@ namespace ChampionsOfForest.Network
 
         public static void OnCommand(string s)
         {
+            try
+            {
+
+          
             if (s.StartsWith("AB"))     //ask the host to send the command to set the difficulty for clinet
             {
                 if (GameSetup.IsMpServer && ModSettings.DifficultyChoosen)
@@ -77,14 +81,14 @@ namespace ChampionsOfForest.Network
             {
                 i = 2;
                 ch = s.ToCharArray();
-                Item item = new Item(ItemDataBase.Instance.ItemBases[int.Parse(Read())], 1, 0, false);   //reading first value, id
+                Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], 1, 0, false);   //reading first value, id
                 int id = int.Parse(Read());
                 item.level = int.Parse(Read());
                 int amount = int.Parse(Read());
                 Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                 while (i < ch.Length)
                 {
-                    ItemStat stat = new ItemStat(ItemDataBase.Instance.Stats[int.Parse(Read())])
+                    ItemStat stat = new ItemStat(ItemDataBase.Stats[int.Parse(Read())])
                     {
                         Amount = float.Parse(Read())
                     };
@@ -277,6 +281,12 @@ namespace ChampionsOfForest.Network
                 {
                     ModReferences.PlayerLevels.Add(packed, level);
                 }
+            }
+            }
+            catch (Exception e)
+            {
+
+                ModAPI.Log.Write(e.ToString());
             }
         }
         private static string Read()

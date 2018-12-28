@@ -174,6 +174,7 @@ namespace ChampionsOfForest.Res
                         //Texture2D t = new Texture2D(1, 1);
                         t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
                         t.Apply();
+                        if(resource.CompressTexture)
                         t.Compress(true);
 
                         LoadedTextures.Add(resource.ID, t);
@@ -318,7 +319,7 @@ namespace ChampionsOfForest.Res
             new Resource(52, "HeavySword.obj");
             new Resource(53, "Shoulder.obj");
 
-            new Resource(59, "SwordMetalic.png");
+            //new Resource(59, "SwordMetalic.png");
             new Resource(60, "SwordTexture.png");
             new Resource(61, "SwordColor.png");
             new Resource(62, "SwordEmissive.png");
@@ -337,6 +338,7 @@ namespace ChampionsOfForest.Res
             new Resource(75, "Defensive.jpg");
             new Resource(76, "Utility.jpg");
             new Resource(77, "Support.jpg");
+            new Resource(78, "Background1.jpg");
 
             new Resource(81, "PerkNode1.png");
             new Resource(82, "PerkNode2.png");
@@ -356,6 +358,10 @@ namespace ChampionsOfForest.Res
             new Resource(95, "ItemShoulder.png");
             new Resource(96, "ItemChest.png");
             new Resource(97, "ItemPants.png");
+            new Resource(98, "ItemQuiver.png");
+            new Resource(99, "ItemShield.png");
+            new Resource(100, "ItemScarf.png");
+            new Resource(101, "ItemAmulet.png");
 
 
 
