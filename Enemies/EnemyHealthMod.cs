@@ -1,4 +1,5 @@
-﻿namespace ChampionsOfForest
+﻿using UnityEngine;
+namespace ChampionsOfForest
 {
     public class EnemyHealthMod : EnemyHealth
     {
@@ -29,7 +30,9 @@
         }
 
         public override void HitReal(int damage)
-        {
+        {  
+            Network.NetworkManager.SendHitmarker(transform.position+Vector3.up, damage);
+
             if(Health - damage < 1)
             {
                 if (!progression.OnDie())

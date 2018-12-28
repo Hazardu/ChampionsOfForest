@@ -38,7 +38,7 @@ namespace ChampionsOfForest
         }
         float LevelRequestCooldown = 10;
         void Update()
-        {  if (GameSetup.IsMpServer)
+        {  if (GameSetup.IsMpServer && BoltNetwork.isRunning)
             {
                 LevelRequestCooldown -= Time.deltaTime;
                 if (LevelRequestCooldown < 0)

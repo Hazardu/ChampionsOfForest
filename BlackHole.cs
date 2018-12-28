@@ -27,7 +27,7 @@ namespace ChampionsOfForest
         public float damage;
         public float duration;
         public float radius;
-        public static float rotationSpeed = 8f;
+        public static float rotationSpeed = 15f;
         private float scale;
         public SphereCollider col;
         List<Transform> CoughtEnemies;
@@ -44,15 +44,11 @@ namespace ChampionsOfForest
                 particleMaterial = Core.CreateMaterial(new BuildingData()
                 {
                     MainTexture = Res.ResourceLoader.instance.LoadedTextures[22],
-                    Metalic = 0.5f,
-                    Smoothness = 0.5f,
+                    Metalic = 0.2f,
+                    Smoothness = 0.6f,
                     renderMode = BuildingData.RenderMode.Cutout
 
                 });
-                if (particleMaterial == null)
-                {
-                    ModAPI.Log.Write("No unlit transparent shader");
-                }
             }
             Destroy(gameObject, duration);
             if (!FromEnemy && !GameSetup.IsMpClient)
@@ -86,6 +82,7 @@ namespace ChampionsOfForest
             main.startLifetime = 0.5f;
             main.loop = true;
             main.prewarm = false;
+            main.startSize = 0.4f;
             main.maxParticles = 500;
 
             var emission = sys.emission;

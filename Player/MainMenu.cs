@@ -119,6 +119,35 @@ namespace ChampionsOfForest
         }
         public OpenedMenuMode _openedMenu;
 
+
+        public Dictionary<int,HitMarker> hitMarkers =new Dictionary<int, HitMarker>();
+        public class HitMarker
+        {
+           public int txt;
+            public Vector3 worldPosition;
+            public float lifetime;
+            private int ID;
+            public void Delete()
+            {
+                Instance.hitMarkers.Remove(ID);
+            }
+            public HitMarker(int t,Vector3 p)
+            {
+                txt = t;
+                worldPosition = p;
+                lifetime = 5f;
+                ID = Instance.hitMarkers.Count;
+                Instance.hitMarkers.Add(ID,this);
+            }
+        }
+
+
+
+
+
+
+
+
         //setting the instance
         private void Awake()
         {
@@ -600,7 +629,7 @@ namespace ChampionsOfForest
                     {
                         int index = y * Inventory.Width + x;
 
-                        DrawInvSlot(new Rect(SlotsRect.x + slotDim.x * x, SlotsRect.y + slotDim.y * y + 80 * rr + InventoryScrollAmount, slotDim.x, slotDim.y), index);
+                        DrawInvSlot(new Rect(SlotsRect.x + slotDim.x * x, SlotsRect.y + slotDim.y * y + 160 * rr + InventoryScrollAmount, slotDim.x, slotDim.y), index);
                     }
                     catch (Exception ex)
                     {
@@ -611,13 +640,13 @@ namespace ChampionsOfForest
                 }
             }
             //PlayerSlots
-            Rect eq = new Rect(SlotsRect.xMax + 300 * rr, 0, 400 * rr, 700 * rr);
+            Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
             GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
             Rect head = new Rect(Vector2.zero, slotDim)
             {
                 center = eq.center
             };
-            head.y -=head.height;
+            head.y -=3.5f*head.height;
 
             Rect chest = new Rect(head);
             chest.y += chest.height + 50 * rr;
@@ -1216,6 +1245,31 @@ namespace ChampionsOfForest
                 {
                     return;
                 }
+                GUI.color = new Color(1,0f, 0f,0.7f);
+                GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow,wordWrap=true, alignment = TextAnchor.MiddleCenter };
+                foreach (KeyValuePair<int,HitMarker> pair in hitMarkers)
+                {
+                    hitMarkers[pair.Key].lifetime -= Time.deltaTime;
+                    if (hitMarkers[pair.Key].lifetime < 0)
+                    {
+                        hitMarkers[pair.Key].Delete();
+                    }
+                    else
+                    {
+                        float distance = Vector3.Distance(Camera.main.transform.position, pair.Value.worldPosition);
+                        Vector3 pos = Camera.main.WorldToScreenPoint(pair.Value.worldPosition);
+                        pos.y = Screen.height - pos.y;
+                        float size = Mathf.Clamp(800 / distance, 10, 80);
+                        size *= rr;
+                        Rect r = new Rect(0, 0, 400, size);
+                        r.center = pos;
+
+                        GUI.Label(r, pair.Value.txt.ToString(),new GUIStyle(HitmarkerStyle) { fontSize = (int)size});
+                    }
+
+                }
+                GUI.color = Color.white;
+
 
                 float BuffOffset = 0;
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
@@ -1279,14 +1333,14 @@ namespace ChampionsOfForest
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal;
                 Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
-                Rect CombatBarCount = new Rect(CombatBar) 
-                {y= 0 };
-                Rect CombatBarText = new Rect(CombatBar)
+                Rect CombatBarCount = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize, combatHeight);
+                
+                Rect CombatBarText = new Rect(CombatBarCount)
                 {
                     y = CombatBar.yMax,
                     height = 100f*rr
                 };
-                Rect CombatBarTimer = new Rect(CombatBar); CombatBarTimer.x += CombatBarTimer.width;
+                Rect CombatBarTimer = new Rect(CombatBar.xMax,CombatBar.y,300, combatHeight);
                  GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont,fontSize = Mathf.FloorToInt(19*rr),alignment = TextAnchor.MiddleCenter };
                 GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
                 GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, 1));
@@ -1306,8 +1360,8 @@ namespace ChampionsOfForest
                     GUI.color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
                     GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP", CombatCountStyle);
                     GUI.color = new Color(1, 1, 1, 1f);
-                    GUI.Label(CombatBarTimer, ModdedPlayer.instance.TimeUntillMassacreReset.ToString() + " sec", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleLeft });
-                    GUI.color = new Color(1, 0.5f, 0.5f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
+                    GUI.Label(CombatBarTimer, Math.Round(ModdedPlayer.instance.TimeUntillMassacreReset,1).ToString() + " sec", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleLeft });
+                    GUI.color = new Color(0, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 6)
                     {
@@ -1591,7 +1645,7 @@ namespace ChampionsOfForest
             float y = spellOffset;
             foreach (System.Collections.Generic.KeyValuePair<int, Spell> pair in SpellDataBase.spellDictionary)
             {
-                DrawSpell(ref y, pair.Value, style);
+                DrawSpell(ref y, pair.Value, new GUIStyle( style));
             }
             if (displayedSpellInfo == null)
             {
@@ -1736,7 +1790,7 @@ namespace ChampionsOfForest
             Rect bg = new Rect(0, y, Screen.width * 3 / 5, 100 * rr);
             bg.x = (Screen.width - bg.width) / 2;
             GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
-            Rect nameRect = new Rect(30 * rr, y, bg.width / 2, 100 * rr);
+            Rect nameRect = new Rect(30 * rr+bg.x, y, bg.width / 2, 100 * rr);
 
             if (s.Levelrequirement > ModdedPlayer.instance.Level)
             {
@@ -1758,7 +1812,7 @@ namespace ChampionsOfForest
                 }
             }
             GUI.Label(nameRect, s.Name + "  (LEVEL: " + s.Levelrequirement + ")", style);
-            Rect iconRect = new Rect(bg.width - 140 * rr, y + 15 * rr, 70 * rr, 70 * rr);
+            Rect iconRect = new Rect(bg.xMax - 140 * rr, y + 15 * rr, 70 * rr, 70 * rr);
             GUI.DrawTexture(iconRect, s.icon);
 
             GUI.color = Color.white;
@@ -1766,11 +1820,11 @@ namespace ChampionsOfForest
 
         }
 
-        private void BuySpell(Spell s)
-        {
-            ModdedPlayer.instance.MutationPoints--;
-            s.Bought = true;
-        }
+        //private void BuySpell(Spell s)
+        //{
+        //    ModdedPlayer.instance.MutationPoints-=2;
+        //    s.Bought = true;
+        //}
         #endregion
 
         #region StatsMenu

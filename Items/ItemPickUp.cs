@@ -13,7 +13,7 @@ namespace ChampionsOfForest
         private float DisplayTime;
         private static Camera mainCam;
         private float constantViewTime;
-        private float lifetime = 2500;
+        private float lifetime = 600;
         private void Start()
         {
             if (mainCam == null)

@@ -15,6 +15,7 @@ namespace ChampionsOfForest
         public float Multipier = 1;
         public bool DisplayAsPercent = false;
         public int RoundingCount;
+        
         public delegate void OnEquipDelegate(float f);
         public OnEquipDelegate OnEquip;
         public delegate void OnUnequipDelegate(float f);
@@ -73,7 +74,11 @@ namespace ChampionsOfForest
         
         public float RollValue(int level = 1)
         {
-            float f = UnityEngine.Random.Range(MinAmount , MaxAmount) *Mathf.Pow(level, LevelPow);
+            float mult = 1;
+            if(LevelPow != 0) {
+                mult = Mathf.Pow(level, LevelPow);
+            }
+            float f = UnityEngine.Random.Range(MinAmount , MaxAmount) *mult;
             return f;
         }
          }

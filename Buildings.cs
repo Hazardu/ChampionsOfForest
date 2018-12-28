@@ -41,9 +41,8 @@ namespace ChampionsOfForest
             Light l = sphere.AddComponent<Light>();
             l.intensity = 2f;
             l.range = 60;
-            l.color = new Color(0.4f, 0.274f, 0.884f);
-            l.cookie = Res.ResourceLoader.instance.LoadedTextures[23];
-            l.cookieSize = 30;
+            l.color = new Color(1, 1,1f);
+         
             l.shadows = LightShadows.None;
             l.type = LightType.Point;
             Core.prefabs[401].SetActive(false);

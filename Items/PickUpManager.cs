@@ -107,7 +107,7 @@ namespace ChampionsOfForest
 
 
 
-                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.3f ;
+                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.5f ;
 
                 if (pickupMaterial == null)
                 {
@@ -132,6 +132,8 @@ namespace ChampionsOfForest
                         l.intensity = 1.7f;
                         l.cookie = Res.ResourceLoader.GetTexture(24);
                         l.cookieSize =5f;
+                        if (item.Rarity ==7) l.intensity = 2.7f;
+
                     }
                 }
                 spawn.AddComponent<MeshCollider>().convex = true;

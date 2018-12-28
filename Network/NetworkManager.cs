@@ -130,6 +130,12 @@ namespace ChampionsOfForest.Network
             SendLine(msg, Network.NetworkManager.Target.Everyone);
 
         }
+        public static void SendHitmarker(Vector3 pos, int amount)
+        {
+            string msg = "EH"+ amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
+            SendLine(msg, Network.NetworkManager.Target.Everyone);
+
+        }
 
     }
 }
