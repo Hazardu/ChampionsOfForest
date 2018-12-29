@@ -124,13 +124,13 @@ namespace ChampionsOfForest
 
         public float BlockFactor = 1;
         public float ExpFactor = 1;
-        public long ExpCurrent = 15;
-        public long ExpGoal = 20;
+        public long ExpCurrent = 0;
+        public long ExpGoal = 1;
 
 
 
         public int PermanentBonusPerkPoints;
-        public int MutationPoints = 10;
+        public int MutationPoints = 0;
         public long NewlyGainedExp;
 
         public int MassacreKills;
@@ -142,7 +142,11 @@ namespace ChampionsOfForest
 
         public float EnergyOnHit = 0;
         public float EnergyPerSecond = 0;
-        public float StealthDamage = 1;
+
+
+        public float StealthDamage = 1; //to do
+
+
         public float ThirstRate = 1;
         public float HungerRate = 1;
         public float AreaDamageProcChance = 0.15f;
@@ -152,7 +156,7 @@ namespace ChampionsOfForest
 
 
         public static bool IsSacredArrow = false;
-        public static bool IsHuge = false;
+        public static bool IsArrowHuge = false;
 
 
         public int LastDayOfGeneration = 0;
@@ -211,7 +215,12 @@ namespace ChampionsOfForest
             ModAPI.Log.Write("SETUP: Created Player");
             instance = this;
             MoveSpeed = 1f;
-         
+            MutationPoints = 1;
+            ExpGoal = GetGoalExp();
+            if (!GameSetup.IsNewGame)
+            {
+                Serializer.Load();
+            }
         }
 
 
@@ -458,7 +467,7 @@ namespace ChampionsOfForest
 
             ExpGoal = GetGoalExp();
         }
-        private long GetGoalExp()
+        public long GetGoalExp()
         {
             int x = Level;
             float a = 2.5f;
@@ -468,7 +477,7 @@ namespace ChampionsOfForest
             double y = Mathf.Pow(x, a) * b + Mathf.Sin(d * x) * c + c * x;
             return Convert.ToInt64(y);
         }
-        private long GetGoalExp(int lvl)
+        public long GetGoalExp(int lvl)
         {
             int x = lvl;
             float a = 1.7f;
@@ -575,10 +584,10 @@ namespace ChampionsOfForest
         {
 
             TimeUntillMassacreReset = 0;
-            long Amount = NewlyGainedExp * (long)MassacreMultipier;
+            float Amount = (float)NewlyGainedExp * MassacreMultipier;
             NewlyGainedExp = 0;
             MassacreMultipier = 1;
-            AddFinalExperience(Amount);
+            AddFinalExperience(Convert.ToInt64(Amount));
         }
     }
 }

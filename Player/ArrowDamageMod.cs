@@ -21,7 +21,6 @@ namespace ChampionsOfForest.Player
 
         public override void CheckHit(Vector3 position, Transform target, bool isTrigger, Collider targetCollider)
         {
-            ModAPI.Console.Write(damage.ToString()+ " Base dmg: "+BaseDmg);
             if (ignoreCollisionEvents(targetCollider) && !target.CompareTag("enemyRoot"))
             {
                 return;

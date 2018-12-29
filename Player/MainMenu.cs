@@ -725,6 +725,7 @@ namespace ChampionsOfForest
 
         private void DrawItemInfo(Vector2 pos, Item item)
         {
+            if (item == null) return;
             float width = 390 * rr;
             Vector2 originalPos = pos;
             pos.x += 5 * rr;

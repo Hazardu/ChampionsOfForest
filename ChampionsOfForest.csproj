@@ -210,6 +210,7 @@
 <Compile Include="Player\WeaponInfoMod.cs"  />
 <Compile Include="Res\Resource.cs"  />
 <Compile Include="Res\ResourceLoader.cs"  />
+<Compile Include="Serializer.cs"  />
 
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

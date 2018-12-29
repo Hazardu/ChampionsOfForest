@@ -35,6 +35,8 @@ namespace ChampionsOfForest
             {
                 Players = new List<GameObject>() { LocalPlayer.GameObject };
             }
+
+
         }
         float LevelRequestCooldown = 10;
         void Update()
