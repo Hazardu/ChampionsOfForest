@@ -10,18 +10,27 @@ namespace ChampionsOfForest.Player
 {
     public class WeaponInfoMod : weaponInfo
     {
+        private static float HeldWeaponAtkSpeed;
+        private static float HeldWeaponTiredAtkSpeed;
+
         protected override void Update()
         {
             if (mainTriggerScript != null)
             {
-                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
-                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
-                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
-                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = HeldWeaponAtkSpeed * ModdedPlayer.instance.AttackSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = HeldWeaponTiredAtkSpeed;
+                //setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                ////setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
+                //setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
                 LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
-            
+                //if ((bool)setup && (bool)setup.pmStamina)
+                //{
+                //    setup.pmStamina.SendEvent("toSetStats");
+                //    }
+                //}
             }
-            base.Update();
+                base.Update();
         }
         protected override void setupMainTrigger()
         {
@@ -136,9 +145,9 @@ namespace ChampionsOfForest.Player
                 {
                     checkBurnableCloth();
                 }
-                animSpeed = Mathf.Clamp(weaponSpeed,0.0005f, 200f) / 20f;
+                animSpeed = weaponSpeed / 20f;
                 //animSpeed += 0.5f;
-                animTiredSpeed = tiredSpeed / 20f;// * (animSpeed - 0.5f);
+                animTiredSpeed = tiredSpeed / 30f; //* (animSpeed - 0.5f);
                 //animTiredSpeed += 0.5f;
                 if ((bool)setup)
                 {
@@ -148,16 +157,22 @@ namespace ChampionsOfForest.Player
                         {
                             animControl.tempTired = animSpeed;
                             setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
+                            HeldWeaponAtkSpeed = animSpeed;
                         }
                         else
                         {
                             setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
+                            HeldWeaponAtkSpeed = animSpeed;
+
                         }
+                        ModAPI.Console.Write(HeldWeaponAtkSpeed.ToString());
                     }
                     if ((bool)setup && (bool)setup.pmStamina)
                     {
                         setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed;
-               
+                        HeldWeaponTiredAtkSpeed = animTiredSpeed;
+                        ModAPI.Console.Write(HeldWeaponTiredAtkSpeed.ToString());
+
                         setup.pmControl.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f;
                   
                         setup.pmControl.FsmVariables.GetFsmFloat("blockStaminaDrain").Value = blockStaminaDrain * -1f;

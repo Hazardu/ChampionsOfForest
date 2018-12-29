@@ -68,7 +68,13 @@ namespace ChampionsOfForest
                 return 1;
             }
         }
-
+        public float StaminaAndEnergyRegenAmp
+        {
+            get
+            {
+                return 1 + agility * EnergyRegenPerInt;
+            }
+        }
         public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100);
         public int Level = 1;
 
@@ -78,16 +84,16 @@ namespace ChampionsOfForest
         public int agility = 1;     //increases energy
         public int vitality = 1;     //increases health
         public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
-        public float DamagePerStrenght = 0.01f;
-        public float SpellDamageperInt = 0.01f;
-        public float RangedDamageperAgi = 0.01f;
-        public float EnergyRegenPerInt = 0.075f;
-        public float EnergyPerAgility = 0.25f;
-        public float HealthPerVitality = 2f;
+        public float DamagePerStrenght = 0.005f;
+        public float SpellDamageperInt = 0.005f;
+        public float RangedDamageperAgi = 0.005f;
+        public float EnergyRegenPerInt = 0.0075f;
+        public float EnergyPerAgility = 0.2f;
+        public float HealthPerVitality = 0.5f;
         public float HealthRegenPercent = 0;
         public float StaminaRegenPercent = 0;
-        public int HealthBonus = 0;
-        public int EnergyBonus = 100;
+        public int HealthBonus = 30;
+        public int EnergyBonus = 30;
         public float MaxHealthPercent = 0;
         public float MaxEnergyPercent = 0;
         public float CoolDownMultipier = 1;
@@ -135,7 +141,7 @@ namespace ChampionsOfForest
 
         public int MassacreKills;
         public string MassacreText = "";
-        private float MassacreMultipier = 1;
+        public float MassacreMultipier = 1;
         public float TimeUntillMassacreReset;
         public float MaxMassacreTime = 20;
         public float TimeBonusPerKill;
@@ -372,21 +378,7 @@ namespace ChampionsOfForest
         }
         public void AddFinalExperience(long Amount)
         {
-            int i = 0;
-            ExpCurrent += Amount;
-            while (ExpCurrent >= ExpGoal)
-            {
-                ExpCurrent -= ExpGoal;
-                LevelUp();
-                i++;
-            }
-            if(i > 0)
-            {
-                if (GameSetup.IsMultiplayer)
-                {
-                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
-                }
-            }
+            ExpCurrent += (long)(Amount * ExpFactor);
         }
         public void DoOnHit()
         {
@@ -394,7 +386,7 @@ namespace ChampionsOfForest
             {
                 LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
-                LocalPlayer.Stats.Energy += EnergyOnHit;
+                LocalPlayer.Stats.Energy += EnergyOnHit* StaminaAndEnergyRegenAmp;
             }
             catch (Exception exc)
             {
@@ -460,11 +452,11 @@ namespace ChampionsOfForest
                 }
             }
         }
+         
         public void LevelUp()
         {
             MutationPoints++;
             Level++;
-
             ExpGoal = GetGoalExp();
         }
         public long GetGoalExp()

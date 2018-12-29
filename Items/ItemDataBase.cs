@@ -1,6 +1,7 @@
 ﻿using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -95,7 +96,7 @@ namespace ChampionsOfForest
         {
 
             //this needs to be changed to take random value of average of all player levels - and exclude the level of dedicated server.
-            int randomLevel = 1;
+            int averageLevel = 1;
             if (GameSetup.IsMultiplayer)
             {
                 int sum = 0;
@@ -104,41 +105,43 @@ namespace ChampionsOfForest
                     sum += a;
                 }
                 sum /= ModReferences.PlayerLevels.Values.Count;
-                randomLevel = Random.Range(Mathf.Max(sum - 15, 1), ModdedPlayer.instance.Level + 16);
+                averageLevel = sum;
             }
             else
             {
-                randomLevel = Random.Range(Mathf.Max(ModdedPlayer.instance.Level - 5, 1), ModdedPlayer.instance.Level + 10);
+                averageLevel = ModdedPlayer.instance.Level;
             }
-            float w = Worth / randomLevel;
+            float w = Worth / averageLevel;
             int rarity = 0;
 
-            if (w > 200)
+            if (w > 200 && Random.value < 0.60f)
             {
                 rarity = 1;
-                if (w > 350 && Random.value < 0.95f)
+
+                if (w > 350 && Random.value < 0.50f)
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.85f)
+                    if (w > 500 && Random.value < 0.50f&&(int)ModSettings.difficulty>=1)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.75f)
+                        if (w > 625 && Random.value < 0.5f && (int)ModSettings.difficulty >= 2)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.60f)
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty >= 3)
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f)
+                                if (w > 800 && Random.value < 0.4f && (int)ModSettings.difficulty >= 4)
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f)
+                                    if (w > 950 && Random.value < 0.20f && (int)ModSettings.difficulty >= 5)
                                     {
                                         rarity = 7;
+
                                     }
                                 }
                             }
@@ -152,9 +155,26 @@ namespace ChampionsOfForest
                 increasedLvl += 2;
                 rarity--;
             }
-            int randomID = ItemRarityGroups[rarity][Random.Range(0, ItemRarityGroups[rarity].Count)];
-            Item item = new Item(ItemBases[randomID], 1, increasedLvl);
-            item.level = Mathf.Max(item.level, randomLevel);
+
+            int[] itemPool = null;
+            while (itemPool == null)
+            {
+                itemPool= ItemRarityGroups[rarity].Where(i => ((ItemBases[i].minLevel) <= averageLevel+5)).ToArray();
+                if (itemPool.Length == 0)
+                {
+                    rarity--;
+                    itemPool = null;
+                }
+                
+            }
+
+            int randomID = Random.Range(0, itemPool.Length);
+
+            Item item = new Item(ItemBases[itemPool[randomID]], 1, increasedLvl);
+
+
+            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 3, averageLevel + 5));
+            item.RollStats();
             return item;
 
         }
@@ -162,54 +182,54 @@ namespace ChampionsOfForest
         public static void FillStats()
         {
             int i = 1;
-            new ItemStat(i, 1, 1.5f, 1.7f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 1, 1.5f, 1.7f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 1, 1.5f, 1.7f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 1, 1.5f, 1.7f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
-            new ItemStat(i, 3, 6, 1.7f, "Maximum Life", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
-            new ItemStat(i, 3, 6, 1.7f, "Maximum Energy", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
+            new ItemStat(i, 1, 2, 1.7f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 1, 2, 1.7f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 1,2, 1.7f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 1,2, 1.7f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 2, 2.5f, 1.6f, "Maximum Life", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
+            new ItemStat(i, 2, 2.5f, 1.6f, "Maximum Energy", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
             new ItemStat(i, 0.01f, 0.025f, 1.7f, "Life Per Second", 3, StatActions.AddHPRegen, StatActions.RemoveHPRegen, StatActions.AddHPRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.025f, 1.7f, "Stamina Per Second", 3, StatActions.AddStaminaRegen, StatActions.RemoveStaminaRegen, StatActions.AddStaminaRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0001f, 0.0025f, 1.1f, "Stamina Regen %", 3, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.0025f, 1.1f, "Life Regen %", 3, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.1f, "Damage Reduction %", 2, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.99f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0002f, 0.0006f, 1.1f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.03f, 1.2f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0002f, 0.001f, 1.1f, "Damage Reduction %", 2, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.99f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0002f, 0.001f, 1.1f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.03f, 1.3f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.1f, 0.35f, 1.6f, "Life on hit", 6, StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); i++;
             new ItemStat(i, 0.0005f, 0.0002f, 1.05f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.99f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 2f, 1.6f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
-            new ItemStat(i, 0.0005f, 0.001f, 1.05f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 1.1f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0003f, 0.0007f, 1.1f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 2f, 3f, 1.8f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.001f, 0.003f, 1.05f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.005f, 0.01f, 1.2f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.003f, 0.007f, 1.1f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 2f, 1.1f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
-            new ItemStat(i, 0.001f, 0.002f, 1.7f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.001f, 0.002f, 1.7f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.001f, 0.002f, 1.7f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 2f, 1.7f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
-            new ItemStat(i, 1f, 2f, 1.7f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
-            new ItemStat(i, 1f, 2f, 1.7f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
-            new ItemStat(i, 0.0005f, 0.001f, 1.05f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 1.05f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.03f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.03f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.5f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 1f, 0f, "PERMANENT PERK POINTS", 0, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
-            new ItemStat(i, 10f, 20f, 2, "EXPERIENCE", 0, null, null, StatActions.PERMANENT_expIncrease); i++;
+            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.7f, 0.8f, 1.7f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
+            new ItemStat(i, 0.35f, 0.5f, 1.7f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
+            new ItemStat(i, 0.35f, 0.5f, 1.7f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
+            new ItemStat(i, 0.0005f, 0.001f, 1.02f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.005f, 0.008f, 1.02f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0004f, 0.0009f, 1.02f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0004f, 0.0009f, 1.02f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.00025f, 0.001f, 1.5f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.7f/5.5f, 1.6f/5.5f, 0f, "PERMANENT PERK POINTS", 0, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
+            new ItemStat(i, 10f, 30f, 2.7f, "EXPERIENCE", 0, null, null, StatActions.PERMANENT_expIncrease); i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Movement Speed", 5, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Melee Weapon Range", 5, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Attack Cost Reduction", 3, f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => RemovePercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f)) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Spell Cost Reduction", 6, f => AddPercentage(ref ModdedPlayer.instance.SpellCostRatio, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostRatio, f), f => ModdedPlayer.instance.SpellCostRatio *= f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.005f, 0.015f, 1.02f, "Spell Cost to Stamina", 6, f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 1, 1.2f, 1.5f, "Strenght", 1, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 1, 1.2f, 1.5f, "Agility", 1, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 1, 1.2f, 1.5f, "Vitality", 1, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 1, 1.2f, 1.5f, "Intelligence", 1, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
-            new ItemStat(i, 1.4f, 2f, 1.5f, "Armor", 1, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
-            new ItemStat(i, 0.0003f, 0.001f, 1.8f, "Energy Per Second", 6, StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.6f, "Maximum Life", 5, f => ModdedPlayer.instance.MaxHealthPercent += f, f => ModdedPlayer.instance.MaxHealthPercent -= f, f => ModdedPlayer.instance.MaxHealthPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.6f, "Maximum Energy", 5, f => ModdedPlayer.instance.MaxEnergyPercent += f, f => ModdedPlayer.instance.MaxEnergyPercent -= f, f => ModdedPlayer.instance.MaxEnergyPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Strenght", 1, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Agility", 1, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Vitality", 1, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Intelligence", 1, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 0.8f, 1.3f, 1.7f, "Armor", 1, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.0005f, 0.0015f, 1.8f, "Energy Per Second", 6, StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.005f, 1.2f, "Maximum Life %", 5, f => ModdedPlayer.instance.MaxHealthPercent += f, f => ModdedPlayer.instance.MaxHealthPercent -= f, f => ModdedPlayer.instance.MaxHealthPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.001f, 0.005f, 1.2f, "Maximum Energy %", 5, f => ModdedPlayer.instance.MaxEnergyPercent += f, f => ModdedPlayer.instance.MaxEnergyPercent -= f, f => ModdedPlayer.instance.MaxEnergyPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.003f, 0.02f, 1.01f, "Cooldown Reduction", 7, f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier /= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.9f }; i++;
-            new ItemStat(i, 0.0001f, 0.0005f, 1.03f, "Ranged Damage Per Agi", 7, f => ModdedPlayer.instance.RangedDamageperAgi += f, f => ModdedPlayer.instance.RangedDamageperAgi += -f, f => ModdedPlayer.instance.RangedDamageperAgi += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0004f, 0.0009f, 1.02f, "Ranged Damage Per Agi", 7, f => ModdedPlayer.instance.RangedDamageperAgi += f, f => ModdedPlayer.instance.RangedDamageperAgi += -f, f => ModdedPlayer.instance.RangedDamageperAgi += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.05f, 1.2f, "Energy on hit", 4, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, f => ModdedPlayer.instance.EnergyOnHit += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 1.1f, "Block", 2, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
 
@@ -248,6 +268,7 @@ namespace ChampionsOfForest
                 FillRings();
                 FillAmulets();
                 FillBracers();
+                FillConsumables();
             }
             catch (System.Exception e)
             {
@@ -255,6 +276,47 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write(e.ToString());
             }
         }
+
+        private static void FillConsumables()
+        {
+            new BaseItem(new int[][]
+            {
+                new int[] {32},
+
+            })
+            {
+                name = "Greater Mutated Heart",
+                description = "",
+                lore = "",
+                tooltip = "Can be consumed by right clicking it",
+                Rarity = 7,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = true,
+                StackSize = 100,
+                _itemType = BaseItem.ItemType.Other,
+                icon = Res.ResourceLoader.GetTexture(105),
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {33},
+
+            })
+            {
+                name = "Lesser Mutated Heart",
+                description = "",
+                lore = "",
+                tooltip = "Can be consumed by right clicking it",
+                Rarity = 6,
+                minLevel = 1,
+                maxLevel = 6,
+                CanConsume = true,
+                StackSize = 100,
+                _itemType = BaseItem.ItemType.Other,
+                icon = Res.ResourceLoader.GetTexture(105),
+            };
+        }
+    
 
         private static void FillAmulets()
         {

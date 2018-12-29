@@ -14,6 +14,7 @@ namespace ChampionsOfForest
         private static Camera mainCam;
         private float constantViewTime;
         private float lifetime = 300;
+        private readonly float TimeToUnlock = 1;
         private void Start()
         {
             if (mainCam == null)
@@ -28,18 +29,25 @@ namespace ChampionsOfForest
             item.Amount = 1;
             lifetime = 2500;
             rb = GetComponent<Rigidbody>();
-            rb.drag = 0.3f;
+            rb.drag = 0.7f;
             rb.angularDrag = 0.2f;
             lifetime = 300;
+            rb.isKinematic = true;
+            Invoke("UnlockMe", TimeToUnlock);
         }
 
         public void EnableDisplay()
         {
             DisplayTime = 1;
         }
+        void UnlockMe()
+        {
+            rb.isKinematic = false;
 
+        }
         private void OnGUI()
         {
+
             if (DisplayTime > 0)
             {
                 constantViewTime += Time.deltaTime;

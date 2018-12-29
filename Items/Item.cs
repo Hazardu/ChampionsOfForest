@@ -65,25 +65,25 @@ namespace ChampionsOfForest
                             stat.Amount *= 0.5f;
                             break;
                         case 1:
-                            stat.Amount *= 0.75f;
+                            stat.Amount *= 0.7f;
                             break;
                         case 2:
                             stat.Amount *= 1f;
                             break;
                         case 3:
-                            stat.Amount *= 1.5f;
+                            stat.Amount *= 1.4f;
                             break;
                         case 4:
-                            stat.Amount *= 2.5f;
+                            stat.Amount *= 2f;
                             break;
                         case 5:
-                            stat.Amount *= 3.5f;
+                            stat.Amount *= 2.8f;
                             break;
                         case 6:
-                            stat.Amount *= 5f;
+                            stat.Amount *= 3.9f;
                             break;
                         case 7:
-                            stat.Amount *=7.5f;
+                            stat.Amount *=5.5f;
                             break;
                     }
                     if (stat.ValueCap != 0) stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);

@@ -127,7 +127,7 @@ namespace ChampionsOfForest
             catch (System.Exception ex)
             {
 
-                ModAPI.Console.Write(ex.ToString());
+                ModAPI.Log.Write(ex.ToString());
             }
         }
 
@@ -304,6 +304,7 @@ namespace ChampionsOfForest
             {
                 LocalPlayer.Inventory.AddItem(item.Key, item.Value);
             }
+            SpellCaster.instance.SetMaxCooldowns();
         }
 
 
@@ -317,7 +318,6 @@ namespace ChampionsOfForest
             if (!Saving)
             {
                 ModAPI.Log.Write("SAVING");
-                ModAPI.Console.Write("SAVING");
                 Instance.StartCoroutine(Instance.DoSaveCoroutine());
             }
         }
@@ -326,7 +326,6 @@ namespace ChampionsOfForest
         {
             CreateInstance();
             ModAPI.Log.Write("LOADING");
-            ModAPI.Console.Write("LOADING");
             Instance.StartCoroutine(Instance.DoLoadCoroutine());
 
         }

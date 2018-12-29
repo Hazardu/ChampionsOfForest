@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Player;
+﻿using ChampionsOfForest.Network;
+using ChampionsOfForest.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace ChampionsOfForest
         private Transform scannedTransform;
         private BoltEntity scannedEntity;
         private bool HideHud = false;
-
+        private float ProgressBarAmount = 0;
         private Rect HUDenergyLabelRect;
         private Rect HUDHealthLabelRect;
 
@@ -77,9 +78,9 @@ namespace ChampionsOfForest
 
 
         //Perks variables
-        float PerkHexagonSide = 60;
-        float PerkHeight;
-        float PerkWidth;
+        private readonly float PerkHexagonSide = 60;
+        private float PerkHeight;
+        private float PerkWidth;
 
         //Textures
         private Texture2D _black;
@@ -120,24 +121,22 @@ namespace ChampionsOfForest
         public OpenedMenuMode _openedMenu;
 
 
-        public Dictionary<int,HitMarker> hitMarkers =new Dictionary<int, HitMarker>();
+        public List<HitMarker> hitMarkers = new List<HitMarker>();
         public class HitMarker
         {
-           public int txt;
+            public int txt;
             public Vector3 worldPosition;
             public float lifetime;
-            private int ID;
-            public void Delete()
+            public void Delete(int i)
             {
-                Instance.hitMarkers.Remove(ID);
+                Instance.hitMarkers.RemoveAt(i);
             }
-            public HitMarker(int t,Vector3 p)
+            public HitMarker(int t, Vector3 p)
             {
                 txt = t;
                 worldPosition = p;
-                lifetime = 5f;
-                ID = Instance.hitMarkers.Count;
-                Instance.hitMarkers.Add(ID,this);
+                lifetime = 4f;
+                Instance.hitMarkers.Add(this);
             }
         }
 
@@ -178,8 +177,8 @@ namespace ChampionsOfForest
                 MenuInteractable = true;
 
                 //Perks
-                 PerkHeight = PerkHexagonSide * 2*rr;
-                 PerkWidth = PerkHexagonSide * 1.732050f*rr; //times sqrt(3)
+                PerkHeight = PerkHexagonSide * 2 * rr;
+                PerkWidth = PerkHexagonSide * 1.732050f * rr; //times sqrt(3)
 
                 //HUD
                 HideHud = false;
@@ -188,7 +187,10 @@ namespace ChampionsOfForest
 
                 //The main font as of now is Gabriola
                 MainFont = Font.CreateDynamicFontFromOSFont("Bahnschrift", Mathf.RoundToInt(24 * rr));
-                if(MainFont ==null) MainFont = Font.CreateDynamicFontFromOSFont("Arial", Mathf.RoundToInt(24 * rr));
+                if (MainFont == null)
+                {
+                    MainFont = Font.CreateDynamicFontFromOSFont("Arial", Mathf.RoundToInt(24 * rr));
+                }
 
                 //Getting textures using ResourceLoader
                 _combatDurationTex = ResourceLoader.instance.LoadedTextures[18];
@@ -217,7 +219,35 @@ namespace ChampionsOfForest
         {
             if (_openedMenu != OpenedMenuMode.Hud)
             {
-                // LocalPlayer.FpCharacter.LockView(true);
+                //LocalPlayer.FpCharacter.LockView(true);
+                int i = 0;
+                    while (ModdedPlayer.instance.ExpCurrent >= ModdedPlayer.instance.ExpGoal)
+                    {
+                    ModdedPlayer.instance.ExpCurrent -= ModdedPlayer.instance.ExpGoal;
+                    ModdedPlayer.instance.LevelUp();
+                        i++;
+                    }
+                
+                if (i > 0)
+                {
+                    if (GameSetup.IsMultiplayer)
+                    {
+                        NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                    }
+                }
+            }
+            else
+            {
+                ProgressBarAmount =Mathf.MoveTowards(ProgressBarAmount,(float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal,Time.deltaTime*2);
+                if(ProgressBarAmount >= 1)
+                {
+                    ModdedPlayer.instance.ExpCurrent -= ModdedPlayer.instance.ExpGoal;
+                    ModdedPlayer.instance.LevelUp();
+                    if (GameSetup.IsMultiplayer)
+                    {
+                        NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                    }
+                }
             }
             Crouching = LocalPlayer.FpCharacter.crouching;
             if (ModAPI.Input.GetButtonDown("MenuToggle"))
@@ -227,17 +257,17 @@ namespace ChampionsOfForest
 
             try
             {
-     if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
-            {
-                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward);
-            }
+                if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+                {
+                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000)), LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward);
+                }
             }
             catch (Exception e)
             {
 
                 ModAPI.Log.Write(e.ToString());
             }
-       
+
 
         }
 
@@ -431,7 +461,7 @@ namespace ChampionsOfForest
                 {
                     HideHud = !HideHud;
                 }
-
+                DisplayedPerkIDs = null;
 
                 semiblackValue = 0;
             }
@@ -541,7 +571,8 @@ namespace ChampionsOfForest
                 if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button)
                 {
                     font = MainFont,
-                    fontSize = Mathf.FloorToInt(30 * rr) }))
+                    fontSize = Mathf.FloorToInt(30 * rr)
+                }))
                 { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
             }
             else
@@ -550,7 +581,8 @@ namespace ChampionsOfForest
                 if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
                 {
                     font = MainFont,
-                    fontSize = Mathf.FloorToInt(30 * rr) }))
+                    fontSize = Mathf.FloorToInt(30 * rr)
+                }))
                 { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
             }
             GUI.color = Color.white;
@@ -646,7 +678,7 @@ namespace ChampionsOfForest
             {
                 center = eq.center
             };
-            head.y -=3.5f*head.height;
+            head.y -= 3.5f * head.height;
 
             Rect chest = new Rect(head);
             chest.y += chest.height + 50 * rr;
@@ -725,7 +757,11 @@ namespace ChampionsOfForest
 
         private void DrawItemInfo(Vector2 pos, Item item)
         {
-            if (item == null) return;
+            if (item == null)
+            {
+                return;
+            }
+
             float width = 390 * rr;
             Vector2 originalPos = pos;
             pos.x += 5 * rr;
@@ -739,33 +775,33 @@ namespace ChampionsOfForest
 
             Rect descriptionBox = new Rect(originalPos, new Vector2(width + 10 * rr, 500 * rr));
             Rect ItemNameRect = new Rect(pos.x, pos.y, width, 50 * rr);
-            GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(45 * rr),fontStyle = FontStyle.Bold, font = MainFont };
+            GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(35 * rr), fontStyle = FontStyle.Bold, font = MainFont };
             float y = 70 + pos.y;
             Rect[] StatRects = new Rect[item.Stats.Count];
-            GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(26 * rr), font = MainFont };
-            GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(26 * rr),fontStyle = FontStyle.Bold, font = MainFont };
+            GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(20 * rr), font = MainFont };
+            GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(20 * rr), fontStyle = FontStyle.Bold, font = MainFont };
 
             for (int i = 0; i < StatRects.Length; i++)
             {
-                StatRects[i] = new Rect(pos.x, y, width, 40 * rr);
-                y += 42 * rr;
+                StatRects[i] = new Rect(pos.x, y, width, 22 * rr);
+                y += 22 * rr;
             }
-            y += 35 * rr;
+            y += 30 * rr;
 
             Rect LevelAndTypeRect = new Rect(pos.x, y, width, 35 * rr);
-            GUIStyle TypeStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(25 * rr), font = MainFont };
+            GUIStyle TypeStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(14 * rr), font = MainFont };
             GUIStyle LevelStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerRight, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Italic };
-            y += 35 * rr;
+            y += 30 * rr;
 
-            GUIStyle DescriptionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(30 * rr), font = MainFont };
-            GUIStyle LoreStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(27 * rr), font = MainFont, fontStyle = FontStyle.Italic };
-            GUIStyle TooltipStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(30 * rr), font = MainFont, fontStyle = FontStyle.Bold };
+            GUIStyle DescriptionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(16 * rr), font = MainFont };
+            GUIStyle LoreStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(13 * rr), font = MainFont, fontStyle = FontStyle.Italic };
+            GUIStyle TooltipStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold };
 
             Rect DescrRect = new Rect(pos.x, y, width, DescriptionStyle.CalcHeight(new GUIContent(item.description), width)); y += DescrRect.height;
-            y += 35 * rr;
+            y += 30 * rr;
 
             Rect LoreRect = new Rect(pos.x, y, width, LoreStyle.CalcHeight(new GUIContent(item.lore), width)); y += LoreRect.height;
-            y += 35 * rr;
+            y += 30 * rr;
 
             Rect toolTipTitleRect = new Rect(pos.x, y, width, TooltipStyle.fontSize + 2); y += toolTipTitleRect.height;
             Rect toolTipRect = new Rect(pos.x, y, width, TooltipStyle.CalcHeight(new GUIContent(item.tooltip), width)); y += toolTipRect.height;
@@ -785,6 +821,7 @@ namespace ChampionsOfForest
                 toolTipTitleRect.y += f;
                 toolTipRect.y += f;
             }
+            GUI.color = new Color(1, 1, 1, 0.8f);
             GUI.DrawTexture(descriptionBox, _black);
             GUI.color = RarityColors[item.Rarity];
             GUI.Label(ItemNameRect, item.name, ItemNameStyle);
@@ -872,13 +909,13 @@ namespace ChampionsOfForest
 
         }
 
+        private float hoveredOverID = -1;
+        private float DraggedItemAlpha = 0;
+
         private void DrawInvSlot(Rect r, int index)
         {
             Color frameColor = Color.black;
             GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[12]);
-
-
-
 
             if (Inventory.Instance.ItemList[index] != null)
             {
@@ -904,155 +941,183 @@ namespace ChampionsOfForest
                     if (ModdedPlayer.instance.Level < Inventory.Instance.ItemList[index].level && index < -1)
                     {
                         frameColor = Color.black;
+                        GUI.color= Color.black;
                     }
+                    GUI.color = new Color(1, 1, 1, 1);
 
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
-                    GUI.color = new Color(1, 1, 1, 1);
+                    if (Inventory.Instance.ItemList[index].Amount > 1)
+                    {
+                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString(), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset((int)(10 * rr), 0, 0, (int)(10 * rr)), fontSize = (int)(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
+                    }
+
+
                     if (isDragging)
                     {
-                        if (r.Contains(mousepos) && UnityEngine.Input.GetMouseButtonUp(0))
+                        if (r.Contains(mousepos))
                         {
-                            SelectedItem = index;
-                            if (index < -1)
+                          
+ bool canPlace = false;
+                                    switch (index)
+                                    {
+                                        case -2:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Helmet)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -3:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.ChestArmor)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -4:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Pants)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -5:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Boot)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -6:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.ShoulderArmor)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -7:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Glove)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -8:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Amulet)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -9:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Bracer)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -10:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Ring)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -11:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Ring)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -12:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Weapon)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                        case -13:
+                                            if (DraggedItem._itemType == BaseItem.ItemType.Offhand || DraggedItem._itemType == BaseItem.ItemType.Shield)
+                                            {
+                                                canPlace = true;
+                                            }
+
+                                            break;
+                                    }
+                            if(canPlace|| index > -1)
                             {
-                                bool canPlace = false;
-                                switch (index)
+                                if (hoveredOverID == index)
                                 {
-                                    case -2:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Helmet)
-                                        {
-                                            canPlace = true;
-                                        }
+                                    DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.deltaTime/2.5f, 0, 0.3f);
+                                    GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
+                                    GUI.DrawTexture(itemRect, DraggedItem.icon);
+                                    GUI.color = new Color(1, 1, 1, 1);
 
-                                        break;
-                                    case -3:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.ChestArmor)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -4:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Pants)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -5:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Boot)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -6:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.ShoulderArmor)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -7:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Glove)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -8:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Amulet)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -9:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Bracer)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -10:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -11:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -12:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Weapon)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                    case -13:
-                                        if (DraggedItem._itemType == BaseItem.ItemType.Offhand || DraggedItem._itemType == BaseItem.ItemType.Shield)
-                                        {
-                                            canPlace = true;
-                                        }
-
-                                        break;
-                                }
-                                if (canPlace)
-                                {
-                                    Item backup = Inventory.Instance.ItemList[index];
-                                    Inventory.Instance.ItemList[index] = DraggedItem;
-                                    Inventory.Instance.ItemList[DraggedItemIndex] = backup;
-                                    DraggedItem = null;
-                                    DraggedItemIndex = -1;
-                                    isDragging = false;
                                 }
                                 else
                                 {
-                                    Inventory.Instance.ItemList[DraggedItemIndex] = DraggedItem;
-                                    DraggedItem = null;
-                                    DraggedItemIndex = -1;
+                                    DraggedItemAlpha = 0;
+                                    hoveredOverID = index;
                                 }
                             }
-                            else
+                            if (UnityEngine.Input.GetMouseButtonUp(0))
                             {
-                                if (DraggedItem.ID != Inventory.Instance.ItemList[index].ID
-                                 || DraggedItem.Amount == DraggedItem.StackSize
-                                 || Inventory.Instance.ItemList[index].Amount == Inventory.Instance.ItemList[index].StackSize
-                                 || (Inventory.Instance.ItemList[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
+                                SelectedItem = index;
+                                if (index < -1)
                                 {
-                                    //replace items
-                                    Item backup = Inventory.Instance.ItemList[index];
-                                    Inventory.Instance.ItemList[index] = DraggedItem;
-                                    Inventory.Instance.ItemList[DraggedItemIndex] = backup;
-                                    DraggedItem = null;
-                                    DraggedItemIndex = -1;
-                                    isDragging = false;
-                                }
-                                else
-                                {
-                                    //stack items
-                                    int i = DraggedItem.Amount + Inventory.Instance.ItemList[index].Amount - DraggedItem.StackSize;
-                                    if (i > 0)  //too much to stack completely
+                                   
+                                    if (canPlace)
                                     {
-                                        Inventory.Instance.ItemList[index].Amount = Inventory.Instance.ItemList[index].StackSize;
-                                        Inventory.Instance.ItemList[DraggedItemIndex].Amount = i;
+                                        Item backup = Inventory.Instance.ItemList[index];
+                                        Inventory.Instance.ItemList[index] = DraggedItem;
+                                        Inventory.Instance.ItemList[DraggedItemIndex] = backup;
                                         DraggedItem = null;
                                         DraggedItemIndex = -1;
                                         isDragging = false;
                                     }
-                                    else //enough to stack completely
+                                    else
                                     {
-                                        Inventory.Instance.ItemList[index].Amount += DraggedItem.Amount;
-                                        Inventory.Instance.ItemList[DraggedItemIndex] = null;
+                                        Inventory.Instance.ItemList[DraggedItemIndex] = DraggedItem;
+                                        DraggedItem = null;
+                                        DraggedItemIndex = -1;
+                                    }
+                                }
+                                else
+                                {
+                                    if (DraggedItem.ID != Inventory.Instance.ItemList[index].ID
+                                     || DraggedItem.Amount == DraggedItem.StackSize
+                                     || Inventory.Instance.ItemList[index].Amount == Inventory.Instance.ItemList[index].StackSize
+                                     || (Inventory.Instance.ItemList[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
+                                    {
+                                        //replace items
+                                        Item backup = Inventory.Instance.ItemList[index];
+                                        Inventory.Instance.ItemList[index] = DraggedItem;
+                                        Inventory.Instance.ItemList[DraggedItemIndex] = backup;
                                         DraggedItem = null;
                                         DraggedItemIndex = -1;
                                         isDragging = false;
+                                    }
+                                    else
+                                    {
+                                        //stack items
+                                        int i = DraggedItem.Amount + Inventory.Instance.ItemList[index].Amount - DraggedItem.StackSize;
+                                        if (i > 0)  //too much to stack completely
+                                        {
+                                            Inventory.Instance.ItemList[index].Amount = Inventory.Instance.ItemList[index].StackSize;
+                                            Inventory.Instance.ItemList[DraggedItemIndex].Amount = i;
+                                            DraggedItem = null;
+                                            DraggedItemIndex = -1;
+                                            isDragging = false;
+                                        }
+                                        else //enough to stack completely
+                                        {
+                                            Inventory.Instance.ItemList[index].Amount += DraggedItem.Amount;
+                                            Inventory.Instance.ItemList[DraggedItemIndex] = null;
+                                            DraggedItem = null;
+                                            DraggedItemIndex = -1;
+                                            isDragging = false;
+                                        }
                                     }
                                 }
                             }
@@ -1087,6 +1152,29 @@ namespace ChampionsOfForest
             {
                 if (isDragging)
                 {
+
+                    if (r.Contains(mousepos))
+                    {
+                        if (hoveredOverID == index)
+                        {
+                            Rect itemRect = new Rect(r);
+                            float f = r.width * 0.15f;
+                            itemRect.width -= f;
+                            itemRect.height -= f;
+                            itemRect.x += f / 2;
+                            itemRect.y += f / 2;
+
+                            DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.deltaTime / 2.5f, 0, 0.3f);
+                            GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
+                            GUI.DrawTexture(itemRect, DraggedItem.icon);
+                        }
+                        else
+                        {
+                            DraggedItemAlpha = 0;
+                            hoveredOverID = index;
+                        }
+                    }
+                    GUI.color = new Color(1, 1, 1, 1);
                     if (r.Contains(mousepos) && UnityEngine.Input.GetMouseButtonUp(0))
                     {
                         isDragging = false;
@@ -1246,26 +1334,28 @@ namespace ChampionsOfForest
                 {
                     return;
                 }
-                GUI.color = new Color(1,0f, 0f,0.7f);
-                GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow,wordWrap=true, alignment = TextAnchor.MiddleCenter };
-                foreach (KeyValuePair<int,HitMarker> pair in hitMarkers)
+                GUI.color = new Color(1, 0.5f, 0.7f, 0.5f);
+                GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
+                for (int i = 0; i < hitMarkers.Count; i++)
                 {
-                    hitMarkers[pair.Key].lifetime -= Time.deltaTime;
-                    if (hitMarkers[pair.Key].lifetime < 0)
+                    hitMarkers[i].lifetime -= Time.deltaTime;
+                    if (hitMarkers[i].lifetime < 0)
                     {
-                        hitMarkers[pair.Key].Delete();
+                        hitMarkers[i].Delete(i);
                     }
                     else
                     {
-                        float distance = Vector3.Distance(Camera.main.transform.position, pair.Value.worldPosition);
-                        Vector3 pos = Camera.main.WorldToScreenPoint(pair.Value.worldPosition);
+                        float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
+                        Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
                         pos.y = Screen.height - pos.y;
                         float size = Mathf.Clamp(800 / distance, 10, 80);
                         size *= rr;
-                        Rect r = new Rect(0, 0, 400, size);
-                        r.center = pos;
+                        Rect r = new Rect(0, 0, 400, size)
+                        {
+                            center = pos
+                        };
 
-                        GUI.Label(r, pair.Value.txt.ToString(),new GUIStyle(HitmarkerStyle) { fontSize = (int)size});
+                        GUI.Label(r, hitMarkers[i].txt.ToString(), new GUIStyle(HitmarkerStyle) { fontSize = (int)size });
                     }
 
                 }
@@ -1276,7 +1366,7 @@ namespace ChampionsOfForest
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = string.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, buff.Value.duration, buff.Value.amount * 100);
+                    string s = string.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName,Math.Round( buff.Value.duration,1), buff.Value.amount * 100);
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
 
@@ -1332,19 +1422,19 @@ namespace ChampionsOfForest
                 float combatHeight = width * 63 / 1500;
                 Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
-                XPbarFill.width *= (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal;
+                XPbarFill.width *= ProgressBarAmount;
                 Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
                 Rect CombatBarCount = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize, combatHeight);
-                
+
                 Rect CombatBarText = new Rect(CombatBarCount)
                 {
                     y = CombatBar.yMax,
-                    height = 100f*rr
+                    height = 100f * rr
                 };
-                Rect CombatBarTimer = new Rect(CombatBar.xMax,CombatBar.y,300, combatHeight);
-                 GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont,fontSize = Mathf.FloorToInt(19*rr),alignment = TextAnchor.MiddleCenter };
+                Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
+                GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleCenter };
                 GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
-                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, 1));
+                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
                 GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
                 // GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
                 //{
@@ -1359,9 +1449,9 @@ namespace ChampionsOfForest
                 {
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
                     GUI.color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
-                    GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP", CombatCountStyle);
+                    GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP\tx"+ ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
                     GUI.color = new Color(1, 1, 1, 1f);
-                    GUI.Label(CombatBarTimer, Math.Round(ModdedPlayer.instance.TimeUntillMassacreReset,1).ToString() + " sec", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleLeft });
+                    GUI.Label(CombatBarTimer, Math.Round(ModdedPlayer.instance.TimeUntillMassacreReset, 1).ToString() + " sec", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleLeft });
                     GUI.color = new Color(0, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 6)
@@ -1646,7 +1736,7 @@ namespace ChampionsOfForest
             float y = spellOffset;
             foreach (System.Collections.Generic.KeyValuePair<int, Spell> pair in SpellDataBase.spellDictionary)
             {
-                DrawSpell(ref y, pair.Value, new GUIStyle( style));
+                DrawSpell(ref y, pair.Value, new GUIStyle(style));
             }
             if (displayedSpellInfo == null)
             {
@@ -1735,7 +1825,7 @@ namespace ChampionsOfForest
                                     }
                                 }
                             }
-                            GUI.color = new Color(0.7f, 0.7f,0.7f);
+                            GUI.color = new Color(0.7f, 0.7f, 0.7f);
                             GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                             GUI.color = Color.white;
                             GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[6]);
@@ -1751,7 +1841,7 @@ namespace ChampionsOfForest
                 {
                     //buy button
                     Rect UnlockRect = new Rect(bg.x + 150 * rr, 800 * rr, bg.width - 300 * rr, 100 * rr);
-                    if(displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.Level)
+                    if (displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.Level)
                     {
                         if (ModdedPlayer.instance.MutationPoints >= 2)
                         {
@@ -1791,7 +1881,7 @@ namespace ChampionsOfForest
             Rect bg = new Rect(0, y, Screen.width * 3 / 5, 100 * rr);
             bg.x = (Screen.width - bg.width) / 2;
             GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
-            Rect nameRect = new Rect(30 * rr+bg.x, y, bg.width / 2, 100 * rr);
+            Rect nameRect = new Rect(30 * rr + bg.x, y, bg.width / 2, 100 * rr);
 
             if (s.Levelrequirement > ModdedPlayer.instance.Level)
             {
@@ -1975,10 +2065,8 @@ namespace ChampionsOfForest
             return false;
         }
 
-
-
-        bool Hovered;
-        bool Buying;
+        private bool Hovered;
+        private bool Buying;
         private void DrawPerks()
         {
             //offset for background
@@ -2039,13 +2127,18 @@ namespace ChampionsOfForest
             currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.deltaTime * 15f);
 
             //filling DisplayedPerkIDs with perk ids where category is the same as the selected one
-            DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
+            if (DisplayedPerkIDs == null)
+            {
+                DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
+            }
 
             //Drawing Perks
-            Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth, PerkHeight) * 2);
-            rect.center = currentPerkOffset;
+            Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth, PerkHeight) * 2)
+            {
+                center = currentPerkOffset
+            };
             GUI.DrawTexture(rect, ResourceLoader.GetTexture(84));
-            GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(80 * rr),fontStyle = FontStyle.Bold,font = MainFont });
+            GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(80 * rr), fontStyle = FontStyle.Bold, font = MainFont });
 
 
 
@@ -2055,7 +2148,7 @@ namespace ChampionsOfForest
             {
                 DrawPerk(DisplayedPerkIDs[i]);
             }
-           
+
             if (!Buying)
             {
                 _timeToBuyPerk = 0;
@@ -2122,13 +2215,14 @@ namespace ChampionsOfForest
                     _perkpage = (Perk.PerkCategory)menus.GetValue(i);
                     targetPerkOffset = wholeScreen.center;
                     currentPerkOffset = targetPerkOffset;
+                    DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
                 }
 
 
             }
         }
 
-        void DrawPerk(int a)
+        private void DrawPerk(int a)
         {
             Perk p = Perk.AllPerks[a];
 
@@ -2141,17 +2235,19 @@ namespace ChampionsOfForest
                     break;
                 }
             }
-            if (!show) return;
-
-
-
+            if (!show)
+            {
+                return;
+            }
 
             Vector2 center = new Vector2(PerkWidth * p.PosOffsetX, PerkHeight * p.PosOffsetY);
             center += currentPerkOffset;
             Vector2 size = new Vector2(PerkWidth, PerkHeight);
             size *= p.Size;
-            Rect r = new Rect(Vector2.zero, size);
-            r.center = center;
+            Rect r = new Rect(Vector2.zero, size)
+            {
+                center = center
+            };
 
             Color color = Color.white;
             switch (_perkpage)
@@ -2212,25 +2308,25 @@ namespace ChampionsOfForest
                         desctext = "HOLD LEFT MOUSE BUTTON TO BUY\n \n" + p.Description;
                         Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
                         Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
-                        GUI.Label(LevelReq, "Level " + p.LevelRequirement + " required", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(33* rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        GUI.Label(LevelReq, "Level " + p.LevelRequirement + " required", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
                         GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
                         if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[a]) && Perk.AllPerks[a].LevelRequirement <= ModdedPlayer.instance.Level)
                         {
                             _timeToBuyPerk += Time.deltaTime;
                             Buying = true;
-                            Rect buyRect = new Rect(0, 1-_timeToBuyPerk / 2, 1,_timeToBuyPerk/2);
+                            Rect buyRect = new Rect(0, 1 - _timeToBuyPerk / 2, 1, _timeToBuyPerk / 2);
                             Rect buyRect2 = new Rect(r);
                             r.height *= _timeToBuyPerk / 2;
 
                             GUI.color = color;
-                            GUI.DrawTextureWithTexCoords(r,ResourceLoader.GetTexture(p.TextureVariation *2+81 +1), buyRect);
+                            GUI.DrawTextureWithTexCoords(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81 + 1), buyRect);
                             GUI.color = Color.white;
                             if (_timeToBuyPerk >= 2)
                             {
                                 ModdedPlayer.instance.MutationPoints -= p.PointsToBuy;
                                 Perk.AllPerks[a].IsBought = true;
                                 Perk.AllPerks[a].ApplyMethods();
-                                Perk.AllPerks[a].Applied= true;
+                                Perk.AllPerks[a].Applied = true;
                                 Buying = false;
                             }
                         }

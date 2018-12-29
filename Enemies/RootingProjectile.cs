@@ -13,40 +13,42 @@ namespace ChampionsOfForest.Enemies
         private static GameObject RepulsionEffectInstance;
         public static void Create(Vector3 pos, float rootDuration)
         {
-            if(ChainInstance == null)
+            if (ChainInstance == null)
             {
                 ChainInstance = new GameObject();
                 ChainInstance.AddComponent<RootSpell>();
-                ParticleSystem ps= ChainInstance.AddComponent<ParticleSystem>();
-                var main = ps.main;
+                ParticleSystem ps = ChainInstance.AddComponent<ParticleSystem>();
+                ParticleSystem.MainModule main = ps.main;
                 main.startLifetime = 30;
                 main.startSpeed = 0;
                 main.startSize = 2.5f;
                 main.scalingMode = ParticleSystemScalingMode.Hierarchy;
                 main.startRotationX = 90;
                 main.startRotationY = 90;
-                main.startRotationZ = new ParticleSystem.MinMaxCurve(0,90);
+                main.startRotationZ = new ParticleSystem.MinMaxCurve(0, 90);
                 main.simulationSpace = ParticleSystemSimulationSpace.World;
 
-                var e = ps.emission;
+                ParticleSystem.EmissionModule e = ps.emission;
                 e.rateOverDistance = 4;
                 e.rateOverTime = 0;
 
-                var s = ps.shape;
+                ParticleSystem.ShapeModule s = ps.shape;
                 s.shapeType = ParticleSystemShapeType.SingleSidedEdge;
                 s.alignToDirection = true;
-                
+
 
                 s.radius = 0.0001f;
                 s.length = 0.0001f;
 
-                var ef = ps.externalForces;
+                ParticleSystem.ExternalForcesModule ef = ps.externalForces;
                 ef.enabled = true;
                 ef.multiplier = 2;
 
                 ParticleSystemRenderer r = ps.GetComponent<ParticleSystemRenderer>();
-                r.material = new Material(Shader.Find("Particles/Additive"));
-                r.material.color = new Color(0.2431373f, 0.2051491f, 0, 0.10f);
+                r.material = new Material(Shader.Find("Particles/Additive"))
+                {
+                    color = new Color(0.2431373f, 0.2051491f, 0, 0.10f)
+                };
                 r.renderMode = ParticleSystemRenderMode.Mesh;
                 r.mesh = Res.ResourceLoader.instance.LoadedMeshes[69];
                 r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
@@ -54,7 +56,7 @@ namespace ChampionsOfForest.Enemies
                 ChainInstance.SetActive(false);
 
                 RepulsionEffectInstance = new GameObject();
-                WindZone wz= RepulsionEffectInstance.AddComponent<WindZone>();
+                WindZone wz = RepulsionEffectInstance.AddComponent<WindZone>();
                 wz.windMain = -10;
                 wz.windTurbulence = 5;
                 wz.mode = WindZoneMode.Spherical;
@@ -64,11 +66,11 @@ namespace ChampionsOfForest.Enemies
             ChainInstance.SetActive(true);
             for (int i = 0; i < ChainCount; i++)
             {
-                Vector3 rand =new Vector3 (Random.value * 2 -1, Random.value, Random.value * 2 - 1);
+                Vector3 rand = new Vector3(Random.value * 2 - 1, Random.value, Random.value * 2 - 1);
                 rand *= 10;
                 rand += pos;
 
-                GameObject go = Instantiate(ChainInstance,rand,Quaternion.LookRotation(pos-rand));
+                GameObject go = Instantiate(ChainInstance, rand, Quaternion.LookRotation(pos - rand));
                 go.transform.LookAt(pos);
                 RootSpell spell = go.GetComponent<RootSpell>();
                 spell.targetPos = pos;
@@ -82,10 +84,9 @@ namespace ChampionsOfForest.Enemies
 
         private bool ReachedGoal = false;
         private bool createdPush = false;
-        ParticleSystem psys;
+        private ParticleSystem psys;
 
-
-        void Start()
+        private void Start()
         {
             psys = GetComponent<ParticleSystem>();
             LifeTime = 0;
@@ -98,7 +99,7 @@ namespace ChampionsOfForest.Enemies
 
         }
 
-        void Update()
+        private void Update()
         {
             LifeTime += Time.deltaTime;
             if (LifeTime < Duration)
@@ -107,7 +108,10 @@ namespace ChampionsOfForest.Enemies
                 {
                     transform.LookAt(targetPos);
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, 40 * Time.deltaTime);
-                    if (transform.position == targetPos) ReachedGoal = true;
+                    if (transform.position == targetPos)
+                    {
+                        ReachedGoal = true;
+                    }
                 }
                 else if (!psys.isPaused)
                 {
@@ -123,7 +127,7 @@ namespace ChampionsOfForest.Enemies
                 if (!createdPush)
                 {
                     RepulsionEffectInstance.SetActive(true);
-                   Destroy( Instantiate(RepulsionEffectInstance, targetPos - Vector3.up * 3, Quaternion.identity),1f);
+                    Destroy(Instantiate(RepulsionEffectInstance, targetPos - Vector3.up * 3, Quaternion.identity), 1f);
                     RepulsionEffectInstance.SetActive(false);
                     Destroy(gameObject, 2);
                     createdPush = true;

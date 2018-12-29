@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath\)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -22,196 +22,201 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BaseModLib">
       <HintPath>../../../libs/BaseModLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Assembly-CSharp-firstpass">
+    <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Assembly-CSharp">
+    <Reference Include="Assembly-CSharp">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Assembly-UnityScript-firstpass">
+    <Reference Include="Assembly-UnityScript-firstpass">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Assembly-UnityScript-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Assembly-UnityScript">
+    <Reference Include="Assembly-UnityScript">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Assembly-UnityScript.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="bolt">
+    <Reference Include="bolt">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/bolt.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="bolt.user">
+    <Reference Include="bolt.user">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/bolt.user.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="SteamworksManaged">
+    <Reference Include="BuilderCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\The Forest\TheForest_Data\Managed\BuilderCore.dll</HintPath>
+    </Reference>
+    <Reference Include="BuilderMenu, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\The Forest\TheForest_Data\Managed\BuilderMenu.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamworksManaged">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/SteamworksManaged.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Boo.Lang">
+    <Reference Include="Boo.Lang">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Boo.Lang.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Mono.Security">
+    <Reference Include="Mono.Security">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Mono.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="UnityScript.Lang">
+    <Reference Include="UnityScript.Lang">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/UnityScript.Lang.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Boo.Lang">
+    <Reference Include="Boo.Lang">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Boo.Lang.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Mono.Posix">
+    <Reference Include="Mono.Posix">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Mono.Posix.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Mono.Security">
+    <Reference Include="Mono.Security">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Mono.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="mscorlib">
+    <Reference Include="mscorlib">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/mscorlib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Pathfinding.ClipperLib">
+    <Reference Include="Pathfinding.ClipperLib">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Pathfinding.ClipperLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Pathfinding.Ionic.Zip.Reduced">
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Pathfinding.JsonFx">
+    <Reference Include="Pathfinding.JsonFx">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Pathfinding.JsonFx.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Pathfinding.Poly2Tri">
+    <Reference Include="Pathfinding.Poly2Tri">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Pathfinding.Poly2Tri.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="PlayMaker">
+    <Reference Include="PlayMaker">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/PlayMaker.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="Rewired_Core">
+    <Reference Include="Rewired_Core">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/Rewired_Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="System.Configuration">
+    <Reference Include="System.Configuration">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/System.Configuration.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="System.Core">
+    <Reference Include="System.Core">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/System.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="System">
+    <Reference Include="System">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/System.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="System.Security">
+    <Reference Include="System.Security">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/System.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="System.Xml">
+    <Reference Include="System.Xml">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/System.Xml.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="TheForest.Commons">
+    <Reference Include="TheForest.Commons">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/TheForest.Commons.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="TheForest.Modding">
+    <Reference Include="TheForest.Modding">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/TheForest.Modding.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="UnityEngine">
+    <Reference Include="UnityEngine">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="UnityEngine.Networking">
+    <Reference Include="UnityEngine.Networking">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/UnityEngine.Networking.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="UnityEngine.UI">
+    <Reference Include="UnityEngine.UI">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="UnityScript.Lang">
+    <Reference Include="UnityScript.Lang">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/UnityScript.Lang.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="udpkit">
+    <Reference Include="udpkit">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/udpkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
-<Reference Include="udpkit.common">
+    <Reference Include="udpkit.common">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/udpkit.common.dll</HintPath>
       <Private>False</Private>
     </Reference>
-
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildings.cs"  />
-<Compile Include="Enemies\BossScriptEX.cs"  />
-<Compile Include="Enemies\EnemyHitTriggerMod.cs"  />
-<Compile Include="Enemies\EnemyLaser.cs"  />
-<Compile Include="Enemies\EnemyManager.cs"  />
-<Compile Include="Enemies\Meteor.cs"  />
-<Compile Include="Enemies\RootingProjectile.cs"  />
-<Compile Include="Enemies\SnowAura.cs"  />
-<Compile Include="Enemies\TrapSphereSpell.cs"  />
-<Compile Include="Items\BaseItem.cs"  />
-<Compile Include="Enemies\EnemyHealthMod.cs"  />
-<Compile Include="Enemies\EnemyProgression.cs"  />
-<Compile Include="Initializer.cs"  />
-<Compile Include="Items\Item.cs"  />
-<Compile Include="Items\ItemDataBase.cs"  />
-<Compile Include="Items\ItemPicker.cs"  />
-<Compile Include="Items\ItemPickUp.cs"  />
-<Compile Include="Items\ItemStat.cs"  />
-<Compile Include="Items\PickUpManager.cs"  />
-<Compile Include="Items\StatActions.cs"  />
-<Compile Include="ModReferences.cs"  />
-<Compile Include="ModSettings.cs"  />
-<Compile Include="BlackHole.cs"  />
-<Compile Include="Player\ArrowDamageMod.cs"  />
-<Compile Include="Player\BuffDataBase.cs"  />
-<Compile Include="Network\CommandReader.cs"  />
-<Compile Include="Player\CrossBowControllerMod.cs"  />
-<Compile Include="Player\CustomWeapon.cs"  />
-<Compile Include="Player\FPCharacterMod.cs"  />
-<Compile Include="Player\HealingDome.cs"  />
-<Compile Include="Player\Inventory.cs"  />
-<Compile Include="Player\ItemDatabaseMod.cs"  />
-<Compile Include="Player\MainMenu.cs"  />
-<Compile Include="Network\ChatBoxMod.cs"  />
-<Compile Include="Network\NetworkManager.cs"  />
-<Compile Include="Player\ModdedPlayer.cs"  />
-<Compile Include="Player\Perk.cs"  />
-<Compile Include="Player\PlayerInventoryMod.cs"  />
-<Compile Include="Player\PlayerStatsEx.cs"  />
-<Compile Include="Player\SlingShotMod.cs"  />
-<Compile Include="Player\Spell.cs"  />
-<Compile Include="Player\SpellCaster.cs"  />
-<Compile Include="Player\SpellDataBase.cs"  />
-<Compile Include="Player\WeaponInfoMod.cs"  />
-<Compile Include="Res\Resource.cs"  />
-<Compile Include="Res\ResourceLoader.cs"  />
-<Compile Include="Serializer.cs"  />
-
+    <Compile Include="Buildings.cs" />
+    <Compile Include="Enemies\BossScriptEX.cs" />
+    <Compile Include="Enemies\EnemyHitTriggerMod.cs" />
+    <Compile Include="Enemies\EnemyLaser.cs" />
+    <Compile Include="Enemies\EnemyManager.cs" />
+    <Compile Include="Enemies\Meteor.cs" />
+    <Compile Include="Enemies\RootingProjectile.cs" />
+    <Compile Include="Enemies\SnowAura.cs" />
+    <Compile Include="Enemies\TrapSphereSpell.cs" />
+    <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Enemies\EnemyHealthMod.cs" />
+    <Compile Include="Enemies\EnemyProgression.cs" />
+    <Compile Include="Initializer.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemDataBase.cs" />
+    <Compile Include="Items\ItemPicker.cs" />
+    <Compile Include="Items\ItemPickUp.cs" />
+    <Compile Include="Items\ItemStat.cs" />
+    <Compile Include="Items\PickUpManager.cs" />
+    <Compile Include="Items\StatActions.cs" />
+    <Compile Include="ModReferences.cs" />
+    <Compile Include="ModSettings.cs" />
+    <Compile Include="BlackHole.cs" />
+    <Compile Include="Player\ArrowDamageMod.cs" />
+    <Compile Include="Player\BuffDataBase.cs" />
+    <Compile Include="Network\CommandReader.cs" />
+    <Compile Include="Player\CrossBowControllerMod.cs" />
+    <Compile Include="Player\CustomWeapon.cs" />
+    <Compile Include="Player\FPCharacterMod.cs" />
+    <Compile Include="Player\HealingDome.cs" />
+    <Compile Include="Player\Inventory.cs" />
+    <Compile Include="Player\ItemDatabaseMod.cs" />
+    <Compile Include="Player\MainMenu.cs" />
+    <Compile Include="Network\ChatBoxMod.cs" />
+    <Compile Include="Network\NetworkManager.cs" />
+    <Compile Include="Player\ModdedPlayer.cs" />
+    <Compile Include="Player\Perk.cs" />
+    <Compile Include="Player\PlayerInventoryMod.cs" />
+    <Compile Include="Player\PlayerStatsEx.cs" />
+    <Compile Include="Player\SlingShotMod.cs" />
+    <Compile Include="Player\Spell.cs" />
+    <Compile Include="Player\SpellCaster.cs" />
+    <Compile Include="Player\SpellDataBase.cs" />
+    <Compile Include="Player\WeaponInfoMod.cs" />
+    <Compile Include="Res\Resource.cs" />
+    <Compile Include="Res\ResourceLoader.cs" />
+    <Compile Include="Serializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

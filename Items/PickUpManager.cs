@@ -11,6 +11,7 @@ namespace ChampionsOfForest
 
 
         private static Material pickupMaterial;
+        private static Material Heart_pickupMaterial;
 
 
         /// <summary>
@@ -25,8 +26,15 @@ namespace ChampionsOfForest
                 spawn.transform.position = pos;
                 MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                 MeshFilter filter = spawn.GetComponent<MeshFilter>();
-              
-                    switch (item._itemType)
+                if (pickupMaterial == null)
+                {
+                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.2f, Smoothness = 0.6f });
+                    Heart_pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.white, Metalic = 0.1f, Smoothness = 0.4f,MainTexture = Res.ResourceLoader.GetTexture(103),BumpMap = Res.ResourceLoader.GetTexture(104) });
+                }
+                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.5f;
+                renderer.material = pickupMaterial;
+
+                switch (item._itemType)
                     {
                         case BaseItem.ItemType.Shield:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[49];
@@ -49,7 +57,17 @@ namespace ChampionsOfForest
 
                             break;
                         case BaseItem.ItemType.Other:
-
+                            if(item.name == "Greater Mutated Heart" )
+                        {
+                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
+                            renderer.material = Heart_pickupMaterial;
+                            spawn.transform.localScale *= 2f;
+                        }
+                        else if(item.name == "Lesser Mutated Heart")
+                        {
+                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
+                            renderer.material = Heart_pickupMaterial;
+                        }
 
                             break;
                         case BaseItem.ItemType.Material:
@@ -106,15 +124,6 @@ namespace ChampionsOfForest
 
 
 
-
-                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.5f ;
-
-                if (pickupMaterial == null)
-                {
-                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.2f, Smoothness = 0.6f });
-
-                }
-                renderer.material = pickupMaterial;
 
 
                 if (item.Rarity > 2)

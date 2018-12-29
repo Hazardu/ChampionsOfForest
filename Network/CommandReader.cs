@@ -106,7 +106,7 @@ namespace ChampionsOfForest.Network
                         if (EnemyManager.hostDictionary.ContainsKey(packed))
                         {
                             EnemyProgression ep = EnemyManager.hostDictionary[packed];
-                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep.Health + ";" + ep.MaxHealth + ";" + ep.ExpBounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.SteadFest + ";" + ep.abilities.Count + ";";
+                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep.Health + ";" + ep.MaxHealth + ";" + ep.Bounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.SteadFest + ";" + ep.abilities.Count + ";";
                             foreach (EnemyProgression.Abilities item in ep.abilities)
                             {
                                 parseval += (int)item + ";";

@@ -17,13 +17,8 @@ namespace ChampionsOfForest
             public float amount;
         }
 
-        public Dictionary<int, SlowDebuff> slows = new Dictionary<int, SlowDebuff>();
-
-
-
-
-
-
+        public Dictionary<int, SlowDebuff> slows;
+        
         public enum EnemyType { Normal, Elite, Miniboss, Boss }
         public EnemyType type;
 
@@ -36,12 +31,12 @@ namespace ChampionsOfForest
         public int Level;
         public float Health;
         public float MaxHealth;
-        public int ExpBounty;
+        public int Bounty;
         public int Armor;
         public int ArmorReduction;
-        private bool setupComplete = false;
-        public float SteadFest;
-        private int SteadFestCap;
+        public bool setupComplete = false;
+        public float SteadFest =100;
+        private int SteadFestCap =100000;
         private float DamageMult;
         public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
         public List<Abilities> abilities;
@@ -129,7 +124,7 @@ namespace ChampionsOfForest
         private float shieldingCD;
         private float shieldingON;
         public bool CCimmune = false;
-
+        public float BaseHealth;
 
         public float DamageAmp => DamageMult;
 
@@ -205,8 +200,16 @@ namespace ChampionsOfForest
             {
                 ModAPI.Log.Write(ex.ToString());
             }
+            slows = new Dictionary<int, SlowDebuff>();
             SteadFest = 100;
-
+            if (BaseHealth == 0)
+            {
+                BaseHealth = _Health.Health;
+            }
+            else
+            {
+                _Health.Health = (int)BaseHealth;
+            }
             abilities = new List<Abilities>();
 
             if (UnityEngine.Random.value < 0.1)
@@ -330,34 +333,44 @@ namespace ChampionsOfForest
                     break;
             }
             Level = Mathf.RoundToInt(Level * lvlMult);
-            DamageMult = (float)Level / 6 + 0.45f;
-            Armor = Mathf.RoundToInt(Random.Range(Level * 0.1f, Level * Level * 3));
+            DamageMult = (float)Level / 6 + 0.55f;
+            Armor = Mathf.RoundToInt(Random.Range(Level* Level * 0.1f, Level * Level * 3));
           
 
             ArmorReduction = 0;
 
-            int hp = (int)(_Health.Health * Level*Random.Range(0.8f,1.2f));
-            _Health.Health = hp;
-            
-            Health = hp;
-            
+            Health = (int)(_Health.Health * Mathf.Pow(Level,1.3f));
+                        
 
-            AnimSpeed = 0.7f + (float)Level / 125;
+            AnimSpeed = 1f + (float)Level / 125;
 
-            ExpBounty = (int)Random.Range(Health * 0.35f, Health * 0.7f);
-            ExpBounty += (int)Random.Range(Armor * 0.10f, Armor * 0.45f);
-            ExpBounty *= Mathf.RoundToInt(abilities.Count * 1.5f + 1);
+            Bounty = 1;
+            switch (type)
+            {
+                
+                case EnemyType.Elite:
+                    Health *= 2;
+
+                    break;
+                case EnemyType.Miniboss:
+                    Health *= 5;
+
+                    break;
+                case EnemyType.Boss:
+                    Health *= 10;
+                    break;
+            }
             if (abilities.Contains(Abilities.Huge))
             {
                 Armor *= 2;
                 gameObject.transform.localScale *= 2;
-                MaxHealth *= 2;
+                Health *= 2;
                 DamageMult *= 2;
             }
             else if (abilities.Contains(Abilities.Tiny))
             {
                 gameObject.transform.localScale *= 0.35f;
-                MaxHealth *= 2;
+                Health *= 2;
                 DamageMult *= 1.5f;
 
                 BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
@@ -378,11 +391,7 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.ExtraHealth))
             {
-                _Health.Health *= 3;
                 Health *= 3;
-                MaxHealth *= 3;
-                _Health.maxHealthFloat *= 3;
-                _Health.maxHealth *= 3;
             }
             if (abilities.Contains(Abilities.ExtraDamage))
             {
@@ -390,11 +399,7 @@ namespace ChampionsOfForest
             }
 
 
-            SteadFestCap = Mathf.RoundToInt(SteadFest * 0.01f * MaxHealth);
-            if (SteadFestCap < 1)
-            {
-                SteadFestCap = 1;
-            }
+       
 
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
@@ -409,20 +414,70 @@ namespace ChampionsOfForest
             {
                 StartCoroutine(FireAuraLoop());
             }
-            MaxHealth = hp;
-            _Health.maxHealth = hp;
-            _Health.maxHealthFloat = hp;
-            _Health.Health = (int)MaxHealth;
+            MaxHealth = Health;
+            _Health.maxHealth = (int)Health;
+            _Health.maxHealthFloat = Health;
+            _Health.Health = (int)Health;
             DualLifeSpend = false;
             RollName();
             setupComplete = true;
+            OnDieCalled = false;
             BaseAnimSpeed = AnimSpeed;
+
+            Bounty *= (int)Random.Range(Health * 0.9f, Health * 1.6f) + (int)Random.Range(Armor * 1.3f, Armor * 2f);
+            if (abilities.Count > 0)
+            {
+                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 1.5f);
+            }
+            switch (ModSettings.difficulty)
+            {
+                case ModSettings.Difficulty.Hard:
+                    Bounty = Mathf.RoundToInt(Bounty  *1.2f);
+                    break;
+                case ModSettings.Difficulty.Elite:
+                    Bounty = Mathf.RoundToInt(Bounty * 2);
+
+                    break;
+                case ModSettings.Difficulty.Master:
+                    Bounty = Mathf.RoundToInt(Bounty * 3f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge1:
+                    Bounty = Mathf.RoundToInt(Bounty * 4.6f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge2:
+                    Bounty = Mathf.RoundToInt(Bounty * 6);
+
+                    break;
+                case ModSettings.Difficulty.Challenge3:
+                    Bounty = Mathf.RoundToInt(Bounty * 7.5f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge4:
+                    Bounty = Mathf.RoundToInt(Bounty * 8.5f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge5:
+                    Bounty = Mathf.RoundToInt(Bounty * 10);
+
+                    break;
+                default:
+                    break;
+            }
+            SteadFestCap = Mathf.RoundToInt(SteadFest * 0.01f * MaxHealth);
+            if (SteadFestCap < 1)
+            {
+                SteadFestCap = 1;
+            }
             Invoke("SetHealthToMax", 3);
         }
         private void SetHealthToMax()
         {
             _Health.Health = (int)MaxHealth;
-
+            MaxHealth = _Health.Health;
+            _Health.maxHealth = _Health.Health;
+            _Health.maxHealthFloat = _Health.Health;
         }
 
       public void Slow(int source,float amount,float time)
@@ -439,8 +494,7 @@ namespace ChampionsOfForest
                     Source = source,
                     amount = amount,
                     duration = time,
-                }
-                    );
+                });
             }
         }
 
@@ -511,13 +565,15 @@ namespace ChampionsOfForest
                 MeteorCD -= Time.deltaTime;
             }
             AnimSpeed = BaseAnimSpeed;
-            foreach (var pair in slows)
+            int[] Keys = new List<int>(slows.Keys).ToArray();
+            for (int i = 0; i < Keys.Length; i++)
             {
-                AnimSpeed *=pair.Value.amount;
-                slows[pair.Key].duration -= Time.deltaTime;
-                if (slows[pair.Key].duration < 0)
+                int key = Keys[i];
+                AnimSpeed *= slows[key].amount;
+                slows[key].duration -= Time.deltaTime;
+                if (slows[key].duration < 0)
                 {
-                    slows.Remove(pair.Key);
+                    slows.Remove(key);
                 }
             }
             Health = _Health.Health;
@@ -741,7 +797,6 @@ namespace ChampionsOfForest
 
             if (abilities.Contains(Abilities.Shielding))
             {
-                ModAPI.Console.Write("Shielding is on");
                 if (shieldingON > 0)
                 {
                     return 0;
@@ -789,34 +844,39 @@ namespace ChampionsOfForest
                     }
                     normalColor = _Health.MySkin.material.color;
                     _Health.MySkin.material.color = Color.black;
-                    shieldingON = 3;
+                    shieldingON = 4;
                     return 0;
                 }
             }
-
 
             if (pure)
             {
                 if (damage > SteadFestCap)
                 {
-                    damage = Mathf.Clamp(damage, 0, SteadFestCap);
-                    return damage;
+                    int dmgpure= Mathf.Min(damage, SteadFestCap);
+                    return dmgpure;
                 }
             }
-            float reduction = Mathf.Sqrt((Armor - ArmorReduction) / 100);
-            reduction = Mathf.Clamp01(reduction);
-            int dmg = Mathf.FloorToInt(damage * (1 - reduction));
-            dmg = Mathf.Min(dmg, SteadFestCap);
+            
+                float reduction = Mathf.Sqrt((float)((float)Armor - (float)ArmorReduction)) / 100f;
+
+                reduction = Mathf.Clamp01(reduction);
+                int dmg = Mathf.FloorToInt(damage * (1 - reduction));
+                dmg = Mathf.Min(dmg, SteadFestCap);
+
+                ModAPI.Console.Write("reducted damage " + damage + " --" + reduction + "--> " + dmg);
+            
             return dmg;
 
         }
 
         private bool DualLifeSpend = false;
-        private bool OnDieCalled = false;
+        public bool OnDieCalled = false;
         public bool OnDie()
         {
             try
             {
+                ModAPI.Console.Write("ENEMY DIEING");
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -841,12 +901,18 @@ namespace ChampionsOfForest
                     BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
 
                 }
-                if (OnDieCalled) return true;
+                if (OnDieCalled) {
+                    ModAPI.Console.Write("ALREADY KILLED THIS ENEMY");
+                    return true;
+
+                }
                 OnDieCalled = true;
+                Invoke("ReanimateMe", 10);
                 EnemyManager.RemoveEnemy(this);
 
                 if (setup.waterDetect.drowned)
                 {
+                    ModAPI.Console.Write("ENEMY DROWNED");
                     return true;
                 }
                 if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 3)
@@ -858,20 +924,20 @@ namespace ChampionsOfForest
                     }
                     else if (abilities.Count >= 2)
                     {
-                            itemCount += Random.Range(1, 5);
+                            itemCount += Random.Range(2, 5);
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(ExpBounty), transform.position + Vector3.up * 2);
+                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty), transform.position + Vector3.up * 2);
                     }
                 }
                 if (BoltNetwork.isRunning)
                 {
-                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt((float)ExpBounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt((float)Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
                 }
                 else
                 {
-                    ModdedPlayer.instance.AddKillExperience(ExpBounty);
+                    ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
             }
             catch (Exception ex)
@@ -883,10 +949,14 @@ namespace ChampionsOfForest
             return true;
 
         }
+        void ReanimateMe()
+        {
+            OnDieCalled = false;
+        }
     }
     public class ClinetEnemyProgression
     {
-        public static float LifeTime = 5;
+        public static float LifeTime = 10;
         public BoltEntity Entity;
         public ulong Packed;
         public string EnemyName;
@@ -913,7 +983,7 @@ namespace ChampionsOfForest
             Level = p.Level;
             Health = p.Health;
             MaxHealth = p.MaxHealth;
-            ExpBounty = p.ExpBounty;
+            ExpBounty = p.Bounty;
             Armor = p.Armor;
             ArmorReduction = p.ArmorReduction;
             SteadFest = p.SteadFest;
@@ -944,7 +1014,7 @@ namespace ChampionsOfForest
                 Level = p.Level;
                 Health = p.Health;
                 MaxHealth = p.MaxHealth;
-                ExpBounty = p.ExpBounty;
+                ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
                 SteadFest = p.SteadFest;

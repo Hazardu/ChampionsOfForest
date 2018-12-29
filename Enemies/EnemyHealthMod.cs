@@ -3,19 +3,71 @@ namespace ChampionsOfForest
 {
     public class EnemyHealthMod : EnemyHealth
     {
-        public EnemyProgression progression;
+        public EnemyProgression progression =null;
 
         //creates progression
         protected override void Start()
         {
             base.Start();
-            progression = gameObject.AddComponent<EnemyProgression>();
-            progression._Health = this;
-            progression._AI = ai;
-            progression.entity = entity;
-            progression.setup = setup;
-        }
+            //if (progression == null)
+            //{
+            //    progression = GetComponent<EnemyProgression>();
+            //}
+            //    if (progression == null)
+            //{
 
+                //progression = gameObject.AddComponent<EnemyProgression>();
+                //progression._Health = this;
+                //progression._AI = ai;
+                //progression.entity = entity;
+                //progression.setup = setup;
+                //progression.OnDieCalled = false;
+            
+        }
+        protected override void OnEnable()
+        {
+            Invoke("LateProgressionCreate", 1);
+            base.OnEnable();
+        }
+        void LateProgressionCreate()
+        {
+            if (progression == null)
+            {
+                progression = gameObject.AddComponent<EnemyProgression>();
+                progression._Health = this;
+                progression._AI = ai;
+                progression.entity = entity;
+                progression.setup = setup;
+                
+            }
+            progression.OnDieCalled = false;
+        }
+        protected override void Update()
+        {
+            if (progression == null)
+            {
+                //progression = GetComponent<EnemyProgression>();
+
+                //if (progression == null)
+                //{
+               
+            //    progression = gameObject.AddComponent<EnemyProgression>();
+            //    progression._Health = this;
+            //    progression._AI = ai;
+            //    progression.entity = entity;
+            //    progression.setup = setup;
+            //    progression.OnDieCalled = false;
+            ////}
+            }
+            base.Update();
+
+        }
+        protected override void OnDestroy()
+        {
+            if (Health <= 0)
+            progression.OnDie();
+            base.OnDestroy();
+        }
         //changes how damage is calculated to include armor and abilities
         public override void Hit(int damage)
         {

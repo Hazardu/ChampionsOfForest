@@ -9,10 +9,14 @@
 
         protected override void Update()
         {
+            if(runSpeed >= baseRunSpeed)
             runSpeed = baseRunSpeed * ModdedPlayer.instance.MoveSpeed;
-            strafeSpeed = basestrafeSpeed * ModdedPlayer.instance.MoveSpeed;
-            walkSpeed = basewalkSpeed * ModdedPlayer.instance.MoveSpeed;
-            crouchSpeed = basecrouchspeed * ModdedPlayer.instance.MoveSpeed;
+            if (strafeSpeed >= basestrafeSpeed)
+                strafeSpeed = basestrafeSpeed * ModdedPlayer.instance.MoveSpeed;
+            if (walkSpeed >= basewalkSpeed)
+                walkSpeed = basewalkSpeed * ModdedPlayer.instance.MoveSpeed;
+            if (crouchSpeed >= basecrouchspeed)
+                crouchSpeed = basecrouchspeed * ModdedPlayer.instance.MoveSpeed;
             allowJump = true;
 
             if (ModdedPlayer.instance.Stunned)

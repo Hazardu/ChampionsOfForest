@@ -54,7 +54,7 @@ namespace ChampionsOfForest
                 }
                 if (Sitted)
                 {
-                    Energy += 3f * Time.deltaTime;
+                    Energy += 3f * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp;
                 }
                 if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
                 {
@@ -138,7 +138,7 @@ namespace ChampionsOfForest
             {
                 Tuts.CloseLowHealthTutorial();
             }
-            if (Energy < 30f)
+            if (Energy < 15f)
             {
                 Tuts.LowEnergyTutorial();
             }
@@ -146,18 +146,22 @@ namespace ChampionsOfForest
             {
                 Tuts.CloseLowEnergyTutorial();
             }
-            if (Stamina <= 10f && !IsTired)
+            if (Stamina <= 5 && !IsTired)
             {
                 base.SendMessage("PlayStaminaBreath");
                 IsTired = true;
                 Run = false;
             }
-            if (Stamina > 10f && IsTired)
+            if(HealthTarget > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
+            {
+                HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+            }
+                if (Stamina > 5 && IsTired)
             {
                 IsTired = false;
             }
-            fsmStamina.Value = Stamina;
-            fsmMaxStamina.Value = Energy;
+            fsmStamina.Value = 100*Stamina/ModdedPlayer.instance.MaxEnergy;
+            fsmMaxStamina.Value = 100*Energy / ModdedPlayer.instance.MaxEnergy;
             HealthResult = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth + (ChampionsOfForest.ModdedPlayer.instance.MaxHealth - Health) / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.5f;
             float num3 = HealthTarget / ChampionsOfForest.ModdedPlayer.instance.MaxHealth + (ChampionsOfForest.ModdedPlayer.instance.MaxHealth - HealthTarget) / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.5f;
             if (HealthTargetResult < num3)
@@ -524,7 +528,7 @@ namespace ChampionsOfForest
             {
                 if (!LocalPlayer.FpCharacter.running && !(LocalPlayer.FpCharacter.recoveringFromRun > 0f))
                 {
-                    Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime;
+                    Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime*ModdedPlayer.instance.StaminaAndEnergyRegenAmp*(1+ModdedPlayer.instance.StaminaRegenPercent);
                 }
                 else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f)
                 {

@@ -28,17 +28,17 @@ namespace ChampionsOfForest.Player
 
         public static void FillSpells()
         {
-            Spell bh = new Spell(1, 22, 1, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
+            Spell bh = new Spell(1, 22, 15, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
             {
                 active = SpellActions.CreatePlayerBlackHole,
                 Bought = true
             };
-            Spell healingDome = new Spell(2, 22, 1, 60, 60, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
+            Spell healingDome = new Spell(2, 22, 6, 60, 60, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
             {
                 active = SpellActions.CreateHealingDome,
               
             };
-            new Spell(3, 22, 1, 25, 15, "Blink", "Short distance teleportation")
+            new Spell(3, 22, 3, 25, 15, "Blink", "Short distance teleportation")
             {
                 active = SpellActions.DoBlink,
                 

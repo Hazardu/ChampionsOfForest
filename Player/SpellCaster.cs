@@ -71,7 +71,6 @@ namespace ChampionsOfForest.Player
                     };
                 }
 
-                SetSpell(0, SpellDataBase.spellDictionary[1]);
                 SetMaxCooldowns();
 
             }

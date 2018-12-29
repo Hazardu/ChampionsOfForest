@@ -13,10 +13,10 @@ namespace ChampionsOfForest.Player
             new Perk("Stronger Hits", "Every point of STRENGHT increases MEELE DAMAGE by 0.5%.", -1, 1.5f, 0, PerkCategory.MeleeOffense, 1, 1, () => ModdedPlayer.instance.DamagePerStrenght += 0.005f, () => ModdedPlayer.instance.DamagePerStrenght -= 0.005f);
             new Perk("Stronger Spells", "Every point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.", -1, 1.5f, 0, PerkCategory.MagicOffense, 1, 1, () => ModdedPlayer.instance.SpellDamageperInt += 0.005f, () => ModdedPlayer.instance.SpellDamageperInt -= 0.005f);
             new Perk("Stronger Projectiles", "Every point of AGILITY increases RANGED DAMAGE by 0.5%.", -1, 1.5f, 0, PerkCategory.RangedOffense, 1, 1, () => ModdedPlayer.instance.SpellDamageperInt += 0.005f, () => ModdedPlayer.instance.SpellDamageperInt -= 0.005f);
-            new Perk("Stamina Recovery", "Every point of INTELLIGENCE increases stamina recover by 0.5%.", -1, 1.5f, 0, PerkCategory.Utility, 1, 1, () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f, () => ModdedPlayer.instance.EnergyRegenPerInt -= 0.005f);
+            new Perk("Stamina Recovery", "Every point of INTELLIGENCE increases stamina recover by 0.75%.", -1, 1.5f, 0, PerkCategory.Utility, 1, 1, () => ModdedPlayer.instance.EnergyRegenPerInt += 0.0075f, () => ModdedPlayer.instance.EnergyRegenPerInt -= 0.0075f);
             new Perk("More Stamina", "Every point of AGILITY increases max stamina by 0.5", -1, -1.5f, 0, PerkCategory.Utility, 1, 1, () => ModdedPlayer.instance.EnergyPerAgility += 0.5f, () => ModdedPlayer.instance.EnergyPerAgility -= 0.5f);
-            new Perk("More Health", "Every point of VITALITY increases max health by 3", -1, 1.5f, 0, PerkCategory.Defense, 1, 1, () => ModdedPlayer.instance.HealthPerVitality += 3, () => ModdedPlayer.instance.HealthPerVitality -= 3f);
-            new Perk("More Healing", "Increases healing by 5%", -1, -1.5f, 0, PerkCategory.Defense, 1, 1, () => ModdedPlayer.instance.HealingMultipier *= 1.05f, () => ModdedPlayer.instance.HealingMultipier /= 1.05f);
+            new Perk("More Health", "Every point of VITALITY increases max health by 1", -1, 1.5f, 0, PerkCategory.Defense, 1, 1, () => ModdedPlayer.instance.HealthPerVitality += 1, () => ModdedPlayer.instance.HealthPerVitality -= 1f);
+            new Perk("More Healing", "Increases healing by 10%", -1, -1.5f, 0, PerkCategory.Support, 1, 1, () => ModdedPlayer.instance.HealingMultipier *= 1.10f, () => ModdedPlayer.instance.HealingMultipier /= 1.10f);
             //new Perk()
             //{
             //    ApplyMethods = () => ,

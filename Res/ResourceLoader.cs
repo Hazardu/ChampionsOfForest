@@ -187,8 +187,10 @@ namespace ChampionsOfForest.Res
 
                         break;
                     case Resource.ResourceType.Audio:
+                        //hit or miss
                         break;
                     case Resource.ResourceType.Text:
+                        //i guess they never miss
                         break;
                 } 
                 yield return null;
@@ -296,7 +298,6 @@ namespace ChampionsOfForest.Res
             new Resource(20, "BlackHoleTex.png");
             new Resource(21, "BlackHole.obj");
             new Resource(22, "Leaf.png");
-            new Resource(23, "Stars.png");
             new Resource(24, "SmallCircle.png");
             new Resource(25, "Row.png");
             new Resource(26, "snowflake.png");
@@ -340,8 +341,8 @@ namespace ChampionsOfForest.Res
             new Resource(77, "Support.jpg");
             new Resource(78, "Background1.jpg");
 
-            new Resource(81, "PerkNode1.png");
-            new Resource(82, "PerkNode2.png");
+            new Resource(82, "PerkNode1.png");
+            new Resource(81, "PerkNode2.png");
             new Resource(83, "PerkNode3.png");
             new Resource(84, "PerkNode4.png");
 
@@ -362,6 +363,10 @@ namespace ChampionsOfForest.Res
             new Resource(99, "ItemShield.png");
             new Resource(100, "ItemScarf.png");
             new Resource(101, "ItemAmulet.png");
+            new Resource(102, "Heart.obj");
+            new Resource(103, "HeartTexture.png");
+            new Resource(104, "HeartNormal.png");
+            new Resource(105, "ItemHeart.png");
 
 
 
