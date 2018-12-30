@@ -1,4 +1,6 @@
-﻿namespace ChampionsOfForest
+﻿using System.Collections.Generic;
+
+namespace ChampionsOfForest
 {
     public class ModSettings
     {
@@ -6,6 +8,21 @@
         public static Difficulty difficulty = Difficulty.Normal;
         public static bool DifficultyChoosen = false;
         public static bool FriendlyFire = true;
-        public static string Version = "0.0.0.3";
+
+
+
+        public static string Version = "0.4";
+        public static bool RequiresNewFiles = true;
+        public static List<int> outdatedFiles = new List<int>()
+        {
+            1,
+            5,
+            6,
+            12,
+            13,
+            20,
+            27,
+            28,
+        };
     }
 }

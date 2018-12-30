@@ -64,7 +64,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="D5" ID="EquipWeapon">
+  <Button Standard="Alpha5" ID="EquipWeapon">
     <Name>
       <EN>Equip custom weapon</EN>
     </Name>
@@ -97,5 +97,5 @@ Anyways, after you make them, you can send them in a DM on discord (add me: Haza
  In order to use this mod, you also need BUILDER CORE and BUILDER MENU installed.
  Please do not use it with PUP, this mod it's successor.  Also give me that like on Modapi hub</EN>
   </Description>
-  <Version>0.4.18</Version>
+  <Version>0.4</Version>
 </Mod>

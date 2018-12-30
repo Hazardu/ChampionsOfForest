@@ -10,28 +10,27 @@ namespace ChampionsOfForest.Player
 {
     public class WeaponInfoMod : weaponInfo
     {
-        private static float HeldWeaponAtkSpeed;
-        private static float HeldWeaponTiredAtkSpeed;
 
         protected override void Update()
         {
             if (mainTriggerScript != null)
             {
-                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = HeldWeaponAtkSpeed * ModdedPlayer.instance.AttackSpeed;
-                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = HeldWeaponTiredAtkSpeed;
-                //setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
+                //setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = HeldWeaponAtkSpeed * ModdedPlayer.instance.AttackSpeed;
+                //setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = HeldWeaponTiredAtkSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
-                ////setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
-                //setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1-ModdedPlayer.instance.StaminaAttackCostReduction);
+                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
+                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
                 LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
-                //if ((bool)setup && (bool)setup.pmStamina)
-                //{
-                //    setup.pmStamina.SendEvent("toSetStats");
-                //    }
-                //}
+                if (setup && setup.pmStamina)
+                {
+                    setup.pmStamina.SendEvent("toSetStats");
+                }
             }
-                base.Update();
+
+            base.Update();
         }
+
         protected override void setupMainTrigger()
         {
             if ((bool)mainTriggerScript)
@@ -106,11 +105,11 @@ namespace ChampionsOfForest.Player
                 mainTriggerScript.smallAxe = smallAxe;
                 if (weaponRange == 0f)
                 {
-                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f *ModdedPlayer.instance.MeleeRange);
+                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f * ModdedPlayer.instance.MeleeRange);
                 }
                 else if (BoltNetwork.isClient)
                 {
-                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp(weaponRange*ModdedPlayer.instance.MeleeRange, 1f, weaponRange * ModdedPlayer.instance.MeleeRange));
+                    mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp(weaponRange * ModdedPlayer.instance.MeleeRange, 1f, weaponRange * ModdedPlayer.instance.MeleeRange));
                 }
                 else
                 {
@@ -118,79 +117,7 @@ namespace ChampionsOfForest.Player
                 }
             }
         }
-        protected override void setupHeldWeapon()
-        {
-            if (!mainTrigger && !remotePlayer)
-            {
-                if ((bool)mainTriggerScript)
-                {
-                    mainTriggerScript.currentWeaponScript = this;
-                    mainTriggerScript.weaponAudio = base.transform;
-                    setupMainTrigger();
-                    if (canDoGroundAxeChop)
-                    {
-                        mainTriggerScript.enableSpecialWeaponVars();
-                    }
-                }
-                if (!(bool)thisCollider && (bool)base.transform.parent)
-                {
-                    thisCollider = base.transform.parent.GetComponentsInChildren<Collider>(true)[0];
-                }
-                if (sendColliderToEvents && (bool)thisCollider)
-                {
-                    setup.events.heldWeaponCollider = thisCollider;
-                }
-                base.Invoke("cleanUpSpearedFish", 0.2f);
-                if ((bool)animator)
-                {
-                    checkBurnableCloth();
-                }
-                animSpeed = weaponSpeed / 20f;
-                //animSpeed += 0.5f;
-                animTiredSpeed = tiredSpeed / 30f; //* (animSpeed - 0.5f);
-                //animTiredSpeed += 0.5f;
-                if ((bool)setup)
-                {
-                    if ((bool)setup.pmStamina)
-                    {
-                        if (animControl.tiredCheck)
-                        {
-                            animControl.tempTired = animSpeed;
-                            setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
-                            HeldWeaponAtkSpeed = animSpeed;
-                        }
-                        else
-                        {
-                            setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed;
-                            HeldWeaponAtkSpeed = animSpeed;
 
-                        }
-                        ModAPI.Console.Write(HeldWeaponAtkSpeed.ToString());
-                    }
-                    if ((bool)setup && (bool)setup.pmStamina)
-                    {
-                        setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed;
-                        HeldWeaponTiredAtkSpeed = animTiredSpeed;
-                        ModAPI.Console.Write(HeldWeaponTiredAtkSpeed.ToString());
-
-                        setup.pmControl.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f;
-                  
-                        setup.pmControl.FsmVariables.GetFsmFloat("blockStaminaDrain").Value = blockStaminaDrain * -1f;
-                    }
-                    if ((bool)LocalPlayer.Stats)
-                    {
-                        LocalPlayer.Stats.blockDamagePercent =ModdedPlayer.instance.BlockFactor* blockDamagePercent/5 ;
-                    }
-                    damageAmount = (int)WeaponDamage;
-                    if ((bool)setup && (bool)setup.pmStamina)
-                    {
-                        setup.pmStamina.SendEvent("toSetStats");
-                    }
-                }
-            }
-        }
-
-        //MEELE HIT
         protected override void OnTriggerEnter(Collider other)
         {
 
@@ -265,7 +192,10 @@ namespace ChampionsOfForest.Player
                 }
                 if (other.gameObject.CompareTag("PlayerNet") && (mainTrigger || (!mainTrigger && (animControl.smashBool || chainSaw))))
                 {
-                    if (!ModSettings.FriendlyFire) return;
+                    if (!ModSettings.FriendlyFire)
+                    {
+                        return;
+                    }
 
                     BoltEntity component3 = other.GetComponent<BoltEntity>();
                     BoltEntity component4 = base.GetComponent<BoltEntity>();
@@ -307,7 +237,7 @@ namespace ChampionsOfForest.Player
                     setup.pmNoise.SendEvent("toWeaponNoise");
                     Mood.HitRumble();
                     other.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
-                    float damage = WeaponDamage * 4f+ModdedPlayer.instance.MeleeDamageBonus;
+                    float damage = WeaponDamage * 4f + ModdedPlayer.instance.MeleeDamageBonus;
                     damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                     if (tht.atEnemy)
                     {
@@ -555,15 +485,15 @@ namespace ChampionsOfForest.Player
                             playerHitEnemy.Burn = true;
                         }
                     }
-                    float num2 = weaponDamage + ModdedPlayer.instance.MeleeDamageBonus ;
-                    num2 *=ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+                    float num2 = weaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                    num2 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                     if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
                     {
                         num2 /= 2f;
                     }
-                   
-                    
-                        if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
+
+
+                    if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
                         if ((bool)component6)
                         {
@@ -753,12 +683,12 @@ namespace ChampionsOfForest.Player
             }
             if ((other.CompareTag("enemyCollide") || other.CompareTag("lb_bird") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("EnemyBodyPart")) && !mainTrigger && !enemyDelay && (animControl.smashBool || chainSaw))
             {
-                float num3 = smashDamage+ModdedPlayer.instance.MeleeDamageBonus;
+                float num3 = smashDamage + ModdedPlayer.instance.MeleeDamageBonus;
 
                 if (chainSaw && !mainTrigger)
                 {
                     base.StartCoroutine(chainSawClampRotation(0.25f));
-                    num3 = (smashDamage+ModdedPlayer.instance.MeleeDamageBonus) / 2f;
+                    num3 = (smashDamage + ModdedPlayer.instance.MeleeDamageBonus) / 2f;
                 }
                 num3 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                 //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num3);

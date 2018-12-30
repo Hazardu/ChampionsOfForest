@@ -876,7 +876,6 @@ namespace ChampionsOfForest
         {
             try
             {
-                ModAPI.Console.Write("ENEMY DIEING");
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -902,7 +901,6 @@ namespace ChampionsOfForest
 
                 }
                 if (OnDieCalled) {
-                    ModAPI.Console.Write("ALREADY KILLED THIS ENEMY");
                     return true;
 
                 }
@@ -912,7 +910,6 @@ namespace ChampionsOfForest
 
                 if (setup.waterDetect.drowned)
                 {
-                    ModAPI.Console.Write("ENEMY DROWNED");
                     return true;
                 }
                 if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 3)

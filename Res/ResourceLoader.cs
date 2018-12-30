@@ -46,9 +46,9 @@ namespace ChampionsOfForest.Res
         public Dictionary<int, Mesh> LoadedMeshes;
         public Dictionary<int, Texture2D> LoadedTextures;
         private string LabelText;
-        private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail }
+        private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail,NewerThanOnline }
         private VersionCheckStatus checkStatus = VersionCheckStatus.Unchecked;
-        private string NewestVersion;
+        private string OnlineVersion;
         public static bool InMainMenu;
         public bool FinishedLoading = false;
         private WWW download;
@@ -97,16 +97,20 @@ namespace ChampionsOfForest.Res
                     Match match2 = regex2.Match(match1.Value);
                     if (match2.Success)
                     {
-                        NewestVersion = match2.Value;
-                        StopCoroutine("VersionCheck");
-                        if (ModSettings.Version == NewestVersion)
+                        OnlineVersion = match2.Value;
+                        if (ModSettings.Version == OnlineVersion)
                         {
                             checkStatus = VersionCheckStatus.UpToDate;
                         }
-                        else
+                        else if(CompareVersion(OnlineVersion) == Status.Outdated)
                         {
                             checkStatus = VersionCheckStatus.OutDated;
                         }
+                        else
+                        {
+                            checkStatus = VersionCheckStatus.NewerThanOnline;
+                        }
+                        yield break;
                     }
                 }
             }
@@ -116,20 +120,114 @@ namespace ChampionsOfForest.Res
             }
 
         }
+
+        public enum Status { TheSame,Outdated,Newer}
+
+        private Status CompareVersion(string s1)
+        {
+            int i = 0;
+            int a = 0;
+            string val = "";
+            int[] values1 = new int[4];
+            int[] values2 = new int[4];
+
+            //filling values1
+            while (i < s1.Length)
+            {
+              if(s1[i] != '.')
+                {
+                    val += s1[i];
+                }
+                else
+                {
+                    values1[a] = int.Parse(val);
+                    val = "";
+                    a++;
+
+                }
+                i++;
+            }
+            if (val != "")
+            {
+                values1[a] = int.Parse(val);
+            }
+            val = "";
+            a = 0;
+            i = 0;
+
+
+            while (i < ModSettings.Version.Length)
+            {
+                if (ModSettings.Version[i] != '.')
+                {
+                    val += ModSettings.Version[i];
+                }
+                else
+                {
+                    values2[a] = int.Parse(val);
+                    val = "";
+                    a++;
+
+                }
+                i++;
+            }
+            if (val != "")
+            {
+                values2[a] = int.Parse(val);
+            }
+            ModAPI.Log.Write(values1[0]+", "+ values1[1] + ", " + values1[2] + ", " + values1[3]+ "\n" + values2[0] + ", " + values2[1] + ", " + values2[2] + ", " + values2[3]);
+            for (i = 0; i < 4; i++)
+            {
+                if(values1[i]>values2[i] )
+                {
+                    return Status.Outdated;
+                }
+                else if (  values1[i] < values2[i])
+                {
+                    return Status.Newer;
+                }
+            }
+            return Status.TheSame;
+        }
+
+
         private IEnumerator FileVerification()
         {
             LabelText = "";
-
+            
             if (DirExists())
             {
+                bool DeleteCurrentFiles = false;
+                if (ModSettings.RequiresNewFiles)
+                {
+                    if (File.Exists(Resource.path + "VERSION.txt"))
+                        {
+                        string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
+                            if (CompareVersion(versiontext) == Status.Outdated)
+                        {
+                            DeleteCurrentFiles = true;
+                        }
+                    }
+                }
+                File.WriteAllText(Resource.path + "VERSION.txt", ModSettings.Version);
                 foreach (Resource resource in unloadedResources.Values)
                 {
                     if (File.Exists(Resource.path + resource.fileName))
                     {
-                        LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " EXISTS";
-                        toLoad.Add(resource);
-                        yield return new WaitForEndOfFrame();
+                        if (DeleteCurrentFiles &&ModSettings.outdatedFiles.Contains(resource.ID))
+                        {
+                            LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " OUTDATED,DELETING";
+                            File.Delete(Resource.path + resource.fileName);
+                            toDownload.Add(resource);
+                            yield return new WaitForEndOfFrame();
 
+                        }
+                        else
+                        {
+                            LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " EXISTS and is up to date";
+                            toLoad.Add(resource);
+                            yield return new WaitForEndOfFrame();
+                        }
                     }
                     else
                     {
@@ -250,14 +348,17 @@ namespace ChampionsOfForest.Res
                     break;
                 case VersionCheckStatus.OutDated:
                     GUI.color = Color.red;
-                    GUILayout.Label("Champions of The Forest is outdated! \n Installed " + ModSettings.Version + ";  Newest " + NewestVersion, versionStyle);
+                    GUILayout.Label("Champions of The Forest is outdated! \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle);
 
                     break;
                 case VersionCheckStatus.Fail:
                     GUI.color = Color.gray;
                     GUILayout.Label("Failed to get update info", versionStyle);
                     break;
-
+                case VersionCheckStatus.NewerThanOnline:
+                    GUI.color = Color.yellow;
+                    GUILayout.Label("You're using a version newer than uploaded to ModAPI", versionStyle);
+                    break;
             }
             GUI.color = Color.white;
 

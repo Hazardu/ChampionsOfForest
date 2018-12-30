@@ -111,8 +111,8 @@ namespace ChampionsOfForest.Player
                             }
                             CustomWeapon cw = customWeapons[CustomEquipModel];
                             cw.obj.SetActive(true);
-                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed;
-                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
+                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed*cw.swingspeed;
+                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.triedswingspeed;
                             itemView._heldWeaponInfo.smashDamage = cw.smashDamage;
                             itemView._heldWeaponInfo.weaponDamage = cw.damage;
                             itemView._heldWeaponInfo.treeDamage = cw.treeDamage;
