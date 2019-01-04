@@ -20,41 +20,8 @@ namespace ChampionsOfForest
         }
         public override bool GoToSleep()
         {
-            if (!BoltNetwork.isClient || global::SteamClientDSConfig.isDSFirstClient)
-            {
-                for (int i = 0; i < TheForest.Utils.Scene.SceneTracker.allPlayers.Count; i++)
-                {
-                    Transform transform = TheForest.Utils.Scene.SceneTracker.allPlayers[i].transform;
-                    Transform transform2 = this.mutantControl.findClosestEnemy(transform);
-                    if (transform2 && !TheForest.Utils.LocalPlayer.IsInCaves && (TheForest.Utils.LocalPlayer.ScriptSetup.targetFunctions.visibleEnemies.Count > 0 || Vector3.Distance(transform.position, transform2.transform.position) < 65f))
-                    {
-                        Pathfinding.GraphNode node = global::AstarPath.active.GetNearest(transform2.transform.position, Pathfinding.NNConstraint.Default).node;
-                        uint area = node.Area;
-                        Pathfinding.NNConstraint nnconstraint = new Pathfinding.NNConstraint();
-                        nnconstraint.constrainArea = true;
-                        int area2 = (int)area;
-                        nnconstraint.area = area2;
-                        Pathfinding.GraphNode node2 = global::AstarPath.active.GetNearest(transform.position, nnconstraint).node;
-                        Vector3 a = new Vector3((float)(node2.position[0] / 1000), (float)(node2.position[1] / 1000), (float)(node2.position[2] / 1000));
-                        if (Vector3.Distance(a, TheForest.Utils.LocalPlayer.Transform.position) < 6f)
-                        {
-                            base.StartCoroutine("setupSleepEncounter", transform2.gameObject);
-                            this.GoToSleepFake();
-                            return false;
-                        }
-                    }
-                }
-                TheForest.Utils.Scene.MutantSpawnManager.offsetSleepAmounts();
-                TheForest.Utils.Scene.MutantControler.startSetupFamilies();
-                TheForest.Tools.EventRegistry.Player.Publish(TheForest.Tools.TfEvent.Slept, null);
-            }
-            base.Invoke("TurnOffSleepCam", 3f);
-            this.Tired = 0f;
-            this.Atmos.TimeLapse();
-            TheForest.Utils.Scene.HudGui.ToggleAllHud(false);
-            TheForest.Utils.Scene.Cams.SleepCam.SetActive(true);
-            this.Energy += 100000000f;
-            return true;
+            LocalPlayer.Stats.Energy += 100000000;
+            return base.GoToSleep();
         }
 
         protected override void Update()
@@ -97,7 +64,7 @@ namespace ChampionsOfForest
                     }
                     if (Sitted)
                     {
-                        Energy += 3f * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp;
+                        Energy += 0.1f*ModdedPlayer.instance.MaxEnergy * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp;
                     }
                     if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
                     {
@@ -195,10 +162,10 @@ namespace ChampionsOfForest
                     IsTired = true;
                     Run = false;
                 }
-                if (HealthTarget > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
-                {
-                    HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
-                }
+                //if (HealthTarget > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
+                //{
+                //    HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+                //}
                 if (Stamina > 5 && IsTired)
                 {
                     IsTired = false;

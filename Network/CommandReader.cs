@@ -176,8 +176,8 @@ namespace ChampionsOfForest.Network
                             BoltEntity entity = EnemyManager.allboltEntities[packed];
                             string name = Read();
                             int v1 = int.Parse(Read());
-                            float v2 = float.Parse(Read());
-                            float v3 = float.Parse(Read());
+                            int v2 = int.Parse(Read());
+                            int v3 = int.Parse(Read());
                             int v4 = int.Parse(Read());
                             int v5 = int.Parse(Read());
                             int v6 = int.Parse(Read());

@@ -31,13 +31,52 @@ namespace ChampionsOfForest.Player
             //    PosOffsetY = 0.5f,
             //    Name = "NAME",
             //    Description = "DESCRIPTION", 
-            //    TextureVariation = 0, // or 1
-            //}
-           
+            //    TextureVariation = 0, //0 or 1
+            //    Endless = false,
+            //}; 
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.96f,
+                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.96f,
+                Category = PerkCategory.Utility,
+                Icon =null,
+                InheritIDs = new int[] { 4 },
+                LevelRequirement = 5,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -2f,
+                PosOffsetY = 0.75f,
+                Name = "Metabolism",
+                Description = "Decreases hunger rate by 4%.",
+                TextureVariation = 1, //0 or 1
+                Endless = true,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.96f,
+                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.96f,
+                Category = PerkCategory.Utility,
+                Icon =null,
+                InheritIDs = new int[] { 4 },
+                LevelRequirement = 5,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -2f,
+                PosOffsetY = -0.75f,
+                Name = "Water Conservation",
+                Description = "Decreases thirst rate by 4%.",
+                TextureVariation = 1, //0 or 1
+                Endless = true,
+            };
 
 
 
 
+
+            foreach (var item in AllPerks)
+            {
+                ModAPI.Log.Write("[" + item.ID + "]" + item.Name);
+            }
         }
 
         public int ID;
@@ -58,6 +97,9 @@ namespace ChampionsOfForest.Player
 
         public Texture2D Icon;
 
+        public bool Endless = false;
+        public int ApplyAmount;
+
         public int TextureVariation = 0;
         public float Size =1;
         public float PosOffsetX;
@@ -72,6 +114,7 @@ namespace ChampionsOfForest.Player
             InheritIDs = inheritIDs;
             Category = category;
             Size = size;
+            Endless = false;
             PosOffsetX = x;
             PosOffsetY = y;
             LevelRequirement = levelRequirement;
@@ -80,7 +123,6 @@ namespace ChampionsOfForest.Player
             ID = AllPerks.Count;
             Applied = false;
             AllPerks.Add(this);
-            ModAPI.Log.Write("[" + ID + "]" + name);
 
 
         }
@@ -89,7 +131,8 @@ namespace ChampionsOfForest.Player
             Applied = false;
 
             ID = AllPerks.Count;
-            ModAPI.Log.Write("[" + ID + "]" + Name);
+            AllPerks.Add(this);
+
         }
         public Perk(string name, string description, int inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
         {
@@ -100,13 +143,13 @@ namespace ChampionsOfForest.Player
             PosOffsetY = y;
             Category = category;
             Size = size;
+            Endless = false;
             LevelRequirement = levelRequirement;
             ApplyMethods = applyMethods;
             DisableMethods = disableMethods;
             ID = AllPerks.Count;
             Applied = false;
             AllPerks.Add(this);
-            ModAPI.Log.Write("[" + ID + "]" + name);
 
         }
     }

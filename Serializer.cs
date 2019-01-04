@@ -18,39 +18,49 @@ namespace ChampionsOfForest
         }
         private static void CreateInstance()
         {
-            if(Instance==null)
-            Instance = new GameObject().AddComponent<Serializer>();
+            if (Instance == null)
+            {
+                Instance = new GameObject().AddComponent<Serializer>();
+            }
         }
-        void DoLoad(string path,out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems)
+
+        private void DoLoad(string path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems)
         {
             ExtraCarriedItems = new Dictionary<int, int>();
             HealthPercentage = 1;
             try
             {
 
-           
-            byte[] bytes = File.ReadAllBytes(path);
-            BinaryReader buf = new BinaryReader(new MemoryStream(bytes));
 
-            //reading in the same order to saving
+                byte[] bytes = File.ReadAllBytes(path);
+                BinaryReader buf = new BinaryReader(new MemoryStream(bytes));
 
-            ModdedPlayer.instance.ExpCurrent = buf.ReadInt64();                 //buf.Write(ModdedPlayer.instance.ExpCurrent);
-            HealthPercentage = buf.ReadSingle();                          //buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
-            ModdedPlayer.instance.MutationPoints = buf.ReadInt32();             //buf.Write(ModdedPlayer.instance.MutationPoints);
-            ModdedPlayer.instance.Level = buf.ReadInt32();                      //buf.Write(ModdedPlayer.instance.Level);
-            ModdedPlayer.instance.PermanentBonusPerkPoints = buf.ReadInt32();   //buf.Write(ModdedPlayer.instance.PermanentBonusPerkPoints);
-            ModdedPlayer.instance.LastDayOfGeneration = buf.ReadInt32();        //buf.Write(ModdedPlayer.instance.LastDayOfGeneration);
-            ModdedPlayer.instance.ExpGoal = ModdedPlayer.instance.GetGoalExp();
-            //extra carried item amounts
-            //key - ID of an item
-            //value - amount at the moment of saving
-            int ExtraItemCount = buf.ReadInt32();                               //buf.Write(ModdedPlayer.instance.ExtraCarryingCapactity.Count);
-            for (int i = 0; i < ExtraItemCount; i++)
-            {
-                int ID = buf.ReadInt32();
-                int AMOUNT = buf.ReadInt32();
-                ExtraCarriedItems.Add(ID, AMOUNT);
-            }
+                //reading in the same order to saving
+                string version = buf.ReadString();
+                if (ModSettings.RequiresNewSave)
+                {
+                    if (Res.ResourceLoader.CompareVersion(version) == Res.ResourceLoader.Status.Outdated)
+                    {
+                        return;
+                    }
+                }
+                ModdedPlayer.instance.ExpCurrent = buf.ReadInt64();                 //buf.Write(ModdedPlayer.instance.ExpCurrent);
+                HealthPercentage = buf.ReadSingle();                          //buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
+                ModdedPlayer.instance.MutationPoints = buf.ReadInt32();             //buf.Write(ModdedPlayer.instance.MutationPoints);
+                ModdedPlayer.instance.Level = buf.ReadInt32();                      //buf.Write(ModdedPlayer.instance.Level);
+                ModdedPlayer.instance.PermanentBonusPerkPoints = buf.ReadInt32();   //buf.Write(ModdedPlayer.instance.PermanentBonusPerkPoints);
+                ModdedPlayer.instance.LastDayOfGeneration = buf.ReadInt32();        //buf.Write(ModdedPlayer.instance.LastDayOfGeneration);
+                ModdedPlayer.instance.ExpGoal = ModdedPlayer.instance.GetGoalExp();
+                //extra carried item amounts
+                //key - ID of an item
+                //value - amount at the moment of saving
+                int ExtraItemCount = buf.ReadInt32();                               //buf.Write(ModdedPlayer.instance.ExtraCarryingCapactity.Count);
+                for (int i = 0; i < ExtraItemCount; i++)
+                {
+                    int ID = buf.ReadInt32();
+                    int AMOUNT = buf.ReadInt32();
+                    ExtraCarriedItems.Add(ID, AMOUNT);
+                }
                 //loading inventory
                 int ItemSlotCount = buf.ReadInt32();
                 for (int i = 0; i < ItemSlotCount; i++)
@@ -71,7 +81,7 @@ namespace ChampionsOfForest
 
 
 
-                        for (int a = 0; a < StatCount;a++)
+                        for (int a = 0; a < StatCount; a++)
                         {
                             int statID = buf.ReadInt32();
                             float statAMO = buf.ReadSingle();
@@ -91,39 +101,59 @@ namespace ChampionsOfForest
                     }
                 }
 
-            //loading perks
-            int perkCount = buf.ReadInt32();
-            for (int i = 0; i < perkCount; i++)
-            {
-                int ID = buf.ReadInt32();
-                bool isBought = buf.ReadBoolean();
-                Perk.AllPerks[ID].IsBought = isBought;
-            }
-
-            //loading bought spells
-            int spellCount = buf.ReadInt32();
-            for (int i = 0; i < spellCount; i++)
-            {
-                int ID = buf.ReadInt32();
-                bool isBought = buf.ReadBoolean();
-                SpellDataBase.spellDictionary[ID].Bought = isBought;
-            }
-
-            //loading spell loadout
-            int spellLoadoutCount = buf.ReadInt32();
-            for (int i = 0; i < spellLoadoutCount; i++)
-            {
-                int ID = buf.ReadInt32();
-                if (ID == -1)
+                //loading perks
+                int perkCount = buf.ReadInt32();
+                for (int i = 0; i < perkCount; i++)
                 {
-                    SpellCaster.instance.infos[i].spell = null;
+                    int ID = buf.ReadInt32();
+                    bool isBought = buf.ReadBoolean();
+                    int ApplyCount = buf.ReadInt32();
+                    Perk.AllPerks[ID].IsBought = isBought;
+                    if (isBought)
+                    {
+                        Perk.AllPerks[ID].ApplyAmount = ApplyCount;
+                        if (ApplyCount == 0)
+                        {
+                            Perk.AllPerks[ID].Applied = true;
+                            Perk.AllPerks[ID].ApplyMethods();
+                        }
+                        else
+                        {
+                            for (int a = 0; a < ApplyCount; a++)
+                            {
+                                Perk.AllPerks[ID].ApplyMethods();
+
+                            }
+                            Perk.AllPerks[ID].Applied = true;
+
+                        }
+                    }
                 }
-                else
+
+                //loading bought spells
+                int spellCount = buf.ReadInt32();
+                for (int i = 0; i < spellCount; i++)
                 {
-                    SpellCaster.instance.infos[i].spell = SpellDataBase.spellDictionary[ID];
+                    int ID = buf.ReadInt32();
+                    bool isBought = buf.ReadBoolean();
+                    SpellDataBase.spellDictionary[ID].Bought = isBought;
+                }
+
+                //loading spell loadout
+                int spellLoadoutCount = buf.ReadInt32();
+                for (int i = 0; i < spellLoadoutCount; i++)
+                {
+                    int ID = buf.ReadInt32();
+                    if (ID == -1)
+                    {
+                        SpellCaster.instance.infos[i].spell = null;
+                    }
+                    else
+                    {
+                        SpellCaster.instance.infos[i].spell = SpellDataBase.spellDictionary[ID];
+                    }
                 }
             }
- }
             catch (System.Exception ex)
             {
 
@@ -149,7 +179,7 @@ namespace ChampionsOfForest
             BinaryWriter buf = new BinaryWriter(stream);
 
             //saving modded player variables
-
+            buf.Write(ModSettings.Version);
             buf.Write(ModdedPlayer.instance.ExpCurrent);
             buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
             buf.Write(ModdedPlayer.instance.MutationPoints);
@@ -202,7 +232,7 @@ namespace ChampionsOfForest
             {
                 buf.Write(item.ID);
                 buf.Write(item.IsBought);
-
+                buf.Write(item.ApplyAmount);
             }
 
             //saving bought spells
@@ -246,7 +276,7 @@ namespace ChampionsOfForest
 
         private IEnumerator DoLoadCoroutine()
         {
-            while (LocalPlayer.Stats == null|| LocalPlayer.Inventory==null)
+            while (LocalPlayer.Stats == null || LocalPlayer.Inventory == null)
             {
                 yield return null;
             }
@@ -277,7 +307,7 @@ namespace ChampionsOfForest
             }
 
 
-            DoLoad(path,out float HealthPercentage,out Dictionary<int, int> ExtraCarriedItems);
+            DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 
 
 
@@ -289,20 +319,14 @@ namespace ChampionsOfForest
 
 
             //fixing missing items 
-            Dictionary<int, int> TOADD = new Dictionary<int, int>();
-
-            foreach (var item in ExtraCarriedItems)
+            foreach (KeyValuePair<int, int> item in ExtraCarriedItems)
             {
                 int amount = LocalPlayer.Inventory.AmountOf(item.Key);
                 if (amount < item.Value)
                 {
                     int toAdd = item.Value - amount;
-                    TOADD.Add(item.Key, toAdd);
+                    LocalPlayer.Inventory.AddItem(item.Key, toAdd);
                 }
-            }
-            foreach (var item in TOADD)
-            {
-                LocalPlayer.Inventory.AddItem(item.Key, item.Value);
             }
             SpellCaster.instance.SetMaxCooldowns();
         }
@@ -366,6 +390,14 @@ namespace ChampionsOfForest
                 Serializer.Save();
             }
             base.OnSaveSlotSelected();
+        }
+        public override void JustSave()
+        {
+            if (!this.Dead && GameSetup.IsMpClient)
+            {
+                Serializer.Save();
+            }
+            base.JustSave();
         }
     }
 }

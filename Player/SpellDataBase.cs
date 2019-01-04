@@ -66,7 +66,8 @@ namespace ChampionsOfForest.Player
                     if(tries < 5)
                     {
                         BlinkTowards(hitPoint);
-                        break;
+                        return;
+
                     }
                    
                 }
@@ -76,8 +77,10 @@ namespace ChampionsOfForest.Player
             {
 
             BlinkTowards(hit1.point + Vector3.up);
-
+                return;
             }
+            BlinkTowards(Camera.main.transform.position+ Camera.main.transform.forward * (BlinkRange-1));
+
 
         }
         private static void BlinkTowards(Vector3 point)
@@ -137,13 +140,9 @@ namespace ChampionsOfForest.Player
             {
                 if (hits[i].transform.root != LocalPlayer.Transform.root)
                 {
-                    if (Vector3.Distance(hits[i].point, LocalPlayer.Transform.position) > 3)
-                    {
                         Network.NetworkManager.SendLine("SC1;" + Math.Round(hits[i].point.x, 5) + ";" + Math.Round(hits[i].point.y, 5) + ";" + Math.Round(hits[i].point.z, 5) + ";" +
                             "f;" + damage + ";" + BLACKHOLE_duration + ";" + BLACKHOLE_radius + ";" + BLACKHOLE_pullforce + ";", Network.NetworkManager.Target.Everyone);
                         return;
-
-                    }
                 }
             }
             Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 50;

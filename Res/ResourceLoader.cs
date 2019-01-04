@@ -40,19 +40,20 @@ namespace ChampionsOfForest.Res
 
 
         public Dictionary<int, Resource> unloadedResources;
-        //public List<Resource> unloadedResources;
+        public List<Resource> FailedLoadResources;
         public List<Resource> toDownload;
-        public List<Resource> toLoad;
         public Dictionary<int, Mesh> LoadedMeshes;
         public Dictionary<int, Texture2D> LoadedTextures;
         private string LabelText;
-        private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail,NewerThanOnline }
+        private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail, NewerThanOnline }
+        private enum LoadingState { CheckingFiles, Downloading, Loading, Done, Hidden }
+        private LoadingState loadingState = LoadingState.Hidden;
         private VersionCheckStatus checkStatus = VersionCheckStatus.Unchecked;
         private string OnlineVersion;
         public static bool InMainMenu;
         public bool FinishedLoading = false;
         private WWW download;
-
+        private bool IgnoreErrors;
         private void Start()
         {
             if (instance == null)
@@ -69,19 +70,21 @@ namespace ChampionsOfForest.Res
             {
                 Destroy(gameObject);
             }
+            IgnoreErrors = false;
             FinishedLoading = false;
             unloadedResources = new Dictionary<int, Resource>();
-           // unloadedResources = new List<Resource>();
+            // unloadedResources = new List<Resource>();
             FillResources();
             LoadedMeshes = new Dictionary<int, Mesh>();
             LoadedTextures = new Dictionary<int, Texture2D>();
-            toLoad = new List<Resource>();
             toDownload = new List<Resource>();
-
+            FailedLoadResources = new List<Resource>();
             StartCoroutine(FileVerification());
             StartCoroutine(VersionCheck());
 
         }
+
+        private int DownloadCount;
 
         private IEnumerator VersionCheck()
         {
@@ -102,7 +105,7 @@ namespace ChampionsOfForest.Res
                         {
                             checkStatus = VersionCheckStatus.UpToDate;
                         }
-                        else if(CompareVersion(OnlineVersion) == Status.Outdated)
+                        else if (CompareVersion(OnlineVersion) == Status.Outdated)
                         {
                             checkStatus = VersionCheckStatus.OutDated;
                         }
@@ -121,9 +124,9 @@ namespace ChampionsOfForest.Res
 
         }
 
-        public enum Status { TheSame,Outdated,Newer}
+        public enum Status { TheSame, Outdated, Newer }
 
-        private Status CompareVersion(string s1)
+        public static Status CompareVersion(string s1)
         {
             int i = 0;
             int a = 0;
@@ -134,7 +137,7 @@ namespace ChampionsOfForest.Res
             //filling values1
             while (i < s1.Length)
             {
-              if(s1[i] != '.')
+                if (s1[i] != '.')
                 {
                     val += s1[i];
                 }
@@ -175,14 +178,14 @@ namespace ChampionsOfForest.Res
             {
                 values2[a] = int.Parse(val);
             }
-            ModAPI.Log.Write(values1[0]+", "+ values1[1] + ", " + values1[2] + ", " + values1[3]+ "\n" + values2[0] + ", " + values2[1] + ", " + values2[2] + ", " + values2[3]);
+            ModAPI.Log.Write(values1[0] + ", " + values1[1] + ", " + values1[2] + ", " + values1[3] + "\n" + values2[0] + ", " + values2[1] + ", " + values2[2] + ", " + values2[3]);
             for (i = 0; i < 4; i++)
             {
-                if(values1[i]>values2[i] )
+                if (values1[i] > values2[i])
                 {
                     return Status.Outdated;
                 }
-                else if (  values1[i] < values2[i])
+                else if (values1[i] < values2[i])
                 {
                     return Status.Newer;
                 }
@@ -190,23 +193,33 @@ namespace ChampionsOfForest.Res
             return Status.TheSame;
         }
 
-
+        private int CheckedFileNumber;
+        private int DownloadedFileNumber;
+        private int LoadedFileNumber;
         private IEnumerator FileVerification()
         {
             LabelText = "";
-            
+            loadingState = LoadingState.CheckingFiles;
+            CheckedFileNumber = 0;
+            DownloadedFileNumber = 0;
+            LoadedFileNumber = 0;
+
             if (DirExists())
             {
                 bool DeleteCurrentFiles = false;
                 if (ModSettings.RequiresNewFiles)
                 {
                     if (File.Exists(Resource.path + "VERSION.txt"))
-                        {
+                    {
                         string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
-                            if (CompareVersion(versiontext) == Status.Outdated)
+                        if (CompareVersion(versiontext) == Status.Outdated)
                         {
                             DeleteCurrentFiles = true;
                         }
+                    }
+                    else
+                    {
+                        DeleteCurrentFiles = true;
                     }
                 }
                 File.WriteAllText(Resource.path + "VERSION.txt", ModSettings.Version);
@@ -214,35 +227,34 @@ namespace ChampionsOfForest.Res
                 {
                     if (File.Exists(Resource.path + resource.fileName))
                     {
-                        if (DeleteCurrentFiles &&ModSettings.outdatedFiles.Contains(resource.ID))
+                        if (DeleteCurrentFiles && ModSettings.outdatedFiles.Contains(resource.ID))
                         {
-                            LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " OUTDATED,DELETING";
+                            LabelText = "File " + resource.fileName + " is mared as outdated, deleting and redownloading.";
                             File.Delete(Resource.path + resource.fileName);
                             toDownload.Add(resource);
                             yield return new WaitForEndOfFrame();
 
                         }
-                        else
-                        {
-                            LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " EXISTS and is up to date";
-                            toLoad.Add(resource);
-                            yield return new WaitForEndOfFrame();
-                        }
                     }
                     else
                     {
-                        LabelText = LabelText + " \n CHECKING FILES: " + resource.fileName + " MISSING";
+                        LabelText = "File " + resource.fileName + " is missing, downloading.";
                         toDownload.Add(resource);
                         yield return new WaitForEndOfFrame();
 
                     }
+                    CheckedFileNumber++;
                 }
             }
-            LabelText = LabelText + " \n DONE CHECKING FILES! \n Please wait...";
+
+
+            loadingState = LoadingState.Downloading;
+
+            DownloadCount = toDownload.Count;
 
             foreach (Resource resource in toDownload)
             {
-                LabelText = LabelText + " \n Downloading " + Resource.url + resource.fileName;
+                LabelText = "Downloading " + resource.fileName;
 
                 WWW www = new WWW(Resource.url + resource.fileName);
                 download = www;
@@ -250,39 +262,67 @@ namespace ChampionsOfForest.Res
                 if (www.isDone)
                 {
                     File.WriteAllBytes(Resource.path + resource.fileName, www.bytes);
-                    toLoad.Add(resource);
                 }
                 else
                 {
-                    LabelText = LabelText + " \n ERROR | " + www.error;
+                    ModAPI.Log.Write(resource.fileName + " - Error with downloading a file " + www.error);
                 }
                 download = null;
+                DownloadedFileNumber++;
+                yield return null;
             }
+            loadingState = LoadingState.Loading;
+            yield return null;
+            yield return null;
+            Texture2D missingtextureReference = null;
+            WWW inexistingWWW = new WWW("file:///noDirectory.420");
+            yield return inexistingWWW;
+            missingtextureReference = inexistingWWW.texture;
 
-            foreach (Resource resource in toLoad)
+
+
+            foreach (Resource resource in unloadedResources.Values)
             {
-                
-              
+
+                LabelText = "Loading " + resource.fileName;
+
                 switch (resource.type)
                 {
                     case Resource.ResourceType.Texture:
-                        LabelText = LabelText + " \n LOADING IMAGE... | " + resource.ID;
 
-                        Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32,true, true);
+                        Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32, true, true);
                         //Texture2D t = new Texture2D(1, 1);
                         t.LoadImage(File.ReadAllBytes(Resource.path + resource.fileName));
                         t.Apply();
-                        if(resource.CompressTexture)
-                        t.Compress(true);
+                        if (t == missingtextureReference)
+                        {
+                            ModAPI.Log.Write("Missing texture " + resource.fileName);
+                            FailedLoadResources.Add(resource);
+                        }
+                        else
+                        {
 
-                        LoadedTextures.Add(resource.ID, t);
-                        LabelText = LabelText + " ...DONE";
+                            if (resource.CompressTexture)
+                            {
+                                t.Compress(true);
+                            }
+
+                            LoadedTextures.Add(resource.ID, t);
+                        }
                         break;
                     case Resource.ResourceType.Mesh:
                         Mesh mesh = Core.ReadMeshFromOBJ(Resource.path + resource.fileName);
-                        LoadedMeshes.Add(resource.ID, mesh);
-                        LabelText = LabelText + " \n LOADED MESH | " + resource.ID;
 
+                        if (mesh == null)
+                        {
+                            ModAPI.Log.Write("Missing mesh " + resource.fileName);
+                            FailedLoadResources.Add(resource);
+
+                        }
+                        else
+                        {
+                            LoadedMeshes.Add(resource.ID, mesh);
+                        }
                         break;
                     case Resource.ResourceType.Audio:
                         //hit or miss
@@ -290,18 +330,39 @@ namespace ChampionsOfForest.Res
                     case Resource.ResourceType.Text:
                         //i guess they never miss
                         break;
-                } 
+                }
+                LoadedFileNumber++;
+
                 yield return null;
             }
-            LabelText = "DONE! \n Files downloaded and loaded";
+            loadingState = LoadingState.Done;
             toDownload.Clear();
-            toLoad.Clear();
-            yield return new WaitForSeconds(5);
-
+            
+            yield return new WaitForSeconds(1f);
             FinishedLoading = true;
         }
 
-        private float p;
+        void AttemptRedownload()
+        {
+            IgnoreErrors = false;
+            FinishedLoading = false;
+            toDownload.Clear();
+            LoadedMeshes.Clear();
+            LoadedTextures.Clear();
+
+            foreach (Resource resource in FailedLoadResources)
+            {
+                if (File.Exists(Resource.path + resource.fileName))
+                {
+                    File.Delete(Resource.path + resource.fileName);
+                    //toDownload.Add(resource);
+                }
+
+            }
+            FailedLoadResources.Clear();
+            StartCoroutine(FileVerification());
+
+        }
 
         private void OnGUI()
         {
@@ -312,57 +373,173 @@ namespace ChampionsOfForest.Res
 
             if (!FinishedLoading)
             {
+                float rr =(float) Screen.height / 1080;
+                GUI.color = Color.black;
+                Rect BGR = new Rect(0, 0, Screen.width, Screen.height);
+                GUI.DrawTexture(BGR, Texture2D.whiteTexture);
+                GUI.color = Color.white;
+
+                GUI.Label(new Rect(0, 30 * rr, Screen.width, 60 * rr), "Please wait while Champions of the Forest is loading.", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic, fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter });
+                GUIStyle skin = new GUIStyle(GUI.skin.label)
+                {
+                    fontStyle = FontStyle.Bold,
+                    fontSize = (int)(30 * rr),
+                    alignment = TextAnchor.MiddleCenter
+                };
+                switch (loadingState)
+                {
+                    case LoadingState.CheckingFiles:
+                        GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (1 of 3)\nChecking for existing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+                        Rect pgBar = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
+                        Rect prog = new Rect(pgBar);
+                        pgBar.width *= (float)CheckedFileNumber / unloadedResources.Count;
+                        GUI.color = Color.gray;
+                        GUI.DrawTexture(prog, Texture2D.whiteTexture);
+                        GUI.color = Color.white;
+                        GUI.DrawTexture(pgBar, Texture2D.whiteTexture);
+                        GUI.color = Color.black;
+                        GUI.Label(prog, CheckedFileNumber +"/"+ unloadedResources.Count, skin);
+                        break;
+                    case LoadingState.Downloading:
+                        GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (2 of 3)\nDownloading missing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+                        Rect pgBar1 = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
+                        Rect prog1 = new Rect(pgBar1);
+                        pgBar1.width *=(float) DownloadedFileNumber / DownloadCount;
+                        GUI.color = Color.gray;
+                        GUI.DrawTexture(prog1, Texture2D.whiteTexture);
+                        GUI.color = Color.white;
+                        GUI.DrawTexture(pgBar1, Texture2D.whiteTexture);
+                        GUI.color = Color.black;
+                        GUI.Label(prog1, DownloadedFileNumber + "/" + DownloadCount, skin);
+                        if (download != null)
+                        {
+                            Rect downloadRectBG = new Rect(prog1);
+                            downloadRectBG.y += 100 * rr;
+                            Rect downloadRect = new Rect(downloadRectBG);
+                            downloadRect.width *= (float)download.progress;
+                            GUI.color = Color.gray;
+                            GUI.DrawTexture(downloadRectBG, Texture2D.whiteTexture);
+                            GUI.color = Color.white;
+                            GUI.DrawTexture(downloadRect, Texture2D.whiteTexture);
+                            GUI.color = Color.black;
+                            GUI.Label(prog1, download.progress*100 + "%\tDownloaded "+ (float)download.bytesDownloaded/1000+" KB", skin);
+                        }
+                        GUI.color = Color.white;
+
+                        break;
+                    case LoadingState.Loading:
+                        GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (3 of 3)\nLoading assets.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+                        Rect pgBar2 = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
+                        Rect prog2 = new Rect(pgBar2);
+                        pgBar2.width *= (float)LoadedFileNumber / unloadedResources.Count;
+                        GUI.color = Color.gray;
+                        GUI.DrawTexture(prog2, Texture2D.whiteTexture);
+                        GUI.color = Color.white;
+                        GUI.DrawTexture(pgBar2, Texture2D.whiteTexture);
+                        GUI.color = Color.black;
+                        GUI.Label(prog2, LoadedFileNumber + "/" + unloadedResources.Count, skin);
+                        break;
+                    case LoadingState.Done:
+                        GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Done!\n Enjoy", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+                        break;
+                    case LoadingState.Hidden:
+                        break;
+                    default:
+                        break;
+                }
+                GUI.color = Color.white;
                 GUIStyle style = new GUIStyle(GUI.skin.label)
                 {
-                    fontSize = 20,
+                    fontSize = (int)(25 * rr),
                     alignment = TextAnchor.LowerLeft,
                 };
-                if (download != null)
-                {
-                    p = download.progress;
-                    GUI.color = new Color(1 - p, 1, 1 - p);
-                    GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText + " \n " + p * 100 + "%", style);
-                }
-                else
-                {
-                    GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText, style);
+                GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText, style);
+                //GUIStyle style = new GUIStyle(GUI.skin.label)
+                //{
+                //    fontSize = 20,
+                //    alignment = TextAnchor.LowerLeft,
+                //};
+                //if (download != null)
+                //{
+                //    p = download.progress;
+                //    GUI.color = new Color(1 - p, 1, 1 - p);
+                //    GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText + " \n " + p * 100 + "%", style);
+                //}
+                //else
+                //{
+                //    GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText, style);
+                //}
+                //GUI.color = Color.white;
 
+            }
+            else
+            {
+                if (FailedLoadResources.Count > 0&& !IgnoreErrors)
+                {
+                    float rr = (float)Screen.height / 1080;
+                    GUI.color = Color.black;
+                    Rect BGR = new Rect(0, 0, Screen.width, Screen.height);
+                    GUI.DrawTexture(BGR, Texture2D.whiteTexture);
+                    GUI.color = Color.white;
+                    string text = "OH NO!\nThere were errors with loading resources for COTF!\nUnable to load those assets:\n";
+                    foreach (var item in FailedLoadResources)
+                    {
+                        text += item.fileName + "\t";
+                    }
+                    text +="\nWhat would you like to do now?";
+                    GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter, wordWrap = true };
+                    Rect labelRect = new Rect(0, style.CalcHeight(new GUIContent(text),Screen.width), Screen.width, Screen.height - 100 * rr);
+                    GUI.Label(labelRect, text, style);
+                    float y = labelRect.y;
+                    y = Mathf.Clamp(y,0, Screen.height - 100 * rr);
+                    Rect bt1 = new Rect(200 * rr, y, 400 * rr, 100 * rr);
+                    Rect bt2 = new Rect(Screen.width- 600 * rr, y,400 * rr, 100 * rr);
+                    GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { fontSize = (int)(30 * rr), wordWrap = true,fontStyle = FontStyle.BoldAndItalic };
+                    if(GUI.Button(bt1, "IGNORE ERRORS", btnStyle)){
+                        IgnoreErrors = true;
+                        FailedLoadResources = null;
+                    }
+                    if(GUI.Button(bt1, "ATTEMPT REDOWNLOAD", btnStyle))
+                    {
+                        AttemptRedownload();
+                    }
+
+                }
+
+
+
+                GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+
+                GUIStyle versionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperRight, fontSize = 34, fontStyle = FontStyle.Italic };
+                switch (checkStatus)
+                {
+                    case VersionCheckStatus.Unchecked:
+                        GUI.color = Color.gray;
+                        GUILayout.Label("Checking for updated version...", versionStyle);
+                        break;
+                    case VersionCheckStatus.UpToDate:
+                        GUI.color = Color.green;
+                        GUILayout.Label("Champions of The Forest is up to date.", versionStyle);
+
+                        break;
+                    case VersionCheckStatus.OutDated:
+                        GUI.color = Color.red;
+                        GUILayout.Label("Champions of The Forest is outdated! \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle);
+
+                        break;
+                    case VersionCheckStatus.Fail:
+                        GUI.color = Color.gray;
+                        GUILayout.Label("Failed to get update info", versionStyle);
+                        break;
+                    case VersionCheckStatus.NewerThanOnline:
+                        GUI.color = Color.yellow;
+                        GUILayout.Label("You're using a version newer than uploaded to ModAPI", versionStyle);
+                        break;
                 }
                 GUI.color = Color.white;
 
+                GUILayout.EndArea();
             }
-
-            GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
-
-            GUIStyle versionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperRight, fontSize = 34, fontStyle = FontStyle.Italic };
-            switch (checkStatus)
-            {
-                case VersionCheckStatus.Unchecked:
-                    GUI.color = Color.gray;
-                    GUILayout.Label("Checking for updated version...", versionStyle);
-                    break;
-                case VersionCheckStatus.UpToDate:
-                    GUI.color = Color.green;
-                    GUILayout.Label("Champions of The Forest is up to date.", versionStyle);
-
-                    break;
-                case VersionCheckStatus.OutDated:
-                    GUI.color = Color.red;
-                    GUILayout.Label("Champions of The Forest is outdated! \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle);
-
-                    break;
-                case VersionCheckStatus.Fail:
-                    GUI.color = Color.gray;
-                    GUILayout.Label("Failed to get update info", versionStyle);
-                    break;
-                case VersionCheckStatus.NewerThanOnline:
-                    GUI.color = Color.yellow;
-                    GUILayout.Label("You're using a version newer than uploaded to ModAPI", versionStyle);
-                    break;
-            }
-            GUI.color = Color.white;
-
-            GUILayout.EndArea();
         }
 
         private bool DirExists()
@@ -405,7 +582,6 @@ namespace ChampionsOfForest.Res
             new Resource(27, "Background.png");
             new Resource(28, "HorizontalListItem.png");
             new Resource(30, "Space.png");
-
             new Resource(40, "amulet.obj");
             new Resource(41, "Glove.obj");
             new Resource(42, "jacket.obj");
@@ -420,7 +596,6 @@ namespace ChampionsOfForest.Res
             new Resource(51, "Sword.obj");
             new Resource(52, "HeavySword.obj");
             new Resource(53, "Shoulder.obj");
-
             //new Resource(59, "SwordMetalic.png");
             new Resource(60, "SwordTexture.png");
             new Resource(61, "SwordColor.png");
@@ -433,7 +608,6 @@ namespace ChampionsOfForest.Res
             new Resource(69, "ChainPart.obj");
             new Resource(70, "Spike.obj");
             new Resource(71, "particle.png");
-
             new Resource(72, "Melee.jpg");
             new Resource(73, "Magic.jpg");
             new Resource(74, "Ranged.jpg");
@@ -441,12 +615,10 @@ namespace ChampionsOfForest.Res
             new Resource(76, "Utility.jpg");
             new Resource(77, "Support.jpg");
             new Resource(78, "Background1.jpg");
-
             new Resource(82, "PerkNode1.png");
             new Resource(81, "PerkNode2.png");
             new Resource(83, "PerkNode3.png");
             new Resource(84, "PerkNode4.png");
-
             new Resource(85, "ItemBoots.png");
             new Resource(86, "ItemGloves.png");
             new Resource(87, "ItemPants.png");
@@ -468,6 +640,7 @@ namespace ChampionsOfForest.Res
             new Resource(103, "HeartTexture.png");
             new Resource(104, "HeartNormal.png");
             new Resource(105, "ItemHeart.png");
+            new Resource(106, "Page.png");
 
 
 

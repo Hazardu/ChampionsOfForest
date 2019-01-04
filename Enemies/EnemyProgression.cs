@@ -1,9 +1,11 @@
-﻿using ChampionsOfForest.Enemies;
+﻿using Bolt;
+using ChampionsOfForest.Enemies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
+using Math = System.Math;
 using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
@@ -18,7 +20,7 @@ namespace ChampionsOfForest
         }
 
         public Dictionary<int, SlowDebuff> slows;
-        
+
         public enum EnemyType { Normal, Elite, Miniboss, Boss }
         public EnemyType type;
 
@@ -35,8 +37,8 @@ namespace ChampionsOfForest
         public int Armor;
         public int ArmorReduction;
         public bool setupComplete = false;
-        public float SteadFest =100;
-        private int SteadFestCap =100000;
+        public float SteadFest = 100;
+        private int SteadFestCap = 100000;
         private float DamageMult;
         public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
         public List<Abilities> abilities;
@@ -124,10 +126,10 @@ namespace ChampionsOfForest
         private float shieldingCD;
         private float shieldingON;
         public bool CCimmune = false;
-        public float BaseHealth;
-
+        
         public float DamageAmp => DamageMult;
-
+        public float CreationTime;
+        public float FireDmgAmp;
 
         private void RollName()
         {
@@ -174,6 +176,7 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
+                    if(entity == null)
                     entity = transform.root.GetComponentInChildren<BoltEntity>();
                     if (entity == null)
                     {
@@ -202,16 +205,7 @@ namespace ChampionsOfForest
             }
             slows = new Dictionary<int, SlowDebuff>();
             SteadFest = 100;
-            if (BaseHealth == 0)
-            {
-                BaseHealth = _Health.Health;
-            }
-            else
-            {
-                _Health.Health = (int)BaseHealth;
-            }
             abilities = new List<Abilities>();
-
             if (UnityEngine.Random.value < 0.1)
             {
                 int count = UnityEngine.Random.Range(2, 7);
@@ -221,8 +215,8 @@ namespace ChampionsOfForest
                 Array arr = Enum.GetValues(typeof(Abilities));
 
 
-                if (count > 6&&Random.value<0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
-                else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadFest); type = EnemyType.Miniboss;}
+                if (count > 6 && Random.value < 0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
+                else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadFest); type = EnemyType.Miniboss; }
                 else { type = EnemyType.Elite; }
 
                 while (i < count)
@@ -334,20 +328,20 @@ namespace ChampionsOfForest
             }
             Level = Mathf.RoundToInt(Level * lvlMult);
             DamageMult = (float)Level / 6 + 0.55f;
-            Armor = Mathf.RoundToInt(Random.Range(Level* Level * 0.1f, Level * Level * 3));
-          
+            Armor = Mathf.RoundToInt(Random.Range(Level * Level * 0.1f, Level * Level * 3));
+
 
             ArmorReduction = 0;
 
-            Health = (int)(_Health.Health * Mathf.Pow(Level,1.3f));
-                        
+            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.3f)));
+
 
             AnimSpeed = 1f + (float)Level / 125;
 
             Bounty = 1;
             switch (type)
             {
-                
+
                 case EnemyType.Elite:
                     Health *= 2;
 
@@ -399,7 +393,7 @@ namespace ChampionsOfForest
             }
 
 
-       
+            Health = Mathf.Min(Health, int.MaxValue - 5);
 
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
@@ -414,10 +408,12 @@ namespace ChampionsOfForest
             {
                 StartCoroutine(FireAuraLoop());
             }
-            MaxHealth = Health;
-            _Health.maxHealth = (int)Health;
+
             _Health.maxHealthFloat = Health;
-            _Health.Health = (int)Health;
+            MaxHealth = Health;
+            _Health.maxHealth = Mathf.RoundToInt(Health);
+            _Health.Health = Mathf.RoundToInt(Health);
+
             DualLifeSpend = false;
             RollName();
             setupComplete = true;
@@ -432,7 +428,7 @@ namespace ChampionsOfForest
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Hard:
-                    Bounty = Mathf.RoundToInt(Bounty  *1.2f);
+                    Bounty = Mathf.RoundToInt(Bounty * 1.2f);
                     break;
                 case ModSettings.Difficulty.Elite:
                     Bounty = Mathf.RoundToInt(Bounty * 2);
@@ -470,17 +466,11 @@ namespace ChampionsOfForest
             {
                 SteadFestCap = 1;
             }
-            Invoke("SetHealthToMax", 3);
-        }
-        private void SetHealthToMax()
-        {
-            _Health.Health = (int)MaxHealth;
-            MaxHealth = _Health.Health;
-            _Health.maxHealth = _Health.Health;
-            _Health.maxHealthFloat = _Health.Health;
+            CreationTime = Time.time;
         }
 
-      public void Slow(int source,float amount,float time)
+
+        public void Slow(int source, float amount, float time)
         {
             if (slows.ContainsKey(source))
             {
@@ -508,7 +498,7 @@ namespace ChampionsOfForest
             {
                 while (true)
                 {
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(1f);
                     foreach (BoltEntity item in ModReferences.AllPlayerEntities)
                     {
                         if ((item.transform.position - transform.position).sqrMagnitude < 80)
@@ -542,9 +532,19 @@ namespace ChampionsOfForest
         {
             if (!setupComplete)
             {
-                Setup();
+                if (_Health.Health > 0)
+                {
+                    Setup();
+                }
+
                 return;
             }
+            if (Time.time - CreationTime < 10)
+            {
+                _Health.Health = Mathf.RoundToInt(MaxHealth);
+
+            }
+
             if (TrapCD > 0)
             {
                 TrapCD -= Time.deltaTime;
@@ -597,13 +597,13 @@ namespace ChampionsOfForest
             transform.localScale = Vector3.one;
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
-                if (Scene.WeatherSystem.Raining)
+                if (TheForest.Utils.Scene.WeatherSystem.Raining)
                 {
                     Armor = prerainArmor * 5;
                     DamageMult = prerainDmg * 5;
                     transform.localScale *= 1.5f;
 
-                 AnimSpeed*= 2;
+                    AnimSpeed *= 2;
 
                 }
                 else
@@ -613,24 +613,24 @@ namespace ChampionsOfForest
 
                 }
             }
-         
-                if (abilities.Contains(Abilities.Huge))
-                {
-                    gameObject.transform.localScale *= 2f;
-            }
-                else if (abilities.Contains(Abilities.Tiny))
-                {
-                    gameObject.transform.localScale *= 0.35f;
-                    BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
 
-                }
+            if (abilities.Contains(Abilities.Huge))
+            {
+                gameObject.transform.localScale *= 2f;
+            }
+            else if (abilities.Contains(Abilities.Tiny))
+            {
+                gameObject.transform.localScale *= 0.35f;
+                BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
+
+            }
             if (abilities.Contains(Abilities.DoubleLife))
             {
                 if (DualLifeSpend)
                 {
                     _Health.MySkin.material.color = Color.magenta;
-                   AnimSpeed *= 1.2f;
-                    gameObject.transform.localScale *=1.3f;
+                    AnimSpeed *= 1.2f;
+                    gameObject.transform.localScale *= 1.3f;
 
                 }
             }
@@ -790,11 +790,24 @@ namespace ChampionsOfForest
             _Health.HitReal(damage);
 
         }
+        public static void ReduceArmor(BoltEntity target, int amount)
+        {
+            if (GameSetup.IsMultiplayer)
+            {
+                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                playerHitEnemy.Target = target;
+                playerHitEnemy.Hit = -amount - 50000;
+                playerHitEnemy.Send();
+            }
+            else
+            {
+                EnemyManager.hostDictionary[target.networkId.PackedValue].ArmorReduction += amount;
+            }
+        }
 
         private Color normalColor;
         public int ClampDamage(bool pure, int damage)
         {
-
             if (abilities.Contains(Abilities.Shielding))
             {
                 if (shieldingON > 0)
@@ -853,19 +866,19 @@ namespace ChampionsOfForest
             {
                 if (damage > SteadFestCap)
                 {
-                    int dmgpure= Mathf.Min(damage, SteadFestCap);
+                    int dmgpure = Mathf.Min(damage, SteadFestCap);
                     return dmgpure;
                 }
             }
-            
-                float reduction = Mathf.Sqrt((float)((float)Armor - (float)ArmorReduction)) / 100f;
 
-                reduction = Mathf.Clamp01(reduction);
-                int dmg = Mathf.FloorToInt(damage * (1 - reduction));
-                dmg = Mathf.Min(dmg, SteadFestCap);
+            float reduction = Mathf.Sqrt(Armor - (float)ArmorReduction) / 100f;
 
-                ModAPI.Console.Write("reducted damage " + damage + " --" + reduction + "--> " + dmg);
-            
+            reduction = Mathf.Clamp01(reduction);
+            int dmg = Mathf.FloorToInt(damage * (1 - reduction));
+            dmg = Mathf.Min(dmg, SteadFestCap);
+
+            //ModAPI.Console.Write("reducted damage " + damage + " --" + reduction + "--> " + dmg);
+
             return dmg;
 
         }
@@ -893,19 +906,20 @@ namespace ChampionsOfForest
                 if (abilities.Contains(Abilities.Molten))
                 {
                     //not working, find a fix or replacement
-                    BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
-                    BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
-                    BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
-                    BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
-                    BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
 
                 }
-                if (OnDieCalled) {
+                if (OnDieCalled)
+                {
                     return true;
 
                 }
                 OnDieCalled = true;
-                Invoke("ReanimateMe", 10);
+                Invoke("ReanimateMe", 30);
                 EnemyManager.RemoveEnemy(this);
 
                 if (setup.waterDetect.drowned)
@@ -921,11 +935,11 @@ namespace ChampionsOfForest
                     }
                     else if (abilities.Count >= 2)
                     {
-                            itemCount += Random.Range(2, 5);
+                        itemCount += Random.Range(2, 5);
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty), transform.position + Vector3.up * 2);
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty), transform.position + Vector3.up * 2);
                     }
                 }
                 if (BoltNetwork.isRunning)
@@ -946,7 +960,8 @@ namespace ChampionsOfForest
             return true;
 
         }
-        void ReanimateMe()
+
+        private void ReanimateMe()
         {
             OnDieCalled = false;
         }
@@ -958,8 +973,8 @@ namespace ChampionsOfForest
         public ulong Packed;
         public string EnemyName;
         public int Level;
-        public float Health;
-        public float MaxHealth;
+        public int Health;
+        public int MaxHealth;
         public int ExpBounty;
         public int Armor;
         public int ArmorReduction;
@@ -971,23 +986,26 @@ namespace ChampionsOfForest
         public ClinetEnemyProgression(Transform tr)
         {
             creationTime = Time.time;
-            EnemyProgression p = tr.root.GetComponent<EnemyProgression>();
+            EnemyProgression p = tr.GetComponent<EnemyProgression>();
             if (p == null)
             {
-                p = tr.root.GetComponentInChildren<EnemyProgression>();
+                p = tr.GetComponentInChildren<EnemyProgression>();
             }
-            EnemyName = p.EnemyName;
-            Level = p.Level;
-            Health = p.Health;
-            MaxHealth = p.MaxHealth;
-            ExpBounty = p.Bounty;
-            Armor = p.Armor;
-            ArmorReduction = p.ArmorReduction;
-            SteadFest = p.SteadFest;
-            Affixes = new int[p.abilities.Count];
-            for (int i = 0; i < p.abilities.Count; i++)
+            if (p != null)
             {
-                Affixes[i] = (int)p.abilities[i];
+                EnemyName = p.EnemyName;
+                Level = p.Level;
+                Health = (int)p.Health;
+                MaxHealth = (int)p.MaxHealth;
+                ExpBounty = p.Bounty;
+                Armor = p.Armor;
+                ArmorReduction = p.ArmorReduction;
+                SteadFest = p.SteadFest;
+                Affixes = new int[p.abilities.Count];
+                for (int i = 0; i < p.abilities.Count; i++)
+                {
+                    Affixes[i] = (int)p.abilities[i];
+                }
             }
         }
         public ClinetEnemyProgression()
@@ -1009,8 +1027,8 @@ namespace ChampionsOfForest
                 EnemyProgression p = EnemyManager.hostDictionary[Packed];
                 EnemyName = p.EnemyName;
                 Level = p.Level;
-                Health = p.Health;
-                MaxHealth = p.MaxHealth;
+                Health = (int)p.Health;
+                MaxHealth = (int)p.MaxHealth;
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
@@ -1034,8 +1052,8 @@ namespace ChampionsOfForest
             EnemyName = enemyName;
             Packed = entity.networkId.PackedValue;
             Level = level;
-            Health = health;
-            MaxHealth = maxHealth;
+            Health = (int)health;
+            MaxHealth = (int)maxHealth;
             ExpBounty = expBounty;
             Armor = armor;
             ArmorReduction = armorReduction;

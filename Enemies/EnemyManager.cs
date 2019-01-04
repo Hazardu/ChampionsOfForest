@@ -59,22 +59,42 @@ namespace ChampionsOfForest
         //Returns clinet progression for Singleplayer 
         public static ClinetEnemyProgression GetCP(Transform tr)
         {
-            if (spProgression.ContainsKey(tr))
+            if (spProgression.ContainsKey(tr.root))
             {
-                ClinetEnemyProgression cp = spProgression[tr];
+                ClinetEnemyProgression cp = spProgression[tr.root];
                 if (Time.time <= cp.creationTime + ClinetEnemyProgression.LifeTime)
                 {
                     return cp;
-                }
+                }else
                 {
-                    spProgression.Remove(tr);
+                    spProgression.Remove(tr.root);
                 }
             }
             else
             {
-                ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr);
-                spProgression.Add(tr, cpr);
-                return cpr;
+                EnemyProgression p = tr.root.GetComponent<EnemyProgression>();
+                if (p == null) p= tr.root.GetComponentInChildren<EnemyProgression>();
+                if (p != null)
+                {
+                    ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr.root);
+                    spProgression.Add(tr.root, cpr);
+                    return cpr;
+                }
+                else
+                {
+                    {
+                        mutantScriptSetup setup = tr.root.GetComponentInChildren<mutantScriptSetup>();
+                        if (setup == null)
+                            setup = tr.root.GetComponent<mutantScriptSetup>();
+
+
+                        p = setup.health.gameObject.AddComponent<EnemyProgression>();
+                        p._Health = setup.health;
+                        p._AI = setup.ai;
+                        p.entity = setup.GetComponent<BoltEntity>();
+                        p.setup = setup;
+                    }
+                }
             }
             return null;
         }
@@ -122,6 +142,10 @@ namespace ChampionsOfForest
                         hostDictionary.Remove(ep.entity.networkId.PackedValue);
                     }
                 }
+            }
+            if (spProgression.ContainsKey(ep.transform.root))
+            {
+                spProgression.Remove(ep.transform.root);
             }
 
         }

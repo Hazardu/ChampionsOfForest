@@ -31,7 +31,7 @@ namespace ChampionsOfForest
                     pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.2f, Smoothness = 0.6f });
                     Heart_pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.white, Metalic = 0.1f, Smoothness = 0.4f,MainTexture = Res.ResourceLoader.GetTexture(103),BumpMap = Res.ResourceLoader.GetTexture(104) });
                 }
-                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.5f;
+                spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.3f;
                 renderer.material = pickupMaterial;
 
                 switch (item._itemType)
@@ -76,7 +76,7 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.Helmet:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[48];
-                        spawn.transform.localScale *= 1.1f;
+                        spawn.transform.localScale *= 0.95f;
                             break;
                         case BaseItem.ItemType.Boot:
 
@@ -145,7 +145,7 @@ namespace ChampionsOfForest
 
                     }
                 }
-                spawn.AddComponent<MeshCollider>().convex = true;
+                spawn.AddComponent<MeshCollider>();
 
                 ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
              

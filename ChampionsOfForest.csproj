@@ -173,6 +173,7 @@
 <Compile Include="Enemies\RootingProjectile.cs"  />
 <Compile Include="Enemies\SnowAura.cs"  />
 <Compile Include="Enemies\TrapSphereSpell.cs"  />
+<Compile Include="Enemies\WormHealthMod.cs"  />
 <Compile Include="Items\BaseItem.cs"  />
 <Compile Include="Enemies\EnemyHealthMod.cs"  />
 <Compile Include="Enemies\EnemyProgression.cs"  />

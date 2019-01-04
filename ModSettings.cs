@@ -11,18 +11,11 @@ namespace ChampionsOfForest
 
 
 
-        public static string Version = "0.4";
-        public static bool RequiresNewFiles = true;
+        public static string Version = "0.5";
+        public static bool RequiresNewFiles = false;
+        public static bool RequiresNewSave = false;
         public static List<int> outdatedFiles = new List<int>()
         {
-            1,
-            5,
-            6,
-            12,
-            13,
-            20,
-            27,
-            28,
         };
     }
 }

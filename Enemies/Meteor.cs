@@ -27,11 +27,11 @@ namespace ChampionsOfForest.Enemies
         IEnumerator DoSpawnCoroutine(Vector3 position, int seed)
         {
 System.Random random = new System.Random(seed);
-            for (int i = 0; i < random.Next(2, 6); i++)
+            for (int i = 0; i < random.Next(5, 11); i++)
             {
                 
                 GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                go.transform.localScale *= 6.4f;
+                go.transform.localScale *= 7.5f;
                 go.AddComponent<Meteor>();
                 Light l = go.AddComponent<Light>();
                 l.intensity = 3;
@@ -39,7 +39,7 @@ System.Random random = new System.Random(seed);
                 l.color = Color.red;
                 go.transform.position = position+ Vector3.forward * random.Next(-3, 3)*2.5f + Vector3.right * random.Next(-3, 3)*2.5f  + Vector3.up * 80 + Vector3.forward *-40;
                 go.GetComponent<SphereCollider>().isTrigger = true;
-                yield return new WaitForSeconds(0.7f);
+                yield return new WaitForSeconds(0.6f);
             }
         }
 
@@ -55,14 +55,15 @@ System.Random random = new System.Random(seed);
 
         void Update()
         {
-            transform.Translate((Vector3.down*2 + Vector3.forward) * Time.deltaTime * 30 );
+            transform.Translate((Vector3.down*2 + Vector3.forward) * Time.deltaTime * 25 );
+            LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
 
         }
 
 
         void Start()
         {
-            Destroy(gameObject, 5);
+            Destroy(gameObject, 7);
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Normal:
@@ -104,25 +105,21 @@ System.Random random = new System.Random(seed);
 
         void OnTriggerEnter(Collider other)
         {
-
             if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") ||other.CompareTag("SmallTree") ) {
                 other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
                 other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
-                LocalPlayer.HitReactions.enableFootShake(1, 0.4f);
 
             }
-            else if (other.CompareTag("Player") || other.CompareTag("playerHitDetect"))
+            else if (other.transform.root == LocalPlayer.Transform.root)
             {
                 LocalPlayer.Stats.Hit((int)(Damage * ModdedPlayer.instance.MagicResistance),true,PlayerStats.DamageType.Fire);
                 other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
-                LocalPlayer.HitReactions.enableFootShake(1, 1.2f);
 
             }
             else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") ||other.CompareTag("BreakableRock") || other.CompareTag("structure"))
             {
                 other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
                 other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position,Damage), SendMessageOptions.DontRequireReceiver);
-                LocalPlayer.HitReactions.enableFootShake(1, 0.4f);
 
             }
         }

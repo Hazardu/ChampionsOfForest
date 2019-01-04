@@ -254,11 +254,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier *= f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier *= 1+f;
         }
         public static void RemoveHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier /= f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier /= 1+ f;
         }
         public static void AddMoveSpeed(float f)
         {

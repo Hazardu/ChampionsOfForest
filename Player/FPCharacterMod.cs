@@ -15,8 +15,8 @@
                 strafeSpeed = basestrafeSpeed * ModdedPlayer.instance.MoveSpeed;
             if (walkSpeed >= basewalkSpeed)
                 walkSpeed = basewalkSpeed * ModdedPlayer.instance.MoveSpeed;
-            if (crouchSpeed >= basecrouchspeed)
-                crouchSpeed = basecrouchspeed * ModdedPlayer.instance.MoveSpeed;
+            if (crouchSpeed >= basecrouchspeed*0.9f)
+                crouchSpeed = basecrouchspeed;
             allowJump = true;
 
             if (ModdedPlayer.instance.Stunned)

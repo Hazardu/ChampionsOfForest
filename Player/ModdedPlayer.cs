@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
+using static ChampionsOfForest.Player.BuffDB;
 using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
@@ -72,7 +73,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                return 1 + agility * EnergyRegenPerInt;
+                return 1 + intelligence * EnergyRegenPerInt;
             }
         }
         public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100);
@@ -249,26 +250,35 @@ namespace ChampionsOfForest
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                ModAPI.Log.Write("Weapon error" + e.ToString());
+
+            }
+            try
+            {
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
-                foreach (KeyValuePair<int, BuffDB.Buff> item in BuffDB.activeBuffs)
+                int[] keys = new List<int>(BuffDB.activeBuffs.Keys).ToArray();
+                for (int i = 0; i < keys.Length; i++)
                 {
-                    if (DebuffImmune && item.Value.isNegative && item.Value.DispellAmount <= 2)
+                    Buff buff = BuffDB.activeBuffs[keys[i]];
+                    if (DebuffImmune && buff.isNegative && buff.DispellAmount <= 2)
                     {
-                        BuffDB.activeBuffs[item.Key].ForceEndBuff(item.Key);
+                        BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                     }
-                    else if (StunImmune && item.Value.isNegative && item.Value.DispellAmount <= 1)
+                    else if (StunImmune && buff.isNegative && buff.DispellAmount <= 1)
                     {
-                        BuffDB.activeBuffs[item.Key].ForceEndBuff(item.Key);
-
+                        BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                     }
                     else
                     {
-                        BuffDB.activeBuffs[item.Key].UpdateBuff(item.Key);
-                        if (item.Value._ID == 3)
+                        BuffDB.activeBuffs[keys[i]].UpdateBuff(keys[i]);
+                        if (buff._ID == 3)
                         {
                             poisonCount++;
-                            dmgPerSecond += item.Value.amount;
+                            dmgPerSecond += buff.amount;
                         }
                     }
                 }
@@ -282,25 +292,30 @@ namespace ChampionsOfForest
                         BuffDB.AddBuff(1, 33, 0.7f, 1);
                     }
 
+                   
+                }
                     if (LocalPlayer.Stats.Health <= 0)
                     {
                         LocalPlayer.Stats.Hit(1, true);
                     }
-                }
-
 
             }
             catch (Exception e)
             {
-                ModAPI.Log.Write(e.ToString());
+                ModAPI.Log.Write("Poison error" +  e.ToString());
             }
+            try
+            {
+
+           
             if (LocalPlayer.Stats != null)
             {
-                LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
-                LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
-                LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
-                LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
-                LocalPlayer.Stats.Skills.TotalRunDuration = 0;
+                ////LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
+                //LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
+                //LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
+                //LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
+                //LocalPlayer.Stats.Skills.TotalRunDuration = 0;
+                //LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
 
 
                 if (LocalPlayer.Stats.Health < MaxHealth)
@@ -314,7 +329,6 @@ namespace ChampionsOfForest
                         LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier / 10;
                     }
                 }
-                LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
 
                 if(Clock.Day> LastDayOfGeneration)
                 {
@@ -327,9 +341,19 @@ namespace ChampionsOfForest
                     }
                     LastDayOfGeneration = Clock.Day;
                 }
+ 
+            }}
+            catch (Exception e)
+            {
+
+                ModAPI.Log.Write("Stats error" + e.ToString());
 
             }
- if (TimeUntillMassacreReset > 0)
+            try
+            {
+
+           
+            if (TimeUntillMassacreReset > 0)
             {
                 TimeUntillMassacreReset -= Time.deltaTime;
                 if (TimeUntillMassacreReset <= 0)
@@ -341,6 +365,12 @@ namespace ChampionsOfForest
                     CountMassacre();
                 }
 
+
+            } }
+            catch (Exception e)
+            {
+
+                ModAPI.Log.Write("Massacre error" + e.ToString());
 
             }
             if (Stunned)
@@ -379,6 +409,22 @@ namespace ChampionsOfForest
         public void AddFinalExperience(long Amount)
         {
             ExpCurrent += (long)(Amount * ExpFactor);
+            int i = 0;
+            while (ModdedPlayer.instance.ExpCurrent >= ModdedPlayer.instance.ExpGoal)
+            {
+                ModdedPlayer.instance.ExpCurrent -= ModdedPlayer.instance.ExpGoal;
+                ModdedPlayer.instance.LevelUp();
+                MainMenu.Instance.LevelsToGain++;
+                i++;
+            }
+
+            if (i > 0)
+            {
+                if (GameSetup.IsMultiplayer)
+                {
+                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                }
+            }
         }
         public void DoOnHit()
         {
@@ -461,20 +507,15 @@ namespace ChampionsOfForest
         }
         public long GetGoalExp()
         {
-            int x = Level;
-            float a = 2.5f;
-            float b = 4;
-            float c = 65;
-            float d = 0.7f;
-            double y = Mathf.Pow(x, a) * b + Mathf.Sin(d * x) * c + c * x;
-            return Convert.ToInt64(y);
+          
+            return GetGoalExp(Level);
         }
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 1.7f;
-            float b = 4;
-            float c = 55;
+            float a = 2.6f;
+            float b = 10;
+            float c = 125;
             float d = 0.7f;
             double y = Mathf.Pow(x, a) * b + Mathf.Sin(d * x) * c + c * x;
             return Convert.ToInt64(y);
@@ -529,12 +570,12 @@ namespace ChampionsOfForest
             else if (KCInRange(25, 30))
             {
                 MassacreMultipier = 15F;
-                MassacreText = "WICED SICK";
+                MassacreText = "WICKED SICK";
             }
             else if (KCInRange(30, 40))
             {
                 MassacreMultipier = 22.5f;
-                MassacreText = "UNSTOPPABLE MASSACRE";
+                MassacreText = "UNSTOPPABLE";
             }
             else if (KCInRange(40, 50))
             {
@@ -565,7 +606,7 @@ namespace ChampionsOfForest
 
         private bool KCInRange(int min, int max)
         {
-            if (MassacreKills > min && MassacreKills <= max)
+            if (MassacreKills >= min && MassacreKills < max)
             {
                 return true;
             }

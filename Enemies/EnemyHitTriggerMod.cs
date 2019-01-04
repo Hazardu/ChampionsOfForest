@@ -22,9 +22,9 @@ namespace ChampionsOfForest.Enemies
             transform.localScale = originalScale* 3;
 
         }
+        EnemyProgression EnemyProg;
 
-
-        [ModAPI.Attributes.Priority(100)]
+       [ModAPI.Attributes.Priority(100)]
         protected override void OnTriggerEnter(Collider other)
         {
             try
@@ -170,9 +170,11 @@ namespace ChampionsOfForest.Enemies
 
                             try
                             {
+                                if(EnemyProg ==null)
+                                EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
+                                //POISON ATTACKS 
 
-                                EnemyProgression EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
-                                //POISON ATTACKS
                                 if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                 {
 
@@ -208,7 +210,6 @@ namespace ChampionsOfForest.Enemies
                                     }
                                 }
 
-                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
 
                             }
                             catch (System.Exception ex)

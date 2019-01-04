@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 {
     public class WeaponInfoMod : weaponInfo
     {
-
+        public static bool AlwaysIgnite = false;
         protected override void Update()
         {
             if (mainTriggerScript != null)
@@ -22,6 +22,8 @@ namespace ChampionsOfForest.Player
                 setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
                 LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
+                mainTriggerScript.weaponDamage = mainTriggerScript.baseWeaponDamage;
+                mainTriggerScript.smashDamage = smashDamage;
                 if (setup && setup.pmStamina)
                 {
                     setup.pmStamina.SendEvent("toSetStats");
@@ -117,7 +119,6 @@ namespace ChampionsOfForest.Player
                 }
             }
         }
-
         protected override void OnTriggerEnter(Collider other)
         {
 
@@ -209,7 +210,7 @@ namespace ChampionsOfForest.Player
                             ModdedPlayer.instance.DoOnHit();
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                            hitPlayer.damage = Mathf.FloorToInt((weaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
+                            hitPlayer.damage = Mathf.FloorToInt((WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
                             hitPlayer.Send();
                         }
                     }
@@ -470,7 +471,7 @@ namespace ChampionsOfForest.Player
                             playerHitEnemy.getAttackDirection = integer2;
                         }
                     }
-                    if (fireStick && Random.value > 0.8f)
+                    if ((fireStick && Random.value > 0.8f) || AlwaysIgnite)
                     {
                         if ((bool)component6)
                         {
@@ -485,7 +486,8 @@ namespace ChampionsOfForest.Player
                             playerHitEnemy.Burn = true;
                         }
                     }
-                    float num2 = weaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                    float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                    ModAPI.Console.Write("Num 2 " + num2 + "   bonus = " + ModdedPlayer.instance.MeleeDamageBonus);
                     num2 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                     if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
                     {
