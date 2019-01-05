@@ -144,11 +144,7 @@ namespace ChampionsOfForest.Player
         {
             for (int i = 0; i < 6; i++)
             {
-                if (infos[i].spell != null)
-                {
-                    infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
-                    Ready[i] = false;
-                }
+                MaxCooldown(i);
             }
         }
         public void MaxCooldown(int i)

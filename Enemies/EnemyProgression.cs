@@ -126,7 +126,7 @@ namespace ChampionsOfForest
         private float shieldingCD;
         private float shieldingON;
         public bool CCimmune = false;
-        
+        public int BaseHealth = 0;
         public float DamageAmp => DamageMult;
         public float CreationTime;
         public float FireDmgAmp;
@@ -203,6 +203,23 @@ namespace ChampionsOfForest
             {
                 ModAPI.Log.Write(ex.ToString());
             }
+
+            if(BaseHealth == 0)
+            {
+                BaseHealth = _Health.Health;
+            }
+            else
+            {
+                _Health.Health = BaseHealth;
+            }
+
+
+
+
+
+
+
+
             slows = new Dictionary<int, SlowDebuff>();
             SteadFest = 100;
             abilities = new List<Abilities>();
@@ -532,7 +549,7 @@ namespace ChampionsOfForest
         {
             if (!setupComplete)
             {
-                if (_Health.Health > 0)
+                if (_Health.Health > 0 && ModSettings.DifficultyChoosen)
                 {
                     Setup();
                 }
@@ -889,6 +906,7 @@ namespace ChampionsOfForest
         {
             try
             {
+                if (_Health.Health > 1) return false;
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -916,7 +934,6 @@ namespace ChampionsOfForest
                 if (OnDieCalled)
                 {
                     return true;
-
                 }
                 OnDieCalled = true;
                 Invoke("ReanimateMe", 30);

@@ -107,7 +107,7 @@ namespace ChampionsOfForest.Network
         }
 
 
-        private static int lastDropID =0;
+        public static int lastDropID =0;
         /// <summary>
         /// Sends a command to create a item drop for all players.
         /// </summary>

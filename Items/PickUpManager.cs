@@ -28,7 +28,7 @@ namespace ChampionsOfForest
                 MeshFilter filter = spawn.GetComponent<MeshFilter>();
                 if (pickupMaterial == null)
                 {
-                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.2f, Smoothness = 0.6f });
+                    pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.35f, Smoothness = 0.7f });
                     Heart_pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.white, Metalic = 0.1f, Smoothness = 0.4f,MainTexture = Res.ResourceLoader.GetTexture(103),BumpMap = Res.ResourceLoader.GetTexture(104) });
                 }
                 spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.3f;
@@ -153,6 +153,8 @@ namespace ChampionsOfForest
                 pickup.amount = amount;
                 pickup.ID = id;
                 PickUps.Add(id, pickup);
+                if (Network.NetworkManager.lastDropID < id)
+                    Network.NetworkManager.lastDropID = id;
             }
             catch (System.Exception ex)
             {

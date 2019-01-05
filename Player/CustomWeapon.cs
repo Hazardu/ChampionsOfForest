@@ -24,7 +24,7 @@ namespace ChampionsOfForest.Player
         public Renderer renderer;
 
 
-        public float trailWidth = 0.06f;
+        public float trailWidth = 0.14f;
         public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float colliderScale = 1, float scale = 1, float damage = 5, float smashDamage = 15, float swingspeed = 1, float triedswingspeed = 1, float staminaDrain = 6, bool canChopTrees = false, float treeDamage = 1)
         {
             this.damage = damage;
@@ -42,6 +42,7 @@ namespace ChampionsOfForest.Player
             ColliderScale = colliderScale;
             Scale = scale;
             CreateGameObject();
+            InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
         }
         public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation,Vector3 tip, float scale = 1)
@@ -61,7 +62,24 @@ namespace ChampionsOfForest.Player
             ColliderScale = 1;
             Scale = scale ;
             CreateGameObject();
+            InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
+        }
+        public void EnableTrail()
+        {
+            trail.enabled = true;
+            trail.Clear();
+
+        }
+        public void DisableTrail()
+        {
+            trail.Clear();
+            trail.enabled = false;
+        }
+
+        void InitializeCustomWeapon()
+        {
+            PlayerInventoryMod.instance.AttackEnded.AddListener(DisableTrail);
         }
 
         public void CreateGameObject()
@@ -84,41 +102,42 @@ namespace ChampionsOfForest.Player
                 renderer.material = material;
             obj.GetComponent<MeshFilter>().mesh = mesh;
 
-            //GameObject trailObject = new GameObject();
-            //trailObject.transform.SetParent(obj.transform);
+                GameObject trailObject = new GameObject();
+                trailObject.transform.SetParent(obj.transform);
 
-            //trail = trailObject.AddComponent<TrailRenderer>();
+                trail = trailObject.AddComponent<TrailRenderer>();
 
-            //if(trailMaterial == null)
-            //{
-            //    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
-            //    {
-            //    };
-            //}
+                if (trailMaterial == null)
+                {
+                    trailMaterial = new Material(Shader.Find("Unlit/Transparent"));
+                   trailMaterial.color = new Color(1, 0.5f, 0.25f, 0.4f);
+                    trailMaterial.mainTexture = Texture2D.whiteTexture;
+                }
 
-            //trail.material = trailMaterial;
-            //trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-            //trail.time = 0.15f;
-            //trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            //trail.widthMultiplier = trailWidth;
-            //    trail.colorGradient = new Gradient()
-            //    {
-            //        colorKeys = new GradientColorKey[]
-            //        {
-            //            new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
-            //            new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
-            //        },
-                    
+                trail.material = trailMaterial;
+                trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+                trail.time = 0.15f;
+                trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                trail.widthMultiplier = trailWidth;
+                Gradient g = new Gradient()
+                {
+                    colorKeys = new GradientColorKey[]
+                    {
+                        new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
+                        new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
+                    },
+                    mode = GradientMode.Blend
 
-            //    };
+                };
+                trail.colorGradient = g;
 
-            //    trailObject.transform.localPosition = tipPosition;
+                trailObject.transform.localPosition = tipPosition;
 
             }
             catch (System.Exception e)
             {
 
-                ModAPI.Console.Write(e.ToString());
+                ModAPI.Log.Write(e.ToString());
             }
         }
 

@@ -257,575 +257,327 @@ namespace ChampionsOfForest
         {
             try
             {
-                FillBoots();
-                FillGloves();
-                FillPants();
-                FillChestArmors();
-                FillWeapons();
-                FillOffhands();
-                FillShouldeArmor();
-                FillHelmets();
-                FillRings();
-                FillAmulets();
-                FillBracers();
-                FillConsumables();
-            }
-            catch (System.Exception e)
-            {
-
-                ModAPI.Log.Write(e.ToString());
-            }
-        }
-
-        private static void FillConsumables()
-        {
-            new BaseItem(new int[][]
-            {
-                new int[] {32},
-
-            })
-            {
-                name = "Greater Mutated Heart",
-                description = "",
-                lore = "",
-                tooltip = "Can be consumed by right clicking it",
-                Rarity = 7,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = true,
-                StackSize = 100,
-                _itemType = BaseItem.ItemType.Other,
-                icon = Res.ResourceLoader.GetTexture(105),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {33},
-
-            })
-            {
-                name = "Lesser Mutated Heart",
-                description = "",
-                lore = "",
-                tooltip = "Can be consumed by right clicking it",
-                Rarity = 6,
-                minLevel = 1,
-                maxLevel = 6,
-                CanConsume = true,
-                StackSize = 100,
-                _itemType = BaseItem.ItemType.Other,
-                icon = Res.ResourceLoader.GetTexture(105),
-            };
-        }
-    
-
-        private static void FillAmulets()
-        {
-            new BaseItem(new int[][]
-          {
-                new int[] {39,40,41,42,43},
-
-          })
-            {
-                name = "Scarf",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 1,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Amulet,
-                icon = Res.ResourceLoader.GetTexture(100),
-            };
-        }
-        private static void FillBracers()
-        {
-            new BaseItem(new int[][]
+                new BaseItem(new int[][]
            {
-                new int[] {39,40,41,42,43},
-
+                new int[] { 34 },
+                new int[] {43,0 },
            })
-            {
-                name = "Damaged Bracer",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Bracer,
-                icon = Res.ResourceLoader.GetTexture(93),
-            };
-            new BaseItem(new int[][]
+                {
+                    name = "Broken Shoes",
+                    description = "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner.",
+                    lore = "Worn by one of the passengers of the plane that Eric also flew in.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {34 },
+                new int[] {34,0,40,41 },
+                new int[] {43 },
+                new int[] {43,0 },
+                })
+                {
+                    name = "Old Boots",
+                    description = "A pair of old boots. They must have been lying here for ages.",
+                    lore = "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 0,
+                    minLevel = 10,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {34 },
+                new int[] {34,40,41 },
+                new int[] {43,3,2 },
+                new int[] {43 },
+               })
+                {
+                    name = "Worn Leather Boots",
+                    description = "A pair of leather boots. They look good and have only some scratches.",
+                    lore = "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 1,
+                    minLevel = 5,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {34 },
+                new int[] {3,2 },
+                new int[] {43,3,2,1,4 },
+                new int[] {43 },
+               })
+                {
+                    name = "New Leather Boots",
+                    description = "A pair of leather boots. They are in a very good condition.",
+                    lore = "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 2,
+                    minLevel = 7,
+                    maxLevel = 30,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+               {
+               new int[] {34 },
+                new int[] {34,39,41,11 },
+                new int[] {16,39,41 },
+                new int[] {16,7,8 },
+                new int[] {43 },
+                })
+                {
+                    name = "Damaged Army Boots",
+                    description = "Sturdy, hard, resistant but damaged boots.",
+                    lore = "They look modern, almost too modern for everything here.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 3,
+                    minLevel = 10,
+                    maxLevel = 30,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {34 },
+                new int[] {34,3,2,11 },
+                new int[] {16,3,2,1,4 },
+                new int[] {16,7,8 },
+                new int[] {43 },
+               })
+                {
+                    name = "Army Boots",
+                    description = "Sturdy, hard, resistant boots.",
+                    lore = "They look modern, almost too modern for everything here.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 4,
+                    minLevel = 15,
+                    maxLevel = 40,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+               {
+               new int[] {25,22 },
+               new int[] {11,1,3,17 },
+               new int[] {11,1 },
+               new int[] {1, },
+               new int[] {5,6,16,31,7,8,9,10 },
+               })
+                {
+                    name = "Armsy Skin Footwear",
+                    description = "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin.",
+                    lore = "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue.",
+                    tooltip = "Shoes can provide movement speed bonuses.",
+                    Rarity = 6,
+                    minLevel = 5,
+                    maxLevel = 40,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Boot,
+                    icon = Res.ResourceLoader.GetTexture(85),
+                };
+                new BaseItem(new int[][]
+          {
+                new int[] {42,0 },
+                new int[] {40 },
+                new int[] {43,0 },
+          })
+                {
+                    name = "Finger Warmer",
+                    description = "A little glove to keep your fingers warm and cozy.",
+                    lore = "Made of wool.",
+                    tooltip = "Gloves offer protection.",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Glove,
+                    icon = Res.ResourceLoader.GetTexture(86),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {39,40,41,42,43,24,25,26 },
+                new int[] {39,40,41,42,43,24,25,26,44 },
+                new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,16 },
+                new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23 },
+                })
+                {
+                    name = "Thick Rubber Glove",
+                    description = "A glove that helps get a better grip.",
+                    lore = "Made of wool.",
+                    tooltip = "Gloves offer protection and stat bonuses.",
+                    Rarity = 1,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Glove,
+                    icon = Res.ResourceLoader.GetTexture(86),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {39,40,41,42},
+                new int[] {39,40,41,42},
+                new int[] {1,2,3,4,5,6,7},
+                new int[] {0,18,14,0,0,0},
+                new int[] {43,0,0,5,6,0,0,21,22,23,16 },
+                })
+                {
+                    name = "Tribal Glove",
+                    description = "Offers medicore protection.",
+                    lore = "Glove made out of thin bones, some may possibly be from a human.",
+                    tooltip = "Gloves offer protection and stat bonuses.",
+                    Rarity = 3,
+                    minLevel = 10,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Glove,
+                    icon = Res.ResourceLoader.GetTexture(86),
+                };
+                new BaseItem(new int[][]
+              {
+                new int[] {1,2,4,6,8,9},
+                new int[] {1,0},
+                new int[] {21,22,23},
+                new int[] {12,13,15},
+                new int[] {12,13,24,25,26},
+                new int[] {24,25,26,44,35},
+                })
+                {
+                    name = "Tribe Leader Glove",
+                    description = "A glove that offers little protection but a lot of offensive stats.",
+                    lore = "A glove made of bones, some have engravings of crosses.",
+                    tooltip = "Gloves offer protection and stat bonuses.",
+                    Rarity = 4,
+                    minLevel = 10,
+                    maxLevel = 25,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Glove,
+                    icon = Res.ResourceLoader.GetTexture(86),
+                };
+                new BaseItem(new int[][]
            {
-                new int[] {39,40,41,42,43},
-                new int[] {16},
-
+                new int[] {43,0 },
+                new int[] {43,0 },
            })
-            {
-                name = "Worn Bracer",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 1,
-                minLevel = 3,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Bracer,
-                icon = Res.ResourceLoader.GetTexture(93),
-            };
-            new BaseItem(new int[][]
-           {
-                new int[] {39,40,41,42,43},
-                new int[] {16},
-                new int[] {5,6,10},
-
-           })
-            {
-                name = "Leather Bracer",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 2,
-                minLevel = 4,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Bracer,
-                icon = Res.ResourceLoader.GetTexture(94),
-            };
-        }
-        private static void FillRings()
-        {
-            new BaseItem(new int[][]
-            {
-                new int[] {39,40,41,42,43,12,13},
-
-            })
-            {
-                name = "Broken Loop",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Ring,
-                icon = Res.ResourceLoader.GetTexture(90),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {39,40,41,42,43,12,13},
-
-            })
-            {
-                name = "Loop",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 1,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Ring,
-                icon = Res.ResourceLoader.GetTexture(90),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {39,40,41,42,43,12,13},
-
-            })
-            {
-                name = "Toxic Ring",
-                description = "",
-                lore = "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.",
-                tooltip = "",
-                Rarity = 3,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Ring,
-                icon = Res.ResourceLoader.GetTexture(90),
-            };
-        }
-
-        private static void FillHelmets()
-        {
-            new BaseItem(new int[][]
-            {
-                new int[] {39,49,5,6,7,8,0,0,0},
-                new int[] {43,0},
-                new int[] {43},
-
-            })
-            {
-                name = "MAGA Cap",
-                description = "Wearing this item channels the power of D.Trump to you",
-                lore = "... or does it?",
-                tooltip = "Provides usefull stat bonuses",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Helmet,
-                icon = Res.ResourceLoader.GetTexture(91),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {2000},
-                new int[] {2001},
-                new int[] {2002},
-                new int[] {2003},
-                new int[] {16},
-                new int[] {16},
-                new int[] {21,6},
-            })
-            {
-                name = "Hubble's Vision",
-                description = "Wearing this item empowers your black hole spell",
-                lore = "Man, fuck gravity.",
-                tooltip = "I wish ModAPI supported custom shaders. I could make the blackhole look better.",
-                Rarity = 6,
-                minLevel = 10,
-                maxLevel = 30,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Helmet,
-                icon = Res.ResourceLoader.GetTexture(91),
-
-            };
-        }
-
-        private static void FillShouldeArmor()
-        {
-            new BaseItem(new int[][]
-         {
-                new int[] {5,6,7,8,0,0,0},
-                new int[] {43},
-
-         })
-            {
-                name = "Broken Leather Shoulder Armor",
-                description = "S",
-                lore = "",
-                tooltip = "Provides usefull stat bonuses",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ShoulderArmor,
-                icon = Res.ResourceLoader.GetTexture(95),
-            };
-            new BaseItem(new int[][]
-         {
-                new int[] {5,6,7,8},
-                new int[] {43},
-
-         })
-            {
-                name = "Leather Shoulder Armor",
-                description = "",
-                lore = "",
-                tooltip = "Provides usefull stat bonuses",
-                Rarity = 1,
-                minLevel = 2,
-                maxLevel = 5,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ShoulderArmor,
-                icon = Res.ResourceLoader.GetTexture(95),
-            };
-            new BaseItem(new int[][]
-         {
-                new int[] {16},
-                new int[] {1,2,3,4},
-                new int[] {17},
-                new int[] {17},
-                new int[] {8,9,49,47},
-                new int[] {8,9,49,47},
-                new int[] {16,18,11,34},
-                new int[] {37,34},
-
-         })
-            {
-                name = "Phase Pauldrons",
-                description = "The distance of teleport is increased by 40 meters, and teleport now damages everything that you teleported through",
-                lore = "",
-                tooltip = "Provides usefull stat bonuses",
-                Rarity = 7,
-                minLevel = 5,
-                maxLevel = 50,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ShoulderArmor,
-                icon = Res.ResourceLoader.GetTexture(95),
-                onEquip = () => Player.SpellActions.BlinkRange += 40,
-                onUnequip = () => Player.SpellActions.BlinkRange -= 40,
-            };
-        }
-
-        private static void FillOffhands()
-        {
-            new BaseItem(new int[][]
-         {
-                new int[] {1,2,3,4 },
-
-         })
-            {
-                name = "Smokey's Sacred Quiver",
-                description = "SmokeyTheBear please send me a viable decription.",
-                lore = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.",
-                tooltip = "This quiver makes you shoot special projectiles from your bows",
-                Rarity = 7,
-                minLevel = 5,
-                maxLevel = 50,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Offhand,
-                icon = Res.ResourceLoader.GetTexture(98),
-                onEquip = () => ModdedPlayer.IsSacredArrow = true,
-                onUnequip = () => ModdedPlayer.IsSacredArrow = false,
-            };
-            new BaseItem(new int[][]
-         {
-                new int[] {0,42 },
-                new int[] {50 },
-                new int[] {43,16 },
-
-
-         })
-            {
-                name = "Broken shield",
-                description = "",
-                lore = "",
-                tooltip = "Shields increase your block.",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 2,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Shield,
-                icon = Res.ResourceLoader.GetTexture(99),
-
-            }; new BaseItem(new int[][]
-       {
-                new int[] {1,2,3,4,0,42 },
-                new int[] {0,42 },
-                new int[] {50 },
-                new int[] {43,16 },
-                new int[] {43,16,0,0 },
-
-
-       })
-            {
-                name = "Shield",
-                description = "",
-                lore = "",
-                tooltip = "Shields increase your block.",
-                Rarity = 1,
-                minLevel = 3,
-                maxLevel = 6,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Shield,
-                icon = Res.ResourceLoader.GetTexture(99),
-
-            }; new BaseItem(new int[][]
-        {
-                new int[] {16},
-                new int[] {16},
-                new int[] {16},
-                new int[] {16,0},
-                new int[] {16,0,45,46},
-                new int[] {0,42,11 },
-                new int[] {50 },
-
-
-        })
-            {
-                name = "Tower Shield",
-                description = "",
-                lore = "",
-                tooltip = "Shields increase your block.",
-                Rarity = 3,
-                minLevel = 5,
-                maxLevel = 15,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Shield,
-                icon = Res.ResourceLoader.GetTexture(99),
-
-            };
-        }
-
-        private static void FillWeapons()
-        {
-            new BaseItem(new int[][]
-          {
-                new int[] {39,40,41,42,44,8,14,49 },
-
-          })
-            {
-                name = "Rusty Longsword",
-                description = "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half.",
-                lore = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.",
-                tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
-                Rarity = 3,
-                minLevel = 1,
-                maxLevel = 5,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Weapon,
-                weaponModel = BaseItem.WeaponModelType.LongSword,
-                icon = Res.ResourceLoader.GetTexture(89),
-            };
-            new BaseItem(new int[][]
-          {
-                new int[] {25 },
-                new int[] {6,49},
-                new int[] {22,0,25,1,2,3,4},
-                new int[] {1,2,3,4},
-                new int[] {39,40,41,42,44,8,18 },
-          })
-            {
-                name = "Longsword",
-                description = "Sharp and long",
-                lore = "The sword is in perfect contidion.",
-                tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
-                Rarity = 5,
-                minLevel = 10,
-                maxLevel = 15,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Weapon,
-                weaponModel = BaseItem.WeaponModelType.LongSword,
-                icon = Res.ResourceLoader.GetTexture(89),
-            };
-            new BaseItem(new int[][]
-          {
-                new int[] {25 },
-                new int[] {6,49},
-                new int[] {22,0,25,1,2,3,4},
-                new int[] {1,2,3,4,8},
-                new int[] {1,2,3,4,8},
-                new int[] {5,6,45,46,16,8},
-                new int[] {39,40,41,42,44,8 },
-                new int[] {39,40,41,42,44,8 },
-          })
-            {
-                name = "Full Metal Sword",
-                description = "It's sooo big...",
-                lore = "A normal human cannot lift this.",
-                tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
-                Rarity = 6,
-                minLevel = 15,
-                maxLevel = 25,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Weapon,
-                weaponModel = BaseItem.WeaponModelType.GreatSword,
-                icon = Res.ResourceLoader.GetTexture(88),
-            }; new BaseItem(new int[][]
-          {
-                new int[] {25 },
-                new int[] {25,22 },
-                new int[] {49 },
-                new int[] {14 },
-                new int[] {14 },
-                new int[] {14,31,49 },
-                new int[] {14,18,49 },
-                new int[] {38,36,1,2,3,4,5,6,16 },
-
-          })
-            {
-                name = "The Leech",
-                description = "Hey where did my health g- oh it's back...",
-                lore = "",
-                tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
-                Rarity = 6,
-                minLevel = 15,
-                maxLevel = 25,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Weapon,
-                weaponModel = BaseItem.WeaponModelType.GreatSword,
-                icon = Res.ResourceLoader.GetTexture(88),
-            };
-        }
-        private static void FillChestArmors()
-        {
-            new BaseItem(new int[][]
-           {
+                {
+                    name = "Worn Shorts",
+                    description = "Some protection for legs.",
+                    lore = "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing.",
+                    tooltip = "Pants provide armor and sometimes they increase carrying capactiy.",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Pants,
+                    icon = Res.ResourceLoader.GetTexture(97),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {1000,1001},
+                new int[] {8,9,0,0,0,0 },
+               })
+                {
+                    name = "Cargo Shorts",
+                    description = "No protection at all but they allow to carry more items.",
+                    lore = "They are ugly as hell tho",
+                    tooltip = "Pants provide armor and sometimes they increase carrying capactiy.",
+                    Rarity = 1,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Pants,
+                    icon = Res.ResourceLoader.GetTexture(97),
+                };
+                new BaseItem(new int[][]
+                        {
                 new int[] {5 },
                 new int[] {43,16,0,41 },
                 new int[] {39,40,41,42,43,44,0,0,0,0,0,0},
-           })
-            {
-                name = "Worn Jacket",
-                description = "It's a little torn. ",
-                lore = "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead.",
-                tooltip = "Chest armor increases health and gives armor",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            new BaseItem(new int[][]
-           {
+                        })
+                {
+                    name = "Worn Jacket",
+                    description = "It's a little torn. ",
+                    lore = "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead.",
+                    tooltip = "Chest armor increases health and gives armor",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {43,16,0,41,3,2,1 },
                 new int[] {6,7,8,9,10,16,17,31 },
                 new int[] {39,40,41,42,43,44,0,0,0,0,0,0},
-           })
-            {
-                name = "Jacket",
-                description = "Offers little protection",
-                lore = "This jacket was in a baggage of one of the plane passengers",
-                tooltip = "Chest armor increases health and gives armor",
-                Rarity = 1,
-                minLevel = 4,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Jacket",
+                    description = "Offers little protection",
+                    lore = "This jacket was in a baggage of one of the plane passengers",
+                    tooltip = "Chest armor increases health and gives armor",
+                    Rarity = 1,
+                    minLevel = 4,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {5 },
                 new int[] {16},
                 new int[] {7,11 },
 
-           })
-            {
-                name = "Boar Skin Armor",
-                description = "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies.",
-                lore = "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable.",
-                tooltip = "Chest armor increases health and gives armor",
-                Rarity = 1,
-                minLevel = 4,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Boar Skin Armor",
+                    description = "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies.",
+                    lore = "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable.",
+                    tooltip = "Chest armor increases health and gives armor",
+                    Rarity = 1,
+                    minLevel = 4,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {5,3,4,2,1 },
                 new int[] {14,0,0,0 },
@@ -833,22 +585,22 @@ namespace ChampionsOfForest
                 new int[] {6,8,9},
                 new int[] {12,13,0,0,0,0,0 },
 
-           })
-            {
-                name = "Crocodile Skin Armor",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 2,
-                minLevel = 7,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            BaseItem baseItem1 = new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Crocodile Skin Armor",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 2,
+                    minLevel = 7,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                BaseItem baseItem1 = new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {16 },
                 new int[] {18,17,16},
@@ -856,23 +608,23 @@ namespace ChampionsOfForest
                 new int[] {12,13,1,2,3,4},
                 new int[] {25,22,0},
 
-           })
-            {
-                name = "Plate armour",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 4,
-                minLevel = 1,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            baseItem1.PossibleStats[1][0].Multipier = 2.5f;
-            new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Plate armour",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 4,
+                    minLevel = 1,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                baseItem1.PossibleStats[1][0].Multipier = 2.5f;
+                new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {16},
                 new int[] {16,43},
@@ -881,22 +633,22 @@ namespace ChampionsOfForest
                 new int[] {45,43,39,42},
                 new int[] {7,10,11,17,18,31},
 
-           })
-            {
-                name = "Bear Skin Armor",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 3,
-                minLevel = 7,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Bear Skin Armor",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 3,
+                    minLevel = 7,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {12,13},
                 new int[] {13,23,26},
@@ -905,21 +657,21 @@ namespace ChampionsOfForest
                 new int[] {15,14},
                 new int[] {16,23,4,5,6},
                 new int[] {16,23,4,5,6,0,0,0,0},
-           })
-            {
-                name = "Archer's Gear",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 5,
-                minLevel = 7,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            }; new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Archer's Gear",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 5,
+                    minLevel = 7,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                }; new BaseItem(new int[][]
+               {
                 new int[] {5 },
                 new int[] {23,26 },
                 new int[] {23,26 },
@@ -932,22 +684,22 @@ namespace ChampionsOfForest
                 new int[] {45,46},
                 new int[] {27,48},
 
-           })
-            {
-                name = "Hazard's Gear",
-                description = "",
-                lore = "",
-                tooltip = "",
-                Rarity = 6,
-                minLevel = 20,
-                maxLevel = 30,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-            new BaseItem(new int[][]
-           {
+               })
+                {
+                    name = "Hazard's Gear",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 6,
+                    minLevel = 20,
+                    maxLevel = 30,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+               {
                 new int[] {47 },
                 new int[] {4,29 },
                 new int[] {4,29 },
@@ -959,291 +711,480 @@ namespace ChampionsOfForest
                 new int[] {4,17,6,44,38,21,24,8,9},
                 new int[] {4,17,6,44,38,21,24,8,9},
                 new int[] {4,17,6,44,38,21,24,8,9},
-           })
-            {
-                name = "Mysterious robe",
-                description = "Magic flows through the entirety of this object. It's made out of unknown material",
-                lore = "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine.",
-                tooltip = "???????????",
-                Rarity = 7,
-                minLevel = 70,
-                maxLevel = 75,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.ChestArmor,
-                icon = Res.ResourceLoader.GetTexture(96),
-            };
-        }
+               })
+                {
+                    name = "Mysterious robe",
+                    description = "Magic flows through the entirety of this object. It's made out of unknown material",
+                    lore = "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine.",
+                    tooltip = "???????????",
+                    Rarity = 7,
+                    minLevel = 70,
+                    maxLevel = 75,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ChestArmor,
+                    icon = Res.ResourceLoader.GetTexture(96),
+                };
+                new BaseItem(new int[][]
+                        {
+                new int[] {39,40,41,42,44,8,14,49 },
 
-        private static void FillPants()
-        {
-            new BaseItem(new int[][]
-           {
-                new int[] {43,0 },
-                new int[] {43,0 },
-           })
-            {
-                name = "Worn Shorts",
-                description = "Some protection for legs.",
-                lore = "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing.",
-                tooltip = "Pants provide armor and sometimes they increase carrying capactiy.",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Pants,
-                icon = Res.ResourceLoader.GetTexture(97),
-            };
-            new BaseItem(new int[][]
-           {
-                new int[] {1000,1001},
-                new int[] {8,9,0,0,0,0 },
-           })
-            {
-                name = "Cargo Shorts",
-                description = "No protection at all but they allow to carry more items.",
-                lore = "They are ugly as hell tho",
-                tooltip = "Pants provide armor and sometimes they increase carrying capactiy.",
-                Rarity = 1,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Pants,
-                icon = Res.ResourceLoader.GetTexture(97),
-            };
-        }
+                        })
+                {
+                    name = "Rusty Longsword",
+                    description = "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half.",
+                    lore = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.",
+                    tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
+                    Rarity = 3,
+                    minLevel = 1,
+                    maxLevel = 5,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.LongSword,
+                    icon = Res.ResourceLoader.GetTexture(89),
+                };
+                new BaseItem(new int[][]
+              {
+                new int[] {25 },
+                new int[] {6,49},
+                new int[] {22,0,25,1,2,3,4},
+                new int[] {1,2,3,4},
+                new int[] {39,40,41,42,44,8,18 },
+              })
+                {
+                    name = "Longsword",
+                    description = "Sharp and long",
+                    lore = "The sword is in perfect contidion.",
+                    tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
+                    Rarity = 5,
+                    minLevel = 10,
+                    maxLevel = 15,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.LongSword,
+                    icon = Res.ResourceLoader.GetTexture(89),
+                };
+                new BaseItem(new int[][]
+              {
+                new int[] {25 },
+                new int[] {6,49},
+                new int[] {22,0,25,1,2,3,4},
+                new int[] {1,2,3,4,8},
+                new int[] {1,2,3,4,8},
+                new int[] {5,6,45,46,16,8},
+                new int[] {39,40,41,42,44,8 },
+                new int[] {39,40,41,42,44,8 },
+              })
+                {
+                    name = "Full Metal Sword",
+                    description = "It's sooo big...",
+                    lore = "A normal human cannot lift this.",
+                    tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
+                    Rarity = 6,
+                    minLevel = 15,
+                    maxLevel = 25,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.GreatSword,
+                    icon = Res.ResourceLoader.GetTexture(88),
+                }; new BaseItem(new int[][]
+              {
+                new int[] {25 },
+                new int[] {25,22 },
+                new int[] {49 },
+                new int[] {14 },
+                new int[] {14 },
+                new int[] {14,31,49 },
+                new int[] {14,18,49 },
+                new int[] {38,36,1,2,3,4,5,6,16 },
 
-        private static void FillGloves()
-        {
-            new BaseItem(new int[][]
-            {
-                new int[] {42,0 },
-                new int[] {40 },
-                new int[] {43,0 },
-            })
-            {
-                name = "Finger Warmer",
-                description = "A little glove to keep your fingers warm and cozy.",
-                lore = "Made of wool.",
-                tooltip = "Gloves offer protection.",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Glove,
-                icon = Res.ResourceLoader.GetTexture(86),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {39,40,41,42,43,24,25,26 },
-                new int[] {39,40,41,42,43,24,25,26,44 },
-                new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,16 },
-                new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23 },
-            })
-            {
-                name = "Thick Rubber Glove",
-                description = "A glove that helps get a better grip.",
-                lore = "Made of wool.",
-                tooltip = "Gloves offer protection and stat bonuses.",
-                Rarity = 1,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Glove,
-                icon = Res.ResourceLoader.GetTexture(86),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {39,40,41,42},
-                new int[] {39,40,41,42},
-                new int[] {1,2,3,4,5,6,7},
-                new int[] {0,18,14,0,0,0},
-                new int[] {43,0,0,5,6,0,0,21,22,23,16 },
-            })
-            {
-                name = "Tribal Glove",
-                description = "Offers medicore protection.",
-                lore = "Glove made out of thin bones, some may possibly be from a human.",
-                tooltip = "Gloves offer protection and stat bonuses.",
-                Rarity = 3,
-                minLevel = 10,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Glove,
-                icon = Res.ResourceLoader.GetTexture(86),
-            };
-            new BaseItem(new int[][]
-          {
-                new int[] {1,2,4,6,8,9},
-                new int[] {1,0},
-                new int[] {21,22,23},
-                new int[] {12,13,15},
-                new int[] {12,13,24,25,26},
-                new int[] {24,25,26,44,35},
-            })
-            {
-                name = "Tribe Leader Glove",
-                description = "A glove that offers little protection but a lot of offensive stats.",
-                lore = "A glove made of bones, some have engravings of crosses.",
-                tooltip = "Gloves offer protection and stat bonuses.",
-                Rarity = 4,
-                minLevel = 10,
-                maxLevel = 25,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Glove,
-                icon = Res.ResourceLoader.GetTexture(86),
-            };
-        }
+              })
+                {
+                    name = "The Leech",
+                    description = "Hey where did my health g- oh it's back...",
+                    lore = "",
+                    tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
+                    Rarity = 6,
+                    minLevel = 15,
+                    maxLevel = 25,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.GreatSword,
+                    icon = Res.ResourceLoader.GetTexture(88),
+                };
+                new BaseItem(new int[][]
+                      {
+                new int[] {1,2,3,4 },
 
-        private static void FillBoots()
-        {
-            new BaseItem(new int[][]
+                      })
+                {
+                    name = "Smokey's Sacred Quiver",
+                    description = "SmokeyTheBear please send me a viable decription.",
+                    lore = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.",
+                    tooltip = "This quiver makes you shoot special projectiles from your bows",
+                    Rarity = 7,
+                    minLevel = 5,
+                    maxLevel = 50,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                    onEquip = () => ModdedPlayer.IsSacredArrow = true,
+                    onUnequip = () => ModdedPlayer.IsSacredArrow = false,
+                };
+                new BaseItem(new int[][]
+             {
+                new int[] {0,42 },
+                new int[] {50 },
+                new int[] {43,16 },
+
+
+             })
+                {
+                    name = "Broken shield",
+                    description = "",
+                    lore = "",
+                    tooltip = "Shields increase your block.",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 2,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Shield,
+                    icon = Res.ResourceLoader.GetTexture(99),
+
+                }; new BaseItem(new int[][]
+           {
+                new int[] {1,2,3,4,0,42 },
+                new int[] {0,42 },
+                new int[] {50 },
+                new int[] {43,16 },
+                new int[] {43,16,0,0 },
+
+
+           })
+                {
+                    name = "Shield",
+                    description = "",
+                    lore = "",
+                    tooltip = "Shields increase your block.",
+                    Rarity = 1,
+                    minLevel = 3,
+                    maxLevel = 6,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Shield,
+                    icon = Res.ResourceLoader.GetTexture(99),
+
+                }; new BaseItem(new int[][]
             {
-                new int[] { 34 },
-                new int[] {43,0 },
+                new int[] {16},
+                new int[] {16},
+                new int[] {16},
+                new int[] {16,0},
+                new int[] {16,0,45,46},
+                new int[] {0,42,11 },
+                new int[] {50 },
+
+
             })
+                {
+                    name = "Tower Shield",
+                    description = "",
+                    lore = "",
+                    tooltip = "Shields increase your block.",
+                    Rarity = 3,
+                    minLevel = 5,
+                    maxLevel = 15,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Shield,
+                    icon = Res.ResourceLoader.GetTexture(99),
+
+                };
+                new BaseItem(new int[][]
+                       {
+                new int[] {5,6,7,8,0,0,0},
+                new int[] {43},
+
+                       })
+                {
+                    name = "Broken Leather Shoulder Armor",
+                    description = "S",
+                    lore = "",
+                    tooltip = "Provides usefull stat bonuses",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ShoulderArmor,
+                    icon = Res.ResourceLoader.GetTexture(95),
+                };
+                new BaseItem(new int[][]
+             {
+                new int[] {5,6,7,8},
+                new int[] {43},
+
+             })
+                {
+                    name = "Leather Shoulder Armor",
+                    description = "",
+                    lore = "",
+                    tooltip = "Provides usefull stat bonuses",
+                    Rarity = 1,
+                    minLevel = 2,
+                    maxLevel = 5,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ShoulderArmor,
+                    icon = Res.ResourceLoader.GetTexture(95),
+                };
+                new BaseItem(new int[][]
+             {
+                new int[] {16},
+                new int[] {1,2,3,4},
+                new int[] {17},
+                new int[] {17},
+                new int[] {8,9,49,47},
+                new int[] {8,9,49,47},
+                new int[] {16,18,11,34},
+                new int[] {37,34},
+
+             })
+                {
+                    name = "Phase Pauldrons",
+                    description = "The distance of teleport is increased by 40 meters, and teleport now damages everything that you teleported through",
+                    lore = "",
+                    tooltip = "Provides usefull stat bonuses",
+                    Rarity = 7,
+                    minLevel = 5,
+                    maxLevel = 50,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.ShoulderArmor,
+                    icon = Res.ResourceLoader.GetTexture(95),
+                    onEquip = () => Player.SpellActions.BlinkRange += 40,
+                    onUnequip = () => Player.SpellActions.BlinkRange -= 40,
+                };
+                new BaseItem(new int[][]
+                          {
+                new int[] {39,49,5,6,7,8,0,0,0},
+                new int[] {43,0},
+                new int[] {43},
+
+                          })
+                {
+                    name = "MAGA Cap",
+                    description = "Wearing this item channels the power of D.Trump to you",
+                    lore = "... or does it?",
+                    tooltip = "Provides usefull stat bonuses",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Helmet,
+                    icon = Res.ResourceLoader.GetTexture(91),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {2000},
+                new int[] {2001},
+                new int[] {2002},
+                new int[] {2003},
+                new int[] {16},
+                new int[] {16},
+                new int[] {21,6},
+                })
+                {
+                    name = "Hubble's Vision",
+                    description = "Wearing this item empowers your black hole spell",
+                    lore = "Man, fuck gravity.",
+                    tooltip = "I wish ModAPI supported custom shaders. I could make the blackhole look better.",
+                    Rarity = 6,
+                    minLevel = 10,
+                    maxLevel = 30,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Helmet,
+                    icon = Res.ResourceLoader.GetTexture(91),
+
+                }; new BaseItem(new int[][]
+                          {
+                new int[] {39,40,41,42,43,12,13},
+
+                          })
+                {
+                    name = "Broken Loop",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Ring,
+                    icon = Res.ResourceLoader.GetTexture(90),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {39,40,41,42,43,12,13},
+
+                })
+                {
+                    name = "Loop",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 1,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Ring,
+                    icon = Res.ResourceLoader.GetTexture(90),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {39,40,41,42,43,12,13},
+
+                })
+                {
+                    name = "Toxic Ring",
+                    description = "",
+                    lore = "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.",
+                    tooltip = "",
+                    Rarity = 3,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Ring,
+                    icon = Res.ResourceLoader.GetTexture(90),
+                };
+                new BaseItem(new int[][]
+                          {
+                new int[] {39,40,41,42,43},
+
+                          })
+                {
+                    name = "Scarf",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 1,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Amulet,
+                    icon = Res.ResourceLoader.GetTexture(100),
+                };
+                new BaseItem(new int[][]
+                        {
+                new int[] {39,40,41,42,43},
+
+                        })
+                {
+                    name = "Damaged Bracer",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Bracer,
+                    icon = Res.ResourceLoader.GetTexture(93),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {39,40,41,42,43},
+                new int[] {16},
+
+               })
+                {
+                    name = "Worn Bracer",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 1,
+                    minLevel = 3,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Bracer,
+                    icon = Res.ResourceLoader.GetTexture(93),
+                };
+                new BaseItem(new int[][]
+               {
+                new int[] {39,40,41,42,43},
+                new int[] {16},
+                new int[] {5,6,10},
+
+               })
+                {
+                    name = "Leather Bracer",
+                    description = "",
+                    lore = "",
+                    tooltip = "",
+                    Rarity = 2,
+                    minLevel = 4,
+                    maxLevel = 10,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Bracer,
+                    icon = Res.ResourceLoader.GetTexture(94),
+                };
+                new BaseItem(new int[][]
+                          {
+                new int[] {32},
+
+                          })
+                {
+                    name = "Greater Mutated Heart",
+                    description = "",
+                    lore = "",
+                    tooltip = "Can be consumed by right clicking it",
+                    Rarity = 7,
+                    minLevel = 1,
+                    maxLevel = 3,
+                    CanConsume = true,
+                    StackSize = 100,
+                    _itemType = BaseItem.ItemType.Other,
+                    icon = Res.ResourceLoader.GetTexture(105),
+                };
+                new BaseItem(new int[][]
+                {
+                new int[] {33},
+
+                })
+                {
+                    name = "Lesser Mutated Heart",
+                    description = "",
+                    lore = "",
+                    tooltip = "Can be consumed by right clicking it",
+                    Rarity = 6,
+                    minLevel = 1,
+                    maxLevel = 6,
+                    CanConsume = true,
+                    StackSize = 100,
+                    _itemType = BaseItem.ItemType.Other,
+                    icon = Res.ResourceLoader.GetTexture(105),
+                };
+            }
+            catch (System.Exception e)
             {
-                name = "Broken Shoes",
-                description = "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner.",
-                lore = "Worn by one of the passengers of the plane that Eric also flew in.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 10,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-            {
-                new int[] {34 },
-                new int[] {34,0,40,41 },
-                new int[] {43 },
-                new int[] {43,0 },
-            })
-            {
-                name = "Old Boots",
-                description = "A pair of old boots. They must have been lying here for ages.",
-                lore = "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 0,
-                minLevel = 10,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-           {
-                new int[] {34 },
-                new int[] {34,40,41 },
-                new int[] {43,3,2 },
-                new int[] {43 },
-           })
-            {
-                name = "Worn Leather Boots",
-                description = "A pair of leather boots. They look good and have only some scratches.",
-                lore = "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 1,
-                minLevel = 5,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-           {
-                new int[] {34 },
-                new int[] {3,2 },
-                new int[] {43,3,2,1,4 },
-                new int[] {43 },
-           })
-            {
-                name = "New Leather Boots",
-                description = "A pair of leather boots. They are in a very good condition.",
-                lore = "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 2,
-                minLevel = 7,
-                maxLevel = 30,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-           {
-               new int[] {34 },
-                new int[] {34,39,41,11 },
-                new int[] {16,39,41 },
-                new int[] {16,7,8 },
-                new int[] {43 },
-            })
-            {
-                name = "Damaged Army Boots",
-                description = "Sturdy, hard, resistant but damaged boots.",
-                lore = "They look modern, almost too modern for everything here.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 3,
-                minLevel = 10,
-                maxLevel = 30,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-           {
-                new int[] {34 },
-                new int[] {34,3,2,11 },
-                new int[] {16,3,2,1,4 },
-                new int[] {16,7,8 },
-                new int[] {43 },
-           })
-            {
-                name = "Army Boots",
-                description = "Sturdy, hard, resistant boots.",
-                lore = "They look modern, almost too modern for everything here.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 4,
-                minLevel = 15,
-                maxLevel = 40,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
-            new BaseItem(new int[][]
-           {
-               new int[] {25,22 },
-               new int[] {11,1,3,17 },
-               new int[] {11,1 },
-               new int[] {1, },
-               new int[] {5,6,16,31,7,8,9,10 },
-           })
-            {
-                name = "Armsy Skin Footwear",
-                description = "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin.",
-                lore = "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue.",
-                tooltip = "Shoes can provide movement speed bonuses.",
-                Rarity = 6,
-                minLevel = 5,
-                maxLevel = 40,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Boot,
-                icon = Res.ResourceLoader.GetTexture(85),
-            };
+
+                ModAPI.Log.Write(e.ToString());
+            }
         }
     }
 }

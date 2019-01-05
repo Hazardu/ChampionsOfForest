@@ -232,7 +232,7 @@ namespace ChampionsOfForest
                 }
                 if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
                 {
-                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * (Mathf.Max(1, ModdedPlayer.instance.Level / 10)) * ModdedPlayer.instance.HungerRate);
+                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * (Mathf.Max(1, ModdedPlayer.instance.Level / 20)) * ModdedPlayer.instance.HungerRate);
                 }
                 if (!Cheats.NoSurvival)
                 {
@@ -311,7 +311,7 @@ namespace ChampionsOfForest
                                     ThirstSettings.TakingDamage = true;
                                     LocalPlayer.Tuts.ShowThirstTut();
                                 }
-                                Hit(Mathf.CeilToInt(ThirstSettings.Damage * GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
+                                Hit(Mathf.CeilToInt(ModdedPlayer.instance.MaxHealth*0.2f* GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
                                 BleedBehavior.BloodAmount += 0.6f;
                                 TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.ResetToBeginning();
                                 TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.PlayForward();
@@ -330,7 +330,7 @@ namespace ChampionsOfForest
                         {
                             if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
                             {
-                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level / 10)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate);
+                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level / 20)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate);
                             }
                             if (Thirst > ThirstSettings.TutorialThreshold)
                             {
@@ -498,7 +498,7 @@ namespace ChampionsOfForest
                 }
                 if (Health < HealthTarget)
                 {
-                    Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
+                    Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth*0.0025f + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1)* ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
 
                     TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
                 }
@@ -676,13 +676,13 @@ namespace ChampionsOfForest
     public override void AteMeds()
         {
             NormalizeHealthTarget();
-            HealthTarget += Mathf.Max(60f * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier, ModdedPlayer.instance.MaxHealth * 0.2f);
+            HealthTarget += ModdedPlayer.instance.MaxHealth * 0.6f;
             BleedBehavior.BloodReductionRatio = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 1.5f;
         }
         public override void AteAloe()
         {
             NormalizeHealthTarget();
-            HealthTarget += 6f * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier;
+            HealthTarget += ModdedPlayer.instance.MaxHealth * 0.06f;
             BleedBehavior.BloodReductionRatio = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
         }
 
@@ -713,16 +713,18 @@ namespace ChampionsOfForest
         //}
         public override void HealthChange(float amount)
         {
-
+            if (amount == 0) return;
             NormalizeHealthTarget();
             if (amount < 0f)
             {
                 Health += amount;
-                HealthTarget += amount;
+                HealthTarget += amount*3;
+                
             }
             else
             {
-                HealthTarget = Mathf.Min(HealthTarget + amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier, ChampionsOfForest.ModdedPlayer.instance.MaxHealth);
+                float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount *ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;
+                HealthTarget += f;
             }
 
         }

@@ -267,8 +267,12 @@ namespace ChampionsOfForest
             {
                 if (_openedMenu != OpenedMenuMode.Hud)
                 {
-                    //LocalPlayer.FpCharacter.LockView(true);
+                    LocalPlayer.FpCharacter.LockView(false);
                     LevelsToGain = 0;
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+                {
+                    StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Hud));
+                }
                 }
                 else
                 {
@@ -276,7 +280,7 @@ namespace ChampionsOfForest
                     {
                         if (ProgressBarAmount < 1)
                         {
-                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.deltaTime * 5);
+                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.unscaledDeltaTime * 5);
 
                         }
                         else
@@ -289,7 +293,7 @@ namespace ChampionsOfForest
                     {
                         if (ProgressBarAmount < (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal)
                         {
-                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, Time.deltaTime * 2);
+                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, Time.unscaledDeltaTime * 2);
                         }
                         else
                         {
@@ -532,7 +536,7 @@ namespace ChampionsOfForest
 
                 if (dist > mindist && dist < rect.height && rect.Contains(mousepos) && MenuInteractable)
                 {
-                    Opacity = Mathf.Clamp01(Opacity + Time.deltaTime * OpacityGainSpeed);
+                    Opacity = Mathf.Clamp01(Opacity + Time.unscaledDeltaTime * OpacityGainSpeed);
 
                     if (UnityEngine.Input.GetMouseButtonDown(0))
                     {
@@ -541,7 +545,7 @@ namespace ChampionsOfForest
                 }
                 else
                 {
-                    Opacity = Mathf.Clamp01(Opacity - Time.deltaTime * OpacityGainSpeed);
+                    Opacity = Mathf.Clamp01(Opacity - Time.unscaledDeltaTime * OpacityGainSpeed);
                 }
                 if (Opacity > 0)
                 {
@@ -1098,7 +1102,7 @@ namespace ChampionsOfForest
                             {
                                 if (hoveredOverID == index)
                                 {
-                                    DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.deltaTime / 2.5f, 0, 0.3f);
+                                    DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 2.5f, 0, 0.3f);
                                     GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
                                     GUI.DrawTexture(itemRect, DraggedItem.icon);
                                     GUI.color = new Color(1, 1, 1, 1);
@@ -1213,7 +1217,7 @@ namespace ChampionsOfForest
                             itemRect.x += f / 2;
                             itemRect.y += f / 2;
 
-                            DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.deltaTime / 2.5f, 0, 0.3f);
+                            DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 2.5f, 0, 0.3f);
                             GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
                             GUI.DrawTexture(itemRect, DraggedItem.icon);
                         }
@@ -1387,7 +1391,7 @@ namespace ChampionsOfForest
                 GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
                 for (int i = 0; i < hitMarkers.Count; i++)
                 {
-                    hitMarkers[i].lifetime -= Time.deltaTime;
+                    hitMarkers[i].lifetime -= Time.unscaledDeltaTime;
                     if (hitMarkers[i].lifetime < 0)
                     {
                         hitMarkers[i].Delete(i);
@@ -1528,7 +1532,7 @@ namespace ChampionsOfForest
                     }
                     if (enemyHit != -1)
                     {
-                        ScanTime += Time.deltaTime * 1.75f;
+                        ScanTime += Time.unscaledDeltaTime * 1.75f;
                         if (hits[enemyHit].transform.root == scannedTransform)
                         {
                             ClinetEnemyProgression cp = null;
@@ -1756,7 +1760,7 @@ namespace ChampionsOfForest
             float alpha = 0;
             while (alpha < 1)
             {
-                alpha = Mathf.Clamp(alpha + Time.deltaTime * DarkeningSpeed, 0, 1);
+                alpha = Mathf.Clamp(alpha + Time.unscaledDeltaTime * DarkeningSpeed, 0, 1);
                 _blackTexture.SetPixel(0, 0, new Color(0, 0, 0, alpha));
                 _blackTexture.Apply();
                 yield return null;
@@ -1766,7 +1770,7 @@ namespace ChampionsOfForest
             yield return null;
             while (alpha > 0)
             {
-                alpha = Mathf.Clamp(alpha - Time.deltaTime * DarkeningSpeed, 0, 1);
+                alpha = Mathf.Clamp(alpha - Time.unscaledDeltaTime * DarkeningSpeed, 0, 1);
                 _blackTexture.SetPixel(0, 0, new Color(0, 0, 0, alpha));
                 _blackTexture.Apply();
                 yield return null;
@@ -1798,7 +1802,7 @@ namespace ChampionsOfForest
             {
                 //background effect
 
-                semiblackValue += Time.deltaTime / 5;
+                semiblackValue += Time.unscaledDeltaTime / 5;
                 semiBlack.SetPixel(0, 0, new Color(0.6f, 0.16f, 0, 0.6f + Mathf.Sin(semiblackValue * Mathf.PI) * 0.2f));
                 semiBlack.Apply();
                 GUI.DrawTexture(wholeScreen, semiBlack);
@@ -2413,22 +2417,22 @@ namespace ChampionsOfForest
             //move left right
             if (mousepos.y > Screen.height - 30 * rr)
             {
-                targetPerkOffset += Vector2.down * Time.deltaTime * 300;
+                targetPerkOffset += Vector2.down * Time.unscaledDeltaTime * 300;
             }
             else if (mousepos.y < 30 * rr)
             {
-                targetPerkOffset += Vector2.down * Time.deltaTime * -300;
+                targetPerkOffset += Vector2.down * Time.unscaledDeltaTime * -300;
 
             }
             if (mousepos.x > Screen.width - 30 * rr)
             {
-                targetPerkOffset += Vector2.right * Time.deltaTime * -300;
+                targetPerkOffset += Vector2.right * Time.unscaledDeltaTime * -300;
             }
             else if (mousepos.x < 30 * rr)
             {
-                targetPerkOffset += Vector2.right * Time.deltaTime * 300;
+                targetPerkOffset += Vector2.right * Time.unscaledDeltaTime * 300;
             }
-            currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.deltaTime * 15f);
+            currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.unscaledDeltaTime * 15f);
 
             //filling DisplayedPerkIDs with perk ids where category is the same as the selected one
             if (DisplayedPerkIDs == null)
@@ -2480,13 +2484,13 @@ namespace ChampionsOfForest
                 Rect topButton = new Rect(offset, 35 * rr, btnSize, 60 * rr);
                 if ((Perk.PerkCategory)menus.GetValue(i) == _perkpage)
                 {
-                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] + Time.deltaTime * 40, 0, bigBtnSize);
+                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] + Time.unscaledDeltaTime * 40, 0, bigBtnSize);
                     topButton.width += bigBtnSize;
                     topButton.height += bigBtnSize / 2;
                 }
                 else
                 {
-                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] - Time.deltaTime * 30, 0, bigBtnSize);
+                    _perkCategorySizes[i] = Mathf.Clamp(_perkCategorySizes[i] - Time.unscaledDeltaTime * 30, 0, bigBtnSize);
                 }
                 topButton.width += _perkCategorySizes[i];
                 topButton.height += _perkCategorySizes[i] / 2;
@@ -2607,7 +2611,7 @@ namespace ChampionsOfForest
             {
                 Hovered = true;
                 r.center = center;
-                _perkDetailAlpha += Time.deltaTime;
+                _perkDetailAlpha += Time.unscaledDeltaTime;
                 if (_perkDetailAlpha >= 0.7f)
                 {
                     GUI.color = new Color(_perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f);
@@ -2646,7 +2650,7 @@ namespace ChampionsOfForest
                         GUI.color = Color.white;
                         if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[a]) && Perk.AllPerks[a].LevelRequirement <= ModdedPlayer.instance.Level)
                         {
-                            _timeToBuyPerk += Time.deltaTime;
+                            _timeToBuyPerk += Time.unscaledDeltaTime;
                             Buying = true;
                             Rect buyRect = new Rect(0, 1 - _timeToBuyPerk / 2, 1, _timeToBuyPerk / 2);
                             Rect buyRect2 = new Rect(r);

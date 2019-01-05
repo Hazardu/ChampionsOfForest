@@ -65,6 +65,7 @@ namespace ChampionsOfForest
                     progression.setup = setup;
 
                 }
+                progression.setupComplete = false;
                 progression.OnDieCalled = false;
             }
             catch (System.Exception e)

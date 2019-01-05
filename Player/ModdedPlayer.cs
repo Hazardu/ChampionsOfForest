@@ -242,11 +242,11 @@ namespace ChampionsOfForest
                     {
                         if (Inventory.Instance.ItemList[-12].Equipped)
                         {
-                            PlayerInventoryMod.CustomEquipModel = Inventory.Instance.ItemList[-12].weaponModel;
+                            PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
                             LocalPlayer.Inventory.StashEquipedWeapon(false);
                             LocalPlayer.Inventory.Equip(80, false);
 
-                            PlayerInventoryMod.CustomEquipModel = BaseItem.WeaponModelType.None;
+                            PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
                         }
                     }
                 }
@@ -355,7 +355,7 @@ namespace ChampionsOfForest
            
             if (TimeUntillMassacreReset > 0)
             {
-                TimeUntillMassacreReset -= Time.deltaTime;
+                TimeUntillMassacreReset -= Time.unscaledDeltaTime;
                 if (TimeUntillMassacreReset <= 0)
                 {
                     AddFinalExperience((long)Mathf.Round(NewlyGainedExp * MassacreMultipier));

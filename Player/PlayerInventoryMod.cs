@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Player
 
         //public static Vector3 Rot;
         //public static Vector3 Pos;
-
+        public static PlayerInventoryMod instance;
 
         public static InventoryItemView originalPlaneAxe;
         public static Quaternion originalRotation;
@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Player
         public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
 
 
-        public static BaseItem.WeaponModelType CustomEquipModel = BaseItem.WeaponModelType.None;
+        public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
         public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
 
         public static bool ChangeMaxAmount = false;
@@ -41,7 +41,7 @@ namespace ChampionsOfForest.Player
                     {
                         try
                         {
-
+                            if (instance == null) instance = this;
                             ModAPI.Log.Write("SETUP: Custom weapons");
                             //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
                             //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
@@ -92,17 +92,17 @@ namespace ChampionsOfForest.Player
                                 new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f }), new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f), new Vector3(0, -90, 0),new Vector3(0.2f, -2.4f, 0), 1.4f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
                                 // new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.3f, MetalicTexture = Res.ResourceLoader.instance.LoadedTextures[59], Smoothness = 0.4f, Metalic = 0.0f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
                                 new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.45f, Smoothness = 0.5f, Metalic = 0.4f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), new Vector3(0, 0, -3.6f), 2.5f, 1f, 100, 300, 0.01f, 0.001f, 85, true, 5);
-                          
+                       
                         }
                         catch (System.Exception eee)
                         {
                             ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
                         }
                     }
-                    if (CustomEquipModel != BaseItem.WeaponModelType.None)
+                    if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
                     {
                         //ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
-                        EquippedModel = CustomEquipModel;
+                        EquippedModel = ToEquipWeaponType;
                         try
                         {
 
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Player
                             {
                                 item.obj.SetActive(false);
                             }
-                            CustomWeapon cw = customWeapons[CustomEquipModel];
+                            CustomWeapon cw = customWeapons[ToEquipWeaponType];
                             cw.obj.SetActive(true);
                             itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed*cw.swingspeed;
                             itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.triedswingspeed;
@@ -239,16 +239,20 @@ namespace ChampionsOfForest.Player
             base.ThrowProjectile();
         }
 
+      
+
         public override void Attack()
         {
-            //if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
-            //{
-            //    if (Player.SpellActions.IsCleaveEquipped)
-            //    {
-            //        //blah blah blax special attack modifier goes here
-            //    }
-            //}
+            if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
+            {
+                if(EquippedModel != BaseItem.WeaponModelType.None&&customWeapons.ContainsKey(EquippedModel))
+                {
+                    customWeapons[EquippedModel].EnableTrail();
+                }
+            }
             base.Attack();
         }
+
+     
     }
 }
