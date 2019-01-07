@@ -5,7 +5,6 @@ using System.IO;
 using TheForest.Save;
 using TheForest.Utils;
 using UnityEngine;
-
 namespace ChampionsOfForest
 {
     public class Serializer : MonoBehaviour
@@ -41,6 +40,7 @@ namespace ChampionsOfForest
                 {
                     if (Res.ResourceLoader.CompareVersion(version) == Res.ResourceLoader.Status.Outdated)
                     {
+
                         return;
                     }
                 }

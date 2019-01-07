@@ -54,7 +54,7 @@ namespace ChampionsOfForest
             {
                 try
                 {
-                    ModAPI.Log.Write(_Item_Bases[i].name + _Item_Bases[i].ID + " - item added");
+                    ModAPI.Log.Write(_Item_Bases[i].name + "  [" + _Item_Bases[i].ID + "]  - item added");
 
                     ItemBases.Add(_Item_Bases[i].ID, _Item_Bases[i]);
                     if (ItemRarityGroups.ContainsKey(_Item_Bases[i].Rarity))
@@ -114,31 +114,31 @@ namespace ChampionsOfForest
             float w = Worth / averageLevel;
             int rarity = 0;
 
-            if (w > 200 && Random.value < 0.60f)
+            if (w > 200 && Random.value < 0.80f)
             {
                 rarity = 1;
 
-                if (w > 350 && Random.value < 0.50f)
+                if (w > 350 && Random.value < 0.60f)
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.50f&&(int)ModSettings.difficulty>=1)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.5f && (int)ModSettings.difficulty >= 2)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty >= 3)
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3)
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.4f && (int)ModSettings.difficulty >= 4)
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4)
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.20f && (int)ModSettings.difficulty >= 5)
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5)
                                     {
                                         rarity = 7;
 
@@ -159,13 +159,13 @@ namespace ChampionsOfForest
             int[] itemPool = null;
             while (itemPool == null)
             {
-                itemPool= ItemRarityGroups[rarity].Where(i => ((ItemBases[i].minLevel) <= averageLevel+5)).ToArray();
+                itemPool = ItemRarityGroups[rarity].Where(i => ((ItemBases[i].minLevel) <= averageLevel + 5)).ToArray();
                 if (itemPool.Length == 0)
                 {
                     rarity--;
                     itemPool = null;
                 }
-                
+
             }
 
             int randomID = Random.Range(0, itemPool.Length);
@@ -182,49 +182,49 @@ namespace ChampionsOfForest
         public static void FillStats()
         {
             int i = 1;
-            new ItemStat(i, 1, 2, 1.7f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 1, 2, 1.7f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 1,2, 1.7f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 1,2, 1.7f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 1, 2, 1.55f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 1, 2, 1.55f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 1, 2, 1.55f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 1, 2, 1.55f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
             new ItemStat(i, 2, 2.5f, 1.6f, "Maximum Life", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
             new ItemStat(i, 2, 2.5f, 1.6f, "Maximum Energy", 3, StatActions.AddEnergy, StatActions.RemoveEnergy, StatActions.AddEnergy); i++;
             new ItemStat(i, 0.01f, 0.025f, 1.7f, "Life Per Second", 3, StatActions.AddHPRegen, StatActions.RemoveHPRegen, StatActions.AddHPRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.025f, 1.7f, "Stamina Per Second", 3, StatActions.AddStaminaRegen, StatActions.RemoveStaminaRegen, StatActions.AddStaminaRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0001f, 0.0025f, 1.2f, "Stamina Regen %", 3, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.0025f, 1.2f, "Life Regen %", 3, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0004f, 0.002f, 1.12f, "Damage Reduction %", 2, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.99f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0004f, 0.0009f, 1.1f, "Damage Reduction %", 2, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.0002f, 0.001f, 1.15f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.01f, 0.03f, 1.35f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.1f, 0.35f, 1.6f, "Life on hit", 6, StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); i++;
-            new ItemStat(i, 0.001f, 0.002f, 1.1f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.99f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 2f, 3f, 1.8f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.001f, 0.002f, 1.1f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 3f, 5f, 1.8f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
             new ItemStat(i, 0.001f, 0.003f, 1.05f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.005f, 0.01f, 1.3f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.003f, 0.007f, 1.3f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 2f, 1.1f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
-            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.002f, 0.006f, 1.5f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.7f, 0.8f, 1.7f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
-            new ItemStat(i, 0.35f, 0.5f, 1.7f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
-            new ItemStat(i, 0.35f, 0.5f, 1.7f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
+            new ItemStat(i, 0.0002f, 0.0004f, 1.15f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0002f, 0.0004f, 1.15f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0002f, 0.0004f, 1.15f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.35f, 0.5f, 1.5f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
+            new ItemStat(i, 0.35f, 0.5f, 1.5f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
+            new ItemStat(i, 0.35f, 0.5f, 1.5f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
             new ItemStat(i, 0.0005f, 0.001f, 1.02f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.005f, 0.008f, 1.02f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0004f, 0.0009f, 1.02f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0004f, 0.0009f, 1.02f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.00025f, 0.001f, 1.5f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.7f/5.5f, 1.6f/5.5f, 0f, "PERMANENT PERK POINTS", 0, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
+            new ItemStat(i, 0.7f / 5.5f, 1.6f / 5.5f, 0f, "PERMANENT PERK POINTS", 0, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
             new ItemStat(i, 10f, 30f, 2.2f, "EXPERIENCE", 0, null, null, StatActions.PERMANENT_expIncrease); i++;
             new ItemStat(i, 0.00075f, 0.002f, 1.25f, "Movement Speed", 5, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Melee Weapon Range", 5, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Attack Cost Reduction", 3, f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => RemovePercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f)) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.1f, "Spell Cost Reduction", 6, f => AddPercentage(ref ModdedPlayer.instance.SpellCostRatio, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostRatio, f), f => ModdedPlayer.instance.SpellCostRatio *= f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.005f, 0.015f, 1.02f, "Spell Cost to Stamina", 6, f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Strenght", 1, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Agility", 1, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Vitality", 1, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.6f, "Intelligence", 1, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
-            new ItemStat(i, 0.8f, 1.3f, 1.7f, "Armor", 1, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.3f, "Strenght", 1, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.3f, "Agility", 1, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.3f, "Vitality", 1, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 0.6f, 1.2f, 1.3f, "Intelligence", 1, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 1.4f, 3f, 1.7f, "Armor", 1, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.7f, "Energy Per Second", 6, StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.005f, 1.4f, "Maximum Life %", 5, f => ModdedPlayer.instance.MaxHealthPercent += f, f => ModdedPlayer.instance.MaxHealthPercent -= f, f => ModdedPlayer.instance.MaxHealthPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.005f, 1.4f, "Maximum Energy %", 5, f => ModdedPlayer.instance.MaxEnergyPercent += f, f => ModdedPlayer.instance.MaxEnergyPercent -= f, f => ModdedPlayer.instance.MaxEnergyPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
@@ -238,10 +238,10 @@ namespace ChampionsOfForest
             new ItemStat(i, 1f, 11f, 0f, "Extra Rocks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
 
             i = 2000;
-            new ItemStat(i, 1f, 4f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 1f, 7f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 0.2f, 1f, 0f, "BLACK HOLE DURATION", 6, f => SpellActions.BLACKHOLE_duration += f, f => SpellActions.BLACKHOLE_duration += -f, f => SpellActions.BLACKHOLE_duration += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 2f, 3f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.5f, 1f, 1.7f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 1f, 3f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0125f, 0.025f, 1.5f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
 
         }
         public static void AddPercentage(ref float variable1, float f)
@@ -818,6 +818,7 @@ namespace ChampionsOfForest
                 };
                 new BaseItem(new int[][]
                       {
+
                 new int[] {1,2,3,4 },
 
                       })

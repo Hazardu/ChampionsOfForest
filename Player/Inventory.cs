@@ -88,17 +88,29 @@ namespace ChampionsOfForest.Player
             if (ItemList[key] != null && ItemList.ContainsKey(key))
             {
                 Item i = ItemList[key];
+                
                 if (amount == 0)
                 {
                     amount = i.Amount;
+
+                }
+                else
+                {
+                    amount = Mathf.Max(amount, i.Amount);
                 }
                 Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward, amount);
                 ItemList[key].Amount -= amount;
                 if (ItemList[key].Amount <= 0)
                 {
-                    if (ItemList[key].Equipped) ItemList[key].onUnequip();
+                    if (ItemList[key].Equipped)
+                    {
+                        ItemList[key].OnUnequip();
+                        ItemList[key].Equipped = false;
+                    }
                     ItemList[key] = null;
                 }
+                
+
                 return true;
             }
             return false;

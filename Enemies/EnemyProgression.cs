@@ -33,7 +33,7 @@ namespace ChampionsOfForest
         public int Level;
         public float Health;
         public float MaxHealth;
-        public int Bounty;
+        public long Bounty;
         public int Armor;
         public int ArmorReduction;
         public bool setupComplete = false;
@@ -311,41 +311,41 @@ namespace ChampionsOfForest
                     Level = Random.Range(1, 3);
                     break;
                 case ModSettings.Difficulty.Hard:
-                    Level = Random.Range(10, 24);
+                    Level = Random.Range(13, 28);
 
                     break;
                 case ModSettings.Difficulty.Elite:
-                    Level = Random.Range(30, 37);
+                    Level = Random.Range(35, 43);
 
                     break;
                 case ModSettings.Difficulty.Master:
-                    Level = Random.Range(39, 44);
+                    Level = Random.Range(50, 56);
 
                     break;
                 case ModSettings.Difficulty.Challenge1:
-                    Level = Random.Range(48, 55);
+                    Level = Random.Range(60, 66);
 
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    Level = Random.Range(60, 70);
+                    Level = Random.Range(70, 80);
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Level = Random.Range(75, 85);
+                    Level = Random.Range(85, 95);
 
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    Level = Random.Range(90, 110);
+                    Level = Random.Range(105, 120);
 
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    Level = Random.Range(120, 150);
+                    Level = Random.Range(160, 170);
 
                     break;
             }
             Level = Mathf.RoundToInt(Level * lvlMult);
-            DamageMult = (float)Level / 6 + 0.55f;
-            Armor = Mathf.RoundToInt(Random.Range(Level * Level * 0.1f, Level * Level * 3));
+            DamageMult = (float)Level / 4.5f + 0.55f;
+            Armor = Mathf.FloorToInt(Random.Range(Level * Level *10f, Level * Level * 20f));
 
 
             ArmorReduction = 0;
@@ -355,7 +355,6 @@ namespace ChampionsOfForest
 
             AnimSpeed = 1f + (float)Level / 125;
 
-            Bounty = 1;
             switch (type)
             {
 
@@ -437,48 +436,50 @@ namespace ChampionsOfForest
             OnDieCalled = false;
             BaseAnimSpeed = AnimSpeed;
 
-            Bounty *= (int)Random.Range(Health * 0.9f, Health * 1.6f) + (int)Random.Range(Armor * 1.3f, Armor * 2f);
+            Bounty = (int)(Random.Range(Health * 0.3f, Health * 0.4f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 2);
             if (abilities.Count > 0)
             {
-                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 1.5f);
+                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);
             }
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Hard:
-                    Bounty = Mathf.RoundToInt(Bounty * 1.2f);
+                    Bounty = Mathf.RoundToInt(Bounty * 1.3f);
                     break;
                 case ModSettings.Difficulty.Elite:
                     Bounty = Mathf.RoundToInt(Bounty * 2);
 
                     break;
                 case ModSettings.Difficulty.Master:
-                    Bounty = Mathf.RoundToInt(Bounty * 3f);
-
-                    break;
-                case ModSettings.Difficulty.Challenge1:
                     Bounty = Mathf.RoundToInt(Bounty * 4.6f);
 
                     break;
+                case ModSettings.Difficulty.Challenge1:
+                    Bounty = Mathf.RoundToInt(Bounty * 10f);
+
+                    break;
                 case ModSettings.Difficulty.Challenge2:
-                    Bounty = Mathf.RoundToInt(Bounty * 6);
+                    Bounty = Mathf.RoundToInt(Bounty * 22);
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Bounty = Mathf.RoundToInt(Bounty * 7.5f);
+                    Bounty = Mathf.RoundToInt(Bounty * 48f);
 
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    Bounty = Mathf.RoundToInt(Bounty * 8.5f);
+                    Bounty = Mathf.RoundToInt(Bounty * 100f);
 
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    Bounty = Mathf.RoundToInt(Bounty * 10);
+                    Bounty = Mathf.RoundToInt(Bounty * 250);
 
                     break;
                 default:
                     break;
             }
+            
             SteadFestCap = Mathf.RoundToInt(SteadFest * 0.01f * MaxHealth);
+            
             if (SteadFestCap < 1)
             {
                 SteadFestCap = 1;
@@ -886,12 +887,13 @@ namespace ChampionsOfForest
                     int dmgpure = Mathf.Min(damage, SteadFestCap);
                     return dmgpure;
                 }
+                return damage;
             }
 
-            float reduction = Mathf.Sqrt(Armor - (float)ArmorReduction) / 100f;
+            float reduction =ModReferences.DamageReduction(Armor-ArmorReduction);
 
-            reduction = Mathf.Clamp01(reduction);
-            int dmg = Mathf.FloorToInt(damage * (1 - reduction));
+            //reduction = Mathf.Clamp01(reduction);
+            int dmg = Mathf.CeilToInt(damage * (1 - reduction));
             dmg = Mathf.Min(dmg, SteadFestCap);
 
             //ModAPI.Console.Write("reducted damage " + damage + " --" + reduction + "--> " + dmg);
@@ -961,7 +963,7 @@ namespace ChampionsOfForest
                 }
                 if (BoltNetwork.isRunning)
                 {
-                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt((float)Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt(Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
                 }
                 else
                 {
@@ -992,7 +994,7 @@ namespace ChampionsOfForest
         public int Level;
         public int Health;
         public int MaxHealth;
-        public int ExpBounty;
+        public long ExpBounty;
         public int Armor;
         public int ArmorReduction;
         public float SteadFest;

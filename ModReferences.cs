@@ -65,7 +65,17 @@ namespace ChampionsOfForest
                 Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
             }
         }
+        public static float DamageReduction(int armor)
+        {
+            float x = armor;
+            x *= 0.00000714285f;
+            x += 0.01f;
 
+            float f = -1f / x;
+            f += 100;
+            f /= 100f;
+            return f;
+        }
 
 
 

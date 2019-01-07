@@ -196,7 +196,6 @@
 <Compile Include="Player\FPCharacterMod.cs"  />
 <Compile Include="Player\HealingDome.cs"  />
 <Compile Include="Player\Inventory.cs"  />
-<Compile Include="Player\ItemDatabaseMod.cs"  />
 <Compile Include="Player\MainMenu.cs"  />
 <Compile Include="Network\ChatBoxMod.cs"  />
 <Compile Include="Network\NetworkManager.cs"  />

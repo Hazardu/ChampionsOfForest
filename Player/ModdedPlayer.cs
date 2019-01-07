@@ -76,7 +76,7 @@ namespace ChampionsOfForest
                 return 1 + intelligence * EnergyRegenPerInt;
             }
         }
-        public float ArmorDmgRed => Mathf.Min(1, Mathf.Sqrt((Armor) / 10) / 100);
+        public float ArmorDmgRed =>ModReferences.DamageReduction(Armor);
         public int Level = 1;
 
         public float HealingMultipier = 1;
@@ -145,11 +145,12 @@ namespace ChampionsOfForest
         public float MassacreMultipier = 1;
         public float TimeUntillMassacreReset;
         public float MaxMassacreTime = 20;
-        public float TimeBonusPerKill;
+        public float TimeBonusPerKill = 5;
 
         public float EnergyOnHit = 0;
         public float EnergyPerSecond = 0;
 
+        public float DamageAbsorbAmount = 0;
 
         public float StealthDamage = 1; //to do
 
@@ -167,7 +168,7 @@ namespace ChampionsOfForest
 
 
         public int LastDayOfGeneration = 0;
-        private float StunDuration = 0;
+        public float StunDuration = 0;
 
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
@@ -358,7 +359,7 @@ namespace ChampionsOfForest
                 TimeUntillMassacreReset -= Time.unscaledDeltaTime;
                 if (TimeUntillMassacreReset <= 0)
                 {
-                    AddFinalExperience((long)Mathf.Round(NewlyGainedExp * MassacreMultipier));
+                    AddFinalExperience( Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier));
                     NewlyGainedExp = 0;
                     TimeUntillMassacreReset = 0;
                     MassacreKills = 0;
@@ -402,7 +403,7 @@ namespace ChampionsOfForest
             }
             else
             {
-                TimeUntillMassacreReset = Mathf.Clamp(TimeUntillMassacreReset + 10, 20, MaxMassacreTime);
+                TimeUntillMassacreReset = Mathf.Clamp(TimeUntillMassacreReset + TimeBonusPerKill, 20, MaxMassacreTime);
             }
             NewlyGainedExp += Amount;
         }
@@ -507,18 +508,16 @@ namespace ChampionsOfForest
         }
         public long GetGoalExp()
         {
-          
             return GetGoalExp(Level);
         }
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 2.6f;
-            float b = 10;
-            float c = 125;
-            float d = 0.7f;
-            double y = Mathf.Pow(x, a) * b + Mathf.Sin(d * x) * c + c * x;
-            return Convert.ToInt64(y);
+            float a = 3.6f;
+            float b = 17.5f;
+            float c = 2250;
+            double y = System.Math.Pow(x, a) * b + c * x;
+            return Convert.ToInt64( y);
         }
         public void CountMassacre()
         {
@@ -617,10 +616,10 @@ namespace ChampionsOfForest
         {
 
             TimeUntillMassacreReset = 0;
-            float Amount = (float)NewlyGainedExp * MassacreMultipier;
+            long Amount = Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier);
             NewlyGainedExp = 0;
             MassacreMultipier = 1;
-            AddFinalExperience(Convert.ToInt64(Amount));
+            AddFinalExperience(Amount);
         }
     }
 }

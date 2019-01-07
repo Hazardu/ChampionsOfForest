@@ -50,7 +50,7 @@ namespace ChampionsOfForest.Items
         }
         public static void RemoveEnergy(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.EnergyBonus -= Mathf.RoundToInt(f);
         }
         public static void AddHPRegen(float f)
         {

@@ -64,7 +64,7 @@ namespace ChampionsOfForest
                     }
                     if (Sitted)
                     {
-                        Energy += 0.1f*ModdedPlayer.instance.MaxEnergy * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp;
+                        Energy += 0.02f*ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp*6;
                     }
                     if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
                     {
@@ -232,7 +232,7 @@ namespace ChampionsOfForest
                 }
                 if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
                 {
-                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * (Mathf.Max(1, ModdedPlayer.instance.Level / 20)) * ModdedPlayer.instance.HungerRate);
+                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * (Mathf.Max(1, ModdedPlayer.instance.Level / 25)) * ModdedPlayer.instance.HungerRate);
                 }
                 if (!Cheats.NoSurvival)
                 {
@@ -330,11 +330,11 @@ namespace ChampionsOfForest
                         {
                             if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
                             {
-                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level / 20)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate);
+                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level / 25)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate);
                             }
                             if (Thirst > ThirstSettings.TutorialThreshold)
                             {
-                                LocalPlayer.Tuts.ShowThirstyTut();
+                                //LocalPlayer.Tuts.ShowThirstyTut();
                                 TheForest.Utils.Scene.HudGui.ThirstOutline.SetActive(true);
                             }
                             else
@@ -539,9 +539,11 @@ namespace ChampionsOfForest
                     if (!LocalPlayer.FpCharacter.running && !(LocalPlayer.FpCharacter.recoveringFromRun > 0f))
                     {
                         Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * (1 + ModdedPlayer.instance.StaminaRegenPercent);
+                        Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
                     }
-                    else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f)
+                    else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f&&Thirst< 1)
                     {
+                        
                         LocalPlayer.FpCharacter.recoveringFromRun -= Time.deltaTime;
                     }
                 }
@@ -730,6 +732,10 @@ namespace ChampionsOfForest
         }
         public override void Hit(int damage, bool ignoreArmor, DamageType type )
         {
+            if(type == DamageType.Physical)
+            {
+                if (UnityEngine.Random.value < ModdedPlayer.instance.DodgeChance) return;
+            }
             float f = damage *1- ModdedPlayer.instance.DamageReduction;
             if (!ignoreArmor)
             {
@@ -738,6 +744,19 @@ namespace ChampionsOfForest
             if (type == DamageType.Fire)
             {
                 f *= 1-ModdedPlayer.instance.MagicResistance;
+            }
+            if(ModdedPlayer.instance.DamageAbsorbAmount > 0)
+            {
+                if(f-ModdedPlayer.instance.DamageAbsorbAmount < 0)
+                {
+                    ModdedPlayer.instance.DamageAbsorbAmount -= f;
+                    return;
+                }
+                else
+                {
+                    f -= ModdedPlayer.instance.DamageAbsorbAmount;
+                    ModdedPlayer.instance.DamageAbsorbAmount = 0;
+                }
             }
             damage = Mathf.RoundToInt(f);
             base.Hit(damage, ignoreArmor, type);

@@ -20,14 +20,14 @@ namespace ChampionsOfForest
         public string[] DiffSel_Descriptions = new string[]
         {
             "Easiest difficulty, not to be underestimated.",
-            "Much harder than normal difficulty, higher tier unlockable loot, tougher enemies.",
+            "Much harder than normal difficulty, tougher enemies,.",
             "Even higher tier unlockable loot, MUCH tougher enemies.",
             "Take it like this: You're a libtard and you have to fight with Ben Shapiro.",
-            "Challenge I-V unlock best tier item drops \n Enemy stats at 45 000% of their base value \n Exp rate - 40 000% \n Loot rarity - 40 000%",
-            "Challenge I-V unlock best tier item drops \n Enemy stats at 100 000% of their base value \n Exp rate - 85 000% \n Loot rarity - 85 000%",
-            "Challenge I-V unlock best tier item drops \n Enemy stats at 250 000% of their base value \n Exp rate - 40 000% \n Loot rarity - 40 000%",
-            "Challenge I-V unlock best tier item drops \n Enemy stats at 1 000 000% of their base value \n Exp rate - 500 000% \n Loot rarity - 500 000%",
-            "Challenge I-V unlock best tier item drops \n Enemy stats at 10 000 000% of their base value \n Exp rate - 1 000 000% \n Loot rarity - 1 000 000%",
+            "Challenge I unlocks 5th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge II unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge III unlocks 7th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge IV\nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge V  \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
 
         };
         private int DiffSelPage = 0;
@@ -80,6 +80,10 @@ namespace ChampionsOfForest
         private readonly float PerkHexagonSide = 60;
         private float PerkHeight;
         private float PerkWidth;
+
+
+        private readonly float GuideWidthDecrease = 150;
+        private readonly float GuideMargin = 30;
 
         //Textures
         private Texture2D _black;
@@ -239,7 +243,7 @@ namespace ChampionsOfForest
                 yield return null;
                 if (GameSetup.IsSinglePlayer)
                 {
-                    foreach (var item in EnemyManager.spProgression)
+                    foreach (KeyValuePair<Transform, ClinetEnemyProgression> item in EnemyManager.spProgression)
                     {
                         if (Time.time > item.Value.creationTime + ClinetEnemyProgression.LifeTime)
                         {
@@ -249,7 +253,7 @@ namespace ChampionsOfForest
                     }
                 }
                 yield return null;
-                foreach (var item in EnemyManager.hostDictionary)
+                foreach (KeyValuePair<ulong, EnemyProgression> item in EnemyManager.hostDictionary)
                 {
                     if (item.Value.Health < 1)
                     {
@@ -263,704 +267,720 @@ namespace ChampionsOfForest
 
 
 
-            private void Update()
+        private void Update()
+        {
+            if (_openedMenu != OpenedMenuMode.Hud)
             {
-                if (_openedMenu != OpenedMenuMode.Hud)
-                {
-                    LocalPlayer.FpCharacter.LockView(false);
-                    LevelsToGain = 0;
+                //LocalPlayer.FpCharacter.LockView(false);
+                LevelsToGain = 0;
                 if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
                 {
                     StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Hud));
                 }
+            }
+            else
+            {
+                if (LevelsToGain > 0)
+                {
+                    if (ProgressBarAmount < 1)
+                    {
+                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.unscaledDeltaTime * 5);
+
+                    }
+                    else
+                    {
+                        LevelsToGain--;
+                        ProgressBarAmount = 0;
+                    }
                 }
                 else
                 {
-                    if (LevelsToGain > 0)
+                    if (ProgressBarAmount < (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal)
                     {
-                        if (ProgressBarAmount < 1)
-                        {
-                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.unscaledDeltaTime * 5);
-
-                        }
-                        else
-                        {
-                            LevelsToGain--;
-                            ProgressBarAmount = 0;
-                        }
+                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, Convert.ToSingle((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal), Time.unscaledDeltaTime * 2);
                     }
                     else
                     {
-                        if (ProgressBarAmount < (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal)
-                        {
-                            ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal, Time.unscaledDeltaTime * 2);
-                        }
-                        else
-                        {
-                            ProgressBarAmount = (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal;
-                        }
-                    }
-                    ProgressBarAmount = Mathf.Clamp01(ProgressBarAmount);
-                }
-                Crouching = LocalPlayer.FpCharacter.crouching;
-                if (ModAPI.Input.GetButtonDown("MenuToggle"))
-                {
-                    MenuKeyPressAction();
-                }
-
-                try
-                {
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
-                    {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000) * ModdedPlayer.instance.Level), LocalPlayer.Transform.position + Vector3.up * 2 + LocalPlayer.Transform.forward);
+                        ProgressBarAmount = Convert.ToSingle((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal);
                     }
                 }
-                catch (Exception e)
-                {
-
-                    ModAPI.Log.Write(e.ToString());
-                }
-
-
+                ProgressBarAmount = Mathf.Clamp01(ProgressBarAmount);
+            }
+            Crouching = LocalPlayer.FpCharacter.crouching;
+            if (ModAPI.Input.GetButtonDown("MenuToggle"))
+            {
+                MenuKeyPressAction();
             }
 
-            //Draws everything
-            private void OnGUI()
+            try
             {
-                try
+                if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
                 {
-                    //DETAIL-----------------------------------------------------------------------------
-                    //GUI.skin.horizontalSlider.fixedWidth = 150;
-                    //GUI.skin.horizontalSlider.fontSize = 30;
-                    //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
-                    //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
-                    //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
-                    //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-                    ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                    ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                    //foreach (var item in PlayerInventoryMod.customWeapons.Values)
-                    //{
-                    //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                    //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                    //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                    //}
+                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000) * ModdedPlayer.instance.Level), LocalPlayer.Transform.position + Vector3.up * 2 + LocalPlayer.Transform.forward);
+                }
+            }
+            catch (Exception e)
+            {
 
-                    //BIG OFFSET-----------------------------------------------------------------------------
-                    //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-                    //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-                    //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                    //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                    //foreach (var item in PlayerInventoryMod.customWeapons)
-                    //{
-                    //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                    //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                    //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                    //}
-
-                    GUI.skin.label.normal.textColor = Color.white;
-                    GUI.skin.label.onNormal.textColor = Color.white;
-                    GUI.contentColor = Color.white;
-                    GUI.backgroundColor = Color.white;
-                    GUI.color = Color.white;
-                    GUI.skin.label.clipping = TextClipping.Overflow;
-                    GUI.skin.label.richText = true;
+                ModAPI.Log.Write(e.ToString());
+            }
 
 
-                    mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
+        }
 
-                    if (!ModSettings.DifficultyChoosen)
+        //Draws everything
+        private void OnGUI()
+        {
+            try
+            {
+                //DETAIL-----------------------------------------------------------------------------
+                //GUI.skin.horizontalSlider.fixedWidth = 150;
+                //GUI.skin.horizontalSlider.fontSize = 30;
+                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
+                //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
+                ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                //}
+
+                //BIG OFFSET-----------------------------------------------------------------------------
+                //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+                //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+                //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                //}
+
+                GUI.skin.label.normal.textColor = Color.white;
+                GUI.skin.label.onNormal.textColor = Color.white;
+                GUI.contentColor = Color.white;
+                GUI.backgroundColor = Color.white;
+                GUI.color = Color.white;
+                GUI.skin.label.clipping = TextClipping.Overflow;
+                GUI.skin.label.richText = true;
+
+
+                mousepos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
+
+                if (!ModSettings.DifficultyChoosen)
+                {
+                    if (GameSetup.IsMpClient)
                     {
-                        if (GameSetup.IsMpClient)
-                        {
-                            DifficultySelectionClinet();
-                        }
-                        else
-                        {
-                            DifficultySelectionHost();
-                        }
+                        DifficultySelectionClinet();
                     }
                     else
                     {
-                        if (HUDStatStyle == null)
-                        {
-                            HUDStatStyle = new GUIStyle(GUI.skin.label)
-                            {
-                                font = MainFont,
-                                fontSize = Mathf.RoundToInt(33 * rr),
-                                alignment = TextAnchor.LowerRight,
-                                wordWrap = false,
-                                clipping = TextClipping.Overflow,
-                            };
-                        }
-
-                        if (MenuBtnStyle == null)
-                        {
-                            MenuBtnStyle = new GUIStyle(GUI.skin.label)
-                            {
-                                font = MainFont,
-                                alignment = TextAnchor.MiddleCenter,
-                                fontSize = Mathf.RoundToInt(37 * rr),
-                                wordWrap = false,
-                            };
-                        }
-
-                        try
-                        {
-
-
-                            switch (_openedMenu)
-                            {
-                                case OpenedMenuMode.Main:
-                                    GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-
-                                    //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
-
-                                    DrawMain();
-                                    break;
-                                case OpenedMenuMode.Inventory:
-                                    GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                    DrawInventory();
-
-                                    //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
-                                    break;
-                                case OpenedMenuMode.Hud:
-                                    InventoryScrollAmount = 0;
-                                    DrawHUD();
-                                    break;
-                                case OpenedMenuMode.Spells:
-                                    GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                    DrawSpellMenu();
-
-                                    break;
-                                case OpenedMenuMode.Stats:
-                                    GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                    DrawGuide();
-
-                                    break;
-                                case OpenedMenuMode.Perks:
-                                    DrawPerks();
-
-                                    break;
-                            }
-                            GUI.DrawTexture(wholeScreen, _blackTexture);
-                        }
-                        catch (Exception ex)
-                        {
-
-                            ModAPI.Log.Write(ex.ToString());
-                        }
+                        DifficultySelectionHost();
                     }
                 }
-                catch (Exception e)
+                else
                 {
+                    if (HUDStatStyle == null)
+                    {
+                        HUDStatStyle = new GUIStyle(GUI.skin.label)
+                        {
+                            font = MainFont,
+                            fontSize = Mathf.RoundToInt(33 * rr),
+                            alignment = TextAnchor.LowerRight,
+                            wordWrap = false,
+                            clipping = TextClipping.Overflow,
+                        };
+                    }
 
-                    ModAPI.Log.Write(e.ToString());
-                }
-            }
-
-            #region MainMenuMethods
-            //Draws main menu with buttons
-            private void DrawMain()
-            {
-                try
-                {
                     if (MenuBtnStyle == null)
                     {
                         MenuBtnStyle = new GUIStyle(GUI.skin.label)
                         {
-                            fontSize = 30,
-                            alignment = TextAnchor.MiddleCenter
+                            font = MainFont,
+                            alignment = TextAnchor.MiddleCenter,
+                            fontSize = Mathf.RoundToInt(40 * rr),
+                            wordWrap = false,
+                            fontStyle = FontStyle.BoldAndItalic,
+                            onHover = new GUIStyleState()
+                            {
+                                textColor = new Color(1,0.5f,0.35f)
+                            }
                         };
                     }
-                    if (isDragging)
-                    {
-                        Inventory.Instance.DropItem(DraggedItemIndex);
-                        DraggedItem = null;
-                        DraggedItemIndex = -1;
-                        isDragging = false;
-                    }
-                    targetPerkOffset = wholeScreen.center;
-                    currentPerkOffset = targetPerkOffset;
-                    Vector2 center = wholeScreen.center;
-                    Rect MiddleR = new Rect(Vector2.zero, new Vector2(300 * rr, 300 * rr))
-                    {
-                        center = center
-                    };
 
-                    GUI.Label(new Rect(10 * rr, 10 * rr, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft });
-
-                    Rect r1 = new Rect(wholeScreen.center, new Vector2(Screen.height / 2, Screen.height / 2));
-                    Rect r2 = new Rect(r1);
-                    Rect r3 = new Rect(r1);
-                    Rect r4 = new Rect(r1);
-                    float Mindist = 500f / 1500f;
-                    Mindist *= r1.width;
-                    MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Backpack", new Vector2(1, -1), ref Opacity1);
-                    r2.position = center - r1.size;
-                    MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Abilities", new Vector2(-1, 1), ref Opacity2);
-                    r3.position = center - new Vector2(0, r1.width);
-                    MenuButton(Mindist, r3, OpenedMenuMode.Stats, "Diary", Vector2.one, ref Opacity3);
-                    r4.position = center - new Vector2(r1.width, 0);
-                    MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Genetics", -Vector2.one, ref Opacity4);
-                    GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
-
-                    string HudHideStatus = "[ HUD ]";
-                    if (HideHud)
-                    {
-                        HudHideStatus = "[ NO HUD ]";
-                    }
-
-                    if (GUI.Button(new Rect(Screen.width - 120 * rr, 40 * rr, 120 * rr, 40 * rr), HudHideStatus, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(23 * rr), alignment = TextAnchor.MiddleCenter }))
-                    {
-                        HideHud = !HideHud;
-                    }
-                    DisplayedPerkIDs = null;
-
-                    semiblackValue = 0;
-                }
-                catch (Exception ex)
-                {
-
-                    ModAPI.Log.Write(ex.ToString());
-                }
-            }
-
-            //Draws a single main menu button
-            private void MenuButton(float mindist, Rect rect, OpenedMenuMode mode, string text, Vector2 Scale, ref float Opacity, float r = 1, float g = 1, float b = 1)
-            {
-
-                Matrix4x4 backupMatrix = GUI.matrix;
-                GUIUtility.ScaleAroundPivot(Scale, rect.center);
-                float dist = Vector2.Distance(mousepos, wholeScreen.center);
-                GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[1]);
-
-                if (dist > mindist && dist < rect.height && rect.Contains(mousepos) && MenuInteractable)
-                {
-                    Opacity = Mathf.Clamp01(Opacity + Time.unscaledDeltaTime * OpacityGainSpeed);
-
-                    if (UnityEngine.Input.GetMouseButtonDown(0))
-                    {
-                        StartCoroutine(FadeMenuSwitch(mode));
-                    }
-                }
-                else
-                {
-                    Opacity = Mathf.Clamp01(Opacity - Time.unscaledDeltaTime * OpacityGainSpeed);
-                }
-                if (Opacity > 0)
-                {
-
-                    GUI.color = new Color(r, g, b, Opacity);
-                    GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[2]);
-                    GUI.color = Color.white;
-
-                }
-                GUI.matrix = backupMatrix;
-                GUI.Label(rect, text, MenuBtnStyle);
-
-            }
-
-            private void MenuKeyPressAction()
-            {
-                if (!MenuInteractable)
-                {
-                    return;
-                }
-
-                if (_openedMenu == OpenedMenuMode.Main)
-                {
-                    StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Hud));
-                    LocalPlayer.FpCharacter.UnLockView();
-                    LocalPlayer.Inventory.EquipPreviousWeapon();
-
-
-                }
-                else if (_openedMenu == OpenedMenuMode.Hud)
-                {
-                    StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Main));
-                    LocalPlayer.FpCharacter.LockView(true);
-                    LocalPlayer.Inventory.StashEquipedWeapon(false);
-                    LocalPlayer.Inventory.StashLeftHand();
-                }
-                else
-                {
-                    StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Main));
-                    LocalPlayer.FpCharacter.LockView(true);
-                    LocalPlayer.Inventory.StashEquipedWeapon(false);
-                    LocalPlayer.Inventory.StashLeftHand();
-                }
-            }
-
-            #endregion
-
-            #region DifficultySelectionMethods
-            private void DifficultySelectionHost()
-            {
-                if ((bool)LocalPlayer.FpCharacter)
-                {
-                    LocalPlayer.FpCharacter.LockView(true);
-                    LocalPlayer.FpCharacter.MovementLocked = true;
-                }
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _black);
-                GUIStyle DifficultySelectionStyle = new GUIStyle(GUI.skin.button);
-                GUIStyle DifSelNameStyle = new GUIStyle(GUI.skin.label)
-                {
-                    alignment = TextAnchor.MiddleCenter,
-                    fontSize = Mathf.FloorToInt(30 * rr),
-                    font = MainFont,
-                };
-                GUIStyle DifSelDescStyle = new GUIStyle(GUI.skin.label)
-                {
-                    alignment = TextAnchor.MiddleCenter,
-                    fontSize = Mathf.FloorToInt(16 * rr),
-                    font = MainFont,
-
-                };
-
-                if (ModSettings.FriendlyFire)
-                {
-                    GUI.color = Color.red;
-
-                    if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button)
-                    {
-                        font = MainFont,
-                        fontSize = Mathf.FloorToInt(30 * rr)
-                    }))
-                    { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
-                }
-                else
-                {
-                    GUI.color = Color.gray;
-                    if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
-                    {
-                        font = MainFont,
-                        fontSize = Mathf.FloorToInt(30 * rr)
-                    }))
-                    { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
-                }
-                GUI.color = Color.white;
-                for (int i = 0; i < 4; i++)
-                {
-                    int ii = i + DiffSelPage * 4;
-                    if (DiffSel_Names.Length > ii)
+                    try
                     {
 
 
-                        Rect r = new Rect(Screen.width / 4, Screen.height / 4, Screen.width / 8, Screen.height / 2);
-                        r.x += i * r.width;
-                        if (GUI.Button(r, "", DifficultySelectionStyle))
+                        switch (_openedMenu)
                         {
-                            ModSettings.DifficultyChoosen = true;
-                            Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
-                            ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(ii);
-                            LocalPlayer.FpCharacter.UnLockView();
-                            LocalPlayer.FpCharacter.MovementLocked = false;
-                            return;
-                        }
-                        Rect name = new Rect(r);
-                        name.height /= 5;
-                        Rect desc = new Rect(r);
-                        desc.height *= 0.8f;
-                        desc.y += name.height;
+                            case OpenedMenuMode.Main:
+                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
 
-                        GUI.Label(name, DiffSel_Names[ii], DifSelNameStyle);
-                        GUI.Label(desc, DiffSel_Descriptions[ii], DifSelDescStyle);
+                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
+
+                                DrawMain();
+                                break;
+                            case OpenedMenuMode.Inventory:
+                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                                DrawInventory();
+
+                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
+                                break;
+                            case OpenedMenuMode.Hud:
+                                InventoryScrollAmount = 0;
+                                DrawHUD();
+                                break;
+                            case OpenedMenuMode.Spells:
+                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                                DrawSpellMenu();
+
+                                break;
+                            case OpenedMenuMode.Stats:
+                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                                DrawGuide();
+
+                                break;
+                            case OpenedMenuMode.Perks:
+                                DrawPerks();
+
+                                break;
+                        }
+                        GUI.DrawTexture(wholeScreen, _blackTexture);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        ModAPI.Log.Write(ex.ToString());
                     }
                 }
+            }
+            catch (Exception e)
+            {
 
-                GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Select difficulty", DifSelNameStyle);
-                if (GUI.Button(new Rect(0, Screen.height / 2 - 100 * rr, 200 * rr, 200 * rr), "Prev\nPage", DifSelNameStyle))
+                ModAPI.Log.Write(e.ToString());
+            }
+        }
+
+        #region MainMenuMethods
+        //Draws main menu with buttons
+        private void DrawMain()
+        {
+            try
+            {
+                if (MenuBtnStyle == null)
                 {
-                    DiffSelPage = Mathf.Clamp(DiffSelPage - 1, 0, 2);
+                    MenuBtnStyle = new GUIStyle(GUI.skin.label)
+                    {
+                        fontSize = 30,
+                        alignment = TextAnchor.MiddleCenter
+                    };
                 }
-                if (GUI.Button(new Rect(Screen.width - 200 * rr, Screen.height / 2 - 100 * rr, 200 * rr, 200 * rr), "Next\nPage", DifSelNameStyle))
+                if (isDragging)
                 {
-                    DiffSelPage = Mathf.Clamp(DiffSelPage + 1, 0, 2);
+                    if (DraggedItem.Equipped)
+                    {
+                        DraggedItem.OnUnequip();
+                        Inventory.Instance.ItemList[DraggedItemIndex].Equipped = false;
+                    }
+                    Inventory.Instance.DropItem(DraggedItemIndex);
+                    DraggedItem = null;
+                    DraggedItemIndex = -1;
+                    isDragging = false;
+
                 }
+                targetPerkOffset = wholeScreen.center;
+                currentPerkOffset = targetPerkOffset;
+                Vector2 center = wholeScreen.center;
+                Rect MiddleR = new Rect(Vector2.zero, new Vector2(300 * rr, 300 * rr))
+                {
+                    center = center
+                };
+
+                GUI.Label(new Rect(10 * rr, 10 * rr, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft });
+
+                Rect r1 = new Rect(wholeScreen.center, new Vector2(Screen.height / 2, Screen.height / 2));
+                Rect r2 = new Rect(r1);
+                Rect r3 = new Rect(r1);
+                Rect r4 = new Rect(r1);
+                float Mindist = 500f / 1500f;
+                Mindist *= r1.width;
+                MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Backpack", new Vector2(1, -1), ref Opacity1);
+                r2.position = center - r1.size;
+                MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Abilities", new Vector2(-1, 1), ref Opacity2);
+                r3.position = center - new Vector2(0, r1.width);
+                MenuButton(Mindist, r3, OpenedMenuMode.Stats, "Guide", Vector2.one, ref Opacity3);
+                r4.position = center - new Vector2(r1.width, 0);
+                MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Genetics", -Vector2.one, ref Opacity4);
+                GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
+
+                string HudHideStatus = "[ HUD ]";
+                if (HideHud)
+                {
+                    HudHideStatus = "[ NO HUD ]";
+                }
+
+                if (GUI.Button(new Rect(Screen.width - 120 * rr, 40 * rr, 120 * rr, 40 * rr), HudHideStatus, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(23 * rr), alignment = TextAnchor.MiddleCenter }))
+                {
+                    HideHud = !HideHud;
+                }
+                DisplayedPerkIDs = null;
+
+                semiblackValue = 0;
+            }
+            catch (Exception ex)
+            {
+
+                ModAPI.Log.Write(ex.ToString());
+            }
+        }
+
+        //Draws a single main menu button
+        private void MenuButton(float mindist, Rect rect, OpenedMenuMode mode, string text, Vector2 Scale, ref float Opacity, float r = 1, float g = 1, float b = 1)
+        {
+
+            Matrix4x4 backupMatrix = GUI.matrix;
+            GUIUtility.ScaleAroundPivot(Scale, rect.center);
+            float dist = Vector2.Distance(mousepos, wholeScreen.center);
+            GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[1]);
+
+            if (dist > mindist && dist < rect.height && rect.Contains(mousepos) && MenuInteractable)
+            {
+                Opacity = Mathf.Clamp01(Opacity + Time.unscaledDeltaTime * OpacityGainSpeed);
+
+                if (UnityEngine.Input.GetMouseButtonDown(0))
+                {
+                    StartCoroutine(FadeMenuSwitch(mode));
+                }
+            }
+            else
+            {
+                Opacity = Mathf.Clamp01(Opacity - Time.unscaledDeltaTime * OpacityGainSpeed);
+            }
+            if (Opacity > 0)
+            {
+
+                GUI.color = new Color(r, g, b, Opacity);
+                GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[2]);
+                GUI.color = Color.white;
 
             }
+            GUI.matrix = backupMatrix;
+            GUI.Label(rect, text, MenuBtnStyle);
 
-            private void DifficultySelectionClinet()
+        }
+
+        private void MenuKeyPressAction()
+        {
+            if (!MenuInteractable)
+            {
+                return;
+            }
+
+            if (_openedMenu == OpenedMenuMode.Main)
+            {
+                StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Hud));
+                LocalPlayer.FpCharacter.UnLockView();
+                LocalPlayer.Inventory.EquipPreviousWeapon();
+
+
+            }
+            else if (_openedMenu == OpenedMenuMode.Hud)
+            {
+                StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Main));
+                LocalPlayer.FpCharacter.LockView(true);
+                LocalPlayer.Inventory.StashEquipedWeapon(false);
+                LocalPlayer.Inventory.StashLeftHand();
+            }
+            else
+            {
+                StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Main));
+                LocalPlayer.FpCharacter.LockView(true);
+                LocalPlayer.Inventory.StashEquipedWeapon(false);
+                LocalPlayer.Inventory.StashLeftHand();
+            }
+        }
+
+        #endregion
+
+        #region DifficultySelectionMethods
+        private void DifficultySelectionHost()
+        {
+            if ((bool)LocalPlayer.FpCharacter)
             {
                 LocalPlayer.FpCharacter.LockView(true);
                 LocalPlayer.FpCharacter.MovementLocked = true;
-                Rect r = new Rect(0, 0, Screen.width, Screen.height);
-                GUI.DrawTexture(r, _black);
-                GUI.Label(r, "Please wait for the host to choose a difficulty", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = MainFont, fontSize = Mathf.RoundToInt(50 * rr) });
-                if (requestResendTime <= 0)
+            }
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), _black);
+            GUIStyle DifficultySelectionStyle = new GUIStyle(GUI.skin.button);
+            GUIStyle DifSelNameStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = Mathf.FloorToInt(30 * rr),
+                font = MainFont,
+            };
+            GUIStyle DifSelDescStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = Mathf.FloorToInt(16 * rr),
+                font = MainFont,
+
+            };
+
+            if (ModSettings.FriendlyFire)
+            {
+                GUI.color = Color.red;
+
+                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button)
                 {
-                    Network.NetworkManager.SendLine("AB", Network.NetworkManager.Target.OnlyServer);
-                    requestResendTime = 2;
+                    font = MainFont,
+                    fontSize = Mathf.FloorToInt(30 * rr)
+                }))
+                { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
+            }
+            else
+            {
+                GUI.color = Color.gray;
+                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.FloorToInt(30 * rr)
+                }))
+                { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
+            }
+            GUI.color = Color.white;
+            for (int i = 0; i < 4; i++)
+            {
+                int ii = i + DiffSelPage * 4;
+                if (DiffSel_Names.Length > ii)
+                {
+
+
+                    Rect r = new Rect(Screen.width / 4, Screen.height / 4, Screen.width / 8, Screen.height / 2);
+                    r.x += i * r.width;
+                    if (GUI.Button(r, "", DifficultySelectionStyle))
+                    {
+                        ModSettings.DifficultyChoosen = true;
+                        Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
+                        ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(ii);
+                        LocalPlayer.FpCharacter.UnLockView();
+                        LocalPlayer.FpCharacter.MovementLocked = false;
+                        return;
+                    }
+                    Rect name = new Rect(r);
+                    name.height /= 5;
+                    Rect desc = new Rect(r);
+                    desc.height *= 0.8f;
+                    desc.y += name.height;
+
+                    GUI.Label(name, DiffSel_Names[ii], DifSelNameStyle);
+                    GUI.Label(desc, DiffSel_Descriptions[ii], DifSelDescStyle);
+                }
+            }
+
+            GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Select difficulty", DifSelNameStyle);
+            if (GUI.Button(new Rect(0, Screen.height / 2 - 100 * rr, 200 * rr, 200 * rr), "Prev\nPage", DifSelNameStyle))
+            {
+                DiffSelPage = Mathf.Clamp(DiffSelPage - 1, 0, 2);
+            }
+            if (GUI.Button(new Rect(Screen.width - 200 * rr, Screen.height / 2 - 100 * rr, 200 * rr, 200 * rr), "Next\nPage", DifSelNameStyle))
+            {
+                DiffSelPage = Mathf.Clamp(DiffSelPage + 1, 0, 2);
+            }
+
+        }
+
+        private void DifficultySelectionClinet()
+        {
+            LocalPlayer.FpCharacter.LockView(true);
+            LocalPlayer.FpCharacter.MovementLocked = true;
+            Rect r = new Rect(0, 0, Screen.width, Screen.height);
+            GUI.DrawTexture(r, _black);
+            GUI.Label(r, "Please wait for the host to choose a difficulty", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = MainFont, fontSize = Mathf.RoundToInt(50 * rr) });
+            if (requestResendTime <= 0)
+            {
+                Network.NetworkManager.SendLine("AB", Network.NetworkManager.Target.OnlyServer);
+                requestResendTime = 2;
+            }
+            else
+            {
+                requestResendTime -= Time.deltaTime;
+            }
+        }
+        #endregion
+
+        #region InventoryMethods
+        private void DrawInventory()
+        {
+            Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
+            GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
+
+
+            for (int y = 0; y < Inventory.Height; y++)
+            {
+                for (int x = 0; x < Inventory.Width; x++)
+                {
+                    try
+                    {
+                        int index = y * Inventory.Width + x;
+
+                        DrawInvSlot(new Rect(SlotsRect.x + slotDim.x * x, SlotsRect.y + slotDim.y * y + 160 * rr + InventoryScrollAmount, slotDim.x, slotDim.y), index);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        ModAPI.Log.Write(ex.ToString());
+                    }
+
+                }
+            }
+            //PlayerSlots
+            Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
+            GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
+            Rect head = new Rect(Vector2.zero, slotDim)
+            {
+                center = eq.center
+            };
+            head.y -= 3.5f * head.height;
+
+            Rect chest = new Rect(head);
+            chest.y += chest.height + 50 * rr;
+
+            Rect pants = new Rect(chest);
+            pants.y += pants.height + 50 * rr;
+
+            Rect boots = new Rect(pants);
+            boots.y += boots.height + 50 * rr;
+
+            Rect shoulders = new Rect(chest);
+            shoulders.position += new Vector2(-chest.width, -chest.height / 2);
+
+            Rect tallisman = new Rect(chest);
+            tallisman.position += new Vector2(chest.width, -chest.height / 2);
+
+            Rect gloves = new Rect(shoulders);
+            gloves.y += gloves.height + 50 * rr;
+
+            Rect bracer = new Rect(tallisman);
+            bracer.y += bracer.height + 50 * rr;
+
+            Rect ringR = new Rect(bracer);
+            ringR.position += new Vector2(chest.width / 2, chest.height + 50 * rr);
+
+            Rect ringL = new Rect(gloves);
+            ringL.position += new Vector2(-chest.width / 2, chest.height + 50 * rr);
+
+            Rect weapon = new Rect(ringL);
+            weapon.y += weapon.height * 1.5f + 50 * rr;
+
+            Rect offhand = new Rect(ringR);
+            offhand.y += offhand.height * 1.5f + 50 * rr;
+
+            DrawInvSlot(head, -2, "Head");
+            DrawInvSlot(chest, -3, "Torso");
+            DrawInvSlot(pants, -4, "Legs");
+            DrawInvSlot(boots, -5, "Feet");
+            DrawInvSlot(shoulders, -6, "Shoulders");
+            DrawInvSlot(gloves, -7, "Hands");
+            DrawInvSlot(tallisman, -8, "Neck");
+            DrawInvSlot(bracer, -9, "Wrists");
+            DrawInvSlot(ringR, -10, "Finger");
+            DrawInvSlot(ringL, -11, "Finger");
+            DrawInvSlot(weapon, -12, "Main hand");
+            DrawInvSlot(offhand, -13, "Offhand");
+
+
+
+
+            if (SelectedItem != -1)
+            {
+
+                DrawItemInfo(itemPos, Inventory.Instance.ItemList[SelectedItem]);
+            }
+
+            if (isDragging)
+            {
+                Rect r = new Rect(mousepos, slotDim);
+                GUI.color = new Color(1, 1, 1, 0.5f);
+                GUI.DrawTexture(r, DraggedItem.icon);
+                GUI.color = new Color(1, 1, 1, 1);
+
+                if (UnityEngine.Input.GetMouseButtonUp(0))
+                {
+                    if (DraggedItem.Equipped)
+                    {
+                        DraggedItem.OnUnequip();
+                        Inventory.Instance.ItemList[DraggedItemIndex].Equipped = false;
+                    }
+                    Inventory.Instance.DropItem(DraggedItemIndex);
+                    DraggedItem = null;
+                    DraggedItemIndex = -1;
+                    isDragging = false;
+                }
+            }
+        }
+
+
+
+
+        private void DrawItemInfo(Vector2 pos, Item item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            float width = 390 * rr;
+            Vector2 originalPos = pos;
+            pos.x += 5 * rr;
+
+            if (pos.x + width > Screen.width)
+            {
+                pos.x -= width + slotDim.x;
+                pos.x -= 5 * rr;
+            }
+
+
+            Rect descriptionBox = new Rect(originalPos, new Vector2(width + 10 * rr, 500 * rr));
+            Rect ItemNameRect = new Rect(pos.x, pos.y, width, 50 * rr);
+            GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(35 * rr), fontStyle = FontStyle.Bold, font = MainFont };
+            float y = 70 + pos.y;
+            Rect[] StatRects = new Rect[item.Stats.Count];
+            GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(20 * rr), font = MainFont };
+            GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(20 * rr), fontStyle = FontStyle.Bold, font = MainFont };
+
+            for (int i = 0; i < StatRects.Length; i++)
+            {
+                StatRects[i] = new Rect(pos.x, y, width, 22 * rr);
+                y += 22 * rr;
+            }
+            y += 30 * rr;
+
+            Rect LevelAndTypeRect = new Rect(pos.x, y, width, 35 * rr);
+            GUIStyle TypeStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(14 * rr), font = MainFont };
+            GUIStyle LevelStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerRight, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Italic };
+            y += 30 * rr;
+
+            GUIStyle DescriptionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(16 * rr), font = MainFont };
+            GUIStyle LoreStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(13 * rr), font = MainFont, fontStyle = FontStyle.Italic };
+            GUIStyle TooltipStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold };
+
+            Rect DescrRect = new Rect(pos.x, y, width, DescriptionStyle.CalcHeight(new GUIContent(item.description), width)); y += DescrRect.height;
+            y += 30 * rr;
+
+            Rect LoreRect = new Rect(pos.x, y, width, LoreStyle.CalcHeight(new GUIContent(item.lore), width)); y += LoreRect.height;
+            y += 30 * rr;
+
+            Rect toolTipTitleRect = new Rect(pos.x, y, width, TooltipStyle.fontSize + 2); y += toolTipTitleRect.height;
+            Rect toolTipRect = new Rect(pos.x, y, width, TooltipStyle.CalcHeight(new GUIContent(item.tooltip), width)); y += toolTipRect.height;
+            descriptionBox.height = toolTipRect.yMax - descriptionBox.y + 5;
+            if (descriptionBox.yMax > Screen.height)
+            {
+                float f = Screen.height - descriptionBox.yMax;
+                descriptionBox.y += f;
+                ItemNameRect.y += f;
+                for (int i = 0; i < StatRects.Length; i++)
+                {
+                    StatRects[i].y += f;
+                }
+                LevelAndTypeRect.y += f;
+                DescrRect.y += f;
+                LoreRect.y += f;
+                toolTipTitleRect.y += f;
+                toolTipRect.y += f;
+            }
+            GUI.color = new Color(1, 1, 1, 0.8f);
+            GUI.DrawTexture(descriptionBox, _black);
+            GUI.color = RarityColors[item.Rarity];
+            GUI.Label(ItemNameRect, item.name, ItemNameStyle);
+            for (int i = 0; i < StatRects.Length; i++)
+            {
+                GUI.color = RarityColors[item.Stats[i].Rarity];
+                GUI.Label(StatRects[i], item.Stats[i].Name, StatNameStyle);
+                double amount = item.Stats[i].Amount;
+                if (item.Stats[i].DisplayAsPercent)
+                {
+                    amount *= 100;
+                }
+                amount = Math.Round(amount, item.Stats[i].RoundingCount);
+
+                if (item.Stats[i].DisplayAsPercent)
+                {
+                    GUI.Label(StatRects[i], amount.ToString() + "%", StatValueStyle);
                 }
                 else
                 {
-                    requestResendTime -= Time.deltaTime;
+                    GUI.Label(StatRects[i], amount.ToString(), StatValueStyle);
                 }
             }
-            #endregion
-
-            #region InventoryMethods
-            private void DrawInventory()
+            GUI.color = Color.white;
+            switch (item._itemType)
             {
-                Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
-                GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
-
-
-                for (int y = 0; y < Inventory.Height; y++)
-                {
-                    for (int x = 0; x < Inventory.Width; x++)
-                    {
-                        try
-                        {
-                            int index = y * Inventory.Width + x;
-
-                            DrawInvSlot(new Rect(SlotsRect.x + slotDim.x * x, SlotsRect.y + slotDim.y * y + 160 * rr + InventoryScrollAmount, slotDim.x, slotDim.y), index);
-                        }
-                        catch (Exception ex)
-                        {
-
-                            ModAPI.Log.Write(ex.ToString());
-                        }
-
-                    }
-                }
-                //PlayerSlots
-                Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
-                GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
-                Rect head = new Rect(Vector2.zero, slotDim)
-                {
-                    center = eq.center
-                };
-                head.y -= 3.5f * head.height;
-
-                Rect chest = new Rect(head);
-                chest.y += chest.height + 50 * rr;
-
-                Rect pants = new Rect(chest);
-                pants.y += pants.height + 50 * rr;
-
-                Rect boots = new Rect(pants);
-                boots.y += boots.height + 50 * rr;
-
-                Rect shoulders = new Rect(chest);
-                shoulders.position += new Vector2(-chest.width, -chest.height / 2);
-
-                Rect tallisman = new Rect(chest);
-                tallisman.position += new Vector2(chest.width, -chest.height / 2);
-
-                Rect gloves = new Rect(shoulders);
-                gloves.y += gloves.height + 50 * rr;
-
-                Rect bracer = new Rect(tallisman);
-                bracer.y += bracer.height + 50 * rr;
-
-                Rect ringR = new Rect(bracer);
-                ringR.position += new Vector2(chest.width / 2, chest.height + 50 * rr);
-
-                Rect ringL = new Rect(gloves);
-                ringL.position += new Vector2(-chest.width / 2, chest.height + 50 * rr);
-
-                Rect weapon = new Rect(ringL);
-                weapon.y += weapon.height * 1.5f + 50 * rr;
-
-                Rect offhand = new Rect(ringR);
-                offhand.y += offhand.height * 1.5f + 50 * rr;
-
-                DrawInvSlot(head, -2, "Head");
-                DrawInvSlot(chest, -3, "Torso");
-                DrawInvSlot(pants, -4, "Legs");
-                DrawInvSlot(boots, -5, "Feet");
-                DrawInvSlot(shoulders, -6, "Shoulders");
-                DrawInvSlot(gloves, -7, "Hands");
-                DrawInvSlot(tallisman, -8, "Neck");
-                DrawInvSlot(bracer, -9, "Wrists");
-                DrawInvSlot(ringR, -10, "Finger");
-                DrawInvSlot(ringL, -11, "Finger");
-                DrawInvSlot(weapon, -12, "Main hand");
-                DrawInvSlot(offhand, -13, "Offhand");
-
-
-
-
-                if (SelectedItem != -1)
-                {
-
-                    DrawItemInfo(itemPos, Inventory.Instance.ItemList[SelectedItem]);
-                }
-
-                if (isDragging)
-                {
-                    Rect r = new Rect(mousepos, slotDim);
-                    GUI.color = new Color(1, 1, 1, 0.5f);
-                    GUI.DrawTexture(r, DraggedItem.icon);
-                    GUI.color = new Color(1, 1, 1, 1);
-
-                    if (UnityEngine.Input.GetMouseButtonUp(0))
-                    {
-                        Inventory.Instance.DropItem(DraggedItemIndex);
-                        DraggedItem = null;
-                        DraggedItemIndex = -1;
-                        isDragging = false;
-                    }
-                }
+                case BaseItem.ItemType.Shield:
+                    GUI.Label(LevelAndTypeRect, "Shield", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Offhand:
+                    GUI.Label(LevelAndTypeRect, "Offhand", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Weapon:
+                    GUI.Label(LevelAndTypeRect, "Weapon", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Other:
+                    GUI.Label(LevelAndTypeRect, "Other", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Material:
+                    GUI.Label(LevelAndTypeRect, "Material", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Helmet:
+                    GUI.Label(LevelAndTypeRect, "Helmet", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Boot:
+                    GUI.Label(LevelAndTypeRect, "Boots", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Pants:
+                    GUI.Label(LevelAndTypeRect, "Pants", TypeStyle);
+                    break;
+                case BaseItem.ItemType.ChestArmor:
+                    GUI.Label(LevelAndTypeRect, "Chest armor", TypeStyle);
+                    break;
+                case BaseItem.ItemType.ShoulderArmor:
+                    GUI.Label(LevelAndTypeRect, "Shoulder armor", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Glove:
+                    GUI.Label(LevelAndTypeRect, "Gloves", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Bracer:
+                    GUI.Label(LevelAndTypeRect, "Bracers", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Amulet:
+                    GUI.Label(LevelAndTypeRect, "Amulet", TypeStyle);
+                    break;
+                case BaseItem.ItemType.Ring:
+                    GUI.Label(LevelAndTypeRect, "Ring", TypeStyle);
+                    break;
             }
-
-
-
-
-            private void DrawItemInfo(Vector2 pos, Item item)
+            if (item.level <= ModdedPlayer.instance.Level)
             {
-                if (item == null)
-                {
-                    return;
-                }
-
-                float width = 390 * rr;
-                Vector2 originalPos = pos;
-                pos.x += 5 * rr;
-
-                if (pos.x + width > Screen.width)
-                {
-                    pos.x -= width + slotDim.x;
-                    pos.x -= 5 * rr;
-                }
-
-
-                Rect descriptionBox = new Rect(originalPos, new Vector2(width + 10 * rr, 500 * rr));
-                Rect ItemNameRect = new Rect(pos.x, pos.y, width, 50 * rr);
-                GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(35 * rr), fontStyle = FontStyle.Bold, font = MainFont };
-                float y = 70 + pos.y;
-                Rect[] StatRects = new Rect[item.Stats.Count];
-                GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(20 * rr), font = MainFont };
-                GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(20 * rr), fontStyle = FontStyle.Bold, font = MainFont };
-
-                for (int i = 0; i < StatRects.Length; i++)
-                {
-                    StatRects[i] = new Rect(pos.x, y, width, 22 * rr);
-                    y += 22 * rr;
-                }
-                y += 30 * rr;
-
-                Rect LevelAndTypeRect = new Rect(pos.x, y, width, 35 * rr);
-                GUIStyle TypeStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(14 * rr), font = MainFont };
-                GUIStyle LevelStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerRight, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Italic };
-                y += 30 * rr;
-
-                GUIStyle DescriptionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(16 * rr), font = MainFont };
-                GUIStyle LoreStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(13 * rr), font = MainFont, fontStyle = FontStyle.Italic };
-                GUIStyle TooltipStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold };
-
-                Rect DescrRect = new Rect(pos.x, y, width, DescriptionStyle.CalcHeight(new GUIContent(item.description), width)); y += DescrRect.height;
-                y += 30 * rr;
-
-                Rect LoreRect = new Rect(pos.x, y, width, LoreStyle.CalcHeight(new GUIContent(item.lore), width)); y += LoreRect.height;
-                y += 30 * rr;
-
-                Rect toolTipTitleRect = new Rect(pos.x, y, width, TooltipStyle.fontSize + 2); y += toolTipTitleRect.height;
-                Rect toolTipRect = new Rect(pos.x, y, width, TooltipStyle.CalcHeight(new GUIContent(item.tooltip), width)); y += toolTipRect.height;
-                descriptionBox.height = toolTipRect.yMax - descriptionBox.y + 5;
-                if (descriptionBox.yMax > Screen.height)
-                {
-                    float f = Screen.height - descriptionBox.yMax;
-                    descriptionBox.y += f;
-                    ItemNameRect.y += f;
-                    for (int i = 0; i < StatRects.Length; i++)
-                    {
-                        StatRects[i].y += f;
-                    }
-                    LevelAndTypeRect.y += f;
-                    DescrRect.y += f;
-                    LoreRect.y += f;
-                    toolTipTitleRect.y += f;
-                    toolTipRect.y += f;
-                }
-                GUI.color = new Color(1, 1, 1, 0.8f);
-                GUI.DrawTexture(descriptionBox, _black);
-                GUI.color = RarityColors[item.Rarity];
-                GUI.Label(ItemNameRect, item.name, ItemNameStyle);
-                for (int i = 0; i < StatRects.Length; i++)
-                {
-                    GUI.color = RarityColors[item.Stats[i].Rarity];
-                    GUI.Label(StatRects[i], item.Stats[i].Name, StatNameStyle);
-                    double amount = item.Stats[i].Amount;
-                    if (item.Stats[i].DisplayAsPercent)
-                    {
-                        amount *= 100;
-                    }
-                    amount = Math.Round(amount, item.Stats[i].RoundingCount);
-
-                    if (item.Stats[i].DisplayAsPercent)
-                    {
-                        GUI.Label(StatRects[i], amount.ToString() + "%", StatValueStyle);
-                    }
-                    else
-                    {
-                        GUI.Label(StatRects[i], amount.ToString(), StatValueStyle);
-                    }
-                }
-                GUI.color = Color.white;
-                switch (item._itemType)
-                {
-                    case BaseItem.ItemType.Shield:
-                        GUI.Label(LevelAndTypeRect, "Shield", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Offhand:
-                        GUI.Label(LevelAndTypeRect, "Offhand", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Weapon:
-                        GUI.Label(LevelAndTypeRect, "Weapon", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Other:
-                        GUI.Label(LevelAndTypeRect, "Other", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Material:
-                        GUI.Label(LevelAndTypeRect, "Material", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Helmet:
-                        GUI.Label(LevelAndTypeRect, "Helmet", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Boot:
-                        GUI.Label(LevelAndTypeRect, "Boots", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Pants:
-                        GUI.Label(LevelAndTypeRect, "Pants", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.ChestArmor:
-                        GUI.Label(LevelAndTypeRect, "Chest armor", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.ShoulderArmor:
-                        GUI.Label(LevelAndTypeRect, "Shoulder armor", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Glove:
-                        GUI.Label(LevelAndTypeRect, "Gloves", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Bracer:
-                        GUI.Label(LevelAndTypeRect, "Bracers", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Amulet:
-                        GUI.Label(LevelAndTypeRect, "Amulet", TypeStyle);
-                        break;
-                    case BaseItem.ItemType.Ring:
-                        GUI.Label(LevelAndTypeRect, "Ring", TypeStyle);
-                        break;
-                }
-                if (item.level <= ModdedPlayer.instance.Level)
-                {
-                    //GUI.color = Color.white;
-                    GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
-                }
-                else
-                {
-                    GUI.color = Color.red;
-                    GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
-                }
-                GUI.color = Color.white;
-                GUI.Label(DescrRect, item.description, DescriptionStyle);
-                GUI.Label(LoreRect, item.lore, LoreStyle);
-                GUI.Label(toolTipTitleRect, "Tooltip:", TooltipStyle);
-                GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
-
+                //GUI.color = Color.white;
+                GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
             }
+            else
+            {
+                GUI.color = Color.red;
+                GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
+            }
+            GUI.color = Color.white;
+            GUI.Label(DescrRect, item.description, DescriptionStyle);
+            GUI.Label(LoreRect, item.lore, LoreStyle);
+            GUI.Label(toolTipTitleRect, "Tooltip:", TooltipStyle);
+            GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
+
+        }
 
         private float hoveredOverID = -1;
         private float DraggedItemAlpha = 0;
@@ -1182,9 +1202,11 @@ namespace ChampionsOfForest
                         {
                             if (UnityEngine.Input.GetMouseButtonDown(0))
                             {
+
                                 isDragging = true;
                                 DraggedItem = Inventory.Instance.ItemList[index];
                                 DraggedItemIndex = index;
+
                             }
                             else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1)
                             {
@@ -1416,10 +1438,30 @@ namespace ChampionsOfForest
 
 
                 float BuffOffset = 0;
+                if (ModdedPlayer.instance.Stunned)
+                {
+                    Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
+                    string s = string.Format("STUNNED for {0} seconds", Math.Round(ModdedPlayer.instance.StunDuration, 1));
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
+                    BuffOffset += 30 * rr;
+                }
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = string.Format("BUFF: {0} , {1} seconds, {2}%", buff.Value.BuffName, Math.Round(buff.Value.duration, 1), buff.Value.amount * 100);
+                    string s = buff.Value.BuffName + "!" + "   (" + Math.Round(buff.Value.duration, 1);
+
+                    if (buff.Value.DisplayAmount)
+                    {
+                        if (buff.Value.DisplayAsPercent)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
 
@@ -1436,7 +1478,7 @@ namespace ChampionsOfForest
                 for (int i = 0; i < SpellCaster.SpellCount; i++)
                 {
                     Rect r = new Rect(
-                        Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
+                        Screen.width / 2f + (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
                         Screen.height - SquareSize,
                         SquareSize,
                         SquareSize
@@ -1473,7 +1515,8 @@ namespace ChampionsOfForest
                 float width = SpellCaster.SpellCount * SquareSize;
                 float height = width * 0.1f;
                 float combatHeight = width * 63 / 1500;
-                Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
+                Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height, width, height);
+                //Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= ProgressBarAmount;
                 Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
@@ -1486,9 +1529,9 @@ namespace ChampionsOfForest
                 };
                 Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
                 GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleCenter };
-                GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
+                GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleToFit, true, 1500 / 150);
                 GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
-                GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleAndCrop, true, 1500 / 150);
+                GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleToFit, true, 1500 / 150);
                 // GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
                 //{
                 //    font = MainFont,
@@ -1520,11 +1563,11 @@ namespace ChampionsOfForest
                 if (LocalPlayer.FpCharacter.crouching)
                 {
                     //RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 10000);
-                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one*0.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 10000);
+                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 0.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 10000);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
-                        if (hits[i].transform.CompareTag("enemyCollide")|| hits[i].transform.CompareTag("EnemyBodyPart")|| hits[i].transform.CompareTag("enemyHead"))
+                        if (hits[i].transform.CompareTag("enemyCollide") || hits[i].transform.CompareTag("EnemyBodyPart") || hits[i].transform.CompareTag("enemyHead"))
                         {
                             enemyHit = i;
                             break;
@@ -1546,7 +1589,7 @@ namespace ChampionsOfForest
                             }
                             if (cp != null && cp.Level > 0)
                             {
-                                
+
                                 Rect scanRect = new Rect(0, 0, 60 * rr, 60 * rr)
                                 {
                                     center = wholeScreen.center
@@ -1585,14 +1628,13 @@ namespace ChampionsOfForest
                                 if (ScanTime > 3f)
                                 {
                                     DrawScannedEnemyLabel("Armor: " + cp.Armor, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                    y += rr * 60;
-                                    if (cp.ArmorReduction != 0)
+                                    y += rr * 40;
+                                    if (cp.ArmorReduction > 0)
                                     {
-                                        GUI.color = Color.red;
-                                        DrawScannedEnemyLabel("Armor debuff: -" + cp.ArmorReduction, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                        y += rr * 60;
-                                        GUI.color = Color.white;
+                                        DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                        y += rr * 40;
                                     }
+                                    y += rr * 20;
                                 }
                                 if (ScanTime > 4.5f)
                                 {
@@ -1615,101 +1657,78 @@ namespace ChampionsOfForest
                                             {
                                                 case EnemyProgression.Abilities.Poisonous:
                                                     DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.SteadFest:
                                                     DrawScannedEnemyLabel("Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.BossSteadFest:
                                                     DrawScannedEnemyLabel("Boss ability: Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.EliteSteadFest:
                                                     DrawScannedEnemyLabel("Elite ability: Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Molten:
-                                                    DrawScannedEnemyLabel("Molten", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
+                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.FreezingAura:
                                                     DrawScannedEnemyLabel("Absolute zero", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.FireAura:
                                                     DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Rooting:
                                                     DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.BlackHole:
                                                     DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Trapper:
                                                     DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Juggernaut:
                                                     DrawScannedEnemyLabel("Unstoppable force", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Huge:
                                                     DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Tiny:
                                                     DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.ExtraDamage:
                                                     DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.ExtraHealth:
                                                     DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Illusionist:
-                                                    DrawScannedEnemyLabel("Illusionist", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
+                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Blink:
                                                     DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Thunder:
-                                                    DrawScannedEnemyLabel("Thunder", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
+                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.RainEmpowerement:
                                                     DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Shielding:
                                                     DrawScannedEnemyLabel("Refraction", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Meteor:
                                                     DrawScannedEnemyLabel("Chaos meteor", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.RockTosser:
-                                                    DrawScannedEnemyLabel("Boulder tosser", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
+                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.DoubleLife:
                                                     DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                                 case EnemyProgression.Abilities.Laser:
                                                     DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    y += rr * 50;
                                                     break;
                                             }
+                                            y += rr * 50;
 
                                         }
                                     }
@@ -1767,6 +1786,11 @@ namespace ChampionsOfForest
             }
 
             _openedMenu = mode;
+            if (mode == OpenedMenuMode.Hud)
+            {
+                LocalPlayer.FpCharacter.UnLockView();
+                //LocalPlayer.Inventory.EquipPreviousWeapon();
+            }
             yield return null;
             while (alpha > 0)
             {
@@ -2096,55 +2120,94 @@ namespace ChampionsOfForest
         private GUIStyle statStyleAmount;
         private GUIStyle statStyleTooltip;
         private GUIStyle TextLabel;
+        public struct Bookmark
+        {
+            public float position;
+            public string name;
+        }
+        public List<Bookmark> Bookmarks= new List<Bookmark>();
+
         private void Header(string s)
         {
-            Rect labelRect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), 70 * rr);
-            GUI.Label(labelRect, s, headerstyle);
-            BookPositionY += 70 * rr;
-            Rect imageRect = new Rect(400 * rr, BookPositionY, Screen.width - 800 * rr, 60 * rr);
-            GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
-            BookPositionY += 70 * rr;
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            {
+                Rect labelRect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), 70 * rr);
+                GUI.Label(labelRect, s, headerstyle);
+                BookPositionY += 70 * rr;
+                Rect imageRect = new Rect(400 * rr, BookPositionY, Screen.width - 800 * rr, 60 * rr);
+                GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
+                BookPositionY += 70 * rr;
+            }
+            else
+            {
+                BookPositionY += 140 * rr;
+            }
         }
-
         private void Space(float pixelsUnscaled)
         {
             BookPositionY += pixelsUnscaled * rr;
         }
         private void Stat(string statName, string amount, string tooltip = "")
         {
-            Rect labelRect = new Rect(50 * rr + GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease) - 100 * rr, statStyle.fontSize);
-            GUI.Label(labelRect, statName, statStyle);
-            GUI.Label(labelRect, amount, statStyleAmount);
-            BookPositionY += statStyle.fontSize;
-            if (labelRect.Contains(mousepos) && tooltip != "")
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            {
+                Rect labelRect = new Rect(50 * rr + GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease) - 100 * rr, statStyle.fontSize);
+                GUI.Label(labelRect, statName, statStyle);
+                GUI.Label(labelRect, amount, statStyleAmount);
+                BookPositionY += statStyle.fontSize;
+                if (labelRect.Contains(mousepos) && tooltip != "")
+                {
+                    float h = statStyleTooltip.CalcHeight(new GUIContent(tooltip), Screen.width - 500 * rr);
+                    Rect tooltipRect = new Rect(GuideWidthDecrease * rr + 150 * rr, BookPositionY, Screen.width - 500 * rr, h);
+                    GUI.Label(tooltipRect, tooltip, statStyleTooltip);
+                    BookPositionY += h;
+
+                }
+                BookPositionY += 5 * rr;
+            }
+            else
             {
                 float h = statStyleTooltip.CalcHeight(new GUIContent(tooltip), Screen.width - 500 * rr);
-                Rect tooltipRect = new Rect(GuideWidthDecrease * rr + 150 * rr, BookPositionY, Screen.width - 500 * rr, h);
-                GUI.Label(tooltipRect, tooltip, statStyleTooltip);
-                BookPositionY += h;
-
+                BookPositionY += 5 * rr + h;
+                BookPositionY += statStyle.fontSize;
             }
-            BookPositionY += 5 * rr;
-
         }
         private void Label(string s)
         {
-            float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
-            Rect rect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), h);
-            GUI.Label(rect, s, TextLabel);
-            BookPositionY += h;
-        }
-
-        private void Image(int iconID, float height, float centerPosition = 0.5f)
-        {
-            height *= rr;
-            Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
-            Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
             {
-                center = new Vector2(Screen.width * centerPosition, height / 2 + BookPositionY)
-            };
-            BookPositionY += rect.height;
-            GUI.DrawTexture(rect, tex);
+                float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
+                Rect rect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), h);
+                GUI.Label(rect, s, TextLabel);
+                BookPositionY += h;
+            }
+            else
+            {
+                float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
+                BookPositionY += h;
+            }
+        }
+            private void Image(int iconID, float height, float centerPosition = 0.5f)
+        {
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            {
+                height *= rr;
+                Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
+                Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
+                {
+                    center = new Vector2(Screen.width * centerPosition, height / 2 + BookPositionY)
+                };
+                BookPositionY += rect.height;
+                GUI.DrawTexture(rect, tex);
+            }
+            else
+            {
+                BookPositionY += height * rr;
+            }
+        }
+        private void MarkBookmark(string s)
+        {
+            Bookmarks.Add(new Bookmark() { name = s, position = BookPositionY });
         }
 
         private void SetGuiStylesForGuide()
@@ -2210,41 +2273,52 @@ namespace ChampionsOfForest
                 },
             };
         }
-        private readonly float GuideWidthDecrease = 150;
-        private readonly float GuideMargin = 30;
+        
         private void DrawGuide()
         {
             //what to do
             //stats are a book, with page indexes.
             //some pages can contain images and tutorials
             //you can hover over stats to display tooltips
+            Bookmarks.Clear();
             BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -1080 * rr, 0);
             BookPositionY = BookScrollAmount;
-
             SetGuiStylesForGuide();
-            Label("This is a label, below is 200 space");
-            Space(200);
-            Header("This is a header");
-            Stat("Example stat", "420 69", "This is a tooltip, It looks like this and here goes the actual info about the stat that you might find useful\nBlah blah blah\nMore bs in yet another line");
-            Space(200);
-            Image(99, 100);
 
-            //GUILayout.BeginArea(new Rect(0, 0, Screen.width / 3, Screen.height));
-            //GUIStyle header = new GUIStyle(GUI.skin.label)
-            //{
-            //    fontSize = Mathf.RoundToInt(30f * rr),
-            //    font = MainFont,
-            //    fontStyle = FontStyle.Bold,
-            //    margin = new RectOffset(Mathf.RoundToInt(50 * rr), 0, 0, 0)
-            //};
-            //GUIStyle label = new GUIStyle(GUI.skin.label)
-            //{
-            //    fontSize = Mathf.RoundToInt(24f * rr),
-            //    font = MainFont,
-            //};
-            //GUILayout.Label("Stats", header);
-            //GUILayout.Space(75 * rr);
+            Header("My champion");
+            MarkBookmark("Home");
+            Label("\tExperience");
+            Stat("Current level", ModdedPlayer.instance.Level.ToString());
+            Stat("Current experience amount", ModdedPlayer.instance.ExpCurrent.ToString());
+            Stat("Experience to level up", ModdedPlayer.instance.ExpGoal.ToString(),"For level "+ (ModdedPlayer.instance.Level+1)+" you will need to get this amount of experience:\t "+ ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
+            Stat("Progress amount: ",(((float) ModdedPlayer.instance.ExpCurrent/ ModdedPlayer.instance.ExpGoal)*100).ToString()+"%");
+            Label("\tYour strenght is havily dependant on your level." +
+                "\nHigher level allows you to equip better equipement. " +
+                "\nLeveling up gives you mutation points. (Currently you have "+ModdedPlayer.instance.MutationPoints+" mutation points), which you can spend on unlocking spells or perks. " +
+                "\nWith your level, and your power, resource usage will increase. Your muscules will require more water and food. With every level, your food and water depletion rate increases by 4% (increases by 100% every 25 levels)" +
+                "This property multiplies with your thirst rate and hunger rate stat.");
+            Space(50);
+            Label("\tExperience can be obtained by:" +
+                "\nKilling enemies - experience gained is equal to enemy's bounty." +
+                "\nEating rare consumabes - it's a tier 7 item (red item) and because of that it will only drop on specyfic difficulties\n" +
+                "\nExperience from kills can be increased by quickly killing multipe enemies." +
+                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your spree. You can make the massacre last longer by equiping items. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by "+ModdedPlayer.instance.TimeBonusPerKill+"). " +
+                "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
+            Stat("Maximum massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " seconds");
+            Stat("Massacre duration bonus per kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " seconds");
+            Space(50);
 
+
+
+
+
+
+
+
+
+
+            //Image(99, 100);
+            
             //GUILayout.Label("HEALTH: " + ModdedPlayer.instance.MaxHealth, header);
             //GUILayout.Label("Base health: 10", label);
             //GUILayout.Label("Bonus from vitality: " + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality, label);

@@ -67,9 +67,10 @@ namespace ChampionsOfForest.Player
                 BuffsByID.Clear();
                 new Buff(1, "Move speed reduced", true, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
                 new Buff(2, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
-                new Buff(3, "Poisoned", true, true, 2);
-                new Buff(4, "CC Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true);
-
+                new Buff(3, "Poisoned", true, true, 2)
+                {DisplayAsPercent=false };
+                new Buff(4, "CC Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true)
+                { DisplayAmount = false };
             }
             catch (System.Exception ex)
             {
@@ -91,8 +92,8 @@ namespace ChampionsOfForest.Player
             public onBuffEnd OnEnd;
             public onBuffStart OnStart;
             public int DispellAmount;
-
-
+            public bool DisplayAsPercent = true;
+            public bool DisplayAmount = true;
             public Buff(int id, float amount, float duration)
             {
                 _ID = id;
