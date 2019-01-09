@@ -39,7 +39,7 @@ namespace ChampionsOfForest.Player
                 ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.96f,
                 DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.96f,
                 Category = PerkCategory.Utility,
-                Icon =null,
+                Icon = null,
                 InheritIDs = new int[] { 4 },
                 LevelRequirement = 5,
                 PointsToBuy = 1,
@@ -51,12 +51,12 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
-             new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.96f,
                 DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.96f,
                 Category = PerkCategory.Utility,
-                Icon =null,
+                Icon = null,
                 InheritIDs = new int[] { 4 },
                 LevelRequirement = 5,
                 PointsToBuy = 1,
@@ -68,12 +68,79 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageBonus += 5,
+                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 5,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 0 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 0.75f,
+                Name = "Damage",
+                Description = "Increases melee damage by 5",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier += 0.02f,
+                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 0.02f,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 0 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 0f,
+                Name = "Damage",
+                Description = "Increases melee damage by 2%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.strenght += 10,
+                DisableMethods = () => ModdedPlayer.instance.strenght -= 10,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 0 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = -0.75f,
+                Name = "Strenght",
+                Description = "Increases strenght by 10",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.RangedDamageBonus += 5,
+                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 5,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 2 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = -0.75f,
+                Name = "Damage",
+                Description = "Increases projectile by 5",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
 
 
 
 
-
-            foreach (var item in AllPerks)
+            foreach (Perk item in AllPerks)
             {
                 ModAPI.Log.Write("[" + item.ID + "]" + item.Name);
             }
@@ -81,11 +148,11 @@ namespace ChampionsOfForest.Player
 
         public int ID;
         public int[] InheritIDs;
-        public int PointsToBuy =1;
+        public int PointsToBuy = 1;
         public int LevelRequirement;
 
-        public bool IsBought= false;
-        public bool Applied=false;
+        public bool IsBought = false;
+        public bool Applied = false;
 
         public delegate void OnApply();
         public delegate void OnDisable();
@@ -101,13 +168,13 @@ namespace ChampionsOfForest.Player
         public int ApplyAmount;
 
         public int TextureVariation = 0;
-        public float Size =1;
+        public float Size = 1;
         public float PosOffsetX;
         public float PosOffsetY;
         public enum PerkCategory { MeleeOffense, RangedOffense, MagicOffense, Defense, Support, Utility }
         public PerkCategory Category;
 
-        public Perk(string name, string description, int[] inheritIDs,float x,float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
+        public Perk(string name, string description, int[] inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
         {
             Name = name;
             Description = description;

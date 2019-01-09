@@ -12,6 +12,7 @@ namespace ChampionsOfForest.Player
                 Vector3 position = _ammoSpawnPosGo.transform.position;
                 Quaternion rotation = _ammoSpawnPosGo.transform.rotation;
                 GameObject gameObject = Object.Instantiate(_boltProjectile, position, rotation);
+                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
                 Rigidbody component = gameObject.GetComponent<Rigidbody>();
                 if (BoltNetwork.isRunning)
                 {
@@ -37,7 +38,7 @@ namespace ChampionsOfForest.Player
                     }
                 }
                 Vector3 up = gameObject.transform.up;
-                component.AddForce(22000f * (0.016666f / Time.fixedDeltaTime) * up);
+                component.AddForce(22000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * up);
             }
         }
     }

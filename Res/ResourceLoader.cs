@@ -178,7 +178,6 @@ namespace ChampionsOfForest.Res
             {
                 values2[a] = int.Parse(val);
             }
-            ModAPI.Log.Write(values1[0] + ", " + values1[1] + ", " + values1[2] + ", " + values1[3] + "\n" + values2[0] + ", " + values2[1] + ", " + values2[2] + ", " + values2[3]);
             for (i = 0; i < 4; i++)
             {
                 if (values1[i] > values2[i])

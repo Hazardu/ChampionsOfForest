@@ -339,7 +339,17 @@ namespace ChampionsOfForest.Player
                 if ((other.gameObject.CompareTag("enemyCollide") || other.gameObject.CompareTag("animalCollide")) && mainTrigger && !enemyDelay && !animControl.smashBool)
                 {
                     ModdedPlayer.instance.DoOnHit();
-
+                    if (ModdedPlayer.instance.MeleeArmorReduction > 0 && other.gameObject.CompareTag("enemyCollide"))
+                    {
+                        if (BoltNetwork.isClient)
+                        {
+                            EnemyProgression.ReduceArmor(playerHitEnemy.Target, ModdedPlayer.instance.MeleeArmorReduction);
+                        }
+                        else
+                        {
+                            other.gameObject.SendMessageUpwards("ReduceArmor", ModdedPlayer.instance.MeleeArmorReduction, SendMessageOptions.DontRequireReceiver);
+                        }
+                    }
                     if (BoltNetwork.isClient && other.gameObject.CompareTag("enemyCollide"))
                     {
                         CoopMutantClientHitPrediction componentInChildren = other.transform.root.gameObject.GetComponentInChildren<CoopMutantClientHitPrediction>();

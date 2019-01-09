@@ -7,9 +7,7 @@ namespace ChampionsOfForest.Player
 {
     public class ArrowDamageMod : ArrowDamage
     {
-
-
-        float BaseDmg;
+        private float BaseDmg;
         protected override void Start()
         {
             BaseDmg = damage;
@@ -26,7 +24,7 @@ namespace ChampionsOfForest.Player
             }
             if (!isTrigger)
             {
-                Molotov componentInParent = ((Component)base.transform).GetComponentInParent<Molotov>();
+                Molotov componentInParent = transform.GetComponentInParent<Molotov>();
                 if ((bool)componentInParent)
                 {
                     componentInParent.IncendiaryBreak();
@@ -62,10 +60,10 @@ namespace ChampionsOfForest.Player
                 disableLive();
                 if (target.CompareTag("Tree") || target.root.CompareTag("Tree"))
                 {
-                    TreeHealth component = ((Component)target).GetComponent<TreeHealth>();
+                    TreeHealth component = target.GetComponent<TreeHealth>();
                     if (!(bool)component)
                     {
-                        component = ((Component)target.root).GetComponent<TreeHealth>();
+                        component = target.root.GetComponent<TreeHealth>();
                     }
                     if ((bool)component)
                     {
@@ -75,17 +73,18 @@ namespace ChampionsOfForest.Player
             }
             else if (target.CompareTag("enemyCollide") || target.tag == "lb_bird" || target.CompareTag("animalCollide") || target.CompareTag("Fish") || target.CompareTag("enemyRoot") || target.CompareTag("animalRoot"))
             {
+
                 bool flag = target.tag == "lb_bird" || target.CompareTag("lb_bird");
                 bool flag2 = target.CompareTag("Fish");
                 bool flag3 = target.CompareTag("animalCollide") || target.CompareTag("animalRoot");
-                arrowStickToTarget arrowStickToTarget = ((Component)target).GetComponent<arrowStickToTarget>();
+                arrowStickToTarget arrowStickToTarget = target.GetComponent<arrowStickToTarget>();
                 if (!(bool)arrowStickToTarget)
                 {
-                    arrowStickToTarget = ((Component)target.root).GetComponentInChildren<arrowStickToTarget>();
+                    arrowStickToTarget = target.root.GetComponentInChildren<arrowStickToTarget>();
                 }
                 if (!spearType && !flintLockAmmoType && !flag2)
                 {
-                    if ((bool)arrowStickToTarget && arrowStickToTarget.enabled)
+                    if (arrowStickToTarget && arrowStickToTarget.enabled)
                     {
                         if (flag)
                         {
@@ -94,7 +93,7 @@ namespace ChampionsOfForest.Player
                         arrowStickToTarget.CreatureType(flag3, flag, flag2);
                         if (BoltNetwork.isRunning)
                         {
-                            if ((bool)at && (bool)at._boltEntity && at._boltEntity.isAttached && at._boltEntity.isOwner)
+                            if (at && at._boltEntity && at._boltEntity.isAttached && at._boltEntity.isOwner)
                             {
                                 headDamage = arrowStickToTarget.stickArrowToNearestBone(base.transform);
                             }
@@ -112,6 +111,23 @@ namespace ChampionsOfForest.Player
                 base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
                 ModdedPlayer.instance.DoOnHit();
+
+                if (ModdedPlayer.instance.RangedArmorReduction > 0 && target.gameObject.CompareTag("enemyCollide"))
+                {
+                    if (BoltNetwork.isClient)
+                    {
+                        BoltEntity be = target.GetComponentInParent<BoltEntity>();
+                        if (be == null) { be = target.GetComponent<BoltEntity>(); }
+                        if (be != null)
+                        {
+                            EnemyProgression.ReduceArmor(be, ModdedPlayer.instance.MeleeArmorReduction);
+                        }
+                    }
+                    else
+                    {
+                        target.transform.SendMessageUpwards("ReduceArmor", ModdedPlayer.instance.MeleeArmorReduction, SendMessageOptions.DontRequireReceiver);
+                    }
+                }
                 if (flag2)
                 {
                     base.StartCoroutine(HitFish(target, hit.point - base.transform.forward * 0.35f));
@@ -122,12 +138,12 @@ namespace ChampionsOfForest.Player
             {
                 if (BoltNetwork.isRunning)
                 {
-                    BoltEntity boltEntity = ((Component)target).GetComponentInParent<BoltEntity>();
+                    BoltEntity boltEntity = target.GetComponentInParent<BoltEntity>();
                     if (!(bool)boltEntity)
                     {
-                        boltEntity = ((Component)target).GetComponent<BoltEntity>();
+                        boltEntity = target.GetComponent<BoltEntity>();
                     }
-                    if ((bool)boltEntity && ModSettings.FriendlyFire)
+                    if (boltEntity && ModSettings.FriendlyFire)
                     {
                         HitPlayer HP = HitPlayer.Create(boltEntity, EntityTargets.Everyone);
                         HP.damage = damage;
@@ -174,11 +190,11 @@ namespace ChampionsOfForest.Player
             {
                 if ((bool)target.transform.parent)
                 {
-                    if ((bool)((Component)target.transform.parent).GetComponent<StickFenceChunkArchitect>())
+                    if ((bool)target.transform.parent.GetComponent<StickFenceChunkArchitect>())
                     {
                         return;
                     }
-                    if ((bool)((Component)target.transform.parent).GetComponent<BoneFenceChunkArchitect>())
+                    if ((bool)target.transform.parent.GetComponent<BoneFenceChunkArchitect>())
                     {
                         return;
                     }
@@ -199,7 +215,7 @@ namespace ChampionsOfForest.Player
             else if (target.CompareTag("CaveDoor"))
             {
                 ignoreTerrain = true;
-                Physics.IgnoreCollision(base.GetComponent<Collider>(), ((Component)Terrain.activeTerrain).GetComponent<Collider>(), true);
+                Physics.IgnoreCollision(base.GetComponent<Collider>(), Terrain.activeTerrain.GetComponent<Collider>(), true);
             }
             else if (flintLockAmmoType && (target.CompareTag("BreakableWood") || target.CompareTag("BreakableRock")))
             {

@@ -1,0 +1,166 @@
+﻿Stats:
+ [id]	name	
+ [1] Strenght
+ [2] Agility
+ [3] Vitality
+ [4] Intelligence
+ [5] Maximum Life
+ [6] Maximum Energy
+ [7] Life Per Second
+ [8] Stamina Per Second
+ [9] Stamina Regen %
+ [10] Life Regen %
+ [11] Damage Reduction %
+ [12] Critical Hit Chance
+ [13] Critical Hit Damage
+ [14] Life on hit
+ [15] Dodge chance
+ [16] Armor
+ [17] Resistance to magic
+ [18] Attack speed
+ [19] Exp %
+ [20] Massacre Duration
+ [21] Spell Damage %
+ [22] Melee Damage %
+ [23] Ranged Damage %
+ [24] Bonus Spell Damage
+ [25] Bonus Melee Damage
+ [26] Bonus Ranged Damage
+ [27] Energy Per Agility
+ [28] Health Per Vitality
+ [29] Spell Damage Per Int
+ [30] Damage Per Strenght
+ [31] All Healing %
+ [32] PERMANENT PERK POINTS
+ [33] PERMANENT EXPERIENCE
+ [34] Movement Speed
+ [35] Melee Weapon Range
+ [36] Attack Cost Reduction
+ [37] Spell Cost Reduction
+ [38] Spell Cost to Stamina
+ [39] Lesser Strenght
+ [40] Lesser Agility
+ [41] Lesser Vitality
+ [42] Lesser Intelligence
+ [43] Lesser Armor
+ [44] Energy Per Second
+ [45] Maximum Life %
+ [46] Maximum Energy %
+ [47] Cooldown Reduction
+ [48] Ranged Damage Per Agi
+ [49] Energy on hit
+ [50] Block
+ [51] Projectile speed
+ [52] Projectile size
+ [53] Melee armor piercing
+ [54] Ranged armor piercing
+ [55] Armor piercing
+ [1000] Extra Sticks
+ [1001] Extra Rocks
+ [2000] BLACK HOLE RADIUS
+ [2001] BLACK HOLE DURATION
+ [2002] BLACK HOLE FORCE
+ [2003] BLACK HOLE DAMAGE
+
+
+ Some item types do not require to have an item for every rarity.
+ One of them are weapons, so they dont drop on the easiest difficulty.
+ You can of course optionally add items of any rarity, even if there already are items for that type and rarity
+
+
+ https://hastebin.com/ovilokaxix.bash
+ for the list of all items in game, and some other info
+
+
+ Missing items:
+ -Shields of rarity 2,4,5,6,7
+ -Offhands(quivers, spell scrolls, or anything else that is held in hand but not used as a weapon) of rarity 0,1,2,3,4,5,6
+ -Helmets of rarity 1,2,3,4,5,7
+ -Boots of rarity 5
+ -Pants of rarity 2,3,4,5,6,7
+ -Shoulder armor of rarity 2,3,4,5,6
+ -Gloves of rarity 2,5,6,7
+ -Bracers of rarity 3,4,5,6,7
+ -Amulets of rarity 2,3,5,6,7
+ -Rings of rarity 2,5,6,7
+
+
+ ------------------------------------------------------------------------------
+ example of a item constructor:
+
+ RARITY 4 RING:
+
+	new BaseItem(new int[][]
+	{
+		new int[] {1,2,3,4,5,6},
+		new int[] {1,2,3,4,5,6},
+		new int[] {16 },
+		new int[] {1,2,3,4,21,22,23,24,25,26,18,16},
+		new int[] {55},
+	}){
+	name = "Piercer",
+	description = "",
+	lore = "",
+	tooltip = "Provides stats and armor piercing",
+	Rarity = 4,
+	minLevel = 11,
+	maxLevel = 15,
+	CanConsume = false,
+	StackSize = 1,
+	_itemType = BaseItem.ItemType.Amulet,
+	icon = Res.ResourceLoader.GetTexture(101),
+	};
+
+
+RARITY 7 CHEST ARMOR:
+
+	new BaseItem(new int[][]
+	{
+		new int[] {47 },
+		new int[] {4,29 },
+		new int[] {4,29 },
+		new int[] {4,29 },
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+		new int[] {4,17,6,44,38,21,24,8,9},
+	}){
+	name = "Mysterious robe",
+	description = "Magic flows through the entirety of this object. It's made out of unknown material",
+	lore = "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine.",
+	tooltip = "???????????",
+	Rarity = 7,
+	minLevel = 70,
+	maxLevel = 75,
+	CanConsume = false,
+	StackSize = 1,
+	_itemType = BaseItem.ItemType.ChestArmor,
+	icon = Res.ResourceLoader.GetTexture(96),
+	};
+
+
+
+RARITY 0 SHOULDER ARMOR
+
+	new BaseItem(new int[][]
+	{
+		new int[] {5,6,7,8,0,0,0},				//inserting stat id multipe times increases the odds of rolling it		
+		new int[] {43},
+	}){
+	name = "Broken Leather Shoulder Armor",
+	description = "",
+	lore = "",
+	tooltip = "Provides usefull stat bonuses",
+	Rarity = 0,
+	minLevel = 1,
+	maxLevel = 3,
+	CanConsume = false,
+	StackSize = 1,
+	_itemType = BaseItem.ItemType.ShoulderArmor,
+	icon = Res.ResourceLoader.GetTexture(95),
+	};
+
+------------------------------------------------------------------------------

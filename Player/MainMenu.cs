@@ -1448,7 +1448,7 @@ namespace ChampionsOfForest
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = buff.Value.BuffName + "!" + "   (" + Math.Round(buff.Value.duration, 1);
+                    string s = buff.Value.BuffName + "   (" + Math.Round(buff.Value.duration, 1)+" s)";
 
                     if (buff.Value.DisplayAmount)
                     {
@@ -1474,11 +1474,11 @@ namespace ChampionsOfForest
                 GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + ModdedPlayer.instance.MaxHealth, HUDStatStyle);
                 GUI.color = Color.white;
 
-                float SquareSize = 50 * rr;
+                float SquareSize = 45 * rr;
                 for (int i = 0; i < SpellCaster.SpellCount; i++)
                 {
                     Rect r = new Rect(
-                        Screen.width / 2f + (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
+                        Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
                         Screen.height - SquareSize,
                         SquareSize,
                         SquareSize
@@ -1515,7 +1515,7 @@ namespace ChampionsOfForest
                 float width = SpellCaster.SpellCount * SquareSize;
                 float height = width * 0.1f;
                 float combatHeight = width * 63 / 1500;
-                Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height, width, height);
+                Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
                 //Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= ProgressBarAmount;
@@ -1758,7 +1758,7 @@ namespace ChampionsOfForest
             catch (Exception ex)
             {
 
-                ModAPI.Log.Write("ERROR: FAILURE IN DRAW HUD METHOD \n " + ex.ToString());
+                ModAPI.Log.Write("Error in DrawHud() \n " + ex.ToString());
             }
         }
 
@@ -1910,8 +1910,7 @@ namespace ChampionsOfForest
                         }
                         catch (Exception ex)
                         {
-                            ModAPI.Log.Write(i + " spell failure   ........ " + ex.ToString());
-
+                            ModAPI.Log.Write(ex.ToString());
                         }
                     }
                 }
@@ -2149,7 +2148,7 @@ namespace ChampionsOfForest
         }
         private void Stat(string statName, string amount, string tooltip = "")
         {
-            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            if (BookPositionY < Screen.height && BookPositionY > -70 * rr)
             {
                 Rect labelRect = new Rect(50 * rr + GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease) - 100 * rr, statStyle.fontSize);
                 GUI.Label(labelRect, statName, statStyle);
@@ -2174,24 +2173,25 @@ namespace ChampionsOfForest
         }
         private void Label(string s)
         {
-            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
+
+            if (BookPositionY < Screen.height && BookPositionY > -h * rr)
             {
-                float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
                 Rect rect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), h);
                 GUI.Label(rect, s, TextLabel);
                 BookPositionY += h;
             }
             else
             {
-                float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * rr);
                 BookPositionY += h;
             }
         }
             private void Image(int iconID, float height, float centerPosition = 0.5f)
         {
-            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            height *= rr;
+            if (BookPositionY < Screen.height && BookPositionY > -height * rr)
             {
-                height *= rr;
+               
                 Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
                 Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
                 {
@@ -2202,7 +2202,7 @@ namespace ChampionsOfForest
             }
             else
             {
-                BookPositionY += height * rr;
+                BookPositionY += height ;
             }
         }
         private void MarkBookmark(string s)
@@ -2306,8 +2306,16 @@ namespace ChampionsOfForest
                 "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
             Stat("Maximum massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " seconds");
             Stat("Massacre duration bonus per kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " seconds");
-            Space(50);
+            Space(300);
 
+            Header("Statistics");
+            Stat("Strenght", ModdedPlayer.instance.strenght + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
+            Stat("Agility", ModdedPlayer.instance.strenght + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
+                "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility+" for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
+            Stat("Vitality", ModdedPlayer.instance.vitality + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality  + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
+            Stat("Intelligence", ModdedPlayer.instance.intelligence + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
+                "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
+            Space(40);
 
 
 
@@ -2318,7 +2326,7 @@ namespace ChampionsOfForest
 
 
             //Image(99, 100);
-            
+
             //GUILayout.Label("HEALTH: " + ModdedPlayer.instance.MaxHealth, header);
             //GUILayout.Label("Base health: 10", label);
             //GUILayout.Label("Bonus from vitality: " + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality, label);
@@ -2528,11 +2536,96 @@ namespace ChampionsOfForest
 
             Hovered = false;
             Buying = false;
+            SelectedPerk = null;
             for (int i = 0; i < DisplayedPerkIDs.Length; i++)
             {
                 DrawPerk(DisplayedPerkIDs[i]);
             }
+            if(SelectedPerk!= null)
+            {
+                Rect r = new Rect(selectedPerk_Rect);
+                Perk p = SelectedPerk;
+                Hovered = true;
+                r.center = SelectedPerk_center;
+                _perkDetailAlpha += Time.unscaledDeltaTime;
+                if (_perkDetailAlpha >= 0.7f)
+                {
+                    GUI.color = new Color(_perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f);
 
+                    Rect Name = new Rect(r.x - 200 * rr, r.y - 130 * rr, 400 * rr + r.width, 90 * rr);
+
+                    GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+
+                    Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
+
+                    string desctext = p.Description;
+
+                    if (!p.IsBought || p.Endless)
+                    {
+                        desctext = "Press to buy\n" + p.Description;
+                        Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
+                        Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
+                        if (p.LevelRequirement > ModdedPlayer.instance.Level)
+                        {
+                            GUI.color = Color.red;
+                        }
+
+                        GUI.Label(LevelReq, "Level " + p.LevelRequirement, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        if (ModdedPlayer.instance.MutationPoints < p.PointsToBuy)
+                        {
+                            GUI.color = Color.red;
+                        }
+                        else
+                        {
+                            GUI.color = Color.white;
+                        }
+
+                        GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        GUI.color = Color.white;
+                        if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[SelectedPerk_ID]) && Perk.AllPerks[SelectedPerk_ID].LevelRequirement <= ModdedPlayer.instance.Level)
+                        {
+                            _timeToBuyPerk += Time.unscaledDeltaTime;
+                            Buying = true;
+                            Rect buyRect = new Rect(0, 1 - _timeToBuyPerk / 2, 1, _timeToBuyPerk / 2);
+                            Rect buyRect2 = new Rect(r);
+                            r.height *= _timeToBuyPerk / 2;
+
+                            GUI.color = SelectedPerk_Color;
+                            if (p.Endless && p.IsBought)
+                            {
+                                Color c = GUI.color;
+                                c.a = 0.5f;
+                                c.r /= 2;
+                                c.g /= 2;
+                                c.b /= 2;
+                                GUI.color = c;
+                            }
+                            GUI.DrawTextureWithTexCoords(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81 + 1), buyRect);
+                            GUI.color = Color.white;
+                            if (_timeToBuyPerk >= 2)
+                            {
+                                if (Perk.AllPerks[SelectedPerk_ID].Endless)
+                                {
+                                    Perk.AllPerks[SelectedPerk_ID].ApplyAmount++;
+                                }
+                                Perk.AllPerks[SelectedPerk_ID].IsBought = true;
+
+                                ModdedPlayer.instance.MutationPoints -= p.PointsToBuy;
+                                Perk.AllPerks[SelectedPerk_ID].ApplyMethods();
+                                Perk.AllPerks[SelectedPerk_ID].Applied = true;
+                                Buying = false;
+                            }
+                        }
+                    }
+                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5,5,(int)(10*rr),10), alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
+                    Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width)+10*rr;
+                    GUI.Label(Desc, desctext, descStyle);
+
+                }
+
+
+                GUI.color = Color.white;
+            }
             if (!Buying)
             {
                 _timeToBuyPerk = 0;
@@ -2605,6 +2698,11 @@ namespace ChampionsOfForest
 
             }
         }
+        Perk SelectedPerk = null;
+        Rect selectedPerk_Rect;
+        Vector2 SelectedPerk_center;
+        int SelectedPerk_ID;
+        private Color SelectedPerk_Color;
 
         private void DrawPerk(int a)
         {
@@ -2681,88 +2779,14 @@ namespace ChampionsOfForest
                 GUI.DrawTexture(r, p.Icon);
 
             }
-            if (r.Contains(mousepos))
+            float distsquared = (mousepos - r.center).sqrMagnitude;
+            if (r.Contains(mousepos) && distsquared < PerkHexagonSide* PerkHexagonSide*0.81f)
             {
-                Hovered = true;
-                r.center = center;
-                _perkDetailAlpha += Time.unscaledDeltaTime;
-                if (_perkDetailAlpha >= 0.7f)
-                {
-                    GUI.color = new Color(_perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f, _perkDetailAlpha - 0.7f);
-
-                    Rect Name = new Rect(r.x - 200 * rr, r.y - 130 * rr, 400 * rr + r.width, 100 * rr);
-
-
-
-                    GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
-
-                    Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
-
-                    string desctext = p.Description;
-
-                    if (!p.IsBought || p.Endless)
-                    {
-                        desctext = "Press to buy\n" + p.Description;
-                        Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
-                        Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
-                        if (p.LevelRequirement > ModdedPlayer.instance.Level)
-                        {
-                            GUI.color = Color.gray;
-                        }
-
-                        GUI.Label(LevelReq, "Level " + p.LevelRequirement, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
-                        if (ModdedPlayer.instance.MutationPoints < p.PointsToBuy)
-                        {
-                            GUI.color = Color.gray;
-                        }
-                        else
-                        {
-                            GUI.color = Color.white;
-                        }
-
-                        GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
-                        GUI.color = Color.white;
-                        if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[a]) && Perk.AllPerks[a].LevelRequirement <= ModdedPlayer.instance.Level)
-                        {
-                            _timeToBuyPerk += Time.unscaledDeltaTime;
-                            Buying = true;
-                            Rect buyRect = new Rect(0, 1 - _timeToBuyPerk / 2, 1, _timeToBuyPerk / 2);
-                            Rect buyRect2 = new Rect(r);
-                            r.height *= _timeToBuyPerk / 2;
-
-                            GUI.color = color;
-                            if (p.Endless && p.IsBought)
-                            {
-                                Color c = GUI.color;
-                                c.a = 0.5f;
-                                c.r /= 2;
-                                c.g /= 2;
-                                c.b /= 2;
-                                GUI.color = c;
-                            }
-                            GUI.DrawTextureWithTexCoords(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81 + 1), buyRect);
-                            GUI.color = Color.white;
-                            if (_timeToBuyPerk >= 2)
-                            {
-                                if (Perk.AllPerks[a].Endless)
-                                {
-                                    Perk.AllPerks[a].ApplyAmount++;
-                                }
-                                Perk.AllPerks[a].IsBought = true;
-
-                                ModdedPlayer.instance.MutationPoints -= p.PointsToBuy;
-                                Perk.AllPerks[a].ApplyMethods();
-                                Perk.AllPerks[a].Applied = true;
-                                Buying = false;
-                            }
-                        }
-                    }
-                    GUI.Label(Desc, desctext, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow });
-                }
-
-
-                GUI.color = Color.white;
-
+                SelectedPerk = p;
+                selectedPerk_Rect = r;
+                SelectedPerk_center = center;
+                SelectedPerk_ID = a;
+                SelectedPerk_Color = color;
             }
 
 

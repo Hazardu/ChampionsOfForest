@@ -111,6 +111,7 @@ namespace ChampionsOfForest
             {
                 //reduce armor
                 int armorreduction = -damage - 50000;
+                ModAPI.Console.Write("Reduced damage from client by  " + armorreduction);
                 progression.ArmorReduction += armorreduction;
                 return;
             }

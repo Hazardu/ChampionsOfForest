@@ -41,7 +41,11 @@ namespace ChampionsOfForest.Player
                     {
                         try
                         {
-                            if (instance == null) instance = this;
+                            if (instance == null)
+                            {
+                                instance = this;
+                            }
+
                             ModAPI.Log.Write("SETUP: Custom weapons");
                             //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
                             //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
@@ -87,12 +91,12 @@ namespace ChampionsOfForest.Player
                             OriginalTreeDmg = itemView._heldWeaponInfo.treeDamage;
                             originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
                             noMesh = new Mesh();
-                            
 
-                                new CustomWeapon(BaseItem.WeaponModelType.LongSword, 51, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainTexture = Res.ResourceLoader.instance.LoadedTextures[60], Metalic = 0.76f, Smoothness = 0.66f }), new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f), new Vector3(0, -90, 0),new Vector3(0.2f, -2.4f, 0), 1.4f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
-                                // new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.3f, MetalicTexture = Res.ResourceLoader.instance.LoadedTextures[59], Smoothness = 0.4f, Metalic = 0.0f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), 2.5f, 1f, 100, 300, 0.2f, 0.15f, 100, false, 1000);
-                                new CustomWeapon(BaseItem.WeaponModelType.GreatSword, 52, BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { OcclusionStrenght = 0.45f, Smoothness = 0.5f, Metalic = 0.4f, MainTexture = Res.ResourceLoader.instance.LoadedTextures[61], EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62], BumpMap = Res.ResourceLoader.instance.LoadedTextures[64], HeightMap = Res.ResourceLoader.instance.LoadedTextures[65], Occlusion = Res.ResourceLoader.instance.LoadedTextures[66] }), new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f), new Vector3(180, 180, 90), new Vector3(0, 0, -3.6f), 2.5f, 1f, 100, 300, 0.01f, 0.001f, 85, true, 5);
-                       
+                            //Creating custom weapons---------
+                            CreateCustomWeapons();
+
+
+
                         }
                         catch (System.Exception eee)
                         {
@@ -113,7 +117,7 @@ namespace ChampionsOfForest.Player
                             }
                             CustomWeapon cw = customWeapons[ToEquipWeaponType];
                             cw.obj.SetActive(true);
-                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed*cw.swingspeed;
+                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed * cw.swingspeed;
                             itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.triedswingspeed;
                             itemView._heldWeaponInfo.smashDamage = cw.smashDamage;
                             itemView._heldWeaponInfo.weaponDamage = cw.damage;
@@ -179,22 +183,23 @@ namespace ChampionsOfForest.Player
                     Debug.Log("Firing " + itemCache._name + " with '" + inventoryItemView.ActiveBonus + "' ammo (alt=" + UseAltWorldPrefab + ")");
                 }
                 GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, inventoryItemView2._held.transform.position, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
+                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
                 if ((bool)gameObject.GetComponent<Rigidbody>())
                 {
                     if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
                     {
-                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime)* ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
                     }
                     else
                     {
                         float num = Time.time - _weaponChargeStartTime;
                         if (ForestVR.Enabled)
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * itemCache._projectileThrowForceRange);
+                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
                         }
                         else
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange);
+                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange);
                         }
                         if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
                         {
@@ -239,13 +244,13 @@ namespace ChampionsOfForest.Player
             base.ThrowProjectile();
         }
 
-      
+
 
         public override void Attack()
         {
             if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
             {
-                if(EquippedModel != BaseItem.WeaponModelType.None&&customWeapons.ContainsKey(EquippedModel))
+                if (EquippedModel != BaseItem.WeaponModelType.None && customWeapons.ContainsKey(EquippedModel))
                 {
                     customWeapons[EquippedModel].EnableTrail();
                 }
@@ -253,6 +258,46 @@ namespace ChampionsOfForest.Player
             base.Attack();
         }
 
-     
+
+        public void CreateCustomWeapons()
+        {
+            //long sword
+            new CustomWeapon(BaseItem.WeaponModelType.LongSword,
+                    51,
+                    BuilderCore.Core.CreateMaterial(
+                        new BuilderCore.BuildingData()
+                        {
+                            MainTexture = Res.ResourceLoader.instance.LoadedTextures[60],
+                            Metalic = 0.86f,
+                            Smoothness = 0.66f
+                        }
+                        ),
+                    new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f),
+                    new Vector3(0, -90, 0),
+                    new Vector3(0.2f, -2.4f, 0),
+                    1.4f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
+
+
+            //great sword
+            new CustomWeapon(BaseItem.WeaponModelType.GreatSword,
+                52,
+                BuilderCore.Core.CreateMaterial(
+                    new BuilderCore.BuildingData()
+                    {
+                        OcclusionStrenght = 0.75f,
+                        Smoothness = 0.6f,
+                        Metalic = 0.6f,
+                        MainTexture = Res.ResourceLoader.instance.LoadedTextures[61],
+                        EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62],
+                        BumpMap = Res.ResourceLoader.instance.LoadedTextures[64],
+                        HeightMap = Res.ResourceLoader.instance.LoadedTextures[65],
+                        Occlusion = Res.ResourceLoader.instance.LoadedTextures[66]
+                    }
+                    ),
+                new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
+                new Vector3(180, 180, 90),
+                new Vector3(0, 0, -3.6f),
+                2.5f, 1f, 100, 300, 0.01f, 0.001f, 85, true, 5);
+        }
     }
 }

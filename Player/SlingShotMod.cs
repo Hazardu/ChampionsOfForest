@@ -17,6 +17,7 @@ namespace ChampionsOfForest.Player
                     rotation = _ammoSpawnPosVR.transform.rotation;
                 }
                 GameObject gameObject = Object.Instantiate(_Ammo, position, rotation);
+                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
                 Rigidbody component = gameObject.GetComponent<Rigidbody>();
                 rockSound component2 = gameObject.GetComponent<rockSound>();
                 if ((bool)component2)
@@ -51,7 +52,7 @@ namespace ChampionsOfForest.Player
                 {
                     forward = _ammoSpawnPosVR.transform.forward;
                 }
-                component.AddForce(4000f * (0.016666f / Time.fixedDeltaTime) * forward);
+                component.AddForce(4000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forward);
             }
 
         }

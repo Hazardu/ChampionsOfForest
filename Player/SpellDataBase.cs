@@ -48,12 +48,38 @@ namespace ChampionsOfForest.Player
     public static class SpellActions
     {
         public static float BlinkRange = 15;
+        public static float BlinkDamage = 0;
         public static void DoBlink()
         {
 
             RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, BlinkRange);
             foreach (RaycastHit hit in hits)
             {
+                if(BlinkDamage!= 0)
+                {
+                    if (hit.transform.root.CompareTag("enemyCollide"))
+                    {
+                        float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus/5;
+                        dmg *= ModdedPlayer.instance.SpellAMP;
+                        int dmgInt = Mathf.RoundToInt(dmg);
+                        if (GameSetup.IsMpClient)
+                        {
+                            BoltEntity enemyEntity = hit.transform.root.GetComponent<BoltEntity>();
+                            if (enemyEntity == null) enemyEntity = hit.transform.root.GetComponentInChildren<BoltEntity>();
+                            if (enemyEntity != null) {
+                                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
+                                playerHitEnemy.hitFallDown = true;
+                                playerHitEnemy.Hit = dmgInt;
+                                playerHitEnemy.Send();
+
+                        }
+                        }
+                        else
+                        {
+                            hit.transform.SendMessageUpwards("Hit", dmgInt, SendMessageOptions.DontRequireReceiver);
+                        }
+                    }
+                }
                 if (hit.transform.root != LocalPlayer.Transform.root && Vector3.Distance(hit.point, LocalPlayer.Transform.position) > 4)
                 {
                     int tries=0;
@@ -134,7 +160,7 @@ namespace ChampionsOfForest.Player
         public static float BLACKHOLE_pullforce = 10;
         public static void CreatePlayerBlackHole()
         {
-            float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP;
+            float damage = ((BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus)/7) * ModdedPlayer.instance.SpellAMP;
             RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 100);
             for (int i = 0; i < hits.Length; i++)
             {

@@ -172,10 +172,6 @@ namespace ChampionsOfForest
                 PickUps[id].Remove();
                 PickUps.Remove(id);
             }
-            else
-            {
-                ModAPI.Log.Write("Item desync happened, no item with given id present in the dictionary");
-            }
         }
     }
 }
