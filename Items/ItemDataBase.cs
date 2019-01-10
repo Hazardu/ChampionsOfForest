@@ -225,6 +225,102 @@ namespace ChampionsOfForest
             return item;
 
         }
+        public static bool AllowItemDrop(int i,int averageLevel, EnemyProgression.Enemy e)
+        {
+           if( ItemBases[i].minLevel<= averageLevel + 5)
+            {
+                if(ItemBases[i].LootsFrom.Contains(e))
+                return true;
+            }
+            return false;
+        }
+
+        public static Item GetRandomItem(float Worth,EnemyProgression.Enemy killedEnemyType)
+        {
+
+            //this needs to be changed to take random value of average of all player levels - and exclude the level of dedicated server.
+            int averageLevel = 1;
+            if (GameSetup.IsMultiplayer)
+            {
+                int sum = 0;
+                foreach (int a in ModReferences.PlayerLevels.Values)
+                {
+                    sum += a;
+                }
+                sum /= ModReferences.PlayerLevels.Values.Count;
+                averageLevel = sum;
+            }
+            else
+            {
+                averageLevel = ModdedPlayer.instance.Level;
+            }
+            float w = Worth / averageLevel;
+            int rarity = 0;
+
+            if (w > 200 && Random.value < 0.80f)
+            {
+                rarity = 1;
+
+                if (w > 350 && Random.value < 0.60f && (int)ModSettings.difficulty > 0)
+                {
+                    rarity = 2;
+
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1)
+                    {
+                        rarity = 3;
+
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2)
+                        {
+                            rarity = 4;
+
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3)
+                            {
+                                rarity = 5;
+
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4)
+                                {
+                                    rarity = 6;
+
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5)
+                                    {
+                                        rarity = 7;
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            int increasedLvl = 0;
+            while (!ItemRarityGroups.ContainsKey(rarity) && rarity > 0)
+            {
+                increasedLvl += 2;
+                rarity--;
+            }
+
+            int[] itemPool = null;
+            while (itemPool == null)
+            {
+                itemPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i,averageLevel,killedEnemyType))).ToArray();
+                if (itemPool.Length == 0)
+                {
+                    rarity--;
+                    itemPool = null;
+                }
+
+            }
+
+            int randomID = Random.Range(0, itemPool.Length);
+
+            Item item = new Item(ItemBases[itemPool[randomID]], 1, increasedLvl);
+
+
+            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 3, averageLevel + 5));
+            item.RollStats();
+            return item;
+
+        }
 
         public static void FillStats()
         {
@@ -432,8 +528,10 @@ namespace ChampionsOfForest
                {
                new int[] {25,22 },
                new int[] {11,1,3,17 },
+               new int[] {11,1,3,17 },
                new int[] {11,1 },
                new int[] {1, },
+               new int[] {5,6,16,31,7,8,9,10 },
                new int[] {5,6,16,31,7,8,9,10 },
                })
                 {
@@ -448,7 +546,7 @@ namespace ChampionsOfForest
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.Boot,
                     icon = Res.ResourceLoader.GetTexture(85),
-                };
+                }.DropSettings_OnlyArmsy();
                 new BaseItem(new int[][]
           {
                 new int[] {42,0 },
@@ -1632,6 +1730,540 @@ namespace ChampionsOfForest
                 _itemType = BaseItem.ItemType.Ring,
                 icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
             };
+
+            //Golden Lockets---------------------------------------------------------------------
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {20,0,0,0}
+            })
+            {
+                name = "Golden Locket of Strength",
+                description = "A Locket of ancient times.",
+                lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 15,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {45,0,0,0}
+            })
+            {
+                name = "Golden Locket of Vitality",
+                description = "A Locket of ancient times.",
+                lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 15,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {12,13,51,52},
+            new int[] {12,13,51,52,0},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {6,0,0,0}
+            })
+            {
+                name = "Golden Locket of Agility",
+                description = "A Locket of ancient times.",
+                lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 15,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {4},
+            new int[] {6},
+            new int[] {12,13,21,24},
+            new int[] {12,13,21,24,0},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38,0},
+            new int[] {29,37,38,0}
+            })
+            {
+                name = "Golden Locket of Intelligence",
+                description = "A Locket of ancient times.",
+                lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 15,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+
+            //Silver Lockets---------------------------------------------------------------------------
+
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {20,0,0,0}
+            })
+            {
+                name = "Silver Locket of Strength",
+                description = "A Locket of ancient times.",
+                lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {45,0,0,0}
+            })
+            {
+                name = "Silver Locket of Vitality",
+                description = "A Locket of ancient times.",
+                lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {12,13,51,52},
+            new int[] {12,13,51,52,0},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {6,0,0,0}
+            })
+            {
+                name = "Silver Locket of Agility",
+                description = "A Locket of ancient times.",
+                lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {4},
+            new int[] {6},
+            new int[] {12,13,21,24},
+            new int[] {12,13,21,24,0},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38,0},
+            new int[] {29,37,38,0}
+            })
+            {
+                name = "Silver Locket of Intelligence",
+                description = "A Locket of ancient times.",
+                lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Lockets give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+
+            // Emerald Pendant-----------------------------------------------------------
+
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {20,0,0,0}
+            })
+            {
+                name = "Emerald Pendant of Strength",
+                description = "A Pendant of ancient times.",
+                lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 30,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {45,0,0,0}
+            })
+            {
+                name = "Emerald Pendant of Vitality",
+                description = "A Pendant of ancient times.",
+                lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 30,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {12,13,51,52},
+            new int[] {12,13,51,52,0},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {6,0,0,0}
+            })
+            {
+                name = "Emerald Pendant of Agility",
+                description = "A Pendant of ancient times.",
+                lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 30,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {4},
+            new int[] {6},
+            new int[] {12,13,21,24},
+            new int[] {12,13,21,24,0},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38,0},
+            new int[] {29,37,38,0}
+            })
+            {
+                name = "Emerald Pendant of Intelligence",
+                description = "A Pendant of ancient times.",
+                lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 30,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+
+            // Diamond Pendant-----------------------------------------------------------
+
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {20,0,0,0}
+            })
+            {
+                name = "Diamond Pendant of Strength",
+                description = "A Pendant of ancient times.",
+                lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 45,
+                maxLevel = 60,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {45,0,0,0}
+            })
+            {
+                name = "Diamond Pendant of Vitality",
+                description = "A Pendant of ancient times.",
+                lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 45,
+                maxLevel = 60,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {12,13,51,52},
+            new int[] {12,13,51,52,0},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {6,0,0,0}
+            })
+            {
+                name = "Diamond Pendant of Agility",
+                description = "A Pendant of ancient times.",
+                lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 45,
+                maxLevel = 60,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+            new int[] {4},
+            new int[] {6},
+            new int[] {12,13,21,24},
+            new int[] {12,13,21,24,0},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38,0},
+            new int[] {29,37,38,0}
+            })
+            {
+                name = "Diamond Pendant of Intelligence",
+                description = "A Pendant of ancient times.",
+                lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 45,
+                maxLevel = 60,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            };
+
+
+            //Rare Amulets -----------------------------------------------------------------------------------------
+
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {32,33},
+            new int[] {20,0}
+            })
+            {
+                name = "Armsy Finger Necklace",
+                description = "A Necklace decorated with armsy fingertips.",
+                lore = "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh.",
+                tooltip = "Necklaces give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 40,
+                maxLevel = 60,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            }.DropSettings_OnlyArmsy();
+
+            new BaseItem(new int[][]
+            {
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {32,33},
+            new int[] {45,0}
+            })
+            {
+                name = "Virginia Heart Pendant",
+                description = "A Pendant of a petrified Virginia heart.",
+                lore = "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality.",
+                tooltip = "Pendants give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 20,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            }.DropSettings_OnlyVags();
+
+            new BaseItem(new int[][]
+            {
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {12,13,51,52},
+            new int[] {12,13,51,52,0},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {32,33},
+            new int[] {6,0}
+            })
+            {
+                name = "Cowman Toe Necklace",
+                description = "A Necklace decorated with cowman toes.",
+                lore = "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility.",
+                tooltip = "Necklaces give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 20,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            }.DropSettings_OnlyCow();
+
+            new BaseItem(new int[][]
+            {
+            new int[] {4},
+            new int[] {6},
+            new int[] {12,13,21,24},
+            new int[] {12,13,21,24,0},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38},
+            new int[] {29,37,38,0},
+            new int[] {32,33}
+            })
+            {
+                name = "Babyhead Pendant",
+                description = "A Pendant of a shrunken babyhead.",
+                lore = "A Pendant made from a shrunken babyhead, yeilding it's intellectual potential and imagination.",
+                tooltip = "Necklaces give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 30,
+                maxLevel = 50,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Amulet,
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+            }.DropSettings_OnlyBaby();
+
+
+            //Boss drop Amulet----------------------------------------------------------------------------------------
+
+
+            new BaseItem(new int[][]
+            {
+            new int[] {1},
+            new int[] {12,13},
+            new int[] {22,25,30,},
+            new int[] {35,50,53,0},
+            new int[] {20,0},
+            new int[] {3},
+            new int[] {5,28},
+            new int[] {7,10,31},
+            new int[] {11,17,0},
+            new int[] {14,16,0},
+            new int[] {45,0},
+            new int[] {2},
+            new int[] {8,9,27},
+            new int[] {51,52},
+            new int[] {15,18,34,36,0},
+            new int[] {23,48,54,26},
+            new int[] {4},
+            new int[] {6},
+            new int[] {21,24},
+            new int[] {19,47,49,0},
+            new int[] {29,37,38,0},
+            })
+            {
+                name = "Megan's Locket",
+                description = "The Locket Megan wore.",
+                lore = "Megan wore this Locket, it has a picture of her mom in it.",
+                tooltip = "lockets give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 55,
+                maxLevel = 80,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            }.DropSettings_OnlyMegan();
+
+
+
+
+
         }
     }
 }

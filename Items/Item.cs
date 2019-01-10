@@ -37,6 +37,7 @@ namespace ChampionsOfForest
             base.onConsume = b.onConsume;
             base.CanConsume = b.CanConsume;
             base.weaponModel = b.weaponModel;
+            base.LootsFrom = b.LootsFrom;
             Amount = amount;
             Equipped = false;
             Stats = new List<ItemStat>();

@@ -18,7 +18,8 @@ namespace ChampionsOfForest
         public float SteadFest;
         public int[] Affixes;
         public float creationTime;
-
+        
+        
 
         public ClinetEnemyProgression(Transform tr)
         {

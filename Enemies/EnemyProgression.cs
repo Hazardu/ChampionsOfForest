@@ -131,6 +131,10 @@ namespace ChampionsOfForest
         public float CreationTime;
         public float FireDmgAmp;
 
+        public enum Enemy {RegularArmsy,PaleArmsy,RegularVags,PaleVags,Cowman,Baby,Girl,Worm,Megan,NormalMale,NormalLeaderMale,NormalFemale,NormalSkinnyMale,NormalSkinnyFemale,PaleMale,PaleSkinnyMale,PaleSkinnedMale,PaleSkinnedSkinnyMale,PaintedMale,PaintedLeaderMale,PaintedFemale,Fireman };
+        public Enemy enemyType;
+
+
         private void RollName()
         {
             List<string> names = new List<string>();
@@ -966,7 +970,7 @@ namespace ChampionsOfForest
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty), transform.position + Vector3.up * 2);
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty,enemyType), transform.position + Vector3.up * 3);
                     }
                 }
                 if (BoltNetwork.isRunning)

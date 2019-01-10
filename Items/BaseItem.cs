@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -14,12 +12,12 @@ namespace ChampionsOfForest
 
 
         public List<List<ItemStat>> PossibleStats;
-        public int Rarity =0;                  //rarity to display in different color
-        public int ID =0;                      //the id of an item
-        public int StackSize =1;               //how many items can be placed in one item slot?
+        public int Rarity = 0;                  //rarity to display in different color
+        public int ID = 0;                      //the id of an item
+        public int StackSize = 1;               //how many items can be placed in one item slot?
         public bool CanConsume = false;             //can you eat this bad boy?
         public ItemType _itemType = ItemType.Weapon;          //determines on which inv slot can this item be placed in
-        public enum WeaponModelType {None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Helberd, Gauntlet, Staff, Dagger, Boomerang };
+        public enum WeaponModelType { None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Helberd, Gauntlet, Staff, Dagger, Boomerang };
         public WeaponModelType weaponModel = WeaponModelType.None;
         public OnItemEquip onEquip;
         public OnItemUnequip onUnequip;
@@ -28,11 +26,16 @@ namespace ChampionsOfForest
         public string description;          //what is this item basically
         public string lore;                 //some cool story to make this item have any sense, or a place for a joke
         public string tooltip;              //what should be displayed in the tooltip of this item
-        public int level =1;                   //level of this item
-        public int minLevel =1;
-        public int maxLevel= 1;
+        public int level = 1;                   //level of this item
+        public int minLevel = 1;
+        public int maxLevel = 1;
         public Texture2D icon;              //icon of this item
         public bool PickUpAll = true;              //should the item be picked one by one, or grab all at once
+
+        //Drop settings
+        public List<EnemyProgression.Enemy> LootsFrom;
+
+
 
         public BaseItem()
         {
@@ -79,11 +82,11 @@ namespace ChampionsOfForest
             this.tooltip = tooltip;
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
-
+            LootsFromAssignDefault();
             ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
-        public BaseItem(int[][] possibleStats, int rarity,  int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+        public BaseItem(int[][] possibleStats, int rarity, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
         {
             PossibleStats = new List<List<ItemStat>>();
             foreach (int[] a in possibleStats)
@@ -113,6 +116,7 @@ namespace ChampionsOfForest
             this.tooltip = tooltip;
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
+            LootsFromAssignDefault();
             ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
@@ -147,9 +151,72 @@ namespace ChampionsOfForest
             this.tooltip = tooltip;
             this.minLevel = minlevel;
             this.maxLevel = maxlevel;
+            LootsFromAssignDefault();
             ItemDataBase._Item_Bases.Add(this);
             icon = texture;
         }
+
+        /// <summary>
+        /// set to this by default
+        /// </summary>
+        private void LootsFromAssignDefault()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy,EnemyProgression.Enemy.RegularVags,EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.Cowman,EnemyProgression.Enemy.Baby,EnemyProgression.Enemy.Girl,EnemyProgression.Enemy.Worm,EnemyProgression.Enemy.Megan,EnemyProgression.Enemy.NormalMale,EnemyProgression.Enemy.NormalLeaderMale,EnemyProgression.Enemy.NormalFemale,EnemyProgression.Enemy.NormalSkinnyMale,EnemyProgression.Enemy.NormalSkinnyFemale,EnemyProgression.Enemy.PaleMale,EnemyProgression.Enemy.PaleSkinnyMale,EnemyProgression.Enemy.PaleSkinnedMale,EnemyProgression.Enemy.PaleSkinnedSkinnyMale,EnemyProgression.Enemy.PaintedMale,EnemyProgression.Enemy.PaintedLeaderMale,EnemyProgression.Enemy.PaintedFemale,EnemyProgression.Enemy.Fireman
+            };
+        }
+
+        public void DropSettings_OnlyArmsy()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy
+            };
+        }
+        public void DropSettings_OnlyVags()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.RegularVags
+            };
+        }
+        public void DropSettings_OnlyCow()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.Cowman,
+            };
+        }
+        public void DropSettings_OnlyBaby()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.Baby
+            };
+        }
+        public void DropSettings_OnlyMegan()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.Megan
+            };
+        }
+        public void DropSettings_OnlyCreepy()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy,EnemyProgression.Enemy.RegularVags,EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.Cowman,EnemyProgression.Enemy.Baby,EnemyProgression.Enemy.Girl,EnemyProgression.Enemy.Worm,EnemyProgression.Enemy.Megan
+            };
+        }
+         public void DropSettings_OnlyCannibals()
+        {
+            LootsFrom = new List<EnemyProgression.Enemy>()
+            {
+                EnemyProgression.Enemy.NormalMale,EnemyProgression.Enemy.NormalLeaderMale,EnemyProgression.Enemy.NormalFemale,EnemyProgression.Enemy.NormalSkinnyMale,EnemyProgression.Enemy.NormalSkinnyFemale,EnemyProgression.Enemy.PaleMale,EnemyProgression.Enemy.PaleSkinnyMale,EnemyProgression.Enemy.PaleSkinnedMale,EnemyProgression.Enemy.PaleSkinnedSkinnyMale,EnemyProgression.Enemy.PaintedMale,EnemyProgression.Enemy.PaintedLeaderMale,EnemyProgression.Enemy.PaintedFemale,EnemyProgression.Enemy.Fireman
+            };
+        }
     }
+
 }
 
