@@ -131,7 +131,7 @@ namespace ChampionsOfForest
         public float CreationTime;
         public float FireDmgAmp;
 
-        public enum Enemy {RegularArmsy,PaleArmsy,RegularVags,PaleVags,Cowman,Baby,Girl,Worm,Megan,NormalMale,NormalLeaderMale,NormalFemale,NormalSkinnyMale,NormalSkinnyFemale,PaleMale,PaleSkinnyMale,PaleSkinnedMale,PaleSkinnedSkinnyMale,PaintedMale,PaintedLeaderMale,PaintedFemale,Fireman };
+        public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         public Enemy enemyType;
 
 
@@ -180,8 +180,11 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    if(entity == null)
-                    entity = transform.root.GetComponentInChildren<BoltEntity>();
+                    if (entity == null)
+                    {
+                        entity = transform.root.GetComponentInChildren<BoltEntity>();
+                    }
+
                     if (entity == null)
                     {
                         entity = _Health.entity;
@@ -208,7 +211,7 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write(ex.ToString());
             }
 
-            if(BaseHealth == 0)
+            if (BaseHealth == 0)
             {
                 BaseHealth = _Health.Health;
             }
@@ -227,10 +230,13 @@ namespace ChampionsOfForest
             slows = new Dictionary<int, SlowDebuff>();
             SteadFest = 1000;
             abilities = new List<Abilities>();
-            if (UnityEngine.Random.value < 0.1)
+            if (UnityEngine.Random.value < 0.1 || _AI.creepy_boss)
             {
                 int count = UnityEngine.Random.Range(2, 7);
-
+                if (_AI.creepy_boss)
+                {
+                    count = 10;
+                }
 
                 int i = 0;
                 Array arr = Enum.GetValues(typeof(Abilities));
@@ -239,6 +245,13 @@ namespace ChampionsOfForest
                 if (count > 6 && Random.value < 0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
                 else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadFest); type = EnemyType.Miniboss; }
                 else { type = EnemyType.Elite; }
+
+                if (_AI.creepy_boss)
+                {
+                    abilities.Clear();
+                    type = EnemyType.Boss;
+                    abilities.Add(Abilities.BossSteadFest);
+                }
 
                 while (i < count)
                 {
@@ -258,7 +271,7 @@ namespace ChampionsOfForest
                             success = false;
                         }
                     }
-                    else if (ab == Abilities.DoubleLife && !(_AI.creepy || _AI.creepy_boss || _AI.creepy_fat || _AI.creepy_male))
+                    else if (ab == Abilities.DoubleLife && !(_AI.creepy || _AI.creepy_fat))
                     {
                         success = false;
 
@@ -279,10 +292,12 @@ namespace ChampionsOfForest
             {
                 type = EnemyType.Normal;
             }
+            AssignEnemyType();
             float lvlMult = 1;
             if (_AI.creepy || _AI.creepy_fat || _AI.creepy_male)
             {
                 lvlMult = 2.6f;
+
             }
             else if (_AI.creepy_baby)
             {
@@ -348,8 +363,8 @@ namespace ChampionsOfForest
                     break;
             }
             Level = Mathf.CeilToInt(Level * lvlMult);
-            DamageMult = (float)Level / 4.5f + 0.55f;
-            Armor = Mathf.FloorToInt(Random.Range(Level * Level*0.5f, Level * Level * 1.1f));
+            DamageMult = Level / 4.5f + 0.55f;
+            Armor = Mathf.FloorToInt(Random.Range(Level * Level * 0.5f, Level * Level * 1.1f));
 
 
             ArmorReduction = 0;
@@ -481,9 +496,9 @@ namespace ChampionsOfForest
                 default:
                     break;
             }
-            
+
             SteadFestCap = Mathf.RoundToInt(SteadFest * 0.01f * MaxHealth);
-            
+
             if (SteadFestCap < 1)
             {
                 SteadFestCap = 1;
@@ -830,7 +845,8 @@ namespace ChampionsOfForest
             {
                 EnemyManager.hostDictionary[target.networkId.PackedValue].ArmorReduction += amount;
             }
-        }  public static void ReduceArmor(EnemyProgression target, int amount)
+        }
+        public static void ReduceArmor(EnemyProgression target, int amount)
         {
             target.ArmorReduction += amount;
         }
@@ -902,13 +918,13 @@ namespace ChampionsOfForest
                 return damage;
             }
 
-            float reduction =ModReferences.DamageReduction(Mathf.Clamp(Armor-ArmorReduction,0,int.MaxValue));
+            float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
 
             //reduction = Mathf.Clamp01(reduction);
             int dmg = Mathf.CeilToInt(damage * (1 - reduction));
             dmg = Mathf.Min(dmg, SteadFestCap);
 
-            ModAPI.Console.Write("reducted damage "+Armor+" - "+ArmorReduction+" -------->" + damage + " * " + reduction + " --> " + dmg);
+            ModAPI.Console.Write("reducted damage " + Armor + " - " + ArmorReduction + " -------->" + damage + " * " + reduction + " --> " + dmg);
 
             return dmg;
 
@@ -920,7 +936,11 @@ namespace ChampionsOfForest
         {
             try
             {
-                if (_Health.Health > 1) return false;
+                if (_Health.Health > 1)
+                {
+                    return false;
+                }
+
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -957,7 +977,7 @@ namespace ChampionsOfForest
                 {
                     return true;
                 }
-                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 3)
+                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
                 {
                     int itemCount = Random.Range(1, 4);
                     if (_AI.creepy_boss)
@@ -970,7 +990,13 @@ namespace ChampionsOfForest
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty,enemyType), transform.position + Vector3.up * 3);
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+                    }
+                    if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
+                    {
+                        //Drop megan only amulet
+                        //Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+
                     }
                 }
                 if (BoltNetwork.isRunning)
@@ -991,6 +1017,31 @@ namespace ChampionsOfForest
             return true;
 
         }
+
+        private void AssignEnemyType()
+        {
+            if (_AI.creepy && _AI.pale) { enemyType = Enemy.PaleVags; }
+            else if (_AI.creepy && !_AI.pale) { enemyType = Enemy.RegularVags; }
+            else if (_AI.creepy_male && _AI.pale) { enemyType = Enemy.PaleArmsy; }
+            else if (_AI.creepy_male && !_AI.pale) { enemyType = Enemy.RegularArmsy; }
+            else if (_AI.creepy_fat) { enemyType = Enemy.Cowman; }
+            else if (_AI.creepy_baby) { enemyType = Enemy.Baby; }
+            else if (_AI.creepy_boss) { enemyType = Enemy.Megan; }
+            else if (_AI.female && !_AI.pale && !_AI.painted) { enemyType = Enemy.NormalFemale; }
+            else if (_AI.femaleSkinny && !_AI.pale && !_AI.painted) { enemyType = Enemy.NormalSkinnyFemale; }
+            else if (_AI.female && !_AI.pale && _AI.painted) { enemyType = Enemy.PaintedFemale; }
+            else if (_AI.fireman) { enemyType = Enemy.Fireman; }
+            else if (_AI.male && !_AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.NormalMale; }
+            else if (_AI.maleSkinny && !_AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.NormalSkinnyMale; }
+            else if (_AI.male && !_AI.pale && !_AI.painted && _AI.leader && !_AI.skinned) { enemyType = Enemy.NormalLeaderMale; }
+            else if (_AI.male && !_AI.pale && _AI.painted && _AI.leader && !_AI.skinned) { enemyType = Enemy.PaintedLeaderMale; }
+            else if (_AI.male && !_AI.pale && _AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaintedMale; }
+            else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleSkinnyMale; }
+            else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedSkinnyMale; }
+            else if (_AI.male && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleMale; }
+            else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedMale; }
+        }
+
 
         private void ReanimateMe()
         {
