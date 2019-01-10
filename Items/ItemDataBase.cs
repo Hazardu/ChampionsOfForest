@@ -84,7 +84,7 @@ namespace ChampionsOfForest
             {
                 ItemStat[] stats = statList.Where(a => a.Rarity == i).ToArray();
                 s += " • Rarity tier of stat[" + i + "] =  " + stats.Length;
-                foreach (var a in stats)
+                foreach (ItemStat a in stats)
                 {
                     s += "\n\t • Stat \"" + a.Name + "  ID [" + a.StatID + "]\"";
                 }
@@ -95,7 +95,7 @@ namespace ChampionsOfForest
             {
                 BaseItem[] items = _Item_Bases.Where(a => a.Rarity == i).ToArray();
                 s += " • Rarity tier of item [" + i + "] =  " + items.Length;
-                foreach (var a in items)
+                foreach (BaseItem a in items)
                 {
                     s += "\n\t • Item \"" + a.name + "    ID [" + a.ID + "]\"";
                 }
@@ -103,23 +103,23 @@ namespace ChampionsOfForest
             }
 
             s += "\n\n\nItem types:";
-            var array = System.Enum.GetValues(typeof(BaseItem.ItemType));
+            System.Array array = System.Enum.GetValues(typeof(BaseItem.ItemType));
             for (int i = 0; i < array.Length; i++)
             {
                 BaseItem.ItemType t = (BaseItem.ItemType)array.GetValue(i);
                 BaseItem[] items = _Item_Bases.Where(a => a._itemType == t).ToArray();
-                
-                s += "\n • Item type: [" + t.ToString() + "] = "+ items.Length;
-                for (int b = 0; b< 8; b++)
-                    {
-                    BaseItem[] items2 = items.Where(a => a.Rarity == b).ToArray();
-                        s += "\n\t\t • RARITY "+b+" \"" + items2.Length +"\"";
-                }
-                
-                foreach (var a in items)
+
+                s += "\n • Item type: [" + t.ToString() + "] = " + items.Length;
+                for (int b = 0; b < 8; b++)
                 {
-                   
-                    s += "\n\t • Item \"" + a.name + "    ID ["+a.ID+ "]    RARITY [" + a.Rarity + "]\"";
+                    BaseItem[] items2 = items.Where(a => a.Rarity == b).ToArray();
+                    s += "\n\t\t • RARITY " + b + " \"" + items2.Length + "\"";
+                }
+
+                foreach (BaseItem a in items)
+                {
+
+                    s += "\n\t • Item \"" + a.name + "    ID [" + a.ID + "]    RARITY [" + a.Rarity + "]\"";
                 }
                 s += "\n";
             }
@@ -1282,32 +1282,356 @@ namespace ChampionsOfForest
                     _itemType = BaseItem.ItemType.Amulet,
                     icon = Res.ResourceLoader.GetTexture(101),
                 };
-                new BaseItem(new int[][]
-                {
-                new int[] {21 },
-                new int[] {34,0,40,41 },
-                new int[] {43,0 },
-                new int[] {35,0 },
-                })
-                {
-                    name = "Moon Boots",
-                    description = "A pair of boots from the moon.",
-                    lore = "It is said that the wearer will not take fall damage while wearing these boots, I wouldn't trust it tough.",
-                    tooltip = "Shoes can provide movement speed bonuses.",
-                    Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
-                    minLevel = 1,
-                    maxLevel = 200,
-                    CanConsume = false,
-                    StackSize = 1,     //stacking in inventory like in mc, one means single item
-                    _itemType = BaseItem.ItemType.Boot,
-                    icon = Res.ResourceLoader.GetTexture(85), //icon ids, dont worry about that
-                };
+                FillKaspitoItems();
+
             }
             catch (System.Exception e)
             {
 
                 ModAPI.Log.Write(e.ToString());
             }
+        }
+
+        //Items added by Kaspito
+        private static void FillKaspitoItems()
+        {
+            new BaseItem(new int[][]
+                {
+                new int[] {21 },
+                new int[] {34,0,40,41 },
+                new int[] {43,0 },
+                new int[] {35,0 },
+                })
+            {
+                name = "Moon Boots",
+                description = "A pair of boots from the moon.",
+                lore = "It is said that the wearer will not take fall damage while wearing these boots, I wouldn't trust it tough.",
+                tooltip = "Shoes can provide movement speed bonuses.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 1,
+                maxLevel = 200,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Boot,
+                icon = Res.ResourceLoader.GetTexture(85), //icon ids, dont worry about that
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {1},
+                new int[] {12,13},
+                new int[] {22,25,30,},
+                new int[] {35,50,53,0},
+                new int[] {20,0,0,0}
+            })
+            {
+                name = "Golden Ring of Strength",
+                description = "A Ring of ancient times.",
+                lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 10,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {3},
+                new int[] {5,28},
+                new int[] {7,10,31},
+                new int[] {11,17,0},
+                new int[] {14,16,0},
+                new int[] {45,0,0,0}
+            })
+            {
+                name = "Golden Ring of Vitality",
+                description = "A Ring of ancient times.",
+                lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 10,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+            {
+                new int[] {2},
+                new int[] {8,9,27},
+                new int[] {12,13,51,52},
+                new int[] {12,13,51,52,0},
+                new int[] {15,18,34,36,0},
+                new int[] {23,48,54,26},
+                new int[] {6,0,0,0}
+            })
+            {
+                name = "Golden Ring of Agility",
+                description = "A Ring of ancient times.",
+                lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 10,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {4},
+                new int[] {6},
+                new int[] {12,13,21,24},
+                new int[] {12,13,21,24,0},
+                new int[] {19,47,49,0},
+                new int[] {29,37,38,0},
+                new int[] {29,37,38,0}
+            })
+            {
+                name = "Golden Ring of Intelligence",
+                description = "A Ring of ancient times.",
+                lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 10,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+            //Silver Rings---------------------------------------------------------------------------
+            new BaseItem(new int[][]
+              {
+                new int[] {1},
+                new int[] {12,13},
+                new int[] {22,25,30,},
+                new int[] {35,50,53,0},
+                new int[] {20,0,0,0}
+              })
+            {
+                name = "Silver Ring of Strength",
+                description = "A Ring of ancient times.",
+                lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {3},
+                new int[] {5,28},
+                new int[] {7,10,31},
+                new int[] {11,17,0},
+                new int[] {14,16,0},
+                new int[] {45,0,0,0}
+              })
+            {
+                name = "Silver Ring of Vitality",
+                description = "A Ring of ancient times.",
+                lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {2},
+                new int[] {8,9,27},
+                new int[] {12,13,51,52},
+                new int[] {12,13,51,52,0},
+                new int[] {15,18,34,36,0},
+                new int[] {23,48,54,26},
+                new int[] {6,0,0,0}
+              })
+            {
+                name = "Silver Ring of Agility",
+                description = "A Ring of ancient times.",
+                lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {4},
+                new int[] {6},
+                new int[] {12,13,21,24},
+                new int[] {12,13,21,24,0},
+                new int[] {19,47,49,0},
+                new int[] {29,37,38,0},
+                new int[] {29,37,38,0}
+              })
+            {
+                name = "Silver Ring of Intelligence",
+                description = "A Ring of ancient times.",
+                lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 5,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            //Steel Rings-------------------------------------------------------------------
+            new BaseItem(new int[][]
+              {
+                  new int[] {1},
+                  new int[] {12,13},
+                  new int[] {22,25,30,},
+                  new int[] {35,50,53,0},
+                  new int[] {20,0,0,0}
+              })
+            {
+                name = "Steel Ring of Strength",
+                description = "A Ring of ancient times.",
+                lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 1,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {3},
+                new int[] {5,28},
+                new int[] {7,10,31},
+                new int[] {11,17,0},
+                new int[] {14,16,0},
+                new int[] {45,0,0,0}
+              })
+            {
+                name = "Steel Ring of Vitality",
+                description = "A Ring of ancient times.",
+                lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 1,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {2},
+                new int[] {8,9,27},
+                new int[] {12,13,51,52},
+                new int[] {12,13,51,52,0},
+                new int[] {15,18,34,36,0},
+                new int[] {23,48,54,26},
+                new int[] {6,0,0,0}
+              })
+            {
+                name = "Steel Ring of Agility",
+                description = "A Ring of ancient times.",
+                lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 1,
+                maxLevel = 200,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            new BaseItem(new int[][]
+              {
+                new int[] {4},
+                new int[] {6},
+                new int[] {12,13,21,24},
+                new int[] {12,13,21,24,0},
+                new int[] {19,47,49,0},
+                new int[] {29,37,38,0},
+                new int[] {29,37,38,0}
+              })
+            {
+                name = "Steel Ring of Intelligence",
+                description = "A Ring of ancient times.",
+                lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 1,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
+
+            //One Ring to rule them all----------------------------------------------------------
+
+            new BaseItem(new int[][]
+              {
+                new int[] {1},
+                new int[] {12,13},
+                new int[] {22,25,30,},
+                new int[] {35,50,53,0},
+                new int[] {20,0},
+                new int[] {3},
+                new int[] {5,28},
+                new int[] {7,10,31},
+                new int[] {11,17,0},
+                new int[] {14,16,0},
+                new int[] {45,0},
+                new int[] {2},
+                new int[] {8,9,27},
+                new int[] {51,52},
+                new int[] {15,18,34,36,0},
+                new int[] {23,48,54,26},
+                new int[] {4},
+                new int[] {6},
+                new int[] {21,24},
+                new int[] {19,47,49,0},
+                new int[] {29,37,38,0},
+              })
+            {
+                name = "The One Ring To Rule Them All",
+                description = "An Ancient magical Ring of great power.",
+                lore = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?",
+                tooltip = "Rings give base stats to make your stronger.",
+                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                minLevel = 20,
+                maxLevel = 30,
+                CanConsume = false,
+                StackSize = 1,     //stacking in inventory like in mc, one means single item
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+            };
         }
     }
 }
