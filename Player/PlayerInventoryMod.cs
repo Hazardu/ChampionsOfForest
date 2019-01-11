@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Player
                                 instance = this;
                             }
 
-                            ModAPI.Log.Write("SETUP: Custom weapons");
+                            //ModAPI.Log.Write("SETUP: Custom weapons");
                             //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
                             //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
                             //ModAPI.Log.Write("animSpeed: " + itemView._heldWeaponInfo.animSpeed);
@@ -188,7 +188,7 @@ namespace ChampionsOfForest.Player
                 {
                     if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
                     {
-                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime)* ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -275,7 +275,7 @@ namespace ChampionsOfForest.Player
                     new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f),
                     new Vector3(0, -90, 0),
                     new Vector3(0.2f, -2.4f, 0),
-                    1.4f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
+                    1.3f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
 
 
             //great sword
@@ -297,7 +297,7 @@ namespace ChampionsOfForest.Player
                 new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
                 new Vector3(180, 180, 90),
                 new Vector3(0, 0, -3.6f),
-                2.5f, 1f, 100, 300, 0.01f, 0.001f, 85, true, 5);
+                2.5f, 1f, 100, 200, 0.01f, 0.001f, 85, true, 5);
         }
     }
 }

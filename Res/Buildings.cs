@@ -2,7 +2,7 @@
 using ChampionsOfForest.Res;
 using UnityEngine;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Res
 {
     //adds prefabs using Builder core
     public class Buildings

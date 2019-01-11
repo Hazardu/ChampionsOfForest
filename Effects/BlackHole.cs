@@ -167,10 +167,10 @@ namespace ChampionsOfForest
                     if (ep != null)
                     {
                         
-                        ep.HitMagic(Mathf.RoundToInt(damage));
+                        ep.HitMagic(Mathf.RoundToInt(damage/2));
                     }
                 }
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
             }
         }
         void Pull(Transform t)

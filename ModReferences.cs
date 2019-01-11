@@ -23,13 +23,17 @@ namespace ChampionsOfForest
             private set;
         }
         public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
-        public static Dictionary<ulong,int> PlayerLevels = new Dictionary<ulong, int>();
+        public static Dictionary<ulong, int> PlayerLevels = new Dictionary<ulong, int>();
         private void Start()
         {
             if (BoltNetwork.isRunning)
             {
                 Players = new List<GameObject>();
                 InvokeRepeating("UpdateSetups", 1, 10);
+                if (GameSetup.IsMpServer && BoltNetwork.isRunning)
+                {
+                    InvokeRepeating("SlowUpdate", 1, 1);
+                }
             }
             else
             {
@@ -38,29 +42,37 @@ namespace ChampionsOfForest
 
 
         }
-        float LevelRequestCooldown = 10;
-        void Update()
-        {  if (GameSetup.IsMpServer && BoltNetwork.isRunning)
+
+        private float LevelRequestCooldown = 10;
+
+        private void SlowUpdate()
+        {
+            if (Players.Count > 1)
             {
-                LevelRequestCooldown -= Time.deltaTime;
+                LevelRequestCooldown -= 1;
                 if (LevelRequestCooldown < 0)
                 {
-                    LevelRequestCooldown = 60;
+                    LevelRequestCooldown = 90;
                     Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
 
                 }
-                else if (Players.Count != PlayerLevels.Count)
+                else if (Players.Count != PlayerLevels.Count+1)
                 {
-                    LevelRequestCooldown = 60;
-
-                    Network.NetworkManager.SendLine("RL", Network.NetworkManager.Target.Clinets);
-
+                    LevelRequestCooldown = 90;
+                    PlayerLevels.Clear();
+                    //PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
+                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
                 }
+            }
+            else
+            {
+                PlayerLevels.Clear();
+
             }
         }
         public static void Host_RequestLevels()
         {
-            if(GameSetup.IsMpServer)
+            if (GameSetup.IsMpServer)
             {
                 Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
             }

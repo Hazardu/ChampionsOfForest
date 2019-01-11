@@ -1,4 +1,5 @@
 ﻿using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Player;
 using ModAPI.Attributes;
 using System;
@@ -41,7 +42,7 @@ namespace ChampionsOfForest
                     EnemyManager.Initialize();
                     new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
-                    Buildings.InitBuildings();
+                    Res.Buildings.InitBuildings();
                     Perk.FillPerkList();
 
                 }

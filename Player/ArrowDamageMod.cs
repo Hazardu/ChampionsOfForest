@@ -13,6 +13,8 @@ namespace ChampionsOfForest.Player
             BaseDmg = damage;
             base.Start();
             damage = Mathf.RoundToInt((BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff);
+            //ModAPI.Console.Write("Arrow Output damage = " + damage+ "   base dmg:"+BaseDmg);
+
         }
 
 

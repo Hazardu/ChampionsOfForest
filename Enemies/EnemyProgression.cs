@@ -1,5 +1,6 @@
 ﻿using Bolt;
 using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Enemies.EnemyAbilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,39 +13,83 @@ namespace ChampionsOfForest
 {
     public class EnemyProgression : MonoBehaviour
     {
+        //Animation slows
         public class SlowDebuff
         {
             public int Source;
             public float duration;
             public float amount;
         }
-
         public Dictionary<int, SlowDebuff> slows;
 
+        //Type of enemy
         public enum EnemyType { Normal, Elite, Miniboss, Boss }
         public EnemyType type;
 
+        //References
         public EnemyHealth _Health;
         public mutantAI _AI;
         public BoltEntity entity;
         public mutantScriptSetup setup;
 
+
+        //Variables
+        #region Variables
         public string EnemyName;
+
         public int Level;
-        public float Health;
-        public float MaxHealth;
-        public long Bounty;
         public int Armor;
         public int ArmorReduction;
-        public bool setupComplete = false;
+
+        public float Health;
+        public float MaxHealth;
+        private int BaseHealth = 0;
+
+        private float DamageMult;
+        public float DamageAmp => DamageMult;
+        public float FireDmgAmp;
+
+        public long Bounty;
+
         public float SteadFest = 100;
         private int SteadFestCap = 100000;
-        private float DamageMult;
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
+        public bool setupComplete = false;
+        public bool CCimmune = false;
+        private bool DualLifeSpend = false;
+        public bool OnDieCalled = false;
         public List<Abilities> abilities;
+        public Enemy enemyType;
+        public float CreationTime;
+        public float AnimSpeed = 1;
+        private float BaseAnimSpeed = 1;
+        private float prerainDmg;
+        private int prerainArmor;
+        private readonly float agroRange = 1200;
 
+        //cooldowns
+        private float freezeauraCD;
+        private float blackholeCD;
+        private float blinkCD;
+        private float shieldingCD;
+        private float shieldingON;
+        private float StunCD;
+        private float TrapCD;
+        private float LaserCD;
+        private float MeteorCD;
+
+        //Closest player, for detecting if in range to cast abilities
+        private GameObject closestPlayer;
+        private float closestPlayerMagnitude;
+
+        private Color normalColor;
+
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
+        public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
+        #endregion
+
+        #region Name
         public static string[] Mnames = new string[]
-        {
+              {
             "Farket",
             "Hazard",
             "Moritz",
@@ -114,27 +159,10 @@ namespace ChampionsOfForest
             "Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi",
             "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon",
 
-        };
-        public float AnimSpeed = 1;
-        public float BaseAnimSpeed = 1;
-        private float prerainDmg;
-        private int prerainArmor;
-        private readonly float agroRange = 1200;
-        private float freezeauraCD;
-        private float blackholeCD;
-        private float blinkCD;
-        private float shieldingCD;
-        private float shieldingON;
-        public bool CCimmune = false;
-        public int BaseHealth = 0;
-        public float DamageAmp => DamageMult;
-        public float CreationTime;
-        public float FireDmgAmp;
-
-        public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
-        public Enemy enemyType;
-
-
+              };
+        /// <summary>
+        /// Picks a random name for the enemy
+        /// </summary>
         private void RollName()
         {
             List<string> names = new List<string>();
@@ -173,6 +201,7 @@ namespace ChampionsOfForest
             EnemyName = prefix + names[Random.Range(0, names.Count)];
 
         }
+        #endregion
 
         private void Setup()
         {
@@ -180,30 +209,10 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    if (entity == null)
-                    {
-                        entity = transform.root.GetComponentInChildren<BoltEntity>();
-                    }
-
-                    if (entity == null)
-                    {
-                        entity = _Health.entity;
-
-                    }
-                    if (entity == null)
-                    {
-
-                        entity = transform.root.GetComponent<BoltEntity>();
-
-                    }
-                    if (entity == null)
-                    {
-
-                    }
-                    else
-                    {
-                        EnemyManager.AddHostEnemy(this);
-                    }
+                    if (entity == null) { entity = transform.root.GetComponentInChildren<BoltEntity>(); }
+                    if (entity == null) { entity = _Health.entity; }
+                    if (entity == null) { entity = transform.root.GetComponent<BoltEntity>(); }
+                    EnemyManager.AddHostEnemy(this);
                 }
             }
             catch (Exception ex)
@@ -211,48 +220,42 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write(ex.ToString());
             }
 
+            //Assiging base health, if new enemy
             if (BaseHealth == 0)
             {
                 BaseHealth = _Health.Health;
             }
-            else
+            else    //reverting health to base health if reused enemy (in case enemies are pooled)
             {
                 _Health.Health = BaseHealth;
             }
-
-
-
-
-
-
-
-
-            slows = new Dictionary<int, SlowDebuff>();
             SteadFest = 1000;
+            slows = new Dictionary<int, SlowDebuff>();
             abilities = new List<Abilities>();
+
+            //picking abilities
             if (UnityEngine.Random.value < 0.1 || _AI.creepy_boss)
             {
                 int count = UnityEngine.Random.Range(2, 7);
-                if (_AI.creepy_boss)
-                {
-                    count = 10;
-                }
+                if (_AI.creepy_boss) { count = 10; }   //Megan boss always has abilities, a lot of them.
+
 
                 int i = 0;
                 Array arr = Enum.GetValues(typeof(Abilities));
 
-
+                //Determining if enemy is Elite, Miniboss or Boss type of enemy
                 if (count > 6 && Random.value < 0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadFest); }
                 else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadFest); type = EnemyType.Miniboss; }
                 else { type = EnemyType.Elite; }
 
-                if (_AI.creepy_boss)
+                if (_AI.creepy_boss)    //Force adding BossSteadFest to Megan
                 {
                     abilities.Clear();
                     type = EnemyType.Boss;
                     abilities.Add(Abilities.BossSteadFest);
                 }
 
+                //Trial and error method of picking abilities
                 while (i < count)
                 {
                     bool success = true;
@@ -292,91 +295,23 @@ namespace ChampionsOfForest
             {
                 type = EnemyType.Normal;
             }
+
+
             AssignEnemyType();
-            float lvlMult = 1;
-            if (_AI.creepy || _AI.creepy_fat || _AI.creepy_male)
-            {
-                lvlMult = 2.6f;
 
-            }
-            else if (_AI.creepy_baby)
-            {
-                lvlMult = 0.5f;
-            }
-            else if (_AI.creepy_boss)
-            {
-                lvlMult = 20;
-            }
-            else if (_AI.leader)
-            {
-                lvlMult = 1.5f;
-            }
-            else if (_AI.painted)
-            {
-                lvlMult *= 2.2f;
-            }
-            else if (_AI.pale)
-            {
-                lvlMult *= 1.8f;
-                if (_AI.skinned)
-                {
-                    lvlMult *= 1.8f;
-                }
-            }
+            //Assigning level
+            AssignLevel();
 
-            switch (ModSettings.difficulty)
-            {
-                case ModSettings.Difficulty.Normal:
-                    Level = Random.Range(1, 3);
-                    break;
-                case ModSettings.Difficulty.Hard:
-                    Level = Random.Range(13, 28);
-
-                    break;
-                case ModSettings.Difficulty.Elite:
-                    Level = Random.Range(35, 43);
-
-                    break;
-                case ModSettings.Difficulty.Master:
-                    Level = Random.Range(50, 56);
-
-                    break;
-                case ModSettings.Difficulty.Challenge1:
-                    Level = Random.Range(60, 66);
-
-                    break;
-                case ModSettings.Difficulty.Challenge2:
-                    Level = Random.Range(70, 80);
-
-                    break;
-                case ModSettings.Difficulty.Challenge3:
-                    Level = Random.Range(85, 95);
-
-                    break;
-                case ModSettings.Difficulty.Challenge4:
-                    Level = Random.Range(105, 120);
-
-                    break;
-                case ModSettings.Difficulty.Challenge5:
-                    Level = Random.Range(160, 170);
-
-                    break;
-            }
-            Level = Mathf.CeilToInt(Level * lvlMult);
+            //Assigning rest of stats
             DamageMult = Level / 4.5f + 0.55f;
             Armor = Mathf.FloorToInt(Random.Range(Level * Level * 0.5f, Level * Level * 1.1f));
-
-
             ArmorReduction = 0;
-
             Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.3f)));
-
-
             AnimSpeed = 1f + (float)Level / 125;
 
+            //Extra health for boss type enemies
             switch (type)
             {
-
                 case EnemyType.Elite:
                     Health *= 2;
 
@@ -389,6 +324,8 @@ namespace ChampionsOfForest
                     Health *= 10;
                     break;
             }
+
+            //Applying some abilities
             if (abilities.Contains(Abilities.Huge))
             {
                 Armor *= 2;
@@ -401,10 +338,7 @@ namespace ChampionsOfForest
                 gameObject.transform.localScale *= 0.35f;
                 Health *= 2;
                 DamageMult *= 1.5f;
-
                 BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
-
-
             }
             if (abilities.Contains(Abilities.SteadFest))
             {
@@ -426,10 +360,6 @@ namespace ChampionsOfForest
             {
                 DamageMult *= 2.5f;
             }
-
-
-            Health = Mathf.Min(Health, int.MaxValue - 5);
-
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
                 prerainDmg = DamageMult;
@@ -443,70 +373,38 @@ namespace ChampionsOfForest
             {
                 StartCoroutine(FireAuraLoop());
             }
+            //Clamping Health
+            Health = Mathf.Min(Health, int.MaxValue - 5);
 
+
+            //Setting other health variables
             _Health.maxHealthFloat = Health;
             MaxHealth = Health;
             _Health.maxHealth = Mathf.RoundToInt(Health);
             _Health.Health = Mathf.RoundToInt(Health);
 
-            DualLifeSpend = false;
             RollName();
+
+            DualLifeSpend = false;
             setupComplete = true;
             OnDieCalled = false;
+
             BaseAnimSpeed = AnimSpeed;
 
-            Bounty = (int)(Random.Range(Health * 0.3f, Health * 0.4f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 3);
-            if (abilities.Count > 0)
-            {
-                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);
-            }
-            switch (ModSettings.difficulty)
-            {
-                case ModSettings.Difficulty.Hard:
-                    Bounty = Mathf.RoundToInt(Bounty * 1.3f);
-                    break;
-                case ModSettings.Difficulty.Elite:
-                    Bounty = Mathf.RoundToInt(Bounty * 2);
-
-                    break;
-                case ModSettings.Difficulty.Master:
-                    Bounty = Mathf.RoundToInt(Bounty * 4.6f);
-
-                    break;
-                case ModSettings.Difficulty.Challenge1:
-                    Bounty = Mathf.RoundToInt(Bounty * 10f);
-
-                    break;
-                case ModSettings.Difficulty.Challenge2:
-                    Bounty = Mathf.RoundToInt(Bounty * 22);
-
-                    break;
-                case ModSettings.Difficulty.Challenge3:
-                    Bounty = Mathf.RoundToInt(Bounty * 48f);
-
-                    break;
-                case ModSettings.Difficulty.Challenge4:
-                    Bounty = Mathf.RoundToInt(Bounty * 100f);
-
-                    break;
-                case ModSettings.Difficulty.Challenge5:
-                    Bounty = Mathf.RoundToInt(Bounty * 250);
-
-                    break;
-                default:
-                    break;
-            }
+            AssignBounty();
 
             SteadFestCap = Mathf.RoundToInt(SteadFest * 0.01f * MaxHealth);
-
-            if (SteadFestCap < 1)
+            if (SteadFestCap < 1) // Making sure the enemy can be killed
             {
                 SteadFestCap = 1;
             }
+
             CreationTime = Time.time;
         }
-
-
+        /// <summary>
+        /// Slows this enemy
+        /// </summary>
+        /// <param name="source">ID of the source, used for refreshing the duration of applied effects</param>
         public void Slow(int source, float amount, float time)
         {
             if (slows.ContainsKey(source))
@@ -525,46 +423,200 @@ namespace ChampionsOfForest
             }
         }
 
-
-
-        private IEnumerator FireAuraLoop()
+        public void ReduceArmor(int amount)
         {
-
-            float dmg = 40f * DamageAmp;
-            if (BoltNetwork.isRunning)
+            ArmorReduction += amount;
+        }
+        public static void ReduceArmor(BoltEntity target, int amount)
+        {
+            if (GameSetup.IsMultiplayer)
             {
-                while (true)
-                {
-                    yield return new WaitForSeconds(1f);
-                    foreach (BoltEntity item in ModReferences.AllPlayerEntities)
-                    {
-                        if ((item.transform.position - transform.position).sqrMagnitude < 80)
-                        {
-                            PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
-                            playerHitByEnemey.Damage = (int)dmg;
-                            playerHitByEnemey.Send();
-                        }
-                    }
-                }
+                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                playerHitEnemy.Target = target;
+                playerHitEnemy.Hit = -amount - 50000;
+                playerHitEnemy.Send();
             }
             else
             {
-                while (true)
-                {
-                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
-                    {
-                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg;
-                    }
-                    yield return null;
-                }
+                EnemyManager.hostDictionary[target.networkId.PackedValue].ArmorReduction += amount;
             }
         }
-        private GameObject closestPlayer;
-        private float closestPlayerMagnitude;
-        private float StunCD;
-        private float TrapCD;
-        private float LaserCD;
-        private float MeteorCD;
+        public static void ReduceArmor(EnemyProgression target, int amount)
+        {
+            target.ArmorReduction += amount;
+        }
+
+        public void HitMagic(int damage)
+        {
+            damage = ClampDamage(true, damage);
+            _Health.HitReal(damage);
+
+        }
+        public int ClampDamage(bool pure, int damage)
+        {
+            if (abilities.Contains(Abilities.Shielding))
+            {
+                if (shieldingON > 0)
+                {
+                    return 0;
+                }
+                else if (shieldingCD <= 0)
+                {
+                    switch (ModSettings.difficulty)
+                    {
+                        case ModSettings.Difficulty.Normal:
+                            shieldingCD = 60;
+                            break;
+                        case ModSettings.Difficulty.Hard:
+                            shieldingCD = 55;
+
+                            break;
+                        case ModSettings.Difficulty.Elite:
+                            shieldingCD = 50;
+
+                            break;
+                        case ModSettings.Difficulty.Master:
+                            shieldingCD = 45;
+
+                            break;
+                        case ModSettings.Difficulty.Challenge1:
+                            shieldingCD = 40;
+
+                            break;
+                        case ModSettings.Difficulty.Challenge2:
+                            shieldingCD = 35;
+
+                            break;
+                        case ModSettings.Difficulty.Challenge3:
+                            shieldingCD = 30;
+
+                            break;
+                        case ModSettings.Difficulty.Challenge4:
+                            shieldingCD = 25;
+                            break;
+                        case ModSettings.Difficulty.Challenge5:
+                            shieldingCD = 20;
+                            break;
+                        default:
+                            shieldingCD = 15;
+                            break;
+                    }
+                    normalColor = _Health.MySkin.material.color;
+                    _Health.MySkin.material.color = Color.black;
+                    shieldingON = 4;
+                    return 0;
+                }
+            }
+
+            if (pure)
+            {
+                if (damage > SteadFestCap)
+                {
+                    int dmgpure = Mathf.Min(damage, SteadFestCap);
+                    return dmgpure;
+                }
+                return damage;
+            }
+
+            float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
+
+            //reduction = Mathf.Clamp01(reduction);
+            int dmg = Mathf.CeilToInt(damage * (1 - reduction));
+            dmg = Mathf.Min(dmg, SteadFestCap);
+
+            //ModAPI.Console.Write("reducted damage " + Armor + " - " + ArmorReduction + " -------->" + damage + " * " + reduction + " --> " + dmg);
+
+            return dmg;
+
+        }
+        public bool OnDie()
+        {
+            try
+            {
+                //ModAPI.Console.Write("Enemy Dies, \nhealth left "+ _Health.Health+ "\n OnDieCalled "+ OnDieCalled.ToString()+"\nDrowned "+ setup.waterDetect.drowned);
+                if (_Health.Health > 0)
+                {
+                    return false;
+                }
+
+
+                if (abilities.Contains(Abilities.DoubleLife))
+                {
+                    if (!DualLifeSpend)
+                    {
+                        DualLifeSpend = true;
+                        _Health.Health = _Health.maxHealth / 2;
+                        _Health.MySkin.material.color = Color.magenta;
+                        prerainDmg *= 2;
+
+                        _Health.releaseFromTrap();
+                        return false;
+                    }
+                }
+
+                if (abilities.Contains(Abilities.Molten))
+                {
+                    //not working, find a fix or replacement
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
+                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
+
+                }
+                if (OnDieCalled)
+                {
+                    return true;
+                }
+                OnDieCalled = true;
+                Invoke("ReanimateMe", 30);
+                EnemyManager.RemoveEnemy(this);
+
+                if (setup.waterDetect.drowned)
+                {
+                    return true;
+                }
+                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
+                {
+                    int itemCount = Random.Range(1, 4);
+                    if (_AI.creepy_boss)
+                    {
+                        itemCount += 12;
+                    }
+                    else if (abilities.Count >= 2)
+                    {
+                        itemCount += Random.Range(2, 5);
+                    }
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+                    }
+                    if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
+                    {
+                        //Drop megan only amulet
+                        //Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+
+                    }
+                }
+                if (BoltNetwork.isRunning)
+                {
+                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt(Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
+                }
+                else
+                {
+                    ModdedPlayer.instance.AddKillExperience(Bounty);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex.ToString());
+            }
+
+            return true;
+
+        }
+
         private void Update()
         {
             if (!setupComplete)
@@ -821,203 +873,6 @@ namespace ChampionsOfForest
 
 
         }
-        public void HitMagic(int damage)
-        {
-            damage = ClampDamage(true, damage);
-            _Health.HitReal(damage);
-
-        }
-
-        public void ReduceArmor(int amount)
-        {
-            ArmorReduction += amount;
-        }
-        public static void ReduceArmor(BoltEntity target, int amount)
-        {
-            if (GameSetup.IsMultiplayer)
-            {
-                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
-                playerHitEnemy.Target = target;
-                playerHitEnemy.Hit = -amount - 50000;
-                playerHitEnemy.Send();
-            }
-            else
-            {
-                EnemyManager.hostDictionary[target.networkId.PackedValue].ArmorReduction += amount;
-            }
-        }
-        public static void ReduceArmor(EnemyProgression target, int amount)
-        {
-            target.ArmorReduction += amount;
-        }
-
-        private Color normalColor;
-        public int ClampDamage(bool pure, int damage)
-        {
-            if (abilities.Contains(Abilities.Shielding))
-            {
-                if (shieldingON > 0)
-                {
-                    return 0;
-                }
-                else if (shieldingCD <= 0)
-                {
-                    switch (ModSettings.difficulty)
-                    {
-                        case ModSettings.Difficulty.Normal:
-                            shieldingCD = 60;
-                            break;
-                        case ModSettings.Difficulty.Hard:
-                            shieldingCD = 55;
-
-                            break;
-                        case ModSettings.Difficulty.Elite:
-                            shieldingCD = 50;
-
-                            break;
-                        case ModSettings.Difficulty.Master:
-                            shieldingCD = 45;
-
-                            break;
-                        case ModSettings.Difficulty.Challenge1:
-                            shieldingCD = 40;
-
-                            break;
-                        case ModSettings.Difficulty.Challenge2:
-                            shieldingCD = 35;
-
-                            break;
-                        case ModSettings.Difficulty.Challenge3:
-                            shieldingCD = 30;
-
-                            break;
-                        case ModSettings.Difficulty.Challenge4:
-                            shieldingCD = 25;
-                            break;
-                        case ModSettings.Difficulty.Challenge5:
-                            shieldingCD = 20;
-                            break;
-                        default:
-                            shieldingCD = 15;
-                            break;
-                    }
-                    normalColor = _Health.MySkin.material.color;
-                    _Health.MySkin.material.color = Color.black;
-                    shieldingON = 4;
-                    return 0;
-                }
-            }
-
-            if (pure)
-            {
-                if (damage > SteadFestCap)
-                {
-                    int dmgpure = Mathf.Min(damage, SteadFestCap);
-                    return dmgpure;
-                }
-                return damage;
-            }
-
-            float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
-
-            //reduction = Mathf.Clamp01(reduction);
-            int dmg = Mathf.CeilToInt(damage * (1 - reduction));
-            dmg = Mathf.Min(dmg, SteadFestCap);
-
-            ModAPI.Console.Write("reducted damage " + Armor + " - " + ArmorReduction + " -------->" + damage + " * " + reduction + " --> " + dmg);
-
-            return dmg;
-
-        }
-
-        private bool DualLifeSpend = false;
-        public bool OnDieCalled = false;
-        public bool OnDie()
-        {
-            try
-            {
-                if (_Health.Health > 1)
-                {
-                    return false;
-                }
-
-                if (abilities.Contains(Abilities.DoubleLife))
-                {
-                    if (!DualLifeSpend)
-                    {
-                        DualLifeSpend = true;
-                        _Health.Health = _Health.maxHealth / 2;
-                        _Health.MySkin.material.color = Color.magenta;
-                        prerainDmg *= 2;
-
-                        _Health.releaseFromTrap();
-                        return false;
-                    }
-                }
-
-                if (abilities.Contains(Abilities.Molten))
-                {
-                    //not working, find a fix or replacement
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
-
-                }
-                if (OnDieCalled)
-                {
-                    return true;
-                }
-                OnDieCalled = true;
-                Invoke("ReanimateMe", 30);
-                EnemyManager.RemoveEnemy(this);
-
-                if (setup.waterDetect.drowned)
-                {
-                    return true;
-                }
-                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
-                {
-                    int itemCount = Random.Range(1, 4);
-                    if (_AI.creepy_boss)
-                    {
-                        itemCount += 12;
-                    }
-                    else if (abilities.Count >= 2)
-                    {
-                        itemCount += Random.Range(2, 5);
-                    }
-                    for (int i = 0; i < itemCount; i++)
-                    {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
-                    }
-                    if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
-                    {
-                        //Drop megan only amulet
-                        //Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
-
-                    }
-                }
-                if (BoltNetwork.isRunning)
-                {
-                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt(Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
-                }
-                else
-                {
-                    ModdedPlayer.instance.AddKillExperience(Bounty);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex.ToString());
-            }
-
-            return true;
-
-        }
-
         private void AssignEnemyType()
         {
             if (_AI.creepy && _AI.pale) { enemyType = Enemy.PaleVags; }
@@ -1041,11 +896,162 @@ namespace ChampionsOfForest
             else if (_AI.male && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleMale; }
             else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedMale; }
         }
-
-
         private void ReanimateMe()
         {
             OnDieCalled = false;
         }
+        private void AssignLevel()
+        {
+            float lvlMult = 1;
+            if (_AI.creepy || _AI.creepy_fat || _AI.creepy_male)
+            {
+                lvlMult = 2.6f;
+
+            }
+            else if (_AI.creepy_baby)
+            {
+                lvlMult = 0.5f;
+            }
+            else if (_AI.creepy_boss)
+            {
+                lvlMult = 20;
+            }
+            else if (_AI.leader)
+            {
+                lvlMult = 1.5f;
+            }
+            else if (_AI.painted)
+            {
+                lvlMult *= 2.2f;
+            }
+            else if (_AI.pale)
+            {
+                lvlMult *= 1.8f;
+                if (_AI.skinned)
+                {
+                    lvlMult *= 1.8f;
+                }
+            }
+
+            switch (ModSettings.difficulty)
+            {
+                case ModSettings.Difficulty.Normal:
+                    Level = Random.Range(1, 3);
+                    break;
+                case ModSettings.Difficulty.Hard:
+                    Level = Random.Range(13, 28);
+
+                    break;
+                case ModSettings.Difficulty.Elite:
+                    Level = Random.Range(35, 43);
+
+                    break;
+                case ModSettings.Difficulty.Master:
+                    Level = Random.Range(50, 56);
+
+                    break;
+                case ModSettings.Difficulty.Challenge1:
+                    Level = Random.Range(60, 66);
+
+                    break;
+                case ModSettings.Difficulty.Challenge2:
+                    Level = Random.Range(70, 80);
+
+                    break;
+                case ModSettings.Difficulty.Challenge3:
+                    Level = Random.Range(85, 95);
+
+                    break;
+                case ModSettings.Difficulty.Challenge4:
+                    Level = Random.Range(105, 120);
+
+                    break;
+                case ModSettings.Difficulty.Challenge5:
+                    Level = Random.Range(160, 170);
+
+                    break;
+            }
+            Level = Mathf.CeilToInt(Level * lvlMult);
+        }
+        private void AssignBounty()
+        {
+            Bounty = (int)(Random.Range(Health * 0.3f, Health * 0.4f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 3);
+            if (abilities.Count > 0)
+            {
+                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);
+            }
+            switch (ModSettings.difficulty)
+            {
+                case ModSettings.Difficulty.Hard:
+                    Bounty = Mathf.RoundToInt(Bounty * 1.3f);
+                    break;
+                case ModSettings.Difficulty.Elite:
+                    Bounty = Mathf.RoundToInt(Bounty * 2);
+
+                    break;
+                case ModSettings.Difficulty.Master:
+                    Bounty = Mathf.RoundToInt(Bounty * 4.6f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge1:
+                    Bounty = Mathf.RoundToInt(Bounty * 10f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge2:
+                    Bounty = Mathf.RoundToInt(Bounty * 22);
+
+                    break;
+                case ModSettings.Difficulty.Challenge3:
+                    Bounty = Mathf.RoundToInt(Bounty * 48f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge4:
+                    Bounty = Mathf.RoundToInt(Bounty * 100f);
+
+                    break;
+                case ModSettings.Difficulty.Challenge5:
+                    Bounty = Mathf.RoundToInt(Bounty * 250);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        /// <summary>
+        ///Deals damage to nearby players
+        /// </summary>
+        private IEnumerator FireAuraLoop()
+        {
+
+            float dmg = 40f * DamageAmp;
+            if (BoltNetwork.isRunning)
+            {
+                while (true)
+                {
+                    yield return new WaitForSeconds(1f);
+                    foreach (BoltEntity item in ModReferences.AllPlayerEntities)
+                    {
+                        if ((item.transform.position - transform.position).sqrMagnitude < 80)
+                        {
+                            PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
+                            playerHitByEnemey.Damage = (int)dmg;
+                            playerHitByEnemey.Send();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
+                    {
+                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg;
+                    }
+                    yield return null;
+                }
+            }
+        }
+
     }
 }

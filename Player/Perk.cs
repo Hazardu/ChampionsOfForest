@@ -83,7 +83,7 @@ namespace ChampionsOfForest.Player
                 Name = "Damage",
                 Description = "Increases melee damage by 5",
                 TextureVariation = 0, //0 or 1
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -132,14 +132,79 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Damage",
-                Description = "Increases projectile by 5",
+                Description = "Increases projectile damage by 5",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ProjectileSizeRatio += 0.05f,
+                DisableMethods = () => ModdedPlayer.instance.ProjectileSizeRatio -= 0.05f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 2 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 0.75f,
+                Name = "Size",
+                Description = "Increases projectile size by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
-
-
-
-
+          new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio += 0.05f,
+                DisableMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio -= 0.05f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 2 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 0f,
+                Name = "Speed",
+                Description = "Increases projectile speed by 5%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.05f),
+                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.05f),
+                Category = PerkCategory.MagicOffense,
+                Icon = null,
+                InheritIDs = new int[] { 1 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 0f,
+                Name = "Transmutation",
+                Description = "5% of the spell cost is now taxed from stamina instead of energy.",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostRatio, 0.02f),
+                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostRatio, 0.02f),
+                Category = PerkCategory.MagicOffense,
+                Icon = null,
+                InheritIDs = new int[] { 1 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 0f,
+                Name = "Resource Cost Reduction",
+                Description = "Spell costs are reduced by 5",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+          
             foreach (Perk item in AllPerks)
             {
                 ModAPI.Log.Write("[" + item.ID + "]" + item.Name);

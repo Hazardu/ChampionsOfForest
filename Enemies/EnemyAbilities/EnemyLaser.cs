@@ -1,16 +1,11 @@
-﻿using System;
+﻿using BuilderCore;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using BuilderCore;
 using TheForest.Utils;
-using TheForest.World;
+using UnityEngine;
 
-namespace ChampionsOfForest.Enemies
+namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
-    public class EnemyLaser: MonoBehaviour
+    public class EnemyLaser : MonoBehaviour
     {
 
         public static void CreateLaser(Vector3 pos, Vector3 dir)
@@ -23,46 +18,8 @@ namespace ChampionsOfForest.Enemies
         public ParticleSystem particleSystem;
         public static Material mat;
         public static Material mat1;
-        float rotSpeed = 0;
+        private float rotSpeed = 0;
         public Vector3 Direction;
-        private void Start()
-        {
-            if (mat == null)
-            {
-                mat = Core.CreateMaterial(new BuildingData() { renderMode = BuildingData.RenderMode.Transparent, EmissionColor = new Color(0, 0.15f, 0.20f), MainColor = new Color(0.2f, 1, 0, 0.5f), Metalic = 0.3f, Smoothness = 0.67f });
-                mat1 = new Material(Shader.Find("Unlit/Transparent"))
-                {
-                    color = new Color(0.203f, 1, 0.629f, 0.2117647f),
-                    mainTexture = Res.ResourceLoader.GetTexture(71),
-                    renderQueue = 2000,
-                    doubleSidedGI = true,
-                    
-                };
-            }
-
-            particleSystem= gameObject.AddComponent<ParticleSystem>();
-            ParticleSystemRenderer rend = gameObject.GetComponent<ParticleSystemRenderer>();
-            rend.renderMode = ParticleSystemRenderMode.Mesh;
-            rend.mesh = Res.ResourceLoader.instance.LoadedMeshes[70];
-            rend.alignment = ParticleSystemRenderSpace.World;
-            rend.material = mat;
-            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-
-            ParticleSystem.MainModule m = particleSystem.main;
-            m.simulationSpace = ParticleSystemSimulationSpace.Local;
-
-            m.startRotation3D = true;
-            m.startSpeed = 0;
-            m.startLifetime = 8;
-            m.duration = 30;
-            m.startSize = 0.3f;
-            ParticleSystem.EmissionModule e = particleSystem.emission;
-            e.rateOverTime = 0;
-            e.enabled = false;
-            StartCoroutine(DoPreparation());
-
-        }
-
 
         private IEnumerator DoPreparation()
         {
@@ -98,7 +55,13 @@ namespace ChampionsOfForest.Enemies
             yield return new WaitForSeconds(1f);
             rotSpeed += 40;
             StartCoroutine(Shoot());
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
+            Direction.RotateY(-180f);
+            StartCoroutine(Shoot());
+            yield return new WaitForSeconds(1f);
+            Direction.RotateY(-180f);
+            StartCoroutine(Shoot());
+            yield return new WaitForSeconds(1f);
             Direction.RotateY(-180f);
             StartCoroutine(Shoot());
             yield return new WaitForSeconds(15f);
@@ -143,14 +106,14 @@ namespace ChampionsOfForest.Enemies
                     break;
             }
             go.AddComponent<EnemyLaserBeam>().Initialize(dmg);
-          var ps =  go.AddComponent<ParticleSystem>();
+            ParticleSystem ps = go.AddComponent<ParticleSystem>();
             ParticleSystemRenderer rend = go.GetComponent<ParticleSystemRenderer>();
             rend.renderMode = ParticleSystemRenderMode.Billboard;
             rend.trailMaterial = mat1;
             rend.alignment = ParticleSystemRenderSpace.View;
             rend.material = mat1;
 
-            var shape = ps.shape;
+            ParticleSystem.ShapeModule shape = ps.shape;
             shape.enabled = false;
             ParticleSystem.MainModule m = ps.main;
             m.simulationSpace = ParticleSystemSimulationSpace.Local;
@@ -161,24 +124,24 @@ namespace ChampionsOfForest.Enemies
 
             ParticleSystem.EmissionModule e = ps.emission;
             e.rateOverTime = 10f;
-            var sol = ps.sizeOverLifetime;
+            ParticleSystem.SizeOverLifetimeModule sol = ps.sizeOverLifetime;
             sol.enabled = true;
             sol.sizeMultiplier = 3;
-            sol.size = new ParticleSystem.MinMaxCurve(4, new AnimationCurve(new Keyframe[] {  new Keyframe(0f, 0f, 11.34533f, 11.34533f), new Keyframe(0.1365601f, 1f, 0.4060947f, 0.4060947f), new Keyframe(1f, 0.2881376f, -0.8223371f, -0.8223371f) }));
+            sol.size = new ParticleSystem.MinMaxCurve(4, new AnimationCurve(new Keyframe[] { new Keyframe(0f, 0f, 11.34533f, 11.34533f), new Keyframe(0.1365601f, 1f, 0.4060947f, 0.4060947f), new Keyframe(1f, 0.2881376f, -0.8223371f, -0.8223371f) }));
             yield return null;
-            var trail = ps.trails;
+            ParticleSystem.TrailModule trail = ps.trails;
             trail.enabled = true;
             trail.dieWithParticles = false;
             trail.inheritParticleColor = true;
             trail.ratio = 0.5f;
             trail.textureMode = ParticleSystemTrailTextureMode.Stretch;
             float time = 0;
-            while (time < 5) 
+            while (time < 5)
             {
                 time += Time.deltaTime;
-                go.transform.Rotate(Vector3.up * Time.deltaTime*25, Space.World);
-                go.transform.Rotate(Vector3.right * Time.deltaTime*4*Mathf.Sin(time), Space.Self);
-              
+                go.transform.Rotate(Vector3.up * Time.deltaTime * 25, Space.World);
+                go.transform.Rotate(Vector3.right * Time.deltaTime * 4 * Mathf.Sin(time), Space.Self);
+
                 yield return null;
 
             }
@@ -187,51 +150,47 @@ namespace ChampionsOfForest.Enemies
         }
 
 
+        private void Start()
+        {
+            if (mat == null)
+            {
+                mat = Core.CreateMaterial(new BuildingData() { renderMode = BuildingData.RenderMode.Transparent, EmissionColor = new Color(0, 0.15f, 0.20f), MainColor = new Color(0.2f, 1, 0, 0.5f), Metalic = 0.3f, Smoothness = 0.67f });
+                mat1 = new Material(Shader.Find("Unlit/Transparent"))
+                {
+                    color = new Color(0.203f, 1, 0.629f, 0.2117647f),
+                    mainTexture = Res.ResourceLoader.GetTexture(71),
+                    renderQueue = 2000,
+                    doubleSidedGI = true,
 
+                };
+            }
+
+            particleSystem = gameObject.AddComponent<ParticleSystem>();
+            ParticleSystemRenderer rend = gameObject.GetComponent<ParticleSystemRenderer>();
+            rend.renderMode = ParticleSystemRenderMode.Mesh;
+            rend.mesh = Res.ResourceLoader.instance.LoadedMeshes[70];
+            rend.alignment = ParticleSystemRenderSpace.World;
+            rend.material = mat;
+            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+            ParticleSystem.MainModule m = particleSystem.main;
+            m.simulationSpace = ParticleSystemSimulationSpace.Local;
+
+            m.startRotation3D = true;
+            m.startSpeed = 0;
+            m.startLifetime = 11;
+            m.duration = 30;
+            m.startSize = 0.3f;
+            ParticleSystem.EmissionModule e = particleSystem.emission;
+            e.rateOverTime = 0;
+            e.enabled = false;
+            StartCoroutine(DoPreparation());
+
+        }
         private void Update()
         {
-          
-            transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
-        }
 
-    }
-    public class EnemyLaserBeam : MonoBehaviour
-    {
-        public void Initialize(int dmgPerSecond)
-        {
-            dmg = dmgPerSecond;
-            StartCoroutine(DoAction());
-        }
-        int dmg;
-        public IEnumerator DoAction()
-        {
-            while (true)
-            {
-
-           
-         RaycastHit[] hits =   Physics.RaycastAll(transform.position, transform.forward, 50);
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.transform != null)
-                {
-                    if (hit.transform.CompareTag("Player") || hit.transform.CompareTag("PlayerNet"))
-                    {
-                        if (hit.transform.root == LocalPlayer.Transform.root)
-                        {
-                            LocalPlayer.Stats.Hit((int)dmg / 10, false, PlayerStats.DamageType.Fire);
-                            hit.transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                        }
-                    }
-                    else if (hit.transform.CompareTag("structure"))// && (!BoltNetwork.isRunning || BoltNetwork.isServer || !BoltNetwork.isClient || !PlayerPreferences.NoDestructionRemote))
-                    {
-                        hit.transform.SendMessage("Hit", dmg / 10, SendMessageOptions.DontRequireReceiver);
-                        hit.transform.SendMessage("LocalizedHit", new LocalizedHitData(hit.point, dmg / 10), SendMessageOptions.DontRequireReceiver);
-                    }
-                }
-            }
-                                   yield return new WaitForSeconds(0.1f);
-
-            }
+            transform.Rotate(Vector3.up * rotSpeed * 1.4f * Time.deltaTime);
         }
     }
 }

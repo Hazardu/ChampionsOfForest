@@ -15,15 +15,14 @@ namespace ChampionsOfForest.Player
         {
             if (mainTriggerScript != null)
             {
-                //setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = HeldWeaponAtkSpeed * ModdedPlayer.instance.AttackSpeed;
-                //setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = HeldWeaponTiredAtkSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
                 setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
                 setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
                 LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
-                mainTriggerScript.weaponDamage = mainTriggerScript.baseWeaponDamage;
-                mainTriggerScript.smashDamage = smashDamage;
+                //if(mainTriggerScript.baseWeaponDamage>0)
+                //mainTriggerScript.weaponDamage = baseWeaponDamage;
+                //mainTriggerScript.smashDamage = smashDamage;
                 if (setup && setup.pmStamina)
                 {
                     setup.pmStamina.SendEvent("toSetStats");
@@ -242,13 +241,15 @@ namespace ChampionsOfForest.Player
                     damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                     if (tht.atEnemy)
                     {
-                        damage = WeaponDamage / 2f;
+                        damage *= 0.125f;
                     }
                     other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, damage), SendMessageOptions.DontRequireReceiver);
                 }
                 if (BoltNetwork.isClient && (other.CompareTag("jumpObject") || other.CompareTag("UnderfootWood")) && !repairTool)
                 {
-                    FauxMpHit(Mathf.CeilToInt(WeaponDamage * 4f));
+                    float damage = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                    damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+                    FauxMpHit(Mathf.CeilToInt(damage * 4f));
                 }
                 switch (other.gameObject.tag)
                 {
@@ -497,14 +498,18 @@ namespace ChampionsOfForest.Player
                         }
                     }
                     float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
-                    ModAPI.Console.Write("Num 2 " + num2 + "   bonus = " + ModdedPlayer.instance.MeleeDamageBonus);
-                    num2 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+                    //ModAPI.Console.Write("Num 2 " + num2 + "   bonus = " + ModdedPlayer.instance.MeleeDamageBonus);
+                    float crit = ModdedPlayer.instance.CritDamageBuff;
+                    num2 *= crit * ModdedPlayer.instance.MeleeAMP;
                     if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
                     {
                         num2 /= 2f;
                     }
 
-
+                    //ModAPI.Console.Write(string.Format("\nOutput melee={0}\n\n" +
+                    //    "weaponDamage float " + weaponDamage +
+                    //    "\n{1}base \n {2} bonus\n" +
+                    //    "{3} melee amp \n {4} crit", num2, WeaponDamage, ModdedPlayer.instance.MeleeDamageBonus, ModdedPlayer.instance.MeleeAMP, crit));
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
                         if ((bool)component6)
@@ -702,7 +707,13 @@ namespace ChampionsOfForest.Player
                     base.StartCoroutine(chainSawClampRotation(0.25f));
                     num3 = (smashDamage + ModdedPlayer.instance.MeleeDamageBonus) / 2f;
                 }
-                num3 *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+                float crit = ModdedPlayer.instance.CritDamageBuff;
+                num3 *= crit * ModdedPlayer.instance.MeleeAMP;
+
+                //ModAPI.Console.Write(string.Format("\nOutput melee={0}\n\n" +
+                //      "weaponDamage float " + smashDamage +
+                //      "\n{1}base \n {2} bonus\n" +
+                //      "{3} melee amp \n {4} crit", num3, smashDamage, ModdedPlayer.instance.MeleeDamageBonus, ModdedPlayer.instance.MeleeAMP, crit));
                 //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num3);
 
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);

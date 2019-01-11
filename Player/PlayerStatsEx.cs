@@ -64,7 +64,7 @@ namespace ChampionsOfForest
                     }
                     if (Sitted)
                     {
-                        Energy += 0.02f*ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp*6;
+                        Energy += 0.02f * ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 6;
                     }
                     if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
                     {
@@ -162,6 +162,9 @@ namespace ChampionsOfForest
                     IsTired = true;
                     Run = false;
                 }
+
+                HealthTarget = Mathf.Clamp(HealthTarget, 0, ChampionsOfForest.ModdedPlayer.instance.MaxHealth);
+                GreyZoneThreshold = Mathf.RoundToInt(ModdedPlayer.instance.MaxHealth * 0.05f);
                 //if (HealthTarget > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
                 //{
                 //    HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
@@ -311,7 +314,7 @@ namespace ChampionsOfForest
                                     ThirstSettings.TakingDamage = true;
                                     LocalPlayer.Tuts.ShowThirstTut();
                                 }
-                                Hit(Mathf.CeilToInt(ModdedPlayer.instance.MaxHealth*0.2f* GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
+                                Hit(Mathf.CeilToInt(ModdedPlayer.instance.MaxHealth * 0.2f * GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
                                 BleedBehavior.BloodAmount += 0.6f;
                                 TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.ResetToBeginning();
                                 TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.PlayForward();
@@ -498,7 +501,7 @@ namespace ChampionsOfForest
                 }
                 if (Health < HealthTarget)
                 {
-                    Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth*0.0025f + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1)* ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
+                    Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth * 0.0025f + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
 
                     TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
                 }
@@ -541,9 +544,9 @@ namespace ChampionsOfForest
                         Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * (1 + ModdedPlayer.instance.StaminaRegenPercent);
                         Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
                     }
-                    else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f&&Thirst< 1)
+                    else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f && Thirst < 1)
                     {
-                        
+
                         LocalPlayer.FpCharacter.recoveringFromRun -= Time.deltaTime;
                     }
                 }
@@ -673,9 +676,9 @@ namespace ChampionsOfForest
 
                 ModAPI.Log.Write(E.ToString());
 
-                    }
+            }
         }
-    public override void AteMeds()
+        public override void AteMeds()
         {
             NormalizeHealthTarget();
             HealthTarget += ModdedPlayer.instance.MaxHealth * 0.6f;
@@ -715,39 +718,47 @@ namespace ChampionsOfForest
         //}
         public override void HealthChange(float amount)
         {
-            if (amount == 0) return;
+            if (amount == 0)
+            {
+                return;
+            }
+
             NormalizeHealthTarget();
             if (amount < 0f)
             {
                 Health += amount;
-                HealthTarget += amount*3;
-                
+                HealthTarget += amount * 3;
+
             }
             else
             {
-                float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount *ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;
+                float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;
                 HealthTarget += f;
             }
 
         }
-        public override void Hit(int damage, bool ignoreArmor, DamageType type )
+        public override void Hit(int damage, bool ignoreArmor, DamageType type)
         {
-            if(type == DamageType.Physical)
+            if (type == DamageType.Physical)
             {
-                if (UnityEngine.Random.value < ModdedPlayer.instance.DodgeChance) return;
+                if (UnityEngine.Random.value < ModdedPlayer.instance.DodgeChance)
+                {
+                    return;
+                }
             }
-            float f = damage *1- ModdedPlayer.instance.DamageReduction;
+            float f = damage * 1 - ModdedPlayer.instance.DamageReduction;
             if (!ignoreArmor)
             {
-                f *=1- ModdedPlayer.instance.ArmorDmgRed;
+                f *= 1 - ModdedPlayer.instance.ArmorDmgRed;
             }
             if (type == DamageType.Fire)
             {
-                f *= 1-ModdedPlayer.instance.MagicResistance;
+                //f *= 1-ModdedPlayer.instance.MagicResistance;
+                f *= ModdedPlayer.instance.FireDamageTakenMult;
             }
-            if(ModdedPlayer.instance.DamageAbsorbAmount > 0)
+            if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
             {
-                if(f-ModdedPlayer.instance.DamageAbsorbAmount < 0)
+                if (f - ModdedPlayer.instance.DamageAbsorbAmount < 0)
                 {
                     ModdedPlayer.instance.DamageAbsorbAmount -= f;
                     return;
@@ -760,6 +771,72 @@ namespace ChampionsOfForest
             }
             damage = Mathf.RoundToInt(f);
             base.Hit(damage, ignoreArmor, type);
+        }
+
+        protected override void AteBlueBerry()
+        {
+            base.AteBlueBerry();
+        }
+        public override void AteBurnt(bool isLimb, float size, int calories)
+        {
+            base.AteBurnt(isLimb, size, calories);
+        }
+        public override void AteChocBar()
+        {
+            base.AteChocBar();
+        }
+        public override void AteCustom(float fullness, float health, float energy, bool isFresh, bool isMeat, bool isLimb, int calories)
+        {
+            base.AteCustom(fullness, health, energy, isFresh, isMeat, isLimb, calories);
+        }
+        public override void AteEdibleMeat(bool isLimb, float size, int calories)
+        {
+            base.AteEdibleMeat(isLimb, size, calories);
+        }
+        public override void AteFreshMeat(bool isLimb, float size, int calories)
+        {
+            base.AteFreshMeat(isLimb, size, calories);
+        }
+        protected override void AteMealRabbit()
+        {
+            base.AteMealRabbit();
+        }
+        protected override void AteMushroomAman()
+        {
+            base.AteMushroomAman();
+        }
+        protected override void AteMushroomChant()
+        {
+            base.AteMushroomChant();
+        }
+        protected override void AteMushroomDeer()
+        {
+            base.AteMushroomDeer();
+        }
+        protected override void AteMushroomJack()
+        {
+            base.AteMushroomJack();
+        }
+        protected override void AteMushroomLibertyCap()
+        {
+            base.AteMushroomLibertyCap();
+        }
+        protected override void AteMushroomPuffMush()
+        {
+            base.AteMushroomPuffMush();
+        }
+        protected override void AtePlaneFood()
+        {
+            base.AtePlaneFood();
+        }
+        protected override void HitFire()
+        {
+            this.Hit(Mathf.RoundToInt((ModdedPlayer.instance.MaxHealth * 0.02f + 4) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, global::PlayerStats.DamageType.Fire);
+            if (TheForest.Utils.LocalPlayer.AnimControl.skinningAnimal)
+            {
+                TheForest.Utils.LocalPlayer.SpecialActions.SendMessage("forceSkinningReset");
+            }
+            TheForest.Utils.LocalPlayer.Animator.SetBool("skinAnimal", false);
         }
     }
 }

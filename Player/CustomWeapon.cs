@@ -45,7 +45,7 @@ namespace ChampionsOfForest.Player
             InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
         }
-        public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation,Vector3 tip, float scale = 1)
+        public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float scale = 1)
         {
             this.damage = 6;
             this.swingspeed = 1;
@@ -60,7 +60,7 @@ namespace ChampionsOfForest.Player
             this.material = material;
             this.tipPosition = tip;
             ColliderScale = 1;
-            Scale = scale ;
+            Scale = scale;
             CreateGameObject();
             InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
@@ -77,7 +77,7 @@ namespace ChampionsOfForest.Player
             trail.enabled = false;
         }
 
-        void InitializeCustomWeapon()
+        private void InitializeCustomWeapon()
         {
             PlayerInventoryMod.instance.AttackEnded.AddListener(DisableTrail);
         }
@@ -87,20 +87,20 @@ namespace ChampionsOfForest.Player
             try
             {
 
-          
-            obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
-            obj.transform.localRotation = PlayerInventoryMod.originalRotation;
 
-            obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
-            obj.transform.Rotate(rotation, Space.Self);
+                obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
+                obj.transform.localRotation = PlayerInventoryMod.originalRotation;
 
-            obj.transform.localPosition += offset;
+                obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
+                obj.transform.Rotate(rotation, Space.Self);
 
-            obj.transform.localScale = Vector3.one * Scale;
+                obj.transform.localPosition += offset;
+
+                obj.transform.localScale = Vector3.one * Scale;
 
                 renderer = obj.GetComponent<Renderer>();
                 renderer.material = material;
-            obj.GetComponent<MeshFilter>().mesh = mesh;
+                obj.GetComponent<MeshFilter>().mesh = mesh;
 
                 GameObject trailObject = new GameObject();
                 trailObject.transform.SetParent(obj.transform);
@@ -109,9 +109,11 @@ namespace ChampionsOfForest.Player
 
                 if (trailMaterial == null)
                 {
-                    trailMaterial = new Material(Shader.Find("Unlit/Transparent"));
-                   trailMaterial.color = new Color(1, 0.5f, 0.25f, 0.4f);
-                    trailMaterial.mainTexture = Texture2D.whiteTexture;
+                    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
+                    {
+                        color = new Color(1, 0.5f, 0.25f, 0.4f),
+                        mainTexture = Texture2D.whiteTexture
+                    };
                 }
 
                 trail.material = trailMaterial;

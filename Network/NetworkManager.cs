@@ -107,7 +107,7 @@ namespace ChampionsOfForest.Network
         }
 
 
-        public static int lastDropID =0;
+        public static int lastDropID = 0;
         /// <summary>
         /// Sends a command to create a item drop for all players.
         /// </summary>
@@ -116,7 +116,7 @@ namespace ChampionsOfForest.Network
         /// <param name="amount">How many of this item should be spawned</param>
         public static void SendItemDrop(Item item, Vector3 pos, int amount = 1)
         {
-            int id = lastDropID +1;
+            int id = lastDropID + 1;
             while (PickUpManager.PickUps.ContainsKey(id))
             {
                 id++;
@@ -132,7 +132,7 @@ namespace ChampionsOfForest.Network
         }
         public static void SendHitmarker(Vector3 pos, int amount)
         {
-            string msg = "EH"+ amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
+            string msg = "EH" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
             SendLine(msg, Network.NetworkManager.Target.Everyone);
 
         }

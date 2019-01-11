@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ChampionsOfForest.Enemies
+namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
     public class RootSpell : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using TheForest.Utils;
 using UnityEngine;
 
-namespace ChampionsOfForest.Enemies
+namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
     public class SnowAura : MonoBehaviour
     {

@@ -118,17 +118,20 @@ namespace ChampionsOfForest.Player
                         string btnname = "spell" + (i + 1).ToString();
                         if (ModAPI.Input.GetButton(btnname))
                         {
-                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
+                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
                             {
-                                LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina *(1-ModdedPlayer.instance.SpellCostRatio);
-                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1-ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
+                                    LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
+                                    LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
+
                                 Ready[i] = false;
                                 MaxCooldown(i);
                                 infos[i].spell.active();
-                             
+
 
                             }
-                         
+
                         }
                     }
                 }

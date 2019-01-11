@@ -65,7 +65,8 @@ namespace ChampionsOfForest
                 if (Time.time <= cp.creationTime + ClinetEnemyProgression.LifeTime)
                 {
                     return cp;
-                }else
+                }
+                else
                 {
                     spProgression.Remove(tr.root);
                 }
@@ -73,7 +74,11 @@ namespace ChampionsOfForest
             else
             {
                 EnemyProgression p = tr.root.GetComponent<EnemyProgression>();
-                if (p == null) p= tr.root.GetComponentInChildren<EnemyProgression>();
+                if (p == null)
+                {
+                    p = tr.root.GetComponentInChildren<EnemyProgression>();
+                }
+
                 if (p != null)
                 {
                     ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr.root);
@@ -85,8 +90,9 @@ namespace ChampionsOfForest
                     {
                         mutantScriptSetup setup = tr.root.GetComponentInChildren<mutantScriptSetup>();
                         if (setup == null)
+                        {
                             setup = tr.root.GetComponent<mutantScriptSetup>();
-
+                        }
 
                         p = setup.health.gameObject.AddComponent<EnemyProgression>();
                         p._Health = setup.health;
@@ -138,7 +144,7 @@ namespace ChampionsOfForest
                 if (ep.entity.networkId != null)
                 {
                     if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
-{
+                    {
                         hostDictionary.Remove(ep.entity.networkId.PackedValue);
                     }
                 }

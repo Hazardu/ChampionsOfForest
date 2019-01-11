@@ -32,7 +32,7 @@ namespace ChampionsOfForest.Player
         //Display
         public string Name;
         public string Description;
-        public int EquippedSlot =-1;
+        public int EquippedSlot = -1;
 
         public Spell()
         {
@@ -51,7 +51,7 @@ namespace ChampionsOfForest.Player
             Bought = false;
             icon = Res.ResourceLoader.instance.LoadedTextures[TextureID];
             SpellDataBase.spellDictionary.Add(iD, this);
-           // ModAPI.Log.Write("Added spell " + name + " " + ID);
+            // ModAPI.Log.Write("Added spell " + name + " " + ID);
         }
     }
 }

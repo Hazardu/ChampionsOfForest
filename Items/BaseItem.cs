@@ -167,6 +167,7 @@ namespace ChampionsOfForest
             };
         }
 
+        //Sets the item to drop from only a specyfic group of enemies
         public void DropSettings_OnlyArmsy()
         {
             LootsFrom = new List<EnemyProgression.Enemy>()
@@ -209,7 +210,7 @@ namespace ChampionsOfForest
                EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy,EnemyProgression.Enemy.RegularVags,EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.Cowman,EnemyProgression.Enemy.Baby,EnemyProgression.Enemy.Girl,EnemyProgression.Enemy.Worm,EnemyProgression.Enemy.Megan
             };
         }
-         public void DropSettings_OnlyCannibals()
+        public void DropSettings_OnlyCannibals()
         {
             LootsFrom = new List<EnemyProgression.Enemy>()
             {

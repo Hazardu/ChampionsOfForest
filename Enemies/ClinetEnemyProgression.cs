@@ -1,4 +1,7 @@
-﻿using TheForest.Utils;
+﻿//Stores info about enemy stats, shared between players in coop
+
+
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest

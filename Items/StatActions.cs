@@ -6,7 +6,7 @@ namespace ChampionsOfForest.Items
     {
         public static void AddVitality(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.vitality += Mathf.RoundToInt( f);
+            ChampionsOfForest.ModdedPlayer.instance.vitality += Mathf.RoundToInt(f);
         }
         public static void RemoveVitality(float f)
         {
@@ -94,7 +94,7 @@ namespace ChampionsOfForest.Items
         }
         public static void AddDamageReduction(float f)
         {
-            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f); 
+            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f);
         }
         public static void RemoveDamageReduction(float f)
         {
@@ -254,19 +254,19 @@ namespace ChampionsOfForest.Items
         }
         public static void AddHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier *= 1+f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier *= 1 + f;
         }
         public static void RemoveHealingMultipier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier /= 1+ f;
+            ChampionsOfForest.ModdedPlayer.instance.HealingMultipier /= 1 + f;
         }
         public static void AddMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed *= 1+ f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed *= 1 + f;
         }
         public static void RemoveMoveSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /=1+ f;
+            ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /= 1 + f;
         }
 
         //   public static void Add(float f)

@@ -1,4 +1,4 @@
-﻿using ChampionsOfForest.Enemies;
+﻿using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Player;
 using System;
 using TheForest.Utils;
@@ -142,8 +142,8 @@ namespace ChampionsOfForest.Network
                 {
                     i = 2;
                     ch = s.ToCharArray();
-                    int playerID = int.Parse(Read());
-                    if (ModReferences.ThisPlayerID == playerID)
+                    ulong playerPacked = ulong.Parse(Read());
+                    if (ModReferences.ThisPlayerPacked == playerPacked)
                     {
                         int source = int.Parse(Read());
                         float amount = float.Parse(Read());
@@ -267,6 +267,7 @@ namespace ChampionsOfForest.Network
                     if (s.Length > 2)
                     {
                         ModReferences.PlayerLevels.Clear();
+                        //ModReferences.PlayerLevels.Add(ModReferences.ThisPlayerPacked, ModdedPlayer.instance.Level);
                     }
 
                     NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);

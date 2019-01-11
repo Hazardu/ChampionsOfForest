@@ -54,7 +54,7 @@ namespace ChampionsOfForest
             {
                 try
                 {
-                    ModAPI.Log.Write(_Item_Bases[i].name + "  [" + _Item_Bases[i].ID + "]  - item added");
+                    ModAPI.Log.Write("  [" + _Item_Bases[i].ID + "] " + _Item_Bases[i].name + "  - item added");
 
                     ItemBases.Add(_Item_Bases[i].ID, _Item_Bases[i]);
                     if (ItemRarityGroups.ContainsKey(_Item_Bases[i].Rarity))
@@ -77,6 +77,9 @@ namespace ChampionsOfForest
             ModAPI.Log.Write("SETUP: ITEM DATABASE");
             LogInfo();
         }
+        /// <summary>
+        /// Prints a pretty summary to a log file
+        /// </summary>
         public static void LogInfo()
         {
             string s = "There are " + Stats.Count + " stats:\n";
@@ -133,12 +136,10 @@ namespace ChampionsOfForest
         {
             statList.Add(item);
         }
-
         public static ItemStat StatByID(int id)
         {
             return ItemDataBase.Stats[id];
         }
-
         public static Item GetRandomItem(float Worth)
         {
 
@@ -147,11 +148,21 @@ namespace ChampionsOfForest
             if (GameSetup.IsMultiplayer)
             {
                 int sum = 0;
+                int count = ModReferences.PlayerLevels.Values.Count;
                 foreach (int a in ModReferences.PlayerLevels.Values)
                 {
                     sum += a;
                 }
-                sum /= ModReferences.PlayerLevels.Values.Count;
+                if (!SteamDSConfig.isDedicated)
+                {
+                    sum += ModdedPlayer.instance.Level;
+                    count++;
+                }
+                else
+                {
+                    ModAPI.Log.Write("Is dedicated server bool set to true.");
+                }
+                sum /= count;
                 averageLevel = sum;
             }
             else
@@ -225,17 +236,18 @@ namespace ChampionsOfForest
             return item;
 
         }
-        public static bool AllowItemDrop(int i,int averageLevel, EnemyProgression.Enemy e)
+        public static bool AllowItemDrop(int i, int averageLevel, EnemyProgression.Enemy e)
         {
-           if( ItemBases[i].minLevel<= averageLevel + 5)
+            if (ItemBases[i].minLevel <= averageLevel + 5)
             {
-                if(ItemBases[i].LootsFrom.Contains(e))
-                return true;
+                if (ItemBases[i].LootsFrom.Contains(e))
+                {
+                    return true;
+                }
             }
             return false;
         }
-
-        public static Item GetRandomItem(float Worth,EnemyProgression.Enemy killedEnemyType)
+        public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType)
         {
 
             //this needs to be changed to take random value of average of all player levels - and exclude the level of dedicated server.
@@ -261,7 +273,7 @@ namespace ChampionsOfForest
             {
                 rarity = 1;
 
-                if (w > 350 && Random.value < 0.60f && (int)ModSettings.difficulty > 0)
+                if (w > 350 && Random.value < 0.60f && ModSettings.difficulty > 0)
                 {
                     rarity = 2;
 
@@ -302,7 +314,7 @@ namespace ChampionsOfForest
             int[] itemPool = null;
             while (itemPool == null)
             {
-                itemPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i,averageLevel,killedEnemyType))).ToArray();
+                itemPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i, averageLevel, killedEnemyType))).ToArray();
                 if (itemPool.Length == 0)
                 {
                     rarity--;
@@ -321,7 +333,6 @@ namespace ChampionsOfForest
             return item;
 
         }
-
         public static void FillStats()
         {
             int i = 1;
@@ -399,7 +410,6 @@ namespace ChampionsOfForest
         {
             variable1 = 1 - (1 - variable1) / f;
         }
-
         public static void FillItems()
         {
             try

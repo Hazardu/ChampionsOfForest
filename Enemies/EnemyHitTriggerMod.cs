@@ -15,21 +15,22 @@ namespace ChampionsOfForest.Enemies
         private Vector3 originalScale = Vector3.zero;
         public void SetTriggerScaleForTiny()
         {
-            if(originalScale == Vector3.zero)
+            if (originalScale == Vector3.zero)
             {
                 originalScale = transform.localScale;
             }
-            transform.localScale = originalScale* 3;
+            transform.localScale = originalScale * 5;
 
         }
-        EnemyProgression EnemyProg;
 
-       [ModAPI.Attributes.Priority(100)]
+        private EnemyProgression EnemyProg;
+
+        [ModAPI.Attributes.Priority(100)]
         protected override void OnTriggerEnter(Collider other)
         {
             try
             {
-                
+
 
                 currState = animator.GetCurrentAnimatorStateInfo(0);
                 nextState = animator.GetNextAnimatorStateInfo(0);
@@ -168,46 +169,46 @@ namespace ChampionsOfForest.Enemies
                                 num = Mathf.FloorToInt(num / 1.6f);
                             }
 
+                            //My additional code
                             try
                             {
-                                if(EnemyProg ==null)
-                                EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+                                if (EnemyProg == null)
+                                {
+                                    EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+                                }
                                 num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
                                 //POISON ATTACKS 
 
                                 if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                 {
+                                    //needs testing
 
-
-                                    if (BoltNetwork.isRunning)
-                                    {
-                                        if (BoltNetwork.isServer)
-                                        {
-                                            if (other.transform.root == LocalPlayer.Transform.root)
-                                            {
-                                                BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
-                                            }
-                                            else
-                                            {
-                                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-                                                if (bo != null)
-                                                {
-                                                    for (int i = 0; i < ModReferences.AllPlayerEntities.Count; i++)
-                                                    {
-                                                        if (ModReferences.AllPlayerEntities[i] == bo)
-                                                        {
-                                                            Network.NetworkManager.SendLine("PO" + i + ";32;" + num / 15 + ";" + poisonDuration, Network.NetworkManager.Target.Others);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else
+                                    //if (BoltNetwork.isRunning)
+                                    //{
+                                    //    if (BoltNetwork.isServer)
+                                    //    {
+                                    if (other.transform.root == LocalPlayer.Transform.root)
                                     {
                                         BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
                                     }
+                                    //        else
+                                    //        {
+                                    //            BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                    //            if(bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
+                                    //            if (bo != null)
+                                    //            {
+
+                                    //                        Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 15 + ";" + poisonDuration, Network.NetworkManager.Target.Others);
+
+
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //}
+                                    //else
+                                    //{
+                                    //    BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
+                                    //}
                                 }
 
 

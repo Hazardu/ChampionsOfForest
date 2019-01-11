@@ -1,5 +1,4 @@
 ﻿using Bolt;
-using System.Collections;
 using TheForest.UI.Multiplayer;
 namespace ChampionsOfForest.Network
 {
@@ -31,16 +30,16 @@ namespace ChampionsOfForest.Network
         [ModAPI.Attributes.Priority(200)]
         public override void AddLine(NetworkId? playerId, string message, bool system)
         {
-          
-                if (playerId == ModNetwokrID)
-                {
-                    NetworkManager.RecieveLine(message);
 
-                }
-                else
-                {
-                    base.AddLine(playerId, message, system);
-                }
-                }
+            if (playerId == ModNetwokrID)
+            {
+                NetworkManager.RecieveLine(message);
+
+            }
+            else
+            {
+                base.AddLine(playerId, message, system);
+            }
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace ChampionsOfForest
                 return (1 + f) * SpellDamageAmplifier * DamageOutputMult;
             }
         }
-        public float MeleeAMP => DamageOutputMult * (strenght * DamagePerStrenght + 1) * MeleeDamageAmplifier;
+        public float MeleeAMP => DamageOutputMult * ((strenght * DamagePerStrenght) + 1) * MeleeDamageAmplifier;
         public float RangedAMP
         {
             get
@@ -58,7 +58,7 @@ namespace ChampionsOfForest
             {
                 if (Critted)
                 {
-                    return CritDamage / 100 + 1;
+                    return (CritDamage / 100) + 1;
                 }
                 return 1;
             }
@@ -156,6 +156,7 @@ namespace ChampionsOfForest
 
         public float ThirstRate = 1;
         public float HungerRate = 1;
+        public float FireDamageTakenMult = 1;
         public float AreaDamageProcChance = 0.15f;
         public float AreaDamage = 0;
         public float AreaDamageRadius = 4;

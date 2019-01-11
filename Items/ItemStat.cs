@@ -15,7 +15,7 @@ namespace ChampionsOfForest
         public float Multipier = 1;
         public bool DisplayAsPercent = false;
         public int RoundingCount;
-        
+
         public delegate void OnEquipDelegate(float f);
         public OnEquipDelegate OnEquip;
         public delegate void OnUnequipDelegate(float f);
@@ -43,7 +43,7 @@ namespace ChampionsOfForest
             OnUnequip = onUnequip;
             OnConsume = onConsume;
             ItemDataBase.AddStat(this);
-            ModAPI.Log.Write("Added Item stat: ["+id + "] " + name);
+            ModAPI.Log.Write("Added Item stat: [" + id + "] " + name);
         }
         public ItemStat(ItemStat s, int level = 1, float Multipier = 0)
         {
@@ -65,21 +65,25 @@ namespace ChampionsOfForest
             }
             else { this.Multipier = s.Multipier; }
             Amount = this.Multipier * RollValue(level);
-            if (ValueCap != 0) Amount = Mathf.Min(ValueCap,Amount);
+            if (ValueCap != 0)
+            {
+                Amount = Mathf.Min(ValueCap, Amount);
+            }
         }
         public ItemStat()
         {
 
         }
-        
+
         public float RollValue(int level = 1)
         {
             float mult = 1;
-            if(LevelPow != 0) {
+            if (LevelPow != 0)
+            {
                 mult = Mathf.Pow(level, LevelPow);
             }
-            float f = UnityEngine.Random.Range(MinAmount , MaxAmount) *mult;
+            float f = UnityEngine.Random.Range(MinAmount, MaxAmount) * mult;
             return f;
         }
-         }
+    }
 }

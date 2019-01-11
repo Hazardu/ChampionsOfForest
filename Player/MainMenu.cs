@@ -408,7 +408,7 @@ namespace ChampionsOfForest
                             fontStyle = FontStyle.BoldAndItalic,
                             onHover = new GUIStyleState()
                             {
-                                textColor = new Color(1,0.5f,0.35f)
+                                textColor = new Color(1, 0.5f, 0.35f)
                             }
                         };
                     }
@@ -1448,7 +1448,7 @@ namespace ChampionsOfForest
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = buff.Value.BuffName + "   (" + Math.Round(buff.Value.duration, 1)+" s)";
+                    string s = buff.Value.BuffName + "   (" + Math.Round(buff.Value.duration, 1) + " s)";
 
                     if (buff.Value.DisplayAmount)
                     {
@@ -2124,7 +2124,7 @@ namespace ChampionsOfForest
             public float position;
             public string name;
         }
-        public List<Bookmark> Bookmarks= new List<Bookmark>();
+        public List<Bookmark> Bookmarks = new List<Bookmark>();
 
         private void Header(string s)
         {
@@ -2186,12 +2186,12 @@ namespace ChampionsOfForest
                 BookPositionY += h;
             }
         }
-            private void Image(int iconID, float height, float centerPosition = 0.5f)
+        private void Image(int iconID, float height, float centerPosition = 0.5f)
         {
             height *= rr;
             if (BookPositionY < Screen.height && BookPositionY > -height * rr)
             {
-               
+
                 Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
                 Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
                 {
@@ -2202,7 +2202,7 @@ namespace ChampionsOfForest
             }
             else
             {
-                BookPositionY += height ;
+                BookPositionY += height;
             }
         }
         private void MarkBookmark(string s)
@@ -2273,7 +2273,7 @@ namespace ChampionsOfForest
                 },
             };
         }
-        
+
         private void DrawGuide()
         {
             //what to do
@@ -2290,11 +2290,11 @@ namespace ChampionsOfForest
             Label("\tExperience");
             Stat("Current level", ModdedPlayer.instance.Level.ToString());
             Stat("Current experience amount", ModdedPlayer.instance.ExpCurrent.ToString());
-            Stat("Experience to level up", ModdedPlayer.instance.ExpGoal.ToString(),"For level "+ (ModdedPlayer.instance.Level+1)+" you will need to get this amount of experience:\t "+ ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
-            Stat("Progress amount: ",(((float) ModdedPlayer.instance.ExpCurrent/ ModdedPlayer.instance.ExpGoal)*100).ToString()+"%");
+            Stat("Experience to level up", ModdedPlayer.instance.ExpGoal.ToString(), "For level " + (ModdedPlayer.instance.Level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
+            Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal) * 100).ToString() + "%");
             Label("\tYour strenght is havily dependant on your level." +
                 "\nHigher level allows you to equip better equipement. " +
-                "\nLeveling up gives you mutation points. (Currently you have "+ModdedPlayer.instance.MutationPoints+" mutation points), which you can spend on unlocking spells or perks. " +
+                "\nLeveling up gives you mutation points. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. " +
                 "\nWith your level, and your power, resource usage will increase. Your muscules will require more water and food. With every level, your food and water depletion rate increases by 4% (increases by 100% every 25 levels)" +
                 "This property multiplies with your thirst rate and hunger rate stat.");
             Space(50);
@@ -2302,7 +2302,7 @@ namespace ChampionsOfForest
                 "\nKilling enemies - experience gained is equal to enemy's bounty." +
                 "\nEating rare consumabes - it's a tier 7 item (red item) and because of that it will only drop on specyfic difficulties\n" +
                 "\nExperience from kills can be increased by quickly killing multipe enemies." +
-                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your spree. You can make the massacre last longer by equiping items. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by "+ModdedPlayer.instance.TimeBonusPerKill+"). " +
+                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your spree. You can make the massacre last longer by equiping items. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by " + ModdedPlayer.instance.TimeBonusPerKill + "). " +
                 "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
             Stat("Maximum massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " seconds");
             Stat("Massacre duration bonus per kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " seconds");
@@ -2311,106 +2311,11 @@ namespace ChampionsOfForest
             Header("Statistics");
             Stat("Strenght", ModdedPlayer.instance.strenght + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
             Stat("Agility", ModdedPlayer.instance.strenght + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
-                "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility+" for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
-            Stat("Vitality", ModdedPlayer.instance.vitality + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality  + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
+                "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
+            Stat("Vitality", ModdedPlayer.instance.vitality + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
             Stat("Intelligence", ModdedPlayer.instance.intelligence + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
                 "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
             Space(40);
-
-
-
-
-
-
-
-
-
-            //Image(99, 100);
-
-            //GUILayout.Label("HEALTH: " + ModdedPlayer.instance.MaxHealth, header);
-            //GUILayout.Label("Base health: 10", label);
-            //GUILayout.Label("Bonus from vitality: " + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality, label);
-            //GUILayout.Label("Bonus health: " + ModdedPlayer.instance.HealthBonus, label);
-            //GUILayout.Label("Bonus health percent: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%", label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.Label("HEALTH REGEN", header);
-            //GUILayout.Label("Health per second: " + ModdedPlayer.instance.LifeRegen, label);
-            //GUILayout.Label("Health per second multipier: " + ModdedPlayer.instance.HealthRegenPercent * 100 + "%", label);
-            //GUILayout.Label("Health per hit: " + ModdedPlayer.instance.LifeOnHit, label);
-            //GUILayout.Label("Healing multipier: " + ModdedPlayer.instance.HealingMultipier * 100 + "%", label);
-            //GUILayout.Space(50 * rr);
-
-
-
-
-            //GUILayout.Label("ENERGY: " + ModdedPlayer.instance.MaxEnergy, header);
-            //GUILayout.Label("Base energy: 10", label);
-            //GUILayout.Label("Bonus from agility: " + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility, label);
-            //GUILayout.Label("Bonus energy: " + ModdedPlayer.instance.EnergyBonus, label);
-            //GUILayout.Label("Bonus energy percent: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%", label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.Label("STAMINA REGEN", header);
-            //GUILayout.Label("Stamina per second: " + ModdedPlayer.instance.StaminaRecover, label);
-            //GUILayout.Label("Stamina per second bonus: " + ModdedPlayer.instance.StaminaRegen, label);
-            //GUILayout.Label("Stamina regen multipier: " + ModdedPlayer.instance.StaminaRegenPercent * 100 + "%", label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.EndArea();
-            //GUILayout.BeginArea(new Rect(Screen.width / 3, 0, Screen.width / 3, Screen.height));
-
-            //GUILayout.Label("ATTRIBUTES", header);
-            //GUILayout.Label("Strenght: " + ModdedPlayer.instance.strenght, label);
-            //GUILayout.Label("Intelligence: " + ModdedPlayer.instance.intelligence, label);
-            //GUILayout.Label("Agility: " + ModdedPlayer.instance.agility, label);
-            //GUILayout.Label("Vitality: " + ModdedPlayer.instance.vitality, label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.Label("OFFENSIVE", header);
-            //GUILayout.Label("Spell damage amplification: " + ModdedPlayer.instance.SpellAMP * 100 + "%", label);
-
-            //GUILayout.Space(10 * rr);
-
-            //GUILayout.Label("Critical hit chance: " + ModdedPlayer.instance.CritChance, label);
-            //GUILayout.Label("Critical hit damage: " + ModdedPlayer.instance.CritDamage, label);
-            //GUILayout.Space(10 * rr);
-
-            //GUILayout.Label("Outgoing damage increase: " + ModdedPlayer.instance.DamageOutputMult * 100 + "%", label);
-            //GUILayout.Label("Strenght melee damage increase: " + ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100 + "%", label);
-            //GUILayout.Space(10 * rr);
-
-            //GUILayout.Label("Melee damage: " + ModdedPlayer.instance.MeleeDamageBonus, label);
-            //GUILayout.Label("Melee damage multipier: " + ModdedPlayer.instance.MeleeDamageAmplifier * 100 + "%", label);
-            //GUILayout.Space(10 * rr);
-
-            //GUILayout.Label("Ranged damage: " + ModdedPlayer.instance.RangedDamageBonus, label);
-            //GUILayout.Label("Ranged damage multipier: " + ModdedPlayer.instance.RangedDamageAmplifier * 100 + "%", label);
-            //GUILayout.Space(10 * rr);
-
-            //GUILayout.Label("Spell damage: " + ModdedPlayer.instance.SpellDamageBonus, label);
-            //GUILayout.Label("Spell damage multipier: " + ModdedPlayer.instance.SpellDamageAmplifier * 100 + "%", label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.Label("DEFENSIVE", header);
-            //GUILayout.Label("Damage reduction: " + ModdedPlayer.instance.DamageReduction * 100 + "%", label);
-            //GUILayout.Label("Dodge chance: " + ModdedPlayer.instance.DodgeChance * 100 + "%", label);
-            //GUILayout.Label("Armor: " + ModdedPlayer.instance.Armor, label);
-            //GUILayout.Label("Damage reduction from armor: " + ModdedPlayer.instance.ArmorDmgRed, label);
-            //GUILayout.Label("Magic resistance: " + ModdedPlayer.instance.MagicResistance, label);
-            //GUILayout.Space(50 * rr);
-
-            //GUILayout.EndArea();
-            //GUILayout.BeginArea(new Rect((Screen.width / 3) * 2, 0, Screen.width / 3, Screen.height));
-
-            //GUILayout.Label("ADVENTURE", header);
-            //GUILayout.Label("Movement speed: " + ModdedPlayer.instance.MoveSpeed * 100 + "%", label);
-            //GUILayout.Label("Swing speed: " + ModdedPlayer.instance.AttackSpeed * 100 + "%", label);
-            //GUILayout.Label("Experience gain: " + ModdedPlayer.instance.ExpFactor * 100 + "%", label);
-            //GUILayout.Label("Massacre duration: " + ModdedPlayer.instance.MaxMassacreTime + " seconds", label);
-            //GUILayout.Space(50 * rr);
-            //GUILayout.EndArea();
-
         }
         #endregion
         private void DrawLine(Vector2 pointA, Vector2 pointB, float length, Color color)
@@ -2541,7 +2446,7 @@ namespace ChampionsOfForest
             {
                 DrawPerk(DisplayedPerkIDs[i]);
             }
-            if(SelectedPerk!= null)
+            if (SelectedPerk != null)
             {
                 Rect r = new Rect(selectedPerk_Rect);
                 Perk p = SelectedPerk;
@@ -2617,8 +2522,8 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5,5,(int)(10*rr),10), alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
-                    Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width)+10*rr;
+                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, (int)(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
+                    Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width) + 10 * rr;
                     GUI.Label(Desc, desctext, descStyle);
 
                 }
@@ -2698,10 +2603,11 @@ namespace ChampionsOfForest
 
             }
         }
-        Perk SelectedPerk = null;
-        Rect selectedPerk_Rect;
-        Vector2 SelectedPerk_center;
-        int SelectedPerk_ID;
+
+        private Perk SelectedPerk = null;
+        private Rect selectedPerk_Rect;
+        private Vector2 SelectedPerk_center;
+        private int SelectedPerk_ID;
         private Color SelectedPerk_Color;
 
         private void DrawPerk(int a)
@@ -2780,7 +2686,7 @@ namespace ChampionsOfForest
 
             }
             float distsquared = (mousepos - r.center).sqrMagnitude;
-            if (r.Contains(mousepos) && distsquared < PerkHexagonSide* PerkHexagonSide*0.81f)
+            if (r.Contains(mousepos) && distsquared < PerkHexagonSide * PerkHexagonSide * 0.81f)
             {
                 SelectedPerk = p;
                 selectedPerk_Rect = r;

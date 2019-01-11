@@ -40,10 +40,10 @@ namespace ChampionsOfForest
         {
             DisplayTime = 1;
         }
-        void UnlockMe()
+
+        private void UnlockMe()
         {
             rb.isKinematic = false;
-
         }
         private void OnGUI()
         {
@@ -66,13 +66,13 @@ namespace ChampionsOfForest
                 if (constantViewTime > 1f)
                 {
                     label += " \n Level " + item.level;
-                    if(lifetime < 61)
+                    if (lifetime < 61)
                     {
                         label += " \n Deleting in " + lifetime.ToString();
                     }
                 }
-                
-                GUIStyle style = new GUIStyle(GUI.skin.label) {alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
+
+                GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
                 float height = style.CalcHeight(new GUIContent(label), r.width);
                 style.margin = new RectOffset(10, 10, 10, 10);
                 Rect bg = new Rect(r)
@@ -96,14 +96,15 @@ namespace ChampionsOfForest
         {
             Destroy(gameObject);
         }
-        void Update()
+
+        private void Update()
         {
             if (amount <= 0)
             {
                 PickUpManager.RemovePickup(ID);
                 Destroy(gameObject);
             }
-            if(lifetime > 0)
+            if (lifetime > 0)
             {
                 lifetime -= Time.deltaTime;
 

@@ -88,7 +88,7 @@ namespace ChampionsOfForest.Player
             if (ItemList[key] != null && ItemList.ContainsKey(key))
             {
                 Item i = ItemList[key];
-                
+
                 if (amount == 0)
                 {
                     amount = i.Amount;
@@ -109,7 +109,7 @@ namespace ChampionsOfForest.Player
                     }
                     ItemList[key] = null;
                 }
-                
+
 
                 return true;
             }

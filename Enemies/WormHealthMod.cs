@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TheForest.Utils;
 using UnityEngine;
 
+
+//More health
+//More damage
+//As if the worm was weak in the first place
 namespace ChampionsOfForest.Enemies
 {
-    class WormHealthMod : wormHealth
+    internal class WormHealthMod : wormHealth
     {
         public override void Hit(int damage)
         {
@@ -16,7 +17,8 @@ namespace ChampionsOfForest.Enemies
         }
 
     }
-    class WormHiveControllerMod : wormHiveController
+
+    internal class WormHiveControllerMod : wormHiveController
     {
         protected override void Start()
         {
@@ -83,7 +85,8 @@ namespace ChampionsOfForest.Enemies
             }
         }
     }
-    class ExplodeMod : Explode
+
+    internal class ExplodeMod : Explode
     {
         protected override void RunExplode()
         {
