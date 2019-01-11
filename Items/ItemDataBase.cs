@@ -75,7 +75,7 @@ namespace ChampionsOfForest
 
             }
             ModAPI.Log.Write("SETUP: ITEM DATABASE");
-            LogInfo();
+            //LogInfo();
         }
         /// <summary>
         /// Prints a pretty summary to a log file
@@ -1400,7 +1400,7 @@ namespace ChampionsOfForest
             }
         }
 
-        //Items added by Kaspito
+        //Items added by Kaspito#4871
         private static void FillKaspitoItems()
         {
             new BaseItem(new int[][]

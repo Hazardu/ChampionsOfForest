@@ -264,6 +264,7 @@ namespace ChampionsOfForest
             }
             try
             {
+                
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
                 int[] keys = new List<int>(BuffDB.activeBuffs.Keys).ToArray();
@@ -290,8 +291,9 @@ namespace ChampionsOfForest
                 }
                 if (dmgPerSecond != 0)
                 {
+                    dmgPerSecond *= 1 - MagicResistance;
                     LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
-                    LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime;
+                    LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime*2;
 
                     if (poisonCount > 1)
                     {
@@ -300,7 +302,7 @@ namespace ChampionsOfForest
 
 
                 }
-                if (LocalPlayer.Stats.Health <= 0)
+                if (LocalPlayer.Stats.Health <= 0 && poisonCount >0)
                 {
                     LocalPlayer.Stats.Hit(1, true);
                 }
