@@ -183,32 +183,32 @@ namespace ChampionsOfForest.Enemies
                                 {
                                     //needs testing
 
-                                    //if (BoltNetwork.isRunning)
-                                    //{
-                                    //    if (BoltNetwork.isServer)
-                                    //    {
-                                    if (other.transform.root == LocalPlayer.Transform.root)
+                                    if (BoltNetwork.isRunning)
                                     {
-                                        BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
+                                        if (BoltNetwork.isServer)
+                                        {
+                                            if (other.transform.root == LocalPlayer.Transform.root)
+                                            {
+                                                BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                            }
+                                            else
+                                            {
+                                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                                if (bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
+                                                if (bo != null)
+                                                {
+
+                                                    Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 20 + ";" + poisonDuration,bo.controller);
+
+
+                                                }
+                                            }
+                                        }
                                     }
-                                    //        else
-                                    //        {
-                                    //            BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-                                    //            if(bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
-                                    //            if (bo != null)
-                                    //            {
-
-                                    //                        Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 15 + ";" + poisonDuration, Network.NetworkManager.Target.Others);
-
-
-                                    //            }
-                                    //        }
-                                    //    }
-                                    //}
-                                    //else
-                                    //{
-                                    //    BuffDB.AddBuff(3, 32, num / 15, poisonDuration);
-                                    //}
+                                    else
+                                    {
+                                        BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                    }
                                 }
 
 

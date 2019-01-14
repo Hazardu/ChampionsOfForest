@@ -44,6 +44,7 @@ namespace ChampionsOfForest.Res
         public List<Resource> toDownload;
         public Dictionary<int, Mesh> LoadedMeshes;
         public Dictionary<int, Texture2D> LoadedTextures;
+        public Dictionary<int, AudioClip> LoadedAudio;
         private string LabelText;
         private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail, NewerThanOnline }
         private enum LoadingState { CheckingFiles, Downloading, Loading, Done}
@@ -77,6 +78,7 @@ namespace ChampionsOfForest.Res
             FillResources();
             LoadedMeshes = new Dictionary<int, Mesh>();
             LoadedTextures = new Dictionary<int, Texture2D>();
+            LoadedAudio = new Dictionary<int, AudioClip>();
             toDownload = new List<Resource>();
             FailedLoadResources = new List<Resource>();
             StartCoroutine(FileVerification());
@@ -315,10 +317,22 @@ namespace ChampionsOfForest.Res
                         }
                         break;
                     case Resource.ResourceType.Audio:
-                        //hit or miss
+                        WWW audioWWW = new WWW("file://" + Resource.path + resource.fileName);
+                        yield return audioWWW;
+
+                        AudioClip clip = audioWWW.GetAudioClip(false, false);
+                        if(clip != null)
+                        {
+                            LoadedAudio.Add(resource.ID, clip);
+                        }
+                        else
+                        {
+                            ModAPI.Log.Write("Missing audio " + resource.fileName);
+                            FailedLoadResources.Add(resource);
+                        }
                         break;
                     case Resource.ResourceType.Text:
-                        //i guess they never miss
+                        
                         break;
                 }
                 LoadedFileNumber++;
@@ -354,8 +368,13 @@ namespace ChampionsOfForest.Res
 
         }
 
+        private AudioSource sauce;
         private void OnGUI()
         {
+          
+
+
+
             if (!InMainMenu)
             {
                 return;
@@ -612,7 +631,14 @@ namespace ChampionsOfForest.Res
             new Resource(103, "HeartTexture.png");
             new Resource(104, "HeartNormal.png");
             new Resource(105, "ItemHeart.png");
-                 }
+            new Resource(106, "Corner.png");
+            new Resource(107, "BeamParticleHorizontal.png");
+
+
+            //new Resource(10000, "Steve Void  BEAUZ ft. Carly Paige - Hide and Seek.wav");
+
+
+            }
     }
 
 }

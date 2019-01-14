@@ -109,12 +109,15 @@ namespace ChampionsOfForest
         public float DodgeChance = 0;
         public float SlowAmount = 0;
         public bool Silenced = false;
+        public bool Rooted = false;
         public bool Stunned = false;
         public int Armor = 0;
         public float MagicResistance = 0;
         public float AttackSpeed = 1;
         public bool StunImmune = false;
+        public bool RootImmune = false;
         public bool DebuffImmune = false;
+        public bool DebuffResistant = false;
         public float MoveSpeed = 1f;
         public float SpellCostToStamina = 0;
         public float SpellCostRatio = 0;
@@ -170,6 +173,7 @@ namespace ChampionsOfForest
 
 
         public int LastDayOfGeneration = 0;
+        public float RootDuration = 0;
         public float StunDuration = 0;
 
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
@@ -239,7 +243,10 @@ namespace ChampionsOfForest
 
         private void Update()
         {
-
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F6))
+            {
+                Stun(1);
+            }
             try
             {
                 if (ModAPI.Input.GetButtonDown("EquipWeapon"))
@@ -264,7 +271,7 @@ namespace ChampionsOfForest
             }
             try
             {
-                
+
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
                 int[] keys = new List<int>(BuffDB.activeBuffs.Keys).ToArray();
@@ -275,7 +282,7 @@ namespace ChampionsOfForest
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                     }
-                    else if (StunImmune && buff.isNegative && buff.DispellAmount <= 1)
+                    else if (DebuffResistant && buff.isNegative && buff.DispellAmount <= 1)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                     }
@@ -293,7 +300,7 @@ namespace ChampionsOfForest
                 {
                     dmgPerSecond *= 1 - MagicResistance;
                     LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
-                    LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime*2;
+                    LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime * 2;
 
                     if (poisonCount > 1)
                     {
@@ -302,9 +309,9 @@ namespace ChampionsOfForest
 
 
                 }
-                if (LocalPlayer.Stats.Health <= 0 && poisonCount >0)
+                if (LocalPlayer.Stats.Health <= 0 && !LocalPlayer.Stats.Dead)
                 {
-                    LocalPlayer.Stats.Hit(1, true);
+                    LocalPlayer.Stats.Hit(1000, true, PlayerStats.DamageType.Drowning);
                 }
 
             }
@@ -383,18 +390,47 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write("Massacre error" + e.ToString());
 
             }
+            if (Rooted)
+            {
+                if (StunImmune || RootImmune)
+                {
+                    Rooted = false;
+                }
+
+                RootDuration -= Time.deltaTime;
+                if (RootDuration < 0)
+                {
+                    Rooted = false;
+                }
+            }
             if (Stunned)
             {
                 if (StunImmune)
                 {
                     Stunned = false;
+                    LocalPlayer.FpCharacter.Locked = false;
+                    LocalPlayer.FpCharacter.CanJump = true;
                 }
-
                 StunDuration -= Time.deltaTime;
                 if (StunDuration < 0)
                 {
                     Stunned = false;
+                    LocalPlayer.FpCharacter.Locked = false;
+                    LocalPlayer.FpCharacter.CanJump = true;
                 }
+            }
+        }
+        public void Root(float duration)
+        {
+            if (StunImmune || RootImmune)
+            {
+                return;
+            }
+
+            Rooted = true;
+            if (RootDuration < duration)
+            {
+                RootDuration = duration;
             }
         }
         public void Stun(float duration)
@@ -531,8 +567,8 @@ namespace ChampionsOfForest
         {
             int x = lvl;
             float a = 4f;
-            float b = 17.5f;
-            float c = 675;
+            float b = 14f;
+            float c = 300;
             double y = System.Math.Pow(x, a) * b + c * x;
             return Convert.ToInt64(y);
         }

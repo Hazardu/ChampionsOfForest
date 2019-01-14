@@ -76,6 +76,7 @@ namespace ChampionsOfForest
         private float TrapCD;
         private float LaserCD;
         private float MeteorCD;
+        private float BeamCD;
 
         //Closest player, for detecting if in range to cast abilities
         private GameObject closestPlayer;
@@ -83,7 +84,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, RockTosser, DoubleLife, Laser, Poisonous }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
 
@@ -512,6 +513,7 @@ namespace ChampionsOfForest
             {
                 if (damage > SteadFestCap)
                 {
+                    if (SteadFest == 100) return damage;
                     int dmgpure = Mathf.Min(damage, SteadFestCap);
                     return dmgpure;
                 }
@@ -522,7 +524,8 @@ namespace ChampionsOfForest
 
             //reduction = Mathf.Clamp01(reduction);
             int dmg = Mathf.CeilToInt(damage * (1 - reduction));
-            dmg = Mathf.Min(dmg, SteadFestCap);
+            if (SteadFest == 100)
+                dmg = Mathf.Min(dmg, SteadFestCap);
 
             //ModAPI.Console.Write("reducted damage " + Armor + " - " + ArmorReduction + " -------->" + damage + " * " + reduction + " --> " + dmg);
 
@@ -534,12 +537,10 @@ namespace ChampionsOfForest
             try
             {
                 //ModAPI.Console.Write("Enemy Dies, \nhealth left "+ _Health.Health+ "\n OnDieCalled "+ OnDieCalled.ToString()+"\nDrowned "+ setup.waterDetect.drowned);
-                if (_Health.Health > 0)
-                {
-                    return false;
-                }
-
-
+                if (setup.waterDetect.drowned) {
+                    ModAPI.Console.Write("enemy exp giving canceled, enemy drowned");
+                    ModAPI.Log.Write("enemy exp giving canceled, enemy drowned");
+                    return true; }
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -566,16 +567,12 @@ namespace ChampionsOfForest
                 }
                 if (OnDieCalled)
                 {
+                    ModAPI.Console.Write("enemy exp giving canceled, enemy already died");
+                    ModAPI.Log.Write("enemy exp giving canceled, enemy already died");
                     return true;
                 }
-                OnDieCalled = true;
-                Invoke("ReanimateMe", 30);
+                Invoke("ReanimateMe", 15);
                 EnemyManager.RemoveEnemy(this);
-
-                if (setup.waterDetect.drowned)
-                {
-                    return true;
-                }
                 if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
                 {
                     int itemCount = Random.Range(1, 4);
@@ -606,6 +603,8 @@ namespace ChampionsOfForest
                 {
                     ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
+                OnDieCalled = true;
+
             }
             catch (Exception ex)
             {
@@ -616,7 +615,10 @@ namespace ChampionsOfForest
             return true;
 
         }
-
+        void OnEnable()
+        {
+            OnDieCalled = false;
+        }
         private void Update()
         {
             if (!setupComplete)
@@ -633,6 +635,7 @@ namespace ChampionsOfForest
                 _Health.Health = Mathf.RoundToInt(MaxHealth);
 
             }
+            if (OnDieCalled && Health > 0) OnDieCalled = false;
 
             if (TrapCD > 0)
             {
@@ -652,6 +655,10 @@ namespace ChampionsOfForest
             if (MeteorCD > 0)
             {
                 MeteorCD -= Time.deltaTime;
+            }
+            if (BeamCD > 0)
+            {
+                BeamCD -= Time.deltaTime;
             }
             AnimSpeed = BaseAnimSpeed;
             int[] Keys = new List<int>(slows.Keys).ToArray();
@@ -758,7 +765,58 @@ namespace ChampionsOfForest
                     Network.NetworkManager.SendLine("MT" + dir.x + ";" + dir.y + ";" + dir.z + ";" + Random.Range(-100000, 100000) + ";", Network.NetworkManager.Target.Everyone);
                     MeteorCD = 50f;
                 }
+                if (abilities.Contains(Abilities.Flare) && BeamCD <= 0)
+                {
+                    Vector3 dir = transform.position;
+                    float dmg = 30;
+                    float slow = 0.4f;
+                    float boost = 1.25f;
+                    float duration = 15;
+                    float radius = 3;
 
+                    switch (ModSettings.difficulty)
+                    {
+                        
+                        case ModSettings.Difficulty.Hard:
+                            dmg = 100;
+                            radius = 3.2f;
+                            break;
+                        case ModSettings.Difficulty.Elite:
+                            dmg = 250;
+                            radius = 3.4f;
+                            break;
+                        case ModSettings.Difficulty.Master:
+                            dmg = 600;
+                            radius = 3.7f;
+                            break;
+                        case ModSettings.Difficulty.Challenge1:
+                            dmg = 1500;
+                            radius = 4f;
+                            break;
+                        case ModSettings.Difficulty.Challenge2:
+                            dmg = 4000;
+                            radius = 4.2f;
+                            break;
+                        case ModSettings.Difficulty.Challenge3:
+                            dmg = 10000;
+                            radius = 4.4f;
+                            break;
+                        case ModSettings.Difficulty.Challenge4:
+                            dmg = 20000;
+                            radius = 4.7f;
+                            break;
+                        case ModSettings.Difficulty.Challenge5:
+                            dmg = 45000;
+                            radius = 5;
+                            break;
+                    }
+
+                    float Healing = dmg / 3;
+            
+
+                    Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" +"t;"+dmg+";"+Healing+";"+slow+";"+boost+";"+duration+";"+radius+";",Network.NetworkManager.Target.Everyone);
+                    BeamCD = 120f;
+                }
 
                 if (abilities.Contains(Abilities.Blink))
                 {

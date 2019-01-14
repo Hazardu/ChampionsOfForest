@@ -73,11 +73,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             GameObject go = new GameObject();
             go.transform.position = transform.position + Vector3.up * 13;
             go.transform.LookAt(Direction);
-            int dmg = 100;
+            int dmg = 200;
             switch (ModSettings.difficulty)
             {
-                case ModSettings.Difficulty.Normal:
-                    break;
                 case ModSettings.Difficulty.Hard:
                     dmg = 400;
                     break;
@@ -101,8 +99,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     break;
                 case ModSettings.Difficulty.Challenge5:
                     dmg = 250000;
-                    break;
-                default:
                     break;
             }
             go.AddComponent<EnemyLaserBeam>().Initialize(dmg);

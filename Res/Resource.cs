@@ -32,7 +32,7 @@
             {
                 type = ResourceType.Mesh;
             }
-            else
+            else if (fileName.EndsWith(".ogg", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".mesh", true, System.Globalization.CultureInfo.CurrentCulture)|| fileName.EndsWith(".wav", true, System.Globalization.CultureInfo.CurrentCulture) || fileName.EndsWith(".mesh", true, System.Globalization.CultureInfo.CurrentCulture))
             {
                 type = ResourceType.Audio;
 

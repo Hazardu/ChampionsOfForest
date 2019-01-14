@@ -164,7 +164,8 @@
 
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Res\Buildings.cs"  />
+    <Compile Include="Enemies\EnemyAbilities\DarkBeam.cs"  />
+<Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\ClinetEnemyProgression.cs"  />
 <Compile Include="Enemies\EnemyAbilities\MeteorSpawner.cs"  />

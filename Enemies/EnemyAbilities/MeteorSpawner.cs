@@ -30,8 +30,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 go.transform.localScale *= 7.5f;
                 go.AddComponent<Meteor>();
                 Light l = go.AddComponent<Light>();
-                l.intensity = 3;
-                l.range = 30;
+                l.intensity = 2;
+                l.range = 35;
                 l.color = Color.red;
                 go.GetComponent<Renderer>().material.color = Color.black;
                 go.transform.position = position + Vector3.forward * random.Next(-3, 3) * 2.5f + Vector3.right * random.Next(-3, 3) * 2.5f + Vector3.up * 80 + Vector3.forward * -40;

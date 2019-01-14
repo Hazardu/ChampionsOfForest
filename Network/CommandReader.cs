@@ -67,7 +67,11 @@ namespace ChampionsOfForest.Network
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         HealingDome.CreateHealingDome(pos, float.Parse(Read()), float.Parse(Read()), ReadBool(), float.Parse(Read()));
                     }
-
+                    else if (spellid == 3)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        DarkBeam.Create(pos, ReadBool() ,float.Parse(Read()), float.Parse(Read()),float.Parse(Read()),float.Parse(Read()),float.Parse(Read()),float.Parse(Read()));
+                    }
                 }
                 else if (s.StartsWith("RI"))    //remove item
                 {
@@ -223,7 +227,7 @@ namespace ChampionsOfForest.Network
                         {
                             float duration = float.Parse(Read());
                             NetworkManager.SendLine("RE" + LocalPlayer.Transform.position.x + ";" + LocalPlayer.Transform.position.y + ";" + LocalPlayer.Transform.position.z + ";" + duration + ";", NetworkManager.Target.Everyone);
-                            ModdedPlayer.instance.Stun(duration);
+                            ModdedPlayer.instance.Root(duration);
                         }
                     }
                 }

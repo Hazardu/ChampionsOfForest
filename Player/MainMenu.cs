@@ -1438,10 +1438,17 @@ namespace ChampionsOfForest
 
 
                 float BuffOffset = 0;
-                if (ModdedPlayer.instance.Stunned)
+                if (ModdedPlayer.instance.Rooted)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = string.Format("STUNNED for {0} seconds", Math.Round(ModdedPlayer.instance.StunDuration, 1));
+                    string s = string.Format("ROOTED for {0} seconds", Math.Round(ModdedPlayer.instance.RootDuration, 1));
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
+                    BuffOffset += 30 * rr;
+                }
+                if (ModdedPlayer.instance.Rooted)
+                {
+                    Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
+                    string s = string.Format("STUNNED for {0} seconds", Math.Round(ModdedPlayer.instance.RootDuration, 1));
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
                 }
@@ -1454,11 +1461,11 @@ namespace ChampionsOfForest
                     {
                         if (buff.Value.DisplayAsPercent)
                         {
-
+                            s += "( " + buff.Value.amount*100 + "% )";
                         }
                         else
                         {
-
+                            s += "( " + buff.Value.amount + " )";
                         }
                     }
 
@@ -1515,6 +1522,7 @@ namespace ChampionsOfForest
                 float width = SpellCaster.SpellCount * SquareSize;
                 float height = width * 0.1f;
                 float combatHeight = width * 63 / 1500;
+                //Defining rectangles to later use to draw HUD elements
                 Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
                 //Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
@@ -1522,6 +1530,9 @@ namespace ChampionsOfForest
                 Rect CombatBar = new Rect(XPbar.x, 20 * rr, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
                 Rect CombatBarCount = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize, combatHeight);
 
+                float cornerDimension = Screen.height - XPbar.y;
+                Rect LeftCorner = new Rect(XPbar.x - cornerDimension, XPbar.y, cornerDimension, cornerDimension);
+                Rect RightCorner = new Rect(XPbar.xMax, XPbar.y, cornerDimension, cornerDimension);
                 Rect CombatBarText = new Rect(CombatBarCount)
                 {
                     y = CombatBar.yMax,
@@ -1532,22 +1543,18 @@ namespace ChampionsOfForest
                 GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleToFit, true, 1500 / 150);
                 GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
                 GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleToFit, true, 1500 / 150);
-                // GUIStyle expInfoStyle = new GUIStyle(GUI.skin.label)
-                //{
-                //    font = MainFont,
-                //    fontSize = Mathf.RoundToInt(22 * rr),
-                //    alignment = TextAnchor.LowerCenter,
-                //    wordWrap = false,
-                //    clipping = TextClipping.Overflow,
-                //};
-                //GUI.Label(XPbar, ModdedPlayer.instance.ExpCurrent + "/" + ModdedPlayer.instance.ExpGoal + "       " + Mathf.Floor(ModdedPlayer.instance.ExpCurrent * 100 / ModdedPlayer.instance.ExpGoal) + "%", expInfoStyle);
+                GUI.DrawTexture(LeftCorner, Res.ResourceLoader.GetTexture(106));
+                matrixBackup = GUI.matrix;
+                GUIUtility.ScaleAroundPivot(new Vector2(-1, 1), RightCorner.center);
+                GUI.DrawTexture(RightCorner, Res.ResourceLoader.GetTexture(106));
+                GUI.matrix = matrixBackup;
+            
                 if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
                 {
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
                     GUI.color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
                     GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
                     GUI.color = new Color(1, 1, 1, 1f);
-                    GUI.Label(CombatBarTimer, Math.Round(ModdedPlayer.instance.TimeUntillMassacreReset, 1).ToString() + " sec", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleLeft });
                     GUI.color = new Color(0, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 6)
@@ -1562,8 +1569,7 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
-                    //RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 10000);
-                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 0.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 10000);
+                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one, Camera.main.transform.forward, Camera.main.transform.rotation, 10000);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
@@ -1716,10 +1722,10 @@ namespace ChampionsOfForest
                                                     DrawScannedEnemyLabel("Refraction", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Meteor:
-                                                    DrawScannedEnemyLabel("Chaos meteor", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.RockTosser:
-                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.Flare:
+                                                    DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.DoubleLife:
                                                     DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);

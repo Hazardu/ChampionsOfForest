@@ -69,7 +69,16 @@ namespace ChampionsOfForest.Player
                 new Buff(2, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
                 new Buff(3, "Poisoned", true, true, 2)
                 { DisplayAsPercent = false };
-                new Buff(4, "CC Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true)
+                new Buff(4, "Root Immune", false, false, 0, (f) => ModdedPlayer.instance.RootImmune = false, f => ModdedPlayer.instance.RootImmune = true)
+                { DisplayAmount = false };
+               
+                new Buff(5, "Move speed increased", false, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
+
+                new Buff(6, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune = false, f => ModdedPlayer.instance.StunImmune = true)
+                { DisplayAmount = false };
+                new Buff(7, "Debuff Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true)
+                { DisplayAmount = false };
+                new Buff(8, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant = false, f => ModdedPlayer.instance.DebuffResistant = true)
                 { DisplayAmount = false };
             }
             catch (System.Exception ex)
@@ -160,6 +169,8 @@ namespace ChampionsOfForest.Player
 
 
 //SOURCES of debuffs
+//5 - beam slow
+//6 - beam speed
 //30 & 31 - absolute zero
 //32 - poison from enemy hit
 //33 - poisons slow

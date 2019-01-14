@@ -29,7 +29,7 @@ namespace ChampionsOfForest.Player
             Spell bh = new Spell(1, 22, 15, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
             {
                 active = SpellActions.CreatePlayerBlackHole,
-                Bought = true
+
             };
             Spell healingDome = new Spell(2, 22, 6, 60, 60, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
             {
@@ -40,6 +40,11 @@ namespace ChampionsOfForest.Player
             {
                 active = SpellActions.DoBlink,
 
+            };
+            new Spell(4, 22, 3, 1, 1, "Flare", "A magic collumn heals players inside and gives them movement speed, while slowing damaging enemies")
+            {
+                active = SpellActions.CastFlare,
+                
             };
         }
     }

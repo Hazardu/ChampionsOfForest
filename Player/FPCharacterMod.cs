@@ -1,4 +1,6 @@
-﻿namespace ChampionsOfForest.Player
+﻿using TheForest.Utils;
+
+namespace ChampionsOfForest.Player
 {
     public class FPCharacterMod : FirstPersonCharacter
     {
@@ -27,7 +29,7 @@
             crouchSpeed = basecrouchspeed * ModdedPlayer.instance.MoveSpeed;
             allowJump = true;
 
-            if (ModdedPlayer.instance.Stunned)
+            if (ModdedPlayer.instance.Rooted)
             {
                 runSpeed = 0;
                 strafeSpeed = 0;
@@ -35,6 +37,18 @@
                 speed = 0;
                 crouchSpeed = 0;
                 allowJump = false;
+            }
+            if (ModdedPlayer.instance.Stunned)
+            {
+                Locked = true;
+                MovementLocked = true;
+
+                //Locking player movement and rotation without showing cursor
+                this.Locked = true;
+                this.CanJump = false;
+
+                LocalPlayer.Inventory.StashLeftHand();
+                LocalPlayer.Inventory.StashEquipedWeapon(false);
             }
             base.Update();
         }

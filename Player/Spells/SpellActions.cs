@@ -116,7 +116,29 @@ namespace ChampionsOfForest.Player
         {
             ModdedPlayer.instance.AttackSpeed /= f;
         }
+        #region FLARE
 
+        public static float FlareDamage = 8;
+        public static float FlareSlow = 0.7f;
+        public static float FlareBoost = 1.2f;
+        public static float FlareHeal = 4;
+        public static float FlareRadius = 3.5f;
+        public static float FlareDuration = 6;
+        public static void CastFlare()
+        {
+            Vector3 dir = LocalPlayer.Transform.position;
+            float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus/5;
+            dmg *=ModdedPlayer.instance.SpellAMP;
+            float slow = FlareSlow;
+            float boost = FlareBoost;
+            float duration = FlareDuration;
+            float radius = FlareRadius;
+            float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 15 + ModdedPlayer.instance.LifeRegen * ModdedPlayer.instance.HealthRegenPercent;
+
+
+            Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" + "f;" + dmg + ";" + Healing + ";" + slow + ";" + boost + ";" + duration + ";" + radius + ";", Network.NetworkManager.Target.Everyone);
+        }
+        #endregion
         #region BLACK HOLE
         public static float BLACKHOLE_damage = 40;
         public static float BLACKHOLE_duration = 7;
