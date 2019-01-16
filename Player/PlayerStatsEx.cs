@@ -12,6 +12,8 @@ namespace ChampionsOfForest
     public class PlayerStatsEx : PlayerStats
     {
 
+
+
         protected override void Start()
         {
             base.Start();
@@ -235,7 +237,7 @@ namespace ChampionsOfForest
                 }
                 if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
                 {
-                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.5f * (Mathf.Max(1, ModdedPlayer.instance.Level / 25)) * ModdedPlayer.instance.HungerRate);
+                    Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.4f * (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * ModdedPlayer.instance.HungerRate);
                 }
                 if (!Cheats.NoSurvival)
                 {
@@ -333,7 +335,7 @@ namespace ChampionsOfForest
                         {
                             if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
                             {
-                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level / 25)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate * 0.5f);
+                                Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate * 0.4f);
                             }
                             if (Thirst > ThirstSettings.TutorialThreshold)
                             {

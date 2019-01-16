@@ -84,7 +84,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Illusionist, Blink, Thunder, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, Thunder, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
 
@@ -771,7 +771,7 @@ namespace ChampionsOfForest
                     float dmg = 30;
                     float slow = 0.4f;
                     float boost = 1.25f;
-                    float duration = 15;
+                    float duration = 20;
                     float radius = 3;
 
                     switch (ModSettings.difficulty)
@@ -779,39 +779,39 @@ namespace ChampionsOfForest
                         
                         case ModSettings.Difficulty.Hard:
                             dmg = 100;
-                            radius = 3.2f;
+                            radius = 5f;
                             break;
                         case ModSettings.Difficulty.Elite:
                             dmg = 250;
-                            radius = 3.4f;
+                            radius = 5.4f;
                             break;
                         case ModSettings.Difficulty.Master:
                             dmg = 600;
-                            radius = 3.7f;
+                            radius = 5.7f;
                             break;
                         case ModSettings.Difficulty.Challenge1:
                             dmg = 1500;
-                            radius = 4f;
+                            radius = 6f;
                             break;
                         case ModSettings.Difficulty.Challenge2:
                             dmg = 4000;
-                            radius = 4.2f;
+                            radius = 6.2f;
                             break;
                         case ModSettings.Difficulty.Challenge3:
                             dmg = 10000;
-                            radius = 4.4f;
+                            radius = 6.4f;
                             break;
                         case ModSettings.Difficulty.Challenge4:
                             dmg = 20000;
-                            radius = 4.7f;
+                            radius = 6.7f;
                             break;
                         case ModSettings.Difficulty.Challenge5:
                             dmg = 45000;
-                            radius = 5;
+                            radius = 7;
                             break;
                     }
 
-                    float Healing = dmg / 3;
+                    float Healing = dmg / 10;
             
 
                     Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" +"t;"+dmg+";"+Healing+";"+slow+";"+boost+";"+duration+";"+radius+";",Network.NetworkManager.Target.Everyone);

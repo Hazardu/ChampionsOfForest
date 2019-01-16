@@ -216,9 +216,9 @@ namespace ChampionsOfForest.Network
                         }
                     }
                 }
-                else if (s.StartsWith("RO"))
+                else if (s.StartsWith("RO"))    //root the player
                 {
-                    if (!ModdedPlayer.instance.StunImmune)
+                    if (!ModdedPlayer.instance.RootImmune&& !ModdedPlayer.instance.StunImmune)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -228,6 +228,20 @@ namespace ChampionsOfForest.Network
                             float duration = float.Parse(Read());
                             NetworkManager.SendLine("RE" + LocalPlayer.Transform.position.x + ";" + LocalPlayer.Transform.position.y + ";" + LocalPlayer.Transform.position.z + ";" + duration + ";", NetworkManager.Target.Everyone);
                             ModdedPlayer.instance.Root(duration);
+                        }
+                    }
+                }
+                else if (s.StartsWith("ST"))    //stun the player
+                {
+                    if (!ModdedPlayer.instance.StunImmune)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong packed = ulong.Parse(Read());
+                        if (ModReferences.ThisPlayerPacked == packed) 
+                        {
+                            float duration = float.Parse(Read());
+                            ModdedPlayer.instance.Stun(duration);
                         }
                     }
                 }

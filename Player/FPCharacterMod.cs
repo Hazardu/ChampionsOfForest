@@ -4,10 +4,10 @@ namespace ChampionsOfForest.Player
 {
     public class FPCharacterMod : FirstPersonCharacter
     {
-        private static readonly float baseRunSpeed = 12;
-        private static readonly float basestrafeSpeed = 6;
-        private static readonly float basewalkSpeed = 6;
-        private static readonly float basecrouchspeed = 3.5f;
+        public static readonly float baseRunSpeed = 12;
+        public static readonly float basestrafeSpeed = 6;
+        public static readonly float basewalkSpeed = 6;
+        public static readonly float basecrouchspeed = 3.5f;
 
         protected override void Update()
         {

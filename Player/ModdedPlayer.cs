@@ -119,6 +119,7 @@ namespace ChampionsOfForest
         public bool DebuffImmune = false;
         public bool DebuffResistant = false;
         public float MoveSpeed = 1f;
+        public float JumpPower = 1f;
         public float SpellCostToStamina = 0;
         public float SpellCostRatio = 0;
         public float StaminaAttackCostReduction = 0;
@@ -156,7 +157,8 @@ namespace ChampionsOfForest
 
         public float StealthDamage = 1; //to do
 
-
+public static readonly float HungerPerLevelRateMult = 0.04f;
+        public static readonly float ThirstPerLevelRateMult = 0.04f;
         public float ThirstRate = 1;
         public float HungerRate = 1;
         public float FireDamageTakenMult = 1;
@@ -169,9 +171,8 @@ namespace ChampionsOfForest
 
 
         public static bool IsSacredArrow = false;
-        public static bool IsArrowHuge = false;
 
-
+        
         public int LastDayOfGeneration = 0;
         public float RootDuration = 0;
         public float StunDuration = 0;
@@ -409,6 +410,7 @@ namespace ChampionsOfForest
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
+                    LocalPlayer.FpCharacter.MovementLocked = false;
                     LocalPlayer.FpCharacter.CanJump = true;
                 }
                 StunDuration -= Time.deltaTime;
@@ -416,6 +418,7 @@ namespace ChampionsOfForest
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
+                    LocalPlayer.FpCharacter.MovementLocked = false;
                     LocalPlayer.FpCharacter.CanJump = true;
                 }
             }

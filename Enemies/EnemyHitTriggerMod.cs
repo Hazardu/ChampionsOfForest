@@ -11,6 +11,7 @@ namespace ChampionsOfForest.Enemies
     public class EnemyHitTriggerMod : enemyWeaponMelee
     {
         public static readonly float poisonDuration = 10;
+        public static readonly float stunDuration = 1;
 
         private Vector3 originalScale = Vector3.zero;
         public void SetTriggerScaleForTiny()
@@ -177,12 +178,13 @@ namespace ChampionsOfForest.Enemies
                                     EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
                                 }
                                 num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
-                                //POISON ATTACKS 
+                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                if (bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
 
+
+                                //POISON ATTACKS 
                                 if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                 {
-                                    //needs testing
-
                                     if (BoltNetwork.isRunning)
                                     {
                                         if (BoltNetwork.isServer)
@@ -193,14 +195,10 @@ namespace ChampionsOfForest.Enemies
                                             }
                                             else
                                             {
-                                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-                                                if (bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
                                                 if (bo != null)
                                                 {
 
-                                                    Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 20 + ";" + poisonDuration,bo.controller);
-
-
+                                                    Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 20 + ";" + poisonDuration, bo.controller);
                                                 }
                                             }
                                         }
@@ -211,7 +209,31 @@ namespace ChampionsOfForest.Enemies
                                     }
                                 }
 
-
+                                //STUN ON HIT
+                                if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                {
+                                    if (BoltNetwork.isRunning)
+                                    {
+                                        if (BoltNetwork.isServer)
+                                        {
+                                            if (other.transform.root == LocalPlayer.Transform.root)
+                                            {
+                                                ModdedPlayer.instance.Stun(stunDuration);
+                                            }
+                                            else
+                                            {
+                                                if (bo != null)
+                                                {
+                                                    Network.NetworkManager.SendLine("ST" + bo.networkId.PackedValue + ";" + stunDuration+";", bo.controller);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ModdedPlayer.instance.Stun(stunDuration);
+                                    }
+                                }
                             }
                             catch (System.Exception ex)
                             {

@@ -45,7 +45,7 @@ namespace ChampionsOfForest.Player
                             {
                                 instance = this;
                             }
-
+                            
                             //ModAPI.Log.Write("SETUP: Custom weapons");
                             //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
                             //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);

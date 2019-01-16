@@ -12,11 +12,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private static Material material;
         public static void Initialize()
         {
+            //material = new Material(Shader.Find("Particles/Additive"));
             material = new Material(Shader.Find("Particles/Multiply"));
             material.SetFloat("_InvFade", 1);
             material.renderQueue = 3000;
             material.mainTexture = Res.ResourceLoader.GetTexture(107);
-            material.color = new Color(1,1,1,1);
+            material.color = new Color(1, 1, 1, 1);
         }
 
         /// <summary>
@@ -46,43 +47,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 
                 ParticleSystem ps = particleObj.AddComponent<ParticleSystem>();
-                ParticleSystem.MainModule main = ps.main;
-                ParticleSystem.EmissionModule emission = ps.emission;
-                ParticleSystem.ShapeModule shape = ps.shape;
-                ParticleSystemRenderer rend = ps.GetComponent<ParticleSystemRenderer>();
-                emission.enabled = true;
-                shape.enabled = true;
-                rend.enabled = true;
-
-                rend.material = material;
-                rend.renderMode = ParticleSystemRenderMode.Stretch;
-                rend.velocityScale = 0.12f;
-                rend.lengthScale = 0.6f;
-                rend.pivot = new Vector3(0, -25, 0);
-
-                main.startLifetime = 1;
-                main.startSpeed = -250;
-                main.startSize =3;
-                main.duration = 1;
-                 main.loop = true;
-                main.prewarm = false;
-                if (fromEnemy)
-                {
-                    main.startColor = new ParticleSystem.MinMaxGradient(new Color(1, 0.08f, 0,1));
-                }
-                else
-                {
-                    main.startColor = new ParticleSystem.MinMaxGradient(new Color(0.76f, 0.0f, 1,1));
-                }
-                main.maxParticles = 1000;
-
-                emission.rateOverTime =250;
-                emission.rateOverTimeMultiplier = 1;
-
-                shape.shapeType = ParticleSystemShapeType.Cone;
-                shape.angle = 0;
-                shape.radius = Radius;
-
 
                 particleObj.transform.rotation = Quaternion.Euler(-60f, Random.Range(0, 360), 0);
                 particleObj.transform.position = position;
@@ -136,9 +100,52 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         {
             try
             {
-                //system.Pause();
-                //system.Play();
-                system.Clear();
+                ParticleSystem ps = system;
+                ParticleSystem.MainModule main = ps.main;
+                ParticleSystem.EmissionModule emission = ps.emission;
+                ParticleSystem.ShapeModule shape = ps.shape;
+                ParticleSystemRenderer rend = ps.GetComponent<ParticleSystemRenderer>();
+                emission.enabled = true;
+                shape.enabled = true;
+                rend.enabled = true;
+
+                main.loop = true;
+                main.startLifetime = 0.9f;
+                main.startSpeed = -200;
+                main.startSize = 3;
+                main.duration = 10;
+
+                main.maxParticles = 100000;
+                main.simulationSpace = ParticleSystemSimulationSpace.Local;
+                if (fromEnemy)
+                {
+                    main.startColor = new Color(1, 0.08f, 0, 1);
+                }
+                else
+                {
+                    main.startColor = new Color(0.76f, 0.0f, 1, 1);
+                }
+                shape.shapeType = ParticleSystemShapeType.ConeVolume;
+                shape.angle = 0;
+                shape.radius = Radius;
+                shape.length = 1;
+                shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
+                shape.alignToDirection = true;
+                
+
+                rend.renderMode = ParticleSystemRenderMode.Stretch;
+                rend.velocityScale = 0.12f;
+                rend.lengthScale = 0.9f;
+                rend.pivot = new Vector3(0, -20, 0);
+                rend.normalDirection = 1;
+                rend.sharedMaterial = material;
+                rend.maxParticleSize = 6000;
+                rend.alignment = ParticleSystemRenderSpace.World;
+
+                emission.rateOverTime = 180;
+                emission.rateOverTimeMultiplier = 180;
+                
+
                 EffectReady = false;
                 StartCoroutine(AnimatedBeamCoroutine());
             }
@@ -153,15 +160,15 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private IEnumerator AnimatedBeamCoroutine()
         {
             StartCoroutine(LightIn());
-            while (light.intensity < 5)
+            yield return null;
+            system.Pause();
+            while (light.intensity < 10)
             {
                 yield return null;
             }
 
-            yield return new WaitForSeconds(0.4f);
-
             StartCoroutine(DoEnemyCheck());
-
+            system.Play();
             EffectReady = true;
 
 
@@ -172,7 +179,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             while (light.intensity < 15)
             {
 
-                light.intensity += 1.5f* Time.deltaTime;
+                light.intensity += 3f * Time.deltaTime;
 
                 yield return null;
             }
@@ -224,26 +231,16 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
         }
 
-        float lifetime = 0;
+        private float lifetime = 0;
         private void Update()
         {
-            Debug.Log(system.isPaused + " " + system.isStopped + " " + system.isPlaying+" "+system.isEmitting+" "+system.particleCount);
-            
-            //system.transform.position = transform.position;
-            ModAPI.Console.Write(system.isPaused + " " + system.isStopped + " " + system.isPlaying+" "+system.isEmitting+" "+system.particleCount);
             if (EffectReady)
             {
-                //if (system.isPaused || system.isStopped)
-                //{
-                //    system.Play();
-                //}
-
                 lifetime += Time.deltaTime;
                 if (Duration < lifetime)
                 {
-                    Stop();
+                    Pause();
                 }
-
                 if (!GameSetup.IsMpClient)
                 {
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < Radius * Radius)
@@ -265,7 +262,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
         }
 
-        private void Stop()
+        private void Pause()
         {
 
             StartCoroutine(LightOut());

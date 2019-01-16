@@ -1461,7 +1461,7 @@ namespace ChampionsOfForest
                     {
                         if (buff.Value.DisplayAsPercent)
                         {
-                            s += "( " + buff.Value.amount*100 + "% )";
+                            s += "( " + buff.Value.amount * 100 + "% )";
                         }
                         else
                         {
@@ -1548,7 +1548,7 @@ namespace ChampionsOfForest
                 GUIUtility.ScaleAroundPivot(new Vector2(-1, 1), RightCorner.center);
                 GUI.DrawTexture(RightCorner, Res.ResourceLoader.GetTexture(106));
                 GUI.matrix = matrixBackup;
-            
+
                 if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
                 {
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
@@ -1706,8 +1706,8 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.ExtraHealth:
                                                     DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.Illusionist:
-                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.Basher:
+                                                    DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Blink:
                                                     DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -2120,6 +2120,7 @@ namespace ChampionsOfForest
         //}
         private float BookPositionY;
         private float BookScrollAmount;
+        private float MaxScrollAmount;
         private GUIStyle headerstyle;
         private GUIStyle statStyle;
         private GUIStyle statStyleAmount;
@@ -2282,12 +2283,8 @@ namespace ChampionsOfForest
 
         private void DrawGuide()
         {
-            //what to do
-            //stats are a book, with page indexes.
-            //some pages can contain images and tutorials
-            //you can hover over stats to display tooltips
             Bookmarks.Clear();
-            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -1080 * rr, 0);
+            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -1080 - MaxScrollAmount * rr, 0);
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
@@ -2321,9 +2318,68 @@ namespace ChampionsOfForest
             Stat("Vitality", ModdedPlayer.instance.vitality + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
             Stat("Intelligence", ModdedPlayer.instance.intelligence + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
                 "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
+
+
             Space(40);
+            Label("Health & Energy");
+            Space(10);
+
+            Stat("Max health", ModdedPlayer.instance.MaxHealth + " hp", "Total health pool.\n" +
+                "Base health: " + ModdedPlayer.instance.baseHealth +
+                "\nBonus health: " + ModdedPlayer.instance.HealthBonus +
+                "\nHealth from vitality: " + ModdedPlayer.instance.HealthPerVitality * ModdedPlayer.instance.vitality +
+                "\nHealth multipier: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%");
+            Stat("Max energy", ModdedPlayer.instance.MaxEnergy + " ep", "Total energy pool.\n" +
+                "Base energy: " + ModdedPlayer.instance.baseEnergy +
+                "\nBonus energy: " + ModdedPlayer.instance.EnergyBonus +
+                "\nEnergy from agility: " + ModdedPlayer.instance.EnergyPerAgility * ModdedPlayer.instance.agility +
+                "\nEnergy multipier: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%");
+
+
+            Space(10);
+            Label("Recovery");
+            Space(10);
+
+            Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "stamina", "Stamina regen is temporairly paused after sprinting");
+            Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "stamina", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen+"\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent*100+"%");
+
+            Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
+            Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
+            Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+           
+
+
+
+
+            Space(40);
+            Label("Survivor stats");
+            Space(10);
+
+            Stat("Movement speed", ModdedPlayer.instance.MoveSpeed * 100 + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed + " units per second");
+            Stat("Jump power", ModdedPlayer.instance.MoveSpeed * 100 + "%", "Multipier of base jump power. Increases height of your jumps");
+            Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal. Every level you gain increases hunger rate by " + ModdedPlayer.HungerPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, hunger rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * 100 + "%.\nFinal hunger rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * ModdedPlayer.instance.HungerRate * 100 + "% faster than normal");
+            Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal. Every level you gain increases thirst rate by " + ModdedPlayer.ThirstPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, thirst rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * 100 + "%.\nFinal thirst rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * ModdedPlayer.instance.ThirstRate * 100 + "% faster than normal");
+            Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
+            Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " sec", "How long massacres can last");
+            Stat("Massacre time per kill", ModdedPlayer.instance.TimeBonusPerKill + " sec", "Amount of time that is added to massacre for every kill");
+
+
+            Space(40);
+            Label("Inventory Stats");
+            Space(10);
+            foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
+            {
+                string item_name = Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
+                Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
+            }
+
+            MaxScrollAmount = BookPositionY;
         }
         #endregion
+
+
+
         private void DrawLine(Vector2 pointA, Vector2 pointB, float length, Color color)
         {
 

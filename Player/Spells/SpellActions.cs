@@ -123,7 +123,7 @@ namespace ChampionsOfForest.Player
         public static float FlareBoost = 1.2f;
         public static float FlareHeal = 4;
         public static float FlareRadius = 3.5f;
-        public static float FlareDuration = 6;
+        public static float FlareDuration = 10;
         public static void CastFlare()
         {
             Vector3 dir = LocalPlayer.Transform.position;
