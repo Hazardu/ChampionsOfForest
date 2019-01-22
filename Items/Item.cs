@@ -104,10 +104,10 @@ namespace ChampionsOfForest
             {
                 if (item.Amount != 0)
                 {
-                    item.OnEquip(item.Amount);
+                    item.OnEquip?.Invoke(item.Amount);
                 }
             }
-            onEquip();
+            onEquip?.Invoke();
         }
         public void OnUnequip()
         {

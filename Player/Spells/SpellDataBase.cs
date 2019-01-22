@@ -36,12 +36,12 @@ namespace ChampionsOfForest.Player
                 active = SpellActions.CreateHealingDome,
 
             };
-            new Spell(3, 22, 3, 25, 15, "Blink", "Short distance teleportation")
+            new Spell(3, 22, 2, 25, 15, "Blink", "Short distance teleportation")
             {
                 active = SpellActions.DoBlink,
 
             };
-            new Spell(4, 22, 3, 1, 1, "Flare", "A magic collumn heals players inside and gives them movement speed, while slowing damaging enemies")
+            new Spell(4, 22, 8, 100, 45, "Flare", "A magic collumn heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
             {
                 active = SpellActions.CastFlare,
                 

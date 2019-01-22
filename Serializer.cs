@@ -306,6 +306,7 @@ namespace ChampionsOfForest
                 yield break;
             }
 
+            yield return new WaitForSeconds(1f);
 
             DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 

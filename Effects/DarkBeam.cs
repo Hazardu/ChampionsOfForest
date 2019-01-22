@@ -2,11 +2,11 @@
 using TheForest.Utils;
 using UnityEngine;
 
-namespace ChampionsOfForest.Enemies.EnemyAbilities
+namespace ChampionsOfForest
 {
     public class DarkBeam : MonoBehaviour
     {
-
+        public static int DesiredLayer;
 
 
         private static Material material;
@@ -234,6 +234,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private float lifetime = 0;
         private void Update()
         {
+            if (gameObject.layer != DesiredLayer)
+                gameObject.layer = DesiredLayer;
+
             if (EffectReady)
             {
                 lifetime += Time.deltaTime;

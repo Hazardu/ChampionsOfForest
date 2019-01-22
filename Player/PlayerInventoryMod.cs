@@ -258,6 +258,12 @@ namespace ChampionsOfForest.Player
             base.Attack();
         }
 
+        public override void AddMaxAmountBonus(int itemId, int amount)
+        {
+            Debug.Log("Changing AddMaxAmountBonus id:" + itemId + "\t amount:" + amount);
+            base.AddMaxAmountBonus(itemId, amount);
+        }
+
 
         public void CreateCustomWeapons()
         {

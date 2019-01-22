@@ -269,6 +269,9 @@ namespace ChampionsOfForest
 
         private void Update()
         {
+          
+
+
             if (_openedMenu != OpenedMenuMode.Hud)
             {
                 //LocalPlayer.FpCharacter.LockView(false);
@@ -333,35 +336,37 @@ namespace ChampionsOfForest
         {
             try
             {
-                //DETAIL-----------------------------------------------------------------------------
-                //GUI.skin.horizontalSlider.fixedWidth = 150;
-                //GUI.skin.horizontalSlider.fontSize = 30;
-                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
-                //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
-                //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
-                //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-                ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
-                //{
-                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                //}
 
-                //BIG OFFSET-----------------------------------------------------------------------------
-                //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-                //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-                //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                //foreach (var item in PlayerInventoryMod.customWeapons)
-                //{
-                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                //}
+               
+                 //DETAIL-----------------------------------------------------------------------------
+                 //GUI.skin.horizontalSlider.fixedWidth = 150;
+                 //GUI.skin.horizontalSlider.fontSize = 30;
+                 //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
+                 //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
+                 //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
+                 //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
+                 ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                 ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                 //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                 //{
+                 //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                 //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                 //}
 
-                GUI.skin.label.normal.textColor = Color.white;
+                 //BIG OFFSET-----------------------------------------------------------------------------
+                 //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+                 //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+                 //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                 //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                 //foreach (var item in PlayerInventoryMod.customWeapons)
+                 //{
+                 //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                 //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                 //}
+
+                 GUI.skin.label.normal.textColor = Color.white;
                 GUI.skin.label.onNormal.textColor = Color.white;
                 GUI.contentColor = Color.white;
                 GUI.backgroundColor = Color.white;
@@ -1475,10 +1480,10 @@ namespace ChampionsOfForest
                 }
 
                 GUI.color = Color.blue;
-                GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina) + "/" + ModdedPlayer.instance.MaxEnergy, HUDStatStyle);
-                GUI.color = new Color(0, 0.8f, 0.1f);
+                GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy), HUDStatStyle);
+                GUI.color = new Color(0.8f, 0.0f, 0.0f);
 
-                GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + ModdedPlayer.instance.MaxHealth, HUDStatStyle);
+                GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth), HUDStatStyle);
                 GUI.color = Color.white;
 
                 float SquareSize = 45 * rr;
@@ -1557,7 +1562,7 @@ namespace ChampionsOfForest
                     GUI.color = new Color(1, 1, 1, 1f);
                     GUI.color = new Color(0, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
                     string content = ModdedPlayer.instance.MassacreText;
-                    if (ModdedPlayer.instance.MassacreKills > 6)
+                    if (ModdedPlayer.instance.MassacreKills > 5)
                     {
                         content += "\t" + ModdedPlayer.instance.MassacreKills + " kills";
                     }
@@ -2320,7 +2325,7 @@ namespace ChampionsOfForest
                 "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
 
 
-            Space(40);
+            Space(60);
             Label("Health & Energy");
             Space(10);
 
@@ -2336,7 +2341,19 @@ namespace ChampionsOfForest
                 "\nEnergy multipier: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%");
 
 
+            Space(60);
+            Label("Defense");
             Space(10);
+            Stat("Armor", ModdedPlayer.instance.Armor.ToString(), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
+            Stat("Magic resistance", ModdedPlayer.instance.MagicResistance  * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
+            Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance  * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
+            Stat("Damage taken reduction", ModdedPlayer.instance.DamageReduction  * 100 + "%");
+            Stat("Block", ModdedPlayer.instance.BlockFactor  * 100 + "%");
+            Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount  * 100 + "%");
+            Stat("Fire resistance", Math.Round((1-ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
+
+
+            Space(60);
             Label("Recovery");
             Space(10);
 
@@ -2346,18 +2363,69 @@ namespace ChampionsOfForest
             Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
             Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
             Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
-            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
-           
+            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+
+            Space(60);
+            Label("Attack");
+            Space(10);
+            Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
+            Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
+            Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance*100, 2) + "%");
+            Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed*100, 2) + "%");
 
 
+            Space(20);
+            Label("Melee");
+            Space(10);
+
+            Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+                "Bonus from strenght: " + Math.Round(ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100, 2) + "%\n" +
+                "Melee damage amplification: "+ Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier-1) * 100, 2) + "%\n" +
+                "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult-1) * 100, 2) + "%");
+            Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
+            Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange*100)+"%");
+
+            Space(20);
+            Label("Projectiles");
+            Space(10);
+
+            Stat("Ranged damage", Math.Round(ModdedPlayer.instance.RangedAMP * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+             "Bonus from agility: " + Math.Round(ModdedPlayer.instance.agility * ModdedPlayer.instance.RangedDamageperAgi * 100, 2) + "%\n" +
+             "Ranged damage amplification: " + Math.Round((ModdedPlayer.instance.RangedDamageAmplifier - 1) * 100, 2) + "%\n" +
+             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
+            Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+            Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Faster projectiles fly further and fall slower");
+            Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
 
 
-            Space(40);
+               Space(20);
+            Label("Magic");
+            Space(10);
+
+            Stat("Spell damage", Math.Round(ModdedPlayer.instance.SpellAMP * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+             "Bonus from intelligence: " + Math.Round(ModdedPlayer.instance.intelligence * ModdedPlayer.instance.SpellDamageperInt * 100, 2) + "%\n" +
+             "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
+             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
+            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "Spell damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+            Stat("Spell cost reduction", Math.Round((1-ModdedPlayer.instance.SpellCostRatio) * 100) + "%","Faster projectiles fly further and fall slower");
+            Stat("Spell cost to stamina", Math.Round((1 - ModdedPlayer.instance.SpellCostToStamina) * 100) + "%","Faster projectiles fly further and fall slower");
+            Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%","Faster projectiles fly further and fall slower");
+
+
+            Space(20);
+            Label("Armor reduction");
+            Space(10);
+            Stat("Melee",ModdedPlayer.instance.ARreduction_melee + "ar", "Total melee armor reduction: "+ModdedPlayer.instance.MeleeArmorReduction);
+            Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "ar", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
+            Stat("Any source",  ModdedPlayer.instance.ARreduction_all + "ar", "Decreases armor of enemies hit by either of the sources");
+
+
+            Space(60);
             Label("Survivor stats");
             Space(10);
 
-            Stat("Movement speed", ModdedPlayer.instance.MoveSpeed * 100 + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed + " units per second");
-            Stat("Jump power", ModdedPlayer.instance.MoveSpeed * 100 + "%", "Multipier of base jump power. Increases height of your jumps");
+            Stat("Movement speed", Math.Round(ModdedPlayer.instance.MoveSpeed * 100) + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed + " units per second");
+            Stat("Jump power", Math.Round(ModdedPlayer.instance.MoveSpeed * 100) + "%", "Multipier of base jump power. Increases height of your jumps");
             Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal. Every level you gain increases hunger rate by " + ModdedPlayer.HungerPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, hunger rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * 100 + "%.\nFinal hunger rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * ModdedPlayer.instance.HungerRate * 100 + "% faster than normal");
             Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal. Every level you gain increases thirst rate by " + ModdedPlayer.ThirstPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, thirst rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * 100 + "%.\nFinal thirst rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * ModdedPlayer.instance.ThirstRate * 100 + "% faster than normal");
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");

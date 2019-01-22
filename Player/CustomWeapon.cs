@@ -105,35 +105,35 @@ namespace ChampionsOfForest.Player
                 GameObject trailObject = new GameObject();
                 trailObject.transform.SetParent(obj.transform);
 
-                trail = trailObject.AddComponent<TrailRenderer>();
+                //trail = trailObject.AddComponent<TrailRenderer>();
 
-                if (trailMaterial == null)
-                {
-                    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
-                    {
-                        color = new Color(1, 0.5f, 0.25f, 0.4f),
-                        mainTexture = Texture2D.whiteTexture
-                    };
-                }
+                //if (trailMaterial == null)
+                //{
+                //    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
+                //    {
+                //        color = new Color(1, 0.5f, 0.25f, 0.4f),
+                //        mainTexture = Texture2D.whiteTexture
+                //    };
+                //}
 
-                trail.material = trailMaterial;
-                trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-                trail.time = 0.15f;
-                trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                trail.widthMultiplier = trailWidth;
-                Gradient g = new Gradient()
-                {
-                    colorKeys = new GradientColorKey[]
-                    {
-                        new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
-                        new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
-                    },
-                    mode = GradientMode.Blend
+                //trail.material = trailMaterial;
+                //trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+                //trail.time = 0.15f;
+                //trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                //trail.widthMultiplier = trailWidth;
+                //Gradient g = new Gradient()
+                //{
+                //    colorKeys = new GradientColorKey[]
+                //    {
+                //        new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
+                //        new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
+                //    },
+                //    mode = GradientMode.Blend
 
-                };
-                trail.colorGradient = g;
+                //};
+                //trail.colorGradient = g;
 
-                trailObject.transform.localPosition = tipPosition;
+                //trailObject.transform.localPosition = tipPosition;
 
             }
             catch (System.Exception e)

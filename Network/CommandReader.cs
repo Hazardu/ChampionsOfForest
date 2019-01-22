@@ -18,7 +18,7 @@ namespace ChampionsOfForest.Network
         {
             try
             {
-
+                //ModAPI.Console.Write(s,"Command");
 
                 if (s.StartsWith("AB"))     //ask the host to send the command to set the difficulty for clinet
                 {
@@ -162,7 +162,9 @@ namespace ChampionsOfForest.Network
                 {
                     i = 2;
                     ch = s.ToCharArray();
-                    ModdedPlayer.instance.AddKillExperience(long.Parse(Read()));
+                    long exp = long.Parse(Read());
+                    ModAPI.Console.Write("Gained exp " + exp);
+                    ModdedPlayer.instance.AddKillExperience(exp);
                 }
                 else if (s.StartsWith("EA"))       //host answered info about a enemy
                 {

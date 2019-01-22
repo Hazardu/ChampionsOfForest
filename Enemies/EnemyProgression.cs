@@ -82,6 +82,8 @@ namespace ChampionsOfForest
         private GameObject closestPlayer;
         private float closestPlayerMagnitude;
 
+        private float timeOfDeath;
+
         private Color normalColor;
 
         public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, Thunder, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
@@ -591,19 +593,20 @@ namespace ChampionsOfForest
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
                     {
                         //Drop megan only amulet
-                        //Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+                        Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80],1,2), transform.position + Vector3.up * 3);
 
                     }
                 }
-                if (BoltNetwork.isRunning)
+                if (GameSetup.IsMultiplayer)
                 {
-                    Network.NetworkManager.SendLine("KX" + Mathf.RoundToInt(Bounty / ModReferences.Players.Count) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1,ModReferences.Players.Count*0.75f))) + ";", Network.NetworkManager.Target.Everyone);
                 }
                 else
                 {
                     ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
                 OnDieCalled = true;
+                timeOfDeath = 10;
 
             }
             catch (Exception ex)
@@ -635,8 +638,13 @@ namespace ChampionsOfForest
                 _Health.Health = Mathf.RoundToInt(MaxHealth);
 
             }
-            if (OnDieCalled && Health > 0) OnDieCalled = false;
+            if (OnDieCalled && Health > 0)
+            {
+                timeOfDeath -= Time.deltaTime;
+                if(timeOfDeath < 0)
+                OnDieCalled = false;
 
+            }
             if (TrapCD > 0)
             {
                 TrapCD -= Time.deltaTime;

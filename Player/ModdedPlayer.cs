@@ -123,9 +123,8 @@ namespace ChampionsOfForest
         public float SpellCostToStamina = 0;
         public float SpellCostRatio = 0;
         public float StaminaAttackCostReduction = 0;
+        public float BlockFactor = 0.5f;
 
-
-        public float BlockFactor = 1;
         public float ExpFactor = 1;
         public long ExpCurrent = 0;
         public long ExpGoal = 1;
@@ -200,15 +199,49 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 {
                     Remove();
                 }
-
-                Amount = NewAmount;
-                NewApply();
+                    Amount += NewAmount;
+                if (Amount > 0)
+                {
+                    NewApply();
+                }
+                else
+                {
+                   instance.ExtraCarryingCapactity.Remove(ID);
+                }
+                
             }
             public void Remove()
             {
-                applied = false;
-                LocalPlayer.Inventory.AddMaxAmountBonus(ID, -Amount);
+                LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
 
+                switch (ID)
+                {
+                    case 53:    //rock and rock bag
+                        if(LocalPlayer.Inventory.AmountOf(214)>0)
+                        {
+                            LocalPlayer.Inventory.SetMaxAmountBonus(ID, 5);
+                        }
+                        break;
+                    case 82:    //small rock and small rock bag
+                        if (LocalPlayer.Inventory.AmountOf(282) > 0)
+                        {
+                            LocalPlayer.Inventory.SetMaxAmountBonus(ID, 15);
+                        }
+                        break;
+                    case 57:    //stick and stick bag
+                        if (LocalPlayer.Inventory.AmountOf(215)>0)
+                        {
+                            LocalPlayer.Inventory.SetMaxAmountBonus(ID, 10);
+                        }
+                        break;
+                    case 56:    //spears and spear bag
+                        if (LocalPlayer.Inventory.AmountOf(290) > 1)
+                        {
+                            LocalPlayer.Inventory.SetMaxAmountBonus(ID, 4);
+                        }
+                        break;
+                }
+                applied = false;
             }
         }
         public void AddExtraItemCapacity(int ID, int Amount)
@@ -223,7 +256,7 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 EIC.NewApply();
                 ExtraCarryingCapactity.Add(ID, EIC);
             }
-            if (ExtraCarryingCapactity[ID].Amount == 0)
+            if (ExtraCarryingCapactity[ID].Amount <= 0)
             {
                 ExtraCarryingCapactity.Remove(ID);
             }
@@ -462,10 +495,13 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 TimeUntillMassacreReset = Mathf.Clamp(TimeUntillMassacreReset + TimeBonusPerKill, 20, MaxMassacreTime);
             }
             NewlyGainedExp += Amount;
+            ModAPI.Console.Write("Added exp to a kill combo. Amount of added exp: " + Amount + "\nKill count: " + MassacreKills + "\nThis translates to exp multipier of " + ExpFactor);
+
         }
         public void AddFinalExperience(long Amount)
         {
-            ExpCurrent += (long)(Amount * ExpFactor);
+            ModAPI.Console.Write("Final experience from massacre " + Amount + " * " + ExpFactor + "\nThis gives a total of " + Convert.ToInt64(Amount * ExpFactor) + "\n\n\tPlease compare this with other players in a multiplayer game and DM anything off to Hazard#3003 on discord. There were bug reports of host getting less experience.");
+            ExpCurrent += Convert.ToInt64(Amount * ExpFactor);
             int i = 0;
             while (ModdedPlayer.instance.ExpCurrent >= ModdedPlayer.instance.ExpGoal)
             {

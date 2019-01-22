@@ -391,6 +391,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.5f, 1.5f, 1.1f, "Melee armor piercing", 6, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.5f, 1.5f, 1.1f, "Ranged armor piercing", 6, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.3f, 1.2f, 1.1f, "Armor piercing", 6, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;
+            //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 25f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
             new ItemStat(i, 3f, 11f, 0f, "Extra Rocks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
@@ -402,14 +403,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0125f, 0.025f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
 
         }
-        public static void AddPercentage(ref float variable1, float f)
-        {
-            variable1 = 1 - (1 - variable1) * f;
-        }
-        public static void RemovePercentage(ref float variable1, float f)
-        {
-            variable1 = 1 - (1 - variable1) / f;
-        }
+    
         public static void FillItems()
         {
             try
@@ -1399,7 +1393,14 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write(e.ToString());
             }
         }
-
+    public static void AddPercentage(ref float variable1, float f)
+        {
+            variable1 = 1 - (1 - variable1) * f;
+        }
+        public static void RemovePercentage(ref float variable1, float f)
+        {
+            variable1 = 1 - (1 - variable1) / f;
+        }
         //Items added by Kaspito#4871
         private static void FillKaspitoItems()
         {
