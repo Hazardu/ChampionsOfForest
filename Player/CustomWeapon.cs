@@ -89,51 +89,50 @@ namespace ChampionsOfForest.Player
 
 
                 obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
-                obj.transform.localRotation = PlayerInventoryMod.originalRotation;
 
+ GameObject trailObject = new GameObject();
+                trailObject.transform.SetParent(PlayerInventoryMod.originalParrent, false);
+                trailObject.transform.position = obj.transform.position;
+                obj.transform.localRotation = PlayerInventoryMod.originalRotation;
                 obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
                 obj.transform.Rotate(rotation, Space.Self);
-
                 obj.transform.localPosition += offset;
-
                 obj.transform.localScale = Vector3.one * Scale;
-
                 renderer = obj.GetComponent<Renderer>();
                 renderer.material = material;
                 obj.GetComponent<MeshFilter>().mesh = mesh;
 
-                GameObject trailObject = new GameObject();
-                trailObject.transform.SetParent(obj.transform);
+                trailObject.transform.rotation = obj.transform.rotation;
+                trailObject.transform.localPosition = tipPosition+ PlayerInventoryMod.OriginalOffset+ offset;
 
-                //trail = trailObject.AddComponent<TrailRenderer>();
+               trail = trailObject.AddComponent<TrailRenderer>();
 
-                //if (trailMaterial == null)
-                //{
-                //    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
-                //    {
-                //        color = new Color(1, 0.5f, 0.25f, 0.4f),
-                //        mainTexture = Texture2D.whiteTexture
-                //    };
-                //}
+                if (trailMaterial == null)
+                {
+                    trailMaterial = new Material(Shader.Find("Unlit/Transparent"))
+                    {
+                        color = new Color(1, 0.5f, 0.25f, 0.4f),
+                        mainTexture = Texture2D.whiteTexture
+                    };
+                }
 
-                //trail.material = trailMaterial;
-                //trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-                //trail.time = 0.15f;
-                //trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                //trail.widthMultiplier = trailWidth;
-                //Gradient g = new Gradient()
-                //{
-                //    colorKeys = new GradientColorKey[]
-                //    {
-                //        new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
-                //        new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
-                //    },
-                //    mode = GradientMode.Blend
+                trail.material = trailMaterial;
+                trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+                trail.time = 0.15f;
+                trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                trail.widthMultiplier = trailWidth;
+                Gradient g = new Gradient()
+                {
+                    colorKeys = new GradientColorKey[]
+                    {
+                        new GradientColorKey(new Color(0.735849f, 0.1654735f, 0.0798327f),0),
+                        new GradientColorKey(new Color(1, 0.0654735f, 0.1798327f),1),
+                    },
+                    mode = GradientMode.Blend
 
-                //};
-                //trail.colorGradient = g;
-
-                //trailObject.transform.localPosition = tipPosition;
+                };
+                trail.colorGradient = g;
+                trail.alignment = LineAlignment.Local;
 
             }
             catch (System.Exception e)

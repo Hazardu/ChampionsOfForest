@@ -75,6 +75,7 @@ namespace ChampionsOfForest
 
             }
             ModAPI.Log.Write("SETUP: ITEM DATABASE");
+
             //LogInfo();
         }
         /// <summary>

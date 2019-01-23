@@ -78,5 +78,5 @@
   <Description>
     <EN>report bugs pls, and verify any inconsistienties in experience in coop games. There were reports of host getting less experience than clients. I added some console (~) logs to verify it.</EN>
   </Description>
-  <Version>0.6.5</Version>
+  <Version>0.6.6</Version>
 </Mod>

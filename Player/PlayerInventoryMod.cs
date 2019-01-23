@@ -280,7 +280,7 @@ namespace ChampionsOfForest.Player
                         ),
                     new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f),
                     new Vector3(0, -90, 0),
-                    new Vector3(0.2f, -2.4f, 0),
+                    new Vector3(-0.2f, -2.3f, 0),
                     1.3f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
 
 
@@ -302,7 +302,7 @@ namespace ChampionsOfForest.Player
                     ),
                 new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
                 new Vector3(180, 180, 90),
-                new Vector3(0, 0, -3.6f),
+                new Vector3(0, 0, -3.5f),
                 2.5f, 1f, 100, 200, 0.01f, 0.001f, 85, true, 5);
         }
     }

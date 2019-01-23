@@ -51,10 +51,13 @@ namespace ChampionsOfForest.Res
         private LoadingState loadingState;
         private VersionCheckStatus checkStatus = VersionCheckStatus.Unchecked;
         private string OnlineVersion;
+        private string MOTD;
+        private Vector2 MOTDoffset;
         public static bool InMainMenu;
         public bool FinishedLoading = false;
         private WWW download;
         private bool IgnoreErrors;
+        private bool ShowMOTD;
         private void Start()
         {
             if (instance == null)
@@ -83,6 +86,7 @@ namespace ChampionsOfForest.Res
             FailedLoadResources = new List<Resource>();
             StartCoroutine(FileVerification());
             StartCoroutine(VersionCheck());
+            StartCoroutine(DownloadMotd());
 
         }
 
@@ -124,6 +128,14 @@ namespace ChampionsOfForest.Res
                 checkStatus = VersionCheckStatus.Fail;
             }
 
+        }
+
+        private IEnumerator DownloadMotd()
+        {
+            ///WWW motdWebsite = new WWW("https://textuploader.com/1avou/raw");
+            WWW motdWebsite = new WWW("https://docs.google.com/document/export?format=txt&id=1tq7scNmg0_CAzg0TfOhfq737ugaoCw3Idr-0esbKlhE&token=AC4w5Vgy9AG6mRMGIoA_NgkcxmFpPmmVUA%3A1548265532959&ouid=105695979354176851391&includes_info_params=true");
+            yield return motdWebsite;
+            MOTD = motdWebsite.text;
         }
 
         public enum Status { TheSame, Outdated, Newer }
@@ -528,8 +540,28 @@ namespace ChampionsOfForest.Res
                         break;
                 }
                 GUI.color = Color.white;
+GUILayout.EndArea();
 
-                GUILayout.EndArea();
+                if (MOTD != "")
+                {
+                    GUIStyle title = new GUIStyle(GUI.skin.button) { fontSize = 34, fontStyle = FontStyle.Bold, richText = true };
+                    GUIStyle motdstyle = new GUIStyle(GUI.skin.box) { fontSize = 22, fontStyle = FontStyle.Normal, alignment = TextAnchor.UpperCenter, wordWrap = true, richText = true };
+
+                    Rect r1 = new Rect(new Rect(Screen.width * 2 / 3, 120, Screen.width / 3, 50));
+                    if (GUI.Button(r1, "◄NEWS►", title)) ShowMOTD = !ShowMOTD;
+                    if (ShowMOTD)
+                    {
+                        float height = motdstyle.CalcHeight(new GUIContent(MOTD), r1.width);
+                        Rect r2 = new Rect(r1.x, r1.y + 40, r1.width, Screen.height - 200);
+                        GUILayout.BeginArea(r2);
+                        MOTDoffset = GUILayout.BeginScrollView(MOTDoffset);
+
+                        GUILayout.Label(MOTD, motdstyle);
+
+                        GUILayout.EndScrollView();
+                        GUILayout.EndArea();
+                    }
+                }
             }
         }
 
