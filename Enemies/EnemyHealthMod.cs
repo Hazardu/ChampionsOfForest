@@ -47,9 +47,10 @@ namespace ChampionsOfForest
             {
                 progression = GetComponent<EnemyProgression>();
             }
-            if (setup.waterDetect.drowned)
+            if (setup.waterDetect.drowned&&!deadBlock)
             {
-                HitReal(Health);
+                Health = 0;
+                HitReal(100);
             }
             base.Update();
         }

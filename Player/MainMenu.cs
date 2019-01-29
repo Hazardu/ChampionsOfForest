@@ -61,6 +61,7 @@ namespace ChampionsOfForest
         private float ProgressBarAmount = 0;
         private Rect HUDenergyLabelRect;
         private Rect HUDHealthLabelRect;
+        private Rect HUDShieldLabelRect;
 
         private GUIStyle HUDStatStyle;
 
@@ -104,8 +105,8 @@ namespace ChampionsOfForest
         {
             new Color(0.4f,0.4f,0.4f),
             new Color(0.6f,0.6f,0.6f),
-            new Color(0.1f,0.1f,0.9f),
-            new Color(0.1f,0.1f,0.9f),
+            new Color(0.1f,0.1f,0.75f),
+            new Color(0.1f,0.5f,1f),
             new Color(1,0.95f,0.1f),
             new Color(1,0.5f,0f),
             new Color(0.1f,1,0.3f),
@@ -187,6 +188,7 @@ namespace ChampionsOfForest
                 HideHud = false;
                 HUDenergyLabelRect = new Rect(Screen.width - 500 * rr, Screen.height - 100 * rr, 500 * rr, 100 * rr);
                 HUDHealthLabelRect = new Rect(Screen.width - 500 * rr, Screen.height - 140 * rr, 500 * rr, 100 * rr);
+                HUDShieldLabelRect = new Rect(Screen.width - 500 * rr, Screen.height - 180 * rr, 500 * rr, 100 * rr);
 
                 //The main font as of now is Gabriola
                 MainFont = Font.CreateDynamicFontFromOSFont("Bahnschrift", Mathf.RoundToInt(24 * rr));
@@ -317,7 +319,7 @@ namespace ChampionsOfForest
 
             try
             {
-                if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+                if (UnityEngine.Input.GetKeyDown(KeyCode.F7))
                 {
                     Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000) * ModdedPlayer.instance.Level), LocalPlayer.Transform.position + Vector3.up * 2 + LocalPlayer.Transform.forward);
                 }
@@ -337,36 +339,39 @@ namespace ChampionsOfForest
             try
             {
 
-               
-                 //DETAIL-----------------------------------------------------------------------------
-                 //GUI.skin.horizontalSlider.fixedWidth = 150;
-                 //GUI.skin.horizontalSlider.fontSize = 30;
-                 //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
-                 //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
-                 //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
-                 //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-                 ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                 ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                 //foreach (var item in PlayerInventoryMod.customWeapons.Values)
-                 //{
-                 //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                 //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                 //}
 
-                 //BIG OFFSET-----------------------------------------------------------------------------
-                 //  PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-                 //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
-                 //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                 //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                 //foreach (var item in PlayerInventoryMod.customWeapons)
-                 //{
-                 //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                 //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                 //}
+                //DETAIL-----------------------------------------------------------------------------
+                //GUI.skin.horizontalSlider.fixedWidth = 150;
+                //GUI.skin.horizontalSlider.fontSize = 30;
+                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
+                //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
+                //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
+                ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
+                //}
 
-                 GUI.skin.label.normal.textColor = Color.white;
+                //BIG OFFSET-----------------------------------------------------------------------------
+                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
+                //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
+                //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
+                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
+                //}
+
+
+
+
+                GUI.skin.label.normal.textColor = Color.white;
                 GUI.skin.label.onNormal.textColor = Color.white;
                 GUI.contentColor = Color.white;
                 GUI.backgroundColor = Color.white;
@@ -724,7 +729,7 @@ namespace ChampionsOfForest
         {
             Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
             GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
-
+            SelectedItem = -1;
 
             for (int y = 0; y < Inventory.Height; y++)
             {
@@ -1026,7 +1031,7 @@ namespace ChampionsOfForest
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
                     if (Inventory.Instance.ItemList[index].Amount > 1)
                     {
-                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString(), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset((int)(10 * rr), 0, 0, (int)(10 * rr)), fontSize = (int)(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
+                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString(), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset(Mathf.RoundToInt(10 * rr), 0, 0, Mathf.RoundToInt(10 * rr)), fontSize = Mathf.RoundToInt(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
                     }
 
 
@@ -1435,7 +1440,7 @@ namespace ChampionsOfForest
                             center = pos
                         };
 
-                        GUI.Label(r, hitMarkers[i].txt.ToString(), new GUIStyle(HitmarkerStyle) { fontSize = (int)size });
+                        GUI.Label(r, hitMarkers[i].txt.ToString(), new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
                     }
 
                 }
@@ -1484,7 +1489,13 @@ namespace ChampionsOfForest
                 GUI.color = new Color(0.8f, 0.0f, 0.0f);
 
                 GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth), HUDStatStyle);
+                if (ModdedPlayer.instance.DamageAbsorbAmount > 0) {
+
+                    GUI.color = new Color(1f, 0.15f, 0.8f);
+                    GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString(), HUDStatStyle);
+                    }
                 GUI.color = Color.white;
+                
 
                 float SquareSize = 45 * rr;
                 for (int i = 0; i < SpellCaster.SpellCount; i++)
@@ -1678,9 +1689,9 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.EliteSteadFest:
                                                     DrawScannedEnemyLabel("Elite ability: Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.Molten:
-                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
+                                                //case EnemyProgression.Abilities.Molten:
+                                                //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                //    break;
                                                 case EnemyProgression.Abilities.FreezingAura:
                                                     DrawScannedEnemyLabel("Absolute zero", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
@@ -1717,9 +1728,9 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.Blink:
                                                     DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.Thunder:
-                                                    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
+                                                //case EnemyProgression.Abilities.Thunder:
+                                                //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                //    break;
                                                 case EnemyProgression.Abilities.RainEmpowerement:
                                                     DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
@@ -1933,7 +1944,7 @@ namespace ChampionsOfForest
                     {
                         if (ModdedPlayer.instance.MutationPoints >= 2)
                         {
-                            GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = MainFont, fontSize = (int)(41 * rr), fontStyle = FontStyle.Bold };
+                            GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = MainFont, fontSize = Mathf.RoundToInt(41 * rr), fontStyle = FontStyle.Bold };
                             btnStyle.onActive.textColor = Color.blue;
                             btnStyle.onNormal.textColor = Color.gray;
                             if (GUI.Button(UnlockRect, "UNLOCK ABILITY", btnStyle))
@@ -1944,7 +1955,7 @@ namespace ChampionsOfForest
                         }
                         else
                         {
-                            GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = MainFont, alignment = TextAnchor.MiddleCenter, fontSize = (int)(41 * rr), fontStyle = FontStyle.Bold };
+                            GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = MainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * rr), fontStyle = FontStyle.Bold };
                             morePointsStyle.onNormal.textColor = Color.gray;
                             morePointsStyle.onActive.textColor = Color.white;
                             GUI.Label(UnlockRect, "YOU NEED 2 POINTS TO UNLOCK AN ABILITY", morePointsStyle);
@@ -1952,7 +1963,7 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        GUIStyle moreLevelsStyle = new GUIStyle(GUI.skin.label) { font = MainFont, alignment = TextAnchor.MiddleCenter, fontSize = (int)(41 * rr), fontStyle = FontStyle.Bold };
+                        GUIStyle moreLevelsStyle = new GUIStyle(GUI.skin.label) { font = MainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * rr), fontStyle = FontStyle.Bold };
                         moreLevelsStyle.onNormal.textColor = Color.gray;
                         moreLevelsStyle.onActive.textColor = Color.white;
                         GUI.Label(UnlockRect, "YOUR LEVEL IS TOO LOW TO UNLOCK", moreLevelsStyle);
@@ -2227,7 +2238,7 @@ namespace ChampionsOfForest
             headerstyle = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = (int)(70 * rr),
+                fontSize = Mathf.RoundToInt(70 * rr),
                 hover = new GUIStyleState()
                 {
                     textColor = new Color(1, 1, 0.8f)
@@ -2238,7 +2249,7 @@ namespace ChampionsOfForest
             statStyle = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = (int)(30 * rr),
+                fontSize = Mathf.RoundToInt(30 * rr),
                 hover = new GUIStyleState()
                 {
                     textColor = new Color(1, 1, 0.8f)
@@ -2249,7 +2260,7 @@ namespace ChampionsOfForest
             statStyleAmount = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = (int)(33 * rr),
+                fontSize = Mathf.RoundToInt(33 * rr),
                 normal = new GUIStyleState()
                 {
                     textColor = new Color(0.3f, 1, 0.3f)
@@ -2261,11 +2272,11 @@ namespace ChampionsOfForest
                 alignment = TextAnchor.MiddleRight,
                 richText = true,
             };
-            int margin = (int)(25 * rr);
+            int margin = Mathf.RoundToInt(25 * rr);
             statStyleTooltip = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = (int)(28 * rr),
+                fontSize = Mathf.RoundToInt(28 * rr),
                 fontStyle = FontStyle.Italic,
                 margin = new RectOffset(margin, margin, margin, margin),
                 stretchWidth = true,
@@ -2275,7 +2286,7 @@ namespace ChampionsOfForest
             TextLabel = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = (int)(35 * rr),
+                fontSize = Mathf.RoundToInt(35 * rr),
                 stretchWidth = true,
                 alignment = TextAnchor.UpperLeft,
                 richText = true,
@@ -2347,7 +2358,7 @@ namespace ChampionsOfForest
             Stat("Armor", ModdedPlayer.instance.Armor.ToString(), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
             Stat("Magic resistance", ModdedPlayer.instance.MagicResistance  * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
             Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance  * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
-            Stat("Damage taken reduction", ModdedPlayer.instance.DamageReduction  * 100 + "%");
+            Stat("Damage taken reduction", Math.Round( (ModdedPlayer.instance.DamageReduction-1)  * 100,1) + "%");
             Stat("Block", ModdedPlayer.instance.BlockFactor  * 100 + "%");
             Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount  * 100 + "%");
             Stat("Fire resistance", Math.Round((1-ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
@@ -2368,10 +2379,10 @@ namespace ChampionsOfForest
             Space(60);
             Label("Attack");
             Space(10);
-            Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
+            Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
             Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance*100, 2) + "%");
-            Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed*100, 2) + "%");
+            Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed*100, 2) + "%","Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
 
 
             Space(20);
@@ -2381,8 +2392,8 @@ namespace ChampionsOfForest
             Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
                 "Bonus from strenght: " + Math.Round(ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100, 2) + "%\n" +
                 "Melee damage amplification: "+ Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier-1) * 100, 2) + "%\n" +
-                "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult-1) * 100, 2) + "%");
-            Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
+                "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
+            Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) +"","Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
             Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange*100)+"%");
 
             Space(20);
@@ -2392,8 +2403,8 @@ namespace ChampionsOfForest
             Stat("Ranged damage", Math.Round(ModdedPlayer.instance.RangedAMP * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
              "Bonus from agility: " + Math.Round(ModdedPlayer.instance.agility * ModdedPlayer.instance.RangedDamageperAgi * 100, 2) + "%\n" +
              "Ranged damage amplification: " + Math.Round((ModdedPlayer.instance.RangedDamageAmplifier - 1) * 100, 2) + "%\n" +
-             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
-            Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
+            Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) +"", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
             Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Faster projectiles fly further and fall slower");
             Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
 
@@ -2405,8 +2416,8 @@ namespace ChampionsOfForest
             Stat("Spell damage", Math.Round(ModdedPlayer.instance.SpellAMP * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
              "Bonus from intelligence: " + Math.Round(ModdedPlayer.instance.intelligence * ModdedPlayer.instance.SpellDamageperInt * 100, 2) + "%\n" +
              "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
-             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMult - 1) * 100, 2) + "%");
-            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "Spell damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+             "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
+            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) +"", "Spell damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
             Stat("Spell cost reduction", Math.Round((1-ModdedPlayer.instance.SpellCostRatio) * 100) + "%","Faster projectiles fly further and fall slower");
             Stat("Spell cost to stamina", Math.Round((1 - ModdedPlayer.instance.SpellCostToStamina) * 100) + "%","Faster projectiles fly further and fall slower");
             Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%","Faster projectiles fly further and fall slower");
@@ -2442,7 +2453,7 @@ namespace ChampionsOfForest
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
 
-            MaxScrollAmount = BookPositionY;
+            MaxScrollAmount = BookPositionY+Screen.height*1.5f;
         }
         #endregion
 
@@ -2564,7 +2575,7 @@ namespace ChampionsOfForest
             };
             GUI.DrawTexture(rect, ResourceLoader.GetTexture(84));
             GUI.color = Color.black;
-            GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(80 * rr), fontStyle = FontStyle.Bold, font = MainFont });
+            GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(80 * rr), fontStyle = FontStyle.Bold, font = MainFont });
             GUI.color = Color.white;
 
 
@@ -2589,7 +2600,7 @@ namespace ChampionsOfForest
 
                     Rect Name = new Rect(r.x - 200 * rr, r.y - 130 * rr, 400 * rr + r.width, 90 * rr);
 
-                    GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                    GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 
                     Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
 
@@ -2605,7 +2616,7 @@ namespace ChampionsOfForest
                             GUI.color = Color.red;
                         }
 
-                        GUI.Label(LevelReq, "Level " + p.LevelRequirement, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        GUI.Label(LevelReq, "Level " + p.LevelRequirement, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
                         if (ModdedPlayer.instance.MutationPoints < p.PointsToBuy)
                         {
                             GUI.color = Color.red;
@@ -2615,7 +2626,7 @@ namespace ChampionsOfForest
                             GUI.color = Color.white;
                         }
 
-                        GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+                        GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
                         GUI.color = Color.white;
                         if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[SelectedPerk_ID]) && Perk.AllPerks[SelectedPerk_ID].LevelRequirement <= ModdedPlayer.instance.Level)
                         {
@@ -2652,7 +2663,7 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, (int)(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = (int)(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
+                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
                     Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width) + 10 * rr;
                     GUI.Label(Desc, desctext, descStyle);
 
@@ -2722,7 +2733,7 @@ namespace ChampionsOfForest
                         content = ((Perk.PerkCategory)menus.GetValue(i)).ToString();
                         break;
                 }
-                if (GUI.Button(topButton, content, new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }))
+                if (GUI.Button(topButton, content, new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }))
                 {
                     _perkpage = (Perk.PerkCategory)menus.GetValue(i);
                     targetPerkOffset = wholeScreen.center;
@@ -2798,7 +2809,7 @@ namespace ChampionsOfForest
                 if (p.Endless)
                 {
                     GUI.color = Color.black;
-                    GUI.Label(r, p.ApplyAmount.ToString(), new GUIStyle(GUI.skin.label) { fontSize = (int)(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
+                    GUI.Label(r, p.ApplyAmount.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
                 }
                 GUI.color = Color.white;
 

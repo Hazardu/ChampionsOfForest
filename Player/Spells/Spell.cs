@@ -8,7 +8,8 @@ namespace ChampionsOfForest.Player
         public int Levelrequirement;
         public float EnergyCost;
         public float BaseCooldown;
-
+        public float ChanneledTime;
+        public bool Channeled;
         public bool IsEquipped
         {
             get
@@ -25,6 +26,7 @@ namespace ChampionsOfForest.Player
         public Active active;
         public delegate void Passive(bool on);
         public Passive passive;
+        public bool usePassiveOnUpdate;
 
         public bool Bought;
         public bool CanCast = false;
@@ -49,9 +51,28 @@ namespace ChampionsOfForest.Player
             Description = description;
             CanCast = true;
             Bought = false;
+            
+                icon = Res.ResourceLoader.instance.LoadedTextures[TextureID];
+            SpellDataBase.spellDictionary.Add(iD, this);
+        }
+
+
+        /// <summary>
+        /// Creates a channeled type of spell
+        /// </summary>
+        public Spell(int iD, int TextureID, int levelrequirement, float energyCost, string name, string description)
+        {
+            ID = iD;
+            Levelrequirement = levelrequirement;
+            EnergyCost = energyCost;
+            Channeled = true;
+            BaseCooldown = 1;
+            Name = name;
+            Description = description;
+            CanCast = true;
+            Bought = false;
             icon = Res.ResourceLoader.instance.LoadedTextures[TextureID];
             SpellDataBase.spellDictionary.Add(iD, this);
-            // ModAPI.Log.Write("Added spell " + name + " " + ID);
         }
     }
 }

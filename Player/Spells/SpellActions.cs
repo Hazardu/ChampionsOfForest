@@ -184,7 +184,34 @@ namespace ChampionsOfForest.Player
             IsCleaveEmpowered = false;
         }
         #endregion
+        #region SustainShield
+        public static float ShieldPerSecond = 1;
+        public static float MaxShield = 10;
+        public static float ShieldCastTime;
+        public static float ShieldPersistanceLifetime = 3;
+        public static void CastSustainShieldActive()
+        {
+            float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus/2;
+            max *= ModdedPlayer.instance.SpellDamageBonus;
+            float gain = ShieldPerSecond + ModdedPlayer.instance.SpellDamageBonus / 20;
+            gain *= ModdedPlayer.instance.SpellDamageBonus;
+            
+            ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Clamp(ModdedPlayer.instance.damageAbsorbAmounts[1] + Time.deltaTime * gain, 0, max);
+            ShieldCastTime = Time.time;
+         }
+        public static void CastSustainShielPassive(bool on)
+        {
+            if (!on) return;
+            if (ModdedPlayer.instance.damageAbsorbAmounts[1] > 0)
+            {
+                if(ShieldCastTime + ShieldPersistanceLifetime < Time.time)
+                {
+                    float loss = Time.deltaTime * (ShieldPerSecond + ModdedPlayer.instance.SpellDamageBonus / 5) * 5*ModdedPlayer.instance.SpellDamageBonus;
+                    ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Max(0, ModdedPlayer.instance.damageAbsorbAmounts[1] - loss);
+                }
+            }
+        }
+            #endregion
 
-
-    }
+        }
 }

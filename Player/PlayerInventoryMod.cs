@@ -32,8 +32,11 @@ namespace ChampionsOfForest.Player
 
         protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
         {
+                            if (ModSettings.IsDedicated) return base.Equip(itemView, pickedUpFromWorld);
+
             if (itemView != null)
             {
+
                 EquippedModel = BaseItem.WeaponModelType.None;
                 if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                 {
@@ -118,7 +121,7 @@ namespace ChampionsOfForest.Player
                             CustomWeapon cw = customWeapons[ToEquipWeaponType];
                             cw.obj.SetActive(true);
                             itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed * cw.swingspeed;
-                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.triedswingspeed;
+                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.tiredswingspeed;
                             itemView._heldWeaponInfo.smashDamage = cw.smashDamage;
                             itemView._heldWeaponInfo.weaponDamage = cw.damage;
                             itemView._heldWeaponInfo.treeDamage = cw.treeDamage;
@@ -169,7 +172,8 @@ namespace ChampionsOfForest.Player
 
         protected override void FireRangedWeapon()
         {
-            InventoryItemView inventoryItemView = _equipmentSlots[0];
+            if (ModSettings.IsDedicated) return;
+                InventoryItemView inventoryItemView = _equipmentSlots[0];
             TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
             bool flag = itemCache._maxAmount < 0;
             bool flag2 = false;
@@ -248,11 +252,18 @@ namespace ChampionsOfForest.Player
 
         public override void Attack()
         {
+            if (ModSettings.IsDedicated) return;
+
             if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
             {
                 if (EquippedModel != BaseItem.WeaponModelType.None && customWeapons.ContainsKey(EquippedModel))
                 {
                     customWeapons[EquippedModel].EnableTrail();
+                }
+                if (ModdedPlayer.instance.DeathPact_Enabled)
+                {
+                    LocalPlayer.Stats.Health -= ModdedPlayer.instance.MaxHealth * 0.07f;
+                    LocalPlayer.Stats.Health = Mathf.Max(1, LocalPlayer.Stats.Health);
                 }
             }
             base.Attack();
@@ -260,6 +271,8 @@ namespace ChampionsOfForest.Player
 
         public override void AddMaxAmountBonus(int itemId, int amount)
         {
+            if (ModSettings.IsDedicated) return;
+
             Debug.Log("Changing AddMaxAmountBonus id:" + itemId + "\t amount:" + amount);
             base.AddMaxAmountBonus(itemId, amount);
         }
@@ -303,7 +316,25 @@ namespace ChampionsOfForest.Player
                 new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
                 new Vector3(180, 180, 90),
                 new Vector3(0, 0, -3.5f),
-                2.5f, 1f, 100, 200, 0.01f, 0.001f, 85, true, 5);
+                1.8f, 1f, 60, 90, 0.01f, 0.001f, 85, true, 5);
+
+            //black axe
+            new CustomWeapon(BaseItem.WeaponModelType.Hammer,
+                   108,
+                   BuilderCore.Core.CreateMaterial(
+                       new BuilderCore.BuildingData()
+                       {
+                           Metalic = 0.86f,
+                           Smoothness = 0.66f,
+                           MainColor = new Color(0.2f,0.2f,0.2f),
+                       }
+                       ),
+                   new Vector3(0,0,0),
+                   new Vector3(0,0,90),
+                   new Vector3(0,0,-2f),
+                   1.6f, 1f, 25, 250, 0f, 0f, 500, true, 6);
+
+
         }
     }
 }

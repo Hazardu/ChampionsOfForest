@@ -1,5 +1,5 @@
 <Mod ID="ChampionsOfForest">
-  <Compatible>1.10d</Compatible>
+  <Compatible>1.11b</Compatible>
   <Button Standard="Tab" ID="MenuToggle">
     <Name>
       <EN>Toggle Menu</EN>
@@ -73,10 +73,10 @@
     </Description>
   </Button>
   <Name>
-    <EN>Champions of The Forest Alpha</EN>
+    <EN>Champions of The Forest</EN>
   </Name>
   <Description>
-    <EN>report bugs pls, and verify any inconsistienties in experience in coop games. There were reports of host getting less experience than clients. I added some console (~) logs to verify it.</EN>
+    <EN>Now also works for dedi!</EN>
   </Description>
-  <Version>0.6.6</Version>
+  <Version>0.7</Version>
 </Mod>

@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Player
 
         public float damage;
         public float swingspeed;
-        public float triedswingspeed;
+        public float tiredswingspeed;
         public float smashDamage;
         public float treeDamage;
         public float staminaDrain;
@@ -25,15 +25,15 @@ namespace ChampionsOfForest.Player
 
 
         public float trailWidth = 0.14f;
-        public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float colliderScale = 1, float scale = 1, float damage = 5, float smashDamage = 15, float swingspeed = 1, float triedswingspeed = 1, float staminaDrain = 6, bool canChopTrees = false, float treeDamage = 1)
+        public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float colliderScale = 1, float scale = 1, float damage = 5, float smashDamage = 15, float swingspeed = 1, float triedswingspeed = 1, float staminaDrain = 6, bool noTreeCut = false, float treeDamage = 1)
         {
             this.damage = damage;
             this.swingspeed = swingspeed;
-            this.triedswingspeed = triedswingspeed;
+            this.tiredswingspeed = triedswingspeed;
             this.smashDamage = smashDamage;
             this.treeDamage = treeDamage;
             this.staminaDrain = staminaDrain;
-            this.canChopTrees = canChopTrees;
+            this.canChopTrees = noTreeCut;
             this.mesh = Res.ResourceLoader.instance.LoadedMeshes[mesh];
             this.offset = offset;
             this.rotation = rotation;
@@ -49,7 +49,7 @@ namespace ChampionsOfForest.Player
         {
             this.damage = 6;
             this.swingspeed = 1;
-            this.triedswingspeed = 1;
+            this.tiredswingspeed = 1;
             this.smashDamage = 15;
             this.treeDamage = 0;
             this.staminaDrain = 8;
@@ -133,7 +133,7 @@ namespace ChampionsOfForest.Player
                 };
                 trail.colorGradient = g;
                 trail.alignment = LineAlignment.Local;
-
+                trail.gameObject.SetActive(false);
             }
             catch (System.Exception e)
             {

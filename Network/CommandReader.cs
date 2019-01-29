@@ -18,8 +18,6 @@ namespace ChampionsOfForest.Network
         {
             try
             {
-                //ModAPI.Console.Write(s,"Command");
-
                 if (s.StartsWith("AB"))     //ask the host to send the command to set the difficulty for clinet
                 {
                     if (GameSetup.IsMpServer && ModSettings.DifficultyChoosen)
@@ -39,7 +37,7 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("AA"))    //answer for the what is the difficulty query
                 {
-                    if (ModSettings.DifficultyChoosen || !GameSetup.IsMpClient)
+                    if (ModSettings.DifficultyChoosen || !GameSetup.IsMpClient || ModSettings.IsDedicated)
                     {
                         return;
                     }
@@ -54,6 +52,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("SC"))    //spell cast
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     int spellid = int.Parse(Read());
@@ -70,7 +73,7 @@ namespace ChampionsOfForest.Network
                     else if (spellid == 3)
                     {
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-                        DarkBeam.Create(pos, ReadBool() ,float.Parse(Read()), float.Parse(Read()),float.Parse(Read()),float.Parse(Read()),float.Parse(Read()),float.Parse(Read()));
+                        DarkBeam.Create(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                     }
                 }
                 else if (s.StartsWith("RI"))    //remove item
@@ -123,6 +126,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("ES"))       //enemy spell
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     int id = int.Parse(Read());
@@ -144,6 +152,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("PO"))    //poison Player
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     ulong playerPacked = ulong.Parse(Read());
@@ -158,16 +171,26 @@ namespace ChampionsOfForest.Network
 
 
                 }
-                else if (s.StartsWith("KX"))
+                else if (s.StartsWith("KX"))    //kill experience
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     long exp = long.Parse(Read());
                     ModAPI.Console.Write("Gained exp " + exp);
                     ModdedPlayer.instance.AddKillExperience(exp);
                 }
-                else if (s.StartsWith("EA"))       //host answered info about a enemy
+                else if (s.StartsWith("EA"))       //host answered info about a enemy and the info is processed
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     if (GameSetup.IsMpClient)
                     {
                         i = 2;
@@ -220,7 +243,12 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("RO"))    //root the player
                 {
-                    if (!ModdedPlayer.instance.RootImmune&& !ModdedPlayer.instance.StunImmune)
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
+                    if (!ModdedPlayer.instance.RootImmune && !ModdedPlayer.instance.StunImmune)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -235,12 +263,17 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("ST"))    //stun the player
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     if (!ModdedPlayer.instance.StunImmune)
                     {
                         i = 2;
                         ch = s.ToCharArray();
                         ulong packed = ulong.Parse(Read());
-                        if (ModReferences.ThisPlayerPacked == packed) 
+                        if (ModReferences.ThisPlayerPacked == packed)
                         {
                             float duration = float.Parse(Read());
                             ModdedPlayer.instance.Stun(duration);
@@ -249,6 +282,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("RE"))
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
@@ -257,6 +295,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("TR"))
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
@@ -279,7 +322,6 @@ namespace ChampionsOfForest.Network
                     i = 2;
                     ch = s.ToCharArray();
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-
                     Meteor.CreateEnemy(pos, int.Parse(Read()));
                 }
                 else if (s.StartsWith("RL"))
@@ -287,9 +329,7 @@ namespace ChampionsOfForest.Network
                     if (s.Length > 2)
                     {
                         ModReferences.PlayerLevels.Clear();
-                        //ModReferences.PlayerLevels.Add(ModReferences.ThisPlayerPacked, ModdedPlayer.instance.Level);
                     }
-
                     NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
                 }
                 else if (s.StartsWith("AL"))
@@ -309,6 +349,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("EH"))    //enemy hitmarker
                 {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
                     i = 2;
                     ch = s.ToCharArray();
                     int amount = int.Parse(Read());
@@ -316,6 +361,49 @@ namespace ChampionsOfForest.Network
                     new MainMenu.HitMarker(amount, pos);
 
                 }
+                else if (s.StartsWith("AC"))    //slow Enemy
+                {
+                    if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        float amount = float.Parse(Read());
+                        float time = float.Parse(Read());
+                        int src = int.Parse(Read());
+                        EnemyManager.hostDictionary[id].Slow(src, amount, time);
+                    }
+                }
+                else if (s.StartsWith("AD"))    //slow Enemy
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        if (ModSettings.IsDedicated)
+                        {
+                            ItemDataBase.MagicFind = 1;
+                        }
+                        else
+                        {
+                            ItemDataBase.MagicFind = ModdedPlayer.instance.MagicFindMultipier;
+                        }
+                    }
+                    else
+                    {
+                        Network.NetworkManager.SendLine("AE" + ModdedPlayer.instance.MagicFindMultipier + ";", Network.NetworkManager.Target.OnlyServer);
+
+                    }
+
+                }
+                else if (s.StartsWith("AE"))    //slow Enemy
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ItemDataBase.MagicFind *= float.Parse(Read());
+                    }
+                }
+
             }
             catch (Exception e)
             {

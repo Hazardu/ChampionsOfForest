@@ -758,19 +758,8 @@ namespace ChampionsOfForest
                 //f *= 1-ModdedPlayer.instance.MagicResistance;
                 f *= ModdedPlayer.instance.FireDamageTakenMult;
             }
-            if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
-            {
-                if (f - ModdedPlayer.instance.DamageAbsorbAmount < 0)
-                {
-                    ModdedPlayer.instance.DamageAbsorbAmount -= f;
-                    return;
-                }
-                else
-                {
-                    f -= ModdedPlayer.instance.DamageAbsorbAmount;
-                    ModdedPlayer.instance.DamageAbsorbAmount = 0;
-                }
-            }
+            f = ModdedPlayer.instance.DealDamageToShield(f);
+            if (f == 0) return;
             damage = Mathf.RoundToInt(f);
             base.Hit(damage, ignoreArmor, type);
         }

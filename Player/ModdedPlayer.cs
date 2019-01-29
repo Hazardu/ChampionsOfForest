@@ -3,6 +3,7 @@ using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -39,16 +40,16 @@ namespace ChampionsOfForest
             get
             {
                 float f = SpellDamageperInt * intelligence;
-                return (1 + f) * SpellDamageAmplifier * DamageOutputMult;
+                return (1 + f) * SpellDamageAmplifier * DamageOutputMultTotal;
             }
         }
-        public float MeleeAMP => DamageOutputMult * ((strenght * DamagePerStrenght) + 1) * MeleeDamageAmplifier;
+        public float MeleeAMP => DamageOutputMultTotal * ((strenght * DamagePerStrenght) + 1) * MeleeDamageAmplifier;
         public float RangedAMP
         {
             get
             {
                 float f = agility * RangedDamageperAgi;
-                return (1 + f) * RangedDamageAmplifier * DamageOutputMult;
+                return (1 + f) * RangedDamageAmplifier * DamageOutputMultTotal;
 
             }
         }
@@ -100,7 +101,16 @@ namespace ChampionsOfForest
 
 
         public float DamageReduction = 0;
+        public float DamageReductionPerks = 0;
+        public float DamageReductionTotal => DamageReduction* DamageReductionPerks;
+
+
         public float DamageOutputMult = 1;
+        public float DamageOutputMultPerks = 1;
+        public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
+
+
+
         public float CritChance = 0;
         public float CritDamage = 50;
         public float LifeOnHit = 0;
@@ -152,7 +162,36 @@ namespace ChampionsOfForest
         public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
 
 
-        public float DamageAbsorbAmount = 0;
+        public float DamageAbsorbAmount
+        {
+            get
+            {
+                return damageAbsorbAmounts.Sum();
+            }
+        }
+        public float DealDamageToShield(float f)
+        {
+            for (int i = 0; i < damageAbsorbAmounts.Length; i++)
+            {
+                if (damageAbsorbAmounts[i] > 0)
+                {
+                    if (f - damageAbsorbAmounts[i] <= 0)
+                    {
+                        damageAbsorbAmounts[i] -= f;
+                        return 0;
+                    }
+                    else
+                    {
+                        f -= damageAbsorbAmounts[i];
+                        damageAbsorbAmounts[i] = 0;
+                    }
+                }
+            }
+            return f;
+        }
+        public float[] damageAbsorbAmounts = new float[2];//every unique source of shielding gets their own slot here, if its not unique it uses [0]
+        //[1] is channeled shield spell;
+
 
         public float StealthDamage = 1; //to do
 
@@ -168,10 +207,27 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
         public float ProjectileSizeRatio = 1;
         public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
 
+        public float MagicFindMultipier = 1;
 
-        public static bool IsSacredArrow = false;
+        //Item abilities variables
+        //Smokeys quiver
+        public bool IsSacredArrow = false;
 
-        
+        //Any hammer
+        public bool IsHammerStun = false;
+        public float HammerStunDuration = 0.4f;
+        public float HammerStunAmount = 0.25f;
+        public float HammerSmashDamageAmp = 1f;
+
+        //Hexed pants of mr Moritz
+        public bool HexedPantsOfMrM_Enabled = false;
+        public float HexedPantsOfMrM_StandTime = 0;
+
+        //Death Pact shoulders
+        public bool DeathPact_Enabled = false;
+        public float DeathPact_Amount =1;
+
+
         public int LastDayOfGeneration = 0;
         public float RootDuration = 0;
         public float StunDuration = 0;
@@ -277,10 +333,6 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F6))
-            {
-                Stun(1);
-            }
             try
             {
                 if (ModAPI.Input.GetButtonDown("EquipWeapon"))
@@ -455,6 +507,37 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                     LocalPlayer.FpCharacter.CanJump = true;
                 }
             }
+            if (HexedPantsOfMrM_Enabled)
+            {
+                if(LocalPlayer.FpCharacter.velocity.sqrMagnitude < 0.1)//if standing still
+                {
+                    HexedPantsOfMrM_StandTime = Mathf.Clamp(HexedPantsOfMrM_StandTime - Time.deltaTime, -1.1f, 1.1f);
+                    if(HexedPantsOfMrM_StandTime <= 1)
+                    {
+                        if (LocalPlayer.Stats.Health > 5)
+                            LocalPlayer.Stats.Health -= Time.deltaTime * MaxHealth*0.015f;
+                    }
+                }
+                else //if moving
+                {
+                    HexedPantsOfMrM_StandTime = Mathf.Clamp(HexedPantsOfMrM_StandTime + Time.deltaTime, -1.1f, 1.1f);
+                    if (HexedPantsOfMrM_StandTime >= 1)
+                    {
+                        AddBuff(9, 41, 1.2f, 1f);
+                        AddBuff(11, 42, 1.2f, 1f);
+                    }
+                }
+            }
+            if (DeathPact_Enabled)
+            {
+                DamageOutputMult /= DeathPact_Amount;
+
+                DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth))*100) * 0.03f;
+                AddBuff(12, 43, DeathPact_Amount-1, 1f);
+
+                DamageOutputMult *= DeathPact_Amount;
+
+            }
         }
         public void Root(float duration)
         {
@@ -605,9 +688,9 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 4f;
-            float b = 14f;
-            float c = 300;
+            float a = 3.3f;
+            float b = 3f;
+            float c = 60;
             double y = System.Math.Pow(x, a) * b + c * x;
             return Convert.ToInt64(y);
         }

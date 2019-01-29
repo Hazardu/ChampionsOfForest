@@ -8,15 +8,16 @@ namespace ChampionsOfForest
         public static Difficulty difficulty = Difficulty.Normal;
         public static bool DifficultyChoosen = false;
         public static bool FriendlyFire = true;
+        public static bool IsDedicated = false;
 
 
 
-        public static string Version = "0.6.6";
+        public static string Version = "0.7";
         public static bool RequiresNewFiles = false;
         public static bool RequiresNewSave = false;
         public static List<int> outdatedFiles = new List<int>()
         {
-            17
+           
         };
     }
 }

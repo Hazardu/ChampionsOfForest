@@ -11,7 +11,8 @@ namespace ChampionsOfForest.Res
         public static ResourceLoader instance = null;
         public static Texture2D GetTexture(int i)
         {
-            if (instance.LoadedTextures.ContainsKey(i))
+            if (ModSettings.IsDedicated) return null;
+                if (instance.LoadedTextures.ContainsKey(i))
             {
                 return instance.LoadedTextures[i];
             }
@@ -57,7 +58,7 @@ namespace ChampionsOfForest.Res
         public bool FinishedLoading = false;
         private WWW download;
         private bool IgnoreErrors;
-        private bool ShowMOTD;
+        private bool ShowMOTD=true;
         private void Start()
         {
             if (instance == null)
@@ -654,7 +655,6 @@ GUILayout.EndArea();
             new Resource(94, "ItemBracer2.png");
             new Resource(95, "ItemShoulder.png");
             new Resource(96, "ItemChest.png");
-            new Resource(97, "ItemPants.png");
             new Resource(98, "ItemQuiver.png");
             new Resource(99, "ItemShield.png");
             new Resource(100, "ItemScarf.png");
@@ -665,9 +665,10 @@ GUILayout.EndArea();
             new Resource(105, "ItemHeart.png");
             new Resource(106, "Corner.png");
             new Resource(107, "BeamParticleHorizontal.png");
+            new Resource(108, "Hammer.obj");
+            new Resource(109, "ItemHammer.png");
+            new Resource(110, "ItemScroll.png");
 
-
-            //new Resource(10000, "Steve Void  BEAUZ ft. Carly Paige - Hide and Seek.wav");
 
 
             }

@@ -136,7 +136,7 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
-             new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileSizeRatio += 0.05f,
                 DisableMethods = () => ModdedPlayer.instance.ProjectileSizeRatio -= 0.05f,
@@ -153,7 +153,7 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
-          new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio += 0.05f,
                 DisableMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio -= 0.05f,
@@ -204,7 +204,55 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
-          
+            //0.7 perks
+            new Perk()
+            {
+                ApplyMethods = () => { ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
+                DisableMethods = () =>{ ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
+                Category = PerkCategory.Defense,
+                Icon = Texture2D.whiteTexture,
+                InheritIDs = new int[] { 5 },
+                LevelRequirement = 8,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 0.75f,
+                Name = "Undestructable",
+                Description = "Decreases all damage taken and decreases all damage dealt by 20%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             foreach (Perk item in AllPerks)
             {
                 ModAPI.Log.Write("[" + item.ID + "]" + item.Name);

@@ -86,7 +86,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, Molten, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, Thunder, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
+        public enum Abilities { SteadFest, BossSteadFest, EliteSteadFest, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
 
@@ -309,7 +309,7 @@ namespace ChampionsOfForest
             DamageMult = Level / 4.5f + 0.55f;
             Armor = Mathf.FloorToInt(Random.Range(Level * Level * 0.5f, Level * Level * 1.1f));
             ArmorReduction = 0;
-            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.3f)));
+            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.35f)/2));
             AnimSpeed = 1f + (float)Level / 125;
 
             //Extra health for boss type enemies
@@ -410,6 +410,7 @@ namespace ChampionsOfForest
         /// <param name="source">ID of the source, used for refreshing the duration of applied effects</param>
         public void Slow(int source, float amount, float time)
         {
+            //source - 40 is hammer attack
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);
@@ -538,7 +539,6 @@ namespace ChampionsOfForest
         {
             try
             {
-                //ModAPI.Console.Write("Enemy Dies, \nhealth left "+ _Health.Health+ "\n OnDieCalled "+ OnDieCalled.ToString()+"\nDrowned "+ setup.waterDetect.drowned);
                 if (setup.waterDetect.drowned) {
                     ModAPI.Console.Write("enemy exp giving canceled, enemy drowned");
                     ModAPI.Log.Write("enemy exp giving canceled, enemy drowned");
@@ -557,16 +557,16 @@ namespace ChampionsOfForest
                     }
                 }
 
-                if (abilities.Contains(Abilities.Molten))
-                {
-                    //not working, find a fix or replacement
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
-                    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
+                //if (abilities.Contains(Abilities.Molten))
+                //{
+                //    //not working, find a fix or replacement
+                //    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position, Quaternion.identity);
+                //    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.right * 2, Quaternion.identity);
+                //    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.left * 2, Quaternion.identity);
+                //    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.forward * 2, Quaternion.identity);
+                //    //BoltNetwork.Instantiate(BoltPrefabs.instantDynamite, transform.position + Vector3.back * 2, Quaternion.identity);
 
-                }
+                //}
                 if (OnDieCalled)
                 {
                     ModAPI.Console.Write("enemy exp giving canceled, enemy already died");
@@ -575,20 +575,20 @@ namespace ChampionsOfForest
                 }
                 Invoke("ReanimateMe", 15);
                 EnemyManager.RemoveEnemy(this);
-                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >= 2)
+                if (Random.value < 0.2f || _AI.creepy_boss || abilities.Count >0)
                 {
-                    int itemCount = Random.Range(1, 4);
+                    int itemCount = Random.Range(1, 6);
                     if (_AI.creepy_boss)
                     {
-                        itemCount += 12;
+                        itemCount += 14;
                     }
-                    else if (abilities.Count >= 2)
+                    else if (abilities.Count >= 3)
                     {
-                        itemCount += Random.Range(2, 5);
+                        itemCount += Random.Range(3, 6);
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * 3);
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2.5f+i/4));
                     }
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
                     {
@@ -606,7 +606,7 @@ namespace ChampionsOfForest
                     ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
                 OnDieCalled = true;
-                timeOfDeath = 10;
+                timeOfDeath = 15;
 
             }
             catch (Exception ex)
@@ -1041,7 +1041,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            Bounty = (int)(Random.Range(Health * 0.3f, Health * 0.4f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 3);
+            Bounty = Mathf.CeilToInt(Random.Range(Health * 0.55f, Health * 0.6f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 3);
             if (abilities.Count > 0)
             {
                 Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);

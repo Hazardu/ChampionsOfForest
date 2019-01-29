@@ -44,6 +44,7 @@ namespace ChampionsOfForest
         }
 
         private float LevelRequestCooldown = 10;
+        private float MFindRequestCooldown = 300;
 
         private void SlowUpdate()
         {
@@ -62,6 +63,13 @@ namespace ChampionsOfForest
                     PlayerLevels.Clear();
                     //PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
                     Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+                }
+                MFindRequestCooldown--;
+                if(MFindRequestCooldown <= 0)
+                {
+                    Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+                    MFindRequestCooldown = 300;
+
                 }
             }
             else
@@ -115,6 +123,7 @@ namespace ChampionsOfForest
 
                     }
                 }
+                if (ModSettings.IsDedicated) return;
 
                 ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue;
             }

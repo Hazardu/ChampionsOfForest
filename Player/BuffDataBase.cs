@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChampionsOfForest.Items;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ChampionsOfForest.Player
@@ -19,14 +20,22 @@ namespace ChampionsOfForest.Player
                         if (activeBuffs.ContainsKey(source))
                         {
                             activeBuffs[source].duration = duration;
-                            if (activeBuffs[source].AccumulateEffect)
-                            {
-                                activeBuffs[source].amount += amount;
-
-                            }
-                            else if (activeBuffs[source].amount < amount)
+                            if (activeBuffs[source].OnAddOverrideAmount)
                             {
                                 activeBuffs[source].amount = amount;
+                            }
+                            else
+                            {
+                                if (activeBuffs[source].AccumulateEffect)
+                                {
+                                    activeBuffs[source].amount += amount;
+
+                                }
+                                else if (activeBuffs[source].amount < amount)
+                                {
+                                    
+                                    activeBuffs[source].amount = amount;
+                                }
                             }
                             return true;
                         }
@@ -80,6 +89,16 @@ namespace ChampionsOfForest.Player
                 { DisplayAmount = false };
                 new Buff(8, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant = false, f => ModdedPlayer.instance.DebuffResistant = true)
                 { DisplayAmount = false };
+
+
+                new Buff(9, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult *= f, f => ModdedPlayer.instance.DamageOutputMult /= f);
+
+                new Buff(10, "Decreased Damage", true, false, 3, f => ModdedPlayer.instance.DamageOutputMult *= f, f => ModdedPlayer.instance.DamageOutputMult /= f);
+
+                new Buff(11, "Energy Regen Amp", false, false, 0, f =>ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent , f), f => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
+
+                new Buff(12, "Death Pact Damage", false, false) { OnAddOverrideAmount = true};
+
             }
             catch (System.Exception ex)
             {
@@ -103,6 +122,7 @@ namespace ChampionsOfForest.Player
             public int DispellAmount;
             public bool DisplayAsPercent = true;
             public bool DisplayAmount = true;
+            public bool OnAddOverrideAmount = false;
             public Buff(int id, float amount, float duration)
             {
                 _ID = id;
@@ -113,6 +133,8 @@ namespace ChampionsOfForest.Player
                 isNegative = b.isNegative;
                 DispellAmount = b.DispellAmount;
                 AccumulateEffect = b.AccumulateEffect;
+                OnAddOverrideAmount = b.OnAddOverrideAmount;
+                DisplayAsPercent = b.DisplayAsPercent;
                 this.amount = amount;
                 this.duration = duration;
             }
@@ -175,3 +197,7 @@ namespace ChampionsOfForest.Player
 //32 - poison from enemy hit
 //33 - poisons slow
 //40 - immunity to cc
+//41 - Hexing Pants dmg amp
+//42 - Hexing Pants regen amp
+//43 - Death Pact dmg amp
+

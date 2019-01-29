@@ -49,11 +49,6 @@ namespace ChampionsOfForest.Player
             ItemList.Add(-11, null);//ringL
             ItemList.Add(-12, null);//mainHand
             ItemList.Add(-13, null);//offhand
-
-
-            AddItem(new Item(ItemDataBase.ItemBases[25]));
-            AddItem(new Item(ItemDataBase.ItemBases[23]));
-
         }
         private void Update()
         {

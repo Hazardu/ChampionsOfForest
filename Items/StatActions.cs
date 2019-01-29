@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TheForest.Utils;
+using UnityEngine;
 
 namespace ChampionsOfForest.Items
 {
@@ -289,6 +290,21 @@ namespace ChampionsOfForest.Items
         }
 
 
+        public static void AddMagicFind(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.MagicFindMultipier += f;
+            if(GameSetup.IsMultiplayer)
+            Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+
+        }
+        public static void RemoveMagicFind(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.MagicFindMultipier -= f;
+            if (GameSetup.IsMultiplayer)
+                Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+
+
+        }
 
 
 

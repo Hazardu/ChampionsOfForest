@@ -110,32 +110,72 @@ namespace ChampionsOfForest.Player
                         }
                     }
                 }
-
+                bool[] castedSpells = new bool[SpellCount];
                 for (int i = 0; i < SpellCount; i++)
                 {
                     if (infos[i].spell != null)
                     {
+                        
+                        if (infos[i].spell.usePassiveOnUpdate)
+                        {
+                            if (infos[i].spell.passive != null)
+                                infos[i].spell.passive(true);
+                        }
+
+
+
                         string btnname = "spell" + (i + 1).ToString();
                         if (ModAPI.Input.GetButton(btnname))
                         {
-                            if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Rooted && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
+                            if (!infos[i].spell.Channeled)
                             {
-                                LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
-                                if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
-                                    LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
+                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
+                                {
+                                    LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                    if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
+                                        LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
                                     LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
 
-                                Ready[i] = false;
-                                MaxCooldown(i);
-                                infos[i].spell.active();
+                                    Ready[i] = false;
+                                    MaxCooldown(i);
+                                    infos[i].spell.active();
+                                    castedSpells[i] = true;
+
+                                }
+                            }
+                            else
+                            {
+                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned)
+                                {
+                                    if (LocalPlayer.Stats.Energy >= 10 && LocalPlayer.Stats.Stamina >= 10 && infos[i].spell.CanCast)
+                                    {
+                                        LocalPlayer.Stats.Energy -= Time.deltaTime * infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                        if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
+                                            LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
+                                        LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
+
+                                        infos[i].spell.active();
+                                        infos[i].spell.ChanneledTime += Time.deltaTime;
+                                        castedSpells[i] = true;
+                                        infos[i].spell.active();
 
 
+                                    }
+                                    else
+                                    {
+                                        MaxCooldown(i);
+                                    }
+                                }
                             }
 
                         }
                     }
+                    if (!castedSpells[i])
+                    {
+                        infos[i].spell.ChanneledTime = 0;
+                    }
                 }
-            }
+                }
             catch (System.Exception ex)
             {
                 ModAPI.Log.Write(ex.ToString());

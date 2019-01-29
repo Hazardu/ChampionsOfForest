@@ -15,18 +15,26 @@ namespace ChampionsOfForest.Player
         {
             if (mainTriggerScript != null)
             {
-                setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * ModdedPlayer.instance.AttackSpeed;
-                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
-                setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * ModdedPlayer.instance.AttackSpeed;
-                setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
-                LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
-                //if(mainTriggerScript.baseWeaponDamage>0)
-                //mainTriggerScript.weaponDamage = baseWeaponDamage;
-                //mainTriggerScript.smashDamage = smashDamage;
-                if (setup && setup.pmStamina)
+                if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None)
                 {
-                    setup.pmStamina.SendEvent("toSetStats");
+                    CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
+                    setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
                 }
+                else
+                {
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
+
+                }
+                Debug.Log(LocalPlayer.Stats.blockDamagePercent);
+                Debug.Log(animator.speed);
+                animator.speed = ModdedPlayer.instance.AttackSpeed;
+
             }
 
             base.Update();
@@ -498,18 +506,23 @@ namespace ChampionsOfForest.Player
                         }
                     }
                     float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
-                    //ModAPI.Console.Write("Num 2 " + num2 + "   bonus = " + ModdedPlayer.instance.MeleeDamageBonus);
                     float crit = ModdedPlayer.instance.CritDamageBuff;
                     num2 *= crit * ModdedPlayer.instance.MeleeAMP;
                     if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
                     {
                         num2 /= 2f;
                     }
-
-                    //ModAPI.Console.Write(string.Format("\nOutput melee={0}\n\n" +
-                    //    "weaponDamage float " + weaponDamage +
-                    //    "\n{1}base \n {2} bonus\n" +
-                    //    "{3} melee amp \n {4} crit", num2, WeaponDamage, ModdedPlayer.instance.MeleeDamageBonus, ModdedPlayer.instance.MeleeAMP, crit));
+                    if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+                    {
+                     if ((bool)component6)
+                       if(GameSetup.IsSinglePlayer||GameSetup.IsMpServer) {
+                                other.GetComponentInParent<EnemyProgression>().Slow(40, ModdedPlayer.instance.HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
+                        }
+                        else if (playerHitEnemy != null)
+                        {
+                                Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";", Network.NetworkManager.Target.OnlyServer);
+                        }
+                    }
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
                         if ((bool)component6)
@@ -709,13 +722,11 @@ namespace ChampionsOfForest.Player
                 }
                 float crit = ModdedPlayer.instance.CritDamageBuff;
                 num3 *= crit * ModdedPlayer.instance.MeleeAMP;
-
-                //ModAPI.Console.Write(string.Format("\nOutput melee={0}\n\n" +
-                //      "weaponDamage float " + smashDamage +
-                //      "\n{1}base \n {2} bonus\n" +
-                //      "{3} melee amp \n {4} crit", num3, smashDamage, ModdedPlayer.instance.MeleeDamageBonus, ModdedPlayer.instance.MeleeAMP, crit));
-                //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num3);
-
+                if(PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+                {
+                    num3 *= ModdedPlayer.instance.HammerSmashDamageAmp;
+                }
+            
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);
                 enemyDelay = true;
                 base.Invoke("resetEnemyDelay", 0.25f);

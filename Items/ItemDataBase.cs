@@ -15,6 +15,11 @@ namespace ChampionsOfForest
         public static Dictionary<int, ItemStat> Stats;
 
         private static Dictionary<int, List<int>> ItemRarityGroups;
+
+        public static float MagicFind = 1;
+
+
+
         //Called from Initializer
 
         public static void Initialize()
@@ -148,20 +153,17 @@ namespace ChampionsOfForest
             int averageLevel = 1;
             if (GameSetup.IsMultiplayer)
             {
-                int sum = 0;
+                int sum = ModReferences.PlayerLevels.Values.Sum();
                 int count = ModReferences.PlayerLevels.Values.Count;
-                foreach (int a in ModReferences.PlayerLevels.Values)
-                {
-                    sum += a;
-                }
-                if (!SteamDSConfig.isDedicated)
+
+                if (!ModSettings.IsDedicated)
                 {
                     sum += ModdedPlayer.instance.Level;
                     count++;
                 }
                 else
                 {
-                    ModAPI.Log.Write("Is dedicated server bool set to true.");
+                    //ModAPI.Log.Write("Is dedicated server bool set to true.");
                 }
                 sum /= count;
                 averageLevel = sum;
@@ -171,33 +173,34 @@ namespace ChampionsOfForest
                 averageLevel = ModdedPlayer.instance.Level;
             }
             float w = Worth / averageLevel;
+            w *= MagicFind;
             int rarity = 0;
 
-            if (w > 200 && Random.value < 0.80f)
+            if ((w > 200 && Random.value < 0.80f)|| (int)ModSettings.difficulty > 5 || w> 1500)
             {
                 rarity = 1;
 
-                if (w > 350 && Random.value < 0.60f)
+                if (w > 350 && Random.value < 0.60f || w > 1700 || (int)ModSettings.difficulty > 6)
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.06f*  (int)ModSettings.difficulty) || w > 2300)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.025f * (int)ModSettings.difficulty) || w > 2900)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3)
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.01f * (int)ModSettings.difficulty ) || (w > 3500 && (int)ModSettings.difficulty > 2))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4)
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.005f * (int)ModSettings.difficulty ) || (w > 4600&&(int)ModSettings.difficulty > 3))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5)
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.001f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
                                     {
                                         rarity = 7;
 
@@ -208,10 +211,8 @@ namespace ChampionsOfForest
                     }
                 }
             }
-            int increasedLvl = 0;
             while (!ItemRarityGroups.ContainsKey(rarity) && rarity > 0)
             {
-                increasedLvl += 2;
                 rarity--;
             }
 
@@ -229,18 +230,27 @@ namespace ChampionsOfForest
 
             int randomID = Random.Range(0, itemPool.Length);
 
-            Item item = new Item(ItemBases[itemPool[randomID]], 1, increasedLvl);
+            Item item = new Item(ItemBases[itemPool[randomID]], 1, 0);
 
 
-            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 3, averageLevel + 5));
+            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 4, averageLevel + 1));
             item.RollStats();
             return item;
 
         }
         public static bool AllowItemDrop(int i, int averageLevel, EnemyProgression.Enemy e)
         {
+            if (!ItemBases.ContainsKey(i))
+            {
+                return true;
+            }
+
             if (ItemBases[i].minLevel <= averageLevel + 5)
             {
+                if (ItemBases[i].LootsFrom == null)
+                {
+                    return true;
+                }
                 if (ItemBases[i].LootsFrom.Contains(e))
                 {
                     return true;
@@ -270,31 +280,31 @@ namespace ChampionsOfForest
             float w = Worth / averageLevel;
             int rarity = 0;
 
-            if (w > 200 && Random.value < 0.80f)
+            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
             {
                 rarity = 1;
 
-                if (w > 350 && Random.value < 0.60f && ModSettings.difficulty > 0)
+                if (w > 350 && Random.value < 0.60f || w > 1700 || (int)ModSettings.difficulty > 6)
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.06f * (int)ModSettings.difficulty) || w > 2300)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.025f * (int)ModSettings.difficulty) || w > 2900)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3)
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4)
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.005f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5)
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.001f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
                                     {
                                         rarity = 7;
 
@@ -305,12 +315,7 @@ namespace ChampionsOfForest
                     }
                 }
             }
-            int increasedLvl = 0;
-            while (!ItemRarityGroups.ContainsKey(rarity) && rarity > 0)
-            {
-                increasedLvl += 2;
-                rarity--;
-            }
+
 
             int[] itemPool = null;
             while (itemPool == null)
@@ -326,14 +331,24 @@ namespace ChampionsOfForest
 
             int randomID = Random.Range(0, itemPool.Length);
 
-            Item item = new Item(ItemBases[itemPool[randomID]], 1, increasedLvl);
+            Item item = new Item(ItemBases[itemPool[randomID]], 1, 0);
 
 
-            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 3, averageLevel + 5));
+            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 4, averageLevel + 1));
             item.RollStats();
             return item;
 
         }
+        public static void RequestMagicFind()
+        {
+            MagicFind = ModdedPlayer.instance.MagicFindMultipier;
+            if (GameSetup.IsMultiplayer)
+            {
+                Network.NetworkManager.SendLine("AD",Network.NetworkManager.Target.Clinets);
+            }
+        }
+
+        
         public static void FillStats()
         {
             int i = 1;
@@ -354,7 +369,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.002f, 0.003f, 0.65f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 3f, 1.5f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
             new ItemStat(i, 0.001f, 0.003f, 0.9f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 0.8f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.005f, 0.01f, 0.75f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.003f, 0.007f, 0.8f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 2f, 0.9f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
             new ItemStat(i, 0.002f, 0.003f, 0.7f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
@@ -389,9 +404,9 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.001f, 0.01f, 0.8f, "Block", 2, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.8f, "Projectile speed", 5, f => ModdedPlayer.instance.ProjectileSpeedRatio += f, f => ModdedPlayer.instance.ProjectileSpeedRatio += -f, f => ModdedPlayer.instance.ProjectileSpeedRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.8f, "Projectile size", 6, f => ModdedPlayer.instance.ProjectileSizeRatio += f, f => ModdedPlayer.instance.ProjectileSizeRatio += -f, f => ModdedPlayer.instance.ProjectileSizeRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Melee armor piercing", 6, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Ranged armor piercing", 6, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.3f, 1.2f, 1.1f, "Armor piercing", 6, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.3f, 1.2f, 1.1f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;            new ItemStat(i, 0.003f, 0.005f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent=true,RoundingCount=1} ; i++;
             //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 25f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
@@ -402,13 +417,15 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.4f, 2f, 0f, "BLACK HOLE DURATION", 6, f => SpellActions.BLACKHOLE_duration += f, f => SpellActions.BLACKHOLE_duration += -f, f => SpellActions.BLACKHOLE_duration += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 3f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 0.0125f, 0.025f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 1, 1, 0, "HAMMER", 7, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
 
         }
-    
+
         public static void FillItems()
         {
             try
             {
+
                 new BaseItem(new int[][]
            {
                 new int[] { 34 },
@@ -650,7 +667,7 @@ namespace ChampionsOfForest
                     CanConsume = false,
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.Pants,
-                    icon = Res.ResourceLoader.GetTexture(97),
+                    icon = Res.ResourceLoader.GetTexture(87),
                 };
                 new BaseItem(new int[][]
                {
@@ -668,7 +685,7 @@ namespace ChampionsOfForest
                     CanConsume = false,
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.Pants,
-                    icon = Res.ResourceLoader.GetTexture(97),
+                    icon = Res.ResourceLoader.GetTexture(87),
                 };
                 new BaseItem(new int[][]
                         {
@@ -688,6 +705,7 @@ namespace ChampionsOfForest
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.ChestArmor,
                     icon = Res.ResourceLoader.GetTexture(96),
+
                 };
                 new BaseItem(new int[][]
                {
@@ -708,6 +726,7 @@ namespace ChampionsOfForest
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.ChestArmor,
                     icon = Res.ResourceLoader.GetTexture(96),
+
                 };
                 new BaseItem(new int[][]
                {
@@ -986,7 +1005,7 @@ namespace ChampionsOfForest
                       })
                 {
                     name = "Smokey's Sacred Quiver",
-                    description = "SmokeyTheBear please send me a viable decription.",
+                    description = "SmokeyTheBear died because he never used this item.",
                     lore = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.",
                     tooltip = "This quiver makes you shoot special projectiles from your bows",
                     Rarity = 7,
@@ -996,8 +1015,8 @@ namespace ChampionsOfForest
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.Offhand,
                     icon = Res.ResourceLoader.GetTexture(98),
-                    onEquip = () => ModdedPlayer.IsSacredArrow = true,
-                    onUnequip = () => ModdedPlayer.IsSacredArrow = false,
+                    onEquip = () => ModdedPlayer.instance.IsSacredArrow = true,
+                    onUnequip = () => ModdedPlayer.instance.IsSacredArrow = false,
                 };
                 new BaseItem(new int[][]
              {
@@ -1386,6 +1405,195 @@ namespace ChampionsOfForest
                     icon = Res.ResourceLoader.GetTexture(101),
                 };
                 FillKaspitoItems();
+                BaseItem BrokenGreatAxe = new BaseItem(new int[][]
+            {
+
+                new int[] {25 },
+                new int[] {18 },
+                new int[] {2004 },
+
+            })
+                {
+                    name = "Relic Hammer",
+                    description = "It's slow and weak.",
+                    lore = "",
+                    tooltip = "Hammers stun enemies with every hit, but are slow. They also deal high smash damage",
+                    Rarity = 2,
+                    minLevel = 1,
+                    maxLevel = 2,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.Hammer,
+                    icon = Res.ResourceLoader.GetTexture(109),
+                };
+                BrokenGreatAxe.PossibleStats[1][0].Multipier = -5;
+
+                BaseItem GreaterHammer = new BaseItem(new int[][]
+            {
+                new int[] {25 },
+                new int[] {18 },
+                new int[] {2004 },
+                new int[] {1,3},
+                new int[] {53,16},
+                new int[] {39,31,43,0,0},
+                new int[] {25 ,22,1,12,13,5,6},
+
+
+            })
+                {
+                    name = "Black Hammer",
+                    description = "It's slow but with enough strenght i can make it a very deadly tool",
+                    lore = "",
+                    tooltip = "Hammers stun enemies with every hit, but are slow. They also deal high smash damage",
+                    Rarity = 4,
+                    minLevel = 1,
+                    maxLevel = 2,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Weapon,
+                    weaponModel = BaseItem.WeaponModelType.Hammer,
+                    icon = Res.ResourceLoader.GetTexture(109),
+                };
+                GreaterHammer.PossibleStats[1][0].Multipier = -4;
+                //Item 0/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {23,26},
+                })
+                {
+                    name = "Potato Sack",
+                    description = "Can be used as a quiver",
+                    lore = "",
+                    tooltip = "Quivers increase projectile damage",
+                    Rarity = 0,
+                    minLevel = 1,
+                    maxLevel = 4,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                };
+
+
+                //Item 1/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {23,26},
+                    new int[] {40,41,42},
+                    new int[] {40,0},
+                })
+                {
+                    name = "Rabbit Skin Quiver",
+                    description = "",
+                    lore = "",
+                    tooltip = "Quivers increase player's ranged damage",
+                    Rarity = 1,
+                    minLevel = 2,
+                    maxLevel = 3,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                };
+
+
+                //Item 2/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {26},
+                    new int[] {23,2,54},
+                    new int[] {18,},
+                    new int[] {40,41,16,5,6,40},
+                    new int[] {40,0,0,0},
+                })
+                {
+                    name = "Hollow Log",
+                    description = "It allows for faster drawing of arrow than a cloth quiver",
+                    lore = "",
+                    tooltip = "Quiver increase projectile damage",
+                    Rarity = 2,
+                    minLevel = 6,
+                    maxLevel = 9,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                };
+
+
+                //Item 3/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {26,23},
+                    new int[] {24,21},
+                    new int[] {17,16,18,54,51,52},
+                    new int[] {2,3,4,15,14,13,12,11,10},
+                    new int[] {5,6,47},
+                    new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
+                })
+                {
+                    name = "Magic Quiver",
+                    description = "",
+                    lore = "",
+                    tooltip = "This item boosts both magic and ranged damage",
+                    Rarity = 3,
+                    minLevel = 6,
+                    maxLevel = 11,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                };
+
+
+                //Item 4/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {23,26},
+                    new int[] {23},
+                    new int[] {2,3,4},
+                    new int[] {34,18,17,16,15,14},
+                    new int[] {16,19,23,31,54,51,52},
+                    new int[] {2},
+                    new int[] {2,3,4,5,6,7,8,9,10},
+                    new int[] {2,1,5,6},
+                    new int[] {11,2,0,0,0,0,0},
+                })
+                {
+                    name = "Long Lost Quiver",
+                    description = "",
+                    lore = "",
+                    tooltip = "A quiver that greatly increases ranged damage",
+                    Rarity = 5,
+                    minLevel = 12,
+                    maxLevel = 20,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(98),
+                };
+
+
+                //Item 5/6
+                new BaseItem(new int[][]
+                {
+                    new int[] {37, 24},
+                })
+                {
+                    name = "Spell Scroll",
+                    description = "Contains a lot of information on how to properly cast spells to achieve better results",
+                    lore = "",
+                    tooltip = "Spell Scrolls grant magic buffs",
+                    Rarity = 1,
+                    minLevel = 1,
+                    maxLevel = 1,
+                    CanConsume = false,
+                    StackSize = 1,
+                    _itemType = BaseItem.ItemType.Offhand,
+                    icon = Res.ResourceLoader.GetTexture(110),
+                };
+                FillAppItems1();
 
             }
             catch (System.Exception e)
@@ -1394,7 +1602,7 @@ namespace ChampionsOfForest
                 ModAPI.Log.Write(e.ToString());
             }
         }
-    public static void AddPercentage(ref float variable1, float f)
+        public static void AddPercentage(ref float variable1, float f)
         {
             variable1 = 1 - (1 - variable1) * f;
         }
@@ -2274,6 +2482,523 @@ namespace ChampionsOfForest
 
 
 
+
+
+        }
+
+        //item constructors created using my app
+        private static void FillAppItems1()
+        {
+           
+
+            //    - ITEMS 
+            //OFFHANDS - Quivers and spell scrolls
+            //Item 0/6
+            new BaseItem(new int[][]
+            {
+                new int[] {23,26},
+            })
+            {
+                name = "Potato Sack",
+                description = "Can be used as a quiver",
+                lore = "",
+                tooltip = "Quivers increase projectile damage",
+                Rarity = 0,
+                minLevel = 1,
+                maxLevel = 4,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(98),
+            };
+
+
+            //Item 1/6
+            new BaseItem(new int[][]
+            {
+                new int[] {23,26},
+                new int[] {40,41,42},
+                new int[] {40,0},
+            })
+            {
+                name = "Rabbit Skin Quiver",
+                description = "",
+                lore = "",
+                tooltip = "Quivers increase player's ranged damage",
+                Rarity = 1,
+                minLevel = 2,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(98),
+            };
+
+
+            //Item 2/6
+            new BaseItem(new int[][]
+            {
+                new int[] {26},
+                new int[] {23,2,54},
+                new int[] {18,},
+                new int[] {40,41,16,5,6,40},
+                new int[] {40,0,0,0},
+            })
+            {
+                name = "Hollow Log",
+                description = "It allows for faster drawing of arrow than a cloth quiver",
+                lore = "",
+                tooltip = "Quiver increase projectile damage",
+                Rarity = 2,
+                minLevel = 6,
+                maxLevel = 9,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(98),
+            };
+
+
+            //Item 3/6
+            new BaseItem(new int[][]
+            {
+                new int[] {26,23},
+                new int[] {24,21},
+                new int[] {17,16,18,54,51,52},
+                new int[] {2,3,4,15,14,13,12,11,10},
+                new int[] {5,6,47},
+                new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
+            })
+            {
+                name = "Magic Quiver",
+                description = "",
+                lore = "",
+                tooltip = "This item boosts both magic and ranged damage",
+                Rarity = 3,
+                minLevel = 6,
+                maxLevel = 11,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(98),
+            };
+
+
+            //Item 4/6
+            new BaseItem(new int[][]
+            {
+                new int[] {23,26},
+                new int[] {23},
+                new int[] {2,3,4},
+                new int[] {34,18,17,16,15,14},
+                new int[] {16,19,23,31,54,51,52},
+                new int[] {2},
+                new int[] {2,3,4,5,6,7,8,9,10},
+                new int[] {2,1,5,6},
+                new int[] {11,2,0,0,0,0,0},
+            })
+            {
+                name = "Long Lost Quiver",
+                description = "",
+                lore = "",
+                tooltip = "A quiver that greatly increases ranged damage",
+                Rarity = 5,
+                minLevel = 12,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(98),
+            };
+
+
+            //Item 5/6
+            new BaseItem(new int[][]
+            {
+                new int[] {37, 24},
+            })
+            {
+                name = "Spell Scroll",
+                description = "Contains a lot of information on how to properly cast spells to achieve better results",
+                lore = "",
+                tooltip = "Spell Scrolls grant magic buffs",
+                Rarity = 1,
+                minLevel = 1,
+                maxLevel = 1,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Offhand,
+                icon = Res.ResourceLoader.GetTexture(110),
+            };
+            //Created using Hazard's app
+
+
+            //    - ITEMS 
+
+            //Item 0/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16,43},
+                new int[] {43},
+                new int[] {43},
+                new int[] {43,0,0,0},
+            })
+            {
+                name = "Cloth Pants",
+                description = "Offer little protction",
+                lore = "",
+                tooltip = "They provide armor which gives damage reduction",
+                Rarity = 1,
+                minLevel = 2,
+                maxLevel = 5,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+            };
+
+
+            //Item 1/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16},
+                new int[] {1,2,3,4},
+                new int[] {5,6},
+                new int[] {16,43,39,40,41,42},
+                new int[] {1000,1001,43,0,0,0},
+            })
+            {
+                name = "Rough Hide Leggins",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 3,
+                minLevel = 1,
+                maxLevel = 1,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+            };
+
+
+            //Item 2/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16,},
+                new int[] {1,2,3,4},
+                new int[] {5,44,7,8},
+                new int[] {6,16,3},
+                new int[] {1,2,3,4,11},
+                new int[] {17,16,10,9},
+                new int[] {16,43},
+            })
+            {
+                name = "Plate Leggins",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 4,
+                maxLevel = 10,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(85),
+            };
+
+
+            //Item 3/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16},
+                new int[] {19},
+                new int[] {1,2,3,4,5,6,7,8},
+                new int[] {39,40,41,42,43},
+                new int[] {4},
+            })
+            {
+                name = "Sage's Robes",
+                description = "",
+                lore = "",
+                tooltip = "Sage's Robes grant bonus to experience gained. This amplifies experience gained.",
+                Rarity = 3,
+                minLevel = 1,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+            };
+
+
+            //Item 4/7
+            new BaseItem(new int[][]
+            {
+                new int[] {1,2,3,4},
+                new int[] {1,5},
+                new int[] {16},
+                new int[] {22,25},
+                new int[] {11,12,13,14,5,6,1,2,3,4},
+                new int[] {7,8,9,10,44,45,46,49},
+                new int[] {31,1,3,},
+            })
+            {
+                name = "Hammer Jammers",
+                description = "Increases the damage of your hammer smash by 50%, hammer stun duration is increased by 0,3 seconds",
+                lore = "",
+                tooltip = "",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 28,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+                onEquip = () => { ModdedPlayer.instance.HammerSmashDamageAmp += 0.5f; ModdedPlayer.instance.HammerStunAmount += 0.3f; },
+                onUnequip = () => { ModdedPlayer.instance.HammerSmashDamageAmp -= 0.5f; ModdedPlayer.instance.HammerStunAmount -= 0.3f; },
+            };
+
+
+            //Item 5/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16},
+                new int[] {34},
+                new int[] {1,2,4,6,7,8},
+                new int[] {8,9},
+                new int[] {26,23,24,21},
+                new int[] {1000, 1001,0,0,0,1,2,4},
+                new int[] {51,1,2,3,4,55},
+            })
+            {
+                name = "Pirate Pants",
+                description = "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection.",
+                lore = "",
+                tooltip = "",
+                Rarity = 5,
+                minLevel = 1,
+                maxLevel = 1,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+            };
+
+
+            //Item 6/7
+            new BaseItem(new int[][]
+            {
+                new int[] {16},
+                new int[] {1,2,3,4,16,17},
+                new int[] {18,34},
+                new int[] {1,2,3,4},
+                new int[] {5,6,15,16,13,12,11},
+                new int[] {8,4,2,9},
+                new int[] {22,21,23},
+                new int[] {16,12,13},
+                new int[] {16},
+            })
+            {
+                name = "Hexed Pants of Mr M.",
+                description = "They look like yoga pants but for a man the size of a wardrobe",
+                lore = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.",
+                tooltip = "While moving with those pants on, energy regeneration and damage is increased by 20%. While standing still for longer than a second, you loose 1.5% of max health per second.",
+                Rarity = 6,
+                minLevel = 14,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+                onEquip = () =>  ModdedPlayer.instance.HexedPantsOfMrM_Enabled = true,
+                onUnequip = () => ModdedPlayer.instance.HexedPantsOfMrM_Enabled = false,
+            };
+            //Created using Hazard's app
+
+
+            //    - ITEMS 
+
+            //Item 0/6
+            new BaseItem(new int[][]
+            {
+new int[] {39,40,41,42,43},
+new int[] {39,40,41,42,43},
+            })
+            {
+                name = "Leather Mantle",
+                description = "A piece of cloth to give protection from ",
+                lore = "",
+                tooltip = "Offers bonuses to attributes and armor",
+                Rarity = 1,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            };
+
+
+            //Item 1/6
+            new BaseItem(new int[][]
+            {
+new int[] {16},
+new int[] {16},
+new int[] {1,2,3,4,5,6},
+new int[] {39,40,41,42,43},
+            })
+            {
+                name = "Shoulder Guards",
+                description = "Medium armor piece.",
+                lore = "Heavy armor",
+                tooltip = "Shoulder pads offer armor and stat bonuses",
+                Rarity = 2,
+                minLevel = 4,
+                maxLevel = 7,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            };
+
+
+            //Item 2/6
+         var Heavy_Shoulder_Plates  = new BaseItem(new int[][]
+            {
+                new int[] {34},
+                new int[] {18},
+                new int[] {16},
+                new int[] {16},
+                new int[] {16,0,0,0},
+                new int[] {1,2,3,4},
+                new int[] {1,2,3,4,5,8,9,7,10},
+                new int[] {17,10,5,8,9,7,10},
+                new int[] {5,45,3},
+                new int[] {11},
+            })
+            {
+                name = "Heavy Shoulder Plates",
+                description = "Heavy armor piece. They offer great protection at the cost of attack speed and movement speed decrease",
+                lore = "",
+                tooltip = "Shoulder pads offer armor and stat bonuses",
+                Rarity = 4,
+                minLevel = 15,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            };
+            Heavy_Shoulder_Plates.PossibleStats[0][0].Multipier = -1;
+            Heavy_Shoulder_Plates.PossibleStats[1][0].Multipier = -1;
+
+            //Item 3/6
+            new BaseItem(new int[][]
+            {
+                new int[] {21,22,23,24,25,26},
+                new int[] {16},
+                new int[] {1,2,3,4},
+                new int[] {1,2,3,4,16,39,40,41,42,43},
+                new int[] {1,2,3,4,16,39,40,41,42,43},
+            })
+            {
+                name = "Etched Mantle",
+                description = "Those pauldrons empower wearer's combat skill",
+                lore = "",
+                tooltip = "Offers bonuses to attributes and armor",
+                Rarity = 3,
+                minLevel = 7,
+                maxLevel = 10,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            };
+
+
+            //Item 4/6
+            new BaseItem(new int[][]
+            {
+                new int[] {22,25},
+                new int[] {1,2,3,4},
+                new int[] {16},
+                new int[] {12,11,13,14},
+                new int[] {5,6},
+                new int[] {10,15,16,17,18,19,31,35,36,44,45,46,47,49,50,53,55},
+                new int[] {10,15,16,17,18,19,31,35,36,44,45,46,47,49,50,53,55},
+                new int[] {53,55},
+            })
+            {
+                name = "Assassins Pauldrons",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 5,
+                minLevel = 19,
+                maxLevel = 24,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            };
+
+
+            //Item 5/6
+            new BaseItem(new int[][]
+            {
+                new int[] {11},
+                new int[] {1,2,3,4},
+                new int[] {16},
+                new int[] {21,22,23,24,25,26},
+                new int[] {5,14,7,10,45},
+                new int[] {1,2,3,4},
+                new int[] {12,13,15,16,18},
+                new int[] {17,19,21,22,23},
+                new int[] {37,35,36,38,44,45,47},
+                new int[] {1,2,4},
+            })
+            {
+                name = "Death Pact",
+                description = "This set of shoulder armor contains a unique ability - every attack you make decreases your health by 7% of max health. For every percent of missing health you gain 3% damage amplification. This damage cannot kill you.",
+                lore = "",
+                tooltip = "This item will make you a glass cannon.",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 30,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+                onEquip = () => ModdedPlayer.instance.DeathPact_Enabled = true,
+                onUnequip = () => ModdedPlayer.instance.DeathPact_Enabled = false,
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {56},
+                new int[] {1,2,3,4},
+                new int[] {11,12,13,14,15,16,17,18},
+                new int[] {11,12,13,14,15,16,17,18},
+                new int[] {5,6,7,8,9,10,31},
+                new int[] {55,54,53,50},
+                new int[] {1,2,3,4,21,22,23,24,25,26},
+                new int[] {16,0,0,0,1,2,3,4,0,0,0,0},
+            })
+            {
+                name = "Maximale Qualitöt",
+                description = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.",
+                lore = "",
+                tooltip = "This item increases magic find - increases the value of dropped items. Magic find does not increase the chance to get a higher tier item.",
+                Rarity = 6,
+                minLevel = 10,
+                maxLevel = 15,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Ring,
+                icon = Res.ResourceLoader.GetTexture(90),
+            };
+
+            
 
 
         }

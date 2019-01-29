@@ -46,6 +46,13 @@ namespace ChampionsOfForest.Player
                 active = SpellActions.CastFlare,
                 
             };
+            new Spell(5, 22, 4, 50, "Sustain Shield", "Channeling this spell consumes energy but grants you a protective, absorbing shield .The shield's power increases every second untill reaching max value. Upon ending the channeling by any source, the shield persist for a short amount of time, and after that it rapidly decreases. The cost is increased by part of the shield gained per second.")
+            {
+                active = SpellActions.CastSustainShieldActive,
+                passive = SpellActions.CastSustainShielPassive,
+                usePassiveOnUpdate = true,
+            
+            };
         }
     }
 }

@@ -339,6 +339,7 @@ namespace ChampionsOfForest
 
         public static void Save()
         {
+            if (ModSettings.IsDedicated) return;
             CreateInstance();
             if (!Saving)
             {
@@ -349,6 +350,7 @@ namespace ChampionsOfForest
 
         public static void Load()
         {
+            if (ModSettings.IsDedicated) return;
             CreateInstance();
             ModAPI.Log.Write("LOADING");
             Instance.StartCoroutine(Instance.DoLoadCoroutine());

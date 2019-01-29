@@ -10,6 +10,11 @@ namespace ChampionsOfForest.Player
         private float BaseDmg;
         protected override void Start()
         {
+            if (ModSettings.IsDedicated)
+            {
+                base.Start();
+                return;
+            }
             BaseDmg = damage;
             base.Start();
             damage = Mathf.RoundToInt((BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff);
