@@ -31,8 +31,6 @@ namespace ChampionsOfForest.Player
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
 
                 }
-                Debug.Log(LocalPlayer.Stats.blockDamagePercent);
-                Debug.Log(animator.speed);
                 animator.speed = ModdedPlayer.instance.AttackSpeed;
 
             }
@@ -215,6 +213,7 @@ namespace ChampionsOfForest.Player
                         if (BoltNetwork.isRunning)
                         {
                             ModdedPlayer.instance.DoOnHit();
+                            ModdedPlayer.instance.DoMeleeOnHit();
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
                             hitPlayer.damage = Mathf.FloorToInt((WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
@@ -348,6 +347,7 @@ namespace ChampionsOfForest.Player
                 if ((other.gameObject.CompareTag("enemyCollide") || other.gameObject.CompareTag("animalCollide")) && mainTrigger && !enemyDelay && !animControl.smashBool)
                 {
                     ModdedPlayer.instance.DoOnHit();
+                    ModdedPlayer.instance.DoMeleeOnHit();
                     if (ModdedPlayer.instance.MeleeArmorReduction > 0 && other.gameObject.CompareTag("enemyCollide"))
                     {
                         if (BoltNetwork.isClient)
@@ -514,14 +514,15 @@ namespace ChampionsOfForest.Player
                     }
                     if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
                     {
-                     if ((bool)component6)
-                       if(GameSetup.IsSinglePlayer||GameSetup.IsMpServer) {
+                        if ((bool)component6)
+                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                            {
                                 other.GetComponentInParent<EnemyProgression>().Slow(40, ModdedPlayer.instance.HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
-                        }
-                        else if (playerHitEnemy != null)
-                        {
+                            }
+                            else if (playerHitEnemy != null)
+                            {
                                 Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";", Network.NetworkManager.Target.OnlyServer);
-                        }
+                            }
                     }
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
@@ -722,11 +723,11 @@ namespace ChampionsOfForest.Player
                 }
                 float crit = ModdedPlayer.instance.CritDamageBuff;
                 num3 *= crit * ModdedPlayer.instance.MeleeAMP;
-                if(PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+                if (PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
                 {
                     num3 *= ModdedPlayer.instance.HammerSmashDamageAmp;
                 }
-            
+
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);
                 enemyDelay = true;
                 base.Invoke("resetEnemyDelay", 0.25f);

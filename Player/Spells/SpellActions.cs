@@ -192,10 +192,9 @@ namespace ChampionsOfForest.Player
         public static void CastSustainShieldActive()
         {
             float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus/2;
-            max *= ModdedPlayer.instance.SpellDamageBonus;
+            max *= ModdedPlayer.instance.SpellAMP;
             float gain = ShieldPerSecond + ModdedPlayer.instance.SpellDamageBonus / 20;
-            gain *= ModdedPlayer.instance.SpellDamageBonus;
-            
+            gain *= ModdedPlayer.instance.SpellAMP;
             ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Clamp(ModdedPlayer.instance.damageAbsorbAmounts[1] + Time.deltaTime * gain, 0, max);
             ShieldCastTime = Time.time;
          }

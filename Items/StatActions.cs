@@ -302,8 +302,21 @@ namespace ChampionsOfForest.Items
             ChampionsOfForest.ModdedPlayer.instance.MagicFindMultipier -= f;
             if (GameSetup.IsMultiplayer)
                 Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+        }
 
-
+        public static void AddAllStats(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.strenght += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.vitality += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.agility += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.intelligence += Mathf.RoundToInt(f);
+        }
+        public static void RemoveAllStats(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.strenght -= Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.vitality -= Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.agility -= Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.intelligence -= Mathf.RoundToInt(f);
         }
 
 

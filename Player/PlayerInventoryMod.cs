@@ -32,137 +32,137 @@ namespace ChampionsOfForest.Player
 
         protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
         {
-                            if (ModSettings.IsDedicated) return base.Equip(itemView, pickedUpFromWorld);
-
-            if (itemView != null)
+            if (!ModSettings.IsDedicated)
             {
-
-                EquippedModel = BaseItem.WeaponModelType.None;
-                if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
+                if (itemView != null)
                 {
-                    if (!SetupComplete)
+
+                    EquippedModel = BaseItem.WeaponModelType.None;
+                    if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                     {
-                        try
+                        if (!SetupComplete)
                         {
-                            if (instance == null)
+                            try
                             {
-                                instance = this;
+                                if (instance == null)
+                                {
+                                    instance = this;
+                                }
+
+                                //ModAPI.Log.Write("SETUP: Custom weapons");
+                                //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
+                                //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
+                                //ModAPI.Log.Write("animSpeed: " + itemView._heldWeaponInfo.animSpeed);
+                                //ModAPI.Log.Write("animTiredSpeed: " + itemView._heldWeaponInfo.animTiredSpeed);
+                                //ModAPI.Log.Write("blockDamagePercent: " + itemView._heldWeaponInfo.blockDamagePercent);
+                                //ModAPI.Log.Write("blockStaminaDrain: " + itemView._heldWeaponInfo.blockStaminaDrain);
+                                //ModAPI.Log.Write("chainSaw: " + itemView._heldWeaponInfo.chainSaw);
+                                //ModAPI.Log.Write("canDoGroundAxeChop: " + itemView._heldWeaponInfo.canDoGroundAxeChop);
+                                //ModAPI.Log.Write("doSingleArmBlock: " + itemView._heldWeaponInfo.doSingleArmBlock);
+                                //ModAPI.Log.Write("fireStick: " + itemView._heldWeaponInfo.fireStick);
+                                //ModAPI.Log.Write("machete: " + itemView._heldWeaponInfo.machete);
+                                //ModAPI.Log.Write("noBodyCut: " + itemView._heldWeaponInfo.noBodyCut);
+                                //ModAPI.Log.Write("noTreeCut: " + itemView._heldWeaponInfo.noTreeCut);
+                                //ModAPI.Log.Write("pushForce: " + itemView._heldWeaponInfo.pushForce);
+                                //ModAPI.Log.Write("repairTool: " + itemView._heldWeaponInfo.repairTool);
+                                //ModAPI.Log.Write("rock: " + itemView._heldWeaponInfo.rock);
+                                //ModAPI.Log.Write("shell: " + itemView._heldWeaponInfo.shell);
+                                //ModAPI.Log.Write("soundDetectRange: " + itemView._heldWeaponInfo.soundDetectRange);
+                                //ModAPI.Log.Write("spear: " + itemView._heldWeaponInfo.spear);
+                                //ModAPI.Log.Write("staminaDrain: " + itemView._heldWeaponInfo.staminaDrain);
+                                //ModAPI.Log.Write("stick: " + itemView._heldWeaponInfo.stick);
+                                //ModAPI.Log.Write("tiredSpeed: " + itemView._heldWeaponInfo.tiredSpeed);
+                                //ModAPI.Log.Write("treeDamage: " + itemView._heldWeaponInfo.treeDamage);
+                                //ModAPI.Log.Write("weaponDamage: " + itemView._heldWeaponInfo.weaponDamage);
+                                //ModAPI.Log.Write("weaponRange: " + itemView._heldWeaponInfo.weaponRange);
+                                //ModAPI.Log.Write("weaponSpeed: " + itemView._heldWeaponInfo.weaponSpeed);
+                                //ModAPI.Log.Write("weaponAudio name: " + itemView._heldWeaponInfo.weaponAudio.name);
+
+
+                                //item id is 80 for plane axe
+                                //collider dimensions:
+                                //(3.1, 1.6, 0.5) size
+                                //(1.1, 0.4, 0.0) center
+
+                                SetupComplete = true;
+                                customWeapons.Clear();
+                                originalPlaneAxe = itemView;
+                                originalPlaneAxeModel = itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject;
+                                originalRotation = originalPlaneAxeModel.transform.localRotation;
+                                OriginalOffset = originalPlaneAxeModel.transform.localPosition;
+                                originalParrent = originalPlaneAxeModel.transform.parent;
+                                OriginalTreeDmg = itemView._heldWeaponInfo.treeDamage;
+                                originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
+                                noMesh = new Mesh();
+
+                                //Creating custom weapons---------
+                                CreateCustomWeapons();
+
+
+
                             }
-                            
-                            //ModAPI.Log.Write("SETUP: Custom weapons");
-                            //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
-                            //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
-                            //ModAPI.Log.Write("animSpeed: " + itemView._heldWeaponInfo.animSpeed);
-                            //ModAPI.Log.Write("animTiredSpeed: " + itemView._heldWeaponInfo.animTiredSpeed);
-                            //ModAPI.Log.Write("blockDamagePercent: " + itemView._heldWeaponInfo.blockDamagePercent);
-                            //ModAPI.Log.Write("blockStaminaDrain: " + itemView._heldWeaponInfo.blockStaminaDrain);
-                            //ModAPI.Log.Write("chainSaw: " + itemView._heldWeaponInfo.chainSaw);
-                            //ModAPI.Log.Write("canDoGroundAxeChop: " + itemView._heldWeaponInfo.canDoGroundAxeChop);
-                            //ModAPI.Log.Write("doSingleArmBlock: " + itemView._heldWeaponInfo.doSingleArmBlock);
-                            //ModAPI.Log.Write("fireStick: " + itemView._heldWeaponInfo.fireStick);
-                            //ModAPI.Log.Write("machete: " + itemView._heldWeaponInfo.machete);
-                            //ModAPI.Log.Write("noBodyCut: " + itemView._heldWeaponInfo.noBodyCut);
-                            //ModAPI.Log.Write("noTreeCut: " + itemView._heldWeaponInfo.noTreeCut);
-                            //ModAPI.Log.Write("pushForce: " + itemView._heldWeaponInfo.pushForce);
-                            //ModAPI.Log.Write("repairTool: " + itemView._heldWeaponInfo.repairTool);
-                            //ModAPI.Log.Write("rock: " + itemView._heldWeaponInfo.rock);
-                            //ModAPI.Log.Write("shell: " + itemView._heldWeaponInfo.shell);
-                            //ModAPI.Log.Write("soundDetectRange: " + itemView._heldWeaponInfo.soundDetectRange);
-                            //ModAPI.Log.Write("spear: " + itemView._heldWeaponInfo.spear);
-                            //ModAPI.Log.Write("staminaDrain: " + itemView._heldWeaponInfo.staminaDrain);
-                            //ModAPI.Log.Write("stick: " + itemView._heldWeaponInfo.stick);
-                            //ModAPI.Log.Write("tiredSpeed: " + itemView._heldWeaponInfo.tiredSpeed);
-                            //ModAPI.Log.Write("treeDamage: " + itemView._heldWeaponInfo.treeDamage);
-                            //ModAPI.Log.Write("weaponDamage: " + itemView._heldWeaponInfo.weaponDamage);
-                            //ModAPI.Log.Write("weaponRange: " + itemView._heldWeaponInfo.weaponRange);
-                            //ModAPI.Log.Write("weaponSpeed: " + itemView._heldWeaponInfo.weaponSpeed);
-                            //ModAPI.Log.Write("weaponAudio name: " + itemView._heldWeaponInfo.weaponAudio.name);
+                            catch (System.Exception eee)
+                            {
+                                ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
+                            }
+                        }
+                        if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
+                        {
+                            //ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
+                            EquippedModel = ToEquipWeaponType;
+                            try
+                            {
 
 
-                            //item id is 80 for plane axe
-                            //collider dimensions:
-                            //(3.1, 1.6, 0.5) size
-                            //(1.1, 0.4, 0.0) center
+                                foreach (CustomWeapon item in customWeapons.Values)
+                                {
+                                    item.obj.SetActive(false);
+                                }
+                                CustomWeapon cw = customWeapons[ToEquipWeaponType];
+                                cw.obj.SetActive(true);
+                                itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed * cw.swingspeed;
+                                itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.tiredswingspeed;
+                                itemView._heldWeaponInfo.smashDamage = cw.smashDamage;
+                                itemView._heldWeaponInfo.weaponDamage = cw.damage;
+                                itemView._heldWeaponInfo.treeDamage = cw.treeDamage;
+                                itemView._heldWeaponInfo.weaponRange = cw.ColliderScale * 3;
+                                itemView._heldWeaponInfo.staminaDrain = cw.staminaDrain;
+                                itemView._heldWeaponInfo.noTreeCut = cw.canChopTrees;
+                                itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
+                                originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = noMesh;
+                            }
+                            catch (System.Exception exc)
+                            {
 
-                            SetupComplete = true;
-                            customWeapons.Clear();
-                            originalPlaneAxe = itemView;
-                            originalPlaneAxeModel = itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject;
-                            originalRotation = originalPlaneAxeModel.transform.localRotation;
-                            OriginalOffset = originalPlaneAxeModel.transform.localPosition;
-                            originalParrent = originalPlaneAxeModel.transform.parent;
-                            OriginalTreeDmg = itemView._heldWeaponInfo.treeDamage;
-                            originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
-                            noMesh = new Mesh();
-
-                            //Creating custom weapons---------
-                            CreateCustomWeapons();
-
-
+                                ModAPI.Log.Write("Error with EQUIPPING custom weaponry " + exc.ToString());
+                            }
 
                         }
-                        catch (System.Exception eee)
+                        else
                         {
-                            ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
-                        }
-                    }
-                    if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
-                    {
-                        //ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
-                        EquippedModel = ToEquipWeaponType;
-                        try
-                        {
+                            //ModAPI.Console.Write("EQUIPPING normal plane axe");
 
-
+                            itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
                             foreach (CustomWeapon item in customWeapons.Values)
                             {
                                 item.obj.SetActive(false);
                             }
-                            CustomWeapon cw = customWeapons[ToEquipWeaponType];
-                            cw.obj.SetActive(true);
-                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed * cw.swingspeed;
-                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed * cw.tiredswingspeed;
-                            itemView._heldWeaponInfo.smashDamage = cw.smashDamage;
-                            itemView._heldWeaponInfo.weaponDamage = cw.damage;
-                            itemView._heldWeaponInfo.treeDamage = cw.treeDamage;
-                            itemView._heldWeaponInfo.weaponRange = cw.ColliderScale * 3;
-                            itemView._heldWeaponInfo.staminaDrain = cw.staminaDrain;
-                            itemView._heldWeaponInfo.noTreeCut = cw.canChopTrees;
-                            itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
-                            originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = noMesh;
+                            itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed;
+                            itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
+                            itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
+                            itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
+                            itemView._heldWeaponInfo.treeDamage = OriginalTreeDmg;
+                            itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
+                            itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
+                            itemView._heldWeaponInfo.noTreeCut = false;
+
+                            itemView._heldWeaponInfo.transform.localScale = Vector3.one * 0.6f;
+                            originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = originalMesh;
+
                         }
-                        catch (System.Exception exc)
-                        {
-
-                            ModAPI.Log.Write("Error with EQUIPPING custom weaponry " + exc.ToString());
-                        }
-
-                    }
-                    else
-                    {
-                        //ModAPI.Console.Write("EQUIPPING normal plane axe");
-
-                        itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
-                        foreach (CustomWeapon item in customWeapons.Values)
-                        {
-                            item.obj.SetActive(false);
-                        }
-                        itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed;
-                        itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
-                        itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
-                        itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
-                        itemView._heldWeaponInfo.treeDamage = OriginalTreeDmg;
-                        itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
-                        itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
-                        itemView._heldWeaponInfo.noTreeCut = false;
-
-                        itemView._heldWeaponInfo.transform.localScale = Vector3.one * 0.6f;
-                        originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = originalMesh;
-
                     }
                 }
             }
-
             return base.Equip(itemView, pickedUpFromWorld);
         }
 
@@ -179,12 +179,12 @@ namespace ChampionsOfForest.Player
             bool flag2 = false;
             if (flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
             {
+                ModdedPlayer.instance.lastShotProjectile = itemCache;
                 InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
                 TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
                 FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
                 if (UseAltWorldPrefab)
                 {
-                    Debug.Log("Firing " + itemCache._name + " with '" + inventoryItemView.ActiveBonus + "' ammo (alt=" + UseAltWorldPrefab + ")");
                 }
                 GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, inventoryItemView2._held.transform.position, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
                 gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
@@ -272,8 +272,6 @@ namespace ChampionsOfForest.Player
         public override void AddMaxAmountBonus(int itemId, int amount)
         {
             if (ModSettings.IsDedicated) return;
-
-            Debug.Log("Changing AddMaxAmountBonus id:" + itemId + "\t amount:" + amount);
             base.AddMaxAmountBonus(itemId, amount);
         }
 

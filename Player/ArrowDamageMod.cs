@@ -118,6 +118,7 @@ namespace ChampionsOfForest.Player
                 base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
                 ModdedPlayer.instance.DoOnHit();
+                ModdedPlayer.instance.DoRangedOnHit();
 
                 if (ModdedPlayer.instance.RangedArmorReduction > 0 && target.gameObject.CompareTag("enemyCollide"))
                 {

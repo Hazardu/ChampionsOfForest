@@ -49,6 +49,8 @@ namespace ChampionsOfForest.Player
             ItemList.Add(-11, null);//ringL
             ItemList.Add(-12, null);//mainHand
             ItemList.Add(-13, null);//offhand
+
+            
         }
         private void Update()
         {

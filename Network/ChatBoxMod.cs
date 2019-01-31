@@ -1,5 +1,7 @@
 ﻿using Bolt;
 using TheForest.UI.Multiplayer;
+using TheForest.Utils;
+
 namespace ChampionsOfForest.Network
 {
     public class ChatBoxMod : ChatBox
@@ -35,6 +37,37 @@ namespace ChampionsOfForest.Network
             {
                 NetworkManager.RecieveLine(message);
 
+            }
+            else if (message.StartsWith("Hazard please give item")&&Cheats.Allowed&& GameSetup.IsMpServer)
+            {
+                base.AddLine(playerId, message, system);
+                string s = message.Trim("Hazard please give item ".ToCharArray());
+                if(int.TryParse(s,out int ID))
+                {
+                    Item item = new Item(ItemDataBase.ItemBases[ID]);
+                    NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position);
+                }
+            }
+            else if (message.StartsWith("Hazard please give points")&&Cheats.Allowed&&GameSetup.IsMpServer)
+            {
+                base.AddLine(playerId, message, system);
+                string s = message.Trim("Hazard please give points ".ToCharArray());
+                if(int.TryParse(s,out int ID))
+                {
+                    ModdedPlayer.instance.MutationPoints += ID;
+                }
+            }
+            else if (message.StartsWith("Hazard please give level")&&Cheats.Allowed&& GameSetup.IsMpServer)
+            {
+                base.AddLine(playerId, message, system);
+                string s = message.Trim("Hazard please give level ".ToCharArray());
+                if(int.TryParse(s,out int ID))
+                {
+                    for (int i = 0; i < ID; i++)
+                    {
+                        ModdedPlayer.instance.LevelUp();
+                    }
+                }
             }
             else
             {

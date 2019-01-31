@@ -316,21 +316,6 @@ namespace ChampionsOfForest
             {
                 MenuKeyPressAction();
             }
-
-            try
-            {
-                if (UnityEngine.Input.GetKeyDown(KeyCode.F7))
-                {
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(UnityEngine.Random.Range(300, 2000) * ModdedPlayer.instance.Level), LocalPlayer.Transform.position + Vector3.up * 2 + LocalPlayer.Transform.forward);
-                }
-            }
-            catch (Exception e)
-            {
-
-                ModAPI.Log.Write(e.ToString());
-            }
-
-
         }
 
         //Draws everything
@@ -1493,7 +1478,8 @@ namespace ChampionsOfForest
 
                     GUI.color = new Color(1f, 0.15f, 0.8f);
                     GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString(), HUDStatStyle);
-                    }
+                
+                  }
                 GUI.color = Color.white;
                 
 
@@ -2300,7 +2286,7 @@ namespace ChampionsOfForest
         private void DrawGuide()
         {
             Bookmarks.Clear();
-            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -1080 - MaxScrollAmount * rr, 0);
+            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), - Screen.height * 10 * rr, 0);
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
@@ -2453,7 +2439,6 @@ namespace ChampionsOfForest
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
 
-            MaxScrollAmount = BookPositionY+Screen.height*1.5f;
         }
         #endregion
 

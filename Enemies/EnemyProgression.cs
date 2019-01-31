@@ -717,7 +717,7 @@ namespace ChampionsOfForest
 
                 }
             }
-
+            ArmorReduction = Mathf.Min(ArmorReduction, Armor);
             if (abilities.Contains(Abilities.Huge))
             {
                 gameObject.transform.localScale *= 2f;

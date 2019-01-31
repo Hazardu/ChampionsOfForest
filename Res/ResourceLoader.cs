@@ -302,7 +302,7 @@ namespace ChampionsOfForest.Res
                         if ((data[0] == 137 && data[1] == 80 && data[2] == 78 && data[3] == 71 && data[4] == 13 && data[5] == 10 && data[6] == 26 && data[7] == 10) ||
                             (data[0] == 0xFF && data[1] == 0xD8 && data[2] == 0xFF))
                         {
-                            Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32, true, true);
+                            Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32, false, true);
                             t.LoadImage(data);
                             t.Apply();
                             if (resource.CompressTexture)

@@ -110,7 +110,15 @@ namespace ChampionsOfForest.Player
                         }
                     }
                 }
-                bool[] castedSpells = new bool[SpellCount];
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Log("Error1 \t"+ex.ToString());
+
+                ModAPI.Log.Write("Error1 \t"+ex.ToString());
+            }
+            try { 
+            bool[] castedSpells = new bool[SpellCount];
                 for (int i = 0; i < SpellCount; i++)
                 {
                     if (infos[i].spell != null)
@@ -170,14 +178,15 @@ namespace ChampionsOfForest.Player
 
                         }
                     }
-                    if (!castedSpells[i])
+                    if (!castedSpells[i]&& infos[i].spell!= null)
                     {
                         infos[i].spell.ChanneledTime = 0;
                     }
                 }
-                }
+            }
             catch (System.Exception ex)
             {
+                Debug.Log(ex.ToString());
                 ModAPI.Log.Write(ex.ToString());
             }
         }

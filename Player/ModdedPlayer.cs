@@ -3,7 +3,6 @@ using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -13,6 +12,7 @@ namespace ChampionsOfForest
 {
     public class ModdedPlayer : MonoBehaviour
     {
+        public static float basejumpPower;
         public static ModdedPlayer instance = null;
         public float MaxHealth
         {
@@ -102,7 +102,7 @@ namespace ChampionsOfForest
 
         public float DamageReduction = 0;
         public float DamageReductionPerks = 0;
-        public float DamageReductionTotal => DamageReduction* DamageReductionPerks;
+        public float DamageReductionTotal => DamageReduction * DamageReductionPerks;
 
 
         public float DamageOutputMult = 1;
@@ -166,7 +166,12 @@ namespace ChampionsOfForest
         {
             get
             {
-                return damageAbsorbAmounts.Sum();
+                float f = 0;
+                for (int i = 0; i < damageAbsorbAmounts.Length; i++)
+                {
+                    f += damageAbsorbAmounts[i];
+                }
+                return f;
             }
         }
         public float DealDamageToShield(float f)
@@ -195,7 +200,7 @@ namespace ChampionsOfForest
 
         public float StealthDamage = 1; //to do
 
-public static readonly float HungerPerLevelRateMult = 0.04f;
+        public static readonly float HungerPerLevelRateMult = 0.04f;
         public static readonly float ThirstPerLevelRateMult = 0.04f;
         public float ThirstRate = 1;
         public float HungerRate = 1;
@@ -208,6 +213,12 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
         public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
 
         public float MagicFindMultipier = 1;
+
+        //perks 
+        public float ReusabilityChance = 0;
+        public int ReusabilityAmount = 1;
+        public TheForest.Items.Item lastShotProjectile;
+
 
         //Item abilities variables
         //Smokeys quiver
@@ -225,7 +236,7 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
 
         //Death Pact shoulders
         public bool DeathPact_Enabled = false;
-        public float DeathPact_Amount =1;
+        public float DeathPact_Amount = 1;
 
 
         public int LastDayOfGeneration = 0;
@@ -255,16 +266,16 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 {
                     Remove();
                 }
-                    Amount += NewAmount;
+                Amount += NewAmount;
                 if (Amount > 0)
                 {
                     NewApply();
                 }
                 else
                 {
-                   instance.ExtraCarryingCapactity.Remove(ID);
+                    instance.ExtraCarryingCapactity.Remove(ID);
                 }
-                
+
             }
             public void Remove()
             {
@@ -273,7 +284,7 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 switch (ID)
                 {
                     case 53:    //rock and rock bag
-                        if(LocalPlayer.Inventory.AmountOf(214)>0)
+                        if (LocalPlayer.Inventory.AmountOf(214) > 0)
                         {
                             LocalPlayer.Inventory.SetMaxAmountBonus(ID, 5);
                         }
@@ -285,7 +296,7 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                         }
                         break;
                     case 57:    //stick and stick bag
-                        if (LocalPlayer.Inventory.AmountOf(215)>0)
+                        if (LocalPlayer.Inventory.AmountOf(215) > 0)
                         {
                             LocalPlayer.Inventory.SetMaxAmountBonus(ID, 10);
                         }
@@ -333,28 +344,22 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
 
         private void Update()
         {
-            try
-            {
-                if (ModAPI.Input.GetButtonDown("EquipWeapon"))
-                {
-                    if (Inventory.Instance.ItemList[-12] != null)
-                    {
-                        if (Inventory.Instance.ItemList[-12].Equipped)
-                        {
-                            PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
-                            LocalPlayer.Inventory.StashEquipedWeapon(false);
-                            LocalPlayer.Inventory.Equip(80, false);
 
-                            PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
-                        }
+            if (ModAPI.Input.GetButtonDown("EquipWeapon"))
+            {
+                if (Inventory.Instance.ItemList[-12] != null)
+                {
+                    if (Inventory.Instance.ItemList[-12].Equipped)
+                    {
+                        PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
+                        LocalPlayer.Inventory.StashEquipedWeapon(false);
+                        LocalPlayer.Inventory.Equip(80, false);
+
+                        PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
                     }
                 }
             }
-            catch (Exception e)
-            {
-                ModAPI.Log.Write("Custom Weapon error" + e.ToString());
 
-            }
             try
             {
 
@@ -367,10 +372,12 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                     if (DebuffImmune && buff.isNegative && buff.DispellAmount <= 2)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
+                        continue;
                     }
                     else if (DebuffResistant && buff.isNegative && buff.DispellAmount <= 1)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
+                        continue;
                     }
                     else
                     {
@@ -405,88 +412,77 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
             {
                 ModAPI.Log.Write("Poisoning player error" + e.ToString());
             }
-            try
+
+
+
+            if (LocalPlayer.Stats != null)
             {
-
-
-                if (LocalPlayer.Stats != null)
+                if (LocalPlayer.Stats.Health < MaxHealth)
                 {
-                    ////LocalPlayer.Stats.Skills.BreathingSkillLevelBonus = 0.05f;
-                    //LocalPlayer.Stats.Skills.BreathingSkillLevelDuration = 1500000;
-                    //LocalPlayer.Stats.Skills.RunSkillLevelBonus = 0.05f;
-                    //LocalPlayer.Stats.Skills.RunSkillLevelDuration = 6000000;
-                    //LocalPlayer.Stats.Skills.TotalRunDuration = 0;
-                    //LocalPlayer.Stats.PhysicalStrength.CurrentStrength = 10;
-
-
-                    if (LocalPlayer.Stats.Health < MaxHealth)
+                    if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
                     {
-                        if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
-                        {
-                            LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier;
-                        }
-                        else
-                        {
-                            LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier / 10;
-                        }
+                        LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier;
                     }
-
-                    if (Clock.Day > LastDayOfGeneration)
+                    else
                     {
-                        for (int i = 0; i < Clock.Day - LastDayOfGeneration; i++)
-                        {
-                            foreach (KeyValuePair<int, int> pair in GeneratedResources)
-                            {
-                                LocalPlayer.Inventory.AddItem(pair.Key, pair.Value);
-                            }
-                        }
-                        LastDayOfGeneration = Clock.Day;
+                        LocalPlayer.Stats.Health += LifeRegen * (HealthRegenPercent + 1) * HealingMultipier / 10;
                     }
-
                 }
-            }
-            catch (Exception e)
-            {
 
-                ModAPI.Log.Write("Stats error" + e.ToString());
-
-            }
-            try
-            {
-
-
-                if (TimeUntillMassacreReset > 0)
+                if (Clock.Day > LastDayOfGeneration)
                 {
-                    TimeUntillMassacreReset -= Time.unscaledDeltaTime;
-                    if (TimeUntillMassacreReset <= 0)
+                    for (int i = 0; i < Clock.Day - LastDayOfGeneration; i++)
                     {
-                        AddFinalExperience(Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier));
-                        NewlyGainedExp = 0;
-                        TimeUntillMassacreReset = 0;
-                        MassacreKills = 0;
-                        CountMassacre();
+                        foreach (KeyValuePair<int, int> pair in GeneratedResources)
+                        {
+                            LocalPlayer.Inventory.AddItem(pair.Key, pair.Value);
+                        }
                     }
-
-
+                    LastDayOfGeneration = Clock.Day;
                 }
+
             }
-            catch (Exception e)
+
+
+
+
+            if (TimeUntillMassacreReset > 0)
             {
+                TimeUntillMassacreReset -= Time.unscaledDeltaTime;
+                if (TimeUntillMassacreReset <= 0)
+                {
+                    AddFinalExperience(Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier));
+                    NewlyGainedExp = 0;
+                    TimeUntillMassacreReset = 0;
+                    MassacreKills = 0;
+                    CountMassacre();
+                }
 
-                ModAPI.Log.Write("Massacre error" + e.ToString());
 
             }
+
+
             if (Rooted)
             {
                 if (StunImmune || RootImmune)
                 {
                     Rooted = false;
+                    if (!Stunned)
+                    {
+                        LocalPlayer.FpCharacter.MovementLocked = false;
+                        LocalPlayer.FpCharacter.CanJump = true;
+                    }
                 }
 
                 RootDuration -= Time.deltaTime;
                 if (RootDuration < 0)
                 {
                     Rooted = false;
+                    if (!Stunned)
+                    {
+                        LocalPlayer.FpCharacter.MovementLocked = false;
+                        LocalPlayer.FpCharacter.CanJump = true;
+                    }
                 }
             }
             if (Stunned)
@@ -495,27 +491,35 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
-                    LocalPlayer.FpCharacter.MovementLocked = false;
-                    LocalPlayer.FpCharacter.CanJump = true;
+                    if (!Rooted)
+                    {
+                        LocalPlayer.FpCharacter.MovementLocked = false;
+                        LocalPlayer.FpCharacter.CanJump = true;
+                    }
                 }
                 StunDuration -= Time.deltaTime;
                 if (StunDuration < 0)
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
-                    LocalPlayer.FpCharacter.MovementLocked = false;
-                    LocalPlayer.FpCharacter.CanJump = true;
+                    if (!Rooted)
+                    {
+                        LocalPlayer.FpCharacter.MovementLocked = false;
+                        LocalPlayer.FpCharacter.CanJump = true;
+                    }
                 }
             }
             if (HexedPantsOfMrM_Enabled)
             {
-                if(LocalPlayer.FpCharacter.velocity.sqrMagnitude < 0.1)//if standing still
+                if (LocalPlayer.FpCharacter.velocity.sqrMagnitude < 0.1)//if standing still
                 {
                     HexedPantsOfMrM_StandTime = Mathf.Clamp(HexedPantsOfMrM_StandTime - Time.deltaTime, -1.1f, 1.1f);
-                    if(HexedPantsOfMrM_StandTime <= 1)
+                    if (HexedPantsOfMrM_StandTime <= 1)
                     {
                         if (LocalPlayer.Stats.Health > 5)
-                            LocalPlayer.Stats.Health -= Time.deltaTime * MaxHealth*0.015f;
+                        {
+                            LocalPlayer.Stats.Health -= Time.deltaTime * MaxHealth * 0.015f;
+                        }
                     }
                 }
                 else //if moving
@@ -532,8 +536,8 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
             {
                 DamageOutputMult /= DeathPact_Amount;
 
-                DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth))*100) * 0.03f;
-                AddBuff(12, 43, DeathPact_Amount-1, 1f);
+                DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth)) * 100) * 0.03f;
+                AddBuff(12, 43, DeathPact_Amount - 1, 1f);
 
                 DamageOutputMult *= DeathPact_Amount;
 
@@ -616,6 +620,21 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
                 ModAPI.Log.Write("Area dmg exception " + exc.ToString());
             }
         }
+        public void DoRangedOnHit()
+        {
+            if (ReusabilityChance > 0 && Random.value <= ReusabilityChance)
+            {
+                if (lastShotProjectile != null)
+                {
+                    LocalPlayer.Inventory.AddItem(lastShotProjectile._ammoItemId, ReusabilityAmount);
+                }
+            }
+        }
+        public void DoMeleeOnHit()
+        {
+
+        }
+
         public bool DoAreaDamage(Transform rootTR, float damage)
         {
             try
@@ -795,6 +814,34 @@ public static readonly float HungerPerLevelRateMult = 0.04f;
             NewlyGainedExp = 0;
             MassacreMultipier = 1;
             AddFinalExperience(Amount);
+        }
+
+
+        public void AddGeneratedResource(int id, int amount)
+        {
+            if (amount > 0)
+            {
+                if (GeneratedResources.ContainsKey(id))
+                {
+                    GeneratedResources[id] += amount;
+
+                }
+                else
+                {
+                    GeneratedResources.Add(id, amount);
+                }
+            }
+            else
+            {
+                if (GeneratedResources.ContainsKey(id))
+                {
+                    GeneratedResources[id] += amount;
+                    if (GeneratedResources[id] <= 0)
+                    {
+                        GeneratedResources.Remove(id);
+                    }
+                }
+            }
         }
     }
 }

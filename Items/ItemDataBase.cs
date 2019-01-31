@@ -88,6 +88,10 @@ namespace ChampionsOfForest
         /// </summary>
         public static void LogInfo()
         {
+
+        
+
+
             string s = "There are " + Stats.Count + " stats:\n";
             for (int i = 0; i < 8; i++)
             {
@@ -133,6 +137,7 @@ namespace ChampionsOfForest
                 s += "\n";
             }
             ModAPI.Log.Write(s);
+
         }
         public static void AddItem(BaseItem item)
         {
@@ -176,7 +181,7 @@ namespace ChampionsOfForest
             w *= MagicFind;
             int rarity = 0;
 
-            if ((w > 200 && Random.value < 0.80f)|| (int)ModSettings.difficulty > 5 || w> 1500)
+            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
             {
                 rarity = 1;
 
@@ -184,23 +189,23 @@ namespace ChampionsOfForest
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.06f*  (int)ModSettings.difficulty) || w > 2300)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty) || w > 2300)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.025f * (int)ModSettings.difficulty) || w > 2900)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty) || w > 2900)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.01f * (int)ModSettings.difficulty ) || (w > 3500 && (int)ModSettings.difficulty > 2))
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.005f * (int)ModSettings.difficulty ) || (w > 4600&&(int)ModSettings.difficulty > 3))
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.02f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.001f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
                                     {
                                         rarity = 7;
 
@@ -288,23 +293,23 @@ namespace ChampionsOfForest
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.06f * (int)ModSettings.difficulty) || w > 2300)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty) || w > 2300)
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.025f * (int)ModSettings.difficulty) || w > 2900)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty) || w > 2900)
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
+                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.005f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.02f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.001f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
+                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
                                     {
                                         rarity = 7;
 
@@ -407,6 +412,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.5f, 1.5f, 1.1f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.5f, 1.5f, 1.1f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.3f, 1.2f, 1.1f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;            new ItemStat(i, 0.003f, 0.005f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent=true,RoundingCount=1} ; i++;
+            new ItemStat(i, 0.33f, 0.66f, 1.4f, "All attributes", 5, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats);i++;
             //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 25f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
@@ -1339,7 +1345,7 @@ namespace ChampionsOfForest
                     minLevel = 1,
                     maxLevel = 3,
                     CanConsume = true,
-                    StackSize = 100,
+                    StackSize = 1,
                     _itemType = BaseItem.ItemType.Other,
                     icon = Res.ResourceLoader.GetTexture(105),
                 };
@@ -1357,7 +1363,7 @@ namespace ChampionsOfForest
                     minLevel = 1,
                     maxLevel = 6,
                     CanConsume = true,
-                    StackSize = 100,
+                    StackSize = 1,
                     _itemType = BaseItem.ItemType.Other,
                     icon = Res.ResourceLoader.GetTexture(105),
                 };
@@ -2804,7 +2810,7 @@ namespace ChampionsOfForest
                 description = "They look like yoga pants but for a man the size of a wardrobe",
                 lore = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.",
                 tooltip = "While moving with those pants on, energy regeneration and damage is increased by 20%. While standing still for longer than a second, you loose 1.5% of max health per second.",
-                Rarity = 6,
+                Rarity = 7,
                 minLevel = 14,
                 maxLevel = 20,
                 CanConsume = false,

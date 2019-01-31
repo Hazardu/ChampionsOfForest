@@ -31,7 +31,14 @@ namespace ChampionsOfForest
 
         public static void AddHostEnemy(EnemyProgression ep)
         {
-            hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
+            if (!hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+            {
+                hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
+            }
+            else
+            {
+                ModAPI.Log.Write("Enemy with packed " + ep.entity.networkId.PackedValue + " already added");
+            }
         }
         //Gets all attached bolt entities
         public static void GetAllEntities()
@@ -139,20 +146,31 @@ namespace ChampionsOfForest
 
         public static void RemoveEnemy(EnemyProgression ep)
         {
-            if (ep.entity != null)
+            try
             {
-                if (ep.entity.networkId != null)
+                if (ep.entity != null)
                 {
-                    if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+                    if (ep.entity.networkId != null)
                     {
-                        hostDictionary.Remove(ep.entity.networkId.PackedValue);
+                        if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+                        {
+                            hostDictionary.Remove(ep.entity.networkId.PackedValue);
+                        }
+                    }
+                }
+                if (spProgression != null)
+                {
+                    if (spProgression.ContainsKey(ep.transform.root))
+                    {
+                        spProgression.Remove(ep.transform.root);
                     }
                 }
             }
-            if (spProgression.ContainsKey(ep.transform.root))
+            catch (System.Exception e)
             {
-                spProgression.Remove(ep.transform.root);
+                ModAPI.Log.Write(e.ToString());
             }
+           
 
         }
     }

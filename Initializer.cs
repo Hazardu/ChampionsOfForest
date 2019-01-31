@@ -96,11 +96,11 @@ namespace ChampionsOfForest
             if (File.Exists(path))
             {
                 var content = File.ReadAllText(path);
-                var difficultyRegex = new Regex(@"/(?<=Difficulty=)\d+/");
-                var friendlyFireRegex = new Regex(@"/(?<=FriendlyFire=)\d+/");
+                var difficultyRegex = new Regex(@"(?<=Difficulty=)\d+");
+                var friendlyFireRegex = new Regex(@"(?<=FriendlyFire=)\d+");
 
                 ModSettings.difficulty = (ModSettings.Difficulty)(int.Parse(difficultyRegex.Match(content).Value));
-                ModSettings.FriendlyFire = int.Parse(difficultyRegex.Match(content).Value)==1;
+                ModSettings.FriendlyFire = difficultyRegex.Match(content).Value=="1";
                ModSettings.DifficultyChoosen = true;
 
             }
