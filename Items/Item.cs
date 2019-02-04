@@ -123,7 +123,7 @@ namespace ChampionsOfForest
         }
         public bool OnConsume()
         {
-            if (CanConsume)
+            if (CanConsume && ModdedPlayer.instance.Level >= level)
             {
                 foreach (ItemStat item in Stats)
                 {

@@ -1,5 +1,7 @@
-﻿using ChampionsOfForest.Enemies;
+﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.ExpSources;
 using ChampionsOfForest.Player;
 using ModAPI.Attributes;
 using System;
@@ -48,7 +50,7 @@ namespace ChampionsOfForest
                     //new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     //Res.Buildings.InitBuildings();
-
+                    ExpEvents.Initialize();
                     return;
                 }
 
@@ -63,13 +65,14 @@ namespace ChampionsOfForest
                     Res.ResourceLoader.InMainMenu = false;
 
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
-                    GameObject go = new GameObject("Playerobj");
+                    GameObject go = new GameObject("__COTFPlayerobj__");
                     go.AddComponent<ModdedPlayer>();
                     go.AddComponent<Inventory>();
                     go.AddComponent<ModReferences>();
                     go.AddComponent<SpellCaster>();
                     go.AddComponent<ClinetItemPicker>();
                     go.AddComponent<MeteorSpawner>();
+                    go.AddComponent<BlackFlame>();
                     BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
                     SpellDataBase.Initialize();
@@ -78,6 +81,7 @@ namespace ChampionsOfForest
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     Res.Buildings.InitBuildings();
                     Perk.FillPerkList();
+                    ExpEvents.Initialize();
 
                 }
 

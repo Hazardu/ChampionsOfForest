@@ -28,15 +28,12 @@ namespace ChampionsOfForest.Player
         public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
         public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
 
-        public static bool ChangeMaxAmount = false;
-
         protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
         {
             if (!ModSettings.IsDedicated)
             {
                 if (itemView != null)
                 {
-
                     EquippedModel = BaseItem.WeaponModelType.None;
                     if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                     {
@@ -48,7 +45,8 @@ namespace ChampionsOfForest.Player
                                 {
                                     instance = this;
                                 }
-
+                               
+                             
                                 //ModAPI.Log.Write("SETUP: Custom weapons");
                                 //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
                                 //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
@@ -98,7 +96,19 @@ namespace ChampionsOfForest.Player
                                 //Creating custom weapons---------
                                 CreateCustomWeapons();
 
+                                try
+                                {
+                                    ModReferences.rightHandTransform = itemView._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
+                                    ModAPI.Console.Write(ModReferences.rightHandTransform.name);
 
+                               
+
+                                }
+                                catch (System.Exception e)
+                                {
+
+                                    ModAPI.Console.Write(e.ToString());
+                                }
 
                             }
                             catch (System.Exception eee)
@@ -108,7 +118,6 @@ namespace ChampionsOfForest.Player
                         }
                         if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
                         {
-                            //ModAPI.Console.Write("Equipping custom weapon " + CustomEquipModel.ToString());
                             EquippedModel = ToEquipWeaponType;
                             try
                             {
@@ -140,8 +149,6 @@ namespace ChampionsOfForest.Player
                         }
                         else
                         {
-                            //ModAPI.Console.Write("EQUIPPING normal plane axe");
-
                             itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
                             foreach (CustomWeapon item in customWeapons.Values)
                             {
@@ -273,6 +280,15 @@ namespace ChampionsOfForest.Player
         {
             if (ModSettings.IsDedicated) return;
             base.AddMaxAmountBonus(itemId, amount);
+        }
+
+        public override void SetMaxAmountBonus(int itemId, int amount)
+        {
+            base.SetMaxAmountBonus(itemId, amount);
+            if (ModdedPlayer.instance.ExtraCarryingCapactity.ContainsKey(itemId))
+            {
+                ModdedPlayer.instance.ExtraCarryingCapactity[itemId].NewApply();
+            }
         }
 
 

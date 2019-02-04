@@ -84,7 +84,7 @@ namespace ChampionsOfForest.Player
 
 
 
-        public static bool HealingDomeGivesImmunity = true;
+        public static bool HealingDomeGivesImmunity = false;
         public static void CreateHealingDome()
         {
             Vector3 pos = LocalPlayer.Transform.position;
@@ -162,28 +162,7 @@ namespace ChampionsOfForest.Player
                        "f;" + damage + ";" + BLACKHOLE_duration + ";" + BLACKHOLE_radius + ";" + BLACKHOLE_pullforce + ";", Network.NetworkManager.Target.Everyone);
         }
         #endregion
-        #region CLEAVE
-        public static bool IsCleaveEquipped;
-        public static bool IsCleaveEmpowered;
-        public static float CleaveEmpowerAmount;
-        public static void CleavePassive(bool b)
-        {
-            IsCleaveEquipped = b;
-        }
-        public static void CleaveActive()
-        {
-            BuffDB.AddBuff(3, 111112, 1 * ModdedPlayer.instance.SpellAMP, 3 * ModdedPlayer.instance.SpellAMP);
-        }
-        public static void StartCleaveEmpower(float f)
-        {
-            CleaveEmpowerAmount = f;
-            IsCleaveEmpowered = true;
-        }
-        public static void StopCleaveEmpower(float f)
-        {
-            IsCleaveEmpowered = false;
-        }
-        #endregion
+   
         #region SustainShield
         public static float ShieldPerSecond = 1;
         public static float MaxShield = 10;
@@ -210,7 +189,13 @@ namespace ChampionsOfForest.Player
                 }
             }
         }
-            #endregion
+        #endregion
 
-        }
+        #region AutoPickup
+        #endregion
+
+
+
+
+    }
 }

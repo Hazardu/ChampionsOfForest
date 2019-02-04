@@ -668,6 +668,7 @@ GUILayout.EndArea();
             new Resource(108, "Hammer.obj");
             new Resource(109, "ItemHammer.png");
             new Resource(110, "ItemScroll.png");
+            new Resource(111, "FlameParticle.png");
 
 
 

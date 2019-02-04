@@ -170,6 +170,8 @@ namespace ChampionsOfForest
                 {
                     //ModAPI.Log.Write("Is dedicated server bool set to true.");
                 }
+                sum = Mathf.Max(1, sum);
+                count = Mathf.Max(1, count);
                 sum /= count;
                 averageLevel = sum;
             }
@@ -177,6 +179,7 @@ namespace ChampionsOfForest
             {
                 averageLevel = ModdedPlayer.instance.Level;
             }
+            averageLevel = Mathf.Max(1, averageLevel);
             float w = Worth / averageLevel;
             w *= MagicFind;
             int rarity = 0;
@@ -270,18 +273,28 @@ namespace ChampionsOfForest
             int averageLevel = 1;
             if (GameSetup.IsMultiplayer)
             {
-                int sum = 0;
-                foreach (int a in ModReferences.PlayerLevels.Values)
+                int sum = ModReferences.PlayerLevels.Values.Sum();
+                int count = ModReferences.PlayerLevels.Values.Count;
+
+                if (!ModSettings.IsDedicated)
                 {
-                    sum += a;
+                    sum += ModdedPlayer.instance.Level;
+                    count++;
                 }
-                sum /= ModReferences.PlayerLevels.Values.Count;
+                else
+                {
+                    //ModAPI.Log.Write("Is dedicated server bool set to true.");
+                }
+                sum = Mathf.Max(1, sum);
+                count = Mathf.Max(1, count);
+                sum /= count;
                 averageLevel = sum;
             }
             else
             {
                 averageLevel = ModdedPlayer.instance.Level;
             }
+            averageLevel = Mathf.Max(1, averageLevel);
             float w = Worth / averageLevel;
             int rarity = 0;
 
@@ -365,18 +378,18 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.5f, 1f, 1.2f, "Maximum Energy", 3, StatActions.AddEnergy, StatActions.RemoveEnergy, StatActions.AddEnergy); i++;
             new ItemStat(i, 0.01f, 0.025f, 1.4f, "Life Per Second", 3, StatActions.AddHPRegen, StatActions.RemoveHPRegen, StatActions.AddHPRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.025f, 1.4f, "Stamina Per Second", 3, StatActions.AddStaminaRegen, StatActions.RemoveStaminaRegen, StatActions.AddStaminaRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.01f, 0.025f, 0.8f, "Stamina Regen %", 3, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.025f, 0.8f, "Life Regen %", 3, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.003f, 0.009f, 0.7f, "Damage Reduction %", 4, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.002f, 0.005f, 0.7f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0005f, 0.0015f, 1.3f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.025f, 0.7f, "Stamina Regen %", 3, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.025f, 0.7f, "Life Regen %", 3, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.003f, 0.009f, 0.6f, "Damage Reduction %", 4, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.002f, 0.005f, 0.6f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0005f, 0.0015f, 1.25f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.1f, 0.35f, 1.3f, "Life on hit", 4, StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); i++;
             new ItemStat(i, 0.002f, 0.003f, 0.65f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f, 3f, 1.5f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
-            new ItemStat(i, 0.001f, 0.003f, 0.9f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 0.75f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.003f, 0.007f, 0.8f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 2f, 0.9f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
+            new ItemStat(i, 0.001f, 0.003f, 0.7f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.005f, 0.01f, 0.7f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.003f, 0.007f, 0.6f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 1f, 2f, 0.6f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
             new ItemStat(i, 0.002f, 0.003f, 0.7f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.002f, 0.003f, 0.7f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.002f, 0.003f, 0.7f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
@@ -388,8 +401,8 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0004f, 0.0009f, 0.5f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0004f, 0.0009f, 0.5f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.00025f, 0.001f, 0.7f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.7f / 5.5f, 1.6f / 5.5f, 0f, "PERMANENT PERK POINTS", 7, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
-            new ItemStat(i, 20f, 40f, 3.5f, "EXPERIENCE", 7, null, null, StatActions.PERMANENT_expIncrease); i++;
+            new ItemStat(i, 0.7f / 3.8f, 1.6f / 3.8f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
+            new ItemStat(i, 50f, 200f, 3.2f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
             new ItemStat(i, 0.0025f, 0.0075f, 0.8f, "Movement Speed", 5, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0002f, 0.0015f, 0.7f, "Melee Weapon Range", 5, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 0.8f, "Attack Cost Reduction", 3, f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => RemovePercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f), f => AddPercentage(ref ModdedPlayer.instance.StaminaAttackCostReduction, f)) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
@@ -406,17 +419,19 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.003f, 0.006f, 0.7f, "Cooldown Reduction", 7, f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier /= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.9f }; i++;
             new ItemStat(i, 0.0004f, 0.0009f, 0.7f, "Ranged Damage Per Agi", 7, f => ModdedPlayer.instance.RangedDamageperAgi += f, f => ModdedPlayer.instance.RangedDamageperAgi += -f, f => ModdedPlayer.instance.RangedDamageperAgi += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.05f, 1.1f, "Energy on hit", 4, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, f => ModdedPlayer.instance.EnergyOnHit += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.8f, "Block", 2, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.003f, 0.03f, 0.8f, "Block", 2, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.8f, "Projectile speed", 5, f => ModdedPlayer.instance.ProjectileSpeedRatio += f, f => ModdedPlayer.instance.ProjectileSpeedRatio += -f, f => ModdedPlayer.instance.ProjectileSpeedRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.8f, "Projectile size", 6, f => ModdedPlayer.instance.ProjectileSizeRatio += f, f => ModdedPlayer.instance.ProjectileSizeRatio += -f, f => ModdedPlayer.instance.ProjectileSizeRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.5f, 1.5f, 1.1f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.3f, 1.2f, 1.1f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;            new ItemStat(i, 0.003f, 0.005f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent=true,RoundingCount=1} ; i++;
-            new ItemStat(i, 0.33f, 0.66f, 1.4f, "All attributes", 5, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats);i++;
+            new ItemStat(i, 0.4f, 1.3f, 1.1f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.4f, 1.3f, 1.1f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.2f, 0.9f, 1.1f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;            new ItemStat(i, 0.003f, 0.005f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent=true,RoundingCount=1} ; i++;
+            new ItemStat(i, 0.33f, 0.66f, 1.3f, "All attributes", 5, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats);i++;
+            new ItemStat(i, 1/5, 1/5, 0, "PURGE", 7,null,null,f=> ModdedPlayer.Respec());i++;
             //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 25f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
             new ItemStat(i, 3f, 11f, 0f, "Extra Rocks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 2f, 5f, 0f, "Extra Ropes", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); i++;
 
             i = 2000;
             new ItemStat(i, 3f, 9f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
@@ -677,7 +692,7 @@ namespace ChampionsOfForest
                 };
                 new BaseItem(new int[][]
                {
-                new int[] {1000,1001},
+                new int[] {1000,1001,1002},
                 new int[] {8,9,0,0,0,0 },
                })
                 {
@@ -1341,7 +1356,7 @@ namespace ChampionsOfForest
                     description = "",
                     lore = "",
                     tooltip = "Can be consumed by right clicking it",
-                    Rarity = 7,
+                    Rarity = 6,
                     minLevel = 1,
                     maxLevel = 3,
                     CanConsume = true,
@@ -1359,7 +1374,7 @@ namespace ChampionsOfForest
                     description = "",
                     lore = "",
                     tooltip = "Can be consumed by right clicking it",
-                    Rarity = 6,
+                    Rarity = 5,
                     minLevel = 1,
                     maxLevel = 6,
                     CanConsume = true,
@@ -2482,7 +2497,7 @@ namespace ChampionsOfForest
                 maxLevel = 80,
                 CanConsume = false,
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
-                _itemType = BaseItem.ItemType.Ring,
+                _itemType = BaseItem.ItemType.Amulet,
                 icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
             }.DropSettings_OnlyMegan();
 
@@ -2671,7 +2686,7 @@ namespace ChampionsOfForest
                 new int[] {1,2,3,4},
                 new int[] {5,6},
                 new int[] {16,43,39,40,41,42},
-                new int[] {1000,1001,43,0,0,0},
+                new int[] {1000,1001,1002,43,0,0,0},
             })
             {
                 name = "Rough Hide Leggins",
@@ -2774,7 +2789,7 @@ namespace ChampionsOfForest
                 new int[] {1,2,4,6,7,8},
                 new int[] {8,9},
                 new int[] {26,23,24,21},
-                new int[] {1000, 1001,0,0,0,1,2,4},
+                new int[] {1000, 1001,1002,0,0,0,1,2,4},
                 new int[] {51,1,2,3,4,55},
             })
             {
@@ -3003,8 +3018,25 @@ new int[] {39,40,41,42,43},
                 _itemType = BaseItem.ItemType.Ring,
                 icon = Res.ResourceLoader.GetTexture(90),
             };
+            new BaseItem(new int[][]
+                         {
+                new int[] {58},
 
-            
+                         })
+            {
+                name = "Shard of Farket's Heart",
+                description = "A object filled with both destructive and creative energy. Poison for some. It will kill a man who eats it.",
+                lore = "The Legendary Farket, self proclaimed king of peninsula, over time shifted into insanity. The cursed land of his sent madness upon him. That was the price he had to pay for the unfair power he obtained. This merely a shard of his strongest muscule contains so much power, that it kill anything and force it to come back to life, resulting in it's rebirth. The Prophecy fortold the return of The King. He will reappear as the harbinger of end of the world.",
+                tooltip = "Can be consumed by right clicking it. Allows to re-assign all spent mutation points",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 30,
+                CanConsume = true,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Other,
+                icon = Res.ResourceLoader.GetTexture(105),
+            };
+
 
 
         }

@@ -13,13 +13,14 @@ namespace ChampionsOfForest.Network
 
         public static ChatBoxMod instance = null;
 
+
+
         protected override void Awake()
         {
             if (instance == null)
             {
                 instance = this;
                 ModNetwokrID = new NetworkId(ModSenderPacked);
-                ModAPI.Log.Write("SETUP: ChatBoxMod created");
 
             }
             else
@@ -35,6 +36,7 @@ namespace ChampionsOfForest.Network
 
             if (playerId == ModNetwokrID)
             {
+
                 NetworkManager.RecieveLine(message);
 
             }

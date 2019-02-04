@@ -18,8 +18,24 @@ namespace ChampionsOfForest.Player
             BaseDmg = damage;
             base.Start();
             damage = Mathf.RoundToInt((BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff);
-            //ModAPI.Console.Write("Arrow Output damage = " + damage+ "   base dmg:"+BaseDmg);
+            if (crossbowBoltType)
+            {
+                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.CrossbowDamageMult);
+            }
+            else if (flintLockAmmoType)
+            {
+                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.BulletDamageMult);
 
+            }
+            else if (spearType)
+            {
+                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpearDamageMult);
+
+            }
+            else //if arrow
+            {
+                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.BowDamageMult);
+            }
         }
 
 

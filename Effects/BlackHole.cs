@@ -142,7 +142,7 @@ namespace ChampionsOfForest
                 if (Vector3.Distance(LocalPlayer.Transform.position, transform.position) < scale * 5)
                 {
                     Pull(LocalPlayer.Transform);
-                    LocalPlayer.Stats.Health -= damage * Time.deltaTime;
+                    LocalPlayer.Stats.Health -= damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal *(1-ModdedPlayer.instance.MagicResistance);
                 }
             }
             else if (!GameSetup.IsMpClient)

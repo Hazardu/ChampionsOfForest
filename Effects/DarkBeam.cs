@@ -152,9 +152,8 @@ namespace ChampionsOfForest
             catch (System.Exception e)
             {
 
-                ModAPI.Console.Write(e.ToString());
+                ModAPI.Log.Write(e.ToString());
             }
-
         }
 
         private IEnumerator AnimatedBeamCoroutine()
@@ -220,10 +219,6 @@ namespace ChampionsOfForest
                                 ep.HitMagic(dmg);
                                 ep.Slow(6, Slow, 10);
                             }
-                        }
-                        else
-                        {
-                            ModAPI.Console.Write("No enemy progression");
                         }
                     }
                 }

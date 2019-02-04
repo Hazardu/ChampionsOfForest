@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Enemies.EnemyAbilities;
+﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Player;
 using System;
 using TheForest.Utils;
@@ -11,7 +12,6 @@ namespace ChampionsOfForest.Network
         private static char[] ch;
         private static string parseval;
         private static int i;
-
 
 
         public static void OnCommand(string s)
@@ -44,6 +44,7 @@ namespace ChampionsOfForest.Network
                     i = 2;
                     ch = s.ToCharArray();
                     int index = int.Parse(Read());
+                    ModSettings.FriendlyFire = ReadBool();
                     Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
                     ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(index);
                     ModSettings.DifficultyChoosen = true;
@@ -75,12 +76,19 @@ namespace ChampionsOfForest.Network
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         DarkBeam.Create(pos, ReadBool(), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                     }
+                    else if (spellid == 4)
+                    {
+                        bool isOn = ReadBool();
+                        ulong packed = ulong.Parse(Read());
+                        BlackFlame.ToggleOtherPlayer(packed, isOn);
+                        
+                    }
                 }
                 else if (s.StartsWith("RI"))    //remove item
                 {
                     i = 2;
                     ch = s.ToCharArray();
-                    int id = int.Parse(Read());
+                    ulong id = ulong.Parse(Read());
                     PickUpManager.RemovePickup(id);
 
                 }
@@ -89,7 +97,7 @@ namespace ChampionsOfForest.Network
                     i = 2;
                     ch = s.ToCharArray();
                     Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], 1, 0, false);   //reading first value, id
-                    int id = int.Parse(Read());
+                    ulong id = ulong.Parse(Read());
                     item.level = int.Parse(Read());
                     int amount = int.Parse(Read());
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
@@ -113,7 +121,7 @@ namespace ChampionsOfForest.Network
                         if (EnemyManager.hostDictionary.ContainsKey(packed))
                         {
                             EnemyProgression ep = EnemyManager.hostDictionary[packed];
-                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep.Health + ";" + ep.MaxHealth + ";" + ep.Bounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.SteadFest + ";" + ep.abilities.Count + ";";
+                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep.Health + ";" + ep.MaxHealth + ";" + ep.Bounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.Steadfast + ";" + ep.abilities.Count + ";";
                             foreach (EnemyProgression.Abilities item in ep.abilities)
                             {
                                 parseval += (int)item + ";";
@@ -181,8 +189,19 @@ namespace ChampionsOfForest.Network
                     i = 2;
                     ch = s.ToCharArray();
                     long exp = long.Parse(Read());
-                    ModAPI.Console.Write("Gained exp " + exp);
                     ModdedPlayer.instance.AddKillExperience(exp);
+                }
+                else if (s.StartsWith("KY"))    //kill experience
+                {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
+                    i = 2;
+                    ch = s.ToCharArray();
+                    long exp = long.Parse(Read());
+                    ModdedPlayer.instance.AddFinalExperience(exp);
                 }
                 else if (s.StartsWith("EA"))       //host answered info about a enemy and the info is processed
                 {
@@ -231,7 +250,7 @@ namespace ChampionsOfForest.Network
                                 cp.ArmorReduction = v6;
                                 cp.EnemyName = name;
                                 cp.ExpBounty = v4;
-                                cp.SteadFest = v7;
+                                cp.Steadfast = v7;
                                 cp.Affixes = affixes;
                             }
                             else
@@ -374,7 +393,7 @@ namespace ChampionsOfForest.Network
                         EnemyManager.hostDictionary[id].Slow(src, amount, time);
                     }
                 }
-                else if (s.StartsWith("AD"))    //slow Enemy
+                else if (s.StartsWith("AD"))    //sync magic find
                 {
                     if (GameSetup.IsMpServer)
                     {
@@ -394,7 +413,7 @@ namespace ChampionsOfForest.Network
                     }
 
                 }
-                else if (s.StartsWith("AE"))    //slow Enemy
+                else if (s.StartsWith("AE"))   
                 {
                     if (GameSetup.IsMpServer)
                     {
@@ -403,6 +422,73 @@ namespace ChampionsOfForest.Network
                         ItemDataBase.MagicFind *= float.Parse(Read());
                     }
                 }
+                else if (s.StartsWith("AF"))    //ask for item
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong itemID = ulong.Parse(Read());
+                        int itemAmount = int.Parse(Read());
+                        ulong playerID = ulong.Parse(Read());
+
+                        if (PickUpManager.PickUps.ContainsKey(itemID))
+                        {
+                            if (PickUpManager.PickUps[itemID].amount > 0)
+                            {
+                                int givenAmount = itemAmount;
+                                if (itemAmount> PickUpManager.PickUps[itemID].amount)
+                                 givenAmount = Mathf.Min(PickUpManager.PickUps[itemID].amount, itemAmount);
+
+                                NetworkManager.SendItemToPlayer(PickUpManager.PickUps[itemID].item, playerID, givenAmount);
+
+
+
+                                PickUpManager.PickUps[itemID].amount -= givenAmount;
+
+                                if (PickUpManager.PickUps[itemID].amount > 0) return;
+                            }
+                        }
+                        Network.NetworkManager.SendLine("RI" + itemID + ";", Network.NetworkManager.Target.Clinets);
+
+                    }
+                }
+                else if (s.StartsWith("AG"))    //give item to player
+                {
+                    i = 2;
+                    ch = s.ToCharArray();
+                    ulong playerID = ulong.Parse(Read());
+                    if (ModReferences.ThisPlayerPacked == playerID)
+                    {
+                        Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], int.Parse(Read()), 0, false);   //creating the item.
+                        item.level = int.Parse(Read());
+                       
+                        while (i < ch.Length)
+                        {
+                            ItemStat stat = new ItemStat(ItemDataBase.Stats[int.Parse(Read())])
+                            {
+                                Amount = float.Parse(Read())
+                            };
+                            item.Stats.Add(stat);
+                        }
+                        Player.Inventory.Instance.AddItem(item, item.Amount);
+                        
+                    }
+                }
+                 else if (s.StartsWith("AH"))    //bonus fire damage agnist enemy
+                {
+                    if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        float amount = float.Parse(Read());
+                        float time = float.Parse(Read());
+                        int src = int.Parse(Read());
+                        EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
+                    }
+                }
+              
 
             }
             catch (Exception e)

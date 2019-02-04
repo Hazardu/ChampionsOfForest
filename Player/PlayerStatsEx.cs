@@ -748,7 +748,7 @@ namespace ChampionsOfForest
                     return;
                 }
             }
-            float f = damage * 1 - ModdedPlayer.instance.DamageReduction;
+            float f = damage *  ModdedPlayer.instance.DamageReductionTotal;
             if (!ignoreArmor)
             {
                 f *= 1 - ModdedPlayer.instance.ArmorDmgRed;
@@ -829,5 +829,7 @@ namespace ChampionsOfForest
             }
             TheForest.Utils.LocalPlayer.Animator.SetBool("skinAnimal", false);
         }
+
+        
     }
 }

@@ -177,7 +177,7 @@ namespace ChampionsOfForest.Enemies
                                 {
                                     EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
                                 }
-                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp);
+                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp*EnemyProg.DebuffDmgMult);
                                 BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
                                 if (bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
 

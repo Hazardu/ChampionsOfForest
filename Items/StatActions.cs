@@ -95,11 +95,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddDamageReduction(float f)
         {
-            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f);
+            ModdedPlayer.instance.DamageReduction*= f;
         }
         public static void RemoveDamageReduction(float f)
         {
-            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.DamageReduction, f);
+            ModdedPlayer.instance.DamageReduction /= f;
         }
         public static void AddCritChance(float f)
         {
@@ -283,6 +283,7 @@ namespace ChampionsOfForest.Items
         public static void PERMANENT_perkPointIncrease(float f)
         {
             ChampionsOfForest.ModdedPlayer.instance.PermanentBonusPerkPoints += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.MutationPoints += Mathf.RoundToInt(f);
         }
         public static void PERMANENT_expIncrease(float f)
         {

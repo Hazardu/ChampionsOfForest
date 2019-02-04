@@ -19,10 +19,10 @@ namespace ChampionsOfForest
         public string[] DiffSel_Names = new string[] { "Normal", "Hard", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", };
         public string[] DiffSel_Descriptions = new string[]
         {
-            "Easiest difficulty, not to be underestimated.",
-            "Much harder than normal difficulty, tougher enemies,.",
-            "Even higher tier unlockable loot, MUCH tougher enemies.",
-            "Take it like this: You're a libtard and you have to fight with Ben Shapiro.",
+            "Easiest difficulty, recommended for new games.\nItem drops of tier 0 & 1",
+            "Much harder than normal difficulty, tougher enemies. \nUnlocks 2nd tier loot. Recommended level 15+",
+            "Unlocks 3rd tier loot, tougher enemies.",
+            "Unlocks 4th tier of items. For strong players only. Enemies are much tougher ",
             "Challenge I unlocks 5th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
             "Challenge II unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
             "Challenge III unlocks 7th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
@@ -1440,7 +1440,7 @@ namespace ChampionsOfForest
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
                 }
-                if (ModdedPlayer.instance.Rooted)
+                if (ModdedPlayer.instance.Stunned)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
                     string s = string.Format("STUNNED for {0} seconds", Math.Round(ModdedPlayer.instance.RootDuration, 1));
@@ -1554,10 +1554,9 @@ namespace ChampionsOfForest
                 if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
                 {
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
-                    GUI.color = new Color(0.5f, 0.5f, 0.5f, 0.4f);
+                    GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
                     GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
-                    GUI.color = new Color(1, 1, 1, 1f);
-                    GUI.color = new Color(0, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime));
+                    GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime)+ 0.2f);
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 5)
                     {
@@ -1575,7 +1574,7 @@ namespace ChampionsOfForest
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
-                        if (hits[i].transform.CompareTag("enemyCollide") || hits[i].transform.CompareTag("EnemyBodyPart") || hits[i].transform.CompareTag("enemyHead"))
+                        if (hits[i].transform.CompareTag("enemyCollide"))
                         {
                             enemyHit = i;
                             break;
@@ -1666,20 +1665,20 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.Poisonous:
                                                     DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.SteadFest:
-                                                    DrawScannedEnemyLabel("Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.Steadfast:
+                                                    DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.BossSteadFest:
-                                                    DrawScannedEnemyLabel("Boss ability: Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.BossSteadfast:
+                                                    DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.EliteSteadFest:
-                                                    DrawScannedEnemyLabel("Elite ability: Stead fest", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.EliteSteadfast:
+                                                    DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 //case EnemyProgression.Abilities.Molten:
                                                 //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                 //    break;
                                                 case EnemyProgression.Abilities.FreezingAura:
-                                                    DrawScannedEnemyLabel("Absolute zero", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.FireAura:
                                                     DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -1694,7 +1693,7 @@ namespace ChampionsOfForest
                                                     DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Juggernaut:
-                                                    DrawScannedEnemyLabel("Unstoppable force", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Huge:
                                                     DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -1820,9 +1819,10 @@ namespace ChampionsOfForest
         {
             GUIStyle style = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), alignment = TextAnchor.MiddleLeft };
             float y = spellOffset;
-            foreach (System.Collections.Generic.KeyValuePair<int, Spell> pair in SpellDataBase.spellDictionary)
+            for (int i = 0; i < SpellDataBase.SortedSpellIDs.Count; i++)
             {
-                DrawSpell(ref y, pair.Value, new GUIStyle(style));
+                Spell spell = SpellDataBase.spellDictionary[SpellDataBase.SortedSpellIDs[i]];
+                DrawSpell(ref y, spell, new GUIStyle(style));
             }
             if (displayedSpellInfo == null)
             {
@@ -1859,7 +1859,7 @@ namespace ChampionsOfForest
 
                 GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 225 * rr, 600 * rr, 70 * rr), displayedSpellInfo.Name, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                 GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * rr, 325 * rr, 300 * rr, 35 * rr), Res.ResourceLoader.instance.LoadedTextures[30]);
-                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr), displayedSpellInfo.Description + "\nStamina cost:  " + displayedSpellInfo.EnergyCost + "\nRequired level:  " + displayedSpellInfo.Levelrequirement, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 32), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr), displayedSpellInfo.Description + "\nStamina cost:  " + displayedSpellInfo.EnergyCost + "\nRequired level:  " + displayedSpellInfo.Levelrequirement, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 29), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
 
                 if (displayedSpellInfo.Bought)
                 {
@@ -2290,27 +2290,30 @@ namespace ChampionsOfForest
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
-            Header("My champion");
+            Header("Me");
             MarkBookmark("Home");
             Label("\tExperience");
             Stat("Current level", ModdedPlayer.instance.Level.ToString());
-            Stat("Current experience amount", ModdedPlayer.instance.ExpCurrent.ToString());
-            Stat("Experience to level up", ModdedPlayer.instance.ExpGoal.ToString(), "For level " + (ModdedPlayer.instance.Level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
+            Stat("Current experience", ModdedPlayer.instance.ExpCurrent.ToString());
+            Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString(), "Next level: " + (ModdedPlayer.instance.Level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
             Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal) * 100).ToString() + "%");
-            Label("\tYour strenght is havily dependant on your level." +
-                "\nHigher level allows you to equip better equipement. " +
-                "\nLeveling up gives you mutation points. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. " +
-                "\nWith your level, and your power, resource usage will increase. Your muscules will require more water and food. With every level, your food and water depletion rate increases by 4% (increases by 100% every 25 levels)" +
+            Label("\tLevel is the estimation of my power. I must become stronger to survive." +
+                "\nHigher level allow me to equip better equipement. " +
+                "\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. " +
+                "\nStronger bodies require more energy to live. Resource usage increases. With every level, your food and water depletion rate increases by 4% (increases by 100% every 25 levels)" +
                 "This property multiplies with your thirst rate and hunger rate stat.");
             Space(50);
-            Label("\tExperience can be obtained by:" +
-                "\nKilling enemies - experience gained is equal to enemy's bounty." +
-                "\nEating rare consumabes - it's a tier 7 item (red item) and because of that it will only drop on specyfic difficulties\n" +
+            Label("\nWhat to do in order to get stronger:" +
+                "\n-Kill enemies - combat is the most reliable way of progression." +
+                "\n-Hunting animals - experience gained does not increase with difficulty." +
+                "\n-Cutting down bushes and breaking effigies" +
+                "\n-Chopping trees" +
+                "\n-Eating rare consumabes\n" +
                 "\nExperience from kills can be increased by quickly killing multipe enemies." +
-                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your spree. You can make the massacre last longer by equiping items. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by " + ModdedPlayer.instance.TimeBonusPerKill + "). " +
+                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your killing spree. You can make the massacre last longer by equiping items with correct stats. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by " + ModdedPlayer.instance.TimeBonusPerKill + " seconds). " +
                 "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
-            Stat("Maximum massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " seconds");
-            Stat("Massacre duration bonus per kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " seconds");
+            Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " s");
+            Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " s");
             Space(300);
 
             Header("Statistics");
@@ -2323,6 +2326,7 @@ namespace ChampionsOfForest
 
 
             Space(60);
+            Image(105, 70);
             Label("Health & Energy");
             Space(10);
 
@@ -2339,23 +2343,24 @@ namespace ChampionsOfForest
 
 
             Space(60);
-            Label("Defense");
+            Image(99, 70);
+            Header("Defense");
             Space(10);
             Stat("Armor", ModdedPlayer.instance.Armor.ToString(), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
             Stat("Magic resistance", ModdedPlayer.instance.MagicResistance  * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
             Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance  * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
-            Stat("Damage taken reduction", Math.Round( (ModdedPlayer.instance.DamageReduction-1)  * 100,1) + "%");
+            Stat("Damage taken reduction", Math.Round( (ModdedPlayer.instance.DamageReductionTotal - 1)  * 100,1) + "%");
             Stat("Block", ModdedPlayer.instance.BlockFactor  * 100 + "%");
             Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount  * 100 + "%");
             Stat("Fire resistance", Math.Round((1-ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
 
 
             Space(60);
-            Label("Recovery");
+            Header("Recovery");
             Space(10);
 
-            Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "stamina", "Stamina regen is temporairly paused after sprinting");
-            Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "stamina", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen+"\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent*100+"%");
+            Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "", "Stamina regen is temporairly paused after sprinting");
+            Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen+"\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent*100+"%");
 
             Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
             Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
@@ -2363,7 +2368,7 @@ namespace ChampionsOfForest
             Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
 
             Space(60);
-            Label("Attack");
+            Header("Attack");
             Space(10);
             Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
@@ -2372,7 +2377,8 @@ namespace ChampionsOfForest
 
 
             Space(20);
-            Label("Melee");
+            Image(89, 70);
+            Header("Melee");
             Space(10);
 
             Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
@@ -2383,7 +2389,8 @@ namespace ChampionsOfForest
             Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange*100)+"%");
 
             Space(20);
-            Label("Projectiles");
+            Image(98, 70);
+            Header("Ranged");
             Space(10);
 
             Stat("Ranged damage", Math.Round(ModdedPlayer.instance.RangedAMP * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
@@ -2396,7 +2403,8 @@ namespace ChampionsOfForest
 
 
                Space(20);
-            Label("Magic");
+            Image(110, 70);
+            Header("Magic");
             Space(10);
 
             Stat("Spell damage", Math.Round(ModdedPlayer.instance.SpellAMP * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
@@ -2410,15 +2418,19 @@ namespace ChampionsOfForest
 
 
             Space(20);
-            Label("Armor reduction");
+            GUI.color = Color.red;
+            Image(96, 70);
+            GUI.color = Color.white;
+            Header("Armor reduction");
             Space(10);
-            Stat("Melee",ModdedPlayer.instance.ARreduction_melee + "ar", "Total melee armor reduction: "+ModdedPlayer.instance.MeleeArmorReduction);
-            Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "ar", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
-            Stat("Any source",  ModdedPlayer.instance.ARreduction_all + "ar", "Decreases armor of enemies hit by either of the sources");
+            Stat("Melee",ModdedPlayer.instance.ARreduction_melee + "", "Total melee armor reduction: "+ModdedPlayer.instance.MeleeArmorReduction);
+            Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
+            Stat("Any source",  ModdedPlayer.instance.ARreduction_all + "", "Decreases armor of enemies hit by either of the sources");
 
 
             Space(60);
-            Label("Survivor stats");
+
+            Header("Survivor stats");
             Space(10);
 
             Stat("Movement speed", Math.Round(ModdedPlayer.instance.MoveSpeed * 100) + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed + " units per second");
@@ -2426,12 +2438,13 @@ namespace ChampionsOfForest
             Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal. Every level you gain increases hunger rate by " + ModdedPlayer.HungerPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, hunger rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * 100 + "%.\nFinal hunger rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.HungerPerLevelRateMult)) * ModdedPlayer.instance.HungerRate * 100 + "% faster than normal");
             Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal. Every level you gain increases thirst rate by " + ModdedPlayer.ThirstPerLevelRateMult * 100 + "%, but several levels it's not changed. Currently, thirst rate from level is equal to " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * 100 + "%.\nFinal thirst rate is " + (Mathf.Max(1, ModdedPlayer.instance.Level * ModdedPlayer.ThirstPerLevelRateMult)) * ModdedPlayer.instance.ThirstRate * 100 + "% faster than normal");
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
-            Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " sec", "How long massacres can last");
-            Stat("Massacre time per kill", ModdedPlayer.instance.TimeBonusPerKill + " sec", "Amount of time that is added to massacre for every kill");
-
+            Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
+            Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
+          
 
             Space(40);
-            Label("Inventory Stats");
+            Image(90, 70);
+            Header("Inventory Stats");
             Space(10);
             foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
             {
@@ -2439,6 +2452,73 @@ namespace ChampionsOfForest
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
 
+
+            Space(200);
+            Header("Differences");
+            Label("Champions of The Forest provides variety of changes to in-game mechanics." +
+                "\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
+                "\nTraps no longer instantly kill cannibals. Instead they deal damage." +
+                "\nDynamite no longer instantly kills enemies." +
+                "\nEnemies have armor and increased health." +
+                "\nPlayers take increased damage from explosives." +
+                "\nPlayer deal increased damage to other players.");
+
+            
+
+            Space(100);
+            Header("Enemies");
+            Label("\tEnemies in the forest have evolved. They become faster and stronger, the more experience they get. But speed and strenght alone shouldn't be my main concern. There are a lot more dangerous beings out there." +
+                "\n\n" +
+                "Normal enemies changed slightly. Their health has drastically increased. I was not able to find the cause of such change. I must keep looking for the answer.\n" +
+                "Apart from increased health, enemies have armor. It noticeably reduces damage when dealing with stronger enemies." +
+                "\nThe easiest way to reduce one's armor is to ignite them. Fire additionally works as crowd controll, rendering some burning enemies incapable to fighting back.\n" +
+                "Other way to reduce armor is to equip items, which reduce armor on hit.\n" +
+                "If you dont have any way to reduce enemy's armor, damaging them with spells would ignore it on the whole.");
+            Space(30);
+            Label("Elite enemies\n" +
+                "An elite is a rare enemy with increased stats and special abilities, that force me to pick a strategy of dealing with them." +
+                "Enemy abilities:");
+            Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters slow but powerful sources of damage.");
+            Label("- Blizzard - A temporary aura around an enemy that slows anyone in its area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting in range. Crowd controll from ranged abilities and running seems like the best option.");
+            Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
+            Label("- Chains - Roots anyone in a big radius from the enemy. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
+            Label("- Black hole - A very strong ability. Only engage in battle with enemy if I am certain of my strenght. It provides crowd controll and deals a lot of damage. The crowd controll can be avoided by running away from the area of effect of the spell or teleport outside of it. The only weak side of this spell is the high cooldown.");
+            Label("- Trap sphere - Long lasting sphere that forces me to stay inside it untill its effects wears off");
+            Label("- Juggernaut - The enemy is completely immune to crowd controll.\n");
+            Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
+            Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes. Tiny enemies are slower.");
+            Label("- Extra tough - enemy has a lot more healt");
+            Label("- Extra deadly - enemy has a lot more damage");
+            Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit.");
+            Label("- Warping - An ability allowing to teleport. Strong agnist glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
+            Label("- Rain Empowerment - During the rain, the enemy gains in strengt, speed, armor and size.");
+            Label("- Meteors - Periodically spawns a rain of damaging meteors. They are rather easy to spot and move slowly. If I start running early enough, I should not have any trouble with avoiding them");
+            Label("- Flare - The same ability that I can use. Slows and damages me if I stand inside. Heals and makes enemies faster.");
+            Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
+            Label("- Plasma cannon - Creates a turret that fires a laser beam that damages me and buildings.");
+            Label("- Poisonous - Enemies gain attack modifier that on every hit applies a stacking debuff that deals damage over time. Once I get hit with this, I need to retreat and wait for the poison to end.");
+
+
+
+            Space(100);
+            Header("Items");
+            Label("\tEquipement can be obtained by killing enemies. Normal enemies can drop a few items on death, if the odds are correct. The chance to get any items from a normal enemy is 10%. The amount of items obtained from normal enemies is at least 1 and maximum of 5\n" +
+                "Elite enemies have a 100% chance to drop an item and they usually drop more.\n" +
+                "\tItems can be equipped by dragging and dropping them onto a right equipement slot. The item will grant it's stats only if I met the level requirements. The best rarity of items are only obtainable on high difficulties. Through there is a really small chance to get a legendary item on normal.");
+
+            Space(200);
+            Header("Dairy");
+            Stat("Day 0", "");
+            Label("I barely survived the plane crash. Shortly after hitting the ground I lost consciousness. I remember my son Timmy being taken by a red human, and nothing else. I need to find my boy...\n");
+            if (LocalPlayer.Stats.DaySurvived < 1) return;
+            Stat("Day 1", "");
+            Label("There is something weird about this island. I swear I have seen some people. They did not look friendly. I'd better stay on guard.\n");
+            if (LocalPlayer.Stats.DaySurvived < 2) return;
+            Stat("Day 2", "");
+            Label("They are clearly hostile towards me. They are horrifying. They are cannibals. I need to find a way to defend myself.\n");
+            if (LocalPlayer.Stats.DaySurvived < 10) return;
+            Stat("Day 10", "");
+            Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
         }
         #endregion
 

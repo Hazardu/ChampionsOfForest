@@ -123,7 +123,30 @@ namespace ChampionsOfForest.Player
             }
         }
 
-
+        public bool HasSpaceFor(Item item,int amount = 1)
+        {
+            for (int i = 0; i < SlotCount; i++)
+            {
+                if (ItemList[i] != null)
+                {
+                    if (ItemList[i].ID == item.ID)
+                    {
+                        if (ItemList[i].StackSize >= amount + ItemList[i].Amount)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < SlotCount; i++)
+            {
+                if (ItemList[i] == null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public bool AddItem(Item item, int amount = 1)
         {
             for (int i = 0; i < SlotCount; i++)

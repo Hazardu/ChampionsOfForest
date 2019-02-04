@@ -1,0 +1,236 @@
+﻿ITEM NAME / ITEM ID / MAX AMOUNT
+
+
+
+
+BombTimed	ID29	 max amount5
+CBoard	ID31	 max amount5
+Cloth	ID33	 max amount0
+Leaf	ID34	 max amount10000
+TapeSticky	ID280	 max amount0
+Lizard	ID35	 max amount3
+Battery	ID36	 max amount0
+Fuel	ID262	 max amount5
+Booze	ID37	 max amount7
+Cash	ID38	 max amount10000
+Watch	ID41	 max amount4
+Feather	ID42	 max amount0
+Flare	ID43	 max amount10
+FlareGun	ID44	 max amount1
+FlintLock	ID230	 max amount1
+FlintLock part 1	ID232	 max amount1
+FlintLock part 2	ID233	 max amount1
+FlintLock part 3	ID234	 max amount1
+FlintLock part 4	ID235	 max amount1
+FlintLock part 5	ID236	 max amount1
+FlintLock part 6	ID237	 max amount1
+FlintLock part 7	ID238	 max amount1
+FlintLock part 8	ID241	 max amount1
+Head	ID46	 max amount1
+Leg	ID47	 max amount2
+Lighter	ID48	 max amount1
+Meds	ID49	 max amount5
+PlasticTorch	ID51	 max amount2
+PlasticTorch_Bow	ID283	 max amount1
+PlasticTorch_ModernBow	ID287	 max amount1
+PlasticTorch_Chainsaw	ID288	 max amount1
+PlasticTorch_Flintlock	ID289	 max amount1
+Rock	ID53	 max amount5
+Rope	ID54	 max amount4
+Spear	ID56	 max amount1
+Stick	ID57	 max amount10
+Tooth	ID60	 max amount0
+Walkman	ID61	 max amount1
+Pedometer	ID63	 max amount1
+Marigold	ID67	 max amount10
+MedicineCrafted	ID68	 max amount5
+MedicineCraftedPlus	ID212	 max amount5
+Cassette 1	ID69	 max amount1
+Molotov	ID71	 max amount9
+SurvivalBook	ID74	 max amount1
+FireStick	ID75	 max amount1
+Hairspray	ID291	 max amount1
+Rabbit Dead	ID76	 max amount3
+Rabbit Alive	ID77	 max amount-1
+Log	ID78	 max amount-1
+Bow	ID79	 max amount1
+BowCross	ID306	 max amount1
+Slingshot	ID281	 max amount1
+RecurveBow	ID279	 max amount1
+Axe Plane	ID80	 max amount1
+Chainsaw	ID261	 max amount1
+Tennis Ball	ID81	 max amount-1
+ArtifactBall	ID294	 max amount1
+Small Rock	ID82	 max amount10
+Arrows	ID83	 max amount30
+AxeRusty	ID86	 max amount1
+AxeCrafted	ID87	 max amount1
+RepairTool	ID257	 max amount1
+AxeModern	ID88	 max amount1
+ChocolateBar	ID89	 max amount15
+Arm	ID90	 max amount2
+Coins	ID91	 max amount0
+LizardSkin	ID92	 max amount10
+Skull	ID94	 max amount4
+ClubCrafted	ID95	 max amount1
+Club	ID96	 max amount1
+ConeFlower	ID97	 max amount10
+Chicory	ID98	 max amount10
+Aloe	ID99	 max amount10
+EnergyMix	ID100	 max amount5
+EnergyMixPlus	ID213	 max amount5
+HeadBomb	ID101	 max amount1
+Seed_Aloe	ID103	 max amount0
+TreeSap	ID104	 max amount0
+StickUpgraded	ID105	 max amount1
+RockUpgraded	ID106	 max amount1
+FlareGunAmmo	ID107	 max amount0
+flintlockAmmo	ID231	 max amount0
+CrossbowAmmo	ID307	 max amount10
+Glass	ID108	 max amount0
+Soda	ID109	 max amount10
+PlaneFood	ID110	 max amount1
+twinberry	ID112	 max amount30
+SnowBerry	ID113	 max amount30
+BlueBerry	ID114	 max amount30
+MushroomAmanita	ID115	 max amount10
+MushroomJack	ID277	 max amount10
+MushroomChanterelle	ID116	 max amount10
+MushroomDeerMush	ID278	 max amount10
+MushroomLibertyCap	ID276	 max amount10
+MushroomPuffmush	ID275	 max amount10
+Cassette 2	ID117	 max amount1
+Cassette 4	ID118	 max amount1
+Cassette 3	ID119	 max amount1
+Cassette 5	ID120	 max amount1
+CamcorderTape1	ID269	 max amount1
+CamcorderTape2	ID272	 max amount1
+CamcorderTape4	ID271	 max amount1
+CamcorderTape5	ID274	 max amount1
+CamcorderTape6	ID273	 max amount1
+CamcorderTape3	ID270	 max amount1
+WalkyTalky	ID122	 max amount1
+GenericMeat	ID123	 max amount4
+DeerSkin	ID126	 max amount10
+Warmsuit	ID299	 max amount1
+BoarSkin	ID292	 max amount10
+RacoonSkin	ID293	 max amount10
+Cod	ID127	 max amount3
+RabbitSkin	ID129	 max amount10
+Pouch	ID130	 max amount1
+BluePaint	ID131	 max amount3
+OrangePaint	ID132	 max amount3
+Toy_Head	ID133	 max amount1
+Toy_Arm	ID134	 max amount2
+Toy_Leg	ID135	 max amount2
+Toy_Torso	ID136	 max amount1
+StealthArmor	ID137	 max amount10
+Axe Climbing	ID138	 max amount1
+Map_Cave2	ID139	 max amount6
+Cross	ID140	 max amount1
+PaintBrush	ID240	 max amount1
+TurtleShell	ID141	 max amount1
+Pot	ID142	 max amount1
+Rebreather	ID143	 max amount1
+AirCanister	ID144	 max amount4
+Waterskin	ID145	 max amount1
+MagazineCaver	ID147	 max amount0
+Magazine	ID148	 max amount0
+MagazineLimestone	ID149	 max amount0
+Bible	ID150	 max amount0
+PolaroidYacht	ID152	 max amount0
+PolaroidKeyCard1	ID258	 max amount0
+PolaroidKeyCard2	ID259	 max amount0
+PolaroidKeyCard3	ID260	 max amount0
+PageChurch	ID308	 max amount0
+PageGlider	ID309	 max amount0
+PageRollercoaster	ID310	 max amount0
+PageTower	ID311	 max amount0
+PhotoCache1	ID220	 max amount0
+PhotoCache2	ID226	 max amount0
+PhotoCache3	ID225	 max amount0
+PhotoCache8	ID224	 max amount0
+PhotoCache9	ID227	 max amount0
+PhotoTimmy	ID302	 max amount1
+PhotoCache6	ID223	 max amount0
+PhotoCache5	ID222	 max amount0
+shippingManifest	ID229	 max amount0
+RestrainingOrder	ID243	 max amount0
+TerminationLetter	ID244	 max amount0
+MorgueReport	ID245	 max amount0
+BiblePage1	ID246	 max amount0
+MeganDrawingFlower	ID251	 max amount0
+MeganDrawingUnicorn	ID253	 max amount0
+MeganDrawingDaddy	ID252	 max amount0
+MeganDrawingDino	ID254	 max amount0
+MeganCrayons	ID248	 max amount0
+Camcorder	ID267	 max amount1
+ArtifactPhoto	ID249	 max amount0
+EmailPlane	ID255	 max amount0
+EmailPhoto	ID256	 max amount0
+BiblePage2	ID247	 max amount0
+BiblePage3	ID303	 max amount0
+PhotoCache4	ID221	 max amount0
+PolaroidMegan	ID219	 max amount0
+PolaroidVagz	ID153	 max amount0
+SketchSinkhole	ID154	 max amount0
+SketchVagz	ID155	 max amount0
+MapPiece_1	ID156	 max amount1
+MapPiece_2	ID157	 max amount1
+MapPiece_4	ID159	 max amount1
+MapPiece_3	ID165	 max amount1
+MapFull	ID169	 max amount1
+Compass	ID173	 max amount1
+dynamite	ID175	 max amount5
+MilkCarton	ID176	 max amount1
+SpearUpgraded	ID177	 max amount1
+bone	ID178	 max amount15
+ToyFull	ID179	 max amount1
+Katana	ID180	 max amount1
+Machete	ID265	 max amount1
+Oyster	ID181	 max amount10
+PolaroidTeddy	ID182	 max amount0
+NewspaperStripper	ID183	 max amount0
+TennisRaquet	ID184	 max amount1
+AnimalHead_rabbit	ID185	 max amount-1
+AnimalHead_Boar	ID186	 max amount-1
+AnimalHead_Deer	ID187	 max amount-1
+AnimalHead_Crocodile	ID188	 max amount-1
+AnimalHead_Racoon	ID189	 max amount-1
+AnimalHead_Lizard	ID190	 max amount-1
+AnimalHead_Seagul	ID191	 max amount-1
+AnimalHead_Squirrel	ID192	 max amount-1
+AnimalHead_Tortoise	ID193	 max amount-1
+CreepyHead_Armsy	ID295	 max amount-1
+CreepyHead_Baby	ID296	 max amount-1
+CreepyHead_Fat	ID297	 max amount-1
+CreepyHead_Vag	ID298	 max amount-1
+AnimalHead_Goose	ID194	 max amount-1
+AnimalHead_Shark	ID195	 max amount-1
+CaveMap	ID196	 max amount1
+PassengerManifest	ID197	 max amount1
+MetalTinTray	ID198	 max amount1
+SnowShoes	ID199	 max amount1
+Quiver 	ID200	 max amount1
+RockBag	ID214	 max amount1
+StickBag	ID215	 max amount1
+SmallRockBag	ID282	 max amount1
+SpearBag	ID290	 max amount1
+RabbitFurBoots	ID201	 max amount1
+fortune	ID202	 max amount1
+BookDarkHaired	ID203	 max amount1
+BoneArmor	ID204	 max amount10
+CreepySkin	ID301	 max amount10
+Seed_Coneflower	ID205	 max amount0
+Seed_BlueBerry	ID206	 max amount30
+SmallGenericMeat	ID207	 max amount3
+TimmyDrawing	ID208	 max amount10
+Magazine_reality	ID209	 max amount10
+ChainsawAd	ID263	 max amount10
+Magazine_science	ID218	 max amount10
+Keycard	ID210	 max amount1
+artifactKey	ID305	 max amount1
+KeycardElevator	ID242	 max amount1
+SketchArtifact	ID217	 max amount10
+SketchArtifact4	ID250	 max amount10
+BlackBerry	ID211	 max amount30

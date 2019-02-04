@@ -24,6 +24,9 @@ namespace ChampionsOfForest
         }
         public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
         public static Dictionary<ulong, int> PlayerLevels = new Dictionary<ulong, int>();
+        public static Dictionary<ulong, Transform> PlayerHands = new Dictionary<ulong, Transform>();
+        public static Transform rightHandTransform = null;
+
         private void Start()
         {
             if (BoltNetwork.isRunning)
@@ -112,10 +115,12 @@ namespace ChampionsOfForest
                 for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
                     Players.Add(Scene.SceneTracker.allPlayers[i]);
-                    if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
-                    {
-                        ThisPlayerID = i;
-                    }
+                    if (!ModSettings.IsDedicated) { 
+                        if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
+                        {
+                            ThisPlayerID = i;
+                        }
+                }
                     BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
                     if (b != null)
                     {

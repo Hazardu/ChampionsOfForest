@@ -113,7 +113,6 @@ namespace ChampionsOfForest.Player
             }
             catch (System.Exception ex)
             {
-                Debug.Log("Error1 \t"+ex.ToString());
 
                 ModAPI.Log.Write("Error1 \t"+ex.ToString());
             }
@@ -212,6 +211,15 @@ namespace ChampionsOfForest.Player
         {
             public Spell spell;
             public float Cooldown;
+        }
+
+
+        public static void RemoveStamina(float cost)
+        {
+            LocalPlayer.Stats.Energy -= cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+            if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
+                LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
+            LocalPlayer.Stats.Stamina -= cost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
         }
     }
 }

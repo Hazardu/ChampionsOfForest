@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using TheForest.Utils;
+using UnityEngine;
 
 namespace ChampionsOfForest
 {
     public class ItemPickUp : MonoBehaviour
     {
-        public int ID;
+        public ulong ID;
         public int amount;
         public Item item;
 
@@ -28,7 +29,7 @@ namespace ChampionsOfForest
             item.Amount = 1;
             lifetime = 2500;
             if (ModSettings.IsDedicated) return;
-                rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
             rb.drag = 1.5f;
             rb.angularDrag = 0.4f;
             rb.isKinematic = true;
@@ -119,30 +120,45 @@ namespace ChampionsOfForest
         {
             if (item.PickUpAll)
             {
-                if (Player.Inventory.Instance.AddItem(item, amount))
+                if (!GameSetup.IsMpClient)
                 {
-                    Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
-                    PickUpManager.RemovePickup(ID);
-                    Destroy(gameObject);
-                    return true;
-                }
-            }
-            else
-            {
-                if (Player.Inventory.Instance.AddItem(item))
-                {
-                    amount--;
-                    if (amount <= 0)
+                    if (Player.Inventory.Instance.AddItem(item, amount))
                     {
                         Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
                         PickUpManager.RemovePickup(ID);
                         Destroy(gameObject);
+                        return true;
                     }
-                    return true;
+                }
+                else if (Player.Inventory.Instance.HasSpaceFor(item, amount))
+                {
+                    Network.NetworkManager.SendLine("AF" + ID + ";"+amount+";" + ModReferences.ThisPlayerPacked + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
+                }
+            }
+            else
+            {
+                if (!GameSetup.IsMpClient)
+                {
+                    if (Player.Inventory.Instance.AddItem(item))
+                    {
+                        amount--;
+                        if (amount <= 0)
+                        {
+                            Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
+                            PickUpManager.RemovePickup(ID);
+                            Destroy(gameObject);
+                        }
+                        return true;
+
+                    }
+                }
+                else if (Player.Inventory.Instance.HasSpaceFor(item))
+
+                {
+                    Network.NetworkManager.SendLine("AF" + ID + ";" + 1 + ";" + ModReferences.ThisPlayerPacked + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
 
                 }
             }
-
             return false;
         }
     }

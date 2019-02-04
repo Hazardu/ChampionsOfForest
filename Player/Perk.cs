@@ -82,8 +82,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyPerAgility += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyPerAgility -= 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyPerAgility += 0.5f,
+                DisableMethods = () => ModdedPlayer.instance.EnergyPerAgility -= 0.5f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -307,7 +307,7 @@ namespace ChampionsOfForest.Player
                 ApplyMethods = () => { ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
                 DisableMethods = () => { ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
                 Category = PerkCategory.Defense,
-                Icon = Texture2D.whiteTexture,
+                Icon =null,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 8,
                 PointsToBuy = 1,
@@ -410,8 +410,8 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.02f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12, 14 },
-                LevelRequirement = 6,
-                PointsToBuy = 6,
+                LevelRequirement = 7,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
@@ -552,8 +552,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.DamageReduction *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReduction /= 0.9f,
+                ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 31 },
                 LevelRequirement = 20,
@@ -568,8 +568,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.DamageReduction *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReduction /= 0.9f,
+                ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 32 },
                 LevelRequirement = 35,
@@ -586,8 +586,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.DamageReduction *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReduction /= 0.9f,
+                ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 33 },
                 LevelRequirement = 40,
@@ -764,8 +764,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(33,2),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(33,-2),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, 2),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, -2),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 4 },
                 LevelRequirement = 12,
@@ -780,8 +780,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(29,1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(29,-1),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, 1),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, -1),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 13,
@@ -796,7 +796,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, 10);ModdedPlayer.instance.AddExtraItemCapacity(175, 10); },
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, 10); ModdedPlayer.instance.AddExtraItemCapacity(175, 10); },
                 DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, -10); ModdedPlayer.instance.AddExtraItemCapacity(175, -10); },
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 46 },
@@ -858,7 +858,7 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = true,
             };
-             new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, 1),
                 DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, -1),
@@ -874,7 +874,7 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = true,
             };
-             new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(37, 15),
                 DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(37, -15),
@@ -907,7 +907,7 @@ namespace ChampionsOfForest.Player
                 Endless = false,
             };
 
-               new Perk()
+            new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ReusabilityAmount++,
                 DisableMethods = () => ModdedPlayer.instance.ReusabilityAmount--,
@@ -939,39 +939,227 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = true,
             };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            foreach (Perk item in AllPerks)
+            new Perk()
             {
-                ModAPI.Log.Write("[" + item.ID + "]" + item.Name);
-            }
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 76, 35, 123, 207, 127 }, 5),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 76, 35, 123, 207, 127 }, -5),
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -7.5f,
+                PosOffsetY = 0,
+                Name = "More Meat",
+                Description = "Increases carry amount of all meats by 5",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 109, 89 }, 20),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 109, 89 }, -20),
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -8.5f,
+                PosOffsetY = 0,
+                Name = "More Snacks",
+                Description = "Increases carry amount of candy bars and sodas by 20",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(307, 20),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(307, -20),
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -13.5f,
+                PosOffsetY = 0,
+                Name = "More Bolts",
+                Description = "Increases carry amount of crossbow bolts by 20",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(94, 20); ModdedPlayer.instance.AddExtraItemCapacity(178, 100); },
+                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(94, -20); ModdedPlayer.instance.AddExtraItemCapacity(178, -100); },
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -9.5f,
+                PosOffsetY = 0,
+                Name = "Corpse collecting",
+                Description = "Increases carry amount of bones by 100 and skulls by 20",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 90, 47, 46, 101 }, 10),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 90, 47, 46, 101 }, -10),
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 59 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -10f,
+                PosOffsetY = 0.75f,
+                Name = "More Limbs",
+                Description = "Increases carry amount of arms, legs, heads and headbombs by 10",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, 3); ModdedPlayer.instance.AddExtraItemCapacity(53, 2); ModdedPlayer.instance.AddExtraItemCapacity(54, 1); },
+                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, -3); ModdedPlayer.instance.AddExtraItemCapacity(53, -2); ModdedPlayer.instance.AddExtraItemCapacity(54, -1); },
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -10.5f,
+                PosOffsetY = 0,
+                Name = "More Building Resources",
+                Description = "Increases carry amount of sticks by 3, rocks by 2 and ropes by 1",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 31, 142, 141, 41, 43, 144 }, 5),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 31, 142, 141, 41, 43, 144 }, -5),
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -11.5f,
+                PosOffsetY = 0,
+                Name = "More Misceleanous Items",
+                Description = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5); ModdedPlayer.instance.AddExtraItemCapacity(82, 50); },
+                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, -5); ModdedPlayer.instance.AddExtraItemCapacity(82, -50); },
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 45 },
+                LevelRequirement = 13,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -12.5f,
+                PosOffsetY = 0,
+                Name = "More Ammo",
+                Description = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
+                TextureVariation = 0,
+                Endless = true,
+            };
+
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *= 1.4f,
+                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /= 1.4f,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 12 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -1.5f,
+                Name = "Spear Specialization",
+                Description = "Thrown spears deal 40% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BulletDamageMult *= 1.4f,
+                DisableMethods = () => ModdedPlayer.instance.BulletDamageMult /= 1.4f,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 12 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1f,
+                PosOffsetY = -2.25f,
+                Name = "Pistol Specialization",
+                Description = "Bullets deal 40% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.4f,
+                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.4f,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 12 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0.5f,
+                PosOffsetY = -3f,
+                Name = "Crossbow Specialization",
+                Description = "Bolts deal 40% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BowDamageMult *= 1.4f,
+                DisableMethods = () => ModdedPlayer.instance.BowDamageMult /= 1.4f,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 12 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0f,
+                PosOffsetY = -3.75f,
+                Name = "Bow Specialization",
+                Description = "Arrows deal 40% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         public int ID;

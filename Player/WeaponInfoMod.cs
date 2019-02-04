@@ -490,7 +490,7 @@ namespace ChampionsOfForest.Player
                             playerHitEnemy.getAttackDirection = integer2;
                         }
                     }
-                    if ((fireStick && Random.value > 0.8f) || AlwaysIgnite)
+                    if ((fireStick && Random.value > 0.8f) || AlwaysIgnite||Effects.BlackFlame.IsOn)
                     {
                         if ((bool)component6)
                         {
@@ -521,9 +521,22 @@ namespace ChampionsOfForest.Player
                             }
                             else if (playerHitEnemy != null)
                             {
-                                Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";", Network.NetworkManager.Target.OnlyServer);
+                                Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;", Network.NetworkManager.Target.OnlyServer);
                             }
                     }
+                     if (Effects.BlackFlame.IsOn)
+                    {
+                        if ((bool)component6)
+                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                            {
+                                other.GetComponentInParent<EnemyProgression>().FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 5);
+                            }
+                            else if (playerHitEnemy != null)
+                            {
+                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" +Effects.BlackFlame.FireDamageBonus + ";" + 5+ ";1", Network.NetworkManager.Target.OnlyServer);
+                            }
+                    }
+
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
                         if ((bool)component6)

@@ -12,8 +12,12 @@ namespace ChampionsOfForest
 {
     public class ModdedPlayer : MonoBehaviour
     {
+        public readonly float baseHealth = 30;
+        public readonly float baseEnergy = 30;
         public static float basejumpPower;
         public static ModdedPlayer instance = null;
+
+
         public float MaxHealth
         {
             get
@@ -66,12 +70,14 @@ namespace ChampionsOfForest
         }
         public float StaminaAndEnergyRegenAmp => 1 + intelligence * EnergyRegenPerInt;
         public float ArmorDmgRed => ModReferences.DamageReduction(Armor);
+        public float DamageReductionTotal => (DamageReduction) * (DamageReductionPerks);
+        public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
+   public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
+        public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
+
+
+
         public int Level = 1;
-
-        public readonly float baseHealth = 30;
-        public readonly float baseEnergy = 30;
-
-
         public float HealingMultipier = 1;
         public int strenght = 1;    //increases damage
         public int intelligence = 1; //increases spell damage
@@ -98,19 +104,10 @@ namespace ChampionsOfForest
         public float MeleeDamageBonus = 0;
         public float RangedDamageBonus = 0;
         public float MeleeRange = 1;
-
-
-        public float DamageReduction = 0;
-        public float DamageReductionPerks = 0;
-        public float DamageReductionTotal => DamageReduction * DamageReductionPerks;
-
-
+        public float DamageReduction = 1;
+        public float DamageReductionPerks = 1;
         public float DamageOutputMult = 1;
         public float DamageOutputMultPerks = 1;
-        public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
-
-
-
         public float CritChance = 0;
         public float CritDamage = 50;
         public float LifeOnHit = 0;
@@ -134,34 +131,24 @@ namespace ChampionsOfForest
         public float SpellCostRatio = 0;
         public float StaminaAttackCostReduction = 0;
         public float BlockFactor = 0.5f;
-
         public float ExpFactor = 1;
         public long ExpCurrent = 0;
         public long ExpGoal = 1;
-
-
-
         public int PermanentBonusPerkPoints;
         public int MutationPoints = 0;
         public long NewlyGainedExp;
-
         public int MassacreKills;
         public string MassacreText = "";
         public float MassacreMultipier = 1;
         public float TimeUntillMassacreReset;
         public float MaxMassacreTime = 20;
         public float TimeBonusPerKill = 5;
-
         public float EnergyOnHit = 0;
         public float EnergyPerSecond = 0;
-
         public int ARreduction_all = 0;
         public int ARreduction_melee = 0;
         public int ARreduction_ranged = 0;
-        public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
-        public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
-
-
+     
         public float DamageAbsorbAmount
         {
             get
@@ -173,26 +160,6 @@ namespace ChampionsOfForest
                 }
                 return f;
             }
-        }
-        public float DealDamageToShield(float f)
-        {
-            for (int i = 0; i < damageAbsorbAmounts.Length; i++)
-            {
-                if (damageAbsorbAmounts[i] > 0)
-                {
-                    if (f - damageAbsorbAmounts[i] <= 0)
-                    {
-                        damageAbsorbAmounts[i] -= f;
-                        return 0;
-                    }
-                    else
-                    {
-                        f -= damageAbsorbAmounts[i];
-                        damageAbsorbAmounts[i] = 0;
-                    }
-                }
-            }
-            return f;
         }
         public float[] damageAbsorbAmounts = new float[2];//every unique source of shielding gets their own slot here, if its not unique it uses [0]
         //[1] is channeled shield spell;
@@ -218,7 +185,10 @@ namespace ChampionsOfForest
         public float ReusabilityChance = 0;
         public int ReusabilityAmount = 1;
         public TheForest.Items.Item lastShotProjectile;
-
+        public float SpearDamageMult = 1;
+        public float BulletDamageMult = 1;
+        public float CrossbowDamageMult = 1;
+        public float BowDamageMult = 1;
 
         //Item abilities variables
         //Smokeys quiver
@@ -279,7 +249,6 @@ namespace ChampionsOfForest
             }
             public void Remove()
             {
-                LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
 
                 switch (ID)
                 {
@@ -307,6 +276,12 @@ namespace ChampionsOfForest
                             LocalPlayer.Inventory.SetMaxAmountBonus(ID, 4);
                         }
                         break;
+                    default:
+
+                LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
+                        break;
+
+
                 }
                 applied = false;
             }
@@ -326,6 +301,13 @@ namespace ChampionsOfForest
             if (ExtraCarryingCapactity[ID].Amount <= 0)
             {
                 ExtraCarryingCapactity.Remove(ID);
+            }
+        }
+        public void AddExtraItemCapacity(int[] ID, int Amount)
+        {
+            for (int i = 0; i < ID.Length; i++)
+            {
+                AddExtraItemCapacity(ID[i], Amount);
             }
         }
 
@@ -392,6 +374,7 @@ namespace ChampionsOfForest
                 if (dmgPerSecond != 0)
                 {
                     dmgPerSecond *= 1 - MagicResistance;
+                    dmgPerSecond *= DamageReductionTotal;
                     LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
                     LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime * 2;
 
@@ -543,12 +526,34 @@ namespace ChampionsOfForest
 
             }
         }
+        public float DealDamageToShield(float f)
+        {
+            for (int i = 0; i < damageAbsorbAmounts.Length; i++)
+            {
+                if (damageAbsorbAmounts[i] > 0)
+                {
+                    if (f - damageAbsorbAmounts[i] <= 0)
+                    {
+                        damageAbsorbAmounts[i] -= f;
+                        return 0;
+                    }
+                    else
+                    {
+                        f -= damageAbsorbAmounts[i];
+                        damageAbsorbAmounts[i] = 0;
+                    }
+                }
+            }
+            return f;
+        }
+
         public void Root(float duration)
         {
             if (StunImmune || RootImmune)
             {
                 return;
             }
+            LocalPlayer.HitReactions.enableFootShake(1, 0.2f);
 
             Rooted = true;
             if (RootDuration < duration)
@@ -562,6 +567,7 @@ namespace ChampionsOfForest
             {
                 return;
             }
+            LocalPlayer.HitReactions.enableFootShake(1, 0.6f);
 
             Stunned = true;
             if (StunDuration < duration)
@@ -582,12 +588,11 @@ namespace ChampionsOfForest
                 TimeUntillMassacreReset = Mathf.Clamp(TimeUntillMassacreReset + TimeBonusPerKill, 20, MaxMassacreTime);
             }
             NewlyGainedExp += Amount;
-            ModAPI.Console.Write("Added exp to a kill combo. Amount of added exp: " + Amount + "\nKill count: " + MassacreKills + "\nThis translates to exp multipier of " + ExpFactor);
 
         }
         public void AddFinalExperience(long Amount)
         {
-            ModAPI.Console.Write("Final experience from massacre " + Amount + " * " + ExpFactor + "\nThis gives a total of " + Convert.ToInt64(Amount * ExpFactor) + "\n\n\tPlease compare this with other players in a multiplayer game and DM anything off to Hazard#3003 on discord. There were bug reports of host getting less experience.");
+         
             ExpCurrent += Convert.ToInt64(Amount * ExpFactor);
             int i = 0;
             while (ModdedPlayer.instance.ExpCurrent >= ModdedPlayer.instance.ExpGoal)
@@ -842,6 +847,192 @@ namespace ChampionsOfForest
                     }
                 }
             }
+        }
+        public static void UnAssignAllStats()
+        {
+            foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemList)
+            {
+                if (item.Value.Equipped)
+                {
+                    item.Value.onUnequip();
+                    item.Value.Equipped = false;
+                }
+            }
+            for (int i = 0; i < Perk.AllPerks.Count; i++)
+            {
+                if (Perk.AllPerks[i].IsBought)
+                {
+                    Perk.AllPerks[i].IsBought = false;
+                    Perk.AllPerks[i].DisableMethods();
+                }
+            }
+        }
+        public static void ResetAllStats()
+        {
+            foreach (var item in instance.ExtraCarryingCapactity)
+            {
+                item.Value.Remove();
+            }
+            activeBuffs.Clear();
+            SpellActions.BlinkRange = 15;
+            SpellActions.BlinkDamage = 0;
+            SpellActions.HealingDomeGivesImmunity = false;
+            SpellActions.FlareDamage = 6;
+            SpellActions.FlareSlow = 0.75f;
+            SpellActions.FlareBoost = 1.25f;
+            SpellActions.FlareHeal = 2;
+            SpellActions.FlareRadius = 3.5f;
+            SpellActions.FlareDuration = 8;
+            SpellActions.BLACKHOLE_damage = 40;
+            SpellActions.BLACKHOLE_duration = 7;
+            SpellActions.BLACKHOLE_radius = 12;
+            SpellActions.BLACKHOLE_pullforce = 10;
+            SpellActions.ShieldPerSecond = 1;
+            SpellActions.MaxShield = 10;
+            SpellActions.ShieldCastTime = 0;
+            SpellActions.ShieldPersistanceLifetime = 3;
+            WeaponInfoMod.AlwaysIgnite = false;
+            AutoPickupItems.radius = 5;
+            instance.HealingMultipier = 1;
+            instance.strenght = 1;
+            instance.intelligence = 1;
+            instance.agility = 1;
+            instance.vitality = 1;
+            instance.DamagePerStrenght = 0.00f;
+            instance.SpellDamageperInt = 0.00f;
+            instance.RangedDamageperAgi = 0.00f;
+            instance.EnergyRegenPerInt = 0.00f;
+            instance.EnergyPerAgility = 0f;
+            instance.HealthPerVitality = 0f;
+            instance.HealthRegenPercent = 0;
+            instance.StaminaRegenPercent = 0;
+            instance.HealthBonus = 0;
+            instance.EnergyBonus = 0;
+            instance.MaxHealthPercent = 0;
+            instance.MaxEnergyPercent = 0;
+            instance.CoolDownMultipier = 1;
+            instance.SpellDamageAmplifier = 1;
+            instance.MeleeDamageAmplifier = 1;
+            instance.RangedDamageAmplifier = 1;
+            instance.SpellDamageBonus = 0;
+            instance.MeleeDamageBonus = 0;
+            instance.RangedDamageBonus = 0;
+            instance.MeleeRange = 1;
+            instance.DamageReduction = 1;
+            instance.DamageReductionPerks = 1;
+            instance.DamageOutputMult = 1;
+            instance.DamageOutputMultPerks = 1;
+            instance.CritChance = 0;
+            instance.CritDamage = 50;
+            instance.LifeOnHit = 0;
+            instance.LifeRegen = 0;
+            instance.StaminaRegen = 0;
+            instance.DodgeChance = 0;
+            instance.SlowAmount = 0;
+            instance.Silenced = false;
+            instance.Rooted = false;
+            instance.Stunned = false;
+            instance.Armor = 0;
+            instance.MagicResistance = 0;
+            instance.AttackSpeed = 1;
+            instance.StunImmune = false;
+            instance.RootImmune = false;
+            instance.DebuffImmune = false;
+            instance.DebuffResistant = false;
+            instance.MoveSpeed = 1f;
+            instance.JumpPower = 1f;
+            instance.SpellCostToStamina = 0;
+            instance.SpellCostRatio = 0;
+            instance.StaminaAttackCostReduction = 0;
+            instance.BlockFactor = 0.5f;
+            instance.ExpFactor = 1;
+            instance.MaxMassacreTime = 20;
+            instance.TimeBonusPerKill = 5;
+            instance.EnergyOnHit = 0;
+            instance.EnergyPerSecond = 0;
+            instance.ARreduction_all = 0;
+            instance.ARreduction_melee = 0;
+            instance.ARreduction_ranged = 0;
+            instance.damageAbsorbAmounts = new float[2];
+            instance.StealthDamage = 1;
+            instance.ThirstRate = 1;
+            instance.HungerRate = 1;
+            instance.FireDamageTakenMult = 1;
+            instance.AreaDamageProcChance = 0.15f;
+            instance.AreaDamage = 0;
+            instance.AreaDamageRadius = 4;
+            instance.ProjectileSpeedRatio = 1f;
+            instance.ProjectileSizeRatio = 1;
+            instance.GeneratedResources.Clear();
+            instance.MagicFindMultipier = 1;
+            instance.ReusabilityChance = 0;
+            instance.ReusabilityAmount = 1;
+            instance.IsSacredArrow = false;
+            instance.IsHammerStun = false;
+            instance.HammerStunDuration = 0.4f;
+            instance.HammerStunAmount = 0.25f;
+            instance.HammerSmashDamageAmp = 1f;
+            instance.HexedPantsOfMrM_Enabled = false;
+            instance.HexedPantsOfMrM_StandTime = 0;
+            instance.DeathPact_Enabled = false;
+            instance.DeathPact_Amount = 1;
+            instance.ExtraCarryingCapactity.Clear();
+            instance.SpearDamageMult = 1;
+            instance.BulletDamageMult = 1;
+            instance.CrossbowDamageMult = 1;
+            instance.BowDamageMult = 1;
+        ReapplyAllItems();
+            ReapplyAllPerks();
+        }
+        public static void ReapplyAllItems()
+        {
+            //items
+            foreach (int key in Inventory.Instance.ItemList.Keys)
+            {
+                if (Inventory.Instance.ItemList[key] != null)
+                {
+
+                    Inventory.Instance.ItemList[key].Equipped = false;
+                }
+            }
+
+        }
+        public static void ReapplyAllPerks()
+        {
+            //perks
+            for (int i = 0; i < Perk.AllPerks.Count; i++)
+            {
+                if (Perk.AllPerks[i].IsBought)
+                {
+                    Perk.AllPerks[i].ApplyMethods();
+                }
+            }
+        }
+
+        public static void Respec()
+        {
+            UnAssignAllStats();
+
+
+            instance.MutationPoints = instance.Level + instance.PermanentBonusPerkPoints;
+            foreach (int i in SpellDataBase.spellDictionary.Keys)
+            {
+                SpellDataBase.spellDictionary[i].Bought = false;
+            }
+            for (int i = 0; i < SpellCaster.SpellCount; i++)
+            {
+                SpellCaster.instance.SetSpell(i);
+            }
+
+
+            for (int i = 0; i < Perk.AllPerks.Count; i++)
+            {
+
+                Perk.AllPerks[i].IsBought = false;
+                Perk.AllPerks[i].Applied = false;
+
+            }
+            ResetAllStats();
         }
     }
 }

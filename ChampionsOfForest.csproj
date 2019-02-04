@@ -164,7 +164,15 @@
 
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\DarkBeam.cs"  />
+    <Compile Include="Effects\BlackFlame.cs"  />
+<Compile Include="Effects\DarkBeam.cs"  />
+<Compile Include="ExpSources\AnimalExp.cs"  />
+<Compile Include="ExpSources\CutBush2AddExp.cs"  />
+<Compile Include="ExpSources\CutBushAddExp.cs"  />
+<Compile Include="ExpSources\CutEffigyMod.cs"  />
+<Compile Include="ExpSources\ExpEvents.cs"  />
+<Compile Include="Player\AutoPickupItems.cs"  />
+<Compile Include="Player\PlayerRespawnMod.cs"  />
 <Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\ClinetEnemyProgression.cs"  />
@@ -217,6 +225,7 @@
 <Compile Include="Res\Resource.cs"  />
 <Compile Include="Res\ResourceLoader.cs"  />
 <Compile Include="Serializer.cs"  />
+<Compile Include="TrapHitMod.cs"  />
 
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

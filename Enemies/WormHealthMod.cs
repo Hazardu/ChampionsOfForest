@@ -42,44 +42,47 @@ namespace ChampionsOfForest.Enemies
             }
             if (this.activeWormSingle.Count == 0 && this.init)
             {
-                float multipier = 1;
-                switch (ModSettings.difficulty)
+                if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
                 {
-                    case ModSettings.Difficulty.Hard:
-                        multipier = 2.3f;
-                        break;
-                    case ModSettings.Difficulty.Elite:
-                        multipier = 9;
-                        break;
-                    case ModSettings.Difficulty.Master:
-                        multipier = 20;
-                        break;
-                    case ModSettings.Difficulty.Challenge1:
-                        multipier = 70;
-                        break;
-                    case ModSettings.Difficulty.Challenge2:
-                        multipier = 200;
-                        break;
-                    case ModSettings.Difficulty.Challenge3:
-                        multipier = 1000;
-                        break;
-                    case ModSettings.Difficulty.Challenge4:
-                        multipier = 7000;
-                        break;
-                    case ModSettings.Difficulty.Challenge5:
-                        multipier = 50000;
-                        break;
-                    default:
-                        break;
-                }
-                float Exp = UnityEngine.Random.Range(300, 350);
+                    float multipier = 1;
+                    switch (ModSettings.difficulty)
+                    {
+                        case ModSettings.Difficulty.Hard:
+                            multipier = 2.3f;
+                            break;
+                        case ModSettings.Difficulty.Elite:
+                            multipier = 9;
+                            break;
+                        case ModSettings.Difficulty.Master:
+                            multipier = 20;
+                            break;
+                        case ModSettings.Difficulty.Challenge1:
+                            multipier = 70;
+                            break;
+                        case ModSettings.Difficulty.Challenge2:
+                            multipier = 200;
+                            break;
+                        case ModSettings.Difficulty.Challenge3:
+                            multipier = 1000;
+                            break;
+                        case ModSettings.Difficulty.Challenge4:
+                            multipier = 7000;
+                            break;
+                        case ModSettings.Difficulty.Challenge5:
+                            multipier = 50000;
+                            break;
+                        default:
+                            break;
+                    }
+                    float Exp = UnityEngine.Random.Range(300, 350);
 
-                Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Exp * multipier) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Exp * multipier) + ";", Network.NetworkManager.Target.Everyone);
 
-                int itemCount = UnityEngine.Random.Range(5, 7);
-                for (int i = 0; i < itemCount; i++)
-                {
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
+                    int itemCount = UnityEngine.Random.Range(5, 7);
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
+                    }
                 }
                 UnityEngine.Object.Destroy(base.gameObject);
             }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Bolt;
+using UnityEngine;
 
 namespace ChampionsOfForest.Network
 {
@@ -7,6 +8,9 @@ namespace ChampionsOfForest.Network
 
         public override void OnEvent(PlayerHitEnemy ev)
         {
+            //this needed to be changed.
+            //the command would send damage using hitReal - pure damage.
+            //this made clinets attack ignore armor and deal too much dmg
             if (!this.ValidateSender(ev, global::SenderTypes.Any))
             {
                 return;
@@ -109,6 +113,44 @@ namespace ChampionsOfForest.Network
             finally
             {
                 global::EnemyHealth.CurrentAttacker = null;
+            }
+        }
+
+        public override void OnEvent(ChatEvent evnt)
+        {
+
+            //the host would resend all commands to the clients. 
+            //this is okay for chat messages
+            //but with commands sent directly there is no need. This adds unnecessary latency.
+            //additionally all events like experience after a kill would be proc twice for clients.
+
+
+            if (!this.ValidateSender(evnt, global::SenderTypes.Any))
+            {
+                return;
+            }
+            if (evnt.Sender == ChatBoxMod.ModNetwokrID) { return; }
+
+            for (int i = 0; i < TheForest.Utils.Scene.SceneTracker.allPlayerEntities.Count; i++)
+            {
+                if (TheForest.Utils.Scene.SceneTracker.allPlayerEntities[i].source == evnt.RaisedBy)
+                {
+                    if (TheForest.Utils.Scene.SceneTracker.allPlayerEntities[i].networkId == evnt.Sender)
+                    {
+                        ChatEvent chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
+                        chatEvent.Sender = evnt.Sender;
+                        chatEvent.Message = evnt.Message;
+                        chatEvent.Send();
+                    }
+                    return;
+                }
+            }
+            if (BoltNetwork.isServer && evnt.RaisedBy == null)
+            {
+                ChatEvent chatEvent2 = ChatEvent.Create(GlobalTargets.AllClients);
+                chatEvent2.Sender = evnt.Sender;
+                chatEvent2.Message = evnt.Message;
+                chatEvent2.Send();
             }
         }
     }

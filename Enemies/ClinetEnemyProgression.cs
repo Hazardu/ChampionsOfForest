@@ -18,7 +18,7 @@ namespace ChampionsOfForest
         public long ExpBounty;
         public int Armor;
         public int ArmorReduction;
-        public float SteadFest;
+        public float Steadfast;
         public int[] Affixes;
         public float creationTime;
         
@@ -41,7 +41,7 @@ namespace ChampionsOfForest
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
-                SteadFest = p.SteadFest;
+                Steadfast = p.Steadfast;
                 Affixes = new int[p.abilities.Count];
                 for (int i = 0; i < p.abilities.Count; i++)
                 {
@@ -73,7 +73,7 @@ namespace ChampionsOfForest
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
-                SteadFest = p.SteadFest;
+                Steadfast = p.Steadfast;
                 Affixes = new int[p.abilities.Count];
                 for (int i = 0; i < p.abilities.Count; i++)
                 {
@@ -87,7 +87,7 @@ namespace ChampionsOfForest
 
         }
 
-        public ClinetEnemyProgression(BoltEntity entity, string enemyName, int level, float health, float maxHealth, int expBounty, int armor, int armorReduction, float steadFest, int[] affixes) : this(entity)
+        public ClinetEnemyProgression(BoltEntity entity, string enemyName, int level, float health, float maxHealth, int expBounty, int armor, int armorReduction, float Steadfast, int[] affixes) : this(entity)
         {
             Entity = entity;
             EnemyName = enemyName;
@@ -98,7 +98,7 @@ namespace ChampionsOfForest
             ExpBounty = expBounty;
             Armor = armor;
             ArmorReduction = armorReduction;
-            SteadFest = steadFest;
+            this.Steadfast = Steadfast;
             Affixes = affixes;
             creationTime = Time.time;
             if (!EnemyManager.clinetProgressions.ContainsKey(entity))

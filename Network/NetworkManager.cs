@@ -33,7 +33,6 @@ namespace ChampionsOfForest.Network
         /// <param name="s">Content of the message, make sure it ends with ';'</param>
         public static void SendLine(string s, Target target)
         {
-            ModAPI.Log.Write("SEND:" + s);
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
                 RecieveLine(s);
@@ -87,6 +86,7 @@ namespace ChampionsOfForest.Network
             }
         }
 
+
         /// <summary>
         /// Called on recieving a message
         /// </summary>
@@ -95,6 +95,7 @@ namespace ChampionsOfForest.Network
         {
             try
             {
+              
                 //For testing purposes
                 ModAPI.Log.Write("RECIEVED:" + s);
 
@@ -107,7 +108,7 @@ namespace ChampionsOfForest.Network
         }
 
 
-        public static int lastDropID = 0;
+        public static ulong lastDropID = 10;
         /// <summary>
         /// Sends a command to create a item drop for all players.
         /// </summary>
@@ -116,13 +117,23 @@ namespace ChampionsOfForest.Network
         /// <param name="amount">How many of this item should be spawned</param>
         public static void SendItemDrop(Item item, Vector3 pos, int amount = 1)
         {
-            int id = lastDropID + 1;
+            ulong id = lastDropID + 1;
             while (PickUpManager.PickUps.ContainsKey(id))
             {
                 id++;
             }
             lastDropID = id;
             string msg = "CI" + item.ID + ";" + id + ";" + item.level + ";" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
+            foreach (ItemStat stat in item.Stats)
+            {
+                msg += stat.StatID + ";" + stat.Amount + ";";
+            }
+            SendLine(msg, Network.NetworkManager.Target.Everyone);
+
+        }
+        public static void SendItemToPlayer(Item item, ulong playerID, int amount = 1)
+        {
+            string msg = "AG"+ playerID + ";" + item.ID + ";"+ amount+ ";" + item.level + ";";
             foreach (ItemStat stat in item.Stats)
             {
                 msg += stat.StatID + ";" + stat.Amount + ";";

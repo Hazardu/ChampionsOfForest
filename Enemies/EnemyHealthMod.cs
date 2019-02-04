@@ -89,7 +89,6 @@ namespace ChampionsOfForest
             }
             int dmg = progression.ClampDamage(false, damage);
             HitReal(dmg);
-            //ModAPI.Console.Write("Hit physical(input:" + damage+", output:"+dmg+")");
         }
 
         //Fire additionally reduces armor
@@ -117,13 +116,13 @@ namespace ChampionsOfForest
                 }
                 else if (this.ai.creepy || this.ai.creepy_male || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
                 {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * (1 + progression.FireDmgAmp));
+                    i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio *  progression.FireDmgAmp+ progression.FireDmgBonus * progression.FireDmgAmp);
 
                     this.Hit(i);
                 }
                 else
                 {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(4, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * (1 + progression.FireDmgAmp));
+                    i = Mathf.CeilToInt(UnityEngine.Random.Range(4, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp+ progression.FireDmgBonus * progression.FireDmgAmp);
                     this.Hit(i);
                 }
                 progression.ArmorReduction += i;
@@ -217,7 +216,7 @@ namespace ChampionsOfForest
                         this.animator.SetIntegerReflected("hurtLevelInt", 4);
                         this.animator.SetTriggerReflected("damageTrigger");
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 40;
+                        this.Health -= 400;
                         if (this.Health < 1)
                         {
                             UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
@@ -257,7 +256,7 @@ namespace ChampionsOfForest
                             this.alreadyBurnt = true;
                         }
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 40;
+                        this.Health -= 80;
                         if (this.Health < 1)
                         {
                             this.HitReal(1);
@@ -270,7 +269,7 @@ namespace ChampionsOfForest
                         this.getAttackDirection(3);
                         this.targetSwitcher.attackerType = 4;
                         this.animator.SetIntegerReflected("hurtLevelInt", 0);
-                        this.Hit(15);
+                        this.Hit(40);
                     }
                 }
                 else
@@ -319,7 +318,7 @@ namespace ChampionsOfForest
                 return;
             }
             //Explosives deal 200 pure damage, as of yet, its not scaling with any stat
-            HitReal(200);
+            HitReal(100);
             if (progression.OnDie())
             {
                 base.dieExplode();

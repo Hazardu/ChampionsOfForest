@@ -1,12 +1,14 @@
-﻿using BuilderCore;
+﻿using Bolt;
+using BuilderCore;
 using System.Collections.Generic;
+using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
 {
     public static class PickUpManager
     {
 
-        public static Dictionary<int, ItemPickUp> PickUps = new Dictionary<int, ItemPickUp>();
+        public static Dictionary<ulong, ItemPickUp> PickUps = new Dictionary<ulong, ItemPickUp>();
 
 
 
@@ -17,11 +19,12 @@ namespace ChampionsOfForest
         /// <summary>
         /// spawns a pickup for the clinet.
         /// </summary>
-        public static void SpawnPickUp(Item item, Vector3 pos, int amount, int id)
+        public static void SpawnPickUp(Item item, Vector3 pos, int amount, ulong id)
         {
             try
             {
                 GameObject spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                
                 if (!ModSettings.IsDedicated)
                 {
                     spawn.AddComponent<Rigidbody>().mass = 5;
@@ -78,6 +81,11 @@ namespace ChampionsOfForest
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
                                 renderer.material = Heart_pickupMaterial;
                                 spawn.transform.localScale *= 2f;
+                            }   else if (item.name == "Shard of Farket's Heart")
+                            {
+                                filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
+                                renderer.material = Heart_pickupMaterial;
+                                spawn.transform.localScale *= 5f;
                             }
 
                             break;
@@ -150,37 +158,42 @@ namespace ChampionsOfForest
                         {
                             l.range = 7f;
                             l.intensity = 1.7f;
-                            l.cookie = Res.ResourceLoader.GetTexture(24);
                             l.cookieSize = 5f;
                             if (item.Rarity == 7)
                             {
-                                l.intensity = 2.7f;
+                                l.range = 8f;
+                                l.intensity = 3f;
                             }
                         }
                     }
                     //spawn.AddComponent<MeshCollider>();
                 }
+
+
                 ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
 
                 pickup.item = item;
                 pickup.amount = amount;
                 pickup.ID = id;
-                PickUps.Add(id, pickup);
                 if (Network.NetworkManager.lastDropID < id)
                 {
                     Network.NetworkManager.lastDropID = id;
                 }
+              
+                
+                PickUps.Add(id, pickup);
+
+
             }
             catch (System.Exception ex)
             {
-
                 ModAPI.Log.Write("Problem with creating a item pickup " + ex.ToString());
             }
         }
         /// <summary>
         /// removes a pickup with given id for the clinet
         /// </summary>
-        public static void RemovePickup(int id)
+        public static void RemovePickup(ulong id)
         {
             if (PickUps.ContainsKey(id))
             {
