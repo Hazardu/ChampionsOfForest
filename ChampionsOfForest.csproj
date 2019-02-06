@@ -166,6 +166,9 @@
   <ItemGroup>
     <Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
+<Compile Include="Effects\MagicArrow.cs"  />
+<Compile Include="Effects\Portal.cs"  />
+<Compile Include="Effects\WarCry.cs"  />
 <Compile Include="ExpSources\AnimalExp.cs"  />
 <Compile Include="ExpSources\CutBush2AddExp.cs"  />
 <Compile Include="ExpSources\CutBushAddExp.cs"  />

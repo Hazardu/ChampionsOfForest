@@ -97,12 +97,23 @@ namespace ChampionsOfForest
         public float MaxHealthPercent = 0;
         public float MaxEnergyPercent = 0;
         public float CoolDownMultipier = 1;
-        public float SpellDamageAmplifier = 1;
-        public float MeleeDamageAmplifier = 1;
-        public float RangedDamageAmplifier = 1;
+        public float SpellDamageAmplifier => SpellDamageAmplifier_Mult * SpellDamageAmplifier_Add;
+        public float MeleeDamageAmplifier => MeleeDamageAmplifier_Mult * MeleeDamageAmplifier_Add;
+        public float RangedDamageAmplifier => RangedDamageAmplifier_Mult * RangedDamageAmplifier_Add;
+
+        public float SpellDamageAmplifier_Mult = 1;
+        public float MeleeDamageAmplifier_Mult = 1;
+        public float RangedDamageAmplifier_Mult = 1;
+
+        public float SpellDamageAmplifier_Add = 1;
+        public float MeleeDamageAmplifier_Add = 1;
+        public float RangedDamageAmplifier_Add = 1;
+
+
         public float SpellDamageBonus = 0;
         public float MeleeDamageBonus = 0;
         public float RangedDamageBonus = 0;
+
         public float MeleeRange = 1;
         public float DamageReduction = 1;
         public float DamageReductionPerks = 1;
@@ -120,7 +131,14 @@ namespace ChampionsOfForest
         public bool Stunned = false;
         public int Armor = 0;
         public float MagicResistance = 0;
-        public float AttackSpeed = 1;
+
+
+        public float AttackSpeed => AttackSpeedAdd * AttackSpeedMult;
+        public float AttackSpeedMult = 1;
+        public float AttackSpeedAdd = 1;
+
+
+
         public bool StunImmune = false;
         public bool RootImmune = false;
         public bool DebuffImmune = false;
@@ -128,8 +146,8 @@ namespace ChampionsOfForest
         public float MoveSpeed = 1f;
         public float JumpPower = 1f;
         public float SpellCostToStamina = 0;
-        public float SpellCostRatio = 0;
-        public float StaminaAttackCostReduction = 0;
+        public float SpellCostRatio = 1;
+        public float StaminaAttackCost = 0;
         public float BlockFactor = 0.5f;
         public float ExpFactor = 1;
         public long ExpCurrent = 0;
@@ -911,10 +929,13 @@ namespace ChampionsOfForest
             instance.MaxHealthPercent = 0;
             instance.MaxEnergyPercent = 0;
             instance.CoolDownMultipier = 1;
-            instance.SpellDamageAmplifier = 1;
-            instance.MeleeDamageAmplifier = 1;
-            instance.RangedDamageAmplifier = 1;
-            instance.SpellDamageBonus = 0;
+     instance.SpellDamageAmplifier_Mult = 1;
+        instance.MeleeDamageAmplifier_Mult = 1;
+        instance.RangedDamageAmplifier_Mult = 1;
+        instance.SpellDamageAmplifier_Add = 1;
+        instance.MeleeDamageAmplifier_Add = 1;
+        instance.RangedDamageAmplifier_Add = 1;
+        instance.SpellDamageBonus = 0;
             instance.MeleeDamageBonus = 0;
             instance.RangedDamageBonus = 0;
             instance.MeleeRange = 1;
@@ -934,7 +955,8 @@ namespace ChampionsOfForest
             instance.Stunned = false;
             instance.Armor = 0;
             instance.MagicResistance = 0;
-            instance.AttackSpeed = 1;
+        instance.AttackSpeedMult = 1;
+        instance.AttackSpeedAdd = 1;
             instance.StunImmune = false;
             instance.RootImmune = false;
             instance.DebuffImmune = false;
@@ -943,7 +965,7 @@ namespace ChampionsOfForest
             instance.JumpPower = 1f;
             instance.SpellCostToStamina = 0;
             instance.SpellCostRatio = 0;
-            instance.StaminaAttackCostReduction = 0;
+            instance.StaminaAttackCost = 0;
             instance.BlockFactor = 0.5f;
             instance.ExpFactor = 1;
             instance.MaxMassacreTime = 20;

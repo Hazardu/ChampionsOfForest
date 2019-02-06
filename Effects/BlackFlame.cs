@@ -15,6 +15,9 @@ namespace ChampionsOfForest.Effects
         private static Material mat1;
         private static Material mat2;
         public static GameObject instanceLocalPlayer;
+
+        public static bool GiveDamageBuff;
+
         public static GameObject Create()
         {
             AnimationCurve sizecurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0, 5.129462f, 5.129462f), new Keyframe(0.2449522f, 1, 0, 0), new Keyframe(1, 0, -1.242162f, -1.242162f), });
@@ -120,7 +123,10 @@ namespace ChampionsOfForest.Effects
                 {
                     Toggle();
                 }
-
+                if (GiveDamageBuff)
+                {
+                    BuffDB.AddBuff(13, 44, 1.1f, 0.1f);
+                }
             }
         }
 

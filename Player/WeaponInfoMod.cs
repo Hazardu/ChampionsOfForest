@@ -19,20 +19,26 @@ namespace ChampionsOfForest.Player
                 {
                     CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
                     setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f *  ModdedPlayer.instance.StaminaAttackCost;
                     setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
                 }
                 else
                 {
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (1 - ModdedPlayer.instance.StaminaAttackCostReduction);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
 
                 }
-                animator.speed = ModdedPlayer.instance.AttackSpeed;
-
+                if (LocalPlayer.Stats.Stamina > 7)
+                {
+                    animator.speed = ModdedPlayer.instance.AttackSpeed;
+                }
+                else
+                {
+                    animator.speed = 0.5f;
+                }
             }
 
             base.Update();

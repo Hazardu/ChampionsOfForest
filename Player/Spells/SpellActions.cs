@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChampionsOfForest.Effects;
+using System;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -110,11 +111,11 @@ namespace ChampionsOfForest.Player
 
         public static void BUFF_MultAS(float f)
         {
-            ModdedPlayer.instance.AttackSpeed *= f;
+            ModdedPlayer.instance.AttackSpeedMult *= f;
         }
         public static void BUFF_DivideAS(float f)
         {
-            ModdedPlayer.instance.AttackSpeed /= f;
+            ModdedPlayer.instance.AttackSpeedMult /= f;
         }
         #region FLARE
 
@@ -191,10 +192,40 @@ namespace ChampionsOfForest.Player
         }
         #endregion
 
-        #region AutoPickup
+
+        #region WarCry
+        public static float WarCryRadius = 50;
+        public static bool WarCryGiveDamage = false;
+        public static bool WarCryGiveArmor = false;
+        public static int WarCryArmor => ModdedPlayer.instance.Armor / 10;
+        public static void CastWarCry()
+        {
+            WarCry.GiveEffect(WarCryGiveDamage,WarCryGiveArmor,WarCryArmor);
+            WarCry.SpawnEffect(LocalPlayer.Transform.position,WarCryRadius);
+            if (BoltNetwork.isRunning)
+            {
+                Vector3 pos = LocalPlayer.Transform.position;
+                string s = "SC5;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + WarCryRadius + ";";
+                if (WarCryGiveDamage) s += "t;"; else s += "f;";
+                if (WarCryGiveArmor) s += "t;"+ WarCryArmor; else s += "f;";
+                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+            }
+        }
+
         #endregion
+        public static float PortalDuration = 30;
+        public static void CastPortal()
+        {
+            Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward * 6;
+            int id = Portal.GetPortalID();
 
+            Portal.CreatePortal(pos, PortalDuration, id);
 
+            if (BoltNetwork.isRunning)
+            {
+                Portal.SyncTransform(pos, PortalDuration, id);
+            }
+        }
 
 
     }

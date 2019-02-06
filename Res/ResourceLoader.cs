@@ -669,10 +669,23 @@ GUILayout.EndArea();
             new Resource(109, "ItemHammer.png");
             new Resource(110, "ItemScroll.png");
             new Resource(111, "FlameParticle.png");
+            new Resource(112, "Portal.obj");
+            new Resource(113, "FantasyArrow.obj");
+            new Resource(114, "SpellPortal.png");
+            new Resource(115, "SpellDarkFlame.png");
+            new Resource(116, "Quiver.obj");
+            new Resource(117, "SpellReach.png");
+            new Resource(118, "SpellShield.png");
+            new Resource(119, "BlackHoleSpell.png");
+            new Resource(120, "FlareSpell.png");
+            new Resource(121, "BlinkSpell.png");
+            new Resource(122, "SpellHealDome.png");
+            new Resource(123, "WarCrySpell.png");
 
 
 
-            }
+
+        }
     }
 
 }

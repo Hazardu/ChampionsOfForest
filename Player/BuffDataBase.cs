@@ -91,13 +91,17 @@ namespace ChampionsOfForest.Player
                 { DisplayAmount = false };
 
 
-                new Buff(9, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult *= f, f => ModdedPlayer.instance.DamageOutputMult /= f);
+                new Buff(9, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(10, "Decreased Damage", true, false, 3, f => ModdedPlayer.instance.DamageOutputMult *= f, f => ModdedPlayer.instance.DamageOutputMult /= f);
+                new Buff(10, "Decreased Damage", true, false, 3, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(11, "Energy Regen Amp", false, false, 0, f =>ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent , f), f => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
+                new Buff(11, "Energy Regen Amp", false, false, 0, f =>ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent , f), f => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
 
                 new Buff(12, "Death Pact Damage", false, false) { OnAddOverrideAmount = true};
+                new Buff(13, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= f, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= f);
+                new Buff(14, "Attack speed increased", false, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
+
+                new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f));
 
             }
             catch (System.Exception ex)
@@ -200,4 +204,9 @@ namespace ChampionsOfForest.Player
 //41 - Hexing Pants dmg amp
 //42 - Hexing Pants regen amp
 //43 - Death Pact dmg amp
+//44 - Black flame dmg amp
+//45 - warcry ms
+//46 - warcry as
+//47 - warcry dmg
+//48 - warcry armor
 

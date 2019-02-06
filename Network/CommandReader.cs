@@ -81,7 +81,26 @@ namespace ChampionsOfForest.Network
                         bool isOn = ReadBool();
                         ulong packed = ulong.Parse(Read());
                         BlackFlame.ToggleOtherPlayer(packed, isOn);
-                        
+
+                    }
+                    else if (spellid == 5)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        float radius = float.Parse(Read());
+                        bool GiveDmg = ReadBool();
+                        bool GiveAr = ReadBool();
+                        int ar = 0;
+                        if (GiveAr) ar = int.Parse(Read());
+                        WarCry.Cast(pos, radius, GiveDmg, GiveAr, ar);
+
+                    }
+                    else if (spellid == 6)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        float duration = float.Parse(Read());
+                        int id = int.Parse(Read());
+
+                        Portal.CreatePortal(pos, duration, id);
                     }
                 }
                 else if (s.StartsWith("RI"))    //remove item

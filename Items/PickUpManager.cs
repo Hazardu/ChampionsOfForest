@@ -47,7 +47,13 @@ namespace ChampionsOfForest
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[49];
 
                             break;
-                        case BaseItem.ItemType.Offhand:
+                        case BaseItem.ItemType.Quiver:
+                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[116];
+
+
+                            break;
+                        case BaseItem.ItemType.SpellScroll:
+                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[116];
 
 
                             break;

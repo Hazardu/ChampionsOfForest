@@ -82,7 +82,7 @@ namespace ChampionsOfForest
                     Res.Buildings.InitBuildings();
                     Perk.FillPerkList();
                     ExpEvents.Initialize();
-
+                    Portal.InitializePortals();
                 }
 
             }

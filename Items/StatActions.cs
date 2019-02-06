@@ -95,11 +95,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddDamageReduction(float f)
         {
-            ModdedPlayer.instance.DamageReduction*= f;
+            ModdedPlayer.instance.DamageReduction*=1- f;
         }
         public static void RemoveDamageReduction(float f)
         {
-            ModdedPlayer.instance.DamageReduction /= f;
+            ModdedPlayer.instance.DamageReduction /=1- f;
         }
         public static void AddCritChance(float f)
         {
@@ -151,11 +151,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddAttackSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.AttackSpeed += f;
+            ChampionsOfForest.ModdedPlayer.instance.AttackSpeedAdd += f;
         }
         public static void RemoveAttackSpeed(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.AttackSpeed -= f;
+            ChampionsOfForest.ModdedPlayer.instance.AttackSpeedAdd -= f;
         }
         public static void AddExpFactor(float f)
         {
@@ -175,27 +175,27 @@ namespace ChampionsOfForest.Items
         }
         public static void AddSpellDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier *= f;
+            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier_Add += f;
         }
         public static void RemoveSpellDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier /= f;
+            ChampionsOfForest.ModdedPlayer.instance.SpellDamageAmplifier_Add -= f;
         }
         public static void AddMeleeDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier *= f;
+            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier_Add += f;
         }
         public static void RemoveMeleeDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier /= f;
+            ChampionsOfForest.ModdedPlayer.instance.MeleeDamageAmplifier_Add -= f;
         }
         public static void AddRangedDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier *= f;
+            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier_Add+= f;
         }
         public static void RemoveRangedDamageAmplifier(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier /= f;
+            ChampionsOfForest.ModdedPlayer.instance.RangedDamageAmplifier_Add -= f;
         }
         public static void AddSpellDamageBonus(float f)
         {
@@ -268,6 +268,14 @@ namespace ChampionsOfForest.Items
         public static void RemoveMoveSpeed(float f)
         {
             ChampionsOfForest.ModdedPlayer.instance.MoveSpeed /= 1 + f;
+        }
+            public static void AddJump(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.JumpPower *= 1 + f;
+        }
+        public static void RemoveJump(float f)
+        {
+            ChampionsOfForest.ModdedPlayer.instance.JumpPower /= 1 + f;
         }
 
         //   public static void Add(float f)

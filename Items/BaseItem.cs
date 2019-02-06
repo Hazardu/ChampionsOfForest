@@ -5,7 +5,7 @@ namespace ChampionsOfForest
 {
     public class BaseItem
     {
-        public enum ItemType { Shield, Offhand, Weapon, Other, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring }
+        public enum ItemType { Shield, Quiver, Weapon, Other, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring,SpellScroll }
         public delegate void OnItemEquip();
         public delegate void OnItemUnequip();
         public delegate void OnItemConsume();

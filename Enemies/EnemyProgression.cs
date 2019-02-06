@@ -1,5 +1,4 @@
 ﻿using Bolt;
-using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using System;
 using System.Collections;
@@ -53,7 +52,7 @@ namespace ChampionsOfForest
 
         private float DamageMult;
         public float DamageAmp => DamageMult;
-        public float FireDmgAmp =1;
+        public float FireDmgAmp = 1;
         public float FireDmgBonus;
 
         public long Bounty;
@@ -245,7 +244,7 @@ namespace ChampionsOfForest
 
             Steadfast = 1000;
             slows = new Dictionary<int, EnemyDebuff>();
-           dmgTakenDebuffs = new Dictionary<int, EnemyDebuff>();
+            dmgTakenDebuffs = new Dictionary<int, EnemyDebuff>();
             dmgDealtDebuffs = new Dictionary<int, EnemyDebuff>();
             FireDamageDebuffs = new Dictionary<int, EnemyDebuff>();
             abilities = new List<Abilities>();
@@ -323,7 +322,7 @@ namespace ChampionsOfForest
             DamageMult = Level / 4.5f + 0.55f;
             Armor = Mathf.FloorToInt(Random.Range(Level * Level * 0.5f, Level * Level * 1.1f));
             ArmorReduction = 0;
-            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.35f)/2));
+            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.35f) / 2));
             AnimSpeed = 1f + (float)Level / 125;
 
 
@@ -334,8 +333,8 @@ namespace ChampionsOfForest
                 Health *= 2;
                 DamageMult *= 2;
             }
-                //Extra health for boss type enemies
-                switch (type)
+            //Extra health for boss type enemies
+            switch (type)
             {
                 case EnemyType.Elite:
                     Health *= 2;
@@ -582,12 +581,16 @@ namespace ChampionsOfForest
                     return 0;
                 }
             }
-            damage =Mathf.CeilToInt(damage* dmgTakenIncrease);
+            damage = Mathf.CeilToInt(damage * dmgTakenIncrease);
             if (pure)
             {
                 if (damage > SteadfastCap)
                 {
-                    if (Steadfast == 100) return damage;
+                    if (Steadfast == 100)
+                    {
+                        return damage;
+                    }
+
                     int dmgpure = Mathf.Min(damage, SteadfastCap);
                     return dmgpure;
                 }
@@ -598,8 +601,9 @@ namespace ChampionsOfForest
 
             int dmg = Mathf.CeilToInt(damage * (1 - reduction));
             if (Steadfast == 100)
+            {
                 dmg = Mathf.Min(dmg, SteadfastCap);
-
+            }
 
             return dmg;
 
@@ -612,8 +616,10 @@ namespace ChampionsOfForest
                 {
                     return true;
                 }
-                if (setup.waterDetect.drowned) {
-                    return true; }
+                if (setup.waterDetect.drowned)
+                {
+                    return true;
+                }
                 if (abilities.Contains(Abilities.DoubleLife))
                 {
                     if (!DualLifeSpend)
@@ -640,11 +646,11 @@ namespace ChampionsOfForest
                 //}
                 if (OnDieCalled)
                 {
-                
+
                     return true;
                 }
                 EnemyManager.RemoveEnemy(this);
-                if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count >0)
+                if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
                 {
                     int itemCount = Random.Range(1, 6);
                     if (_AI.creepy_boss)
@@ -655,7 +661,7 @@ namespace ChampionsOfForest
                     {
                         itemCount += Random.Range(3, 6);
                     }
-                    if(type == EnemyType.Boss)
+                    if (type == EnemyType.Boss)
                     {
                         itemCount += 4;
                     }
@@ -665,20 +671,20 @@ namespace ChampionsOfForest
                     }
                     for (int i = 0; i < itemCount; i++)
                     {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2.5f+i/4));
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2.5f + i / 4));
                     }
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 6)
                     {
                         //Drop megan only amulet
-                        Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80],1,2), transform.position + Vector3.up * 3);
+                        Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, 2), transform.position + Vector3.up * 3);
 
                     }
                 }
                 if (GameSetup.IsMpServer)
                 {
-                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1,ModReferences.Players.Count*0.75f))) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1, ModReferences.Players.Count * 0.75f))) + ";", Network.NetworkManager.Target.Everyone);
                 }
-                else if(GameSetup.IsSinglePlayer)
+                else if (GameSetup.IsSinglePlayer)
                 {
                     ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
@@ -695,7 +701,8 @@ namespace ChampionsOfForest
             return true;
 
         }
-        void OnEnable()
+
+        private void OnEnable()
         {
             OnDieCalled = false;
         }
@@ -718,54 +725,91 @@ namespace ChampionsOfForest
             if (OnDieCalled && Health > 0)
             {
                 timeOfDeath -= Time.deltaTime;
-                if(timeOfDeath < 0)
-                OnDieCalled = false;
-
-            }
-            FireDmgBonus= 0;
-            foreach (var item in FireDamageDebuffs.Values)
-            {
-                FireDmgBonus += item.amount;
-            }
-
-            int[] FDBKeys = new List<int>(FireDamageDebuffs.Keys).ToArray();
-            for (int i = 0; i < FDBKeys.Length; i++)
-            {
-                int key = FDBKeys[i];
-             
-                    FireDamageDebuffs[key].duration -= Time.deltaTime;
-            
-                if (slows[key].duration < 0)
+                if (timeOfDeath < 0)
                 {
-                    FireDamageDebuffs.Remove(key);
+                    OnDieCalled = false;
                 }
             }
+            FireDmgBonus = 0;
+            try
+            {
+                foreach (EnemyDebuff item in FireDamageDebuffs.Values)
+                {
+                    FireDmgBonus += item.amount;
+                }
+            }
+            catch (Exception e)
+            {
+
+                ModAPI.Console.Write("Error 1 \n" + e.ToString());
+            }
+
+            try
+            {
+                int[] FDBKeys = new List<int>(FireDamageDebuffs.Keys).ToArray();
+                for (int i = 0; i < FDBKeys.Length; i++)
+                {
+                    int key = FDBKeys[i];
+
+                    FireDamageDebuffs[key].duration -= Time.deltaTime;
+
+                    if (slows[key].duration < 0)
+                    {
+                        FireDamageDebuffs.Remove(key);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+                ModAPI.Console.Write("Error 2 \n" + e.ToString());
+            }
+
             int[] DTDKeys = new List<int>(dmgTakenDebuffs.Keys).ToArray();
             int[] DDDKeys = new List<int>(dmgDealtDebuffs.Keys).ToArray();
-           DebuffDmgMult =1;
+            DebuffDmgMult = 1;
             dmgTakenIncrease = 1;
-            for (int i = 0; i < DTDKeys.Length; i++)
+            try
             {
-                int key = DTDKeys[i];
-                dmgTakenIncrease *= dmgTakenDebuffs[key].amount;
-                dmgTakenDebuffs[key].duration -= Time.deltaTime;
-            
-                if (slows[key].duration < 0)
+                for (int i = 0; i < DTDKeys.Length; i++)
                 {
-                    dmgTakenDebuffs.Remove(key);
+
+                    int key = DTDKeys[i];
+                    dmgTakenIncrease *= dmgTakenDebuffs[key].amount;
+                    dmgTakenDebuffs[key].duration -= Time.deltaTime;
+
+                    if (slows[key].duration < 0)
+                    {
+                        dmgTakenDebuffs.Remove(key);
+                    }
                 }
             }
-            for (int i = 0; i < DDDKeys.Length; i++)
+            catch (Exception e)
             {
-                int key = DDDKeys[i];
-                DebuffDmgMult *= dmgDealtDebuffs[key].amount;
-                dmgDealtDebuffs[key].duration -= Time.deltaTime;
-            
-                if (slows[key].duration < 0)
+
+                ModAPI.Console.Write("Error 3 \n" + e.ToString());
+            }
+            try
+            {
+                for (int i = 0; i < DDDKeys.Length; i++)
                 {
-                    dmgDealtDebuffs.Remove(key);
+                    int key = DDDKeys[i];
+                    DebuffDmgMult *= dmgDealtDebuffs[key].amount;
+                    dmgDealtDebuffs[key].duration -= Time.deltaTime;
+
+                    if (slows[key].duration < 0)
+                    {
+                        dmgDealtDebuffs.Remove(key);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+
+                ModAPI.Console.Write("Error 4 \n" + e.ToString());
+            }
+
+
             if (TrapCD > 0)
             {
                 TrapCD -= Time.deltaTime;
@@ -795,8 +839,8 @@ namespace ChampionsOfForest
             {
                 int key = Keys[i];
                 if (!(slows[key].amount < 1 && CCimmune))
-                { 
-                AnimSpeed *= slows[key].amount;
+                {
+                    AnimSpeed *= slows[key].amount;
                     slows[key].duration -= Time.deltaTime;
 
                 }
@@ -913,7 +957,7 @@ namespace ChampionsOfForest
 
                     switch (ModSettings.difficulty)
                     {
-                        
+
                         case ModSettings.Difficulty.Hard:
                             dmg = 100;
                             radius = 5f;
@@ -949,9 +993,9 @@ namespace ChampionsOfForest
                     }
 
                     float Healing = dmg / 10;
-            
 
-                    Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" +"t;"+dmg+";"+Healing+";"+slow+";"+boost+";"+duration+";"+radius+";",Network.NetworkManager.Target.Everyone);
+
+                    Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" + "t;" + dmg + ";" + Healing + ";" + slow + ";" + boost + ";" + duration + ";" + radius + ";", Network.NetworkManager.Target.Everyone);
                     BeamCD = 120f;
                 }
 
@@ -1046,7 +1090,7 @@ namespace ChampionsOfForest
                     if (blackholeCD > 0) { blackholeCD -= Time.deltaTime; }
                     else
                     {
-                        float damage = 5 * Level*Level;
+                        float damage = 5 * Level * Level;
                         float duration = 5;
                         float radius = 15;
                         float pullforce = 12;
@@ -1218,7 +1262,7 @@ namespace ChampionsOfForest
         private IEnumerator FireAuraLoop()
         {
 
-            float dmg = (2*Level + 40f) * DamageAmp;
+            float dmg = (2 * Level + 40f) * DamageAmp;
             if (BoltNetwork.isRunning)
             {
                 while (true)
@@ -1241,7 +1285,7 @@ namespace ChampionsOfForest
                 {
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
                     {
-                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg *ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
+                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
                     }
                     yield return null;
                 }

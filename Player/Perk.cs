@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Items;
+﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Hits",
-                Description = "Every point of STRENGHT increases MEELE DAMAGE by 0.5%.",
+                Description = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -41,7 +42,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Spells",
-                Description = "Every point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.",
+                Description = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -59,7 +60,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Projectiles",
-                Description = "Every point of AGILITY increases RANGED DAMAGE by 0.5%.",
+                Description = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -76,7 +77,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stamina Recovery",
-                Description = "Every point of INTELLIGENCE increases stamina recover by 0.5%.",
+                Description = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recover by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -93,7 +94,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0,
                 Name = "More Stamina",
-                Description = "Every point of AGILITY increases max stamina by 0.5",
+                Description = "Hemoglobin is replaced with an alternative substance capable of carrying more oxygen.\nEvery point of AGILITY increases max stamina by 0.5",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -110,7 +111,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "More Health",
-                Description = "Every point of VITALITY increases max health by 1",
+                Description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -127,7 +128,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0,
                 Name = "More Healing",
-                Description = "Increases all healing by 10%",
+                Description = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 10%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -144,7 +145,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Metabolism",
-                Description = "Decreases hunger rate by 4%.",
+                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 4%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
@@ -161,7 +162,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -0.75f,
                 Name = "Water Conservation",
-                Description = "Decreases thirst rate by 4%.",
+                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 4%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
@@ -178,14 +179,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Damage",
-                Description = "Increases melee damage by 5",
+                Description = "Grip strenght increases by 1 kg.\nIncreases melee damage by 5",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier += 0.02f,
-                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 0.02f,
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.02f,
+                DisableMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add -= 0.02f,
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 9, 11 },
@@ -195,7 +196,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Damage",
-                Description = "Increases melee damage by 2%",
+                Description = "Biceps slightly increases in size.\nIncreases melee damage by 2%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -212,7 +213,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Strenght",
-                Description = "Increases strenght by 10",
+                Description = "All flexors gain in size.\nIncreases strenght by 10",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -229,7 +230,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Damage",
-                Description = "Increases projectile damage by 5",
+                Description = "Shoulder muscules grow.\nIncreases projectile damage by 5",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -246,7 +247,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Size",
-                Description = "Increases projectile size by 5%",
+                Description = "Increased overall physical strenght allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -263,7 +264,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Speed",
-                Description = "Increases projectile speed by 5%",
+                Description = "Increased overall physical strenght allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -280,14 +281,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Transmutation",
-                Description = "5% of the spell cost is now taxed from stamina instead of energy.",
+                Description = "The costs of casting spells become easier to quicly recover from.\n5% of the spell cost is now taxed from stamina instead of energy.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostRatio, 0.02f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostRatio, 0.02f),
+                ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 1-0.025f,
+                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 1 - 0.025f,
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 15 },
@@ -297,15 +298,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Resource Cost Reduction",
-                Description = "Spell costs are reduced by 2%",
+                Description = "In order for the organism to preserve energy, spell costs are reduced by 2,5%",
                 TextureVariation = 0, //0 or 1
-                Endless = false,
+                Endless = true,
             };
             //0.7 perks
             new Perk()
             {
-                ApplyMethods = () => { ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
-                DisableMethods = () => { ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DamageReductionPerks, 0.20f); ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DamageOutputMultPerks, 0.20f); },
+                ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks*= 0.80f; ModdedPlayer.instance.DamageOutputMultPerks*= 0.80f; },
+                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 0.80f; ModdedPlayer.instance.DamageOutputMultPerks /= 0.80f; },
                 Category = PerkCategory.Defense,
                 Icon =null,
                 InheritIDs = new int[] { 5 },
@@ -925,8 +926,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellDamageBonus++,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageBonus--,
+                ApplyMethods = () => ModdedPlayer.instance.SpellDamageBonus+= 5,
+                DisableMethods = () => ModdedPlayer.instance.SpellDamageBonus-=5,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 1 },
                 LevelRequirement = 3,
@@ -935,7 +936,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Spell Power",
-                Description = "Increases spell damage by 1",
+                Description = "Increases spell damage by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1033,7 +1034,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Building Resources",
                 Description = "Increases carry amount of sticks by 3, rocks by 2 and ropes by 1",
                 TextureVariation = 0,
-                Endless = true,
+                Endless = false,
             };
             new Perk()
             {
@@ -1049,7 +1050,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Misceleanous Items",
                 Description = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
                 TextureVariation = 0,
-                Endless = true,
+                Endless = false,
             };
             new Perk()
             {
@@ -1065,7 +1066,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Ammo",
                 Description = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
                 TextureVariation = 0,
-                Endless = true,
+                Endless = false,
             };
 
              new Perk()
@@ -1131,6 +1132,88 @@ namespace ChampionsOfForest.Player
                 Description = "Arrows deal 40% more damage",
                 TextureVariation = 0,
                 Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.HealingDomeGivesImmunity=true,
+                DisableMethods = () => SpellActions.HealingDomeGivesImmunity = false,
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 40 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -4f,
+                PosOffsetY = 0.75f,
+                Name = "Sanctuary",
+                Description = "Healing dome provides immunity to root like effects",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => BlackFlame.GiveDamageBuff=true,
+                DisableMethods = () => BlackFlame.GiveDamageBuff = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 55 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -1.5f,
+                Name = "Enchant weapon",
+                Description = "While black flame is on, melee damage is increased by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => SpellActions.WarCryGiveDamage=true,
+                DisableMethods = () => SpellActions.WarCryGiveDamage = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 55 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = -1.5f,
+                Name = "Empowered War Cry",
+                Description = "Warcry additionally increases all damage by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.04f; ModdedPlayer.instance.StaminaAttackCost *= 1.05f; },
+                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.04f; ModdedPlayer.instance.StaminaAttackCost /= 1.05f; },
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 11,10 },
+                LevelRequirement = 8,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = -0.75f,
+                Name = "Power Swing",
+                Description = "Attacks use 5% more stamina and deal 4% more damage",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.04f; ModdedPlayer.instance.SpellCostRatio *= 1.05f; },
+                DisableMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.04f; ModdedPlayer.instance.SpellCostRatio /= 1.05f; },
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 15,55 },
+                LevelRequirement = 8,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = -0.75f,
+                Name = "Overcharge",
+                Description = "Spell damage is increased by 5%, spell costs are increased by 5%",
+                TextureVariation = 0,
+                Endless = true,
             };
 
 

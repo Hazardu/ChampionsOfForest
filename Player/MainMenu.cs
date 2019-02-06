@@ -919,8 +919,8 @@ namespace ChampionsOfForest
                 case BaseItem.ItemType.Shield:
                     GUI.Label(LevelAndTypeRect, "Shield", TypeStyle);
                     break;
-                case BaseItem.ItemType.Offhand:
-                    GUI.Label(LevelAndTypeRect, "Offhand", TypeStyle);
+                case BaseItem.ItemType.Quiver:
+                    GUI.Label(LevelAndTypeRect, "Quiver", TypeStyle);
                     break;
                 case BaseItem.ItemType.Weapon:
                     GUI.Label(LevelAndTypeRect, "Weapon", TypeStyle);
@@ -957,6 +957,9 @@ namespace ChampionsOfForest
                     break;
                 case BaseItem.ItemType.Ring:
                     GUI.Label(LevelAndTypeRect, "Ring", TypeStyle);
+                    break;
+                case BaseItem.ItemType.SpellScroll:
+                    GUI.Label(LevelAndTypeRect, "Scroll", TypeStyle);
                     break;
             }
             if (item.level <= ModdedPlayer.instance.Level)
@@ -1106,7 +1109,7 @@ namespace ChampionsOfForest
 
                                     break;
                                 case -13:
-                                    if (DraggedItem._itemType == BaseItem.ItemType.Offhand || DraggedItem._itemType == BaseItem.ItemType.Shield)
+                                    if (DraggedItem._itemType == BaseItem.ItemType.Quiver ||DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Shield)
                                     {
                                         canPlace = true;
                                     }
@@ -1331,7 +1334,7 @@ namespace ChampionsOfForest
 
                                     break;
                                 case -13:
-                                    if (DraggedItem._itemType == BaseItem.ItemType.Weapon || DraggedItem._itemType == BaseItem.ItemType.Offhand || DraggedItem._itemType == BaseItem.ItemType.Shield)
+                                    if (DraggedItem._itemType == BaseItem.ItemType.Weapon || DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.Shield)
                                     {
                                         canPlace = true;
                                     }
@@ -1503,19 +1506,25 @@ namespace ChampionsOfForest
                     }
                     else
                     {
+                        if(!(!ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        {
+                            GUI.color = Color.black;
+                        }
                         GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
+                        GUI.color = Color.white;
                         if (!SpellCaster.instance.infos[i].spell.Bought)
                         {
-
+                            SpellCaster.instance.SetSpell(i);
                         }
-                        else
+                        else if(!SpellCaster.instance.Ready[i])
                         {
                             Rect fillr = new Rect(r);
                             float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.BaseCooldown;
                             fillr.height *= f;
                             fillr.y += SquareSize * (1 - f);
                             GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
-
+                            
+                            GUI.Label(r, Mathf.Round(SpellCaster.instance.infos[i].Cooldown).ToString(), new GUIStyle(GUI.skin.label) {fontSize = Mathf.RoundToInt(rr*30),fontStyle=  FontStyle.Bold ,alignment = TextAnchor.MiddleCenter});
                         }
                     }
                     GUI.DrawTexture(r, _SpellFrame);
@@ -1819,7 +1828,7 @@ namespace ChampionsOfForest
         {
             GUIStyle style = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), alignment = TextAnchor.MiddleLeft };
             float y = spellOffset;
-            for (int i = 0; i < SpellDataBase.SortedSpellIDs.Count; i++)
+            for (int i = 0; i < SpellDataBase.SortedSpellIDs.Length; i++)
             {
                 Spell spell = SpellDataBase.spellDictionary[SpellDataBase.SortedSpellIDs[i]];
                 DrawSpell(ref y, spell, new GUIStyle(style));
@@ -2411,10 +2420,10 @@ namespace ChampionsOfForest
              "Bonus from intelligence: " + Math.Round(ModdedPlayer.instance.intelligence * ModdedPlayer.instance.SpellDamageperInt * 100, 2) + "%\n" +
              "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) +"", "Spell damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
-            Stat("Spell cost reduction", Math.Round((1-ModdedPlayer.instance.SpellCostRatio) * 100) + "%","Faster projectiles fly further and fall slower");
-            Stat("Spell cost to stamina", Math.Round((1 - ModdedPlayer.instance.SpellCostToStamina) * 100) + "%","Faster projectiles fly further and fall slower");
-            Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%","Faster projectiles fly further and fall slower");
+            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) +"", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
+            Stat("Spell cost reduction", Math.Round((1-ModdedPlayer.instance.SpellCostRatio) * 100) + "%","");
+            Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%","");
+            Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%","");
 
 
             Space(20);

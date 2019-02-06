@@ -136,12 +136,12 @@ namespace ChampionsOfForest.Player
                         {
                             if (!infos[i].spell.Channeled)
                             {
-                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio) && infos[i].spell.CanCast)
+                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && infos[i].spell.CanCast)
                                 {
-                                    LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                    LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) *  ModdedPlayer.instance.SpellCostRatio;
                                     if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
                                         LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-                                    LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                    LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina *ModdedPlayer.instance.SpellCostRatio;
 
                                     Ready[i] = false;
                                     MaxCooldown(i);
@@ -156,10 +156,10 @@ namespace ChampionsOfForest.Player
                                 {
                                     if (LocalPlayer.Stats.Energy >= 10 && LocalPlayer.Stats.Stamina >= 10 && infos[i].spell.CanCast)
                                     {
-                                        LocalPlayer.Stats.Energy -= Time.deltaTime * infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                        LocalPlayer.Stats.Energy -= Time.deltaTime * infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio;
                                         if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
                                             LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-                                        LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
+                                        LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio;
 
                                         infos[i].spell.active();
                                         infos[i].spell.ChanneledTime += Time.deltaTime;
@@ -216,10 +216,10 @@ namespace ChampionsOfForest.Player
 
         public static void RemoveStamina(float cost)
         {
-            LocalPlayer.Stats.Energy -= cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio);
+            LocalPlayer.Stats.Energy -= cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio;
             if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
                 LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-            LocalPlayer.Stats.Stamina -= cost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio);
+            LocalPlayer.Stats.Stamina -= cost * ModdedPlayer.instance.SpellCostToStamina *  ModdedPlayer.instance.SpellCostRatio;
         }
     }
 }
