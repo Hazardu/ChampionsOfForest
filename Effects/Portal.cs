@@ -1,10 +1,5 @@
-﻿using BuilderCore;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TheForest.Items.World;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -12,34 +7,34 @@ namespace ChampionsOfForest.Effects
 {
     public class Portal : MonoBehaviour
     {
-        private static int PortalID=0;
+        private static readonly int PortalID = 0;
         public static Portal[] portals;
         public static void InitializePortals()
         {
             GameObject p1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             p1.name = "__PORTAL__";
             p1.GetComponent<SphereCollider>().isTrigger = true;
-          var pcomponent =  p1.AddComponent<Portal>();
+            Portal pcomponent = p1.AddComponent<Portal>();
             if (!ModSettings.IsDedicated)
             {
                 Camera cam1 = new GameObject("__CAM__").AddComponent<Camera>();
                 cam1.transform.parent = p1.transform;
                 cam1.fieldOfView = 50;
-                var light = p1.AddComponent<Light>();
+                Light light = p1.AddComponent<Light>();
                 light.type = LightType.Point;
                 light.range = 20;
                 Material mat = new Material(Shader.Find("Unlit/Texture"));
                 p1.GetComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[112];
 
 
-                var MR = p1.GetComponent<MeshRenderer>();
+                MeshRenderer MR = p1.GetComponent<MeshRenderer>();
                 MR.material = mat;
 
                 pcomponent.cam = cam1;
                 pcomponent.rend = MR;
             }
             GameObject p2 = Instantiate(p1);
-            var portal2 = p2.GetComponent<Portal>();
+            Portal portal2 = p2.GetComponent<Portal>();
             pcomponent.otherPortal = portal2;
             portal2.otherPortal = pcomponent;
 
@@ -51,27 +46,41 @@ namespace ChampionsOfForest.Effects
             p1.SetActive(false);
             p2.SetActive(false);
         }
-        public static void CreatePortal(Vector3 pos, float Duration,int portalID)
+        public static void CreatePortal(Vector3 pos, float Duration, int portalID)
         {
             portals[portalID].gameObject.SetActive(true);
             portals[portalID].transform.position = pos;
 
             portals[portalID].Duration = Duration;
             portals[portalID].Enable();
-            if (portalID == 1) portalID = 0;
-            else portalID =1;
+            if (portalID == 1)
+            {
+                portalID = 0;
+            }
+            else
+            {
+                portalID = 1;
+            }
         }
-        
+
         public static void SyncTransform(Vector3 pos, float Duration, int portalID)
         {
-            string s = String.Concat("SC6;", pos.x, ";", pos.y, ";", pos.z, ";", Duration, ";", portalID, ";");
-            Network.NetworkManager.SendLine(s,Network.NetworkManager.Target.Others);
+            string s = string.Concat("SC6;", pos.x, ";", pos.y, ";", pos.z, ";", Duration, ";", portalID, ";");
+            Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
         }
 
         public static int GetPortalID()
         {
-            if (!portals[0].gameObject.activeSelf) return 0;
-            if (!portals[1].gameObject.activeSelf) return 1;
+            if (!portals[0].gameObject.activeSelf)
+            {
+                return 0;
+            }
+
+            if (!portals[1].gameObject.activeSelf)
+            {
+                return 1;
+            }
+
             return PortalID;
         }
 
@@ -87,8 +96,10 @@ namespace ChampionsOfForest.Effects
         public List<Transform> Excludedtransforms;
 
         public float Duration;
+        public bool DoCooldown;
+
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             renderTexture = new RenderTexture(512, 512, 16);
             cam.forceIntoRenderTexture = true;
@@ -97,25 +108,31 @@ namespace ChampionsOfForest.Effects
             TimeOfPass = 0;
         }
 
-        void Enable()
+        private void Enable()
         {
             transform.localScale = Vector3.zero;
-
+            DoCooldown = false;
             StopAllCoroutines();
- StartCoroutine(ScaleIn());
- StartCoroutine(DurationCoroutine());
+            StartCoroutine(ScaleIn());
+            StartCoroutine(DurationCoroutine());
             Excludedtransforms.Clear();
             TimeOfPass = 0;
 
         }
+
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            if (ModSettings.IsDedicated) return;
+            if (ModSettings.IsDedicated)
+            {
+                return;
+            }
+
             if (!otherPortal.gameObject.activeSelf)
             {
                 rend.material.mainTexture = Texture2D.blackTexture;
-                return; }
+                return;
+            }
 
             Vector3 lookAtDir = transform.position - Camera.main.transform.position;
             lookAtDir.Normalize();
@@ -126,7 +143,7 @@ namespace ChampionsOfForest.Effects
             rend.material.mainTexture = otherPortal.cam.activeTexture;
         }
 
-        IEnumerator ScaleIn()
+        private IEnumerator ScaleIn()
         {
             yield return null;
             while (transform.localScale.x < 2)
@@ -135,38 +152,54 @@ namespace ChampionsOfForest.Effects
                 yield return null;
             }
         }
-        IEnumerator DurationCoroutine()
+
+        private IEnumerator DurationCoroutine()
         {
+            while (!DoCooldown)
+            {
+                if (otherPortal.gameObject.activeSelf)
+                {
+                    DoCooldown = true;
+                }
+
+                yield return null;
+            }
             while (Duration > 0)
             {
                 Duration--;
-                yield return new  WaitForSeconds(1);
+                yield return new WaitForSeconds(1);
             }
             gameObject.SetActive(false);
         }
 
-            void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (!otherPortal.gameObject.activeSelf) { return; }
 
 
-            if (!ModSettings.IsDedicated && other.transform.root == LocalPlayer.Transform && TimeOfPass+0.6f< Time.time)
+            if (!ModSettings.IsDedicated && other.transform.root == LocalPlayer.Transform)
             {
-                if ((other.transform.root.position - transform.position).sqrMagnitude < 5)
+                if (TimeOfPass + 2f < Time.time)
                 {
-                    if (Excludedtransforms.Contains(LocalPlayer.Transform)) return;
-                    otherPortal.TimeOfPass = Time.time;
+                    if ((other.transform.root.position - transform.position).sqrMagnitude < 5)
+                    {
+                        TimeOfPass = Time.time;
 
-                    LocalPlayer.Transform.position = otherPortal.transform.position;
-                    Vector3 dir = LocalPlayer.Transform.position - transform.position;
-                    dir.Normalize();
-                    LocalPlayer.Rigidbody.AddForce(dir * 3, ForceMode.VelocityChange);
+                        LocalPlayer.Transform.position = otherPortal.transform.position;
+                        Vector3 dir = LocalPlayer.Transform.position - transform.position;
+                        dir.Normalize();
+                        LocalPlayer.Rigidbody.AddForce(dir * 3, ForceMode.VelocityChange);
 
+                    }
                 }
             }
             else if (other.attachedRigidbody != null && !other.attachedRigidbody.isKinematic)
             {
-                if (Excludedtransforms.Contains(other.attachedRigidbody.transform)) return;
+                if (Excludedtransforms.Contains(other.attachedRigidbody.transform))
+                {
+                    return;
+                }
+
                 other.attachedRigidbody.transform.position = otherPortal.transform.position;
                 Vector3 dir = other.attachedRigidbody.transform.position - transform.position;
                 dir.Normalize();
@@ -174,7 +207,8 @@ namespace ChampionsOfForest.Effects
                 otherPortal.Excludedtransforms.Add(other.attachedRigidbody.transform);
             }
         }
-        void OnTriggerExit(Collider other)
+
+        private void OnTriggerExit(Collider other)
         {
             if (!otherPortal.gameObject.activeSelf) { return; }
 
@@ -182,14 +216,14 @@ namespace ChampionsOfForest.Effects
             {
                 return;
             }
-            else if(other.attachedRigidbody!= null)
+            else if (other.attachedRigidbody != null)
             {
                 Excludedtransforms.Remove(other.attachedRigidbody.transform);
             }
         }
 
-        float TimeOfPass = 0;
-      
-      
+        private static float TimeOfPass = 0;
+
+
     }
 }

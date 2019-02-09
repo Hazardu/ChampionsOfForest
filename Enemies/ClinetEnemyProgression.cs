@@ -22,7 +22,7 @@ namespace ChampionsOfForest
         public int[] Affixes;
         public float creationTime;
         
-        
+
 
         public ClinetEnemyProgression(Transform tr)
         {

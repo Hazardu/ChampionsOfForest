@@ -169,12 +169,15 @@
 <Compile Include="Effects\MagicArrow.cs"  />
 <Compile Include="Effects\Portal.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
+<Compile Include="Enemies\ClientEnemy.cs"  />
+<Compile Include="Enemies\EnemyDebuff.cs"  />
 <Compile Include="ExpSources\AnimalExp.cs"  />
 <Compile Include="ExpSources\CutBush2AddExp.cs"  />
 <Compile Include="ExpSources\CutBushAddExp.cs"  />
 <Compile Include="ExpSources\CutEffigyMod.cs"  />
 <Compile Include="ExpSources\ExpEvents.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
+<Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
 <Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />

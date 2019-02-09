@@ -1,7 +1,9 @@
 ﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Player;
 using System;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -16,6 +18,8 @@ namespace ChampionsOfForest.Network
 
         public static void OnCommand(string s)
         {
+            Debug.Log("Recieved: " + s);
+
             try
             {
                 if (s.StartsWith("AB"))     //ask the host to send the command to set the difficulty for clinet
@@ -101,6 +105,26 @@ namespace ChampionsOfForest.Network
                         int id = int.Parse(Read());
 
                         Portal.CreatePortal(pos, duration, id);
+                    }
+                    else if (spellid == 7)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        Vector3 dir = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+
+                        int dmg = int.Parse(Read());
+                            ulong caster = ulong.Parse(Read());
+                        float duration = float.Parse(Read());
+                            bool slow = ReadBool();
+                            bool dmgdebuff = ReadBool();
+                        if (GameSetup.IsMpServer)
+                        {
+                            MagicArrow.Create(pos, dir, dmg, caster, duration, slow, dmgdebuff);
+                        }
+                        else
+                        {
+                            MagicArrow.CreateEffect(pos, dir, dmgdebuff, duration);
+                        }
+
                     }
                 }
                 else if (s.StartsWith("RI"))    //remove item
@@ -399,6 +423,20 @@ namespace ChampionsOfForest.Network
                     new MainMenu.HitMarker(amount, pos);
 
                 }
+                else if (s.StartsWith("PH"))    //enemy hitmarker
+                {
+                    if (ModSettings.IsDedicated)
+                    {
+                        return;
+                    }
+
+                    i = 2;
+                    ch = s.ToCharArray();
+                    int amount = int.Parse(Read());
+                    Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                    new MainMenu.HitMarker(amount, pos,true);
+
+                }
                 else if (s.StartsWith("AC"))    //slow Enemy
                 {
                     if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
@@ -506,14 +544,57 @@ namespace ChampionsOfForest.Network
                         int src = int.Parse(Read());
                         EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
                     }
+                }else if (s.StartsWith("CE"))    //custom weapon in mp
+                {
+                  
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        int weaponID = int.Parse(Read());
+                    if (ModReferences.PlayerHands.ContainsKey(id))
+                    {
+                        CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
+                    }
+                    else
+                    {
+                       Debug.LogWarning("NO HAND IN COMMAND READER");
+                    }
+                                    }
+                else if (s.StartsWith("AJ"))    //
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        var p = EnemyManager.hostDictionary[id];
+                        string a = "AI" + id + ";"+p.BaseDamageMult+";";
+                        foreach (var ability in p.abilities)
+                        {
+                            a += (int)ability + ";";
+                        }
+                        NetworkManager.SendLine(a,NetworkManager.Target.Clinets);
+                    }
                 }
-              
+                else if (s.StartsWith("AI"))    //
+                {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        float dmg = float.Parse(Read());
+                        List<EnemyProgression.Abilities> abilities = new List<EnemyProgression.Abilities>();
+                    while (i<s.Length)
+                    {
+                        abilities.Add((EnemyProgression.Abilities)int.Parse(Read()));
+                    }
+                    new ClientEnemy(id, dmg, abilities);
+                }
 
             }
             catch (Exception e)
             {
 
-                ModAPI.Log.Write(e.ToString());
+               Debug.Log(e.ToString());
             }
         }
         private static string Read()

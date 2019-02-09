@@ -37,6 +37,23 @@ namespace ChampionsOfForest.Player
                     EquippedModel = BaseItem.WeaponModelType.None;
                     if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                     {
+                        if (ModReferences.rightHandTransform == null)
+                        {
+                            try
+                            {
+                                ModReferences.rightHandTransform = itemView._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
+
+                                Debug.LogWarning(ModReferences.rightHandTransform.name);
+                            }
+                            catch (System.Exception e)
+                            {
+
+                                Debug.LogWarning(e.ToString());
+                            }
+                        }
+
+
+
                         if (!SetupComplete)
                         {
                             try
@@ -45,43 +62,6 @@ namespace ChampionsOfForest.Player
                                 {
                                     instance = this;
                                 }
-                               
-                             
-                                //ModAPI.Log.Write("SETUP: Custom weapons");
-                                //ModAPI.Log.Write("small axe: " + itemView._heldWeaponInfo.smallAxe);
-                                //ModAPI.Log.Write("allowBodyCut: " + itemView._heldWeaponInfo.allowBodyCut);
-                                //ModAPI.Log.Write("animSpeed: " + itemView._heldWeaponInfo.animSpeed);
-                                //ModAPI.Log.Write("animTiredSpeed: " + itemView._heldWeaponInfo.animTiredSpeed);
-                                //ModAPI.Log.Write("blockDamagePercent: " + itemView._heldWeaponInfo.blockDamagePercent);
-                                //ModAPI.Log.Write("blockStaminaDrain: " + itemView._heldWeaponInfo.blockStaminaDrain);
-                                //ModAPI.Log.Write("chainSaw: " + itemView._heldWeaponInfo.chainSaw);
-                                //ModAPI.Log.Write("canDoGroundAxeChop: " + itemView._heldWeaponInfo.canDoGroundAxeChop);
-                                //ModAPI.Log.Write("doSingleArmBlock: " + itemView._heldWeaponInfo.doSingleArmBlock);
-                                //ModAPI.Log.Write("fireStick: " + itemView._heldWeaponInfo.fireStick);
-                                //ModAPI.Log.Write("machete: " + itemView._heldWeaponInfo.machete);
-                                //ModAPI.Log.Write("noBodyCut: " + itemView._heldWeaponInfo.noBodyCut);
-                                //ModAPI.Log.Write("noTreeCut: " + itemView._heldWeaponInfo.noTreeCut);
-                                //ModAPI.Log.Write("pushForce: " + itemView._heldWeaponInfo.pushForce);
-                                //ModAPI.Log.Write("repairTool: " + itemView._heldWeaponInfo.repairTool);
-                                //ModAPI.Log.Write("rock: " + itemView._heldWeaponInfo.rock);
-                                //ModAPI.Log.Write("shell: " + itemView._heldWeaponInfo.shell);
-                                //ModAPI.Log.Write("soundDetectRange: " + itemView._heldWeaponInfo.soundDetectRange);
-                                //ModAPI.Log.Write("spear: " + itemView._heldWeaponInfo.spear);
-                                //ModAPI.Log.Write("staminaDrain: " + itemView._heldWeaponInfo.staminaDrain);
-                                //ModAPI.Log.Write("stick: " + itemView._heldWeaponInfo.stick);
-                                //ModAPI.Log.Write("tiredSpeed: " + itemView._heldWeaponInfo.tiredSpeed);
-                                //ModAPI.Log.Write("treeDamage: " + itemView._heldWeaponInfo.treeDamage);
-                                //ModAPI.Log.Write("weaponDamage: " + itemView._heldWeaponInfo.weaponDamage);
-                                //ModAPI.Log.Write("weaponRange: " + itemView._heldWeaponInfo.weaponRange);
-                                //ModAPI.Log.Write("weaponSpeed: " + itemView._heldWeaponInfo.weaponSpeed);
-                                //ModAPI.Log.Write("weaponAudio name: " + itemView._heldWeaponInfo.weaponAudio.name);
-
-
-                                //item id is 80 for plane axe
-                                //collider dimensions:
-                                //(3.1, 1.6, 0.5) size
-                                //(1.1, 0.4, 0.0) center
-
                                 SetupComplete = true;
                                 customWeapons.Clear();
                                 originalPlaneAxe = itemView;
@@ -96,19 +76,7 @@ namespace ChampionsOfForest.Player
                                 //Creating custom weapons---------
                                 CreateCustomWeapons();
 
-                                try
-                                {
-                                    ModReferences.rightHandTransform = itemView._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
-                                    ModAPI.Console.Write(ModReferences.rightHandTransform.name);
 
-                               
-
-                                }
-                                catch (System.Exception e)
-                                {
-
-                                    ModAPI.Console.Write(e.ToString());
-                                }
 
                             }
                             catch (System.Exception eee)
@@ -176,61 +144,96 @@ namespace ChampionsOfForest.Player
 
         //RANGED MOD CHANGES---------------------------------------------------
 
+  //      public override void Start()
+  //      {
+  //          base.Start();
+  //          string log = "";
+  //          foreach (var list in _inventoryItemViewsCache)
+  //          {
+  //              foreach (var item in list.Value)
+  //              {
+  //                  try
+  //                  {
+  //string s = "• _inventoryItemViewsCache[" + list.Key + "][" + list.Value + "]\n" +
+  //                      "\tItem: " + item.ItemCache._name + " " + item.ItemCache._id;
+  //                  s += "\n\tHeld Gameobject" + item._held.name + "\n\n";
+  //                  log += s;
+  //                  }
+  //                  catch (System.Exception)
+  //                  {
 
+  //                  } 
+  //              }
+  //          }
+  //          ModAPI.Log.Write(log);
+  //      }
         protected override void FireRangedWeapon()
         {
-            if (ModSettings.IsDedicated) return;
-                InventoryItemView inventoryItemView = _equipmentSlots[0];
+            if (ModSettings.IsDedicated)
+            {
+                return;
+            }
+
+            InventoryItemView inventoryItemView = _equipmentSlots[0];
             TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
             bool flag = itemCache._maxAmount < 0;
             bool flag2 = false;
-            if (flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
+
+            int repeats = 1;
+            for (int i = 0; i < repeats; i++)
             {
-                ModdedPlayer.instance.lastShotProjectile = itemCache;
-                InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
-                TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
-                FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
-                if (UseAltWorldPrefab)
+
+                if (flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
                 {
-                }
-                GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, inventoryItemView2._held.transform.position, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
-                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
-                if ((bool)gameObject.GetComponent<Rigidbody>())
-                {
-                    if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
+                    ModdedPlayer.instance.lastShotProjectile = itemCache;
+                    InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
+                    TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
+                    FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
+                    if (UseAltWorldPrefab)
                     {
-                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
                     }
-                    else
+                    Vector3 pos = inventoryItemView2._held.transform.position;
+                    if (i > 0 && i < 9) pos += inventoryItemView2._held.transform.right * Mathf.Cos(45 * (i + 1)) * 0.4f + inventoryItemView2._held.transform.up * Mathf.Sin(45 * (i + 1)) * 0.4f;
+                    
+                    GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
+                    gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+                    if ((bool)gameObject.GetComponent<Rigidbody>())
                     {
-                        float num = Time.time - _weaponChargeStartTime;
-                        if (ForestVR.Enabled)
+                        if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
+                            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
                         }
                         else
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange);
+                            float num = Time.time - _weaponChargeStartTime;
+                            if (ForestVR.Enabled)
+                            {
+                                gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
+                            }
+                            else
+                            {
+                                gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange);
+                            }
+                            if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
+                            {
+                                gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
+                            }
                         }
-                        if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
-                        {
-                            gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
-                        }
+                        inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
                     }
-                    inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
+                    if (itemCache._attackReleaseSFX != 0)
+                    {
+                        LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                    }
+                    Mood.HitRumble();
                 }
-                if (itemCache._attackReleaseSFX != 0)
+                else
                 {
-                    LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
-                }
-                Mood.HitRumble();
-            }
-            else
-            {
-                flag2 = true;
-                if (itemCache._dryFireSFX != 0)
-                {
-                    LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                    flag2 = true;
+                    if (itemCache._dryFireSFX != 0)
+                    {
+                        LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                    }
                 }
             }
             if (flag)
@@ -259,7 +262,10 @@ namespace ChampionsOfForest.Player
 
         public override void Attack()
         {
-            if (ModSettings.IsDedicated) return;
+            if (ModSettings.IsDedicated)
+            {
+                return;
+            }
 
             if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
             {
@@ -278,7 +284,11 @@ namespace ChampionsOfForest.Player
 
         public override void AddMaxAmountBonus(int itemId, int amount)
         {
-            if (ModSettings.IsDedicated) return;
+            if (ModSettings.IsDedicated)
+            {
+                return;
+            }
+
             base.AddMaxAmountBonus(itemId, amount);
         }
 
@@ -340,12 +350,12 @@ namespace ChampionsOfForest.Player
                        {
                            Metalic = 0.86f,
                            Smoothness = 0.66f,
-                           MainColor = new Color(0.2f,0.2f,0.2f),
+                           MainColor = new Color(0.2f, 0.2f, 0.2f),
                        }
                        ),
-                   new Vector3(0,0,0),
-                   new Vector3(0,0,90),
-                   new Vector3(0,0,-2f),
+                   new Vector3(0, 0, 0),
+                   new Vector3(0, 0, 90),
+                   new Vector3(0, 0, -2f),
                    1.6f, 1f, 25, 250, 0f, 0f, 500, true, 6);
 
 

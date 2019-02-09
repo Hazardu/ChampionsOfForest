@@ -343,7 +343,6 @@ namespace ChampionsOfForest
             CreateInstance();
             if (!Saving)
             {
-                ModAPI.Log.Write("SAVING");
                 Instance.StartCoroutine(Instance.DoSaveCoroutine());
             }
         }
@@ -352,7 +351,6 @@ namespace ChampionsOfForest
         {
             if (ModSettings.IsDedicated) return;
             CreateInstance();
-            ModAPI.Log.Write("LOADING");
             Instance.StartCoroutine(Instance.DoLoadCoroutine());
 
         }

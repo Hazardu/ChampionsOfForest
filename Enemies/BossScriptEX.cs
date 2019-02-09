@@ -20,6 +20,7 @@ namespace ChampionsOfForest.Enemies
                 int num2 = setup.health.Health + setup.health.Health / 3 * num;
                 EnemyHealthMod mod = (EnemyHealthMod)setup.health;
                 num2 *= mod.progression.Level / 5;
+                num2 /= 4;
                 setup.health.Health = num2;
                 setup.health.maxHealth = num2;
             }

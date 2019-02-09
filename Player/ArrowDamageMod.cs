@@ -1,7 +1,9 @@
 ﻿using Bolt;
+using ChampionsOfForest.Effects;
 using TheForest.Buildings.Creation;
 using TheForest.Tools;
 using TheForest.Utils;
+using System;
 using UnityEngine;
 namespace ChampionsOfForest.Player
 {
@@ -96,7 +98,55 @@ namespace ChampionsOfForest.Player
             }
             else if (target.CompareTag("enemyCollide") || target.tag == "lb_bird" || target.CompareTag("animalCollide") || target.CompareTag("Fish") || target.CompareTag("enemyRoot") || target.CompareTag("animalRoot"))
             {
+                if (crossbowBoltType)
+                {
 
+                }
+                else if (flintLockAmmoType)
+                {
+
+                }
+                else if (spearType)
+                {
+
+                }
+                else
+                {
+                    if (ModdedPlayer.instance.IsCrossfire)
+                    {
+                        if(Time.time- ModdedPlayer.instance.LastCrossfireTime > 20)
+                        {
+                            ModdedPlayer.instance.LastCrossfireTime = Time.time;
+                            int damage = 55 + (int)(ModdedPlayer.instance.SpellDamageBonus * 1.25f);
+                            damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpellAMP);
+                            damage /= 2;
+                            Vector3 pos = Camera.main.transform.position + Camera.main.transform.right*5;
+                            Vector3 dir = transform.position - pos;
+                            dir.Normalize();
+                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                            {
+                                MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerPacked, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
+                                if (BoltNetwork.isRunning)
+                                {
+                                    string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
+                                    s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + SpellActions.MagicArrowDuration + ";";
+                                    if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
+                                    if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+                                    Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+                                }
+                            }
+                            else if (GameSetup.IsMpClient)
+                            {
+                                MagicArrow.CreateEffect(pos, dir, SpellActions.MagicArrowDmgDebuff, SpellActions.MagicArrowDuration);
+                                string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
+                                s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + SpellActions.MagicArrowDuration + ";";
+                                if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
+                                if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+                                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+                            }
+                        }
+                    }
+                }
                 bool flag = target.tag == "lb_bird" || target.CompareTag("lb_bird");
                 bool flag2 = target.CompareTag("Fish");
                 bool flag3 = target.CompareTag("animalCollide") || target.CompareTag("animalRoot");

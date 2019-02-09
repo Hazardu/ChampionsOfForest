@@ -1,5 +1,6 @@
 ﻿using Bolt;
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,12 +14,6 @@ namespace ChampionsOfForest
     public class EnemyProgression : MonoBehaviour
     {
         //Animation slows
-        public class EnemyDebuff
-        {
-            public int Source;
-            public float duration;
-            public float amount;
-        }
         public Dictionary<int, EnemyDebuff> slows;
         public Dictionary<int, EnemyDebuff> dmgTakenDebuffs;
         public Dictionary<int, EnemyDebuff> dmgDealtDebuffs;
@@ -51,6 +46,7 @@ namespace ChampionsOfForest
         private int BaseHealth = 0;
 
         private float DamageMult;
+        public float BaseDamageMult;
         public float DamageAmp => DamageMult;
         public float FireDmgAmp = 1;
         public float FireDmgBonus;
@@ -250,7 +246,7 @@ namespace ChampionsOfForest
             abilities = new List<Abilities>();
 
             //picking abilities
-            if (UnityEngine.Random.value < 0.1 || _AI.creepy_boss)
+            if (UnityEngine.Random.value < 0.1 ||( _AI.creepy_boss&&!_AI.girlFullyTransformed))
             {
                 int count = UnityEngine.Random.Range(2, 7);
                 if (_AI.creepy_boss) { count = 10; }   //Megan boss always has abilities, a lot of them.
@@ -285,7 +281,11 @@ namespace ChampionsOfForest
                     }
                     else if (ab == Abilities.Tiny || ab == Abilities.Huge)
                     {
-                        if (abilities.Contains(Abilities.Huge) || abilities.Contains(Abilities.Tiny))
+                        if (_AI.creepy_boss && ab == Abilities.Tiny)
+                        {
+                            success = false;
+                        }
+                        else if (abilities.Contains(Abilities.Huge) || abilities.Contains(Abilities.Tiny))
                         {
                             success = false;
                         }
@@ -410,7 +410,7 @@ namespace ChampionsOfForest
             DualLifeSpend = false;
             setupComplete = true;
             OnDieCalled = false;
-
+            BaseDamageMult = DamageMult;
             BaseAnimSpeed = AnimSpeed;
 
             AssignBounty();
@@ -422,6 +422,18 @@ namespace ChampionsOfForest
             }
 
             CreationTime = Time.time;
+
+            if (BoltNetwork.isRunning)
+            {
+                ulong id = entity.networkId.PackedValue;
+                    
+                string aa = "AI" + id + ";" + BaseDamageMult + ";";
+                foreach (var ability in abilities)
+                {
+                    aa += (int)ability + ";";
+                }
+                NetworkManager.SendLine(aa, NetworkManager.Target.Clinets);
+            }
         }
         /// <summary>
         /// Slows this enemy
@@ -430,6 +442,7 @@ namespace ChampionsOfForest
         public void Slow(int source, float amount, float time)
         {
             //source - 40 is hammer attack
+            //source - 41 is magic arrow hit
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);
@@ -522,11 +535,11 @@ namespace ChampionsOfForest
 
         public void HitMagic(int damage)
         {
-            damage = ClampDamage(true, damage);
+            damage = ClampDamage(false, damage, true);
             _Health.HitReal(damage);
 
         }
-        public int ClampDamage(bool pure, int damage)
+        public int ClampDamage(bool pure, int damage, bool magic = false)
         {
             if (abilities.Contains(Abilities.Shielding))
             {
@@ -598,6 +611,10 @@ namespace ChampionsOfForest
             }
 
             float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
+            if (magic)
+            {
+                reduction /= 1.75f;
+            }
 
             int dmg = Mathf.CeilToInt(damage * (1 - reduction));
             if (Steadfast == 100)
@@ -731,21 +748,11 @@ namespace ChampionsOfForest
                 }
             }
             FireDmgBonus = 0;
-            try
-            {
-                foreach (EnemyDebuff item in FireDamageDebuffs.Values)
+           foreach (EnemyDebuff item in FireDamageDebuffs.Values)
                 {
                     FireDmgBonus += item.amount;
                 }
-            }
-            catch (Exception e)
-            {
-
-                ModAPI.Console.Write("Error 1 \n" + e.ToString());
-            }
-
-            try
-            {
+        
                 int[] FDBKeys = new List<int>(FireDamageDebuffs.Keys).ToArray();
                 for (int i = 0; i < FDBKeys.Length; i++)
                 {
@@ -753,24 +760,18 @@ namespace ChampionsOfForest
 
                     FireDamageDebuffs[key].duration -= Time.deltaTime;
 
-                    if (slows[key].duration < 0)
+                    if (FireDamageDebuffs[key].duration < 0)
                     {
                         FireDamageDebuffs.Remove(key);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-
-                ModAPI.Console.Write("Error 2 \n" + e.ToString());
-            }
+          
 
             int[] DTDKeys = new List<int>(dmgTakenDebuffs.Keys).ToArray();
             int[] DDDKeys = new List<int>(dmgDealtDebuffs.Keys).ToArray();
             DebuffDmgMult = 1;
             dmgTakenIncrease = 1;
-            try
-            {
+          
                 for (int i = 0; i < DTDKeys.Length; i++)
                 {
 
@@ -778,36 +779,25 @@ namespace ChampionsOfForest
                     dmgTakenIncrease *= dmgTakenDebuffs[key].amount;
                     dmgTakenDebuffs[key].duration -= Time.deltaTime;
 
-                    if (slows[key].duration < 0)
+                    if (dmgTakenDebuffs[key].duration < 0)
                     {
                         dmgTakenDebuffs.Remove(key);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-
-                ModAPI.Console.Write("Error 3 \n" + e.ToString());
-            }
-            try
-            {
+        
+          
                 for (int i = 0; i < DDDKeys.Length; i++)
                 {
                     int key = DDDKeys[i];
                     DebuffDmgMult *= dmgDealtDebuffs[key].amount;
                     dmgDealtDebuffs[key].duration -= Time.deltaTime;
 
-                    if (slows[key].duration < 0)
+                    if (dmgDealtDebuffs[key].duration < 0)
                     {
                         dmgDealtDebuffs.Remove(key);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-
-                ModAPI.Console.Write("Error 4 \n" + e.ToString());
-            }
+         
 
 
             if (TrapCD > 0)
@@ -1262,12 +1252,12 @@ namespace ChampionsOfForest
         private IEnumerator FireAuraLoop()
         {
 
-            float dmg = (2 * Level + 40f) * DamageAmp;
+            float dmg = (3 * Level + 40f) * DamageAmp;
             if (BoltNetwork.isRunning)
             {
                 while (true)
                 {
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(0.5f);
                     foreach (BoltEntity item in ModReferences.AllPlayerEntities)
                     {
                         if ((item.transform.position - transform.position).sqrMagnitude < 80)
@@ -1285,7 +1275,7 @@ namespace ChampionsOfForest
                 {
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
                     {
-                        LocalPlayer.Stats.Health -= Time.deltaTime * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
+                        LocalPlayer.Stats.Health -= Time.deltaTime * 2 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
                     }
                     yield return null;
                 }

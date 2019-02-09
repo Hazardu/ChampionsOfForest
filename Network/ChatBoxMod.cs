@@ -25,7 +25,6 @@ namespace ChampionsOfForest.Network
             }
             else
             {
-                ModAPI.Log.Write("WARNING: ChatBoxMod already defined instance");
             }
             base.Awake();
         }
@@ -40,29 +39,29 @@ namespace ChampionsOfForest.Network
                 NetworkManager.RecieveLine(message);
 
             }
-            else if (message.StartsWith("Hazard please give item")&&Cheats.Allowed&& GameSetup.IsMpServer)
+            else if (message.StartsWith("Hazard, i'm cheating, please give item")&&Cheats.Allowed&& GameSetup.IsMpServer)
             {
                 base.AddLine(playerId, message, system);
-                string s = message.Trim("Hazard please give item ".ToCharArray());
+                string s = message.Trim("Hazard, i'm cheating, please give item ".ToCharArray());
                 if(int.TryParse(s,out int ID))
                 {
                     Item item = new Item(ItemDataBase.ItemBases[ID]);
                     NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position);
                 }
             }
-            else if (message.StartsWith("Hazard please give points")&&Cheats.Allowed&&GameSetup.IsMpServer)
+            else if (message.StartsWith("Hazard, i'm cheating, please give points") &&Cheats.Allowed&&GameSetup.IsMpServer)
             {
                 base.AddLine(playerId, message, system);
-                string s = message.Trim("Hazard please give points ".ToCharArray());
+                string s = message.Trim("Hazard, i'm cheating, please give points ".ToCharArray());
                 if(int.TryParse(s,out int ID))
                 {
                     ModdedPlayer.instance.MutationPoints += ID;
                 }
             }
-            else if (message.StartsWith("Hazard please give level")&&Cheats.Allowed&& GameSetup.IsMpServer)
+            else if (message.StartsWith("Hazard, i'm cheating, please give level") &&Cheats.Allowed&& GameSetup.IsMpServer)
             {
                 base.AddLine(playerId, message, system);
-                string s = message.Trim("Hazard please give level ".ToCharArray());
+                string s = message.Trim("Hazard, i'm cheating, please give level ".ToCharArray());
                 if(int.TryParse(s,out int ID))
                 {
                     for (int i = 0; i < ID; i++)

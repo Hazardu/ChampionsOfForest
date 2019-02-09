@@ -1,38 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Bolt;
 using BuilderCore;
+using ChampionsOfForest.Enemies;
 using System.Collections;
-using TheForest.Items.World;
 using TheForest.Utils;
 using UnityEngine;
+
 namespace ChampionsOfForest.Effects
 {
     public class MagicArrow : MonoBehaviour
     {
-        //public static void Create(Vector3 pos, Vector3 dir, int Damage);
-
-
-
-
-
-
-        public IEnumerator Animate()
+        private static Material material;
+        public static void Create(Vector3 pos, Vector3 dir, int Damage, ulong CasterID, float debuffDuration, bool doubleSlow, bool dmgdebuff)
         {
-            transform.localScale = new Vector3(3, 3, 0);
-
-            yield return null;
-            while (transform.localScale.z<3)
+            MagicArrow a = CreateEffect(pos, dir,dmgdebuff,debuffDuration);
+            BoxCollider col = a.gameObject.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.size = new Vector3(0.4f, 0.4f, 1.2f);
+            a.Damage = Damage;
+            a.casterID = CasterID;
+            a.DebuffDuration = debuffDuration;
+            a.GiveDoubleSlow = doubleSlow;
+            a.GiveDmgDebuff = dmgdebuff;
+        }
+        public static MagicArrow CreateEffect(Vector3 pos, Vector3 dir, bool debuff,float duration)
+        {
+            GameObject go = new GameObject("__MagicArrow__");
+            go.transform.position = pos;
+            go.transform.rotation = Quaternion.LookRotation(dir);
+            go.AddComponent<Rigidbody>().isKinematic = true;
+            if (!ModSettings.IsDedicated)
             {
-                transform.localScale +=Vector3.forward* Time.deltaTime;
+                go.AddComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[113];
+                if (material == null)
+                {
+                    material = Core.CreateMaterial(new BuildingData() { EmissionColor = new Color(0, 1, 0.287f), Metalic = 1, Smoothness = 1 });
+                }
+                go.AddComponent<MeshRenderer>().material = material;
             }
-
-
-
+            MagicArrow a = go.AddComponent<MagicArrow>();
+            a.GiveDmgDebuff = debuff;
+            a.DebuffDuration = duration;
+            return a;
         }
 
 
+        public ulong casterID;
 
+        public int Damage;
+        public float DebuffDuration;
+        public bool GiveDmgDebuff;
+        public bool GiveDoubleSlow;
+
+        private bool setupComplete = false;
+        private readonly float speed = 45;
+
+        public IEnumerator Animate()
+        {
+            transform.localScale = new Vector3(4, 4, 0);
+
+            yield return null;
+            while (transform.localScale.z < 4)
+            {
+                transform.localScale += Vector3.forward * Time.deltaTime / 2;
+            }
+            yield return new WaitForSeconds(1);
+            setupComplete = true;
+
+        }
+
+        private void Start()
+        {
+            setupComplete = false;
+            StartCoroutine(Animate());
+            Destroy(gameObject, 7);
+        }
+
+        private void Update()
+        {
+            transform.Rotate(transform.forward * 60 * Time.deltaTime, Space.World);
+            if (setupComplete)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!setupComplete)
+            {
+
+            }
+
+            if (other.gameObject.CompareTag("PlayerNet"))
+            {
+                if (!ModSettings.FriendlyFire)
+                {
+                    return;
+                }
+
+                BoltEntity component3 = other.GetComponent<BoltEntity>();
+                if (component3 != null && component3.networkId.PackedValue != casterID)
+                {
+                    if (BoltNetwork.isRunning)
+                    {
+                        ModdedPlayer.instance.DoOnHit();
+                        ModdedPlayer.instance.DoMeleeOnHit();
+
+                        HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
+                        hitPlayer.damage = Mathf.FloorToInt(Damage);
+                        hitPlayer.Send();
+                        return;
+
+                    }
+                }
+            }
+
+          
+                if (other.gameObject.CompareTag("enemyCollide"))
+                {
+                if (!GameSetup.IsMpClient) { 
+                    EnemyProgression prog = other.GetComponentInParent<EnemyProgression>();
+                    if (prog != null)
+                    {
+                        prog.HitMagic(Damage);
+                        float slowAmount = 0.35f;
+                        if (GiveDoubleSlow)
+                        {
+                            slowAmount *= 2;
+                        }
+
+                        prog.Slow(41, 1 - slowAmount, DebuffDuration);
+                        if (GiveDmgDebuff)
+                        {
+                            prog.DmgDealtDebuff(41, 0.85f, DebuffDuration);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

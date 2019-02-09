@@ -131,7 +131,7 @@ namespace ChampionsOfForest
                 shape.length = 1;
                 shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
                 shape.alignToDirection = true;
-                
+
 
                 rend.renderMode = ParticleSystemRenderMode.Stretch;
                 rend.velocityScale = 0.12f;
@@ -144,7 +144,7 @@ namespace ChampionsOfForest
 
                 emission.rateOverTime = 180;
                 emission.rateOverTimeMultiplier = 180;
-                
+
 
                 EffectReady = false;
                 StartCoroutine(AnimatedBeamCoroutine());
@@ -230,7 +230,9 @@ namespace ChampionsOfForest
         private void Update()
         {
             if (gameObject.layer != DesiredLayer)
+            {
                 gameObject.layer = DesiredLayer;
+            }
 
             if (EffectReady)
             {
@@ -239,8 +241,7 @@ namespace ChampionsOfForest
                 {
                     Pause();
                 }
-                if (!GameSetup.IsMpClient)
-                {
+               
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < Radius * Radius)
                     {
                         if (fromEnemy)
@@ -256,7 +257,7 @@ namespace ChampionsOfForest
 
                         }
                     }
-                }
+                
             }
         }
 

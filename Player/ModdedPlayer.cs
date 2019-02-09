@@ -2,6 +2,7 @@
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
@@ -195,6 +196,7 @@ namespace ChampionsOfForest
         public float AreaDamageRadius = 4;
         public float ProjectileSpeedRatio = 1f;
         public float ProjectileSizeRatio = 1;
+        public float HeavyAttackMult = 1;
         public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
 
         public float MagicFindMultipier = 1;
@@ -211,6 +213,8 @@ namespace ChampionsOfForest
         //Item abilities variables
         //Smokeys quiver
         public bool IsSacredArrow = false;
+        public bool IsCrossfire = false;
+        public float LastCrossfireTime = 0;
 
         //Any hammer
         public bool IsHammerStun = false;
@@ -339,6 +343,7 @@ namespace ChampionsOfForest
             {
                 Serializer.Load();
             }
+            InitializeHandHeld();
         }
 
 
@@ -355,7 +360,15 @@ namespace ChampionsOfForest
                         LocalPlayer.Inventory.StashEquipedWeapon(false);
                         LocalPlayer.Inventory.Equip(80, false);
 
+                        if (BoltNetwork.isRunning)
+                        {
+                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerPacked + ";" + (int)PlayerInventoryMod.ToEquipWeaponType, NetworkManager.Target.Others);
+                        }
+
+
                         PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+
+
                     }
                 }
             }
@@ -472,15 +485,22 @@ namespace ChampionsOfForest
                     {
                         LocalPlayer.FpCharacter.MovementLocked = false;
                         LocalPlayer.FpCharacter.CanJump = true;
+                        LocalPlayer.Rigidbody.isKinematic = false;
+                        LocalPlayer.Rigidbody.useGravity = true;
+                        LocalPlayer.Rigidbody.WakeUp();
                     }
                 }
 
                 RootDuration -= Time.deltaTime;
                 if (RootDuration < 0)
                 {
+
                     Rooted = false;
                     if (!Stunned)
                     {
+                        LocalPlayer.Rigidbody.isKinematic = false;
+                        LocalPlayer.Rigidbody.useGravity = true;
+                        LocalPlayer.Rigidbody.WakeUp();
                         LocalPlayer.FpCharacter.MovementLocked = false;
                         LocalPlayer.FpCharacter.CanJump = true;
                     }
@@ -496,17 +516,24 @@ namespace ChampionsOfForest
                     {
                         LocalPlayer.FpCharacter.MovementLocked = false;
                         LocalPlayer.FpCharacter.CanJump = true;
+                        LocalPlayer.Rigidbody.isKinematic = false;
+                        LocalPlayer.Rigidbody.useGravity = true;
+                        LocalPlayer.Rigidbody.WakeUp();
                     }
                 }
                 StunDuration -= Time.deltaTime;
                 if (StunDuration < 0)
                 {
+                 
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
                     if (!Rooted)
                     {
                         LocalPlayer.FpCharacter.MovementLocked = false;
                         LocalPlayer.FpCharacter.CanJump = true;
+   LocalPlayer.Rigidbody.isKinematic = false;
+                    LocalPlayer.Rigidbody.useGravity = true;
+                    LocalPlayer.Rigidbody.WakeUp();
                     }
                 }
             }
@@ -839,6 +866,21 @@ namespace ChampionsOfForest
             AddFinalExperience(Amount);
         }
 
+        public void InitializeHandHeld()
+        {
+            StartCoroutine(InitHandCoroutine());
+        }
+        IEnumerator InitHandCoroutine()
+        {
+            while (ModReferences.rightHandTransform == null)
+            {
+                yield return null;
+                if (LocalPlayer.Inventory != null)
+                {
+                    LocalPlayer.Inventory.Equip(80, false);
+                }
+            }
+        }
 
         public void AddGeneratedResource(int id, int amount)
         {
@@ -909,7 +951,14 @@ namespace ChampionsOfForest
             SpellActions.MaxShield = 10;
             SpellActions.ShieldCastTime = 0;
             SpellActions.ShieldPersistanceLifetime = 3;
-            WeaponInfoMod.AlwaysIgnite = false;
+                    SpellActions.WarCryRadius = 50;
+        SpellActions.WarCryGiveDamage = false;
+        SpellActions.WarCryGiveArmor = false;
+        SpellActions.PortalDuration = 30;
+        SpellActions.MagicArrowDmgDebuff = false;
+        SpellActions.MagicArrowDoubleSlow = false;
+        SpellActions.MagicArrowDuration = 5f;
+        WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 5;
             instance.HealingMultipier = 1;
             instance.strenght = 1;
@@ -964,7 +1013,7 @@ namespace ChampionsOfForest
             instance.MoveSpeed = 1f;
             instance.JumpPower = 1f;
             instance.SpellCostToStamina = 0;
-            instance.SpellCostRatio = 0;
+            instance.SpellCostRatio = 1;
             instance.StaminaAttackCost = 0;
             instance.BlockFactor = 0.5f;
             instance.ExpFactor = 1;
@@ -1003,7 +1052,9 @@ namespace ChampionsOfForest
             instance.BulletDamageMult = 1;
             instance.CrossbowDamageMult = 1;
             instance.BowDamageMult = 1;
-        ReapplyAllItems();
+            instance.HeavyAttackMult = 1;
+            instance.IsCrossfire = false;
+            ReapplyAllItems();
             ReapplyAllPerks();
         }
         public static void ReapplyAllItems()

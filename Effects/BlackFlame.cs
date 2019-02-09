@@ -1,8 +1,6 @@
 ﻿using ChampionsOfForest.Player;
-using ChampionsOfForest.Res;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest.Effects
@@ -10,7 +8,7 @@ namespace ChampionsOfForest.Effects
     public class BlackFlame : MonoBehaviour
     {
         public static BlackFlame instance;
-        public static float FireDamageBonus =>(10+ ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP / 4;
+        public static float FireDamageBonus => (10 + ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP / 4;
 
         private static Material mat1;
         private static Material mat2;
@@ -86,18 +84,18 @@ namespace ChampionsOfForest.Effects
         }
 
         public static bool IsOn = false;
-        public static float Cost = 75;
+        public static float Cost = 25;
 
-        void Start()
+        private void Start()
         {
             StartCoroutine(StartCoroutine());
         }
 
-        IEnumerator StartCoroutine()
+        public IEnumerator StartCoroutine()
         {
             while (ModReferences.rightHandTransform == null)
             {
-            yield return null;
+                yield return null;
                 Debug.Log("Waiting for setup");
                 if (LocalPlayer.Inventory != null)
                 {
@@ -114,12 +112,12 @@ namespace ChampionsOfForest.Effects
 
         }
 
-        void Update()
+        private void Update()
         {
             if (IsOn)
             {
                 SpellCaster.RemoveStamina(Cost * Time.deltaTime);
-                if (LocalPlayer.Stats.Stamina  < 10)
+                if (LocalPlayer.Stats.Stamina < 10)
                 {
                     Toggle();
                 }
@@ -137,21 +135,47 @@ namespace ChampionsOfForest.Effects
             if (BoltNetwork.isRunning)
             {
                 string s = "SC4;";
-                if (IsOn) s += "t;";
-                else s += "f;";
+                if (IsOn)
+                {
+                    s += "t;";
+                }
+                else
+                {
+                    s += "f;";
+                }
+
                 s += ModReferences.ThisPlayerPacked + ";";
                 Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
             }
         }
-        public static void ToggleOtherPlayer(ulong packed,bool ison)
+
+
+        private static Dictionary<ulong, GameObject> blackFlamesClients = new Dictionary<ulong, GameObject>();
+        public static void ToggleOtherPlayer(ulong packed, bool ison)
         {
-            var ents = ModReferences.AllPlayerEntities.Where(ent => ent.networkId.PackedValue == packed).Select(ent => ent.gameObject).ToArray();
-            if(ents.Length > 0)
+            ModAPI.Console.Write("Toggling black flames for client " + packed + ison);
+            if (!ModReferences.PlayerHands.ContainsKey(packed))
             {
-                GameObject go = ents[0];
-                Debug.Log(go.name);
+                ModReferences.ForceUpdate();
+            }
+            if (ModReferences.PlayerHands.ContainsKey(packed))
+            {
+                Transform t = ModReferences.PlayerHands[packed];
+                if (blackFlamesClients.ContainsKey(packed))
+                {
+                    blackFlamesClients[packed].SetActive(ison);
+                }
+                else
+                {
+                    GameObject go = Create();
+                    go.transform.parent = t;
 
+                    go.transform.position = t.position;
+                    go.transform.rotation = t.rotation;
+                    blackFlamesClients.Add(packed, go);
 
+                    go.SetActive(ison);
+                }
             }
         }
     }

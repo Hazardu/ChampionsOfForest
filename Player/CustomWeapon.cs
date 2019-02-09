@@ -141,6 +141,25 @@ namespace ChampionsOfForest.Player
                 ModAPI.Log.Write(e.ToString());
             }
         }
+        public GameObject CreateClientGameObject(Transform clientHand)
+        {
+            if (obj == null)
+            {
+                Debug.LogWarning("NO ORIGINAL OBJ TO DUPLICATE");
+                return null;
+            }
+
+
+                obj = GameObject.Instantiate(obj, clientHand);
+
+                obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
+                obj.transform.Rotate(rotation, Space.Self);
+                obj.transform.localPosition += offset;
+                obj.transform.localScale = Vector3.one * Scale;
+            return obj;
+        
+        }
 
 
 

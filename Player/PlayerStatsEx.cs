@@ -30,8 +30,7 @@ namespace ChampionsOfForest
         {
             try
             {
-
-
+           
                 if (!(Scene.Atmosphere == null) && !SteamDSConfig.isDedicatedServer)
                 {
                     float num = Convert.ToSingle(LocalPlayer.Stats.DaySurvived + TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay);
@@ -66,7 +65,7 @@ namespace ChampionsOfForest
                     }
                     if (Sitted)
                     {
-                        Energy += 0.02f * ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 6;
+                        Energy += 0.02f * ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 6*Time.deltaTime;
                     }
                     if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
                     {
@@ -730,7 +729,7 @@ namespace ChampionsOfForest
             {
                 Health += amount;
                 HealthTarget += amount * 3;
-
+                Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)amount);
             }
             else
             {
@@ -763,6 +762,7 @@ namespace ChampionsOfForest
             damage = Mathf.RoundToInt(f);
             base.Hit(damage, ignoreArmor, type);
         }
+
 
         protected override void AteBlueBerry()
         {

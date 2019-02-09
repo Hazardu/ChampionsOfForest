@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Res
             l.shadows = LightShadows.None;
             l.type = LightType.Point;
             Core.prefabs[401].SetActive(false);
-            ModAPI.Log.Write("Successfully added black hole [building with id 401]");
+            //ModAPI.Log.Write("Successfully added black hole [building with id 401]");
 
         }
     }

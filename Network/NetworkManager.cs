@@ -64,6 +64,8 @@ namespace ChampionsOfForest.Network
                     chatEvent.Message = s;
                     chatEvent.Sender = ChatBoxMod.ModNetwokrID;
                     chatEvent.Send();
+
+                    Debug.Log("Sent: " + s);
                 }
             }
         }
@@ -95,10 +97,6 @@ namespace ChampionsOfForest.Network
         {
             try
             {
-              
-                //For testing purposes
-                ModAPI.Log.Write("RECIEVED:" + s);
-
                 instance.onGetMessage(s);
             }
             catch (Exception ex)
@@ -144,6 +142,12 @@ namespace ChampionsOfForest.Network
         public static void SendHitmarker(Vector3 pos, int amount)
         {
             string msg = "EH" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
+            SendLine(msg, Network.NetworkManager.Target.Everyone);
+
+        }
+           public static void SendPlayerHitmarker(Vector3 pos, int amount)
+        {
+            string msg = "PH" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
             SendLine(msg, Network.NetworkManager.Target.Everyone);
 
         }

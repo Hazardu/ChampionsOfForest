@@ -128,13 +128,13 @@ namespace ChampionsOfForest.Player
         public static void CastFlare()
         {
             Vector3 dir = LocalPlayer.Transform.position;
-            float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus/6;
+            float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus/5;
             dmg *=ModdedPlayer.instance.SpellAMP;
             float slow = FlareSlow;
             float boost = FlareBoost;
             float duration = FlareDuration;
             float radius = FlareRadius;
-            float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 25 + ModdedPlayer.instance.LifeRegen/2 * ModdedPlayer.instance.HealthRegenPercent;
+            float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 20 + (ModdedPlayer.instance.LifeRegen/1.6f) * ModdedPlayer.instance.HealthRegenPercent;
 
 
             Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" + "f;" + dmg + ";" + Healing + ";" + slow + ";" + boost + ";" + duration + ";" + radius + ";", Network.NetworkManager.Target.Everyone);
@@ -218,15 +218,56 @@ namespace ChampionsOfForest.Player
         {
             Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward * 6;
             int id = Portal.GetPortalID();
-
+            try
+            {
             Portal.CreatePortal(pos, PortalDuration, id);
 
+            }
+            catch (Exception e)
+            {
+                ModAPI.Log.Write(e.ToString());
+
+             }
+      
             if (BoltNetwork.isRunning)
             {
                 Portal.SyncTransform(pos, PortalDuration, id);
             }
         }
 
+
+        public static bool MagicArrowDmgDebuff = false;
+        public static bool MagicArrowDoubleSlow = false;
+        public static float MagicArrowDuration = 3f;
+        public static void CastMagicArrow()
+        {
+            int damage = 55 + (int)(ModdedPlayer.instance.SpellDamageBonus*1.25f);
+                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpellAMP);
+            Vector3 pos = Camera.main.transform.position;
+            Vector3 dir = Camera.main.transform.forward;
+            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+            {
+                MagicArrow.Create(pos,dir , damage, ModReferences.ThisPlayerPacked, MagicArrowDuration, MagicArrowDoubleSlow, MagicArrowDmgDebuff);
+                if (BoltNetwork.isRunning)
+                {
+                    string s = "SC7;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + Math.Round(dir.x, 5) + ";" + Math.Round(dir.y, 5) + ";" + Math.Round(dir.z, 5) + ";";
+                    s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + MagicArrowDuration + ";";
+                    if (MagicArrowDoubleSlow) s += "t;"; else s += "f;";
+                    if (MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+                    Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+                }
+            }
+            else if (GameSetup.IsMpClient)
+            {
+                MagicArrow.CreateEffect(pos, dir, MagicArrowDmgDebuff, MagicArrowDuration);
+                string s = "SC7;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5)  + ";" + Math.Round(dir.x, 5) + ";" + Math.Round(dir.y, 5) + ";" + Math.Round(dir.z, 5) + ";";
+                s += damage + ";" + ModReferences.ThisPlayerPacked+";" + MagicArrowDuration+";";
+                if (MagicArrowDoubleSlow) s += "t;"; else s += "f;";
+                if (MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+              Network.NetworkManager.SendLine(s,Network.NetworkManager.Target.Others);
+            }
+
+        }
 
     }
 }

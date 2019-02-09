@@ -59,7 +59,6 @@ namespace ChampionsOfForest
             {
                 try
                 {
-                    ModAPI.Log.Write("  [" + _Item_Bases[i].ID + "] " + _Item_Bases[i].name + "  - item added");
 
                     ItemBases.Add(_Item_Bases[i].ID, _Item_Bases[i]);
                     if (ItemRarityGroups.ContainsKey(_Item_Bases[i].Rarity))
@@ -79,9 +78,8 @@ namespace ChampionsOfForest
                 }
 
             }
-            ModAPI.Log.Write("SETUP: ITEM DATABASE");
 
-            LogInfo();
+            //LogInfo();
         }
         /// <summary>
         /// Prints a pretty summary to a log file
@@ -180,8 +178,9 @@ namespace ChampionsOfForest
                 averageLevel = ModdedPlayer.instance.Level;
             }
             averageLevel = Mathf.Max(1, averageLevel);
-            float w = Worth / averageLevel;
+            float w = Worth / (averageLevel*0.55f);
             w *= MagicFind;
+           
             int rarity = 0;
 
             if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
@@ -227,7 +226,7 @@ namespace ChampionsOfForest
             int[] itemPool = null;
             while (itemPool == null)
             {
-                itemPool = ItemRarityGroups[rarity].Where(i => ((ItemBases[i].minLevel) <= averageLevel + 5)).ToArray();
+                itemPool = ItemRarityGroups[rarity].Where(i => ((ItemBases[i].minLevel) <= averageLevel + 12)).ToArray();
                 if (itemPool.Length == 0)
                 {
                     rarity--;
@@ -253,7 +252,7 @@ namespace ChampionsOfForest
                 return true;
             }
 
-            if (ItemBases[i].minLevel <= averageLevel + 5)
+            if (ItemBases[i].minLevel <= averageLevel + 12)
             {
                 if (ItemBases[i].LootsFrom == null)
                 {
@@ -1903,7 +1902,7 @@ namespace ChampionsOfForest
                 tooltip = "Rings give base stats to make your stronger.",
                 Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 1,
-                maxLevel = 200,
+                maxLevel = 10,
                 CanConsume = false,
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
                 _itemType = BaseItem.ItemType.Ring,
@@ -1915,9 +1914,8 @@ namespace ChampionsOfForest
                 new int[] {4},
                 new int[] {6},
                 new int[] {12,13,21,24},
-                new int[] {12,13,21,24,0},
+                new int[] {12,13,21,24,0,0,0,0,0},
                 new int[] {19,47,49,0},
-                new int[] { 57,37,38,0},
                 new int[] { 57,37,38,0}
               })
             {
@@ -2462,7 +2460,7 @@ namespace ChampionsOfForest
                 tooltip = "Necklaces give base stats to make your stronger.",
                 Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 30,
-                maxLevel = 50,
+                maxLevel = 40,
                 CanConsume = false,
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
                 _itemType = BaseItem.ItemType.Amulet,
@@ -2476,10 +2474,12 @@ namespace ChampionsOfForest
             new BaseItem(new int[][]
             {
             new int[] {1},
+            new int[] {1},
             new int[] {12,13},
             new int[] {22,25,30,18},
             new int[] {35,50,53,57,56},
             new int[] {20,57,19,18},
+            new int[] {3},
             new int[] {3},
             new int[] {5,28},
             new int[] {7,10,31},
@@ -2487,10 +2487,12 @@ namespace ChampionsOfForest
             new int[] {14,16,57},
             new int[] {45,16,10,11,9,8},
             new int[] {2},
+            new int[] {2},
             new int[] {8,9,27},
             new int[] {51,52},
             new int[] {15,18,34,36,57},
             new int[] {23,48,54,26},
+            new int[] {4},
             new int[] {4},
             new int[] {6,55,46,54,53},
             new int[] {21,24},
@@ -2503,12 +2505,12 @@ namespace ChampionsOfForest
                 lore = "Megan wore this Locket, it has a picture of her mom in it.",
                 tooltip = "lockets give base stats to make your stronger.",
                 Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
-                minLevel = 55,
+                minLevel = 75,
                 maxLevel = 80,
                 CanConsume = false,
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
                 _itemType = BaseItem.ItemType.Amulet,
-                icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+                icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
             }.DropSettings_OnlyMegan();
 
 
@@ -3338,6 +3340,66 @@ new int[] {18},
                 onEquip = () => SpellActions.PortalDuration = 300,
                 onUnequip = () => SpellActions.PortalDuration = 30,
             };
+            new BaseItem(new int[][]
+            {
+                new int[] {57},
+                new int[] {1,2,3,4},
+                new int[] {5,46},
+                new int[] {6,45},
+                new int[] {21,24,11,12,13,14,15,16},
+                new int[] {16},
+                new int[] {17},
+                new int[] {4,18,7,8,19},
+                new int[] {27,28,29,30,48,47},
+            })
+            {
+                name = "Cripplers",
+                description = "",
+                lore = "",
+                tooltip = "Increases the duration of a magic arrow's negative effect by 3 seconds",
+                Rarity = 7,
+                minLevel = 36,
+                maxLevel = 50,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+                onEquip = () => SpellActions.MagicArrowDuration += 3,
+                onUnequip = () => SpellActions.MagicArrowDuration -= 3,
+            };
+
+            new BaseItem(new int[][]
+            {
+                new int[] {24},
+                new int[] {26},
+                new int[] {21},
+                new int[] {23},
+                new int[] {2,4,57,16},
+                new int[] {6,8,9,44,46},
+                new int[] {2},
+                new int[] {4},
+                new int[] {12,13,14,15,16,18},
+            })
+            {
+                name = "Crossfire",
+                description = "Infused with powerful magic. This item is a dangerous tool of destruction.",
+                lore = "",
+                tooltip = "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every 20 seconds. The magic arrow deals half the damage and applies stats that a normal magic arrow would.",
+                Rarity = 7,
+                minLevel = 1,
+                maxLevel = 20,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Quiver,
+                icon = Res.ResourceLoader.GetTexture(98),
+                onEquip = () => ModdedPlayer.instance.IsCrossfire = true,
+                onUnequip = () => ModdedPlayer.instance.IsCrossfire = false,
+            };
+
+
+
+
+
         }
     }
 }

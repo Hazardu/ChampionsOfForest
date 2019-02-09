@@ -681,6 +681,8 @@ GUILayout.EndArea();
             new Resource(121, "BlinkSpell.png");
             new Resource(122, "SpellHealDome.png");
             new Resource(123, "WarCrySpell.png");
+            new Resource(124, "Scroll.obj");
+            new Resource(125, "SpellMagicArrow.png");
 
 
 

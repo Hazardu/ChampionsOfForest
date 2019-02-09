@@ -43,7 +43,6 @@ namespace ChampionsOfForest
             OnUnequip = onUnequip;
             OnConsume = onConsume;
             ItemDataBase.AddStat(this);
-            ModAPI.Log.Write("Added Item stat: [" + id + "] " + name);
         }
         public ItemStat(ItemStat s, int level = 1, float Multipier = 0)
         {

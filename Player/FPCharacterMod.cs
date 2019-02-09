@@ -17,13 +17,21 @@ namespace ChampionsOfForest.Player
             jumpHeight = ModdedPlayer.basejumpPower * ModdedPlayer.instance.JumpPower;
             if (ModdedPlayer.instance.Rooted)
             {
-                
+                this.rb.Sleep();
+                this.rb.isKinematic = true;
+                this.rb.useGravity = false;
+
+
                 MovementLocked = true;
+                
                 CanJump = false;
                 allowJump = false;
             }
             if (ModdedPlayer.instance.Stunned)
             {
+                this.rb.Sleep();
+                this.rb.isKinematic = true;
+                this.rb.useGravity = false;
                 MovementLocked = true;
                 Locked = true;
                 CanJump = false;

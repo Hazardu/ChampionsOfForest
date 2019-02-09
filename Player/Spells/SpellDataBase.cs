@@ -19,7 +19,7 @@ namespace ChampionsOfForest.Player
                List<int> SortedSpellIDsTemp = new List<int>(spellDictionary.Keys);
                 SortedSpellIDsTemp.Sort((x, y) => spellDictionary[x].Levelrequirement.CompareTo(spellDictionary[y].Levelrequirement));
                 SortedSpellIDs = SortedSpellIDsTemp.ToArray();
-                ModAPI.Log.Write("SETUP: SPELL DB");
+               // ModAPI.Log.Write("SETUP: SPELL DB");
 
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player
 
         public static void FillSpells()
         {
-            Spell bh = new Spell(1, 119, 15, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
+            Spell bh = new Spell(1, 119, 20, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
             {
                 active = SpellActions.CreatePlayerBlackHole,
 
@@ -62,17 +62,21 @@ namespace ChampionsOfForest.Player
             {
                 active = AutoPickupItems.DoPickup,            
             };
-            new Spell(7, 115, 5, 25, 5, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 5, 25, 2, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
-            new Spell(8,123, 9, 75, 45, "War Cry", "Empowers you and nearby allies for 2 minutes.")
+            new Spell(8,123, 12, 75, 45, "War Cry", "Empowers you and nearby allies for 2 minutes.")
             {
                 active =SpellActions.CastWarCry,            
             };
-            new Spell(9, 114, 12, 120, 100, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
+            new Spell(9, 114, 15, 120, 100, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
             {
                 active =SpellActions.CastPortal,            
+            };
+            new Spell(10, 125, 30, 20, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
+            {
+                active =SpellActions.CastMagicArrow,            
             };
         }
     }

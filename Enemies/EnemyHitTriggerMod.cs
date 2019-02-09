@@ -11,9 +11,11 @@ namespace ChampionsOfForest.Enemies
     public class EnemyHitTriggerMod : enemyWeaponMelee
     {
         public static readonly float poisonDuration = 10;
-        public static readonly float stunDuration = 1;
+        public static readonly float stunDuration = 1.5f;
 
         private Vector3 originalScale = Vector3.zero;
+        private BoltEntity entity;
+        private float LastReqTime;
         public void SetTriggerScaleForTiny()
         {
             if (originalScale == Vector3.zero)
@@ -24,6 +26,44 @@ namespace ChampionsOfForest.Enemies
 
         }
 
+        protected override void Update()
+        {
+            if (GameSetup.IsMpClient) {
+                if (entity == null)
+                {
+                    entity = gameObject.GetComponentInParent<BoltEntity>();
+                    if (entity == null)
+                    {
+                        entity = gameObject.GetComponent<BoltEntity>();
+                    }
+                    if (entity == null)
+                    {
+                        entity = gameObject.GetComponentInChildren<BoltEntity>();
+                    }
+                    if (entity == null)
+                    {
+                        Debug.Log("ITS A TOTAL DISASTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    }
+                }
+                else {
+                    if (ModSettings.DifficultyChoosen)
+                    {
+                        if (!EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
+                        {
+                            if(Time.time-LastReqTime > 10)
+                            {
+                                LastReqTime = Time.time;
+
+                                Network.NetworkManager.SendLine("AJ" + entity.networkId.PackedValue+";", Network.NetworkManager.Target.OnlyServer);
+                            }
+                        }
+                    }
+                }
+            }
+            base.Update();
+        }
+
+
         private EnemyProgression EnemyProg;
 
         [ModAPI.Attributes.Priority(100)]
@@ -32,6 +72,11 @@ namespace ChampionsOfForest.Enemies
             try
             {
 
+                if (GameSetup.IsMpClient)
+                {
+                   if(entity ==null&& !EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
+                    return;
+                }
 
                 currState = animator.GetCurrentAnimatorStateInfo(0);
                 nextState = animator.GetNextAnimatorStateInfo(0);
@@ -173,65 +218,60 @@ namespace ChampionsOfForest.Enemies
                             //My additional code
                             try
                             {
-                                if (EnemyProg == null)
+                                if (GameSetup.IsMpClient)
                                 {
-                                    EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
-                                }
-                                num = Mathf.RoundToInt(num * EnemyProg.DamageAmp*EnemyProg.DebuffDmgMult);
-                                BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-                                if (bo == null) bo = other.transform.root.GetComponentInChildren<BoltEntity>();
-
-
-                                //POISON ATTACKS 
-                                if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-                                {
-                                    if (BoltNetwork.isRunning)
+                                    var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
+                                    num = Mathf.RoundToInt(num * x.damagemult);
+                                    if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
                                     {
-                                        if (BoltNetwork.isServer)
+                                        if (TheForest.Utils.Scene.WeatherSystem.Raining)
                                         {
-                                            if (other.transform.root == LocalPlayer.Transform.root)
-                                            {
-                                                BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
-                                            }
-                                            else
-                                            {
-                                                if (bo != null)
-                                                {
-
-                                                    Network.NetworkManager.SendLine("PO" + bo.networkId.PackedValue + ";32;" + num / 20 + ";" + poisonDuration, bo.controller);
-                                                }
-                                            }
+                                            num *= 5;
                                         }
                                     }
-                                    else
+                                    if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                     {
-                                        BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                       
+                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                       
+                                    }
+                                    if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                    {
+
+                                        ModdedPlayer.instance.Stun(stunDuration);                                     
                                     }
                                 }
-
-                                //STUN ON HIT
-                                if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                else
                                 {
-                                    if (BoltNetwork.isRunning)
+                                    if (EnemyProg == null)
                                     {
-                                        if (BoltNetwork.isServer)
-                                        {
-                                            if (other.transform.root == LocalPlayer.Transform.root)
-                                            {
-                                                ModdedPlayer.instance.Stun(stunDuration);
-                                            }
-                                            else
-                                            {
-                                                if (bo != null)
-                                                {
-                                                    Network.NetworkManager.SendLine("ST" + bo.networkId.PackedValue + ";" + stunDuration+";", bo.controller);
-                                                }
-                                            }
-                                        }
+                                        EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
                                     }
-                                    else
+                                    num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
+                                    BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                    if (bo == null)
                                     {
-                                        ModdedPlayer.instance.Stun(stunDuration);
+                                        bo = other.transform.root.GetComponentInChildren<BoltEntity>();
+                                    }
+
+
+                                    //POISON ATTACKS 
+                                    if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+                                    {
+                                    
+                                             
+                                                    BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                              
+                                                
+                                    }
+
+                                    //STUN ON HIT
+                                    if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                    {
+                                                    ModdedPlayer.instance.Stun(stunDuration);
+                                              
+                                             
+                                      
                                     }
                                 }
                             }

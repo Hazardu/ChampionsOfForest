@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChampionsOfForest.Enemies;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -8,6 +9,7 @@ namespace ChampionsOfForest
 
         public static Dictionary<ulong, EnemyProgression> hostDictionary;
         public static Dictionary<ulong, BoltEntity> allboltEntities;
+        public static Dictionary<ulong, ClientEnemy> clientEnemies;
         public static Dictionary<BoltEntity, ClinetEnemyProgression> clinetProgressions;
         public static Dictionary<Transform, ClinetEnemyProgression> spProgression;
 
@@ -21,6 +23,7 @@ namespace ChampionsOfForest
                 hostDictionary = new Dictionary<ulong, EnemyProgression>();
                 allboltEntities = new Dictionary<ulong, BoltEntity>();
                 clinetProgressions = new Dictionary<BoltEntity, ClinetEnemyProgression>();
+                clientEnemies = new Dictionary<ulong, ClientEnemy>();
                 GetAllEntities();
             }
             else
@@ -34,10 +37,6 @@ namespace ChampionsOfForest
             if (!hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
             {
                 hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
-            }
-            else
-            {
-                ModAPI.Log.Write("Enemy with packed " + ep.entity.networkId.PackedValue + " already added");
             }
         }
         //Gets all attached bolt entities
@@ -170,7 +169,7 @@ namespace ChampionsOfForest
             {
                 ModAPI.Log.Write(e.ToString());
             }
-           
+
 
         }
     }

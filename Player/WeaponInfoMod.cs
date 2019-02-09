@@ -569,7 +569,7 @@ namespace ChampionsOfForest.Player
                             other.transform.SendMessageUpwards("getCombo", 3, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("Hit", (int)num2 * 3, SendMessageOptions.DontRequireReceiver);
-                            //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
+                           ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
 
                             if (playerHitEnemy != null)
                             {
@@ -928,6 +928,8 @@ namespace ChampionsOfForest.Player
             {
                 other.SendMessage("startFire");
             }
+            ModdedPlayer.instance.DoAreaDamage(other.transform.root, playerHitEnemy.Hit);
+
             if (playerHitEnemy != null && playerHitEnemy.Target && playerHitEnemy.Hit > 0)
             {
                 if (ForestVR.Enabled && BoltNetwork.isClient)
@@ -936,7 +938,6 @@ namespace ChampionsOfForest.Player
                 }
 
                 playerHitEnemy.Send();
-                //ModdedPlayer.instance.DoAreaDamage(other.transform.root, playerHitEnemy.Hit);
 
             }
         }

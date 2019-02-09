@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -32,7 +34,7 @@ namespace ChampionsOfForest
             if (BoltNetwork.isRunning)
             {
                 Players = new List<GameObject>();
-                InvokeRepeating("UpdateSetups", 1, 10);
+                StartCoroutine(UpdateSetups());
                 if (GameSetup.IsMpServer && BoltNetwork.isRunning)
                 {
                     InvokeRepeating("SlowUpdate", 1, 1);
@@ -60,7 +62,7 @@ namespace ChampionsOfForest
                     Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
 
                 }
-                else if (Players.Count != PlayerLevels.Count+1)
+                else if (Players.Count != PlayerLevels.Count + 1)
                 {
                     LevelRequestCooldown = 90;
                     PlayerLevels.Clear();
@@ -68,7 +70,7 @@ namespace ChampionsOfForest
                     Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
                 }
                 MFindRequestCooldown--;
-                if(MFindRequestCooldown <= 0)
+                if (MFindRequestCooldown <= 0)
                 {
                     Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
                     MFindRequestCooldown = 300;
@@ -105,40 +107,170 @@ namespace ChampionsOfForest
         /// <summary>
         /// Updates the player setups and changes the static variable accordingly
         /// </summary>
-        private void UpdateSetups()
+        private IEnumerator UpdateSetups()
         {
-            try
-            {
 
+            while (true)
+            {
+                yield return null;
                 Players.Clear();
                 AllPlayerEntities.Clear();
+                PlayerHands.Clear();
+
+
+                bool search = false;
+
+                if (PlayerHands.ContainsValue(null) || PlayerHands.Count != Scene.SceneTracker.allPlayers.Count || PlayerHands.Count == 0)
+                {
+                    PlayerHands.Clear();
+                    search = true;
+                }
+
                 for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
                     Players.Add(Scene.SceneTracker.allPlayers[i]);
-                    if (!ModSettings.IsDedicated) { 
+                    if (!ModSettings.IsDedicated)
+                    {
                         if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
                         {
                             ThisPlayerID = i;
                         }
-                }
+                    }
                     BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
                     if (b != null)
                     {
                         AllPlayerEntities.Add(b);
+                        try
+                        {
 
+                            if (UnityEngine.Input.GetKey(KeyCode.F8))
+                            {
+                                ModAPI.Console.Write("PLAYER " + b.transform.root.name);
+
+                                ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
+
+                            }
+
+
+                        }
+                        catch (Exception exc)
+                        {
+                            ModAPI.Console.Write(exc.ToString());
+                        }
+                        if (search)
+                        {
+                            Transform hand = FindDeepChild(b.transform, "rightHandHeld");
+                            if (hand != null)
+                            {
+                                PlayerHands.Add(b.networkId.PackedValue, hand);
+                                Debug.Log("FOUND HAND TRANSFORM for player " + b.networkId.PackedValue);
+
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Couldnt find hand for player " + b.networkId.PackedValue);
+                            }
+                        }
                     }
                 }
-                if (ModSettings.IsDedicated) return;
+                if (!ModSettings.IsDedicated)
+                {
+
+                    ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue;
+                }
+
+
+                yield return new WaitForSeconds(10);
+
+            }
+        }
+
+        public static void ForceUpdate()
+        {
+            Players.Clear();
+            AllPlayerEntities.Clear();
+            PlayerHands.Clear();
+            bool search = false;
+            if (PlayerHands.ContainsValue(null) || PlayerHands.Count != Scene.SceneTracker.allPlayers.Count || PlayerHands.Count == 0)
+            {
+                PlayerHands.Clear();
+                search = true;
+            }
+
+            for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
+            {
+                Players.Add(Scene.SceneTracker.allPlayers[i]);
+                if (!ModSettings.IsDedicated)
+                {
+                    if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
+                    {
+                        ThisPlayerID = i;
+                    }
+                }
+                BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
+                if (b != null)
+                {
+                    AllPlayerEntities.Add(b);
+                    try
+                    {
+
+                        if (UnityEngine.Input.GetKey(KeyCode.F8))
+                        {
+                            Debug.LogWarning("PLAYER "+ b.transform.root.name);
+
+                                ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
+                            
+                        }
+
+
+                    }
+                    catch (Exception exc)
+                    {
+                        Debug.LogWarning(exc.ToString());
+                    }
+                    if (search)
+                    {
+                        Transform hand = FindDeepChild(b.transform, "rightHandHeld");
+                        if (hand != null)
+                        {
+                            PlayerHands.Add(b.networkId.PackedValue, hand);
+                            Debug.Log("FOUND HAND TRANSFORM for player " + b.networkId.PackedValue);
+
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Couldnt find hand for player " + b.networkId.PackedValue);
+                        }
+                    }
+                }
+            }
+            if (!ModSettings.IsDedicated)
+            {
 
                 ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue;
             }
-            catch (System.Exception e)
+        }
+        public static string ListAllChildren(Transform tr, string prefix)
+        {
+            string s = prefix + "•" + tr.name + "\n";
+            foreach (Transform child in tr)
             {
-
-                ModAPI.Log.Write(e.ToString());
+                s += ListAllChildren(child, prefix + "\t");
             }
-
+            return s;
+        }
+        public static Transform FindDeepChild(Transform aParent, string aName)
+        {
+            var result = aParent.Find(aName);
+            if (result != null)
+                return result;
+            foreach (Transform child in aParent)
+            {
+                result = FindDeepChild(child, aName);
+                if (result != null)
+                    return result;
+            }
+            return null;
         }
     }
-
 }

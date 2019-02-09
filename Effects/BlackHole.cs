@@ -1,9 +1,6 @@
 ﻿using BuilderCore;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -30,12 +27,13 @@ namespace ChampionsOfForest
         public static float rotationSpeed = 15f;
         private float scale;
         public SphereCollider col;
-        List<Transform> CoughtEnemies;
+        private List<Transform> CoughtEnemies;
         public static Material particleMaterial;
         private ParticleSystem sys;
         private float lifetime;
-        GameObject particleGO;
-        void Start()
+        private GameObject particleGO;
+
+        private void Start()
         {
 
 
@@ -59,7 +57,9 @@ namespace ChampionsOfForest
             if (GameSetup.IsMpClient)
             {
                 if (col != null)
+                {
                     Destroy(col);
+                }
             }
             else
             {
@@ -77,7 +77,7 @@ namespace ChampionsOfForest
             shape.radius = radius * 2;
             //shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
             //shape.length = 0;
-            var main = sys.main;
+            ParticleSystem.MainModule main = sys.main;
             main.startSpeed = -radius * 4;
             main.startLifetime = 0.5f;
             main.loop = true;
@@ -85,10 +85,10 @@ namespace ChampionsOfForest
             main.startSize = 0.4f;
             main.maxParticles = 500;
 
-            var emission = sys.emission;
+            ParticleSystem.EmissionModule emission = sys.emission;
             emission.enabled = true;
             emission.rateOverTime = 500;
-            var rend = sys.GetComponent<Renderer>();
+            Renderer rend = sys.GetComponent<Renderer>();
             rend.material = particleMaterial;
 
             WindZone wz = gameObject.AddComponent<WindZone>();
@@ -98,7 +98,8 @@ namespace ChampionsOfForest
 
             StartCoroutine(HitEverySecond());
         }
-        void Update()
+
+        private void Update()
         {
             lifetime += Time.deltaTime;
 
@@ -142,7 +143,7 @@ namespace ChampionsOfForest
                 if (Vector3.Distance(LocalPlayer.Transform.position, transform.position) < scale * 5)
                 {
                     Pull(LocalPlayer.Transform);
-                    LocalPlayer.Stats.Health -= damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal *(1-ModdedPlayer.instance.MagicResistance);
+                    LocalPlayer.Stats.Health -= damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance);
                 }
             }
             else if (!GameSetup.IsMpClient)
@@ -150,30 +151,34 @@ namespace ChampionsOfForest
                 foreach (Transform t in CoughtEnemies)
                 {
                     EnemyProgression p = t.GetComponentInChildren<EnemyProgression>();
-                    if(!p.CCimmune)
-                    Pull(t);
+                    if (!p.CCimmune)
+                    {
+                        Pull(t);
+                    }
                 }
             }
         }
-        IEnumerator HitEverySecond()
+
+        private IEnumerator HitEverySecond()
         {
             while (true)
             {
-            
+
 
                 foreach (Transform t in CoughtEnemies)
                 {
-                  EnemyProgression ep = t.GetComponentInChildren<EnemyProgression>();
+                    EnemyProgression ep = t.GetComponentInChildren<EnemyProgression>();
                     if (ep != null)
                     {
-                        
-                        ep.HitMagic(Mathf.RoundToInt(damage/2));
+
+                        ep.HitMagic(Mathf.RoundToInt(damage / 2));
                     }
                 }
                 yield return new WaitForSeconds(0.5f);
             }
         }
-        void Pull(Transform t)
+
+        private void Pull(Transform t)
         {
             t.position += Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime;
         }

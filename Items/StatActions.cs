@@ -103,11 +103,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddCritChance(float f)
         {
-            ItemDataBase.AddPercentage(ref ChampionsOfForest.ModdedPlayer.instance.CritChance, f);
+           ChampionsOfForest.ModdedPlayer.instance.CritChance+= f;
         }
         public static void RemoveCritChance(float f)
         {
-            ItemDataBase.RemovePercentage(ref ChampionsOfForest.ModdedPlayer.instance.CritChance, f);
+            ChampionsOfForest.ModdedPlayer.instance.CritChance -= f;
         }
         public static void AddCritDamage(float f)
         {

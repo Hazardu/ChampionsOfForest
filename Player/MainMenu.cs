@@ -131,6 +131,7 @@ namespace ChampionsOfForest
             public int txt;
             public Vector3 worldPosition;
             public float lifetime;
+            public bool Player;
             public void Delete(int i)
             {
                 Instance.hitMarkers.RemoveAt(i);
@@ -140,6 +141,14 @@ namespace ChampionsOfForest
                 txt = t;
                 worldPosition = p;
                 lifetime = 4f;
+                Instance.hitMarkers.Add(this);
+            }
+            public HitMarker(int t, Vector3 p,bool Player)
+            {
+                txt = t;
+                worldPosition = p;
+                lifetime = 6f;
+                this.Player = Player;
                 Instance.hitMarkers.Add(this);
             }
         }
@@ -1418,6 +1427,20 @@ namespace ChampionsOfForest
                     }
                     else
                     {
+                        if (hitMarkers[i].Player)
+                        {
+                            GUI.color = new Color(0.25f, 1, 0.25f, 0.5f);
+
+                        }
+                        else
+                        {
+                            GUI.color = new Color(1, 0.25f, 0.55f, 0.5f);
+
+                        }
+
+
+
+
                         float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
                         Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
                         pos.y = Screen.height - pos.y;
@@ -1773,7 +1796,6 @@ namespace ChampionsOfForest
             }
             catch (Exception ex)
             {
-
                 ModAPI.Log.Write("Error in DrawHud() \n " + ex.ToString());
             }
         }
@@ -2005,133 +2027,14 @@ namespace ChampionsOfForest
 
         }
 
-        //private void BuySpell(Spell s)
-        //{
-        //    ModdedPlayer.instance.MutationPoints-=2;
-        //    s.Bought = true;
-        //}
+      
         #endregion
 
 
         #region StatsMenu
-        //public float OffsetY;
-        //private BookGuideCategory[] Guide;
-        //private BookStatCategory[] Stats;
-        //    private class Page
-        //{
-        //    public string name;
-        //    public StatElement[] elements;
-        //    public StatPage(string name)
-        //    {
-        //        this.name = name;
-        //    }
-        //}
-        //private class BookGuideCategory
-        //{
-        //    public GuidePage[] guidePages;
-        //    public string name;
-        //    public int AvaibleFromLevel;
-        //    public BookGuideCategory(string name, int avaibleFromLevel=1)
-        //    {
-        //        this.name = name;
-        //        AvaibleFromLevel = avaibleFromLevel;
-        //    }
-        //}
-        //private class BookStatCategory
-        //{
-        //    public StatPage[] statPages;
-        //    public string name;
-        //    public int AvaibleFromLevel;
-        //    public BookStatCategory(string name, int avaibleFromLevel =1)
-        //    {
-        //        this.name = name;
-        //        AvaibleFromLevel = avaibleFromLevel;
-        //    }
-        //}
-        //private class GuidePage
-        //{
-        //    public string PageName;
-        //    public GuideElement[] elements;
-        //    public GuidePage(string pageName)
-        //    {
-        //        PageName = pageName;
-        //    }
-        //}
-        //private class StatElement
-        //{
-        //    public float offset;
-        //    public delegate string Amount();
-        //    public Amount amount;
-        //    public string name;
-        //    public string tooltip;
-        //    public StatElement(float offset,string name,string tooltip = null)
-        //    {
-        //        this.tooltip = tooltip;
-        //        this.name = name;
-        //        this.offset = offset;
-        //    }
-        //    public void Draw(Rect pageRect, GUIStyle style)
-        //    {
-        //        Rect rect = new Rect(pageRect.x, pageRect.y + offset +Instance.OffsetY, pageRect.width, style.fontSize);
-        //    }
-        //}
-        //private class GuideElement
-        //{
-        //   public float positionoffset;
-        //    public Texture2D image;
-        //    public string text;
-        //    float ImageHeight = 1;
-        //    float ImageWidth = 1;
-        //    public GuideElement(float positionoffset, string text)
-        //    {
-        //        this.positionoffset = positionoffset;
-        //        this.text = text;
-        //    }
-        //    public GuideElement(float positionoffset, Texture2D image,float SizeMult = 0.8f)
-        //    {
-        //        this.positionoffset = positionoffset;
-        //        this.image = image;
-        //        ImageHeight = SizeMult;
-        //        ImageWidth =(image.height/ image.width) * SizeMult;
-        //    }
-        //    public void Draw(Rect pageRect,GUIStyle style = null)
-        //    {
-        //        if(image != null)
-        //        {
-        //            Rect rect = new Rect(pageRect.x + (pageRect.width - ImageWidth) / 2, pageRect.y + positionoffset + Instance.OffsetY, ImageWidth * pageRect.width, ImageHeight* pageRect.width);
-        //            GUI.DrawTexture(rect, image);
-        //        }
-        //        else
-        //        {
-        //            Rect rect = new Rect(pageRect.x,  pageRect.y + positionoffset + Instance.OffsetY, pageRect.width,Screen.height);
-        //            GUI.Label(rect, text, style);
-        //        }
-        //    }
-        //}
-        //private void InitializeGuide()
-        //{
-        //    Guide = new BookGuideCategory[]
-        //    {
-        //        new BookGuideCategory("Leveling")
-        //        {
-        //            guidePages =new GuidePage[]
-        //            {
-        //                new GuidePage("Levels")
-        //                {
-        //                    elements = new GuideElement()
-        //                    {
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    };
-        //    Stats = new BookStatCategory[]
-        //    {
-        //    };
-        //}
+     
         private float BookPositionY;
         private float BookScrollAmount;
-        private float MaxScrollAmount;
         private GUIStyle headerstyle;
         private GUIStyle statStyle;
         private GUIStyle statStyleAmount;
@@ -2295,7 +2198,7 @@ namespace ChampionsOfForest
         private void DrawGuide()
         {
             Bookmarks.Clear();
-            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), - Screen.height * 10 * rr, 0);
+            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), - Screen.height * 20 * rr, 0);
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
@@ -2314,10 +2217,10 @@ namespace ChampionsOfForest
             Space(50);
             Label("\nWhat to do in order to get stronger:" +
                 "\n-Kill enemies - combat is the most reliable way of progression." +
-                "\n-Hunting animals - experience gained does not increase with difficulty." +
-                "\n-Cutting down bushes and breaking effigies" +
-                "\n-Chopping trees" +
-                "\n-Eating rare consumabes\n" +
+                "\n-Hunt animals - experience gained does not increase with difficulty." +
+                "\n-Cut down bushes and breaking effigies" +
+                "\n-Chop trees" +
+                "\n-Eat rare consumabes\n" +
                 "\nExperience from kills can be increased by quickly killing multipe enemies." +
                 "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your killing spree. You can make the massacre last longer by equiping items with correct stats. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by " + ModdedPlayer.instance.TimeBonusPerKill + " seconds). " +
                 "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
@@ -2339,12 +2242,12 @@ namespace ChampionsOfForest
             Label("Health & Energy");
             Space(10);
 
-            Stat("Max health", ModdedPlayer.instance.MaxHealth + " hp", "Total health pool.\n" +
+            Stat("Max health", ModdedPlayer.instance.MaxHealth + "", "Total health pool.\n" +
                 "Base health: " + ModdedPlayer.instance.baseHealth +
                 "\nBonus health: " + ModdedPlayer.instance.HealthBonus +
                 "\nHealth from vitality: " + ModdedPlayer.instance.HealthPerVitality * ModdedPlayer.instance.vitality +
                 "\nHealth multipier: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%");
-            Stat("Max energy", ModdedPlayer.instance.MaxEnergy + " ep", "Total energy pool.\n" +
+            Stat("Max energy", ModdedPlayer.instance.MaxEnergy + "", "Total energy pool.\n" +
                 "Base energy: " + ModdedPlayer.instance.baseEnergy +
                 "\nBonus energy: " + ModdedPlayer.instance.EnergyBonus +
                 "\nEnergy from agility: " + ModdedPlayer.instance.EnergyPerAgility * ModdedPlayer.instance.agility +
@@ -2371,10 +2274,10 @@ namespace ChampionsOfForest
             Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "", "Stamina regen is temporairly paused after sprinting");
             Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen+"\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent*100+"%");
 
-            Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
-            Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "ep", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
-            Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
-            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "hp", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+            Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
+            Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
+            Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
 
             Space(60);
             Header("Attack");

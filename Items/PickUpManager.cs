@@ -53,7 +53,7 @@ namespace ChampionsOfForest
 
                             break;
                         case BaseItem.ItemType.SpellScroll:
-                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[116];
+                            filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[124];
 
 
                             break;

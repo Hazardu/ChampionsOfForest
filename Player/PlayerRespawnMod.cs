@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChampionsOfForest.Effects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace ChampionsOfForest.Player
             try
             {
             ModdedPlayer.ResetAllStats();
-
+              BlackFlame.instance.StartCoroutine(BlackFlame.instance.StartCoroutine());
             }
             catch (Exception e)
             {
@@ -22,6 +23,10 @@ namespace ChampionsOfForest.Player
                 ModAPI.Log.Write(e.ToString());
             }
             ModdedPlayer.instance.ExpCurrent = 0;
+            ModdedPlayer.instance.InitializeHandHeld();
         }
+
+
+
     }
 }
