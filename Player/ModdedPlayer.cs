@@ -4,6 +4,7 @@ using ChampionsOfForest.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -39,7 +40,7 @@ namespace ChampionsOfForest
                 return x;
             }
         }
-        public bool Critted => CritChance >= 100 * UnityEngine.Random.value;
+        public bool Critted => CritChance >= UnityEngine.Random.value;
         public float SpellAMP
         {
             get
@@ -209,6 +210,7 @@ namespace ChampionsOfForest
         public float BulletDamageMult = 1;
         public float CrossbowDamageMult = 1;
         public float BowDamageMult = 1;
+        public int MultishotCount = 1;
 
         //Item abilities variables
         //Smokeys quiver
@@ -344,8 +346,48 @@ namespace ChampionsOfForest
                 Serializer.Load();
             }
             InitializeHandHeld();
+            Invoke("SendJoinMessage", 10);
+
+        }
+        public void SendLevelMessage()
+        {
+            if (ChatBoxMod.instance != null)
+            {
+                if (BoltNetwork.isRunning)
+                {
+                    NetworkManager.SendLine("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " HAS REACHED LEVEL " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
+   
+                }
+            }
+        }
+        public void SendJoinMessage()
+        {
+            if (ChatBoxMod.instance != null)
+            {
+                if (BoltNetwork.isRunning)
+                {
+                    string s ="II"+ LocalPlayer.Entity.GetState<IPlayerState>().name + " JOINED THE SERVER!\nWELCOME!\n INSTALLED MODS: \n";
+                    Regex regex = new Regex(@"\w+");
+                    foreach (var item in ModAPI.Mods.LoadedMods)
+                    {
+                        s += regex.Match(item.Value.UniqueId).Value + " [" + item.Value.Version + "]\n";
+                    }
+                    NetworkManager.SendLine(s, NetworkManager.Target.Everyone);
+                }
+            }
         }
 
+        public void SendLeaveMessage(string Player)
+        {
+            if (ChatBoxMod.instance != null)
+            {
+                if (BoltNetwork.isRunning)
+                {
+                    string s = "II"+Player + " LEFT! FAREWELL!";
+                    NetworkManager.SendLine(s, NetworkManager.Target.Everyone);
+                }
+            }
+        }
 
         private void Update()
         {
@@ -456,7 +498,39 @@ namespace ChampionsOfForest
                 }
 
             }
+            //if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+            //{
 
+            //    for (int i = 0; i < ModReferences.rightHandTransform.childCount; i++)
+            //    {
+            //        Transform trans = ModReferences.rightHandTransform.GetChild(i);
+
+
+            //        try
+            //        {
+            //            Debug.LogWarning(trans.name);
+                 
+            //        if (trans.gameObject.activeSelf)
+            //        {
+            //            var components = trans.gameObject.GetComponents<Component>();
+            //            string s = trans.name+"\n\n\n";
+            //            foreach (var item in components)
+            //            {
+            //                s += "\n" + item.ToString();
+            //            }
+            //            s += "\n\n\n" + ModReferences.ListAllChildren(trans, "");
+            //            ModAPI.Log.Write(s);
+            //           Debug.Log(s);
+                        
+            //        }
+            //        }
+            //        catch (Exception e)
+            //        {
+
+            //            Debug.LogError(e.ToString());
+            //        }
+            //    }
+            //}
 
 
 
@@ -475,6 +549,14 @@ namespace ChampionsOfForest
 
             }
 
+            if (Effects.Multishot.IsOn)
+            {
+                if (!SpellCaster.RemoveStamina(3 * Time.deltaTime) || LocalPlayer.Stats.Stamina < 7)
+                {
+                    Effects.Multishot.IsOn = false;
+                    Effects.Multishot.localPlayerInstance.SetActive(false);
+                }
+            }
 
             if (Rooted)
             {
@@ -704,7 +786,7 @@ namespace ChampionsOfForest
         }
         public void DoGuaranteedAreaDamage(Transform rootTR, float damage)
         {
-            RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, AreaDamageRadius, Vector3.one);
+            RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, AreaDamageRadius, Vector3.one, AreaDamageRadius);
             int d = Mathf.FloorToInt(damage * AreaDamage);
             if (d > 0)
             {
@@ -749,6 +831,7 @@ namespace ChampionsOfForest
             MutationPoints++;
             Level++;
             ExpGoal = GetGoalExp();
+            SendLevelMessage();
         }
         public long GetGoalExp()
         {
@@ -880,6 +963,11 @@ namespace ChampionsOfForest
                     LocalPlayer.Inventory.Equip(80, false);
                 }
             }
+            yield return null;
+
+            //Multishot
+            Effects.Multishot.localPlayerInstance = Effects.Multishot.Create(LocalPlayer.Transform, ModReferences.rightHandTransform);
+            Effects.Multishot.localPlayerInstance.SetActive(false);
         }
 
         public void AddGeneratedResource(int id, int amount)
@@ -1054,6 +1142,7 @@ namespace ChampionsOfForest
             instance.BowDamageMult = 1;
             instance.HeavyAttackMult = 1;
             instance.IsCrossfire = false;
+            instance.MultishotCount = 1;
             ReapplyAllItems();
             ReapplyAllPerks();
         }

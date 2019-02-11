@@ -1,7 +1,8 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+using TheForest.Utils;
 using UnityEngine;
 
-namespace ChampionsOfForest.Player
+namespace ChampionsOfForest.Effects
 {
     public class HealingDome : MonoBehaviour
     {
@@ -18,8 +19,9 @@ namespace ChampionsOfForest.Player
             {
                 material = new Material(Shader.Find("Particles/Additive"))
                 {
-                    color = Color.green
+                    color = new Color(0, 0.7f, 0, 0.5f)
                 };
+                material.SetColor("_TintColor", new Color(0, 0.15f, 0, 0.3f));
             }
             GameObject go = new GameObject();
             go.AddComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[68];

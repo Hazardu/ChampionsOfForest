@@ -7,54 +7,79 @@ namespace ChampionsOfForest.Player
     {
         public override void fireProjectile()
         {
-            if (LocalPlayer.Inventory.RemoveItem(_ammoItemId, 1, false, true))
+            int repeats = 1;
+            if (Effects.Multishot.IsOn)
             {
-                Vector3 position = _ammoSpawnPos.transform.position;
-                Quaternion rotation = _ammoSpawnPos.transform.rotation;
-                if (ForestVR.Enabled)
+                if (SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount))
                 {
-                    position = _ammoSpawnPosVR.transform.position;
-                    rotation = _ammoSpawnPosVR.transform.rotation;
-                }
-                GameObject gameObject = Object.Instantiate(_Ammo, position, rotation);
-                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
-                Rigidbody component = gameObject.GetComponent<Rigidbody>();
-                rockSound component2 = gameObject.GetComponent<rockSound>();
-                if ((bool)component2)
-                {
-                    component2.slingShot = true;
-                }
-                if (BoltNetwork.isRunning)
-                {
-                    BoltEntity component3 = gameObject.GetComponent<BoltEntity>();
-                    if ((bool)component3)
-                    {
-                        BoltNetwork.Attach(gameObject);
-                    }
-                }
-                PickUp componentInChildren = gameObject.GetComponentInChildren<PickUp>();
-                if ((bool)componentInChildren)
-                {
-                    SheenBillboard[] componentsInChildren = gameObject.GetComponentsInChildren<SheenBillboard>();
-                    SheenBillboard[] array = componentsInChildren;
-                    foreach (SheenBillboard sheenBillboard in array)
-                    {
-                        sheenBillboard.gameObject.SetActive(false);
-                    }
-                    componentInChildren.gameObject.SetActive(false);
-                    if (base.gameObject.activeInHierarchy)
-                    {
-                        base.StartCoroutine(enablePickupTrigger(componentInChildren.gameObject));
-                    }
-                }
-                Vector3 forward = _ammoSpawnPos.transform.forward;
-                if (ForestVR.Enabled)
-                {
-                    forward = _ammoSpawnPosVR.transform.forward;
-                }
-                component.AddForce(4000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forward);
-            }
+                    repeats += ModdedPlayer.instance.MultishotCount;
 
+                }
+                else
+                {
+                    Effects.Multishot.IsOn = false;
+                    Effects.Multishot.localPlayerInstance.SetActive(false);
+                }
+            }
+            for (int i = 0; i < repeats; i++)
+            {
+                if (LocalPlayer.Inventory.RemoveItem(_ammoItemId, 1, false, true))
+                {
+                    Vector3 position = _ammoSpawnPos.transform.position;
+                    if (i > 0)
+                    {
+                        position += 0.5f * _ammoSpawnPos.transform.up * (i + 1) / 3;
+                        position += 0.5f * _ammoSpawnPos.transform.right * (((i - 1) % 3) - 1);
+
+
+                    }
+                    Quaternion rotation = _ammoSpawnPos.transform.rotation;
+                    if (ForestVR.Enabled)
+                    {
+                        position = _ammoSpawnPosVR.transform.position;
+                        rotation = _ammoSpawnPosVR.transform.rotation;
+                    }
+                    GameObject gameObject = Object.Instantiate(_Ammo, position, rotation);
+                    gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+                    gameObject.tag = "projectile";
+                    gameObject.AddComponent<ProjectileIgnoreCollision>();
+                    Rigidbody component = gameObject.GetComponent<Rigidbody>();
+                    rockSound component2 = gameObject.GetComponent<rockSound>();
+                    if ((bool)component2)
+                    {
+                        component2.slingShot = true;
+                    }
+                    if (BoltNetwork.isRunning)
+                    {
+                        BoltEntity component3 = gameObject.GetComponent<BoltEntity>();
+                        if ((bool)component3)
+                        {
+                            BoltNetwork.Attach(gameObject);
+                        }
+                    }
+                    PickUp componentInChildren = gameObject.GetComponentInChildren<PickUp>();
+                    if ((bool)componentInChildren)
+                    {
+                        SheenBillboard[] componentsInChildren = gameObject.GetComponentsInChildren<SheenBillboard>();
+                        SheenBillboard[] array = componentsInChildren;
+                        foreach (SheenBillboard sheenBillboard in array)
+                        {
+                            sheenBillboard.gameObject.SetActive(false);
+                        }
+                        componentInChildren.gameObject.SetActive(false);
+                        if (base.gameObject.activeInHierarchy)
+                        {
+                            base.StartCoroutine(enablePickupTrigger(componentInChildren.gameObject));
+                        }
+                    }
+                    Vector3 forward = _ammoSpawnPos.transform.forward;
+                    if (ForestVR.Enabled)
+                    {
+                        forward = _ammoSpawnPosVR.transform.forward;
+                    }
+                    component.AddForce(4000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forward);
+                }
+            }
         }
     }
 }

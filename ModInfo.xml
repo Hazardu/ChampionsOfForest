@@ -1,6 +1,6 @@
 <Mod ID="ChampionsOfForest">
   <Compatible>1.11b</Compatible>
-  <Button Standard="Tab" ID="MenuToggle">
+  <Button Standard="F8" ID="MenuToggle">
     <Name>
       <EN>Toggle Menu</EN>
     </Name>
@@ -76,7 +76,7 @@
     <EN>Champions of The Forest</EN>
   </Name>
   <Description>
-    <EN>FINALLY 1.0 IS HERE!</EN>
+    <EN>Best mod this game will ever have</EN>
   </Description>
-  <Version>1.0.6</Version>
+  <Version>1.1.2</Version>
 </Mod>

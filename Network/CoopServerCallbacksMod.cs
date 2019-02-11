@@ -1,4 +1,5 @@
 ﻿using Bolt;
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest.Network
@@ -152,6 +153,23 @@ namespace ChampionsOfForest.Network
                 chatEvent2.Message = evnt.Message;
                 chatEvent2.Send();
             }
+        }
+
+
+        public override void EntityDetached(BoltEntity entity)
+        {
+            if (entity.StateIs<IPlayerState>() && TheForest.Utils.Scene.SceneTracker &&GameSetup.IsMpServer)
+            {
+                ModdedPlayer.instance.SendLeaveMessage(entity.GetState<IPlayerState>().name);
+            }
+            base.EntityDetached(entity);
+        }
+        public override void EntityReceived(BoltEntity entity)
+        {
+            if (entity.StateIs<IPlayerState>() && GameSetup.IsMpServer)
+                NetworkManager.SendLine("IIA NEW CHAMPION APPROACHES \n" + entity.GetState<IPlayerState>().name, NetworkManager.Target.Everyone);
+
+            base.EntityReceived(entity);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace ChampionsOfForest.Player
                 usePassiveOnUpdate = true,
             
             };
-            new Spell(6, 117, 2, 25, 1, "Wide Reach", "Picks up all resources in a small radius around you.")
+            new Spell(6, 117, 2, 15, 1, "Wide Reach", "Picks up all resources in a small radius around you.")
             {
                 active = AutoPickupItems.DoPickup,            
             };
@@ -74,9 +74,13 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastPortal,            
             };
-            new Spell(10, 125, 30, 20, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
+            new Spell(10, 125, 30, 80, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
             {
                 active =SpellActions.CastMagicArrow,            
+            };
+            new Spell(11, 127, 31, 1, 1, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
+            {
+                active =SpellActions.ToggleMultishot,            
             };
         }
     }

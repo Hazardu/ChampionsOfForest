@@ -220,58 +220,64 @@ namespace ChampionsOfForest.Enemies
                             {
                                 if (GameSetup.IsMpClient)
                                 {
-                                    var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
-                                    num = Mathf.RoundToInt(num * x.damagemult);
-                                    if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
+                                    if (other.transform.root == LocalPlayer.Transform.root)
                                     {
-                                        if (TheForest.Utils.Scene.WeatherSystem.Raining)
+                                        var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
+                                        num = Mathf.RoundToInt(num * x.damagemult);
+                                        if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
                                         {
-                                            num *= 5;
+                                            if (TheForest.Utils.Scene.WeatherSystem.Raining)
+                                            {
+                                                num *= 5;
+                                            }
                                         }
-                                    }
-                                    if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-                                    {
-                                       
-                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
-                                       
-                                    }
-                                    if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
-                                    {
+                                        if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+                                        {
 
-                                        ModdedPlayer.instance.Stun(stunDuration);                                     
+                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+
+                                        }
+                                        if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                        {
+
+                                            ModdedPlayer.instance.Stun(stunDuration);
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    if (EnemyProg == null)
+                                    if (other.transform.root == LocalPlayer.Transform.root)
                                     {
-                                        EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
-                                    }
-                                    num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
-                                    BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-                                    if (bo == null)
-                                    {
-                                        bo = other.transform.root.GetComponentInChildren<BoltEntity>();
-                                    }
+                                        if (EnemyProg == null)
+                                        {
+                                            EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+                                        }
+                                        num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
+                                        BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+                                        if (bo == null)
+                                        {
+                                            bo = other.transform.root.GetComponentInChildren<BoltEntity>();
+                                        }
 
 
-                                    //POISON ATTACKS 
-                                    if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-                                    {
-                                    
-                                             
-                                                    BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
-                                              
-                                                
-                                    }
+                                        //POISON ATTACKS 
+                                        if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+                                        {
 
-                                    //STUN ON HIT
-                                    if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
-                                    {
-                                                    ModdedPlayer.instance.Stun(stunDuration);
-                                              
-                                             
-                                      
+
+                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+
+
+                                        }
+
+                                        //STUN ON HIT
+                                        if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
+                                        {
+                                            ModdedPlayer.instance.Stun(stunDuration);
+
+
+
+                                        }
                                     }
                                 }
                             }

@@ -103,8 +103,8 @@ namespace ChampionsOfForest.Network
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         float duration = float.Parse(Read());
                         int id = int.Parse(Read());
-
-                        Portal.CreatePortal(pos, duration, id);
+                        
+                        Portal.CreatePortal(pos, duration, id,ReadBool(),ReadBool());
                     }
                     else if (spellid == 7)
                     {
@@ -589,6 +589,7 @@ namespace ChampionsOfForest.Network
                     }
                     new ClientEnemy(id, dmg, abilities);
                 }
+               
 
             }
             catch (Exception e)

@@ -214,12 +214,16 @@ namespace ChampionsOfForest.Player
         }
 
 
-        public static void RemoveStamina(float cost)
+        public static bool RemoveStamina(float cost)
         {
-            LocalPlayer.Stats.Energy -= cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio;
+            float realcostE = cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio;
+            float realcostS = cost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio;
+            if (LocalPlayer.Stats.Energy < realcostE && LocalPlayer.Stats.Stamina < realcostS) return false;
+            LocalPlayer.Stats.Energy -= realcostE;
             if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
                 LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-            LocalPlayer.Stats.Stamina -= cost * ModdedPlayer.instance.SpellCostToStamina *  ModdedPlayer.instance.SpellCostRatio;
+            LocalPlayer.Stats.Stamina -= realcostS;
+            return true;
         }
     }
 }

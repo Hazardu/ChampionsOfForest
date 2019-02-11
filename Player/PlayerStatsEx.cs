@@ -754,6 +754,8 @@ namespace ChampionsOfForest
             }
             if (type == DamageType.Fire)
             {
+                f *= 0.01f * ModdedPlayer.instance.MaxHealth;
+                f *= UnityEngine.Random.Range(0.9f, 1.4f);
                 //f *= 1-ModdedPlayer.instance.MagicResistance;
                 f *= ModdedPlayer.instance.FireDamageTakenMult;
             }

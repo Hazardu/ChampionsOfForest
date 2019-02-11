@@ -332,8 +332,17 @@ namespace ChampionsOfForest.Res
                     case Resource.ResourceType.Audio:
                         WWW audioWWW = new WWW("file://" + Resource.path + resource.fileName);
                         yield return audioWWW;
+                        AudioClip clip = null;
+                        if (resource.fileName.EndsWith(".mp3"))
+                        {
+                            clip = audioWWW.GetAudioClip(true, true,AudioType.MPEG);
 
-                        AudioClip clip = audioWWW.GetAudioClip(false, false);
+                        }
+                        else
+                        {
+  clip = audioWWW.GetAudioClip(true, true);
+                        }
+                   
                         if(clip != null)
                         {
                             LoadedAudio.Add(resource.ID, clip);
@@ -683,6 +692,18 @@ GUILayout.EndArea();
             new Resource(123, "WarCrySpell.png");
             new Resource(124, "Scroll.obj");
             new Resource(125, "SpellMagicArrow.png");
+            new Resource(126, "SpellEffect.png");
+            new Resource(127, "MultishotSpell.png");
+
+
+
+
+
+
+
+
+
+            new Resource(1000, "thundersound.wav");
 
 
 

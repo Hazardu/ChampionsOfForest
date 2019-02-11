@@ -545,6 +545,7 @@ namespace ChampionsOfForest.Player
 
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
+                        num2 *= ModdedPlayer.instance.HeavyAttackMult;
                         if ((bool)component6)
                         {
                             if (fsmHeavyAttackBool.Value && axe && !smallAxe)
@@ -569,7 +570,7 @@ namespace ChampionsOfForest.Player
                             other.transform.SendMessageUpwards("getCombo", 3, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("Hit", (int)num2 * 3, SendMessageOptions.DontRequireReceiver);
-                           ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
+                           //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
 
                             if (playerHitEnemy != null)
                             {
@@ -595,6 +596,8 @@ namespace ChampionsOfForest.Player
                             int animalHitDirection2 = animalHealth.GetAnimalHitDirection(num);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection2, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("Hit", (int)num2, SendMessageOptions.DontRequireReceiver);
+                            //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2);
+
                             if (playerHitEnemy != null)
                             {
                                 playerHitEnemy.getAttackDirection = animalHitDirection2;
@@ -928,10 +931,11 @@ namespace ChampionsOfForest.Player
             {
                 other.SendMessage("startFire");
             }
-            ModdedPlayer.instance.DoAreaDamage(other.transform.root, playerHitEnemy.Hit);
 
             if (playerHitEnemy != null && playerHitEnemy.Target && playerHitEnemy.Hit > 0)
             {
+                //ModdedPlayer.instance.DoAreaDamage(other.transform.root, playerHitEnemy.Hit);
+
                 if (ForestVR.Enabled && BoltNetwork.isClient)
                 {
                     playerHitEnemy.getCombo = Random.Range(2, 4);

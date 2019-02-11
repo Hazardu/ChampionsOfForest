@@ -42,7 +42,7 @@ namespace ChampionsOfForest.Effects
         {
             GameObject o = new GameObject("__SHOUTPARTICLES__");
 
-            o.transform.position = pos;
+            o.transform.position = pos+Vector3.down;
             o.transform.rotation = Quaternion.Euler(90, 0, 0);
             o.transform.localScale = Vector3.one * radius / 50;
 
@@ -58,9 +58,9 @@ namespace ChampionsOfForest.Effects
             main.duration = 0.5f;
             main.startLifetime = 0.5f;
             main.startSpeed = 200;
-            main.startSize = 5;
+            main.startSize = 4;
             main.startColor = new Color(0.8f, 0.255f, 0.0545f, 0.49f);
-            main.gravityModifier = -3;
+            main.gravityModifier = -2;
 
             emission.rateOverTime = 2000;
 
@@ -74,9 +74,10 @@ namespace ChampionsOfForest.Effects
                 particleMaterial = new Material(Shader.Find("Particles/Additive"))
                 {
                     mainTexture = Res.ResourceLoader.GetTexture(111),
-                    color = new Color(0.5f, 0.5f, 0.5f, 0.5f),
-                    mainTextureScale = new Vector2(22, 1)
+                    mainTextureScale = new Vector2(30, 1)
                 };
+
+                particleMaterial.SetColor("_TintColor", new Color(0.7f, 0.5f, 0f, 0.6f));
             }
             rend.material = particleMaterial;
             rend.renderMode = ParticleSystemRenderMode.Stretch;

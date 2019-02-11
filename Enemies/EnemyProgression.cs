@@ -699,7 +699,7 @@ namespace ChampionsOfForest
                 }
                 if (GameSetup.IsMpServer)
                 {
-                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1, ModReferences.Players.Count * 0.75f))) + ";", Network.NetworkManager.Target.Everyone);
+                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1,0.8f+ ModReferences.Players.Count * 0.2f))) + ";", Network.NetworkManager.Target.Everyone);
                 }
                 else if (GameSetup.IsSinglePlayer)
                 {

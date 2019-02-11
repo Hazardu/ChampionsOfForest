@@ -21,6 +21,8 @@ namespace ChampionsOfForest
         {
             try
             {
+               ModSettings.Version =  ModAPI.Mods.LoadedMods["ChampionsOfForest"].Version;
+            
                 if (SteamDSConfig.isDedicated)
                 {
                     ModAPI.Log.Write("isDedicated true");

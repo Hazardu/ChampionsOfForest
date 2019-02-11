@@ -75,9 +75,12 @@ namespace ChampionsOfForest.Enemies
                             break;
                     }
                     float Exp = UnityEngine.Random.Range(300, 350);
-
-                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Exp * multipier) + ";", Network.NetworkManager.Target.Everyone);
-
+                    if(GameSetup.IsMpServer)
+                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Exp*multipier / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))) + ";", Network.NetworkManager.Target.Everyone);
+                    else
+                    {
+                        ModdedPlayer.instance.AddKillExperience(Convert.ToInt64(Exp * multipier));
+                    }
                     int itemCount = UnityEngine.Random.Range(5, 7);
                     for (int i = 0; i < itemCount; i++)
                     {

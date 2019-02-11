@@ -24,8 +24,8 @@ namespace ChampionsOfForest.Effects
                 light.type = LightType.Point;
                 light.range = 20;
                 Material mat = new Material(Shader.Find("Unlit/Texture"));
+                mat.color = Color.blue;
                 p1.GetComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[112];
-
 
                 MeshRenderer MR = p1.GetComponent<MeshRenderer>();
                 MR.material = mat;
@@ -46,12 +46,14 @@ namespace ChampionsOfForest.Effects
             p1.SetActive(false);
             p2.SetActive(false);
         }
-        public static void CreatePortal(Vector3 pos, float Duration, int portalID)
+        public static void CreatePortal(Vector3 pos, float Duration, int portalID,bool leadsToCaves,bool leadsToEndgame)
         {
             portals[portalID].gameObject.SetActive(true);
             portals[portalID].transform.position = pos;
 
             portals[portalID].Duration = Duration;
+            portals[portalID].Cave = leadsToCaves;
+            portals[portalID].Endgame = leadsToEndgame;
             portals[portalID].Enable();
             if (portalID == 1)
             {
@@ -61,11 +63,15 @@ namespace ChampionsOfForest.Effects
             {
                 portalID = 1;
             }
+        
         }
 
-        public static void SyncTransform(Vector3 pos, float Duration, int portalID)
+        public static void SyncTransform(Vector3 pos, float Duration, int portalID,bool inCave,bool inEndgame)
         {
-            string s = string.Concat("SC6;", pos.x, ";", pos.y, ";", pos.z, ";", Duration, ";", portalID, ";");
+            string s1 = "";
+            if (inCave) s1 += "t;"; else s1 += "f;";
+            if (inEndgame) s1 += "t;"; else s1 += "f;";
+            string s = string.Concat("SC6;", pos.x, ";", pos.y, ";", pos.z, ";", Duration, ";", portalID, ";",s1);
             Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
         }
 
@@ -97,6 +103,8 @@ namespace ChampionsOfForest.Effects
 
         public float Duration;
         public bool DoCooldown;
+        public bool Cave;
+        public bool Endgame;
 
         // Start is called before the first frame update
         private void Start()
@@ -189,7 +197,15 @@ namespace ChampionsOfForest.Effects
                         Vector3 dir = LocalPlayer.Transform.position - transform.position;
                         dir.Normalize();
                         LocalPlayer.Rigidbody.AddForce(dir * 3, ForceMode.VelocityChange);
-
+                      
+                        if ((otherPortal.Endgame && !LocalPlayer.IsInEndgame)|| (!otherPortal.Endgame && LocalPlayer.IsInEndgame))
+                        {
+                            LocalPlayer.GameObject.GetComponent<LocalPlayer>().SetInEndGame(otherPortal.Endgame);
+                        }
+                        if ((otherPortal.Cave && !LocalPlayer.IsInCaves)|| (!otherPortal.Cave && LocalPlayer.IsInCaves))
+                        {
+                            LocalPlayer.ActiveAreaInfo.SetInCaves(otherPortal.Cave);
+                        }
                     }
                 }
             }

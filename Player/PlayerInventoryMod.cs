@@ -144,29 +144,29 @@ namespace ChampionsOfForest.Player
 
         //RANGED MOD CHANGES---------------------------------------------------
 
-  //      public override void Start()
-  //      {
-  //          base.Start();
-  //          string log = "";
-  //          foreach (var list in _inventoryItemViewsCache)
-  //          {
-  //              foreach (var item in list.Value)
-  //              {
-  //                  try
-  //                  {
-  //string s = "• _inventoryItemViewsCache[" + list.Key + "][" + list.Value + "]\n" +
-  //                      "\tItem: " + item.ItemCache._name + " " + item.ItemCache._id;
-  //                  s += "\n\tHeld Gameobject" + item._held.name + "\n\n";
-  //                  log += s;
-  //                  }
-  //                  catch (System.Exception)
-  //                  {
+        //      public override void Start()
+        //      {
+        //          base.Start();
+        //          string log = "";
+        //          foreach (var list in _inventoryItemViewsCache)
+        //          {
+        //              foreach (var item in list.Value)
+        //              {
+        //                  try
+        //                  {
+        //string s = "• _inventoryItemViewsCache[" + list.Key + "][" + list.Value + "]\n" +
+        //                      "\tItem: " + item.ItemCache._name + " " + item.ItemCache._id;
+        //                  s += "\n\tHeld Gameobject" + item._held.name + "\n\n";
+        //                  log += s;
+        //                  }
+        //                  catch (System.Exception)
+        //                  {
 
-  //                  } 
-  //              }
-  //          }
-  //          ModAPI.Log.Write(log);
-  //      }
+        //                  } 
+        //              }
+        //          }
+        //          ModAPI.Log.Write(log);
+        //      }
         protected override void FireRangedWeapon()
         {
             if (ModSettings.IsDedicated)
@@ -178,8 +178,20 @@ namespace ChampionsOfForest.Player
             TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
             bool flag = itemCache._maxAmount < 0;
             bool flag2 = false;
-
             int repeats = 1;
+            if (Effects.Multishot.IsOn)
+            {
+                if (SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount))
+                {
+                    repeats += ModdedPlayer.instance.MultishotCount;
+
+                }
+                else
+                {
+                    Effects.Multishot.IsOn = false;
+                    Effects.Multishot.localPlayerInstance.SetActive(false);
+                }
+            }
             for (int i = 0; i < repeats; i++)
             {
 
@@ -189,14 +201,24 @@ namespace ChampionsOfForest.Player
                     InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
                     TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
                     FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
-                    if (UseAltWorldPrefab)
-                    {
-                    }
                     Vector3 pos = inventoryItemView2._held.transform.position;
-                    if (i > 0 && i < 9) pos += inventoryItemView2._held.transform.right * Mathf.Cos(45 * (i + 1)) * 0.4f + inventoryItemView2._held.transform.up * Mathf.Sin(45 * (i + 1)) * 0.4f;
-                    
+                    if (i > 0 && i < 9)
+                    {
+                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(45 * (i - 1)) * 0.5f + inventoryItemView2._held.transform.up * Mathf.Sin(45 * (i + 1)) * 5f;
+                    }
+                    else if (i >= 9 && i < 22)
+                    {
+                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(30 * (i + 5)) * 1f + inventoryItemView2._held.transform.up * Mathf.Sin(30 * (i + 5)) * 1f;
+                    }
+                    else if(i > 21)
+                    {
+                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(25 * (i)) * 1.5f + inventoryItemView2._held.transform.up * Mathf.Sin(25 * (i)) * 1.5f;
+                    }
+
                     GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
                     gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+                    gameObject.AddComponent<ProjectileIgnoreCollision>();
+
                     if ((bool)gameObject.GetComponent<Rigidbody>())
                     {
                         if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))

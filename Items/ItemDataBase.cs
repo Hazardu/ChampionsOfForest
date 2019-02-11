@@ -3156,8 +3156,8 @@ new int[] {18},
                 lore = "",
                 tooltip = "",
                 Rarity = 0,
-                minLevel = 7,
-                maxLevel = 15,
+                minLevel = 1,
+                maxLevel = 3,
                 CanConsume = false,
                 StackSize = 1,
                 _itemType = BaseItem.ItemType.Weapon,
@@ -3396,7 +3396,29 @@ new int[] {18},
                 onUnequip = () => ModdedPlayer.instance.IsCrossfire = false,
             };
 
+            new BaseItem(new int[][]
+            {
+                new int[] {44},
+                new int[] {44,8},
+                new int[] {44,0,0,0},
+            })
+            {
+                name = "Scroll of Recovery",
+                description = "Recovers health and stamina",
+                lore = "",
+                tooltip = "Scroll is an offhand",
+                Rarity = 1,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.SpellScroll,
+                icon = Res.ResourceLoader.GetTexture(110),
+            };
 
+
+
+            //     - PERKS
 
 
 

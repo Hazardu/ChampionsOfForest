@@ -1331,8 +1331,8 @@ namespace ChampionsOfForest.Player
             };
              new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyBonus += 2,
-                DisableMethods = () => ModdedPlayer.instance.EnergyBonus -= 2,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyBonus += 5,
+                DisableMethods = () => ModdedPlayer.instance.EnergyBonus -= 5,
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 8,
@@ -1341,7 +1341,25 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Endurance",
-                Description = "Increases maximum energy by 2",
+                Description = "Increases maximum energy by 5",
+                TextureVariation = 0,
+                Endless = true,
+            };
+
+            
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MultishotCount += 1,
+                DisableMethods = () => ModdedPlayer.instance.MultishotCount -= 1,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 12 },
+                LevelRequirement = 31,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = -1.5f,
+                Name = "Multishot Empower",
+                Description = "Increases the projectile count of multishot, also increases the spells cost.",
                 TextureVariation = 0,
                 Endless = true,
             };

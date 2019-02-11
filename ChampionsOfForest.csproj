@@ -167,6 +167,7 @@
     <Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
 <Compile Include="Effects\MagicArrow.cs"  />
+<Compile Include="Effects\Multishot.cs"  />
 <Compile Include="Effects\Portal.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />
@@ -179,6 +180,7 @@
 <Compile Include="Player\AutoPickupItems.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
+<Compile Include="Player\ProjectileIgnoreCollision.cs"  />
 <Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\ClinetEnemyProgression.cs"  />
@@ -213,7 +215,7 @@
 <Compile Include="Player\CrossBowControllerMod.cs"  />
 <Compile Include="Player\CustomWeapon.cs"  />
 <Compile Include="Player\FPCharacterMod.cs"  />
-<Compile Include="Player\HealingDome.cs"  />
+<Compile Include="Effects\HealingDome.cs"  />
 <Compile Include="Player\Inventory.cs"  />
 <Compile Include="Player\MainMenu.cs"  />
 <Compile Include="Network\ChatBoxMod.cs"  />

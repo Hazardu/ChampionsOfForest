@@ -220,7 +220,7 @@ namespace ChampionsOfForest.Player
             int id = Portal.GetPortalID();
             try
             {
-            Portal.CreatePortal(pos, PortalDuration, id);
+            Portal.CreatePortal(pos, PortalDuration, id,LocalPlayer.IsInCaves,LocalPlayer.IsInEndgame);
 
             }
             catch (Exception e)
@@ -231,7 +231,7 @@ namespace ChampionsOfForest.Player
       
             if (BoltNetwork.isRunning)
             {
-                Portal.SyncTransform(pos, PortalDuration, id);
+                Portal.SyncTransform(pos, PortalDuration, id, LocalPlayer.IsInCaves, LocalPlayer.IsInEndgame);
             }
         }
 
@@ -267,6 +267,13 @@ namespace ChampionsOfForest.Player
               Network.NetworkManager.SendLine(s,Network.NetworkManager.Target.Others);
             }
 
+        }
+
+
+        public static void ToggleMultishot()
+        {
+            Multishot.IsOn = !Multishot.IsOn;
+            Multishot.localPlayerInstance.SetActive(Multishot.IsOn);
         }
 
     }

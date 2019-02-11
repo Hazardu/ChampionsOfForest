@@ -20,10 +20,6 @@ namespace ChampionsOfForest.ExpSources
             int xp = 10;
             if (GameSetup.IsMultiplayer)
             {
-                int playercount = ModReferences.Players.Count;
-                playercount = Mathf.Max(1, playercount);
-                xp /= playercount;
-                xp = Mathf.Max(2, xp);
                 Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
             }
             else
@@ -37,10 +33,6 @@ namespace ChampionsOfForest.ExpSources
             int xp = 12;
             if (GameSetup.IsMultiplayer)
             {
-                int playercount = ModReferences.Players.Count;
-                playercount = Mathf.Max(1, playercount);
-                xp /= playercount;
-                xp = Mathf.Max(2, xp);
                 Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
             }
             else
@@ -53,10 +45,6 @@ namespace ChampionsOfForest.ExpSources
             int xp = 300;
             if (GameSetup.IsMultiplayer)
             {
-                int playercount = ModReferences.Players.Count;
-                playercount = Mathf.Max(1, playercount);
-                xp /= playercount;
-                xp = Mathf.Max(2, xp);
                 Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
             }
             else
