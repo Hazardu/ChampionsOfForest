@@ -67,7 +67,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 {
                     coughtPlayer = true;
                 }
-                if (coughtPlayer && !ModdedPlayer.instance.StunImmune)
+                if (coughtPlayer && 0==ModdedPlayer.instance.StunImmune)
                 {
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude > Radius * Radius)
                     {

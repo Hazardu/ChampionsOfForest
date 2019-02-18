@@ -86,7 +86,7 @@ namespace ChampionsOfForest.Effects
         public static bool IsOn = false;
         public static float Cost = 25;
 
-        private void Start()
+        public void Start()
         {
             StartCoroutine(StartCoroutine());
         }

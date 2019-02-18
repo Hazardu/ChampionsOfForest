@@ -141,10 +141,10 @@ namespace ChampionsOfForest
 
 
 
-        public bool StunImmune = false;
-        public bool RootImmune = false;
-        public bool DebuffImmune = false;
-        public bool DebuffResistant = false;
+        public int StunImmune = 0;
+        public int RootImmune = 0;
+        public int DebuffImmune = 0;
+        public int DebuffResistant = 0;
         public float MoveSpeed = 1f;
         public float JumpPower = 1f;
         public float SpellCostToStamina = 0;
@@ -424,12 +424,12 @@ namespace ChampionsOfForest
                 for (int i = 0; i < keys.Length; i++)
                 {
                     Buff buff = BuffDB.activeBuffs[keys[i]];
-                    if (DebuffImmune && buff.isNegative && buff.DispellAmount <= 2)
+                    if (DebuffImmune>0 && buff.isNegative && buff.DispellAmount <= 2)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                         continue;
                     }
-                    else if (DebuffResistant && buff.isNegative && buff.DispellAmount <= 1)
+                    else if (DebuffResistant>0 && buff.isNegative && buff.DispellAmount <= 1)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                         continue;
@@ -560,7 +560,7 @@ namespace ChampionsOfForest
 
             if (Rooted)
             {
-                if (StunImmune || RootImmune)
+                if (StunImmune>0 || RootImmune>0)
                 {
                     Rooted = false;
                     if (!Stunned)
@@ -590,7 +590,7 @@ namespace ChampionsOfForest
             }
             if (Stunned)
             {
-                if (StunImmune)
+                if (StunImmune>0)
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
@@ -676,7 +676,7 @@ namespace ChampionsOfForest
 
         public void Root(float duration)
         {
-            if (StunImmune || RootImmune)
+            if (StunImmune>0 || RootImmune>0)
             {
                 return;
             }
@@ -690,7 +690,7 @@ namespace ChampionsOfForest
         }
         public void Stun(float duration)
         {
-            if (StunImmune)
+            if (StunImmune>0)
             {
                 return;
             }
@@ -1094,10 +1094,10 @@ namespace ChampionsOfForest
             instance.MagicResistance = 0;
         instance.AttackSpeedMult = 1;
         instance.AttackSpeedAdd = 1;
-            instance.StunImmune = false;
-            instance.RootImmune = false;
-            instance.DebuffImmune = false;
-            instance.DebuffResistant = false;
+            instance.StunImmune = 0;
+            instance.RootImmune = 0;
+            instance.DebuffImmune = 0;
+            instance.DebuffResistant = 0;
             instance.MoveSpeed = 1f;
             instance.JumpPower = 1f;
             instance.SpellCostToStamina = 0;

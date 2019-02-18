@@ -146,12 +146,8 @@ namespace ChampionsOfForest
                             if (UnityEngine.Input.GetKey(KeyCode.F8))
                             {
                                 ModAPI.Console.Write("PLAYER " + b.transform.root.name);
-
                                 ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
-
                             }
-
-
                         }
                         catch (Exception exc)
                         {
@@ -216,10 +212,10 @@ namespace ChampionsOfForest
 
                         if (UnityEngine.Input.GetKey(KeyCode.F8))
                         {
-                            Debug.LogWarning("PLAYER "+ b.transform.root.name);
+                            Debug.LogWarning("PLAYER " + b.transform.root.name);
 
-                                ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
-                            
+                            ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
+
                         }
 
 
@@ -230,7 +226,7 @@ namespace ChampionsOfForest
                     }
                     if (search)
                     {
-                        Transform hand = FindDeepChild(b.transform, "rightHandHeld");
+                        Transform hand = FindHandRetardedWay(b.transform.root);
                         if (hand != null)
                         {
                             PlayerHands.Add(b.networkId.PackedValue, hand);
@@ -261,16 +257,36 @@ namespace ChampionsOfForest
         }
         public static Transform FindDeepChild(Transform aParent, string aName)
         {
-            var result = aParent.Find(aName);
+            Transform result = aParent.Find(aName);
             if (result != null)
+            {
                 return result;
+            }
+
             foreach (Transform child in aParent)
             {
                 result = FindDeepChild(child, aName);
                 if (result != null)
+                {
                     return result;
+                }
             }
             return null;
+        }
+        public static Transform FindHandRetardedWay(Transform root)
+        {
+            try
+            {
+ return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
+            }
+            catch (Exception e)
+            {
+
+                ModAPI.Console.Write(e.ToString());
+
+            }
+            return null;
+           
         }
     }
 }

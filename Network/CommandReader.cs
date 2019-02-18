@@ -103,19 +103,19 @@ namespace ChampionsOfForest.Network
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         float duration = float.Parse(Read());
                         int id = int.Parse(Read());
-                        
-                        Portal.CreatePortal(pos, duration, id,ReadBool(),ReadBool());
+
+                        Portal.CreatePortal(pos, duration, id, ReadBool(), ReadBool());
                     }
                     else if (spellid == 7)
                     {
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         Vector3 dir = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
 
-                        int dmg = int.Parse(Read());
-                            ulong caster = ulong.Parse(Read());
+                        float dmg = float.Parse(Read());
+                        ulong caster = ulong.Parse(Read());
                         float duration = float.Parse(Read());
-                            bool slow = ReadBool();
-                            bool dmgdebuff = ReadBool();
+                        bool slow = ReadBool();
+                        bool dmgdebuff = ReadBool();
                         if (GameSetup.IsMpServer)
                         {
                             MagicArrow.Create(pos, dir, dmg, caster, duration, slow, dmgdebuff);
@@ -123,6 +123,23 @@ namespace ChampionsOfForest.Network
                         else
                         {
                             MagicArrow.CreateEffect(pos, dir, dmgdebuff, duration);
+                        }
+
+                    }
+                    else if (spellid == 8)
+                    {
+                        Purge.Cast(new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read())), float.Parse(Read()));
+
+                    }
+                    else if (spellid == 9)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        float dist = float.Parse(Read());
+
+                        SnapFreeze.CreateEffect(pos, dist);
+                        if(!GameSetup.IsMpClient)
+                        {
+                            SnapFreeze.HostAction(pos, dist, float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         }
 
                     }
@@ -310,7 +327,7 @@ namespace ChampionsOfForest.Network
                         return;
                     }
 
-                    if (!ModdedPlayer.instance.RootImmune && !ModdedPlayer.instance.StunImmune)
+                    if (ModdedPlayer.instance.RootImmune==0 && ModdedPlayer.instance.StunImmune==0)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -330,7 +347,7 @@ namespace ChampionsOfForest.Network
                         return;
                     }
 
-                    if (!ModdedPlayer.instance.StunImmune)
+                    if (ModdedPlayer.instance.StunImmune==0)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -499,8 +516,6 @@ namespace ChampionsOfForest.Network
 
                                 NetworkManager.SendItemToPlayer(PickUpManager.PickUps[itemID].item, playerID, givenAmount);
 
-
-
                                 PickUpManager.PickUps[itemID].amount -= givenAmount;
 
                                 if (PickUpManager.PickUps[itemID].amount > 0) return;
@@ -512,6 +527,7 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("AG"))    //give item to player
                 {
+                    if (!GameSetup.IsMpClient) return;
                     i = 2;
                     ch = s.ToCharArray();
                     ulong playerID = ulong.Parse(Read());

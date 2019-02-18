@@ -443,6 +443,7 @@ namespace ChampionsOfForest
         {
             //source - 40 is hammer attack
             //source - 41 is magic arrow hit
+            //source - 20 is snap freeze
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);

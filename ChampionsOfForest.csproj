@@ -164,11 +164,15 @@
 
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\BlackFlame.cs"  />
+    <Compile Include="DamageMath.cs"  />
+<Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
+<Compile Include="Effects\Gold.cs"  />
 <Compile Include="Effects\MagicArrow.cs"  />
 <Compile Include="Effects\Multishot.cs"  />
 <Compile Include="Effects\Portal.cs"  />
+<Compile Include="Effects\Purge.cs"  />
+<Compile Include="Effects\SnapFreeze.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />
 <Compile Include="Enemies\EnemyDebuff.cs"  />

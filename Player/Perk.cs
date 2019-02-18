@@ -1226,8 +1226,8 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 3f,
                 PosOffsetY = -2.25f,
-                Name = "Crippling Precision",
-                Description = "Magic arrow causes hit enemies to deal 15% less damage for the duration of the slow.",
+                Name = "Exposure",
+                Description = "Magic arrow causes hit enemies to take 15% more damage for the duration of the slow.",
                 TextureVariation = 0,
                 Endless = false,
             };

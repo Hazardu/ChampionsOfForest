@@ -694,6 +694,8 @@ GUILayout.EndArea();
             new Resource(125, "SpellMagicArrow.png");
             new Resource(126, "SpellEffect.png");
             new Resource(127, "MultishotSpell.png");
+            new Resource(128, "Iceparticle.png");
+            new Resource(129, "Shockwave.png");
 
 
 

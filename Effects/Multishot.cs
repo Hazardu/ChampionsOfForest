@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Effects
 
             GameObject child = GameObject.CreatePrimitive(PrimitiveType.Quad);
             Material mat = new Material(Shader.Find("Particles/Additive"));
-            mat.SetColor("_TintColor", new Color(0.0f, 0.1f, 0.06f, 0.1f));
+            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.2f));
             mat.mainTexture = Res.ResourceLoader.GetTexture(126);
             child.GetComponent<Renderer>().material = mat;
 

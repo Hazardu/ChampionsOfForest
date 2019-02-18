@@ -15,15 +15,19 @@ namespace ChampionsOfForest.Player
             try
             {
             ModdedPlayer.ResetAllStats();
-              BlackFlame.instance.StartCoroutine(BlackFlame.instance.StartCoroutine());
+              
             }
             catch (Exception e)
             {
 
                 ModAPI.Log.Write(e.ToString());
             }
+
+            ModReferences.rightHandTransform = null;
+
             ModdedPlayer.instance.ExpCurrent = 0;
             ModdedPlayer.instance.InitializeHandHeld();
+              BlackFlame.instance.Start();
         }
 
 

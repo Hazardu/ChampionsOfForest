@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Effects
     public class MagicArrow : MonoBehaviour
     {
         private static Material material;
-        public static void Create(Vector3 pos, Vector3 dir, int Damage, ulong CasterID, float debuffDuration, bool doubleSlow, bool dmgdebuff)
+        public static void Create(Vector3 pos, Vector3 dir, float Damage, ulong CasterID, float debuffDuration, bool doubleSlow, bool dmgdebuff)
         {
             MagicArrow a = CreateEffect(pos, dir,dmgdebuff,debuffDuration);
             BoxCollider col = a.gameObject.AddComponent<BoxCollider>();
@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Effects
 
         public ulong casterID;
 
-        public int Damage;
+        public float Damage;
         public float DebuffDuration;
         public bool GiveDmgDebuff;
         public bool GiveDoubleSlow;
@@ -91,29 +91,29 @@ namespace ChampionsOfForest.Effects
 
             }
 
-            if (other.gameObject.CompareTag("PlayerNet"))
-            {
-                if (!ModSettings.FriendlyFire)
-                {
-                    return;
-                }
+            //if (other.gameObject.CompareTag("PlayerNet"))
+            //{
+            //    if (!ModSettings.FriendlyFire)
+            //    {
+            //        return;
+            //    }
 
-                BoltEntity component3 = other.GetComponent<BoltEntity>();
-                if (component3 != null && component3.networkId.PackedValue != casterID)
-                {
-                    if (BoltNetwork.isRunning)
-                    {
-                        ModdedPlayer.instance.DoOnHit();
-                        ModdedPlayer.instance.DoMeleeOnHit();
+            //    BoltEntity component3 = other.GetComponent<BoltEntity>();
+            //    if (component3 != null && component3.networkId.PackedValue != casterID)
+            //    {
+            //        if (BoltNetwork.isRunning)
+            //        {
+            //            ModdedPlayer.instance.DoOnHit();
+            //            ModdedPlayer.instance.DoMeleeOnHit();
 
-                        HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                        hitPlayer.damage = Mathf.FloorToInt(Damage);
-                        hitPlayer.Send();
-                        return;
+            //            HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
+            //            hitPlayer.damage = Mathf.FloorToInt(Damage);
+            //            hitPlayer.Send();
+            //            return;
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
 
           
                 if (other.gameObject.CompareTag("enemyCollide"))
@@ -122,7 +122,11 @@ namespace ChampionsOfForest.Effects
                     EnemyProgression prog = other.GetComponentInParent<EnemyProgression>();
                     if (prog != null)
                     {
-                        prog.HitMagic(Damage);
+                        DamageMath.DamageClamp(Damage, out int d, out int a);
+                        for (int i = 0; i < a; i++)
+                        {
+                        prog.HitMagic(d);
+                        }
                         float slowAmount = 0.35f;
                         if (GiveDoubleSlow)
                         {
@@ -132,7 +136,7 @@ namespace ChampionsOfForest.Effects
                         prog.Slow(41, 1 - slowAmount, DebuffDuration);
                         if (GiveDmgDebuff)
                         {
-                            prog.DmgDealtDebuff(41, 0.85f, DebuffDuration);
+                            prog.DmgTakenDebuff(41, 1.15f, DebuffDuration);
                         }
                     }
                 }

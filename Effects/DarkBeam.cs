@@ -208,7 +208,8 @@ namespace ChampionsOfForest
                         EnemyProgression ep = hit.transform.GetComponentInParent<EnemyProgression>();
                         if (ep != null)
                         {
-                            int dmg = Mathf.RoundToInt(Damage / 2);
+                            DamageMath.DamageClamp(Damage/2, out int dmg, out int a);
+                          
                             if (fromEnemy)
                             {
                                 ep._Health.Health = (int)Mathf.Clamp(ep._Health.Health + Healing / 2, 0, ep.MaxHealth);
@@ -216,7 +217,10 @@ namespace ChampionsOfForest
                             }
                             else
                             {
-                                ep.HitMagic(dmg);
+                                for (int i = 0; i < a; i++)
+                                {
+                                    ep.HitMagic(dmg);
+                                }
                                 ep.Slow(6, Slow, 10);
                             }
                         }

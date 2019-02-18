@@ -10,6 +10,7 @@ namespace ChampionsOfForest.Player
     public class ArrowDamageMod : ArrowDamage
     {
         private float BaseDmg;
+        private int Repetitions;
         protected override void Start()
         {
             if (ModSettings.IsDedicated)
@@ -19,25 +20,27 @@ namespace ChampionsOfForest.Player
             }
             BaseDmg = damage;
             base.Start();
-            damage = Mathf.RoundToInt((BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff);
+          float dmg =    (BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
             if (crossbowBoltType)
             {
-                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.CrossbowDamageMult);
+                dmg = dmg * ModdedPlayer.instance.CrossbowDamageMult;
             }
             else if (flintLockAmmoType)
             {
-                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.BulletDamageMult);
+                dmg = dmg * ModdedPlayer.instance.BulletDamageMult;
 
             }
             else if (spearType)
             {
-                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpearDamageMult);
+                dmg = dmg * ModdedPlayer.instance.SpearDamageMult;
 
             }
             else //if arrow
             {
-                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.BowDamageMult);
+                dmg = dmg * ModdedPlayer.instance.BowDamageMult;
             }
+
+            DamageMath.DamageClamp(dmg, out damage, out Repetitions);
         }
 
 
@@ -117,9 +120,8 @@ namespace ChampionsOfForest.Player
                         if(Time.time- ModdedPlayer.instance.LastCrossfireTime > 20)
                         {
                             ModdedPlayer.instance.LastCrossfireTime = Time.time;
-                            int damage = 55 + (int)(ModdedPlayer.instance.SpellDamageBonus * 1.25f);
-                            damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpellAMP);
-                            damage /= 2;
+                            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
+                            damage = damage * ModdedPlayer.instance.SpellAMP;
                             Vector3 pos = Camera.main.transform.position + Camera.main.transform.right*5;
                             Vector3 dir = transform.position - pos;
                             dir.Normalize();
@@ -181,7 +183,10 @@ namespace ChampionsOfForest.Player
                         base.Invoke("destroyMe", 0.1f);
                     }
                 }
+                for (int i = 0; i < Repetitions; i++)
+                {
                 base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
+                }
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
                 ModdedPlayer.instance.DoOnHit();
                 ModdedPlayer.instance.DoRangedOnHit();

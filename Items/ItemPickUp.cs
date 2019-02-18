@@ -153,7 +153,6 @@ namespace ChampionsOfForest
                     }
                 }
                 else if (Player.Inventory.Instance.HasSpaceFor(item))
-
                 {
                     Network.NetworkManager.SendLine("AF" + ID + ";" + 1 + ";" + ModReferences.ThisPlayerPacked + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
 

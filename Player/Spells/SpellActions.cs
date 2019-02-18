@@ -89,14 +89,14 @@ namespace ChampionsOfForest.Player
         public static void CreateHealingDome()
         {
             Vector3 pos = LocalPlayer.Transform.position;
-            float radius = 7.5f;
-            float healing = (ModdedPlayer.instance.LifeRegen / 4 + 3.5f) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
+            float radius = 8.5f;
+            float healing = (ModdedPlayer.instance.LifeRegen + 13.5f) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
             string immunity = "0;";
             if (HealingDomeGivesImmunity)
             {
                 immunity = "1;";
             }
-            float duration = 7;
+            float duration = 8;
             Network.NetworkManager.SendLine("SC2;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + radius + ";" + healing + ";" + immunity + duration + ";", Network.NetworkManager.Target.Everyone);
         }
 
@@ -119,23 +119,23 @@ namespace ChampionsOfForest.Player
         }
         #region FLARE
 
-        public static float FlareDamage = 6;
-        public static float FlareSlow = 0.75f;
-        public static float FlareBoost = 1.25f;
-        public static float FlareHeal = 2;
-        public static float FlareRadius = 3.5f;
+        public static float FlareDamage = 10;
+        public static float FlareSlow = 0.5f;
+        public static float FlareBoost = 1.35f;
+        public static float FlareHeal = 5;
+        public static float FlareRadius = 4.5f;
         public static float FlareDuration = 8;
         public static void CastFlare()
         {
             Vector3 dir = LocalPlayer.Transform.position;
-            float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus/5;
+            float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus/3;
             dmg *=ModdedPlayer.instance.SpellAMP;
             float slow = FlareSlow;
             float boost = FlareBoost;
             float duration = FlareDuration;
             float radius = FlareRadius;
-            float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 20 + (ModdedPlayer.instance.LifeRegen/1.6f) * ModdedPlayer.instance.HealthRegenPercent;
-
+            float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 20 + (ModdedPlayer.instance.LifeRegen/1.2f) * ModdedPlayer.instance.HealthRegenPercent;
+            Healing *= ModdedPlayer.instance.SpellAMP;
 
             Network.NetworkManager.SendLine("SC3;" + dir.x + ";" + dir.y + ";" + dir.z + ";" + "f;" + dmg + ";" + Healing + ";" + slow + ";" + boost + ";" + duration + ";" + radius + ";", Network.NetworkManager.Target.Everyone);
         }
@@ -168,7 +168,7 @@ namespace ChampionsOfForest.Player
         public static float ShieldPerSecond = 1;
         public static float MaxShield = 10;
         public static float ShieldCastTime;
-        public static float ShieldPersistanceLifetime = 3;
+        public static float ShieldPersistanceLifetime = 20;
         public static void CastSustainShieldActive()
         {
             float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus/2;
@@ -241,8 +241,8 @@ namespace ChampionsOfForest.Player
         public static float MagicArrowDuration = 3f;
         public static void CastMagicArrow()
         {
-            int damage = 55 + (int)(ModdedPlayer.instance.SpellDamageBonus*1.25f);
-                damage = Mathf.RoundToInt(damage * ModdedPlayer.instance.SpellAMP);
+            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus*1.3f;
+                damage = damage * ModdedPlayer.instance.SpellAMP;
             Vector3 pos = Camera.main.transform.position;
             Vector3 dir = Camera.main.transform.forward;
             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -275,6 +275,34 @@ namespace ChampionsOfForest.Player
             Multishot.IsOn = !Multishot.IsOn;
             Multishot.localPlayerInstance.SetActive(Multishot.IsOn);
         }
+
+
+        public static float PurgeRadius = 14;
+        public static void CastPurge()
+        {
+            Vector3 pos = LocalPlayer.Transform.position;
+
+            Purge.Cast(pos, PurgeRadius);
+
+            if (BoltNetwork.isRunning)
+            {
+                string s = "SC8;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + PurgeRadius;
+                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+            }
+        }
+
+        public static float SnapFreezeDist = 22;
+        public static float SnapFloatAmount = 0.2f;
+        public static float SnapFloatDuration = 12f;
+        public static void CastSnapFreeze()
+        {
+            Vector3 pos = LocalPlayer.Transform.position;
+            float dmg = 23 + ModdedPlayer.instance.SpellDamageBonus;
+            dmg *= ModdedPlayer.instance.SpellAMP;
+            string s = "SC9;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + SnapFreezeDist+";"+ SnapFloatAmount+";"+SnapFloatDuration+";"+dmg+";";
+            Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Everyone);
+        }
+
 
     }
 }

@@ -146,6 +146,7 @@ namespace ChampionsOfForest
             {
                 if (Vector3.Distance(LocalPlayer.Transform.position, transform.position) < scale * 5)
                 {
+                    if(ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0)
                     Pull(LocalPlayer.Transform);
                     LocalPlayer.Stats.Health -= damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance);
                 }
@@ -174,8 +175,11 @@ namespace ChampionsOfForest
                     EnemyProgression ep = t.GetComponentInChildren<EnemyProgression>();
                     if (ep != null)
                     {
-
-                        ep.HitMagic(Mathf.RoundToInt(damage / 2));
+                        DamageMath.DamageClamp(damage, out int d, out int a);
+                        for (int i = 0; i < a; i++)
+                        {
+                            ep.HitMagic(Mathf.RoundToInt(d / 2));
+                        }
                     }
                 }
                 yield return new WaitForSeconds(0.5f);

@@ -78,9 +78,21 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastMagicArrow,            
             };
-            new Spell(11, 127, 31, 1, 1, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
+            new Spell(11, 127, 35, 1, 1, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
             {
                 active =SpellActions.ToggleMultishot,            
+            };
+            new Spell(12, 127, 40,50, 200, "Gold", "For 20 seconds you turn completely immune to stuns and attack speed increases by 20%")
+            {
+                active =Gold.Cast,            
+            };
+            new Spell(13, 127, 6, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
+            {
+                active =SpellActions.CastPurge,            
+            };
+            new Spell(14, 127, 20, 200, 45, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 80% you deal magic damage to them")
+            {
+                active =SpellActions.CastSnapFreeze,            
             };
         }
     }

@@ -27,8 +27,8 @@ namespace ChampionsOfForest.Effects
         }
         public static void GiveEffect(bool giveEffect2, bool giveEffect3, int ArmorAmount = 1)
         {
-            BuffDB.AddBuff(5, 45, 1.1f, 120);
-            BuffDB.AddBuff(14, 46, 1.1f, 120);
+            BuffDB.AddBuff(5, 45, 1.15f, 120);
+            BuffDB.AddBuff(14, 46, 1.15f, 120);
             if (giveEffect2)
             {
                 BuffDB.AddBuff(9, 47, 1.1f, 120);

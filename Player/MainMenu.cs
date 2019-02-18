@@ -1794,9 +1794,9 @@ namespace ChampionsOfForest
 
 
             }
-            catch (Exception ex)
+            catch
             {
-                //ModAPI.Log.Write("Error in DrawHud() \n " + ex.ToString()); --this is annoying af so i disable it
+
             }
         }
 

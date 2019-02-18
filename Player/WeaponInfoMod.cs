@@ -133,6 +133,8 @@ namespace ChampionsOfForest.Player
         protected override void OnTriggerEnter(Collider other)
         {
 
+            int rep = 1;
+
             PlayerHitEnemy playerHitEnemy;
             mutantHitReceiver component6;
             if (!other.gameObject.CompareTag("Player") && animator.GetCurrentAnimatorStateInfo(2).tagHash != animControl.deathHash && !(currentWeaponScript == null))
@@ -222,7 +224,7 @@ namespace ChampionsOfForest.Player
                             ModdedPlayer.instance.DoMeleeOnHit();
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                            hitPlayer.damage = Mathf.FloorToInt((WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
+                            hitPlayer.damage = Mathf.FloorToInt(2f*(WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
                             hitPlayer.Send();
                         }
                     }
@@ -518,6 +520,7 @@ namespace ChampionsOfForest.Player
                     {
                         num2 /= 2f;
                     }
+
                     if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
                     {
                         if ((bool)component6)
@@ -543,6 +546,10 @@ namespace ChampionsOfForest.Player
                             }
                     }
 
+
+
+                    DamageMath.DamageClamp(num2, out int d, out int a);
+
                     if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
                     {
                         num2 *= ModdedPlayer.instance.HeavyAttackMult;
@@ -553,14 +560,19 @@ namespace ChampionsOfForest.Player
                                 component6.sendHitFallDown(num2 * 3f);
                                 if (playerHitEnemy != null)
                                 {
-                                    playerHitEnemy.Hit = (int)num2 * 3;
+                                    playerHitEnemy.Hit = (int)d;
                                     playerHitEnemy.hitFallDown = true;
+                                    rep = a;
                                 }
                             }
                             else
                             {
                                 component6.getCombo(3);
-                                component6.hitRelay((int)num2 * 3);
+                                for (int i = 0; i < a; i++)
+                                {
+                                component6.hitRelay(d * 3);
+
+                                }      
 
                             }
                         }
@@ -569,7 +581,10 @@ namespace ChampionsOfForest.Player
                             int animalHitDirection = animalHealth.GetAnimalHitDirection(num);
                             other.transform.SendMessageUpwards("getCombo", 3, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
-                            other.transform.SendMessageUpwards("Hit", (int)num2 * 3, SendMessageOptions.DontRequireReceiver);
+                            for (int i = 0; i < a; i++)
+                            {
+                            other.transform.SendMessageUpwards("Hit", d * 3, SendMessageOptions.DontRequireReceiver);
+                            }
                            //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
 
                             if (playerHitEnemy != null)
@@ -579,8 +594,9 @@ namespace ChampionsOfForest.Player
                         }
                         if (playerHitEnemy != null)
                         {
-                            playerHitEnemy.Hit = (int)num2 * 3;
+                            playerHitEnemy.Hit = d * 3;
                             playerHitEnemy.getCombo = 3;
+                            rep = a;
                         }
                         Mood.HitRumble();
                         FMODCommon.PlayOneshotNetworked(currentWeaponScript.fleshHitEvent, weaponAudio.transform, FMODCommon.NetworkRole.Any);
@@ -595,7 +611,10 @@ namespace ChampionsOfForest.Player
                         {
                             int animalHitDirection2 = animalHealth.GetAnimalHitDirection(num);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection2, SendMessageOptions.DontRequireReceiver);
-                            other.transform.SendMessageUpwards("Hit", (int)num2, SendMessageOptions.DontRequireReceiver);
+                            for (int i = 0; i < a; i++)
+                            {
+                            other.transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+                            }         
                             //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2);
 
                             if (playerHitEnemy != null)
@@ -606,7 +625,9 @@ namespace ChampionsOfForest.Player
                         Mood.HitRumble();
                         if (playerHitEnemy != null)
                         {
-                            playerHitEnemy.Hit = (int)num2;
+
+                            playerHitEnemy.Hit = d;
+                            rep = a;
                         }
                         FMODCommon.PlayOneshotNetworked(currentWeaponScript.fleshHitEvent, weaponAudio.transform, FMODCommon.NetworkRole.Any);
                     }
@@ -750,6 +771,10 @@ namespace ChampionsOfForest.Player
                     num3 *= ModdedPlayer.instance.HammerSmashDamageAmp;
                 }
 
+
+                DamageMath.DamageClamp(num3, out int dmg, out int a);
+
+               
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);
                 enemyDelay = true;
                 base.Invoke("resetEnemyDelay", 0.25f);
@@ -787,7 +812,12 @@ namespace ChampionsOfForest.Player
                     else
                     {
                         other.transform.SendMessageUpwards("getAttackDirection", 3, SendMessageOptions.DontRequireReceiver);
-                        other.transform.SendMessageUpwards("Hit", num3, SendMessageOptions.DontRequireReceiver);
+
+                        for (int i = 0; i < a; i++)
+                        {
+                        other.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
+
+                        }
                         Mood.HitRumble();
                     }
                 }
@@ -799,7 +829,8 @@ namespace ChampionsOfForest.Player
                 if (playerHitEnemy != null)
                 {
                     playerHitEnemy.getAttackerType = 4;
-                    playerHitEnemy.Hit = (int)num3;
+                    playerHitEnemy.Hit = dmg;
+                    rep = a;
                 }
                 if (axe)
                 {
@@ -940,8 +971,10 @@ namespace ChampionsOfForest.Player
                 {
                     playerHitEnemy.getCombo = Random.Range(2, 4);
                 }
-
+                for (int i = 0; i < rep; i++)
+                {
                 playerHitEnemy.Send();
+                }
 
             }
         }

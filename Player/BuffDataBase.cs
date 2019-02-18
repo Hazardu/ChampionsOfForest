@@ -1,4 +1,4 @@
-﻿using ChampionsOfForest.Items;
+﻿using ChampionsOfForest.Effects;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,42 +15,41 @@ namespace ChampionsOfForest.Player
             {
                 if (BuffsByID.ContainsKey(id))
                 {
-                    if (!ModdedPlayer.instance.StunImmune)
+                    if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.instance.DebuffResistant > 0)) return false;
+                    if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 2 && (ModdedPlayer.instance.DebuffImmune > 0)) return false;
+                    if (activeBuffs.ContainsKey(source))
                     {
-                        if (activeBuffs.ContainsKey(source))
+                        activeBuffs[source].duration = duration;
+                        if (activeBuffs[source].OnAddOverrideAmount)
                         {
-                            activeBuffs[source].duration = duration;
-                            if (activeBuffs[source].OnAddOverrideAmount)
-                            {
-                                activeBuffs[source].amount = amount;
-                            }
-                            else
-                            {
-                                if (activeBuffs[source].AccumulateEffect)
-                                {
-                                    activeBuffs[source].amount += amount;
-
-                                }
-                                else if (activeBuffs[source].amount < amount)
-                                {
-                                    
-                                    activeBuffs[source].amount = amount;
-                                }
-                            }
-                            return true;
+                            activeBuffs[source].amount = amount;
                         }
                         else
                         {
-                            Buff b = new Buff(id, amount, duration);
-                            activeBuffs.Add(source, b);
-                            if (b.OnStart != null)
+                            if (activeBuffs[source].AccumulateEffect)
                             {
-                                b.OnStart(b.amount);
+                                activeBuffs[source].amount += amount;
+
                             }
+                            else if (activeBuffs[source].amount < amount)
+                            {
 
-                            return true;
-
+                                activeBuffs[source].amount = amount;
+                            }
                         }
+                        return true;
+                    }
+                    else
+                    {
+                        Buff b = new Buff(id, amount, duration);
+                        activeBuffs.Add(source, b);
+                        if (b.OnStart != null)
+                        {
+                            b.OnStart(b.amount);
+                        }
+
+                        return true;
+
                     }
                 }
                 else
@@ -78,30 +77,32 @@ namespace ChampionsOfForest.Player
                 new Buff(2, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
                 new Buff(3, "Poisoned", true, true, 2)
                 { DisplayAsPercent = false };
-                new Buff(4, "Root Immune", false, false, 0, (f) => ModdedPlayer.instance.RootImmune = false, f => ModdedPlayer.instance.RootImmune = true)
+                new Buff(4, "Root Immune", false, false, 0, (f) => ModdedPlayer.instance.RootImmune--, f => ModdedPlayer.instance.RootImmune++)
                 { DisplayAmount = false };
-               
+
                 new Buff(5, "Move speed increased", false, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
 
-                new Buff(6, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune = false, f => ModdedPlayer.instance.StunImmune = true)
+                new Buff(6, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune--, f => ModdedPlayer.instance.StunImmune++)
                 { DisplayAmount = false };
-                new Buff(7, "Debuff Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune = false, f => ModdedPlayer.instance.DebuffImmune = true)
+                new Buff(7, "Debuff Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune--, f => ModdedPlayer.instance.DebuffImmune++)
                 { DisplayAmount = false };
-                new Buff(8, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant = false, f => ModdedPlayer.instance.DebuffResistant = true)
+                new Buff(8, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant--, f => ModdedPlayer.instance.DebuffResistant++)
                 { DisplayAmount = false };
 
 
                 new Buff(9, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(10, "Decreased Damage", true, false, 3, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
+                new Buff(10, "Decreased Damage", true, false, 2, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(11, "Energy Regen Amp", false, false, 0, f =>ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent , f), f => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
+                new Buff(11, "Energy Regen Amp", false, false, 0, f => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f), f => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
 
-                new Buff(12, "Death Pact Damage", false, false) { OnAddOverrideAmount = true};
+                new Buff(12, "Death Pact Damage", false, false) { OnAddOverrideAmount = true };
                 new Buff(13, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= f, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= f);
                 new Buff(14, "Attack speed increased", false, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
 
                 new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; ;
+
+                new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false }; ;
 
             }
             catch (System.Exception ex)
@@ -174,6 +175,11 @@ namespace ChampionsOfForest.Player
             /// </summary>
             public void UpdateBuff(int source)
             {
+
+                if (isNegative && DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.instance.DebuffResistant > 0)) duration = 0;
+                if (isNegative && DispellAmount <= 2 && (ModdedPlayer.instance.DebuffImmune > 0)) duration=0;
+
+
                 if (duration > 0)
                 {
                     duration -= Time.deltaTime;
@@ -195,8 +201,8 @@ namespace ChampionsOfForest.Player
 
 
 //SOURCES of debuffs
-//5 - beam slow
-//6 - beam speed
+//5 - flare slow
+//6 - flare speed
 //30 & 31 - absolute zero
 //32 - poison from enemy hit
 //33 - poisons slow
@@ -209,4 +215,5 @@ namespace ChampionsOfForest.Player
 //46 - warcry as
 //47 - warcry dmg
 //48 - warcry armor
+//49 - gold
 
