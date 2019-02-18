@@ -32,6 +32,14 @@ namespace ChampionsOfForest.Effects
             d.radius = radius;
             d.healing = healing;
             d.GrantImmunity = grantImmunity;
+
+            var light = go.AddComponent<Light>();
+            light.shadowStrength = 1;
+            light.shadows = LightShadows.Hard;
+            light.type = LightType.Point;
+            light.range = 20;
+            light.color = new Color(0.2f, 1f, 0.2f);
+            light.intensity = 0.6f;
             Destroy(go, duration);
 
         }

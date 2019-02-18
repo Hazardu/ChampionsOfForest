@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,7 @@ namespace ChampionsOfForest.Effects
             ParticleSystem ps = new GameObject().AddComponent<ParticleSystem>();
                 ps.transform.position = pos;
                 ps.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                ps.gameObject.AddComponent<SnapFreeze>();
             //hitParticleSystem = ps;
             ParticleSystem.MainModule main = ps.main;
             ParticleSystem.EmissionModule emission = ps.emission;
@@ -102,7 +104,6 @@ namespace ChampionsOfForest.Effects
             hitParticleSystem.transform.position = pos;
             hitParticleSystem.Emit(1);
         }
-
         private static void HitparticlesystemAssign()
         {
             ParticleSystem ps = new GameObject().AddComponent<ParticleSystem>();
@@ -146,6 +147,27 @@ namespace ChampionsOfForest.Effects
        
         }
 
+
+
+        void Start()
+        {
+            Light light = gameObject.AddComponent<Light>();
+            light.shadowStrength = 1;
+            light.shadows = LightShadows.Hard;
+            light.type = LightType.Point;
+            light.range = 25;
+            light.color = new Color(0, 0.35f, 1);
+            light.intensity = 2f;
+            StartCoroutine(Fade(light));
+        }
+        IEnumerator Fade(Light light)
+        {
+            while (light.intensity> 0)
+            {
+                light.intensity -= Time.deltaTime * 2.5f;
+                yield return null;
+            }
+        }
 
     }
 }

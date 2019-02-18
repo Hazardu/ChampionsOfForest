@@ -78,7 +78,13 @@ namespace ChampionsOfForest.Effects
 
             rend2.material = mat2;
 
-
+            var light = go2.AddComponent<Light>();
+            light.shadowStrength = 1;
+            light.shadows = LightShadows.Hard;
+            light.type = LightType.Point;
+            light.range = 20;
+            light.color = new Color(0.6f, 0.3f, 1f);
+            light.intensity = 0.6f;
 
             return go;
         }

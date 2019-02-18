@@ -40,6 +40,16 @@ namespace ChampionsOfForest.Effects
             MagicArrow a = go.AddComponent<MagicArrow>();
             a.GiveDmgDebuff = debuff;
             a.DebuffDuration = duration;
+
+            var light = go.AddComponent<Light>();
+            light.shadowStrength = 1;
+            light.shadows = LightShadows.Hard;
+            light.type = LightType.Point;
+            light.range = 18;
+            light.color = new Color(0.2f, 1f, 0.2f);
+            light.intensity = 0.6f;
+            Destroy(go, duration);
+
             return a;
         }
 
@@ -52,7 +62,7 @@ namespace ChampionsOfForest.Effects
         public bool GiveDoubleSlow;
 
         private bool setupComplete = false;
-        private readonly float speed = 45;
+        private readonly float speed = 50;
 
         public IEnumerator Animate()
         {
@@ -63,7 +73,7 @@ namespace ChampionsOfForest.Effects
             {
                 transform.localScale += Vector3.forward * Time.deltaTime / 2;
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.7f);
             setupComplete = true;
 
         }

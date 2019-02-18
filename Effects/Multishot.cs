@@ -26,6 +26,13 @@ namespace ChampionsOfForest.Effects
             mat.mainTexture = Res.ResourceLoader.GetTexture(126);
             child.GetComponent<Renderer>().material = mat;
 
+            var light = go.AddComponent<Light>();
+            light.shadowStrength = 1;
+            light.shadows = LightShadows.Hard;
+            light.type = LightType.Point;
+            light.range = 14;
+            light.color = new Color(0, 1f, 0.66f);
+            light.intensity = 0.6f;
 
 
             go.transform.parent = hand;

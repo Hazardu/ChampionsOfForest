@@ -840,7 +840,7 @@ namespace ChampionsOfForest
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 3.3f;
+            float a = 4f;
             float b = 3f;
             float c = 60;
             double y = System.Math.Pow(x, a) * b + c * x;
