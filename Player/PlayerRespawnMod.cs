@@ -26,6 +26,9 @@ namespace ChampionsOfForest.Player
             ModReferences.rightHandTransform = null;
 
             ModdedPlayer.instance.ExpCurrent = 0;
+            ModdedPlayer.instance.NewlyGainedExp = 0;
+            ModdedPlayer.instance.MassacreKills = 0;
+            ModdedPlayer.instance.MassacreMultipier = 1;
             ModdedPlayer.instance.InitializeHandHeld();
               BlackFlame.instance.Start();
         }

@@ -100,8 +100,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HealthPerVitality += 1f,
-                DisableMethods = () => ModdedPlayer.instance.HealthPerVitality -= 1f,
+                ApplyMethods = () => ModdedPlayer.instance.HealthPerVitality += 1.5f,
+                DisableMethods = () => ModdedPlayer.instance.HealthPerVitality -= 1.5f,
                 Category = PerkCategory.Defense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "More Health",
-                Description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1",
+                Description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.5",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -134,8 +134,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.96f,
-                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.96f,
+                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.94f,
+                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.94f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -145,14 +145,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Metabolism",
-                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 4%.",
+                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 6%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.96f,
-                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.96f,
+                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.94f,
+                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.94f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -0.75f,
                 Name = "Water Conservation",
-                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 4%.",
+                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 6%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };

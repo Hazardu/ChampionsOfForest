@@ -293,13 +293,13 @@ namespace ChampionsOfForest.Player
 
         public static float SnapFreezeDist = 22;
         public static float SnapFloatAmount = 0.2f;
-        public static float SnapFloatDuration = 12f;
+        public static float SnapFreezeDuration = 12f;
         public static void CastSnapFreeze()
         {
             Vector3 pos = LocalPlayer.Transform.position;
             float dmg = 23 + ModdedPlayer.instance.SpellDamageBonus;
             dmg *= ModdedPlayer.instance.SpellAMP;
-            string s = "SC9;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + SnapFreezeDist+";"+ SnapFloatAmount+";"+SnapFloatDuration+";"+dmg+";";
+            string s = "SC9;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + SnapFreezeDist+";"+ SnapFloatAmount+";"+SnapFreezeDuration+";"+dmg+";";
             Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Everyone);
         }
 

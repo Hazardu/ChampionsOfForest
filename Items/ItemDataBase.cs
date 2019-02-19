@@ -440,6 +440,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 1f, 3f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 0.0125f, 0.025f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 1, 1, 0, "HAMMER", 7, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
+            new ItemStat(i, 1, 1.4f, 0, "Snap Freeze Duration", 7, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null); i++;
 
         }
 
@@ -3462,7 +3463,27 @@ new int[] {18},
                 _itemType = BaseItem.ItemType.Pants,
                 icon = Res.ResourceLoader.GetTexture(87),
             };
-
+            new BaseItem(new int[][]
+           {
+                    new int[] {4,2005},
+                    new int[] {37,38},
+                    new int[] {42,43},
+                    new int[] {44,0,49,},
+                    new int[] {21,24,0,0,0,0},
+           })
+            {
+                name = "Ice Scroll",
+                description ="A spell surrounded by flying shards of ice, contains tramendous power of cold.",
+                lore = "Created at the top of the mountain.",
+                tooltip = "Spell Scrolls grant magic buffs. Ice Scroll empowers spell - Snap Freeze.",
+                Rarity = 4,
+                minLevel = 30,
+                maxLevel =40,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.SpellScroll,
+                icon = Res.ResourceLoader.GetTexture(110),
+            };
         }
     }
 }

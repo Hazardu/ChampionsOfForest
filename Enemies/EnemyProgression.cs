@@ -1244,7 +1244,7 @@ namespace ChampionsOfForest
             }
             if (EnemyName == "Farket")
             {
-                Bounty *= 50;
+                Bounty *= 5;
             }
         }
         /// <summary>
@@ -1267,6 +1267,10 @@ namespace ChampionsOfForest
                             playerHitByEnemey.Damage = (int)dmg;
                             playerHitByEnemey.Send();
                         }
+                    }
+                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
+                    {
+                        LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
                     }
                 }
             }

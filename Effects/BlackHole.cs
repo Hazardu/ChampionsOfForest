@@ -148,7 +148,7 @@ namespace ChampionsOfForest
                 {
                     if(ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0)
                     Pull(LocalPlayer.Transform);
-                    LocalPlayer.Stats.Health -= damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance);
+                    LocalPlayer.Stats.HealthChange(-damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance));
                 }
             }
             else if (!GameSetup.IsMpClient)

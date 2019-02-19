@@ -18,7 +18,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             {
                 _particleMaterial = new Material(Shader.Find("Particles/Additive"))
                 {
-                    color = Color.white,
                     mainTexture = Res.ResourceLoader.instance.LoadedTextures[26]
                 };
             }

@@ -143,7 +143,7 @@ namespace ChampionsOfForest
                 lifetime = 4f;
                 Instance.hitMarkers.Add(this);
             }
-            public HitMarker(int t, Vector3 p,bool Player)
+            public HitMarker(int t, Vector3 p, bool Player)
             {
                 txt = t;
                 worldPosition = p;
@@ -280,7 +280,7 @@ namespace ChampionsOfForest
 
         private void Update()
         {
-          
+
 
 
             if (_openedMenu != OpenedMenuMode.Hud)
@@ -1118,7 +1118,7 @@ namespace ChampionsOfForest
 
                                     break;
                                 case -13:
-                                    if (DraggedItem._itemType == BaseItem.ItemType.Quiver ||DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Shield)
+                                    if (DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Shield)
                                     {
                                         canPlace = true;
                                     }
@@ -1500,14 +1500,15 @@ namespace ChampionsOfForest
                 GUI.color = new Color(0.8f, 0.0f, 0.0f);
 
                 GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth), HUDStatStyle);
-                if (ModdedPlayer.instance.DamageAbsorbAmount > 0) {
+                if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
+                {
 
                     GUI.color = new Color(1f, 0.15f, 0.8f);
                     GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString(), HUDStatStyle);
-                
-                  }
+
+                }
                 GUI.color = Color.white;
-                
+
 
                 float SquareSize = 45 * rr;
                 for (int i = 0; i < SpellCaster.SpellCount; i++)
@@ -1529,7 +1530,7 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        if(!(!ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        if (!(!ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
                         {
                             GUI.color = Color.black;
                         }
@@ -1539,15 +1540,15 @@ namespace ChampionsOfForest
                         {
                             SpellCaster.instance.SetSpell(i);
                         }
-                        else if(!SpellCaster.instance.Ready[i])
+                        else if (!SpellCaster.instance.Ready[i])
                         {
                             Rect fillr = new Rect(r);
                             float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.BaseCooldown;
                             fillr.height *= f;
                             fillr.y += SquareSize * (1 - f);
                             GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
-                            
-                            GUI.Label(r, Mathf.Round(SpellCaster.instance.infos[i].Cooldown).ToString(), new GUIStyle(GUI.skin.label) {fontSize = Mathf.RoundToInt(rr*30),fontStyle=  FontStyle.Bold ,alignment = TextAnchor.MiddleCenter});
+
+                            GUI.Label(r, Mathf.Round(SpellCaster.instance.infos[i].Cooldown).ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 30), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                         }
                     }
                     GUI.DrawTexture(r, _SpellFrame);
@@ -1588,7 +1589,7 @@ namespace ChampionsOfForest
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
                     GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
                     GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
-                    GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime)+ 0.2f);
+                    GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime) + 0.2f);
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 5)
                     {
@@ -1858,8 +1859,8 @@ namespace ChampionsOfForest
             if (displayedSpellInfo == null)
             {
                 //scrolling the list
-                spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 140;
-                spellOffset = Mathf.Clamp(spellOffset, -100 * rr, 100 * rr * (SpellDataBase.spellDictionary.Count + 4));
+                spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 160;
+                spellOffset = Mathf.Clamp(spellOffset, -(100 * rr * (SpellDataBase.spellDictionary.Count + 4)), -100 * rr);
             }
             else
             {
@@ -2027,12 +2028,12 @@ namespace ChampionsOfForest
 
         }
 
-      
+
         #endregion
 
 
         #region StatsMenu
-     
+
         private float BookPositionY;
         private float BookScrollAmount;
         private GUIStyle headerstyle;
@@ -2198,7 +2199,7 @@ namespace ChampionsOfForest
         private void DrawGuide()
         {
             Bookmarks.Clear();
-            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), - Screen.height * 20 * rr, 0);
+            BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * rr * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 20 * rr, 0);
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
@@ -2259,12 +2260,12 @@ namespace ChampionsOfForest
             Header("Defense");
             Space(10);
             Stat("Armor", ModdedPlayer.instance.Armor.ToString(), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
-            Stat("Magic resistance", ModdedPlayer.instance.MagicResistance  * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
-            Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance  * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
-            Stat("Damage taken reduction", Math.Round( (ModdedPlayer.instance.DamageReductionTotal - 1)  * 100,1) + "%");
-            Stat("Block", ModdedPlayer.instance.BlockFactor  * 100 + "%");
-            Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount  * 100 + "%");
-            Stat("Fire resistance", Math.Round((1-ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
+            Stat("Magic resistance", ModdedPlayer.instance.MagicResistance * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
+            Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
+            Stat("Damage taken reduction", Math.Round((ModdedPlayer.instance.DamageReductionTotal - 1) * 100, 1) + "%");
+            Stat("Block", ModdedPlayer.instance.BlockFactor * 100 + "%");
+            Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
+            Stat("Fire resistance", Math.Round((1 - ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
 
 
             Space(60);
@@ -2272,20 +2273,20 @@ namespace ChampionsOfForest
             Space(10);
 
             Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "", "Stamina regen is temporairly paused after sprinting");
-            Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen+"\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent*100+"%");
+            Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent * 100 + "%");
 
-            Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
-            Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100+"%");
-            Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100+"%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
-            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: "+( ModdedPlayer.instance.HealingMultipier-1)*100+"%");
+            Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100 + "%");
+            Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100 + "%");
+            Stat("Health per second", ModdedPlayer.instance.LifeRegen * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health per second: " + ModdedPlayer.instance.LifeRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.HealthRegenPercent * 100 + "%\nAll Healing Amplification: " + (ModdedPlayer.instance.HealingMultipier - 1) * 100 + "%");
+            Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier + "", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.instance.HealthRegenPercent * 100, 2) + "%\nAll Healing Amplification: " + (ModdedPlayer.instance.HealingMultipier - 1) * 100 + "%");
 
             Space(60);
             Header("Attack");
             Space(10);
             Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
-            Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance*100, 2) + "%");
-            Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed*100, 2) + "%","Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
+            Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance * 100, 2) + "%");
+            Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed * 100, 2) + "%", "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
 
 
             Space(20);
@@ -2295,10 +2296,10 @@ namespace ChampionsOfForest
 
             Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
                 "Bonus from strenght: " + Math.Round(ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100, 2) + "%\n" +
-                "Melee damage amplification: "+ Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier-1) * 100, 2) + "%\n" +
+                "Melee damage amplification: " + Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier - 1) * 100, 2) + "%\n" +
                 "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-            Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) +"","Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
-            Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange*100)+"%");
+            Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
+            Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange * 100) + "%");
 
             Space(20);
             Image(98, 70);
@@ -2309,12 +2310,12 @@ namespace ChampionsOfForest
              "Bonus from agility: " + Math.Round(ModdedPlayer.instance.agility * ModdedPlayer.instance.RangedDamageperAgi * 100, 2) + "%\n" +
              "Ranged damage amplification: " + Math.Round((ModdedPlayer.instance.RangedDamageAmplifier - 1) * 100, 2) + "%\n" +
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-            Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) +"", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
-            Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Faster projectiles fly further and fall slower");
-            Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%","Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
+            Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+            Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Faster projectiles fly further and fall slower");
+            Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
 
 
-               Space(20);
+            Space(20);
             Image(110, 70);
             Header("Magic");
             Space(10);
@@ -2323,10 +2324,10 @@ namespace ChampionsOfForest
              "Bonus from intelligence: " + Math.Round(ModdedPlayer.instance.intelligence * ModdedPlayer.instance.SpellDamageperInt * 100, 2) + "%\n" +
              "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) +"", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
-            Stat("Spell cost reduction", Math.Round((1-ModdedPlayer.instance.SpellCostRatio) * 100) + "%","");
-            Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%","");
-            Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%","");
+            Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
+            Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) + "%", "");
+            Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
+            Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
 
 
             Space(20);
@@ -2335,9 +2336,9 @@ namespace ChampionsOfForest
             GUI.color = Color.white;
             Header("Armor reduction");
             Space(10);
-            Stat("Melee",ModdedPlayer.instance.ARreduction_melee + "", "Total melee armor reduction: "+ModdedPlayer.instance.MeleeArmorReduction);
+            Stat("Melee", ModdedPlayer.instance.ARreduction_melee + "", "Total melee armor reduction: " + ModdedPlayer.instance.MeleeArmorReduction);
             Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
-            Stat("Any source",  ModdedPlayer.instance.ARreduction_all + "", "Decreases armor of enemies hit by either of the sources");
+            Stat("Any source", ModdedPlayer.instance.ARreduction_all + "", "Decreases armor of enemies hit by either of the sources");
 
 
             Space(60);
@@ -2352,7 +2353,7 @@ namespace ChampionsOfForest
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
             Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
             Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
-          
+
 
             Space(40);
             Image(90, 70);
@@ -2375,7 +2376,7 @@ namespace ChampionsOfForest
                 "\nPlayers take increased damage from explosives." +
                 "\nPlayer deal increased damage to other players.");
 
-            
+
 
             Space(100);
             Header("Enemies");
@@ -2422,13 +2423,25 @@ namespace ChampionsOfForest
             Header("Dairy");
             Stat("Day 0", "");
             Label("I barely survived the plane crash. Shortly after hitting the ground I lost consciousness. I remember my son Timmy being taken by a red human, and nothing else. I need to find my boy...\n");
-            if (LocalPlayer.Stats.DaySurvived < 1) return;
+            if (LocalPlayer.Stats.DaySurvived < 1)
+            {
+                return;
+            }
+
             Stat("Day 1", "");
             Label("There is something weird about this island. I swear I have seen some people. They did not look friendly. I'd better stay on guard.\n");
-            if (LocalPlayer.Stats.DaySurvived < 2) return;
+            if (LocalPlayer.Stats.DaySurvived < 2)
+            {
+                return;
+            }
+
             Stat("Day 2", "");
             Label("They are clearly hostile towards me. They are horrifying. They are cannibals. I need to find a way to defend myself.\n");
-            if (LocalPlayer.Stats.DaySurvived < 10) return;
+            if (LocalPlayer.Stats.DaySurvived < 10)
+            {
+                return;
+            }
+
             Stat("Day 10", "");
             Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
         }

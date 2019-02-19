@@ -29,7 +29,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                         {
                             if (hit.transform.root == LocalPlayer.Transform.root)
                             {
-                                LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.instance.MagicResistance) / 10), false, PlayerStats.DamageType.Fire);
+                                LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
                                 hit.transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                             }
                         }

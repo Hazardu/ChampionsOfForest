@@ -727,10 +727,12 @@ namespace ChampionsOfForest
             NormalizeHealthTarget();
             if (amount < 0f)
             {
-                Health += amount;
-                HealthTarget += amount * 3;
-                Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)amount);
-            }
+                float f = ModdedPlayer.instance.DealDamageToShield(amount);
+                if (f > 0) { 
+                Health += f;
+                HealthTarget += f * 3;
+                Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)f);
+            } }
             else
             {
                 float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;
@@ -759,8 +761,6 @@ namespace ChampionsOfForest
                 //f *= 1-ModdedPlayer.instance.MagicResistance;
                 f *= ModdedPlayer.instance.FireDamageTakenMult;
             }
-            f = ModdedPlayer.instance.DealDamageToShield(f);
-            if (f == 0) return;
             damage = Mathf.RoundToInt(f);
             base.Hit(damage, ignoreArmor, type);
         }

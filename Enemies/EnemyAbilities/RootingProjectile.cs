@@ -45,10 +45,10 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 ef.multiplier = 2;
 
                 ParticleSystemRenderer r = ps.GetComponent<ParticleSystemRenderer>();
-                r.material = new Material(Shader.Find("Particles/Additive"))
-                {
-                    color = new Color(0.2431373f, 0.2051491f, 0, 0.10f)
-                };
+               
+var mat = new Material(Shader.Find("Particles/Additive"));
+                mat.SetColor("_TintColor", new Color(0.2431373f, 0.2051491f, 0, 0.10f));
+                r.material = mat;
                 r.renderMode = ParticleSystemRenderMode.Mesh;
                 r.mesh = Res.ResourceLoader.instance.LoadedMeshes[69];
                 r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;

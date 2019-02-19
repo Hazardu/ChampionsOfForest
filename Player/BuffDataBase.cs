@@ -104,6 +104,8 @@ namespace ChampionsOfForest.Player
 
                 new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false }; ;
 
+                new Buff(17, "Gold", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; ;
+
             }
             catch (System.Exception ex)
             {
