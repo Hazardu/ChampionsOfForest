@@ -102,9 +102,11 @@ namespace ChampionsOfForest.Player
 
                 new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; ;
 
-                new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false }; ;
+                new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false };
 
-                new Buff(17, "Gold", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; ;
+                new Buff(17, "Berserk", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; 
+
+                new Buff(18, "Energy Leak", true, false, 1, f =>ModdedPlayer.instance.EnergyPerSecond+=f,f=> ModdedPlayer.instance.EnergyPerSecond -= f); 
 
             }
             catch (System.Exception ex)
@@ -218,4 +220,6 @@ namespace ChampionsOfForest.Player
 //47 - warcry dmg
 //48 - warcry armor
 //49 - gold
+//50 - berserker
+//51 - berserker energy leak
 

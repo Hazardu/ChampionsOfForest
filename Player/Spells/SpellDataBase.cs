@@ -94,6 +94,10 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastSnapFreeze,            
             };
+            new Spell(15, 127, 25, 15, 180, "Berserk", "For short amount of time, gain damage, attack speed and movement speed, take additional damage and have unlimited stamina.")
+            {
+                active =Berserker.Cast,            
+            };
         }
     }
 }

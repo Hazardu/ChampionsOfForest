@@ -1270,7 +1270,7 @@ namespace ChampionsOfForest
                     }
                     if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
                     {
-                        LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
+                        LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed));
                     }
                 }
             }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ChampionsOfForest.Player;
+using TheForest.Utils;
+using UnityEngine;
 
 namespace ChampionsOfForest.Effects
 {
@@ -7,32 +9,38 @@ namespace ChampionsOfForest.Effects
 
         public static bool on;
         public static bool active;
-        public static float LastProcTime;
-        public const float Cooldown = 120;
+        public static float duration = 30f;
 
 
-        public static void TryProc()
+
+        public static void Cast()
         {
-            if (on)
-            {
-                if (Time.time > LastProcTime + Cooldown)
-                {
-
-                }
-            }
-        }
-        static void Proc()
-        {
-            LastProcTime = Time.time;
-
+            BuffDB.AddBuff(17, 50, 0, 30);
         }
         public static void OnEnable()
         {
             active = true;
+            ModdedPlayer.instance.AttackSpeedMult *= 1.2f;
+            ModdedPlayer.instance.DamageOutputMult *= 1.2f;
+            ModdedPlayer.instance.MoveSpeed *= 1.3f;
+            ModdedPlayer.instance.DamageReduction *= 2f;
+
         }
         public static void OnDisable()
         {
             active = false;
+            ModdedPlayer.instance.AttackSpeedMult /= 1.2f;
+            ModdedPlayer.instance.DamageOutputMult /= 1.2f;
+            ModdedPlayer.instance.MoveSpeed /= 1.3f;
+            ModdedPlayer.instance.DamageReduction /= 2f;
+            BuffDB.AddBuff(18, 51, LocalPlayer.Stats.Energy, 20);
+        }
+        public static void Effect()
+        {
+            if (!active) return;
+            LocalPlayer.Stats.Energy = ModdedPlayer.instance.MaxEnergy;
+            LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
+
         }
     }
 }

@@ -727,12 +727,11 @@ namespace ChampionsOfForest
             NormalizeHealthTarget();
             if (amount < 0f)
             {
-                float f = ModdedPlayer.instance.DealDamageToShield(amount);
-                if (f > 0) { 
-                Health += f;
-                HealthTarget += f * 3;
-                Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)f);
-            } }
+                amount = ModdedPlayer.instance.DealDamageToShield(-amount);
+                Health -= amount;
+                HealthTarget -= amount * 3;
+                Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)amount);
+            } 
             else
             {
                 float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;

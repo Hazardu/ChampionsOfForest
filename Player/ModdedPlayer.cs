@@ -1,4 +1,5 @@
 ﻿using Bolt;
+using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 using System;
@@ -557,6 +558,7 @@ namespace ChampionsOfForest
                     Effects.Multishot.localPlayerInstance.SetActive(false);
                 }
             }
+            Berserker.Effect();
 
             if (Rooted)
             {
