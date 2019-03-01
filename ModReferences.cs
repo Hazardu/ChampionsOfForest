@@ -117,6 +117,15 @@ namespace ChampionsOfForest
                 AllPlayerEntities.Clear();
                 PlayerHands.Clear();
 
+                if (!ModSettings.IsDedicated)
+                {
+                    ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue ;
+                    if(ThisPlayerPacked==0)
+                    ThisPlayerPacked = LocalPlayer.GameObject.GetComponent<BoltEntity>().networkId.PackedValue;
+                    if (ThisPlayerPacked == 0)
+                        ModAPI.Console.Write("Still 0");
+                    
+                }
 
                 bool search = false;
 
@@ -169,11 +178,7 @@ namespace ChampionsOfForest
                         }
                     }
                 }
-                if (!ModSettings.IsDedicated)
-                {
-
-                    ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue;
-                }
+                
 
 
                 yield return new WaitForSeconds(10);

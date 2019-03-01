@@ -395,7 +395,11 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.FireAura))
             {
-                StartCoroutine(FireAuraLoop());
+                float aurDmg =(3 * Level + 20f) * DamageAmp/2;
+                FireAura.Cast(gameObject, aurDmg);
+                if (BoltNetwork.isRunning)
+                Network.NetworkManager.SendLine("ES2"+entity.networkId.PackedValue + ";"+aurDmg,NetworkManager.Target.Clinets);
+                InvokeRepeating("SendFireAura",20,30);
             }
             //Clamping Health
             Health = Mathf.Min(Health, int.MaxValue - 5);
@@ -931,6 +935,7 @@ namespace ChampionsOfForest
 
             if (inRange)
             {
+             
                 if (abilities.Contains(Abilities.Meteor) && MeteorCD <= 0)
                 {
                     Vector3 dir = closestPlayer.transform.position;
@@ -1250,42 +1255,51 @@ namespace ChampionsOfForest
         /// <summary>
         ///Deals damage to nearby players
         /// </summary>
-        private IEnumerator FireAuraLoop()
-        {
+        //private IEnumerator FireAuraLoop()
+        //{
 
-            float dmg = (3 * Level + 40f) * DamageAmp;
-            if (BoltNetwork.isRunning)
+        //    float dmg = (3 * Level + 40f) * DamageAmp;
+        //    if (BoltNetwork.isRunning)
+        //    {
+        //        while (true)
+        //        {
+        //            yield return new WaitForSeconds(0.5f);
+        //            foreach (BoltEntity item in ModReferences.AllPlayerEntities)
+        //            {
+        //                if ((item.transform.position - transform.position).sqrMagnitude < 80)
+        //                {
+        //                    PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
+        //                    playerHitByEnemey.Damage = (int)dmg;
+        //                    playerHitByEnemey.Send();
+        //                }
+        //            }
+        //            if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
+        //            {
+        //                LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed));
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        while (true)
+        //        {
+        //            if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
+        //            {
+        //                LocalPlayer.Stats.Health -= Time.deltaTime * 2 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
+        //            }
+        //            yield return null;
+        //        }
+        //    }
+        //}
+        void SendFireAura()
+        {
+            if (abilities.Contains(Abilities.FireAura))
             {
-                while (true)
-                {
-                    yield return new WaitForSeconds(0.5f);
-                    foreach (BoltEntity item in ModReferences.AllPlayerEntities)
-                    {
-                        if ((item.transform.position - transform.position).sqrMagnitude < 80)
-                        {
-                            PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
-                            playerHitByEnemey.Damage = (int)dmg;
-                            playerHitByEnemey.Send();
-                        }
-                    }
-                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
-                    {
-                        LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed));
-                    }
-                }
-            }
-            else
-            {
-                while (true)
-                {
-                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
-                    {
-                        LocalPlayer.Stats.Health -= Time.deltaTime * 2 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
-                    }
-                    yield return null;
-                }
+                float aurDmg = (3 * Level + 20f) * DamageAmp / 2;
+                FireAura.Cast(gameObject, aurDmg);
+                if (BoltNetwork.isRunning)
+                    Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clinets);
             }
         }
-
     }
 }
