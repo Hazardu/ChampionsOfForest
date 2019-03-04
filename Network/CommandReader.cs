@@ -137,7 +137,7 @@ namespace ChampionsOfForest.Network
                         float dist = float.Parse(Read());
 
                         SnapFreeze.CreateEffect(pos, dist);
-                        if(!GameSetup.IsMpClient)
+                        if (!GameSetup.IsMpClient)
                         {
                             SnapFreeze.HostAction(pos, dist, float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         }
@@ -202,21 +202,25 @@ namespace ChampionsOfForest.Network
                     i = 2;
                     ch = s.ToCharArray();
                     int id = int.Parse(Read());
-                    switch (id)
+                    if (id == 1) //snow aura
                     {
-                        case 1: //snow aura
-                            ulong packed = ulong.Parse(Read());
-                            SnowAura sa = new GameObject("Snow").AddComponent<SnowAura>();
-                            if (!EnemyManager.allboltEntities.ContainsKey(packed))
-                            {
-                                EnemyManager.GetAllEntities();
-                            }
+                        ulong packed = ulong.Parse(Read());
+                        SnowAura sa = new GameObject("Snow").AddComponent<SnowAura>();
+                        if (!EnemyManager.allboltEntities.ContainsKey(packed))
+                        {
+                            EnemyManager.GetAllEntities();
+                        }
 
-                            sa.followTarget = EnemyManager.allboltEntities[packed].transform;
-                            break;
-                        default:
-                            break;
+                        sa.followTarget = EnemyManager.allboltEntities[packed].transform;
                     }
+                    else if (id == 2) //fire aura
+                    {
+                        ulong packed = ulong.Parse(Read());
+                        float dmg = float.Parse(Read());
+                        GameObject go = EnemyManager.allboltEntities[packed].gameObject;
+                        FireAura.Cast(go, dmg);
+                    } 
+
                 }
                 else if (s.StartsWith("PO"))    //poison Player
                 {

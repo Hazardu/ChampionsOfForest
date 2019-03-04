@@ -177,6 +177,7 @@
 <Compile Include="Effects\SnapFreeze.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />
+<Compile Include="Enemies\EnemyAbilities\FireAura.cs"  />
 <Compile Include="Enemies\EnemyDebuff.cs"  />
 <Compile Include="ExpSources\AnimalExp.cs"  />
 <Compile Include="ExpSources\CutBush2AddExp.cs"  />
@@ -187,6 +188,7 @@
 <Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
 <Compile Include="Player\ProjectileIgnoreCollision.cs"  />
+<Compile Include="Player\Spells\ForceGrab.cs"  />
 <Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />
 <Compile Include="Enemies\ClinetEnemyProgression.cs"  />
