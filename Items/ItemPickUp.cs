@@ -33,7 +33,7 @@ namespace ChampionsOfForest
             rb.drag = 1.5f;
             rb.angularDrag = 0.4f;
             rb.isKinematic = true;
-            Invoke("UnlockPhysics", 0.5f);
+            Invoke("UnlockPhysics", 1f);
             lifetime = 300;
         }
 
@@ -44,6 +44,7 @@ namespace ChampionsOfForest
         public void UnlockPhysics()
         {
             rb.isKinematic = false;
+            gameObject.AddComponent<MeshCollider>();
         }
         private void OnGUI()
         {

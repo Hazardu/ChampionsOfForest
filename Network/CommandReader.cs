@@ -527,10 +527,11 @@ namespace ChampionsOfForest.Network
                 }
                 else if (s.StartsWith("AG"))    //give item to player
                 {
-                    if (!GameSetup.IsMpClient) return;
+                    //if (!GameSetup.IsMpClient) return;
                     i = 2;
                     ch = s.ToCharArray();
                     ulong playerID = ulong.Parse(Read());
+                    ModAPI.Console.Write("This player packed: " + ModReferences.ThisPlayerPacked + "\nPlayer pickup packed: " + playerID);
                     if (ModReferences.ThisPlayerPacked == playerID)
                     {
                         Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], int.Parse(Read()), 0, false);   //creating the item.
