@@ -11,8 +11,12 @@ namespace ChampionsOfForest.Res
         public static ResourceLoader instance = null;
         public static Texture2D GetTexture(int i)
         {
-            if (ModSettings.IsDedicated) return null;
-                if (instance.LoadedTextures.ContainsKey(i))
+            if (ModSettings.IsDedicated)
+            {
+                return null;
+            }
+
+            if (instance.LoadedTextures.ContainsKey(i))
             {
                 return instance.LoadedTextures[i];
             }
@@ -48,7 +52,7 @@ namespace ChampionsOfForest.Res
         public Dictionary<int, AudioClip> LoadedAudio;
         private string LabelText;
         private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail, NewerThanOnline }
-        private enum LoadingState { CheckingFiles, Downloading, Loading, Done}
+        private enum LoadingState { CheckingFiles, Downloading, Loading, Done }
         private LoadingState loadingState;
         private VersionCheckStatus checkStatus = VersionCheckStatus.Unchecked;
         private string OnlineVersion;
@@ -58,7 +62,7 @@ namespace ChampionsOfForest.Res
         public bool FinishedLoading = false;
         private WWW download;
         private bool IgnoreErrors;
-        private bool ShowMOTD=true;
+        private bool ShowMOTD = true;
         private void Start()
         {
             if (instance == null)
@@ -335,15 +339,15 @@ namespace ChampionsOfForest.Res
                         AudioClip clip = null;
                         if (resource.fileName.EndsWith(".mp3"))
                         {
-                            clip = audioWWW.GetAudioClip(true, true,AudioType.MPEG);
+                            clip = audioWWW.GetAudioClip(true, true, AudioType.MPEG);
 
                         }
                         else
                         {
-  clip = audioWWW.GetAudioClip(true, true);
+                            clip = audioWWW.GetAudioClip(true, true);
                         }
-                   
-                        if(clip != null)
+
+                        if (clip != null)
                         {
                             LoadedAudio.Add(resource.ID, clip);
                         }
@@ -354,7 +358,7 @@ namespace ChampionsOfForest.Res
                         }
                         break;
                     case Resource.ResourceType.Text:
-                        
+
                         break;
                 }
                 LoadedFileNumber++;
@@ -390,10 +394,10 @@ namespace ChampionsOfForest.Res
 
         }
 
-        
+
         private void OnGUI()
         {
-          
+
 
 
 
@@ -500,7 +504,7 @@ namespace ChampionsOfForest.Res
                     }
                     text += "\n\nWhat would you like to do now?";
                     GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter, wordWrap = true };
-                    Rect labelRect = new Rect(0, 100*rr, Screen.width, style.CalcHeight(new GUIContent(text),Screen.width));
+                    Rect labelRect = new Rect(0, 100 * rr, Screen.width, style.CalcHeight(new GUIContent(text), Screen.width));
                     GUI.Label(labelRect, text, style);
                     float y = labelRect.yMax;
                     y = Mathf.Clamp(y, 0, Screen.height - 100 * rr);
@@ -550,7 +554,7 @@ namespace ChampionsOfForest.Res
                         break;
                 }
                 GUI.color = Color.white;
-GUILayout.EndArea();
+                GUILayout.EndArea();
 
                 if (MOTD != "")
                 {
@@ -558,7 +562,11 @@ GUILayout.EndArea();
                     GUIStyle motdstyle = new GUIStyle(GUI.skin.box) { fontSize = 22, fontStyle = FontStyle.Normal, alignment = TextAnchor.UpperCenter, wordWrap = true, richText = true };
 
                     Rect r1 = new Rect(new Rect(Screen.width * 2 / 3, 120, Screen.width / 3, 50));
-                    if (GUI.Button(r1, "◄NEWS►", title)) ShowMOTD = !ShowMOTD;
+                    if (GUI.Button(r1, "◄NEWS►", title))
+                    {
+                        ShowMOTD = !ShowMOTD;
+                    }
+
                     if (ShowMOTD)
                     {
                         float height = motdstyle.CalcHeight(new GUIContent(MOTD), r1.width);
@@ -707,10 +715,6 @@ GUILayout.EndArea();
 
             new Resource(1000, "thundersound.wav");
 
-
-
-
         }
     }
-
 }

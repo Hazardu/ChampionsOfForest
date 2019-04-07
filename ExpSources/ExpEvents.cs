@@ -10,7 +10,6 @@ namespace ChampionsOfForest.ExpSources
         {
 
             EventRegistry.Player.Subscribe(TfEvent.CutTree, OnTreeCut);
-            EventRegistry.Animal.Subscribe(TfEvent.KilledBird, BirdKilled);
             EventRegistry.Animal.Subscribe(TfEvent.KilledShark, SharkKilled);
 
         }
@@ -28,18 +27,6 @@ namespace ChampionsOfForest.ExpSources
             }
         }
 
-        public static void BirdKilled(object o)
-        {
-            int xp = 12;
-            if (GameSetup.IsMultiplayer)
-            {
-                Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
-            }
-            else
-            {
-                ModdedPlayer.instance.AddFinalExperience(xp);
-            }
-        }
         public static void SharkKilled(object o)
         {
             int xp = 300;
@@ -54,7 +41,15 @@ namespace ChampionsOfForest.ExpSources
         }
 
 
-
+        //int xp = 12;
+        //    if (GameSetup.IsMultiplayer)
+        //    {
+        //        Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
+        //    }
+        //    else
+        //    {
+        //        ModdedPlayer.instance.AddFinalExperience(xp);
+        //    }
 
 
     }

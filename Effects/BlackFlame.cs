@@ -150,19 +150,19 @@ namespace ChampionsOfForest.Effects
                     s += "f;";
                 }
 
-                s += ModReferences.ThisPlayerPacked + ";";
+                s += ModReferences.ThisPlayerID + ";";
                 Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
             }
         }
 
 
-        private static Dictionary<ulong, GameObject> blackFlamesClients = new Dictionary<ulong, GameObject>();
-        public static void ToggleOtherPlayer(ulong packed, bool ison)
+        private static Dictionary<string, GameObject> blackFlamesClients = new Dictionary<string, GameObject>();
+        public static void ToggleOtherPlayer(string packed, bool ison)
         {
             ModAPI.Console.Write("Toggling black flames for client " + packed + ison);
             if (!ModReferences.PlayerHands.ContainsKey(packed))
             {
-                ModReferences.ForceUpdate();
+                //ModReferences.ForceUpdate();
             }
             if (ModReferences.PlayerHands.ContainsKey(packed))
             {

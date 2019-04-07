@@ -247,11 +247,11 @@ namespace ChampionsOfForest.Player
             Vector3 dir = Camera.main.transform.forward;
             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
             {
-                MagicArrow.Create(pos,dir , damage, ModReferences.ThisPlayerPacked, MagicArrowDuration, MagicArrowDoubleSlow, MagicArrowDmgDebuff);
+                MagicArrow.Create(pos,dir , damage, ModReferences.ThisPlayerID, MagicArrowDuration, MagicArrowDoubleSlow, MagicArrowDmgDebuff);
                 if (BoltNetwork.isRunning)
                 {
                     string s = "SC7;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + Math.Round(dir.x, 5) + ";" + Math.Round(dir.y, 5) + ";" + Math.Round(dir.z, 5) + ";";
-                    s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + MagicArrowDuration + ";";
+                    s += damage + ";" + ModReferences.ThisPlayerID + ";" + MagicArrowDuration + ";";
                     if (MagicArrowDoubleSlow) s += "t;"; else s += "f;";
                     if (MagicArrowDmgDebuff) s += "t;"; else s += "f;";
                     Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
@@ -261,7 +261,7 @@ namespace ChampionsOfForest.Player
             {
                 MagicArrow.CreateEffect(pos, dir, MagicArrowDmgDebuff, MagicArrowDuration);
                 string s = "SC7;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5)  + ";" + Math.Round(dir.x, 5) + ";" + Math.Round(dir.y, 5) + ";" + Math.Round(dir.z, 5) + ";";
-                s += damage + ";" + ModReferences.ThisPlayerPacked+";" + MagicArrowDuration+";";
+                s += damage + ";" + ModReferences.ThisPlayerID+";" + MagicArrowDuration+";";
                 if (MagicArrowDoubleSlow) s += "t;"; else s += "f;";
                 if (MagicArrowDmgDebuff) s += "t;"; else s += "f;";
               Network.NetworkManager.SendLine(s,Network.NetworkManager.Target.Others);

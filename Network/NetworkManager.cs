@@ -130,7 +130,7 @@ namespace ChampionsOfForest.Network
             SendLine(msg, Network.NetworkManager.Target.Everyone);
 
         }
-        public static void SendItemToPlayer(Item item, ulong playerID, int amount = 1)
+        public static void SendItemToPlayer(Item item, string playerID, int amount = 1)
         {
             string msg = "AG"+ playerID + ";" + item.ID + ";"+ amount+ ";" + item.level + ";";
             foreach (ItemStat stat in item.Stats)

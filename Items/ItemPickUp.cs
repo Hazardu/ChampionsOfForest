@@ -133,7 +133,7 @@ namespace ChampionsOfForest
                 }
                 else if (Player.Inventory.Instance.HasSpaceFor(item, amount))
                 {
-                    Network.NetworkManager.SendLine("AF" + ID + ";"+amount+";" + ModReferences.ThisPlayerPacked + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
+                    Network.NetworkManager.SendLine("AF" + ID + ";"+amount+";" + ModReferences.ThisPlayerID + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
                 }
             }
             else
@@ -155,7 +155,7 @@ namespace ChampionsOfForest
                 }
                 else if (Player.Inventory.Instance.HasSpaceFor(item))
                 {
-                    Network.NetworkManager.SendLine("AF" + ID + ";" + 1 + ";" + ModReferences.ThisPlayerPacked + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
+                    Network.NetworkManager.SendLine("AF" + ID + ";" + 1 + ";" + ModReferences.ThisPlayerID + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
 
                 }
             }

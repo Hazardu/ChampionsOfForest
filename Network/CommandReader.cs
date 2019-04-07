@@ -83,7 +83,7 @@ namespace ChampionsOfForest.Network
                     else if (spellid == 4)
                     {
                         bool isOn = ReadBool();
-                        ulong packed = ulong.Parse(Read());
+                        string packed = Read();
                         BlackFlame.ToggleOtherPlayer(packed, isOn);
 
                     }
@@ -112,7 +112,7 @@ namespace ChampionsOfForest.Network
                         Vector3 dir = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
 
                         float dmg = float.Parse(Read());
-                        ulong caster = ulong.Parse(Read());
+                        string caster = Read();
                         float duration = float.Parse(Read());
                         bool slow = ReadBool();
                         bool dmgdebuff = ReadBool();
@@ -231,8 +231,8 @@ namespace ChampionsOfForest.Network
 
                     i = 2;
                     ch = s.ToCharArray();
-                    ulong playerPacked = ulong.Parse(Read());
-                    if (ModReferences.ThisPlayerPacked == playerPacked)
+                    string playerID =Read();
+                    if (ModReferences.ThisPlayerID == playerID)
                     {
                         int source = int.Parse(Read());
                         float amount = float.Parse(Read());
@@ -355,8 +355,8 @@ namespace ChampionsOfForest.Network
                     {
                         i = 2;
                         ch = s.ToCharArray();
-                        ulong packed = ulong.Parse(Read());
-                        if (ModReferences.ThisPlayerPacked == packed)
+                        string playerID = Read();
+                        if (ModReferences.ThisPlayerID == playerID)
                         {
                             float duration = float.Parse(Read());
                             ModdedPlayer.instance.Stun(duration);
@@ -413,13 +413,13 @@ namespace ChampionsOfForest.Network
                     {
                         ModReferences.PlayerLevels.Clear();
                     }
-                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerID + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
                 }
                 else if (s.StartsWith("AL"))
                 {
                     i = 2;
                     ch = s.ToCharArray();
-                    ulong packed = ulong.Parse(Read());
+                    string packed = Read();
                     int level = int.Parse(Read());
                     if (ModReferences.PlayerLevels.ContainsKey(packed))
                     {
@@ -508,7 +508,7 @@ namespace ChampionsOfForest.Network
                         ch = s.ToCharArray();
                         ulong itemID = ulong.Parse(Read());
                         int itemAmount = int.Parse(Read());
-                        ulong playerID = ulong.Parse(Read());
+                        string playerID = Read();
 
                         if (PickUpManager.PickUps.ContainsKey(itemID))
                         {
@@ -534,9 +534,8 @@ namespace ChampionsOfForest.Network
                     //if (!GameSetup.IsMpClient) return;
                     i = 2;
                     ch = s.ToCharArray();
-                    ulong playerID = ulong.Parse(Read());
-                    ModAPI.Console.Write("This player packed: " + ModReferences.ThisPlayerPacked + "\nPlayer pickup packed: " + playerID);
-                    if (ModReferences.ThisPlayerPacked == playerID)
+                    string playerID = Read();
+                    if (ModReferences.ThisPlayerID == playerID)
                     {
                         Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], int.Parse(Read()), 0, false);   //creating the item.
                         item.level = int.Parse(Read());
@@ -570,16 +569,16 @@ namespace ChampionsOfForest.Network
                   
                         i = 2;
                         ch = s.ToCharArray();
-                        ulong id = ulong.Parse(Read());
+                        string id = Read();
                         int weaponID = int.Parse(Read());
-                    if (ModReferences.PlayerHands.ContainsKey(id))
-                    {
-                        CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
-                    }
-                    else
-                    {
-                       Debug.LogWarning("NO HAND IN COMMAND READER");
-                    }
+                    //if (ModReferences.PlayerHands.ContainsKey(id))
+                    //{
+                    //    CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
+                    //}
+                    //else
+                    //{
+                    //   Debug.LogWarning("NO HAND IN COMMAND READER");
+                    //}
                                     }
                 else if (s.StartsWith("AJ"))    //
                 {

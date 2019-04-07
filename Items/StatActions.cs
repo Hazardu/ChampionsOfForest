@@ -159,11 +159,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddExpFactor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.ExpFactor *= f;
+            ChampionsOfForest.ModdedPlayer.instance.ExpFactor *= 1+f;
         }
         public static void RemoveExpFactor(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.ExpFactor /= f;
+            ChampionsOfForest.ModdedPlayer.instance.ExpFactor /= 1+f;
         }
         public static void AddMaxMassacreTime(float f)
         {

@@ -405,7 +405,7 @@ namespace ChampionsOfForest
 
                         if (BoltNetwork.isRunning)
                         {
-                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerPacked + ";" + (int)PlayerInventoryMod.ToEquipWeaponType, NetworkManager.Target.Others);
+                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";" + (int)PlayerInventoryMod.ToEquipWeaponType, NetworkManager.Target.Others);
                         }
 
 
@@ -736,7 +736,7 @@ namespace ChampionsOfForest
             {
                 if (GameSetup.IsMultiplayer)
                 {
-                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerPacked + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerID + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
                 }
             }
         }

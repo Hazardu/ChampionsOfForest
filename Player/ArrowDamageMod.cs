@@ -127,11 +127,11 @@ namespace ChampionsOfForest.Player
                             dir.Normalize();
                             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                             {
-                                MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerPacked, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
+                                MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerID, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
                                 if (BoltNetwork.isRunning)
                                 {
                                     string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
-                                    s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + SpellActions.MagicArrowDuration + ";";
+                                    s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
                                     if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
                                     if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
                                     Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
@@ -141,7 +141,7 @@ namespace ChampionsOfForest.Player
                             {
                                 MagicArrow.CreateEffect(pos, dir, SpellActions.MagicArrowDmgDebuff, SpellActions.MagicArrowDuration);
                                 string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
-                                s += damage + ";" + ModReferences.ThisPlayerPacked + ";" + SpellActions.MagicArrowDuration + ";";
+                                s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
                                 if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
                                 if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
                                 Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
