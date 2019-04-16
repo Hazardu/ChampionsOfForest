@@ -842,9 +842,9 @@ namespace ChampionsOfForest
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 3;
-            float b = 3f;
-            float c = 60;
+            float a = 3.75f;
+            float b = 4f;
+            float c = 50;
             double y = System.Math.Pow(x, a) * b + c * x;
             return Convert.ToInt64(y);
         }
@@ -858,77 +858,77 @@ namespace ChampionsOfForest
             else if (KCInRange(3, 4))
             {
                 MassacreMultipier = 1.1f;
-                MassacreText = "TRIPLE KILL";
+                MassacreText = "TRIPLE KILL   +10% exp";
             }
             else if (KCInRange(4, 5))
             {
-                MassacreMultipier = 1.3f;
-                MassacreText = "QUADRA KILL";
+                MassacreMultipier = 1.25f;
+                MassacreText = "QUADRA KILL   +25% exp";
             }
             else if (KCInRange(5, 6))
             {
                 MassacreMultipier = 1.5f;
-                MassacreText = "PENTA KILL";
+                MassacreText = "PENTA KILL   +50% exp";
             }
             else if (KCInRange(6, 10))
             {
                 MassacreMultipier = 1.75f;
-                MassacreText = "MASSACRE";
+                MassacreText = "MASSACRE   +75% exp";
             }
             else if (KCInRange(10, 12))
             {
                 MassacreMultipier = 2.3f;
-                MassacreText = "BIG MASSACRE";
+                MassacreText = "BIG MASSACRE   +130% exp";
             }
             else if (KCInRange(12, 16))
             {
                 MassacreMultipier = 3f;
-                MassacreText = "BIGGER MASSACRE";
+                MassacreText = "BIGGER MASSACRE   +200% exp";
             }
             else if (KCInRange(16, 20))
             {
                 MassacreMultipier = 5f;
-                MassacreText = "HUGE MASSACRE";
+                MassacreText = "HUGE MASSACRE   +400% exp";
             }
             else if (KCInRange(20, 25))
             {
                 MassacreMultipier = 8.5F;
-                MassacreText = "BLOODY MASSACRE";
+                MassacreText = "BLOODY MASSACRE   +750% exp";
             }
             else if (KCInRange(25, 30))
             {
-                MassacreMultipier = 15F;
-                MassacreText = "WICKED SICK";
+                MassacreMultipier = 16F;
+                MassacreText = "WICKED SICK   +1,500% exp";
             }
             else if (KCInRange(30, 40))
             {
                 MassacreMultipier = 22.5f;
-                MassacreText = "UNSTOPPABLE";
+                MassacreText = "UNSTOPPABLE   +2,150% exp";
             }
             else if (KCInRange(40, 50))
             {
                 MassacreMultipier = 35;
-                MassacreText = "GODLIKE MASSACRE";
+                MassacreText = "GODLIKE MASSACRE   +3,400% exp";
             }
             else if (KCInRange(50, 65))
             {
                 MassacreMultipier = 50;
-                MassacreText = "BEYOND GODLIKE";
+                MassacreText = "BEYOND GODLIKE   +4,900% exp";
             }
             else if (KCInRange(65, 75))
             {
-                MassacreMultipier = 250;
-                MassacreText = "SLAUGHTER";
+                MassacreMultipier = 100;
+                MassacreText = "SLAUGHTER   +9,900% exp";
             }
             else if (KCInRange(75, 100))
             {
-                MassacreMultipier = 1000;
-                MassacreText = "BLOODBATH";
+                MassacreMultipier = 250;
+                MassacreText = "BLOODBATH   +24,900% exp";
             }
             else if (MassacreKills >= 100)
             {
-                MassacreMultipier = 10000;
-                MassacreText = "R A M P A G E";
+                MassacreMultipier = 1000;
+                MassacreText = "R A M P A G E    +100,000% exp";
             }
         }
 
