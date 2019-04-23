@@ -29,14 +29,14 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                         {
                             if (hit.transform.root == LocalPlayer.Transform.root)
                             {
-                                LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
+                                LocalPlayer.Stats.Hit((int)(dmg * 0.5f * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
                                 hit.transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                             }
                         }
                         else if (hit.transform.CompareTag("structure"))// && (!BoltNetwork.isRunning || BoltNetwork.isServer || !BoltNetwork.isClient || !PlayerPreferences.NoDestructionRemote))
                         {
-                            hit.transform.SendMessage("Hit", dmg / 10, SendMessageOptions.DontRequireReceiver);
-                            hit.transform.SendMessage("LocalizedHit", new LocalizedHitData(hit.point, dmg / 10), SendMessageOptions.DontRequireReceiver);
+                            hit.transform.SendMessage("Hit", dmg / 2, SendMessageOptions.DontRequireReceiver);
+                            hit.transform.SendMessage("LocalizedHit", new LocalizedHitData(hit.point, dmg / 2), SendMessageOptions.DontRequireReceiver);
                         }
                     }
                 }

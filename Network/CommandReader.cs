@@ -18,8 +18,6 @@ namespace ChampionsOfForest.Network
 
         public static void OnCommand(string s)
         {
-            Debug.Log("Recieved: " + s);
-
             try
             {
                 if (s.StartsWith("AB"))     //ask the host to send the command to set the difficulty for clinet
@@ -566,20 +564,21 @@ namespace ChampionsOfForest.Network
                     }
                 }else if (s.StartsWith("CE"))    //custom weapon in mp
                 {
-                  
+                    
                         i = 2;
                         ch = s.ToCharArray();
                         string id = Read();
                         int weaponID = int.Parse(Read());
-                    //if (ModReferences.PlayerHands.ContainsKey(id))
-                    //{
-                    //    CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
-                    //}
-                    //else
-                    //{
-                    //   Debug.LogWarning("NO HAND IN COMMAND READER");
-                    //}
-                                    }
+                        if (!ModReferences.PlayerHands.ContainsKey(id)) ModReferences.FindHands();
+                        if (ModReferences.PlayerHands.ContainsKey(id))
+                        {
+                            CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
+                        }
+                        else
+                        {
+                           Debug.LogWarning("NO HAND IN COMMAND READER");
+                        }
+                }
                 else if (s.StartsWith("AJ"))    //
                 {
                     if (GameSetup.IsMpServer)

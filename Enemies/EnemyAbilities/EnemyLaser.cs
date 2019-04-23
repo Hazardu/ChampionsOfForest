@@ -73,32 +73,33 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             GameObject go = new GameObject();
             go.transform.position = transform.position + Vector3.up * 13;
             go.transform.LookAt(Direction);
-            int dmg = 200;
+            int dmg = Random.Range(30, 40);
+
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Hard:
-                    dmg = 400;
+                    dmg = Random.Range(55, 75);
                     break;
                 case ModSettings.Difficulty.Elite:
-                    dmg = 1200;
+                    dmg = Random.Range(121, 134);
                     break;
                 case ModSettings.Difficulty.Master:
-                    dmg = 2000;
+                    dmg = Random.Range(150,170);
                     break;
                 case ModSettings.Difficulty.Challenge1:
-                    dmg = 5000;
+                    dmg = 324;
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    dmg = 20000;
+                    dmg = 653;
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    dmg = 55000;
+                    dmg = 2346;
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    dmg = 100000;
+                    dmg = 5932;
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    dmg = 250000;
+                    dmg = 14636;
                     break;
             }
             go.AddComponent<EnemyLaserBeam>().Initialize(dmg);
@@ -151,14 +152,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             if (mat == null)
             {
                 mat = Core.CreateMaterial(new BuildingData() { renderMode = BuildingData.RenderMode.Transparent, EmissionColor = new Color(0, 0.15f, 0.20f), MainColor = new Color(0.2f, 1, 0, 0.5f), Metalic = 0.3f, Smoothness = 0.67f });
-                mat1 = new Material(Shader.Find("Unlit/Transparent"))
+                mat1 = new Material(Shader.Find("Particles/Additive"))
                 {
-                    color = new Color(0.203f, 1, 0.629f, 0.2117647f),
                     mainTexture = Res.ResourceLoader.GetTexture(71),
-                    renderQueue = 2000,
-                    doubleSidedGI = true,
-
                 };
+                mat1.SetColor("_TintColor", new Color(0.203f, 1, 0.629f, 0.2117647f));
             }
 
             particleSystem = gameObject.AddComponent<ParticleSystem>();

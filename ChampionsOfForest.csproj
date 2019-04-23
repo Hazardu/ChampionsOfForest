@@ -165,12 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildables\Sawmill.cs"  />
+<Compile Include="CotfUtils.cs"  />
 <Compile Include="DamageMath.cs"  />
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
 <Compile Include="Effects\Gold.cs"  />
 <Compile Include="Effects\MagicArrow.cs"  />
+<Compile Include="Effects\MainMenuVisual.cs"  />
 <Compile Include="Effects\Multishot.cs"  />
 <Compile Include="Effects\Portal.cs"  />
 <Compile Include="Effects\Purge.cs"  />
@@ -184,6 +186,7 @@
 <Compile Include="ExpSources\CutBushAddExp.cs"  />
 <Compile Include="ExpSources\CutEffigyMod.cs"  />
 <Compile Include="ExpSources\ExpEvents.cs"  />
+<Compile Include="Fun\SpaceX.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />

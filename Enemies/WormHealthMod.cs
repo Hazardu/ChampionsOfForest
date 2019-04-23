@@ -116,17 +116,17 @@ namespace ChampionsOfForest.Enemies
                 {
                     if (collider.transform.root == LocalPlayer.Transform.root)
                     {
-                        int damage = 300;
+                        int damage = 85;
                         switch (ModSettings.difficulty)
                         {
                             case ModSettings.Difficulty.Hard:
-                                damage = 500;
+                                damage = 150;
                                 break;
                             case ModSettings.Difficulty.Elite:
-                                damage = 5000;
+                                damage = 250;
                                 break;
                             case ModSettings.Difficulty.Master:
-                                damage = 15000;
+                                damage = 425;
                                 break;
                             case ModSettings.Difficulty.Challenge1:
                                 damage = 50000;

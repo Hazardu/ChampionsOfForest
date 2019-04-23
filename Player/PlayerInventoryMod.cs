@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChampionsOfForest.Network;
+using System.Collections.Generic;
 using TheForest.Items.Inventory;
 using TheForest.Utils;
 using UnityEngine;
@@ -22,9 +23,9 @@ namespace ChampionsOfForest.Player
         public static Mesh noMesh;
         public static Mesh originalMesh;
 
+
+
         public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
-
-
         public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
         public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
 
@@ -37,6 +38,13 @@ namespace ChampionsOfForest.Player
                     EquippedModel = BaseItem.WeaponModelType.None;
                     if (itemView._heldWeaponInfo.transform.parent.name == "AxePlaneHeld")
                     {
+
+                        if (BoltNetwork.isRunning)
+                        {
+                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";" + (int)PlayerInventoryMod.ToEquipWeaponType + ";", NetworkManager.Target.Others);
+                        }
+
+
                         if (ModReferences.rightHandTransform == null)
                         {
                             try
@@ -84,6 +92,9 @@ namespace ChampionsOfForest.Player
                                 ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
                             }
                         }
+
+                      ModAPI.Log.Write("Rotation" + PlayerInventoryMod.originalRotation);
+                        ModAPI.Log.Write("Position" + PlayerInventoryMod.OriginalOffset);
                         if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
                         {
                             EquippedModel = ToEquipWeaponType;
@@ -136,37 +147,15 @@ namespace ChampionsOfForest.Player
 
                         }
                     }
+                    else if (BoltNetwork.isRunning)
+                    {
+                        Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";0;", NetworkManager.Target.Others);
+                    }
                 }
             }
             return base.Equip(itemView, pickedUpFromWorld);
         }
 
-
-        //RANGED MOD CHANGES---------------------------------------------------
-
-        //      public override void Start()
-        //      {
-        //          base.Start();
-        //          string log = "";
-        //          foreach (var list in _inventoryItemViewsCache)
-        //          {
-        //              foreach (var item in list.Value)
-        //              {
-        //                  try
-        //                  {
-        //string s = "• _inventoryItemViewsCache[" + list.Key + "][" + list.Value + "]\n" +
-        //                      "\tItem: " + item.ItemCache._name + " " + item.ItemCache._id;
-        //                  s += "\n\tHeld Gameobject" + item._held.name + "\n\n";
-        //                  log += s;
-        //                  }
-        //                  catch (System.Exception)
-        //                  {
-
-        //                  } 
-        //              }
-        //          }
-        //          ModAPI.Log.Write(log);
-        //      }
         protected override void FireRangedWeapon()
         {
             if (ModSettings.IsDedicated)
@@ -362,9 +351,9 @@ namespace ChampionsOfForest.Player
                 new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
                 new Vector3(180, 180, 90),
                 new Vector3(0, 0, -3.5f),
-                1.8f, 1f, 60, 90, 0.01f, 0.001f, 85, true, 5);
+                1.8f, 1f, 60, 90, 0.01f, 0.001f, 85, false, 5);
 
-            //black axe
+            //hammer
             new CustomWeapon(BaseItem.WeaponModelType.Hammer,
                    108,
                    BuilderCore.Core.CreateMaterial(

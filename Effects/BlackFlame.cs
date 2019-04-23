@@ -156,20 +156,20 @@ namespace ChampionsOfForest.Effects
         }
 
 
-        private static Dictionary<string, GameObject> blackFlamesClients = new Dictionary<string, GameObject>();
-        public static void ToggleOtherPlayer(string packed, bool ison)
+        private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
+        public static void ToggleOtherPlayer(string playerName, bool ison)
         {
-            ModAPI.Console.Write("Toggling black flames for client " + packed + ison);
-            if (!ModReferences.PlayerHands.ContainsKey(packed))
+            ModAPI.Console.Write("Toggling black flames for client " + playerName + ison);
+            if (!ModReferences.PlayerHands.ContainsKey(playerName))
             {
-                //ModReferences.ForceUpdate();
+                ModReferences.FindHands();
             }
-            if (ModReferences.PlayerHands.ContainsKey(packed))
+            if (ModReferences.PlayerHands.ContainsKey(playerName))
             {
-                Transform t = ModReferences.PlayerHands[packed];
-                if (blackFlamesClients.ContainsKey(packed))
+                Transform t = ModReferences.PlayerHands[playerName];
+                if (blackFlamesClients.ContainsKey(t))
                 {
-                    blackFlamesClients[packed].SetActive(ison);
+                    blackFlamesClients[t].SetActive(ison);
                 }
                 else
                 {
@@ -178,7 +178,7 @@ namespace ChampionsOfForest.Effects
 
                     go.transform.position = t.position;
                     go.transform.rotation = t.rotation;
-                    blackFlamesClients.Add(packed, go);
+                    blackFlamesClients.Add(t, go);
 
                     go.SetActive(ison);
                 }

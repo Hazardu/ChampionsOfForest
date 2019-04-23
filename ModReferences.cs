@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -33,37 +32,40 @@ namespace ChampionsOfForest
             if (BoltNetwork.isRunning)
             {
                 Players = new List<GameObject>();
+                StartCoroutine(InitPlayerID());
                 StartCoroutine(UpdateSetups());
                 if (GameSetup.IsMpServer && BoltNetwork.isRunning)
                 {
-                    InvokeRepeating("SlowUpdate", 1, 1);
+                    InvokeRepeating("UpdateLevelData", 1, 1);
                 }
-                StartCoroutine(InitPlayerID());
             }
             else
             {
                 Players = new List<GameObject>() { LocalPlayer.GameObject };
             }
-            
+
 
         }
-        
-        IEnumerator InitPlayerID()
-        {
-            if (ModSettings.IsDedicated) yield break;
 
-            while (LocalPlayer.Entity==null)
+        private IEnumerator InitPlayerID()
+        {
+            if (ModSettings.IsDedicated)
+            {
+                yield break;
+            }
+
+            while (LocalPlayer.Entity == null)
             {
                 yield return null;
             }
             ThisPlayerID = LocalPlayer.Entity.GetState<IPlayerState>().name;
             ThisPlayerID.Replace(';', '0');
             ThisPlayerID.TrimNonAscii();
-   
-        }
-    
 
-        private void SlowUpdate()
+        }
+
+
+        private void UpdateLevelData()
         {
             if (Players.Count > 1)
             {
@@ -87,6 +89,11 @@ namespace ChampionsOfForest
                     Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
                     MFindRequestCooldown = 300;
 
+                }
+
+                if (PlayerHands.ContainsValue(null))
+                {
+                    PlayerHands.Clear();
                 }
             }
             else
@@ -116,9 +123,41 @@ namespace ChampionsOfForest
 
 
 
-        /// <summary>
-        /// Updates the player setups and changes the static variable accordingly
-        /// </summary>
+        public static void FindHands()
+        {
+            PlayerHands.Clear();
+            for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
+            {
+                if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
+                {
+                    try
+                    {
+                        string playerName = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>()?.GetState<IPlayerState>().name.TrimNonAscii();
+                        if (!string.IsNullOrEmpty(playerName))
+                        {
+                            Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
+                            if (hand != null)
+                            {
+                                PlayerHands.Add(playerName, hand);
+                                ModAPI.Console.Write("added hand for " + playerName);
+                            }
+                            else
+                            {
+                                ModAPI.Console.Write(ListAllChildren(Scene.SceneTracker.allPlayers[i].transform.root, ""));
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        ModAPI.Console.Write(e.Message);
+                    }
+                }
+            }
+
+
+        }
+
+
         private IEnumerator UpdateSetups()
         {
 
@@ -127,70 +166,16 @@ namespace ChampionsOfForest
                 yield return null;
                 Players.Clear();
                 AllPlayerEntities.Clear();
-                PlayerHands.Clear();
-
-                //if (!ModSettings.IsDedicated)
-                //{
-                //    //ThisPlayerPacked = LocalPlayer.Entity.networkId.PackedValue ;
-                //    //if(ThisPlayerPacked==0)
-                //    //ThisPlayerPacked = LocalPlayer.GameObject.GetComponent<BoltEntity>().networkId.PackedValue;
-                //    //if (ThisPlayerPacked == 0)
-                //    //    ModAPI.Console.Write("Still 0");
-                    
-                    
-                //}
-
-                //bool search = false;
-                //if (PlayerHands.ContainsValue(null) || PlayerHands.Count != Scene.SceneTracker.allPlayers.Count || PlayerHands.Count == 0)
-                //{
-                //    PlayerHands.Clear();
-                //    //search = true;
-                //}
-
                 for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
                     Players.Add(Scene.SceneTracker.allPlayers[i]);
-                    //if (!ModSettings.IsDedicated)
-                    //{
-                    //    if (Scene.SceneTracker.allPlayers[i].transform.root == LocalPlayer.Transform.root)
-                    //    {
-                    //        ThisPlayerID = i;
-                    //    }
-                    //}
                     BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
                     if (b != null)
                     {
                         AllPlayerEntities.Add(b);
-                        //try
-                        //{
-
-                        //    if (UnityEngine.Input.GetKey(KeyCode.F8))
-                        //    {
-                        //        ModAPI.Console.Write("PLAYER " + b.transform.root.name);
-                        //        ModAPI.Log.Write("PLAYER " + "\n\n" + ModReferences.ListAllChildren(b.transform.root, ""));
-                        //    }
-                        //}
-                        //catch (Exception exc)
-                        //{
-                        //    ModAPI.Console.Write(exc.ToString());
-                        //}
-                        //if (search)
-                        //{
-                        //    Transform hand = FindDeepChild(b.transform, "rightHandHeld");
-                        //    if (hand != null)
-                        //    {
-                        //        PlayerHands.Add(b.networkId.PackedValue, hand);
-                        //        Debug.Log("FOUND HAND TRANSFORM for player " + b.networkId.PackedValue);
-
-                        //    }
-                        //    else
-                        //    {
-                        //        Debug.LogWarning("Couldnt find hand for player " + b.networkId.PackedValue);
-                        //    }
-                        //}
                     }
                 }
-                
+
 
 
                 yield return new WaitForSeconds(10);
@@ -225,30 +210,22 @@ namespace ChampionsOfForest
             }
             return null;
         }
+
+        //finds the hand transform of client
         public static Transform FindHandRetardedWay(Transform root)
         {
             try
             {
- return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
+                return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
             }
             catch (Exception e)
             {
 
-                ModAPI.Console.Write("couldnt find hand "+e.ToString());
+                ModAPI.Console.Write("couldnt find hand " + e.ToString());
 
             }
             return null;
-           
-        }
-    }
-    public static class CotfUtils
-    {
-        //removes any non ascii characters from a name of the player
-        public static string TrimNonAscii(this string value)
-        {
-            string pattern = "[^ -~]+";
-            Regex reg_exp = new Regex(pattern);
-            return reg_exp.Replace(value, "1");
+
         }
     }
 }

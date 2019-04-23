@@ -245,7 +245,7 @@ namespace ChampionsOfForest.Res
                 {
                     if (File.Exists(Resource.path + resource.fileName))
                     {
-                        if (DeleteCurrentFiles && ModSettings.outdatedFiles.Contains(resource.ID))
+                        if (DeleteCurrentFiles && (ModSettings.outdatedFiles.Contains(resource.ID)||ModSettings.ALLNewFiles))
                         {
                             LabelText = "File " + resource.fileName + " is mared as outdated, deleting and redownloading.";
                             File.Delete(Resource.path + resource.fileName);
@@ -367,7 +367,7 @@ namespace ChampionsOfForest.Res
             }
             loadingState = LoadingState.Done;
             toDownload.Clear();
-
+            Effects.MainMenuVisual.Create();
             yield return new WaitForSeconds(1f);
             FinishedLoading = true;
         }
@@ -430,7 +430,7 @@ namespace ChampionsOfForest.Res
                         pgBar.width *= (float)CheckedFileNumber / unloadedResources.Count;
                         GUI.color = Color.gray;
                         GUI.DrawTexture(prog, Texture2D.whiteTexture);
-                        GUI.color = Color.white;
+                        GUI.color = Color.red;
                         GUI.DrawTexture(pgBar, Texture2D.whiteTexture);
                         GUI.color = Color.black;
                         GUI.Label(prog, CheckedFileNumber + "/" + unloadedResources.Count, skin);
@@ -443,7 +443,7 @@ namespace ChampionsOfForest.Res
                         pgBar1.width *= (float)DownloadedFileNumber / DownloadCount;
                         GUI.color = Color.gray;
                         GUI.DrawTexture(prog1, Texture2D.whiteTexture);
-                        GUI.color = Color.white;
+                        GUI.color = Color.blue;
                         GUI.DrawTexture(pgBar1, Texture2D.whiteTexture);
                         GUI.color = Color.black;
                         GUI.Label(prog1, DownloadedFileNumber + "/" + DownloadCount, skin);
@@ -455,7 +455,7 @@ namespace ChampionsOfForest.Res
                             downloadRect.width *= download.progress;
                             GUI.color = Color.gray;
                             GUI.DrawTexture(downloadRectBG, Texture2D.whiteTexture);
-                            GUI.color = Color.white;
+                            GUI.color = Color.cyan;
                             GUI.DrawTexture(downloadRect, Texture2D.whiteTexture);
                             GUI.color = Color.black;
                             GUI.Label(prog1, download.progress * 100 + "%\tDownloaded " + (float)download.bytesDownloaded / 1000 + " KB", skin);
@@ -470,7 +470,7 @@ namespace ChampionsOfForest.Res
                         pgBar2.width *= (float)LoadedFileNumber / unloadedResources.Count;
                         GUI.color = Color.gray;
                         GUI.DrawTexture(prog2, Texture2D.whiteTexture);
-                        GUI.color = Color.white;
+                        GUI.color = Color.green;
                         GUI.DrawTexture(pgBar2, Texture2D.whiteTexture);
                         GUI.color = Color.black;
                         GUI.Label(prog2, LoadedFileNumber + "/" + unloadedResources.Count, skin);
@@ -704,15 +704,6 @@ namespace ChampionsOfForest.Res
             new Resource(127, "MultishotSpell.png");
             new Resource(128, "Iceparticle.png");
             new Resource(129, "Shockwave.png");
-
-
-
-
-
-
-
-
-
             new Resource(1000, "thundersound.wav");
 
         }

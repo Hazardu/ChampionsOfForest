@@ -1343,7 +1343,7 @@ namespace ChampionsOfForest
 
                                     break;
                                 case -13:
-                                    if (DraggedItem._itemType == BaseItem.ItemType.Weapon || DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.Shield)
+                                    if (DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.Shield)
                                     {
                                         canPlace = true;
                                     }
@@ -2653,7 +2653,7 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow };
+                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, wordWrap=true };
                     Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width) + 10 * rr;
                     GUI.Label(Desc, desctext, descStyle);
 
@@ -2671,12 +2671,6 @@ namespace ChampionsOfForest
                 _perkDetailAlpha = 0;
             }
 
-
-
-
-
-
-            //Drawing buttons for selecting category
             Array menus = Enum.GetValues(typeof(Perk.PerkCategory));
             float btnSize = 250 * rr;
             float bigBtnSize = 40 * rr;

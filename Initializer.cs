@@ -31,12 +31,7 @@ namespace ChampionsOfForest
 
                 if (ModSettings.IsDedicated)
                 {
-
                     ReadDediServerConfig();
-
-
-
-
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
                     GameObject go = new GameObject("Playerobj");
                     //go.AddComponent<ModdedPlayer>();
@@ -85,6 +80,7 @@ namespace ChampionsOfForest
                     Perk.FillPerkList();
                     ExpEvents.Initialize();
                     Portal.InitializePortals();
+                    CoopCustomWeapons.Init();
                 }
 
             }

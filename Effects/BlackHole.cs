@@ -33,7 +33,9 @@ namespace ChampionsOfForest
         private float lifetime;
         private GameObject particleGO;
 
-        private void Start()
+        public bool startDone = false;
+
+        private IEnumerator Start()
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.clip = Res.ResourceLoader.instance.LoadedAudio[1000];
@@ -51,6 +53,10 @@ namespace ChampionsOfForest
                     renderMode = BuildingData.RenderMode.Cutout
 
                 });
+            }
+            if (FromEnemy)
+            {
+                yield return new WaitForSeconds(1.5f);
             }
             Destroy(gameObject, duration);
             if (!FromEnemy && !GameSetup.IsMpClient)
@@ -99,12 +105,13 @@ namespace ChampionsOfForest
             wz.radius = radius * 2;
             wz.mode = WindZoneMode.Spherical;
             wz.windMain = 40;
-
+            startDone = true;
             StartCoroutine(HitEverySecond());
         }
 
         private void Update()
         {
+            if (!startDone) return;
             lifetime += Time.deltaTime;
 
 

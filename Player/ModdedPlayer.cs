@@ -25,7 +25,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                float x = baseHealth + vitality * HealthPerVitality;
+                float x = baseHealth + (vitality) * HealthPerVitality;
                 x += HealthBonus;
                 x *= 1 + MaxHealthPercent;
                 return x;
@@ -35,7 +35,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                float x = baseEnergy + agility * EnergyPerAgility;
+                float x = baseEnergy + (agility) * EnergyPerAgility;
                 x += EnergyBonus;
                 x *= 1 + MaxEnergyPercent;
                 return x;
@@ -55,7 +55,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                float f = agility * RangedDamageperAgi;
+                float f = (agility ) * RangedDamageperAgi;
                 return (1 + f) * RangedDamageAmplifier * DamageOutputMultTotal;
 
             }
@@ -71,7 +71,7 @@ namespace ChampionsOfForest
                 return 1;
             }
         }
-        public float StaminaAndEnergyRegenAmp => 1 + intelligence * EnergyRegenPerInt;
+        public float StaminaAndEnergyRegenAmp => 1 + (intelligence) * EnergyRegenPerInt;
         public float ArmorDmgRed => ModReferences.DamageReduction(Armor);
         public float DamageReductionTotal => (DamageReduction) * (DamageReductionPerks);
         public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
@@ -79,13 +79,13 @@ namespace ChampionsOfForest
         public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
 
 
-
-        public int Level = 1;
+        private int _level = 1;
+        public int Level { get => _level; set => _level = value; }
         public float HealingMultipier = 1;
         public int strenght = 1;    //increases damage
         public int intelligence = 1; //increases spell damage
         public int agility = 1;     //increases energy
-        public int vitality = 1;     //increases health
+        public int vitality = 1;     //increases health  
         public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
         public float DamagePerStrenght = 0.00f;
         public float SpellDamageperInt = 0.00f;
@@ -169,7 +169,9 @@ namespace ChampionsOfForest
         public int ARreduction_all = 0;
         public int ARreduction_melee = 0;
         public int ARreduction_ranged = 0;
-     
+        public bool TurboRaft = false;
+        public float RaftSpeedMultipier = 1;
+
         public float DamageAbsorbAmount
         {
             get
@@ -390,6 +392,23 @@ namespace ChampionsOfForest
             }
         }
 
+        public static int AttributeBonus(int x)
+        {
+            if (x == 1) return 1;
+            int bonus = Mathf.RoundToInt(Mathf.Sqrt(x));
+            return AttributeBonus(x - 1) + bonus;
+        }
+
+        public void AssignLevelAttributes()
+        {
+            int x = AttributeBonus(Level);
+
+            strenght = x;
+            intelligence = x;
+            vitality = x;
+            agility = x;
+        }
+
         private void Update()
         {
 
@@ -402,13 +421,6 @@ namespace ChampionsOfForest
                         PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
                         LocalPlayer.Inventory.StashEquipedWeapon(false);
                         LocalPlayer.Inventory.Equip(80, false);
-
-                        if (BoltNetwork.isRunning)
-                        {
-                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";" + (int)PlayerInventoryMod.ToEquipWeaponType, NetworkManager.Target.Others);
-                        }
-
-
                         PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
 
 
@@ -834,6 +846,13 @@ namespace ChampionsOfForest
             Level++;
             ExpGoal = GetGoalExp();
             SendLevelMessage();
+
+            int ap = Mathf.RoundToInt(Mathf.Sqrt(Level));
+            agility += ap;
+            strenght += ap;
+            vitality += ap;
+            intelligence += ap;
+
         }
         public long GetGoalExp()
         {
@@ -1055,6 +1074,7 @@ namespace ChampionsOfForest
             instance.intelligence = 1;
             instance.agility = 1;
             instance.vitality = 1;
+            instance.AssignLevelAttributes();
             instance.DamagePerStrenght = 0.00f;
             instance.SpellDamageperInt = 0.00f;
             instance.RangedDamageperAgi = 0.00f;
@@ -1145,7 +1165,9 @@ namespace ChampionsOfForest
             instance.HeavyAttackMult = 1;
             instance.IsCrossfire = false;
             instance.MultishotCount = 1;
-            ReapplyAllItems();
+            instance.TurboRaft = false;
+            instance.RaftSpeedMultipier = 1;
+        ReapplyAllItems();
             ReapplyAllPerks();
         }
         public static void ReapplyAllItems()

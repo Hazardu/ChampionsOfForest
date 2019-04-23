@@ -44,8 +44,16 @@ namespace ChampionsOfForest.Effects
 
         }
 
+
+        float timeShift = 0;
+
         private void Update()
         {
+            timeShift += Time.deltaTime*2.3f;
+            transform.localScale = Vector3.one * (radius + Mathf.Sin(timeShift * 3.14f * 4f));
+
+
+
             if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < radius * radius)
             {
                 LocalPlayer.Stats.HealthTarget += healing * Time.deltaTime;

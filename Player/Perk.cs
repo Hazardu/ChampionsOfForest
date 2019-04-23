@@ -1364,6 +1364,40 @@ namespace ChampionsOfForest.Player
                 Endless = true,
             };
 
+            
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.TurboRaft = true,
+                DisableMethods = () => ModdedPlayer.instance.TurboRaft=false,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 50 },
+                LevelRequirement = 22,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -7f,
+                PosOffsetY = 0.75f,
+                Name = "Transporter",
+                Description = "Allows you to use raft on land, turning it into a wooden hovercraft.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.RaftSpeedMultipier++,
+                DisableMethods = () => ModdedPlayer.instance.RaftSpeedMultipier--,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 82 },
+                LevelRequirement = 23,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -7.5f,
+                PosOffsetY = 1.5f,
+                Name = "Turbo",
+                Description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
 
 
 

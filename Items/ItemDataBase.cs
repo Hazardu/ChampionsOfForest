@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
+
 namespace ChampionsOfForest
 {
     public static class ItemDataBase
@@ -38,11 +39,11 @@ namespace ChampionsOfForest
                 try
                 {
                     Stats.Add(statList[i].StatID, statList[i]);
-                    ModAPI.Log.Write("[" + statList[i].StatID + "]\t" + statList[i].Name);
+
                 }
                 catch (System.Exception ex)
                 {
-                    ModAPI.Log.Write("Error with adding a stat " + ex.ToString());
+                    CotfUtils.Log("Error with adding a stat " + ex.ToString());
                 }
             }
             try
@@ -52,7 +53,7 @@ namespace ChampionsOfForest
             catch (System.Exception ex)
             {
 
-                ModAPI.Log.Write("Error with item " + ex.ToString());
+                CotfUtils.Log("Error with item " + ex.ToString());
 
             }
             ItemBases.Clear();
@@ -179,9 +180,9 @@ namespace ChampionsOfForest
                 averageLevel = ModdedPlayer.instance.Level;
             }
             averageLevel = Mathf.Max(1, averageLevel);
-            float w = Worth / (averageLevel*0.55f);
+            float w = Worth / (averageLevel * 0.55f);
             w *= MagicFind;
-           
+
             int rarity = 0;
 
             if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
@@ -402,7 +403,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0004f, 0.0009f, 0.5f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.00025f, 0.001f, 0.6f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.7f / 3.8f, 1.6f / 3.8f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
-            new ItemStat(i, 100f, 200f, 3.2f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
+            new ItemStat(i, 100f, 110f, 3.2f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
             new ItemStat(i, 0.0025f, 0.007f, 0.5f, "Movement Speed", 5, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0002f, 0.0015f, 0.5f, "Melee Weapon Range", 5, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.002f, 0.5f, "Attack Cost Reduction", 3, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost /= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
@@ -441,6 +442,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0125f, 0.025f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
             new ItemStat(i, 1, 1, 0, "HAMMER", 7, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
             new ItemStat(i, 1, 1.4f, 0, "Snap Freeze Duration", 7, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null); i++;
+            new ItemStat(i, 1, 1.4f, 0, "Raft Speed", 4, f => ModdedPlayer.instance.RaftSpeedMultipier += f, f => ModdedPlayer.instance.RaftSpeedMultipier -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
 
         }
 
@@ -3473,12 +3475,33 @@ new int[] {18},
            })
             {
                 name = "Ice Scroll",
-                description ="A spell surrounded by flying shards of ice, contains tramendous power of cold.",
+                description = "A spell surrounded by flying shards of ice, contains tramendous power of cold.",
                 lore = "Created at the top of the mountain.",
                 tooltip = "Spell Scrolls grant magic buffs. Ice Scroll empowers spell - Snap Freeze.",
                 Rarity = 4,
                 minLevel = 30,
-                maxLevel =40,
+                maxLevel = 40,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.SpellScroll,
+                icon = Res.ResourceLoader.GetTexture(110),
+            };
+            new BaseItem(new int[][]
+           {
+                    new int[] {2006},
+                    new int[] {57,1,2,3,4},
+                    new int[] {34,45,46,15,1,2,3,4,57,11,14,7,10,59},
+                    new int[] {8,1,2,3,4,9,5,6},
+                    new int[] {1000,1001,1002},
+           })
+            {
+                name = "Motorboat Modification Blueprints",
+                description = "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts.",
+                lore = "Who did this lmao.",
+                tooltip = "Consider unlocking a perk to drive them on land.",
+                Rarity = 4,
+                minLevel = 10,
+                maxLevel = 15,
                 CanConsume = false,
                 StackSize = 1,
                 _itemType = BaseItem.ItemType.SpellScroll,

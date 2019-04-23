@@ -148,16 +148,13 @@ namespace ChampionsOfForest.Player
                 Debug.LogWarning("NO ORIGINAL OBJ TO DUPLICATE");
                 return null;
             }
-
-
-                obj = GameObject.Instantiate(obj, clientHand);
-
-                obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
-                obj.transform.Rotate(rotation, Space.Self);
-                obj.transform.localPosition += offset;
-                obj.transform.localScale = Vector3.one * Scale;
-            return obj;
+            var otherObject = (GameObject)Object.Instantiate(obj);  //Instantiate - create copy of an object
+            otherObject.transform.localRotation = PlayerInventoryMod.originalRotation;
+            otherObject.transform.localPosition = PlayerInventoryMod.OriginalOffset;
+            otherObject.transform.Rotate(rotation, Space.Self);
+            otherObject.transform.localPosition += offset;
+            otherObject.transform.localScale = Vector3.one * Scale;
+            return otherObject;
         
         }
 
