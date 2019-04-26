@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Network
 {
     public class NetworkManager : MonoBehaviour
     {
-        public enum Target { OnlyServer, Everyone, Clinets, Others }
+        public enum Target { OnlyServer, Everyone, Clients, Others }
 
         public delegate void OnGetMessage(string s);
         public OnGetMessage onGetMessage;
@@ -52,7 +52,7 @@ namespace ChampionsOfForest.Network
                         case Target.Everyone:
                             chatEvent = ChatEvent.Create(GlobalTargets.Everyone);
                             break;
-                        case Target.Clinets:
+                        case Target.Clients:
                             chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
                             break;
                         case Target.Others:
