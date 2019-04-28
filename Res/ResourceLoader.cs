@@ -28,6 +28,16 @@ namespace ChampionsOfForest.Res
             return null;
 
         }
+
+        public static AssetBundle GetAssetBundle(int id) {
+            if (instance.ExistingAssetBundles.ContainsKey(id))
+            {
+                AssetBundle bundle = AssetBundle.LoadFromFile(instance.ExistingAssetBundles[id]);
+                return bundle;
+            }
+            return null;
+        }
+
         public static void UnloadTexture(int i)
         {
             Destroy(instance.LoadedTextures[i]);
@@ -50,6 +60,7 @@ namespace ChampionsOfForest.Res
         public Dictionary<int, Mesh> LoadedMeshes;
         public Dictionary<int, Texture2D> LoadedTextures;
         public Dictionary<int, AudioClip> LoadedAudio;
+        public Dictionary<int, string> ExistingAssetBundles;
         private string LabelText;
         private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail, NewerThanOnline }
         private enum LoadingState { CheckingFiles, Downloading, Loading, Done }
@@ -87,6 +98,7 @@ namespace ChampionsOfForest.Res
             LoadedMeshes = new Dictionary<int, Mesh>();
             LoadedTextures = new Dictionary<int, Texture2D>();
             LoadedAudio = new Dictionary<int, AudioClip>();
+            ExistingAssetBundles = new Dictionary<int, string>();
             toDownload = new List<Resource>();
             FailedLoadResources = new List<Resource>();
             StartCoroutine(FileVerification());
@@ -357,8 +369,8 @@ namespace ChampionsOfForest.Res
                             FailedLoadResources.Add(resource);
                         }
                         break;
-                    case Resource.ResourceType.Text:
-
+                    case Resource.ResourceType.AssetBundle:
+                        ExistingAssetBundles.Add(resource.ID, Resource.path + resource.fileName);
                         break;
                 }
                 LoadedFileNumber++;
@@ -704,7 +716,12 @@ namespace ChampionsOfForest.Res
             new Resource(127, "MultishotSpell.png");
             new Resource(128, "Iceparticle.png");
             new Resource(129, "Shockwave.png");
+            new Resource(130, "ballLightningSpell.png");
+            new Resource(131, "SpellBerserk.png");
+            new Resource(132, "SpellPurge.png");
+            new Resource(133, "SpellGold.png");
             new Resource(1000, "thundersound.wav");
+            new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
 
         }
     }

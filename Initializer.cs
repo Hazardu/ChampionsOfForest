@@ -81,6 +81,7 @@ namespace ChampionsOfForest
                     ExpEvents.Initialize();
                     Portal.InitializePortals();
                     CoopCustomWeapons.Init();
+                    BallLightning.InitPrefab();
                 }
 
             }

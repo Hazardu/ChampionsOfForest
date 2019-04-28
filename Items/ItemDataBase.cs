@@ -363,7 +363,7 @@ namespace ChampionsOfForest
             MagicFind = ModdedPlayer.instance.MagicFindMultipier;
             if (GameSetup.IsMultiplayer)
             {
-                Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Clinets);
+                Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Clients);
             }
         }
 
@@ -2369,12 +2369,11 @@ namespace ChampionsOfForest
             new BaseItem(new int[][]
             {
             new int[] {1},
-            new int[] {1},
+            new int[] {1,0},
             new int[] {1},
             new int[] {12,13},
             new int[] {22,25,30,},
             new int[] {35,50,53,57},
-            new int[] {32,33},
             new int[] {20,57}
             })
             {
@@ -2382,7 +2381,7 @@ namespace ChampionsOfForest
                 description = "A Necklace decorated with armsy fingertips.",
                 lore = "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh.",
                 tooltip = "Necklaces give base stats to make your stronger.",
-                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 40,
                 maxLevel = 60,
                 CanConsume = false,
@@ -2395,12 +2394,11 @@ namespace ChampionsOfForest
             {
             new int[] {2},
             new int[] {2},
-            new int[] {2},
+            new int[] {2,0},
             new int[] {5,28},
             new int[] {7,10,31},
             new int[] {11,17,57},
             new int[] {14,16,57},
-            new int[] {32,33},
             new int[] {45,57}
             })
             {
@@ -2408,26 +2406,26 @@ namespace ChampionsOfForest
                 description = "A Pendant of a petrified Virginia heart.",
                 lore = "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality.",
                 tooltip = "Pendants give base stats to make your stronger.",
-                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 20,
                 maxLevel = 40,
                 CanConsume = false,
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
                 _itemType = BaseItem.ItemType.Amulet,
                 icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+                
             }.DropSettings_OnlyVags();
 
             new BaseItem(new int[][]
             {
             new int[] {3},
             new int[] {3},
-            new int[] {3},
+            new int[] {3,0},
             new int[] {8,9,27},
             new int[] {12,13,51,52},
             new int[] {12,13,51,52,57},
             new int[] {15,18,34,36,57},
             new int[] {23,48,54,26},
-            new int[] {32,33},
             new int[] {6,57}
             })
             {
@@ -2435,7 +2433,7 @@ namespace ChampionsOfForest
                 description = "A Necklace decorated with cowman toes.",
                 lore = "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility.",
                 tooltip = "Necklaces give base stats to make your stronger.",
-                Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+                Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 20,
                 maxLevel = 40,
                 CanConsume = false,
@@ -2455,13 +2453,12 @@ namespace ChampionsOfForest
             new int[] {19,47,49,0},
             new int[] {29,37,38},
             new int[] {29,37,38,0},
-            new int[] {32,33}
             })
             {
-                name = "Babyhead Pendant",
-                description = "A Pendant of a shrunken babyhead.",
-                lore = "A Pendant made from a shrunken babyhead, yeilding it's intellectual potential and imagination.",
-                tooltip = "Necklaces give base stats to make your stronger.",
+                name = "Pendant of Perpetual Rebirth",
+                description = "A Pendant of a shrunken babyhead. It's unique legendary ability causes you to decrease a random cooldown by 1 second whenever you hit something with melee or ranged attack.",
+                lore = "A pedant of great power, drops only from babies",
+                tooltip = "Necklaces give base stats to make your stronger. ",
                 Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
                 minLevel = 30,
                 maxLevel = 40,
@@ -2469,6 +2466,8 @@ namespace ChampionsOfForest
                 StackSize = 1,     //stacking in inventory like in mc, one means single item
                 _itemType = BaseItem.ItemType.Amulet,
                 icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
+                onEquip = () => SpellCaster.InfinityLoopEnabled = true,
+                onUnequip = () => SpellCaster.InfinityLoopEnabled = false,
             }.DropSettings_OnlyBaby();
 
 

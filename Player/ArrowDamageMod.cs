@@ -199,7 +199,7 @@ namespace ChampionsOfForest.Player
                         if (be == null) { be = target.GetComponent<BoltEntity>(); }
                         if (be != null)
                         {
-                            EnemyProgression.ReduceArmor(be, ModdedPlayer.instance.MeleeArmorReduction);
+                            EnemyProgression.ReduceArmor(be, ModdedPlayer.instance.RangedArmorReduction);
                         }
                     }
                     else

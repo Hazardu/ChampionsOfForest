@@ -100,39 +100,14 @@ namespace ChampionsOfForest.Effects
             {
 
             }
-
-            //if (other.gameObject.CompareTag("PlayerNet"))
-            //{
-            //    if (!ModSettings.FriendlyFire)
-            //    {
-            //        return;
-            //    }
-
-            //    BoltEntity component3 = other.GetComponent<BoltEntity>();
-            //    if (component3 != null && component3.networkId.PackedValue != casterID)
-            //    {
-            //        if (BoltNetwork.isRunning)
-            //        {
-            //            ModdedPlayer.instance.DoOnHit();
-            //            ModdedPlayer.instance.DoMeleeOnHit();
-
-            //            HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-            //            hitPlayer.damage = Mathf.FloorToInt(Damage);
-            //            hitPlayer.Send();
-            //            return;
-
-            //        }
-            //    }
-            //}
-
           
                 if (other.gameObject.CompareTag("enemyCollide"))
                 {
                 if (!GameSetup.IsMpClient) { 
                     EnemyProgression prog = other.GetComponentInParent<EnemyProgression>();
+                        DamageMath.DamageClamp(Damage, out int d, out int a);
                     if (prog != null)
                     {
-                        DamageMath.DamageClamp(Damage, out int d, out int a);
                         for (int i = 0; i < a; i++)
                         {
                         prog.HitMagic(d);
@@ -148,6 +123,10 @@ namespace ChampionsOfForest.Effects
                         {
                             prog.DmgTakenDebuff(41, 1.15f, DebuffDuration);
                         }
+                    }
+                    else
+                    {
+                        other.SendMessageUpwards("HitMagic", d, SendMessageOptions.DontRequireReceiver);
                     }
                 }
             }

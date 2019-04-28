@@ -768,6 +768,7 @@ namespace ChampionsOfForest
         }
         public void DoRangedOnHit()
         {
+            SpellCaster.InfinityLoopEffect();
             if (ReusabilityChance > 0 && Random.value <= ReusabilityChance)
             {
                 if (lastShotProjectile != null)
@@ -778,6 +779,7 @@ namespace ChampionsOfForest
         }
         public void DoMeleeOnHit()
         {
+            SpellCaster.InfinityLoopEffect();
 
         }
 
@@ -1043,6 +1045,8 @@ namespace ChampionsOfForest
                 item.Value.Remove();
             }
             activeBuffs.Clear();
+            SpellCaster.InfinityEnabled = false;
+            SpellCaster.InfinityLoopEnabled = false;
             SpellActions.BlinkRange = 15;
             SpellActions.BlinkDamage = 0;
             SpellActions.HealingDomeGivesImmunity = false;
@@ -1060,6 +1064,7 @@ namespace ChampionsOfForest
             SpellActions.MaxShield = 10;
             SpellActions.ShieldCastTime = 0;
             SpellActions.ShieldPersistanceLifetime = 3;
+            SpellActions.PurgeHeal = false;
                     SpellActions.WarCryRadius = 50;
         SpellActions.WarCryGiveDamage = false;
         SpellActions.WarCryGiveArmor = false;

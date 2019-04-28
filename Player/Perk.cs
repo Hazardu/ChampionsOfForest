@@ -134,8 +134,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.94f,
-                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.94f,
+                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.92f,
+                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.92f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -145,14 +145,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Metabolism",
-                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 6%.",
+                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 8%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.94f,
-                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.94f,
+                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.92f,
+                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.92f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -0.75f,
                 Name = "Water Conservation",
-                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 6%.",
+                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 8%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
@@ -298,7 +298,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Resource Cost Reduction",
-                Description = "In order for the organism to preserve energy, spell costs are reduced by 2,5%",
+                Description = "In order to preserve energy, spell costs are reduced by 2,5%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -323,8 +323,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 0.98f,
-                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 0.98f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.98f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.98f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
                 LevelRequirement = 7,
@@ -335,12 +335,12 @@ namespace ChampionsOfForest.Player
                 Name = "Cool Down Reduction",
                 Description = " Reduces spell cooldown by 2%",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 0.925f,
-                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 0.925f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 18 },
                 LevelRequirement = 8,
@@ -1395,9 +1395,104 @@ namespace ChampionsOfForest.Player
                 Name = "Turbo",
                 Description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%",
                 TextureVariation = 0,
+                Endless = true,
+            };
+              new Perk()
+            {
+                ApplyMethods = () =>SpellActions.PurgeHeal =true,
+                DisableMethods = () => SpellActions.PurgeHeal = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 15 },
+                LevelRequirement = 10,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 0f,
+                Name = "Transpurgation",
+                Description = "Purge now heals all players instead of reducing their health",
+                TextureVariation = 0,
                 Endless = false,
             };
-
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 19 },
+                LevelRequirement = 24,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = 2.25f,
+                Name = "Greater Cool Down Reduction",
+                Description = " Reduces spell cooldown by 7,5%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 85 },
+                LevelRequirement = 35,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = 1.5f,
+                Name = "Greater Cool Down Reduction",
+                Description = " Reduces spell cooldown by 7,5%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 86 },
+                LevelRequirement = 46,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5f,
+                PosOffsetY = 0.75f,
+                Name = "Greater Cool Down Reduction",
+                Description = " Reduces spell cooldown by 7,5%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () =>SpellCaster.InfinityEnabled =true,
+                DisableMethods = () => SpellCaster.InfinityEnabled =false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 87 },
+                LevelRequirement = 60,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 5.5f,
+                PosOffsetY = 0f,
+                Name = "Infinity",
+                Description = "Every time you cast a spell, all cooldowns are reduced by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 1.2f,
+                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 1.2f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 88 },
+                LevelRequirement = 61,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 6.5f,
+                PosOffsetY = 0f,
+                Name = "Armageddon",
+                Description = "Spell damage increased by 120%",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

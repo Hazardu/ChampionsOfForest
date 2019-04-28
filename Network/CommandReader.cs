@@ -34,7 +34,7 @@ namespace ChampionsOfForest.Network
                             answer += "f;";
                         }
 
-                        Network.NetworkManager.SendLine(answer, Network.NetworkManager.Target.Clinets);
+                        Network.NetworkManager.SendLine(answer, Network.NetworkManager.Target.Clients);
                     }
                 }
                 else if (s.StartsWith("AA"))    //answer for the what is the difficulty query
@@ -126,7 +126,7 @@ namespace ChampionsOfForest.Network
                     }
                     else if (spellid == 8)
                     {
-                        Purge.Cast(new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read())), float.Parse(Read()));
+                        Purge.Cast(new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read())), float.Parse(Read()),ReadBool());
 
                     }
                     else if (spellid == 9)
@@ -139,6 +139,15 @@ namespace ChampionsOfForest.Network
                         {
                             SnapFreeze.HostAction(pos, dist, float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         }
+
+                    }
+                    else if (spellid == 10)
+                    {
+                        Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        Vector3 speed = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
+                        float dmg = float.Parse(Read());
+
+                        BallLightning.Create(pos, speed, dmg);
 
                     }
                 }
@@ -523,7 +532,7 @@ namespace ChampionsOfForest.Network
                                 if (PickUpManager.PickUps[itemID].amount > 0) return;
                             }
                         }
-                        Network.NetworkManager.SendLine("RI" + itemID + ";", Network.NetworkManager.Target.Clinets);
+                        Network.NetworkManager.SendLine("RI" + itemID + ";", Network.NetworkManager.Target.Clients);
 
                     }
                 }
@@ -592,7 +601,7 @@ namespace ChampionsOfForest.Network
                         {
                             a += (int)ability + ";";
                         }
-                        NetworkManager.SendLine(a,NetworkManager.Target.Clinets);
+                        NetworkManager.SendLine(a,NetworkManager.Target.Clients);
                     }
                 }
                 else if (s.StartsWith("AI"))    //

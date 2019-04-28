@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Network
         //UNIQUE ID OF THE FAKE PLAYER
         public static ulong ModSenderPacked = 999999421;
 
-        public static NetworkId ModNetwokrID;
+        public static NetworkId ModNetworkID;
 
         public static ChatBoxMod instance = null;
 
@@ -21,7 +21,7 @@ namespace ChampionsOfForest.Network
             if (instance == null)
             {
                 instance = this;
-                ModNetwokrID = new NetworkId(ModSenderPacked);
+                ModNetworkID = new NetworkId(ModSenderPacked);
 
             }
 
@@ -35,7 +35,7 @@ namespace ChampionsOfForest.Network
         public override void AddLine(NetworkId? playerId, string message, bool system)
         {
 
-            if (playerId == ModNetwokrID)
+            if (playerId == ModNetworkID)
             {
                 if (message.StartsWith("II") && BoltNetwork.isRunning) 
                 {

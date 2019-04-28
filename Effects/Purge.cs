@@ -1,8 +1,5 @@
 ﻿using ChampionsOfForest.Player;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -13,7 +10,7 @@ namespace ChampionsOfForest.Effects
         private float speed = -30;
         private float radius = 1;
         private static Material mat;
-        public static void Cast(Vector3 pos, float radius)
+        public static void Cast(Vector3 pos, float radius, bool heal)
         {
             if (mat == null)
             {
@@ -23,29 +20,29 @@ namespace ChampionsOfForest.Effects
             }
 
 
-            var o = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            o.transform.position = pos + Vector3.up * 10 ;
+            GameObject o = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            o.transform.position = pos + Vector3.up * 10;
             o.transform.rotation = Quaternion.Euler(90, 0, 0);
             o.RemoveComponent(typeof(Collider));
             o.GetComponent<Renderer>().material = mat;
-            Purge p1 =o.AddComponent<Purge>();
+            Purge p1 = o.AddComponent<Purge>();
             p1.radius = radius;
 
-            var p2 = Instantiate(o);
-            var pu2 = p2.GetComponent<Purge>();
+            GameObject p2 = Instantiate(o);
+            Purge pu2 = p2.GetComponent<Purge>();
             pu2.speed *= 30;
             pu2.radius = radius;
-            p2.transform.position -=Vector3.up* 20;
+            p2.transform.position -= Vector3.up * 20;
 
             if ((LocalPlayer.Transform.position - pos).sqrMagnitude < radius * radius)
             {
-                PurgeLocalPlayer();
+                PurgeLocalPlayer(heal);
             }
-           
+
         }
-        private static void PurgeLocalPlayer()
+        private static void PurgeLocalPlayer(bool heal)
         {
-            var keys = BuffDB.activeBuffs.Keys.ToArray();
+            int[] keys = BuffDB.activeBuffs.Keys.ToArray();
             int a = 0;
             for (int i = 0; i < keys.Length; i++)
             {
@@ -57,23 +54,25 @@ namespace ChampionsOfForest.Effects
             }
             for (int i = 0; i < a; i++)
             {
-                LocalPlayer.Stats.Health *= 0.8f;
-                LocalPlayer.Stats.HealthTarget = LocalPlayer.Stats.Health;
-                LocalPlayer.Stats.Energy *= 0.8f;
+                float mult = heal ? 1.20f : 0.8f;
+
+                LocalPlayer.Stats.Health *= mult;
+                LocalPlayer.Stats.HealthTarget *= mult;
+                LocalPlayer.Stats.Energy *= mult;
             }
         }
 
-        void Start()
+        private void Start()
         {
             Destroy(gameObject, 2);
-            transform.localScale = Vector3.one*radius/2;
+            transform.localScale = Vector3.one * radius / 2;
         }
 
-        void Update()
+        private void Update()
         {
-            transform.localScale += Vector3.one * Time.deltaTime * radius/2;
+            transform.localScale += Vector3.one * Time.deltaTime * radius / 2;
             transform.position += Vector3.up * Time.deltaTime * speed;
-            transform.Rotate(Vector3.up * 40 * speed * Time.deltaTime,Space.World);
+            transform.Rotate(Vector3.up * 40 * speed * Time.deltaTime, Space.World);
         }
 
     }

@@ -93,21 +93,29 @@ namespace ChampionsOfForest.Network
                 }
                 else
                 {
-                    transform.SendMessage("getAttacker", (ev.RaisedBy.UserData as BoltEntity).gameObject, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("getAttackerType", ev.getAttackerType, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("getAttackDirection", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("getCombo", ev.getCombo, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("takeDamage", ev.takeDamage, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("setSkinDamage", UnityEngine.Random.Range(0, 3), SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("ApplyAnimalSkinDamage", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
-                    transform.SendMessage("Hit", ev.Hit, SendMessageOptions.DontRequireReceiver);
-                    if (ev.HitAxe)
+                    if (ev.Hit > 0)
                     {
-                        transform.SendMessage("HitAxe", SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("getAttacker", (ev.RaisedBy.UserData as BoltEntity).gameObject, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("getAttackerType", ev.getAttackerType, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("getAttackDirection", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("getCombo", ev.getCombo, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("takeDamage", ev.takeDamage, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("setSkinDamage", UnityEngine.Random.Range(0, 3), SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("ApplyAnimalSkinDamage", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("Hit", ev.Hit, SendMessageOptions.DontRequireReceiver);
+                        if (ev.HitAxe)
+                        {
+                            transform.SendMessage("HitAxe", SendMessageOptions.DontRequireReceiver);
+                        }
+                        if (ev.Burn)
+                        {
+                            transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
+                        }
                     }
-                    if (ev.Burn)
+                    else
                     {
-                        transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
+                        transform.SendMessage("ReduceAr", -ev.Hit, SendMessageOptions.DontRequireReceiver);
+
                     }
                 }
             }
@@ -130,7 +138,7 @@ namespace ChampionsOfForest.Network
             {
                 return;
             }
-            if (evnt.Sender == ChatBoxMod.ModNetwokrID) { return; }
+            if (evnt.Sender == ChatBoxMod.ModNetworkID) { return; }
 
             for (int i = 0; i < TheForest.Utils.Scene.SceneTracker.allPlayerEntities.Count; i++)
             {

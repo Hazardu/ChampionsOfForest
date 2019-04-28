@@ -7,8 +7,7 @@ namespace ChampionsOfForest.Network
 {
     public class NetworkManager : MonoBehaviour
     {
-        public enum Target { OnlyServer, Everyone, Clinets, Others }
-
+        public enum Target { OnlyServer, Everyone, Clients, Others }
         public delegate void OnGetMessage(string s);
         public OnGetMessage onGetMessage;
         public static NetworkManager instance;
@@ -52,7 +51,7 @@ namespace ChampionsOfForest.Network
                         case Target.Everyone:
                             chatEvent = ChatEvent.Create(GlobalTargets.Everyone);
                             break;
-                        case Target.Clinets:
+                        case Target.Clients:
                             chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
                             break;
                         case Target.Others:
@@ -63,7 +62,7 @@ namespace ChampionsOfForest.Network
                     }
 
                     chatEvent.Message = s;
-                    chatEvent.Sender = ChatBoxMod.ModNetwokrID;
+                    chatEvent.Sender = ChatBoxMod.ModNetworkID;
                     chatEvent.Send();
 
                     Debug.Log("Sent: " + s);
@@ -83,7 +82,7 @@ namespace ChampionsOfForest.Network
 
                     ChatEvent chatEvent = ChatEvent.Create(con);
                     chatEvent.Message = s;
-                    chatEvent.Sender = ChatBoxMod.ModNetwokrID;
+                    chatEvent.Sender = ChatBoxMod.ModNetworkID;
                     chatEvent.Send();
                 }
             }

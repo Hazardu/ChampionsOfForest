@@ -167,6 +167,7 @@
     <Compile Include="Buildables\Sawmill.cs"  />
 <Compile Include="CotfUtils.cs"  />
 <Compile Include="DamageMath.cs"  />
+<Compile Include="Effects\BallLightning.cs"  />
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />

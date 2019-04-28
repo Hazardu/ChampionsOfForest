@@ -119,7 +119,7 @@ namespace ChampionsOfForest
                     item.OnUnequip(item.Amount);
                 }
             }
-            onUnequip();
+            onUnequip?.Invoke();
         }
         public bool OnConsume()
         {

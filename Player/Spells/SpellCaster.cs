@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest.Player
@@ -143,6 +145,7 @@ namespace ChampionsOfForest.Player
                                         LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
                                     LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina *ModdedPlayer.instance.SpellCostRatio;
 
+                                        InfinityCooldownReduction();
                                     Ready[i] = false;
                                     MaxCooldown(i);
                                     infos[i].spell.active();
@@ -165,7 +168,6 @@ namespace ChampionsOfForest.Player
                                         infos[i].spell.ChanneledTime += Time.deltaTime;
                                         castedSpells[i] = true;
                                         infos[i].spell.active();
-
 
                                     }
                                     else
@@ -213,7 +215,34 @@ namespace ChampionsOfForest.Player
             public float Cooldown;
         }
 
-
+        #region InfinityPerk
+        public static bool InfinityEnabled = false;
+        public void InfinityCooldownReduction()
+        {
+            if (!InfinityEnabled) return;
+            for (int i = 0; i < infos.Length; i++)
+            {
+                infos[i].Cooldown *= 0.9f;
+            }
+        }
+        #endregion
+        public static bool InfinityLoopEnabled = false;
+        public static void InfinityLoopEffect()
+        {
+            if (InfinityLoopEnabled)
+            {
+                var keys = new List<int>();
+                for (int i = 0; i < SpellCount; i++)
+                {
+                    if (instance.infos[i].Cooldown > 0) keys.Add(i);
+                }
+                if (keys.Count == 0) return;
+                int randomI = UnityEngine.Random.Range(0, keys.Count);
+                instance.infos[keys[randomI]].Cooldown--;
+            }
+            
+        }
+                 
         public static bool RemoveStamina(float cost)
         {
             float realcostE = cost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio;

@@ -10,6 +10,11 @@ namespace ChampionsOfForest.Enemies
 {
     internal class WormHealthMod : wormHealth
     {
+        void HitMagic(int damage)
+        {
+            base.Hit(damage);
+        }
+
         public override void Hit(int damage)
         {
             damage = Mathf.Min(damage, 7);

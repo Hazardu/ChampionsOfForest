@@ -73,7 +73,7 @@ namespace ChampionsOfForest
                 if (LevelRequestCooldown < 0)
                 {
                     LevelRequestCooldown = 90;
-                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
 
                 }
                 else if (Players.Count != PlayerLevels.Count + 1)
@@ -81,7 +81,7 @@ namespace ChampionsOfForest
                     LevelRequestCooldown = 90;
                     PlayerLevels.Clear();
                     //PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
-                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
                 }
                 MFindRequestCooldown--;
                 if (MFindRequestCooldown <= 0)
@@ -106,7 +106,7 @@ namespace ChampionsOfForest
         {
             if (GameSetup.IsMpServer)
             {
-                Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clinets);
+                Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
             }
         }
         public static float DamageReduction(int armor)

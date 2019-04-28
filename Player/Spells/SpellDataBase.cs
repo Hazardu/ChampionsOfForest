@@ -82,21 +82,25 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.ToggleMultishot,            
             };
-            new Spell(12, 127, 40,50, 200, "Gold", "For 20 seconds you turn completely immune to stuns and attack speed increases by 20%")
+            new Spell(12, 133, 40,50, 200, "Gold", "For 20 seconds you turn completely immune to stuns and attack speed increases by 20%")
             {
                 active =Gold.Cast,            
             };
-            new Spell(13, 127, 6, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
+            new Spell(13, 132, 6, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
             {
                 active =SpellActions.CastPurge,            
             };
-            new Spell(14, 127, 20, 200, 45, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 80% you deal magic damage to them")
+            new Spell(14, 128, 20, 200, 45, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 80% you deal magic damage to them")
             {
                 active =SpellActions.CastSnapFreeze,            
             };
-            new Spell(15, 127, 25, 15, 180, "Berserk", "For short amount of time, gain damage, attack speed and movement speed, take additional damage and have unlimited stamina.")
+            new Spell(15, 131, 25, 15, 180, "Berserk", "For short amount of time, gain damage, attack speed and movement speed, take additional damage and have unlimited stamina.")
             {
                 active =Berserker.Cast,            
+            };
+            new Spell(16, 130, 42, 300, 80, "Ball Lightning", "A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 400% spell damage.")
+            {
+                active =SpellActions.CastBallLightning,            
             };
         }
     }

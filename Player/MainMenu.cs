@@ -1860,7 +1860,7 @@ namespace ChampionsOfForest
             {
                 //scrolling the list
                 spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 160;
-                spellOffset = Mathf.Clamp(spellOffset, -(100 * rr * (SpellDataBase.spellDictionary.Count + 4)), -100 * rr);
+                spellOffset = Mathf.Clamp(spellOffset, -(100 * rr * (SpellDataBase.spellDictionary.Count + 4)),0);
             }
             else
             {

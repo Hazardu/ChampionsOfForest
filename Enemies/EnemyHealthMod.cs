@@ -76,18 +76,14 @@ namespace ChampionsOfForest
             //}
             HitPhysical(damage);
         }
-
+        public void ReduceAr(int value)
+        {
+            progression.ArmorReduction += value;
+            return;
+        }
         //Reduced damage 
         public void HitPhysical(int damage)
         {
-            if (damage < -50000)
-            {
-                //reduce armor
-                int armorreduction = -damage - 50000;
-
-                progression.ArmorReduction += armorreduction;
-                return;
-            }
             int dmg = progression.ClampDamage(false, damage);
             HitReal(dmg);
         }

@@ -6,7 +6,7 @@
         public static string path;
         public static string url = "https://modapi.survivetheforest.net/uploads/objects/7/";
         public bool loaded;
-        public enum ResourceType { Texture, Mesh, Audio, Text }
+        public enum ResourceType { Texture, Mesh, Audio, Text,AssetBundle }
         public ResourceType type;
         public int ID;
         public bool CompressTexture = true;

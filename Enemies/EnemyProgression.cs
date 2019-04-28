@@ -398,7 +398,7 @@ namespace ChampionsOfForest
                 float aurDmg =(3 * Level + 10f) * DamageAmp/8;
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
-                Network.NetworkManager.SendLine("ES2"+entity.networkId.PackedValue + ";"+aurDmg,NetworkManager.Target.Clinets);
+                Network.NetworkManager.SendLine("ES2"+entity.networkId.PackedValue + ";"+aurDmg,NetworkManager.Target.Clients);
                 InvokeRepeating("SendFireAura",20,30);
             }
             //Clamping Health
@@ -436,7 +436,7 @@ namespace ChampionsOfForest
                 {
                     aa += (int)ability + ";";
                 }
-                NetworkManager.SendLine(aa, NetworkManager.Target.Clinets);
+                NetworkManager.SendLine(aa, NetworkManager.Target.Clients);
             }
         }
         /// <summary>
@@ -525,7 +525,7 @@ namespace ChampionsOfForest
             {
                 PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
                 playerHitEnemy.Target = target;
-                playerHitEnemy.Hit = -amount - 50000;
+                playerHitEnemy.Hit = -amount;
                 playerHitEnemy.Send();
             }
             else
@@ -1284,7 +1284,7 @@ namespace ChampionsOfForest
                 float aurDmg = (3 * Level + 10f) * DamageAmp / 8;
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
-                    Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clinets);
+                    Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clients);
             }
         }
     }
