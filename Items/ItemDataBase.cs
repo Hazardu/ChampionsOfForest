@@ -185,7 +185,7 @@ namespace ChampionsOfForest
 
             int rarity = 0;
 
-            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
+            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 2000)
             {
                 rarity = 1;
 
@@ -201,15 +201,15 @@ namespace ChampionsOfForest
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
+                            if (w > 700 && Random.value < 0.550f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.02f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
+                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.01f * (int)ModSettings.difficulty))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
+                                    if (w > 950 && Random.value < 0.30f && (int)ModSettings.difficulty > 5 || Random.value < (0.0025f * (int)ModSettings.difficulty))
                                     {
                                         rarity = 7;
 
@@ -3040,9 +3040,9 @@ new int[] {39,40,41,42,43},
                          })
             {
                 name = "Shard of Farket's Heart",
-                description = "A object filled with both destructive and creative energy. Poison for some. It will kill a man who eats it.",
+                description = "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points",
                 lore = "The Legendary Farket, self proclaimed king of peninsula, over time shifted into insanity. The cursed land of his sent madness upon him. That was the price he had to pay for the unfair power he obtained. This merely a shard of his strongest muscule contains so much power, that it kill anything and force it to come back to life, resulting in it's rebirth. The Prophecy fortold the return of The King. He will reappear as the harbinger of end of the world.",
-                tooltip = "Can be consumed by right clicking it. Allows to re-assign all spent mutation points",
+                tooltip = "Can be consumed by right clicking it. ",
                 Rarity = 7,
                 minLevel = 10,
                 maxLevel = 30,
@@ -3050,6 +3050,7 @@ new int[] {39,40,41,42,43},
                 StackSize = 1,
                 _itemType = BaseItem.ItemType.Other,
                 icon = Res.ResourceLoader.GetTexture(105),
+                onConsume = ModdedPlayer.Respec
             };
 
             //Created using Hazard's app for 1.0 release

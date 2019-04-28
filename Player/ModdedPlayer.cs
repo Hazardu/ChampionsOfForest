@@ -409,6 +409,21 @@ namespace ChampionsOfForest
             agility = x;
         }
 
+        private static string ListComponents(Transform t,string prefix ="")
+        {
+            string result = prefix+ t.name+":\n";
+            var components = t.gameObject.GetComponents<Component>();
+            foreach (var comp in components)
+            {
+                result += prefix + "\t- " + comp.GetType().ToString() + "\n";
+            }
+            foreach (Transform child in t)
+            {
+                result += ListComponents(child, prefix +"\t");
+            }
+            return result;
+        }
+
         private void Update()
         {
 
@@ -427,7 +442,12 @@ namespace ChampionsOfForest
                     }
                 }
             }
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
+            {
+                ModAPI.Log.Write( ListComponents(PlayerInventoryMod.originalParrent.parent));
 
+               
+            }
             try
             {
 
@@ -1040,10 +1060,12 @@ namespace ChampionsOfForest
         }
         public static void ResetAllStats()
         {
+           
             foreach (var item in instance.ExtraCarryingCapactity)
             {
-                item.Value.Remove();
+            item.Value.Remove();
             }
+            
             activeBuffs.Clear();
             SpellCaster.InfinityEnabled = false;
             SpellCaster.InfinityLoopEnabled = false;
@@ -1065,14 +1087,14 @@ namespace ChampionsOfForest
             SpellActions.ShieldCastTime = 0;
             SpellActions.ShieldPersistanceLifetime = 3;
             SpellActions.PurgeHeal = false;
-                    SpellActions.WarCryRadius = 50;
-        SpellActions.WarCryGiveDamage = false;
-        SpellActions.WarCryGiveArmor = false;
-        SpellActions.PortalDuration = 30;
-        SpellActions.MagicArrowDmgDebuff = false;
-        SpellActions.MagicArrowDoubleSlow = false;
-        SpellActions.MagicArrowDuration = 5f;
-        WeaponInfoMod.AlwaysIgnite = false;
+            SpellActions.WarCryRadius = 50;
+            SpellActions.WarCryGiveDamage = false;
+            SpellActions.WarCryGiveArmor = false;
+            SpellActions.PortalDuration = 30;
+            SpellActions.MagicArrowDmgDebuff = false;
+            SpellActions.MagicArrowDoubleSlow = false;
+            SpellActions.MagicArrowDuration = 5f;
+            WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 5;
             instance.HealingMultipier = 1;
             instance.strenght = 1;
@@ -1093,13 +1115,13 @@ namespace ChampionsOfForest
             instance.MaxHealthPercent = 0;
             instance.MaxEnergyPercent = 0;
             instance.CoolDownMultipier = 1;
-     instance.SpellDamageAmplifier_Mult = 1;
-        instance.MeleeDamageAmplifier_Mult = 1;
-        instance.RangedDamageAmplifier_Mult = 1;
-        instance.SpellDamageAmplifier_Add = 1;
-        instance.MeleeDamageAmplifier_Add = 1;
-        instance.RangedDamageAmplifier_Add = 1;
-        instance.SpellDamageBonus = 0;
+            instance.SpellDamageAmplifier_Mult = 1;
+            instance.MeleeDamageAmplifier_Mult = 1;
+            instance.RangedDamageAmplifier_Mult = 1;
+            instance.SpellDamageAmplifier_Add = 1;
+            instance.MeleeDamageAmplifier_Add = 1;
+            instance.RangedDamageAmplifier_Add = 1;
+            instance.SpellDamageBonus = 0;
             instance.MeleeDamageBonus = 0;
             instance.RangedDamageBonus = 0;
             instance.MeleeRange = 1;
@@ -1119,8 +1141,8 @@ namespace ChampionsOfForest
             instance.Stunned = false;
             instance.Armor = 0;
             instance.MagicResistance = 0;
-        instance.AttackSpeedMult = 1;
-        instance.AttackSpeedAdd = 1;
+            instance.AttackSpeedMult = 1;
+            instance.AttackSpeedAdd = 1;
             instance.StunImmune = 0;
             instance.RootImmune = 0;
             instance.DebuffImmune = 0;
@@ -1172,7 +1194,7 @@ namespace ChampionsOfForest
             instance.MultishotCount = 1;
             instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
-        ReapplyAllItems();
+            ReapplyAllItems();
             ReapplyAllPerks();
         }
         public static void ReapplyAllItems()

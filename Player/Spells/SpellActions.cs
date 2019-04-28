@@ -373,7 +373,7 @@ namespace ChampionsOfForest.Player
             string s = "SC10;" +
                 Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" +
                 Math.Round(speed.x, 5) + ";" + Math.Round(speed.y, 5) + ";" + Math.Round(speed.z, 5) + ";" +
-                dmg + ";";
+                dmg + ";" + (BallLightning.lastID+1);
             Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Everyone);
 
         }

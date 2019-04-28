@@ -51,7 +51,7 @@ namespace ChampionsOfForest.Player
                             {
                                 ModReferences.rightHandTransform = itemView._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
                             }
-                            catch (System.Exception e)
+                            catch (System.Exception)
                             {
 
                             }

@@ -1,10 +1,13 @@
 ﻿using ChampionsOfForest;
 using System.Collections;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 
 public class BallLightning : MonoBehaviour
 {
+    public static Dictionary<uint, BallLightning> list = new Dictionary<uint, BallLightning>();
+    public static uint lastID;
 
     public static GameObject prefab;
 
@@ -22,7 +25,7 @@ public class BallLightning : MonoBehaviour
         prefab = bundle.LoadAsset<GameObject>(_name);
     }
 
-    public static void Create(Vector3 position, Vector3 speed, float damage)
+    public static void Create(Vector3 position, Vector3 speed, float damage,uint id)
     {
         GameObject o = GameObject.Instantiate(prefab, position, Quaternion.identity);
         o.tag = "enemyCollide";
@@ -31,7 +34,7 @@ public class BallLightning : MonoBehaviour
         DamageMath.DamageClamp(damage, out int dmg, out int rep);
         b.dmg = dmg;
         b.rep = rep;
-
+        b.ID = id;
         b.speed = speed;
     }
 
@@ -40,7 +43,7 @@ public class BallLightning : MonoBehaviour
 
 
 
-
+    public uint ID;
     public GameObject explosionFX;
     public GameObject mainFX;
     public Rigidbody rb;
@@ -83,11 +86,37 @@ public class BallLightning : MonoBehaviour
     {
         if (!_triggered)
         {
+            SyncTriggerPosition();
             rb.isKinematic = true;
             _triggered = true;
             Explode();
+            list.Remove(ID);
         }
     }
+
+    private void SyncTriggerPosition()
+    {
+        if (!BoltNetwork.isRunning) return;
+        string msg = "AK";
+        Vector3 pos = transform.position;
+        msg += ID + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
+        ChampionsOfForest.Network.NetworkManager.SendLine(msg, ChampionsOfForest.Network.NetworkManager.Target.Others);
+    }
+
+    public void CoopTrigger(Vector3 newPos)
+    {
+        if (!_triggered)
+        {
+            transform.position = newPos;
+            _triggered = true;
+            rb.isKinematic = true;
+            Explode();
+            list.Remove(ID);
+
+        }
+
+    }
+
     public IEnumerator ExplodeCoroutine()
     {
         explosionFX.SetActive(true);

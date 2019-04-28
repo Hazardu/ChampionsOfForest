@@ -23,8 +23,8 @@ namespace ChampionsOfForest
 
 
         //Type of enemy
-        public enum EnemyType { Normal, Elite, Miniboss, Boss }
-        public EnemyType type;
+        public enum EnemyRarity { Normal, Elite, Miniboss, Boss }
+        public EnemyRarity _rarity;
 
         //References
         public EnemyHealth _Health;
@@ -238,7 +238,7 @@ namespace ChampionsOfForest
 
             RollName();
 
-            Steadfast = 1000;
+            Steadfast = 101;
             slows = new Dictionary<int, EnemyDebuff>();
             dmgTakenDebuffs = new Dictionary<int, EnemyDebuff>();
             dmgDealtDebuffs = new Dictionary<int, EnemyDebuff>();
@@ -248,58 +248,57 @@ namespace ChampionsOfForest
             //picking abilities
             if (UnityEngine.Random.value < 0.1 ||( _AI.creepy_boss&&!_AI.girlFullyTransformed))
             {
-                int count = UnityEngine.Random.Range(2, 7);
-                if (_AI.creepy_boss) { count = 10; }   //Megan boss always has abilities, a lot of them.
-                else if (EnemyName == "Farket") { count = 11; }
+                int abilityAmount = UnityEngine.Random.Range(3, 7);
+                if (_AI.creepy_boss) { abilityAmount = 10; }   //Megan boss always has abilities, a lot of them.
 
                 int i = 0;
-                Array arr = Enum.GetValues(typeof(Abilities));
+                Array abilityArray = Enum.GetValues(typeof(Abilities));
 
                 //Determining if enemy is Elite, Miniboss or Boss type of enemy
-                if (count > 6 && Random.value < 0.3f) { type = EnemyType.Boss; abilities.Add(Abilities.BossSteadfast); }
-                else if (count > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadfast); type = EnemyType.Miniboss; }
-                else { type = EnemyType.Elite; }
+                if (abilityAmount > 6 && Random.value < 0.3f) { _rarity = EnemyRarity.Boss; abilities.Add(Abilities.BossSteadfast); }
+                else if (abilityAmount > 4 && Random.value < 0.3f) { abilities.Add(Abilities.EliteSteadfast); _rarity = EnemyRarity.Miniboss; }
+                else { _rarity = EnemyRarity.Elite; }
 
-                if (_AI.creepy_boss)    //Force adding BossSteadfast to Megan
+                if (_AI.creepy_boss && !_AI.girlFullyTransformed)    //Force adding BossSteadfast to Megan
                 {
                     abilities.Clear();
-                    type = EnemyType.Boss;
+                    _rarity = EnemyRarity.Boss;
                     abilities.Add(Abilities.BossSteadfast);
                 }
 
                 //Trial and error method of picking abilities
-                while (i < count)
+                while (i < abilityAmount)
                 {
-                    bool success = true;
-                    Abilities ab = (Abilities)arr.GetValue(UnityEngine.Random.Range(0, arr.Length));
+                    bool canAdd = true;
+                    Abilities ab = (Abilities)abilityArray.GetValue(UnityEngine.Random.Range(0, abilityArray.Length));
                     if (ab == Abilities.Steadfast || ab == Abilities.EliteSteadfast || ab == Abilities.BossSteadfast)
                     {
                         if (abilities.Contains(Abilities.Steadfast) || abilities.Contains(Abilities.EliteSteadfast) || abilities.Contains(Abilities.BossSteadfast))
                         {
-                            success = false;
+                            canAdd = false;
                         }
                     }
                     else if (ab == Abilities.Tiny || ab == Abilities.Huge)
                     {
                         if (_AI.creepy_boss && ab == Abilities.Tiny)
                         {
-                            success = false;
+                            canAdd = false;
                         }
                         else if (abilities.Contains(Abilities.Huge) || abilities.Contains(Abilities.Tiny))
                         {
-                            success = false;
+                            canAdd = false;
                         }
                     }
                     else if (ab == Abilities.DoubleLife && !(_AI.creepy || _AI.creepy_fat))
                     {
-                        success = false;
+                        canAdd = false;
 
                     }
                     if (abilities.Contains(ab))
                     {
-                        success = false;
+                        canAdd = false;
                     }
-                    if (success)
+                    if (canAdd)
                     {
                         i++; abilities.Add(ab);
                     }
@@ -309,42 +308,38 @@ namespace ChampionsOfForest
             }
             else
             {
-                type = EnemyType.Normal;
+                _rarity = EnemyRarity.Normal;
             }
 
 
-            AssignEnemyType();
+            SetType();
 
             //Assigning level
-            AssignLevel();
+            SetLevel();
 
             //Assigning rest of stats
-            DamageMult = Level / 4.5f + 0.55f;
-            Armor = Mathf.FloorToInt(Random.Range(Level * Level, Level * Level * 1.1f  + 200));
+            DamageMult = Level*Level / 165f + 0.7f;
+
+
+            Armor = Mathf.FloorToInt(Random.Range(Level * Level + 20, Level * Level * 1.1f  + 50));
+            Armor *= (int)ModSettings.difficulty+1;
             ArmorReduction = 0;
-            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 1.35f) / 2));
-            AnimSpeed = 0.8f + (float)Level / 125;
+            Health = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.3f) / 2));
+            AnimSpeed = 0.815f + (float)Level / 130;
 
 
-            if (EnemyName == "Farket")
-            {
-                AnimSpeed *= 2;
-                Armor *= 2;
-                Health *= 2;
-                DamageMult *= 2;
-            }
             //Extra health for boss type enemies
-            switch (type)
+            switch (_rarity)
             {
-                case EnemyType.Elite:
+                case EnemyRarity.Elite:
                     Health *= 2;
 
                     break;
-                case EnemyType.Miniboss:
+                case EnemyRarity.Miniboss:
                     Health *= 5;
 
                     break;
-                case EnemyType.Boss:
+                case EnemyRarity.Boss:
                     Health *= 10;
                     break;
             }
@@ -673,14 +668,19 @@ namespace ChampionsOfForest
                     {
                         itemCount += Random.Range(3, 6);
                     }
-                    if (type == EnemyType.Boss)
+                    if (_rarity == EnemyRarity.Boss)
                     {
                         itemCount += 4;
                     }
-                    if (type == EnemyType.Miniboss)
+                    if (_rarity == EnemyRarity.Miniboss)
                     {
                         itemCount += 2;
                     }
+
+                    itemCount = Mathf.RoundToInt(itemCount* ItemDataBase.MagicFind);
+
+
+
                     for (int i = 0; i < itemCount; i++)
                     {
                         Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2.5f + i / 4));
@@ -1092,7 +1092,7 @@ namespace ChampionsOfForest
 
 
         }
-        private void AssignEnemyType()
+        private void SetType()
         {
             if (_AI.creepy && _AI.pale) { enemyType = Enemy.PaleVags; }
             else if (_AI.creepy && !_AI.pale) { enemyType = Enemy.RegularVags; }
@@ -1115,7 +1115,7 @@ namespace ChampionsOfForest
             else if (_AI.male && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleMale; }
             else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedMale; }
         }
-        private void AssignLevel()
+        private void SetLevel()
         {
             float extraLevels = 1;
             if (_AI.creepy || _AI.creepy_fat || _AI.creepy_male)
@@ -1188,100 +1188,58 @@ namespace ChampionsOfForest
 
                     break;
             }
-            Level = Mathf.CeilToInt(Level + extraLevels * Random.Range(0.8f, 1.2f));
+            Level = Mathf.CeilToInt(Level + extraLevels);
         }
         private void AssignBounty()
         {
-            Bounty = Mathf.CeilToInt(Random.Range(Health * 0.55f, Health * 0.6f) + Random.Range(Armor * 0.2f, Armor * 0.25f) / 3);
-            if (abilities.Count > 0)
+            Bounty = Mathf.CeilToInt(Random.Range(Health * 0.8f, Health * 0.9f) * Mathf.Sqrt(Level));
+            if (abilities.Count > 1)
             {
                 Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);
             }
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Hard:
-                    Bounty = Mathf.RoundToInt(Bounty * 1.3f);
+                    Bounty = Mathf.RoundToInt(Bounty * 1.25f);
                     break;
                 case ModSettings.Difficulty.Elite:
-                    Bounty = Mathf.RoundToInt(Bounty * 2);
+                    Bounty = Mathf.RoundToInt(Bounty * 1.7f);
 
                     break;
                 case ModSettings.Difficulty.Master:
-                    Bounty = Mathf.RoundToInt(Bounty * 4.6f);
+                    Bounty = Mathf.RoundToInt(Bounty * 2.4f);
 
                     break;
                 case ModSettings.Difficulty.Challenge1:
-                    Bounty = Mathf.RoundToInt(Bounty * 10f);
+                    Bounty = Mathf.RoundToInt(Bounty * 4f);
 
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    Bounty = Mathf.RoundToInt(Bounty * 22);
+                    Bounty = Mathf.RoundToInt(Bounty * 6);
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Bounty = Mathf.RoundToInt(Bounty * 48f);
+                    Bounty = Mathf.RoundToInt(Bounty * 9f);
 
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    Bounty = Mathf.RoundToInt(Bounty * 100f);
+                    Bounty = Mathf.RoundToInt(Bounty * 14);
 
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    Bounty = Mathf.RoundToInt(Bounty * 250);
+                    Bounty = Mathf.RoundToInt(Bounty * 22);
 
                     break;
                 default:
                     break;
             }
-            if (EnemyName == "Farket")
-            {
-                Bounty *= 5;
-            }
         }
-        /// <summary>
-        ///Deals damage to nearby players
-        /// </summary>
-        //private IEnumerator FireAuraLoop()
-        //{
 
-        //    float dmg = (3 * Level + 40f) * DamageAmp;
-        //    if (BoltNetwork.isRunning)
-        //    {
-        //        while (true)
-        //        {
-        //            yield return new WaitForSeconds(0.5f);
-        //            foreach (BoltEntity item in ModReferences.AllPlayerEntities)
-        //            {
-        //                if ((item.transform.position - transform.position).sqrMagnitude < 80)
-        //                {
-        //                    PlayerHitByEnemey playerHitByEnemey = PlayerHitByEnemey.Create(item);
-        //                    playerHitByEnemey.Damage = (int)dmg;
-        //                    playerHitByEnemey.Send();
-        //                }
-        //            }
-        //            if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
-        //            {
-        //                LocalPlayer.Stats.HealthChange(-1 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed));
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        while (true)
-        //        {
-        //            if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
-        //            {
-        //                LocalPlayer.Stats.Health -= Time.deltaTime * 2 * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed);
-        //            }
-        //            yield return null;
-        //        }
-        //    }
-        //}
         void SendFireAura()
         {
             if (abilities.Contains(Abilities.FireAura))
             {
-                float aurDmg = (3 * Level + 10f) * DamageAmp / 8;
+                float aurDmg = (8 * Level + 10f);
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
                     Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clients);

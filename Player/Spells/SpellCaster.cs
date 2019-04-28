@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChampionsOfForest.Fun;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheForest.Utils;
@@ -96,10 +97,11 @@ namespace ChampionsOfForest.Player
                 {
                     if (!Ready[i])
                     {
+
                         if (infos[i].spell != null)
                         {
                             infos[i].Cooldown -= Time.deltaTime;
-                            if (infos[i].Cooldown <= 0)
+                            if (infos[i].Cooldown <= 0 || CotfCheats.Cheat_noCooldowns)
                             {
                                 infos[i].Cooldown = 0;
                                 Ready[i] = true;

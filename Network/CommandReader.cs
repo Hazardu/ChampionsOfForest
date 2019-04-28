@@ -126,7 +126,7 @@ namespace ChampionsOfForest.Network
                     }
                     else if (spellid == 8)
                     {
-                        Purge.Cast(new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read())), float.Parse(Read()),ReadBool());
+                        Purge.Cast(new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read())), float.Parse(Read()), ReadBool());
 
                     }
                     else if (spellid == 9)
@@ -146,8 +146,11 @@ namespace ChampionsOfForest.Network
                         Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         Vector3 speed = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
                         float dmg = float.Parse(Read());
+                        uint id = uint.Parse(Read());
 
-                        BallLightning.Create(pos, speed, dmg);
+                        if (BallLightning.lastID < id) BallLightning.lastID = id;
+
+                        BallLightning.Create(pos, speed, dmg,id);
 
                     }
                 }
@@ -226,7 +229,7 @@ namespace ChampionsOfForest.Network
                         float dmg = float.Parse(Read());
                         GameObject go = EnemyManager.allboltEntities[packed].gameObject;
                         FireAura.Cast(go, dmg);
-                    } 
+                    }
 
                 }
                 else if (s.StartsWith("PO"))    //poison Player
@@ -238,7 +241,7 @@ namespace ChampionsOfForest.Network
 
                     i = 2;
                     ch = s.ToCharArray();
-                    string playerID =Read();
+                    string playerID = Read();
                     if (ModReferences.ThisPlayerID == playerID)
                     {
                         int source = int.Parse(Read());
@@ -338,7 +341,7 @@ namespace ChampionsOfForest.Network
                         return;
                     }
 
-                    if (ModdedPlayer.instance.RootImmune==0 && ModdedPlayer.instance.StunImmune==0)
+                    if (ModdedPlayer.instance.RootImmune == 0 && ModdedPlayer.instance.StunImmune == 0)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -358,7 +361,7 @@ namespace ChampionsOfForest.Network
                         return;
                     }
 
-                    if (ModdedPlayer.instance.StunImmune==0)
+                    if (ModdedPlayer.instance.StunImmune == 0)
                     {
                         i = 2;
                         ch = s.ToCharArray();
@@ -462,7 +465,7 @@ namespace ChampionsOfForest.Network
                     ch = s.ToCharArray();
                     int amount = int.Parse(Read());
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
-                    new MainMenu.HitMarker(amount, pos,true);
+                    new MainMenu.HitMarker(amount, pos, true);
 
                 }
                 else if (s.StartsWith("AC"))    //slow Enemy
@@ -498,7 +501,7 @@ namespace ChampionsOfForest.Network
                     }
 
                 }
-                else if (s.StartsWith("AE"))   
+                else if (s.StartsWith("AE"))
                 {
                     if (GameSetup.IsMpServer)
                     {
@@ -522,8 +525,8 @@ namespace ChampionsOfForest.Network
                             if (PickUpManager.PickUps[itemID].amount > 0)
                             {
                                 int givenAmount = itemAmount;
-                                if (itemAmount> PickUpManager.PickUps[itemID].amount)
-                                 givenAmount = Mathf.Min(PickUpManager.PickUps[itemID].amount, itemAmount);
+                                if (itemAmount > PickUpManager.PickUps[itemID].amount)
+                                    givenAmount = Mathf.Min(PickUpManager.PickUps[itemID].amount, itemAmount);
 
                                 NetworkManager.SendItemToPlayer(PickUpManager.PickUps[itemID].item, playerID, givenAmount);
 
@@ -546,7 +549,7 @@ namespace ChampionsOfForest.Network
                     {
                         Item item = new Item(ItemDataBase.ItemBases[int.Parse(Read())], int.Parse(Read()), 0, false);   //creating the item.
                         item.level = int.Parse(Read());
-                       
+
                         while (i < ch.Length)
                         {
                             ItemStat stat = new ItemStat(ItemDataBase.Stats[int.Parse(Read())])
@@ -556,10 +559,10 @@ namespace ChampionsOfForest.Network
                             item.Stats.Add(stat);
                         }
                         Player.Inventory.Instance.AddItem(item, item.Amount);
-                        
+
                     }
                 }
-                 else if (s.StartsWith("AH"))    //bonus fire damage agnist enemy
+                else if (s.StartsWith("AH"))    //bonus fire damage agnist enemy
                 {
                     if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
                     {
@@ -571,22 +574,23 @@ namespace ChampionsOfForest.Network
                         int src = int.Parse(Read());
                         EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
                     }
-                }else if (s.StartsWith("CE"))    //custom weapon in mp
+                }
+                else if (s.StartsWith("CE"))    //custom weapon in mp
                 {
-                    
-                        i = 2;
-                        ch = s.ToCharArray();
-                        string id = Read();
-                        int weaponID = int.Parse(Read());
-                        if (!ModReferences.PlayerHands.ContainsKey(id)) ModReferences.FindHands();
-                        if (ModReferences.PlayerHands.ContainsKey(id))
-                        {
-                            CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
-                        }
-                        else
-                        {
-                           Debug.LogWarning("NO HAND IN COMMAND READER");
-                        }
+
+                    i = 2;
+                    ch = s.ToCharArray();
+                    string id = Read();
+                    int weaponID = int.Parse(Read());
+                    if (!ModReferences.PlayerHands.ContainsKey(id)) ModReferences.FindHands();
+                    if (ModReferences.PlayerHands.ContainsKey(id))
+                    {
+                        CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("NO HAND IN COMMAND READER");
+                    }
                 }
                 else if (s.StartsWith("AJ"))    //
                 {
@@ -596,34 +600,40 @@ namespace ChampionsOfForest.Network
                         ch = s.ToCharArray();
                         ulong id = ulong.Parse(Read());
                         var p = EnemyManager.hostDictionary[id];
-                        string a = "AI" + id + ";"+p.BaseDamageMult+";";
+                        string a = "AI" + id + ";" + p.BaseDamageMult + ";";
                         foreach (var ability in p.abilities)
                         {
                             a += (int)ability + ";";
                         }
-                        NetworkManager.SendLine(a,NetworkManager.Target.Clients);
+                        NetworkManager.SendLine(a, NetworkManager.Target.Clients);
                     }
                 }
                 else if (s.StartsWith("AI"))    //
                 {
-                        i = 2;
-                        ch = s.ToCharArray();
-                        ulong id = ulong.Parse(Read());
-                        float dmg = float.Parse(Read());
-                        List<EnemyProgression.Abilities> abilities = new List<EnemyProgression.Abilities>();
-                    while (i<s.Length)
+                    i = 2;
+                    ch = s.ToCharArray();
+                    ulong id = ulong.Parse(Read());
+                    float dmg = float.Parse(Read());
+                    List<EnemyProgression.Abilities> abilities = new List<EnemyProgression.Abilities>();
+                    while (i < s.Length)
                     {
                         abilities.Add((EnemyProgression.Abilities)int.Parse(Read()));
                     }
                     new ClientEnemy(id, dmg, abilities);
                 }
-               
+                else if (s.StartsWith("AK"))    //
+                {
+                    i = 2;
+                    uint id = uint.Parse(Read());
+                    Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
 
+                    BallLightning.list[id].CoopTrigger(pos);
+                }
             }
             catch (Exception e)
             {
 
-               Debug.Log(e.ToString());
+                Debug.Log(e.ToString());
             }
         }
         private static string Read()
