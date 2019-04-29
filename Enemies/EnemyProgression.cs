@@ -1192,7 +1192,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            Bounty = Mathf.CeilToInt(Random.Range(Health * 0.8f, Health * 0.9f) * Mathf.Sqrt(Level));
+            Bounty = Mathf.CeilToInt(Random.Range(Health * 0.9f, Health * 1.1f) * Mathf.Sqrt(Level) + Armor*0.2f);
             if (abilities.Count > 1)
             {
                 Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);

@@ -191,10 +191,7 @@ namespace ChampionsOfForest.Player
                 else
                 {
                     BuffDB.activeBuffs.Remove(source);
-                    if (OnEnd != null)
-                    {
-                        OnEnd(amount);
-                    }
+                    OnEnd?.Invoke(amount);
                 }
 
             }

@@ -34,7 +34,7 @@ namespace ChampionsOfForest.Fun
         }
         public static void CotfItem(int id,int level)
         {
-            Item item = new Item(ItemDataBase.ItemBases[id]);
+            Item item = new Item(ItemDataBase.ItemBases[id],1,0,false);
             item.level = level;
             item.RollStats();
             ChampionsOfForest.Player.Inventory.Instance.AddItem(item);
@@ -60,6 +60,7 @@ namespace ChampionsOfForest.Fun
             base.Awake();
             CotfCommandsList = new List<string>()
             {
+                "cotfhelp",
                 "cotfnocooldowns",
                 "cotfspawnitem",
                 "cotfaddlevel",
@@ -68,6 +69,7 @@ namespace ChampionsOfForest.Fun
                 "cotfresetpoints"
             };
 
+            _availableConsoleMethods.Add("cotfhelp",null);
             _availableConsoleMethods.Add("cotfnocooldowns",null);
             _availableConsoleMethods.Add("cotfspawnitem",null);
             _availableConsoleMethods.Add("cotfaddlevel",null);
@@ -77,82 +79,36 @@ namespace ChampionsOfForest.Fun
         }
         public override void HandleConsoleInput(string consoleInput)
         {
-            if (this._historyEnd == -1)
-            {
-                this._historyEnd = 0;
-                this._history[0] = consoleInput;
-            }
-            else if (consoleInput != this._history[this._historyEnd])
-            {
-                this._historyEnd = (this._historyEnd + 1) % this._history.Length;
-                this._history[this._historyEnd] = consoleInput;
-            }
-            this._historyCurrent = -1;
-            List<string> list = consoleInput.Split(new char[]
+            List<string> commandParam = consoleInput.Split(new char[]
             {
                 ' '
             }).ToList<string>();
-            string text = list[0].ToLower();
-            if (this._availableConsoleMethods.ContainsKey(text))
+            string commandID = commandParam[0].ToLower();
+            if (base._availableConsoleMethods.ContainsKey(commandID))
             {
-                if (_availableConsoleMethods[text] == null) {
-                    CotfCheat(list);
-                    Debug.Log("Executing COTF cheat command");
-                    return;
-                }
+                if (_availableConsoleMethods[commandID] == null)
+                {
 
-
-                list.RemoveAt(0);
-                int num = 1;
-                if (list.Any((string a) => a.StartsWith("--")))
-                {
-                    string text2 = list.First((string a) => a.StartsWith("--"));
-                    list.Remove(text2);
-                    num = int.Parse(text2.Substring(2));
-                }
-                string text3 = (list.Count <= 0) ? null : string.Join(" ", list.ToArray(), 0, list.Count);
-                if (num > 1)
-                {
-                    Debug.Log(string.Concat(new object[]
+                    if (commandParam.Any((string a) => a.StartsWith("--")))
                     {
-                        "$> Being repeat command '",
-                        text,
-                        " ",
-                        text3,
-                        "'",
-                        num,
-                        " times"
-                    }));
-                }
-                while (num-- > 0)
-                {
-                    try
-                    {
-                        this._availableConsoleMethods[text].Invoke((!this._availableConsoleMethods[text].IsStatic) ? this : null, new object[]
+                        int repetitions = 1;
+                        string repetitionString = commandParam.First((string a) => a.StartsWith("--"));
+                        commandParam.Remove(repetitionString);
+                        repetitions = int.Parse(repetitionString.Substring(2));
+                        for (int a = 0; a < repetitions; a++)
                         {
-                            text3
-                        });
+                            CotfCheat(commandParam);
+                        }
+                        return;
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Debug.Log(string.Concat(new object[]
-                        {
-                            "$> '",
-                            text,
-                            " ",
-                            text3,
-                            "' #",
-                            num,
-                            " exception:\n",
-                            ex
-                        }));
+                        CotfCheat(commandParam);
+                        return;
                     }
                 }
             }
-            else if (!string.IsNullOrEmpty(list[0]))
-            {
-                Debug.Log("$> Unknown console command '" + list[0] + "'");
-            }
+                base.HandleConsoleInput(consoleInput);
         }
 
         private void CotfCheat(List<string> list)
@@ -181,6 +137,15 @@ namespace ChampionsOfForest.Fun
                         break;
                     case "cotfresetpoints":
                         CotfCheats.Respec();
+                        break;
+                    case "cotfhelp":
+                            Debug.LogWarning("Avaible champions of the forest commands:");
+                        Debug.Log("cotfnocooldowns [on, off, no parameter to toggle]");
+                        Debug.Log("cotfspawnitem [item id] [level]");
+                        Debug.Log("cotfaddlevel [amount]");
+                        Debug.Log("cotfsetlevel [amount]");
+                        Debug.Log("cotfaddpoints [amount]");
+                        Debug.Log("cotfresetpoints");
                         break;
                 }
             }
