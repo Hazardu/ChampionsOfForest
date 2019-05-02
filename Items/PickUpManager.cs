@@ -10,7 +10,7 @@ namespace ChampionsOfForest
 
         public static Dictionary<ulong, ItemPickUp> PickUps = new Dictionary<ulong, ItemPickUp>();
 
-
+      
 
         private static Material pickupMaterial;
         private static Material Heart_pickupMaterial;
@@ -28,6 +28,7 @@ namespace ChampionsOfForest
                 if (!ModSettings.IsDedicated)
                 {
                     spawn.AddComponent<Rigidbody>().mass = 5;
+                    spawn.AddComponent<Rigidbody>().drag = 0.5f;
                     spawn.transform.position = pos;
                     MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                     MeshFilter filter = spawn.GetComponent<MeshFilter>();
@@ -71,6 +72,10 @@ namespace ChampionsOfForest
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[108];
                                 spawn.transform.localScale *= 1.2f;
+
+                            } else if (item.weaponModel == BaseItem.WeaponModelType.Axe)
+                            {
+                                filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[2001];
 
                             }
 
@@ -172,7 +177,7 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    //spawn.AddComponent<MeshCollider>();
+                    spawn.AddComponent<MeshCollider>().sharedMesh = filter.mesh;
                 }
 
 

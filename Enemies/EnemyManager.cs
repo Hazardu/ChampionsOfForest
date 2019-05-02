@@ -12,13 +12,13 @@ namespace ChampionsOfForest
         public static Dictionary<ulong, ClientEnemy> clientEnemies;
         public static Dictionary<BoltEntity, ClinetEnemyProgression> clinetProgressions;
         public static Dictionary<Transform, ClinetEnemyProgression> spProgression;
-
+        public static List<EnemyProgression> singlePlayerList;
         private static float LastAskedTime = 0;
         private static readonly float AskFrequency = 0.5f;
 
         public static void Initialize()
         {
-            if (BoltNetwork.isRunning)
+            if (BoltNetwork.isRunning )
             {
                 hostDictionary = new Dictionary<ulong, EnemyProgression>();
                 allboltEntities = new Dictionary<ulong, BoltEntity>();
@@ -28,6 +28,8 @@ namespace ChampionsOfForest
             }
             else
             {
+                if (GameSetup.IsSinglePlayer) singlePlayerList = new List<EnemyProgression>();
+
                 spProgression = new Dictionary<Transform, ClinetEnemyProgression>();
             }
         }
@@ -157,6 +159,7 @@ namespace ChampionsOfForest
                         }
                     }
                 }
+               else if (GameSetup.IsSinglePlayer) singlePlayerList.Remove(ep);
                 if (spProgression != null)
                 {
                     if (spProgression.ContainsKey(ep.transform.root))

@@ -1493,6 +1493,22 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = false,
             };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpellAmpFireDmg =true,
+                DisableMethods = () => ModdedPlayer.instance.SpellAmpFireDmg = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 15 },
+                LevelRequirement = 4,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 0.75f,
+                Name = "Inner Fire",
+                Description = "Upon hitting an enemy, leave a debuff for 4 seconds, increase fire damage against that enemy equal to your spell amplification",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

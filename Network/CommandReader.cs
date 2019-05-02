@@ -191,7 +191,7 @@ namespace ChampionsOfForest.Network
                         if (EnemyManager.hostDictionary.ContainsKey(packed))
                         {
                             EnemyProgression ep = EnemyManager.hostDictionary[packed];
-                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep.Health + ";" + ep.MaxHealth + ";" + ep.Bounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.Steadfast + ";" + ep.abilities.Count + ";";
+                            parseval = "EA" + packed + ";" + ep.EnemyName + ";" + ep.Level + ";" + ep._hp + ";" + ep.MaxHealth + ";" + ep.Bounty + ";" + ep.Armor + ";" + ep.ArmorReduction + ";" + ep.Steadfast + ";" + ep.abilities.Count + ";";
                             foreach (EnemyProgression.Abilities item in ep.abilities)
                             {
                                 parseval += (int)item + ";";
@@ -572,6 +572,7 @@ namespace ChampionsOfForest.Network
                         float amount = float.Parse(Read());
                         float time = float.Parse(Read());
                         int src = int.Parse(Read());
+                        if(EnemyManager.hostDictionary.ContainsKey(id))
                         EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
                     }
                 }

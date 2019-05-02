@@ -82,6 +82,7 @@ namespace ChampionsOfForest
                     Portal.InitializePortals();
                     CoopCustomWeapons.Init();
                     BallLightning.InitPrefab();
+                    AddAxeMesh();
                 }
 
             }
@@ -92,7 +93,15 @@ namespace ChampionsOfForest
             }
 
         }
-
+        private static void AddAxeMesh()
+        {
+            if (!Res.ResourceLoader.instance.LoadedMeshes.ContainsKey(2001))
+            {
+                var meshfilter = GameObject.Instantiate( Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab")).GetComponent<MeshFilter>();
+                Res.ResourceLoader.instance.LoadedMeshes.Add(2001, meshfilter.mesh);
+                UnityEngine.GameObject.Destroy(meshfilter.gameObject);
+            }
+        }
         private static void ReadDediServerConfig()
         {
             string path = Application.dataPath + "/CotFConfig.txt";

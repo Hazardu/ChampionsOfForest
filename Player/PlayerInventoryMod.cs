@@ -8,8 +8,9 @@ namespace ChampionsOfForest.Player
     internal class PlayerInventoryMod : PlayerInventory
     {
 
-        //public static Vector3 Rot;
-        //public static Vector3 Pos;
+        public static Vector3 Rot;
+        public static Vector3 Pos;
+        public static float Sca;
         public static PlayerInventoryMod instance;
 
         public static InventoryItemView originalPlaneAxe;
@@ -89,9 +90,6 @@ namespace ChampionsOfForest.Player
                                 ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
                             }
                         }
-
-                      ModAPI.Log.Write("Rotation" + PlayerInventoryMod.originalRotation);
-                        ModAPI.Log.Write("Position" + PlayerInventoryMod.OriginalOffset);
                         if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
                         {
                             EquippedModel = ToEquipWeaponType;
@@ -112,7 +110,7 @@ namespace ChampionsOfForest.Player
                                 itemView._heldWeaponInfo.treeDamage = cw.treeDamage;
                                 itemView._heldWeaponInfo.weaponRange = cw.ColliderScale * 3;
                                 itemView._heldWeaponInfo.staminaDrain = cw.staminaDrain;
-                                itemView._heldWeaponInfo.noTreeCut = cw.canChopTrees;
+                                itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
                                 itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
                                 originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = noMesh;
                             }
@@ -366,7 +364,37 @@ namespace ChampionsOfForest.Player
                    new Vector3(0, 0, -2f),
                    1.6f, 1f, 25, 250, 0f, 0f, 500, true, 6);
 
+            var Axe_PlaneAxe = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
+            var Axe_Renderer = Axe_PlaneAxe.GetComponent<Renderer>();
+            if (Axe_Renderer != null) Destroy(Axe_Renderer);
+            var Axe_Filter = Axe_PlaneAxe.GetComponent<MeshFilter>();
+            if (Axe_Filter != null) Destroy(Axe_Filter);
 
+
+            Vector3 AxeOffset =  new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f);// new Vector3(0.179f,-0.31f,0.026f);
+            Axe_PlaneAxe.transform.localScale = Vector3.one;
+            Vector3 AxeRotation = new Vector3(180, 180, 90);
+            Axe_PlaneAxe.transform.position += AxeOffset;
+            GameObject axeObject = Instantiate(Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab"),Axe_PlaneAxe.transform);
+            Axe_PlaneAxe.transform.localPosition = PlayerInventoryMod.OriginalOffset;
+            Axe_PlaneAxe.transform.localRotation = PlayerInventoryMod.originalRotation;
+            Axe_PlaneAxe.transform.Rotate(AxeRotation, Space.Self);
+            axeObject.transform.localScale = Vector3.one;
+            var AxeTrail = axeObject.transform.GetChild(0).GetComponent<TrailRenderer>();
+            AxeTrail.gameObject.SetActive(false);
+            new CustomWeapon(BaseItem.WeaponModelType.Axe, Axe_PlaneAxe, AxeTrail, AxeOffset, AxeRotation, 1)
+            {
+                blockTreeCut = false,
+                damage = 8,
+                smashDamage = 10,
+                staminaDrain = 4,
+                swingspeed = 50,
+                treeDamage = 10,
+                tiredswingspeed = 50,
+                ColliderScale = 0.4f
+
+            };
+           
         }
     }
 }

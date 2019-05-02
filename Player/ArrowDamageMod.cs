@@ -188,9 +188,27 @@ namespace ChampionsOfForest.Player
                 base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
                 }
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
-                ModdedPlayer.instance.DoOnHit();
-                ModdedPlayer.instance.DoRangedOnHit();
+                ModdedPlayer.instance.OnHit();
+                ModdedPlayer.instance.OnHit_Ranged();
 
+                if (ModdedPlayer.instance.SpellAmpFireDmg)
+                {
+                    int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                    float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 2;
+                    dmg *= ModdedPlayer.instance.SpellAMP;
+                    dmg *= ModdedPlayer.instance.FireAmp + 1;
+                    if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                    {
+                        target.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
+                    }
+                    else {
+                        var e = target.GetComponentInParent<BoltEntity>();
+                        if (e != null)
+                        {
+                            Network.NetworkManager.SendLine("AH" + e.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                        }
+                    }
+                }
                 if (ModdedPlayer.instance.RangedArmorReduction > 0 && target.gameObject.CompareTag("enemyCollide"))
                 {
                     if (BoltNetwork.isClient)

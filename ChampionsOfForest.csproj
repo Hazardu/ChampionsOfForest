@@ -180,6 +180,7 @@
 <Compile Include="Effects\SnapFreeze.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />
+<Compile Include="Enemies\EnemyAbilities\Avenger.cs"  />
 <Compile Include="Enemies\EnemyAbilities\FireAura.cs"  />
 <Compile Include="Enemies\EnemyDebuff.cs"  />
 <Compile Include="ExpSources\AnimalExp.cs"  />

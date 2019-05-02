@@ -3507,6 +3507,27 @@ new int[] {18},
                 _itemType = BaseItem.ItemType.SpellScroll,
                 icon = Res.ResourceLoader.GetTexture(110),
             };
+            new BaseItem(new int[][]
+             {
+                new int[]{1,2,3,4},
+                new int[]{18},
+                new int[]{18,0},
+                new int[] {1,2,3,4,6,55},
+             })
+            {
+                name = "Axe of Swiftness",
+                description = "",
+                lore = "",
+                tooltip = "A really fast axe",
+                Rarity = 3,
+                minLevel = 15,
+                maxLevel = 25,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Axe,
+                icon = Res.ResourceLoader.GetTexture(88),
+            }.PossibleStats[1][0].Multipier =3;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Player
         public float smashDamage;
         public float treeDamage;
         public float staminaDrain;
-        public bool canChopTrees;
+        public bool blockTreeCut;
         public Mesh mesh;
         public Vector3 offset;
         public Vector3 rotation;
@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Player
             this.smashDamage = smashDamage;
             this.treeDamage = treeDamage;
             this.staminaDrain = staminaDrain;
-            this.canChopTrees = noTreeCut;
+            this.blockTreeCut = noTreeCut;
             this.mesh = Res.ResourceLoader.instance.LoadedMeshes[mesh];
             this.offset = offset;
             this.rotation = rotation;
@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Player
             this.smashDamage = 15;
             this.treeDamage = 0;
             this.staminaDrain = 8;
-            this.canChopTrees = false;
+            this.blockTreeCut = false;
             this.mesh = Res.ResourceLoader.instance.LoadedMeshes[mesh];
             this.offset = offset;
             this.rotation = rotation;
@@ -62,6 +62,24 @@ namespace ChampionsOfForest.Player
             ColliderScale = 1;
             Scale = scale;
             CreateGameObject();
+            InitializeCustomWeapon();
+            PlayerInventoryMod.customWeapons.Add(model, this);
+        }
+        public CustomWeapon(BaseItem.WeaponModelType model, GameObject obj,TrailRenderer trail, Vector3 offset, Vector3 rotation, float scale = 1)
+        {
+            this.damage = 6;
+            this.swingspeed = 1;
+            this.tiredswingspeed = 1;
+            this.smashDamage = 15;
+            this.treeDamage = 0;
+            this.staminaDrain = 8;
+            this.blockTreeCut = false;
+            this.offset = offset;
+            this.rotation = rotation;
+            ColliderScale = 1;
+            Scale = scale;
+            this.obj = obj;
+            this.trail = trail;
             InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
         }

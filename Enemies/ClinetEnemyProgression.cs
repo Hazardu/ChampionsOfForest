@@ -36,7 +36,7 @@ namespace ChampionsOfForest
             {
                 EnemyName = p.EnemyName;
                 Level = p.Level;
-                Health = (int)p.Health;
+                Health = (int)p._hp;
                 MaxHealth = (int)p.MaxHealth;
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
@@ -68,7 +68,7 @@ namespace ChampionsOfForest
                 EnemyProgression p = EnemyManager.hostDictionary[Packed];
                 EnemyName = p.EnemyName;
                 Level = p.Level;
-                Health = (int)p.Health;
+                Health = (int)p._hp;
                 MaxHealth = (int)p.MaxHealth;
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;

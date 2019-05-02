@@ -32,7 +32,9 @@ namespace ChampionsOfForest.Res
         public static AssetBundle GetAssetBundle(int id) {
             if (instance.ExistingAssetBundles.ContainsKey(id))
             {
+                if (instance.LoadedAssetBundles.ContainsKey(id)) return instance.LoadedAssetBundles[id];
                 AssetBundle bundle = AssetBundle.LoadFromFile(instance.ExistingAssetBundles[id]);
+                instance.LoadedAssetBundles.Add(id, bundle);
                 return bundle;
             }
             return null;
@@ -61,6 +63,7 @@ namespace ChampionsOfForest.Res
         public Dictionary<int, Texture2D> LoadedTextures;
         public Dictionary<int, AudioClip> LoadedAudio;
         public Dictionary<int, string> ExistingAssetBundles;
+        public Dictionary<int, AssetBundle> LoadedAssetBundles;
         private string LabelText;
         private enum VersionCheckStatus { Unchecked, UpToDate, OutDated, Fail, NewerThanOnline }
         private enum LoadingState { CheckingFiles, Downloading, Loading, Done }
@@ -74,8 +77,25 @@ namespace ChampionsOfForest.Res
         private WWW download;
         private bool IgnoreErrors;
         private bool ShowMOTD = true;
+        private bool MissingMods = false;
         private void Start()
         {
+
+
+
+            if(!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore")|| !ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
+            {
+                MissingMods = true;
+                return;
+            }
+
+
+
+
+
+
+
+
             if (instance == null)
             {
                 instance = this;
@@ -101,6 +121,7 @@ namespace ChampionsOfForest.Res
             ExistingAssetBundles = new Dictionary<int, string>();
             toDownload = new List<Resource>();
             FailedLoadResources = new List<Resource>();
+            LoadedAssetBundles = new Dictionary<int, AssetBundle>();
             StartCoroutine(FileVerification());
             StartCoroutine(VersionCheck());
             StartCoroutine(DownloadMotd());
@@ -411,7 +432,52 @@ namespace ChampionsOfForest.Res
         {
 
 
+            if (MissingMods)
+            {
+                float rr = (float)Screen.height / 1080;
+                GUI.color = Color.black;
+                Rect BGR = new Rect(0, 0, Screen.width, Screen.height);
+                GUI.DrawTexture(BGR, Texture2D.whiteTexture);
+                GUI.color = Color.red;
 
+                string s = "Champions of the forest will NOT work without ";
+                if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore") && !ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
+                {
+                    s += "BuilderCore and BuilderMenu";
+                }
+                else if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore"))
+                {
+                    s += "BuilderCore";
+                }
+                else
+                {
+                    s += "BuilderMenu";
+                }
+                s += "\nPlease, install them to use Champions of The Forest.";
+
+                    GUI.Label(new Rect(0, 30 * rr, Screen.width, 200 * rr), s, new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.UpperCenter });
+                GUI.color = Color.white;
+
+                if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore")) {
+
+                    if (GUI.Button(new Rect(760 * rr, 200 * rr, 700 * rr, 100 * rr), "BuilderCore Page", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
+                    {
+                        Application.OpenURL("https://modapi.survivetheforest.net/mod/82/buildercore");
+                    }
+                }
+                if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
+                {
+                    if (GUI.Button(new Rect(760 * rr, 400 * rr, 700 * rr, 100 * rr), "BuilderMenu Page", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
+                    {
+                        Application.OpenURL("https://modapi.survivetheforest.net/mod/83/builder-menu");
+                    }
+                }
+                if (GUI.Button(new Rect(760 * rr, 800 * rr, 700 * rr, 100 * rr),"Exit The Forest",new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
+                {
+                    Application.Quit();
+                }
+                return;
+            }
 
             if (!InMainMenu)
             {
@@ -539,7 +605,7 @@ namespace ChampionsOfForest.Res
 
                 GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
 
-                GUIStyle versionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperRight, fontSize = 34, fontStyle = FontStyle.Italic };
+                GUIStyle versionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperRight, fontSize = 34,richText =true };
                 switch (checkStatus)
                 {
                     case VersionCheckStatus.Unchecked:
@@ -553,7 +619,13 @@ namespace ChampionsOfForest.Res
                         break;
                     case VersionCheckStatus.OutDated:
                         GUI.color = Color.red;
-                        GUILayout.Label("Champions of The Forest is outdated! \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle);
+                        versionStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.UpperRight, fontSize = 34, richText = true };
+
+                        if (GUILayout.Button("<b>Champions of The Forest is outdated!</b> \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion+ "\nClick <b>HERE</b> to go to ModAPI page of COTF.", versionStyle))
+                        {
+                            Application.OpenURL("https://modapi.survivetheforest.net/mod/101/champions-of-the-forest");
+                        }
+                        
 
                         break;
                     case VersionCheckStatus.Fail:
@@ -722,6 +794,7 @@ namespace ChampionsOfForest.Res
             new Resource(133, "SpellGold.png");
             new Resource(1000, "thundersound.wav");
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
+            new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
 
         }
     }

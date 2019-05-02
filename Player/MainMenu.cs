@@ -266,7 +266,7 @@ namespace ChampionsOfForest
                 yield return null;
                 foreach (KeyValuePair<ulong, EnemyProgression> item in EnemyManager.hostDictionary)
                 {
-                    if (item.Value.Health < 1)
+                    if (item.Value._hp < 1)
                     {
                         EnemyManager.hostDictionary.Remove(item.Key);
                         break;
@@ -341,18 +341,6 @@ namespace ChampionsOfForest
                 //GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
                 //GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
                 //GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-                ////PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-                ////GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
-                //{
-                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, Space.Self);
-                //}
-
-                //BIG OFFSET-----------------------------------------------------------------------------
-                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -5, 5), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -5, 5));
-                //GUILayout.Label(PlayerInventoryMod.Pos.ToString());
                 //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
                 //GUILayout.Label(PlayerInventoryMod.Rot.ToString());
                 //foreach (var item in PlayerInventoryMod.customWeapons.Values)
@@ -360,6 +348,23 @@ namespace ChampionsOfForest
                 //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
                 //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
+                //}
+
+                // //BIG OFFSET-----------------------------------------------------------------------------
+                //GUILayout.Label("-----------------------------------------------------------------------------------------------------------------------------------------");
+                //PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -1, 1), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -1, 1), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -1, 1));
+                //GUILayout.Label(PlayerInventoryMod.Pos.ToString("N4"));
+                //PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
+                //GUILayout.Label(PlayerInventoryMod.Rot.ToString("N4"));
+                //// PlayerInventoryMod.Sca = GUILayout.HorizontalSlider(PlayerInventoryMod.Sca, 0.01f, 3f);
+                //// GUILayout.Label(PlayerInventoryMod.Sca.ToString("N4"));
+
+                //foreach (var item in PlayerInventoryMod.customWeapons.Values)
+                //{
+                //    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
+                //    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
+                //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
+                //    //item.obj.transform.localScale = Vector3.one * item.Scale * PlayerInventoryMod.Sca;
                 //}
 
 
@@ -1482,7 +1487,7 @@ namespace ChampionsOfForest
                     {
                         if (buff.Value.DisplayAsPercent)
                         {
-                            s += "( " + buff.Value.amount * 100 + "% )";
+                            s += buff.Value.amount>0?"( +" + (buff.Value.amount-1) * 100 + "% )": "( -" + (buff.Value.amount - 1) * 100 + "% )";
                         }
                         else
                         {
@@ -1766,6 +1771,15 @@ namespace ChampionsOfForest
                                                     break;
                                                 case EnemyProgression.Abilities.Laser:
                                                     DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    break;
+                                                case EnemyProgression.Abilities.Avenger:
+                                                    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    break;
+                                                case EnemyProgression.Abilities.Sacrefice:
+                                                    DrawScannedEnemyLabel("Sacrefice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    break;
+                                                default:
+                                                    DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                             }
                                             y += rr * 50;

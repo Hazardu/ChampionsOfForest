@@ -30,7 +30,7 @@ namespace ChampionsOfForest
             lifetime = 2500;
             if (ModSettings.IsDedicated) return;
             rb = GetComponent<Rigidbody>();
-            rb.drag = 1.5f;
+            rb.drag = 2f;
             rb.angularDrag = 0.4f;
             rb.isKinematic = true;
             Invoke("UnlockPhysics", 1f);

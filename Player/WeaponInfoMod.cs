@@ -220,8 +220,8 @@ namespace ChampionsOfForest.Player
                         lastPlayerHit = Time.time;
                         if (BoltNetwork.isRunning)
                         {
-                            ModdedPlayer.instance.DoOnHit();
-                            ModdedPlayer.instance.DoMeleeOnHit();
+                            ModdedPlayer.instance.OnHit();
+                            ModdedPlayer.instance.OnHit_Melee();
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
                             hitPlayer.damage = Mathf.FloorToInt(2f*(WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
@@ -354,8 +354,8 @@ namespace ChampionsOfForest.Player
                 component6 = other.GetComponent<mutantHitReceiver>();
                 if ((other.gameObject.CompareTag("enemyCollide") || other.gameObject.CompareTag("animalCollide")) && mainTrigger && !enemyDelay && !animControl.smashBool)
                 {
-                    ModdedPlayer.instance.DoOnHit();
-                    ModdedPlayer.instance.DoMeleeOnHit();
+                    ModdedPlayer.instance.OnHit();
+                    ModdedPlayer.instance.OnHit_Melee();
                     if (ModdedPlayer.instance.MeleeArmorReduction > 0 && other.gameObject.CompareTag("enemyCollide"))
                     {
                         if (BoltNetwork.isClient)
@@ -535,17 +535,30 @@ namespace ChampionsOfForest.Player
                     }
                      if (Effects.BlackFlame.IsOn)
                     {
-                        if ((bool)component6)
                             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                             {
-                                other.GetComponentInParent<EnemyProgression>().FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 5);
+                                other.GetComponentInParent<EnemyProgression>()?.FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 20);
                             }
                             else if (playerHitEnemy != null)
                             {
-                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" +Effects.BlackFlame.FireDamageBonus + ";" + 5+ ";1", Network.NetworkManager.Target.OnlyServer);
+                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" +Effects.BlackFlame.FireDamageBonus + ";" + 20+ ";1", Network.NetworkManager.Target.OnlyServer);
                             }
                     }
-
+                    if (ModdedPlayer.instance.SpellAmpFireDmg)
+                    {
+                        int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                        float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus/2;
+                        dmg *= ModdedPlayer.instance.SpellAMP;
+                        dmg *= ModdedPlayer.instance.FireAmp+1;
+                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                            {
+                                other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
+                            }
+                            else if (playerHitEnemy != null)
+                            {
+                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                            }
+                    }
 
 
                     DamageMath.DamageClamp(num2, out int d, out int a);

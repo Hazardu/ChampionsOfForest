@@ -17,7 +17,7 @@ namespace ChampionsOfForest
         public int StackSize = 1;               //how many items can be placed in one item slot?
         public bool CanConsume = false;             //can you eat this bad boy?
         public ItemType _itemType = ItemType.Weapon;          //determines on which inv slot can this item be placed in
-        public enum WeaponModelType { None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Helberd, Gauntlet, Staff, Dagger, Boomerang };
+        public enum WeaponModelType { None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Helberd, Gauntlet, Staff, Dagger, Boomerang, Axe };
         public WeaponModelType weaponModel = WeaponModelType.None;
         public OnItemEquip onEquip;
         public OnItemUnequip onUnequip;

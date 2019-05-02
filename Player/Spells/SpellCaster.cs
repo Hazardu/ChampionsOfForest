@@ -100,7 +100,7 @@ namespace ChampionsOfForest.Player
 
                         if (infos[i].spell != null)
                         {
-                            infos[i].Cooldown -= Time.deltaTime;
+                            infos[i].Cooldown -= Time.deltaTime/ ModdedPlayer.instance.CoolDownMultipier;
                             if (infos[i].Cooldown <= 0 || CotfCheats.Cheat_noCooldowns)
                             {
                                 infos[i].Cooldown = 0;
@@ -206,7 +206,7 @@ namespace ChampionsOfForest.Player
         {
             if (infos[i].spell != null)
             {
-                infos[i].Cooldown = infos[i].spell.BaseCooldown * ModdedPlayer.instance.CoolDownMultipier;
+                infos[i].Cooldown = infos[i].spell.BaseCooldown;
                 Ready[i] = false;
 
             }

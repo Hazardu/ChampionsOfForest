@@ -93,6 +93,8 @@ namespace ChampionsOfForest
         public float EnergyRegenPerInt = 0.00f;
         public float EnergyPerAgility = 0f;
         public float HealthPerVitality = 0f;
+        public float FireAmp;
+        public bool SpellAmpFireDmg;
         public float HealthRegenPercent = 0;
         public float StaminaRegenPercent = 0;
         public int HealthBonus = 0;
@@ -298,7 +300,7 @@ namespace ChampionsOfForest
                         }
                         break;
                     case 56:    //spears and spear bag
-                        if (LocalPlayer.Inventory.AmountOf(290) > 1)
+                        if (LocalPlayer.Inventory.AmountOf(290) > 0)
                         {
                             LocalPlayer.Inventory.SetMaxAmountBonus(ID, 4);
                         }
@@ -319,15 +321,11 @@ namespace ChampionsOfForest
             {
                 ExtraCarryingCapactity[ID].ExistingApply(Amount);
             }
-            else
+            else if(Amount>0)
             {
                 ExtraItemCapacity EIC = new ExtraItemCapacity(ID, Amount);
                 EIC.NewApply();
                 ExtraCarryingCapactity.Add(ID, EIC);
-            }
-            if (ExtraCarryingCapactity[ID].Amount <= 0)
-            {
-                ExtraCarryingCapactity.Remove(ID);
             }
         }
         public void AddExtraItemCapacity(int[] ID, int Amount)
@@ -772,21 +770,17 @@ namespace ChampionsOfForest
                 }
             }
         }
-        public void DoOnHit()
+        public void OnHit()
         {
-            try
-            {
                 LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
-            }
-            catch (Exception exc)
-            {
-
-                ModAPI.Log.Write("Area dmg exception " + exc.ToString());
-            }
+         
         }
-        public void DoRangedOnHit()
+
+        
+
+        public void OnHit_Ranged()
         {
             SpellCaster.InfinityLoopEffect();
             if (ReusabilityChance > 0 && Random.value <= ReusabilityChance)
@@ -797,7 +791,7 @@ namespace ChampionsOfForest
                 }
             }
         }
-        public void DoMeleeOnHit()
+        public void OnHit_Melee()
         {
             SpellCaster.InfinityLoopEffect();
 
@@ -883,10 +877,7 @@ namespace ChampionsOfForest
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            float a = 6.25f;
-            float b = 5f;
-            float c = 20;
-            double y = System.Math.Pow(x, a) * b + c * x;
+            var y = 500*System.Math.Pow(1.2f,x-10) - 88 +  System.Math.Pow(x, 3.35) * 2;
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
@@ -1041,12 +1032,32 @@ namespace ChampionsOfForest
         }
         public static void UnAssignAllStats()
         {
+            foreach (var item in instance.ExtraCarryingCapactity)
+            {
+                item.Value.Remove();
+            }
+            instance.ExtraCarryingCapactity.Clear();
+
+
             foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemList)
             {
+
+                  if (item.Value == null) continue;
                 if (item.Value.Equipped)
                 {
-                    item.Value.onUnequip();
+                    item.Value.onUnequip?.Invoke();
                     item.Value.Equipped = false;
+                    foreach (var stat in item.Value.Stats)
+                    {
+                try
+                {
+                        stat.OnUnequip?.Invoke(stat.Amount);
+                }
+                catch (Exception e)
+                {
+                            Debug.Log("err: " + e.Message);
+                } 
+                    }
                 }
             }
             for (int i = 0; i < Perk.AllPerks.Count; i++)
@@ -1054,9 +1065,10 @@ namespace ChampionsOfForest
                 if (Perk.AllPerks[i].IsBought)
                 {
                     Perk.AllPerks[i].IsBought = false;
-                    Perk.AllPerks[i].DisableMethods();
+                    Perk.AllPerks[i].DisableMethods?.Invoke();
                 }
             }
+            
         }
         public static void ResetAllStats()
         {
@@ -1194,7 +1206,9 @@ namespace ChampionsOfForest
             instance.MultishotCount = 1;
             instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
-            ReapplyAllItems();
+            instance.FireAmp=0;
+            instance.SpellAmpFireDmg = false;
+        ReapplyAllItems();
             ReapplyAllPerks();
         }
         public static void ReapplyAllItems()
