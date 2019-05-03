@@ -93,7 +93,7 @@ namespace ChampionsOfForest
         public float EnergyRegenPerInt = 0.00f;
         public float EnergyPerAgility = 0f;
         public float HealthPerVitality = 0f;
-        public float FireAmp;
+        public float FireAmp = 0;
         public bool SpellAmpFireDmg;
         public float HealthRegenPercent = 0;
         public float StaminaRegenPercent = 0;
@@ -105,7 +105,7 @@ namespace ChampionsOfForest
         public float SpellDamageAmplifier => SpellDamageAmplifier_Mult * SpellDamageAmplifier_Add;
         public float MeleeDamageAmplifier => MeleeDamageAmplifier_Mult * MeleeDamageAmplifier_Add;
         public float RangedDamageAmplifier => RangedDamageAmplifier_Mult * RangedDamageAmplifier_Add;
-
+        public float HeadShotDamage = 5;
         public float SpellDamageAmplifier_Mult = 1;
         public float MeleeDamageAmplifier_Mult = 1;
         public float RangedDamageAmplifier_Mult = 1;
@@ -173,7 +173,9 @@ namespace ChampionsOfForest
         public int ARreduction_ranged = 0;
         public bool TurboRaft = false;
         public float RaftSpeedMultipier = 1;
-
+        public float ChanceToSlowOnHit = 0;
+        public float ChanceToBleedOnHit = 0;
+        public float ChanceToWeakenOnHit = 0;
         public float DamageAbsorbAmount
         {
             get
@@ -775,21 +777,58 @@ namespace ChampionsOfForest
                 LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
+                SpellActions.OnFrenzyAttack();
          
         }
-
+        public void OnHitEffectsClient(BoltEntity ent,float damage)
+        {
+            if (ent != null)
+            {
+                if (ChanceToBleedOnHit > 0 && Random.value < ChanceToBleedOnHit)
+                {
+                    string s = "AM" + ent.networkId.PackedValue + ";" + Mathf.CeilToInt(damage / 20) + ";10;";
+                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                }
+                if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
+                {
+                    int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                    string s = "AC" + ent.networkId.PackedValue + ";" + 0.5f + ";8;" + id + ";";
+                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                }
+                if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
+                {
+                    int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                    string s = "AO" + ent.networkId.PackedValue + ";" + id + ";" + 1.2f + ";8;";
+                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                }
+            }
+        }
+        public void OnHitEffectsHost(EnemyProgression p,float damage)
+        {
+            if (p != null)
+            {
+                if (ChanceToBleedOnHit > 0 && Random.value < ChanceToBleedOnHit)
+                {
+                    p.DoDoT(Mathf.CeilToInt(damage / 20), 10);
+                }
+                if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
+                {
+                    int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                    p.Slow(id, 0.5f, 8);
+                }
+                if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
+                {
+                    int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                    p.DmgTakenDebuff(id, 1.2f, 8);
+                }
+            }
+        }
         
 
         public void OnHit_Ranged()
         {
             SpellCaster.InfinityLoopEffect();
-            if (ReusabilityChance > 0 && Random.value <= ReusabilityChance)
-            {
-                if (lastShotProjectile != null)
-                {
-                    LocalPlayer.Inventory.AddItem(lastShotProjectile._ammoItemId, ReusabilityAmount);
-                }
-            }
+         
         }
         public void OnHit_Melee()
         {
@@ -878,6 +917,7 @@ namespace ChampionsOfForest
         {
             int x = lvl;
             var y = 500*System.Math.Pow(1.2f,x-10) - 88 +  System.Math.Pow(x, 3.35) * 2;
+           y= System.Math.Min(y, long.MaxValue - 10);
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
@@ -1207,7 +1247,11 @@ namespace ChampionsOfForest
             instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
             instance.FireAmp=0;
+            instance.HeadShotDamage = 5;
             instance.SpellAmpFireDmg = false;
+            instance.ChanceToSlowOnHit = 0;
+            instance.ChanceToBleedOnHit = 0;
+            instance.ChanceToWeakenOnHit = 0;
         ReapplyAllItems();
             ReapplyAllPerks();
         }

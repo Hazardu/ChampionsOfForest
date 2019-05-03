@@ -171,6 +171,7 @@
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
+<Compile Include="Effects\Focus.cs"  />
 <Compile Include="Effects\Gold.cs"  />
 <Compile Include="Effects\MagicArrow.cs"  />
 <Compile Include="Effects\MainMenuVisual.cs"  />

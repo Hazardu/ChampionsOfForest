@@ -102,6 +102,22 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastBallLightning,            
             };
+            new Spell(17, 130, 1, 0, 1, "Bash", "Attack modifier\nEvery attack slows enemies for 3 seconds, and increases their damage taken by 6%")
+            {
+                passive =SpellActions.BashPassiveEnabled,            
+            };
+            new Spell(18, 130, 1, 0, 1, "Frenzy", "Attack modifier\nEvery attack enrages you, increasing damage all damage by 5%. Up to 5 stacks.")
+            {
+                passive = x=> SpellActions.Frenzy = x,            
+            };
+            new Spell(19, 130, 3, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 20 seconds. While active, headshots deal double damage.")
+            {
+                active = SpellActions.SeekingArrow_Active,
+            };
+            new Spell(20, 130, 3, 0, 1, "Focus", "Passively, when landing a headshot, next projectile will deal 100% more damage. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.")
+            {
+                passive = x => SpellActions.Focus = x,
+            };
         }
     }
 }

@@ -125,6 +125,7 @@ namespace ChampionsOfForest
         {
             if (CanConsume && ModdedPlayer.instance.Level >= level)
             {
+                onConsume?.Invoke();
                 foreach (ItemStat item in Stats)
                 {
                     if (item.Amount != 0)

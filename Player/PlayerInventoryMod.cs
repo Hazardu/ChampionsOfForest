@@ -178,10 +178,13 @@ namespace ChampionsOfForest.Player
             }
             for (int i = 0; i < repeats; i++)
             {
-
-                if (flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
+                bool noconsume = false;
+                if (ModdedPlayer.instance.ReusabilityChance > 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
                 {
-                    ModdedPlayer.instance.lastShotProjectile = itemCache;
+                    noconsume = true;
+                }
+                if (noconsume || flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
+                {
                     InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
                     TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
                     FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();

@@ -54,7 +54,7 @@ namespace ChampionsOfForest.Player
             {
                 if (infos[i].spell.passive != null)
                 {
-                    infos[i].spell.passive(false);
+                    infos[i].spell.passive(true);
                 }
             }
             SetMaxCooldowns();
@@ -73,17 +73,13 @@ namespace ChampionsOfForest.Player
                         spell = null
                     };
                 }
-
                 SetMaxCooldowns();
-
             }
             catch (Exception ex)
             {
                 ModAPI.Log.Write(ex.ToString());
 
             }
-
-            //MaxCooldown(0);
         }
 
 
@@ -155,7 +151,7 @@ namespace ChampionsOfForest.Player
 
                                 }
                             }
-                            else
+                            else if (infos[i].spell.active != null)
                             {
                                 if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned)
                                 {

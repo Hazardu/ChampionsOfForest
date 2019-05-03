@@ -28,7 +28,6 @@ namespace ChampionsOfForest
                 if (!ModSettings.IsDedicated)
                 {
                     spawn.AddComponent<Rigidbody>().mass = 5;
-                    spawn.AddComponent<Rigidbody>().drag = 0.5f;
                     spawn.transform.position = pos;
                     MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                     MeshFilter filter = spawn.GetComponent<MeshFilter>();
@@ -177,7 +176,16 @@ namespace ChampionsOfForest
                             }
                         }
                     }
+                    try
+                    {
                     spawn.AddComponent<MeshCollider>().sharedMesh = filter.mesh;
+
+                    }
+                    catch (System.Exception e)
+                    {
+                        CotfUtils.Log(e.ToString());
+                        
+                    }
                 }
 
 

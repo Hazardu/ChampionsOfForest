@@ -16,7 +16,7 @@ namespace ChampionsOfForest
         public static void Log(string s)
         {
             ModAPI.Console.Write(s);
-            Debug.Log(s);
+            Debug.LogWarning(s);
         }
     }
 }

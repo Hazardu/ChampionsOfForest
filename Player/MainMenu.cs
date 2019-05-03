@@ -128,7 +128,7 @@ namespace ChampionsOfForest
         public List<HitMarker> hitMarkers = new List<HitMarker>();
         public class HitMarker
         {
-            public int txt;
+            public string txt;
             public Vector3 worldPosition;
             public float lifetime;
             public bool Player;
@@ -138,14 +138,14 @@ namespace ChampionsOfForest
             }
             public HitMarker(int t, Vector3 p)
             {
-                txt = t;
+                txt = t.ToString("N0");
                 worldPosition = p;
                 lifetime = 4f;
                 Instance.hitMarkers.Add(this);
             }
             public HitMarker(int t, Vector3 p, bool Player)
             {
-                txt = t;
+                txt = t.ToString("N0");
                 worldPosition = p;
                 lifetime = 6f;
                 this.Player = Player;
@@ -920,11 +920,11 @@ namespace ChampionsOfForest
 
                 if (item.Stats[i].DisplayAsPercent)
                 {
-                    GUI.Label(StatRects[i], amount.ToString() + "%", StatValueStyle);
+                    GUI.Label(StatRects[i], amount.ToString("N0") + "%", StatValueStyle);
                 }
                 else
                 {
-                    GUI.Label(StatRects[i], amount.ToString(), StatValueStyle);
+                    GUI.Label(StatRects[i], amount.ToString("N0"), StatValueStyle);
                 }
             }
             GUI.color = Color.white;
@@ -1033,7 +1033,7 @@ namespace ChampionsOfForest
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
                     if (Inventory.Instance.ItemList[index].Amount > 1)
                     {
-                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString(), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset(Mathf.RoundToInt(10 * rr), 0, 0, Mathf.RoundToInt(10 * rr)), fontSize = Mathf.RoundToInt(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
+                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString("N0"), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset(Mathf.RoundToInt(10 * rr), 0, 0, Mathf.RoundToInt(10 * rr)), fontSize = Mathf.RoundToInt(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
                     }
 
 
@@ -1456,7 +1456,7 @@ namespace ChampionsOfForest
                             center = pos
                         };
 
-                        GUI.Label(r, hitMarkers[i].txt.ToString(), new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
+                        GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
                     }
 
                 }
@@ -1467,14 +1467,14 @@ namespace ChampionsOfForest
                 if (ModdedPlayer.instance.Rooted)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = string.Format("ROOTED for {0} seconds", Math.Round(ModdedPlayer.instance.RootDuration, 1));
+                    string s = string.Format("ROOTED {0} s", Math.Round(ModdedPlayer.instance.RootDuration, 1));
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
                 }
                 if (ModdedPlayer.instance.Stunned)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = string.Format("STUNNED for {0} seconds", Math.Round(ModdedPlayer.instance.RootDuration, 1));
+                    string s = string.Format("STUNNED {0} s", Math.Round(ModdedPlayer.instance.RootDuration, 1));
                     GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
                     BuffOffset += 30 * rr;
                 }
@@ -1501,15 +1501,15 @@ namespace ChampionsOfForest
                 }
 
                 GUI.color = Color.blue;
-                GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy), HUDStatStyle);
+                GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy).ToString("N0"), HUDStatStyle);
                 GUI.color = new Color(0.8f, 0.0f, 0.0f);
 
-                GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health) + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth), HUDStatStyle);
+                GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth).ToString("N0"), HUDStatStyle);
                 if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
                 {
 
                     GUI.color = new Color(1f, 0.15f, 0.8f);
-                    GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString(), HUDStatStyle);
+                    GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
 
                 }
                 GUI.color = Color.white;
@@ -1527,7 +1527,6 @@ namespace ChampionsOfForest
 
 
                     GUI.DrawTexture(r, _SpellBG);
-
                     if (SpellCaster.instance.infos[i].spell == null || SpellCaster.instance.infos[i].spell.icon == null)
                     {
 
@@ -1535,9 +1534,13 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        if (ModdedPlayer.instance.Silenced || ModdedPlayer.instance.Stunned || (LocalPlayer.Stats.Energy < SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) || LocalPlayer.Stats.Stamina < SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        if (ModdedPlayer.instance.Silenced || ModdedPlayer.instance.Stunned)
                         {
                             GUI.color = Color.black;
+                        }else if ((LocalPlayer.Stats.Energy < SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) || LocalPlayer.Stats.Stamina < SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        {
+                            GUI.color = Color.blue;
+
                         }
                         GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
                         GUI.color = Color.white;
@@ -1553,9 +1556,13 @@ namespace ChampionsOfForest
                             fillr.y += SquareSize * (1 - f);
                             GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
 
-                            GUI.Label(r, Mathf.Round(SpellCaster.instance.infos[i].Cooldown).ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 30), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                            GUI.Label(r, SpellCaster.instance.infos[i].Cooldown.ToString("mmss"), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 30), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                         }
                     }
+                    GUI.color = new Color(1, 1, 1, 0.4f);
+                    GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+                    GUI.color = new Color(1, 1, 1, 1f);
+
                     GUI.DrawTexture(r, _SpellFrame);
 
                 }
@@ -1667,23 +1674,23 @@ namespace ChampionsOfForest
                                 y += rr * 60;
                                 if (ScanTime > 1.5f)
                                 {
-                                    DrawScannedEnemyLabel(cp.Health + "/" + cp.MaxHealth + " ♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel(cp.Health + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 60;
                                 }
                                 if (ScanTime > 3f)
                                 {
-                                    DrawScannedEnemyLabel("Armor: " + cp.Armor, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 40;
                                     if (cp.ArmorReduction > 0)
                                     {
-                                        DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                        DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                         y += rr * 40;
                                     }
                                     y += rr * 20;
                                 }
                                 if (ScanTime > 4.5f)
                                 {
-                                    DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 85;
                                 }
                                 if (ScanTime > 6f)
@@ -1775,8 +1782,8 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.Avenger:
                                                     DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.Sacrefice:
-                                                    DrawScannedEnemyLabel("Sacrefice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                case EnemyProgression.Abilities.Sacrifice:
+                                                    DrawScannedEnemyLabel("Sacrifice ", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 default:
                                                     DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -1903,9 +1910,27 @@ namespace ChampionsOfForest
                     return;
                 }
 
-                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 225 * rr, 600 * rr, 70 * rr), displayedSpellInfo.Name, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 225 * rr, 600 * rr, 70 * rr),
+                    displayedSpellInfo.Name,
+                    new GUIStyle(GUI.skin.label)
+                    {
+                        font = MainFont,
+                        fontSize = Mathf.RoundToInt(rr * 50),
+                        fontStyle = FontStyle.Bold,
+                        alignment = TextAnchor.MiddleCenter
+                    });
                 GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * rr, 325 * rr, 300 * rr, 35 * rr), Res.ResourceLoader.instance.LoadedTextures[30]);
-                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr), displayedSpellInfo.Description + "\nStamina cost:  " + displayedSpellInfo.EnergyCost + "\nRequired level:  " + displayedSpellInfo.Levelrequirement, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 29), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+
+                GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr),
+                    displayedSpellInfo.Description +(displayedSpellInfo.EnergyCost>0? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost :"")+
+                    "\nRequired level:  " + displayedSpellInfo.Levelrequirement,
+                    new GUIStyle(GUI.skin.label)
+                    {
+                        font = MainFont,
+                        fontSize = Mathf.RoundToInt(rr * 29),
+                        fontStyle = FontStyle.Normal,
+                        alignment = TextAnchor.MiddleCenter
+                    });
 
                 if (displayedSpellInfo.Bought)
                 {
@@ -1921,7 +1946,7 @@ namespace ChampionsOfForest
                             if (displayedSpellInfo.EquippedSlot == i)
                             {
                                 GUI.DrawTexture(btn, displayedSpellInfo.icon);
-                                if (GUI.Button(btn, "ASSIGNED\nHERE", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
+                                if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
                                 {
                                     //Clears the spot
                                     SpellCaster.instance.SetSpell(i);
@@ -2220,9 +2245,9 @@ namespace ChampionsOfForest
             Header("Me");
             MarkBookmark("Home");
             Label("\tExperience");
-            Stat("Current level", ModdedPlayer.instance.Level.ToString());
-            Stat("Current experience", ModdedPlayer.instance.ExpCurrent.ToString());
-            Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString(), "Next level: " + (ModdedPlayer.instance.Level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1));
+            Stat("Current level", ModdedPlayer.instance.Level.ToString("N0"));
+            Stat("Current experience", ModdedPlayer.instance.ExpCurrent.ToString("N0"));
+            Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString("N0"), "Next level: " + (ModdedPlayer.instance.Level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.Level + 1).ToString("N0"));
             Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal) * 100).ToString() + "%");
             Label("\tLevel is the estimation of my power. I must become stronger to survive." +
                 "\nHigher level allow me to equip better equipement. " +
@@ -2244,11 +2269,11 @@ namespace ChampionsOfForest
             Space(300);
 
             Header("Statistics");
-            Stat("Strenght", ModdedPlayer.instance.strenght + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
-            Stat("Agility", ModdedPlayer.instance.strenght + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
+            Stat("Strenght", ModdedPlayer.instance.strenght.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
+            Stat("Agility", ModdedPlayer.instance.agility.ToString("N0") + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
                 "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
-            Stat("Vitality", ModdedPlayer.instance.vitality + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
-            Stat("Intelligence", ModdedPlayer.instance.intelligence + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
+            Stat("Vitality", ModdedPlayer.instance.vitality.ToString("N0") + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
+            Stat("Intelligence", ModdedPlayer.instance.intelligence.ToString("N0") + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
                 "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
 
 
@@ -2257,12 +2282,12 @@ namespace ChampionsOfForest
             Label("Health & Energy");
             Space(10);
 
-            Stat("Max health", ModdedPlayer.instance.MaxHealth + "", "Total health pool.\n" +
+            Stat("Max health", ModdedPlayer.instance.MaxHealth.ToString("N0") + "", "Total health pool.\n" +
                 "Base health: " + ModdedPlayer.instance.baseHealth +
                 "\nBonus health: " + ModdedPlayer.instance.HealthBonus +
                 "\nHealth from vitality: " + ModdedPlayer.instance.HealthPerVitality * ModdedPlayer.instance.vitality +
                 "\nHealth multipier: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%");
-            Stat("Max energy", ModdedPlayer.instance.MaxEnergy + "", "Total energy pool.\n" +
+            Stat("Max energy", ModdedPlayer.instance.MaxEnergy.ToString("N0") + "", "Total energy pool.\n" +
                 "Base energy: " + ModdedPlayer.instance.baseEnergy +
                 "\nBonus energy: " + ModdedPlayer.instance.EnergyBonus +
                 "\nEnergy from agility: " + ModdedPlayer.instance.EnergyPerAgility * ModdedPlayer.instance.agility +
@@ -2273,7 +2298,7 @@ namespace ChampionsOfForest
             Image(99, 70);
             Header("Defense");
             Space(10);
-            Stat("Armor", ModdedPlayer.instance.Armor.ToString(), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
+            Stat("Armor", ModdedPlayer.instance.Armor.ToString("N0"), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
             Stat("Magic resistance", ModdedPlayer.instance.MagicResistance * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
             Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
             Stat("Damage taken reduction", Math.Round((ModdedPlayer.instance.DamageReductionTotal - 1) * 100, 1) + "%");

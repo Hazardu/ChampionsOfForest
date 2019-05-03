@@ -417,15 +417,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability I",
-                Description = "+2% chance on hit to get 1 arrow.",
+                Description = "+2% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = true,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
+                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.10f,
+                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.1f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 23 },
                 LevelRequirement = 9,
@@ -434,7 +434,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Reusability II",
-                Description = "+3% chance on hit to get 1 arrow.",
+                Description = "+10% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -450,7 +450,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability III",
-                Description = "+10% chance on hit to get 1 arrow.",
+                Description = "+10% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };

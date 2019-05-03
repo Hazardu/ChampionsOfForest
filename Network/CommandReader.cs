@@ -150,7 +150,7 @@ namespace ChampionsOfForest.Network
 
                         if (BallLightning.lastID < id) BallLightning.lastID = id;
 
-                        BallLightning.Create(pos, speed, dmg,id);
+                        BallLightning.Create(pos, speed, dmg, id);
 
                     }
                 }
@@ -572,8 +572,8 @@ namespace ChampionsOfForest.Network
                         float amount = float.Parse(Read());
                         float time = float.Parse(Read());
                         int src = int.Parse(Read());
-                        if(EnemyManager.hostDictionary.ContainsKey(id))
-                        EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
+                        if (EnemyManager.hostDictionary.ContainsKey(id))
+                            EnemyManager.hostDictionary[id].FireDebuff(src, amount, time);
                     }
                 }
                 else if (s.StartsWith("CE"))    //custom weapon in mp
@@ -622,13 +622,63 @@ namespace ChampionsOfForest.Network
                     }
                     new ClientEnemy(id, dmg, abilities);
                 }
-                else if (s.StartsWith("AK"))    //
+                else if (s.StartsWith("AK"))    //detonate ball lightning
                 {
                     i = 2;
                     uint id = uint.Parse(Read());
                     Vector3 pos = new Vector3(float.Parse(Read()), float.Parse(Read()), float.Parse(Read()));
 
                     BallLightning.list[id].CoopTrigger(pos);
+                }
+                else if (s.StartsWith("AM"))    //apply DoT to an enemy
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong id = ulong.Parse(Read());
+                        var p = EnemyManager.hostDictionary[id];
+                        p.DoDoT(int.Parse(Read()), float.Parse(Read()));
+                    }
+                }
+                else if (s.StartsWith("AN"))    //enemy got bashed
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong enemy = ulong.Parse(Read());
+                        if (EnemyManager.hostDictionary.ContainsKey(enemy))
+                        {
+                            var p = EnemyManager.hostDictionary[enemy];
+                            var duration = float.Parse(Read());
+                            var source = int.Parse(Read());
+                            var slowAmount = float.Parse(Read());
+                            var dmgDebuff = float.Parse(Read());
+                            var bleedDmg = int.Parse(Read());
+                            var bleedChance = float.Parse(Read());
+                            p.Slow(source, slowAmount, duration);
+                            p.DmgTakenDebuff(source, dmgDebuff, duration);
+                            if (UnityEngine.Random.value < bleedChance) p.DoDoT(bleedDmg, duration);
+                        }
+                    }
+                }
+                else if (s.StartsWith("AO"))    //enemy got bashed
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+                        i = 2;
+                        ch = s.ToCharArray();
+                        ulong enemy = ulong.Parse(Read());
+                        if (EnemyManager.hostDictionary.ContainsKey(enemy))
+                        {
+                            var p = EnemyManager.hostDictionary[enemy];
+                            var source = int.Parse(Read());
+                            var amount = float.Parse(Read());
+                            var duration = float.Parse(Read());
+                            p.DmgTakenDebuff(source, amount, duration);
+                        }
+                    }
                 }
             }
             catch (Exception e)

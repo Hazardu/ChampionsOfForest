@@ -521,18 +521,36 @@ namespace ChampionsOfForest.Player
                         num2 /= 2f;
                     }
 
+                                var ep = other.GetComponentInParent<EnemyProgression>();
+                    
                     if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
                     {
-                        if ((bool)component6)
-                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                        if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                        {
+                            if (ep != null)
                             {
-                                other.GetComponentInParent<EnemyProgression>().Slow(40, ModdedPlayer.instance.HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
+                                ep.Slow(40, ModdedPlayer.instance.HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
                             }
-                            else if (playerHitEnemy != null)
-                            {
-                                Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;", Network.NetworkManager.Target.OnlyServer);
-                            }
+                        }
+                        else if (playerHitEnemy != null)
+                        {
+                            Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;", Network.NetworkManager.Target.OnlyServer);
+                        }
                     }
+
+                    if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                    {
+                        if (ep != null)
+                        {
+                            SpellActions.Bash(ep, num2);
+                        }
+                    }
+                    else if (playerHitEnemy != null)
+                    {
+                        SpellActions.Bash(playerHitEnemy.Target.networkId.PackedValue, num2);
+
+                    }
+                    
                      if (Effects.BlackFlame.IsOn)
                     {
                             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)

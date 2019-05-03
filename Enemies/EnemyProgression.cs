@@ -2,6 +2,7 @@
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Network;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
@@ -18,6 +19,26 @@ namespace ChampionsOfForest
         public Dictionary<int, EnemyDebuff> dmgTakenDebuffs;
         public Dictionary<int, EnemyDebuff> dmgDealtDebuffs;
         public Dictionary<int, EnemyDebuff> FireDamageDebuffs;
+        public List<DoT> DamageOverTimeList;
+        public struct DoT
+        {
+            /// <summary>
+            /// Amount of damage dealt second
+            /// </summary>
+            public int Amount;
+
+            /// <summary>
+            /// Timestamp when stoptime needs to be deleted;
+            /// </summary>
+            public float StopTime;
+
+            public DoT(int Damage, float duration)
+            {
+                Amount = Damage;
+                StopTime = Time.time + duration;
+            }
+        }
+    
         public float DebuffDmgMult;
         public float dmgTakenIncrease;
 
@@ -89,7 +110,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Avenger, Sacrefice }
+        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Avenger, Sacrifice }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
 
@@ -240,7 +261,7 @@ namespace ChampionsOfForest
                 _Health.Health = BaseHealth;
             }
 
-
+            StopAllCoroutines();
             RollName();
 
             Steadfast = 101;
@@ -248,6 +269,7 @@ namespace ChampionsOfForest
             dmgTakenDebuffs = new Dictionary<int, EnemyDebuff>();
             dmgDealtDebuffs = new Dictionary<int, EnemyDebuff>();
             FireDamageDebuffs = new Dictionary<int, EnemyDebuff>();
+            DamageOverTimeList = new List<DoT>();
             abilities = new List<Abilities>();
 
             //picking abilities
@@ -329,9 +351,11 @@ namespace ChampionsOfForest
             Armor = Mathf.FloorToInt(Random.Range(Level * Level *1.6f + 20, Level * Level * 2f  + 50));
             Armor *= (int)ModSettings.difficulty+1;
             ArmorReduction = 0;
-            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.3f) / 4));
+            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.3f) / 6));
             AnimSpeed = 0.81f + (float)Level / 130;
 
+
+            StartCoroutine(UpdateDoT());
 
             //Extra health for boss type enemies
             switch (_rarity)
@@ -451,6 +475,8 @@ namespace ChampionsOfForest
         {
             //source - 40 is hammer attack
             //source - 41 is magic arrow hit
+            //source - 43-60 are bashes
+            //source - 61-75 are player hits 
             //source - 20 is snap freeze
             if (slows.ContainsKey(source))
             {
@@ -673,7 +699,7 @@ namespace ChampionsOfForest
 
                         item.Value.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
                     }
-                    if (abilities.Contains(Abilities.Sacrefice))
+                    if (abilities.Contains(Abilities.Sacrifice))
                     {
                         foreach (var item in EnemyManager.hostDictionary)
                         {
@@ -693,7 +719,7 @@ namespace ChampionsOfForest
 
 
                     }
-                    if (abilities.Contains(Abilities.Sacrefice))
+                    if (abilities.Contains(Abilities.Sacrifice))
                     {
                         foreach (var item in EnemyManager.singlePlayerList)
                         {
@@ -1240,47 +1266,48 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            Bounty = Mathf.CeilToInt(Random.Range(_hp * 0.9f, _hp * 1.1f) * Mathf.Sqrt(Level) + Armor*0.2f);
+            double b =Random.Range(_hp * 0.9f, _hp * 1.1f) * Mathf.Sqrt(Level) + Armor* 0.2;
             if (abilities.Count > 1)
             {
-                Bounty = Mathf.RoundToInt(Bounty * abilities.Count * 0.9f);
+                b = b * abilities.Count * 0.9f;
             }
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Hard:
-                    Bounty = Mathf.RoundToInt(Bounty * 1.25f);
+                    b = b * 1.25;
                     break;
                 case ModSettings.Difficulty.Elite:
-                    Bounty = Mathf.RoundToInt(Bounty * 1.7f);
+                    b = b * 1.7;
 
                     break;
                 case ModSettings.Difficulty.Master:
-                    Bounty = Mathf.RoundToInt(Bounty * 2.4f);
+                    b = b * 2.4;
 
                     break;
                 case ModSettings.Difficulty.Challenge1:
-                    Bounty = Mathf.RoundToInt(Bounty * 4f);
+                    b = b * 4;
 
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    Bounty = Mathf.RoundToInt(Bounty * 6);
+                    b = b * 6;
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Bounty = Mathf.RoundToInt(Bounty * 9f);
+                    b = b * 9f;
 
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    Bounty = Mathf.RoundToInt(Bounty * 14);
+                    b = b * 14;
 
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    Bounty = Mathf.RoundToInt(Bounty * 22);
+                    b = b * 22;
 
                     break;
                 default:
                     break;
             }
+            Bounty = (long)b;
         }
 
         void SendFireAura()
@@ -1292,6 +1319,33 @@ namespace ChampionsOfForest
                 if (BoltNetwork.isRunning)
                     Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clients);
             }
+        }
+
+        IEnumerator UpdateDoT()
+        {
+            while (Health > 0)
+            {
+
+                if (!(DamageOverTimeList == null || DamageOverTimeList.Count == 0))
+                {
+                    int d = DamageOverTimeList.Sum(x => x.Amount);
+                    HitMagic(d);
+                }
+                yield return null;
+                float t = Time.time;
+                for (int i = 0; i < DamageOverTimeList.Count; i++)
+                {
+                    if (DamageOverTimeList[i].StopTime < t) DamageOverTimeList.RemoveAt(i);
+                }
+                yield return new WaitForSeconds(1);
+            }
+            DamageOverTimeList.Clear();
+
+        }
+
+        public void DoDoT(int dmg, float duration)
+        {
+            DamageOverTimeList.Add(new DoT(dmg, duration));
         }
     }
 }

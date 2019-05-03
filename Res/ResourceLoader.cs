@@ -795,6 +795,7 @@ namespace ChampionsOfForest.Res
             new Resource(1000, "thundersound.wav");
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
+            new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);
 
         }
     }

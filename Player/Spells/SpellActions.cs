@@ -378,5 +378,136 @@ namespace ChampionsOfForest.Player
 
         }
 
+
+        #region Bash
+        public static float BashExtraDamage = 1.06f;
+        public static float BashDamageBuff = 1f;
+        public static float BashSlowAmount = 0.6f;
+        public static float BashLifesteal = 0.0f;
+        public static bool BashEnabled = false;
+        public static float BashBleedChance = 0;
+        public static float BashBleedDmg = 0.1f;
+        public static float BashDuration = 3;
+
+        public static void BashPassiveEnabled(bool on)
+        {
+            BashEnabled = on;
+            //SpellDataBase.spellDictionary[17].icon = on ? Res.ResourceLoader.GetTexture(132) : Res.ResourceLoader.GetTexture(131);
+        }
+        public static void Bash(EnemyProgression ep, float dmg)
+        {
+            if (BashEnabled)
+            {
+                int id = 43;
+                ep.Slow(id, BashSlowAmount, BashDuration);
+                ep.DmgTakenDebuff(id, BashExtraDamage, BashDuration);
+                if (BashBleedChance > 0 && UnityEngine.Random.value < BashBleedChance) ep.DoDoT((int)(dmg * BashBleedDmg), BashDuration);
+                if (BashLifesteal > 0) LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
+            }
+
+        }
+        public static void Bash(ulong enemy, float dmg)
+        {
+            if (BashEnabled)
+            {
+                int id = 44+ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                string s = "AN" + enemy + ";" + BashDuration + ";" + id + ";" + BashSlowAmount + ";" + BashExtraDamage + ";" + ((int)(dmg * BashBleedDmg)) + ";" + BashBleedChance + ";";
+                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
+                if (BashLifesteal > 0) LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
+            }
+
+        }
+        #endregion
+
+        #region Frenzy
+        public static Transform frenzytarget;
+        public static int FrenzyMaxStacks= 5, FrenzyStacks= 0;
+        public static float FrenzyAtkSpeed = 0, FrenzyDmg = 0.05f;
+        public static bool Frenzy;
+        public static void OnFrenzyAttack()
+        {
+            if (Frenzy)
+            {
+                FrenzyStacks++;
+                FrenzyStacks = Mathf.Min(FrenzyMaxStacks, FrenzyStacks);
+
+                BuffDB.AddBuff(19, 60, FrenzyStacks, 3);
+            }
+        }
+        #endregion
+
+        #region Focus
+        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f;
+        public static bool Focus;
+        public static float FocusOnBodyShot()
+        {
+            CotfUtils.Log("BODY SHOT " + Focus);
+            if (!Focus) return 1;
+            if (FocusBonusDmg == 0)
+            {
+                FocusBonusDmg = FocusOnBS;
+                BuffDB.AddBuff(14, 61, 1.3f, 2.5f);
+                return 1;
+            }
+            else
+            {
+                var result = 1f + FocusBonusDmg;
+                FocusBonusDmg = 0;
+                return result;
+            }
+        }
+        public static float FocusOnHeadShot()
+        {
+            CotfUtils.Log("HEAD SHOT " + Focus);
+            if (!Focus) return 1;
+            if (FocusBonusDmg == 0)
+            {
+                FocusBonusDmg = FocusOnHS;
+                return 1;
+            }
+            else
+            {
+                var result = 1f + FocusBonusDmg;
+                FocusBonusDmg = 0;
+                return result;
+            }
+        }
+        #endregion
+
+        #region SeekingArrow
+        public static Transform SeekingArrow_Target;
+        public static bool SeekingArrow;
+        public static bool SeekingArrow_ChangeTargetOnHit;
+        public static float SeekingArrow_TimeStamp;
+        public static void SeekingArrow_Initialize()
+        {
+            SeekingArrow_Target = GameObject.CreatePrimitive(PrimitiveType.Quad).transform;
+            SeekingArrow_Target.gameObject.AddComponent<SeekingArrow>();
+            //some more visuals
+        }
+        public static void SeekingArrow_Active()
+        {
+            if (SeekingArrow_Target == null) SeekingArrow_Initialize();
+            SeekingArrow_Target.transform.parent = null;
+            SeekingArrow_Target.gameObject.SetActive(false);
+            SeekingArrow = false;
+            SeekingArrow_TimeStamp = 0;
+            SeekingArrow_ChangeTargetOnHit = true;
+
+        }
+
+        public static void SeekingArrow_SetTarget(Transform t)
+        {
+
+        }
+        public static void SeekingArrow_End()
+        {
+            SeekingArrow_Target.gameObject.SetActive(false);
+
+        }
+        #endregion
+
+
     }
+   
 }

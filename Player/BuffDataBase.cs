@@ -106,7 +106,18 @@ namespace ChampionsOfForest.Player
 
                 new Buff(17, "Berserk", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; 
 
-                new Buff(18, "Energy Leak", true, false, 1, f =>ModdedPlayer.instance.EnergyPerSecond+=f,f=> ModdedPlayer.instance.EnergyPerSecond -= f); 
+                new Buff(18, "Energy Leak", true, false, 1, f => ModdedPlayer.instance.EnergyPerSecond += f, f => ModdedPlayer.instance.EnergyPerSecond -= f) {DisplayAmount = false };
+
+                new Buff(19, "Frenzy", false, false, 1, f => 
+                {
+                    ModdedPlayer.instance.AttackSpeedMult /= 1+ f * SpellActions.FrenzyAtkSpeed;
+                    ModdedPlayer.instance.DamageOutputMult /= 1+f * SpellActions.FrenzyDmg;
+                    SpellActions.FrenzyStacks = 0;
+                },f => {
+                    ModdedPlayer.instance.AttackSpeedMult *= 1 + f * SpellActions.FrenzyAtkSpeed;
+                    ModdedPlayer.instance.DamageOutputMult *= 1 + f * SpellActions.FrenzyDmg;
+                })
+                { DisplayAsPercent = false };  
 
             }
             catch (System.Exception ex)
@@ -219,4 +230,5 @@ namespace ChampionsOfForest.Player
 //49 - gold
 //50 - berserker
 //51 - berserker energy leak
+//60 - frenzy
 

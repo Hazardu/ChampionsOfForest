@@ -1,10 +1,11 @@
 ﻿using Bolt;
 using ChampionsOfForest.Effects;
+using System.Collections;
 using TheForest.Buildings.Creation;
 using TheForest.Tools;
 using TheForest.Utils;
-using System;
 using UnityEngine;
+
 namespace ChampionsOfForest.Player
 {
     public class ArrowDamageMod : ArrowDamage
@@ -20,7 +21,7 @@ namespace ChampionsOfForest.Player
             }
             BaseDmg = damage;
             base.Start();
-          float dmg =    (BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
+            float dmg = (BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
             if (crossbowBoltType)
             {
                 dmg = dmg * ModdedPlayer.instance.CrossbowDamageMult;
@@ -40,9 +41,29 @@ namespace ChampionsOfForest.Player
                 dmg = dmg * ModdedPlayer.instance.BowDamageMult;
             }
 
-            DamageMath.DamageClamp(dmg, out damage, out Repetitions);
+            
+
         }
 
+        private void Update()
+        {
+            if (SpellActions.SeekingArrow && Live)
+            {
+                if (Time.time - 20 > SpellActions.SeekingArrow_TimeStamp)
+                {
+                    CotfUtils.Log("Time out");
+                    SpellActions.SeekingArrow = false;
+                }
+                if ((transform.position - SpellActions.SeekingArrow_Target.position).sqrMagnitude > 3)
+                {
+                    Vector3 vel = PhysicBody.velocity;
+                    Vector3 targetvel = SpellActions.SeekingArrow_Target.position - transform.position;
+                    targetvel.Normalize();
+                    targetvel *= vel.magnitude;
+                    PhysicBody.velocity = Vector3.RotateTowards(PhysicBody.velocity, targetvel, Time.deltaTime * 2.5f, 0.25f);
+                }
+            }
+        }
 
         public override void CheckHit(Vector3 position, Transform target, bool isTrigger, Collider targetCollider)
         {
@@ -117,12 +138,12 @@ namespace ChampionsOfForest.Player
                 {
                     if (ModdedPlayer.instance.IsCrossfire)
                     {
-                        if(Time.time- ModdedPlayer.instance.LastCrossfireTime > 20)
+                        if (Time.time - ModdedPlayer.instance.LastCrossfireTime > 20)
                         {
                             ModdedPlayer.instance.LastCrossfireTime = Time.time;
                             float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
                             damage = damage * ModdedPlayer.instance.SpellAMP;
-                            Vector3 pos = Camera.main.transform.position + Camera.main.transform.right*5;
+                            Vector3 pos = Camera.main.transform.position + Camera.main.transform.right * 5;
                             Vector3 dir = transform.position - pos;
                             dir.Normalize();
                             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -132,8 +153,24 @@ namespace ChampionsOfForest.Player
                                 {
                                     string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
                                     s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
-                                    if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
-                                    if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+                                    if (SpellActions.MagicArrowDoubleSlow)
+                                    {
+                                        s += "t;";
+                                    }
+                                    else
+                                    {
+                                        s += "f;";
+                                    }
+
+                                    if (SpellActions.MagicArrowDmgDebuff)
+                                    {
+                                        s += "t;";
+                                    }
+                                    else
+                                    {
+                                        s += "f;";
+                                    }
+
                                     Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
                                 }
                             }
@@ -142,8 +179,24 @@ namespace ChampionsOfForest.Player
                                 MagicArrow.CreateEffect(pos, dir, SpellActions.MagicArrowDmgDebuff, SpellActions.MagicArrowDuration);
                                 string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
                                 s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
-                                if (SpellActions.MagicArrowDoubleSlow) s += "t;"; else s += "f;";
-                                if (SpellActions.MagicArrowDmgDebuff) s += "t;"; else s += "f;";
+                                if (SpellActions.MagicArrowDoubleSlow)
+                                {
+                                    s += "t;";
+                                }
+                                else
+                                {
+                                    s += "f;";
+                                }
+
+                                if (SpellActions.MagicArrowDmgDebuff)
+                                {
+                                    s += "t;";
+                                }
+                                else
+                                {
+                                    s += "f;";
+                                }
+
                                 Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
                             }
                         }
@@ -183,10 +236,17 @@ namespace ChampionsOfForest.Player
                         base.Invoke("destroyMe", 0.1f);
                     }
                 }
-                for (int i = 0; i < Repetitions; i++)
+                if (SpellActions.SeekingArrow_ChangeTargetOnHit)
                 {
-                base.StartCoroutine(HitAi(target, flag || flag3, headDamage));
+                    SpellActions.SeekingArrow = true;
+                    SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
+                    SpellActions.SeekingArrow_Target.transform.parent = target.transform;
+                    SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                    SpellActions.SeekingArrow_TimeStamp = Time.time;
+                    SpellActions.SeekingArrow_ChangeTargetOnHit = false;
                 }
+                NewHitAi(target, flag || flag3, headDamage);
+
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
                 ModdedPlayer.instance.OnHit();
                 ModdedPlayer.instance.OnHit_Ranged();
@@ -201,8 +261,9 @@ namespace ChampionsOfForest.Player
                     {
                         target.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
                     }
-                    else {
-                        var e = target.GetComponentInParent<BoltEntity>();
+                    else
+                    {
+                        BoltEntity e = target.GetComponentInParent<BoltEntity>();
                         if (e != null)
                         {
                             Network.NetworkManager.SendLine("AH" + e.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
@@ -324,5 +385,161 @@ namespace ChampionsOfForest.Player
                 parent.BroadcastMessage("OnArrowHit", SendMessageOptions.DontRequireReceiver);
             }
         }
+
+        private void NewHitAi(Transform target, bool hitDelay = false, bool headDamage = false)
+        {
+            float dmgUnclamped = this.damage;
+            if (headDamage || (flintLockAmmoType && Random.value < 0.10)||(spearType&&Random.value < 0.03))
+            {
+                dmgUnclamped *= ModdedPlayer.instance.HeadShotDamage;
+                dmgUnclamped *= SpellActions.FocusOnHeadShot();
+                if (SpellActions.SeekingArrow)
+                {
+                    dmgUnclamped *= 2;
+                }
+            }
+            else
+            {
+                dmgUnclamped *= SpellActions.FocusOnBodyShot();
+            }
+
+            DamageMath.DamageClamp(dmgUnclamped, out int sendDamage, out Repetitions);
+
+
+            if (this.PhysicBody)
+            {
+                this.PhysicBody.velocity = Vector3.zero;
+            }
+            if (this.spearType)
+            {
+                this.PhysicBody.isKinematic = false;
+                this.PhysicBody.useGravity = true;
+                this.disableLive();
+                if (this.MyPickUp)
+                {
+                    this.MyPickUp.SetActive(true);
+                }
+            }
+            if (target)
+            {
+                Vector3 vector = target.transform.root.GetChild(0).InverseTransformPoint(base.transform.position);
+                float targetAngle = Mathf.Atan2(vector.x, vector.z) * 57.29578f;
+                int animalHitDirection = animalHealth.GetAnimalHitDirection(targetAngle);
+                BoltEntity componentInParent = target.GetComponentInParent<BoltEntity>();
+                if (!componentInParent)
+                {
+                    target.GetComponent<BoltEntity>();
+                }
+                if (BoltNetwork.isClient && componentInParent)
+                {
+                    if (hitDelay)
+                    {
+                        target.transform.SendMessageUpwards("getClientHitDirection", 6, SendMessageOptions.DontRequireReceiver);
+                        target.transform.SendMessageUpwards("StartPrediction", SendMessageOptions.DontRequireReceiver);
+                        BoltEntity component = this.parent.GetComponent<BoltEntity>();
+                        PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                        playerHitEnemy.Target = componentInParent;
+                        playerHitEnemy.Weapon = component;
+                        playerHitEnemy.getAttacker = 10;
+                        if (target.gameObject.CompareTag("animalRoot"))
+                        {
+                            playerHitEnemy.getAttackDirection = animalHitDirection;
+                        }
+                        else
+                        {
+                            playerHitEnemy.getAttackDirection = 3;
+                        }
+                        playerHitEnemy.getAttackerType = 4;
+                        playerHitEnemy.Hit = sendDamage;
+                        for (int i = 0; i < Repetitions; i++)
+                        {
+                            playerHitEnemy.Send();
+                        }
+                    }
+                    else
+                    {
+                        target.transform.SendMessageUpwards("getClientHitDirection", 6, SendMessageOptions.DontRequireReceiver);
+                        target.transform.SendMessageUpwards("StartPrediction", SendMessageOptions.DontRequireReceiver);
+                        PlayerHitEnemy playerHitEnemy2 = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                        playerHitEnemy2.Target = componentInParent;
+                        if (target.gameObject.CompareTag("animalRoot"))
+                        {
+                            playerHitEnemy2.getAttackDirection = animalHitDirection;
+                        }
+                        else
+                        {
+                            playerHitEnemy2.getAttackDirection = 3;
+                        }
+                        playerHitEnemy2.getAttackerType = 4;
+
+                        playerHitEnemy2.Hit = sendDamage;
+                        for (int i = 0; i < Repetitions; i++)
+                        {
+                            playerHitEnemy2.Send();
+                        }
+                    }
+                }
+                else
+                {
+                    target.gameObject.SendMessageUpwards("getAttackDirection", 3, SendMessageOptions.DontRequireReceiver);
+                    target.gameObject.SendMessageUpwards("getAttackerType", 4, SendMessageOptions.DontRequireReceiver);
+                    GameObject closestPlayerFromPos = TheForest.Utils.Scene.SceneTracker.GetClosestPlayerFromPos(base.transform.position);
+                    target.gameObject.SendMessageUpwards("getAttacker", closestPlayerFromPos, SendMessageOptions.DontRequireReceiver);
+                    if (target.gameObject.CompareTag("lb_bird") || target.gameObject.CompareTag("animalRoot") || target.gameObject.CompareTag("enemyRoot") || target.gameObject.CompareTag("PlayerNet"))
+                    {
+                        if (target.gameObject.CompareTag("enemyRoot"))
+                        {
+                            EnemyHealth componentInChildren = target.GetComponentInChildren<EnemyHealth>();
+                            if (componentInChildren)
+                            {
+                                componentInChildren.getAttackDirection(3);
+                                componentInChildren.setSkinDamage(2);
+                                mutantTargetSwitching componentInChildren2 = target.GetComponentInChildren<mutantTargetSwitching>();
+                                if (componentInChildren2)
+                                {
+                                    componentInChildren2.getAttackerType(4);
+                                    componentInChildren2.getAttacker(closestPlayerFromPos);
+                                }
+                                for (int i = 0; i < Repetitions; i++)
+                                {
+                                    componentInChildren.Hit(sendDamage);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (target.gameObject.CompareTag("animalRoot"))
+                            {
+                                target.gameObject.SendMessage("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
+                            }
+                            for (int i = 0; i < Repetitions; i++)
+                            {
+                                target.gameObject.SendMessage("Hit", sendDamage, SendMessageOptions.DontRequireReceiver);
+                            }
+                            target.gameObject.SendMessage("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
+                        }
+                    }
+                    else
+                    {
+                        if (target.gameObject.CompareTag("animalCollide"))
+                        {
+                            target.gameObject.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
+                        }
+                        for (int i = 0; i < Repetitions; i++)
+                        {
+                            target.gameObject.SendMessageUpwards("Hit", sendDamage, SendMessageOptions.DontRequireReceiver);
+                        }
+                        target.gameObject.SendMessageUpwards("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
+                    }
+                }
+            }
+            if (this.MyPickUp)
+            {
+                this.MyPickUp.SetActive(true);
+            }
+            FMODCommon.PlayOneshotNetworked(this.hitAiEvent, base.transform, FMODCommon.NetworkRole.Any);
+        }
+
+
     }
 }

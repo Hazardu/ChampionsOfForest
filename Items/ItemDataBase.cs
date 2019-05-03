@@ -427,8 +427,11 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.4f, 1.3f, 1.2f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.2f, 0.6f, 1.2f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++; new ItemStat(i, 0.006f, 0.01f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.33f, 0.66f, 1.3f, "All attributes", 5, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats); i++;
-            new ItemStat(i, 1 / 5, 1 / 5, 0, "PURGE", 7, null, null, f => ModdedPlayer.Respec()); i++;
+            new ItemStat(i, 0, 0, 0, "Refund points", 7, f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec()); i++;
             new ItemStat(i, 0.0025f, 0.0075f, 0.8f, "Jump Power", 5, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Headshot Damage", 4, f => ModdedPlayer.instance.HeadShotDamage += f, f => ModdedPlayer.instance.HeadShotDamage -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Fire Damage", 4, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to slow", 4, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++; 
             //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 10f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
@@ -3035,13 +3038,11 @@ new int[] {39,40,41,42,43},
             };
             new BaseItem(new int[][]
                          {
-                new int[] {58},
-
                          })
             {
                 name = "Shard of Farket's Heart",
                 description = "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points",
-                lore = "The Legendary Farket, self proclaimed king of peninsula, over time shifted into insanity. The cursed land of his sent madness upon him. That was the price he had to pay for the unfair power he obtained. This merely a shard of his strongest muscule contains so much power, that it kill anything and force it to come back to life, resulting in it's rebirth. The Prophecy fortold the return of The King. He will reappear as the harbinger of end of the world.",
+                lore = "The Legendary Farket, self proclaimed king of peninsula, over time shifted into insanity. The cursed land of his sent madness upon him. That was the price he had to pay for the unfair power he obtained. This merely a shard of his heart contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth. The Prophecy fortold the return of The King. He will reappear as the harbinger of end of the world.",
                 tooltip = "Can be consumed by right clicking it. ",
                 Rarity = 7,
                 minLevel = 10,
@@ -3052,8 +3053,6 @@ new int[] {39,40,41,42,43},
                 icon = Res.ResourceLoader.GetTexture(105),
                 onConsume = ModdedPlayer.Respec
             };
-
-            //Created using Hazard's app for 1.0 release
 
             new BaseItem(new int[][]
             {
