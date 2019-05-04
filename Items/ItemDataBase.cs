@@ -431,7 +431,9 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0025f, 0.0075f, 0.8f, "Jump Power", 5, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.5f, "Headshot Damage", 4, f => ModdedPlayer.instance.HeadShotDamage += f, f => ModdedPlayer.instance.HeadShotDamage -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.5f, "Fire Damage", 4, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to slow", 4, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++; 
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to slow", 4, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.ChanceToSlowOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to bleed", 4, f => ModdedPlayer.instance.ChanceToBleedOnHit += f, f => ModdedPlayer.instance.ChanceToBleedOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to weaken", 4, f => ModdedPlayer.instance.ChanceToWeakenOnHit += f, f => ModdedPlayer.instance.ChanceToWeakenOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++; 
             //Extra carry items
             i = 1000;
             new ItemStat(i, 7f, 10f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
