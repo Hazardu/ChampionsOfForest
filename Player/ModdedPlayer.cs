@@ -244,6 +244,10 @@ namespace ChampionsOfForest
         public float RootDuration = 0;
         public float StunDuration = 0;
 
+        public bool NearDeathExperience = false;
+        public bool NearDeathExperienceUnlocked = false;
+
+
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
         {
@@ -1146,7 +1150,42 @@ namespace ChampionsOfForest
             SpellActions.MagicArrowDmgDebuff = false;
             SpellActions.MagicArrowDoubleSlow = false;
             SpellActions.MagicArrowDuration = 5f;
-            WeaponInfoMod.AlwaysIgnite = false;
+            SpellActions.SnapFreezeDist = 22;
+            SpellActions.SnapFloatAmount = 0.1f;
+            SpellActions.SnapFreezeDuration = 20f;
+            SpellActions.BL_Damage = 150;
+            SpellActions.BashExtraDamage = 1.06f;
+            SpellActions.BashDamageBuff = 1f;
+            SpellActions.BashSlowAmount = 0.2f;
+            SpellActions.BashLifesteal = 0.0f;
+            SpellActions.BashEnabled = false;
+            SpellActions.BashBleedChance = 0;
+            SpellActions.BashBleedDmg = 0.3f;
+            SpellActions.BashDuration = 3;
+            SpellActions.FrenzyMaxStacks = 5;
+            SpellActions. FrenzyStacks = 0;
+            SpellActions.FrenzyAtkSpeed = 0f;
+            SpellActions. FrenzyDmg = 0.05f;
+            SpellActions.Frenzy =false;
+            SpellActions.FocusBonusDmg =0;
+            SpellActions. FocusOnHS = 1;
+            SpellActions. FocusOnBS = 0.2f;
+            SpellActions. FocusOnAtkSpeed = 1.3f;
+            SpellActions. FocusSlowAmount = 0.8f;
+            SpellActions. FocusSlowDuration = 10;
+            SpellActions.Focus = false;
+            SpellActions.SeekingArrow =false;
+            SpellActions.SeekingArrow_ChangeTargetOnHit = false;
+            SpellActions.SeekingArrow_TimeStamp = 0;
+            SpellActions. SeekingArrow_HeadDamage = 2;
+            SpellActions. SeekingArrow_SlowDuration = 4;
+            SpellActions.FocusOnAtkSpeedDuration = 4;
+            SpellActions. SeekingArrow_SlowAmount = 0.4f;
+            SpellActions. SeekingArrow_DamagePerDistance = 0.01f;
+            BlackFlame.DmgAmp = 1;
+            BlackFlame.GiveAfterburn =false;
+            BlackFlame.GiveDamageBuff =false;
+        WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 5;
             instance.HealingMultipier = 1;
             instance.strenght = 1;
@@ -1252,6 +1291,11 @@ namespace ChampionsOfForest
             instance.ChanceToSlowOnHit = 0;
             instance.ChanceToBleedOnHit = 0;
             instance.ChanceToWeakenOnHit = 0;
+            instance.NearDeathExperience = false;
+            instance.NearDeathExperienceUnlocked = false;
+            instance.HammerStunDuration = 0.4f;
+            instance.HammerStunAmount = 0.25f;
+            instance.HammerSmashDamageAmp = 1f;
         ReapplyAllItems();
             ReapplyAllPerks();
         }
@@ -1262,12 +1306,10 @@ namespace ChampionsOfForest
             {
                 if (Inventory.Instance.ItemList[key] != null)
                 {
-
                     Inventory.Instance.ItemList[key].Equipped = false;
                 }
             }
-
-        }
+                    }
         public static void ReapplyAllPerks()
         {
             //perks
@@ -1282,6 +1324,10 @@ namespace ChampionsOfForest
 
         public static void Respec()
         {
+            MainMenu.Instance.FadeMenuSwitch(MainMenu.OpenedMenuMode.Hud);
+            LocalPlayer.Stats.Health = 1;
+            LocalPlayer.Stats.HealthTarget = 1;
+            LocalPlayer.Stats.Energy = 1;
             UnAssignAllStats();
 
 

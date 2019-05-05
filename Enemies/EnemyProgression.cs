@@ -480,6 +480,7 @@ namespace ChampionsOfForest
             //source - 61-75 are player hits
             //source - 90 - focus on headshot
             //source - 91 - seeking arrow on body shot;
+            //source - 120-135 -afterburn;
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);
@@ -696,28 +697,31 @@ namespace ChampionsOfForest
                 EnemyManager.RemoveEnemy(this);
                 if (BoltNetwork.isRunning)
                 {
-                    foreach (var item in EnemyManager.hostDictionary)
+                    foreach (var item in EnemyManager.hostDictionary.Values)
                     {
-
-                        item.Value.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
+                        if (item != null && item.gameObject != null && item.gameObject.activeSelf)
+                            item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
                     }
                     if (abilities.Contains(Abilities.Sacrifice))
                     {
-                        foreach (var item in EnemyManager.hostDictionary)
+                        foreach (var item in EnemyManager.hostDictionary.Values)
                         {
-                            if ((item.Value.transform.position - transform.position).sqrMagnitude > 100) continue;
-                            item.Value.ArmorReduction /= 2;
-                            item.Value.AnimSpeed *= 1.2f;
-                            item.Value.DamageMult *= 1.2f;
-                            item.Value.Health = (int)item.Value.MaxHealth;
+                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf)) continue;
+
+                            if ((item.transform.position - transform.position).sqrMagnitude > 100) continue;
+                            item.ArmorReduction /= 2;
+                            item.AnimSpeed *= 1.2f;
+                            item.DamageMult *= 1.2f;
+                            item.Health = (int)item.MaxHealth;
                         }
                     }
                 }
                 else
                 {
-                     foreach (var item in EnemyManager.singlePlayerList)
+                    foreach (var item in EnemyManager.singlePlayerList)
                     {
-                        item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
+                        if (item != null && item.gameObject != null && item.gameObject.activeSelf)
+                            item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
 
 
                     }
@@ -725,6 +729,8 @@ namespace ChampionsOfForest
                     {
                         foreach (var item in EnemyManager.singlePlayerList)
                         {
+                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf)) continue;
+
                             if ((item.transform.position - transform.position).sqrMagnitude > 100) continue;
                             item.ArmorReduction /= 2;
                             item.AnimSpeed *= 1.2f;

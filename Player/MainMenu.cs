@@ -662,7 +662,33 @@ namespace ChampionsOfForest
                 }))
                 { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
             }
-            GUI.color = Color.white;
+
+            switch (ModSettings.dropsOnDeath)
+            {
+                case ModSettings.DropsOnDeathMode.All:
+                    GUI.color = Color.red;
+                    break;
+                case ModSettings.DropsOnDeathMode.Equipped:
+                    GUI.color = Color.yellow;
+                    break;
+                case ModSettings.DropsOnDeathMode.Disabled:
+                    GUI.color = Color.gray;
+                    break;
+                default:
+                    break;
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 70 * rr, 400 * rr, 50 * rr), "Item drops on death: "+ ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.FloorToInt(30 * rr)
+                }))
+            {
+                int i = (int)ModSettings.dropsOnDeath + 1;
+                i = i % 3;
+                ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)i;
+            }
+
+                GUI.color = Color.white;
             for (int i = 0; i < 4; i++)
             {
                 int ii = i + DiffSelPage * 4;
@@ -1468,26 +1494,28 @@ namespace ChampionsOfForest
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
                     string s = string.Format("ROOTED {0} s", Math.Round(ModdedPlayer.instance.RootDuration, 1));
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
-                    BuffOffset += 30 * rr;
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 14) });
+                    BuffOffset += 15 * rr;
                 }
                 if (ModdedPlayer.instance.Stunned)
                 {
                     Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
                     string s = string.Format("STUNNED {0} s", Math.Round(ModdedPlayer.instance.RootDuration, 1));
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
-                    BuffOffset += 30 * rr;
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 14) });
+                    BuffOffset += 15 * rr;
                 }
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
                 {
-                    Rect r = new Rect(0, Screen.height - 30 * rr - BuffOffset, 300 * rr, 30 * rr);
-                    string s = buff.Value.BuffName + "   (" + Math.Round(buff.Value.duration, 1) + " s)";
+                    Rect r = new Rect(0, Screen.height - 16 * rr - BuffOffset, 300 * rr, 16 * rr);
+                    TimeSpan span = TimeSpan.FromSeconds(buff.Value.duration);
+
+                    string s = buff.Value.BuffName + "   (" + (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()) + ")";
 
                     if (buff.Value.DisplayAmount)
                     {
                         if (buff.Value.DisplayAsPercent)
                         {
-                            s += buff.Value.amount>0?"( +" + (buff.Value.amount-1) * 100 + "% )": "( -" + (buff.Value.amount - 1) * 100 + "% )";
+                            s += buff.Value.amount > 0 ? "( +" + (buff.Value.amount - 1) * 100 + "% )" : "( -" + (buff.Value.amount - 1) * 100 + "% )";
                         }
                         else
                         {
@@ -1495,8 +1523,8 @@ namespace ChampionsOfForest
                         }
                     }
 
-                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 20) });
-                    BuffOffset += 30 * rr;
+                    GUI.Label(r, s, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = false, font = MainFont, fontSize = Mathf.RoundToInt(rr * 14) });
+                    BuffOffset += 16 * rr;
 
                 }
 
@@ -1534,13 +1562,14 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                    GUI.color = new Color(1, 1, 1, 0.4f);
-                    GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 18), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
-                    GUI.color = new Color(1, 1, 1, 1f);
+                        GUI.color = new Color(1, 1, 1, 0.4f);
+                        GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 18), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+                        GUI.color = new Color(1, 1, 1, 1f);
                         if (ModdedPlayer.instance.Silenced || ModdedPlayer.instance.Stunned)
                         {
                             GUI.color = Color.black;
-                        }else if ((LocalPlayer.Stats.Energy < SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) || LocalPlayer.Stats.Stamina < SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        }
+                        else if ((LocalPlayer.Stats.Energy < SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) || LocalPlayer.Stats.Stamina < SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
                         {
                             GUI.color = Color.blue;
 
@@ -1560,8 +1589,8 @@ namespace ChampionsOfForest
                             GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
 
                             TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown);
-                            string formattedTime = span.Minutes + ":" + span.Seconds;
-                            GUI.Label(r,formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                            string formattedTime = span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString();
+                            GUI.Label(r, formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                         }
                     }
 
@@ -1835,7 +1864,7 @@ namespace ChampionsOfForest
         #endregion
 
         //Does fade out fade in transision between menus
-        private IEnumerator FadeMenuSwitch(OpenedMenuMode mode)
+        public IEnumerator FadeMenuSwitch(OpenedMenuMode mode)
         {
             MenuInteractable = false;
             float alpha = 0;
@@ -1883,7 +1912,7 @@ namespace ChampionsOfForest
             {
                 //scrolling the list
                 spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 160;
-                spellOffset = Mathf.Clamp(spellOffset, -(100 * rr * (SpellDataBase.spellDictionary.Count + 4)),0);
+                spellOffset = Mathf.Clamp(spellOffset, -(100 * rr * (SpellDataBase.spellDictionary.Count + 4)), 0);
             }
             else
             {
@@ -1924,7 +1953,7 @@ namespace ChampionsOfForest
                 GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * rr, 325 * rr, 300 * rr, 35 * rr), Res.ResourceLoader.instance.LoadedTextures[30]);
 
                 GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 370 * rr, 600 * rr, 400 * rr),
-                    displayedSpellInfo.Description +(displayedSpellInfo.EnergyCost>0? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost :"")+
+                    displayedSpellInfo.Description + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost : "") +
                     "\nRequired level:  " + displayedSpellInfo.Levelrequirement,
                     new GUIStyle(GUI.skin.label)
                     {
@@ -2694,7 +2723,7 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, wordWrap=true };
+                    GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * rr), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, wordWrap = true };
                     Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width) + 10 * rr;
                     GUI.Label(Desc, desctext, descStyle);
 

@@ -384,7 +384,7 @@ namespace ChampionsOfForest.Player
             Axe_PlaneAxe.transform.Rotate(AxeRotation, Space.Self);
             axeObject.transform.localScale = Vector3.one;
             var AxeTrail = axeObject.transform.GetChild(0).GetComponent<TrailRenderer>();
-            AxeTrail.gameObject.SetActive(false);
+            AxeTrail.transform.localPosition = new Vector3(0, -0.3f, 0);
             new CustomWeapon(BaseItem.WeaponModelType.Axe, Axe_PlaneAxe, AxeTrail, AxeOffset, AxeRotation, 1)
             {
                 blockTreeCut = false,
@@ -397,6 +397,7 @@ namespace ChampionsOfForest.Player
                 ColliderScale = 0.4f
 
             };
+            AxeTrail.gameObject.SetActive(false);
            
         }
     }

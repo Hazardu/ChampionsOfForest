@@ -117,7 +117,10 @@ namespace ChampionsOfForest.Player
                     ModdedPlayer.instance.AttackSpeedMult *= 1 + f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult *= 1 + f * SpellActions.FrenzyDmg;
                 })
-                { DisplayAsPercent = false };  
+                { DisplayAsPercent = false };
+
+                new Buff(20, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
+                 new Buff(21, "", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
 
             }
             catch (System.Exception ex)
@@ -231,4 +234,5 @@ namespace ChampionsOfForest.Player
 //50 - berserker
 //51 - berserker energy leak
 //60 - frenzy
+//61 - near death experience
 

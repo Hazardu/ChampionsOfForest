@@ -1,4 +1,6 @@
 ﻿using Bolt;
+using ChampionsOfForest.Effects;
+using ChampionsOfForest.Network;
 using TheForest.Audio;
 using TheForest.Buildings.World;
 using TheForest.Utils;
@@ -19,15 +21,15 @@ namespace ChampionsOfForest.Player
                 {
                     CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
                     setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f *  ModdedPlayer.instance.StaminaAttackCost;
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.instance.StaminaAttackCost;
                     setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
                 }
                 else
                 {
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
-                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ( ModdedPlayer.instance.StaminaAttackCost);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
+                    setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
 
                 }
@@ -224,7 +226,7 @@ namespace ChampionsOfForest.Player
                             ModdedPlayer.instance.OnHit_Melee();
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                            hitPlayer.damage = Mathf.FloorToInt(2f*(WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
+                            hitPlayer.damage = Mathf.FloorToInt(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
                             hitPlayer.Send();
                         }
                     }
@@ -498,7 +500,7 @@ namespace ChampionsOfForest.Player
                             playerHitEnemy.getAttackDirection = integer2;
                         }
                     }
-                    if ((fireStick && Random.value > 0.8f) || AlwaysIgnite||Effects.BlackFlame.IsOn)
+                    if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn)
                     {
                         if ((bool)component6)
                         {
@@ -511,6 +513,7 @@ namespace ChampionsOfForest.Player
                         if (playerHitEnemy != null)
                         {
                             playerHitEnemy.Burn = true;
+
                         }
                     }
                     float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
@@ -521,8 +524,24 @@ namespace ChampionsOfForest.Player
                         num2 /= 2f;
                     }
 
-                                var ep = other.GetComponentInParent<EnemyProgression>();
-                    
+                    EnemyProgression ep = other.GetComponentInParent<EnemyProgression>();
+                    if (BlackFlame.IsOn && BlackFlame.GiveAfterburn && Random.value < 0.1f)
+                    {
+                        if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                        {
+                            if (ep != null)
+                            {
+                                int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                                ep.DmgTakenDebuff(id, 1.15f, 25);
+                            }
+                            else if (playerHitEnemy != null)
+                            {
+                                int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                                string s = "AO" + playerHitEnemy.Target.networkId.PackedValue + ";" + id + ";" + 1.15f + ";25;";
+                                Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                            }
+                        }
+                    }
                     if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
                     {
                         if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -550,32 +569,32 @@ namespace ChampionsOfForest.Player
                         SpellActions.Bash(playerHitEnemy.Target.networkId.PackedValue, num2);
 
                     }
-                    
-                     if (Effects.BlackFlame.IsOn)
+
+                    if (Effects.BlackFlame.IsOn)
                     {
-                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
-                            {
-                                other.GetComponentInParent<EnemyProgression>()?.FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 20);
-                            }
-                            else if (playerHitEnemy != null)
-                            {
-                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" +Effects.BlackFlame.FireDamageBonus + ";" + 20+ ";1", Network.NetworkManager.Target.OnlyServer);
-                            }
+                        if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                        {
+                            other.GetComponentInParent<EnemyProgression>()?.FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 20);
+                        }
+                        else if (playerHitEnemy != null)
+                        {
+                            Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1", Network.NetworkManager.Target.OnlyServer);
+                        }
                     }
                     if (ModdedPlayer.instance.SpellAmpFireDmg)
                     {
                         int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                        float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus/2;
+                        float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 2;
                         dmg *= ModdedPlayer.instance.SpellAMP;
-                        dmg *= ModdedPlayer.instance.FireAmp+1;
-                            if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
-                            {
-                                other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
-                            }
-                            else if (playerHitEnemy != null)
-                            {
-                                Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
-                            }
+                        dmg *= ModdedPlayer.instance.FireAmp + 1;
+                        if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
+                        {
+                            other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
+                        }
+                        else if (playerHitEnemy != null)
+                        {
+                            Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                        }
                     }
 
 
@@ -591,7 +610,7 @@ namespace ChampionsOfForest.Player
                                 component6.sendHitFallDown(num2 * 3f);
                                 if (playerHitEnemy != null)
                                 {
-                                    playerHitEnemy.Hit = (int)d;
+                                    playerHitEnemy.Hit = d;
                                     playerHitEnemy.hitFallDown = true;
                                     rep = a;
                                 }
@@ -601,9 +620,9 @@ namespace ChampionsOfForest.Player
                                 component6.getCombo(3);
                                 for (int i = 0; i < a; i++)
                                 {
-                                component6.hitRelay(d * 3);
+                                    component6.hitRelay(d * 3);
 
-                                }      
+                                }
 
                             }
                         }
@@ -614,9 +633,9 @@ namespace ChampionsOfForest.Player
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             for (int i = 0; i < a; i++)
                             {
-                            other.transform.SendMessageUpwards("Hit", d * 3, SendMessageOptions.DontRequireReceiver);
+                                other.transform.SendMessageUpwards("Hit", d * 3, SendMessageOptions.DontRequireReceiver);
                             }
-                           //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
+                            //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
 
                             if (playerHitEnemy != null)
                             {
@@ -644,8 +663,8 @@ namespace ChampionsOfForest.Player
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection2, SendMessageOptions.DontRequireReceiver);
                             for (int i = 0; i < a; i++)
                             {
-                            other.transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
-                            }         
+                                other.transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+                            }
                             //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2);
 
                             if (playerHitEnemy != null)
@@ -805,7 +824,7 @@ namespace ChampionsOfForest.Player
 
                 DamageMath.DamageClamp(num3, out int dmg, out int a);
 
-               
+
                 base.transform.parent.SendMessage("GotBloody", SendMessageOptions.DontRequireReceiver);
                 enemyDelay = true;
                 base.Invoke("resetEnemyDelay", 0.25f);
@@ -846,7 +865,7 @@ namespace ChampionsOfForest.Player
 
                         for (int i = 0; i < a; i++)
                         {
-                        other.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
+                            other.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
 
                         }
                         Mood.HitRumble();
@@ -1004,7 +1023,7 @@ namespace ChampionsOfForest.Player
                 }
                 for (int i = 0; i < rep; i++)
                 {
-                playerHitEnemy.Send();
+                    playerHitEnemy.Send();
                 }
 
             }

@@ -14,7 +14,7 @@ namespace ChampionsOfForest
         private float DisplayTime;
         private static Camera mainCam;
         private float constantViewTime;
-        private float lifetime = 300;
+        private float lifetime = 600;
         private void Start()
         {
             if (mainCam == null)
@@ -30,8 +30,8 @@ namespace ChampionsOfForest
             lifetime = 2500;
             if (ModSettings.IsDedicated) return;
             rb = GetComponent<Rigidbody>();
-            rb.drag = 2f;
-            rb.angularDrag = 0.4f;
+            rb.drag = 2.25f;
+            rb.angularDrag = 0.1f;
             rb.isKinematic = true;
             Invoke("UnlockPhysics", 1f);
             lifetime = 300;
@@ -47,7 +47,10 @@ namespace ChampionsOfForest
         }
         private void OnGUI()
         {
-
+            if (mainCam == null)
+            {
+                mainCam = Camera.main;
+            }
             if (DisplayTime > 0)
             {
                 constantViewTime += Time.deltaTime;

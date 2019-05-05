@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TheForest.Utils;
+using UnityEngine;
 
 namespace ChampionsOfForest
 {
@@ -34,7 +35,9 @@ namespace ChampionsOfForest
 
                 return;
             }
-            RaycastHit[] hits = Physics.RaycastAll(cam.position, cam.forward, radius);
+            if (LocalPlayer.Stats.Dead) return;
+
+            RaycastHit[] hits = Physics.BoxCastAll(cam.position,Vector3.one*0.1f, cam.forward,cam.rotation,radius);
             for (int i = 0; i < hits.Length; i++)
             {
                 ItemPickUp pu = hits[i].transform.root.GetComponent<ItemPickUp>();

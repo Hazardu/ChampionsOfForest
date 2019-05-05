@@ -410,7 +410,7 @@ namespace ChampionsOfForest.Player
                 dmgUnclamped *= SpellActions.FocusOnHeadShot();
                 if (SpellActions.SeekingArrow)
                 {
-                    dmgUnclamped *= 2;
+                    dmgUnclamped *= SpellActions.SeekingArrow_HeadDamage;
                 }
             }
             else

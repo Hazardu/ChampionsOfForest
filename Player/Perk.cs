@@ -249,7 +249,7 @@ namespace ChampionsOfForest.Player
                 Name = "Size",
                 Description = "Increased overall physical strenght allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
                 TextureVariation = 0, //0 or 1
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -266,7 +266,7 @@ namespace ChampionsOfForest.Player
                 Name = "Speed",
                 Description = "Increased overall physical strenght allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
                 TextureVariation = 0, //0 or 1
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1156,7 +1156,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => BlackFlame.GiveDamageBuff = false,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
-                LevelRequirement = 25,
+                LevelRequirement = 10,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 1.5f,
@@ -1498,20 +1498,272 @@ namespace ChampionsOfForest.Player
                 ApplyMethods = () => ModdedPlayer.instance.SpellAmpFireDmg =true,
                 DisableMethods = () => ModdedPlayer.instance.SpellAmpFireDmg = false,
                 Category = PerkCategory.MagicOffense,
-                InheritIDs = new int[] { 15 },
-                LevelRequirement = 4,
-                PointsToBuy = 2,
+                InheritIDs = new int[] { -1 },
+                LevelRequirement = 2,
+                PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 3f,
-                PosOffsetY = 0.75f,
+                PosOffsetX = -1.5f,
+                PosOffsetY = 0f,
                 Name = "Inner Fire",
                 Description = "Upon hitting an enemy, leave a debuff for 4 seconds, increase fire damage against that enemy equal to your spell amplification",
                 TextureVariation = 0,
                 Endless = false,
             };
-
-
-
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.NearDeathExperienceUnlocked =true,
+                DisableMethods = () => ModdedPlayer.instance.NearDeathExperienceUnlocked = false,
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 35 },
+                LevelRequirement = 20,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = -1.5f,
+                Name = "Near Death Experience",
+                Description = "Upon recieving fatal damage, instead of dieing restore your health to 35%. This may occur once every 10 minutes",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.SeekingArrow_HeadDamage =3,
+                DisableMethods = () => SpellActions.SeekingArrow_HeadDamage =2,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 55 },
+                LevelRequirement = 9,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0.5f,
+                PosOffsetY = -1.5f,
+                Name = "Seeking Arrow - Head Hunting",
+                Description = "Seeking arrow additional damage on headshot is increased to x3",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.SeekingArrow_DamagePerDistance +=0.01f,
+                DisableMethods = () => SpellActions.SeekingArrow_DamagePerDistance -= 0.01f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 92 },
+                LevelRequirement = 11,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0f,
+                PosOffsetY = -2.25f,
+                Name = "Seeking Arrow - Distant Killer",
+                Description = "Seeking arrow additional damage per distance increased from 1% per 1m to 2% per 1m",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.SeekingArrow_SlowDuration += 4,
+                DisableMethods = () => SpellActions.SeekingArrow_SlowDuration -=4,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 93 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0.5f,
+                PosOffsetY = -3f,
+                Name = "Seeking Arrow - Crippling precision",
+                Description = "Seeking arrow slow duration is increased by 4 additional seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.SeekingArrow_SlowAmount -= 0.2f,
+                DisableMethods = () => SpellActions.SeekingArrow_SlowAmount += 0.2f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 94 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1f,
+                PosOffsetY = -3.75f,
+                Name = "Seeking Arrow - Stun Arrows",
+                Description = "Seeking arrow slow amount is increased - from 60% to 80%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FocusOnHS +=1f,
+                DisableMethods = () => SpellActions.FocusOnHS -= 1f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 55},
+                LevelRequirement = 9,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -0.5f,
+                PosOffsetY = -1.5f,
+                Name = "Focus - Perfection",
+                Description = "Focus damage bonus on headshot is increased from 100% to 200%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.1f,
+                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.1f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 96},
+                LevelRequirement = 9,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -1f,
+                PosOffsetY = -2.25f,
+                Name = "Focus - Quick Adjustments",
+                Description = "Focus extra attack on bodyshot is increased from 30% to 40%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.1f,
+                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.1f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 98},
+                LevelRequirement = 9,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -0.5f,
+                PosOffsetY = -3f,
+                Name = "Focus - Quick Adjustments",
+                Description = "Focus extra attack on bodyshot is increased from 30% to 40%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+              new Perk()
+            {
+                ApplyMethods = () => SpellActions.FocusSlowDuration += 20f,
+                DisableMethods = () => SpellActions.FocusSlowDuration -= 20f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 98},
+                LevelRequirement = 9,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = -1.5f,
+                PosOffsetY = -3f,
+                Name = "Focus - Knock Out",
+                Description = "Focus Slow is prolongued by additional 20 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => BlackFlame.GiveAfterburn = true,
+                DisableMethods = () => BlackFlame.GiveAfterburn = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 69 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1f,
+                PosOffsetY = -2.25f,
+                Name = "Afterburn",
+                Description = "Black flames have a 10% chance to apply a weakening effect on enemies, making them take 15% more damage for 25 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => BlackFlame.GiveAfterburn = true,
+                DisableMethods = () => BlackFlame.GiveAfterburn = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 100 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -3f,
+                Name = "Netherflame", 
+                Description = "Black flames have triple damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => BlackFlame.DmgAmp = 3,
+                DisableMethods = () => BlackFlame.DmgAmp = 1,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 100 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -3f,
+                Name = "Netherflame",
+                Description = "Black flames have triple damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FrenzyAtkSpeed += 0.02f,
+                DisableMethods = () => SpellActions.FrenzyAtkSpeed -= 0.02f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 72 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = -0.75f,
+                Name = "Frenzy - Haste",
+                Description = "Every stack of frenzy increases attack speed by 2%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BashDuration += 2,
+                DisableMethods = () => SpellActions.BashDuration-= 2,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 72 },
+                LevelRequirement = 26,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = -1.5f,
+                Name = "Greater Bash",
+                Description = "Bash duration is increased by 2 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+               new Perk()
+            {
+                ApplyMethods = () => SpellActions.ShieldPersistanceLifetime += 60f,
+                DisableMethods = () => SpellActions.ShieldPersistanceLifetime -= 60f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 16 },
+                LevelRequirement = 26,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = 1.5f,
+                Name = "Shield - Persistance",
+                Description = "Shield doesnt decay for 1 minute longer.",
+                TextureVariation = 0,
+                Endless = false,
+            };       new Perk()
+            {
+                ApplyMethods = () => SpellActions.BlinkDamage += 2f,
+                DisableMethods = () => SpellActions.BlinkDamage -= 2f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 86 },
+                LevelRequirement = 26,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5.5f,
+                PosOffsetY = 1.5f,
+                Name = "Blink - Passthrough",
+                Description = "Blink now deals damage to enemies that you teleport through",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

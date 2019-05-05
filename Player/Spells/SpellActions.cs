@@ -12,22 +12,24 @@ namespace ChampionsOfForest.Player
         public static void DoBlink()
         {
 
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, BlinkRange);
+            RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one, Camera.main.transform.forward,Camera.main.transform.rotation, BlinkRange);
             foreach (RaycastHit hit in hits)
             {
                 if (BlinkDamage != 0)
                 {
-                    if (hit.transform.root.CompareTag("enemyCollide"))
+                    if (hit.transform.CompareTag("enemyCollide"))
                     {
-                        float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus / 5;
+                        float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus/2;
                         dmg *= ModdedPlayer.instance.SpellAMP;
-                        int dmgInt = Mathf.RoundToInt(dmg);
+
+                        int dmgInt = 0;
+                        DamageMath.DamageClamp(dmg, out dmgInt, out int repetitions);
                         if (GameSetup.IsMpClient)
                         {
-                            BoltEntity enemyEntity = hit.transform.root.GetComponent<BoltEntity>();
+                            BoltEntity enemyEntity = hit.transform.GetComponentInParent<BoltEntity>();
                             if (enemyEntity == null)
                             {
-                                enemyEntity = hit.transform.root.GetComponentInChildren<BoltEntity>();
+                                enemyEntity = hit.transform.gameObject.GetComponent<BoltEntity>();
                             }
 
                             if (enemyEntity != null)
@@ -35,13 +37,20 @@ namespace ChampionsOfForest.Player
                                 PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
                                 playerHitEnemy.hitFallDown = true;
                                 playerHitEnemy.Hit = dmgInt;
+                                for (int i = 0; i < repetitions; i++)
+                                {
+
                                 playerHitEnemy.Send();
+                                }
 
                             }
                         }
                         else
                         {
-                            hit.transform.SendMessageUpwards("Hit", dmgInt, SendMessageOptions.DontRequireReceiver);
+                            for (int i = 0; i < repetitions; i++)
+                            {
+                                hit.transform.SendMessageUpwards("Hit", dmgInt, SendMessageOptions.DontRequireReceiver);
+                            }
                         }
                     }
                 }
@@ -168,7 +177,7 @@ namespace ChampionsOfForest.Player
         public static float ShieldPerSecond = 4;
         public static float MaxShield = 40;
         public static float ShieldCastTime;
-        public static float ShieldPersistanceLifetime = 40;
+        public static float ShieldPersistanceLifetime = 20;
         public static void CastSustainShieldActive()
         {
             float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus / 2;
@@ -386,7 +395,7 @@ namespace ChampionsOfForest.Player
         public static float BashLifesteal = 0.0f;
         public static bool BashEnabled = false;
         public static float BashBleedChance = 0;
-        public static float BashBleedDmg = 0.2f;
+        public static float BashBleedDmg = 0.3f;
         public static float BashDuration = 3;
 
         public static void BashPassiveEnabled(bool on)
@@ -402,7 +411,11 @@ namespace ChampionsOfForest.Player
                 ep.Slow(id, BashSlowAmount, BashDuration);
                 ep.DmgTakenDebuff(id, BashExtraDamage, BashDuration);
                 if (BashBleedChance > 0 && UnityEngine.Random.value < BashBleedChance) ep.DoDoT((int)(dmg * BashBleedDmg), BashDuration);
-                if (BashLifesteal > 0) LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
+                if (BashLifesteal > 0)
+                {
+                    LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
+                    LocalPlayer.Stats.Energy += dmg * BashLifesteal;
+                }
             }
 
         }
@@ -420,9 +433,8 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Frenzy
-        public static Transform frenzytarget;
         public static int FrenzyMaxStacks= 5, FrenzyStacks= 0;
-        public static float FrenzyAtkSpeed = 0, FrenzyDmg = 0.05f;
+        public static float FrenzyAtkSpeed = 0.00f, FrenzyDmg = 0.05f;
         public static bool Frenzy;
         public static void OnFrenzyAttack()
         {
@@ -437,7 +449,7 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Focus
-        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f,FocusSlowAmount = 0.8f,FocusSlowDuration =10;
+        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 4,FocusSlowAmount = 0.8f,FocusSlowDuration =10;
         public static bool Focus;
         
         public static float FocusOnBodyShot()
@@ -447,7 +459,7 @@ namespace ChampionsOfForest.Player
             if (FocusBonusDmg == 0)
             {
                 FocusBonusDmg = FocusOnBS;
-                BuffDB.AddBuff(14, 61, FocusOnAtkSpeed, 4f);
+                BuffDB.AddBuff(14, 61, FocusOnAtkSpeed, FocusOnAtkSpeedDuration);
                 return 1;
             }
             else
@@ -479,7 +491,7 @@ namespace ChampionsOfForest.Player
         public static Transform SeekingArrow_Target;
         public static bool SeekingArrow;
         public static bool SeekingArrow_ChangeTargetOnHit;
-        public static float SeekingArrow_TimeStamp,SeekingArrow_SlowDuration = 8,SeekingArrow_SlowAmount = 0.4f,SeekingArrow_DamagePerDistance = 0.01f;
+        public static float SeekingArrow_TimeStamp,SeekingArrow_HeadDamage =2,SeekingArrow_SlowDuration = 4,SeekingArrow_SlowAmount = 0.4f,SeekingArrow_DamagePerDistance = 0.01f;
         public static void SeekingArrow_Initialize()
         {
             SeekingArrow_Target =new GameObject().transform;
@@ -494,11 +506,6 @@ namespace ChampionsOfForest.Player
             SeekingArrow = false;
             SeekingArrow_TimeStamp = 0;
             SeekingArrow_ChangeTargetOnHit = true;
-
-        }
-
-        public static void SeekingArrow_SetTarget(Transform t)
-        {
 
         }
         public static void SeekingArrow_End()

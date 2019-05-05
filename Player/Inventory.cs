@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest.Player
@@ -50,7 +52,7 @@ namespace ChampionsOfForest.Player
             ItemList.Add(-12, null);//mainHand
             ItemList.Add(-13, null);//offhand
 
-            
+
         }
         private void Update()
         {
@@ -93,9 +95,9 @@ namespace ChampionsOfForest.Player
                 }
                 else
                 {
-                    amount = Mathf.Max(amount, i.Amount);
+                    amount = Mathf.Min(amount, i.Amount);
                 }
-                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up + LocalPlayer.Transform.forward, amount);
+                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up*1.5f + LocalPlayer.Transform.forward, amount);
                 ItemList[key].Amount -= amount;
                 if (ItemList[key].Amount <= 0)
                 {
@@ -114,16 +116,60 @@ namespace ChampionsOfForest.Player
         }
         public void DropAll()
         {
-            foreach (KeyValuePair<int, Item> pair in ItemList)
-            {
-                if (pair.Value != null)
+            StartCoroutine(DropAllCoroutine());
+        }
+        private IEnumerator DropAllCoroutine()
+        {
+            int itemsDropped = 0;
+            var keys = ItemList.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i++)
+            {        
+            try
                 {
-                    DropItem(pair.Key);
+                    itemsDropped += DropItem(keys[i]) ? 1 : 0;
                 }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("dropping error\n" + e.Message);
+                }
+                yield return null;
+                yield return null;
+
             }
+            CotfUtils.Log("Dropped " + itemsDropped);
         }
 
-        public bool HasSpaceFor(Item item,int amount = 1)
+        public void DropEquipped()
+        {
+            StartCoroutine(DropEquippedCoroutine());
+        }
+        private IEnumerator DropEquippedCoroutine()
+        {
+            int itemsDropped = 0;
+            var keys = ItemList.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                
+                if (keys[i] < 0)
+                {
+                    try
+                    {
+                        itemsDropped += DropItem(keys[i]) ? 1 : 0;
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError("dropping error\n" + e.Message);
+                    }
+                    yield return null;
+                    yield return null;
+                }
+
+
+            }
+            CotfUtils.Log("Dropped " + itemsDropped);
+        }
+
+        public bool HasSpaceFor(Item item, int amount = 1)
         {
             for (int i = 0; i < SlotCount; i++)
             {

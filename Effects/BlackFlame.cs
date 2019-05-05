@@ -8,13 +8,15 @@ namespace ChampionsOfForest.Effects
     public class BlackFlame : MonoBehaviour
     {
         public static BlackFlame instance;
-        public static float FireDamageBonus => (20 + ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP ;
+        public static float DmgAmp = 1;
+        public static float FireDamageBonus => (20 + ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP * DmgAmp ;
 
         private static Material mat1;
         private static Material mat2;
         public static GameObject instanceLocalPlayer;
 
         public static bool GiveDamageBuff;
+        public static bool GiveAfterburn;
 
         public static GameObject Create()
         {

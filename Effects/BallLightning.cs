@@ -130,7 +130,7 @@ public class BallLightning : MonoBehaviour
     {
         //deal damage to enemies, apply force to rigidbodies etc
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 32, Vector3.one, 35);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 28, Vector3.one, 30);
 
         if (!GameSetup.IsMpClient)
         {

@@ -831,6 +831,41 @@ namespace ChampionsOfForest
             TheForest.Utils.LocalPlayer.Animator.SetBool("skinAnimal", false);
         }
 
-        
+        protected override void CheckDeath()
+        {
+            if (global::Cheats.GodMode)
+            {
+                return;
+            }
+            if (this.Health <= 0f && !this.Dead)
+            {
+                if (ModdedPlayer.instance.NearDeathExperienceUnlocked && !ModdedPlayer.instance.NearDeathExperience)
+                {
+                    Health = ModdedPlayer.instance.MaxHealth * 0.35f;
+                    BuffDB.AddBuff(20, 61, 0, 600);
+                    return;
+                }
+
+                switch (ModSettings.dropsOnDeath)
+                {
+                    case ModSettings.DropsOnDeathMode.All:
+                        Inventory.Instance.DropAll();
+                        break;
+                    case ModSettings.DropsOnDeathMode.Equipped:
+                        Inventory.Instance.DropEquipped();
+                        break;
+                }
+
+                if (TheForest.Utils.LocalPlayer.AnimControl.swimming)
+                {
+                    this.DeathInWater(0);
+                    return;
+                }
+                this.Dead = true;
+                this.Player.enabled = false;
+                this.FallDownDead();
+            }
+        }
+
     }
 }

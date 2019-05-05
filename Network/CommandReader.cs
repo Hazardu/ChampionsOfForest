@@ -33,13 +33,13 @@ namespace ChampionsOfForest.Network
                         {
                             answer += "f;";
                         }
-
+                        answer += (int)ModSettings.dropsOnDeath + ";";
                         Network.NetworkManager.SendLine(answer, Network.NetworkManager.Target.Clients);
                     }
                 }
                 else if (s.StartsWith("AA"))    //answer for the what is the difficulty query
                 {
-                    if (ModSettings.DifficultyChoosen || !GameSetup.IsMpClient || ModSettings.IsDedicated)
+                    if (!GameSetup.IsMpClient || ModSettings.IsDedicated)
                     {
                         return;
                     }
@@ -47,6 +47,7 @@ namespace ChampionsOfForest.Network
                     ch = s.ToCharArray();
                     int index = int.Parse(Read());
                     ModSettings.FriendlyFire = ReadBool();
+                    ModSettings.dropsOnDeath =( ModSettings.DropsOnDeathMode)int.Parse(Read());
                     Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
                     ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(index);
                     ModSettings.DifficultyChoosen = true;

@@ -796,6 +796,7 @@ namespace ChampionsOfForest.Res
             new Resource(135, "SeekingArrow.png");
             new Resource(136, "Frenzy.png");
             new Resource(137, "Focus.png");
+            new Resource(138, "ItemAxe.png");
             new Resource(1000, "thundersound.wav");
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
