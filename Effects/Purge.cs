@@ -43,7 +43,7 @@ namespace ChampionsOfForest.Effects
         private static void PurgeLocalPlayer(bool heal)
         {
             int[] keys = BuffDB.activeBuffs.Keys.ToArray();
-            int a = 0;
+            int a = heal?1:0;
             for (int i = 0; i < keys.Length; i++)
             {
                 if (BuffDB.activeBuffs[keys[i]].isNegative)
@@ -52,6 +52,8 @@ namespace ChampionsOfForest.Effects
                     a++;
                 }
             }
+
+
             for (int i = 0; i < a; i++)
             {
                 float mult = heal ? 1.20f : 0.8f;

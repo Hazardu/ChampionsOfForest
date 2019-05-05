@@ -44,7 +44,6 @@ namespace ChampionsOfForest
         public void UnlockPhysics()
         {
             rb.isKinematic = false;
-            gameObject.AddComponent<MeshCollider>();
         }
         private void OnGUI()
         {

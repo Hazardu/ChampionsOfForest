@@ -49,7 +49,7 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.Quiver:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[116];
-
+                            spawn.transform.localScale *= 20;
 
                             break;
                         case BaseItem.ItemType.SpellScroll:

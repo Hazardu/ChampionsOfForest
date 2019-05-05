@@ -475,10 +475,13 @@ namespace ChampionsOfForest.Network
                         i = 2;
                         ch = s.ToCharArray();
                         ulong id = ulong.Parse(Read());
-                        float amount = float.Parse(Read());
-                        float time = float.Parse(Read());
-                        int src = int.Parse(Read());
-                        EnemyManager.hostDictionary[id].Slow(src, amount, time);
+                        if (EnemyManager.hostDictionary.ContainsKey(id))
+                        {
+                            float amount = float.Parse(Read());
+                            float time = float.Parse(Read());
+                            int src = int.Parse(Read());
+                            EnemyManager.hostDictionary[id].Slow(src, amount, time);
+                        }
                     }
                 }
                 else if (s.StartsWith("AD"))    //sync magic find

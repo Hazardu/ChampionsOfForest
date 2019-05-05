@@ -430,15 +430,15 @@ namespace ChampionsOfForest
             new ItemStat(i, 0, 0, 0, "Refund points", 7, f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec()); i++;
             new ItemStat(i, 0.0025f, 0.0075f, 0.8f, "Jump Power", 5, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.01f, 0.5f, "Headshot Damage", 4, f => ModdedPlayer.instance.HeadShotDamage += f, f => ModdedPlayer.instance.HeadShotDamage -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Fire Damage", 4, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to slow", 4, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.ChanceToSlowOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to bleed", 4, f => ModdedPlayer.instance.ChanceToBleedOnHit += f, f => ModdedPlayer.instance.ChanceToBleedOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to weaken", 4, f => ModdedPlayer.instance.ChanceToWeakenOnHit += f, f => ModdedPlayer.instance.ChanceToWeakenOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++; 
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Fire Damage", 5, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to slow", 6, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.ChanceToSlowOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to bleed", 6, f => ModdedPlayer.instance.ChanceToBleedOnHit += f, f => ModdedPlayer.instance.ChanceToBleedOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Chance on hit to weaken", 6, f => ModdedPlayer.instance.ChanceToWeakenOnHit += f, f => ModdedPlayer.instance.ChanceToWeakenOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++; 
             //Extra carry items
             i = 1000;
-            new ItemStat(i, 7f, 10f, 0f, "Extra Sticks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
-            new ItemStat(i, 3f, 5f, 0f, "Extra Rocks", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
-            new ItemStat(i, 2f, 5f, 0f, "Extra Ropes", 3, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 7f, 10f, 0f, "Extra Sticks", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 3f, 5f, 0f, "Extra Rocks", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 2f, 5f, 0f, "Extra Ropes", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); i++;
 
             i = 2000;
             new ItemStat(i, 3f, 9f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
@@ -931,6 +931,9 @@ namespace ChampionsOfForest
                 new BaseItem(new int[][]
                         {
                 new int[] {39,40,41,42,44,8,14,49 },
+                new int[] {39,40,41,42,44,8,14,49 },
+                new int[] {0,62,63,64},
+                new int[] {1,0},
 
                         })
                 {
@@ -950,6 +953,7 @@ namespace ChampionsOfForest
                 new BaseItem(new int[][]
               {
                 new int[] {25 },
+                new int[] {25 ,62,63,64},
                 new int[] {6,49},
                 new int[] {22,0,25,1,2,3,4},
                 new int[] {1,2,3,4},
@@ -978,7 +982,7 @@ namespace ChampionsOfForest
                 new int[] {1,2,3,4,8},
                 new int[] {5,6,45,46,16,8},
                 new int[] {39,40,41,42,44,8 },
-                new int[] {39,40,41,42,44,8 },
+                new int[] {39,40,41,42,44,8,62,63,64 },
               })
                 {
                     name = "Full Metal Sword",
@@ -1002,7 +1006,7 @@ namespace ChampionsOfForest
                 new int[] {14 },
                 new int[] {14,31,49 },
                 new int[] {14,18,49 },
-                new int[] {38,36,1,2,3,4,5,6,16 },
+                new int[] {38,36,1,2,3,4,5,6,16 ,62,63,64},
 
               })
                 {
@@ -1029,8 +1033,8 @@ namespace ChampionsOfForest
                 new int[] {34,44,45,46 },
                 new int[] {2,23,26},
                 new int[] {2,23,26,51},
-                new int[] {2,23,26,20,16,15},
-                new int[] {52,0,0},
+                new int[] {2,23,26,20,16,15,60},
+                new int[] {52,60,0,0},
 
                       })
                 {
@@ -1441,6 +1445,7 @@ namespace ChampionsOfForest
                 new int[] {25 },
                 new int[] {18 },
                 new int[] {2004 },
+                new int[] {1,62,63,64 },
 
             })
                 {
@@ -1464,7 +1469,7 @@ namespace ChampionsOfForest
                 new int[] {25 },
                 new int[] {18 },
                 new int[] {2004 },
-                new int[] {1,3},
+                new int[] {1,3,62,63,64},
                 new int[] {53,16},
                 new int[] {39,31,43,0,0},
                 new int[] {25 ,22,1,12,13,5,6},
@@ -1490,6 +1495,7 @@ namespace ChampionsOfForest
                 new BaseItem(new int[][]
                 {
                     new int[] {23,26},
+                    new int[] {2,6,4},
                 })
                 {
                     name = "Potato Sack",
@@ -1511,7 +1517,7 @@ namespace ChampionsOfForest
                 {
                     new int[] {23,26},
                     new int[] {40,41,42},
-                    new int[] {40,0},
+                    new int[] {40,0,60},
                 })
                 {
                     name = "Rabbit Skin Quiver",
@@ -1533,7 +1539,7 @@ namespace ChampionsOfForest
                 {
                     new int[] {26},
                     new int[] {23,2,54},
-                    new int[] {18,},
+                    new int[] {18,60,61},
                     new int[] {40,41,16,5,6,40},
                     new int[] {40,0,0,0},
                 })
@@ -1559,7 +1565,7 @@ namespace ChampionsOfForest
                     new int[] {24,21},
                     new int[] {17,16,18,54,51,52},
                     new int[] {2,3,4,15,14,13,12,11,10},
-                    new int[] {5,6,47},
+                    new int[] {5,6,47,60,61},
                     new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
                 })
                 {
@@ -1583,8 +1589,8 @@ namespace ChampionsOfForest
                     new int[] {23,26},
                     new int[] {23},
                     new int[] {2,3,4},
-                    new int[] {34,18,17,16,15,14},
-                    new int[] {16,19,23,31,54,51,52},
+                    new int[] {34,18,17,16,15,14,60,61,55,},
+                    new int[] {16,19,23,31,54,51,52,57},
                     new int[] {2},
                     new int[] {2,3,4,5,6,7,8,9,10},
                     new int[] {2,1,5,6},
@@ -1609,6 +1615,7 @@ namespace ChampionsOfForest
                 new BaseItem(new int[][]
                 {
                     new int[] {37, 24},
+                    new int[] {42,6,17,61},
                 })
                 {
                     name = "Spell Scroll",
@@ -2482,29 +2489,21 @@ namespace ChampionsOfForest
             new BaseItem(new int[][]
             {
             new int[] {1},
-            new int[] {1},
             new int[] {12,13},
             new int[] {22,25,30,18},
-            new int[] {35,50,53,57,56},
-            new int[] {20,57,19,18},
-            new int[] {3},
+            new int[] {35,50,53,57,56,20,57,19,18},
             new int[] {3},
             new int[] {5,28},
             new int[] {7,10,31},
-            new int[] {11,17,57},
-            new int[] {14,16,57},
+            new int[] { 14, 16, 57,11, 17,57},
             new int[] {45,16,10,11,9,8},
             new int[] {2},
-            new int[] {2},
-            new int[] {8,9,27},
-            new int[] {51,52},
+            new int[] { 51, 52,8, 9,27},
             new int[] {15,18,34,36,57},
             new int[] {23,48,54,26},
             new int[] {4},
-            new int[] {4},
             new int[] {6,55,46,54,53},
-            new int[] {21,24},
-            new int[] {19,47,49,57},
+            new int[] {19,47,49,57, 21,24},
             new int[] {29,37,38,57},
             })
             {
@@ -2532,150 +2531,7 @@ namespace ChampionsOfForest
         {
 
 
-            //    - ITEMS 
-            //OFFHANDS - Quivers and spell scrolls
-            //Item 0/6
-            new BaseItem(new int[][]
-            {
-                new int[] {23,26},
-            })
-            {
-                name = "Potato Sack",
-                description = "Can be used as a quiver",
-                lore = "",
-                tooltip = "Quivers increase projectile damage",
-                Rarity = 0,
-                minLevel = 1,
-                maxLevel = 4,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(98),
-            };
-
-
-            //Item 1/6
-            new BaseItem(new int[][]
-            {
-                new int[] {23,26},
-                new int[] {40,41,42},
-                new int[] {40,0},
-            })
-            {
-                name = "Rabbit Skin Quiver",
-                description = "",
-                lore = "",
-                tooltip = "Quivers increase player's ranged damage",
-                Rarity = 1,
-                minLevel = 2,
-                maxLevel = 3,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(98),
-            };
-
-
-            //Item 2/6
-            new BaseItem(new int[][]
-            {
-                new int[] {26},
-                new int[] {23,2,54},
-                new int[] {18,},
-                new int[] {40,41,16,5,6,40},
-                new int[] {40,0,0,0},
-            })
-            {
-                name = "Hollow Log",
-                description = "It allows for faster drawing of arrow than a cloth quiver",
-                lore = "",
-                tooltip = "Quiver increase projectile damage",
-                Rarity = 2,
-                minLevel = 6,
-                maxLevel = 9,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(98),
-            };
-
-
-            //Item 3/6
-            new BaseItem(new int[][]
-            {
-                new int[] {26,23},
-                new int[] {24,21},
-                new int[] {17,16,18,54,51,52},
-                new int[] {2,3,4,15,14,13,12,11,10},
-                new int[] {5,6,47},
-                new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
-            })
-            {
-                name = "Magic Quiver",
-                description = "",
-                lore = "",
-                tooltip = "This item boosts both magic and ranged damage",
-                Rarity = 3,
-                minLevel = 6,
-                maxLevel = 11,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(98),
-            };
-
-
-            //Item 4/6
-            new BaseItem(new int[][]
-            {
-                new int[] {23,26},
-                new int[] {23},
-                new int[] {2,3,4},
-                new int[] {34,18,17,16,15,14},
-                new int[] {16,19,23,31,54,51,52},
-                new int[] {2},
-                new int[] {2,3,4,5,6,7,8,9,10},
-                new int[] {2,1,5,6},
-                new int[] {11,2,0,0,0,0,0},
-            })
-            {
-                name = "Long Lost Quiver",
-                description = "",
-                lore = "",
-                tooltip = "A quiver that greatly increases ranged damage",
-                Rarity = 5,
-                minLevel = 12,
-                maxLevel = 20,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(98),
-            };
-
-
-            //Item 5/6
-            new BaseItem(new int[][]
-            {
-                new int[] {37, 24},
-            })
-            {
-                name = "Spell Scroll",
-                description = "Contains a lot of information on how to properly cast spells to achieve better results",
-                lore = "",
-                tooltip = "Spell Scrolls grant magic buffs",
-                Rarity = 1,
-                minLevel = 1,
-                maxLevel = 1,
-                CanConsume = false,
-                StackSize = 1,
-                _itemType = BaseItem.ItemType.Quiver,
-                icon = Res.ResourceLoader.GetTexture(110),
-            };
-            //Created using Hazard's app
-
-
-            //    - ITEMS 
-
+         
             //Item 0/7
             new BaseItem(new int[][]
             {
@@ -3154,7 +3010,7 @@ new int[] {16,7,8,22,23,25,26},
             new BaseItem(new int[][]
             {
 new int[] {18},
-new int[] {18},
+new int[] {18,62,63,64},
             })
             {
                 name = "Dull Longsword",
@@ -3512,7 +3368,7 @@ new int[] {18},
              {
                 new int[]{1,2,3,4},
                 new int[]{18},
-                new int[]{18,0},
+                new int[]{18,0,0,62,63,64},
                 new int[] {1,2,3,4,6,55},
              })
             {
@@ -3521,6 +3377,27 @@ new int[] {18},
                 lore = "",
                 tooltip = "A really fast axe",
                 Rarity = 3,
+                minLevel = 15,
+                maxLevel = 25,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Axe,
+                icon = Res.ResourceLoader.GetTexture(88),
+            }.PossibleStats[1][0].Multipier =2;
+            new BaseItem(new int[][]
+             {
+                new int[]{1,26,22},
+                new int[]{18},
+                new int[]{18,62,63,64},
+                new int[] {1,2,3,4,6,55,59,57,34,35,36,14,44,49},
+                new int[] {53,22,25,12,13},
+             }){
+                name = "Severer",
+                description = "",
+                lore = "",
+                tooltip = "A really fast axe",
+                Rarity = 4,
                 minLevel = 15,
                 maxLevel = 25,
                 CanConsume = false,

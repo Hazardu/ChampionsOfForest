@@ -1534,6 +1534,9 @@ namespace ChampionsOfForest
                     }
                     else
                     {
+                    GUI.color = new Color(1, 1, 1, 0.4f);
+                    GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 18), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+                    GUI.color = new Color(1, 1, 1, 1f);
                         if (ModdedPlayer.instance.Silenced || ModdedPlayer.instance.Stunned)
                         {
                             GUI.color = Color.black;
@@ -1556,12 +1559,11 @@ namespace ChampionsOfForest
                             fillr.y += SquareSize * (1 - f);
                             GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
 
-                            GUI.Label(r, SpellCaster.instance.infos[i].Cooldown.ToString("mmss"), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 30), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                            TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown);
+                            string formattedTime = span.Minutes + ":" + span.Seconds;
+                            GUI.Label(r,formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                         }
                     }
-                    GUI.color = new Color(1, 1, 1, 0.4f);
-                    GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
-                    GUI.color = new Color(1, 1, 1, 1f);
 
                     GUI.DrawTexture(r, _SpellFrame);
 
@@ -1674,7 +1676,7 @@ namespace ChampionsOfForest
                                 y += rr * 60;
                                 if (ScanTime > 1.5f)
                                 {
-                                    DrawScannedEnemyLabel(cp.Health + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 60;
                                 }
                                 if (ScanTime > 3f)

@@ -473,15 +473,17 @@ namespace ChampionsOfForest
         /// <param name="source">ID of the source, used for refreshing the duration of applied effects</param>
         public void Slow(int source, float amount, float time)
         {
+            //source - 20 is snap freeze
             //source - 40 is hammer attack
             //source - 41 is magic arrow hit
             //source - 43-60 are bashes
-            //source - 61-75 are player hits 
-            //source - 20 is snap freeze
+            //source - 61-75 are player hits
+            //source - 90 - focus on headshot
+            //source - 91 - seeking arrow on body shot;
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);
-                slows[source].amount = amount;
+                slows[source].amount = Mathf.Min(amount, slows[source].amount);
             }
             else
             {

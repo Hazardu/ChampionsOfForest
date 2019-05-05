@@ -96,7 +96,7 @@ namespace ChampionsOfForest.Player
             {
                 immunity = "1;";
             }
-            float duration = 8;
+            float duration = 10;
             Network.NetworkManager.SendLine("SC2;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + radius + ";" + healing + ";" + immunity + duration + ";", Network.NetworkManager.Target.Everyone);
         }
 
@@ -124,7 +124,7 @@ namespace ChampionsOfForest.Player
         public static float FlareBoost = 1.35f;
         public static float FlareHeal = 5;
         public static float FlareRadius = 4.5f;
-        public static float FlareDuration = 8;
+        public static float FlareDuration = 15;
         public static void CastFlare()
         {
             Vector3 dir = LocalPlayer.Transform.position;
@@ -142,7 +142,7 @@ namespace ChampionsOfForest.Player
         #endregion
         #region BLACK HOLE
         public static float BLACKHOLE_damage = 40;
-        public static float BLACKHOLE_duration = 7;
+        public static float BLACKHOLE_duration = 9;
         public static float BLACKHOLE_radius = 12;
         public static float BLACKHOLE_pullforce = 10;
         public static void CreatePlayerBlackHole()
@@ -165,10 +165,10 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region SustainShield
-        public static float ShieldPerSecond = 1;
-        public static float MaxShield = 10;
+        public static float ShieldPerSecond = 4;
+        public static float MaxShield = 40;
         public static float ShieldCastTime;
-        public static float ShieldPersistanceLifetime = 20;
+        public static float ShieldPersistanceLifetime = 40;
         public static void CastSustainShieldActive()
         {
             float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus / 2;
@@ -258,7 +258,7 @@ namespace ChampionsOfForest.Player
 
         public static bool MagicArrowDmgDebuff = false;
         public static bool MagicArrowDoubleSlow = false;
-        public static float MagicArrowDuration = 3f;
+        public static float MagicArrowDuration = 15f;
         public static void CastMagicArrow()
         {
             float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.3f;
@@ -345,8 +345,8 @@ namespace ChampionsOfForest.Player
         }
 
         public static float SnapFreezeDist = 22;
-        public static float SnapFloatAmount = 0.2f;
-        public static float SnapFreezeDuration = 12f;
+        public static float SnapFloatAmount = 0.1f;
+        public static float SnapFreezeDuration = 20f;
         public static void CastSnapFreeze()
         {
             Vector3 pos = LocalPlayer.Transform.position;
@@ -382,11 +382,11 @@ namespace ChampionsOfForest.Player
         #region Bash
         public static float BashExtraDamage = 1.06f;
         public static float BashDamageBuff = 1f;
-        public static float BashSlowAmount = 0.6f;
+        public static float BashSlowAmount = 0.2f;
         public static float BashLifesteal = 0.0f;
         public static bool BashEnabled = false;
         public static float BashBleedChance = 0;
-        public static float BashBleedDmg = 0.1f;
+        public static float BashBleedDmg = 0.2f;
         public static float BashDuration = 3;
 
         public static void BashPassiveEnabled(bool on)
@@ -437,8 +437,9 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Focus
-        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f;
+        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f,FocusSlowAmount = 0.8f,FocusSlowDuration =10;
         public static bool Focus;
+        
         public static float FocusOnBodyShot()
         {
             CotfUtils.Log("BODY SHOT " + Focus);
@@ -446,7 +447,7 @@ namespace ChampionsOfForest.Player
             if (FocusBonusDmg == 0)
             {
                 FocusBonusDmg = FocusOnBS;
-                BuffDB.AddBuff(14, 61, 1.3f, 2.5f);
+                BuffDB.AddBuff(14, 61, FocusOnAtkSpeed, 4f);
                 return 1;
             }
             else
@@ -478,10 +479,10 @@ namespace ChampionsOfForest.Player
         public static Transform SeekingArrow_Target;
         public static bool SeekingArrow;
         public static bool SeekingArrow_ChangeTargetOnHit;
-        public static float SeekingArrow_TimeStamp;
+        public static float SeekingArrow_TimeStamp,SeekingArrow_SlowDuration = 8,SeekingArrow_SlowAmount = 0.4f,SeekingArrow_DamagePerDistance = 0.01f;
         public static void SeekingArrow_Initialize()
         {
-            SeekingArrow_Target = GameObject.CreatePrimitive(PrimitiveType.Quad).transform;
+            SeekingArrow_Target =new GameObject().transform;
             SeekingArrow_Target.gameObject.AddComponent<SeekingArrow>();
             //some more visuals
         }
