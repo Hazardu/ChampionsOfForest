@@ -193,11 +193,11 @@ namespace ChampionsOfForest
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty) || w > 2300)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty))
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty) || w > 2900)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty))
                         {
                             rarity = 4;
 
@@ -299,7 +299,7 @@ namespace ChampionsOfForest
             float w = Worth / averageLevel;
             int rarity = 0;
 
-            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
+            if ((w > 200 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 2000)
             {
                 rarity = 1;
 
@@ -307,23 +307,23 @@ namespace ChampionsOfForest
                 {
                     rarity = 2;
 
-                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty) || w > 2300)
+                    if (w > 500 && Random.value < 0.60f && (int)ModSettings.difficulty > 1 || Random.value < (0.09f * (int)ModSettings.difficulty))
                     {
                         rarity = 3;
 
-                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty) || w > 2900)
+                        if (w > 625 && Random.value < 0.6f && (int)ModSettings.difficulty > 2 || Random.value < (0.05f * (int)ModSettings.difficulty))
                         {
                             rarity = 4;
 
-                            if (w > 700 && Random.value < 0.50f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty) || (w > 3500 && (int)ModSettings.difficulty > 2))
+                            if (w > 700 && Random.value < 0.550f && (int)ModSettings.difficulty > 3 || Random.value < (0.04f * (int)ModSettings.difficulty))
                             {
                                 rarity = 5;
 
-                                if (w > 800 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.02f * (int)ModSettings.difficulty) || (w > 4600 && (int)ModSettings.difficulty > 3))
+                                if (w > 1600 && Random.value < 0.5f && (int)ModSettings.difficulty > 4 || Random.value < (0.01f * (int)ModSettings.difficulty))
                                 {
                                     rarity = 6;
 
-                                    if (w > 950 && Random.value < 0.40f && (int)ModSettings.difficulty > 5 || Random.value < (0.01f * (int)ModSettings.difficulty) || (w > 5250 && (int)ModSettings.difficulty > 4))
+                                    if (w > 1950 && Random.value < 0.30f && (int)ModSettings.difficulty > 5 || Random.value < (0.0025f * (int)ModSettings.difficulty))
                                     {
                                         rarity = 7;
 
@@ -3663,8 +3663,39 @@ new int[] {0,0,0,0,62,63,64},
                     ModdedPlayer.instance.HammerStunAmount = 0.25f;
                 },
             }.PossibleStats[0][0].Multipier = 3.25f;
-            
 
+            new BaseItem(new int[][]
+            {
+              new int[] {11},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+
+            })
+            {
+                name = "Alexander's Shield",
+                description = "Parry has a chance to be casted when getting it. Requires parry to be equipped",
+                lore = "",
+                tooltip = "Shields increase your block.",
+                Rarity = 7,
+                minLevel = 1,
+                maxLevel = 2,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Shield,
+                icon = Res.ResourceLoader.GetTexture(99),
+                onEquip = () => SpellActions.ChanceToParryOnHit = true,
+                onUnequip = () => SpellActions.ChanceToParryOnHit = false,
+            };
 
         }
     }

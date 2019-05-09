@@ -142,18 +142,19 @@ namespace ChampionsOfForest.Effects
             instanceLocalPlayer.SetActive(IsOn);
             if (BoltNetwork.isRunning)
             {
-                string s = "SC4;";
-                if (IsOn)
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                 {
-                    s += "t;";
-                }
-                else
-                {
-                    s += "f;";
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(3);
+                        w.Write(4);
+                        w.Write(IsOn);
+                        w.Write(ModReferences.ThisPlayerID);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
                 }
 
-                s += ModReferences.ThisPlayerID + ";";
-                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+
             }
         }
 

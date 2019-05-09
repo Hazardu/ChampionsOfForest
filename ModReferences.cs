@@ -111,14 +111,7 @@ namespace ChampionsOfForest
         }
         public static float DamageReduction(int armor)
         {
-            //float x = armor;
-            //x *= 0.00000714285f;
-            //x += 0.01f;
-
-            //float f = -1f / x;
-            //f += 100;
-            //f /= 100f;
-            //return f;
+            armor = Mathf.Max(armor, 0);
 
             float arReduction = 1;
             arReduction *= armor;

@@ -97,10 +97,19 @@ public class BallLightning : MonoBehaviour
     private void SyncTriggerPosition()
     {
         if (!BoltNetwork.isRunning) return;
-        string msg = "AK";
         Vector3 pos = transform.position;
-        msg += ID + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
-        ChampionsOfForest.Network.NetworkManager.SendLine(msg, ChampionsOfForest.Network.NetworkManager.Target.Others);
+        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+        {
+            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+            {
+                w.Write(31);
+                w.Write(ID);
+                w.Write(pos.x);
+                w.Write(pos.y);
+                w.Write(pos.z);
+            }
+            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+        }
     }
 
     public void CoopTrigger(Vector3 newPos)

@@ -1,6 +1,8 @@
 ﻿using Bolt;
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
+using System.Collections;
+using System.Collections.Generic;
 using TheForest.Audio;
 using TheForest.Buildings.World;
 using TheForest.Utils;
@@ -538,7 +540,8 @@ namespace ChampionsOfForest.Player
                             {
                                 int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
                                 string s = "AO" + playerHitEnemy.Target.networkId.PackedValue + ";" + id + ";" + 1.15f + ";25;";
-                                Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                                AsyncHit.SendCommandDelayed(1, s, NetworkManager.Target.OnlyServer);
+                                //Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
                             }
                         }
                     }
@@ -553,7 +556,10 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            Network.NetworkManager.SendLine("AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;", Network.NetworkManager.Target.OnlyServer);
+                            string s = "AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;";
+                            AsyncHit.SendCommandDelayed(2, s, NetworkManager.Target.OnlyServer);
+
+                            //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
                         }
                     }
 
@@ -578,7 +584,10 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1", Network.NetworkManager.Target.OnlyServer);
+                            string s = "AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;";
+                            AsyncHit.SendCommandDelayed(3, s, NetworkManager.Target.OnlyServer);
+
+                            //Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;", Network.NetworkManager.Target.OnlyServer);
                         }
                     }
                     if (ModdedPlayer.instance.SpellAmpFireDmg)
@@ -593,7 +602,9 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                            string s = "AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1;";
+                            AsyncHit.SendCommandDelayed(4, s, NetworkManager.Target.OnlyServer);
+                            //Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
                         }
                     }
 
@@ -631,10 +642,7 @@ namespace ChampionsOfForest.Player
                             int animalHitDirection = animalHealth.GetAnimalHitDirection(num);
                             other.transform.SendMessageUpwards("getCombo", 3, SendMessageOptions.DontRequireReceiver);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
-                            for (int i = 0; i < a; i++)
-                            {
-                                other.transform.SendMessageUpwards("Hit", d * 3, SendMessageOptions.DontRequireReceiver);
-                            }
+                            AsyncHit.SendPlayerHitEnemy(other.transform, a, d*3);
                             //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2 * 3);
 
                             if (playerHitEnemy != null)
@@ -661,10 +669,8 @@ namespace ChampionsOfForest.Player
                         {
                             int animalHitDirection2 = animalHealth.GetAnimalHitDirection(num);
                             other.transform.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection2, SendMessageOptions.DontRequireReceiver);
-                            for (int i = 0; i < a; i++)
-                            {
-                                other.transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
-                            }
+                            AsyncHit.SendPlayerHitEnemy(other.transform, a, d );
+
                             //ModdedPlayer.instance.DoAreaDamage(other.transform.root, (int)num2);
 
                             if (playerHitEnemy != null)

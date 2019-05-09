@@ -366,9 +366,7 @@ namespace ChampionsOfForest
                 //    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
                 //    //item.obj.transform.localScale = Vector3.one * item.Scale * PlayerInventoryMod.Sca;
                 //}
-
-
-
+             
 
                 GUI.skin.label.normal.textColor = Color.white;
                 GUI.skin.label.onNormal.textColor = Color.white;
@@ -1796,7 +1794,7 @@ namespace ChampionsOfForest
                                                     DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Shielding:
-                                                    DrawScannedEnemyLabel("Refraction", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                    DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
                                                 case EnemyProgression.Abilities.Meteor:
                                                     DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
@@ -1810,12 +1808,12 @@ namespace ChampionsOfForest
                                                 case EnemyProgression.Abilities.Laser:
                                                     DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;
-                                                case EnemyProgression.Abilities.Avenger:
-                                                    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Sacrifice:
-                                                    DrawScannedEnemyLabel("Sacrifice ", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
+                                                //case EnemyProgression.Abilities.Avenger:
+                                                //    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                //    break;
+                                                //case EnemyProgression.Abilities.Sacrifice:
+                                                //    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                //    break;
                                                 default:
                                                     DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                                     break;

@@ -53,8 +53,15 @@ namespace ChampionsOfForest.Enemies
                             if(Time.time-LastReqTime > 10)
                             {
                                 LastReqTime = Time.time;
-
-                                Network.NetworkManager.SendLine("AJ" + entity.networkId.PackedValue+";", Network.NetworkManager.Target.OnlyServer);
+                                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                                {
+                                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                    {
+                                        w.Write(29);
+                                        w.Write(entity.networkId.PackedValue);
+                                    }
+                                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                                }
                             }
                         }
                     }
@@ -128,6 +135,7 @@ namespace ChampionsOfForest.Enemies
                                     {
                                         BoltSetReflectedShim.SetTriggerReflected(animator, "parryTrigger");
                                     }
+                                    SpellActions.DoParry(transform.position);
                                     events.StartCoroutine("disableAllWeapons");
                                     playerHitReactions componentInParent2 = other.gameObject.GetComponentInParent<playerHitReactions>();
                                     if (componentInParent2 != null)

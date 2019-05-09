@@ -10,9 +10,9 @@ namespace ChampionsOfForest.Player
 {
     public class ArrowDamageMod : ArrowDamage
     {
-        private int BaseDmg =0;
-        private int Repetitions;
-        private Vector3 startposition;
+        private int BaseDmg = 0;
+        public int Repetitions;
+        public Vector3 startposition;
         protected override void Start()
         {
             if (ModSettings.IsDedicated)
@@ -21,8 +21,10 @@ namespace ChampionsOfForest.Player
                 return;
             }
             if (BaseDmg == 0)
+            {
                 BaseDmg = damage;
-           
+            }
+
             base.Start();
             float dmg = (BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
             if (crossbowBoltType)
@@ -46,9 +48,10 @@ namespace ChampionsOfForest.Player
 
             damage = (int)dmg;
 
-            if (SpellActions.SeekingArrow) startposition = transform.position;
-            
-
+            if (SpellActions.SeekingArrow)
+            {
+                startposition = transform.position;
+            }
         }
 
         private void Update()
@@ -251,8 +254,7 @@ namespace ChampionsOfForest.Player
                     SpellActions.SeekingArrow_TimeStamp = Time.time;
                     SpellActions.SeekingArrow_ChangeTargetOnHit = false;
                 }
-                NewHitAi(target, flag || flag3, headDamage);
-
+NewHitAi(target, flag || flag3, headDamage);
                 ModdedPlayer.instance.DoAreaDamage(target.root, damage);
                 ModdedPlayer.instance.OnHit();
                 ModdedPlayer.instance.OnHit_Ranged();
@@ -392,9 +394,9 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        private void NewHitAi(Transform target, bool hitDelay = false, bool headDamage = false)
+
+        private void NewHitAi(Transform target, bool hitDelay, bool headDamage)
         {
-            
             float dmgUnclamped = this.damage;
             if (SpellActions.SeekingArrow)
             {
@@ -403,7 +405,7 @@ namespace ChampionsOfForest.Player
             }
 
 
-            if (headDamage || (flintLockAmmoType && Random.value < 0.10)||(spearType&&Random.value < 0.03))
+            if (headDamage || (flintLockAmmoType && Random.value < 0.10) || (spearType && Random.value < 0.03))
             {
                 headDamage = true;
                 dmgUnclamped *= ModdedPlayer.instance.HeadShotDamage;
@@ -424,8 +426,6 @@ namespace ChampionsOfForest.Player
             if (this.PhysicBody)
             {
                 this.PhysicBody.velocity = Vector3.zero;
-
-                Invoke("SetVelocityZero", 0.03f);//invoke after 30 ms, which is about 2 frames.
             }
 
             if (this.spearType)
@@ -446,11 +446,11 @@ namespace ChampionsOfForest.Player
                 BoltEntity componentInParent = target.GetComponentInParent<BoltEntity>();
                 if (!componentInParent)
                 {
-                    componentInParent= target.GetComponent<BoltEntity>();
+                    componentInParent = target.GetComponent<BoltEntity>();
                 }
 
-          
-                
+
+
                 if (BoltNetwork.isClient && componentInParent)
                 {
                     ModdedPlayer.instance.OnHitEffectsClient(componentInParent, dmgUnclamped);
@@ -458,35 +458,18 @@ namespace ChampionsOfForest.Player
                     {
                         if (SpellActions.FocusBonusDmg == 0)
                         {
-                            try
-                            {
-
                             //slow enemy by 80%
-                            string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.FocusSlowAmount + ";"+SpellActions.FocusSlowDuration+";" + 90 + ";";
-                            Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
-                            }
-                            catch (System.Exception e )
-                            {
-
-                                CotfUtils.Log(e.ToString());
-                            }
-
+                            string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.FocusSlowAmount + ";" + SpellActions.FocusSlowDuration + ";" + 90 + ";";
+                            //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
+                            AsyncHit.SendCommandDelayed(1, s, Network.NetworkManager.Target.OnlyServer);
                         }
                     }
                     else if (SpellActions.SeekingArrow)
                     {
-                        try
-                        {
-
-                            //slow enemy by 80%
-                            string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.SeekingArrow_SlowAmount + ";" + SpellActions.SeekingArrow_SlowDuration + ";" + 91 + ";";
-                            Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
-                        }
-                        catch (System.Exception e)
-                        {
-
-                            CotfUtils.Log(e.ToString());
-                        }
+                        //slow enemy by 80%
+                        string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.SeekingArrow_SlowAmount + ";" + SpellActions.SeekingArrow_SlowDuration + ";" + 91 + ";";
+                        //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
+                        AsyncHit.SendCommandDelayed(2, s, Network.NetworkManager.Target.OnlyServer);
                     }
                     if (hitDelay)
                     {
@@ -507,10 +490,7 @@ namespace ChampionsOfForest.Player
                         }
                         playerHitEnemy.getAttackerType = 4;
                         playerHitEnemy.Hit = sendDamage;
-                        for (int i = 0; i < Repetitions; i++)
-                        {
-                            playerHitEnemy.Send();
-                        }
+                        AsyncHit.SendPlayerHitEnemy(playerHitEnemy, Repetitions);
                     }
                     else
                     {
@@ -529,15 +509,13 @@ namespace ChampionsOfForest.Player
                         playerHitEnemy2.getAttackerType = 4;
 
                         playerHitEnemy2.Hit = sendDamage;
-                        for (int i = 0; i < Repetitions; i++)
-                        {
-                            playerHitEnemy2.Send();
-                        }
+                        AsyncHit.SendPlayerHitEnemy(playerHitEnemy2, Repetitions);
+
                     }
                 }
                 else
                 {
-                    if (target.gameObject.CompareTag("enemyRoot")||target.gameObject.CompareTag("enemyCollide"))
+                    if (target.gameObject.CompareTag("enemyRoot") || target.gameObject.CompareTag("enemyCollide"))
                     {
                         var ep = target.gameObject.GetComponentInParent<EnemyProgression>();
                         if (ep == null)
@@ -553,20 +531,15 @@ namespace ChampionsOfForest.Player
                         {
                             if (SpellActions.FocusBonusDmg == 0)
                             {
-                                try
-                                {
 
-                                    //slow enemy by 80%
-                                   ep.Slow(90,  SpellActions.FocusSlowAmount, SpellActions.FocusSlowDuration);
-                                }
-                                catch (System.Exception e)
-                                {
 
-                                    CotfUtils.Log(e.ToString());
-                                }
+                                //slow enemy by 80%
+                                ep.Slow(90, SpellActions.FocusSlowAmount, SpellActions.FocusSlowDuration);
+
 
                             }
-                        }else if (SpellActions.SeekingArrow)
+                        }
+                        else if (SpellActions.SeekingArrow)
                         {
                             ep.Slow(91, SpellActions.SeekingArrow_SlowAmount, SpellActions.SeekingArrow_SlowDuration);
 
@@ -601,12 +574,11 @@ namespace ChampionsOfForest.Player
                         {
                             if (target.gameObject.CompareTag("animalRoot"))
                             {
+                                Repetitions = 1;
                                 target.gameObject.SendMessage("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             }
-                            for (int i = 0; i < Repetitions; i++)
-                            {
-                                target.gameObject.SendMessage("Hit", sendDamage, SendMessageOptions.DontRequireReceiver);
-                            }
+                            AsyncHit.SendPlayerHitEnemy(target, Repetitions, sendDamage);
+
                             target.gameObject.SendMessage("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
                         }
                     }
@@ -614,12 +586,10 @@ namespace ChampionsOfForest.Player
                     {
                         if (target.gameObject.CompareTag("animalCollide"))
                         {
+                            Repetitions = 1;
                             target.gameObject.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                         }
-                        for (int i = 0; i < Repetitions; i++)
-                        {
-                            target.gameObject.SendMessageUpwards("Hit", sendDamage, SendMessageOptions.DontRequireReceiver);
-                        }
+                        AsyncHit.SendPlayerHitEnemy(target, Repetitions, sendDamage);
                         target.gameObject.SendMessageUpwards("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
                     }
                 }
@@ -629,11 +599,6 @@ namespace ChampionsOfForest.Player
                 this.MyPickUp.SetActive(true);
             }
             FMODCommon.PlayOneshotNetworked(this.hitAiEvent, base.transform, FMODCommon.NetworkRole.Any);
-        }
-
-        void SetVelocityZero()
-        {
-            PhysicBody.velocity = Vector3.zero;
         }
     }
 }

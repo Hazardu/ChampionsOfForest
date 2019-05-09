@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player
 
         public static void FillSpells()
         {
-            Spell bh = new Spell(1, 119, 20, 50, 90, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
+            Spell bh = new Spell(1, 119, 20, 50, 120, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
             {
                 active = SpellActions.CreatePlayerBlackHole,
 
@@ -46,12 +46,12 @@ namespace ChampionsOfForest.Player
                 active = SpellActions.DoBlink,
 
             };
-            new Spell(4, 120, 8, 100, 45, "Flare", "A magic collumn heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
+            new Spell(4, 120, 10, 100, 45, "Flare", "A magic collumn heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
             {
                 active = SpellActions.CastFlare,
                 
             };
-            new Spell(5, 118, 4, 50, "Sustain Shield", "Channeling this spell consumes energy but grants you a protective, absorbing shield. The shield's power increases every second untill reaching max value. Upon ending the channeling by any source, the shield persist for a short amount of time, and after that it rapidly decreases.")
+            new Spell(5, 118, 8, 50, "Sustain Shield", "Channeling this spell consumes energy but grants you a protective, absorbing shield. The shield's power increases every second untill reaching max value. Upon ending the channeling by any source, the shield persist for a short amount of time, and after that it rapidly decreases.")
             {
                 active = SpellActions.CastSustainShieldActive,
                 passive = SpellActions.CastSustainShielPassive,
@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Player
             {
                 active = AutoPickupItems.DoPickup,            
             };
-            new Spell(7, 115, 5, 25, 2, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 6, 25, 2, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
@@ -86,7 +86,7 @@ namespace ChampionsOfForest.Player
             {
                 active =Gold.Cast,            
             };
-            new Spell(13, 132, 6, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
+            new Spell(13, 132, 7, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
             {
                 active =SpellActions.CastPurge,            
             };
@@ -102,7 +102,7 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastBallLightning,            
             };
-            new Spell(17, 134, 1, 0, 1, "Bash", "Attack modifier\nEvery attack slows enemies for 3 seconds, and increases their damage taken by 6%")
+            new Spell(17, 134, 3, 0, 1, "Bash", "Attack modifier\nEvery attack slows enemies for 2 seconds, and increases their damage taken by 6%")
             {
                 passive =SpellActions.BashPassiveEnabled,            
             };
@@ -110,13 +110,21 @@ namespace ChampionsOfForest.Player
             {
                 passive = x=> SpellActions.Frenzy = x,            
             };
-            new Spell(19, 135, 3, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 20 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
+            new Spell(19, 135, 5, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 20 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
             {
                 active = SpellActions.SeekingArrow_Active,
             };
-            new Spell(20, 137, 3, 0, 1, "Focus", "Passively, when landing a headshot, next projectile will deal 100% more damage and slow the enemy by 80%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.")
+            new Spell(20, 137, 4, 0, 1, "Focus", "Passively, when landing a headshot, next projectile will deal 100% more damage and slow the enemy by 80%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.")
             {
                 passive = x => SpellActions.Focus = x,
+            };
+            new Spell(21, 140, 8, 0, 1, "Parry", "Passively, when parrying an enemy, ignite and deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.")
+            {
+                passive = x => SpellActions.Parry = x,
+            };
+            new Spell(22, 141, 22, 145, 240, "Cataclysm", "Creates a fire tornado that ignites enemies, slows them and deals damage.")
+            {
+                active = ()=> SpellActions.CastCataclysm(),
             };
         }
     }

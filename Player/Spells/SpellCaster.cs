@@ -132,7 +132,7 @@ namespace ChampionsOfForest.Player
 
 
                         string btnname = "spell" + (i + 1).ToString();
-                        if (ModAPI.Input.GetButton(btnname))
+                        if ((infos[i].spell.active != null)&& ModAPI.Input.GetButton(btnname))
                         {
                             if (!infos[i].spell.Channeled)
                             {
@@ -151,7 +151,7 @@ namespace ChampionsOfForest.Player
 
                                 }
                             }
-                            else if (infos[i].spell.active != null)
+                            else 
                             {
                                 if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned)
                                 {

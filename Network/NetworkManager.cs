@@ -1,5 +1,6 @@
 ﻿using Bolt;
 using System;
+using System.IO;
 using TheForest.UI.Multiplayer;
 using TheForest.Utils;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace ChampionsOfForest.Network
     public class NetworkManager : MonoBehaviour
     {
         public enum Target { OnlyServer, Everyone, Clients, Others }
-        public delegate void OnGetMessage(string s);
+        public delegate void OnGetMessage(byte[] arr);
         public OnGetMessage onGetMessage;
         public static NetworkManager instance;
 
@@ -31,17 +32,16 @@ namespace ChampionsOfForest.Network
         /// Sends a string to all players on the server
         /// </summary>
         /// <param name="s">Content of the message, make sure it ends with ';'</param>
-        public static void SendLine(string s, Target target)
+        public static void SendLine(byte[] bytearray, Target target)
         {
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
-                RecieveLine(s);
+                RecieveLine(bytearray);
             }
             else
             {
                 if (BoltNetwork.isRunning)
                 {
-
                     ChatEvent chatEvent = null;
                     switch (target)
                     {
@@ -60,20 +60,17 @@ namespace ChampionsOfForest.Network
                         default:
                             break;
                     }
-
-                    chatEvent.Message = s;
+                    chatEvent.Message = EncodeCommand(bytearray);
                     chatEvent.Sender = ChatBoxMod.ModNetworkID;
                     chatEvent.Send();
-
-                    Debug.Log("Sent: " + s);
                 }
             }
         }
-        public static void SendLine(string s, BoltConnection con)
+        public static void SendLine(byte[] bytearray, BoltConnection con)
         {
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
             {
-                RecieveLine(s);
+                RecieveLine(bytearray);
             }
             else
             {
@@ -81,7 +78,7 @@ namespace ChampionsOfForest.Network
                 {
 
                     ChatEvent chatEvent = ChatEvent.Create(con);
-                    chatEvent.Message = s;
+                    chatEvent.Message = EncodeCommand(bytearray);
                     chatEvent.Sender = ChatBoxMod.ModNetworkID;
                     chatEvent.Send();
                 }
@@ -89,15 +86,35 @@ namespace ChampionsOfForest.Network
         }
 
 
+        public static byte[] DecodeCommand(string cmd)
+        {
+            var a = cmd.ToCharArray();
+            var b = new byte[a.Length];
+            for (int i = 0; i < a.Length; i++)
+            {
+                b[i] = (byte)a[i];
+            }
+            return b;
+        }
+        public static string EncodeCommand(byte[] b)
+        {
+            string s = string.Empty;
+            for (int i = 0; i < b.Length; i++)
+            {
+                s += (char)b[i];
+            }
+            return s;
+        }
+
         /// <summary>
         /// Called on recieving a message
         /// </summary>
         /// <param name="s"></param>
-        public static void RecieveLine(string s)
+        public static void RecieveLine(byte[] array)
         {
             try
             {
-                instance.onGetMessage(s);
+                instance.onGetMessage(array);
             }
             catch (Exception ex)
             {

@@ -2,9 +2,9 @@
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Network;
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 using Math = System.Math;
@@ -38,7 +38,7 @@ namespace ChampionsOfForest
                 StopTime = Time.time + duration;
             }
         }
-    
+
         public float DebuffDmgMult;
         public float dmgTakenIncrease;
 
@@ -62,7 +62,7 @@ namespace ChampionsOfForest
         public int Armor;
         public int ArmorReduction;
 
-        public int Health { get { return (int)_hp; } set { _Health.Health = value; _hp = value; } }
+        public int Health { get => (int)_hp; set { _Health.Health = value; _hp = value; } }
         public float _hp;
         public float MaxHealth;
         private int BaseHealth = 0;
@@ -101,6 +101,8 @@ namespace ChampionsOfForest
         private float LaserCD;
         private float MeteorCD;
         private float BeamCD;
+        private float ArcaneCataclysmCD;
+        private float FireCataclysmCD;
 
         //Closest player, for detecting if in range to cast abilities
         private GameObject closestPlayer;
@@ -110,7 +112,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Avenger, Sacrifice }
+        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
 
@@ -184,7 +186,7 @@ namespace ChampionsOfForest
             "Unlike Pluto",
             "Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan",
             "Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi",
-            "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon",
+            "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Sora","Neonize","Agusfer"
 
               };
         /// <summary>
@@ -273,7 +275,7 @@ namespace ChampionsOfForest
             abilities = new List<Abilities>();
 
             //picking abilities
-            if (UnityEngine.Random.value < 0.1 ||( _AI.creepy_boss&&!_AI.girlFullyTransformed))
+            if (UnityEngine.Random.value < 0.1 || (_AI.creepy_boss && !_AI.girlFullyTransformed))
             {
                 int abilityAmount = UnityEngine.Random.Range(3, 7);
                 if (_AI.creepy_boss) { abilityAmount = 10; }   //Megan boss always has abilities, a lot of them.
@@ -348,8 +350,8 @@ namespace ChampionsOfForest
             DamageMult = Mathf.Pow(Level, 2.5f) / 100f + 0.7f;
 
 
-            Armor = Mathf.FloorToInt(Random.Range(Level * Level *1.6f + 20, Level * Level * 2f  + 50));
-            Armor *= (int)ModSettings.difficulty+1;
+            Armor = Mathf.FloorToInt(Random.Range(Level * Level * 1.6f + 20, Level * Level * 2f + 50));
+            Armor *= (int)ModSettings.difficulty + 1;
             ArmorReduction = 0;
             _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.3f) / 6));
             AnimSpeed = 0.81f + (float)Level / 130;
@@ -423,11 +425,22 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.FireAura))
             {
-                float aurDmg =(3 * Level + 10f) * DamageAmp/8;
+                float aurDmg = (3 * Level + 10f) * DamageAmp / 8;
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
-                Network.NetworkManager.SendLine("ES2"+entity.networkId.PackedValue + ";"+aurDmg,NetworkManager.Target.Clients);
-                InvokeRepeating("SendFireAura",20,30);
+                {
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(8);
+                            w.Write(entity.networkId.PackedValue);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                    }
+                }
+
+                InvokeRepeating("SendFireAura", 20, 30);
             }
             //Clamping Health
             _hp = Mathf.Min(_hp, int.MaxValue - 5);
@@ -458,13 +471,20 @@ namespace ChampionsOfForest
             if (BoltNetwork.isRunning)
             {
                 ulong id = entity.networkId.PackedValue;
-                    
-                string aa = "AI" + id + ";" + BaseDamageMult + ";";
-                foreach (var ability in abilities)
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                 {
-                    aa += (int)ability + ";";
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(30);
+                        w.Write(id);
+                        w.Write(BaseDamageMult);
+                        foreach (Abilities ability in abilities)
+                        {
+                            w.Write((int)ability);
+                        }
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
                 }
-                NetworkManager.SendLine(aa, NetworkManager.Target.Clients);
             }
         }
         /// <summary>
@@ -481,6 +501,9 @@ namespace ChampionsOfForest
             //source - 90 - focus on headshot
             //source - 91 - seeking arrow on body shot;
             //source - 120-135 -afterburn;
+            //source - 140 is cataclysm fire
+            //source - 141 is cataclysm arcane
+
             if (slows.ContainsKey(source))
             {
                 slows[source].duration = Mathf.Max(slows[source].duration, time);
@@ -652,11 +675,11 @@ namespace ChampionsOfForest
             float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
             if (magic)
             {
-                reduction /= 1.75f;
+                reduction /= 1.5f;
             }
 
             int dmg = Mathf.CeilToInt(damage * (1 - reduction));
-            if (Steadfast == 100)
+            if (Steadfast != 100)
             {
                 dmg = Mathf.Min(dmg, SteadfastCap);
             }
@@ -697,18 +720,27 @@ namespace ChampionsOfForest
                 EnemyManager.RemoveEnemy(this);
                 if (BoltNetwork.isRunning)
                 {
-                    foreach (var item in EnemyManager.hostDictionary.Values)
+                    foreach (EnemyProgression item in EnemyManager.hostDictionary.Values)
                     {
                         if (item != null && item.gameObject != null && item.gameObject.activeSelf)
+                        {
                             item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
+                        }
                     }
                     if (abilities.Contains(Abilities.Sacrifice))
                     {
-                        foreach (var item in EnemyManager.hostDictionary.Values)
+                        foreach (EnemyProgression item in EnemyManager.hostDictionary.Values)
                         {
-                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf)) continue;
+                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf))
+                            {
+                                continue;
+                            }
 
-                            if ((item.transform.position - transform.position).sqrMagnitude > 100) continue;
+                            if ((item.transform.position - transform.position).sqrMagnitude > 100)
+                            {
+                                continue;
+                            }
+
                             item.ArmorReduction /= 2;
                             item.AnimSpeed *= 1.2f;
                             item.DamageMult *= 1.2f;
@@ -718,20 +750,27 @@ namespace ChampionsOfForest
                 }
                 else
                 {
-                    foreach (var item in EnemyManager.singlePlayerList)
+                    foreach (EnemyProgression item in EnemyManager.singlePlayerList)
                     {
                         if (item != null && item.gameObject != null && item.gameObject.activeSelf)
+                        {
                             item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
-
-
+                        }
                     }
                     if (abilities.Contains(Abilities.Sacrifice))
                     {
-                        foreach (var item in EnemyManager.singlePlayerList)
+                        foreach (EnemyProgression item in EnemyManager.singlePlayerList)
                         {
-                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf)) continue;
+                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf))
+                            {
+                                continue;
+                            }
 
-                            if ((item.transform.position - transform.position).sqrMagnitude > 100) continue;
+                            if ((item.transform.position - transform.position).sqrMagnitude > 100)
+                            {
+                                continue;
+                            }
+
                             item.ArmorReduction /= 2;
                             item.AnimSpeed *= 1.2f;
                             item.DamageMult *= 1.2f;
@@ -739,6 +778,7 @@ namespace ChampionsOfForest
                         }
                     }
                 }
+
                 if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
                 {
                     int itemCount = Random.Range(1, 6);
@@ -759,7 +799,7 @@ namespace ChampionsOfForest
                         itemCount += 2;
                     }
 
-                    itemCount = Mathf.RoundToInt(itemCount* ItemDataBase.MagicFind);
+                    itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
 
 
 
@@ -776,7 +816,16 @@ namespace ChampionsOfForest
                 }
                 if (GameSetup.IsMpServer)
                 {
-                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Bounty / (Mathf.Max(1,0.8f+ ModReferences.Players.Count * 0.2f))) + ";", Network.NetworkManager.Target.Everyone);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(10);
+                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    }
+
                 }
                 else if (GameSetup.IsSinglePlayer)
                 {
@@ -800,6 +849,9 @@ namespace ChampionsOfForest
         {
             OnDieCalled = false;
         }
+
+
+
         private void Update()
         {
             if (!setupComplete)
@@ -825,58 +877,66 @@ namespace ChampionsOfForest
                 }
             }
             FireDmgBonus = 0;
-           foreach (EnemyDebuff item in FireDamageDebuffs.Values)
-                {
-                    FireDmgBonus += item.amount;
-                }
-        
-                int[] FDBKeys = new List<int>(FireDamageDebuffs.Keys).ToArray();
-                for (int i = 0; i < FDBKeys.Length; i++)
-                {
-                    int key = FDBKeys[i];
+            foreach (EnemyDebuff item in FireDamageDebuffs.Values)
+            {
+                FireDmgBonus += item.amount;
+            }
 
-                    FireDamageDebuffs[key].duration -= Time.deltaTime;
+            int[] FDBKeys = new List<int>(FireDamageDebuffs.Keys).ToArray();
+            for (int i = 0; i < FDBKeys.Length; i++)
+            {
+                int key = FDBKeys[i];
 
-                    if (FireDamageDebuffs[key].duration < 0)
-                    {
-                        FireDamageDebuffs.Remove(key);
-                    }
+                FireDamageDebuffs[key].duration -= Time.deltaTime;
+
+                if (FireDamageDebuffs[key].duration < 0)
+                {
+                    FireDamageDebuffs.Remove(key);
                 }
-          
+            }
+
 
             int[] DTDKeys = new List<int>(dmgTakenDebuffs.Keys).ToArray();
             int[] DDDKeys = new List<int>(dmgDealtDebuffs.Keys).ToArray();
             DebuffDmgMult = 1;
             dmgTakenIncrease = 1;
-          
-                for (int i = 0; i < DTDKeys.Length; i++)
+
+            for (int i = 0; i < DTDKeys.Length; i++)
+            {
+
+                int key = DTDKeys[i];
+                dmgTakenIncrease *= dmgTakenDebuffs[key].amount;
+                dmgTakenDebuffs[key].duration -= Time.deltaTime;
+
+                if (dmgTakenDebuffs[key].duration < 0)
                 {
-
-                    int key = DTDKeys[i];
-                    dmgTakenIncrease *= dmgTakenDebuffs[key].amount;
-                    dmgTakenDebuffs[key].duration -= Time.deltaTime;
-
-                    if (dmgTakenDebuffs[key].duration < 0)
-                    {
-                        dmgTakenDebuffs.Remove(key);
-                    }
+                    dmgTakenDebuffs.Remove(key);
                 }
-        
-          
-                for (int i = 0; i < DDDKeys.Length; i++)
+            }
+
+
+            for (int i = 0; i < DDDKeys.Length; i++)
+            {
+                int key = DDDKeys[i];
+                DebuffDmgMult *= dmgDealtDebuffs[key].amount;
+                dmgDealtDebuffs[key].duration -= Time.deltaTime;
+
+                if (dmgDealtDebuffs[key].duration < 0)
                 {
-                    int key = DDDKeys[i];
-                    DebuffDmgMult *= dmgDealtDebuffs[key].amount;
-                    dmgDealtDebuffs[key].duration -= Time.deltaTime;
-
-                    if (dmgDealtDebuffs[key].duration < 0)
-                    {
-                        dmgDealtDebuffs.Remove(key);
-                    }
+                    dmgDealtDebuffs.Remove(key);
                 }
-         
+            }
 
 
+
+            if (ArcaneCataclysmCD > 0)
+            {
+                ArcaneCataclysmCD -= Time.deltaTime;
+            }
+            if (FireCataclysmCD > 0)
+            {
+                FireCataclysmCD -= Time.deltaTime;
+            }
             if (TrapCD > 0)
             {
                 TrapCD -= Time.deltaTime;
@@ -1001,7 +1061,7 @@ namespace ChampionsOfForest
 
             if (inRange)
             {
-             
+
                 if (abilities.Contains(Abilities.Meteor) && MeteorCD <= 0)
                 {
                     Vector3 dir = closestPlayer.transform.position;
@@ -1127,6 +1187,108 @@ namespace ChampionsOfForest
 
                         Network.NetworkManager.SendLine("TR" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";14;" + radius + ";", Network.NetworkManager.Target.Everyone);
                         TrapCD = 50;
+                    }
+                }
+                if (abilities.Contains(Abilities.ArcaneCataclysm) && ArcaneCataclysmCD <= 0)
+                {
+                    if (closestPlayerMagnitude < agroRange / 2)
+                    {
+                        float dmg = 60;
+                        float radius = 10;
+                        switch (ModSettings.difficulty)
+                        {
+                            case ModSettings.Difficulty.Hard:
+                                dmg = 100;
+                                radius = 11;
+                                break;
+                            case ModSettings.Difficulty.Elite:
+                                dmg = 250;
+                                radius = 12;
+                                break;
+                            case ModSettings.Difficulty.Master:
+                                dmg = 600;
+                                radius = 13;
+                                break;
+                            case ModSettings.Difficulty.Challenge1:
+                                dmg = 3000;
+                                radius = 15;
+                                break;
+                            case ModSettings.Difficulty.Challenge2:
+                                dmg = 7000;
+                                radius = 16;
+                                break;
+                            case ModSettings.Difficulty.Challenge3:
+                                dmg = 15000;
+                                radius = 17;
+                                break;
+                            case ModSettings.Difficulty.Challenge4:
+                                dmg = 30000;
+                                radius = 18;
+                                break;
+                            case ModSettings.Difficulty.Challenge5:
+                                dmg = 60000;
+                                radius = 20;
+                                break;
+
+                        }
+                        dmg /= 4;
+                        if (BoltNetwork.isRunning)
+                        {
+                            NetworkManager.SendLine("SC11;" + Math.Round(transform.position.x, 5) + ";" + Math.Round(transform.position.y, 5) + ";" + Math.Round(transform.position.z, 5) + ";" + radius + ";" + dmg + ";" + 15 + ";t;t;", NetworkManager.Target.Clients);
+                        }
+                        Effects.Cataclysm.Create(transform.position, radius, dmg, 15, Effects.Cataclysm.TornadoType.Arcane, true);
+                        ArcaneCataclysmCD = 150;
+                    }
+                }
+                if (abilities.Contains(Abilities.FireCataclysm) && FireCataclysmCD <= 0)
+                {
+                    if (closestPlayerMagnitude < agroRange / 2)
+                    {
+                        float dmg = 60;
+                        float radius = 10;
+                        switch (ModSettings.difficulty)
+                        {
+                            case ModSettings.Difficulty.Hard:
+                                dmg = 100;
+                                radius = 11;
+                                break;
+                            case ModSettings.Difficulty.Elite:
+                                dmg = 250;
+                                radius = 12;
+                                break;
+                            case ModSettings.Difficulty.Master:
+                                dmg = 600;
+                                radius = 13;
+                                break;
+                            case ModSettings.Difficulty.Challenge1:
+                                dmg = 3000;
+                                radius = 15;
+                                break;
+                            case ModSettings.Difficulty.Challenge2:
+                                dmg = 7000;
+                                radius = 16;
+                                break;
+                            case ModSettings.Difficulty.Challenge3:
+                                dmg = 15000;
+                                radius = 17;
+                                break;
+                            case ModSettings.Difficulty.Challenge4:
+                                dmg = 30000;
+                                radius = 18;
+                                break;
+                            case ModSettings.Difficulty.Challenge5:
+                                dmg = 60000;
+                                radius = 20;
+                                break;
+
+                        }
+                        dmg /= 3;
+                        if (BoltNetwork.isRunning)
+                        {
+                            NetworkManager.SendLine("SC11;" + Math.Round(transform.position.x, 5) + ";" + Math.Round(transform.position.y, 5) + ";" + Math.Round(transform.position.z, 5) + ";" + radius + ";" + dmg + ";" + 18 + ";f;t;", NetworkManager.Target.Clients);
+                        }
+                        Effects.Cataclysm.Create(transform.position, radius, dmg, 15, Effects.Cataclysm.TornadoType.Fire, true);
+                        FireCataclysmCD = 170;
                     }
                 }
 
@@ -1274,7 +1436,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            double b =Random.Range(_hp * 0.9f, _hp * 1.1f) * Mathf.Sqrt(Level) + Armor* 0.2;
+            double b = Random.Range(_hp * 0.9f, _hp * 1.1f) * Mathf.Sqrt(Level) + Armor * 0.2;
             if (abilities.Count > 1)
             {
                 b = b * abilities.Count * 0.9f;
@@ -1318,18 +1480,20 @@ namespace ChampionsOfForest
             Bounty = (long)b;
         }
 
-        void SendFireAura()
+        private void SendFireAura()
         {
             if (abilities.Contains(Abilities.FireAura))
             {
                 float aurDmg = (8 * Level + 10f);
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
+                {
                     Network.NetworkManager.SendLine("ES2" + entity.networkId.PackedValue + ";" + aurDmg, NetworkManager.Target.Clients);
+                }
             }
         }
 
-        IEnumerator UpdateDoT()
+        private IEnumerator UpdateDoT()
         {
             while (Health > 0)
             {
@@ -1343,7 +1507,10 @@ namespace ChampionsOfForest
                 float t = Time.time;
                 for (int i = 0; i < DamageOverTimeList.Count; i++)
                 {
-                    if (DamageOverTimeList[i].StopTime < t) DamageOverTimeList.RemoveAt(i);
+                    if (DamageOverTimeList[i].StopTime < t)
+                    {
+                        DamageOverTimeList.RemoveAt(i);
+                    }
                 }
                 yield return new WaitForSeconds(1);
             }

@@ -446,12 +446,6 @@ namespace ChampionsOfForest
                     }
                 }
             }
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
-            {
-                ModAPI.Log.Write( ListComponents(PlayerInventoryMod.originalParrent.parent));
-
-               
-            }
             try
             {
 
@@ -497,7 +491,7 @@ namespace ChampionsOfForest
                 }
                 if (LocalPlayer.Stats.Health <= 0 && !LocalPlayer.Stats.Dead)
                 {
-                    LocalPlayer.Stats.Hit(1000, true, PlayerStats.DamageType.Drowning);
+                    LocalPlayer.Stats.Hit(10, true, PlayerStats.DamageType.Drowning);
                 }
 
             }
@@ -774,6 +768,13 @@ namespace ChampionsOfForest
                 {
                     NetworkManager.SendLine("AL" + ModReferences.ThisPlayerID + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
                 }
+            }
+        }
+        public void OnGetHit()
+        {
+            if(SpellActions.ChanceToParryOnHit&& Random.value < 0.15f)
+            {
+                SpellActions.DoParry(LocalPlayer.Transform.forward + LocalPlayer.Transform.position);
             }
         }
         public void OnHit()
@@ -1156,36 +1157,35 @@ namespace ChampionsOfForest
             SpellActions.BL_Damage = 150;
             SpellActions.BashExtraDamage = 1.06f;
             SpellActions.BashDamageBuff = 1f;
-            SpellActions.BashSlowAmount = 0.2f;
+            SpellActions.BashSlowAmount = 0.7f;
             SpellActions.BashLifesteal = 0.0f;
-            SpellActions.BashEnabled = false;
             SpellActions.BashBleedChance = 0;
             SpellActions.BashBleedDmg = 0.3f;
             SpellActions.BashDuration = 3;
             SpellActions.FrenzyMaxStacks = 5;
-            SpellActions. FrenzyStacks = 0;
+            SpellActions.FrenzyStacks = 0;
             SpellActions.FrenzyAtkSpeed = 0f;
-            SpellActions. FrenzyDmg = 0.05f;
-            SpellActions.Frenzy =false;
+            SpellActions.FrenzyDmg = 0.05f;
             SpellActions.FocusBonusDmg =0;
-            SpellActions. FocusOnHS = 1;
-            SpellActions. FocusOnBS = 0.2f;
-            SpellActions. FocusOnAtkSpeed = 1.3f;
-            SpellActions. FocusSlowAmount = 0.8f;
-            SpellActions. FocusSlowDuration = 10;
-            SpellActions.Focus = false;
-            SpellActions.SeekingArrow =false;
+            SpellActions.FocusOnHS = 1;
+            SpellActions.FocusOnBS = 0.2f;
+            SpellActions.FocusOnAtkSpeed = 1.3f;
+            SpellActions.FocusSlowAmount = 0.8f;
+            SpellActions.FocusSlowDuration = 10;
             SpellActions.SeekingArrow_ChangeTargetOnHit = false;
             SpellActions.SeekingArrow_TimeStamp = 0;
-            SpellActions. SeekingArrow_HeadDamage = 2;
-            SpellActions. SeekingArrow_SlowDuration = 4;
+            SpellActions.SeekingArrow_HeadDamage = 2;
+            SpellActions.SeekingArrow_SlowDuration = 4;
             SpellActions.FocusOnAtkSpeedDuration = 4;
-            SpellActions. SeekingArrow_SlowAmount = 0.4f;
-            SpellActions. SeekingArrow_DamagePerDistance = 0.01f;
+            SpellActions.SeekingArrow_SlowAmount = 0.4f;
+            SpellActions.SeekingArrow_DamagePerDistance = 0.01f;
+            SpellActions.ChanceToParryOnHit = false;
+            SpellActions.ParryIgnites = false;
+            SpellActions.ParryRadius = 3;
             BlackFlame.DmgAmp = 1;
             BlackFlame.GiveAfterburn =false;
             BlackFlame.GiveDamageBuff =false;
-        WeaponInfoMod.AlwaysIgnite = false;
+            WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 5;
             instance.HealingMultipier = 1;
             instance.strenght = 1;

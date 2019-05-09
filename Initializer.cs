@@ -70,6 +70,7 @@ namespace ChampionsOfForest
                     go.AddComponent<ClinetItemPicker>();
                     go.AddComponent<MeteorSpawner>();
                     go.AddComponent<BlackFlame>();
+                    go.AddComponent<AsyncHit>();
                     BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
                     SpellDataBase.Initialize();
@@ -83,6 +84,7 @@ namespace ChampionsOfForest
                     CoopCustomWeapons.Init();
                     BallLightning.InitPrefab();
                     AddAxeMesh();
+                    Cataclysm.AssignPrefabs();
                 }
 
             }

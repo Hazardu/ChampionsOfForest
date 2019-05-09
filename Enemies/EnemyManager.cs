@@ -139,7 +139,15 @@ namespace ChampionsOfForest
             if (Time.time > LastAskedTime + AskFrequency)
             {
 
-                Network.NetworkManager.SendLine("EE" + e.networkId.PackedValue.ToString() + ";", Network.NetworkManager.Target.OnlyServer);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(6);
+                        w.Write(e.networkId.PackedValue);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                }
                 LastAskedTime = Time.time;
             }
             return null;

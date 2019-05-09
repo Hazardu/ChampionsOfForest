@@ -68,11 +68,23 @@ namespace ChampionsOfForest.Effects
 
         public static void SyncTransform(Vector3 pos, float Duration, int portalID,bool inCave,bool inEndgame)
         {
-            string s1 = "";
-            if (inCave) s1 += "t;"; else s1 += "f;";
-            if (inEndgame) s1 += "t;"; else s1 += "f;";
-            string s = string.Concat("SC6;", pos.x, ";", pos.y, ";", pos.z, ";", Duration, ";", portalID, ";",s1);
-            Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            {
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                {
+                    w.Write(3);
+                    w.Write(6);
+                    w.Write(pos.x);
+                    w.Write(pos.y);
+                    w.Write(pos.z);
+                    w.Write(Duration);
+                    w.Write(portalID);
+                    w.Write(inCave);
+                    w.Write(inEndgame);
+                }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+            }
+
         }
 
         public static int GetPortalID()

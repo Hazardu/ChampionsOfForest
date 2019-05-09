@@ -100,7 +100,7 @@ namespace ChampionsOfForest.Player
                 new Buff(13, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= f, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= f);
                 new Buff(14, "Attack speed increased", false, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
 
-                new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; ;
+                new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; 
 
                 new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false };
 
@@ -120,7 +120,9 @@ namespace ChampionsOfForest.Player
                 { DisplayAsPercent = false };
 
                 new Buff(20, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
-                 new Buff(21, "", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
+
+                new Buff(21, "Armor Corruption", true, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
+
 
             }
             catch (System.Exception ex)
@@ -235,4 +237,8 @@ namespace ChampionsOfForest.Player
 //51 - berserker energy leak
 //60 - frenzy
 //61 - near death experience
-
+//62 - parry immunity
+//63 - cataclysm negative armor
+//64 - cataclysm ms
+//65 - cataclysm as
+//65 - cataclysm cast debuff ms

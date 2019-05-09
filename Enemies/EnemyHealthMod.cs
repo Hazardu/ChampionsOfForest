@@ -4,6 +4,8 @@ namespace ChampionsOfForest
     public class EnemyHealthMod : EnemyHealth
     {
         public EnemyProgression progression = null;
+        public float LastHitTime;
+        private const float HitMaxFrequency = 0.04f;
 
         //creates progression
         protected override void OnEnable()
@@ -131,7 +133,11 @@ namespace ChampionsOfForest
         public override void HitReal(int damage)
         {
             //Creating a hit marker for every player 
-            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage);
+            if(LastHitTime+ HitMaxFrequency < Time.time)
+            {
+                Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage);
+                LastHitTime = Time.time;
+            }
 
             //if (!ai.creepy_fat)
             //{

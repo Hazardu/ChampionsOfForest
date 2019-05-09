@@ -61,7 +61,15 @@ namespace ChampionsOfForest
             Packed = e.networkId.PackedValue;
             if (GameSetup.IsMpClient)
             {
-                Network.NetworkManager.SendLine("EE" + Packed.ToString() + ";", Network.NetworkManager.Target.OnlyServer);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(6);
+                        w.Write(Packed);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                }
             }
             else
             {

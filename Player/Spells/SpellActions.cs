@@ -1,4 +1,5 @@
 ﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Network;
 using System;
 using TheForest.Utils;
 using UnityEngine;
@@ -391,12 +392,12 @@ namespace ChampionsOfForest.Player
         #region Bash
         public static float BashExtraDamage = 1.06f;
         public static float BashDamageBuff = 1f;
-        public static float BashSlowAmount = 0.2f;
+        public static float BashSlowAmount = 0.7f;
         public static float BashLifesteal = 0.0f;
         public static bool BashEnabled = false;
         public static float BashBleedChance = 0;
         public static float BashBleedDmg = 0.3f;
-        public static float BashDuration = 3;
+        public static float BashDuration = 2;
 
         public static void BashPassiveEnabled(bool on)
         {
@@ -440,10 +441,21 @@ namespace ChampionsOfForest.Player
         {
             if (Frenzy)
             {
-                FrenzyStacks++;
-                FrenzyStacks = Mathf.Min(FrenzyMaxStacks, FrenzyStacks);
-
-                BuffDB.AddBuff(19, 60, FrenzyStacks, 3);
+                if (BuffDB.activeBuffs.ContainsKey(60))
+                {
+                    BuffDB.activeBuffs[60].OnEnd(FrenzyStacks);
+                    FrenzyStacks++;
+                    FrenzyStacks = Mathf.Min(FrenzyMaxStacks, FrenzyStacks);
+                    BuffDB.activeBuffs[60].amount = FrenzyStacks;
+                    BuffDB.activeBuffs[60].duration = 4;
+                    BuffDB.activeBuffs[60].OnStart(FrenzyStacks);
+                }
+                else
+                {
+                    FrenzyStacks++;
+                    FrenzyStacks = Mathf.Min(FrenzyMaxStacks, FrenzyStacks);
+                    BuffDB.AddBuff(19, 60, FrenzyStacks, 4);
+                }
             }
         }
         #endregion
@@ -515,7 +527,86 @@ namespace ChampionsOfForest.Player
         }
         #endregion
 
+        #region Parry
+        public static bool Parry;
+        public static float ParryDamage = 40,ParryRadius = 3,ParryBuffDuration = 10,ParryHeal = 3,ParryEnergy = 5;
+        public static bool ChanceToParryOnHit = false;
+        public static bool ParryIgnites = false;
+        public static void DoParry(Vector3 parryPos)
+        {
+            if (Parry)
+            {
+                BuffDB.AddBuff(6, 61, 1, ParryBuffDuration);
+                var hits = Physics.SphereCastAll(parryPos, ParryRadius, Vector3.one);
+                float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus;
+                dmg *= ModdedPlayer.instance.SpellDamageAmplifier;
+                float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 15  + ModdedPlayer.instance.LifeRegen;
+                heal *= ModdedPlayer.instance.HealingMultipier * ModdedPlayer.instance.SpellDamageAmplifier/5;
+                LocalPlayer.Stats.HealthTarget += heal;
+                LocalPlayer.Stats.Health += heal;
+                ParrySound.Play(parryPos);
+                float energy = ParryEnergy + ModdedPlayer.instance.MaxEnergy / 8;
+                LocalPlayer.Stats.Energy += energy;
+                LocalPlayer.Stats.Stamina += energy;
 
+                DamageMath.DamageClamp(dmg, out int d, out int r);
+
+                if (GameSetup.IsMpClient) {
+                    for (int i = 0; i < hits.Length; i++)
+                    {
+                        if (hits[i].transform.CompareTag("enemyCollide"))
+                        {
+                            BoltEntity e = hits[i].transform.gameObject.GetComponentInParent<BoltEntity>();
+                            if (e != null)
+                            {
+                                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(e);
+                                if(ParryIgnites)
+                                playerHitEnemy.Burn = true;
+                                playerHitEnemy.hitFallDown = true;
+                                playerHitEnemy.Hit = d;
+                                AsyncHit.SendPlayerHitEnemy(playerHitEnemy, r);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < hits.Length; i++)
+                    {
+                        if (hits[i].transform.CompareTag("enemyCollide"))
+                        {
+                            for (int a = 0; a < r; a++)
+                            {
+                                hits[i].transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+                                if(ParryIgnites)
+                                hits[i].transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Cataclysm       
+        public static float CataclysmDamage = 8, CataclysmDuration = 10, CataclysmRadius = 4;
+        public static bool CataclysmArcane = false;
+        public static void CastCataclysm()
+        {
+            Vector3 pos = LocalPlayer.Transform.position;
+            BuffDB.AddBuff(1, 66, 0.2f, 1f);
+            float dmg = CataclysmDamage + ModdedPlayer.instance.SpellDamageBonus / 2;
+            dmg *= ModdedPlayer.instance.SpellAMP;
+            if (BoltNetwork.isRunning)
+            {
+                NetworkManager.SendLine("SC11;" + Math.Round(pos.x, 5) + ";" + Math.Round(pos.y, 5) + ";" + Math.Round(pos.z, 5) + ";" + CataclysmRadius + ";" + dmg + ";" + CataclysmDuration + ";"+(CataclysmArcane?"t":"f")+";f;", NetworkManager.Target.Clients);
+            }
+            if(CataclysmArcane)
+                Effects.Cataclysm.Create(pos, CataclysmRadius, dmg, CataclysmDuration, Effects.Cataclysm.TornadoType.Arcane, false);
+            else
+                Effects.Cataclysm.Create(pos, CataclysmRadius, dmg, CataclysmDuration, Effects.Cataclysm.TornadoType.Fire, false);
+        }
+        #endregion
     }
-   
+
 }

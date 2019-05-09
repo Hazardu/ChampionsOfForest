@@ -243,6 +243,71 @@ namespace ChampionsOfForest.Res
             }
             return Status.TheSame;
         }
+        public static Status CompareVersion(string s1,string s2)
+        {
+            int i = 0;
+            int a = 0;
+            string val = "";
+            int[] values1 = new int[4];
+            int[] values2 = new int[4];
+
+            //filling values1
+            while (i < s1.Length)
+            {
+                if (s1[i] != '.')
+                {
+                    val += s1[i];
+                }
+                else
+                {
+                    values1[a] = int.Parse(val);
+                    val = "";
+                    a++;
+
+                }
+                i++;
+            }
+            if (val != "")
+            {
+                values1[a] = int.Parse(val);
+            }
+            val = "";
+            a = 0;
+            i = 0;
+
+
+            while (i < s2.Length)
+            {
+                if (s2[i] != '.')
+                {
+                    val += s2[i];
+                }
+                else
+                {
+                    values2[a] = int.Parse(val);
+                    val = "";
+                    a++;
+
+                }
+                i++;
+            }
+            if (val != "")
+            {
+                values2[a] = int.Parse(val);
+            }
+            for (i = 0; i < 4; i++)
+            {
+                if (values1[i] > values2[i])
+                {
+                    return Status.Outdated;
+                }
+                else if (values1[i] < values2[i])
+                {
+                    return Status.Newer;
+                }
+            }
+            return Status.TheSame;
+        }
 
         private int CheckedFileNumber;
         private int DownloadedFileNumber;
@@ -797,10 +862,14 @@ namespace ChampionsOfForest.Res
             new Resource(136, "Frenzy.png");
             new Resource(137, "Focus.png");
             new Resource(138, "ItemAxe.png");
+            new Resource(139, "Parry.wav");
+            new Resource(140, "Parry.png");
+            new Resource(141, "Cataclysm.png");
             new Resource(1000, "thundersound.wav");
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);
+            new Resource(2003, "fire", Resource.ResourceType.AssetBundle);
 
         }
     }

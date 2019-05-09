@@ -1,0 +1,44 @@
+﻿AB
+"AA"    //answer for the what is the difficulty query
+"SC"    //spell cast
+"RI"    //remove item"CI"    //create item
+"EE"    //host has been asked to share info on enemy
+"EA"    //host answered info about a enemy and the info is processed
+"ES"    //enemy spell
+"PO"    //poison Player
+"KX"    //kill experience"KY"    //kill experience"RO"    //root the player"ST"    //stun the player
+"RE"	//player has been chained, now spawn effect
+"TR"	//create enemy trap sphere
+"LA"	//create enemy plasma cannon
+"MT"	//create enemy meteor rain
+"RL"	//player's level info, or command to wipe level data"AL"	//add or update some players level to list
+"EH"    //enemy hitmarker"PH"    //player hitmarker"AC"    //slow Enemy"AD"    //sync magic find"AE"	//update magic find for host
+"AF"    //ask for item
+"AG"    //give item to player
+"AH"    //bonus fire damage agnist enemy"CE"    //custom weapon in mp
+"AJ"    //request for enemy damage information 
+"AI"    //answer to client damage
+"AK"    //detonate ball lightning"AM"    //apply DoT to an enemy"AN"    //enemy got bashed"AO"    //enemy got a dmg debuffusing (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+{
+    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+    {
+        w.Write();
+    }
+    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (ModSettings.IsDedicated)  return;

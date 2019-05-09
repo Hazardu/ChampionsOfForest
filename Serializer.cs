@@ -38,9 +38,10 @@ namespace ChampionsOfForest
                 string version = buf.ReadString();
                 if (ModSettings.RequiresNewSave)
                 {
-                    if (Res.ResourceLoader.CompareVersion(version) == Res.ResourceLoader.Status.Outdated)
+                    var ver = Res.ResourceLoader.CompareVersion(version,ModSettings.RequiresNewSaveVersion);
+                    if (ver == Res.ResourceLoader.Status.Newer)
                     {
-
+                    CotfUtils.Log("last time cotf was played on this save was on version: "+ version + "  \ndue to issues with this and following updates, new save will be used. Sorry for inconvienience");
                         return;
                     }
                 }

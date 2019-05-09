@@ -56,6 +56,7 @@ namespace ChampionsOfForest
             }
             if (FromEnemy)
             {
+                transform.localScale = Vector3.zero;
                 yield return new WaitForSeconds(1.5f);
             }
             Destroy(gameObject, duration);
@@ -151,11 +152,10 @@ namespace ChampionsOfForest
             transform.Rotate(Vector3.up * rotationSpeed);
             if (FromEnemy)
             {
-                if (Vector3.Distance(LocalPlayer.Transform.position, transform.position) < scale * 5)
+                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
                 {
-                    if(ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0)
+                    if (ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0)
                     Pull(LocalPlayer.Transform);
-                    LocalPlayer.Stats.HealthChange(-damage * Time.deltaTime * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance));
                 }
             }
             else if (!GameSetup.IsMpClient)
@@ -173,7 +173,7 @@ namespace ChampionsOfForest
 
         private IEnumerator HitEverySecond()
         {
-            while (true)
+            while (!FromEnemy)
             {
 
 
@@ -190,6 +190,19 @@ namespace ChampionsOfForest
                     }
                 }
                 yield return new WaitForSeconds(0.5f);
+            }
+            while (FromEnemy)
+            {
+                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
+                {
+                    LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance)*0.5f);
+                    yield return new WaitForSeconds(0.5f);
+                }
+                else
+                {
+                    yield return null;
+
+                }
             }
         }
 

@@ -170,12 +170,14 @@
 <Compile Include="Effects\BallLightning.cs"  />
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
+<Compile Include="Effects\Cataclysm.cs"  />
 <Compile Include="Effects\DarkBeam.cs"  />
 <Compile Include="Effects\Focus.cs"  />
 <Compile Include="Effects\Gold.cs"  />
 <Compile Include="Effects\MagicArrow.cs"  />
 <Compile Include="Effects\MainMenuVisual.cs"  />
 <Compile Include="Effects\Multishot.cs"  />
+<Compile Include="Effects\ParrySound.cs"  />
 <Compile Include="Effects\Portal.cs"  />
 <Compile Include="Effects\Purge.cs"  />
 <Compile Include="Effects\SnapFreeze.cs"  />
@@ -191,6 +193,7 @@
 <Compile Include="ExpSources\ExpEvents.cs"  />
 <Compile Include="Fun\Cheats.cs"  />
 <Compile Include="Fun\SpaceX.cs"  />
+<Compile Include="Player\AsyncHit.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />

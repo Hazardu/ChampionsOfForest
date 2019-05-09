@@ -15,10 +15,11 @@ namespace ChampionsOfForest
 
 
         public static string Version;
-        public static bool RequiresNewFiles = true;
-        public static bool ALLNewFiles = false;
-        public static bool RequiresNewSave = false;
-        public static List<int> outdatedFiles = new List<int>()
+        public const bool RequiresNewFiles = false;
+        public const bool ALLNewFiles = false;
+        public const bool RequiresNewSave = true;
+        public const string RequiresNewSaveVersion = "1.4.1";
+        public static readonly List<int> outdatedFiles = new List<int>()
         {
            116
         };

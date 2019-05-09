@@ -1671,22 +1671,6 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => BlackFlame.GiveAfterburn = true,
-                DisableMethods = () => BlackFlame.GiveAfterburn = false,
-                Category = PerkCategory.MagicOffense,
-                InheritIDs = new int[] { 100 },
-                LevelRequirement = 20,
-                PointsToBuy = 1,
-                Size = 1,
-                PosOffsetX = 1.5f,
-                PosOffsetY = -3f,
-                Name = "Netherflame", 
-                Description = "Black flames have triple damage",
-                TextureVariation = 0,
-                Endless = false,
-            };
-            new Perk()
-            {
                 ApplyMethods = () => BlackFlame.DmgAmp = 3,
                 DisableMethods = () => BlackFlame.DmgAmp = 1,
                 Category = PerkCategory.MagicOffense,
@@ -1739,12 +1723,12 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.ShieldPersistanceLifetime -= 60f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
-                LevelRequirement = 26,
+                LevelRequirement = 10,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
-                Name = "Shield - Persistance",
+                Name = "Shield - Endurance",
                 Description = "Shield doesnt decay for 1 minute longer.",
                 TextureVariation = 0,
                 Endless = false,
@@ -1764,8 +1748,55 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = false,
             };
-
-
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f,
+                DisableMethods = () => ModdedPlayer.instance.EnergyRegenPerInt -= 0.005f,
+                Category = PerkCategory.Utility,
+                Icon = null,
+                InheritIDs = new int[] { 21 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = -0.75f,
+                Name = "Stamina Recovery II",
+                Description = "Every point of INTELLIGENCE further increases stamina recover by 0.5%.",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.ParryIgnites = true,
+                DisableMethods = () => SpellActions.ParryIgnites = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 16 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 0.75f,
+                Name = "Flame Guard",
+                Description = "Parry ignites enemies",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.ParryRadius++,
+                DisableMethods = () => SpellActions.ParryRadius--,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 19 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 3f,
+                Name = "Parry range",
+                Description = "Increases the radius of parry by 1m",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

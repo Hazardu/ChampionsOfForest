@@ -429,7 +429,8 @@ namespace ChampionsOfForest
                             AirBreathing.DamageCounter += AirBreathing.Damage * Time.deltaTime;
                             if (AirBreathing.DamageCounter >= 1f)
                             {
-                                Hit((int)AirBreathing.DamageCounter, true, DamageType.Drowning);
+                                int dmg =3+(int)(ModdedPlayer.instance.MaxHealth * 0.1f);
+                                Hit(dmg, true, DamageType.Drowning);
                                 AirBreathing.DamageCounter -= (int)AirBreathing.DamageCounter;
                             }
                             if (Dead)
@@ -596,7 +597,8 @@ namespace ChampionsOfForest
                             {
                                 if (FrostDamageSettings.DamageChance == 0)
                                 {
-                                    Hit((int)(FrostDamageSettings.Damage * GameSettings.Survival.FrostDamageRatio), true, DamageType.Frost);
+                                    
+                                    Hit((int)((ModdedPlayer.instance.MaxHealth * 0.015f + FrostDamageSettings.Damage) * GameSettings.Survival.FrostDamageRatio), true, DamageType.Frost);
                                     FrostScript.coverage = 0.506f;
                                     FrostDamageSettings.DoDeFrost = true;
                                     FrostDamageSettings.CurrentTimer = 0f;
@@ -764,7 +766,11 @@ namespace ChampionsOfForest
             base.Hit(damage, ignoreArmor, type);
         }
 
-
+        public override void hitFromEnemy(int getDamage)
+        {
+            ModdedPlayer.instance.OnGetHit();
+            base.hitFromEnemy(getDamage);
+        }
         protected override void AteBlueBerry()
         {
             base.AteBlueBerry();
@@ -821,9 +827,21 @@ namespace ChampionsOfForest
         {
             base.AtePlaneFood();
         }
+
+        public override void PoisonMe()
+        {
+            this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth*0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Physical);
+        }
+        public override void HitWaterDelayed(int damage)
+        {
+            base.HitWaterDelayed(damage);
+            this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth *0.01f* damage) * TheForest.Utils.Settings.GameSettings.Survival.PolutedWaterDamageRatio), true, global::PlayerStats.DamageType.Poison);
+        }
+        
+
         protected override void HitFire()
         {
-            this.Hit(Mathf.RoundToInt((ModdedPlayer.instance.MaxHealth * 0.02f + 4) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, global::PlayerStats.DamageType.Fire);
+            this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth * 0.01f + 3) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
             if (TheForest.Utils.LocalPlayer.AnimControl.skinningAnimal)
             {
                 TheForest.Utils.LocalPlayer.SpecialActions.SendMessage("forceSkinningReset");
