@@ -73,20 +73,42 @@ namespace ChampionsOfForest
                 if (LevelRequestCooldown < 0)
                 {
                     LevelRequestCooldown = 90;
-                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
-
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(18);
+                            w.Write("x");
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                    }
                 }
                 else if (Players.Count != PlayerLevels.Count + 1)
                 {
                     LevelRequestCooldown = 90;
                     PlayerLevels.Clear();
                     //PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
-                    Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(18);
+                            w.Write("x");
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                    }
                 }
                 MFindRequestCooldown--;
                 if (MFindRequestCooldown <= 0)
                 {
-                    Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(23);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    }
                     MFindRequestCooldown = 300;
 
                 }
@@ -106,7 +128,15 @@ namespace ChampionsOfForest
         {
             if (GameSetup.IsMpServer)
             {
-                Network.NetworkManager.SendLine("RLx", Network.NetworkManager.Target.Clients);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(18);
+                        w.Write("x");
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                }
             }
         }
         public static float DamageReduction(int armor)

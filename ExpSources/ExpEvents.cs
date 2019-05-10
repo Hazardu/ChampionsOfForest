@@ -19,7 +19,15 @@ namespace ChampionsOfForest.ExpSources
             int xp = 10;
             if (GameSetup.IsMultiplayer)
             {
-                Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(11);
+                        w.Write(xp);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                }
             }
             else
             {
@@ -32,7 +40,16 @@ namespace ChampionsOfForest.ExpSources
             int xp = 300;
             if (GameSetup.IsMultiplayer)
             {
-                Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
+
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(11);
+                        w.Write(xp);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                }
             }
             else
             {

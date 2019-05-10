@@ -160,53 +160,53 @@ namespace ChampionsOfForest.Player
                                 MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerID, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
                                 if (BoltNetwork.isRunning)
                                 {
-                                    string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
-                                    s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
-                                    if (SpellActions.MagicArrowDoubleSlow)
+                                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                                     {
-                                        s += "t;";
-                                    }
-                                    else
-                                    {
-                                        s += "f;";
-                                    }
+                                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                        {
+                                            w.Write(3);
+                                            w.Write(7);
+                                            w.Write(pos.x);
+                                            w.Write(pos.y);
+                                            w.Write(pos.z);
+                                            w.Write(dir.x);
+                                            w.Write(dir.y);
+                                            w.Write(dir.z);
+                                            w.Write(damage);
+                                            w.Write(ModReferences.ThisPlayerID);
+                                            w.Write(SpellActions.MagicArrowDuration);
+                                            w.Write(SpellActions.MagicArrowDoubleSlow);
+                                            w.Write(SpellActions.MagicArrowDmgDebuff);
 
-                                    if (SpellActions.MagicArrowDmgDebuff)
-                                    {
-                                        s += "t;";
+                                        }
+                                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
                                     }
-                                    else
-                                    {
-                                        s += "f;";
-                                    }
-
-                                    Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
                                 }
                             }
                             else if (GameSetup.IsMpClient)
                             {
                                 MagicArrow.CreateEffect(pos, dir, SpellActions.MagicArrowDmgDebuff, SpellActions.MagicArrowDuration);
-                                string s = "SC7;" + System.Math.Round(pos.x, 5) + ";" + System.Math.Round(pos.y, 5) + ";" + System.Math.Round(pos.z, 5) + ";" + System.Math.Round(dir.x, 5) + ";" + System.Math.Round(dir.y, 5) + ";" + System.Math.Round(dir.z, 5) + ";";
-                                s += damage + ";" + ModReferences.ThisPlayerID + ";" + SpellActions.MagicArrowDuration + ";";
-                                if (SpellActions.MagicArrowDoubleSlow)
+                                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                                 {
-                                    s += "t;";
-                                }
-                                else
-                                {
-                                    s += "f;";
-                                }
+                                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                    {
+                                        w.Write(3);
+                                        w.Write(7);
+                                        w.Write(pos.x);
+                                        w.Write(pos.y);
+                                        w.Write(pos.z);
+                                        w.Write(dir.x);
+                                        w.Write(dir.y);
+                                        w.Write(dir.z);
+                                        w.Write(damage);
+                                        w.Write(ModReferences.ThisPlayerID);
+                                        w.Write(SpellActions.MagicArrowDuration);
+                                        w.Write(SpellActions.MagicArrowDoubleSlow);
+                                        w.Write(SpellActions.MagicArrowDmgDebuff);
 
-                                if (SpellActions.MagicArrowDmgDebuff)
-                                {
-                                    s += "t;";
+                                    }
+                                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
                                 }
-                                else
-                                {
-                                    s += "f;";
-                                }
-
-                                Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.Others);
                             }
                         }
                     }
@@ -274,7 +274,18 @@ NewHitAi(target, flag || flag3, headDamage);
                         BoltEntity e = target.GetComponentInParent<BoltEntity>();
                         if (e != null)
                         {
-                            Network.NetworkManager.SendLine("AH" + e.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(27);
+                                    w.Write( e.networkId.PackedValue);
+                                    w.Write(dmg);
+                                    w.Write( 4.5f);
+                                    w.Write( 1);
+                                }
+                                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                            }
                         }
                     }
                 }
@@ -459,17 +470,37 @@ NewHitAi(target, flag || flag3, headDamage);
                         if (SpellActions.FocusBonusDmg == 0)
                         {
                             //slow enemy by 80%
-                            string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.FocusSlowAmount + ";" + SpellActions.FocusSlowDuration + ";" + 90 + ";";
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(22);
+                                    w.Write( componentInParent.networkId.PackedValue);
+                                    w.Write(SpellActions.FocusSlowAmount);
+                                    w.Write(SpellActions.FocusSlowDuration);
+                                    w.Write(90);
+                                }
+                            AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                            }
                             //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
-                            AsyncHit.SendCommandDelayed(1, s, Network.NetworkManager.Target.OnlyServer);
                         }
                     }
                     else if (SpellActions.SeekingArrow)
                     {
                         //slow enemy by 80%
-                        string s = "AC" + componentInParent.networkId.PackedValue + ";" + SpellActions.SeekingArrow_SlowAmount + ";" + SpellActions.SeekingArrow_SlowDuration + ";" + 91 + ";";
-                        //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
-                        AsyncHit.SendCommandDelayed(2, s, Network.NetworkManager.Target.OnlyServer);
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                            {
+                                w.Write(22);
+                                w.Write(componentInParent.networkId.PackedValue);
+                                w.Write(SpellActions.SeekingArrow_SlowAmount);
+                                w.Write(SpellActions.SeekingArrow_SlowDuration);
+                                w.Write(91);
+                            }
+                            AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                        }
+                     
                     }
                     if (hitDelay)
                     {

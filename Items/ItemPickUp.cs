@@ -114,7 +114,15 @@ namespace ChampionsOfForest
             }
             else
             {
-                Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(4);
+                        w.Write(ID);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                }
                 PickUpManager.RemovePickup(ID);
                 Destroy(gameObject);
             }
@@ -127,7 +135,15 @@ namespace ChampionsOfForest
                 {
                     if (Player.Inventory.Instance.AddItem(item, amount))
                     {
-                        Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                            {
+                                w.Write(4);
+                                w.Write(ID);
+                            }
+                            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        }
                         PickUpManager.RemovePickup(ID);
                         Destroy(gameObject);
                         return true;
@@ -135,7 +151,17 @@ namespace ChampionsOfForest
                 }
                 else if (Player.Inventory.Instance.HasSpaceFor(item, amount))
                 {
-                    Network.NetworkManager.SendLine("AF" + ID + ";"+amount+";" + ModReferences.ThisPlayerID + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(25);
+                            w.Write(ID);
+                            w.Write(amount);
+                            w.Write(ModReferences.ThisPlayerID);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    }
                 }
             }
             else
@@ -147,7 +173,15 @@ namespace ChampionsOfForest
                         amount--;
                         if (amount <= 0)
                         {
-                            Network.NetworkManager.SendLine("RI" + ID + ";", Network.NetworkManager.Target.Everyone);
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(4);
+                                    w.Write(ID);
+                                }
+                                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                            }
                             PickUpManager.RemovePickup(ID);
                             Destroy(gameObject);
                         }
@@ -157,8 +191,17 @@ namespace ChampionsOfForest
                 }
                 else if (Player.Inventory.Instance.HasSpaceFor(item))
                 {
-                    Network.NetworkManager.SendLine("AF" + ID + ";" + 1 + ";" + ModReferences.ThisPlayerID + ";", Network.NetworkManager.Target.OnlyServer); //asks for the item
-
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(25);
+                            w.Write(ID);
+                            w.Write(1);
+                            w.Write(ModReferences.ThisPlayerID);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    }
                 }
             }
             return false;

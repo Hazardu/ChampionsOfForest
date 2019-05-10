@@ -41,12 +41,12 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        public static void SendCommandDelayed(int frames, string s, Network.NetworkManager.Target target)
+        public static void SendCommandDelayed(int frames, byte[] s, Network.NetworkManager.Target target)
         {
             instance.StartCoroutine(instance.SendCommandDelayedCoroutine(frames, s, target));
         }
 
-        public IEnumerator SendCommandDelayedCoroutine(int frames, string s, Network.NetworkManager.Target target)
+        public IEnumerator SendCommandDelayedCoroutine(int frames, byte[] s, Network.NetworkManager.Target target)
         {
             for (int i = 0; i < frames; i++)
             {

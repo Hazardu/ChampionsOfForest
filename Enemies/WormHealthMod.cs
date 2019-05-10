@@ -80,8 +80,18 @@ namespace ChampionsOfForest.Enemies
                             break;
                     }
                     float Exp = UnityEngine.Random.Range(300, 350);
-                    if(GameSetup.IsMpServer)
-                    Network.NetworkManager.SendLine("KX" + Convert.ToInt64(Exp*multipier / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))) + ";", Network.NetworkManager.Target.Everyone);
+                    if (GameSetup.IsMpServer)
+                    {
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                            {
+                                w.Write(10);
+                                w.Write(Convert.ToInt64(Exp*multipier / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                            }
+                            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        }
+                    }
                     else
                     {
                         ModdedPlayer.instance.AddKillExperience(Convert.ToInt64(Exp * multipier));

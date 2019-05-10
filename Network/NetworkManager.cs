@@ -66,6 +66,37 @@ namespace ChampionsOfForest.Network
                 }
             }
         }
+
+        public static void SendText(string text, Target target)
+        {
+            {
+                if (BoltNetwork.isRunning)
+                {
+                    ChatEvent chatEvent = null;
+                    switch (target)
+                    {
+                        case Target.OnlyServer:
+                            chatEvent = ChatEvent.Create(GlobalTargets.OnlyServer);
+                            break;
+                        case Target.Everyone:
+                            chatEvent = ChatEvent.Create(GlobalTargets.Everyone);
+                            break;
+                        case Target.Clients:
+                            chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
+                            break;
+                        case Target.Others:
+                            chatEvent = ChatEvent.Create(GlobalTargets.Others);
+                            break;
+                        default:
+                            break;
+                    }
+                    chatEvent.Message = text;
+                    chatEvent.Sender = ChatBoxMod.ModNetworkID;
+                    chatEvent.Send();
+                }
+            }
+        }
+
         public static void SendLine(byte[] bytearray, BoltConnection con)
         {
             if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
@@ -138,35 +169,76 @@ namespace ChampionsOfForest.Network
                 id++;
             }
             lastDropID = id;
-            string msg = "CI" + item.ID + ";" + id + ";" + item.level + ";" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
-            foreach (ItemStat stat in item.Stats)
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
-                msg += stat.StatID + ";" + stat.Amount + ";";
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                {
+                    w.Write(5);
+                    w.Write(item.ID);
+                    w.Write(id);
+                    w.Write(item.level);
+                    w.Write(amount);
+                    w.Write(pos.x);
+                    w.Write(pos.y);
+                    w.Write(pos.z);
+                    foreach (ItemStat stat in item.Stats)
+                    {
+                        w.Write(stat.StatID);
+                        w.Write(stat.Amount);
+                    }
+                }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
             }
-            SendLine(msg, Network.NetworkManager.Target.Everyone);
-
         }
         public static void SendItemToPlayer(Item item, string playerID, int amount = 1)
         {
-            string msg = "AG"+ playerID + ";" + item.ID + ";"+ amount+ ";" + item.level + ";";
-            foreach (ItemStat stat in item.Stats)
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
-                msg += stat.StatID + ";" + stat.Amount + ";";
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                {
+                    w.Write(26);
+                    w.Write(playerID);
+                    w.Write(item.ID);
+                    w.Write(amount);
+                    w.Write(item.level);
+                    foreach (ItemStat stat in item.Stats)
+                    {
+                        w.Write(stat.StatID);
+                        w.Write(stat.Amount);
+                    }
+                }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
             }
-            SendLine(msg, Network.NetworkManager.Target.Everyone);
-
         }
         public static void SendHitmarker(Vector3 pos, int amount)
         {
-            string msg = "EH" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
-            SendLine(msg, Network.NetworkManager.Target.Everyone);
-
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            {
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                {
+                    w.Write(20);
+                    w.Write(amount);
+                    w.Write(pos.x);
+                    w.Write(pos.y);
+                    w.Write(pos.z);
+                }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+            }
         }
            public static void SendPlayerHitmarker(Vector3 pos, int amount)
         {
-            string msg = "PH" + amount + ";" + pos.x + ";" + pos.y + ";" + pos.z + ";";
-            SendLine(msg, Network.NetworkManager.Target.Everyone);
-
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            {
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                {
+                    w.Write(21);
+                    w.Write(amount);
+                    w.Write(pos.x);
+                    w.Write(pos.y);
+                    w.Write(pos.z);
+                }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+            }
         }
      
     }

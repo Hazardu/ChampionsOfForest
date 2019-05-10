@@ -362,7 +362,7 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    NetworkManager.SendLine("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " HAS REACHED LEVEL " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
+                    NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " HAS REACHED LEVEL " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
    
                 }
             }
@@ -379,7 +379,7 @@ namespace ChampionsOfForest
                     {
                         s += regex.Match(item.Value.UniqueId).Value + " [" + item.Value.Version + "]\n";
                     }
-                    NetworkManager.SendLine(s, NetworkManager.Target.Everyone);
+                    NetworkManager.SendText(s, NetworkManager.Target.Everyone);
                 }
             }
         }
@@ -391,7 +391,7 @@ namespace ChampionsOfForest
                 if (BoltNetwork.isRunning)
                 {
                     string s = "II"+Player + " LEFT! FAREWELL!";
-                    NetworkManager.SendLine(s, NetworkManager.Target.Everyone);
+                    NetworkManager.SendText(s, NetworkManager.Target.Everyone);
                 }
             }
         }
@@ -766,7 +766,16 @@ namespace ChampionsOfForest
             {
                 if (GameSetup.IsMultiplayer)
                 {
-                    NetworkManager.SendLine("AL" + ModReferences.ThisPlayerID + ";" + ModdedPlayer.instance.Level + ";", NetworkManager.Target.Everyone);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(19);
+                            w.Write(ModReferences.ThisPlayerID);
+                            w.Write(ModdedPlayer.instance.Level);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    }
                 }
             }
         }
@@ -791,20 +800,49 @@ namespace ChampionsOfForest
             {
                 if (ChanceToBleedOnHit > 0 && Random.value < ChanceToBleedOnHit)
                 {
-                    string s = "AM" + ent.networkId.PackedValue + ";" + Mathf.CeilToInt(damage / 20) + ";10;";
-                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(32);
+                            w.Write(ent.networkId.PackedValue);
+                            w.Write(Mathf.CeilToInt(damage / 20));
+                            w.Write(10);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    }
                 }
                 if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
                 {
                     int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                    string s = "AC" + ent.networkId.PackedValue + ";" + 0.5f + ";8;" + id + ";";
-                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(22);
+                            w.Write(ent.networkId.PackedValue);
+                            w.Write(0.5f);
+                            w.Write(8f);
+                            w.Write(id);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    }
                 }
                 if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
                 {
                     int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                    string s = "AO" + ent.networkId.PackedValue + ";" + id + ";" + 1.2f + ";8;";
-                    Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                    {
+                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                        {
+                            w.Write(34);
+                            w.Write(ent.networkId.PackedValue );
+                            w.Write(id);
+                            w.Write(1.2f);
+                            w.Write(8f);
+                        }
+                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    }
                 }
             }
         }

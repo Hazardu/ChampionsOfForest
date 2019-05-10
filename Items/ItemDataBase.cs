@@ -363,7 +363,14 @@ namespace ChampionsOfForest
             MagicFind = ModdedPlayer.instance.MagicFindMultipier;
             if (GameSetup.IsMultiplayer)
             {
-                Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Clients);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(23);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                }
             }
         }
 

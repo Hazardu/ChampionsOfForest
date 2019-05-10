@@ -539,9 +539,18 @@ namespace ChampionsOfForest.Player
                             else if (playerHitEnemy != null)
                             {
                                 int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                                string s = "AO" + playerHitEnemy.Target.networkId.PackedValue + ";" + id + ";" + 1.15f + ";25;";
-                                AsyncHit.SendCommandDelayed(1, s, NetworkManager.Target.OnlyServer);
-                                //Network.NetworkManager.SendLine(s, NetworkManager.Target.OnlyServer);
+                                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                                {
+                                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                    {
+                                        w.Write(34);
+                                        w.Write(playerHitEnemy.Target.networkId.PackedValue);
+                                        w.Write(id);
+                                        w.Write(1.15f);
+                                        w.Write(25f);
+                                    }
+                                AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                }
                             }
                         }
                     }
@@ -556,10 +565,18 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            string s = "AC" + playerHitEnemy.Target.networkId.PackedValue + ";" + ModdedPlayer.instance.HammerStunAmount + ";" + ModdedPlayer.instance.HammerStunDuration + ";40;";
-                            AsyncHit.SendCommandDelayed(2, s, NetworkManager.Target.OnlyServer);
-
-                            //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(22);
+                                    w.Write(playerHitEnemy.Target.networkId.PackedValue);
+                                    w.Write(ModdedPlayer.instance.HammerStunAmount);
+                                    w.Write(ModdedPlayer.instance.HammerStunDuration);
+                                    w.Write(40);
+                                }
+                            AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                            }
                         }
                     }
 
@@ -584,8 +601,19 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            string s = "AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;";
-                            AsyncHit.SendCommandDelayed(3, s, NetworkManager.Target.OnlyServer);
+                      
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(27);
+                                    w.Write(playerHitEnemy.Target.networkId.PackedValue);
+                                    w.Write(Effects.BlackFlame.FireDamageBonus);
+                                    w.Write(20f);
+                                    w.Write(1);
+                                }
+                                AsyncHit.SendCommandDelayed(3, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                            }
 
                             //Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;", Network.NetworkManager.Target.OnlyServer);
                         }
@@ -602,9 +630,18 @@ namespace ChampionsOfForest.Player
                         }
                         else if (playerHitEnemy != null)
                         {
-                            string s = "AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1;";
-                            AsyncHit.SendCommandDelayed(4, s, NetworkManager.Target.OnlyServer);
-                            //Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + dmg + ";" + 4.5f + ";1", Network.NetworkManager.Target.OnlyServer);
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(27);
+                                    w.Write(playerHitEnemy.Target.networkId.PackedValue);
+                                    w.Write(dmg);
+                                    w.Write(5);
+                                    w.Write(4);
+                                }
+                                AsyncHit.SendCommandDelayed(4, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                            }
                         }
                     }
 

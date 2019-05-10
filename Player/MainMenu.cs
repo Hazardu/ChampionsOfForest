@@ -737,7 +737,15 @@ namespace ChampionsOfForest
             GUI.Label(r, "Please wait for the host to choose a difficulty", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = MainFont, fontSize = Mathf.RoundToInt(50 * rr) });
             if (requestResendTime <= 0)
             {
-                Network.NetworkManager.SendLine("AB", Network.NetworkManager.Target.OnlyServer);
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(1);
+                        
+                    }
+                Network.NetworkManager.SendLine( answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                }
                 requestResendTime = 2;
             }
             else

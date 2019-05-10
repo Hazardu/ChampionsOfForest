@@ -303,14 +303,31 @@ namespace ChampionsOfForest.Items
         {
             ChampionsOfForest.ModdedPlayer.instance.MagicFindMultipier += f;
             if(GameSetup.IsMultiplayer)
-            Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
-
+            {
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(23);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                }
+            }
         }
         public static void RemoveMagicFind(float f)
         {
             ChampionsOfForest.ModdedPlayer.instance.MagicFindMultipier -= f;
             if (GameSetup.IsMultiplayer)
-                Network.NetworkManager.SendLine("AD", Network.NetworkManager.Target.Everyone);
+            {
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(23);
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                }
+            }
         }
 
         public static void AddAllStats(float f)

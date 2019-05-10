@@ -8,9 +8,9 @@ namespace ChampionsOfForest.Player
     internal class PlayerInventoryMod : PlayerInventory
     {
 
-        public static Vector3 Rot;
-        public static Vector3 Pos;
-        public static float Sca;
+        //public static Vector3 Rot;
+        //public static Vector3 Pos;
+        //public static float Sca;
         public static PlayerInventoryMod instance;
 
         public static InventoryItemView originalPlaneAxe;
@@ -42,7 +42,16 @@ namespace ChampionsOfForest.Player
 
                         if (BoltNetwork.isRunning)
                         {
-                            Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";" + (int)PlayerInventoryMod.ToEquipWeaponType + ";", NetworkManager.Target.Others);
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(28);
+                                    w.Write(ModReferences.ThisPlayerID);
+                                    w.Write((int)PlayerInventoryMod.ToEquipWeaponType);
+                                }
+                                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                            }
                         }
 
 
@@ -144,7 +153,16 @@ namespace ChampionsOfForest.Player
                     }
                     else if (BoltNetwork.isRunning)
                     {
-                        Network.NetworkManager.SendLine("CE" + ModReferences.ThisPlayerID + ";0;", NetworkManager.Target.Others);
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                            {
+                                w.Write(28);
+                                w.Write(ModReferences.ThisPlayerID);
+                                w.Write(0);
+                            }
+                            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                        }
                     }
                 }
             }
