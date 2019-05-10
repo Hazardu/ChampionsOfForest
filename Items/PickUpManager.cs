@@ -39,6 +39,7 @@ namespace ChampionsOfForest
                     }
 
                     spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.45f;
+                
                     renderer.material = pickupMaterial;
 
                     switch (item._itemType)
@@ -74,6 +75,7 @@ namespace ChampionsOfForest
                             } else if (item.weaponModel == BaseItem.WeaponModelType.Axe)
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[2001];
+                                renderer.materials = new Material[] { pickupMaterial, pickupMaterial };
 
                             }
 

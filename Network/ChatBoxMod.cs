@@ -44,6 +44,7 @@ namespace ChampionsOfForest.Network
                     
                     return;
                 }
+                ModAPI.Console.Write(message);
                 NetworkManager.RecieveLine(NetworkManager.DecodeCommand( message));
 
             }

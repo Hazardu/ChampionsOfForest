@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using TheForest.Save;
 using TheForest.Utils;
 using UnityEngine;
@@ -165,16 +166,14 @@ namespace ChampionsOfForest
 
 
 
-        private IEnumerator DoSaveCoroutine()
+        private static void DoSave()
         {
             Saving = true;
             while (Path() == string.Empty)
             {
-                yield return null;
-
+                Thread.Sleep(20);
             }
-            yield return new WaitForSeconds(1);
-
+            Thread.Sleep(1000);
 
 
             MemoryStream stream = new MemoryStream();
@@ -345,7 +344,9 @@ namespace ChampionsOfForest
             CreateInstance();
             if (!Saving)
             {
-                Instance.StartCoroutine(Instance.DoSaveCoroutine());
+                Thread saveThread = new Thread(DoSave);
+                saveThread.Start();
+                
             }
         }
 

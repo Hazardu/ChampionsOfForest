@@ -88,14 +88,7 @@ namespace ChampionsOfForest.Res
                 MissingMods = true;
                 return;
             }
-
-
-
-
-
-
-
-
+            
             if (instance == null)
             {
                 instance = this;

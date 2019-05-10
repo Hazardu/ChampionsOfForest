@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TheForest;
 using UnityEngine;
@@ -62,6 +63,7 @@ namespace ChampionsOfForest.Fun
             Debug.LogWarning("Avaible champions of the forest commands:");
             Debug.LogWarning("cotfnocooldowns [on, off, no parameter to toggle]");
             Debug.LogWarning("cotfspawnitem [item id] [level]");
+            Debug.LogWarning("cotfspawnitembyname [item name]");
             Debug.LogWarning("cotfaddlevel [amount]");
             Debug.LogWarning("cotfsetlevel [amount]");
             Debug.LogWarning("cotfaddpoints [amount]");
@@ -135,10 +137,22 @@ namespace ChampionsOfForest.Fun
             var splited = param.Split(new char[] { ' ' });
             if (splited.Length != 2)
             {
-                Debug.LogWarning("Wrong command usage retard \t cotfspawnitem [item id] [level]");
+                Debug.LogWarning("Wrong command usage \t cotfspawnitem [item id] [level]");
                 return;
             }
             CotfCheats.CotfItem(int.Parse(splited[0]), int.Parse(splited[1]));
         }
+        private void _cotfspawnitembyname(string param)
+        {
+            var matches = ItemDataBase.ItemBases.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.ID).ToArray();
+            if (matches.Length > 0)
+            {
+            CotfCheats.CotfItem(matches[0], ModdedPlayer.instance.Level);
+                return;
+            }
+                Debug.LogWarning("Wrong command usage \t cotfspawnitembyname [itemname]");
+                return;
+        }
+
     }
 }
