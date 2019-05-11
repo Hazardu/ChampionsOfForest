@@ -59,8 +59,10 @@ namespace ChampionsOfForest.Enemies
                                     {
                                         w.Write(29);
                                         w.Write(entity.networkId.PackedValue);
+                                    w.Close();
                                     }
                                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                                    answerStream.Close();
                                 }
                             }
                         }

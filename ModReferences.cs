@@ -79,8 +79,10 @@ namespace ChampionsOfForest
                         {
                             w.Write(18);
                             w.Write("x");
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                        answerStream.Close();
                     }
                 }
                 else if (Players.Count != PlayerLevels.Count + 1)
@@ -94,8 +96,10 @@ namespace ChampionsOfForest
                         {
                             w.Write(18);
                             w.Write("x");
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                        answerStream.Close();
                     }
                 }
                 MFindRequestCooldown--;
@@ -106,8 +110,10 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(23);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                     MFindRequestCooldown = 300;
 
@@ -134,8 +140,10 @@ namespace ChampionsOfForest
                     {
                         w.Write(18);
                         w.Write("x");
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                    answerStream.Close();
                 }
             }
         }
@@ -168,17 +176,16 @@ namespace ChampionsOfForest
                             if (hand != null)
                             {
                                 PlayerHands.Add(playerName, hand);
-                                ModAPI.Console.Write("added hand for " + playerName);
                             }
                             else
                             {
-                                ModAPI.Console.Write(ListAllChildren(Scene.SceneTracker.allPlayers[i].transform.root, ""));
+                                //ModAPI.Console.Write(ListAllChildren(Scene.SceneTracker.allPlayers[i].transform.root, ""));
                             }
                         }
                     }
                     catch (Exception e)
                     {
-                        ModAPI.Console.Write(e.Message);
+                        ModAPI.Log.Write(e.Message);
                     }
                 }
             }
@@ -250,7 +257,7 @@ namespace ChampionsOfForest
             catch (Exception e)
             {
 
-                ModAPI.Console.Write("couldnt find hand " + e.ToString());
+                ModAPI.Log.Write("couldnt find hand " + e.ToString());
 
             }
             return null;

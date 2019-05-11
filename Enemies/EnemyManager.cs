@@ -145,8 +145,10 @@ namespace ChampionsOfForest
                     {
                         w.Write(6);
                         w.Write(e.networkId.PackedValue);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    answerStream.Close();
                 }
                 LastAskedTime = Time.time;
             }

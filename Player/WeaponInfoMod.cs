@@ -548,8 +548,10 @@ namespace ChampionsOfForest.Player
                                         w.Write(id);
                                         w.Write(1.15f);
                                         w.Write(25f);
+                                    w.Close();
                                     }
                                 AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                    answerStream.Close();
                                 }
                             }
                         }
@@ -574,8 +576,10 @@ namespace ChampionsOfForest.Player
                                     w.Write(ModdedPlayer.instance.HammerStunAmount);
                                     w.Write(ModdedPlayer.instance.HammerStunDuration);
                                     w.Write(40);
+                                w.Close();
                                 }
                             AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                answerStream.Close();
                             }
                         }
                     }
@@ -611,8 +615,10 @@ namespace ChampionsOfForest.Player
                                     w.Write(Effects.BlackFlame.FireDamageBonus);
                                     w.Write(20f);
                                     w.Write(1);
+                                w.Close();
                                 }
                                 AsyncHit.SendCommandDelayed(3, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                answerStream.Close();
                             }
 
                             //Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;", Network.NetworkManager.Target.OnlyServer);
@@ -639,8 +645,10 @@ namespace ChampionsOfForest.Player
                                     w.Write(dmg);
                                     w.Write(5);
                                     w.Write(4);
+                                w.Close();
                                 }
                                 AsyncHit.SendCommandDelayed(4, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                answerStream.Close();
                             }
                         }
                     }

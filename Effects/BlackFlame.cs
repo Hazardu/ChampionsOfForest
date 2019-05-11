@@ -97,26 +97,31 @@ namespace ChampionsOfForest.Effects
         public void Start()
         {
             StartCoroutine(StartCoroutine());
+            if (instance == null)
+                instance = this;
         }
-
         public IEnumerator StartCoroutine()
         {
+                yield return null;
+                yield return null;
             while (ModReferences.rightHandTransform == null)
             {
                 yield return null;
-                Debug.Log("Waiting for setup");
                 if (LocalPlayer.Inventory != null)
                 {
                     LocalPlayer.Inventory.Equip(80, false);
                 }
             }
             yield return null;
-            instanceLocalPlayer = Create();
-            instanceLocalPlayer.transform.position = ModReferences.rightHandTransform.position;
-            instanceLocalPlayer.transform.rotation = ModReferences.rightHandTransform.rotation;
-            instanceLocalPlayer.transform.parent = ModReferences.rightHandTransform;
-            instanceLocalPlayer.SetActive(false);
-            instance = this;
+            if (instanceLocalPlayer == null)
+            {
+                instanceLocalPlayer = Create();
+                instanceLocalPlayer.transform.position = ModReferences.rightHandTransform.position;
+                instanceLocalPlayer.transform.rotation = ModReferences.rightHandTransform.rotation;
+                instanceLocalPlayer.transform.parent = ModReferences.rightHandTransform;
+                instanceLocalPlayer.SetActive(false);
+            }
+
 
         }
 
@@ -150,8 +155,10 @@ namespace ChampionsOfForest.Effects
                         w.Write(4);
                         w.Write(IsOn);
                         w.Write(ModReferences.ThisPlayerID);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    answerStream.Close();
                 }
 
 

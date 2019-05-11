@@ -88,8 +88,10 @@ namespace ChampionsOfForest.Enemies
                             {
                                 w.Write(10);
                                 w.Write(Convert.ToInt64(Exp*multipier / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                            w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                            answerStream.Close();
                         }
                     }
                     else

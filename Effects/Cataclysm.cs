@@ -33,11 +33,9 @@ namespace ChampionsOfForest.Effects
             try
             {
                 GameObject go = tornadoType == TornadoType.Fire ? GameObject.Instantiate(fireprefab) : GameObject.Instantiate(arcanaprefab);
-                //float scale = radius / 18.5f;
                 radius = 18.5f;
                 go.transform.position = position + Vector3.down * 2;
                 go.transform.rotation = Quaternion.identity;
-                //go.transform.localScale = Vector3.one * scale * ScaleMult;
                 Cataclysm c = go.AddComponent<Cataclysm>();
                 c.damage = damage;
                 c.radius = radius;
@@ -47,7 +45,6 @@ namespace ChampionsOfForest.Effects
             }
             catch (Exception e)
             {
-
                 CotfUtils.Log("Creating cataclym error " + e.Message);
             }
         }
@@ -105,13 +102,13 @@ namespace ChampionsOfForest.Effects
             particleParent.transform.Rotate(Vector3.up * Time.deltaTime * 45);
             if (warmUpDone)
             {
-                if (lastHitTime + HitFrequency < Time.time&&!GameSetup.IsMpClient)
+                if (lastHitTime + HitFrequency < Time.time)
                 {
                     if (isFromEnemy)
                     {
                         SendHitFromEnemy();
                     }
-                    else
+                    else if(!BoltNetwork.isClient)
                     {
                         SendHitFromPlayer();
                     }

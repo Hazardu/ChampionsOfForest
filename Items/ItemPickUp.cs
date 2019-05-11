@@ -23,7 +23,7 @@ namespace ChampionsOfForest
             }
 
             if (amount == 0)
-            {
+            { 
                 amount = item.Amount;
             }
             item.Amount = 1;
@@ -120,8 +120,10 @@ namespace ChampionsOfForest
                     {
                         w.Write(4);
                         w.Write(ID);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    answerStream.Close();
                 }
                 PickUpManager.RemovePickup(ID);
                 Destroy(gameObject);
@@ -141,8 +143,10 @@ namespace ChampionsOfForest
                             {
                                 w.Write(4);
                                 w.Write(ID);
+                            w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                            answerStream.Close();
                         }
                         PickUpManager.RemovePickup(ID);
                         Destroy(gameObject);
@@ -159,8 +163,10 @@ namespace ChampionsOfForest
                             w.Write(ID);
                             w.Write(amount);
                             w.Write(ModReferences.ThisPlayerID);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                        answerStream.Close();
                     }
                 }
             }
@@ -179,8 +185,10 @@ namespace ChampionsOfForest
                                 {
                                     w.Write(4);
                                     w.Write(ID);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                                answerStream.Close();
                             }
                             PickUpManager.RemovePickup(ID);
                             Destroy(gameObject);
@@ -199,8 +207,10 @@ namespace ChampionsOfForest
                             w.Write(ID);
                             w.Write(1);
                             w.Write(ModReferences.ThisPlayerID);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                        answerStream.Close();
                     }
                 }
             }

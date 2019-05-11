@@ -49,8 +49,10 @@ namespace ChampionsOfForest.Player
                                     w.Write(28);
                                     w.Write(ModReferences.ThisPlayerID);
                                     w.Write((int)PlayerInventoryMod.ToEquipWeaponType);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                                answerStream.Close();
                             }
                         }
 
@@ -160,8 +162,10 @@ namespace ChampionsOfForest.Player
                                 w.Write(28);
                                 w.Write(ModReferences.ThisPlayerID);
                                 w.Write(0);
+                            w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                            answerStream.Close();
                         }
                     }
                 }

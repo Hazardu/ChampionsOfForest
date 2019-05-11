@@ -178,8 +178,10 @@ namespace ChampionsOfForest.Player
                                             w.Write(SpellActions.MagicArrowDoubleSlow);
                                             w.Write(SpellActions.MagicArrowDmgDebuff);
 
+                                        w.Close();
                                         }
                                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                                        answerStream.Close();
                                     }
                                 }
                             }
@@ -204,8 +206,10 @@ namespace ChampionsOfForest.Player
                                         w.Write(SpellActions.MagicArrowDoubleSlow);
                                         w.Write(SpellActions.MagicArrowDmgDebuff);
 
+                                    w.Close();
                                     }
                                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                                    answerStream.Close();
                                 }
                             }
                         }
@@ -283,8 +287,10 @@ NewHitAi(target, flag || flag3, headDamage);
                                     w.Write(dmg);
                                     w.Write( 4.5f);
                                     w.Write( 1);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                                answerStream.Close();
                             }
                         }
                     }
@@ -479,8 +485,10 @@ NewHitAi(target, flag || flag3, headDamage);
                                     w.Write(SpellActions.FocusSlowAmount);
                                     w.Write(SpellActions.FocusSlowDuration);
                                     w.Write(90);
+                                w.Close();
                                 }
                             AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                                answerStream.Close();
                             }
                             //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
                         }
@@ -497,8 +505,10 @@ NewHitAi(target, flag || flag3, headDamage);
                                 w.Write(SpellActions.SeekingArrow_SlowAmount);
                                 w.Write(SpellActions.SeekingArrow_SlowDuration);
                                 w.Write(91);
+                            w.Close();
                             }
                             AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                            answerStream.Close();
                         }
                      
                     }

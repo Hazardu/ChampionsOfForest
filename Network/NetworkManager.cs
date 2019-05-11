@@ -186,8 +186,10 @@ namespace ChampionsOfForest.Network
                         w.Write(stat.StatID);
                         w.Write(stat.Amount);
                     }
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
         public static void SendItemToPlayer(Item item, string playerID, int amount = 1)
@@ -206,8 +208,10 @@ namespace ChampionsOfForest.Network
                         w.Write(stat.StatID);
                         w.Write(stat.Amount);
                     }
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
         public static void SendHitmarker(Vector3 pos, int amount)
@@ -221,8 +225,10 @@ namespace ChampionsOfForest.Network
                     w.Write(pos.x);
                     w.Write(pos.y);
                     w.Write(pos.z);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
            public static void SendPlayerHitmarker(Vector3 pos, int amount)
@@ -236,8 +242,10 @@ namespace ChampionsOfForest.Network
                     w.Write(pos.x);
                     w.Write(pos.y);
                     w.Write(pos.z);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
      

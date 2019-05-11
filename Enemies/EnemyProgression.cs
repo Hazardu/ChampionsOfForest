@@ -435,8 +435,10 @@ namespace ChampionsOfForest
                         {
                             w.Write(8);
                             w.Write(entity.networkId.PackedValue);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                        answerStream.Close();
                     }
                 }
 
@@ -482,8 +484,10 @@ namespace ChampionsOfForest
                         {
                             w.Write((int)ability);
                         }
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                    answerStream.Close();
                 }
             }
         }
@@ -822,8 +826,10 @@ namespace ChampionsOfForest
                         {
                             w.Write(10);
                             w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
 
                 }
@@ -1075,8 +1081,10 @@ namespace ChampionsOfForest
                             w.Write(dir.y);
                             w.Write(dir.z);
                             w.Write(Random.Range(-100000, 100000));
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                     MeteorCD = 50f;
                 }
@@ -1144,8 +1152,10 @@ namespace ChampionsOfForest
                             w.Write(boost);
                             w.Write(duration);
                             w.Write(radius);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                  
                     BeamCD = 120f;
@@ -1167,7 +1177,7 @@ namespace ChampionsOfForest
                 if (abilities.Contains(Abilities.Laser) && LaserCD <= 0)
                 {
                     Vector3 dir = closestPlayer.transform.position;
-
+                    
                     LaserCD = 100;
                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                     {
@@ -1180,8 +1190,11 @@ namespace ChampionsOfForest
                             w.Write(dir.x);
                             w.Write(dir.y);
                             w.Write(dir.z);
+                            w.Close();
+                            
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                 }
                 if (abilities.Contains(Abilities.Rooting) && StunCD <= 0)
@@ -1226,8 +1239,10 @@ namespace ChampionsOfForest
                             w.Write(transform.position.y);
                             w.Write(transform.position.z);
                             w.Write(duration);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                     StunCD = Random.Range(15, 30);
                 }
@@ -1247,8 +1262,10 @@ namespace ChampionsOfForest
                                 w.Write(transform.position.z);
                                 w.Write(15);
                                 w.Write(radius);
+                            w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                            answerStream.Close();
                         }
                         TrapCD = 50;
                     }
@@ -1313,8 +1330,10 @@ namespace ChampionsOfForest
                                     w.Write(15);
                                     w.Write(true);
                                     w.Write(true);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                                answerStream.Close();
                             }
                         }
                         Effects.Cataclysm.Create(transform.position, radius, dmg, 15, Effects.Cataclysm.TornadoType.Arcane, true);
@@ -1381,8 +1400,10 @@ namespace ChampionsOfForest
                                     w.Write(18);
                                     w.Write(false);
                                     w.Write(true);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                                answerStream.Close();
                             }
                         }
                         Effects.Cataclysm.Create(transform.position, radius, dmg, 15, Effects.Cataclysm.TornadoType.Fire, true);
@@ -1404,8 +1425,10 @@ namespace ChampionsOfForest
                                     w.Write(8);
                                     w.Write(1);
                                     w.Write(entity.networkId.PackedValue);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                                answerStream.Close();
                             }
                         }
                         else
@@ -1441,8 +1464,10 @@ namespace ChampionsOfForest
                                     w.Write(duration);
                                     w.Write(radius);
                                     w.Write(pullforce);
+                                w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                                answerStream.Close();
                             }
                         }
                         else
@@ -1618,8 +1643,10 @@ namespace ChampionsOfForest
                             w.Write(2);
                             w.Write(entity.networkId.PackedValue);
                             w.Write(aurDmg);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+                        answerStream.Close();
                     }
                 }
             }

@@ -117,8 +117,10 @@ namespace ChampionsOfForest.Player
                     w.Write(healing);
                     w.Write(HealingDomeGivesImmunity);
                     w.Write(duration);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
 
@@ -174,8 +176,10 @@ namespace ChampionsOfForest.Player
                     w.Write(boost);
                     w.Write(duration);
                     w.Write(radius);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
         #endregion
@@ -206,8 +210,10 @@ namespace ChampionsOfForest.Player
                             w.Write(BLACKHOLE_duration);
                             w.Write(BLACKHOLE_radius);
                             w.Write(BLACKHOLE_pullforce);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                     return;
                 }
@@ -227,8 +233,10 @@ namespace ChampionsOfForest.Player
                     w.Write(BLACKHOLE_duration);
                     w.Write(BLACKHOLE_radius);
                     w.Write(BLACKHOLE_pullforce);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
         #endregion
@@ -291,8 +299,10 @@ namespace ChampionsOfForest.Player
                         w.Write(WarCryGiveDamage);
                         w.Write(WarCryGiveArmor);
                         w.Write(WarCryArmor);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    answerStream.Close();
                 }
             }
         }
@@ -353,8 +363,10 @@ namespace ChampionsOfForest.Player
                             w.Write(MagicArrowDuration);
                             w.Write(MagicArrowDoubleSlow);
                             w.Write(MagicArrowDmgDebuff);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                        answerStream.Close();
                     }
                 }
             }
@@ -378,8 +390,10 @@ namespace ChampionsOfForest.Player
                         w.Write(MagicArrowDuration);
                         w.Write(MagicArrowDoubleSlow);
                         w.Write(MagicArrowDmgDebuff);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    answerStream.Close();
                 }
             }
 
@@ -414,8 +428,10 @@ namespace ChampionsOfForest.Player
                         w.Write(pos.z);
                         w.Write(PurgeRadius);
                         w.Write(PurgeHeal);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    answerStream.Close();
                 }
             }
         }
@@ -441,8 +457,10 @@ namespace ChampionsOfForest.Player
                     w.Write(SnapFloatAmount);
                     w.Write(SnapFreezeDuration);
                     w.Write(dmg);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
 
@@ -460,22 +478,49 @@ namespace ChampionsOfForest.Player
             speed.Normalize();
             speed *= 3;
 
-            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            if (BoltNetwork.isClient)
             {
-                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                 {
-                    w.Write(3);
-                    w.Write(10);
-                    w.Write(pos.x);
-                    w.Write(pos.y);
-                    w.Write(pos.z);
-                    w.Write(speed.x);
-                    w.Write(speed.y);
-                    w.Write(speed.z);
-                    w.Write(dmg);
-                    w.Write((uint)(BallLightning.lastID + 1));
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(3);
+                        w.Write(12);
+                        w.Write(pos.x);
+                        w.Write(pos.y);
+                        w.Write(pos.z);
+                        w.Write(speed.x);
+                        w.Write(speed.y);
+                        w.Write(speed.z);
+                        w.Write(dmg);
+                        w.Close();
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    answerStream.Close();
                 }
-                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+            }
+            else
+            {
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(3);
+                        w.Write(10);
+                        w.Write(pos.x);
+                        w.Write(pos.y);
+                        w.Write(pos.z);
+                        w.Write(speed.x);
+                        w.Write(speed.y);
+                        w.Write(speed.z);
+                        w.Write(dmg);
+                        w.Write((uint)(BallLightning.lastID + 1));
+                        w.Close();
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    answerStream.Close();
+                }
+                        BallLightning.lastID++;
             }
         }
 
@@ -531,8 +576,10 @@ namespace ChampionsOfForest.Player
                         w.Write(BashExtraDamage);
                         w.Write(((int)(dmg * BashBleedDmg)));
                         w.Write(BashBleedChance);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    answerStream.Close();
                 }
             }
 
@@ -643,9 +690,9 @@ namespace ChampionsOfForest.Player
             if (Parry)
             {
                 BuffDB.AddBuff(6, 61, 1, ParryBuffDuration);
-                var hits = Physics.SphereCastAll(parryPos, ParryRadius, Vector3.one);
                 float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus;
                 dmg *= ModdedPlayer.instance.SpellDamageAmplifier;
+
                 float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 15  + ModdedPlayer.instance.LifeRegen;
                 heal *= ModdedPlayer.instance.HealingMultipier * ModdedPlayer.instance.SpellDamageAmplifier/5;
                 LocalPlayer.Stats.HealthTarget += heal;
@@ -655,28 +702,33 @@ namespace ChampionsOfForest.Player
                 LocalPlayer.Stats.Energy += energy;
                 LocalPlayer.Stats.Stamina += energy;
 
-                DamageMath.DamageClamp(dmg, out int d, out int r);
 
                 if (GameSetup.IsMpClient) {
-                    for (int i = 0; i < hits.Length; i++)
+                    if (BoltNetwork.isRunning)
                     {
-                        if (hits[i].transform.CompareTag("enemyCollide"))
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                         {
-                            BoltEntity e = hits[i].transform.gameObject.GetComponentInParent<BoltEntity>();
-                            if (e != null)
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                             {
-                                PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(e);
-                                if(ParryIgnites)
-                                playerHitEnemy.Burn = true;
-                                playerHitEnemy.hitFallDown = true;
-                                playerHitEnemy.Hit = d;
-                                AsyncHit.SendPlayerHitEnemy(playerHitEnemy, r);
+                                w.Write(3);
+                                w.Write(13);
+                                w.Write(parryPos.x);
+                                w.Write(parryPos.y);
+                                w.Write(parryPos.z);
+                                w.Write(ParryRadius);
+                                w.Write(ParryIgnites);
+                                w.Write(dmg);
+                                w.Close();
                             }
+                            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                            answerStream.Close();
                         }
-                    }
+                    } 
                 }
                 else
                 {
+                DamageMath.DamageClamp(dmg, out int d, out int r);
+                var hits = Physics.SphereCastAll(parryPos, ParryRadius, Vector3.one);
                     for (int i = 0; i < hits.Length; i++)
                     {
                         if (hits[i].transform.CompareTag("enemyCollide"))
@@ -718,8 +770,10 @@ namespace ChampionsOfForest.Player
                         w.Write(dmg);
                         w.Write(CataclysmDuration);
                         w.Write(false);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    answerStream.Close();
                 }
             }
             if(CataclysmArcane)

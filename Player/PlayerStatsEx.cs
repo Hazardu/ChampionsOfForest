@@ -18,6 +18,7 @@ namespace ChampionsOfForest
         {
             base.Start();
             PlayerInventoryMod.SetupComplete = false;
+            Effects.BlackFlame.instance.Start();
 
         }
         public override bool GoToSleep()

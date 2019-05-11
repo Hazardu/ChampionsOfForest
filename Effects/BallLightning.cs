@@ -36,6 +36,7 @@ public class BallLightning : MonoBehaviour
         b.rep = rep;
         b.ID = id;
         b.speed = speed;
+        list.Add(id, b);
     }
 
 
@@ -107,8 +108,10 @@ public class BallLightning : MonoBehaviour
                 w.Write(pos.x);
                 w.Write(pos.y);
                 w.Write(pos.z);
+            w.Close();
             }
             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+            answerStream.Close();
         }
     }
 
@@ -163,11 +166,10 @@ public class BallLightning : MonoBehaviour
             }
 
         }
-
-        foreach (RaycastHit hit in hits)
-        {
-            hit.rigidbody?.AddExplosionForce(500, transform.position, 30,1.2f,ForceMode.Impulse);
-        }
+        //foreach (RaycastHit hit in hits)
+        //{
+        //    hit.rigidbody?.AddExplosionForce(500, transform.position, 30,1.2f,ForceMode.Impulse);
+        //}
     }
 
     public void HitEnemy(Transform t)

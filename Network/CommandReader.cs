@@ -726,8 +726,10 @@ namespace ChampionsOfForest.Network
                                     w.Write((int)ModSettings.difficulty);
                                     w.Write(ModSettings.FriendlyFire);
                                     w.Write((int)ModSettings.dropsOnDeath);
+                                w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+                                answerStream.Close();
                             }
                         }
                     }
@@ -854,6 +856,55 @@ namespace ChampionsOfForest.Network
                             bool fromEnemy = r.ReadBoolean();
                             Cataclysm.Create(pos, radius, dmg, duration, isArcane ? Cataclysm.TornadoType.Arcane : Cataclysm.TornadoType.Fire, fromEnemy);
                         }
+                        else if (spellid == 12)
+                        {
+                            //a request from a client to a host to spawn a ball lightning. The host assigns the id of 
+                            //a ball lightning to not create overlapping ids
+                            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                            {
+                                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                                {
+                                    w.Write(3);
+                                    w.Write(10);
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write(r.ReadSingle());
+                                    w.Write((uint)(BallLightning.lastID + 1));
+                                    w.Close();
+                                    BallLightning.lastID++;
+                                }
+                                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                                answerStream.Close();
+                            }
+                        }
+                        else if (spellid == 13) //parry was casted by a client
+                        {
+                            Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+                            float radius = r.ReadSingle();
+                            bool ignite = r.ReadBoolean();
+                            float dmg = r.ReadSingle();
+
+                            DamageMath.DamageClamp(dmg, out int d, out int rep);
+                            var hits = Physics.SphereCastAll(pos, radius, Vector3.one);
+
+                            for (int i = 0; i < hits.Length; i++)
+                            {
+                                if (hits[i].transform.CompareTag("enemyCollide"))
+                                {
+                                    for (int a = 0; a < rep; a++)
+                                    {
+                                        hits[i].transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+                                        if (ignite)
+                                            hits[i].transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+                                    }
+                                }
+                            }
+                        }
+                    
                     }
                     else if (cmdIndex == 4) //remove item 
                     {
@@ -905,8 +956,10 @@ namespace ChampionsOfForest.Network
                                             w.Write((int)item);
                                         }
 
+                                    w.Close();
                                     }
                                     Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+                                    answerStream.Close();
                                 }
                             }
                         }
@@ -929,13 +982,13 @@ namespace ChampionsOfForest.Network
                             {
                                 BoltEntity entity = EnemyManager.allboltEntities[packed];
                                 string name = r.ReadString();
-                                int v1 = r.ReadInt32();
-                                int v2 = r.ReadInt32();
-                                int v3 = r.ReadInt32();
-                                int v4 = r.ReadInt32();
-                                int v5 = r.ReadInt32();
-                                int v6 = r.ReadInt32();
-                                float v7 = r.ReadSingle();
+                                int level = r.ReadInt32();
+                                float health = r.ReadSingle();
+                                float maxhealth = r.ReadSingle();
+                                long bounty = r.ReadInt64();
+                                int armor = r.ReadInt32();
+                                int armorReduction = r.ReadInt32();
+                                float steadfast = r.ReadSingle();
                                 int length = r.ReadInt32();
                                 int[] affixes = new int[length];
                                 for (int i = 0; i < length; i++)
@@ -947,19 +1000,19 @@ namespace ChampionsOfForest.Network
                                     ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
                                     cp.creationTime = Time.time;
                                     cp.Entity = entity;
-                                    cp.Level = v1;
-                                    cp.Health = v2;
-                                    cp.MaxHealth = v3;
-                                    cp.Armor = v5;
-                                    cp.ArmorReduction = v6;
+                                    cp.Level = level;
+                                    cp.Health = (int)health;
+                                    cp.MaxHealth = (int)maxhealth;
+                                    cp.Armor = armor;
+                                    cp.ArmorReduction = armorReduction;
                                     cp.EnemyName = name;
-                                    cp.ExpBounty = v4;
-                                    cp.Steadfast = v7;
+                                    cp.ExpBounty = bounty;
+                                    cp.Steadfast = steadfast;
                                     cp.Affixes = affixes;
                                 }
                                 else
                                 {
-                                    new ClinetEnemyProgression(entity, name, v1, v2, v3, v4, v5, v6, v7, affixes);
+                                    new ClinetEnemyProgression(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
                                 }
                             }
                         }
@@ -1023,8 +1076,10 @@ namespace ChampionsOfForest.Network
                                         w.Write(LocalPlayer.Transform.position.y);
                                         w.Write(LocalPlayer.Transform.position.z);
                                         w.Write(duration);
+                                w.Close();
                                     }
                                     NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+                                answerStream.Close();
                                 }
                             }
                         }
@@ -1079,7 +1134,10 @@ namespace ChampionsOfForest.Network
                                 w.Write(19);
                                 w.Write(ModReferences.ThisPlayerID);
                                 w.Write(ModdedPlayer.instance.Level);
+                            w.Close();
                             }
+                            Network.NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+                            answerStream.Close();
                         }
                     }
                     else if (cmdIndex == 19)//add or update some players level to list
@@ -1146,10 +1204,11 @@ namespace ChampionsOfForest.Network
                                 {
                                     w.Write(24);
                                     w.Write(ModdedPlayer.instance.MagicFindMultipier);
+                            w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                            answerStream.Close();
                             }
-
                         }
                     }
                     else if (cmdIndex == 24) //update magic find for host
@@ -1191,8 +1250,10 @@ namespace ChampionsOfForest.Network
                                 {
                                     w.Write(4);
                                     w.Write(itemID);
+                                w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+                                answerStream.Close();
                             }
                         }
                     }
@@ -1273,8 +1334,10 @@ namespace ChampionsOfForest.Network
                                         {
                                             w.Write((int)ability);
                                         }
+                                    w.Close();
                                     }
                                     NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
+                                    answerStream.Close();
                                 }
                             }
                         }
@@ -1343,7 +1406,9 @@ namespace ChampionsOfForest.Network
                             }
                         }
                     }
+                r.Close();
                 }
+                stream.Close();
             }
         }
     }

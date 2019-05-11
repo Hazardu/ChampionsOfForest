@@ -773,8 +773,10 @@ namespace ChampionsOfForest
                             w.Write(19);
                             w.Write(ModReferences.ThisPlayerID);
                             w.Write(ModdedPlayer.instance.Level);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                        answerStream.Close();
                     }
                 }
             }
@@ -808,8 +810,10 @@ namespace ChampionsOfForest
                             w.Write(ent.networkId.PackedValue);
                             w.Write(Mathf.CeilToInt(damage / 20));
                             w.Write(10);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                        answerStream.Close();
                     }
                 }
                 if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
@@ -824,8 +828,10 @@ namespace ChampionsOfForest
                             w.Write(0.5f);
                             w.Write(8f);
                             w.Write(id);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                        answerStream.Close();
                     }
                 }
                 if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
@@ -840,8 +846,10 @@ namespace ChampionsOfForest
                             w.Write(id);
                             w.Write(1.2f);
                             w.Write(8f);
+                        w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                        answerStream.Close();
                     }
                 }
             }
@@ -1337,6 +1345,15 @@ namespace ChampionsOfForest
         ReapplyAllItems();
             ReapplyAllPerks();
         }
+
+        public static void ReapplyAllSpell()
+        {
+            for (int i = 0; i < SpellCaster.SpellCount; i++)
+            {
+                SpellCaster.instance.infos[i].spell?.passive?.Invoke(true);   
+            }
+        }
+
         public static void ReapplyAllItems()
         {
             //items
@@ -1385,6 +1402,8 @@ namespace ChampionsOfForest
 
                 Perk.AllPerks[i].IsBought = false;
                 Perk.AllPerks[i].Applied = false;
+                Perk.AllPerks[i].ApplyAmount = 0;
+
 
             }
             ResetAllStats();

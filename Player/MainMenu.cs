@@ -742,9 +742,10 @@ namespace ChampionsOfForest
                     using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                     {
                         w.Write(1);
-                        
+                    w.Close();                        
                     }
                 Network.NetworkManager.SendLine( answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                    answerStream.Close();
                 }
                 requestResendTime = 2;
             }
@@ -1637,7 +1638,7 @@ namespace ChampionsOfForest
                 {
                     GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
                     GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
-                    GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
+                    GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
                     GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime) + 0.2f);
                     string content = ModdedPlayer.instance.MassacreText;
                     if (ModdedPlayer.instance.MassacreKills > 5)

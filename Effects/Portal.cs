@@ -81,8 +81,10 @@ namespace ChampionsOfForest.Effects
                     w.Write(portalID);
                     w.Write(inCave);
                     w.Write(inEndgame);
+                w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                answerStream.Close();
             }
 
         }

@@ -67,8 +67,10 @@ namespace ChampionsOfForest
                     {
                         w.Write(6);
                         w.Write(Packed);
+                    w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                    answerStream.Close();
                 }
             }
             else
@@ -95,7 +97,7 @@ namespace ChampionsOfForest
 
         }
 
-        public ClinetEnemyProgression(BoltEntity entity, string enemyName, int level, float health, float maxHealth, int expBounty, int armor, int armorReduction, float Steadfast, int[] affixes) : this(entity)
+        public ClinetEnemyProgression(BoltEntity entity, string enemyName, int level, float health, float maxHealth, long expBounty, int armor, int armorReduction, float Steadfast, int[] affixes) : this(entity)
         {
             Entity = entity;
             EnemyName = enemyName;
