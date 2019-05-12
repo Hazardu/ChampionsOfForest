@@ -785,22 +785,22 @@ namespace ChampionsOfForest
 
                 if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
                 {
-                    int itemCount = Random.Range(1, 6);
+                    int itemCount = Random.Range(1, 6) + Random.Range(2,3)*(ModReferences.Players.Count-1);
                     if (_AI.creepy_boss)
                     {
                         itemCount += 14;
                     }
                     else if (abilities.Count >= 3)
                     {
-                        itemCount += Random.Range(3, 6);
+                        itemCount += Random.Range(3, 7);
                     }
                     if (_rarity == EnemyRarity.Boss)
                     {
-                        itemCount += 4;
+                        itemCount += 6;
                     }
                     if (_rarity == EnemyRarity.Miniboss)
                     {
-                        itemCount += 2;
+                        itemCount += 3;
                     }
 
                     itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
@@ -825,7 +825,7 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(10);
-                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.65f + ModReferences.Players.Count * 0.35f))));
                         w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
@@ -1260,7 +1260,7 @@ namespace ChampionsOfForest
                                 w.Write(transform.position.x);
                                 w.Write(transform.position.y);
                                 w.Write(transform.position.z);
-                                w.Write(15);
+                                w.Write(15f);
                                 w.Write(radius);
                             w.Close();
                             }
@@ -1327,7 +1327,7 @@ namespace ChampionsOfForest
                                     w.Write(transform.position.z);
                                     w.Write(radius);
                                     w.Write(dmg);
-                                    w.Write(15);
+                                    w.Write(15f);
                                     w.Write(true);
                                     w.Write(true);
                                 w.Close();
@@ -1397,7 +1397,7 @@ namespace ChampionsOfForest
                                     w.Write(transform.position.z);
                                     w.Write(radius);
                                     w.Write(dmg);
-                                    w.Write(18);
+                                    w.Write(18f);
                                     w.Write(false);
                                     w.Write(true);
                                 w.Close();
@@ -1583,7 +1583,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            double b = Random.Range(_hp * 0.9f, _hp * 1.1f) * Mathf.Sqrt(Level) + Armor * 0.2;
+            double b = Random.Range(_hp * 0.9f, _hp) * Mathf.Pow(Level,0.3333333333f) + Armor * 0.15;
             if (abilities.Count > 1)
             {
                 b = b * abilities.Count * 0.9f;

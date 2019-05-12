@@ -48,7 +48,13 @@ namespace ChampionsOfForest.Player
                             GameObject.Destroy(pu._destroyTarget);
                         }
                     }
-                }
+                } else {
+                    var customPickup = hit[i].transform.gameObject.GetComponent<ItemPickUp>();
+                    if (customPickup!= null)
+                    {
+                        customPickup.PickUp();
+                    }
+            }
             }
 
         }

@@ -64,7 +64,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             yield return new WaitForSeconds(1f);
             Direction.RotateY(-180f);
             StartCoroutine(Shoot());
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(20f);
             Destroy(gameObject);
 
         }
@@ -133,11 +133,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             trail.ratio = 0.5f;
             trail.textureMode = ParticleSystemTrailTextureMode.Stretch;
             float time = 0;
-            while (time < 5)
+            while (time < 8)
             {
                 time += Time.deltaTime;
-                go.transform.Rotate(Vector3.up * Time.deltaTime * 25, Space.World);
-                go.transform.Rotate(Vector3.right * Time.deltaTime * 4 * Mathf.Sin(time), Space.Self);
+                go.transform.Rotate(Vector3.up * Time.deltaTime * 33, Space.World);
+                go.transform.Rotate(go.transform.right * Time.deltaTime * 4 * Mathf.Sin(time*3), Space.World);
 
                 yield return null;
 

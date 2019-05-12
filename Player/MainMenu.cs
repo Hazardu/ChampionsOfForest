@@ -953,11 +953,11 @@ namespace ChampionsOfForest
 
                 if (item.Stats[i].DisplayAsPercent)
                 {
-                    GUI.Label(StatRects[i], amount.ToString("N0") + "%", StatValueStyle);
+                    GUI.Label(StatRects[i], amount.ToString("N"+item.Stats[i].RoundingCount) + "%", StatValueStyle);
                 }
                 else
                 {
-                    GUI.Label(StatRects[i], amount.ToString("N0"), StatValueStyle);
+                    GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount), StatValueStyle);
                 }
             }
             GUI.color = Color.white;

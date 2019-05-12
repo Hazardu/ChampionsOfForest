@@ -68,7 +68,7 @@ public class BallLightning : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         var trigger = new GameObject();
         trigger.transform.position = transform.position;
-        trigger.transform.SetParent(gameObject);
+        trigger.transform.parent=transform;
         var collider = trigger.AddComponent<SphereCollider>();
         collider.radius = 3;
         collider.isTrigger = true;
@@ -157,10 +157,13 @@ public class BallLightning : MonoBehaviour
                 {
                     hit.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
                     hit.transform.SendMessage("Hit", dmg, SendMessageOptions.DontRequireReceiver);
-                    hit.transform.SendMessageUpwards("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
-                    hit.transform.SendMessage("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
+                    if ((hit.transform.position - transform.position).sqrMagnitude < 36 )
+                    {
+                        hit.transform.SendMessageUpwards("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
+                        hit.transform.SendMessage("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
+                    }
                     //Explosionhit.transform.SendMessage("CutDown", SendMessageOptions.DontRequireReceiver);
-                    //hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+                    hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
 
                 }
             }
@@ -226,7 +229,8 @@ public class BallLightningTrigger : MonoBehaviour
     public BallLightning ball;
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("enemyCollide")||(other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock")))
+
+        if (!GameSetup.IsMpClient && other.CompareTag("enemyCollide"))
         {
             ball.HitEnemy(other.transform);
             

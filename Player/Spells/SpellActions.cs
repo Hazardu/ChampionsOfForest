@@ -769,17 +769,15 @@ namespace ChampionsOfForest.Player
                         w.Write(CataclysmRadius);
                         w.Write(dmg);
                         w.Write(CataclysmDuration);
+                        w.Write(CataclysmArcane);
                         w.Write(false);
                     w.Close();
                     }
-                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                     answerStream.Close();
                 }
             }
-            if(CataclysmArcane)
-                Effects.Cataclysm.Create(pos, CataclysmRadius, dmg, CataclysmDuration, Effects.Cataclysm.TornadoType.Arcane, false);
-            else
-                Effects.Cataclysm.Create(pos, CataclysmRadius, dmg, CataclysmDuration, Effects.Cataclysm.TornadoType.Fire, false);
+            
         }
         #endregion
     }

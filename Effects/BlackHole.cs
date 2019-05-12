@@ -16,6 +16,11 @@ namespace ChampionsOfForest
             b.duration = duration;
             b.radius = radius;
             b.pullForce = pullforce;
+
+            if (fromEnemy)
+            {
+                go.GetComponentInChildren<Light>().color = Color.red;
+            }
         }
 
 

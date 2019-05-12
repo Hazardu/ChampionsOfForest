@@ -910,8 +910,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ReusabilityAmount++,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityAmount--,
+                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance+= 0.5f,
+                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.5f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 25 },
                 LevelRequirement = 45,
@@ -919,8 +919,8 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 5f,
                 PosOffsetY = -0.75f,
-                Name = "More Projectiles On Hit",
-                Description = "Increases max amount of projectiles recovered using reusability perks by 1",
+                Name = "Infinity",
+                Description = "Gives 50% chance to not consume ammo when firing a projectile",
                 TextureVariation = 0,
                 Endless = false,
             };

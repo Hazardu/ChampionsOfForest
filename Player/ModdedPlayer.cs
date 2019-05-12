@@ -1233,6 +1233,7 @@ namespace ChampionsOfForest
             BlackFlame.GiveDamageBuff =false;
             WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 5;
+            Berserker.active = false;
             instance.HealingMultipier = 1;
             instance.strenght = 1;
             instance.intelligence = 1;
