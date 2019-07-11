@@ -216,9 +216,12 @@ namespace ChampionsOfForest.Effects
                         {
                             LocalPlayer.GameObject.GetComponent<LocalPlayer>().SetInEndGame(otherPortal.Endgame);
                         }
-                        if ((otherPortal.Cave && !LocalPlayer.IsInCaves)|| (!otherPortal.Cave && LocalPlayer.IsInCaves))
+                        if ((otherPortal.Cave && !LocalPlayer.IsInCaves))
                         {
-                            LocalPlayer.ActiveAreaInfo.SetInCaves(otherPortal.Cave);
+                            LocalPlayer.Stats.InACave();
+                        }else if((!otherPortal.Cave && LocalPlayer.IsInCaves))
+                        {
+                            LocalPlayer.Stats.NotInACave();
                         }
                     }
                 }

@@ -968,7 +968,7 @@ namespace ChampionsOfForest
         {
             int x = lvl;
             var y = 500*System.Math.Pow(1.2f,x-10) - 88 +  System.Math.Pow(x, 3.35) * 2;
-           y= System.Math.Min(y, long.MaxValue - 10);
+           y= System.Math.Min(y*1.5f, long.MaxValue - 10);
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
