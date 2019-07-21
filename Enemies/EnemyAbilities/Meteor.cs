@@ -56,6 +56,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 case ModSettings.Difficulty.Challenge5:
                     Damage = 40000;
                     break;
+                case ModSettings.Difficulty.Challenge6:
+                    Damage = 80000;
+                    break;
+                case ModSettings.Difficulty.Hell:
+                    Damage = 100000;
+                    break;
             }
 
         }

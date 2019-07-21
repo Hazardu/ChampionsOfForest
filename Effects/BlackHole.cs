@@ -45,7 +45,7 @@ namespace ChampionsOfForest
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.clip = Res.ResourceLoader.instance.LoadedAudio[1000];
             source.volume = 16;
-            source.rolloffMode = AudioRolloffMode.Linear;
+            source.rolloffMode = AudioRolloffMode.Logarithmic;
             source.maxDistance = 100;
             source.Play();
             if (particleMaterial == null)

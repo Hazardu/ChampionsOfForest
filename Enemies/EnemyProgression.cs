@@ -275,7 +275,7 @@ namespace ChampionsOfForest
             abilities = new List<Abilities>();
 
             //picking abilities
-            if (UnityEngine.Random.value < 0.1 || (_AI.creepy_boss && !_AI.girlFullyTransformed))
+            if (UnityEngine.Random.value < 0.1 || (_AI.creepy_boss && !_AI.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell)
             {
                 int abilityAmount = UnityEngine.Random.Range(3, 7);
                 if (_AI.creepy_boss) { abilityAmount = 10; }   //Megan boss always has abilities, a lot of them.
@@ -802,7 +802,7 @@ namespace ChampionsOfForest
                     {
                         itemCount += 3;
                     }
-
+                    itemCount += (int)ModSettings.difficulty;
                     itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
 
 
@@ -1132,6 +1132,14 @@ namespace ChampionsOfForest
                             dmg = 60000;
                             radius = 10;
                             break;
+                        case ModSettings.Difficulty.Challenge6:
+                            dmg = 100000;
+                            radius = 14;
+                            break;
+                        case ModSettings.Difficulty.Hell:
+                            dmg = 100000;
+                            radius = 17;
+                            break;
                     }
 
                     float Healing = dmg / 10;
@@ -1227,6 +1235,7 @@ namespace ChampionsOfForest
                             duration = 7f;
                             break;
                         default:
+                            duration = 9f;
                             break;
                     }
               
@@ -1310,6 +1319,11 @@ namespace ChampionsOfForest
                                 dmg = 60000;
                                 radius = 20;
                                 break;
+                            case ModSettings.Difficulty.Challenge6:
+                            case ModSettings.Difficulty.Hell:
+                                dmg = 100000;
+                                radius = 22;
+                                break;
 
                         }
                         radius -= 3;
@@ -1379,6 +1393,11 @@ namespace ChampionsOfForest
                             case ModSettings.Difficulty.Challenge5:
                                 dmg = 60000;
                                 radius = 20;
+                                break;
+                            case ModSettings.Difficulty.Challenge6:
+                            case ModSettings.Difficulty.Hell:
+                                dmg = 90000;
+                                radius = 24;
                                 break;
 
                         }
@@ -1578,6 +1597,14 @@ namespace ChampionsOfForest
                     Level = Random.Range(200, 250);
 
                     break;
+                case ModSettings.Difficulty.Challenge6:
+                    Level = Random.Range(340, 350);
+
+                    break;
+                case ModSettings.Difficulty.Hell:
+                    Level = Random.Range(380, 390);
+
+                    break;
             }
             Level = Mathf.CeilToInt(Level + extraLevels);
         }
@@ -1621,6 +1648,14 @@ namespace ChampionsOfForest
                     b = b * 22;
 
                     break;
+                case ModSettings.Difficulty.Challenge6:
+                    b = b * 40;
+
+                    break;
+                case ModSettings.Difficulty.Hell:
+                    b = b * 40;
+
+                    break;
                 default:
                     break;
             }
@@ -1631,7 +1666,7 @@ namespace ChampionsOfForest
         {
             if (abilities.Contains(Abilities.FireAura))
             {
-                float aurDmg = (8 * Level + 10f);
+                float aurDmg = (6 * Level + 10f);
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
                 {

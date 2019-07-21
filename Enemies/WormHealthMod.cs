@@ -77,6 +77,7 @@ namespace ChampionsOfForest.Enemies
                             multipier = 50000;
                             break;
                         default:
+                            multipier = 100000;
                             break;
                     }
                     float Exp = UnityEngine.Random.Range(300, 350);
@@ -159,6 +160,10 @@ namespace ChampionsOfForest.Enemies
                                 break;
                             case ModSettings.Difficulty.Challenge5:
                                 damage = 15000000;
+                                break;
+                            case ModSettings.Difficulty.Challenge6:
+                            case ModSettings.Difficulty.Hell:
+                                damage = 25000000;
                                 break;
 
                         }

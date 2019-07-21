@@ -2853,11 +2853,11 @@ new int[] {39,40,41,42,43},
                          {
                          })
             {
-                name = "Shard of Farket's Heart",
+                name = "Heart of Purity",
                 description = "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points",
-                lore = "The Legendary Farket, self proclaimed king of peninsula, over time shifted into insanity. The cursed land of his sent madness upon him. That was the price he had to pay for the unfair power he obtained. This merely a shard of his heart contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth. The Prophecy fortold the return of The King. He will reappear as the harbinger of end of the world.",
+                lore = "This powerful relic contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth.",
                 tooltip = "Can be consumed by right clicking it. ",
-                Rarity = 7,
+                Rarity = 4,
                 minLevel = 1,
                 maxLevel = 2,
                 CanConsume = true,

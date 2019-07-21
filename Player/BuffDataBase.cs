@@ -73,42 +73,42 @@ namespace ChampionsOfForest.Player
             {
                 activeBuffs.Clear();
                 BuffsByID.Clear();
-                new Buff(1, "Move speed reduced", true, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
-                new Buff(2, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
-                new Buff(3, "Poisoned", true, true, 2)
+                new Buff(1,156, "Move speed reduced", true, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
+                new Buff(2,148, "Attack speed reduced", true, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
+                new Buff(3,157, "Poisoned", true, true, 2)
                 { DisplayAsPercent = false };
-                new Buff(4, "Root Immune", false, false, 0, (f) => ModdedPlayer.instance.RootImmune--, f => ModdedPlayer.instance.RootImmune++)
+                new Buff(4,158, "Root Immune", false, false, 0, (f) => ModdedPlayer.instance.RootImmune--, f => ModdedPlayer.instance.RootImmune++)
                 { DisplayAmount = false };
 
-                new Buff(5, "Move speed increased", false, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
+                new Buff(5,150, "Move speed increased", false, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
 
-                new Buff(6, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune--, f => ModdedPlayer.instance.StunImmune++)
+                new Buff(6,155, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune--, f => ModdedPlayer.instance.StunImmune++)
                 { DisplayAmount = false };
-                new Buff(7, "Debuff Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune--, f => ModdedPlayer.instance.DebuffImmune++)
+                new Buff(7,154, "Debuff Immune", false, false, 0, (f) => ModdedPlayer.instance.DebuffImmune--, f => ModdedPlayer.instance.DebuffImmune++)
                 { DisplayAmount = false };
-                new Buff(8, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant--, f => ModdedPlayer.instance.DebuffResistant++)
+                new Buff(8,155, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant--, f => ModdedPlayer.instance.DebuffResistant++)
                 { DisplayAmount = false };
 
 
-                new Buff(9, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
+                new Buff(9,151, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(10, "Decreased Damage", true, false, 2, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
+                new Buff(10,152, "Decreased Damage", true, false, 2, f => ModdedPlayer.instance.DamageOutputMult /= f, f => ModdedPlayer.instance.DamageOutputMult *= f);
 
-                new Buff(11, "Energy Regen Amp", false, false, 0, f => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f), f => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
+                new Buff(11,160, "Energy Regen Amp", false, false, 0, f => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f), f => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.StaminaRegenPercent, f));
 
-                new Buff(12, "Death Pact Damage", false, false) { OnAddOverrideAmount = true };
-                new Buff(13, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= f, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= f);
-                new Buff(14, "Attack speed increased", false, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
+                new Buff(12,153, "Death Pact Damage", false, false) { OnAddOverrideAmount = true };
+                new Buff(13,151, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= f, f => ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= f);
+                new Buff(14,149, "Attack speed increased", false, false, 1, SpellActions.BUFF_DivideAS, SpellActions.BUFF_MultAS);
 
-                new Buff(15, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; 
+                new Buff(15,146, "Armor", false, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false }; 
 
-                new Buff(16, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false };
+                new Buff(16, 133, "Gold", false, false, 1, f => Gold.Disable(), f => Gold.Enable()) { DisplayAmount = false };
 
-                new Buff(17, "Berserk", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; 
+                new Buff(17, 131, "Berserk", false, false, 1, f =>Berserker.OnDisable(),f=> Berserker.OnEnable()) { DisplayAmount = false }; 
 
-                new Buff(18, "Energy Leak", true, false, 1, f => ModdedPlayer.instance.EnergyPerSecond += f, f => ModdedPlayer.instance.EnergyPerSecond -= f) {DisplayAmount = false };
+                new Buff(18,161, "Energy Leak", true, false, 1, f => ModdedPlayer.instance.EnergyPerSecond += f, f => ModdedPlayer.instance.EnergyPerSecond -= f) {DisplayAmount = false };
 
-                new Buff(19, "Frenzy", false, false, 1, f => 
+                new Buff(19, 136, "Frenzy", false, false, 1, f => 
                 {
                     ModdedPlayer.instance.AttackSpeedMult /= 1+ f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult /= 1+f * SpellActions.FrenzyDmg;
@@ -119,9 +119,9 @@ namespace ChampionsOfForest.Player
                 })
                 { DisplayAsPercent = false };
 
-                new Buff(20, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
+                new Buff(20,159, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
 
-                new Buff(21, "Armor Corruption", true, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
+                new Buff(21,147, "Armor Corruption", true, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
 
 
             }
@@ -148,6 +148,7 @@ namespace ChampionsOfForest.Player
             public bool DisplayAsPercent = true;
             public bool DisplayAmount = true;
             public bool OnAddOverrideAmount = false;
+            public int IconID;
             public Buff(int id, float amount, float duration)
             {
                 _ID = id;
@@ -165,7 +166,7 @@ namespace ChampionsOfForest.Player
             }
 
 
-            public Buff(int BuffID, string name, bool IsNegative, bool accumulate, int dispellamount = 0, onBuffEnd END = null, onBuffStart START = null)
+            public Buff(int BuffID,int iconID, string name, bool IsNegative, bool accumulate, int dispellamount = 0, onBuffEnd END = null, onBuffStart START = null)
             {
                 _ID = BuffID;
                 AccumulateEffect = accumulate;
@@ -176,6 +177,7 @@ namespace ChampionsOfForest.Player
                 DispellAmount = dispellamount;
                 amount = 1;
                 duration = 1;
+                IconID = iconID;
                 BuffDB.BuffsByID.Add(BuffID, this);
 
             }

@@ -101,6 +101,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 case ModSettings.Difficulty.Challenge5:
                     dmg = 14636;
                     break;
+                case ModSettings.Difficulty.Challenge6:
+                    dmg = 40000;
+                    break;
+                case ModSettings.Difficulty.Hell:
+                    dmg = 60000;
+                    break;
             }
             go.AddComponent<EnemyLaserBeam>().Initialize(dmg);
             ParticleSystem ps = go.AddComponent<ParticleSystem>();

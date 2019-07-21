@@ -858,7 +858,35 @@ namespace ChampionsOfForest.Res
             new Resource(139, "Parry.wav");
             new Resource(140, "Parry.png");
             new Resource(141, "Cataclysm.png");
+            new Resource(142, "MassacreBG.png");
+            new Resource(143, "BuffBG.png");
+            new Resource(144, "BuffBorder.png");
+            new Resource(145, "BuffActive.png");
+            new Resource(146, "ArmorBuff.png");
+            new Resource(147, "Armordebuff.png");
+            new Resource(148, "AtkSlow.png");
+            new Resource(149, "AtkSpeedBuff.png");
+            new Resource(150, "BuffMS.png");
+            new Resource(151, "DamageBuff.png");
+            new Resource(152, "Damagedebuff.png");
+            new Resource(153, "Deathpact.png");
+            new Resource(154, "DebuffImmune.png");
+            new Resource(155, "DebuffResistant.png");
+            new Resource(156, "DebuffSlowMs.png");
+            new Resource(157, "poisoned.png");
+            new Resource(158, "RootImmune.png");
+            new Resource(159, "SecondChanceCD.png");
+            new Resource(160, "StaminaRegen.png");
+            new Resource(161, "StaminaRegenDebuff.png");
+            new Resource(162, "rooted.png");
+            new Resource(163, "Stun.png");
+            new Resource(164, "LevelUp.png");
+
+
+
+
             new Resource(1000, "thundersound.wav");
+            new Resource(1001, "Levelup.wav");
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);

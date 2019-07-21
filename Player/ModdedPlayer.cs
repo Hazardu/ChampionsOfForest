@@ -15,8 +15,8 @@ namespace ChampionsOfForest
 {
     public class ModdedPlayer : MonoBehaviour
     {
-        public readonly float baseHealth = 30;
-        public readonly float baseEnergy = 30;
+        public readonly float baseHealth = 50;
+        public readonly float baseEnergy = 50;
         public static float basejumpPower;
         public static ModdedPlayer instance = null;
 
@@ -124,7 +124,7 @@ namespace ChampionsOfForest
         public float DamageReductionPerks = 1;
         public float DamageOutputMult = 1;
         public float DamageOutputMultPerks = 1;
-        public float CritChance = 0;
+        public float CritChance = 0.05f;
         public float CritDamage = 50;
         public float LifeOnHit = 0;
         public float LifeRegen = 0;
@@ -362,10 +362,11 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " HAS REACHED LEVEL " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
+                    NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " has reached level " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
    
                 }
             }
+            MainMenu.Instance.LevelUpAction();
         }
         public void SendJoinMessage()
         {
@@ -1267,7 +1268,7 @@ namespace ChampionsOfForest
             instance.DamageReductionPerks = 1;
             instance.DamageOutputMult = 1;
             instance.DamageOutputMultPerks = 1;
-            instance.CritChance = 0;
+            instance.CritChance = 0.05f;
             instance.CritDamage = 50;
             instance.LifeOnHit = 0;
             instance.LifeRegen = 0;

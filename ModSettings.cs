@@ -4,7 +4,7 @@ namespace ChampionsOfForest
 {
     public class ModSettings
     {
-        public enum Difficulty { Normal, Hard, Elite, Master, Challenge1, Challenge2, Challenge3, Challenge4, Challenge5 }
+        public enum Difficulty { Normal, Hard, Elite, Master, Challenge1, Challenge2, Challenge3, Challenge4, Challenge5, Challenge6 , Hell }
         public enum DropsOnDeathMode { All,Equipped,Disabled }
         public static Difficulty difficulty = Difficulty.Normal;
         public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.All;

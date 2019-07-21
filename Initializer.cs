@@ -127,7 +127,7 @@ namespace ChampionsOfForest
                     "This is a config file for Champions of the Forest for Dedicated Server.",
                     "To set it up properly, please do the following:",
                     "-Only modify text to the right of '='",
-                    "-For difficulty, please write a number from 0 to 8. (0-Normal, 1-Hard, 2-Elite, 3-Master, 4-Challenge1, 5-Challenge2, 6-Challenge3, 7-Challenge4, 8-Challenge5)",
+                    "-For difficulty, please write a number from 0 to 8. (0-Normal, 1-Hard, 2-Elite, 3-Master, 4-Challenge1, 5-Challenge2, 6-Challenge3, 7-Challenge4, 8-Challenge5, 9-Challenge6, 10-Hell)",
                     "-For friendly fire, write 0 if disabled, 1 if enabled",
                     "--------------------------------------------------------------------",
                     "Difficulty=0",
