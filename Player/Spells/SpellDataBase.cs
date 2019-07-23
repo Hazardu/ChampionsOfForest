@@ -58,7 +58,7 @@ namespace ChampionsOfForest.Player
                 usePassiveOnUpdate = true,
             
             };
-            new Spell(6, 117, 2, 15, 1, "Wide Reach", "Picks up all resources in a small radius around you.")
+            new Spell(6, 117, 2, 10, 1, "Wide Reach", "Picks up all resources in a small radius around you.")
             {
                 active = AutoPickupItems.DoPickup,            
             };
@@ -126,6 +126,11 @@ namespace ChampionsOfForest.Player
             {
                 active = ()=> SpellActions.CastCataclysm(),
             };
+            new Spell(23, 165, 11, 75, 8, "Blood Infused Arrow", "Sacrifice your own vitals to empower your next arrow. Drains percent of your current health and adds lost health as damage.")
+            {
+                active = ()=> SpellActions.CastBloodInfArr(),
+            };
+
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ChampionsOfForest.Player
 {
     public static class AutoPickupItems
     {
-        public static float radius = 7;
+        public static float radius = 7.5f;
         public static void DoPickup()
         {
             if (LocalPlayer.FpCharacter.PushingSled)

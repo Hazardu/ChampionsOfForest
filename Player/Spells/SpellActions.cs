@@ -464,10 +464,10 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        public static float BL_Damage = 150;
+        public static float BL_Damage = 120;
         public static void CastBallLightning()
         {
-            float dmg = BL_Damage + (4 * ModdedPlayer.instance.SpellDamageBonus);
+            float dmg = BL_Damage + (3.25f * ModdedPlayer.instance.SpellDamageBonus);
             dmg *= ModdedPlayer.instance.SpellAMP;
 
 
@@ -588,7 +588,7 @@ namespace ChampionsOfForest.Player
 
         #region Frenzy
         public static int FrenzyMaxStacks= 5, FrenzyStacks= 0;
-        public static float FrenzyAtkSpeed = 0.00f, FrenzyDmg = 0.05f;
+        public static float FrenzyAtkSpeed = 0.02f, FrenzyDmg = 0.075f;
         public static bool Frenzy;
         public static void OnFrenzyAttack()
         {
@@ -682,7 +682,7 @@ namespace ChampionsOfForest.Player
 
         #region Parry
         public static bool Parry;
-        public static float ParryDamage = 40,ParryRadius = 3,ParryBuffDuration = 10,ParryHeal = 3,ParryEnergy = 5;
+        public static float ParryDamage = 40,ParryRadius = 3.5f,ParryBuffDuration = 10,ParryHeal = 3,ParryEnergy = 10;
         public static bool ChanceToParryOnHit = false;
         public static bool ParryIgnites = false;
         public static void DoParry(Vector3 parryPos)
@@ -747,7 +747,7 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Cataclysm       
-        public static float CataclysmDamage = 8, CataclysmDuration = 10, CataclysmRadius = 4;
+        public static float CataclysmDamage = 24, CataclysmDuration = 10, CataclysmRadius = 5;
         public static bool CataclysmArcane = false;
         public static void CastCataclysm()
         {
@@ -778,6 +778,23 @@ namespace ChampionsOfForest.Player
                 }
             }
             
+        }
+        #endregion
+
+        #region Blood Infused Arrow
+        public static float BIA_bonusDamage;
+        public static float BIA_SpellDmMult = 1f;
+        public static float BIA_HealthDmMult = 1.5f;
+        public static float BIA_SpellDmBonusMult = 4.2f;
+        public static float BIA_HealthTakenMult = 0.65f;
+        
+        public static void CastBloodInfArr()
+        {
+            int takenHP = (int)(LocalPlayer.Stats.Health * BIA_HealthTakenMult);
+            LocalPlayer.Stats.Hit(takenHP, true, PlayerStats.DamageType.Drowning);
+            BIA_bonusDamage = takenHP * BIA_HealthDmMult;
+            BIA_bonusDamage += BIA_SpellDmMult * ModdedPlayer.instance.SpellDamageBonus;
+            BIA_bonusDamage *= ModdedPlayer.instance.SpellAMP;
         }
         #endregion
     }

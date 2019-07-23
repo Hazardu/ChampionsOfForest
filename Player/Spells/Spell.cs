@@ -10,6 +10,7 @@ namespace ChampionsOfForest.Player
         public float BaseCooldown;
         public float ChanneledTime;
         public bool Channeled;
+
         public bool IsEquipped
         {
             get

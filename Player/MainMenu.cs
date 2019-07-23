@@ -1499,28 +1499,28 @@ namespace ChampionsOfForest
 
 
                 float BuffOffsetX = 0;
-                float BuffOffsetY = 1050;
+                float BuffOffsetY = 1035;
                 const float MaxX = 540;
                 if (ModdedPlayer.instance.Rooted)
                 {
                     TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(162), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.RootDuration);
-                    BuffOffsetX += 55;
+                    BuffOffsetX += 40;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 55;
+                        BuffOffsetY -= 40;
                     }
                 }
                 if (ModdedPlayer.instance.Stunned)
                 {
                     TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.StunDuration);
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(163), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.StunDuration);
-                    BuffOffsetX += 55;
+                    BuffOffsetX += 40;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 55;
+                        BuffOffsetY -= 40;
                     }
                 }
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
@@ -1535,15 +1535,19 @@ namespace ChampionsOfForest
                         }
                         else
                         {
-                            valueText += "" + buff.Value.amount.ToString("N3");
+                            valueText += "" + buff.Value.amount.ToString("N2");
                         }
                     }
+                    if (valueText.IndexOf(',') != -1)
+                    {
+                      valueText=  valueText.TrimEnd('0').TrimEnd(',');
+                    }
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
-                    BuffOffsetX += 55;
+                    BuffOffsetX += 40;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 55;
+                        BuffOffsetY -= 40;
                     }
                 }
 
@@ -1670,7 +1674,7 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
-                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one*2, Camera.main.transform.forward, Camera.main.transform.rotation, 10000);
+                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one*2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
@@ -2981,7 +2985,7 @@ namespace ChampionsOfForest
 
         private void DrawBuff(float x, float y, Texture2D tex, string amount, string time, bool isPositive, float durationInSeconds)
         {
-            Rect r = new Rect(x * rr, y * rr, 50 * rr, 50 * rr);
+            Rect r = new Rect(x * rr, y * rr, 40 * rr, 40 * rr);
 
             GUI.DrawTexture(r, ResourceLoader.GetTexture(143));
             if (isPositive)

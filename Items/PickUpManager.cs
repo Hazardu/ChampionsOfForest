@@ -92,11 +92,11 @@ namespace ChampionsOfForest
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
                                 renderer.material = Heart_pickupMaterial;
                                 spawn.transform.localScale *= 2f;
-                            }   else if (item.name == "Shard of Farket's Heart")
+                            }   else if (item.name == "Heart of Purity")
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
                                 renderer.material = Heart_pickupMaterial;
-                                spawn.transform.localScale *= 5f;
+                                spawn.transform.localScale *= 3f;
                             }
 
                             break;

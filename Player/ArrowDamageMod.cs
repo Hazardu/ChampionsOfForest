@@ -52,7 +52,26 @@ namespace ChampionsOfForest.Player
             {
                 startposition = transform.position;
             }
+            if (SpellActions.BIA_bonusDamage > 0)
+            {
+                if (bloodInfusedMaterial == null)
+                {
+                    bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+                    {
+                        EmissionColor = new Color(0.4f, 0, 0),
+                        renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
+                        MainColor = Color.red,
+                        Metalic = 0.7f,
+                        Smoothness = 0.7f,
+                    });
+                }
+                damage += (int) SpellActions.BIA_bonusDamage;
+                SpellActions.BIA_bonusDamage = 0;
+                gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+            }
         }
+
+        public static Material bloodInfusedMaterial;
 
         private void Update()
         {
@@ -150,14 +169,14 @@ namespace ChampionsOfForest.Player
                         if (Time.time - ModdedPlayer.instance.LastCrossfireTime > 20)
                         {
                             ModdedPlayer.instance.LastCrossfireTime = Time.time;
-                            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
-                            damage = damage * ModdedPlayer.instance.SpellAMP;
+                            float damage1 = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
+                            damage1 = damage1 * ModdedPlayer.instance.SpellAMP;
                             Vector3 pos = Camera.main.transform.position + Camera.main.transform.right * 5;
                             Vector3 dir = transform.position - pos;
                             dir.Normalize();
                             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                             {
-                                MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerID, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
+                                MagicArrow.Create(pos, dir, damage1, ModReferences.ThisPlayerID, SpellActions.MagicArrowDuration, SpellActions.MagicArrowDoubleSlow, SpellActions.MagicArrowDmgDebuff);
                                 if (BoltNetwork.isRunning)
                                 {
                                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -172,7 +191,7 @@ namespace ChampionsOfForest.Player
                                             w.Write(dir.x);
                                             w.Write(dir.y);
                                             w.Write(dir.z);
-                                            w.Write(damage);
+                                            w.Write(damage1);
                                             w.Write(ModReferences.ThisPlayerID);
                                             w.Write(SpellActions.MagicArrowDuration);
                                             w.Write(SpellActions.MagicArrowDoubleSlow);
@@ -200,7 +219,7 @@ namespace ChampionsOfForest.Player
                                         w.Write(dir.x);
                                         w.Write(dir.y);
                                         w.Write(dir.z);
-                                        w.Write(damage);
+                                        w.Write(damage1);
                                         w.Write(ModReferences.ThisPlayerID);
                                         w.Write(SpellActions.MagicArrowDuration);
                                         w.Write(SpellActions.MagicArrowDoubleSlow);
@@ -256,6 +275,7 @@ namespace ChampionsOfForest.Player
                     SpellActions.SeekingArrow_Target.transform.parent = target.transform;
                     SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
                     SpellActions.SeekingArrow_TimeStamp = Time.time;
+                    startposition = transform.position;
                     SpellActions.SeekingArrow_ChangeTargetOnHit = false;
                 }
 NewHitAi(target, flag || flag3, headDamage);

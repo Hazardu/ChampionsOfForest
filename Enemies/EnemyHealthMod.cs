@@ -5,7 +5,7 @@ namespace ChampionsOfForest
     {
         public EnemyProgression progression = null;
         public float LastHitTime;
-        private const float HitMaxFrequency = 0.04f;
+        private const float HitMaxFrequency = 0.05f;
 
         //creates progression
         protected override void OnEnable()
@@ -345,6 +345,7 @@ namespace ChampionsOfForest
             //}
             //Since the trap doesnt one shot cannibals, it will deal pure damage to them
             HitReal(400);
+            if (type == 2) return;
             if (progression.OnDie())
             {
 

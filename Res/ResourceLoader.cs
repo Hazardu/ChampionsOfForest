@@ -881,6 +881,7 @@ namespace ChampionsOfForest.Res
             new Resource(162, "rooted.png");
             new Resource(163, "Stun.png");
             new Resource(164, "LevelUp.png");
+            new Resource(165, "BloodInfusedArrow.png");
 
 
 

@@ -652,8 +652,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ARreduction_melee += 3,
-                DisableMethods = () => ModdedPlayer.instance.ARreduction_melee -= 3,
+                ApplyMethods = () => ModdedPlayer.instance.ARreduction_melee += 5,
+                DisableMethods = () => ModdedPlayer.instance.ARreduction_melee -= 5,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 37 },
                 LevelRequirement = 8,
@@ -662,14 +662,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Armor Piercing Edge",
-                Description = "Increases armor penetration from melee weapons by 3",
+                Description = "Increases armor penetration from melee weapons by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ARreduction_ranged += 3,
-                DisableMethods = () => ModdedPlayer.instance.ARreduction_ranged -= 3,
+                ApplyMethods = () => ModdedPlayer.instance.ARreduction_ranged += 5,
+                DisableMethods = () => ModdedPlayer.instance.ARreduction_ranged -= 5,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 37 },
                 LevelRequirement = 8,
@@ -678,7 +678,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Anti armor projectiles",
-                Description = "Increases armor penetration from ranged weapons by 3",
+                Description = "Increases armor penetration from ranged weapons by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -700,8 +700,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyPerSecond += 0.15f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyPerSecond -= 0.15f,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyPerSecond += 0.175f,
+                DisableMethods = () => ModdedPlayer.instance.EnergyPerSecond -= 0.175f,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 30 },
                 LevelRequirement = 10,
@@ -710,7 +710,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3f,
                 PosOffsetY = -0.75f,
                 Name = "Energy generation",
-                Description = "Passive energy regeneration is increased by 0.15/s",
+                Description = "Passive energy regeneration is increased by 0.175/s",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1633,7 +1633,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -0.5f,
                 PosOffsetY = -3f,
                 Name = "Focus - Quick Adjustments",
-                Description = "Focus extra attack on bodyshot is increased from 30% to 40%",
+                Description = "Focus extra attack speed on bodyshot is increased from 30% to 40%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1731,7 +1731,7 @@ namespace ChampionsOfForest.Player
                 Name = "Shield - Endurance",
                 Description = "Shield doesnt decay for 1 minute longer.",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };       new Perk()
             {
                 ApplyMethods = () => SpellActions.BlinkDamage += 2f,
@@ -1797,7 +1797,38 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = false,
             };
-
+            new Perk()
+            {
+                ApplyMethods = () => StatActions.AddMagicFind(0.1f),
+                DisableMethods = () => StatActions.AddMagicFind(-0.1f),
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 42 },
+                LevelRequirement = 14,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -5.5f,
+                PosOffsetY = 0f,
+                Name = "Luck Enchantment",
+                Description = "Increases magic find by 10%. Magic find increases the quantity of items dropped.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => StatActions.AddMagicFind(0.15f),
+                DisableMethods = () => StatActions.AddMagicFind(-0.15f),
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 109 },
+                LevelRequirement = 55,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = -6.5f,
+                PosOffsetY = 0f,
+                Name = "Item Rain",
+                Description = "Increases magic find by additional 15%. Magic find increases the quantity of items dropped.",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

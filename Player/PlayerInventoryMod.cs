@@ -243,7 +243,15 @@ namespace ChampionsOfForest.Player
                             }
                             else
                             {
-                                gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange);
+                                Vector3 proj_force = inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
+                                var proj_rb = gameObject.GetComponent<Rigidbody>();
+                                if (SpellActions.BIA_bonusDamage > 0)
+                                {
+                                    proj_force *= 1.5f;
+                                    proj_rb.useGravity = false;
+                                    gameObject.transform.localScale *= 1.3f;
+                                }
+                                proj_rb.AddForce(proj_force);
                             }
                             if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
                             {

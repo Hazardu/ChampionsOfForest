@@ -1201,7 +1201,7 @@ namespace ChampionsOfForest
             SpellActions.SnapFreezeDist = 22;
             SpellActions.SnapFloatAmount = 0.1f;
             SpellActions.SnapFreezeDuration = 20f;
-            SpellActions.BL_Damage = 150;
+            SpellActions.BL_Damage = 120;
             SpellActions.BashExtraDamage = 1.06f;
             SpellActions.BashDamageBuff = 1f;
             SpellActions.BashSlowAmount = 0.7f;
@@ -1211,8 +1211,8 @@ namespace ChampionsOfForest
             SpellActions.BashDuration = 3;
             SpellActions.FrenzyMaxStacks = 5;
             SpellActions.FrenzyStacks = 0;
-            SpellActions.FrenzyAtkSpeed = 0f;
-            SpellActions.FrenzyDmg = 0.05f;
+            SpellActions.FrenzyAtkSpeed = 0.02f;
+            SpellActions.FrenzyDmg = 0.075f;
             SpellActions.FocusBonusDmg =0;
             SpellActions.FocusOnHS = 1;
             SpellActions.FocusOnBS = 0.2f;
@@ -1228,12 +1228,24 @@ namespace ChampionsOfForest
             SpellActions.SeekingArrow_DamagePerDistance = 0.01f;
             SpellActions.ChanceToParryOnHit = false;
             SpellActions.ParryIgnites = false;
-            SpellActions.ParryRadius = 3;
-            BlackFlame.DmgAmp = 1;
+            SpellActions.ParryRadius = 3.5f;
+            SpellActions.ParryDamage = 40;
+            SpellActions.ParryBuffDuration = 10;
+            SpellActions.ParryHeal = 3;
+            SpellActions.ParryEnergy = 10;
+            SpellActions. CataclysmDamage = 24;
+SpellActions. CataclysmDuration = 10;
+SpellActions. CataclysmRadius = 5;
+            SpellActions.BIA_bonusDamage=0;
+        SpellActions.BIA_SpellDmMult = 1f;
+        SpellActions.BIA_HealthDmMult = 1.5f;
+        SpellActions.BIA_SpellDmBonusMult = 4.2f;
+        SpellActions.BIA_HealthTakenMult = 0.65f;
+        BlackFlame.DmgAmp = 1;
             BlackFlame.GiveAfterburn =false;
             BlackFlame.GiveDamageBuff =false;
             WeaponInfoMod.AlwaysIgnite = false;
-            AutoPickupItems.radius = 5;
+            AutoPickupItems.radius = 7.5f;
             Berserker.active = false;
             instance.HealingMultipier = 1;
             instance.strenght = 1;
@@ -1312,6 +1324,7 @@ namespace ChampionsOfForest
             instance.ProjectileSizeRatio = 1;
             instance.GeneratedResources.Clear();
             instance.MagicFindMultipier = 1;
+            Items.StatActions.AddMagicFind(0);
             instance.ReusabilityChance = 0;
             instance.ReusabilityAmount = 1;
             instance.IsSacredArrow = false;
@@ -1344,8 +1357,9 @@ namespace ChampionsOfForest
             instance.HammerStunDuration = 0.4f;
             instance.HammerStunAmount = 0.25f;
             instance.HammerSmashDamageAmp = 1f;
-        ReapplyAllItems();
+            ReapplyAllItems();
             ReapplyAllPerks();
+            ReapplyAllSpell();
         }
 
         public static void ReapplyAllSpell()

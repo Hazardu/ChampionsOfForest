@@ -185,6 +185,7 @@
 <Compile Include="Enemies\ClientEnemy.cs"  />
 <Compile Include="Enemies\EnemyAbilities\Avenger.cs"  />
 <Compile Include="Enemies\EnemyAbilities\FireAura.cs"  />
+<Compile Include="Enemies\EnemyCorpse.cs"  />
 <Compile Include="Enemies\EnemyDebuff.cs"  />
 <Compile Include="ExpSources\AnimalExp.cs"  />
 <Compile Include="ExpSources\CutBush2AddExp.cs"  />
