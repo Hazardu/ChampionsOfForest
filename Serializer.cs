@@ -156,6 +156,8 @@ namespace ChampionsOfForest
                         SpellCaster.instance.infos[i].spell = SpellDataBase.spellDictionary[ID];
                     }
                 }
+
+                ModdedPlayer.ReapplyAllSpell();
             }
             catch (System.Exception ex)
             {

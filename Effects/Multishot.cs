@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Effects
 
             GameObject child = GameObject.CreatePrimitive(PrimitiveType.Quad);
             Material mat = new Material(Shader.Find("Particles/Additive"));
-            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.2f));
+            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.08f));
             mat.mainTexture = Res.ResourceLoader.GetTexture(126);
             child.GetComponent<Renderer>().material = mat;
 
@@ -43,8 +43,8 @@ namespace ChampionsOfForest.Effects
             child.transform.parent = go.transform;
             child.transform.localPosition = Vector3.forward;
             c.child1 = child.transform;
-            c.child2 = Instantiate(child, go.transform.position + Vector3.forward * 2, Quaternion.identity, go.transform).transform;
-            c.child3 = Instantiate(child, go.transform.position + Vector3.forward * 3, Quaternion.identity, go.transform).transform;
+            c.child2 = Instantiate(child, go.transform.position + Vector3.forward * 1.5f, Quaternion.identity, go.transform).transform;
+            c.child3 = Instantiate(child, go.transform.position + Vector3.forward * 2, Quaternion.identity, go.transform).transform;
             c.child2.localScale *= 2;
             c.child3.localScale *= 4;
 

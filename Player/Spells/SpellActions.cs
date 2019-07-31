@@ -1,6 +1,7 @@
 ﻿using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 using System;
+using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -96,6 +97,7 @@ namespace ChampionsOfForest.Player
 
 
         public static bool HealingDomeGivesImmunity = false;
+        public static bool HealingDomeRegEnergy = false;
         public static void CreateHealingDome()
         {
             Vector3 pos = LocalPlayer.Transform.position;
@@ -116,6 +118,7 @@ namespace ChampionsOfForest.Player
                     w.Write(radius);
                     w.Write(healing);
                     w.Write(HealingDomeGivesImmunity);
+                    w.Write(HealingDomeRegEnergy);
                     w.Write(duration);
                 w.Close();
                 }
@@ -275,13 +278,18 @@ namespace ChampionsOfForest.Player
 
 
         #region WarCry
-        public static float WarCryRadius = 50;
+        public static float WarCryRadius = 50,WarCryAtkSpeed = 1.2f,WarCryDamage=1.2f;
         public static bool WarCryGiveDamage = false;
         public static bool WarCryGiveArmor = false;
         public static int WarCryArmor => ModdedPlayer.instance.Armor / 10;
         public static void CastWarCry()
         {
-            WarCry.GiveEffect(WarCryGiveDamage, WarCryGiveArmor, WarCryArmor);
+            float speed = WarCryAtkSpeed + (ModdedPlayer.instance.SpellAMP - 1) / 200;
+            speed = Mathf.Min(speed, 2.5f);
+            float dmg = WarCryDamage + (ModdedPlayer.instance.SpellAMP - 1) / 200;
+            dmg = Mathf.Min(dmg, 2.5f);
+
+            WarCry.GiveEffect(speed, dmg, WarCryGiveDamage, WarCryGiveArmor, WarCryArmor);
             WarCry.SpawnEffect(LocalPlayer.Transform.position, WarCryRadius);
             if (BoltNetwork.isRunning)
             {
@@ -296,6 +304,8 @@ namespace ChampionsOfForest.Player
                         w.Write(pos.y);
                         w.Write(pos.z);
                         w.Write(WarCryRadius);
+                        w.Write(speed);
+                        w.Write(dmg);
                         w.Write(WarCryGiveDamage);
                         w.Write(WarCryGiveArmor);
                         w.Write(WarCryArmor);
@@ -336,7 +346,7 @@ namespace ChampionsOfForest.Player
         public static float MagicArrowDuration = 15f;
         public static void CastMagicArrow()
         {
-            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.3f;
+            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.7f;
             damage = damage * ModdedPlayer.instance.SpellAMP;
             Vector3 pos = Camera.main.transform.position;
             Vector3 dir = Camera.main.transform.forward;
@@ -526,7 +536,7 @@ namespace ChampionsOfForest.Player
 
 
         #region Bash
-        public static float BashExtraDamage = 1.06f;
+        public static float BashExtraDamage = 1.16f;
         public static float BashDamageBuff = 1f;
         public static float BashSlowAmount = 0.7f;
         public static float BashLifesteal = 0.0f;
@@ -596,9 +606,9 @@ namespace ChampionsOfForest.Player
             {
                 if (BuffDB.activeBuffs.ContainsKey(60))
                 {
+                    int frenzyStacks = FrenzyStacks;
                     BuffDB.activeBuffs[60].OnEnd(FrenzyStacks);
-                    FrenzyStacks++;
-                    FrenzyStacks = Mathf.Min(FrenzyMaxStacks, FrenzyStacks);
+                    FrenzyStacks = Mathf.Min(FrenzyMaxStacks, frenzyStacks + 1);
                     BuffDB.activeBuffs[60].amount = FrenzyStacks;
                     BuffDB.activeBuffs[60].duration = 4;
                     BuffDB.activeBuffs[60].OnStart(FrenzyStacks);
@@ -614,7 +624,7 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Focus
-        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 4,FocusSlowAmount = 0.8f,FocusSlowDuration =10;
+        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 6,FocusSlowAmount = 0.85f,FocusSlowDuration =4;
         public static bool Focus;
         
         public static float FocusOnBodyShot()
@@ -656,7 +666,7 @@ namespace ChampionsOfForest.Player
         public static Transform SeekingArrow_Target;
         public static bool SeekingArrow;
         public static bool SeekingArrow_ChangeTargetOnHit;
-        public static float SeekingArrow_TimeStamp,SeekingArrow_HeadDamage =2,SeekingArrow_SlowDuration = 4,SeekingArrow_SlowAmount = 0.4f,SeekingArrow_DamagePerDistance = 0.01f;
+        public static float SeekingArrow_TimeStamp,SeekingArrow_HeadDamage =2,SeekingArrow_SlowDuration = 4,SeekingArrow_SlowAmount = 0.4f,SeekingArrow_DamagePerDistance = 0.01f,SeekingArrowDuration =30;
         public static void SeekingArrow_Initialize()
         {
             SeekingArrow_Target =new GameObject().transform;
@@ -682,7 +692,7 @@ namespace ChampionsOfForest.Player
 
         #region Parry
         public static bool Parry;
-        public static float ParryDamage = 40,ParryRadius = 3.5f,ParryBuffDuration = 10,ParryHeal = 3,ParryEnergy = 10;
+        public static float ParryDamage = 40,ParryRadius = 3.5f,ParryBuffDuration = 10,ParryHeal = 5,ParryEnergy = 10;
         public static bool ChanceToParryOnHit = false;
         public static bool ParryIgnites = false;
         public static void DoParry(Vector3 parryPos)
@@ -690,15 +700,14 @@ namespace ChampionsOfForest.Player
             if (Parry)
             {
                 BuffDB.AddBuff(6, 61, 1, ParryBuffDuration);
-                float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus;
+                float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus*0.7f + ModdedPlayer.instance.MeleeDamageBonus;
                 dmg *= ModdedPlayer.instance.SpellDamageAmplifier;
 
-                float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 15  + ModdedPlayer.instance.LifeRegen;
-                heal *= ModdedPlayer.instance.HealingMultipier * ModdedPlayer.instance.SpellDamageAmplifier/5;
+                float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 6  + ModdedPlayer.instance.LifeRegen + ModdedPlayer.instance.LifeOnHit*2;
+                heal *= ModdedPlayer.instance.HealingMultipier*(1+ ModdedPlayer.instance.HealthRegenPercent);
                 LocalPlayer.Stats.HealthTarget += heal;
-                LocalPlayer.Stats.Health += heal;
                 ParrySound.Play(parryPos);
-                float energy = ParryEnergy + ModdedPlayer.instance.MaxEnergy / 8;
+                float energy = ParryEnergy * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + ModdedPlayer.instance.EnergyOnHit *2 + ModdedPlayer.instance.MaxEnergy / 12.5f;
                 LocalPlayer.Stats.Energy += energy;
                 LocalPlayer.Stats.Stamina += energy;
 
@@ -747,45 +756,42 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Cataclysm       
-        public static float CataclysmDamage = 24, CataclysmDuration = 10, CataclysmRadius = 5;
+        public static float CataclysmDamage = 24, CataclysmDuration = 12, CataclysmRadius = 5;
         public static bool CataclysmArcane = false;
         public static void CastCataclysm()
         {
             Vector3 pos = LocalPlayer.Transform.position;
-            BuffDB.AddBuff(1, 66, 0.2f, 1f);
-            float dmg = CataclysmDamage + ModdedPlayer.instance.SpellDamageBonus / 2;
+            BuffDB.AddBuff(1, 66, 0.1f, 2.5f);
+            float dmg = CataclysmDamage + ModdedPlayer.instance.SpellDamageBonus*1.15f;
             dmg *= ModdedPlayer.instance.SpellAMP;
-            if (BoltNetwork.isRunning)
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
-                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                 {
-                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-                    {
-                        w.Write(3);
-                        w.Write(11);
-                        w.Write(pos.x);
-                        w.Write(pos.y);
-                        w.Write(pos.z);
-                        w.Write(CataclysmRadius);
-                        w.Write(dmg);
-                        w.Write(CataclysmDuration);
-                        w.Write(CataclysmArcane);
-                        w.Write(false);
+                    w.Write(3);
+                    w.Write(11);
+                    w.Write(pos.x);
+                    w.Write(pos.y);
+                    w.Write(pos.z);
+                    w.Write(CataclysmRadius);
+                    w.Write(dmg);
+                    w.Write(CataclysmDuration);
+                    w.Write(CataclysmArcane);
+                    w.Write(false);
                     w.Close();
-                    }
-                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
-                    answerStream.Close();
                 }
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
-            
+
         }
         #endregion
 
         #region Blood Infused Arrow
         public static float BIA_bonusDamage;
-        public static float BIA_SpellDmMult = 1f;
-        public static float BIA_HealthDmMult = 1.5f;
-        public static float BIA_SpellDmBonusMult = 4.2f;
+        public static float BIA_SpellDmMult = 1.25f;
+        public static float BIA_HealthDmMult = 3f;
+    
         public static float BIA_HealthTakenMult = 0.65f;
         
         public static void CastBloodInfArr()
@@ -795,6 +801,40 @@ namespace ChampionsOfForest.Player
             BIA_bonusDamage = takenHP * BIA_HealthDmMult;
             BIA_bonusDamage += BIA_SpellDmMult * ModdedPlayer.instance.SpellDamageBonus;
             BIA_bonusDamage *= ModdedPlayer.instance.SpellAMP;
+        }
+        #endregion
+
+        #region CorpseExplosion
+        //public static float CorpseExpl_HealthTakenMult = 0.10f;
+        //public static float CorpseExpl_Radius = 4;
+        //public static void CastCorpseExplosion()
+        //{
+        //   var hits = Physics.SphereCastAll(Camera.main.transform.position, CorpseExpl_Radius, Vector3.one, CorpseExpl_Radius, -10, QueryTriggerInteraction.Collide);
+        //    List<Transform> hitTransforms = new List<Transform>();
+        //    foreach (var hit in hits)
+        //    {
+        //        ModAPI.Console.Write("hit" + hit.transform.name + "\t" + hit.transform.tag);
+        //        if (hit.transform.CompareTag("enemyBodyPart"))
+        //        {
+        //            if (!hitTransforms.Contains(hit.transform.root))
+        //            {
+        //                hitTransforms.Add(hit.transform.root);
+        //                if ((hitTransforms.Count+1) * BIA_HealthTakenMult>=1) break;
+        //            }
+        //        }
+        //    }
+        //    if (hitTransforms.Count == 0) return;
+        //    int takenHP = (int)(LocalPlayer.Stats.Health * CorpseExpl_HealthTakenMult * hitTransforms.Count);
+        //    LocalPlayer.Stats.Hit(takenHP, true, PlayerStats.DamageType.Drowning);
+
+        //}
+        #endregion
+
+        #region Devour
+
+        public static void CastDevour()
+        {
+
         }
         #endregion
     }

@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Player
                 active = SpellActions.DoBlink,
 
             };
-            new Spell(4, 120, 10, 100, 45, "Flare", "A magic collumn heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
+            new Spell(4, 120, 10, 100, 45, "Flare", "A light column heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
             {
                 active = SpellActions.CastFlare,
                 
@@ -62,19 +62,19 @@ namespace ChampionsOfForest.Player
             {
                 active = AutoPickupItems.DoPickup,            
             };
-            new Spell(7, 115, 6, 25, 2, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 6, 25, 0.5f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
-            new Spell(8,123, 12, 75, 45, "War Cry", "Empowers you and nearby allies for 2 minutes.")
+            new Spell(8,123, 12, 80, 60, "War Cry", "Empowers you and nearby allies for 2 minutes.")
             {
                 active =SpellActions.CastWarCry,            
             };
-            new Spell(9, 114, 15, 120, 100, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
+            new Spell(9, 114, 15, 200, 45, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
             {
                 active =SpellActions.CastPortal,            
             };
-            new Spell(10, 125, 30, 80, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
+            new Spell(10, 125, 30, 90, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
             {
                 active =SpellActions.CastMagicArrow,            
             };
@@ -86,11 +86,11 @@ namespace ChampionsOfForest.Player
             {
                 active =Gold.Cast,            
             };
-            new Spell(13, 132, 7, 65, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
+            new Spell(13, 132, 7, 40, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
             {
                 active =SpellActions.CastPurge,            
             };
-            new Spell(14, 128, 20, 200, 45, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them")
+            new Spell(14, 128, 20, 280, 40, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them")
             {
                 active =SpellActions.CastSnapFreeze,            
             };
@@ -98,19 +98,19 @@ namespace ChampionsOfForest.Player
             {
                 active =Berserker.Cast,            
             };
-            new Spell(16, 130, 42, 300, 80, "Ball Lightning", "A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 400% spell damage.")
+            new Spell(16, 130, 42, 300, 90, "Ball Lightning", "A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 320% spell damage.")
             {
                 active =SpellActions.CastBallLightning,            
             };
-            new Spell(17, 134, 3, 0, 1, "Bash", "Attack modifier\nEvery attack slows enemies for 2 seconds, and increases their damage taken by 6%")
+            new Spell(17, 134, 3, 0, 1, "Bash", "Attack modifier\nEvery attack slows enemies for 2 seconds, and increases their damage taken by 16%")
             {
                 passive =SpellActions.BashPassiveEnabled,            
             };
-            new Spell(18, 136, 1, 0, 1, "Frenzy", "Attack modifier\nEvery attack enrages you, increasing damage all damage by 5%. Up to 5 stacks.")
+            new Spell(18, 136, 1, 0, 1, "Frenzy", "Attack modifier\nEvery attack enrages you, increasing damage all damage by 7.5%. Up to 5 stacks.")
             {
                 passive = x=> SpellActions.Frenzy = x,            
             };
-            new Spell(19, 135, 5, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 20 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
+            new Spell(19, 135, 5, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
             {
                 active = SpellActions.SeekingArrow_Active,
             };
@@ -130,7 +130,14 @@ namespace ChampionsOfForest.Player
             {
                 active = ()=> SpellActions.CastBloodInfArr(),
             };
-
+            //new Spell(24, 165, 1, 1, 2, "Corpse Explosion", "")
+            //{
+            //    active = () => SpellActions.CastCorpseExplosion(),
+            //};
+            //new Spell(25, 165, 1, 1, "Devour", "...")
+            //{
+            //    active = () =>
+            //};
         }
     }
 }

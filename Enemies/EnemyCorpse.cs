@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChampionsOfForest.Enemies
 {
-    class EnemyCorpse : chopEnemy
+    class EnemyCorpse : DamageCorpse
     {
         protected override void Start()
         {

@@ -87,7 +87,7 @@ namespace ChampionsOfForest.Effects
 
         private void Update()
         {
-            transform.Rotate(transform.forward * 60 * Time.deltaTime, Space.World);
+            transform.Rotate(transform.forward * 80 * Time.deltaTime, Space.World);
             if (setupComplete)
             {
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);

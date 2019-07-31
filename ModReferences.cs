@@ -163,13 +163,14 @@ namespace ChampionsOfForest
         public static void FindHands()
         {
             PlayerHands.Clear();
+
             for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
             {
                 if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
                 {
                     try
                     {
-                        string playerName = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>()?.GetState<IPlayerState>().name.TrimNonAscii();
+                        string playerName = CotfUtils.TrimNonAscii(Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>()?.GetState<IPlayerState>().name);
                         if (!string.IsNullOrEmpty(playerName))
                         {
                             Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
@@ -177,15 +178,11 @@ namespace ChampionsOfForest
                             {
                                 PlayerHands.Add(playerName, hand);
                             }
-                            else
-                            {
-                                //ModAPI.Console.Write(ListAllChildren(Scene.SceneTracker.allPlayers[i].transform.root, ""));
-                            }
                         }
                     }
                     catch (Exception e)
                     {
-                        ModAPI.Log.Write(e.Message);
+                        ModAPI.Log.Write(e.ToString());
                     }
                 }
             }

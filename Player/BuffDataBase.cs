@@ -225,7 +225,7 @@ namespace ChampionsOfForest.Player
 //30 & 31 - absolute zero
 //32 - poison from enemy hit
 //33 - poisons slow
-//40 - immunity to cc
+//40002 & 40001 - immunity to cc healing dome
 //41 - Hexing Pants dmg amp
 //42 - Hexing Pants regen amp
 //43 - Death Pact dmg amp

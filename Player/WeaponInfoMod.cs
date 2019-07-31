@@ -626,13 +626,13 @@ namespace ChampionsOfForest.Player
                     }
                     if (ModdedPlayer.instance.SpellAmpFireDmg)
                     {
-                        int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+                        int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
                         float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 2;
                         dmg *= ModdedPlayer.instance.SpellAMP;
                         dmg *= ModdedPlayer.instance.FireAmp + 1;
                         if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                         {
-                            other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
+                            other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 14);
                         }
                         else if (playerHitEnemy != null)
                         {
@@ -643,8 +643,8 @@ namespace ChampionsOfForest.Player
                                     w.Write(27);
                                     w.Write(playerHitEnemy.Target.networkId.PackedValue);
                                     w.Write(dmg);
-                                    w.Write(5);
-                                    w.Write(4);
+                                    w.Write(15);
+                                    w.Write(myID);
                                 w.Close();
                                 }
                                 AsyncHit.SendCommandDelayed(4, answerStream.ToArray(), NetworkManager.Target.OnlyServer);

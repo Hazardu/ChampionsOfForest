@@ -11,9 +11,10 @@ namespace ChampionsOfForest.Effects
         public float radius;
         public float healing;
         public bool GrantImmunity;
+        public bool regenEnergy;
 
 
-        public static void CreateHealingDome(Vector3 pos, float radius, float healing, bool grantImmunity, float duration)
+        public static void CreateHealingDome(Vector3 pos, float radius, float healing, bool grantImmunity,bool regensenergy, float duration)
         {
             if (material == null)
             {
@@ -32,6 +33,7 @@ namespace ChampionsOfForest.Effects
             d.radius = radius;
             d.healing = healing;
             d.GrantImmunity = grantImmunity;
+            d.regenEnergy = regensenergy;
 
             var light = go.AddComponent<Light>();
             light.shadowStrength = 1;
@@ -60,7 +62,12 @@ namespace ChampionsOfForest.Effects
                 LocalPlayer.Stats.Health += healing * Time.deltaTime;
                 if (GrantImmunity)
                 {
-                    BuffDB.AddBuff(4, 40, 0, 0.1f);
+                    BuffDB.AddBuff(4, 40002, 0, 3f);
+                    BuffDB.AddBuff(6, 40001, 0, 3f);
+                }
+                if (regenEnergy)
+                {
+                    LocalPlayer.Stats.Energy += healing * Time.deltaTime / 10;
                 }
             }
         }

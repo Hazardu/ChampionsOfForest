@@ -58,11 +58,12 @@ namespace ChampionsOfForest.Player
                 {
                     bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
                     {
-                        EmissionColor = new Color(0.4f, 0, 0),
+                        
+                        EmissionColor = new Color(0.6f, 0, 0),
                         renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
                         MainColor = Color.red,
-                        Metalic = 0.7f,
-                        Smoothness = 0.7f,
+                        Metalic = 0.5f,
+                        Smoothness = 0.5f,
                     });
                 }
                 damage += (int) SpellActions.BIA_bonusDamage;
@@ -77,7 +78,7 @@ namespace ChampionsOfForest.Player
         {
             if (SpellActions.SeekingArrow && Live)
             {
-                if (Time.time - 20 > SpellActions.SeekingArrow_TimeStamp)
+                if (Time.time - SpellActions.SeekingArrowDuration > SpellActions.SeekingArrow_TimeStamp)
                 {
                     CotfUtils.Log("Time out");
                     SpellActions.SeekingArrow = false;
@@ -283,6 +284,9 @@ NewHitAi(target, flag || flag3, headDamage);
                 ModdedPlayer.instance.OnHit();
                 ModdedPlayer.instance.OnHit_Ranged();
 
+                        BoltEntity be = target.GetComponentInParent<BoltEntity>();
+                if (be == null) { be = target.GetComponent<BoltEntity>(); }
+
                 if (ModdedPlayer.instance.SpellAmpFireDmg)
                 {
                     int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
@@ -291,23 +295,22 @@ NewHitAi(target, flag || flag3, headDamage);
                     dmg *= ModdedPlayer.instance.FireAmp + 1;
                     if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                     {
-                        target.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 4);
+                        target.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 14);
                     }
                     else
                     {
-                        BoltEntity e = target.GetComponentInParent<BoltEntity>();
-                        if (e != null)
+                        if (be != null)
                         {
                             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                             {
                                 using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                                 {
                                     w.Write(27);
-                                    w.Write( e.networkId.PackedValue);
+                                    w.Write( be.networkId.PackedValue);
                                     w.Write(dmg);
-                                    w.Write( 4.5f);
+                                    w.Write( 14.5f);
                                     w.Write( 1);
-                                w.Close();
+                                    w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
                                 answerStream.Close();
@@ -319,8 +322,6 @@ NewHitAi(target, flag || flag3, headDamage);
                 {
                     if (BoltNetwork.isClient)
                     {
-                        BoltEntity be = target.GetComponentInParent<BoltEntity>();
-                        if (be == null) { be = target.GetComponent<BoltEntity>(); }
                         if (be != null)
                         {
                             EnemyProgression.ReduceArmor(be, ModdedPlayer.instance.RangedArmorReduction);
@@ -328,7 +329,7 @@ NewHitAi(target, flag || flag3, headDamage);
                     }
                     else
                     {
-                        target.transform.SendMessageUpwards("ReduceArmor", ModdedPlayer.instance.MeleeArmorReduction, SendMessageOptions.DontRequireReceiver);
+                        target.transform.SendMessageUpwards("ReduceArmor", ModdedPlayer.instance.RangedArmorReduction, SendMessageOptions.DontRequireReceiver);
                     }
                 }
                 if (flag2)
@@ -341,14 +342,14 @@ NewHitAi(target, flag || flag3, headDamage);
             {
                 if (BoltNetwork.isRunning)
                 {
-                    BoltEntity boltEntity = target.GetComponentInParent<BoltEntity>();
-                    if (!(bool)boltEntity)
+                    BoltEntity be = target.GetComponentInParent<BoltEntity>();
+                    if (!(bool)be)
                     {
-                        boltEntity = target.GetComponent<BoltEntity>();
+                        be = target.GetComponent<BoltEntity>();
                     }
-                    if (boltEntity && ModSettings.FriendlyFire)
+                    if (be && ModSettings.FriendlyFire)
                     {
-                        HitPlayer HP = HitPlayer.Create(boltEntity, EntityTargets.Everyone);
+                        HitPlayer HP = HitPlayer.Create(be, EntityTargets.Everyone);
                         HP.damage = damage;
                         HP.Send();
                         disableLive();

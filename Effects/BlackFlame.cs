@@ -130,13 +130,13 @@ namespace ChampionsOfForest.Effects
             if (IsOn)
             {
                 SpellCaster.RemoveStamina(Cost * Time.deltaTime);
-                if (LocalPlayer.Stats.Stamina < 10)
+                if (LocalPlayer.Stats.Stamina < 5)
                 {
                     Toggle();
                 }
                 if (GiveDamageBuff)
                 {
-                    BuffDB.AddBuff(13, 44, 1.1f, 0.1f);
+                    BuffDB.AddBuff(13, 44, 1.5f, 0.1f);
                 }
             }
         }

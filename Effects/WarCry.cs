@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Effects
 
 
 
-        public static void Cast(Vector3 pos, float radius, bool GiveDamage, bool GiveArmor = false, int ArmorAmount = 1)
+        public static void Cast(Vector3 pos, float radius, float speed, float damage, bool GiveDamage, bool GiveArmor = false, int ArmorAmount = 1)
         {
             if (ModSettings.IsDedicated)
             {
@@ -19,19 +19,19 @@ namespace ChampionsOfForest.Effects
             }
             if ((LocalPlayer.Transform.position - pos).sqrMagnitude < radius * radius)
             {
-                GiveEffect(GiveDamage, GiveArmor, ArmorAmount);
+                GiveEffect(speed,damage, GiveDamage, GiveArmor, ArmorAmount);
             }
 
             SpawnEffect(pos, radius);
 
         }
-        public static void GiveEffect(bool giveEffect2, bool giveEffect3, int ArmorAmount = 1)
+        public static void GiveEffect(float speed,float damage,bool giveEffect2, bool giveEffect3, int ArmorAmount = 1)
         {
-            BuffDB.AddBuff(5, 45, 1.25f, 120);
-            BuffDB.AddBuff(14, 46, 1.25f, 120);
+            BuffDB.AddBuff(5, 45, speed, 120);
+            BuffDB.AddBuff(14, 46, speed, 120);
             if (giveEffect2)
             {
-                BuffDB.AddBuff(9, 47, 1.25f, 120);
+                BuffDB.AddBuff(9, 47, damage, 120);
             }
             if (giveEffect3)
             {

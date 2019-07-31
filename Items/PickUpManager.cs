@@ -38,7 +38,9 @@ namespace ChampionsOfForest
                         Heart_pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.white, Metalic = 0.1f, Smoothness = 0.4f, MainTexture = Res.ResourceLoader.GetTexture(103), BumpMap = Res.ResourceLoader.GetTexture(104) });
                     }
 
-                    spawn.GetComponent<BoxCollider>().size = Vector3.one * 0.45f;
+                    var col = spawn.GetComponent<BoxCollider>();
+                   
+                  
                 
                     renderer.material = pickupMaterial;
 
@@ -96,7 +98,7 @@ namespace ChampionsOfForest
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[102];
                                 renderer.material = Heart_pickupMaterial;
-                                spawn.transform.localScale *= 3f;
+                                spawn.transform.localScale *= 2f;
                             }
 
                             break;
@@ -177,16 +179,11 @@ namespace ChampionsOfForest
                             }
                         }
                     }
-                    try
-                    {
-                    spawn.AddComponent<MeshCollider>().sharedMesh = filter.mesh;
 
-                    }
-                    catch (System.Exception e)
-                    {
-                        CotfUtils.Log(e.ToString());
-                        
-                    }
+                    var bounds = filter.mesh.bounds;
+                    col.size = bounds.size;
+                    col.center = bounds.center;
+                  
                 }
 
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
@@ -83,7 +84,7 @@ namespace ChampionsOfForest
         private readonly float PerkHexagonSide = 60;
         private float PerkHeight;
         private float PerkWidth;
-
+        private float difficultyCooldown;
 
         private readonly float GuideWidthDecrease = 150;
         private readonly float GuideMargin = 30;
@@ -100,6 +101,8 @@ namespace ChampionsOfForest
         private Texture2D _SpellFrame;
         private Texture2D _SpellCoolDownFill;
         private Texture2D _expBarFrameTex;
+
+        const float BuffSize = 50;
 
         //a static variable for colors of items with different rarities
         //affects item border in inventory, text color in pickup, particle effect color 
@@ -225,6 +228,9 @@ namespace ChampionsOfForest
                 DraggedItem = null;
                 semiBlack = new Texture2D(1, 1);
 
+                //host difficulty raise/lower cooldown
+                if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer) difficultyCooldown = 20 * 60; //once every 20 minutes 
+
                 StartCoroutine(ProgressionRefresh());
             }
             catch (Exception ex)
@@ -283,7 +289,7 @@ namespace ChampionsOfForest
         private void Update()
         {
 
-
+            if (difficultyCooldown > 0) difficultyCooldown -= Time.deltaTime;
             LevelUpDuration -= Time.deltaTime;
             if (_openedMenu != OpenedMenuMode.Hud)
             {
@@ -512,6 +518,49 @@ namespace ChampionsOfForest
                 };
 
                 GUI.Label(new Rect(10 * rr, 10 * rr, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft });
+                //drawing difficulty raise lower buttons
+                if(difficultyCooldown <=0 && !GameSetup.IsMpClient)
+                {
+                    if((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10*rr,90*rr,200*rr, 40*rr),"Raise Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
+                    {
+                        //raise difficulty
+                        difficultyCooldown = 20 * 60;
+                        ModSettings.difficulty++;
+                        using (MemoryStream answerStream = new MemoryStream())
+                        {
+                            using (BinaryWriter w = new BinaryWriter(answerStream))
+                            {
+                                w.Write(2);
+                                w.Write((int)ModSettings.difficulty);
+                                w.Write(ModSettings.FriendlyFire);
+                                w.Write((int)ModSettings.dropsOnDeath);
+                                w.Close();
+                            }
+                            Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+                            answerStream.Close();
+                        }
+                    }
+                    if ((int)ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10*rr,130*rr,200*rr, 40*rr),"Lower Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
+                    {
+                        //lower difficulty
+                        difficultyCooldown = 20 * 60;
+                        ModSettings.difficulty--;
+                        using (MemoryStream answerStream = new MemoryStream())
+                        {
+                            using (BinaryWriter w = new BinaryWriter(answerStream))
+                            {
+                                w.Write(2);
+                                w.Write((int)ModSettings.difficulty);
+                                w.Write(ModSettings.FriendlyFire);
+                                w.Write((int)ModSettings.dropsOnDeath);
+                                w.Close();
+                            }
+                            Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+                            answerStream.Close();
+                        }
+                    }
+                }
+
 
                 Rect r1 = new Rect(wholeScreen.center, new Vector2(Screen.height / 2, Screen.height / 2));
                 Rect r2 = new Rect(r1);
@@ -1499,28 +1548,29 @@ namespace ChampionsOfForest
 
 
                 float BuffOffsetX = 0;
-                float BuffOffsetY = 1035;
+                float BuffOffsetY = 1080 - BuffSize;
                 const float MaxX = 540;
+                
                 if (ModdedPlayer.instance.Rooted)
                 {
                     TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(162), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.RootDuration);
-                    BuffOffsetX += 40;
+                    BuffOffsetX += BuffSize;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 40;
+                        BuffOffsetY -= BuffSize;
                     }
                 }
                 if (ModdedPlayer.instance.Stunned)
                 {
                     TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.StunDuration);
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(163), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.StunDuration);
-                    BuffOffsetX += 40;
+                    BuffOffsetX += BuffSize;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 40;
+                        BuffOffsetY -= BuffSize;
                     }
                 }
                 foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
@@ -1531,23 +1581,23 @@ namespace ChampionsOfForest
                     {
                         if (buff.Value.DisplayAsPercent)
                         {
-                            valueText += buff.Value.amount > 0 ? (buff.Value.amount - 1) * 100 + "%" : "-" + (buff.Value.amount - 1) * 100 + "%";
+                            valueText += buff.Value.amount > 0 ? ((buff.Value.amount - 1) * 100).ToString("F2") + "%" : "-" + ((buff.Value.amount - 1) * 100).ToString("F2") + "%";
                         }
                         else
                         {
-                            valueText += "" + buff.Value.amount.ToString("N2");
+                            valueText += "" + buff.Value.amount.ToString("F2");
                         }
                     }
-                    if (valueText.IndexOf(',') != -1)
+                    if (valueText.EndsWith(".00")|| valueText.EndsWith(",00")|| valueText.EndsWith(".00%")|| valueText.EndsWith(",00%"))
                     {
-                      valueText=  valueText.TrimEnd('0').TrimEnd(',');
+                      valueText=  valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
                     }
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
-                    BuffOffsetX += 40;
+                    BuffOffsetX += BuffSize;
                     if (BuffOffsetX > MaxX)
                     {
                         BuffOffsetX = 0;
-                        BuffOffsetY -= 40;
+                        BuffOffsetY -= BuffSize;
                     }
                 }
 
@@ -1622,10 +1672,9 @@ namespace ChampionsOfForest
                 }
                 float width = SpellCaster.SpellCount * SquareSize;
                 float height = width * 0.1f;
-                float combatHeight = width * 63 / 1500;
+                float combatHeight = width * 33 / 1500;
                 //Defining rectangles to later use to draw HUD elements
                 Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
-                //Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - SquareSize - height, width, height);
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= ProgressBarAmount;
                 Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
@@ -1637,7 +1686,7 @@ namespace ChampionsOfForest
                 Rect CombatBarText = new Rect(CombatBarCount)
                 {
                     y = CombatBar.yMax,
-                    height = 100f * rr
+                    height = 100 * rr
                 };
                 Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
                 GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleCenter };
@@ -2985,18 +3034,18 @@ namespace ChampionsOfForest
 
         private void DrawBuff(float x, float y, Texture2D tex, string amount, string time, bool isPositive, float durationInSeconds)
         {
-            Rect r = new Rect(x * rr, y * rr, 40 * rr, 40 * rr);
+            Rect r = new Rect(x * rr, y * rr, BuffSize * rr, BuffSize * rr);
 
             GUI.DrawTexture(r, ResourceLoader.GetTexture(143));
             if (isPositive)
             {
-                GUI.color = new Color(1, 1, 1, 0.25f + 0.5f * Mathf.Sin(durationInSeconds));
+                GUI.color = new Color(1, 1, 1, 0.25f + 0.5f * Mathf.Sin(durationInSeconds*3));
                 GUI.DrawTexture(r, ResourceLoader.GetTexture(145));
                 GUI.color = new Color(1, 1, 1, 1);
             }
             else
             {
-                GUI.color = new Color(1, 0, 0, 0.25f + 0.5f * Mathf.Sin(durationInSeconds));
+                GUI.color = new Color(1, 0, 0, 0.25f + 0.5f * Mathf.Sin(durationInSeconds*3));
                 GUI.DrawTexture(r, ResourceLoader.GetTexture(145));
                 GUI.color = new Color(1, 1, 1, 1);
             }
@@ -3005,8 +3054,8 @@ namespace ChampionsOfForest
             GUI.DrawTexture(r, tex);
 
             GUI.DrawTexture(r, ResourceLoader.GetTexture(144));
-            GUI.Label(r, amount, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(16 * rr), font = MainFont, fontStyle = FontStyle.Italic, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.UpperLeft });
-            GUI.Label(r, time, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(18 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.LowerRight });
+            GUI.Label(r, amount, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(16 * rr), font = MainFont, fontStyle = FontStyle.Italic,normal = new GUIStyleState() { textColor = Color.red }, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.UpperLeft });
+            GUI.Label(r, time, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.LowerRight });
         }
 
     }

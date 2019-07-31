@@ -425,7 +425,7 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.FireAura))
             {
-                float aurDmg = (3 * Level + 10f) * DamageAmp / 8;
+                float aurDmg = (3 * Level + 10f) * ((int)ModSettings.difficulty + 1.3f);
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
                 {
@@ -809,7 +809,7 @@ namespace ChampionsOfForest
 
                     for (int i = 0; i < itemCount; i++)
                     {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2.5f + i / 4));
+                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2f + i / 4));
                     }
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 4)
                     {
@@ -1210,6 +1210,9 @@ namespace ChampionsOfForest
                     float duration = 3;
                     switch (ModSettings.difficulty)
                     {
+                        case ModSettings.Difficulty.Normal:
+                            duration = 3;
+                            break;
                         case ModSettings.Difficulty.Hard:
                             duration = 3.4f;
                             break;
@@ -1235,7 +1238,7 @@ namespace ChampionsOfForest
                             duration = 7f;
                             break;
                         default:
-                            duration = 9f;
+                            duration = 8f;
                             break;
                     }
               
@@ -1656,8 +1659,6 @@ namespace ChampionsOfForest
                     b = b * 40;
 
                     break;
-                default:
-                    break;
             }
             Bounty = (long)b;
         }
@@ -1666,7 +1667,7 @@ namespace ChampionsOfForest
         {
             if (abilities.Contains(Abilities.FireAura))
             {
-                float aurDmg = (6 * Level + 10f);
+                float aurDmg = (3* Level + 10f)* ((int)ModSettings.difficulty+1.3f);
                 FireAura.Cast(gameObject, aurDmg);
                 if (BoltNetwork.isRunning)
                 {

@@ -17,30 +17,33 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             {
                 aura = go.AddComponent<FireAura>();
             }
-            aura.TurnOn(dmg);
+            aura.damage = dmg;
+            aura.isOn = true;
+            CotfUtils.Log("FireAura dmg = " + dmg);
         }
 
+        bool isOn = false;
+        float damage;
 
        void OnDisable()
         {
-            StopAllCoroutines();
+            isOn = false;
         }
 
-        public void TurnOn(float dmg)
+        public void TurnOn()
         {
-            StopAllCoroutines();
-            StartCoroutine(FireAuraCooroutine(dmg));
+            isOn = true;
         }
 
-        private IEnumerator FireAuraCooroutine(float dmg)
+     void Update()
         {
-            while (true)
+            if (isOn)
             {
-                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 80)
+                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 49)
                 {
-                    LocalPlayer.Stats.Health -= Time.deltaTime * dmg * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed) * (1-ModdedPlayer.instance.MagicResistance);
+                    LocalPlayer.Stats.Health -= Time.deltaTime * damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed) * (1-ModdedPlayer.instance.MagicResistance);
                 }
-                yield return null;
+              
             }
         }
     }

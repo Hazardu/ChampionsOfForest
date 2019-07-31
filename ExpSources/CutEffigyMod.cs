@@ -11,9 +11,9 @@ namespace ChampionsOfForest.ExpSources
             {
                 long Expamount = 40;
                 ModdedPlayer.instance.AddFinalExperience(Expamount);
-                if(!GameSetup.IsMpClient && Random.value < 0.08f)
+                if(!GameSetup.IsMpClient && Random.value < 0.3f + ModReferences.Players.Count * 0.10f )
                 {
-                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(0, EnemyProgression.Enemy.NormalSkinnyMale), transform.position + Vector3.up * (1.75f));
+                    Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(99, EnemyProgression.Enemy.NormalSkinnyMale), transform.position + Vector3.up * (1.75f));
 
                 }
             }

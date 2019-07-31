@@ -117,8 +117,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HealingMultipier *= 1.10f,
-                DisableMethods = () => ModdedPlayer.instance.HealingMultipier /= 1.10f,
+                ApplyMethods = () => ModdedPlayer.instance.HealingMultipier *= 1.05f,
+                DisableMethods = () => ModdedPlayer.instance.HealingMultipier /= 1.05f,
                 Category = PerkCategory.Support,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -128,9 +128,9 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0,
                 Name = "More Healing",
-                Description = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 10%",
+                Description = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 5%",
                 TextureVariation = 0, //0 or 1
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1146,7 +1146,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = 0.75f,
                 Name = "Sanctuary",
-                Description = "Healing dome provides immunity to root like effects",
+                Description = "Healing dome provides immunity to stuns anr root effects",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1162,7 +1162,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Enchant weapon",
-                Description = "While black flame is on, melee damage is increased by 10%",
+                Description = "While black flame is on, melee damage is increased by 50%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1178,7 +1178,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Empowered War Cry",
-                Description = "Warcry additionally increases all damage by 10%",
+                Description = "Warcry additionally increases all damage dealt",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1734,11 +1734,11 @@ namespace ChampionsOfForest.Player
                 Endless = true,
             };       new Perk()
             {
-                ApplyMethods = () => SpellActions.BlinkDamage += 2f,
-                DisableMethods = () => SpellActions.BlinkDamage -= 2f,
+                ApplyMethods = () => SpellActions.BlinkDamage += 14f,
+                DisableMethods = () => SpellActions.BlinkDamage -= 14f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 86 },
-                LevelRequirement = 26,
+                LevelRequirement = 40,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 5.5f,
@@ -1829,7 +1829,54 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = false,
             };
-
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BIA_HealthTakenMult +=0.25f,
+                DisableMethods = () => SpellActions.BIA_HealthTakenMult -= 0.25f,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 67 },
+                LevelRequirement = 16,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1f,
+                PosOffsetY = -3.75f,
+                Name = "Near death arrow",
+                Description = "Blood infused arrow takes 25% more health to convert it to damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BIA_HealthDmMult +=0.5f,
+                DisableMethods = () => SpellActions.BIA_HealthDmMult -= 0.5f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 19 },
+                LevelRequirement = 14,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 2.25f,
+                Name = "Arcane Blood",
+                Description = "Blood infused arrow damage per health is increased by 0.5 dmg/hp.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.HealingDomeRegEnergy = true,
+                DisableMethods = () => SpellActions.HealingDomeRegEnergy = false,
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 68 },
+                LevelRequirement = 36,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -4.5f,
+                PosOffsetY = 1.5f,
+                Name = "Energy Field",
+                Description = "Healing dome regenerates energy",
+                TextureVariation = 0,
+                Endless = false,
+            };
 
 
 

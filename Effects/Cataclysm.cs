@@ -42,10 +42,11 @@ namespace ChampionsOfForest.Effects
                 c.duration = duration;
                 c.isFromEnemy = isFromEnemy;
                 c.isArcane = tornadoType == TornadoType.Arcane;
+                CotfUtils.Log("Created cataclysm");
             }
             catch (Exception e)
             {
-                CotfUtils.Log("Creating cataclym error " + e.Message);
+                CotfUtils.Log("Creating cataclysm error " + e.Message);
             }
         }
 
@@ -143,7 +144,7 @@ namespace ChampionsOfForest.Effects
                             ep.HitMagic(dmg / 2);
                             ep.Slow(140, 0.5f, 7);
                             ep.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                            ep.FireDebuff(140, dmg / 2, 15);
+                            ep.FireDebuff(140, dmg * 2, 15);
 
                         }
                     }
