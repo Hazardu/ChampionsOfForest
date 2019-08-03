@@ -10,7 +10,7 @@ namespace ChampionsOfForest
         {
             string pattern = "[^ -~]+";
             Regex reg_exp = new Regex(pattern);
-            return reg_exp.Replace(value, "1");
+            return reg_exp.Replace(value, "a");
         }
 
         public static void Log(string s)

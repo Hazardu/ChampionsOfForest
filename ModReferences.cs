@@ -164,30 +164,35 @@ namespace ChampionsOfForest
         {
             PlayerHands.Clear();
 
-            for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
+            try
             {
-                if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
+                for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
                 {
-                    try
+                    if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
                     {
-                        string playerName = CotfUtils.TrimNonAscii(Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>()?.GetState<IPlayerState>().name);
+                        var entity = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
+                        if (entity == null) continue;
+                        var state = entity.GetState<IPlayerState>();
+                        if (state == null) continue;
+
+                        string playerName = state.name.TrimNonAscii();
                         if (!string.IsNullOrEmpty(playerName))
                         {
                             Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
+
                             if (hand != null)
                             {
+
                                 PlayerHands.Add(playerName, hand);
                             }
                         }
                     }
-                    catch (Exception e)
-                    {
-                        ModAPI.Log.Write(e.ToString());
-                    }
                 }
             }
-
-
+            catch (Exception e)
+            {
+                ModAPI.Log.Write(e.ToString());
+            }
         }
 
 

@@ -194,6 +194,7 @@
 <Compile Include="ExpSources\ExpEvents.cs"  />
 <Compile Include="Fun\Cheats.cs"  />
 <Compile Include="Fun\SpaceX.cs"  />
+<Compile Include="Items\Crafting.cs"  />
 <Compile Include="Player\AsyncHit.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />

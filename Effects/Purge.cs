@@ -1,5 +1,6 @@
 ﻿using ChampionsOfForest.Player;
 using System.Linq;
+using TheForest.Items;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -62,6 +63,8 @@ namespace ChampionsOfForest.Effects
                 LocalPlayer.Stats.HealthTarget *= mult;
                 LocalPlayer.Stats.Energy *= mult;
             }
+
+
         }
 
         private void Start()
@@ -78,4 +81,5 @@ namespace ChampionsOfForest.Effects
         }
 
     }
+   
 }

@@ -2,6 +2,7 @@
 using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 using ModAPI.Attributes;
 using System;
@@ -73,6 +74,7 @@ namespace ChampionsOfForest
                     go.AddComponent<MeteorSpawner>();
                     go.AddComponent<BlackFlame>();
                     go.AddComponent<AsyncHit>();
+                    go.AddComponent<Crafting>();
                     BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
                     SpellDataBase.Initialize();
