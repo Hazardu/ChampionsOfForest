@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
     public class SnowAura : MonoBehaviour
     {
         private readonly float _radius = 20;
-        private readonly float _duration = 50;
+        private readonly float _duration = 35;
         public Transform followTarget;
 
         private static Material _particleMaterial;
@@ -36,7 +36,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             ParticleSystem.EmissionModule e = p.emission;
             e.rateOverTime = 350;
             var main = p.main;
-            main.startSize = 0.3f;
+            main.startSize = 0.15f;
             main.startSpeed = 0;
             main.gravityModifier = -0.6f;
             main.prewarm = false;
@@ -47,7 +47,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             vel.y = new ParticleSystem.MinMaxCurve(3,0);
             var siz = p.sizeOverLifetime;
             siz.size = new ParticleSystem.MinMaxCurve(2, 0);
+            armorReduction = Mathf.Pow((int)ModSettings.difficulty, 5);
         }
+
+
+        private float armorReduction;
+
 
         private void Update()
         {
@@ -56,7 +61,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             if ((LocalPlayer.Transform.position- transform.position).sqrMagnitude < _radius* _radius) //if player is in range, slows him
             {
                 BuffDB.AddBuff(1, 30, 0.6f, 5);
-                BuffDB.AddBuff(2, 31, 0.6f, 5);
+                BuffDB.AddBuff(2, 31, 0.3f, 5);
+                BuffDB.AddBuff(21, 70, armorReduction*Time.deltaTime, 20);
             }
         }
     }

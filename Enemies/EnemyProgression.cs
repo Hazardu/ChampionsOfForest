@@ -85,7 +85,7 @@ namespace ChampionsOfForest
         public Enemy enemyType;
         public float CreationTime;
         public float AnimSpeed = 1;
-        private float BaseAnimSpeed = 1;
+        public float BaseAnimSpeed = 1;
         private float prerainDmg;
         private int prerainArmor;
         private readonly float agroRange = 1200;
@@ -107,6 +107,7 @@ namespace ChampionsOfForest
         //Closest player, for detecting if in range to cast abilities
         private GameObject closestPlayer;
         private float closestPlayerMagnitude;
+        private Avenger avengerability;
 
         private float timeOfDeath;
 
@@ -347,15 +348,19 @@ namespace ChampionsOfForest
             SetLevel();
 
             //Assigning rest of stats
-            DamageMult = Mathf.Pow(Level, 2.5f) / 100f + 0.7f;
+            DamageMult = Mathf.Pow(Level, 2.8f) / 110f + 0.7f;
+            DamageMult *= (int)ModSettings.difficulty + 1;
 
-
-            Armor = Mathf.FloorToInt(Random.Range(Level * Level * 1.6f + 20, Level * Level * 2f + 50));
+            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.6f) *0.3f+ 1, Mathf.Pow(Level,2.6f) * 0.5f + 20));
             Armor *= (int)ModSettings.difficulty + 1;
             ArmorReduction = 0;
-            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.3f) / 6));
-            AnimSpeed = 0.81f + (float)Level / 130;
-
+            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.35f)/(20)));
+            AnimSpeed =1 + (float)Level / 165;
+       
+            if(_rarity != EnemyRarity.Normal)
+            {
+                Armor *= 3;
+            }
 
             StartCoroutine(UpdateDoT());
 
@@ -374,7 +379,9 @@ namespace ChampionsOfForest
                     _hp *= 10;
                     break;
             }
-
+            _hp *= (float)((int)ModSettings.difficulty) * 0.3f + 0.7f ;
+            if ((int)ModSettings.difficulty > 3)
+                _hp *= 2.25f;
             //Applying some abilities
             if (abilities.Contains(Abilities.Huge))
             {
@@ -382,12 +389,13 @@ namespace ChampionsOfForest
                 gameObject.transform.localScale *= 2;
                 _hp *= 2;
                 DamageMult *= 2;
+                AnimSpeed /= 2;
             }
             else if (abilities.Contains(Abilities.Tiny))
             {
                 gameObject.transform.localScale *= 0.35f;
-                _hp *= 2;
-                DamageMult *= 1.5f;
+                _hp *= 1.25f;
+                DamageMult *= 1.2f;
                 BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
             }
             if (abilities.Contains(Abilities.Steadfast))
@@ -421,7 +429,11 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.Avenger))
             {
-                gameObject.AddComponent<Avenger>().progression = this;
+                if(avengerability == null)
+                avengerability = gameObject.AddComponent<Avenger>();
+                avengerability.progression = this;
+                avengerability.Stacks = 0;
+
             }
             if (abilities.Contains(Abilities.FireAura))
             {
@@ -446,7 +458,8 @@ namespace ChampionsOfForest
             }
             //Clamping Health
             _hp = Mathf.Min(_hp, int.MaxValue - 5);
-
+            Armor = Mathf.Min(Armor, int.MaxValue - 5);
+            if (Armor < 0) Armor = int.MaxValue;
 
             //Setting other health variables
             _Health.maxHealthFloat = _hp;
@@ -735,7 +748,7 @@ namespace ChampionsOfForest
                     {
                         foreach (EnemyProgression item in EnemyManager.hostDictionary.Values)
                         {
-                            if (!(item != null && item.gameObject != null && item.gameObject.activeSelf))
+                            if (!(item != null && item != this && item.gameObject != null && item.gameObject.activeSelf))
                             {
                                 continue;
                             }
@@ -745,10 +758,12 @@ namespace ChampionsOfForest
                                 continue;
                             }
 
-                            item.ArmorReduction /= 2;
-                            item.AnimSpeed *= 1.2f;
-                            item.DamageMult *= 1.2f;
+                            item.ArmorReduction =0;
+                            item.BaseAnimSpeed *= 1.25f;
+                            item.BaseDamageMult *= 2f;
+                            
                             item.Health = (int)item.MaxHealth;
+                            
                         }
                     }
                 }
@@ -774,10 +789,9 @@ namespace ChampionsOfForest
                             {
                                 continue;
                             }
-
-                            item.ArmorReduction /= 2;
-                            item.AnimSpeed *= 1.2f;
-                            item.DamageMult *= 1.2f;
+                            item.ArmorReduction = 0;
+                            item.BaseAnimSpeed *= 1.25f;
+                            item.BaseDamageMult *= 2f;
                             item.Health = (int)item.MaxHealth;
                         }
                     }
@@ -785,10 +799,10 @@ namespace ChampionsOfForest
 
                 if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
                 {
-                    int itemCount = Random.Range(1, 6) + Random.Range(2,3)*(ModReferences.Players.Count-1);
+                    int itemCount = Random.Range(1, 4) + Random.Range(0,3)*(ModReferences.Players.Count-1);
                     if (_AI.creepy_boss)
                     {
-                        itemCount += 14;
+                        itemCount += 15;
                     }
                     else if (abilities.Count >= 3)
                     {
@@ -802,7 +816,7 @@ namespace ChampionsOfForest
                     {
                         itemCount += 3;
                     }
-                    itemCount += (int)ModSettings.difficulty;
+                    itemCount += Mathf.RoundToInt((int)ModSettings.difficulty/1.5f);
                     itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
 
 
@@ -838,7 +852,7 @@ namespace ChampionsOfForest
                     ModdedPlayer.instance.AddKillExperience(Bounty);
                 }
                 OnDieCalled = true;
-                timeOfDeath = 60;
+                timeOfDeath = 90;
 
             }
             catch (Exception ex)
@@ -1005,7 +1019,11 @@ namespace ChampionsOfForest
             }
 
             transform.localScale = Vector3.one;
-            if (abilities.Contains(Abilities.RainEmpowerement))
+            if (abilities.Contains(Abilities.Avenger))
+            {
+                transform.localScale +=0.1f * avengerability.Stacks * Vector3.one;
+            }
+                if (abilities.Contains(Abilities.RainEmpowerement))
             {
                 if (TheForest.Utils.Scene.WeatherSystem.Raining)
                 {
@@ -1113,36 +1131,36 @@ namespace ChampionsOfForest
                             radius = 8.7f;
                             break;
                         case ModSettings.Difficulty.Challenge1:
-                            dmg = 3000;
+                            dmg = 1400;
                             radius = 9f;
                             break;
                         case ModSettings.Difficulty.Challenge2:
-                            dmg = 7000;
+                            dmg = 3000;
                             radius = 9.2f;
                             break;
                         case ModSettings.Difficulty.Challenge3:
-                            dmg = 15000;
+                            dmg = 6000;
                             radius = 9.4f;
                             break;
                         case ModSettings.Difficulty.Challenge4:
-                            dmg = 30000;
+                            dmg = 12000;
                             radius = 9.7f;
                             break;
                         case ModSettings.Difficulty.Challenge5:
-                            dmg = 60000;
+                            dmg = 19000;
                             radius = 10;
                             break;
                         case ModSettings.Difficulty.Challenge6:
-                            dmg = 100000;
+                            dmg = 40000;
                             radius = 14;
                             break;
                         case ModSettings.Difficulty.Hell:
-                            dmg = 100000;
+                            dmg = 50000;
                             radius = 17;
                             break;
                     }
 
-                    float Healing = dmg / 10;
+                    float Healing = dmg / 5;
 
                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                     {
@@ -1174,7 +1192,7 @@ namespace ChampionsOfForest
                     if (blinkCD <= 0)
                     {
                         transform.root.position = closestPlayer.transform.position + transform.forward * -2;
-                        blinkCD = Random.Range(15, 25);
+                        blinkCD = Random.Range(5, 20);
                     }
                     else
                     {
@@ -1186,7 +1204,7 @@ namespace ChampionsOfForest
                 {
                     Vector3 dir = closestPlayer.transform.position;
                     
-                    LaserCD = 100;
+                    LaserCD = 110;
                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                     {
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -1256,14 +1274,14 @@ namespace ChampionsOfForest
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                         answerStream.Close();
                     }
-                    StunCD = Random.Range(15, 30);
+                    StunCD = Random.Range(25, 35);
                 }
 
                 if (abilities.Contains(Abilities.Trapper) && TrapCD <= 0)
                 {
-                    if (closestPlayerMagnitude < agroRange / 2)
+                    if (closestPlayerMagnitude < 80)
                     {
-                        float radius = 10f;
+                        float radius = 8f;
                         using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                         {
                             using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -1272,14 +1290,14 @@ namespace ChampionsOfForest
                                 w.Write(transform.position.x);
                                 w.Write(transform.position.y);
                                 w.Write(transform.position.z);
-                                w.Write(15f);
+                                w.Write(20f);
                                 w.Write(radius);
                             w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                             answerStream.Close();
                         }
-                        TrapCD = 50;
+                        TrapCD = 40;
                     }
                 }
                 if (abilities.Contains(Abilities.ArcaneCataclysm) && ArcaneCataclysmCD <= 0)
@@ -1303,34 +1321,34 @@ namespace ChampionsOfForest
                                 radius = 13;
                                 break;
                             case ModSettings.Difficulty.Challenge1:
+                                dmg = 1400;
+                                radius = 14;
+                                break;
+                            case ModSettings.Difficulty.Challenge2:
                                 dmg = 3000;
                                 radius = 15;
                                 break;
-                            case ModSettings.Difficulty.Challenge2:
+                            case ModSettings.Difficulty.Challenge3:
                                 dmg = 7000;
                                 radius = 16;
                                 break;
-                            case ModSettings.Difficulty.Challenge3:
-                                dmg = 15000;
+                            case ModSettings.Difficulty.Challenge4:
+                                dmg = 13000;
                                 radius = 17;
                                 break;
-                            case ModSettings.Difficulty.Challenge4:
-                                dmg = 30000;
-                                radius = 18;
-                                break;
                             case ModSettings.Difficulty.Challenge5:
-                                dmg = 60000;
-                                radius = 20;
+                                dmg = 20000;
+                                radius = 18;
                                 break;
                             case ModSettings.Difficulty.Challenge6:
                             case ModSettings.Difficulty.Hell:
-                                dmg = 100000;
-                                radius = 22;
+                                dmg = 35000;
+                                radius = 19;
                                 break;
 
                         }
-                        radius -= 3;
-                        dmg /= 4;
+                        radius -= 1;
+                        dmg /= 2;
                         if (BoltNetwork.isRunning)
                         {
                             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -1378,33 +1396,33 @@ namespace ChampionsOfForest
                                 radius = 13;
                                 break;
                             case ModSettings.Difficulty.Challenge1:
+                                dmg = 1400;
+                                radius = 14;
+                                break;
+                            case ModSettings.Difficulty.Challenge2:
                                 dmg = 3000;
                                 radius = 15;
                                 break;
-                            case ModSettings.Difficulty.Challenge2:
+                            case ModSettings.Difficulty.Challenge3:
                                 dmg = 7000;
                                 radius = 16;
                                 break;
-                            case ModSettings.Difficulty.Challenge3:
-                                dmg = 15000;
+                            case ModSettings.Difficulty.Challenge4:
+                                dmg = 13000;
                                 radius = 17;
                                 break;
-                            case ModSettings.Difficulty.Challenge4:
-                                dmg = 30000;
-                                radius = 18;
-                                break;
                             case ModSettings.Difficulty.Challenge5:
-                                dmg = 60000;
-                                radius = 20;
+                                dmg = 20000;
+                                radius = 18;
                                 break;
                             case ModSettings.Difficulty.Challenge6:
                             case ModSettings.Difficulty.Hell:
-                                dmg = 90000;
-                                radius = 24;
+                                dmg = 35000;
+                                radius = 19;
                                 break;
 
                         }
-                        radius -= 3;
+                        radius -= 1;
                         dmg /= 3;
                         if (BoltNetwork.isRunning)
                         {
@@ -1458,7 +1476,7 @@ namespace ChampionsOfForest
                             SnowAura sa = new GameObject("Snow").AddComponent<SnowAura>();
                             sa.followTarget = transform.root;
                         }
-                        freezeauraCD = 100;
+                        freezeauraCD = 80;
                     }
                 }
                 if (abilities.Contains(Abilities.BlackHole))
@@ -1466,10 +1484,10 @@ namespace ChampionsOfForest
                     if (blackholeCD > 0) { blackholeCD -= Time.deltaTime; }
                     else
                     {
-                        float damage = 5 * Level * Level;
-                        float duration = 5;
-                        float radius = 15;
-                        float pullforce = 12;
+                        float damage = 3 * Level * Level;
+                        float duration = 8;
+                        float radius = 20;
+                        float pullforce = 14;
                         if (BoltNetwork.isRunning)
                         {
                             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -1533,7 +1551,7 @@ namespace ChampionsOfForest
             float extraLevels = 1;
             if (_AI.creepy || _AI.creepy_fat || _AI.creepy_male)
             {
-                extraLevels = 5;
+                extraLevels = 2;
 
             }
             else if (_AI.creepy_baby)
@@ -1543,30 +1561,30 @@ namespace ChampionsOfForest
             }
             else if (_AI.creepy_boss)
             {
-                extraLevels = 30;
+                extraLevels = 10;
 
             }
             else if (_AI.leader)
             {
-                extraLevels = 5f;
+                extraLevels = 2f;
             }
             else if (_AI.painted)
             {
-                extraLevels += 5f;
+                extraLevels += 2f;
             }
             else if (_AI.pale)
             {
-                extraLevels += 8f;
+                extraLevels += 1f;
                 if (_AI.skinned)
                 {
-                    extraLevels += 9f;
+                    extraLevels += 2f;
                 }
             }
 
             switch (ModSettings.difficulty)
             {
                 case ModSettings.Difficulty.Normal:
-                    Level = Random.Range(1, 3);
+                    Level = Random.Range(1, 4);
                     break;
                 case ModSettings.Difficulty.Hard:
                     Level = Random.Range(7, 11);

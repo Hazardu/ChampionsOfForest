@@ -8,7 +8,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         public float Duration;
         public float Radius;
         private float Lifetime;
-        private readonly float rotSpeed = 50f;
+        private readonly float rotSpeed = 30f;
         private bool coughtPlayer = false;
         public static GameObject Prefab;
 
@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             Prefab.SetActive(true);
 
-            GameObject go = GameObject.Instantiate(Prefab, pos, Quaternion.identity);
+            GameObject go = GameObject.Instantiate(Prefab, pos + Vector3.up, Quaternion.identity);
             TrapSphereSpell s = go.AddComponent<TrapSphereSpell>();
             s.Radius = radius;
             s.Duration = duration;
@@ -60,6 +60,20 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         {
             transform.Rotate((transform.forward + transform.up + Vector3.right) * rotSpeed * Time.deltaTime);
             Lifetime += Time.deltaTime;
+                if (coughtPlayer && 0==ModdedPlayer.instance.StunImmune)
+                {
+                var mag = (LocalPlayer.Transform.position - transform.position).sqrMagnitude;
+                    if (mag > Radius * Radius)
+                    {
+                        LocalPlayer.Transform.position = Vector3.MoveTowards(LocalPlayer.Transform.position, transform.position, mag/2 * Time.deltaTime);
+                    Player.BuffDB.AddBuff(5, 71, 0.6f, 5);
+                    Player.BuffDB.AddBuff(10, 72, 0.6f, 5);
+                    }
+                }
+                else
+                {
+                    coughtPlayer = false;
+                }
             if (Lifetime < Duration)
             {
 
@@ -67,18 +81,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 {
                     coughtPlayer = true;
                 }
-                if (coughtPlayer && 0==ModdedPlayer.instance.StunImmune)
-                {
-                    if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude > Radius * Radius)
-                    {
-                        LocalPlayer.Transform.position = Vector3.MoveTowards(LocalPlayer.Transform.position, transform.position, 40 * Time.deltaTime);
-                    }
-                }
             }
             else
             {
-                transform.localScale -= Vector3.one * Time.deltaTime;
-                if (transform.localScale.x < 0.02f)
+                transform.localScale -= Vector3.one * Time.deltaTime *2;
+                Radius -= Time.deltaTime * 2;
+                if (transform.localScale.x < 0.002f)
                 {
                     Destroy(gameObject);
                 }

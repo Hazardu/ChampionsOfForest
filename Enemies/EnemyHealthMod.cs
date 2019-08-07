@@ -169,14 +169,14 @@ namespace ChampionsOfForest
                 {
                     if (this.ai.creepy_boss)
                     {
-                        this.Health -= 120;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 120);
+                        this.Health -= 500;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500);
 
                     }
                     else
                     {
-                        this.Health -= 155;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 155);
+                        this.Health -= 800;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800);
 
                     }
                     if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
@@ -217,15 +217,15 @@ namespace ChampionsOfForest
                 }
                 else if (this.ai.male || this.ai.female)
                 {
-                    if (explodeDist < 0f)
+                    if (explodeDist <= 0f)
                     {
                         this.getAttackDirection(5);
                         this.targetSwitcher.attackerType = 4;
                         this.animator.SetIntegerReflected("hurtLevelInt", 4);
                         this.animator.SetTriggerReflected("damageTrigger");
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 500;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500);
+                        this.Health -= 1000;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 1000);
 
                         if (this.Health < 1)
                         {
@@ -238,7 +238,7 @@ namespace ChampionsOfForest
                     }
                     else if (explodeDist < 10.5f)
                     {
-                        HitReal(500);
+                        HitReal(800);
                         if (this.Health < 1)
                         {
                             UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
@@ -266,12 +266,12 @@ namespace ChampionsOfForest
                             this.alreadyBurnt = true;
                         }
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 80;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 80);
+                        this.Health -= 300;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300);
 
                         if (this.Health < 1)
                         {
-                            this.HitReal(1);
+                            this.HitReal(10);
                             return;
                         }
                         this.pmGotHit();
@@ -286,7 +286,7 @@ namespace ChampionsOfForest
                 }
                 else
                 {
-                    HitReal(500);
+                    HitReal(800);
                     if (Health < 1)
                     {
                         this.setup.pmCombat.enabled = true;

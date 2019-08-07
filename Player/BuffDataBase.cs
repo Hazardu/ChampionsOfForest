@@ -121,7 +121,7 @@ namespace ChampionsOfForest.Player
 
                 new Buff(20,159, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
 
-                new Buff(21,147, "Armor Corruption", true, false, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
+                new Buff(21,147, "Armor Corruption", true, true, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
 
 
             }
@@ -244,3 +244,8 @@ namespace ChampionsOfForest.Player
 //64 - cataclysm ms
 //65 - cataclysm as
 //65 - cataclysm cast debuff ms
+//66 laser beam slow
+//67 laser beam dmg debuff
+//68 laser poison
+//69 meteor armor corruption
+//70...73 enemy abilities debuff

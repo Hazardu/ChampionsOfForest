@@ -220,7 +220,7 @@ namespace ChampionsOfForest.Player
             if (!InfinityEnabled) return;
             for (int i = 0; i < infos.Length; i++)
             {
-                infos[i].Cooldown *= 0.9f;
+                infos[i].Cooldown *= 0.95f;
             }
         }
         #endregion

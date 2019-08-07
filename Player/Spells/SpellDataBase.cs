@@ -36,12 +36,12 @@ namespace ChampionsOfForest.Player
                 active = SpellActions.CreatePlayerBlackHole,
 
             };
-            Spell healingDome = new Spell(2, 122, 6, 60, 60, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
+            Spell healingDome = new Spell(2, 122, 6, 80, 70, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
             {
                 active = SpellActions.CreateHealingDome,
 
             };
-            new Spell(3, 121, 3, 25, 15, "Blink", "Short distance teleportation")
+            new Spell(3, 121, 3, 25, 12, "Blink", "Short distance teleportation")
             {
                 active = SpellActions.DoBlink,
 
@@ -58,15 +58,15 @@ namespace ChampionsOfForest.Player
                 usePassiveOnUpdate = true,
             
             };
-            new Spell(6, 117, 2, 10, 1, "Wide Reach", "Picks up all resources in a small radius around you.")
+            new Spell(6, 117, 2, 10, 0.5f, "Wide Reach", "Picks up all resources in a small radius around you.")
             {
                 active = AutoPickupItems.DoPickup,            
             };
-            new Spell(7, 115, 6, 25, 0.5f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 6, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
-            new Spell(8,123, 12, 80, 60, "War Cry", "Empowers you and nearby allies for 2 minutes.")
+            new Spell(8,123, 12, 80, 110, "War Cry", "Empowers you and nearby allies for 2 minutes.")
             {
                 active =SpellActions.CastWarCry,            
             };
@@ -82,7 +82,7 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.ToggleMultishot,            
             };
-            new Spell(12, 133, 40,50, 200, "Gold", "For 20 seconds you turn completely immune to stuns and attack speed increases by 20%")
+            new Spell(12, 133, 40,50, 150, "Gold", "For 40 seconds you turn completely immune to stuns and attack speed increases by 20%")
             {
                 active =Gold.Cast,            
             };

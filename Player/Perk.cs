@@ -1034,7 +1034,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Building Resources",
                 Description = "Increases carry amount of sticks by 3, rocks by 2 and ropes by 1",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1325,7 +1325,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Overhelming Odds",
-                Description = "Increases Critical chance bu 15%.",
+                Description = "Increases Critical chance by 15%.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1377,7 +1377,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -7f,
                 PosOffsetY = 0.75f,
                 Name = "Transporter",
-                Description = "Allows you to use raft on land, turning it into a wooden hovercraft.",
+                Description = "Allows you to use raft on land, turning it into a wooden hovercraft. WORKS FOR HOST ONLY!",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1393,7 +1393,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -7.5f,
                 PosOffsetY = 1.5f,
                 Name = "Turbo",
-                Description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%",
+                Description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%. WORKS FOR HOST ONLY!",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1473,7 +1473,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5.5f,
                 PosOffsetY = 0f,
                 Name = "Infinity",
-                Description = "Every time you cast a spell, all cooldowns are reduced by 10%",
+                Description = "Every time you cast a spell, all cooldowns are reduced by 5%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1671,7 +1671,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => BlackFlame.DmgAmp = 3,
+                ApplyMethods = () => BlackFlame.DmgAmp = 2,
                 DisableMethods = () => BlackFlame.DmgAmp = 1,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 100 },
@@ -1681,7 +1681,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -3f,
                 Name = "Netherflame",
-                Description = "Black flames have triple damage",
+                Description = "Black flames have double damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1875,6 +1875,70 @@ namespace ChampionsOfForest.Player
                 Name = "Energy Field",
                 Description = "Healing dome regenerates energy",
                 TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MaxHealthPercent += 0.1f,
+                DisableMethods = () => ModdedPlayer.instance.MaxHealthPercent -= 0.1f,
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 29},
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -1.5f,
+                Name = "Enchanced vitality",
+                Description = "Increases max health by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MaxEnergyPercent += 0.1f,
+                DisableMethods = () => ModdedPlayer.instance.MaxEnergyPercent -= 0.1f,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 80},
+                LevelRequirement = 9,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -1.5f,
+                Name = "Enchanced vitality",
+                Description = "Increases max energy by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+             new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CraftingReroll= true,
+                DisableMethods = () => ModdedPlayer.instance.CraftingReroll = false,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { -1},
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1.5f,
+                PosOffsetX = 0f,
+                PosOffsetY = 3f,
+                Name = "Crafting - Rerolling",
+                Description = "Opens Crafting Menu in inventory. Allows you to reroll item's properites by placing 2 items of the same rarity as ingredients.",
+                TextureVariation = 1,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.CraftingReforge= true,
+                DisableMethods = () => ModdedPlayer.instance.CraftingReforge = false,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 116},
+                LevelRequirement = 25,
+                PointsToBuy = 1,
+                Size = 1.5f,
+                PosOffsetX = 1.5f,
+                PosOffsetY = 3f,
+                Name = "Crafting - Reforging",
+                Description = "Adds a tab to crafting menu. Allows you to reforge an item into any other item of the same tier by placing 3 items of the same or higher rarity as ingredients.",
+                TextureVariation = 1,
                 Endless = false,
             };
 

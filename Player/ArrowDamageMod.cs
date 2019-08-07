@@ -60,15 +60,21 @@ namespace ChampionsOfForest.Player
                     {
                         
                         EmissionColor = new Color(0.6f, 0, 0),
-                        renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
+                        renderMode = BuilderCore.BuildingData.RenderMode.Fade,
                         MainColor = Color.red,
                         Metalic = 0.5f,
-                        Smoothness = 0.5f,
+                        Smoothness = 0.6f,
                     });
                 }
                 damage += (int) SpellActions.BIA_bonusDamage;
                 SpellActions.BIA_bonusDamage = 0;
                 gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+                var trail = gameObject.AddComponent<TrailRenderer>();
+                trail.material = bloodInfusedMaterial;
+                trail.startWidth = 0.1f;
+                trail.endColor = new Color(0, 0, 0, 0);
+                trail.endWidth = 0;
+                trail.time = 1.5f;
             }
         }
 
@@ -290,9 +296,10 @@ NewHitAi(target, flag || flag3, headDamage);
                 if (ModdedPlayer.instance.SpellAmpFireDmg)
                 {
                     int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                    float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 2;
+                    float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 3;
                     dmg *= ModdedPlayer.instance.SpellAMP;
                     dmg *= ModdedPlayer.instance.FireAmp + 1;
+                    dmg *= 0.3f;
                     if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                     {
                         target.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 14);

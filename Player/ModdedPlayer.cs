@@ -105,7 +105,7 @@ namespace ChampionsOfForest
         public float SpellDamageAmplifier => SpellDamageAmplifier_Mult * SpellDamageAmplifier_Add;
         public float MeleeDamageAmplifier => MeleeDamageAmplifier_Mult * MeleeDamageAmplifier_Add;
         public float RangedDamageAmplifier => RangedDamageAmplifier_Mult * RangedDamageAmplifier_Add;
-        public float HeadShotDamage = 5;
+        public float HeadShotDamage = 6;
         public float SpellDamageAmplifier_Mult = 1;
         public float MeleeDamageAmplifier_Mult = 1;
         public float RangedDamageAmplifier_Mult = 1;
@@ -247,6 +247,8 @@ namespace ChampionsOfForest
         public bool NearDeathExperience = false;
         public bool NearDeathExperienceUnlocked = false;
 
+        public bool CraftingReroll = false;
+        public bool CraftingReforge = false;
 
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
@@ -265,6 +267,7 @@ namespace ChampionsOfForest
                 applied = true;
                 LocalPlayer.Inventory.AddMaxAmountBonus(ID, Amount);
             }
+
             public void ExistingApply(int NewAmount)
             {
                 if (applied)
@@ -679,8 +682,8 @@ namespace ChampionsOfForest
             {
                 DamageOutputMult /= DeathPact_Amount;
 
-                DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth)) * 100) * 0.03f;
-                AddBuff(12, 43, DeathPact_Amount - 1, 1f);
+                DeathPact_Amount =1 +Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth)) * 100) * 0.03f;
+                AddBuff(12, 43, DeathPact_Amount, 1f);
 
                 DamageOutputMult *= DeathPact_Amount;
 
@@ -755,7 +758,7 @@ namespace ChampionsOfForest
          
             ExpCurrent += Convert.ToInt64(Amount * ExpFactor);
             int i = 0;
-            while (ModdedPlayer.instance.ExpCurrent >= ModdedPlayer.instance.ExpGoal)
+            while (ExpCurrent >= ExpGoal || (Level > 100 && ExpCurrent < 0))
             {
                 ModdedPlayer.instance.ExpCurrent -= ModdedPlayer.instance.ExpGoal;
                 ModdedPlayer.instance.LevelUp();
@@ -968,8 +971,10 @@ namespace ChampionsOfForest
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            var y = 500*System.Math.Pow(1.2f,x-10) - 88 +  System.Math.Pow(x, 3.35) * 2;
-           y= System.Math.Min(y*1.5f, long.MaxValue - 10);
+            if (x >= 151)
+                return 9000000000000000000;
+            var y = 100*System.Math.Pow(1.33f,x-10) + 50 + 5* System.Math.Pow(x, 3);
+            y = y / 3.5;
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
@@ -1193,6 +1198,7 @@ namespace ChampionsOfForest
             SpellActions.ShieldPersistanceLifetime = 3;
             SpellActions.PurgeHeal = false;
             SpellActions.WarCryRadius = 50;
+            SpellActions.CataclysmArcane = false;
             SpellActions.WarCryGiveDamage = false;
             SpellActions.WarCryGiveArmor = false;
             SpellActions.PortalDuration = 30;
@@ -1293,6 +1299,8 @@ SpellActions. CataclysmRadius = 5;
             instance.Stunned = false;
             instance.Armor = 0;
             instance.MagicResistance = 0;
+            instance.CraftingReroll = false;
+            instance.CraftingReforge = false;
             instance.AttackSpeedMult = 1;
             instance.AttackSpeedAdd = 1;
             instance.StunImmune = 0;
@@ -1348,7 +1356,7 @@ SpellActions. CataclysmRadius = 5;
             instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
             instance.FireAmp=0;
-            instance.HeadShotDamage = 5;
+            instance.HeadShotDamage = 6;
             instance.SpellAmpFireDmg = false;
             instance.ChanceToSlowOnHit = 0;
             instance.ChanceToBleedOnHit = 0;
@@ -1361,6 +1369,10 @@ SpellActions. CataclysmRadius = 5;
             ReapplyAllItems();
             ReapplyAllPerks();
             ReapplyAllSpell();
+            foreach (var extraItem in instance.ExtraCarryingCapactity)
+            {
+                extraItem.Value.NewApply();
+            }
         }
 
         public static void ReapplyAllSpell()
@@ -1396,12 +1408,12 @@ SpellActions. CataclysmRadius = 5;
 
         public static void Respec()
         {
-            MainMenu.Instance.FadeMenuSwitch(MainMenu.OpenedMenuMode.Hud);
+            MainMenu.Instance.StartCoroutine(  MainMenu.Instance.FadeMenuSwitch(MainMenu.OpenedMenuMode.Hud));
             LocalPlayer.Stats.Health = 1;
             LocalPlayer.Stats.HealthTarget = 1;
             LocalPlayer.Stats.Energy = 1;
             UnAssignAllStats();
-
+           
 
             instance.MutationPoints = instance.Level + instance.PermanentBonusPerkPoints;
             foreach (int i in SpellDataBase.spellDictionary.Keys)

@@ -11,11 +11,14 @@ namespace ChampionsOfForest.Enemies
         private ulong id;
         public List<EnemyProgression.Abilities> abilities;
         public float damagemult;
+        public float TimeStamp;
+        public bool Outdated => TimeStamp + 5 < Time.time;
         public ClientEnemy(ulong id,float damage, List<EnemyProgression.Abilities> abilities)
         {
             this.damagemult = damage;
             this.abilities = abilities;
             this.id = id;
+            TimeStamp = Time.time;
             if (!EnemyManager.clientEnemies.ContainsKey(id))
             {
                 EnemyManager.clientEnemies.Add(id, this);

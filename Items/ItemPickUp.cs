@@ -26,15 +26,16 @@ namespace ChampionsOfForest
             { 
                 amount = item.Amount;
             }
-            item.Amount = 1;
-            lifetime = 2500;
+            if(item.Amount < 1)
+                item.Amount = 1;
+
             if (ModSettings.IsDedicated) return;
             rb = GetComponent<Rigidbody>();
             rb.drag = 2.25f;
             rb.angularDrag = 0.1f;
             rb.isKinematic = true;
             Invoke("UnlockPhysics", 1f);
-            lifetime = 300;
+            lifetime = 600;
         }
 
         public void EnableDisplay()
@@ -62,7 +63,7 @@ namespace ChampionsOfForest
                     center = pos
                 };
                 label = item.name;
-                if (constantViewTime > 0.5f)
+                if (constantViewTime > 0.5f && amount > 1)
                 {
                     label += " \n x" + amount;
                 }

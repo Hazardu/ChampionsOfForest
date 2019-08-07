@@ -316,21 +316,24 @@ namespace ChampionsOfForest.Res
             if (DirExists())
             {
                 bool DeleteCurrentFiles = false;
-                if (ModSettings.RequiresNewFiles)
-                {
-                    if (File.Exists(Resource.path + "VERSION.txt"))
-                    {
-                        string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
-                        if (CompareVersion(versiontext) == Status.Outdated)
-                        {
-                            DeleteCurrentFiles = true;
-                        }
-                    }
-                    else
-                    {
-                        DeleteCurrentFiles = true;
-                    }
-                }
+
+                //if (ModSettings.RequiresNewFiles)
+                //{
+                    
+                //    if (File.Exists(Resource.path + "VERSION.txt"))
+                //    {
+                //        string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
+                //        if (CompareVersion(versiontext) == Status.Outdated)
+                //        {
+                //            DeleteCurrentFiles = true;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        DeleteCurrentFiles = true;
+                //    }
+                //}
+
                 File.WriteAllText(Resource.path + "VERSION.txt", ModSettings.Version);
                 foreach (Resource resource in unloadedResources.Values)
                 {

@@ -134,17 +134,18 @@ namespace ChampionsOfForest.Effects
                     {
                         if (isArcane)
                         {
-                            ep.HitMagic(dmg);
+                            ep.HitMagic(dmg*2);
                             ep.Slow(141, 0.0f, 2);
-                            ep.DmgTakenDebuff(140, 1.5f, 7);
+                            ep.DmgTakenDebuff(140, 1.5f, 10);
+                            ep.FireDebuff(140, dmg / 3, 25);
 
                         }
                         else
                         {
                             ep.HitMagic(dmg / 2);
-                            ep.Slow(140, 0.5f, 7);
+                            ep.Slow(140, 0.6f, 7);
                             ep.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                            ep.FireDebuff(140, dmg * 2, 15);
+                            ep.FireDebuff(140, dmg /4, 25);
 
                         }
                     }
@@ -168,8 +169,8 @@ namespace ChampionsOfForest.Effects
                 {
                     //negative armor
                     BuffDB.AddBuff(21, 63, -dmg * 2, 30);
-                    BuffDB.AddBuff(1, 64, 0.3f, 12);
-                    BuffDB.AddBuff(2, 65, 0.3f, 12);
+                    BuffDB.AddBuff(1, 64, 0.2f, 10);
+                    BuffDB.AddBuff(2, 65, 0.2f, 10);
                     dmg *= 2;
                 }
                 else
@@ -186,7 +187,6 @@ namespace ChampionsOfForest.Effects
         {
             try
             {
-                CotfUtils.Log("end cataclysm");
 
                 warmUpDone = false;
                 for (int i = 0; i < particleParent.transform.childCount; i++)

@@ -85,6 +85,22 @@ namespace ChampionsOfForest.Enemies
                 {
                    if(entity ==null&& !EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
                     return;
+                    else if (EnemyManager.clientEnemies[entity.networkId.PackedValue].Outdated)
+                    {
+                        LastReqTime = Time.time;
+                        using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                            {
+                                w.Write(29);
+                                w.Write(entity.networkId.PackedValue);
+                                w.Close();
+                            }
+                            ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+                            answerStream.Close();
+                        }
+
+                    }
                 }
 
                 currState = animator.GetCurrentAnimatorStateInfo(0);
@@ -244,7 +260,7 @@ namespace ChampionsOfForest.Enemies
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                         {
 
-                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10), poisonDuration);
 
                                         }
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Basher))

@@ -54,21 +54,20 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             yield return new WaitForSeconds(1f);
             rotSpeed += 40;
-            StartCoroutine(Shoot());
-            yield return new WaitForSeconds(1f);
-            Direction.RotateY(-180f);
-            StartCoroutine(Shoot());
-            yield return new WaitForSeconds(1f);
-            Direction.RotateY(-180f);
-            StartCoroutine(Shoot());
-            yield return new WaitForSeconds(1f);
-            Direction.RotateY(-180f);
-            StartCoroutine(Shoot());
+            int index = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                StartCoroutine(Shoot(index));
+                yield return new WaitForSeconds(1f);
+                Direction.RotateY(-180f);
+                index++;
+            }
+        
             yield return new WaitForSeconds(20f);
             Destroy(gameObject);
 
         }
-        private IEnumerator Shoot()
+        private IEnumerator Shoot(int index)
         {
             GameObject go = new GameObject();
             go.transform.position = transform.position + Vector3.up * 13;
@@ -130,7 +129,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             ParticleSystem.SizeOverLifetimeModule sol = ps.sizeOverLifetime;
             sol.enabled = true;
             sol.sizeMultiplier = 3;
-            sol.size = new ParticleSystem.MinMaxCurve(4, new AnimationCurve(new Keyframe[] { new Keyframe(0f, 0f, 11.34533f, 11.34533f), new Keyframe(0.1365601f, 1f, 0.4060947f, 0.4060947f), new Keyframe(1f, 0.2881376f, -0.8223371f, -0.8223371f) }));
+            sol.size = new ParticleSystem.MinMaxCurve(20, new AnimationCurve(new Keyframe[] { new Keyframe(0f, 0f, 11.34533f, 11.34533f), new Keyframe(0.1365601f, 1f, 0.4060947f, 0.4060947f), new Keyframe(1f, 0.2881376f, -0.8223371f, -0.8223371f) }));
             yield return null;
             ParticleSystem.TrailModule trail = ps.trails;
             trail.enabled = true;
@@ -142,9 +141,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             while (time < 8)
             {
                 time += Time.deltaTime;
-                go.transform.Rotate(Vector3.up * Time.deltaTime * 33, Space.World);
-                go.transform.Rotate(go.transform.right * Time.deltaTime * 4 * Mathf.Sin(time*3), Space.World);
-
+                if (index != 0)
+                {
+                    float mult = index % 2 == 0 ? 1 : -1;
+                    go.transform.Rotate(Vector3.up * Time.deltaTime * 63* mult, Space.World);
+                    go.transform.Rotate(go.transform.right * Time.deltaTime * 40 * Mathf.Sin(time * 6), Space.World);
+                }
                 yield return null;
 
             }

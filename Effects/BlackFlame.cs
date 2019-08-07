@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Effects
     {
         public static BlackFlame instance;
         public static float DmgAmp = 1;
-        public static float FireDamageBonus => (20 + ModdedPlayer.instance.SpellDamageBonus) * ModdedPlayer.instance.SpellAMP * DmgAmp ;
+        public static float FireDamageBonus => (20 + ModdedPlayer.instance.SpellDamageBonus/2) * ModdedPlayer.instance.SpellAMP * DmgAmp /4;
 
         private static Material mat1;
         private static Material mat2;
@@ -169,7 +169,7 @@ namespace ChampionsOfForest.Effects
         private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
         public static void ToggleOtherPlayer(string playerName, bool ison)
         {
-            ModAPI.Console.Write("Toggling black flames for client " + playerName + ison);
+            //ModAPI.Console.Write("Toggling black flames for client " + playerName + ison);
             if (!ModReferences.PlayerHands.ContainsKey(playerName))
             {
                 ModReferences.FindHands();

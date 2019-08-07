@@ -12,7 +12,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             MeteorSpawner.Instance.Spawn(position, seed);
         }
 
-        private int Damage;
+        public int Damage;
 
         private void Update()
         {
@@ -24,46 +24,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private void Start()
         {
             Destroy(gameObject, 7);
-            switch (ModSettings.difficulty)
-            {
-                case ModSettings.Difficulty.Normal:
-                    Damage = Random.Range(20,30);
-                    break;
-                case ModSettings.Difficulty.Hard:
-                    Damage = Random.Range(55, 90);
-                    break;
-                case ModSettings.Difficulty.Elite:
-                    Damage = Random.Range(160, 225);
-                    break;
-                case ModSettings.Difficulty.Master:
-                    Damage = Random.Range(260, 300);
-                    break;
-                case ModSettings.Difficulty.Challenge1:
-                    Damage = 1000;
-
-                    break;
-                case ModSettings.Difficulty.Challenge2:
-                    Damage = 1650;
-
-                    break;
-                case ModSettings.Difficulty.Challenge3:
-                    Damage = 4500;
-
-                    break;
-                case ModSettings.Difficulty.Challenge4:
-                    Damage = 12000;
-                    break;
-                case ModSettings.Difficulty.Challenge5:
-                    Damage = 40000;
-                    break;
-                case ModSettings.Difficulty.Challenge6:
-                    Damage = 80000;
-                    break;
-                case ModSettings.Difficulty.Hell:
-                    Damage = 100000;
-                    break;
-            }
-
+           
         }
 
         private void OnTriggerEnter(Collider other)
@@ -77,6 +38,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             else if (other.transform.root == LocalPlayer.Transform.root)
             {
                 LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), true, PlayerStats.DamageType.Physical);
+                Player.BuffDB.AddBuff(21, 69, Damage, 60);
                 other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
 
             }

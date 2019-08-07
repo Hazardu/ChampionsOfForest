@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
 using UnityEngine;
@@ -60,7 +59,7 @@ namespace ChampionsOfForest
             }
             ThisPlayerID = LocalPlayer.Entity.GetState<IPlayerState>().name;
             ThisPlayerID.Replace(';', '0');
-            ThisPlayerID.TrimNonAscii();
+            ThisPlayerID= CotfUtils.TrimNonAscii( ThisPlayerID);
 
         }
 
@@ -72,14 +71,14 @@ namespace ChampionsOfForest
                 LevelRequestCooldown -= 1;
                 if (LevelRequestCooldown < 0)
                 {
-                    LevelRequestCooldown = 90;
+                    LevelRequestCooldown = 120;
                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                     {
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(18);
                             w.Write("x");
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
                         answerStream.Close();
@@ -87,7 +86,7 @@ namespace ChampionsOfForest
                 }
                 else if (Players.Count != PlayerLevels.Count + 1)
                 {
-                    LevelRequestCooldown = 90;
+                    LevelRequestCooldown = 120;
                     PlayerLevels.Clear();
                     //PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
                     using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -96,7 +95,7 @@ namespace ChampionsOfForest
                         {
                             w.Write(18);
                             w.Write("x");
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
                         answerStream.Close();
@@ -110,7 +109,7 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(23);
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                         answerStream.Close();
@@ -140,7 +139,7 @@ namespace ChampionsOfForest
                     {
                         w.Write(18);
                         w.Write("x");
-                    w.Close();
+                        w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
                     answerStream.Close();
@@ -153,48 +152,55 @@ namespace ChampionsOfForest
 
             float arReduction = 1;
             arReduction *= armor;
-            arReduction /= armor + 30*10;
+            arReduction /= armor + 30 * 10;
 
             return arReduction;
         }
 
 
-
+        //invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself
+        //im trying splitting to more classes
         public static void FindHands()
         {
+
             PlayerHands.Clear();
-
-            try
+            for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
             {
-                for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
+
+                if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
                 {
-                    if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
+                    //BoltEntity entity = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
+                    //if (entity == null) continue;
+                    //IPlayerState state = entity.GetState<IPlayerState>();
+                    //if (state == null) continue;
+
+                    string playerName = getName(Scene.SceneTracker.allPlayers[i]);
+                    if (playerName != "") 
                     {
-                        var entity = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
-                        if (entity == null) continue;
-                        var state = entity.GetState<IPlayerState>();
-                        if (state == null) continue;
-
-                        string playerName = state.name.TrimNonAscii();
-                        if (!string.IsNullOrEmpty(playerName))
+                        Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
+                        if (hand != null)
                         {
-                            Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
-
-                            if (hand != null)
-                            {
-
-                                PlayerHands.Add(playerName, hand);
-                            }
+                            PlayerHands.Add(playerName, hand);
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                ModAPI.Log.Write(e.ToString());
-            }
-        }
 
+            }
+
+        }
+        static string getName(GameObject gameObject)
+        {
+            BoltEntity entity = gameObject.GetComponent<BoltEntity>();
+            if (entity == null) return "";
+            else
+            {
+                IPlayerState state = entity.GetState<IPlayerState>();
+                if (state == null) return "";
+                else
+                return CotfUtils.TrimNonAscii(state.name);
+            }
+
+        }
 
         private IEnumerator UpdateSetups()
         {
@@ -221,15 +227,6 @@ namespace ChampionsOfForest
             }
         }
 
-        public static string ListAllChildren(Transform tr, string prefix)
-        {
-            string s = prefix + "•" + tr.name + "\n";
-            foreach (Transform child in tr)
-            {
-                s += ListAllChildren(child, prefix + "\t");
-            }
-            return s;
-        }
         public static Transform FindDeepChild(Transform aParent, string aName)
         {
             Transform result = aParent.Find(aName);
@@ -237,33 +234,45 @@ namespace ChampionsOfForest
             {
                 return result;
             }
-
-            foreach (Transform child in aParent)
+            else
             {
-                result = FindDeepChild(child, aName);
-                if (result != null)
+                foreach (Transform child in aParent)
                 {
-                    return result;
+                    Transform result2 = FindDeepChild(child, aName);
+                    if (result2 != null)
+                    {
+                        return result2;
+                    }
                 }
+                return null;
             }
-            return null;
         }
+
+        //public static string ListAllChildren(Transform tr, string prefix)
+        //{
+        //    string s = prefix + "•" + tr.name + "\n";
+        //    foreach (Transform child in tr)
+        //    {
+        //        s += ListAllChildren(child, prefix + "\t");
+        //    }
+        //    return s;
+        //}
 
         //finds the hand transform of client
-        public static Transform FindHandRetardedWay(Transform root)
-        {
-            try
-            {
-                return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
-            }
-            catch (Exception e)
-            {
+        //public static Transform FindHandRetardedWay(Transform root)
+        //{
+        //    try
+        //    {
+        //        return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
+        //    }
+        //    catch (Exception e)
+        //    {
 
-                ModAPI.Log.Write("couldnt find hand " + e.ToString());
+        //        ModAPI.Log.Write("couldnt find hand " + e.ToString());
 
-            }
-            return null;
+        //    }
+        //    return null;
 
-        }
+        //}
     }
 }

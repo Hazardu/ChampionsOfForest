@@ -89,7 +89,9 @@ namespace ChampionsOfForest.Player
         {
             Vector3 vel = LocalPlayer.Rigidbody.velocity;
             LocalPlayer.Transform.root.position = point + Vector3.up;
+            vel.y /= 6;
             LocalPlayer.Rigidbody.velocity = vel * 1.5f;
+
         }
 
 
@@ -284,10 +286,10 @@ namespace ChampionsOfForest.Player
         public static int WarCryArmor => ModdedPlayer.instance.Armor / 10;
         public static void CastWarCry()
         {
-            float speed = WarCryAtkSpeed + (ModdedPlayer.instance.SpellAMP - 1) / 200;
-            speed = Mathf.Min(speed, 2.5f);
-            float dmg = WarCryDamage + (ModdedPlayer.instance.SpellAMP - 1) / 200;
-            dmg = Mathf.Min(dmg, 2.5f);
+            float speed = WarCryAtkSpeed + (ModdedPlayer.instance.SpellAMP - 1) / 400;
+            speed = Mathf.Min(speed,1.75f);
+            float dmg = WarCryDamage + (ModdedPlayer.instance.SpellAMP - 1) / 400;
+            dmg = Mathf.Min(dmg, 1.75f);
 
             WarCry.GiveEffect(speed, dmg, WarCryGiveDamage, WarCryGiveArmor, WarCryArmor);
             WarCry.SpawnEffect(LocalPlayer.Transform.position, WarCryRadius);
@@ -762,7 +764,7 @@ namespace ChampionsOfForest.Player
         {
             Vector3 pos = LocalPlayer.Transform.position;
             BuffDB.AddBuff(1, 66, 0.1f, 2.5f);
-            float dmg = CataclysmDamage + ModdedPlayer.instance.SpellDamageBonus*1.15f;
+            float dmg = CataclysmDamage + ModdedPlayer.instance.SpellDamageBonus*0.9f;
             dmg *= ModdedPlayer.instance.SpellAMP;
             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {

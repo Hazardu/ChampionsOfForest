@@ -6,7 +6,7 @@ namespace ChampionsOfForest
     public static class CotfUtils
     {
         //removes any non ascii characters from a name of the player
-        public static string TrimNonAscii(this string value)
+        public static string TrimNonAscii(string value)
         {
             string pattern = "[^ -~]+";
             Regex reg_exp = new Regex(pattern);

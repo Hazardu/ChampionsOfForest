@@ -109,6 +109,7 @@ public class BallLightning : MonoBehaviour
                 w.Write(pos.y);
                 w.Write(pos.z);
             w.Close();
+               
             }
             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
             answerStream.Close();

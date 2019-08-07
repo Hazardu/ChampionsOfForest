@@ -627,9 +627,11 @@ namespace ChampionsOfForest.Player
                     if (ModdedPlayer.instance.SpellAmpFireDmg)
                     {
                         int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-                        float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 2;
+                        float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 3;
                         dmg *= ModdedPlayer.instance.SpellAMP;
                         dmg *= ModdedPlayer.instance.FireAmp + 1;
+                        dmg *= 0.3f;
+
                         if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
                         {
                             other.GetComponentInParent<EnemyProgression>()?.FireDebuff(myID, dmg, 14);

@@ -20,13 +20,13 @@ namespace ChampionsOfForest
         public string[] DiffSel_Names = new string[] { "Normal", "Hard", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", "Challenge VI", "Hell", };
         public string[] DiffSel_Descriptions = new string[]
         {
-            "Easiest difficulty, recommended for new games.\nItem drops of tier 0 & 1",
-            "Much harder than normal difficulty, tougher enemies. \nUnlocks 2nd tier loot. Recommended level 15+",
-            "Unlocks 3rd tier loot, tougher enemies.",
-            "Unlocks 4th tier of items. For strong players only. Enemies are much tougher ",
-            "Challenge I unlocks 5th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-            "Challenge II unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-            "Challenge III unlocks 7th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Easiest difficulty, recommended for new games.",
+            "Much harder than normal difficulty, tougher enemies. \nUnlocks higher tier loot. Recommended level 15+",
+            "Tougher enemies and more experience. For those who can kill elites at previous difficulty.",
+            "Unlocks higher tier of items. For strong players only. Enemies are much tougher ",
+            "Challenge I unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge II unlocks 7th tier of items - legendary gear. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
+            "Challenge III\nWith every challenge difficulty enemies are stronger, and their bounties are higher",
             "Challenge IV\nWith every challenge difficulty enemies are stronger, and their bounties are higher",
             "Challenge V  \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
             "Challenge VI  \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
@@ -101,8 +101,7 @@ namespace ChampionsOfForest
         private Texture2D _SpellFrame;
         private Texture2D _SpellCoolDownFill;
         private Texture2D _expBarFrameTex;
-
-        const float BuffSize = 50;
+        private const float BuffSize = 50;
 
         //a static variable for colors of items with different rarities
         //affects item border in inventory, text color in pickup, particle effect color 
@@ -306,7 +305,7 @@ namespace ChampionsOfForest
                 {
                     if (ProgressBarAmount < 1)
                     {
-                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.unscaledDeltaTime * 5);
+                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, 1, Time.unscaledDeltaTime * 2);
 
                     }
                     else
@@ -319,7 +318,7 @@ namespace ChampionsOfForest
                 {
                     if (ProgressBarAmount < (float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal)
                     {
-                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, Convert.ToSingle((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal), Time.unscaledDeltaTime * 2);
+                        ProgressBarAmount = Mathf.MoveTowards(ProgressBarAmount, Convert.ToSingle((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal), Time.unscaledDeltaTime / 2);
                     }
                     else
                     {
@@ -432,39 +431,44 @@ namespace ChampionsOfForest
                     {
 
 
-                        switch (_openedMenu)
+
+                        if (_openedMenu == OpenedMenuMode.Main)
                         {
-                            case OpenedMenuMode.Main:
-                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                            GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
 
-                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
+                            //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
 
-                                DrawMain();
-                                break;
-                            case OpenedMenuMode.Inventory:
-                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                DrawInventory();
+                            DrawMain();
+                        }
+                        else if (_openedMenu == OpenedMenuMode.Inventory)
+                        {
+                            GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                            DrawInventory();
 
-                                //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
-                                break;
-                            case OpenedMenuMode.Hud:
-                                InventoryScrollAmount = 0;
-                                DrawHUD();
-                                break;
-                            case OpenedMenuMode.Spells:
-                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                DrawSpellMenu();
+                            //GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
+                        }
+                        else if (_openedMenu == OpenedMenuMode.Hud)
+                        {
+                            InventoryScrollAmount = 0;
+                            DrawHUD();
+                        }
+                        else if (_openedMenu == OpenedMenuMode.Spells)
+                        {
+                            GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                            DrawSpellMenu();
 
-                                break;
-                            case OpenedMenuMode.Stats:
-                                GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
-                                DrawGuide();
+                        }
+                        else if (_openedMenu == OpenedMenuMode.Stats)
+                        {
+                            GUI.DrawTexture(wholeScreen, Res.ResourceLoader.GetTexture(78));
+                            DrawGuide();
 
-                                break;
-                            case OpenedMenuMode.Perks:
-                                DrawPerks();
+                        }
+                        else if (_openedMenu == OpenedMenuMode.Perks)
+                        {
+                            DrawPerks();
 
-                                break;
+
                         }
                         GUI.DrawTexture(wholeScreen, _blackTexture);
                     }
@@ -519,9 +523,9 @@ namespace ChampionsOfForest
 
                 GUI.Label(new Rect(10 * rr, 10 * rr, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft });
                 //drawing difficulty raise lower buttons
-                if(difficultyCooldown <=0 && !GameSetup.IsMpClient)
+                if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
                 {
-                    if((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10*rr,90*rr,200*rr, 40*rr),"Raise Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
+                    if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * rr, 90 * rr, 200 * rr, 40 * rr), "Raise Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
                     {
                         //raise difficulty
                         difficultyCooldown = 20 * 60;
@@ -540,7 +544,7 @@ namespace ChampionsOfForest
                             answerStream.Close();
                         }
                     }
-                    if ((int)ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10*rr,130*rr,200*rr, 40*rr),"Lower Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
+                    if (ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10 * rr, 130 * rr, 200 * rr, 40 * rr), "Lower Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
                     {
                         //lower difficulty
                         difficultyCooldown = 20 * 60;
@@ -814,79 +818,97 @@ namespace ChampionsOfForest
             GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
             SelectedItem = -1;
 
-            for (int y = 0; y < Inventory.Height; y++)
+            try
             {
-                for (int x = 0; x < Inventory.Width; x++)
+                for (int y = 0; y < Inventory.Height; y++)
                 {
-                    try
+                    for (int x = 0; x < Inventory.Width; x++)
                     {
                         int index = y * Inventory.Width + x;
 
                         DrawInvSlot(new Rect(SlotsRect.x + slotDim.x * x, SlotsRect.y + slotDim.y * y + 160 * rr + InventoryScrollAmount, slotDim.x, slotDim.y), index);
                     }
-                    catch (Exception ex)
-                    {
+                }
 
-                        ModAPI.Log.Write(ex.ToString());
-                    }
+
+                //PlayerSlots
+                Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
+                GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
+                Rect head = new Rect(Vector2.zero, slotDim)
+                {
+                    center = eq.center
+                };
+                head.y -= 3.5f * head.height;
+
+                Rect chest = new Rect(head);
+                chest.y += chest.height + 50 * rr;
+
+                Rect pants = new Rect(chest);
+                pants.y += pants.height + 50 * rr;
+
+                Rect boots = new Rect(pants);
+                boots.y += boots.height + 50 * rr;
+
+                Rect shoulders = new Rect(chest);
+                shoulders.position += new Vector2(-chest.width, -chest.height / 2);
+
+                Rect tallisman = new Rect(chest);
+                tallisman.position += new Vector2(chest.width, -chest.height / 2);
+
+                Rect gloves = new Rect(shoulders);
+                gloves.y += gloves.height + 50 * rr;
+
+                Rect bracer = new Rect(tallisman);
+                bracer.y += bracer.height + 50 * rr;
+
+                Rect ringR = new Rect(bracer);
+                ringR.position += new Vector2(chest.width / 2, chest.height + 50 * rr);
+
+                Rect ringL = new Rect(gloves);
+                ringL.position += new Vector2(-chest.width / 2, chest.height + 50 * rr);
+
+                Rect weapon = new Rect(ringL);
+                weapon.y += weapon.height * 1.5f + 50 * rr;
+
+                Rect offhand = new Rect(ringR);
+                offhand.y += offhand.height * 1.5f + 50 * rr;
+
+                DrawInvSlot(head, -2, "Head");
+                DrawInvSlot(chest, -3, "Torso");
+                DrawInvSlot(pants, -4, "Legs");
+                DrawInvSlot(boots, -5, "Feet");
+                DrawInvSlot(shoulders, -6, "Shoulders");
+                DrawInvSlot(gloves, -7, "Hands");
+                DrawInvSlot(tallisman, -8, "Neck");
+                DrawInvSlot(bracer, -9, "Wrists");
+                DrawInvSlot(ringR, -10, "Finger");
+                DrawInvSlot(ringL, -11, "Finger");
+                DrawInvSlot(weapon, -12, "Main hand");
+                DrawInvSlot(offhand, -13, "Offhand");
+
+
+                if (ModdedPlayer.instance.CraftingReroll)
+            {
+                try
+                {
+                    DrawCrafting(eq.xMax + 100 * rr);
 
                 }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
-            //PlayerSlots
-            Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
-            GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
-            Rect head = new Rect(Vector2.zero, slotDim)
+            }
+            catch (Exception exception)
             {
-                center = eq.center
-            };
-            head.y -= 3.5f * head.height;
+                ModAPI.Log.Write(exception.ToString());
+                DraggedItem = null;
+                DraggedItemIndex = -1;
+                isDragging = false;
 
-            Rect chest = new Rect(head);
-            chest.y += chest.height + 50 * rr;
-
-            Rect pants = new Rect(chest);
-            pants.y += pants.height + 50 * rr;
-
-            Rect boots = new Rect(pants);
-            boots.y += boots.height + 50 * rr;
-
-            Rect shoulders = new Rect(chest);
-            shoulders.position += new Vector2(-chest.width, -chest.height / 2);
-
-            Rect tallisman = new Rect(chest);
-            tallisman.position += new Vector2(chest.width, -chest.height / 2);
-
-            Rect gloves = new Rect(shoulders);
-            gloves.y += gloves.height + 50 * rr;
-
-            Rect bracer = new Rect(tallisman);
-            bracer.y += bracer.height + 50 * rr;
-
-            Rect ringR = new Rect(bracer);
-            ringR.position += new Vector2(chest.width / 2, chest.height + 50 * rr);
-
-            Rect ringL = new Rect(gloves);
-            ringL.position += new Vector2(-chest.width / 2, chest.height + 50 * rr);
-
-            Rect weapon = new Rect(ringL);
-            weapon.y += weapon.height * 1.5f + 50 * rr;
-
-            Rect offhand = new Rect(ringR);
-            offhand.y += offhand.height * 1.5f + 50 * rr;
-
-            DrawInvSlot(head, -2, "Head");
-            DrawInvSlot(chest, -3, "Torso");
-            DrawInvSlot(pants, -4, "Legs");
-            DrawInvSlot(boots, -5, "Feet");
-            DrawInvSlot(shoulders, -6, "Shoulders");
-            DrawInvSlot(gloves, -7, "Hands");
-            DrawInvSlot(tallisman, -8, "Neck");
-            DrawInvSlot(bracer, -9, "Wrists");
-            DrawInvSlot(ringR, -10, "Finger");
-            DrawInvSlot(ringL, -11, "Finger");
-            DrawInvSlot(weapon, -12, "Main hand");
-            DrawInvSlot(offhand, -13, "Offhand");
-
+            }
 
 
 
@@ -911,6 +933,8 @@ namespace ChampionsOfForest
                         Inventory.Instance.ItemList[DraggedItemIndex].Equipped = false;
                     }
                     Inventory.Instance.DropItem(DraggedItemIndex);
+                    CustomCrafting.ClearIndex(DraggedItemIndex);
+
                     DraggedItem = null;
                     DraggedItemIndex = -1;
                     isDragging = false;
@@ -918,9 +942,261 @@ namespace ChampionsOfForest
             }
         }
 
+        private const float craftingbarheight = 50;
+        private void DrawCrafting(float x)
+        {
+            Rect craftingrect = new Rect(x, 0, Mathf.Min((Screen.width - x), 400 * rr), Screen.height);
+            GUI.Box(craftingrect, "");
+
+            float btnW = craftingrect.width / 4;
+
+            int i = 0;
+
+            if (GUI.Button(new Rect(x + i * btnW, 0, btnW, craftingbarheight * rr), ((CustomCrafting.CraftMode)i).ToString()))
+            {
+                CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Rerolling;
+                for (int kk = 0; kk < CustomCrafting.instance.ingredients.Length; kk++)
+                {
+                    CustomCrafting.instance.ingredients[kk].Clear();
+                }
+            }
+            i++;
+            if (ModdedPlayer.instance.CraftingReforge)
+            {
+                if (GUI.Button(new Rect(x + i * btnW, 0, btnW, craftingbarheight * rr), "Reforging"))
+                {
+                    CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Reforging;
+                    for (int kk = 0; kk < CustomCrafting.instance.ingredients.Length; kk++)
+                    {
+                        CustomCrafting.instance.ingredients[kk].Clear();
+                    }
+                }
+                i++;
+            }
 
 
+            switch (CustomCrafting.instance.craftMode)
+            {
+                case CustomCrafting.CraftMode.Rerolling:
+                    DrawRerolling(x, craftingrect.width);
+                    break;
+                case CustomCrafting.CraftMode.Reforging:
+                    if (ModdedPlayer.instance.CraftingReforge)
+                        DrawReforging(x, craftingrect.width);
+                    break;
+                case CustomCrafting.CraftMode.Repurposing:
+                    break;
+                case CustomCrafting.CraftMode.Upgrading:
+                    break;
+            }
 
+        }
+
+        private void DrawReforging(float x, float w)
+        {
+            GUI.Label(new Rect(x, (craftingbarheight + 5) * rr, w, 26 * rr), "Item to reforge", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = Mathf.RoundToInt(22 * rr), font = MainFont });
+            CraftingIngredientBox(new Rect(x + w / 2 - 75 * rr, (craftingbarheight + 40) * rr, 150 * rr, 150 * rr), CustomCrafting.instance.changedItem);
+            float ypos = (craftingbarheight + 190) * rr;
+            if (CustomCrafting.instance.changedItem.i != null)
+            {
+                GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(16 * rr), font = MainFont };
+                GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(16 * rr), fontStyle = FontStyle.Bold, font = MainFont };
+
+                int ind = 1;
+                try
+                {
+
+                    foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+                    {
+                        Rect statRect = new Rect(x + 10 * rr, ypos, w - 20 * rr, 26 * rr);
+                        ypos += 26 * rr;
+
+
+                        double amount = stat.Amount;
+                        if (stat.DisplayAsPercent)
+                        {
+                            amount *= 100;
+                        }
+                        amount = Math.Round(amount, stat.RoundingCount);
+                        GUI.color = RarityColors[stat.Rarity];
+                        GUI.Label(statRect, ind + ".  " + stat.Name, StatNameStyle);
+                        GUI.color = Color.white;
+                        ind++;
+
+                        if (stat.DisplayAsPercent)
+                        {
+                            GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount) + "%", StatValueStyle);
+                        }
+                        else
+                        {
+                            GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount), StatValueStyle);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    Debug.LogException(e);
+                }
+                try
+                {
+                    if (CustomCrafting.instance.reforging.validRecipe)
+                    {
+                        if (GUI.Button(new Rect(x, ypos, w, 40 * rr), "Reforge item", new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(30 * rr), fontStyle = FontStyle.Normal, font = MainFont }))
+                        {
+                            CustomCrafting.instance.reforging.PerformReforge();
+
+
+                        }
+                        ypos += 50 * rr;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("reroll stats button ex " + e.ToString());
+
+                }
+            }
+            float baseX = x + ((w - 240 * rr) / 2);
+            float baseY = ypos + 30 * rr;
+            if(CustomCrafting.instance.changedItem.i != null)
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 1; k++)
+                {
+                    int index = 3 * k + j;
+                    CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                }
+            }
+        }
+        private void DrawRerolling(float x, float w)
+        {
+            GUI.Label(new Rect(x, (craftingbarheight + 5) * rr, w, 26 * rr), "Item to reroll stats", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = Mathf.RoundToInt(22 * rr), font = MainFont });
+            CraftingIngredientBox(new Rect(x + w / 2 - 75 * rr, (craftingbarheight + 40) * rr, 150 * rr, 150 * rr), CustomCrafting.instance.changedItem);
+            float ypos = (craftingbarheight + 190) * rr;
+            if (CustomCrafting.instance.changedItem.i != null)
+            {
+                GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(16 * rr), font = MainFont };
+                GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(16 * rr), fontStyle = FontStyle.Bold, font = MainFont };
+
+                int ind = 1;
+                try
+                {
+                    Rect nameRect = new Rect(x + 10 * rr, ypos, w - 20 * rr, 30 * rr);
+                    ypos += 30 * rr;
+                    GUI.color = RarityColors[CustomCrafting.instance.changedItem.i.Rarity];
+
+                    GUI.Label(nameRect, CustomCrafting.instance.changedItem.i.name, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(20 * rr), fontStyle = FontStyle.Bold, font = MainFont });
+
+                    foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+                    {
+                        Rect statRect = new Rect(x + 10 * rr, ypos, w - 20 * rr, 26 * rr);
+                        ypos += 26 * rr;
+
+
+                        double amount = stat.Amount;
+                        if (stat.DisplayAsPercent)
+                        {
+                            amount *= 100;
+                        }
+                        amount = Math.Round(amount, stat.RoundingCount);
+                        GUI.color = RarityColors[stat.Rarity];
+                        GUI.Label(statRect, ind + ".  " + stat.Name, StatNameStyle);
+                        GUI.color = Color.white;
+                        ind++;
+
+                        if (stat.DisplayAsPercent)
+                        {
+                            GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount) + "%", StatValueStyle);
+                        }
+                        else
+                        {
+                            GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount), StatValueStyle);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    Debug.LogException(e);
+                }
+                try
+                {
+                    if (CustomCrafting.instance.rerolling.validRecipe)
+                    {
+                        if (GUI.Button(new Rect(x, ypos, w, 40 * rr), "Reroll stats", new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(30 * rr), fontStyle = FontStyle.Normal, font = MainFont }))
+                        {
+                            CustomCrafting.instance.rerolling.PerformReroll();
+                        }
+                        ypos += 50 * rr;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("reroll stats button ex " + e.ToString());
+
+                }
+            }
+            float baseX = x + ((w - 160 * rr) / 2);
+            float baseY = ypos + 30 * rr;
+            if (CustomCrafting.instance.changedItem.i != null)
+                for (int j = 0; j < 2; j++)
+            {
+                for (int k = 0; k < 1; k++)
+                {
+                    int index = 3 * k + j;
+                    CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                }
+            }
+        }
+
+        public void CraftingIngredientBox(Rect r, CustomCrafting.CraftingIngredient ingredient)
+        {
+            if (ingredient.i != null)
+                GUI.color = RarityColors[ingredient.i.Rarity];
+            else
+                GUI.color = Color.white;
+            GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[12]);
+
+
+            GUI.color = new Color(1, 1, 1, 1);
+
+            if (ingredient.i != null)
+            {
+                Rect itemRect = new Rect(r);
+                float f = r.width * 0.15f;
+                itemRect.width -= f;
+                itemRect.height -= f;
+                itemRect.x += f / 2;
+                itemRect.y += f / 2;
+                GUI.DrawTexture(itemRect, ingredient.i.icon);
+                if (r.Contains(mousepos))
+                {
+                    if (UnityEngine.Input.GetMouseButtonDown(0) || UnityEngine.Input.GetMouseButtonDown(1))
+                    {
+                        ingredient.Clear();
+                        if (ingredient == CustomCrafting.instance.changedItem)
+                            CustomCrafting.instance.ClearedItem();
+                    }
+                }
+            }
+            if (isDragging)
+            {
+                if (r.Contains(mousepos))
+                {
+                    if (UnityEngine.Input.GetMouseButtonUp(0))
+                    {
+                        if (!(CustomCrafting.instance.ingredients.Any(x => x.i == DraggedItem) || CustomCrafting.instance.changedItem.i == DraggedItem) && DraggedItemIndex > -1)
+                            ingredient.Assign(DraggedItemIndex, DraggedItem);
+                        DraggedItem = null;
+                        DraggedItemIndex = -1;
+                        isDragging = false;
+                    }
+                }
+            }
+        }
         private void DrawItemInfo(Vector2 pos, Item item)
         {
             if (item == null)
@@ -1112,7 +1388,10 @@ namespace ChampionsOfForest
                         frameColor = Color.black;
                         GUI.color = Color.black;
                     }
-                    GUI.color = new Color(1, 1, 1, 1);
+                    if (CustomCrafting.isIngredient(index))
+                        GUI.color = new Color(0, 0, 0, 0.4f);
+                    else
+                        GUI.color = new Color(1, 1, 1, 1);
 
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
                     if (Inventory.Instance.ItemList[index].Amount > 1)
@@ -1241,6 +1520,10 @@ namespace ChampionsOfForest
                                         Item backup = Inventory.Instance.ItemList[index];
                                         Inventory.Instance.ItemList[index] = DraggedItem;
                                         Inventory.Instance.ItemList[DraggedItemIndex] = backup;
+                                        CustomCrafting.UpdateIndex(index, DraggedItemIndex);
+                                        CustomCrafting.UpdateIndex(DraggedItemIndex, index);
+
+
                                         DraggedItem = null;
                                         DraggedItemIndex = -1;
                                         isDragging = false;
@@ -1263,6 +1546,8 @@ namespace ChampionsOfForest
                                         Item backup = Inventory.Instance.ItemList[index];
                                         Inventory.Instance.ItemList[index] = DraggedItem;
                                         Inventory.Instance.ItemList[DraggedItemIndex] = backup;
+                                        CustomCrafting.UpdateIndex(index, DraggedItemIndex);
+                                        CustomCrafting.UpdateIndex(DraggedItemIndex, index);
                                         DraggedItem = null;
                                         DraggedItemIndex = -1;
                                         isDragging = false;
@@ -1283,6 +1568,8 @@ namespace ChampionsOfForest
                                         {
                                             Inventory.Instance.ItemList[index].Amount += DraggedItem.Amount;
                                             Inventory.Instance.ItemList[DraggedItemIndex] = null;
+
+                                            CustomCrafting.ClearIndex(DraggedItemIndex);
                                             DraggedItem = null;
                                             DraggedItemIndex = -1;
                                             isDragging = false;
@@ -1443,6 +1730,7 @@ namespace ChampionsOfForest
                             {
                                 Inventory.Instance.ItemList[index] = DraggedItem;
                                 Inventory.Instance.ItemList[DraggedItemIndex] = null;
+                                CustomCrafting.UpdateIndex(DraggedItemIndex, index);
                                 DraggedItem = null;
                                 DraggedItemIndex = -1;
                             }
@@ -1459,6 +1747,7 @@ namespace ChampionsOfForest
                         {
                             Inventory.Instance.ItemList[index] = DraggedItem;
                             Inventory.Instance.ItemList[DraggedItemIndex] = null;
+                            CustomCrafting.UpdateIndex(DraggedItemIndex, index);
                             DraggedItem = null;
                             DraggedItemIndex = -1;
 
@@ -1550,7 +1839,7 @@ namespace ChampionsOfForest
                 float BuffOffsetX = 0;
                 float BuffOffsetY = 1080 - BuffSize;
                 const float MaxX = 540;
-                
+
                 if (ModdedPlayer.instance.Rooted)
                 {
                     TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
@@ -1588,9 +1877,9 @@ namespace ChampionsOfForest
                             valueText += "" + buff.Value.amount.ToString("F2");
                         }
                     }
-                    if (valueText.EndsWith(".00")|| valueText.EndsWith(",00")|| valueText.EndsWith(".00%")|| valueText.EndsWith(",00%"))
+                    if (valueText.EndsWith(".00") || valueText.EndsWith(",00") || valueText.EndsWith(".00%") || valueText.EndsWith(",00%"))
                     {
-                      valueText=  valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
+                        valueText = valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
                     }
                     DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
                     BuffOffsetX += BuffSize;
@@ -1678,7 +1967,7 @@ namespace ChampionsOfForest
                 Rect XPbarFill = new Rect(XPbar);
                 XPbarFill.width *= ProgressBarAmount;
                 Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
-                Rect CombatBarCount = new Rect(XPbar.x, 30*rr, SpellCaster.SpellCount * SquareSize, combatHeight);
+                Rect CombatBarCount = new Rect(XPbar.x, 30 * rr, SpellCaster.SpellCount * SquareSize, combatHeight);
 
                 float cornerDimension = Screen.height - XPbar.y;
                 Rect LeftCorner = new Rect(XPbar.x - cornerDimension, XPbar.y, cornerDimension, cornerDimension);
@@ -1723,7 +2012,7 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
-                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one*2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
+                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
                     {
@@ -1958,15 +2247,16 @@ namespace ChampionsOfForest
 
             }
         }
-        const float lvlUpDuration = 3;
-        const float lvlUpFadeDuration = 1;
+
+        private const float lvlUpDuration = 3;
+        private const float lvlUpFadeDuration = 1;
         public float LevelUpDuration;
         public string LevelUpText;
         public AudioSource lvlUpAudio;
         public void LevelUpAction()
         {
             LevelUpDuration = lvlUpDuration;
-            LevelUpText = "\n"+ ModdedPlayer.instance.Level.ToString();
+            LevelUpText = "\n" + ModdedPlayer.instance.Level.ToString();
 
             ///TODO play some audio upon leveling up
             ///
@@ -1984,7 +2274,7 @@ namespace ChampionsOfForest
                 lvlUpAudio.transform.position = LocalPlayer.Transform.position;
                 lvlUpAudio.Play();
             }
-      
+
 
         }
 
@@ -2272,6 +2562,7 @@ namespace ChampionsOfForest
                 BookPositionY += 140 * rr;
             }
         }
+
         private void Space(float pixelsUnscaled)
         {
             BookPositionY += pixelsUnscaled * rr;
@@ -2420,9 +2711,7 @@ namespace ChampionsOfForest
             Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal) * 100).ToString() + "%");
             Label("\tLevel is the estimation of my power. I must become stronger to survive." +
                 "\nHigher level allow me to equip better equipement. " +
-                "\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. " +
-                "\nStronger bodies require more energy to live. Resource usage increases. With every level, your food and water depletion rate increases by 4% (increases by 100% every 25 levels)" +
-                "This property multiplies with your thirst rate and hunger rate stat.");
+                "\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. ");
             Space(50);
             Label("\nWhat to do in order to get stronger:" +
                 "\n-Kill enemies - combat is the most reliable way of progression." +
@@ -2438,10 +2727,34 @@ namespace ChampionsOfForest
             Space(300);
 
             Header("Statistics");
+
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
+            {
+                Rect labelRect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), 85 * rr);
+                if (GUI.Button(labelRect, "Bugged stats? Click to reset", new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.RoundToInt(70 * rr),
+                    alignment = TextAnchor.UpperCenter,
+                    richText = true,
+                }))
+                {
+                    ModdedPlayer.ResetAllStats();
+                }
+                BookPositionY += 85 * rr;
+                Rect imageRect = new Rect(400 * rr, BookPositionY, Screen.width - 800 * rr, 60 * rr);
+                GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
+                BookPositionY += 70 * rr;
+            }
+            else
+            {
+                BookPositionY += 155* rr;
+            }
+
             Stat("Strenght", ModdedPlayer.instance.strenght.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
             Stat("Agility", ModdedPlayer.instance.agility.ToString("N0") + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
                 "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
-            Stat("Vitality", ModdedPlayer.instance.vitality.ToString("N0") + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "% for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
+            Stat("Vitality", ModdedPlayer.instance.vitality.ToString("N0") + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
             Stat("Intelligence", ModdedPlayer.instance.intelligence.ToString("N0") + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
                 "Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
 
@@ -2521,6 +2834,7 @@ namespace ChampionsOfForest
             Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
             Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Faster projectiles fly further and fall slower");
             Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
+            Stat("Headshot damage", Math.Round(ModdedPlayer.instance.HeadShotDamage * 100) + "%", "Damage multipier on headshot");
 
 
             Space(20);
@@ -2572,6 +2886,8 @@ namespace ChampionsOfForest
                 string item_name = Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
+
+
 
 
             Space(200);
@@ -3039,13 +3355,13 @@ namespace ChampionsOfForest
             GUI.DrawTexture(r, ResourceLoader.GetTexture(143));
             if (isPositive)
             {
-                GUI.color = new Color(1, 1, 1, 0.25f + 0.5f * Mathf.Sin(durationInSeconds*3));
+                GUI.color = new Color(1, 1, 1, 0.25f + 0.5f * Mathf.Sin(durationInSeconds * 3));
                 GUI.DrawTexture(r, ResourceLoader.GetTexture(145));
                 GUI.color = new Color(1, 1, 1, 1);
             }
             else
             {
-                GUI.color = new Color(1, 0, 0, 0.25f + 0.5f * Mathf.Sin(durationInSeconds*3));
+                GUI.color = new Color(1, 0, 0, 0.25f + 0.5f * Mathf.Sin(durationInSeconds * 3));
                 GUI.DrawTexture(r, ResourceLoader.GetTexture(145));
                 GUI.color = new Color(1, 1, 1, 1);
             }
@@ -3054,7 +3370,7 @@ namespace ChampionsOfForest
             GUI.DrawTexture(r, tex);
 
             GUI.DrawTexture(r, ResourceLoader.GetTexture(144));
-            GUI.Label(r, amount, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(16 * rr), font = MainFont, fontStyle = FontStyle.Italic,normal = new GUIStyleState() { textColor = Color.red }, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.UpperLeft });
+            GUI.Label(r, amount, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(16 * rr), font = MainFont, fontStyle = FontStyle.Italic, normal = new GUIStyleState() { textColor = Color.red }, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.UpperLeft });
             GUI.Label(r, time, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Normal, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.LowerRight });
         }
 

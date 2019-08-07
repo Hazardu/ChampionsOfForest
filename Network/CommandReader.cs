@@ -615,6 +615,7 @@ namespace ChampionsOfForest.Network
                         int weaponID = r.ReadInt32();
                         if (!ModReferences.PlayerHands.ContainsKey(id))
                         {
+
                             ModReferences.FindHands();
                         }
 

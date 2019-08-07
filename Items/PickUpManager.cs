@@ -174,8 +174,9 @@ namespace ChampionsOfForest
                             l.cookieSize = 5f;
                             if (item.Rarity == 7)
                             {
-                                l.range = 8f;
-                                l.intensity = 3f;
+                                l.range = 12f;
+                                l.intensity = 4f;
+
                             }
                         }
                     }

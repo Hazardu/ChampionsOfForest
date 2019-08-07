@@ -198,6 +198,7 @@
 <Compile Include="Player\AsyncHit.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />
+<Compile Include="Player\Crafting.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
 <Compile Include="Player\ProjectileIgnoreCollision.cs"  />
 <Compile Include="Player\Spells\ForceGrab.cs"  />
@@ -254,6 +255,7 @@
 <Compile Include="Res\ResourceLoader.cs"  />
 <Compile Include="Serializer.cs"  />
 <Compile Include="TrapHitMod.cs"  />
+<Compile Include="TrapTriggerMod.cs"  />
 
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,6 +75,7 @@ namespace ChampionsOfForest
                     go.AddComponent<BlackFlame>();
                     go.AddComponent<AsyncHit>();
                     go.AddComponent<Crafting>();
+                    CustomCrafting.Init();
                     BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
                     SpellDataBase.Initialize();

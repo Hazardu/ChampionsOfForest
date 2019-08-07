@@ -19,7 +19,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             aura.damage = dmg;
             aura.isOn = true;
-            CotfUtils.Log("FireAura dmg = " + dmg);
         }
 
         bool isOn = false;
@@ -42,8 +41,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 49)
                 {
                     LocalPlayer.Stats.Health -= Time.deltaTime * damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed) * (1-ModdedPlayer.instance.MagicResistance);
+                    Player.BuffDB.AddBuff(10, 72, 0.7f, 5);
+                    Player.BuffDB.AddBuff(21, 73, Time.deltaTime * damage/10, 40);
+
                 }
-              
+
             }
         }
     }
