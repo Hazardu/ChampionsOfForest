@@ -282,7 +282,7 @@ namespace ChampionsOfForest
             Item item = new Item(ItemBases[itemPool[randomID]], 1, 0);
 
 
-            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel));
+            item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel + 2));
             item.RollStats();
             return item;
 
@@ -291,34 +291,46 @@ namespace ChampionsOfForest
         {
             int rarity = 0;
 
-            if ((w > 20 && Random.value < 0.80f) || (int)ModSettings.difficulty > 5 || w > 1500)
+            if ((w > 20 && Random.value < 0.80f) || ((int)ModSettings.difficulty > 5 && w > 2000))
             {
                 rarity = 1;
 
-                if (w > 100 &&( Random.value < 0.50f || w > 1700 || (int)ModSettings.difficulty > 6 )&&(int)ModSettings.difficulty > 0 )
+                if (w > 120 && (Random.value < 0.50f || w > 2200 && (int)ModSettings.difficulty > 6))
                 {
-                    rarity = 2;
-
-                    if (w > 180 && (Random.value < 0.50f || Random.value < (0.06f * (int)ModSettings.difficulty )&& (int)ModSettings.difficulty > 0 ))
+                    if (ModSettings.difficulty > 0)
                     {
-                        rarity = 3;
-
-                        if (w > 230 && (Random.value < 0.5f || Random.value < (0.04f * (int)ModSettings.difficulty)&& (int)ModSettings.difficulty > 1 ))
+                        rarity = 2;
+                        if (w > 180 && (Random.value < 0.50f || Random.value < (0.06f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 8)
                         {
-                            rarity = 4;
-
-                            if (w > 300 && (Random.value < 0.45f || Random.value < (0.03f * (int)ModSettings.difficulty)&& (int)ModSettings.difficulty > 2 ))
+                            if (ModSettings.difficulty > 0)
                             {
-                                rarity = 5;
-
-                                if (w > 400 &&( Random.value < 0.35f || Random.value < (0.005f * (int)ModSettings.difficulty)&& (int)ModSettings.difficulty > 3 ))
+                                rarity = 3;
+                                if (w > 230 && (Random.value < 0.5f || Random.value < (0.03f * (int)ModSettings.difficulty)))
                                 {
-                                    rarity = 6;
-
-                                    if (w > 500 && (Random.value < 0.2f || Random.value < (0.0015f * (int)ModSettings.difficulty) && (int)ModSettings.difficulty > 4 ))
+                                    if ((int)ModSettings.difficulty > 1)
                                     {
-                                        rarity = 7;
-
+                                        rarity = 4;
+                                        if (w > 300 && (Random.value < 0.45f || Random.value < (0.02f * (int)ModSettings.difficulty)))
+                                        {
+                                            if ((int)ModSettings.difficulty > 2)
+                                            {
+                                                rarity = 5;
+                                                if (w > 400 && (Random.value < 0.25f || Random.value < (0.0025f * (int)ModSettings.difficulty)))
+                                                {
+                                                    if ((int)ModSettings.difficulty > 3)
+                                                    {
+                                                        rarity = 6;
+                                                        if (w > 500 && (Random.value < 0.15f || Random.value < (0.0005f * (int)ModSettings.difficulty)))
+                                                        {
+                                                            if ((int)ModSettings.difficulty > 4)
+                                                            {
+                                                                rarity = 7;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -338,7 +350,7 @@ namespace ChampionsOfForest
                     using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                     {
                         w.Write(23);
-                    w.Close();
+                        w.Close();
                     }
                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
                     answerStream.Close();
@@ -350,83 +362,83 @@ namespace ChampionsOfForest
         public static void FillStats()
         {
             int i = 1;
-            new ItemStat(i, 1, 2, 1.32f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 1, 2, 1.32f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 1, 2, 1.32f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 1, 2, 1.32f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
-            new ItemStat(i, 2, 4f, 1.45f, "Maximum Life", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
-            new ItemStat(i, 0.5f, 1f, 1.25f, "Maximum Energy", 3, StatActions.AddEnergy, StatActions.RemoveEnergy, StatActions.AddEnergy); i++;
+            new ItemStat(i, 1, 2, 0.82f, "Strenght", 4, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 1, 2, 0.82f, "Agility", 4, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 1, 2, 0.82f, "Vitality", 4, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 1, 2, 0.82f, "Intelligence", 4, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 1, 4f, 1.2f, "Maximum Life", 3, StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); i++;
+            new ItemStat(i, 0.25f, 1.25f, 1.2f, "Maximum Energy", 3, StatActions.AddEnergy, StatActions.RemoveEnergy, StatActions.AddEnergy); i++;
             new ItemStat(i, 0.01f, 0.025f, 1.2f, "Life Per Second", 3, StatActions.AddHPRegen, StatActions.RemoveHPRegen, StatActions.AddHPRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.01f, 0.025f, 1.2f, "Stamina Per Second", 3, StatActions.AddStaminaRegen, StatActions.RemoveStaminaRegen, StatActions.AddStaminaRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.01f, 0.025f, 0.6f, "Stamina Regen %", 3, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.025f, 0.6f, "Life Regen %", 3, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.003f, 0.009f, 0.5f, "Damage Reduction %", 4, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.003f, 0.006f, 0.5f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.025f, 1.2f, "Stamina Per Second", 2, StatActions.AddStaminaRegen, StatActions.RemoveStaminaRegen, StatActions.AddStaminaRegen) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.01f, 0.025f, 0.5f, "Stamina Regen %", 5, StatActions.AddStaminaRegenPercent, StatActions.RemoveStaminaRegenPercent, StatActions.AddStaminaRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.025f, 0.5f, "Life Regen %", 5, StatActions.AddHealthRegenPercent, StatActions.RemoveHealthRegenPercent, StatActions.AddHealthRegenPercent) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.001f, 0.007f, 0.5f, "Damage Reduction %", 4, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.002f, 0.009f, 0.25f, "Critical Hit Chance", 6, StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.0005f, 0.0015f, 1.25f, "Critical Hit Damage", 6, StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.1f, 0.28f, 1.25f, "Life on hit", 4, StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); i++;
-            new ItemStat(i, 0.002f, 0.003f, 0.65f, "Dodge chance", 5, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 2f, 3f, 1.35f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.1f, 0.28f, 1.15f, "Life on hit", 4, StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); i++;
+            new ItemStat(i, 0.002f, 0.004f, 0.55f, "Dodge chance", 4, StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.3f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 1f, 5f, 1f, "Armor", 3, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
             new ItemStat(i, 0.006f, 0.008f, 0.6f, "Resistance to magic", 5, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 0.55f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.005f, 0.01f, 0.6f, "Exp %", 6, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 2f, 0f, "Massacre Duration", 6, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
-            new ItemStat(i, 0.004f, 0.01f, 0.6f, "Spell Damage %", 4, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.004f, 0.008f, 0.6f, "Melee Damage %", 4, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.006f, 0.013f, 0.6f, "Ranged Damage %", 4, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.65f, 1.2f, 1.19f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
-            new ItemStat(i, 0.55f, 0.7f, 1.19f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
-            new ItemStat(i, 0.85f, 1f, 1.19f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
-            new ItemStat(i, 0.0025f, 0.025f, 0f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0025f, 0.005f, 0.4f, "Attack speed", 6, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.005f, 0.02f, 0.25f, "Exp %", 7, StatActions.AddExpFactor, StatActions.RemoveExpFactor, StatActions.AddExpFactor) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.025f, 0.25f, 0f, "Massacre Duration", 7, StatActions.AddMaxMassacreTime, StatActions.RemoveMaxMassacreTime, StatActions.AddMaxMassacreTime); i++;
+            new ItemStat(i, 0.006f, 0.019f, 0.5f, "Spell Damage %", 5, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.006f, 0.019f, 0.5f, "Melee Damage %", 5, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.006f, 0.019f, 0.5f, "Ranged Damage %", 5, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.65f, 1.2f, 1.2f, "Bonus Spell Damage", 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus); i++;
+            new ItemStat(i, 0.55f, 0.7f, 1.2f, "Bonus Melee Damage", 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); i++;
+            new ItemStat(i, 0.85f, 1f, 1.2f, "Bonus Ranged Damage", 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); i++;
+            new ItemStat(i, 0.0025f, 0.015f, 0f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.05f, 0f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0013f, 0.004f, 0f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0013f, 0.004f, 0f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0005f, 0.002f, 0.6f, "All Healing %", 7, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0013f, 0.0025f, 0f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0005f, 0.003f, 0.6f, "All Healing %", 6, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.7f / 3.8f, 1.6f / 3.8f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
             new ItemStat(i, 100f, 110f, 3f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
-            new ItemStat(i, 0.003f, 0.009f, 0.4f, "Movement Speed", 5, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.003f, 0.5f, "Melee Weapon Range", 5, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.003f, 0.5f, "Attack Cost Reduction", 3, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost /= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.003f, 0.5f, "Spell Cost Reduction", 6, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f, f => ModdedPlayer.instance.SpellCostRatio /= 1 - f, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.006f, 0.009f, 0.5f, "Spell Cost to Stamina", 6, f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.6f, 1.1f, 1.25f, "Strenght", 1, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.25f, "Agility", 1, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
-            new ItemStat(i, 0.6f, 1.2f, 1.25f, "Vitality", 1, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
-            new ItemStat(i, 0.6f, 1.1f, 1.25f, "Intelligence", 1, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
-            new ItemStat(i, 0.3f, 1f, 1.25f, "Armor", 1, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
-            new ItemStat(i, 0.001f, 0.004f, 1f, "Energy Per Second", 6, StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 3 }; i++;
-            new ItemStat(i, 0.003f, 0.006f, 0.5f, "Maximum Life %", 5, f => ModdedPlayer.instance.MaxHealthPercent += f, f => ModdedPlayer.instance.MaxHealthPercent -= f, f => ModdedPlayer.instance.MaxHealthPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.003f, 0.006f, 0.5f, "Maximum Energy %", 5, f => ModdedPlayer.instance.MaxEnergyPercent += f, f => ModdedPlayer.instance.MaxEnergyPercent -= f, f => ModdedPlayer.instance.MaxEnergyPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.002f, 0.004f, 0.5f, "Cooldown Reduction", 7, f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier /= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.9f }; i++;
-            new ItemStat(i, 0.0013f, 0.004f, 0f, "Ranged Damage Per Agi", 7, f => ModdedPlayer.instance.RangedDamageperAgi += f, f => ModdedPlayer.instance.RangedDamageperAgi += -f, f => ModdedPlayer.instance.RangedDamageperAgi += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.01f, 0.05f, 1.1f, "Energy on hit", 4, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, f => ModdedPlayer.instance.EnergyOnHit += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.035f, 0.7f, "Block", 2, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.04f, 0.5f, "Projectile speed", 5, f => ModdedPlayer.instance.ProjectileSpeedRatio += f, f => ModdedPlayer.instance.ProjectileSpeedRatio += -f, f => ModdedPlayer.instance.ProjectileSpeedRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.01f, 0.04f, 0.5f, "Projectile size", 6, f => ModdedPlayer.instance.ProjectileSizeRatio += f, f => ModdedPlayer.instance.ProjectileSizeRatio += -f, f => ModdedPlayer.instance.ProjectileSizeRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.65f, 1.5f, 1.25f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.75f, 1.7f, 1.25f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.003f, 0.009f, 0.4f, "Movement Speed", 6, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.003f, 0.5f, "Melee Weapon Range", 4, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.01f, 0.5f, "Attack Cost Reduction", 3, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost /= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.005f, 0.4f, "Spell Cost Reduction", 6, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f, f => ModdedPlayer.instance.SpellCostRatio /= 1 - f, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.005f, 0.009f, 0.4f, "Spell Cost to Stamina", 5, f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
+            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
+            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
+            new ItemStat(i, 0.3f, 1f, 1.1f, "Armor", 2, StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); i++;
+            new ItemStat(i, 0.001f, 0.005f, 0.9f, "Energy Per Second", 5, StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 3 }; i++;
+            new ItemStat(i, 0.003f, 0.006f, 0.5f, "Maximum Life %", 6, f => ModdedPlayer.instance.MaxHealthPercent += f, f => ModdedPlayer.instance.MaxHealthPercent -= f, f => ModdedPlayer.instance.MaxHealthPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.003f, 0.006f, 0.5f, "Maximum Energy %", 6, f => ModdedPlayer.instance.MaxEnergyPercent += f, f => ModdedPlayer.instance.MaxEnergyPercent -= f, f => ModdedPlayer.instance.MaxEnergyPercent += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.002f, 0.005f, 0.5f, "Cooldown Reduction", 6, f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier /= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.9f }; i++;
+            new ItemStat(i, 0.0005f, 0.0025f, 0f, "Ranged Damage Per Agi", 7, f => ModdedPlayer.instance.RangedDamageperAgi += f, f => ModdedPlayer.instance.RangedDamageperAgi += -f, f => ModdedPlayer.instance.RangedDamageperAgi += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.01f, 0.05f, 1f, "Energy on hit", 4, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, f => ModdedPlayer.instance.EnergyOnHit += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.035f, 0.7f, "Block", 1, f => ModdedPlayer.instance.BlockFactor += f, f => ModdedPlayer.instance.BlockFactor += -f, f => ModdedPlayer.instance.BlockFactor += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.04f, 0.5f, "Projectile speed", 4, f => ModdedPlayer.instance.ProjectileSpeedRatio += f, f => ModdedPlayer.instance.ProjectileSpeedRatio += -f, f => ModdedPlayer.instance.ProjectileSpeedRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.01f, 0.04f, 0.5f, "Projectile size", 4, f => ModdedPlayer.instance.ProjectileSizeRatio += f, f => ModdedPlayer.instance.ProjectileSizeRatio += -f, f => ModdedPlayer.instance.ProjectileSizeRatio += f) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.75f, 1.65f, 1.28f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
+            new ItemStat(i, 0.65f, 1.5f, 1.25f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.5f, 1.1f, 1.25f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.006f, 0.013f, 0.5f, "Magic Find", 5, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.5f, 1f, 1.32f, "All attributes", 5, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats); i++;
+            new ItemStat(i, 0.001f, 0.013f, 0.4f, "Magic Find",7, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.45f, 0.75f, 0.8f, "All attributes", 4, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats); i++;
             new ItemStat(i, 0, 0, 0, "Refund points", 7, f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec()); i++;
-            new ItemStat(i, 0.005f, 0.008f, 0.5f, "Jump Power", 5, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.046f, 0.076f, 0.5f, "Headshot Damage", 4, f => ModdedPlayer.instance.HeadShotDamage += f, f => ModdedPlayer.instance.HeadShotDamage -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.002f, 0.007f, 0.4f, "Fire Damage", 5, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.008f, 0.5f, "Chance on hit to slow", 6, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.ChanceToSlowOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.008f, 0.5f, "Chance on hit to bleed", 6, f => ModdedPlayer.instance.ChanceToBleedOnHit += f, f => ModdedPlayer.instance.ChanceToBleedOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.001f, 0.008f, 0.5f, "Chance on hit to weaken", 6, f => ModdedPlayer.instance.ChanceToWeakenOnHit += f, f => ModdedPlayer.instance.ChanceToWeakenOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.003f, 0.008f, 0.4f, "Jump Power", 4, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.016f, 0.066f, 0.4f, "Headshot Damage", 4, f => ModdedPlayer.instance.HeadShotDamage += f, f => ModdedPlayer.instance.HeadShotDamage -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.007f, 0.4f, "Fire Damage", 4, f => ModdedPlayer.instance.FireAmp += f, f => ModdedPlayer.instance.FireAmp -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.008f, 0.5f, "Chance on hit to slow", 3, f => ModdedPlayer.instance.ChanceToSlowOnHit += f, f => ModdedPlayer.instance.ChanceToSlowOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.004f, 0.4f, "Chance on hit to bleed", 3, f => ModdedPlayer.instance.ChanceToBleedOnHit += f, f => ModdedPlayer.instance.ChanceToBleedOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.001f, 0.008f, 0.5f, "Chance on hit to weaken", 3, f => ModdedPlayer.instance.ChanceToWeakenOnHit += f, f => ModdedPlayer.instance.ChanceToWeakenOnHit -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             //Extra carry items
             i = 1000;
-            new ItemStat(i, 6f, 15f, 0f, "Extra Sticks", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
-            new ItemStat(i, 3f, 10f, 0f, "Extra Rocks", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
-            new ItemStat(i, 2f, 8f, 0f, "Extra Ropes", 5, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 6f, 15f, 0f, "Extra Sticks", 4, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 3f, 10f, 0f, "Extra Rocks", 4, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null); i++;
+            new ItemStat(i, 2f, 8f, 0f, "Extra Ropes", 4, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); i++;
 
             i = 2000;
-            new ItemStat(i, 3f, 9f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.4f, 2f, 0f, "BLACK HOLE DURATION", 6, f => SpellActions.BLACKHOLE_duration += f, f => SpellActions.BLACKHOLE_duration += -f, f => SpellActions.BLACKHOLE_duration += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 1f, 3f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.0125f, 0.025f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
-            new ItemStat(i, 1, 1, 0, "HAMMER", 7, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
-            new ItemStat(i, 1, 2.5f, 0, "Snap Freeze Duration", 7, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null); i++;
+            new ItemStat(i, 3f, 20f, 0f, "BLACK HOLE RADIUS", 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.4f, 4f, 0f, "BLACK HOLE DURATION", 6, f => SpellActions.BLACKHOLE_duration += f, f => SpellActions.BLACKHOLE_duration += -f, f => SpellActions.BLACKHOLE_duration += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 1f, 7f, 0f, "BLACK HOLE FORCE", 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.0125f, 0.065f, 1f, "BLACK HOLE DAMAGE", 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 }; i++;
+            new ItemStat(i, 1, 1, 0, "HAMMER", 1, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
+            new ItemStat(i, 1, 3.5f, 0, "Snap Freeze Duration", 3, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null); i++;
             new ItemStat(i, 2, 3f, 0, "Raft Speed HOST ONLY", 4, f => ModdedPlayer.instance.RaftSpeedMultipier += f, f => ModdedPlayer.instance.RaftSpeedMultipier -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
 
         }
@@ -1024,7 +1036,7 @@ namespace ChampionsOfForest
                     name = "Smokey's Sacred Quiver",
                     description = "SmokeyTheBear died because he never used this item.",
                     lore = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.",
-                    tooltip = "This quiver makes you shoot special projectiles from your bows",
+                    tooltip = "This quiver makes you operate crossbows at 250% speed",
                     Rarity = 7,
                     minLevel = 5,
                     maxLevel = 8,
@@ -1032,8 +1044,8 @@ namespace ChampionsOfForest
                     StackSize = 1,
                     _itemType = BaseItem.ItemType.Quiver,
                     icon = Res.ResourceLoader.GetTexture(98),
-                    onEquip = () => ModdedPlayer.instance.IsSacredArrow = true,
-                    onUnequip = () => ModdedPlayer.instance.IsSacredArrow = false,
+                    onEquip = () => ModdedPlayer.instance.IsSmokeysQuiver = true,
+                    onUnequip = () => ModdedPlayer.instance.IsSmokeysQuiver = false,
                 };
                 new BaseItem(new int[][]
              {
@@ -1455,7 +1467,7 @@ namespace ChampionsOfForest
                     weaponModel = BaseItem.WeaponModelType.Hammer,
                     icon = Res.ResourceLoader.GetTexture(109),
                 };
-                RelicHammer.PossibleStats[1][0].Multipier = -5;
+                RelicHammer.PossibleStats[1][0].Multipier = -4;
 
                 BaseItem GreaterHammer = new BaseItem(new int[][]
             {
@@ -1483,7 +1495,7 @@ namespace ChampionsOfForest
                     weaponModel = BaseItem.WeaponModelType.Hammer,
                     icon = Res.ResourceLoader.GetTexture(109),
                 };
-                GreaterHammer.PossibleStats[1][0].Multipier = -4;
+                GreaterHammer.PossibleStats[1][0].Multipier = -3;
                 //Item 0/6
                 new BaseItem(new int[][]
                 {
@@ -2866,7 +2878,7 @@ new int[] {39,40,41,42,43},
                 minLevel = 1,
                 maxLevel = 2,
                 CanConsume = true,
-                StackSize = 100,
+                StackSize = 1,
                 _itemType = BaseItem.ItemType.Other,
                 icon = Res.ResourceLoader.GetTexture(105),
                 onConsume = ModdedPlayer.Respec
@@ -2985,7 +2997,7 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.LongSword,
                 icon = Res.ResourceLoader.GetTexture(89),
-            }.PossibleStats[0][0].Multipier = -2;
+            }.PossibleStats[0][0].Multipier = -3;
 
             new BaseItem(new int[][]
             {
@@ -3038,7 +3050,7 @@ new int[] {0,0,0,0,62,63,64},
                 icon = Res.ResourceLoader.GetTexture(101),
                 onEquip = () => SpellActions.WarCryGiveArmor = true,
                 onUnequip = () => SpellActions.WarCryGiveArmor = false,
-            }.PossibleStats[0][0].Multipier = 4;
+            }.PossibleStats[0][0].Multipier = 5;
 
 
             //Item 2/5
@@ -3111,7 +3123,7 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Helmet,
                 icon = Res.ResourceLoader.GetTexture(91),
             };
-            mask.PossibleStats[2][0].Multipier = -3;
+            mask.PossibleStats[2][0].Multipier = -4;
             mask.PossibleStats[0][0].Multipier = 1.5f;
             mask.PossibleStats[1][0].Multipier = 2.5f;
             mask.PossibleStats[1][1].Multipier = 2.5f;
@@ -3177,6 +3189,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {17},
                 new int[] {4,18,7,8,19},
                 new int[] {27,28,29,30,48,47},
+                new int[] {-1},
+
             })
             {
                 name = "Cripplers",
@@ -3199,9 +3213,10 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {24,4},
                 new int[] {26,4},
                 new int[] {21,2},
-                new int[] {23,2},
+                new int[] {23,2,0,0,0,0},
                 new int[] {2,4,57,16},
                 new int[] {6,8,9,44,46},
+                new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
@@ -3227,6 +3242,7 @@ new int[] {0,0,0,0,62,63,64},
             {
                 new int[] {44},
                 new int[] {44,8},
+                new int[] {44,0,0,0},
                 new int[] {44,0,0,0},
                 new int[] {-1},
             })
@@ -3293,6 +3309,7 @@ new int[] {0,0,0,0,62,63,64},
            {
                     new int[] {2005},
                     new int[] {-1},
+                    new int[] {-1},
                     new int[] {42,43},
                     new int[] {44,0,49,},
                     new int[] {21,24,0,0,0,0},
@@ -3317,6 +3334,7 @@ new int[] {0,0,0,0,62,63,64},
                     new int[] {34,45,46,15,1,2,3,4,57,11,14,7,10,59},
                     new int[] {8,1,2,3,4,9,5,6},
                     new int[] {1000,1001,1002},
+                    new int[] {1000,1001,1002,0,0,0,0,0,0,0},
            })
             {
                 name = "Motorboat Modification Blueprints",
@@ -3351,7 +3369,7 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Axe,
                 icon = Res.ResourceLoader.GetTexture(138),
-            }.PossibleStats[1][0].Multipier = 2;
+            }.PossibleStats[1][0].Multipier = 1.6f;
             new BaseItem(new int[][]
              {
                 new int[]{1,26,22},
@@ -3373,7 +3391,7 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Axe,
                 icon = Res.ResourceLoader.GetTexture(138),
-            }.PossibleStats[1][0].Multipier = 3;
+            }.PossibleStats[1][0].Multipier = 2.5f;
 
             new BaseItem(new int[][]
              {
@@ -3398,7 +3416,7 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Axe,
                 icon = Res.ResourceLoader.GetTexture(138),
-            }.PossibleStats[1][0].Multipier = 3;
+            }.PossibleStats[1][0].Multipier = 2.5f;
             new BaseItem(new int[][]
                        {
                 new int[]{1,26,22},
@@ -3432,6 +3450,7 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
+                new int[] {-1},
          })
             {
                 name = "Golden Ring",
@@ -3449,6 +3468,7 @@ new int[] {0,0,0,0,62,63,64},
             new BaseItem(new int[][]
            {
                 new int[] {1,2,3,4},
+                new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
@@ -3497,6 +3517,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {2,23,26,51},
                 new int[] {2,23,26,20,16,15,60},
                 new int[] {52,60,0,0},
+                new int[] {-1},
+
 
                   })
             {
@@ -3577,8 +3599,7 @@ new int[] {0,0,0,0,62,63,64},
                 onEquip = () => SpellActions.BashBleedChance += 0.1f,
                 onUnequip = () => SpellActions.BashBleedChance -= 0.1f,
             };
-            jaggedRipper.PossibleStats[1][0].Multipier = 3;
-            jaggedRipper.PossibleStats[2][0].Multipier = 2;
+            jaggedRipper.PossibleStats[1][0].Multipier = 2;
 
             new BaseItem(new int[][]
                       {
@@ -3611,7 +3632,7 @@ new int[] {0,0,0,0,62,63,64},
                 icon = Res.ResourceLoader.GetTexture(89),
                 onEquip = () => SpellActions.BashLifesteal += 0.02f,
                 onUnequip = () => SpellActions.BashLifesteal -= 0.02f,
-            }.PossibleStats[0][0].Multipier = 4;
+            }.PossibleStats[0][0].Multipier = 3;
             new BaseItem(new int[][]
          {
 
@@ -3642,11 +3663,13 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Hammer,
                 icon = Res.ResourceLoader.GetTexture(109),
-                onEquip = () => {
+                onEquip = () =>
+                {
                     ModdedPlayer.instance.HammerStunDuration = 1;
                     ModdedPlayer.instance.HammerStunAmount = 0;
                 },
-                onUnequip = () => {
+                onUnequip = () =>
+                {
                     ModdedPlayer.instance.HammerStunDuration = 0.4f;
                     ModdedPlayer.instance.HammerStunAmount = 0.25f;
                 },
@@ -3685,6 +3708,414 @@ new int[] {0,0,0,0,62,63,64},
                 onUnequip = () => SpellActions.ChanceToParryOnHit = false,
             };
 
+            new BaseItem(new int[][]
+     {
+              new int[] {1},
+                new int[] {12,3,16,45,46},
+                new int[] {13,4,62,64},
+                new int[] {22},
+                new int[] {25,22},
+                new int[] {25},
+                new int[] {11,1},
+                new int[] {30,1,57},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+
+     })
+            {
+                name = "King Qruies",
+                description = "A mighty sword seeking for it's owner",
+                lore = "",
+                tooltip = "With King Qruies' equipped you gain additional melee damage equal to last instance of physical damage.",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.LongSword,
+                icon = Res.ResourceLoader.GetTexture(89),
+                onEquip = () => ModdedPlayer.instance.KingQruiesSpecial = true,
+                onUnequip = () => ModdedPlayer.instance.KingQruiesSpecial = false,
+            };
+
+            new BaseItem(new int[][]
+            {
+              new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+              new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+                new int[] {13,4,62,64},
+                new int[] {26,2,34,57,55},
+                new int[] {26,23},
+                new int[] {18,16},
+                new int[] {48,2,55},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+            }){
+                name = "Grip of Sora",
+                description = "Look, a porcupine! -Sora",
+                lore = "",
+                tooltip = "Multishot drains 90% less energy and shoots +4 projectiles. Additional projectiles do not increase the cost of multishot",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Bracer,
+                icon = Res.ResourceLoader.GetTexture(93),
+                onEquip = () => ModdedPlayer.instance.SoraSpecial = true,
+                onUnequip = () => ModdedPlayer.instance.SoraSpecial = false,
+            };
+            new BaseItem(new int[][]
+           {
+              new int[] {18},
+                new int[] {60,0},
+                new int[] {2,40},
+                new int[] {12,13,2,40,16},
+                new int[] {39,40,41,42,43,0,0},
+                new int[] {23,26},
+                new int[] {-1,0},
+           }) {
+                name = "Ancient Greatbow",
+                description = "A massive and slow bow, deals extra damage",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Greatbow,
+                icon = Res.ResourceLoader.GetTexture(170),
+            }.PossibleStats[0][0].Multipier = -1.55f;
+
+               new BaseItem(new int[][]
+           {
+              new int[] {18},
+                new int[] {61},
+                new int[] {2,0,0,0},
+                new int[] {12,13,2,40,16},
+                new int[] {39,40,41,42,43,0,0},
+                new int[] {23,26},
+                new int[] {23,26},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+
+           }) {
+                name = "Phoenix",
+                description = "A massive and slow bow, it ignites enemies on hit",
+                lore = "",
+                tooltip = "",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Greatbow,
+                icon = Res.ResourceLoader.GetTexture(170),
+                onEquip = () => ModdedPlayer.instance.GreatBowIgnites = true,
+                onUnequip = () => ModdedPlayer.instance.GreatBowIgnites = false,
+            }.PossibleStats[0][0].Multipier = -0.7f;
+
+               new BaseItem(new int[][]
+           {
+              new int[] {18},
+                new int[] {61,48},
+                new int[] {2,3,5},
+                new int[] {12,13,2,40,16},
+                new int[] {39,40,41,42,43,0,0},
+                new int[] {23,26},
+                new int[] {23,26},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+
+           }) {
+                name = "Eruption",
+                description = "A massive and slow bow",
+                lore = "",
+                tooltip = "Blood infused arrow now deals additional 7 points of damage per health consumed",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Greatbow,
+                icon = Res.ResourceLoader.GetTexture(170),
+                onEquip = () => SpellActions.BIA_HealthDmMult +=7,
+                onUnequip = () => SpellActions.BIA_HealthDmMult -= 7,
+            }.PossibleStats[0][0].Multipier = -0.7f;
+
+            new BaseItem(new int[][]
+            {
+              new int[] {18},
+               
+                new int[] {2,40,0},
+             
+            })
+            {
+                name = "Greatbow",
+                description = "A massive and slow bow, deals extra damage",
+                lore = "",
+                tooltip = "",
+                Rarity = 2,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Greatbow,
+                icon = Res.ResourceLoader.GetTexture(170),
+            }.PossibleStats[0][0].Multipier = -2.7f;
+
+            new BaseItem(new int[][]
+        {
+              new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+              new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+                new int[] {13,4,62,64},
+                new int[] {26,2,34,57,55},
+                new int[] {26,23},
+                new int[] {26,0,0},
+                new int[] {18,16},
+                new int[] {30,1,57},
+                new int[] {5},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+        })
+            {
+                name = "Hazardous Crown",
+                description = "",
+                lore = "",
+                tooltip = "After casting bloody arrow, the bonus damage persists for 4 more projectiles.",
+                Rarity = 7,
+                minLevel = 10,
+                maxLevel = 12,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Helmet,
+                icon = Res.ResourceLoader.GetTexture(91),
+                onEquip = () => ModdedPlayer.instance.IsHazardCrown = true,
+                onUnequip = () => ModdedPlayer.instance.IsHazardCrown = false,
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {39,40,41,42,43,4},
+                new int[] {4,6,24,21,16,3,42,43,49},
+                new int[] {0,6,24,21,16,3,47,49,38,17,10,11,9,8,7,6},
+                new int[] {37,0,0,0},
+                new int[] {43,0 },
+
+                   })
+            {
+                name = "Novice Magic Caster's Bracers",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Bracer,
+                icon = Res.ResourceLoader.GetTexture(93),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {2,12,13,23,26,40,43,54},
+                new int[] {2,12,13,23,26,40,43,60,62,63,51,52},
+                new int[] {5,6,7,8,9,10,16,17,26},
+                new int[] {37,0,0,0},
+                new int[] {43,0,0,0 },
+
+                   })
+            {
+                name = "Ranger's Bracers",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Bracer,
+                icon = Res.ResourceLoader.GetTexture(93),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
+                new int[] {2,12,13,23,26,40,43,54},
+                new int[] {5,6,7,8,9,10,16,17,26},
+                new int[] {37,0,0,0},
+                new int[] {43,0,0,0 },
+                   })
+            {
+                name = "Swordsman's Bracers",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Bracer,
+                icon = Res.ResourceLoader.GetTexture(93),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {3,5,6,7,8,9,10,11,14,15,16},
+                new int[] {7,16,18,0,0},
+                new int[] {39,40,41,42,43,31,16},
+                new int[] {1,2,3,4,5,57,39,40,41,42,43,31,16},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+            
+                   })
+            {
+                name = "Healer's Bracers",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 5,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Bracer,
+                icon = Res.ResourceLoader.GetTexture(93),
+            };
+            new BaseItem(new int[][]
+                 {
+                new int[] {39,40,41,42,43,4},
+                new int[] {4,6,24,21,16,3,42,43,49},
+                new int[] {0,6,24,21,16,3,47,49,38,17,10,11,9,8,7,6},
+                new int[] {37,0,0,0},
+                new int[] {43,0 },
+
+                 })
+            {
+                name = "Novice Magic Caster's Gloves",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {2,12,13,23,26,40,43,54},
+                new int[] {2,12,13,23,26,40,43,60,62,63,51,52},
+                new int[] {5,6,7,8,9,10,16,17,26},
+                new int[] {37,0,0,0},
+                new int[] {43,0,0,0 },
+
+                   })
+            {
+                name = "Ranger's Gloves",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
+                new int[] {2,12,13,23,26,40,43,54},
+                new int[] {5,6,7,8,9,10,16,17,26},
+                new int[] {37,0,0,0},
+                new int[] {43,0,0,0 },
+                   })
+            {
+                name = "Swordsman's Gloves",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 4,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {3,5,6,7,8,9,10,11,14,15,16},
+                new int[] {7,16,18,0,0},
+                new int[] {39,40,41,42,43,31,16},
+                new int[] {1,2,3,4,5,57,39,40,41,42,43,31,16},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+                   })
+            {
+                name = "Healer's Gloves",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 5,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {62,63,64,55,54,53,48,30,29,28,27},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+                   })
+            {
+                name = "Fate Gloves",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 6,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
         }
     }
 }

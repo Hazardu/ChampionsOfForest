@@ -14,15 +14,16 @@ namespace ChampionsOfForest.Player
         public static void DoBlink()
         {
 
-            RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one, Camera.main.transform.forward,Camera.main.transform.rotation, BlinkRange);
+            RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one/2, Camera.main.transform.forward,Camera.main.transform.rotation, BlinkRange);
             foreach (RaycastHit hit in hits)
             {
+                if (hit.transform.CompareTag("enemyCollide"))
+                    {
                 if (BlinkDamage != 0)
                 {
-                    if (hit.transform.CompareTag("enemyCollide"))
-                    {
-                        float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus/2;
-                        dmg *= ModdedPlayer.instance.SpellAMP;
+              
+                        float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus;
+                        dmg *= ModdedPlayer.instance.SpellAMP* 2;
 
                         int dmgInt = 0;
                         DamageMath.DamageClamp(dmg, out dmgInt, out int repetitions);
@@ -38,6 +39,7 @@ namespace ChampionsOfForest.Player
                             {
                                 PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
                                 playerHitEnemy.hitFallDown = true;
+                                playerHitEnemy.explosion = true;
                                 playerHitEnemy.Hit = dmgInt;
                                 for (int i = 0; i < repetitions; i++)
                                 {
@@ -56,16 +58,16 @@ namespace ChampionsOfForest.Player
                         }
                     }
                 }
-                if (hit.transform.root != LocalPlayer.Transform.root && Vector3.Distance(hit.point, LocalPlayer.Transform.position) > 4)
+                else if (hit.transform.root != LocalPlayer.Transform.root && (hit.point- LocalPlayer.Transform.position).sqrMagnitude > 5)
                 {
                     int tries = 0;
                     Vector3 hitPoint = hit.point;
-                    while (Physics.Raycast(hitPoint, Vector3.up, 2f) && tries < 5)
+                    while (Physics.Raycast(hitPoint, Vector3.up, 1f) && tries < 3)
                     {
                         hitPoint += -Camera.main.transform.forward;
                         tries++;
                     }
-                    if (tries < 5)
+                    if (tries < 3)
                     {
                         BlinkTowards(hitPoint);
                         return;
@@ -74,14 +76,8 @@ namespace ChampionsOfForest.Player
 
                 }
             }
-            Vector3 checkPos = Camera.main.transform.position + new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized * BlinkRange;
-            if (Physics.Raycast(checkPos + Vector3.up * 2, Vector3.down, out RaycastHit hit1, 10f))
-            {
-
-                BlinkTowards(hit1.point + Vector3.up);
-                return;
-            }
-            BlinkTowards(Camera.main.transform.position + Camera.main.transform.forward * (BlinkRange - 1));
+          
+            BlinkTowards(LocalPlayer.Transform.position + Camera.main.transform.forward * 4);
 
 
         }
@@ -104,7 +100,7 @@ namespace ChampionsOfForest.Player
         {
             Vector3 pos = LocalPlayer.Transform.position;
             float radius = 8.5f;
-            float healing = (ModdedPlayer.instance.LifeRegen + 13.5f) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
+            float healing = (ModdedPlayer.instance.LifeRegen + 13.5f + ModdedPlayer.instance.SpellDamageBonus/30) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
            
             float duration = 10;
           
@@ -191,12 +187,12 @@ namespace ChampionsOfForest.Player
         #region BLACK HOLE
         public static float BLACKHOLE_damage = 40;
         public static float BLACKHOLE_duration = 9;
-        public static float BLACKHOLE_radius = 12;
-        public static float BLACKHOLE_pullforce = 10;
+        public static float BLACKHOLE_radius = 15;
+        public static float BLACKHOLE_pullforce = 25;
         public static void CreatePlayerBlackHole()
         {
             float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus / 7) * ModdedPlayer.instance.SpellAMP;
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, 100);
+            RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one*0.6F ,Camera.main.transform.forward,Camera.main.transform.rotation, 160);
             for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i].transform.root != LocalPlayer.Transform.root)
@@ -223,7 +219,7 @@ namespace ChampionsOfForest.Player
                     return;
                 }
             }
-            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 30;
+            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 10;
             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
                 using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -345,10 +341,10 @@ namespace ChampionsOfForest.Player
 
         public static bool MagicArrowDmgDebuff = false;
         public static bool MagicArrowDoubleSlow = false;
-        public static float MagicArrowDuration = 15f;
+        public static float MagicArrowDuration = 10f;
         public static void CastMagicArrow()
         {
-            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.7f;
+            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.7f + ModdedPlayer.instance.RangedDamageBonus/2;
             damage = damage * ModdedPlayer.instance.SpellAMP;
             Vector3 pos = Camera.main.transform.position;
             Vector3 dir = Camera.main.transform.forward;
@@ -419,7 +415,7 @@ namespace ChampionsOfForest.Player
         }
 
 
-        public static float PurgeRadius = 14;
+        public static float PurgeRadius = 20;
         public static bool PurgeHeal = false;
         public static void CastPurge()
         {
@@ -448,9 +444,9 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        public static float SnapFreezeDist = 22;
-        public static float SnapFloatAmount = 0.1f;
-        public static float SnapFreezeDuration = 20f;
+        public static float SnapFreezeDist = 15;
+        public static float SnapFloatAmount = 0.2f;
+        public static float SnapFreezeDuration = 7f;
         public static void CastSnapFreeze()
         {
             Vector3 pos = LocalPlayer.Transform.position;
@@ -479,7 +475,7 @@ namespace ChampionsOfForest.Player
         public static float BL_Damage = 120;
         public static void CastBallLightning()
         {
-            float dmg = BL_Damage + (3.25f * ModdedPlayer.instance.SpellDamageBonus);
+            float dmg = BL_Damage + (3.85f * ModdedPlayer.instance.SpellDamageBonus);
             dmg *= ModdedPlayer.instance.SpellAMP;
 
 
@@ -626,12 +622,11 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region Focus
-        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 6,FocusSlowAmount = 0.85f,FocusSlowDuration =4;
+        public static float FocusBonusDmg, FocusOnHS = 1,FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 4,FocusSlowAmount = 0.5f,FocusSlowDuration =4;
         public static bool Focus;
         
         public static float FocusOnBodyShot()
         {
-            CotfUtils.Log("BODY SHOT " + Focus);
             if (!Focus) return 1;
             if (FocusBonusDmg == 0)
             {
@@ -648,7 +643,6 @@ namespace ChampionsOfForest.Player
         }
         public static float FocusOnHeadShot()
         {
-            CotfUtils.Log("HEAD SHOT " + Focus);
             if (!Focus) return 1;
             if (FocusBonusDmg == 0)
             {
@@ -798,11 +792,13 @@ namespace ChampionsOfForest.Player
         
         public static void CastBloodInfArr()
         {
-            int takenHP = (int)(LocalPlayer.Stats.Health * BIA_HealthTakenMult);
-            LocalPlayer.Stats.Hit(takenHP, true, PlayerStats.DamageType.Drowning);
+            float takenHP = LocalPlayer.Stats.Health * BIA_HealthTakenMult;
+            LocalPlayer.Stats.Health -= takenHP;
+            LocalPlayer.Stats.HealthTarget -= takenHP;
             BIA_bonusDamage = takenHP * BIA_HealthDmMult;
             BIA_bonusDamage += BIA_SpellDmMult * ModdedPlayer.instance.SpellDamageBonus;
             BIA_bonusDamage *= ModdedPlayer.instance.SpellAMP;
+            if (ModdedPlayer.instance.IsHazardCrown) ModdedPlayer.instance.HazardCrownBonus = 5;
         }
         #endregion
 

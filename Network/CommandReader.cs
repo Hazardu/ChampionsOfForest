@@ -313,8 +313,8 @@ namespace ChampionsOfForest.Network
                                     cp.creationTime = Time.time;
                                     cp.Entity = entity;
                                     cp.Level = level;
-                                    cp.Health = (int)health;
-                                    cp.MaxHealth = (int)maxhealth;
+                                    cp.Health = health;
+                                    cp.MaxHealth = maxhealth;
                                     cp.Armor = armor;
                                     cp.ArmorReduction = armorReduction;
                                     cp.EnemyName = name;

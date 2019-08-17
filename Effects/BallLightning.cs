@@ -143,6 +143,14 @@ public class BallLightning : MonoBehaviour
     {
         //deal damage to enemies, apply force to rigidbodies etc
 
+        StartCoroutine(ExplosionDamageAsync());
+        //foreach (RaycastHit hit in hits)
+        //{
+        //    hit.rigidbody?.AddExplosionForce(500, transform.position, 30,1.2f,ForceMode.Impulse);
+        //}
+    }
+    private IEnumerator ExplosionDamageAsync()
+    {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, 28, Vector3.one, 30);
 
         if (!GameSetup.IsMpClient)
@@ -153,27 +161,26 @@ public class BallLightning : MonoBehaviour
                 {
                     HitEnemy(hit.transform);
                     hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+                    yield return null;
                 }
-                else if (!hit.transform.CompareTag("Player") || !hit.transform.CompareTag("structure"))
+                else if (!hit.transform.CompareTag("Player") && hit.transform.root != LocalPlayer.Transform || !hit.transform.CompareTag("structure"))
                 {
                     hit.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
                     hit.transform.SendMessage("Hit", dmg, SendMessageOptions.DontRequireReceiver);
-                    if ((hit.transform.position - transform.position).sqrMagnitude < 36 )
+                    if ((hit.transform.position - transform.position).sqrMagnitude < 36)
                     {
                         hit.transform.SendMessageUpwards("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
                         hit.transform.SendMessage("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
                     }
-                    //Explosionhit.transform.SendMessage("CutDown", SendMessageOptions.DontRequireReceiver);
+                   hit.transform.SendMessage("CutDown", SendMessageOptions.DontRequireReceiver);
                     hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+                    yield return null;
+
 
                 }
             }
 
         }
-        //foreach (RaycastHit hit in hits)
-        //{
-        //    hit.rigidbody?.AddExplosionForce(500, transform.position, 30,1.2f,ForceMode.Impulse);
-        //}
     }
 
     public void HitEnemy(Transform t)

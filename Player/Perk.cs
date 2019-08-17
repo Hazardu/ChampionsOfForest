@@ -134,8 +134,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.92f,
-                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.92f,
+                ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.9f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -145,14 +145,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Metabolism",
-                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 8%.",
+                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 10%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.92f,
-                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.92f,
+                ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.9f,
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -0.75f,
                 Name = "Water Conservation",
-                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 8%.",
+                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 10%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
             };
@@ -185,8 +185,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.02f,
-                DisableMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add -= 0.02f,
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.1f,
+                DisableMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add -= 0.1f,
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 9, 11 },
@@ -196,7 +196,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Damage",
-                Description = "Biceps slightly increases in size.\nIncreases melee damage by 2%",
+                Description = "Biceps slightly increases in size.\nIncreases melee damage by 10%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -270,8 +270,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.05f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.05f),
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.1f),
+                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.1f),
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 1 },
@@ -281,14 +281,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Transmutation",
-                Description = "The costs of casting spells become easier to quicly recover from.\n5% of the spell cost is now taxed from stamina instead of energy.",
+                Description = "The costs of casting spells become easier to quicly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 1 - 0.025f,
-                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 1 - 0.025f,
+                ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 1 - 0.04f,
+                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 1 - 0.04f,
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 15 },
@@ -298,15 +298,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Resource Cost Reduction",
-                Description = "In order to preserve energy, spell costs are reduced by 2,5%",
+                Description = "In order to preserve energy, spell costs are reduced by 4%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
             //0.7 perks
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks *= 0.80f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.80f; },
-                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 0.80f; ModdedPlayer.instance.DamageOutputMultPerks /= 0.80f; },
+                ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks *= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.70f; },
+                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks /= 0.70f; },
                 Category = PerkCategory.Defense,
                 Icon = null,
                 InheritIDs = new int[] { 5 },
@@ -316,15 +316,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Undestructable",
-                Description = "Decreases all damage taken and decreases all damage dealt by 20%",
+                Description = "Decreases all damage taken and decreases all damage dealt by 30%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.98f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.98f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.96f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.96f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
                 LevelRequirement = 7,
@@ -333,7 +333,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Cool Down Reduction",
-                Description = " Reduces spell cooldown by 2%",
+                Description = " Reduces spell cooldown by 4%",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -373,8 +373,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => StatActions.AddAllStats(10),
-                DisableMethods = () => StatActions.RemoveAllStats(10),
+                ApplyMethods = () => StatActions.AddAllStats(15),
+                DisableMethods = () => StatActions.RemoveAllStats(15),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 20 },
                 LevelRequirement = 2,
@@ -383,15 +383,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "All attributes",
-                Description = "+10 to every strenght, agility, vitality and intelligence",
+                Description = "+15 to every strenght, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = false,
             };
 
             new Perk()
             {
-                ApplyMethods = () => StatActions.AddAttackSpeed(0.02f),
-                DisableMethods = () => StatActions.AddAttackSpeed(0.02f),
+                ApplyMethods = () => StatActions.AddAttackSpeed(0.04f),
+                DisableMethods = () => StatActions.AddAttackSpeed(0.04f),
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11 },
                 LevelRequirement = 6,
@@ -400,15 +400,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Attack speed",
-                Description = "+2% to attack speed ",
+                Description = "+4% to attack speed ",
                 TextureVariation = 0,
                 Endless = true,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.02f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.02f,
+                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
+                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12, 14 },
                 LevelRequirement = 7,
@@ -417,15 +417,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability I",
-                Description = "+2% chance to not consume ammo while firing.",
+                Description = "+3% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = true,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.10f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.1f,
+                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
+                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.13f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 23 },
                 LevelRequirement = 9,
@@ -434,14 +434,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Reusability II",
-                Description = "+10% chance to not consume ammo while firing.",
+                Description = "+13% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.1f,
+                ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
+                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.13f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 24 },
                 LevelRequirement = 12,
@@ -450,7 +450,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability III",
-                Description = "+10% chance to not consume ammo while firing.",
+                Description = "+13% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -467,14 +467,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "All attributes",
-                Description = "+5 to every strenght, agility, vitality and intelligence",
+                Description = "+10 to every strenght, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.JumpPower += 0.05f,
-                DisableMethods = () => ModdedPlayer.instance.JumpPower -= 0.05f,
+                ApplyMethods = () => ModdedPlayer.instance.JumpPower += 0.06f,
+                DisableMethods = () => ModdedPlayer.instance.JumpPower -= 0.06f,
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 10,
@@ -483,14 +483,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Jump",
-                Description = "Increases jump height by 5%",
+                Description = "Increases jump height by 6%",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.MoveSpeed += 0.015f,
-                DisableMethods = () => ModdedPlayer.instance.MoveSpeed -= 0.015f,
+                ApplyMethods = () => ModdedPlayer.instance.MoveSpeed += 0.035f,
+                DisableMethods = () => ModdedPlayer.instance.MoveSpeed -= 0.035f,
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 27 },
                 LevelRequirement = 15,
@@ -499,14 +499,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Light foot",
-                Description = "Increases movement speed by 1.5%",
+                Description = "Increases movement speed by 3.5%",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HealthBonus += 10,
-                DisableMethods = () => ModdedPlayer.instance.HealthBonus -= 10,
+                ApplyMethods = () => ModdedPlayer.instance.HealthBonus += 25,
+                DisableMethods = () => ModdedPlayer.instance.HealthBonus -=25,
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 2,
@@ -515,14 +515,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Bonus Health",
-                Description = "Increases health by 10. This is further multipied by maximum health percent.",
+                Description = "Increases health by 25. This is further multipied by maximum health percent.",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.LifeRegen += 0.5f,
-                DisableMethods = () => ModdedPlayer.instance.LifeRegen -= 0.5f,
+                ApplyMethods = () => ModdedPlayer.instance.LifeRegen += 0.25f,
+                DisableMethods = () => ModdedPlayer.instance.LifeRegen -= 0.25f,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 6 },
                 LevelRequirement = 10,
@@ -531,14 +531,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 0f,
                 Name = "Health Regen",
-                Description = "Increases health per second regeneration by 0.5. This is further multipied by health regen percent and all healing percent.",
+                Description = "Increases health per second regeneration by 0.25. This is further multipied by health regen percent and all healing percent.",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.Armor += 10,
-                DisableMethods = () => ModdedPlayer.instance.Armor -= 10,
+                ApplyMethods = () => ModdedPlayer.instance.Armor += 40,
+                DisableMethods = () => ModdedPlayer.instance.Armor -= 40,
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 2,
@@ -547,7 +547,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Bonus Armor",
-                Description = "Increases armor by 10.",
+                Description = "Increases armor by 40.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -700,8 +700,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyPerSecond += 0.175f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyPerSecond -= 0.175f,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyPerSecond += 0.15f,
+                DisableMethods = () => ModdedPlayer.instance.EnergyPerSecond -= 0.15f,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 30 },
                 LevelRequirement = 10,
@@ -710,7 +710,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3f,
                 PosOffsetY = -0.75f,
                 Name = "Energy generation",
-                Description = "Passive energy regeneration is increased by 0.175/s",
+                Description = "Passive energy regeneration is increased by 0.15/s",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -765,8 +765,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, 2),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, -2),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, 6),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, -6),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 4 },
                 LevelRequirement = 12,
@@ -775,14 +775,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 0,
                 Name = "Alternative cloth sources",
-                Description = "Increases daily generation of cloth by 2",
+                Description = "Increases daily generation of cloth by 6",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, 1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, -1),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, 2),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, -2),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -791,14 +791,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3.5f,
                 PosOffsetY = 0,
                 Name = "Demolition",
-                Description = "Increases daily generation of bombs by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
+                Description = "Increases daily generation of bombs by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, 10); ModdedPlayer.instance.AddExtraItemCapacity(175, 10); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, -10); ModdedPlayer.instance.AddExtraItemCapacity(175, -10); },
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, 10); ModdedPlayer.instance.AddExtraItemCapacity(175, 15); },
+                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, -10); ModdedPlayer.instance.AddExtraItemCapacity(175, -15); },
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 46 },
                 LevelRequirement = 20,
@@ -807,14 +807,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = 0.75f,
                 Name = "Pockets for explosives",
-                Description = "Increases max amount of carried bombs and dynamite by 10",
+                Description = "Increases max amount of carried bombs and dynamite by 30",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, 1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, -1),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, 2),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, -2),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 47 },
                 LevelRequirement = 20,
@@ -823,7 +823,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4.5f,
                 PosOffsetY = 1.5f,
                 Name = "Demolition Expert",
-                Description = "Increases daily generation of dynamite by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
+                Description = "Increases daily generation of dynamite by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -861,8 +861,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, 1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, -1),
+                ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, 2),
+                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, -2),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -871,7 +871,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -5.5f,
                 PosOffsetY = 0,
                 Name = "Booze",
-                Description = "Increases daily generation of booze by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
+                Description = "Increases daily generation of booze by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -889,12 +889,12 @@ namespace ChampionsOfForest.Player
                 Name = "More Booze",
                 Description = "Increases max amount of carried booze by 15",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, 15),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, -15),
+                ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, 20),
+                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, -20),
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 49 },
                 LevelRequirement = 20,
@@ -903,9 +903,9 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = -0.75f,
                 Name = "More Meds",
-                Description = "Increases max amount of carried meds by 15",
+                Description = "Increases max amount of carried meds by 20",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
 
             new Perk()
@@ -954,7 +954,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Meat",
                 Description = "Increases carry amount of all meats by 5",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -970,7 +970,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Snacks",
                 Description = "Increases carry amount of candy bars and sodas by 20",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -986,7 +986,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Bolts",
                 Description = "Increases carry amount of crossbow bolts by 20",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1002,7 +1002,7 @@ namespace ChampionsOfForest.Player
                 Name = "Corpse collecting",
                 Description = "Increases carry amount of bones by 100 and skulls by 20",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1018,7 +1018,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Limbs",
                 Description = "Increases carry amount of arms, legs, heads and headbombs by 10",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1050,7 +1050,7 @@ namespace ChampionsOfForest.Player
                 Name = "More Misceleanous Items",
                 Description = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1066,13 +1066,13 @@ namespace ChampionsOfForest.Player
                 Name = "More Ammo",
                 Description = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *= 1.4f,
-                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /= 1.4f,
+                ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *= 2f,
+                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /= 2f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1081,14 +1081,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Spear Specialization",
-                Description = "Thrown spears deal 40% more damage",
+                Description = "Thrown spears deal 100% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.BulletDamageMult *= 1.4f,
-                DisableMethods = () => ModdedPlayer.instance.BulletDamageMult /= 1.4f,
+                ApplyMethods = () => ModdedPlayer.instance.BulletDamageMult *= 1.6f,
+                DisableMethods = () => ModdedPlayer.instance.BulletDamageMult /= 1.6f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1097,14 +1097,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -2.25f,
                 Name = "Pistol Specialization",
-                Description = "Bullets deal 40% more damage",
+                Description = "Bullets deal 60% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.4f,
-                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.4f,
+                ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.6f,
+                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.6f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1113,7 +1113,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0.5f,
                 PosOffsetY = -3f,
                 Name = "Crossbow Specialization",
-                Description = "Bolts deal 40% more damage",
+                Description = "Bolts deal 60% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1185,8 +1185,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.04f; ModdedPlayer.instance.StaminaAttackCost *= 1.05f; },
-                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.04f; ModdedPlayer.instance.StaminaAttackCost /= 1.05f; },
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.1f; ModdedPlayer.instance.StaminaAttackCost *= 1.2f; },
+                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.1f; ModdedPlayer.instance.StaminaAttackCost /= 1.2f; },
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11, 10 },
                 LevelRequirement = 15,
@@ -1195,14 +1195,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Power Swing",
-                Description = "Attacks use 5% more stamina and deal 4% more damage",
+                Description = "Attacks use 20% more stamina and deal 10% more damage",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.04f; ModdedPlayer.instance.SpellCostRatio *= 1.05f; },
-                DisableMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.04f; ModdedPlayer.instance.SpellCostRatio /= 1.05f; },
+                ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.1f; ModdedPlayer.instance.SpellCostRatio *= 1.2f; },
+                DisableMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.1f; ModdedPlayer.instance.SpellCostRatio /= 1.2f; },
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 15, 55 },
                 LevelRequirement = 15,
@@ -1211,7 +1211,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Overcharge",
-                Description = "Spell damage is increased by 5%, spell costs are increased by 5%",
+                Description = "Spell damage is increased by 10%, spell costs are increased by 20%",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1315,8 +1315,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CritChance += 0.15f,
-                DisableMethods = () => ModdedPlayer.instance.CritChance -= 0.15f,
+                ApplyMethods = () => ModdedPlayer.instance.CritChance += 0.12f,
+                DisableMethods = () => ModdedPlayer.instance.CritChance -= 0.12f,
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 9,78 },
                 LevelRequirement = 35,
@@ -1325,14 +1325,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Overhelming Odds",
-                Description = "Increases Critical chance by 15%.",
+                Description = "Increases Critical chance by 12%.",
                 TextureVariation = 0,
                 Endless = false,
             };
              new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyBonus += 5,
-                DisableMethods = () => ModdedPlayer.instance.EnergyBonus -= 5,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyBonus += 10,
+                DisableMethods = () => ModdedPlayer.instance.EnergyBonus -= 10,
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 8,
@@ -1341,7 +1341,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Endurance",
-                Description = "Increases maximum energy by 5",
+                Description = "Increases maximum energy by 10",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1349,8 +1349,8 @@ namespace ChampionsOfForest.Player
             
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.MultishotCount += 1,
-                DisableMethods = () => ModdedPlayer.instance.MultishotCount -= 1,
+                ApplyMethods = () => ModdedPlayer.instance.MultishotCount += 2,
+                DisableMethods = () => ModdedPlayer.instance.MultishotCount -= 2,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 31,
@@ -1359,7 +1359,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Multishot Empower",
-                Description = "Increases the projectile count of multishot, also increases the spells cost.",
+                Description = "Increases the projectile count of multishot by 2, also increases the spells cost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1479,8 +1479,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 1.2f,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 1.2f,
+                ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f,
+                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 1f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 88 },
                 LevelRequirement = 61,
@@ -1489,7 +1489,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6.5f,
                 PosOffsetY = 0f,
                 Name = "Armageddon",
-                Description = "Spell damage increased by 120%",
+                Description = "Spell damage increased by 100%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1521,7 +1521,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Near Death Experience",
-                Description = "Upon recieving fatal damage, instead of dieing restore your health to 35%. This may occur once every 10 minutes",
+                Description = "Upon recieving fatal damage, instead of dieing restore your health to 100% and gain 5 seconds of immunity to debuffs. This may occur once every 10 minutes",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1591,8 +1591,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.FocusOnHS +=1f,
-                DisableMethods = () => SpellActions.FocusOnHS -= 1f,
+                ApplyMethods = () => SpellActions.FocusOnHS +=0.5f,
+                DisableMethods = () => SpellActions.FocusOnHS -= 0.5f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55},
                 LevelRequirement = 9,
@@ -1601,14 +1601,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -0.5f,
                 PosOffsetY = -1.5f,
                 Name = "Focus - Perfection",
-                Description = "Focus damage bonus on headshot is increased from 100% to 200%",
+                Description = "Focus damage bonus on headshot is increased from 100% to 150%",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.1f,
-                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.1f,
+                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.15f,
+                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 96},
                 LevelRequirement = 9,
@@ -1617,23 +1617,23 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1f,
                 PosOffsetY = -2.25f,
                 Name = "Focus - Quick Adjustments",
-                Description = "Focus extra attack on bodyshot is increased from 30% to 40%",
+                Description = "Focus extra attack on bodyshot is increased from 30% to 45%",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.1f,
-                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.1f,
+                ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.15f,
+                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
                 Category = PerkCategory.MagicOffense,
-                InheritIDs = new int[] { 98},
+                InheritIDs = new int[] { 97},
                 LevelRequirement = 9,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = -0.5f,
                 PosOffsetY = -3f,
-                Name = "Focus - Quick Adjustments",
-                Description = "Focus extra attack speed on bodyshot is increased from 30% to 40%",
+                Name = "Focus - Quicker Adjustments",
+                Description = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1642,7 +1642,7 @@ namespace ChampionsOfForest.Player
                 ApplyMethods = () => SpellActions.FocusSlowDuration += 20f,
                 DisableMethods = () => SpellActions.FocusSlowDuration -= 20f,
                 Category = PerkCategory.MagicOffense,
-                InheritIDs = new int[] { 98},
+                InheritIDs = new int[] { 97},
                 LevelRequirement = 9,
                 PointsToBuy = 2,
                 Size = 1,
@@ -1703,8 +1703,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.BashDuration += 2,
-                DisableMethods = () => SpellActions.BashDuration-= 2,
+                ApplyMethods = () => SpellActions.BashDuration += 1,
+                DisableMethods = () => SpellActions.BashDuration-= 1,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 72 },
                 LevelRequirement = 26,
@@ -1713,9 +1713,9 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Greater Bash",
-                Description = "Bash duration is increased by 2 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
+                Description = "Bash duration is increased by 1 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
                new Perk()
             {
@@ -1795,7 +1795,7 @@ namespace ChampionsOfForest.Player
                 Name = "Parry range",
                 Description = "Increases the radius of parry by 1m",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -1847,8 +1847,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.BIA_HealthDmMult +=0.5f,
-                DisableMethods = () => SpellActions.BIA_HealthDmMult -= 0.5f,
+                ApplyMethods = () => SpellActions.BIA_HealthDmMult +=1f,
+                DisableMethods = () => SpellActions.BIA_HealthDmMult -=1f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 19 },
                 LevelRequirement = 14,
@@ -1857,7 +1857,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 2.25f,
                 Name = "Arcane Blood",
-                Description = "Blood infused arrow damage per health is increased by 0.5 dmg/hp.",
+                Description = "Blood infused arrow damage per health is increased by 1 dmg/hp.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1904,7 +1904,7 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
-                Name = "Enchanced vitality",
+                Name = "Enchanced energy",
                 Description = "Increases max energy by 10%",
                 TextureVariation = 0,
                 Endless = false,
@@ -1941,8 +1941,56 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 1,
                 Endless = false,
             };
-
-
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.flashlightIntensity++;ModdedPlayer.instance.flashlightBatteryDrain++;  },
+                DisableMethods = () => { ModdedPlayer.instance.flashlightIntensity--; ModdedPlayer.instance.flashlightBatteryDrain--; },
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 62 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1f,
+                PosOffsetX = -12f,
+                PosOffsetY = -0.75f,
+                Name = "Light The Way",
+                Description = "Flashlight is 100% brighter and lasts 100% longer",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks *= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks *= 1.1f; },
+                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks /= 1.1f; },
+                Category = PerkCategory.Defense,
+                Icon = null,
+                InheritIDs = new int[] { 5 },
+                LevelRequirement = 8,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 1.5f,
+                Name = "Glass Cannon",
+                Description = "Increases all damage taken and increases all damage dealt by 10%",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySize= true,
+                DisableMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySize =false,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 13 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 0.75f,
+                Name = "Size Matters",
+                Description = "Projectile size increases projectile's damage.",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
 
 
 

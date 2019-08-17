@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Enemies
     public class EnemyHitTriggerMod : enemyWeaponMelee
     {
         public static readonly float poisonDuration = 10;
-        public static readonly float stunDuration = 1.5f;
+        public static readonly float stunDuration = 1f;
 
         private Vector3 originalScale = Vector3.zero;
         private BoltEntity entity;
@@ -204,7 +204,7 @@ namespace ChampionsOfForest.Enemies
                             }
                             else if (creepy_male)
                             {
-                                num = ((!pale) ? Mathf.FloorToInt(30f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(40f * GameSettings.Ai.creepyDamageRatio));
+                                num = ((!pale) ? Mathf.FloorToInt(60f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(120f * GameSettings.Ai.creepyDamageRatio));
                             }
                             else if (creepy_baby)
                             {
@@ -260,7 +260,7 @@ namespace ChampionsOfForest.Enemies
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                         {
 
-                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10), poisonDuration);
+                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10)/7, poisonDuration);
 
                                         }
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
@@ -291,7 +291,7 @@ namespace ChampionsOfForest.Enemies
                                         {
 
 
-                                            BuffDB.AddBuff(3, 32, num / 20, poisonDuration);
+                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
 
 
                                         }

@@ -121,7 +121,9 @@ namespace ChampionsOfForest.Player
 
                 new Buff(20,159, "Near Death Experience", false, false, 1, f => ModdedPlayer.instance.NearDeathExperience =false, f => ModdedPlayer.instance.NearDeathExperience = true) { DisplayAmount = false };
 
-                new Buff(21,147, "Armor Corruption", true, true, 1, f => ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f), f => ModdedPlayer.instance.Armor += Mathf.RoundToInt(f)) { DisplayAsPercent = false };
+                new Buff(21,147, "Armor Corruption", true, true, 1, f => ModdedPlayer.instance.ArmorReduction += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ArmorReduction -= Mathf.RoundToInt(f)) { DisplayAsPercent = false };
+
+                new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageBonus -= f, f => ModdedPlayer.instance.MeleeDamageBonus += f);
 
 
             }
@@ -249,3 +251,6 @@ namespace ChampionsOfForest.Player
 //68 laser poison
 //69 meteor armor corruption
 //70...73 enemy abilities debuff
+//80 king qruies damage
+//81 smokeys quiver atk speed
+//82,83 near death buffs

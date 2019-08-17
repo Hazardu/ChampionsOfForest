@@ -785,8 +785,11 @@ namespace ChampionsOfForest
 
         private void DifficultySelectionClinet()
         {
-            LocalPlayer.FpCharacter.LockView(true);
-            LocalPlayer.FpCharacter.MovementLocked = true;
+            if (LocalPlayer.FpCharacter != null)
+            {
+                LocalPlayer.FpCharacter.LockView(true);
+                LocalPlayer.FpCharacter.MovementLocked = true;
+            }
             Rect r = new Rect(0, 0, Screen.width, Screen.height);
             GUI.DrawTexture(r, _black);
             GUI.Label(r, "Please wait for the host to choose a difficulty", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = MainFont, fontSize = Mathf.RoundToInt(50 * rr) });
@@ -888,18 +891,18 @@ namespace ChampionsOfForest
 
 
                 if (ModdedPlayer.instance.CraftingReroll)
-            {
-                try
                 {
-                    DrawCrafting(eq.xMax + 100 * rr);
+                    try
+                    {
+                        DrawCrafting(eq.xMax + 100 * rr);
 
-                }
-                catch (Exception)
-                {
+                    }
+                    catch (Exception)
+                    {
 
-                    throw;
+                        throw;
+                    }
                 }
-            }
             }
             catch (Exception exception)
             {
@@ -1060,15 +1063,15 @@ namespace ChampionsOfForest
             }
             float baseX = x + ((w - 240 * rr) / 2);
             float baseY = ypos + 30 * rr;
-            if(CustomCrafting.instance.changedItem.i != null)
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 1; k++)
+            if (CustomCrafting.instance.changedItem.i != null)
+                for (int j = 0; j < 3; j++)
                 {
-                    int index = 3 * k + j;
-                    CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                    for (int k = 0; k < 1; k++)
+                    {
+                        int index = 3 * k + j;
+                        CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                    }
                 }
-            }
         }
         private void DrawRerolling(float x, float w)
         {
@@ -1143,13 +1146,13 @@ namespace ChampionsOfForest
             float baseY = ypos + 30 * rr;
             if (CustomCrafting.instance.changedItem.i != null)
                 for (int j = 0; j < 2; j++)
-            {
-                for (int k = 0; k < 1; k++)
                 {
-                    int index = 3 * k + j;
-                    CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                    for (int k = 0; k < 1; k++)
+                    {
+                        int index = 3 * k + j;
+                        CraftingIngredientBox(new Rect(baseX + j * 80 * rr, baseY + k * 80 * rr, 80 * rr, 80 * rr), CustomCrafting.instance.ingredients[index]);
+                    }
                 }
-            }
         }
 
         public void CraftingIngredientBox(Rect r, CustomCrafting.CraftingIngredient ingredient)
@@ -1349,10 +1352,141 @@ namespace ChampionsOfForest
             GUI.color = Color.white;
             GUI.Label(DescrRect, item.description, DescriptionStyle);
             GUI.Label(LoreRect, item.lore, LoreStyle);
-            GUI.Label(toolTipTitleRect, "Tooltip:", TooltipStyle);
-            GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
+            if (!string.IsNullOrEmpty(item.tooltip))
+            {
+                GUI.Label(toolTipTitleRect, "Tooltip:", TooltipStyle);
+                GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
+            }
 
+            //move item
+            {
+                if (UnityEngine.Input.GetMouseButtonDown(0))
+                {
+                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+                    {
+                        //unequip if equipped
+                        if (SelectedItem < -1)
+                        {
+                            for (int i = 0; i < Inventory.Instance.SlotCount; i++)
+                            {
+                                if (Inventory.Instance.ItemList[i] == null)
+                                {
+                                    DraggedItem = null;
+                                    isDragging = false;
+                                    DraggedItemIndex = -1;
+                                    Inventory.Instance.ItemList[i] = item;
+                                    Inventory.Instance.ItemList[SelectedItem] = null;
+                                }
+                            }
+                        }
+                        else//move to its correct slot or swap if slot is not empty
+                        {
+                            int targetSlot = -1;
+
+                            switch (item._itemType)
+                            {
+                                case BaseItem.ItemType.Helmet:
+                                    targetSlot = -2;
+                                    break;
+                                case BaseItem.ItemType.ChestArmor:
+                                    targetSlot = -3;
+                                    break;
+                                case BaseItem.ItemType.Pants:
+                                    targetSlot = -4;
+                                    break;
+                                case BaseItem.ItemType.Boot:
+                                    targetSlot = -5;
+                                    break;
+                                case BaseItem.ItemType.ShoulderArmor:
+                                    targetSlot = -6;
+                                    break;
+                                case BaseItem.ItemType.Glove:
+                                    targetSlot = -7;
+                                    break;
+                                case BaseItem.ItemType.Amulet:
+                                    targetSlot = -8;
+                                    break;
+                                case BaseItem.ItemType.Bracer:
+                                    targetSlot = -9;
+                                    break;
+                                case BaseItem.ItemType.Ring:
+                                    if (Inventory.Instance.ItemList[-10] == null)
+                                        targetSlot = -10;
+                                    else if (Inventory.Instance.ItemList[-11] == null)
+                                        targetSlot = -11;
+                                    else targetSlot = -10;
+                                    break;
+                                case BaseItem.ItemType.Weapon:
+                                    targetSlot = -12;
+                                    break;
+                                case BaseItem.ItemType.Quiver:
+                                case BaseItem.ItemType.SpellScroll:
+                                case BaseItem.ItemType.Shield:
+                                    targetSlot = -13;
+                                    break;
+                            }
+                            if (targetSlot != -1)
+                            {
+                                if (Inventory.Instance.ItemList[targetSlot] == null)
+                                {
+                                    DraggedItem = null;
+                                    isDragging = false;
+                                    DraggedItemIndex = -1;
+                                    Inventory.Instance.ItemList[targetSlot] = item;
+                                    Inventory.Instance.ItemList[SelectedItem] = null;
+                                }
+                                else
+                                {
+                                    DraggedItem = null;
+                                    isDragging = false;
+                                    DraggedItemIndex = -1;
+                                    Inventory.Instance.ItemList[SelectedItem] = Inventory.Instance.ItemList[targetSlot];
+                                    Inventory.Instance.ItemList[targetSlot] = item;
+                                }
+                            }
+                        }
+                    }
+                    else if (UnityEngine.Input.GetKey(KeyCode.LeftControl))
+                    {
+                        if (SelectedItem > -1)
+                        {
+                            int max = 2;
+                            switch (CustomCrafting.instance.craftMode)
+                            {
+                                case CustomCrafting.CraftMode.Rerolling:
+
+                                    max = CustomCrafting.instance.rerolling.IngredientCount;
+                                    break;
+                                case CustomCrafting.CraftMode.Reforging:
+                                    max = CustomCrafting.instance.reforging.IngredientCount;
+                                    break;
+                                case CustomCrafting.CraftMode.Repurposing:
+                                    break;
+                                case CustomCrafting.CraftMode.Upgrading:
+                                    break;
+                                default:
+                                    break;
+                            }
+                            for (int j = 0; j < max; j++)
+                            {
+                                if (CustomCrafting.instance.ingredients[j].i != null)
+                                {
+                                    if (!(CustomCrafting.instance.ingredients.Any(x => x.i == item) || CustomCrafting.instance.changedItem.i == item))
+                                    {
+                                        CustomCrafting.instance.ingredients[j].Assign(j, item);
+                                        DraggedItem = null;
+                                        DraggedItemIndex = -1;
+                                        isDragging = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
         private float hoveredOverID = -1;
         private float DraggedItemAlpha = 0;
@@ -1798,8 +1932,8 @@ namespace ChampionsOfForest
                 GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
                 for (int i = 0; i < hitMarkers.Count; i++)
                 {
-                    hitMarkers[i].lifetime -= Time.unscaledDeltaTime;
-                    if (hitMarkers[i].lifetime < 0)
+                    hitMarkers[i].lifetime -= Time.unscaledDeltaTime * 2;
+                    if (hitMarkers[i].lifetime < 0 || i - hitMarkers.Count + 10 < 0)
                     {
                         hitMarkers[i].Delete(i);
                     }
@@ -1925,18 +2059,19 @@ namespace ChampionsOfForest
                     else
                     {
                         GUI.color = new Color(1, 1, 1, 0.4f);
-                        GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 18), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
                         GUI.color = new Color(1, 1, 1, 1f);
-                        if (ModdedPlayer.instance.Silenced || ModdedPlayer.instance.Stunned)
+                        if (ModdedPlayer.instance.Silenced)
                         {
                             GUI.color = Color.black;
                         }
-                        else if ((LocalPlayer.Stats.Energy < SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * (1 - ModdedPlayer.instance.SpellCostRatio) || LocalPlayer.Stats.Stamina < SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * (1 - ModdedPlayer.instance.SpellCostRatio)))
+                        else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && SpellCaster.instance.infos[i].spell.CanCast))
                         {
                             GUI.color = Color.blue;
 
                         }
                         GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
+
+                        GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
                         GUI.color = Color.white;
                         if (!SpellCaster.instance.infos[i].spell.Bought)
                         {
@@ -2748,7 +2883,7 @@ namespace ChampionsOfForest
             }
             else
             {
-                BookPositionY += 155* rr;
+                BookPositionY += 155 * rr;
             }
 
             Stat("Strenght", ModdedPlayer.instance.strenght.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");

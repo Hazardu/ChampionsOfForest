@@ -1,5 +1,6 @@
 ﻿using ChampionsOfForest.Player;
 using System;
+using System.Collections;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -53,6 +54,7 @@ namespace ChampionsOfForest.Effects
 
         //cataclysm behavior
         private float damage;
+        private int dmg;
         private float radius;
         private float duration;
         private bool isFromEnemy;
@@ -74,6 +76,7 @@ namespace ChampionsOfForest.Effects
                 particleParent.SetActive(false);
                 Invoke("EnableParticles", 2);
                 CotfUtils.Log("start cataclysm");
+                dmg = (int)damage;
             }
             catch (Exception e)
             {
@@ -109,7 +112,7 @@ namespace ChampionsOfForest.Effects
                     {
                         SendHitFromEnemy();
                     }
-                    else if(!BoltNetwork.isClient)
+                    else if (!BoltNetwork.isClient)
                     {
                         SendHitFromPlayer();
                     }
@@ -122,19 +125,23 @@ namespace ChampionsOfForest.Effects
 
         private void SendHitFromPlayer()
         {
+            StartCoroutine(AsyncPlayerHit());
+        }
+
+        public IEnumerator AsyncPlayerHit()
+        {
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, Vector3.one, radius);
-            int dmg = (int)damage;
             for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i].transform.CompareTag("enemyCollide"))
                 {
                     EnemyProgression ep = hits[i].transform.gameObject.GetComponentInParent<EnemyProgression>();
-                    
+
                     if (ep != null)
                     {
                         if (isArcane)
                         {
-                            ep.HitMagic(dmg*2);
+                            ep.HitMagic(dmg * 2);
                             ep.Slow(141, 0.0f, 2);
                             ep.DmgTakenDebuff(140, 1.5f, 10);
                             ep.FireDebuff(140, dmg / 3, 25);
@@ -145,13 +152,15 @@ namespace ChampionsOfForest.Effects
                             ep.HitMagic(dmg / 2);
                             ep.Slow(140, 0.6f, 7);
                             ep.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                            ep.FireDebuff(140, dmg /4, 25);
+                            ep.FireDebuff(140, dmg / 4, 25);
 
                         }
+                yield return null;
                     }
                     else
                     {
                         hits[i].transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
+                yield return null;
 
                     }
                 }

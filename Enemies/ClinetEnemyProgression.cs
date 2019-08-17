@@ -13,8 +13,8 @@ namespace ChampionsOfForest
         public ulong Packed;
         public string EnemyName;
         public int Level;
-        public int Health;
-        public int MaxHealth;
+        public float Health;
+        public float MaxHealth;
         public long ExpBounty;
         public int Armor;
         public int ArmorReduction;
@@ -36,8 +36,8 @@ namespace ChampionsOfForest
             {
                 EnemyName = p.EnemyName;
                 Level = p.Level;
-                Health = (int)p._hp;
-                MaxHealth = (int)p.MaxHealth;
+                Health = p._hp + p._Health.Health;
+                MaxHealth = p.MaxHealth;
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;

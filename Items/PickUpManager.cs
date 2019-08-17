@@ -79,6 +79,10 @@ namespace ChampionsOfForest
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[2001];
                                 renderer.materials = new Material[] { pickupMaterial, pickupMaterial };
 
+                            } else if (item.weaponModel == BaseItem.WeaponModelType.Greatbow)
+                            {
+                                filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[167];
+
                             }
 
                             break;

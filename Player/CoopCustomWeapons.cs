@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BuilderCore;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -148,7 +149,16 @@ namespace ChampionsOfForest.Player
                 new Vector3(0, 180, 0),
                 new Vector3(0, 0, 0),
                 1);
-
+            AddWeapon(BaseItem.WeaponModelType.Greatbow, 167,
+            Core.CreateMaterial(new BuildingData()
+            {
+                BumpMap = Res.ResourceLoader.GetTexture(168),
+                BumpScale = 1.5f,
+                Metalic = 0.2f,
+                Smoothness = 0.0f,
+                MainTexture = Res.ResourceLoader.GetTexture(169),
+                EmissionMap = Res.ResourceLoader.GetTexture(169),
+            }), new Vector3(0, 0, 1.1f), new Vector3(0, 180, 0), Vector3.zero, 1.1f);
 
             instance = new GameObject().AddComponent<CoopCustomWeapons>();
 
@@ -238,21 +248,18 @@ namespace ChampionsOfForest.Player
 
         public static void SetWeaponOn(Transform tr, int i)
         {
-            try
-            {
+        
                 instance.StartCoroutine(instance.EquipDelayed(tr, i));
-            }
-            catch (System.Exception e)
-            {
-                CotfUtils.Log("Error \n" + e.ToString());
-            }
+           
+           
         }
 
         private List<GameObject> objectsToDisable = new List<GameObject>();
         private IEnumerator EquipDelayed(Transform handTransform, int i)
         {
             objectsToDisable.Clear();
-            yield return new WaitForSeconds(1f);
+
+            yield return null;
             if (i != (int)BaseItem.WeaponModelType.None)
             {
                 foreach (Transform child in handTransform)
@@ -269,12 +276,14 @@ namespace ChampionsOfForest.Player
                 }
                 yield break;
             }
+            yield return null;
 
             if (!customWeapons.ContainsKey(handTransform))
             {
                 Dictionary<int, GameObject> dic = CloneWeapons(handTransform);
                 customWeapons.Add(handTransform, dic);
             }
+            yield return null;
             Transform toIgnore = null;
             if (customWeapons.ContainsKey(handTransform))
             {
@@ -294,14 +303,18 @@ namespace ChampionsOfForest.Player
 
                 }
             }
-            yield return new WaitForSeconds(1.5f);
-            foreach (GameObject o in objectsToDisable)
+        
+            yield return null;
+            yield return new WaitForSeconds(2.5f);
+for(int j = 0; j< objectsToDisable.Count;j++)
             {
-                if (o.transform != toIgnore)
+                if (objectsToDisable[j].transform != toIgnore)
                 {
-                    o.SetActive(false);
+                    objectsToDisable[j].SetActive(false);
                 }
             }
+            objectsToDisable.Clear();
+
         }
         public void CorrectTransform(GameObject go, int i)
         {

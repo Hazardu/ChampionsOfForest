@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
     public class SnowAura : MonoBehaviour
     {
         private readonly float _radius = 20;
-        private readonly float _duration = 35;
+        private readonly float _duration = 25;
         public Transform followTarget;
 
         private static Material _particleMaterial;

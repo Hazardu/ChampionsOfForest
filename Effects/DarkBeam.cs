@@ -53,7 +53,7 @@ namespace ChampionsOfForest
 
                 Light light = lamp.AddComponent<Light>();
                 light.type = LightType.Spot;
-                light.spotAngle = 40;   //going towards 50
+                light.spotAngle = Mathf.Atan(Radius/12) * 2;
                 light.intensity = 0;   //going towards 30
                 light.range = 20;
                 if (fromEnemy)
@@ -178,7 +178,7 @@ namespace ChampionsOfForest
             while (light.intensity < 15)
             {
 
-                light.intensity += 3f * Time.deltaTime;
+                light.intensity += 6f * Time.deltaTime;
 
                 yield return null;
             }
@@ -188,7 +188,7 @@ namespace ChampionsOfForest
             while (light.intensity > 0)
             {
 
-                light.intensity -= 15 * Time.deltaTime;
+                light.intensity -= 25 * Time.deltaTime;
 
                 yield return null;
             }

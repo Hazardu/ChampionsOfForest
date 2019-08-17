@@ -136,7 +136,7 @@ namespace ChampionsOfForest.Player
                         {
                             if (!infos[i].spell.Channeled)
                             {
-                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && infos[i].spell.CanCast)
+                                if (Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && infos[i].spell.CanCast)
                                 {
                                     LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) *  ModdedPlayer.instance.SpellCostRatio;
                                     if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
@@ -153,7 +153,7 @@ namespace ChampionsOfForest.Player
                             }
                             else 
                             {
-                                if (Ready[i] && !ModdedPlayer.instance.Silenced && !ModdedPlayer.instance.Stunned)
+                                if (Ready[i] && !ModdedPlayer.instance.Silenced)
                                 {
                                     if (LocalPlayer.Stats.Energy >= 10 && LocalPlayer.Stats.Stamina >= 10 && infos[i].spell.CanCast)
                                     {

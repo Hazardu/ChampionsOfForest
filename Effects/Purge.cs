@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Effects
     public class Purge : MonoBehaviour
     {
         private float speed = -30;
-        private float radius = 1;
+        private float radius = 2;
         private static Material mat;
         public static void Cast(Vector3 pos, float radius, bool heal)
         {
@@ -53,11 +53,13 @@ namespace ChampionsOfForest.Effects
                     a++;
                 }
             }
+            ModdedPlayer.instance.StunDuration = 0;
+            ModdedPlayer.instance.RootDuration= 0;
 
 
             for (int i = 0; i < a; i++)
             {
-                float mult = heal ? 1.20f : 0.8f;
+                float mult = heal ? 1.30f : 0.8f;
 
                 LocalPlayer.Stats.Health *= mult;
                 LocalPlayer.Stats.HealthTarget *= mult;
@@ -77,7 +79,7 @@ namespace ChampionsOfForest.Effects
         {
             transform.localScale += Vector3.one * Time.deltaTime * radius / 2;
             transform.position += Vector3.up * Time.deltaTime * speed;
-            transform.Rotate(Vector3.up * 40 * speed * Time.deltaTime, Space.World);
+            transform.Rotate(Vector3.up * 80 * speed * Time.deltaTime, Space.World);
         }
 
     }

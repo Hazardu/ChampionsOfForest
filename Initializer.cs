@@ -74,7 +74,7 @@ namespace ChampionsOfForest
                     go.AddComponent<MeteorSpawner>();
                     go.AddComponent<BlackFlame>();
                     go.AddComponent<AsyncHit>();
-                    go.AddComponent<Crafting>();
+                   // go.AddComponent<Crafting>();
                     CustomCrafting.Init();
                     BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
@@ -90,6 +90,7 @@ namespace ChampionsOfForest
                     BallLightning.InitPrefab();
                     AddAxeMesh();
                     Cataclysm.AssignPrefabs();
+                    new RCoroutines();
                 }
 
             }

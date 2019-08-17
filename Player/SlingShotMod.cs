@@ -7,24 +7,18 @@ namespace ChampionsOfForest.Player
     {
         public override void fireProjectile()
         {
-            int repeats = 1;
-            if (Effects.Multishot.IsOn)
-            {
-                if (SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount))
-                {
-                    repeats += ModdedPlayer.instance.MultishotCount;
-
-                }
-                else
-                {
-                    Effects.Multishot.IsOn = false;
-                    Effects.Multishot.localPlayerInstance.SetActive(false);
-                }
-            }
+            int repeats  =ModdedPlayer.RangedRepetitions();
+         
             for (int i = 0; i < repeats; i++)
             {
-                if (LocalPlayer.Inventory.RemoveItem(_ammoItemId, 1, false, true))
+
+                bool noconsume = false;
+                if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
                 {
+                    noconsume = true;
+                }
+                if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoItemId, 1, false, true))
+                { 
                     Vector3 position = _ammoSpawnPos.transform.position;
                     if (i > 0)
                     {
@@ -41,8 +35,7 @@ namespace ChampionsOfForest.Player
                     }
                     GameObject gameObject = Object.Instantiate(_Ammo, position, rotation);
                     gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
-                    gameObject.tag = "projectile";
-                    gameObject.AddComponent<ProjectileIgnoreCollision>();
+
                     Rigidbody component = gameObject.GetComponent<Rigidbody>();
                     rockSound component2 = gameObject.GetComponent<rockSound>();
                     if ((bool)component2)

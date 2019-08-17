@@ -546,6 +546,7 @@ namespace ChampionsOfForest
                     {
                         Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * (1 + ModdedPlayer.instance.StaminaRegenPercent);
                         Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
+
                     }
                     else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f && Thirst < 1)
                     {
@@ -556,6 +557,7 @@ namespace ChampionsOfForest
                 else
                 {
                     Stamina = Energy;
+                        Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
                 }
                 if (CheckingBlood && TheForest.Utils.Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
                 {
@@ -764,6 +766,9 @@ namespace ChampionsOfForest
                 f *= ModdedPlayer.instance.FireDamageTakenMult;
             }
             damage = Mathf.RoundToInt(f);
+            if (ModdedPlayer.instance.KingQruiesSpecial)
+                BuffDB.AddBuff(22, 80, damage/2, 4);
+
             base.Hit(damage, ignoreArmor, type);
         }
 
@@ -860,8 +865,10 @@ namespace ChampionsOfForest
             {
                 if (ModdedPlayer.instance.NearDeathExperienceUnlocked && !ModdedPlayer.instance.NearDeathExperience)
                 {
-                    Health = ModdedPlayer.instance.MaxHealth * 0.35f;
+                    Health = ModdedPlayer.instance.MaxHealth;
                     BuffDB.AddBuff(20, 61, 0, 600);
+                    BuffDB.AddBuff(6, 82, 0, 5);
+                    BuffDB.AddBuff(7, 83, 0, 5);
                     return;
                 }
 

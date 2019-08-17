@@ -8,6 +8,7 @@ namespace ChampionsOfForest
     {
         private float LevelRequestCooldown = 10;
         private float MFindRequestCooldown = 300;
+        public static Material bloodInfusedMaterial;
 
         public static ClinetItemPicker ItemPicker => ClinetItemPicker.Instance;
         public static List<GameObject> Players
@@ -248,15 +249,7 @@ namespace ChampionsOfForest
             }
         }
 
-        //public static string ListAllChildren(Transform tr, string prefix)
-        //{
-        //    string s = prefix + "•" + tr.name + "\n";
-        //    foreach (Transform child in tr)
-        //    {
-        //        s += ListAllChildren(child, prefix + "\t");
-        //    }
-        //    return s;
-        //}
+     
 
         //finds the hand transform of client
         //public static Transform FindHandRetardedWay(Transform root)

@@ -19,7 +19,7 @@ namespace ChampionsOfForest.Player
         {
             if (mainTriggerScript != null)
             {
-                if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None)
+                if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None && PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.Greatbow)
                 {
                     CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
                     setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
@@ -35,14 +35,18 @@ namespace ChampionsOfForest.Player
                     LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
 
                 }
-                if (LocalPlayer.Stats.Stamina > 7)
-                {
-                    animator.speed = ModdedPlayer.instance.AttackSpeed;
-                }
-                else
-                {
-                    animator.speed = 0.5f;
-                }
+                //float ats = ModdedPlayer.instance.AttackSpeed;
+                //if (GreatBow.isEnabled) ats /= 10f;
+                //if (LocalPlayer.Stats.Stamina > 4)
+                //{
+
+                //    animator.speed = ats;
+                //}
+                //else
+                //{
+                //    animator.speed =Mathf.Min( 0.5f, ats/2);
+
+                //}
             }
 
             base.Update();

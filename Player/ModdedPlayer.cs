@@ -72,7 +72,7 @@ namespace ChampionsOfForest
             }
         }
         public float StaminaAndEnergyRegenAmp => 1 + (intelligence) * EnergyRegenPerInt;
-        public float ArmorDmgRed => ModReferences.DamageReduction(Armor);
+        public float ArmorDmgRed => ModReferences.DamageReduction(Armor -(int) ArmorReduction);
         public float DamageReductionTotal => (DamageReduction) * (DamageReductionPerks);
         public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
    public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
@@ -135,12 +135,17 @@ namespace ChampionsOfForest
         public bool Rooted = false;
         public bool Stunned = false;
         public int Armor = 0;
+        public float ArmorReduction = 0;
         public float MagicResistance = 0;
 
 
         public float AttackSpeed => AttackSpeedAdd * AttackSpeedMult;
         public float AttackSpeedMult = 1;
         public float AttackSpeedAdd = 1;
+
+        public float RangedAttackSpeed = 1;
+        public float BowRearmSpeed= 0.0f;
+        public bool GreatBowIgnites= false;
 
 
 
@@ -221,8 +226,10 @@ namespace ChampionsOfForest
 
         //Item abilities variables
         //Smokeys quiver
-        public bool IsSacredArrow = false;
+        public bool IsSmokeysQuiver = false;
         public bool IsCrossfire = false;
+        public bool IsHazardCrown = false;
+        public int  HazardCrownBonus = 0;
         public float LastCrossfireTime = 0;
 
         //Any hammer
@@ -247,8 +254,15 @@ namespace ChampionsOfForest
         public bool NearDeathExperience = false;
         public bool NearDeathExperienceUnlocked = false;
 
+        public bool KingQruiesSpecial = false;
+        public bool SoraSpecial = false;
+        public float flashlightIntensity = 1;
+        public float flashlightBatteryDrain = 1;
+
         public bool CraftingReroll = false;
         public bool CraftingReforge = false;
+
+        public bool ProjectileDamageIncreasedBySize = false;
 
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
@@ -351,6 +365,7 @@ namespace ChampionsOfForest
             MoveSpeed = 1f;
             MutationPoints = 1;
             ExpGoal = GetGoalExp();
+
             if (!GameSetup.IsNewGame)
             {
                 Serializer.Load();
@@ -441,20 +456,40 @@ namespace ChampionsOfForest
                 {
                     if (Inventory.Instance.ItemList[-12].Equipped)
                     {
-                        PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
-                        LocalPlayer.Inventory.StashEquipedWeapon(false);
-                        LocalPlayer.Inventory.Equip(80, false);
-                        PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+                        if (Inventory.Instance.ItemList[-12].weaponModel != BaseItem.WeaponModelType.Greatbow)
+                        {
+                            PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
+                            LocalPlayer.Inventory.StashEquipedWeapon(false);
+                            LocalPlayer.Inventory.Equip(80, false);
+                            PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
 
 
+                        }
+                        else
+                        {
+                            PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
+                            LocalPlayer.Inventory.StashEquipedWeapon(false);
+                            if (LocalPlayer.Inventory.Equip(79, false))
+                            {
+                                CustomBowBase.baseBow.SetActive(false);
+                                GreatBow.instance.SetActive(true);
+
+                            }
+                            else
+                            {
+                                CotfUtils.Log("NO CRAFTED BOW!");
+                            }
+                            PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+
+                        }
                     }
                 }
             }
             try
             {
-
                 float dmgPerSecond = 0;
                 int poisonCount = 0;
+                ArmorReduction = 0;
                 int[] keys = new List<int>(BuffDB.activeBuffs.Keys).ToArray();
                 for (int i = 0; i < keys.Length; i++)
                 {
@@ -476,6 +511,10 @@ namespace ChampionsOfForest
                         {
                             poisonCount++;
                             dmgPerSecond += buff.amount;
+                        }
+                        else if (buff._ID == 21)
+                        {
+                            ArmorReduction -= buff.amount;
                         }
                     }
                 }
@@ -508,6 +547,24 @@ namespace ChampionsOfForest
 
             if (LocalPlayer.Stats != null)
             {
+                float ats = ModdedPlayer.instance.AttackSpeed;
+                if (GreatBow.isEnabled) ats /= 2f;
+
+
+                if (LocalPlayer.Stats.Stamina > 4)
+                {
+
+                    LocalPlayer.Animator.speed = ats;
+                }
+                else
+                {
+                    LocalPlayer.Animator.speed = Mathf.Min(0.5f, ats / 2);
+
+                }
+
+
+
+
                 if (LocalPlayer.Stats.Health < MaxHealth)
                 {
                     if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
@@ -957,7 +1014,7 @@ namespace ChampionsOfForest
             ExpGoal = GetGoalExp();
             SendLevelMessage();
 
-            int ap = Mathf.RoundToInt(Mathf.Sqrt(Level));
+            int ap =1;
             agility += ap;
             strenght += ap;
             vitality += ap;
@@ -973,8 +1030,8 @@ namespace ChampionsOfForest
             int x = lvl;
             if (x >= 151)
                 return 9000000000000000000;
-            var y = 100*System.Math.Pow(1.33f,x-10) + 50 + 5* System.Math.Pow(x, 3);
-            y = y / 3.5;
+            var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
+            y = y / 3.4;
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
@@ -1099,6 +1156,16 @@ namespace ChampionsOfForest
             //Multishot
             Effects.Multishot.localPlayerInstance = Effects.Multishot.Create(LocalPlayer.Transform, ModReferences.rightHandTransform);
             Effects.Multishot.localPlayerInstance.SetActive(false);
+
+            //yield return null;
+            //do
+            //{
+            //    if (LocalPlayer.Inventory.Owns(79))
+            //        LocalPlayer.Inventory.Equip(79, false);
+
+            //}
+            //while (PlayerInventoryMod.originalBowModel == null);
+
         }
 
         public void AddGeneratedResource(int id, int amount)
@@ -1190,8 +1257,8 @@ namespace ChampionsOfForest
             SpellActions.FlareDuration = 8;
             SpellActions.BLACKHOLE_damage = 40;
             SpellActions.BLACKHOLE_duration = 7;
-            SpellActions.BLACKHOLE_radius = 12;
-            SpellActions.BLACKHOLE_pullforce = 10;
+            SpellActions.BLACKHOLE_radius = 15;
+            SpellActions.BLACKHOLE_pullforce = 25;
             SpellActions.ShieldPerSecond = 1;
             SpellActions.MaxShield = 10;
             SpellActions.ShieldCastTime = 0;
@@ -1204,11 +1271,11 @@ namespace ChampionsOfForest
             SpellActions.PortalDuration = 30;
             SpellActions.MagicArrowDmgDebuff = false;
             SpellActions.MagicArrowDoubleSlow = false;
-            SpellActions.MagicArrowDuration = 5f;
-            SpellActions.SnapFreezeDist = 22;
-            SpellActions.SnapFloatAmount = 0.1f;
-            SpellActions.SnapFreezeDuration = 20f;
-            SpellActions.BL_Damage = 120;
+            SpellActions.MagicArrowDuration = 10;
+            SpellActions. SnapFreezeDist = 15;
+            SpellActions. SnapFloatAmount = 0.2f;
+            SpellActions. SnapFreezeDuration = 7f;
+        SpellActions.BL_Damage = 120;
             SpellActions.BashExtraDamage = 1.06f;
             SpellActions.BashDamageBuff = 1f;
             SpellActions.BashSlowAmount = 0.7f;
@@ -1224,8 +1291,8 @@ namespace ChampionsOfForest
             SpellActions.FocusOnHS = 1;
             SpellActions.FocusOnBS = 0.2f;
             SpellActions.FocusOnAtkSpeed = 1.3f;
-            SpellActions.FocusSlowAmount = 0.8f;
-            SpellActions.FocusSlowDuration = 10;
+            SpellActions.FocusSlowAmount = 0.5f;
+            SpellActions.FocusSlowDuration = 4;
             SpellActions.SeekingArrow_ChangeTargetOnHit = false;
             SpellActions.SeekingArrow_TimeStamp = 0;
             SpellActions.SeekingArrow_HeadDamage = 2;
@@ -1239,6 +1306,7 @@ namespace ChampionsOfForest
             SpellActions.ParryRadius = 3.5f;
             SpellActions.ParryDamage = 40;
             SpellActions.ParryBuffDuration = 10;
+            SpellActions.Focus = false;
             SpellActions.ParryHeal = 5;
             SpellActions.ParryEnergy = 10;
             SpellActions. CataclysmDamage = 24;
@@ -1263,6 +1331,7 @@ SpellActions. CataclysmRadius = 5;
             instance.DamagePerStrenght = 0.00f;
             instance.SpellDamageperInt = 0.00f;
             instance.RangedDamageperAgi = 0.00f;
+            instance.ArmorReduction = 0;
             instance.EnergyRegenPerInt = 0.00f;
             instance.EnergyPerAgility = 0f;
             instance.HealthPerVitality = 0f;
@@ -1272,6 +1341,7 @@ SpellActions. CataclysmRadius = 5;
             instance.EnergyBonus = 0;
             instance.MaxHealthPercent = 0;
             instance.MaxEnergyPercent = 0;
+            instance.GreatBowIgnites = false;
             instance.CoolDownMultipier = 1;
             instance.SpellDamageAmplifier_Mult = 1;
             instance.MeleeDamageAmplifier_Mult = 1;
@@ -1336,15 +1406,20 @@ SpellActions. CataclysmRadius = 5;
             Items.StatActions.AddMagicFind(0);
             instance.ReusabilityChance = 0;
             instance.ReusabilityAmount = 1;
-            instance.IsSacredArrow = false;
+            instance.IsSmokeysQuiver = false;
             instance.IsHammerStun = false;
+            instance.KingQruiesSpecial = false;
             instance.HammerStunDuration = 0.4f;
             instance.HammerStunAmount = 0.25f;
             instance.HammerSmashDamageAmp = 1f;
+            instance.flashlightIntensity = 1;
+            instance.flashlightBatteryDrain = 1;
+            instance. RangedAttackSpeed = 1;
             instance.HexedPantsOfMrM_Enabled = false;
             instance.HexedPantsOfMrM_StandTime = 0;
             instance.DeathPact_Enabled = false;
             instance.DeathPact_Amount = 1;
+            instance.SoraSpecial = false;
             instance.ExtraCarryingCapactity.Clear();
             instance.SpearDamageMult = 1;
             instance.BulletDamageMult = 1;
@@ -1358,6 +1433,7 @@ SpellActions. CataclysmRadius = 5;
             instance.FireAmp=0;
             instance.HeadShotDamage = 6;
             instance.SpellAmpFireDmg = false;
+            instance.ProjectileDamageIncreasedBySize = false;
             instance.ChanceToSlowOnHit = 0;
             instance.ChanceToBleedOnHit = 0;
             instance.ChanceToWeakenOnHit = 0;
@@ -1366,6 +1442,7 @@ SpellActions. CataclysmRadius = 5;
             instance.HammerStunDuration = 0.4f;
             instance.HammerStunAmount = 0.25f;
             instance.HammerSmashDamageAmp = 1f;
+            instance.IsHazardCrown = false;
             ReapplyAllItems();
             ReapplyAllPerks();
             ReapplyAllSpell();
@@ -1401,6 +1478,15 @@ SpellActions. CataclysmRadius = 5;
             {
                 if (Perk.AllPerks[i].IsBought)
                 {
+                    if (Perk.AllPerks[i].Endless)
+                    {
+                        for (int j = 0; j < Perk.AllPerks[i].ApplyAmount; j++)
+                        {
+                    Perk.AllPerks[i].ApplyMethods();
+
+                        }
+                    }
+                    else 
                     Perk.AllPerks[i].ApplyMethods();
                 }
             }
@@ -1436,6 +1522,27 @@ SpellActions. CataclysmRadius = 5;
 
             }
             ResetAllStats();
+        }
+
+        public static int RangedRepetitions()
+        {
+            int repeats = 1;
+            if (Effects.Multishot.IsOn)
+            {
+                bool b = ModdedPlayer.instance.SoraSpecial ? SpellCaster.RemoveStamina(0.5f * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount) : SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount);
+                if (b)
+                {
+                    repeats += ModdedPlayer.instance.MultishotCount;
+                    if (ModdedPlayer.instance.SoraSpecial) repeats += 4;
+
+                }
+                else
+                {
+                    Effects.Multishot.IsOn = false;
+                    Effects.Multishot.localPlayerInstance.SetActive(false);
+                }
+            }
+            return repeats;
         }
     }
 }

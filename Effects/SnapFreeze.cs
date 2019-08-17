@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Effects
         public static ParticleSystem hitParticleSystem;
         public static void HostAction(Vector3 pos, float dist, float slowMultipier, float duration, float damage)
         {
-            RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one);
+            RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one,-10);
             DamageMath.DamageClamp(damage, out int dmg, out int rep);
             for (int i = 0; i < hits.Length; i++)
             {
@@ -60,10 +60,10 @@ namespace ChampionsOfForest.Effects
                 emission.rateOverTime = 500;
 
                 shape.shapeType = ParticleSystemShapeType.Circle;
-                shape.radius = 0.0001f;
+                shape.radius = 0.001f;
                 shape.arc = 360;
-                shape.arcMode = ParticleSystemShapeMultiModeValue.Loop;
-                shape.arcSpeed = 2;
+                shape.arcMode = ParticleSystemShapeMultiModeValue.Random;
+                //shape.arcSpeed = 2;
 
                 limit.enabled = true;
                 limit.limit = 0;
@@ -76,8 +76,8 @@ namespace ChampionsOfForest.Effects
 
 
                 rend.renderMode = ParticleSystemRenderMode.Stretch;
-                rend.lengthScale = 3.3f;
-                rend.velocityScale = 0.14f;
+                rend.lengthScale = 1.3f;
+                rend.velocityScale = 0.84f;
                 rend.normalDirection = 1;
                 Material mat1 = new Material(Shader.Find("Particles/Additive"))
                 {

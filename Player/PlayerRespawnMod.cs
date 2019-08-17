@@ -29,6 +29,8 @@ namespace ChampionsOfForest.Player
             ModdedPlayer.instance.NewlyGainedExp = 0;
             ModdedPlayer.instance.MassacreKills = 0;
             ModdedPlayer.instance.MassacreMultipier = 1;
+            ModdedPlayer.instance.TimeUntillMassacreReset = 0;
+            GreatBow.instance = null;
             ModdedPlayer.instance.InitializeHandHeld();
               BlackFlame.instance.Start();
         }

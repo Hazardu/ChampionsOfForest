@@ -12,6 +12,8 @@ namespace ChampionsOfForest.Effects
         public Transform child1;
         public Transform child2;
         public Transform child3;
+        public static float opacity;
+
 
         public static GameObject localPlayerInstance;
         public static bool IsOn;
@@ -22,7 +24,7 @@ namespace ChampionsOfForest.Effects
 
             GameObject child = GameObject.CreatePrimitive(PrimitiveType.Quad);
             Material mat = new Material(Shader.Find("Particles/Additive"));
-            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.08f));
+            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.03f));
             mat.mainTexture = Res.ResourceLoader.GetTexture(126);
             child.GetComponent<Renderer>().material = mat;
 
@@ -52,6 +54,11 @@ namespace ChampionsOfForest.Effects
 
             return go;
 
+        }
+
+        public static void Fired()
+        {
+            opacity = -1;
         }
 
         void Update()

@@ -43,7 +43,7 @@ namespace ChampionsOfForest.Effects
             //ModAPI.Console.Write("GOLD: " + renderer.ToString());
             if (goldmaterial == null)
             {
-                goldmaterial = Core.CreateMaterial(new BuildingData() { MainColor = new Color(1, 0.74f, 0.2122f), Metalic = 1, Smoothness = 0.9f , EmissionColor = new Color(0.125f, 0.1f, 0.025f,0.3f) });
+                goldmaterial = Core.CreateMaterial(new BuildingData() { MainColor = new Color(1, 0.74f, 0.2122f), Metalic = 1, Smoothness = 1f , EmissionColor = new Color(0.125f, 0.1f, 0.025f,0.1f) });
             }
             renderer.material = goldmaterial;
             //var rends = LocalPlayer.GameObject.GetComponentsInChildren<Renderer>();

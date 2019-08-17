@@ -75,16 +75,16 @@ namespace ChampionsOfForest
                             stat.Amount *= 1.4f;
                             break;
                         case 4:
-                            stat.Amount *= 2f;
+                            stat.Amount *= 2.3f;
                             break;
                         case 5:
-                            stat.Amount *= 2.8f;
+                            stat.Amount *= 3.4f;
                             break;
                         case 6:
-                            stat.Amount *= 3.9f;
+                            stat.Amount *= 4.5f;
                             break;
                         case 7:
-                            stat.Amount *= 5.5f;
+                            stat.Amount *= 5.6f;
                             break;
                     }
                     if (stat.ValueCap != 0)

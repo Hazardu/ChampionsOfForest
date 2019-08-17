@@ -6,18 +6,20 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
-  public  class ProjectileIgnoreCollision : MonoBehaviour
+    public class ProjectileIgnoreCollision : MonoBehaviour
     {
         public Collider col;
-        void Start()
+        void Awake()
         {
             col = GetComponent<Collider>();
         }
-       void OnCollisionEnter(Collision other)
+        void OnCollisionEnter(Collision other)
         {
             if (other.transform.CompareTag("projectile"))
+            {
                 Physics.IgnoreCollision(other.collider, col, true);
-
-        }
+                Debug.Log("Colliding & ignoring");
+            }
+            }
     }
 }

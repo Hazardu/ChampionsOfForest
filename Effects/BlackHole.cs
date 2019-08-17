@@ -32,7 +32,7 @@ namespace ChampionsOfForest
         public static float rotationSpeed = 15f;
         private float scale;
         public SphereCollider col;
-        private List<Transform> CoughtEnemies;
+        private Dictionary<Transform,EnemyProgression> CoughtEnemies;
         public static Material particleMaterial;
         private ParticleSystem sys;
         private float lifetime;
@@ -67,7 +67,7 @@ namespace ChampionsOfForest
             Destroy(gameObject, duration);
             if (!FromEnemy && !GameSetup.IsMpClient)
             {
-                CoughtEnemies = new List<Transform>();
+                CoughtEnemies = new Dictionary<Transform, EnemyProgression>();
 
             }
             if (GameSetup.IsMpClient)
@@ -124,7 +124,7 @@ namespace ChampionsOfForest
 
             scale = Mathf.Clamp(scale + Time.deltaTime * radius * 1.5f / duration / 2, 0, radius / 5);
             transform.localScale = Vector3.one * scale / 3;
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position, scale * 5, Vector3.one, scale * 5);
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, scale * 5, Vector3.one, scale * 5,-10);
             foreach (RaycastHit hit in hits)
             {
                 Rigidbody rb = hit.rigidbody;
@@ -142,11 +142,12 @@ namespace ChampionsOfForest
                 {
                     if (hit.transform.tag == "enemyCollide")
                     {
-                        if (!CoughtEnemies.Contains(hit.transform.root))
+                        if (!CoughtEnemies.ContainsKey(hit.transform.root))
                         {
-                            if (hit.transform.root.GetComponentInChildren<EnemyHealth>() != null)
+                            var prog = hit.transform.root.GetComponentInChildren<EnemyProgression>();
+                            if (prog!= null)
                             {
-                                CoughtEnemies.Add(hit.transform.root);
+                                CoughtEnemies.Add(hit.transform.root,prog);
                             }
                         }
                     }
@@ -165,12 +166,12 @@ namespace ChampionsOfForest
             }
             else if (!GameSetup.IsMpClient)
             {
-                foreach (Transform t in CoughtEnemies)
+                foreach (var t in CoughtEnemies)
                 {
-                    EnemyProgression p = t.GetComponentInChildren<EnemyProgression>();
-                    if (!p.CCimmune)
+                    
+                    if (!t.Value.CCimmune)
                     {
-                        Pull(t);
+                        Pull(t.Key);
                     }
                 }
             }
@@ -182,18 +183,7 @@ namespace ChampionsOfForest
             {
 
 
-                foreach (Transform t in CoughtEnemies)
-                {
-                    EnemyProgression ep = t.GetComponentInChildren<EnemyProgression>();
-                    if (ep != null)
-                    {
-                        DamageMath.DamageClamp(damage, out int d, out int a);
-                        for (int i = 0; i < a; i++)
-                        {
-                            ep.HitMagic(Mathf.RoundToInt(d / 2));
-                        }
-                    }
-                }
+                StartCoroutine(HitEnemies());
                 yield return new WaitForSeconds(0.5f);
             }
             while (FromEnemy)
@@ -210,10 +200,25 @@ namespace ChampionsOfForest
                 }
             }
         }
+        private IEnumerator HitEnemies()
+        {
+            foreach (var t in CoughtEnemies)
+            {
+                if (t.Value != null)
+                {
+                    DamageMath.DamageClamp(damage, out int d, out int a);
+                    for (int i = 0; i < a; i++)
+                    {
+                        t.Value.HitMagic(Mathf.RoundToInt(d / 2.4f));
+                        yield return null;
+                    }
+                }
+            }
+        }
 
         private void Pull(Transform t)
         {
-            t.position += Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime;
+            t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime);
         }
 
     }

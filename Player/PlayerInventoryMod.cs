@@ -1,6 +1,8 @@
 ﻿using ChampionsOfForest.Network;
+using System.Collections;
 using System.Collections.Generic;
 using TheForest.Items.Inventory;
+using TheForest.Items.World;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest.Player
@@ -30,10 +32,165 @@ namespace ChampionsOfForest.Player
         public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
         public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
 
+        //internal IEnumerator AsyncRangedFire()
+        //{
+        //    InventoryItemView inventoryItemView = _equipmentSlots[0];
+        //    TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
+        //    bool flag = itemCache._maxAmount < 0;
+        //    bool flag2 = false;
+        //    int repeats = ModdedPlayer.RangedRepetitions();
+        //    CotfUtils.Log("repeats = " + repeats);
+        //    Collider[] spawns = new Collider[repeats];
+        //    for (int i = 0; i < repeats; i++)
+        //    {
+              
+        //            bool noconsume = false;
+        //            if (ModdedPlayer.instance.ReusabilityChance > 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+        //            {
+        //                noconsume = true;
+        //            }
+        //            if (noconsume || flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
+        //            {
+        //                InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
+        //                TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
+        //                FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
+        //                Vector3 pos = inventoryItemView2._held.transform.position;
+        //                if (i > 0 && i < 9)
+        //                {
+        //                    pos += inventoryItemView2._held.transform.right * Mathf.Cos(45 * (i - 1) * 3.14f / 180) * 0.5f + inventoryItemView2._held.transform.up * Mathf.Sin(45 * (i + 1) * 3.14f / 180) * 5f;
+        //                }
+        //                else if (i >= 9 && i < 22)
+        //                {
+        //                    pos += inventoryItemView2._held.transform.right * Mathf.Cos(30 * (i + 5) * 3.14f / 180) * 1f + inventoryItemView2._held.transform.up * Mathf.Sin(30 * (i + 5) * 3.14f / 180) * 1f;
+        //                }
+        //                else if (i > 21)
+        //                {
+        //                    pos += inventoryItemView2._held.transform.right * Mathf.Cos(25 * (i) * 3.14f / 180) * 1.5f + inventoryItemView2._held.transform.up * Mathf.Sin(25 * (i) * 3.14f / 180) * 1.5f;
+        //                }
+
+        //                GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
+        //                gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+        //                Debug.Log("Fired " + i);
+        //                if (itemCache._ammoItemId == 83)
+        //                {
+        //                    var col = gameObject.GetComponent<BoxCollider>();
+        //                    col.size = new Vector3(0.1f, 2.4f, 0.1f);
+        //                    col.center = Vector3.up * -0.1f;
+        //                    col.transform.localScale = Vector3.one;
+        //                    for (int j = 0; j < i; j++)
+        //                    {
+        //                        Physics.IgnoreCollision(spawns[j], col);
+        //                    }
+        //                    spawns[i] = col;
+        //                }
+        //                else
+        //                {
+        //                    var col = gameObject.GetComponent<Collider>();
+        //                    if (col != null)
+        //                    {
+        //                        for (int j = 0; j < i; j++)
+        //                        {
+        //                            if (spawns[j] != null)
+        //                            {
+        //                                Physics.IgnoreCollision(spawns[j], col);
+        //                            }
+        //                        }
+        //                        spawns[i] = col;
+        //                    }
+        //                }
+
+        //                if (i >= 4) Destroy(gameObject, 6);         //if spamming arrows, delete 4th and further after really show timespan
+
+        //                if ((bool)gameObject.GetComponent<Rigidbody>())
+        //                {
+        //                    if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
+        //                    {
+        //                        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+        //                    }
+        //                    else
+        //                    {
+        //                        float num = Time.time - _weaponChargeStartTime;
+        //                        if (ForestVR.Enabled)
+        //                        {
+        //                            gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
+        //                        }
+        //                        else
+        //                        {
+        //                            Vector3 proj_force = inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
+        //                            var proj_rb = gameObject.GetComponent<Rigidbody>();
+
+        //                        if (SpellActions.BIA_bonusDamage > 0)
+        //                        {
+        //                            proj_force *= 3f;
+        //                            proj_rb.useGravity = false;
+        //                            gameObject.transform.localScale *= 2f;
+        //                            if (bloodInfusedMaterial == null)
+        //                            {
+        //                                bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+        //                                {
+
+        //                                    EmissionColor = new Color(0.6f, 0, 0),
+        //                                    renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
+        //                                    MainColor = Color.red,
+        //                                    Metalic = 1f,
+        //                                    Smoothness = 0.9f,
+        //                                });
+        //                            }
+        //                            //gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+        //                            var trail = gameObject.AddComponent<TrailRenderer>();
+        //                            trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+        //                            trail.material = bloodInfusedMaterial;
+        //                            trail.widthMultiplier = 0.55f;
+        //                            trail.time = 2.5f;
+        //                        }
+        //                        proj_rb.AddForce(proj_force);
+        //                        }
+        //                        if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
+        //                        {
+        //                            gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
+        //                        }
+        //                    }
+        //                    inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
+        //                }
+        //                if (itemCache._attackReleaseSFX != 0)
+        //                {
+        //                    LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+        //                }
+        //                Mood.HitRumble();
+        //            }
+        //            else
+        //            {
+        //                flag2 = true;
+        //                if (itemCache._dryFireSFX != 0)
+        //                {
+        //                    LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+        //                }
+        //            }
+             
+        //        yield return null;
+        //    }
+        //    if (flag)
+        //    {
+        //        UnequipItemAtSlot(itemCache._equipmentSlot, false, false, flag);
+        //    }
+        //    else
+        //    {
+        //        ToggleAmmo(inventoryItemView, true);
+        //    }
+        //    _weaponChargeStartTime = 0f;
+        //    SetReloadDelay((!flag2) ? itemCache._reloadDuration / ModdedPlayer.instance.AttackSpeed : itemCache._dryFireReloadDuration);
+        //    _isThrowing = false;
+        //    yield break;
+        //}
+
+
+        [ModAPI.Attributes.Priority(1000)]
         protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
         {
             if (!ModSettings.IsDedicated)
             {
+                if(GreatBow.instance !=null)
+                GreatBow.instance.SetActive(false);
                 if (itemView != null)
                 {
                     EquippedModel = BaseItem.WeaponModelType.None;
@@ -90,6 +247,7 @@ namespace ChampionsOfForest.Player
                                 originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
                                 noMesh = new Mesh();
 
+                                
                                 //Creating custom weapons---------
                                 CreateCustomWeapons();
 
@@ -173,131 +331,8 @@ namespace ChampionsOfForest.Player
             return base.Equip(itemView, pickedUpFromWorld);
         }
 
-        protected override void FireRangedWeapon()
-        {
-            if (ModSettings.IsDedicated)
-            {
-                return;
-            }
 
-            InventoryItemView inventoryItemView = _equipmentSlots[0];
-            TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
-            bool flag = itemCache._maxAmount < 0;
-            bool flag2 = false;
-            int repeats = 1;
-            if (Effects.Multishot.IsOn)
-            {
-                if (SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount))
-                {
-                    repeats += ModdedPlayer.instance.MultishotCount;
-
-                }
-                else
-                {
-                    Effects.Multishot.IsOn = false;
-                    Effects.Multishot.localPlayerInstance.SetActive(false);
-                }
-            }
-            for (int i = 0; i < repeats; i++)
-            {
-                bool noconsume = false;
-                if (ModdedPlayer.instance.ReusabilityChance > 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
-                {
-                    noconsume = true;
-                }
-                if (noconsume || flag || RemoveItem(itemCache._ammoItemId, 1, false, true))
-                {
-                    InventoryItemView inventoryItemView2 = _inventoryItemViewsCache[itemCache._ammoItemId][0];
-                    TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
-                    FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
-                    Vector3 pos = inventoryItemView2._held.transform.position;
-                    if (i > 0 && i < 9)
-                    {
-                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(45 * (i - 1)) * 0.5f + inventoryItemView2._held.transform.up * Mathf.Sin(45 * (i + 1)) * 5f;
-                    }
-                    else if (i >= 9 && i < 22)
-                    {
-                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(30 * (i + 5)) * 1f + inventoryItemView2._held.transform.up * Mathf.Sin(30 * (i + 5)) * 1f;
-                    }
-                    else if(i > 21)
-                    {
-                        pos += inventoryItemView2._held.transform.right * Mathf.Cos(25 * (i)) * 1.5f + inventoryItemView2._held.transform.up * Mathf.Sin(25 * (i)) * 1.5f;
-                    }
-
-                    GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, inventoryItemView2._held.transform.rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, component.RealPosition, component.RealRotation);
-                    gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
-                    gameObject.AddComponent<ProjectileIgnoreCollision>();
-
-                    if ((bool)gameObject.GetComponent<Rigidbody>())
-                    {
-                        if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
-                        {
-                            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
-                        }
-                        else
-                        {
-                            float num = Time.time - _weaponChargeStartTime;
-                            if (ForestVR.Enabled)
-                            {
-                                gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
-                            }
-                            else
-                            {
-                                Vector3 proj_force = inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
-                                var proj_rb = gameObject.GetComponent<Rigidbody>();
-                                if (SpellActions.BIA_bonusDamage > 0)
-                                {
-                                    proj_force *= 1.5f;
-                                    proj_rb.useGravity = false;
-                                    gameObject.transform.localScale *= 1.3f;
-                                }
-                                proj_rb.AddForce(proj_force);
-                            }
-                            if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
-                            {
-                                gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
-                            }
-                        }
-                        inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
-                    }
-                    if (itemCache._attackReleaseSFX != 0)
-                    {
-                        LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
-                    }
-                    Mood.HitRumble();
-                }
-                else
-                {
-                    flag2 = true;
-                    if (itemCache._dryFireSFX != 0)
-                    {
-                        LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
-                    }
-                }
-            }
-            if (flag)
-            {
-                UnequipItemAtSlot(itemCache._equipmentSlot, false, false, flag);
-            }
-            else
-            {
-                ToggleAmmo(inventoryItemView, true);
-            }
-            _weaponChargeStartTime = 0f;
-            SetReloadDelay((!flag2) ? itemCache._reloadDuration : itemCache._dryFireReloadDuration);
-            _isThrowing = false;
-        }
-
-
-
-
-
-        protected override void ThrowProjectile()
-        {
-            base.ThrowProjectile();
-        }
-
-
+  
 
         public override void Attack()
         {
@@ -340,7 +375,38 @@ namespace ChampionsOfForest.Player
             }
         }
 
+        public override void StashEquipedWeapon(bool equipPrevious)
+        {
+            if(GreatBow.instance!= null)
+            GreatBow.instance.SetActive(false);
+            base.StashEquipedWeapon(equipPrevious);
+        }
+        public override void HideRightHand(bool hideOnly)
+        {
+            if(GreatBow.instance!= null)
+            GreatBow.instance.SetActive(false);
+            base.HideRightHand(hideOnly);
+        }
 
+        protected override void FireRangedWeapon()
+        {
+            Debug.LogWarning("Fire ranged");
+            var cache = _equipmentSlots[0].ItemCache;
+            bool noconsume = false;
+            if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+            {
+                noconsume = true;
+            }
+            noconsume = noconsume || cache._maxAmount < 0 || RemoveItem(cache._ammoItemId, 1, false, true);
+
+            this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
+
+            _weaponChargeStartTime = 0f;
+            float duration = (!noconsume) ? cache._reloadDuration : cache._dryFireReloadDuration;
+            if (GreatBow.isEnabled) duration *= 10;
+            SetReloadDelay(duration);
+            _isThrowing = false;
+        }
         public void CreateCustomWeapons()
         {
             //long sword
@@ -431,4 +497,273 @@ namespace ChampionsOfForest.Player
            
         }
     }
+    public class RCoroutines
+    {
+        public static RCoroutines i;
+        public RCoroutines()
+        {
+            i = this;
+        }
+
+
+        public IEnumerator AsyncCrossbowFire(int _ammoId, GameObject _ammoSpawnPosGo, GameObject _boltProjectile, crossbowController cc)
+        {
+            int repeats = ModdedPlayer.RangedRepetitions();
+            //Collider[] spawns = new Collider[repeats];
+            Vector3 updir = _ammoSpawnPosGo.transform.up;
+            Vector3 right = _ammoSpawnPosGo.transform.right;
+                    Vector3 positionOriginal = _ammoSpawnPosGo.transform.position;
+                    Quaternion rotation = _ammoSpawnPosGo.transform.rotation;
+            Vector3 forceUp = Vector3.zero;
+            for (int i = 0; i < repeats; i++)
+            {
+                bool noconsume = false;
+                if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+                {
+                    noconsume = true;
+                }
+                if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoId, 1, false, true))
+                {
+                    Vector3 position = positionOriginal;
+                    if (i > 0)
+                    {
+                        position += 0.5f * updir * Mathf.Sin( (i/2f) * Mathf.PI)/ 3;
+                        position += 0.4f * right * (((i) % 3) - 2);
+
+
+                    }
+
+                    GameObject gameObject = Object.Instantiate(_boltProjectile, position, rotation);
+                    gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+                    //var col = gameObject.GetComponent<Collider>();
+                    //if (col != null)
+                    //{
+                    //    for (int j = Mathf.Max(0, i - 25); j < i; j++)
+                    //    {
+                    //        if (spawns[j] != null)
+                    //            Physics.IgnoreCollision(spawns[j], col);
+                    //        spawns[i] = col;
+                    //    }
+                    //}
+                    //gameObject.AddComponent<ProjectileIgnoreCollision>();
+                    gameObject.layer = 19;
+                    Physics.IgnoreLayerCollision(19, 19, true);
+
+                    Rigidbody component = gameObject.GetComponent<Rigidbody>();
+                    if (BoltNetwork.isRunning)
+                    {
+                        BoltEntity component2 = gameObject.GetComponent<BoltEntity>();
+                        if ((bool)component2)
+                        {
+                            BoltNetwork.Attach(gameObject);
+                        }
+                    }
+                    PickUp componentInChildren = gameObject.GetComponentInChildren<PickUp>(true);
+                    if ((bool)componentInChildren)
+                    {
+                        SheenBillboard[] componentsInChildren = gameObject.GetComponentsInChildren<SheenBillboard>();
+                        SheenBillboard[] array = componentsInChildren;
+                        foreach (SheenBillboard sheenBillboard in array)
+                        {
+                            sheenBillboard.gameObject.SetActive(false);
+                        }
+                        componentInChildren.gameObject.SetActive(false);
+                        if (gameObject.activeInHierarchy)
+                        {
+                            cc.SendMessage("PublicEnablePickupTrigger", componentInChildren.gameObject);
+                        }
+                    }
+                    if (i == 0) forceUp = gameObject.transform.up;
+                    Vector3 force = 22000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forceUp;
+                    if (SpellActions.BIA_bonusDamage > 0)
+                    {
+                        gameObject.transform.localScale *= 2f;
+                        force *= 2f;
+                        component.useGravity = false;
+                        if (ModReferences.bloodInfusedMaterial == null)
+                        {
+                            ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+                            {
+
+                                EmissionColor = new Color(0.6f, 0, 0),
+                                renderMode = BuilderCore.BuildingData.RenderMode.Fade,
+                                MainColor = Color.red,
+                                Metalic = 1f,
+                                Smoothness = 0.9f,
+                            });
+                        }
+                        //gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+                        var trail = gameObject.AddComponent<TrailRenderer>();
+                        trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f) ,new Keyframe(1f, 0.006248474f, 0f, 0f), });
+                        trail.material = ModReferences.bloodInfusedMaterial;
+                        trail.widthMultiplier = 0.85f;
+                        trail.time = 2.5f;
+                        trail.autodestruct = false;
+                    }
+                    component.AddForce(force);
+                }
+                if (i % 2 == 1)
+                    yield return null;
+            }
+        }
+
+        public IEnumerator AsyncRangedFire(PlayerInventory inv, float _weaponChargeStartTime, InventoryItemView inventoryItemView, InventoryItemView inventoryItemView2, bool noconsume)
+        {
+            TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
+            bool flag = itemCache._maxAmount < 0;
+            int repeats = ModdedPlayer.RangedRepetitions();
+            CotfUtils.Log("repeats = " + repeats);
+            //Collider[] spawns = new Collider[repeats];
+            Vector3 forceUp = inventoryItemView2._held.transform.up;
+            Vector3 right = inventoryItemView2._held.transform.right;
+            Vector3 up = inventoryItemView2._held.transform.up;
+            Vector3 originalPos = inventoryItemView2._held.transform.position;
+                    FakeParent component = inventoryItemView2._held.GetComponent<FakeParent>();
+            Quaternion rotation = inventoryItemView2._held.transform.rotation;
+                    TheForest.Items.Item itemCache2 = inventoryItemView2.ItemCache;
+            for (int i = 0; i < repeats; i++)
+            {
+
+
+                if (noconsume)
+                {
+                    Vector3 pos = originalPos;
+                    if (i > 0)
+                    {
+                       // pos += 0.5f * up * (i + 1) / 3;
+                        pos += 0.5f * right * (((i - 1) % 3) - 1);
+                    }
+                    //if (i > 0 && i < 9)
+                    //{
+                    //    pos += right * Mathf.Cos(45 * (i - 1) * 3.14f / 360) * 0.5f + up * Mathf.Sin(45 * (i + 1) * 3.14f / 360) * 5f;
+                    //}
+                    //else if (i >= 9 && i < 22)
+                    //{
+                    //    pos +=right * Mathf.Cos(30 * (i + 5) * 3.14f / 360) * 1f +up * Mathf.Sin(30 * (i + 5) * 3.14f / 360) * 1f;
+                    //}
+                    //else if (i > 21)
+                    //{
+                    //    pos += right * Mathf.Cos(25 * (i) * 3.14f / 360) * 1.5f + up * Mathf.Sin(25 * (i) * 3.14f / 360) * 1.5f;
+                    //}
+
+                    GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject,pos, rotation);
+                    //var col = gameObject.GetComponent<Collider>();
+                    //if (col != null)
+                    //{
+                    //    for (int j = Mathf.Max(0, i - 18); j < i; j++)
+                    //    {
+                    //        if (spawns[j] != null)
+                    //            Physics.IgnoreCollision(spawns[j], col);
+                    //        spawns[i] = col;
+                    //    }
+                    //}
+                    gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+
+                    try
+                    {
+                    gameObject.transform.GetChild(0).gameObject.layer = 19;
+                    //gameObject.transform.GetChild(6).gameObject.layer = 19;
+
+                    }
+                    catch (System.Exception)
+                    {
+
+                        throw;
+                    }
+                    gameObject.layer = 19;
+                    Physics.IgnoreLayerCollision(19, 19, true);
+                    if (noconsume) GameObject.Destroy(gameObject, 3.5f);
+                    else
+                    {
+                        if (i >= 4 && i < 20) GameObject.Destroy(gameObject, 7);         //if spamming arrows, delete 4th and further after really show timespan
+                        else if (i >= 20) GameObject.Destroy(gameObject, 3.5f);
+                    }
+                    if ((bool)gameObject.GetComponent<Rigidbody>())
+                    {
+                        if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
+                        {
+                            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+                        }
+                        else
+                        {
+                            float num = Time.time - _weaponChargeStartTime;
+                            if (ForestVR.Enabled)
+                            {
+                                gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
+                            }
+                            else
+                            {
+                               
+                                Vector3 proj_force = forceUp * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
+                                var proj_rb = gameObject.GetComponent<Rigidbody>();
+                                if (GreatBow.isEnabled)
+                                {
+                                    proj_force *= 1.1f;
+                                    proj_rb.useGravity = false;
+
+                                }
+                                if (SpellActions.BIA_bonusDamage > 0)
+                                {
+                                    proj_force *= 1.1f;
+                                    proj_rb.useGravity = false;
+                                    if (ModReferences.bloodInfusedMaterial == null)
+                                    {
+                                        ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+                                        {
+
+                                            EmissionColor = new Color(0.6f, 0, 0),
+                                            renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
+                                            MainColor = Color.red,
+                                            Metalic = 1f,
+                                            Smoothness = 0.9f,
+                                        });
+                                    }
+                                    //gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+                                    var trail = gameObject.AddComponent<TrailRenderer>();
+                                    trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+                                    trail.material = ModReferences.bloodInfusedMaterial;
+                                    trail.widthMultiplier = 0.85f;
+                                    trail.time = 2.5f;
+                                    trail.autodestruct = false;
+                                }
+                                proj_rb.AddForce(proj_force);
+                             
+                            }
+                            if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
+                            {
+                                gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
+                            }
+                        }
+                        inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
+                    }
+                    if (itemCache._attackReleaseSFX != 0)
+                    {
+                        LocalPlayer.Sfx.SendMessage(itemCache._attackReleaseSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                    }
+                    Mood.HitRumble();
+                }
+                else
+                {
+                    if (itemCache._dryFireSFX != 0)
+                    {
+                        LocalPlayer.Sfx.SendMessage(itemCache._dryFireSFX.ToString(), SendMessageOptions.DontRequireReceiver);
+                    }
+                }
+                if(i%2 ==1)
+                yield return null;
+            }
+            if (flag)
+            {
+                inv.UnequipItemAtSlot(itemCache._equipmentSlot, false, false, flag);
+            }
+            else
+            {
+                inv.ToggleAmmo(inventoryItemView, true);
+            }
+
+            yield break;
+        }
+
+    }
+
 }

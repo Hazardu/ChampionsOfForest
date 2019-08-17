@@ -13,13 +13,14 @@ namespace ChampionsOfForest
         /// </summary>
         public static void DamageClamp(float damage, out int outdamage, out int repetitions)
         {
-            if(damage <= int.MaxValue)
+            if(damage < int.MaxValue/5)
             {
-                outdamage = (int)damage;
+                outdamage = Mathf.FloorToInt(damage);
                 repetitions = 1;
+                return;
             }
-            repetitions = Mathf.CeilToInt(damage / int.MaxValue);
-            outdamage = (int)(damage / repetitions);
+            repetitions = Mathf.FloorToInt(damage / ((float)int.MaxValue/5f)) + 1;
+            outdamage = Mathf.RoundToInt(damage / repetitions);
         }
     }
 }

@@ -15,8 +15,27 @@ namespace ChampionsOfForest
 
         public static void Log(string s)
         {
-            //ModAPI.Console.Write(s);
-            Debug.LogWarning(s);
+            ModAPI.Console.Write(s);
+            Debug.Log(s);
         }
+        public static string ListAllChildren(Transform tr, string prefix)
+        {
+            string s = prefix + "•" + tr.name + " ";
+            var comps = tr.gameObject.GetComponents<Component>();
+            s += "( ";
+            foreach (var item in comps)
+            {
+                s += item.GetType().ToString() + ", ";
+            }
+            s += ")\n";
+            foreach (Transform child in tr)
+            {
+
+                s += ListAllChildren(child, prefix + "  ");
+            }
+            return s;
+        }
+
+
     }
 }

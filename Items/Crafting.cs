@@ -1,161 +1,161 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TheForest.Items;
-using TheForest.Items.Craft;
-using TheForest.Utils;
-using UnityEngine;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using TheForest.Items;
+//using TheForest.Items.Craft;
+//using TheForest.Utils;
+//using UnityEngine;
 
-namespace ChampionsOfForest.Items
-{
+//namespace ChampionsOfForest.Items
+//{
 
-    //public class ItemsDebug : ItemDatabase
-    //{
-    //    public override void OnEnable()
-    //    {
-    //        base.OnEnable();
-    //        string msg = "";
-    //        foreach (var i in _itemsCache)
-    //        {
-    //            msg += i.Value._name + "\t\t\t" + i.Value._id + "\n";
-    //        }
-    //        ModAPI.Log.Write(msg);
-    //    }
-    //}
-
-
-    //from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
-    public class Crafting : MonoBehaviour
-    {
-        private static readonly int IdStartIndex = 600;
-
-        void Start()
-        {
-            try
-            {
-                var arrows = CreateReceipe(83, 1, new ReceipeIngredient[]{
-                    CreateReceipeIngredient(83,1),
-                    CreateReceipeIngredient(91,2),
-                    });
-                arrows._weaponStatUpgrades = new WeaponStatUpgrade[]
-                {
-                    new WeaponStatUpgrade(){_type = WeaponStatUpgrade.Types.ModernAmmo, _amount = 1, _itemId = 0}
-                };
-                arrows._type = Receipe.Types.Upgrade;
-                arrows._productItemType = TheForest.Items.Item.Types.Ammo;
+//    //public class ItemsDebug : ItemDatabase
+//    //{
+//    //    public override void OnEnable()
+//    //    {
+//    //        base.OnEnable();
+//    //        string msg = "";
+//    //        foreach (var i in _itemsCache)
+//    //        {
+//    //            msg += i.Value._name + "\t\t\t" + i.Value._id + "\n";
+//    //        }
+//    //        ModAPI.Log.Write(msg);
+//    //    }
+//    //}
 
 
-                Receipe r = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault();
-                //ModAPI.Log.Write( "_batchUpgrade " + r._batchUpgrade+
-                //    "\n_forceUnique " + r._forceUnique+
-                //    "\n_hidden " + r._hidden+
-                //    "\n_id " + r._id+
-                //    "\n_name " + r._name+
-                //    "\n_productItemType " + r._productItemType.ToString()+
-                //    "\n_type " + r._type.ToString()+
-                //    "\n_weaponStatUpgrades.Count " + r._weaponStatUpgrades.Length);
-                //foreach (var item in r._weaponStatUpgrades)
-                //{
-                //    ModAPI.Log.Write(" _amount " + item._amount + "\n_type" + item._type + "\n_itemId" + item._itemId);
-                //}
+//    //from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
+//    public class Crafting : MonoBehaviour
+//    {
+//        private static readonly int IdStartIndex = 600;
 
-                r._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
-                r._ingredients[1] = CreateReceipeIngredient(91,2);
+//        void Start()
+//        {
+//            try
+//            {
+//                var arrows = CreateReceipe(83, 1, new ReceipeIngredient[]{
+//                    CreateReceipeIngredient(83,1),
+//                    CreateReceipeIngredient(91,2),
+//                    });
+//                arrows._weaponStatUpgrades = new WeaponStatUpgrade[]
+//                {
+//                    new WeaponStatUpgrade(){_type = WeaponStatUpgrade.Types.ModernAmmo, _amount = 1, _itemId = 0}
+//                };
+//                arrows._type = Receipe.Types.Upgrade;
+//                arrows._productItemType = TheForest.Items.Item.Types.Ammo;
+
+
+//                Receipe r = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault();
+//                //ModAPI.Log.Write( "_batchUpgrade " + r._batchUpgrade+
+//                //    "\n_forceUnique " + r._forceUnique+
+//                //    "\n_hidden " + r._hidden+
+//                //    "\n_id " + r._id+
+//                //    "\n_name " + r._name+
+//                //    "\n_productItemType " + r._productItemType.ToString()+
+//                //    "\n_type " + r._type.ToString()+
+//                //    "\n_weaponStatUpgrades.Count " + r._weaponStatUpgrades.Length);
+//                //foreach (var item in r._weaponStatUpgrades)
+//                //{
+//                //    ModAPI.Log.Write(" _amount " + item._amount + "\n_type" + item._type + "\n_itemId" + item._itemId);
+//                //}
+
+//                r._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
+//                r._ingredients[1] = CreateReceipeIngredient(91,2);
               
-            }
-            catch (Exception e)
-            {
-                CotfUtils.Log("adding items error\n" + e.Message);
-            }
-        }
+//            }
+//            catch (Exception e)
+//            {
+//                CotfUtils.Log("adding items error\n" + e.Message);
+//            }
+//        }
 
-        private static int _NextReceipeId = IdStartIndex;
+//        private static int _NextReceipeId = IdStartIndex;
 
-        public static int NextReceipeId
-        {
-            get
-            {
-                return _NextReceipeId++;
-            }
-        }
+//        public static int NextReceipeId
+//        {
+//            get
+//            {
+//                return _NextReceipeId++;
+//            }
+//        }
 
 
-        public static bool AddReceipes(List<Receipe> newReceipes)
-        {          
-            int num = ReceipeDatabase._instance._receipes.Length;
-            Receipe[] receipes = ReceipeDatabase._instance._receipes;
-            List<Receipe> list = new List<Receipe>();
-            using (List<Receipe>.Enumerator enumerator = newReceipes.GetEnumerator())
-            {
-                while (enumerator.MoveNext())
-                {
-                    Receipe newReceipe = enumerator.Current;
-                    if (!receipes.Any((Receipe r) => r.IngredientHash == newReceipe.IngredientHash && r._productItemID == newReceipe._productItemID))
-                    {
-                        list.Add(newReceipe);
-                    }
-                }
-            }
-            if (list.Count > 0)
-            {
-                //RMoreCrafting._instance.Log(string.Concat(new object[]
-                //{
-                //    "Merging ",
-                //    list.Count,
-                //    " Recipe",
-                //    (list.Count == 1) ? "" : "s",
-                //    "..."
-                //}));
-                try
-                {
-                    Receipe[] receipes2 = receipes.Concat(list).ToArray<Receipe>();
-                    ReceipeDatabase._instance._receipes = receipes2;
-                    //RMoreCrafting._instance.Log("Merging Complete");
-                }
-                catch
-                {
-                    //RMoreCrafting._instance.Log("Merging Failed");
-                }
-            }
-            int num2 = ReceipeDatabase._instance._receipes.Length;
-            //RMoreCrafting._instance.Log(string.Concat(new object[]
-            //{
-            //    "Receipe Count: ",
-            //    num,
-            //    " -> ",
-            //    num2
-            //}));
-            return num2 > num;
-        }
+//        public static bool AddReceipes(List<Receipe> newReceipes)
+//        {          
+//            int num = ReceipeDatabase._instance._receipes.Length;
+//            Receipe[] receipes = ReceipeDatabase._instance._receipes;
+//            List<Receipe> list = new List<Receipe>();
+//            using (List<Receipe>.Enumerator enumerator = newReceipes.GetEnumerator())
+//            {
+//                while (enumerator.MoveNext())
+//                {
+//                    Receipe newReceipe = enumerator.Current;
+//                    if (!receipes.Any((Receipe r) => r.IngredientHash == newReceipe.IngredientHash && r._productItemID == newReceipe._productItemID))
+//                    {
+//                        list.Add(newReceipe);
+//                    }
+//                }
+//            }
+//            if (list.Count > 0)
+//            {
+//                //RMoreCrafting._instance.Log(string.Concat(new object[]
+//                //{
+//                //    "Merging ",
+//                //    list.Count,
+//                //    " Recipe",
+//                //    (list.Count == 1) ? "" : "s",
+//                //    "..."
+//                //}));
+//                try
+//                {
+//                    Receipe[] receipes2 = receipes.Concat(list).ToArray<Receipe>();
+//                    ReceipeDatabase._instance._receipes = receipes2;
+//                    //RMoreCrafting._instance.Log("Merging Complete");
+//                }
+//                catch
+//                {
+//                    //RMoreCrafting._instance.Log("Merging Failed");
+//                }
+//            }
+//            int num2 = ReceipeDatabase._instance._receipes.Length;
+//            //RMoreCrafting._instance.Log(string.Concat(new object[]
+//            //{
+//            //    "Receipe Count: ",
+//            //    num,
+//            //    " -> ",
+//            //    num2
+//            //}));
+//            return num2 > num;
+//        }
 
-        public static ReceipeIngredient CreateReceipeIngredient(int itemId, int amount)
-        {
-            return new ReceipeIngredient
-            {
-                _amount = amount,
-                _itemID = itemId
-            };
-        }
-        public static Receipe CreateReceipe(int productItemId, int productItemAmout, ReceipeIngredient[] receipeIngredients)
-        {
-            return new Receipe
-            {
-                _id = NextReceipeId,
-                _ingredients = receipeIngredients,
-                _productItemAmount = new RandomRange
-                {
-                    _max = productItemAmout,
-                    _min = productItemAmout
-                },
-                _productItemID = productItemId,
-                _productItemType = ItemDatabase.ItemById(productItemId)._type,
-                _type = Receipe.Types.Craft,
-                _weaponStatUpgrades = new WeaponStatUpgrade[0]
-            };
-        }
-    }
-}
+//        public static ReceipeIngredient CreateReceipeIngredient(int itemId, int amount)
+//        {
+//            return new ReceipeIngredient
+//            {
+//                _amount = amount,
+//                _itemID = itemId
+//            };
+//        }
+//        public static Receipe CreateReceipe(int productItemId, int productItemAmout, ReceipeIngredient[] receipeIngredients)
+//        {
+//            return new Receipe
+//            {
+//                _id = NextReceipeId,
+//                _ingredients = receipeIngredients,
+//                _productItemAmount = new RandomRange
+//                {
+//                    _max = productItemAmout,
+//                    _min = productItemAmout
+//                },
+//                _productItemID = productItemId,
+//                _productItemType = ItemDatabase.ItemById(productItemId)._type,
+//                _type = Receipe.Types.Craft,
+//                _weaponStatUpgrades = new WeaponStatUpgrade[0]
+//            };
+//        }
+//    }
+//}
 /*
  [2019-08-01 16:05] BombTimed			29
 CBoard			31

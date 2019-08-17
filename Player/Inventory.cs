@@ -136,7 +136,6 @@ namespace ChampionsOfForest.Player
                 yield return null;
 
             }
-            CotfUtils.Log("Dropped " + itemsDropped);
         }
 
         public void DropEquipped()
@@ -166,24 +165,23 @@ namespace ChampionsOfForest.Player
 
 
             }
-            CotfUtils.Log("Dropped " + itemsDropped);
         }
 
         public bool HasSpaceFor(Item item, int amount = 1)
         {
-            for (int i = 0; i < SlotCount; i++)
-            {
-                if (ItemList[i] != null)
-                {
-                    if (ItemList[i].ID == item.ID)
-                    {
-                        if (ItemList[i].StackSize >= amount + ItemList[i].Amount)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
+            //for (int i = 0; i < SlotCount; i++)
+            //{
+            //    if (ItemList[i] != null)
+            //    {
+            //        if (ItemList[i].ID == item.ID)
+            //        {
+            //            if (ItemList[i].StackSize >= amount + ItemList[i].Amount)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
             for (int i = 0; i < SlotCount; i++)
             {
                 if (ItemList[i] == null)

@@ -11,6 +11,7 @@ namespace ChampionsOfForest.Player
     public class ArrowDamageMod : ArrowDamage
     {
         private int BaseDmg = 0;
+        private float OutputDmg = 0;
         public int Repetitions;
         public Vector3 startposition;
         protected override void Start()
@@ -24,29 +25,31 @@ namespace ChampionsOfForest.Player
             {
                 BaseDmg = damage;
             }
-
             base.Start();
-            float dmg = (BaseDmg + ModdedPlayer.instance.RangedDamageBonus) * ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
+            OutputDmg = BaseDmg + ModdedPlayer.instance.RangedDamageBonus;
+            if (GreatBow.isEnabled) {
+                OutputDmg += 105;
+                //dmg *= 2.75f;
+                    }
             if (crossbowBoltType)
             {
-                dmg = dmg * ModdedPlayer.instance.CrossbowDamageMult;
+                OutputDmg = OutputDmg * ModdedPlayer.instance.CrossbowDamageMult;
             }
             else if (flintLockAmmoType)
             {
-                dmg = dmg * ModdedPlayer.instance.BulletDamageMult;
+                OutputDmg = OutputDmg * ModdedPlayer.instance.BulletDamageMult;
 
             }
             else if (spearType)
             {
-                dmg = dmg * ModdedPlayer.instance.SpearDamageMult;
+                OutputDmg = OutputDmg * ModdedPlayer.instance.SpearDamageMult;
 
             }
             else //if arrow
             {
-                dmg = dmg * ModdedPlayer.instance.BowDamageMult;
+                OutputDmg = OutputDmg * ModdedPlayer.instance.BowDamageMult;
             }
 
-            damage = (int)dmg;
 
             if (SpellActions.SeekingArrow)
             {
@@ -54,31 +57,54 @@ namespace ChampionsOfForest.Player
             }
             if (SpellActions.BIA_bonusDamage > 0)
             {
-                if (bloodInfusedMaterial == null)
-                {
-                    bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-                    {
+                //if (bloodInfusedMaterial == null)
+                //{
+                //    bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+                //    {
                         
-                        EmissionColor = new Color(0.6f, 0, 0),
-                        renderMode = BuilderCore.BuildingData.RenderMode.Fade,
-                        MainColor = Color.red,
-                        Metalic = 0.5f,
-                        Smoothness = 0.6f,
-                    });
-                }
-                damage += (int) SpellActions.BIA_bonusDamage;
+                //        EmissionColor = new Color(0.6f, 0, 0),
+                //        renderMode = BuilderCore.BuildingData.RenderMode.Fade,
+                //        MainColor = Color.red,
+                //        Metalic = 0.5f,
+                //        Smoothness = 0.6f,
+                //    });
+                //}
+                OutputDmg += SpellActions.BIA_bonusDamage;
+                if (ModdedPlayer.instance.IsHazardCrown)
+                {
+                    if (ModdedPlayer.instance.HazardCrownBonus > 0)
+                    {
+                        ModdedPlayer.instance.HazardCrownBonus--;
+                    }
+                    else
                 SpellActions.BIA_bonusDamage = 0;
-                gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
-                var trail = gameObject.AddComponent<TrailRenderer>();
-                trail.material = bloodInfusedMaterial;
-                trail.startWidth = 0.1f;
-                trail.endColor = new Color(0, 0, 0, 0);
-                trail.endWidth = 0;
-                trail.time = 1.5f;
+                }
+                else
+                {
+                SpellActions.BIA_bonusDamage = 0;
+
+                }
+
+                //gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
+                //var trail = gameObject.AddComponent<TrailRenderer>();
+                //trail.material = bloodInfusedMaterial;
+                //trail.startWidth = 0.1f;
+                //trail.endColor = new Color(0, 0, 0, 0);
+                //trail.endWidth = 0;
+                //trail.time = 1.5f;
             }
+            damage = (int)OutputDmg;
         }
 
+        
+
         public static Material bloodInfusedMaterial;
+        
+        protected override void OnTriggerEnter(Collider other)
+        {
+            
+            base.OnTriggerEnter(other);
+        }
 
         private void Update()
         {
@@ -86,7 +112,6 @@ namespace ChampionsOfForest.Player
             {
                 if (Time.time - SpellActions.SeekingArrowDuration > SpellActions.SeekingArrow_TimeStamp)
                 {
-                    CotfUtils.Log("Time out");
                     SpellActions.SeekingArrow = false;
                 }
                 if ((transform.position - SpellActions.SeekingArrow_Target.position).sqrMagnitude > 3)
@@ -95,7 +120,7 @@ namespace ChampionsOfForest.Player
                     Vector3 targetvel = SpellActions.SeekingArrow_Target.position - transform.position;
                     targetvel.Normalize();
                     targetvel *= vel.magnitude;
-                    PhysicBody.velocity = Vector3.RotateTowards(PhysicBody.velocity, targetvel, Time.deltaTime * 2.5f, 0.25f);
+                    PhysicBody.velocity = Vector3.RotateTowards(PhysicBody.velocity, targetvel, Time.deltaTime * 2.6f * ModdedPlayer.instance.ProjectileSpeedRatio, 0.275f);
                 }
             }
         }
@@ -286,7 +311,7 @@ namespace ChampionsOfForest.Player
                     SpellActions.SeekingArrow_ChangeTargetOnHit = false;
                 }
 NewHitAi(target, flag || flag3, headDamage);
-                ModdedPlayer.instance.DoAreaDamage(target.root, damage);
+                ModdedPlayer.instance.DoAreaDamage(target.root, OutputDmg);
                 ModdedPlayer.instance.OnHit();
                 ModdedPlayer.instance.OnHit_Ranged();
 
@@ -358,6 +383,7 @@ NewHitAi(target, flag || flag3, headDamage);
                     {
                         HitPlayer HP = HitPlayer.Create(be, EntityTargets.Everyone);
                         HP.damage = damage;
+                        
                         HP.Send();
                         disableLive();
                     }
@@ -442,7 +468,7 @@ NewHitAi(target, flag || flag3, headDamage);
 
         private void NewHitAi(Transform target, bool hitDelay, bool headDamage)
         {
-            float dmgUnclamped = this.damage;
+            float dmgUnclamped = this.OutputDmg;
             if (SpellActions.SeekingArrow)
             {
                 float dist = Vector3.Distance(target.position, startposition);
@@ -450,7 +476,7 @@ NewHitAi(target, flag || flag3, headDamage);
             }
 
 
-            if (headDamage || (flintLockAmmoType && Random.value < 0.10) || (spearType && Random.value < 0.03))
+            if (headDamage || (flintLockAmmoType && Random.value < 0.12) || (spearType && Random.value < 0.05))
             {
                 headDamage = true;
                 dmgUnclamped *= ModdedPlayer.instance.HeadShotDamage;
@@ -464,7 +490,9 @@ NewHitAi(target, flag || flag3, headDamage);
             {
                 dmgUnclamped *= SpellActions.FocusOnBodyShot();
             }
-
+            if (GreatBow.isEnabled) dmgUnclamped *= 2.1f;
+            dmgUnclamped *= ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
+            if (ModdedPlayer.instance.ProjectileDamageIncreasedBySize) dmgUnclamped *= ModdedPlayer.instance.ProjectileSizeRatio;
             DamageMath.DamageClamp(dmgUnclamped, out int sendDamage, out Repetitions);
 
 
@@ -559,6 +587,8 @@ NewHitAi(target, flag || flag3, headDamage);
                         }
                         playerHitEnemy.getAttackerType = 4;
                         playerHitEnemy.Hit = sendDamage;
+                        if(GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                        playerHitEnemy.Burn = true;
                         AsyncHit.SendPlayerHitEnemy(playerHitEnemy, Repetitions);
                     }
                     else
@@ -576,7 +606,8 @@ NewHitAi(target, flag || flag3, headDamage);
                             playerHitEnemy2.getAttackDirection = 3;
                         }
                         playerHitEnemy2.getAttackerType = 4;
-
+                        if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                            playerHitEnemy2.Burn = true;
                         playerHitEnemy2.Hit = sendDamage;
                         AsyncHit.SendPlayerHitEnemy(playerHitEnemy2, Repetitions);
 
@@ -647,7 +678,8 @@ NewHitAi(target, flag || flag3, headDamage);
                                 target.gameObject.SendMessage("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                             }
                             AsyncHit.SendPlayerHitEnemy(target, Repetitions, sendDamage);
-
+                            if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                                target.gameObject.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                             target.gameObject.SendMessage("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
                         }
                     }
@@ -659,6 +691,8 @@ NewHitAi(target, flag || flag3, headDamage);
                             target.gameObject.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
                         }
                         AsyncHit.SendPlayerHitEnemy(target, Repetitions, sendDamage);
+                        if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                            target.gameObject.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                         target.gameObject.SendMessageUpwards("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
                     }
                 }

@@ -52,6 +52,7 @@ namespace ChampionsOfForest
             if (setup.waterDetect.drowned && !deadBlock )
             {
                 Health = 0;
+                progression._hp = 0;
                 dieExplode();
                 
             }
@@ -141,14 +142,11 @@ namespace ChampionsOfForest
 
             //if (!ai.creepy_fat)
             //{
-
-            if (Health - damage < 1)
+            if(progression._hp > 0)
             {
-                if (!progression.OnDie())
-                {
-                    Health -= damage;
-                    return;
-                }
+                int i = (int)Mathf.Min(progression._hp, (float)damage);
+                progression._hp -= i;
+                damage -= i;
             }
             //}
             base.HitReal(damage);
@@ -175,8 +173,8 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        this.Health -= 800;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800);
+                        this.Health -= 700;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700);
 
                     }
                     if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
@@ -224,8 +222,8 @@ namespace ChampionsOfForest
                         this.animator.SetIntegerReflected("hurtLevelInt", 4);
                         this.animator.SetTriggerReflected("damageTrigger");
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 1000;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 1000);
+                        this.Health -= 800;
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800);
 
                         if (this.Health < 1)
                         {
@@ -305,7 +303,7 @@ namespace ChampionsOfForest
                 }
                 this.explodeBlock = true;
             }
-            base.Invoke("resetExplodeBlock", 0.1f);
+            base.Invoke("resetExplodeBlock", 0.05f);
         }
 
         #region DieOverride

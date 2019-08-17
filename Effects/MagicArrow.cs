@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Effects
         public bool GiveDoubleSlow;
 
         private bool setupComplete = false;
-        private readonly float speed = 50;
+        private const float speed = 60;
 
         public IEnumerator Animate()
         {
