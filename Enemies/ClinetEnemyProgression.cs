@@ -8,7 +8,7 @@ namespace ChampionsOfForest
 {
     public class ClinetEnemyProgression
     {
-        public static float LifeTime = 10;
+        public static float LifeTime = 5;
         public BoltEntity Entity;
         public ulong Packed;
         public string EnemyName;
@@ -75,11 +75,12 @@ namespace ChampionsOfForest
             }
             else
             {
+                Debug.Log("Enemy in dictionary + " + Packed + " contains: " + EnemyManager.hostDictionary.ContainsKey(Packed));
                 EnemyProgression p = EnemyManager.hostDictionary[Packed];
                 EnemyName = p.EnemyName;
                 Level = p.Level;
-                Health = (int)p._hp;
-                MaxHealth = (int)p.MaxHealth;
+                Health = p._hp + p._Health.Health;
+                MaxHealth = p.MaxHealth;
                 ExpBounty = p.Bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
@@ -103,8 +104,8 @@ namespace ChampionsOfForest
             EnemyName = enemyName;
             Packed = entity.networkId.PackedValue;
             Level = level;
-            Health = (int)health;
-            MaxHealth = (int)maxHealth;
+            Health = health;
+            MaxHealth = maxHealth;
             ExpBounty = expBounty;
             Armor = armor;
             ArmorReduction = armorReduction;

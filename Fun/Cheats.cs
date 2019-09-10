@@ -71,6 +71,7 @@ namespace ChampionsOfForest.Fun
             Debug.LogWarning("cotfsetdifficulty [0-8]");
             Debug.LogWarning("cotflistitems");
             Debug.LogWarning("cotfliststats");
+            Debug.LogWarning("cotflogitemdatabase");
         }
         private void _cotfaddlevel(string param)
         {
@@ -152,6 +153,10 @@ namespace ChampionsOfForest.Fun
             }
                 Debug.LogWarning("Wrong command usage \t cotfspawnitembyname [itemname]");
                 return;
+        }
+        private void _cotflogitemdatabase(string param)
+        {
+            ItemDataBase.LogInfo();
         }
 
     }

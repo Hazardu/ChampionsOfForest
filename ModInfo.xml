@@ -1,6 +1,6 @@
 <Mod ID="ChampionsOfForest">
   <Compatible>1.11b</Compatible>
-  <Button Standard="F8" ID="MenuToggle">
+  <Button Standard="F4" ID="MenuToggle">
     <Name>
       <EN>Toggle Menu</EN>
     </Name>
@@ -8,7 +8,7 @@
       <EN>opens and closes the main menu</EN>
     </Description>
   </Button>
-  <Button Standard="F1" ID="spell1">
+  <Button Standard="Alpha6" ID="spell1">
     <Name>
       <EN> First Spell</EN>
     </Name>
@@ -16,7 +16,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="F2" ID="spell2">
+  <Button Standard="Alpha7" ID="spell2">
     <Name>
       <EN>Second Spell</EN>
     </Name>
@@ -24,7 +24,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="F3" ID="spell3">
+  <Button Standard="Alpha8" ID="spell3">
     <Name>
       <EN>Third Spell</EN>
     </Name>
@@ -32,7 +32,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="F4" ID="spell4">
+  <Button Standard="T" ID="spell4">
     <Name>
       <EN>Forth Spell</EN>
     </Name>
@@ -40,7 +40,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="F5" ID="spell5">
+  <Button Standard="Y" ID="spell5">
     <Name>
       <EN> Fifth Spell</EN>
     </Name>
@@ -48,7 +48,7 @@
       <EN></EN>
     </Description>
   </Button>
-  <Button Standard="F6" ID="spell6">
+  <Button Standard="U" ID="spell6">
     <Name>
       <EN>Sixth Spell</EN>
     </Name>
@@ -76,7 +76,7 @@
     <EN>Champions of The Forest</EN>
   </Name>
   <Description>
-    <EN>Champs is the smallest mod. Adds no content whatsoever. I never lie. No new video is being made about it. Check key binds if launching for the first time</EN>
+    <EN>Champs is the smallest mod. Adds no content whatsoever. I never lie. Check key binds if launching for the first time</EN>
   </Description>
-  <Version>1.5.0.92</Version>
+  <Version>1.5.1.4</Version>
 </Mod>

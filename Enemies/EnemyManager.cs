@@ -38,7 +38,12 @@ namespace ChampionsOfForest
         {
             if (!hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
             {
+                CotfUtils.Log("Adding enemy "+ep.entity.networkId.PackedValue + " : Level " + ep.Level + " " + ep.enemyType + " with " + ep.MaxHealth.ToString("N0") + " hp");
                 hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
+            }
+            else
+            {
+                hostDictionary[ep.entity.networkId.PackedValue] = ep;
             }
         }
         //Gets all attached bolt entities
@@ -101,12 +106,17 @@ namespace ChampionsOfForest
                         {
                             setup = tr.root.GetComponent<mutantScriptSetup>();
                         }
-
-                        p = setup.health.gameObject.AddComponent<EnemyProgression>();
-                        p._Health = setup.health;
-                        p._AI = setup.ai;
-                        p.entity = setup.GetComponent<BoltEntity>();
-                        p.setup = setup;
+                        if (setup != null)
+                        {
+                            p = setup.health.gameObject.AddComponent<EnemyProgression>();
+                            if (p != null)
+                            {
+                                p._Health = setup.health;
+                                p._AI = setup.ai;
+                                p.entity = setup.GetComponent<BoltEntity>();
+                                p.setup = setup;
+                            }
+                        }
                     }
                 }
             }

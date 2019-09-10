@@ -74,6 +74,7 @@ namespace ChampionsOfForest
         public int DraggedItemIndex;
 
         public bool isDragging;
+        private bool consumedsomething;
 
         public Item DraggedItem = null;
         private Vector2 itemPos;
@@ -273,7 +274,7 @@ namespace ChampionsOfForest
                 yield return null;
                 foreach (KeyValuePair<ulong, EnemyProgression> item in EnemyManager.hostDictionary)
                 {
-                    if (item.Value._hp < 1)
+                    if (item.Value._hp + item.Value._Health.Health < 1)
                     {
                         EnemyManager.hostDictionary.Remove(item.Key);
                         break;
@@ -292,6 +293,155 @@ namespace ChampionsOfForest
             LevelUpDuration -= Time.deltaTime;
             if (_openedMenu != OpenedMenuMode.Hud)
             {
+                if (_openedMenu == OpenedMenuMode.Inventory)
+                {
+                    if (UnityEngine.Input.GetMouseButtonUp(1))
+                    {
+                        if (consumedsomething) consumedsomething = false;
+                    }
+
+                    if(SelectedItem != -1 && Inventory.Instance.ItemList[SelectedItem] != null)
+                    {
+                        var item = Inventory.Instance.ItemList[SelectedItem];
+                        if (UnityEngine.Input.GetMouseButtonDown(0))
+                        {
+                            if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+                            {
+                                //unequip if equipped
+                                if (SelectedItem < -1)
+                                {
+                                    for (int i = 0; i < Inventory.Instance.SlotCount; i++)
+                                    {
+                                        if (Inventory.Instance.ItemList[i] == null)
+                                        {
+                                            DraggedItem = null;
+                                            isDragging = false;
+                                            CustomCrafting.ClearIndex(SelectedItem);
+                                            CustomCrafting.ClearIndex(i);
+                                            DraggedItemIndex = -1;
+                                            Inventory.Instance.ItemList[i] = item;
+                                            Inventory.Instance.ItemList[SelectedItem] = null;
+                                            SelectedItem = -1;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else//move to its correct slot or swap if slot is not empty
+                                {
+                                    int targetSlot = -1;
+
+                                    switch (item._itemType)
+                                    {
+                                        case BaseItem.ItemType.Helmet:
+                                            targetSlot = -2;
+                                            break;
+                                        case BaseItem.ItemType.ChestArmor:
+                                            targetSlot = -3;
+                                            break;
+                                        case BaseItem.ItemType.Pants:
+                                            targetSlot = -4;
+                                            break;
+                                        case BaseItem.ItemType.Boot:
+                                            targetSlot = -5;
+                                            break;
+                                        case BaseItem.ItemType.ShoulderArmor:
+                                            targetSlot = -6;
+                                            break;
+                                        case BaseItem.ItemType.Glove:
+                                            targetSlot = -7;
+                                            break;
+                                        case BaseItem.ItemType.Amulet:
+                                            targetSlot = -8;
+                                            break;
+                                        case BaseItem.ItemType.Bracer:
+                                            targetSlot = -9;
+                                            break;
+                                        case BaseItem.ItemType.Ring:
+                                            if (Inventory.Instance.ItemList[-10] == null)
+                                                targetSlot = -10;
+                                            else if (Inventory.Instance.ItemList[-11] == null)
+                                                targetSlot = -11;
+                                            else targetSlot = -10;
+                                            break;
+                                        case BaseItem.ItemType.Weapon:
+                                            targetSlot = -12;
+                                            break;
+                                        case BaseItem.ItemType.Quiver:
+                                        case BaseItem.ItemType.SpellScroll:
+                                        case BaseItem.ItemType.Shield:
+                                            targetSlot = -13;
+                                            break;
+                                    }
+                                    if (targetSlot != -1)
+                                    {
+                                        if (Inventory.Instance.ItemList[targetSlot] == null)
+                                        {
+                                            DraggedItem = null;
+                                            isDragging = false;
+                                            DraggedItemIndex = -1;
+                                            CustomCrafting.ClearIndex(SelectedItem);
+                                            Inventory.Instance.ItemList[targetSlot] = item;
+                                            Inventory.Instance.ItemList[SelectedItem] = null;
+                                            SelectedItem = -1;
+
+                                        }
+                                        else
+                                        {
+                                            DraggedItem = null;
+                                            isDragging = false;
+                                            DraggedItemIndex = -1;
+                                            CustomCrafting.ClearIndex(SelectedItem);
+                                            Inventory.Instance.ItemList[SelectedItem] = Inventory.Instance.ItemList[targetSlot];
+                                            Inventory.Instance.ItemList[targetSlot] = item;
+                                            SelectedItem = -1;
+                                        }
+                                    }
+                                }
+                            }
+                            else if (UnityEngine.Input.GetKey(KeyCode.LeftControl))
+                            {
+                                if (SelectedItem > -1)
+                                {
+                                    int max = 2;
+                                    switch (CustomCrafting.instance.craftMode)
+                                    {
+                                        case CustomCrafting.CraftMode.Rerolling:
+
+                                            max = CustomCrafting.instance.rerolling.IngredientCount;
+                                            break;
+                                        case CustomCrafting.CraftMode.Reforging:
+                                            max = CustomCrafting.instance.reforging.IngredientCount;
+                                            break;
+                                        case CustomCrafting.CraftMode.Repurposing:
+                                            break;
+                                        case CustomCrafting.CraftMode.Upgrading:
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    for (int j = 0; j < max; j++)
+                                    {
+                                        if (CustomCrafting.instance.ingredients[j].i == null)
+                                        {
+                                            if (!(CustomCrafting.instance.ingredients.Any(x => x.i == item) || CustomCrafting.instance.changedItem.i == item))
+                                            {
+                                                CustomCrafting.instance.ingredients[j].Assign(SelectedItem, item);
+                                                DraggedItem = null;
+                                                DraggedItemIndex = -1;
+                                                isDragging = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (consumedsomething)
+                {
+                    consumedsomething = false;
+                }
                 //LocalPlayer.FpCharacter.LockView(false);
                 LevelsToGain = 0;
                 if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
@@ -835,7 +985,7 @@ namespace ChampionsOfForest
 
 
                 //PlayerSlots
-                Rect eq = new Rect(SlotsRect.xMax + 290 * rr, 0, 420 * rr, Screen.height);
+                Rect eq = new Rect(SlotsRect.xMax + 30 * rr, 0, 420 * rr, Screen.height);
                 GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
                 Rect head = new Rect(Vector2.zero, slotDim)
                 {
@@ -894,7 +1044,7 @@ namespace ChampionsOfForest
                 {
                     try
                     {
-                        DrawCrafting(eq.xMax + 100 * rr);
+                        DrawCrafting(eq.xMax + 30 * rr);
 
                     }
                     catch (Exception)
@@ -1359,132 +1509,7 @@ namespace ChampionsOfForest
             }
 
             //move item
-            {
-                if (UnityEngine.Input.GetMouseButtonDown(0))
-                {
-                    if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
-                    {
-                        //unequip if equipped
-                        if (SelectedItem < -1)
-                        {
-                            for (int i = 0; i < Inventory.Instance.SlotCount; i++)
-                            {
-                                if (Inventory.Instance.ItemList[i] == null)
-                                {
-                                    DraggedItem = null;
-                                    isDragging = false;
-                                    DraggedItemIndex = -1;
-                                    Inventory.Instance.ItemList[i] = item;
-                                    Inventory.Instance.ItemList[SelectedItem] = null;
-                                }
-                            }
-                        }
-                        else//move to its correct slot or swap if slot is not empty
-                        {
-                            int targetSlot = -1;
-
-                            switch (item._itemType)
-                            {
-                                case BaseItem.ItemType.Helmet:
-                                    targetSlot = -2;
-                                    break;
-                                case BaseItem.ItemType.ChestArmor:
-                                    targetSlot = -3;
-                                    break;
-                                case BaseItem.ItemType.Pants:
-                                    targetSlot = -4;
-                                    break;
-                                case BaseItem.ItemType.Boot:
-                                    targetSlot = -5;
-                                    break;
-                                case BaseItem.ItemType.ShoulderArmor:
-                                    targetSlot = -6;
-                                    break;
-                                case BaseItem.ItemType.Glove:
-                                    targetSlot = -7;
-                                    break;
-                                case BaseItem.ItemType.Amulet:
-                                    targetSlot = -8;
-                                    break;
-                                case BaseItem.ItemType.Bracer:
-                                    targetSlot = -9;
-                                    break;
-                                case BaseItem.ItemType.Ring:
-                                    if (Inventory.Instance.ItemList[-10] == null)
-                                        targetSlot = -10;
-                                    else if (Inventory.Instance.ItemList[-11] == null)
-                                        targetSlot = -11;
-                                    else targetSlot = -10;
-                                    break;
-                                case BaseItem.ItemType.Weapon:
-                                    targetSlot = -12;
-                                    break;
-                                case BaseItem.ItemType.Quiver:
-                                case BaseItem.ItemType.SpellScroll:
-                                case BaseItem.ItemType.Shield:
-                                    targetSlot = -13;
-                                    break;
-                            }
-                            if (targetSlot != -1)
-                            {
-                                if (Inventory.Instance.ItemList[targetSlot] == null)
-                                {
-                                    DraggedItem = null;
-                                    isDragging = false;
-                                    DraggedItemIndex = -1;
-                                    Inventory.Instance.ItemList[targetSlot] = item;
-                                    Inventory.Instance.ItemList[SelectedItem] = null;
-                                }
-                                else
-                                {
-                                    DraggedItem = null;
-                                    isDragging = false;
-                                    DraggedItemIndex = -1;
-                                    Inventory.Instance.ItemList[SelectedItem] = Inventory.Instance.ItemList[targetSlot];
-                                    Inventory.Instance.ItemList[targetSlot] = item;
-                                }
-                            }
-                        }
-                    }
-                    else if (UnityEngine.Input.GetKey(KeyCode.LeftControl))
-                    {
-                        if (SelectedItem > -1)
-                        {
-                            int max = 2;
-                            switch (CustomCrafting.instance.craftMode)
-                            {
-                                case CustomCrafting.CraftMode.Rerolling:
-
-                                    max = CustomCrafting.instance.rerolling.IngredientCount;
-                                    break;
-                                case CustomCrafting.CraftMode.Reforging:
-                                    max = CustomCrafting.instance.reforging.IngredientCount;
-                                    break;
-                                case CustomCrafting.CraftMode.Repurposing:
-                                    break;
-                                case CustomCrafting.CraftMode.Upgrading:
-                                    break;
-                                default:
-                                    break;
-                            }
-                            for (int j = 0; j < max; j++)
-                            {
-                                if (CustomCrafting.instance.ingredients[j].i != null)
-                                {
-                                    if (!(CustomCrafting.instance.ingredients.Any(x => x.i == item) || CustomCrafting.instance.changedItem.i == item))
-                                    {
-                                        CustomCrafting.instance.ingredients[j].Assign(j, item);
-                                        DraggedItem = null;
-                                        DraggedItemIndex = -1;
-                                        isDragging = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+       
         }
 
 
@@ -1528,9 +1553,11 @@ namespace ChampionsOfForest
                         GUI.color = new Color(1, 1, 1, 1);
 
                     GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
-                    if (Inventory.Instance.ItemList[index].Amount > 1)
+                    if (Inventory.Instance.ItemList[index].StackSize > 1)
                     {
-                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString("N0"), new GUIStyle { alignment = TextAnchor.LowerLeft, margin = new RectOffset(Mathf.RoundToInt(10 * rr), 0, 0, Mathf.RoundToInt(10 * rr)), fontSize = Mathf.RoundToInt(12 * rr), font = MainFont, fontStyle = FontStyle.Bold });
+                        GUI.color = Color.white;
+
+                        GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString("N0"), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold });
                     }
 
 
@@ -1686,7 +1713,7 @@ namespace ChampionsOfForest
                                         DraggedItemIndex = -1;
                                         isDragging = false;
                                     }
-                                    else
+                                    else if(DraggedItemIndex != index)
                                     {
                                         //stack items
                                         int i = DraggedItem.Amount + Inventory.Instance.ItemList[index].Amount - DraggedItem.StackSize;
@@ -1709,6 +1736,12 @@ namespace ChampionsOfForest
                                             isDragging = false;
                                         }
                                     }
+                                    else
+                                    {
+                                        DraggedItem = null;
+                                        DraggedItemIndex = -1;
+                                        isDragging = false;
+                                    }
                                 }
                             }
                         }
@@ -1717,7 +1750,7 @@ namespace ChampionsOfForest
                     {
                         if (r.Contains(mousepos))
                         {
-                            if (UnityEngine.Input.GetMouseButtonDown(0))
+                            if (UnityEngine.Input.GetMouseButtonDown(0) && !UnityEngine.Input.GetKey(KeyCode.LeftShift)&& !UnityEngine.Input.GetKey(KeyCode.LeftControl))
                             {
 
                                 isDragging = true;
@@ -1725,14 +1758,18 @@ namespace ChampionsOfForest
                                 DraggedItemIndex = index;
 
                             }
-                            else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1)
+                            else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1 && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
                             {
-                                if (Inventory.Instance.ItemList[index].OnConsume())
+                                if (!consumedsomething)
                                 {
-                                    Inventory.Instance.ItemList[index].Amount--;
-                                    if (Inventory.Instance.ItemList[index].Amount <= 0)
+                                        consumedsomething = true;
+                                    if (Inventory.Instance.ItemList[index].OnConsume())
                                     {
-                                        Inventory.Instance.ItemList[index] = null;
+                                        Inventory.Instance.ItemList[index].Amount--;
+                                        if (Inventory.Instance.ItemList[index].Amount <= 0)
+                                        {
+                                            Inventory.Instance.ItemList[index] = null;
+                                        }
                                     }
                                 }
                             }
@@ -1911,7 +1948,7 @@ namespace ChampionsOfForest
 
 
             Rect TitleR = new Rect(r.x, r.y - 35 * rr, r.width, 35 * rr);
-            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(20 * rr), wordWrap = true, alignment = TextAnchor.MiddleCenter });
+            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(20 * rr), wordWrap = false, alignment = TextAnchor.MiddleCenter,clipping = TextClipping.Overflow });
             DrawInvSlot(r, index);
 
         }
@@ -2147,6 +2184,7 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
+
                     RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
@@ -2159,6 +2197,7 @@ namespace ChampionsOfForest
                     }
                     if (enemyHit != -1)
                     {
+
                         ScanTime += Time.unscaledDeltaTime * 1.75f;
                         if (hits[enemyHit].transform.root == scannedTransform)
                         {
@@ -2166,10 +2205,12 @@ namespace ChampionsOfForest
                             if (BoltNetwork.isRunning && scannedEntity != null)
                             {
                                 cp = EnemyManager.GetCP(scannedEntity);
+
                             }
                             else
                             {
                                 cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
+
                             }
                             if (cp != null && cp.Level > 0)
                             {
@@ -2344,13 +2385,14 @@ namespace ChampionsOfForest
                 else
                 {
                     ScanTime = 0;
+
                 }
 
 
             }
-            catch
+            catch (Exception e)
             {
-
+                CotfUtils.Log("Scanning enemy ex: " + e.ToString());
             }
 
             try

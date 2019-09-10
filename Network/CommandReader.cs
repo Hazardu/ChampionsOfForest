@@ -256,7 +256,7 @@ namespace ChampionsOfForest.Network
                                         w.Write(packed);
                                         w.Write(ep.EnemyName);
                                         w.Write(ep.Level);
-                                        w.Write(ep._hp);
+                                        w.Write(ep._hp + ep._Health.Health);
                                         w.Write(ep.MaxHealth);
                                         w.Write(ep.Bounty);
                                         w.Write(ep.Armor);
@@ -273,6 +273,10 @@ namespace ChampionsOfForest.Network
                                     Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
                                     answerStream.Close();
                                 }
+                            }
+                            else
+                            {
+                                CotfUtils.Log("no enemy in host's dictionary");
                             }
                         }
                     }

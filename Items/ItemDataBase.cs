@@ -283,6 +283,7 @@ namespace ChampionsOfForest
 
 
             item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel + 2));
+            if (item.ID == 42 || item.ID == 103) item.level = 1;
             item.RollStats();
             return item;
 
@@ -393,7 +394,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0013f, 0.0025f, 0f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.003f, 0.6f, "All Healing %", 6, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
-            new ItemStat(i, 0.7f / 3.8f, 1.6f / 3.8f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
+            new ItemStat(i, 1f / 4f, 1f / 4f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
             new ItemStat(i, 100f, 110f, 3f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
             new ItemStat(i, 0.003f, 0.009f, 0.4f, "Movement Speed", 6, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.003f, 0.5f, "Melee Weapon Range", 4, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, f => ModdedPlayer.instance.MeleeRange += f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
@@ -417,7 +418,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.75f, 1.65f, 1.28f, "Melee armor piercing", 5, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.65f, 1.5f, 1.25f, "Ranged armor piercing", 5, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f)); i++;
             new ItemStat(i, 0.5f, 1.1f, 1.25f, "Armor piercing", 5, f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += -Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_all += Mathf.RoundToInt(f)); i++;
-            new ItemStat(i, 0.001f, 0.013f, 0.4f, "Magic Find",7, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
+            new ItemStat(i, 0.001f, 0.013f, 0.4f, "Magic Find", 7, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 0.45f, 0.75f, 0.8f, "All attributes", 4, StatActions.AddAllStats, StatActions.RemoveAllStats, StatActions.AddAllStats); i++;
             new ItemStat(i, 0, 0, 0, "Refund points", 7, f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec()); i++;
             new ItemStat(i, 0.003f, 0.008f, 0.4f, "Jump Power", 4, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
@@ -1165,6 +1166,8 @@ namespace ChampionsOfForest
                 new int[] {8,9,49,47},
                 new int[] {16,18,11,34},
                 new int[] {37,34},
+                new int[] {-1},
+
 
              })
                 {
@@ -1376,7 +1379,7 @@ namespace ChampionsOfForest
                     minLevel = 1,
                     maxLevel = 3,
                     CanConsume = true,
-                    StackSize = 1,
+                    StackSize = 100,
                     _itemType = BaseItem.ItemType.Other,
                     icon = Res.ResourceLoader.GetTexture(105),
                 };
@@ -2878,7 +2881,7 @@ new int[] {39,40,41,42,43},
                 minLevel = 1,
                 maxLevel = 2,
                 CanConsume = true,
-                StackSize = 1,
+                StackSize = 100,
                 _itemType = BaseItem.ItemType.Other,
                 icon = Res.ResourceLoader.GetTexture(105),
                 onConsume = ModdedPlayer.Respec
@@ -3755,7 +3758,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
-            }){
+            })
+            {
                 name = "Grip of Sora",
                 description = "Look, a porcupine! -Sora",
                 lore = "",
@@ -3779,7 +3783,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {39,40,41,42,43,0,0},
                 new int[] {23,26},
                 new int[] {-1,0},
-           }) {
+           })
+            {
                 name = "Ancient Greatbow",
                 description = "A massive and slow bow, deals extra damage",
                 lore = "",
@@ -3794,8 +3799,8 @@ new int[] {0,0,0,0,62,63,64},
                 icon = Res.ResourceLoader.GetTexture(170),
             }.PossibleStats[0][0].Multipier = -1.55f;
 
-               new BaseItem(new int[][]
-           {
+            new BaseItem(new int[][]
+        {
               new int[] {18},
                 new int[] {61},
                 new int[] {2,0,0,0},
@@ -3810,7 +3815,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {-1},
                 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 
-           }) {
+        })
+            {
                 name = "Phoenix",
                 description = "A massive and slow bow, it ignites enemies on hit",
                 lore = "",
@@ -3827,8 +3833,8 @@ new int[] {0,0,0,0,62,63,64},
                 onUnequip = () => ModdedPlayer.instance.GreatBowIgnites = false,
             }.PossibleStats[0][0].Multipier = -0.7f;
 
-               new BaseItem(new int[][]
-           {
+            new BaseItem(new int[][]
+        {
               new int[] {18},
                 new int[] {61,48},
                 new int[] {2,3,5},
@@ -3843,7 +3849,8 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {-1},
                 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 
-           }) {
+        })
+            {
                 name = "Eruption",
                 description = "A massive and slow bow",
                 lore = "",
@@ -3856,16 +3863,16 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Greatbow,
                 icon = Res.ResourceLoader.GetTexture(170),
-                onEquip = () => SpellActions.BIA_HealthDmMult +=7,
+                onEquip = () => SpellActions.BIA_HealthDmMult += 7,
                 onUnequip = () => SpellActions.BIA_HealthDmMult -= 7,
             }.PossibleStats[0][0].Multipier = -0.7f;
 
             new BaseItem(new int[][]
             {
               new int[] {18},
-               
+
                 new int[] {2,40,0},
-             
+
             })
             {
                 name = "Greatbow",
@@ -3987,7 +3994,7 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {-1},
                 new int[] {-1},
                 new int[] {-1},
-            
+
                    })
             {
                 name = "Healer's Bracers",
@@ -4116,6 +4123,330 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Glove,
                 icon = Res.ResourceLoader.GetTexture(86),
             };
+            new BaseItem(new int[][]
+                   {
+                new int[] {62,63,64,55,54,53,48,30,29,28,27},
+                new int[] {34},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+                   })
+            {
+                name = "Fate Boots",
+                description = "",
+                lore = "",
+                tooltip = "",
+                Rarity = 6,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Boot,
+                icon = Res.ResourceLoader.GetTexture(85),
+            };
+            new BaseItem(new int[][]
+                   {
+                new int[] {62,63,64,55,54,53,48,30,29,28,27},
+                new int[] {34},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+                   })
+            {
+                name = "Greed",
+                description = "",
+                lore = "",
+                tooltip = "Automatically casts wide reach every second",
+                Rarity = 7,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Boot,
+                icon = Res.ResourceLoader.GetTexture(85),
+                onEquip = ()=> ModdedPlayer.instance.isGreed =true ,
+                onUnequip = ()=> ModdedPlayer.instance.isGreed =false ,
+            };
+            BaseItem titaniumleggins = new BaseItem(new int[][]
+             {
+                new int[] { 16},
+                new int[] {31},
+                new int[] {1,2,3,4},
+                new int[] {5},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+             })
+            {
+                name = "Titanium Leggins",
+                description = "Heavily armored leg protection. Suffers from the same weaknesses as spartan armor.",
+                lore = "",
+                tooltip = "",
+                Rarity = 6,
+                minLevel = 1,
+                maxLevel = 3,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Pants,
+                icon = Res.ResourceLoader.GetTexture(87),
+            };
+            titaniumleggins.PossibleStats[0][0].Multipier = 3;
+            titaniumleggins.PossibleStats[1][0].Multipier = 1.5f;
+            new BaseItem(new int[][]
+      {
+                new int[] {42,39,40,41,43,0,0 },
+                new int[] {16,24,25,26,5,6,7,8,9,10,11,12,13,14,15,17,18,55,60,61,62,63,64,0,0,0 },
+                new int[] {16,24,25,26,5,6,7,8,9,10,11,12,13,14,15,17,18,55,60,61,62,63,64 },
+                new int[] {43,0,0,0,16 },
+      })
+            {
+                name = "Iron Gauntlet",
+                description = "",
+                lore = "",
+                tooltip = "Gloves offer protection.",
+                Rarity = 2,
+                minLevel = 1,
+                maxLevel = 2,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+            };
+
+            new BaseItem(new int[][]
+          {
+                new int[] {4,3,6},
+                new int[] {21,24,16 },
+                new int[] {29,4 },
+                new int[] {16,15,17 },
+                new int[] {47,49,44,45,46 },
+                new int[] {-1 },
+                new int[] {-1 },
+                new int[] {-1 },
+                new int[] {-1 },
+                new int[] {-1 },
+                new int[] {-1 },
+          })
+            {
+                name = "Magefist",
+                description = "Gloves that amplify magic",
+                lore = "",
+                tooltip = "Spells deal 75% increased damage but their cost is increased by 150%",
+                Rarity = 7,
+                minLevel = 1,
+                maxLevel = 2,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Glove,
+                icon = Res.ResourceLoader.GetTexture(86),
+                onEquip = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.75f; ModdedPlayer.instance.SpellCostRatio *= 2.5f; },
+                 onUnequip= () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.75f; ModdedPlayer.instance.SpellCostRatio /= 2.5f; }
+            };
+            new BaseItem(new int[][]
+               {
+                new int[] {34 },
+                new int[] {34,5,1,2,4,3,2,11 },
+                new int[] {16,3,2,1,4 },
+                new int[] {16,7,8 },
+                new int[] {16, },
+                new int[] {-1 },
+                new int[] {43 },
+               })
+            {
+                name = "Armored Boots",
+                description = "Heavily armored, resistant to damage boots.",
+                lore = "",
+                tooltip = "Shoes can provide movement speed bonuses.",
+                Rarity = 5,
+                minLevel = 10,
+                maxLevel = 14,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Boot,
+                icon = Res.ResourceLoader.GetTexture(85),
+            };
+            new BaseItem(new int[][]
+            {
+                new int[] {16},
+                new int[] {16,18,57,53},
+                new int[] {16,1,2,3,4,21,22,23,24,25,26,31,15,5,6,7,8,9},
+                new int[] {1,2,3,4,57},
+                new int[] {16,45,46,0,0,0},
+                new int[] {-1 },
+                new int[] {-1 },
+                new int[] {-1 },
+
+
+            })
+            {
+                name = "Broken Protector",
+                description = "This shield failed to protect those behind it.",
+                lore = "",
+                tooltip = "Shields increase your block.",
+                Rarity = 6,
+                minLevel = 5,
+                maxLevel = 8,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Shield,
+                icon = Res.ResourceLoader.GetTexture(99),
+
+            }.PossibleStats[0][0].Multipier = 2;
+
+            new BaseItem(new int[][]
+           {
+                    new int[] {4},
+                    new int[] {6,4,3,44},
+                    new int[] {21,24},
+                    new int[] {21,24},
+                    new int[] {-1,},
+                    new int[] {-1},
+                    new int[] {-1},
+                    new int[] {47,4,5,6,7,61,17,0,0,0,0,2,56,57,49,64},
+           })
+            {
+                name = "Forbidden Scroll",
+                description = "Too powerful to be kept.",
+                lore = "",
+                tooltip = "Spell Scrolls grant magic buffs",
+                Rarity = 6,
+                minLevel = 1,
+                maxLevel = 1,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.SpellScroll,
+                icon = Res.ResourceLoader.GetTexture(110),
+            };
+
+            new BaseItem(new int[][]
+          {
+                new int[] {16},
+                new int[] {1,2,3,4},
+                new int[] {17},
+                new int[] {8,9,49,47},
+                new int[] {16,18,11,34},
+                new int[] {37,34},
+                new int[] {-1},
+
+
+          })
+            {
+                name = "Doom Pauldrons",
+                description = "Despite the cool name, they are completely normal pair of shoulder armor.",
+                lore = "",
+                tooltip = "Provides usefull stat bonuses",
+                Rarity = 6,
+                minLevel = 5,
+                maxLevel = 9,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ShoulderArmor,
+                icon = Res.ResourceLoader.GetTexture(95),
+            
+            };
+            new BaseItem(new int[][]
+          {
+                new int[] {16},
+                new int[] {1,2,3,4,57,53,54,55},
+                new int[] {17,18,11,15},
+                new int[] {15},
+                new int[] {34},
+                new int[] {16,5,6,7,8,9,10,11,12,13,14,15,17,18,59,47,45,46,60},
+                new int[] {23,22,30,27,34,44,48,59},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {-1},
+
+
+          })
+            {
+                name = "Wind armor",
+                description = "Run fast like the wind",
+                lore = "",
+                tooltip = "Upon dodging an attack, gain 10% movement speed, 15% damage and 1500 armor",
+                Rarity = 7,
+                minLevel = 5,
+                maxLevel = 9,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.ChestArmor,
+                icon = Res.ResourceLoader.GetTexture(96),
+                onEquip = () => ModdedPlayer.instance.isWindArmor = true,
+                onUnequip = () => ModdedPlayer.instance.isWindArmor = false,
+            };
+          new BaseItem(new int[][]
+          {
+                new int[] {11},
+                new int[] {22,23,21},
+                new int[] {16},
+                new int[] {1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,31,36,37,38,43,44,45,46,47,49,50,53,54,55,57},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {24,25,26,0,0,0},
+                //new int[] {29,30,48},
+          })
+            {
+                name = "Crusader Helmet",
+                description = "You're talking mad shit for someone within crusading distance",
+                lore = "",
+                tooltip = "",
+                Rarity = 5,
+                minLevel = 2,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Helmet,
+                icon = Res.ResourceLoader.GetTexture(91),
+            };
+
+              new BaseItem(new int[][]
+          {
+                new int[] {1,2,3,4,5,6,57},
+                new int[] {-1},
+                new int[] {-1},
+                new int[] {24,25,26,10,47,0,0,0},
+                //new int[] {29,30,48},
+          })
+            {
+                name = "Hood",
+                description = "",
+                lore = "",
+                tooltip = "Hats provide usefull stat bonuses",
+                Rarity = 3,
+                minLevel = 2,
+                maxLevel = 6,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Helmet,
+                icon = Res.ResourceLoader.GetTexture(91),
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

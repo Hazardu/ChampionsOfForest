@@ -263,6 +263,9 @@ namespace ChampionsOfForest
         public bool CraftingReforge = false;
 
         public bool ProjectileDamageIncreasedBySize = false;
+        public bool isGreed = false;
+        public bool isWindArmor = false;
+        private float _greedCooldown;
 
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
@@ -745,6 +748,15 @@ namespace ChampionsOfForest
                 DamageOutputMult *= DeathPact_Amount;
 
             }
+            if (isGreed)
+            {
+                _greedCooldown -= Time.deltaTime;
+                if(_greedCooldown< 0)
+                {
+                    AutoPickupItems.DoPickup();
+                    _greedCooldown = 1f;
+                }
+            }
         }
         public float DealDamageToShield(float f)
         {
@@ -1014,7 +1026,7 @@ namespace ChampionsOfForest
             ExpGoal = GetGoalExp();
             SendLevelMessage();
 
-            int ap =1;
+            int ap = Mathf.RoundToInt(Mathf.Sqrt(Level));
             agility += ap;
             strenght += ap;
             vitality += ap;
@@ -1028,10 +1040,11 @@ namespace ChampionsOfForest
         public long GetGoalExp(int lvl)
         {
             int x = lvl;
-            if (x >= 151)
+            if (x >= 146)
                 return 9000000000000000000;
-            var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
-            y = y / 3.4;
+           // var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
+            var y = 120*System.Math.Pow(1.345f,x-10) + 20 + 5* x*x*x;
+            y = y / 3.3;
             return Convert.ToInt64(y);
         }
         public void CountMassacre()
@@ -1422,6 +1435,7 @@ SpellActions. CataclysmRadius = 5;
             instance.SoraSpecial = false;
             instance.ExtraCarryingCapactity.Clear();
             instance.SpearDamageMult = 1;
+            instance.isGreed = false;
             instance.BulletDamageMult = 1;
             instance.CrossbowDamageMult = 1;
             instance.BowDamageMult = 1;

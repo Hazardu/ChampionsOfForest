@@ -254,3 +254,4 @@ namespace ChampionsOfForest.Player
 //80 king qruies damage
 //81 smokeys quiver atk speed
 //82,83 near death buffs
+//84,85,86 wind armor buffs

@@ -58,6 +58,12 @@ namespace ChampionsOfForest
             }
             base.Update();
         }
+
+        public override void getStealthAttack()
+        {
+            doStealthKill = false;
+        }
+
         protected override void OnDestroy()
         {
             //if (!ai.creepy_fat)

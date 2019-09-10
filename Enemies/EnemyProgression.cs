@@ -200,7 +200,7 @@ namespace ChampionsOfForest
             "Fellow Komrade",
             "Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan",
             "Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi",
-            "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Sora","Neonize","Agusfer"
+            "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Neonize","Agusfer"
 
               };
         /// <summary>
@@ -363,10 +363,11 @@ namespace ChampionsOfForest
             DamageMult = Mathf.Pow(Level, 2.85f) / 100f + 0.5f;
             DamageMult *= (int)ModSettings.difficulty + 1;
 
-            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2f) *0.1f+ 1, Mathf.Pow(Level,2f) * 0.4f + 20));
+            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.25f) *0.3f+ 1, Mathf.Pow(Level, 2.275f) * 0.9f + 20));
             Armor *= (int)ModSettings.difficulty/2 + 1;
             ArmorReduction = 0;
-            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.55f)/(10)));
+            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.53f)/(15)));
+            _hp *= (int)ModSettings.difficulty/2 + 1;
             AnimSpeed =0.9f + (float)Level / 240;
        
             if(_rarity != EnemyRarity.Normal)
@@ -394,9 +395,9 @@ namespace ChampionsOfForest
             }
             _hp *= (float)((int)ModSettings.difficulty) * 0.25f + 0.7f ;
             if ((int)ModSettings.difficulty > 3)
-                _hp *= 1.35f;
-                if ((int)ModSettings.difficulty > 8)
-                _hp *= 1.35f;
+                _hp *= 1.75f;
+                if ((int)ModSettings.difficulty > 7)
+                _hp *= 1.25f;
             //Applying some abilities
             if (abilities.Contains(Abilities.Huge))
             {
@@ -482,11 +483,12 @@ namespace ChampionsOfForest
                 }
             }
             //Clamping Health
+            try
+            {
             MaxHealth = _hp;
             _Health.maxHealthFloat = _hp;
             Armor = Mathf.Min(Armor, int.MaxValue - 5);
             if (Armor < 0) Armor = int.MaxValue;
-
             //Setting other health variables
             _Health.maxHealth = Mathf.RoundToInt(Mathf.Min(_hp, int.MaxValue - 5));
             _Health.Health = Mathf.RoundToInt(Mathf.Min(_hp, int.MaxValue - 5));
@@ -497,7 +499,13 @@ namespace ChampionsOfForest
             OnDieCalled = false;
             BaseDamageMult = DamageMult;
             BaseAnimSpeed = AnimSpeed;
-
+            }
+            catch (Exception e)
+            {
+                ModAPI.Log.Write(e.ToString());
+                CotfUtils.Log(e.Message);
+            }
+           
             AssignBounty();
 
             SteadfastCap = Mathf.RoundToInt(Steadfast * 0.01f * MaxHealth);
@@ -908,14 +916,12 @@ namespace ChampionsOfForest
 
                 return;
             }
-            if (Time.time - CreationTime < 10)
+            if (Time.time - CreationTime < 4)
             {
                 if (_hp > MaxHealth) MaxHealth = _hp;
-                _Health.Health = Mathf.RoundToInt(_Health.maxHealth);
-                _hp = MaxHealth;
-                
+
             }
-            if (OnDieCalled && _hp > 0)
+            if (OnDieCalled && _hp+ _Health.Health > 0)
             {
                 timeOfDeath -= Time.deltaTime;
                 if (timeOfDeath < 0)
@@ -1027,11 +1033,11 @@ namespace ChampionsOfForest
                     slows.Remove(key);
                 }
             }
-            if(_hp > _Health.Health && _hp > int.MaxValue /2)
+            if(_hp >0)
             {
-                if (_Health.Health < int.MaxValue/2)
+                if (_Health.Health < int.MaxValue/20)
                 {
-                     float f = int.MaxValue / 2 - _Health.Health;
+                     float f = int.MaxValue/2 - _Health.Health;
                     f = Mathf.Min(f, _hp);
                     _Health.Health += (int)f;
                     _hp -= f;
@@ -1140,7 +1146,7 @@ namespace ChampionsOfForest
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                         answerStream.Close();
                     }
-                    MeteorCD = 50f;
+                    MeteorCD = 55f;
                 }
                 if (abilities.Contains(Abilities.Flare) && BeamCD <= 0)
                 {
@@ -1519,10 +1525,10 @@ namespace ChampionsOfForest
                     if (blackholeCD > 0) { blackholeCD -= Time.deltaTime; }
                     else
                     {
-                        float damage = 2.5f * Level * Level;
+                        float damage = 2f * Level * Level;
                         float duration = 7.5f;
-                        float radius = 28 + 3* (int)ModSettings.difficulty;
-                        float pullforce = 30;
+                        float radius = 21 + 3* (int)ModSettings.difficulty;
+                        float pullforce = 35;
                         if (BoltNetwork.isRunning)
                         {
                             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -1666,7 +1672,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            double b = Random.Range(_hp * 0.9f, _hp) * Mathf.Pow(Level,0.3333333333f) + Armor * 0.15;
+            double b = Random.Range((MaxHealth) * 0.5f, MaxHealth) * Mathf.Pow(Level,0.3f) + Armor;
             if (abilities.Count > 1)
             {
                 b = b * abilities.Count * 0.9f;
@@ -1713,7 +1719,7 @@ namespace ChampionsOfForest
 
                     break;
             }
-            Bounty = (long)b;
+            Bounty = Convert.ToInt64(b);
         }
 
         private void SendFireAura()

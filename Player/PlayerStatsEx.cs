@@ -750,7 +750,15 @@ namespace ChampionsOfForest
             {
                 if (UnityEngine.Random.value < ModdedPlayer.instance.DodgeChance)
                 {
+                    if (ModdedPlayer.instance.isWindArmor)
+                    {
+                        //grant buffs;
+                        BuffDB.AddBuff(5, 84, 1.1f, 10);
+                        BuffDB.AddBuff(9, 85, 1.15f, 10);
+                        BuffDB.AddBuff(15, 86, 1500, 10);
+                    }
                     return;
+
                 }
             }
             float f = damage *  ModdedPlayer.instance.DamageReductionTotal;
@@ -836,7 +844,7 @@ namespace ChampionsOfForest
 
         public override void PoisonMe()
         {
-            this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth*0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Physical);
+            this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth*0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Poison);
         }
         public override void HitWaterDelayed(int damage)
         {
