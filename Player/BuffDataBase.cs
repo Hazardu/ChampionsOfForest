@@ -255,3 +255,4 @@ namespace ChampionsOfForest.Player
 //81 smokeys quiver atk speed
 //82,83 near death buffs
 //84,85,86 wind armor buffs
+//87 momentum transfer

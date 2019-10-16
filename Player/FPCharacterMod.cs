@@ -61,6 +61,13 @@ namespace ChampionsOfForest.Player
             this.jumpTimerStarted = false;
             float num = 28f;
             bool flag = false;
+            if (ModdedPlayer.instance.BunnyHop)
+            {
+                if (ModdedPlayer.instance.BunnyHopUpgrade)
+                    BuffDB.AddBuff(5, 87, 1.5f, 0.75f * ModdedPlayer.instance.JumpPower);
+                else
+                    BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.instance.JumpPower);
+            }
             if ((TheForest.Utils.LocalPlayer.AnimControl.doShellRideMode || TheForest.Utils.LocalPlayer.AnimControl.flyingGlider) && this.prevVelocityXZ.magnitude > 32f)
             {
                 flag = true;

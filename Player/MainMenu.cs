@@ -2985,6 +2985,10 @@ namespace ChampionsOfForest
             Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
             Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance * 100, 2) + "%");
             Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed * 100, 2) + "%", "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
+            Stat("Additional fire damage", Math.Round(ModdedPlayer.instance.FireAmp * 100, 2) + "%", "Increases fire damage");
+            Stat("Bleed chance", ModdedPlayer.instance.ChanceToBleedOnHit.ToString("P"), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
+            Stat("Weaken chance", ModdedPlayer.instance.ChanceToWeakenOnHit.ToString("P"), "Weakened enemies take 20% increased damage from all players.");
+            Stat("Slow chance", ModdedPlayer.instance.ChanceToSlowOnHit.ToString("P"), "Slowed enemies move and attack 50% slower");
 
 
             Space(20);
@@ -2998,6 +3002,7 @@ namespace ChampionsOfForest
                 "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
             Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange * 100) + "%");
+            Stat("Heavy attack damage", ModdedPlayer.instance.HeavyAttackMult.ToString("P"));
 
             Space(20);
             Image(98, 70);
@@ -3012,6 +3017,20 @@ namespace ChampionsOfForest
             Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Faster projectiles fly further and fall slower");
             Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
             Stat("Headshot damage", Math.Round(ModdedPlayer.instance.HeadShotDamage * 100) + "%", "Damage multipier on headshot");
+            Stat("No consume chance", ModdedPlayer.instance.ReusabilityChance.ToString("P"));
+            Stat("Spear headshot chance", ModdedPlayer.instance.SpearCritChance.ToString("P"));
+            if(ModdedPlayer.instance.SpearhellChance>0) Stat("Double spear chance", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if(ModdedPlayer.instance.SpearDamageMult != 1) Stat("Spear damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if(ModdedPlayer.instance.SpearArmorRedBonus) Stat("Spears reduce additional armor","" );
+            Stat("Bullet headshot chance", ModdedPlayer.instance.BulletCritChance.ToString("P"));
+            if(ModdedPlayer.instance.BulletDamageMult != 1) Stat("Bullet damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if(ModdedPlayer.instance.CrossbowDamageMult != 1) Stat("Crossbow damage", ModdedPlayer.instance.CrossbowDamageMult.ToString("P"));
+            if(ModdedPlayer.instance.BowDamageMult != 1) Stat("Bow damage", ModdedPlayer.instance.BowDamageMult.ToString("P"));
+            if (ModdedPlayer.instance.IsCrossfire) Stat("Shooting an enemy creates magic arrows", "");
+
+            Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ?(4+ModdedPlayer.instance.MultishotCount).ToString("N"): ModdedPlayer.instance.MultishotCount.ToString("N"));
+            Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 0.5f * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount : 5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 3) * 5");
+
 
 
             Space(20);
@@ -3024,7 +3043,7 @@ namespace ChampionsOfForest
              "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
-            Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) + "%", "");
+            Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100)*-1 + "%", "");
             Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
             Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
 
@@ -3052,6 +3071,8 @@ namespace ChampionsOfForest
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
             Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
             Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
+            if (ModdedPlayer.instance.TurboRaft) 
+            Stat("Turbo raft speed", ModdedPlayer.instance.RaftSpeedMultipier + "%", "Speed multiplier of rafts");
 
 
             Space(40);
@@ -3063,7 +3084,14 @@ namespace ChampionsOfForest
                 string item_name = Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
-
+            Space(10);
+            if(ModdedPlayer.instance.GeneratedResources.Count>0)
+            Header("Generated resources");
+            foreach (var  pair in ModdedPlayer.instance.GeneratedResources)
+            {
+                string item_name = Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
+                Stat(item_name,  pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
+            }
 
 
 

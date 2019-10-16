@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 {
     public class ArrowDamageMod : ArrowDamage
     {
-        private int BaseDmg = 0;
+        private int BaseDmg = -1;
         private float OutputDmg = 0;
         public int Repetitions;
         public Vector3 startposition;
@@ -21,16 +21,17 @@ namespace ChampionsOfForest.Player
                 base.Start();
                 return;
             }
-            if (BaseDmg == 0)
+            if (BaseDmg < 0)
             {
                 BaseDmg = damage;
             }
             base.Start();
-            OutputDmg = BaseDmg + ModdedPlayer.instance.RangedDamageBonus;
-            if (GreatBow.isEnabled) {
+            OutputDmg = damage + ModdedPlayer.instance.RangedDamageBonus;
+            if (GreatBow.isEnabled)
+            {
                 OutputDmg += 105;
                 //dmg *= 2.75f;
-                    }
+            }
             if (crossbowBoltType)
             {
                 OutputDmg = OutputDmg * ModdedPlayer.instance.CrossbowDamageMult;
@@ -61,7 +62,7 @@ namespace ChampionsOfForest.Player
                 //{
                 //    bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
                 //    {
-                        
+
                 //        EmissionColor = new Color(0.6f, 0, 0),
                 //        renderMode = BuilderCore.BuildingData.RenderMode.Fade,
                 //        MainColor = Color.red,
@@ -77,11 +78,11 @@ namespace ChampionsOfForest.Player
                         ModdedPlayer.instance.HazardCrownBonus--;
                     }
                     else
-                SpellActions.BIA_bonusDamage = 0;
+                        SpellActions.BIA_bonusDamage = 0;
                 }
                 else
                 {
-                SpellActions.BIA_bonusDamage = 0;
+                    SpellActions.BIA_bonusDamage = 0;
 
                 }
 
@@ -93,16 +94,16 @@ namespace ChampionsOfForest.Player
                 //trail.endWidth = 0;
                 //trail.time = 1.5f;
             }
-            damage = (int)OutputDmg;
+            damage = (int)damage;
         }
 
-        
+
 
         public static Material bloodInfusedMaterial;
-        
+
         protected override void OnTriggerEnter(Collider other)
         {
-            
+
             base.OnTriggerEnter(other);
         }
 
@@ -198,7 +199,7 @@ namespace ChampionsOfForest.Player
                 {
                     if (ModdedPlayer.instance.IsCrossfire)
                     {
-                        if (Time.time - ModdedPlayer.instance.LastCrossfireTime > 20)
+                        if (Time.time - ModdedPlayer.instance.LastCrossfireTime > 10)
                         {
                             ModdedPlayer.instance.LastCrossfireTime = Time.time;
                             float damage1 = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
@@ -229,7 +230,7 @@ namespace ChampionsOfForest.Player
                                             w.Write(SpellActions.MagicArrowDoubleSlow);
                                             w.Write(SpellActions.MagicArrowDmgDebuff);
 
-                                        w.Close();
+                                            w.Close();
                                         }
                                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
                                         answerStream.Close();
@@ -257,7 +258,7 @@ namespace ChampionsOfForest.Player
                                         w.Write(SpellActions.MagicArrowDoubleSlow);
                                         w.Write(SpellActions.MagicArrowDmgDebuff);
 
-                                    w.Close();
+                                        w.Close();
                                     }
                                     ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
                                     answerStream.Close();
@@ -310,12 +311,12 @@ namespace ChampionsOfForest.Player
                     startposition = transform.position;
                     SpellActions.SeekingArrow_ChangeTargetOnHit = false;
                 }
-NewHitAi(target, flag || flag3, headDamage);
+                NewHitAi(target, flag || flag3, headDamage);
                 ModdedPlayer.instance.DoAreaDamage(target.root, OutputDmg);
                 ModdedPlayer.instance.OnHit();
                 ModdedPlayer.instance.OnHit_Ranged();
 
-                        BoltEntity be = target.GetComponentInParent<BoltEntity>();
+                BoltEntity be = target.GetComponentInParent<BoltEntity>();
                 if (be == null) { be = target.GetComponent<BoltEntity>(); }
 
                 if (ModdedPlayer.instance.SpellAmpFireDmg)
@@ -338,10 +339,10 @@ NewHitAi(target, flag || flag3, headDamage);
                                 using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                                 {
                                     w.Write(27);
-                                    w.Write( be.networkId.PackedValue);
+                                    w.Write(be.networkId.PackedValue);
                                     w.Write(dmg);
-                                    w.Write( 14.5f);
-                                    w.Write( 1);
+                                    w.Write(14.5f);
+                                    w.Write(1);
                                     w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
@@ -383,7 +384,7 @@ NewHitAi(target, flag || flag3, headDamage);
                     {
                         HitPlayer HP = HitPlayer.Create(be, EntityTargets.Everyone);
                         HP.damage = damage;
-                        
+
                         HP.Send();
                         disableLive();
                     }
@@ -474,9 +475,17 @@ NewHitAi(target, flag || flag3, headDamage);
                 float dist = Vector3.Distance(target.position, startposition);
                 dmgUnclamped *= 1 + dist * SpellActions.SeekingArrow_DamagePerDistance;
             }
+            if (spearType)
+            {
+                if (ModdedPlayer.instance.SpearhellChance > 0 && Random.value <= ModdedPlayer.instance.SpearhellChance && OutputDmg > 1)
+                {
+                    var obj = Instantiate(PhysicBody, Camera.main.transform.position + Vector3.up * 2f, Quaternion.LookRotation(Camera.main.transform.forward));
+                    obj.velocity = PhysicBody.velocity * 1.05f;
+                    Destroy(obj.gameObject, 30);
+                }
+            }
 
-
-            if (headDamage || (flintLockAmmoType && Random.value < 0.12) || (spearType && Random.value < 0.05))
+            if (headDamage || (flintLockAmmoType && Random.value <= ModdedPlayer.instance.BulletCritChance) || (spearType && Random.value <= ModdedPlayer.instance.SpearCritChance))
             {
                 headDamage = true;
                 dmgUnclamped *= ModdedPlayer.instance.HeadShotDamage;
@@ -537,13 +546,13 @@ NewHitAi(target, flag || flag3, headDamage);
                                 using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                                 {
                                     w.Write(22);
-                                    w.Write( componentInParent.networkId.PackedValue);
+                                    w.Write(componentInParent.networkId.PackedValue);
                                     w.Write(SpellActions.FocusSlowAmount);
                                     w.Write(SpellActions.FocusSlowDuration);
                                     w.Write(90);
-                                w.Close();
+                                    w.Close();
                                 }
-                            AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+                                AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
                                 answerStream.Close();
                             }
                             //Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
@@ -561,12 +570,12 @@ NewHitAi(target, flag || flag3, headDamage);
                                 w.Write(SpellActions.SeekingArrow_SlowAmount);
                                 w.Write(SpellActions.SeekingArrow_SlowDuration);
                                 w.Write(91);
-                            w.Close();
+                                w.Close();
                             }
                             AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
                             answerStream.Close();
                         }
-                     
+
                     }
                     if (hitDelay)
                     {
@@ -587,8 +596,8 @@ NewHitAi(target, flag || flag3, headDamage);
                         }
                         playerHitEnemy.getAttackerType = 4;
                         playerHitEnemy.Hit = sendDamage;
-                        if(GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
-                        playerHitEnemy.Burn = true;
+                        if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                            playerHitEnemy.Burn = true;
                         AsyncHit.SendPlayerHitEnemy(playerHitEnemy, Repetitions);
                     }
                     else
@@ -705,3 +714,4 @@ NewHitAi(target, flag || flag3, headDamage);
         }
     }
 }
+

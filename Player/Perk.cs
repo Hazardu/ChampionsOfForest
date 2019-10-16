@@ -1479,8 +1479,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 1f,
+                ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 0.5f,
+                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 0.5f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 88 },
                 LevelRequirement = 61,
@@ -1489,7 +1489,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6.5f,
                 PosOffsetY = 0f,
                 Name = "Armageddon",
-                Description = "Spell damage increased by 100%",
+                Description = "Spell damage increased by 50%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1991,21 +1991,371 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BunnyHop = true,
+                DisableMethods = () => ModdedPlayer.instance.BunnyHop = false,
+                Category = PerkCategory.Utility,
+                Icon = null,
+                InheritIDs = new int[] { 27 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 0.75f,
+                Name = "Momentum transfer",
+                Description = "Upon landing gain shot movement speed buff",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MeleeRange += 0.04f,
+                DisableMethods = () => ModdedPlayer.instance.MeleeRange -= 0.04f,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 22 },
+                LevelRequirement = 4,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = -2.25f,
+                Name = "Long arm",
+                Description = "Increases melee weapon range by 4%",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            }; 
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ChanceToBleedOnHit += 0.02f,
+                DisableMethods = () => ModdedPlayer.instance.ChanceToBleedOnHit -= 0.02f,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 78,79 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 1.5f,
+                Name = "Bleed",
+                Description = "Hitting an enemy has 2% chance to make them bleed",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            }; 
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ChanceToWeakenOnHit += 0.025f,
+                DisableMethods = () => ModdedPlayer.instance.ChanceToWeakenOnHit -= 0.025f,
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 71,22 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = -1.5f,
+                Name = "Weaken",
+                Description = "Hitting an enemy has 2.5% chance to make them take more damage",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearCritChance += 0.36f,
+                DisableMethods = () => ModdedPlayer.instance.SpearCritChance -= 0.36f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 64 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0.5f,
+                PosOffsetY = -1.5f,
+                Name = "Javelin",
+                Description = "Spear has increased headshot chance to 40%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearCritChance += 0.1f,
+                DisableMethods = () => ModdedPlayer.instance.SpearCritChance -= 0.1f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 125 },
+                LevelRequirement = 33,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0f,
+                PosOffsetY = -2.25f,
+                Name = "Spear gamble",
+                Description = "Spear has increased headshot chance to 50%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearhellChance += 0.45f,
+                DisableMethods = () => ModdedPlayer.instance.SpearhellChance -= 0.45f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 126 },
+                LevelRequirement = 34,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = -1f,
+                PosOffsetY = -2.25f,
+                Name = "Double spears",
+                Description = "When a spear hits a target, it has a 30% chance summon another spear and launch it at the enemy",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearhellChance += 0.02f,
+                DisableMethods = () => ModdedPlayer.instance.SpearhellChance -= 0.02f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 127 },
+                LevelRequirement = 53,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -2f,
+                PosOffsetY = -2.25f,
+                Name = "Spearinfinity",
+                Description = "Increases the chance of doublespears by 2%",
+                TextureVariation = 0, //0 or 1
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *=1.75f,
+                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /=1.75f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 126 },
+                LevelRequirement = 50,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -0.5f,
+                PosOffsetY = -3f,
+                Name = "Spear Mastery",
+                Description = "Increases spear damage by 75%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BulletCritChance +=0.2f,
+                DisableMethods = () => ModdedPlayer.instance.BulletCritChance -= 0.2f,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 65 },
+                LevelRequirement = 45,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = -2.25f,
+                Name = "Deadeye",
+                Description = "Increases headshot chance of pistol's bullets by 20%, to a total of 30%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.SpearArmorRedBonus=true,
+                DisableMethods = () => ModdedPlayer.instance.SpearArmorRedBonus =false,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 127,129 },
+                LevelRequirement = 35,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = -1.5f,
+                PosOffsetY = -3f,
+                Name = "Piercing",
+                Description = "Spear armor reduction from ranged is increased to 150%, additionally, thrown spears also reduce armor equal to melee armor reduction",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BunnyHopUpgrade = true,
+                DisableMethods = () => ModdedPlayer.instance.BunnyHopUpgrade = false,
+                Category = PerkCategory.Utility,
+                Icon = null,
+                InheritIDs = new int[] { 121 },
+                LevelRequirement = 55,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 1.5f,
+                Name = "Bunny hopping",
+                Description = "Increases the speed and duration of the buff",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult*= 0.5f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 10; },
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 7f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Quickening",
+                Description = "Increases attack speed by 65%, but decreases melee damage by 50% and ranged damage by 90%",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *=0.5f; ModdedPlayer.instance.MeleeDamageAmplifier_Add +=1.5f;},
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 8f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Strenghtening",
+                Description = "Decreases attack speed by 50%, but greatly increases melee damage by 150%",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add+=1.1f; ModdedPlayer.instance.RangedDamageAmplifier_Mult *= 0; },
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 6f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Binding",
+                Description = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal 110% less damage, but at the same time, you deal 100% increased melee damage",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add +=0.2f; ModdedPlayer.instance.AttackSpeedMult *= 1.2f; },
+                Category = PerkCategory.MeleeOffense,
+                Icon = null,
+                InheritIDs = new int[] { 79 },
+                LevelRequirement = 60,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 2.25f,
+                Name = "Melee Mastery",
+                Description = "Increases melee weapon damage and attack speed by 20%",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add +=1f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0; },
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 7f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Binding",
+                Description = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 100% less damage, but at the same time, you deal 100% increased ranged damage",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add += 1.2f; ModdedPlayer.instance.MoveSpeed *= 0.8f; ModdedPlayer.instance.JumpPower *= 0.7f; },
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 8f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Crippling",
+                Description = "You become more deadly but less precise.\nYour ranged damage is increased by 120%, but you loose 20% movement speed and 30% jump power.",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.1f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 4; },
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 9f,
+                PosOffsetY = -0.75f,
+                Name = "Curse of Quickening",
+                Description = "Increases attack speed by 65%, but decreases melee damage by 90% and ranged damage by 25%",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.MaxEnergyPercent *= 0.5f; ModdedPlayer.instance.StaminaRegenPercent -=0.5f; ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f; },
+                Category = PerkCategory.MagicOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 7.5f,
+                PosOffsetY = 0f,
+                Name = "Curse of Exhaustion",
+                Description = "Increases attack spell damage by 100%, but your energy is reduced by 50% and stamina regenerates slower",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 1.35f; },
+                Category = PerkCategory.MagicOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 8.5f,
+                PosOffsetY = 0f,
+                Name = "Curse of Speed",
+                Description = "Cooldown reduction increased by 35%, but attack speed decreased by 40%",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.4f; ModdedPlayer.instance.RangedDamageAmplifier_Mult *= 0.4f; ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f; },
+                Category = PerkCategory.MagicOffense,
+                Icon = null,
+                InheritIDs = new int[] { 89 },
+                LevelRequirement = 77,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 9.5f,
+                PosOffsetY = 0f,
+                Name = "Curse of Power",
+                Description = "Magic damage is increased by 100%, but ranged and melee are weaker by 60% ",
+                TextureVariation = 1, //0 or 1
+                Endless = false,
+            };
         }
 
         public int ID;

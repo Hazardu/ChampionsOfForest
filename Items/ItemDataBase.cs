@@ -1651,11 +1651,11 @@ namespace ChampionsOfForest
         }
         public static void AddPercentage(ref float variable1, float f)
         {
-            variable1 = variable1 + (1 - variable1) * f;
+            variable1 += ((1 - variable1) * f);
         }
         public static void RemovePercentage(ref float variable1, float f)
         {
-            variable1 = variable1 - (1 - variable1) / f;
+            variable1 -= ((1 - variable1) * f);
         }
         //Items added by Kaspito#4871
         private static void FillKaspitoItems()
@@ -3229,7 +3229,7 @@ new int[] {0,0,0,0,62,63,64},
                 name = "Crossfire",
                 description = "Infused with powerful magic. This item is a dangerous tool of destruction.",
                 lore = "",
-                tooltip = "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every 20 seconds. The magic arrow deals half the damage and applies stats that a normal magic arrow would.",
+                tooltip = "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every 10 seconds. The magic arrow deals half the damage and applies stats that a normal magic arrow would.",
                 Rarity = 7,
                 minLevel = 1,
                 maxLevel = 6,

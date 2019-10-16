@@ -65,6 +65,7 @@ namespace ChampionsOfForest.Player
                 component2.enabled = false;
             }
             Transform tip = gameObject.GetComponent<global::fakeArrowSetup>().tip;
+            tip.position -= tip.forward*1.2f;
             int num = this.returnNearestJointMidPoint(tip);
             if (this.singleJointMode)
             {

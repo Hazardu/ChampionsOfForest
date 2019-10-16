@@ -195,6 +195,7 @@
 <Compile Include="Fun\Cheats.cs"  />
 <Compile Include="Fun\SpaceX.cs"  />
 <Compile Include="Items\Crafting.cs"  />
+<Compile Include="Items\TheForestItemDBMod.cs"  />
 <Compile Include="Player\ArrowStickToTargetMod.cs"  />
 <Compile Include="Player\AsyncHit.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />

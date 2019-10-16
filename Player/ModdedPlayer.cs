@@ -217,8 +217,11 @@ namespace ChampionsOfForest
         //perks 
         public float ReusabilityChance = 0;
         public int ReusabilityAmount = 1;
-        public TheForest.Items.Item lastShotProjectile;
+        //public TheForest.Items.Item lastShotProjectile;
         public float SpearDamageMult = 1;
+        public float SpearCritChance = 0.04f;
+        public float SpearhellChance = 0;
+        public float BulletCritChance = 0.1f;
         public float BulletDamageMult = 1;
         public float CrossbowDamageMult = 1;
         public float BowDamageMult = 1;
@@ -227,6 +230,7 @@ namespace ChampionsOfForest
         //Item abilities variables
         //Smokeys quiver
         public bool IsSmokeysQuiver = false;
+        public bool SpearArmorRedBonus = false;
         public bool IsCrossfire = false;
         public bool IsHazardCrown = false;
         public int  HazardCrownBonus = 0;
@@ -261,6 +265,11 @@ namespace ChampionsOfForest
 
         public bool CraftingReroll = false;
         public bool CraftingReforge = false;
+
+
+        public bool BunnyHop = false;
+        public bool BunnyHopUpgrade = false;
+
 
         public bool ProjectileDamageIncreasedBySize = false;
         public bool isGreed = false;
@@ -1384,6 +1393,7 @@ SpellActions. CataclysmRadius = 5;
             instance.MagicResistance = 0;
             instance.CraftingReroll = false;
             instance.CraftingReforge = false;
+            instance.BunnyHopUpgrade = false;
             instance.AttackSpeedMult = 1;
             instance.AttackSpeedAdd = 1;
             instance.StunImmune = 0;
@@ -1436,13 +1446,18 @@ SpellActions. CataclysmRadius = 5;
             instance.ExtraCarryingCapactity.Clear();
             instance.SpearDamageMult = 1;
             instance.isGreed = false;
+            instance.BunnyHop = false;
             instance.BulletDamageMult = 1;
             instance.CrossbowDamageMult = 1;
             instance.BowDamageMult = 1;
             instance.HeavyAttackMult = 1;
             instance.IsCrossfire = false;
+            instance.SpearArmorRedBonus = false;
             instance.MultishotCount = 1;
-            instance.TurboRaft = false;
+            instance.SpearCritChance = 0.04f;
+            instance.SpearhellChance = 0.00f;
+            instance. BulletCritChance = 0.1f;
+        instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
             instance.FireAmp=0;
             instance.HeadShotDamage = 6;
