@@ -1235,6 +1235,8 @@ namespace ChampionsOfForest
                     {
                         transform.root.position = closestPlayer.transform.position + transform.forward * -2.5f;
                         blinkCD = Mathf.Max(Random.Range(14, 33) - (int) ModSettings.difficulty,6);
+                        Effects.Sound_Effects.GlobalSFX.Play(5);
+
                     }
                     else
                     {

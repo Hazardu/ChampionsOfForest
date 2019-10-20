@@ -91,6 +91,7 @@ namespace ChampionsOfForest.Player
                         newItem.RollStats();
                         Inventory.Instance.ItemList[cc.changedItem.pos] = newItem;
                         cc.changedItem.i = newItem;
+                        Effects.Sound_Effects.GlobalSFX.Play(3);
 
                         for (int i = 0; i < cc.ingredients.Length; i++)
                         {
@@ -144,7 +145,8 @@ namespace ChampionsOfForest.Player
                     if (validRecipe)
                     {
                         cc.changedItem.i.RollStats();
-                     
+                        Effects.Sound_Effects.GlobalSFX.Play(3);
+
                         for (int i = 0; i < cc.ingredients.Length; i++)
                         {
                             cc.ingredients[i].RemoveItem();

@@ -1,4 +1,5 @@
 ﻿using BuilderCore;
+using ChampionsOfForest.Effects;
 using System.Collections;
 using System.Collections.Generic;
 using TheForest.Utils;
@@ -19,7 +20,7 @@ namespace ChampionsOfForest
 
             if (fromEnemy)
             {
-                go.GetComponentInChildren<Light>().color = Color.red;
+                go.GetComponent<Light>().color = Color.red;
             }
         }
 
@@ -48,6 +49,7 @@ namespace ChampionsOfForest
             source.rolloffMode = AudioRolloffMode.Logarithmic;
             source.maxDistance = 100;
             source.Play();
+            RealisticBlackHoleEffect.Add(transform);
             if (particleMaterial == null)
             {
                 particleMaterial = Core.CreateMaterial(new BuildingData()

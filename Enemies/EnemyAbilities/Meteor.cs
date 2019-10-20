@@ -6,7 +6,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
     public class Meteor : MonoBehaviour
     {
-
+        private AudioSource src;
         public static void CreateEnemy(Vector3 position, int seed)
         {
             MeteorSpawner.Instance.Spawn(position, seed);
@@ -17,18 +17,31 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private void Update()
         {
             transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 25);
-            LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
 
         }
 
+        private static AudioClip hitSound, InitSound;
+
         private void Start()
         {
+            if (hitSound == null)
+            {
+                hitSound = Res.ResourceLoader.instance.LoadedAudio[1005];
+                InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
+            }
+            src =gameObject.AddComponent<AudioSource>();
+            src.clip = InitSound;
+            src.Play();
             Destroy(gameObject, 7);
            
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            src.clip = hitSound;
+            src.Play();
+            LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
+
             if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") || other.CompareTag("SmallTree"))
             {
                 other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);

@@ -76,7 +76,8 @@ namespace ChampionsOfForest.Player
 
                 }
             }
-          
+            Effects.Sound_Effects.GlobalSFX.Play(5);
+
             BlinkTowards(LocalPlayer.Transform.position + Camera.main.transform.forward * 4);
 
 
@@ -799,6 +800,8 @@ namespace ChampionsOfForest.Player
             BIA_bonusDamage += BIA_SpellDmMult * ModdedPlayer.instance.SpellDamageBonus;
             BIA_bonusDamage *= ModdedPlayer.instance.SpellAMP;
             if (ModdedPlayer.instance.IsHazardCrown) ModdedPlayer.instance.HazardCrownBonus = 5;
+            Effects.Sound_Effects.GlobalSFX.Play(4);
+
         }
         #endregion
 

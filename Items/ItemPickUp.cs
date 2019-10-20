@@ -1,4 +1,5 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Effects.Sound_Effects;
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -15,6 +16,8 @@ namespace ChampionsOfForest
         private static Camera mainCam;
         private float constantViewTime;
         private float lifetime = 600;
+
+        private AudioSource src;
         private void Start()
         {
             if (mainCam == null)
@@ -36,6 +39,9 @@ namespace ChampionsOfForest
             rb.isKinematic = true;
             Invoke("UnlockPhysics", 1f);
             lifetime = 600;
+            src = gameObject.AddComponent<AudioSource>();
+            src.clip = Res.ResourceLoader.instance.LoadedAudio[1004];
+            src.Play();
         }
 
         public void EnableDisplay()
@@ -99,6 +105,11 @@ namespace ChampionsOfForest
         public void Remove()
         {
             Destroy(gameObject);
+        }
+
+        public void OnDestroy()
+        {
+            GlobalSFX.Play(7);
         }
 
         private void Update()

@@ -52,20 +52,14 @@ gameObject.GetComponent<Renderer>().material = mat;
             };
             Core.AddBuilding(blackHole, 401);
             Core.prefabs[401].SetActive(true);
-            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.localScale = Vector3.one * 2;
-            sphere.GetComponent<Renderer>().material = Core.CreateMaterial(new BuildingData() { MainColor = Color.black, Smoothness = 0, Metalic = 1 });
-
-            sphere.transform.SetParent(Core.prefabs[401].transform);
-            sphere.transform.localPosition = Vector3.zero;
-
+         
             Renderer r = Core.prefabs[401].GetComponent<Renderer>();
             r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             r.receiveShadows = false;
 
 
-            Light l = sphere.AddComponent<Light>();
-            l.intensity = 2f;
+            Light l = Core.prefabs[401].AddComponent<Light>();
+            l.intensity = 1.5f;
             l.range = 60;
             l.color = new Color(1, 1, 1f);
 

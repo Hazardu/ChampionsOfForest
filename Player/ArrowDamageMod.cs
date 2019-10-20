@@ -85,16 +85,9 @@ namespace ChampionsOfForest.Player
                     SpellActions.BIA_bonusDamage = 0;
 
                 }
-
-                //gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
-                //var trail = gameObject.AddComponent<TrailRenderer>();
-                //trail.material = bloodInfusedMaterial;
-                //trail.startWidth = 0.1f;
-                //trail.endColor = new Color(0, 0, 0, 0);
-                //trail.endWidth = 0;
-                //trail.time = 1.5f;
             }
-            damage = (int)damage;
+          //removing this line crashes the game when firing a ranged weapon
+            damage =damage;
         }
 
 

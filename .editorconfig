@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS1717: Ustawiono przypisanie do tej samej zmiennej
+dotnet_diagnostic.CS1717.severity = silent

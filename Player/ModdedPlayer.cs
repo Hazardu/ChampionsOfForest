@@ -55,7 +55,7 @@ namespace ChampionsOfForest
         {
             get
             {
-                float f = (agility ) * RangedDamageperAgi;
+                float f = (agility) * RangedDamageperAgi;
                 return (1 + f) * RangedDamageAmplifier * DamageOutputMultTotal;
 
             }
@@ -72,10 +72,10 @@ namespace ChampionsOfForest
             }
         }
         public float StaminaAndEnergyRegenAmp => 1 + (intelligence) * EnergyRegenPerInt;
-        public float ArmorDmgRed => ModReferences.DamageReduction(Armor -(int) ArmorReduction);
+        public float ArmorDmgRed => ModReferences.DamageReduction(Armor - (int)ArmorReduction);
         public float DamageReductionTotal => (DamageReduction) * (DamageReductionPerks);
         public float DamageOutputMultTotal => DamageOutputMultPerks * DamageOutputMult;
-   public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
+        public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
         public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
 
 
@@ -144,8 +144,8 @@ namespace ChampionsOfForest
         public float AttackSpeedAdd = 1;
 
         public float RangedAttackSpeed = 1;
-        public float BowRearmSpeed= 0.0f;
-        public bool GreatBowIgnites= false;
+        public float BowRearmSpeed = 0.0f;
+        public bool GreatBowIgnites = false;
 
 
 
@@ -233,7 +233,7 @@ namespace ChampionsOfForest
         public bool SpearArmorRedBonus = false;
         public bool IsCrossfire = false;
         public bool IsHazardCrown = false;
-        public int  HazardCrownBonus = 0;
+        public int HazardCrownBonus = 0;
         public float LastCrossfireTime = 0;
 
         //Any hammer
@@ -342,7 +342,7 @@ namespace ChampionsOfForest
                         break;
                     default:
 
-                LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
+                        LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
                         break;
 
 
@@ -356,7 +356,7 @@ namespace ChampionsOfForest
             {
                 ExtraCarryingCapactity[ID].ExistingApply(Amount);
             }
-            else if(Amount>0)
+            else if (Amount > 0)
             {
                 ExtraItemCapacity EIC = new ExtraItemCapacity(ID, Amount);
                 EIC.NewApply();
@@ -384,8 +384,19 @@ namespace ChampionsOfForest
             }
             InitializeHandHeld();
             Invoke("SendJoinMessage", 10);
+            StartCoroutine(InitializeCamera());
+        }
+
+        IEnumerator InitializeCamera()
+        {
+            while (Camera.main == null) 
+            {
+                yield return null;
+            }
+            Camera.main.gameObject.AddComponent<RealisticBlackHoleEffect>();
 
         }
+
         public void SendLevelMessage()
         {
             if (ChatBoxMod.instance != null)
@@ -1528,7 +1539,8 @@ SpellActions. CataclysmRadius = 5;
             LocalPlayer.Stats.HealthTarget = 1;
             LocalPlayer.Stats.Energy = 1;
             UnAssignAllStats();
-           
+            Effects.Sound_Effects.GlobalSFX.Play(2);
+
 
             instance.MutationPoints = instance.Level + instance.PermanentBonusPerkPoints;
             foreach (int i in SpellDataBase.spellDictionary.Keys)

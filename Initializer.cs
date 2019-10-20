@@ -1,4 +1,5 @@
 ﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
@@ -74,6 +75,9 @@ namespace ChampionsOfForest
                     go.AddComponent<MeteorSpawner>();
                     go.AddComponent<BlackFlame>();
                     go.AddComponent<AsyncHit>();
+                    go.AddComponent<GlobalSFX>();
+
+
                    // go.AddComponent<Crafting>();
                     CustomCrafting.Init();
                     BuffDB.FillBuffList();

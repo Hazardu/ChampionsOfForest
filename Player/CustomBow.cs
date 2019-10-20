@@ -119,8 +119,8 @@ namespace ChampionsOfForest
                 {
                     BumpMap = Res.ResourceLoader.GetTexture(168),
                     BumpScale = 1.4f,
-                    Metalic = 0.2f,
-                    Smoothness = 0.0f,
+                    Metalic = 0.6f,
+                    Smoothness = 0.6f,
                     MainTexture = Res.ResourceLoader.GetTexture(169),
                     EmissionMap = Res.ResourceLoader.GetTexture(169),
                 });

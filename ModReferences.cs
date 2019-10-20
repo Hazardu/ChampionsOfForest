@@ -181,7 +181,7 @@ namespace ChampionsOfForest
                         Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
                         if (hand != null)
                         {
-                            PlayerHands.Add(playerName, hand);
+                            PlayerHands.Add(playerName, hand.parent);
                         }
                     }
                 }

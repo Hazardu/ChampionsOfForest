@@ -180,7 +180,9 @@
 <Compile Include="Effects\ParrySound.cs"  />
 <Compile Include="Effects\Portal.cs"  />
 <Compile Include="Effects\Purge.cs"  />
+<Compile Include="Effects\RealisticBlackHoleEffect.cs"  />
 <Compile Include="Effects\SnapFreeze.cs"  />
+<Compile Include="Effects\Sound Effects\GlobalSFX.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />
 <Compile Include="Enemies\EnemyAbilities\Avenger.cs"  />
@@ -205,6 +207,7 @@
 <Compile Include="Player\FlashlightMod.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
 <Compile Include="Player\ProjectileIgnoreCollision.cs"  />
+<Compile Include="Player\RCoroutines.cs"  />
 <Compile Include="Player\Spells\ForceGrab.cs"  />
 <Compile Include="Res\Buildings.cs"  />
 <Compile Include="Enemies\BossScriptEX.cs"  />

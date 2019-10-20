@@ -229,7 +229,7 @@ namespace ChampionsOfForest
                 semiBlack = new Texture2D(1, 1);
 
                 //host difficulty raise/lower cooldown
-                if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer) difficultyCooldown = 20 * 60; //once every 20 minutes 
+                if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer) difficultyCooldown = 5 * 60; //once every 5 minutes 
 
                 StartCoroutine(ProgressionRefresh());
             }
@@ -678,7 +678,7 @@ namespace ChampionsOfForest
                     if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * rr, 90 * rr, 200 * rr, 40 * rr), "Raise Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
                     {
                         //raise difficulty
-                        difficultyCooldown = 20 * 60;
+                        difficultyCooldown = 10 * 60;
                         ModSettings.difficulty++;
                         using (MemoryStream answerStream = new MemoryStream())
                         {
@@ -697,7 +697,7 @@ namespace ChampionsOfForest
                     if (ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10 * rr, 130 * rr, 200 * rr, 40 * rr), "Lower Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
                     {
                         //lower difficulty
-                        difficultyCooldown = 20 * 60;
+                        difficultyCooldown = 10 * 60;
                         ModSettings.difficulty--;
                         using (MemoryStream answerStream = new MemoryStream())
                         {
@@ -1281,6 +1281,7 @@ namespace ChampionsOfForest
                         if (GUI.Button(new Rect(x, ypos, w, 40 * rr), "Reroll stats", new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(30 * rr), fontStyle = FontStyle.Normal, font = MainFont }))
                         {
                             CustomCrafting.instance.rerolling.PerformReroll();
+
                         }
                         ypos += 50 * rr;
                     }
@@ -1673,6 +1674,8 @@ namespace ChampionsOfForest
                             if (UnityEngine.Input.GetMouseButtonUp(0))
                             {
                                 SelectedItem = index;
+                                Effects.Sound_Effects.GlobalSFX.Play(1);
+
                                 if (index < -1)
                                 {
 
@@ -1752,6 +1755,7 @@ namespace ChampionsOfForest
                         {
                             if (UnityEngine.Input.GetMouseButtonDown(0) && !UnityEngine.Input.GetKey(KeyCode.LeftShift)&& !UnityEngine.Input.GetKey(KeyCode.LeftControl))
                             {
+                                Effects.Sound_Effects.GlobalSFX.Play(0);
 
                                 isDragging = true;
                                 DraggedItem = Inventory.Instance.ItemList[index];
@@ -1760,6 +1764,8 @@ namespace ChampionsOfForest
                             }
                             else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1 && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
                             {
+                                Effects.Sound_Effects.GlobalSFX.Play(0);
+
                                 if (!consumedsomething)
                                 {
                                         consumedsomething = true;
@@ -1904,6 +1910,8 @@ namespace ChampionsOfForest
                                 CustomCrafting.UpdateIndex(DraggedItemIndex, index);
                                 DraggedItem = null;
                                 DraggedItemIndex = -1;
+                                Effects.Sound_Effects.GlobalSFX.Play(1);
+
                             }
                             else
                             {
@@ -1921,6 +1929,7 @@ namespace ChampionsOfForest
                             CustomCrafting.UpdateIndex(DraggedItemIndex, index);
                             DraggedItem = null;
                             DraggedItemIndex = -1;
+                            Effects.Sound_Effects.GlobalSFX.Play(1);
 
                         }
                     }
@@ -2534,6 +2543,8 @@ namespace ChampionsOfForest
                 if (UnityEngine.Input.GetMouseButtonDown(1))
                 {
                     displayedSpellInfo = null;
+                    Effects.Sound_Effects.GlobalSFX.Play(1);
+
                     return;
                 }
 
@@ -2543,7 +2554,9 @@ namespace ChampionsOfForest
                 if (GUI.Button(new Rect(Screen.width - 170 * rr, 25 * rr, 150 * rr, 50 * rr), "GO BACK TO SPELLS\n(Right Mouse Button)", new GUIStyle(GUI.skin.button) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15) }))
                 {
                     displayedSpellInfo = null;
+                    Effects.Sound_Effects.GlobalSFX.Play(1);
                     return;
+
                 }
 
                 GUI.Label(new Rect(Screen.width / 2 - 300 * rr, 225 * rr, 600 * rr, 70 * rr),
@@ -2585,6 +2598,8 @@ namespace ChampionsOfForest
                                 if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
                                 {
                                     //Clears the spot
+                                    Effects.Sound_Effects.GlobalSFX.Play(1);
+
                                     SpellCaster.instance.SetSpell(i);
                                 }
                             }
@@ -2602,6 +2617,8 @@ namespace ChampionsOfForest
                                         }
 
                                         SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+                                        Effects.Sound_Effects.GlobalSFX.Play(0);
+
                                     }
                                 }
                                 else
@@ -2613,7 +2630,7 @@ namespace ChampionsOfForest
                                         {
                                             SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
                                         }
-
+                                        Effects.Sound_Effects.GlobalSFX.Play(0);
                                         SpellCaster.instance.SetSpell(i, displayedSpellInfo);
                                     }
                                 }
@@ -2640,10 +2657,12 @@ namespace ChampionsOfForest
                             GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = MainFont, fontSize = Mathf.RoundToInt(41 * rr), fontStyle = FontStyle.Bold };
                             btnStyle.onActive.textColor = Color.blue;
                             btnStyle.onNormal.textColor = Color.gray;
-                            if (GUI.Button(UnlockRect, "UNLOCK ABILITY", btnStyle))
+                            if (GUI.Button(UnlockRect, "Unlock", btnStyle))
                             {
                                 displayedSpellInfo.Bought = true;
                                 ModdedPlayer.instance.MutationPoints -= 2;
+                                Effects.Sound_Effects.GlobalSFX.Play(6);
+
                             }
                         }
                         else
@@ -2651,7 +2670,7 @@ namespace ChampionsOfForest
                             GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = MainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * rr), fontStyle = FontStyle.Bold };
                             morePointsStyle.onNormal.textColor = Color.gray;
                             morePointsStyle.onActive.textColor = Color.white;
-                            GUI.Label(UnlockRect, "YOU NEED 2 POINTS TO UNLOCK AN ABILITY", morePointsStyle);
+                            GUI.Label(UnlockRect, "You need 2 points to unlock an ability", morePointsStyle);
                         }
                     }
                     else
@@ -2688,6 +2707,7 @@ namespace ChampionsOfForest
                         style.fontStyle = FontStyle.Bold;
                         if (UnityEngine.Input.GetMouseButtonDown(0))
                         {
+                            Effects.Sound_Effects.GlobalSFX.Play(0);
 
                             displayedSpellInfo = SpellDataBase.spellDictionary[s.ID];
                         }
@@ -3312,6 +3332,9 @@ namespace ChampionsOfForest
                 Perk p = SelectedPerk;
                 Hovered = true;
                 r.center = SelectedPerk_center;
+                if(_perkDetailAlpha==0)
+                    Effects.Sound_Effects.GlobalSFX.Play(0);
+
                 _perkDetailAlpha += Time.unscaledDeltaTime;
                 if (_perkDetailAlpha >= 0.7f)
                 {
@@ -3379,6 +3402,8 @@ namespace ChampionsOfForest
                                 Perk.AllPerks[SelectedPerk_ID].ApplyMethods();
                                 Perk.AllPerks[SelectedPerk_ID].Applied = true;
                                 Buying = false;
+                                Effects.Sound_Effects.GlobalSFX.Play(3);
+
                             }
                         }
                     }

@@ -895,10 +895,26 @@ namespace ChampionsOfForest.Res
 
             new Resource(1000, "thundersound.wav");
             new Resource(1001, "Levelup.wav");
+            new Resource(1002, "ClickUp.wav");
+            new Resource(1003, "ClickDown.wav");
+            new Resource(1004, "Drop.wav");
+            new Resource(1005, "MeteorImpact.wav");
+            new Resource(1006, "MeteorSFX.wav");
+            new Resource(1007, "Purge.wav");
+            new Resource(1008, "Unlock.wav");
+            new Resource(1009, "BloodInfusedArrow.wav");
+            new Resource(1010, "Warp.wav");
+            new Resource(1011, "SpellUnlock.wav");
+            new Resource(1012, "Pickup.wav");
+
+
+
+
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);
             new Resource(2003, "fire", Resource.ResourceType.AssetBundle);
+            new Resource(2004, "blackholeeffect.bruh", Resource.ResourceType.AssetBundle);
 
         }
     }

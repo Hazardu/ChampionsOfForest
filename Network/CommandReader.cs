@@ -626,6 +626,7 @@ namespace ChampionsOfForest.Network
                         if (ModReferences.PlayerHands.ContainsKey(id))
                         {
                             CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
+                            Console.WriteLine(ModReferences.PlayerHands[id].name);
                         }
                         else
                         {
