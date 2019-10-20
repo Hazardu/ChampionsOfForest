@@ -299,7 +299,7 @@ namespace ChampionsOfForest.Player
                     SpellActions.SeekingArrow = true;
                     SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
                     SpellActions.SeekingArrow_Target.transform.parent = target.transform;
-                    SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                    SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y-0.075f, target.transform.position.z);
                     SpellActions.SeekingArrow_TimeStamp = Time.time;
                     startposition = transform.position;
                     SpellActions.SeekingArrow_ChangeTargetOnHit = false;

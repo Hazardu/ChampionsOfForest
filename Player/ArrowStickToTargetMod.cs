@@ -65,7 +65,7 @@ namespace ChampionsOfForest.Player
                 component2.enabled = false;
             }
             Transform tip = gameObject.GetComponent<global::fakeArrowSetup>().tip;
-            tip.position -= tip.forward*1.2f;
+            tip.position -= tip.forward*1.4f;
             int num = this.returnNearestJointMidPoint(tip);
             if (this.singleJointMode)
             {
@@ -101,6 +101,20 @@ namespace ChampionsOfForest.Player
                         disposable.Dispose();
                     }
                 }
+                //if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+                //{
+                //    SpellActions.SeekingArrow = true;
+                //    SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
+                //    SpellActions.SeekingArrow_Target.transform.parent = this.stickToJoints[num];
+                //    SpellActions.SeekingArrow_Target.transform.position = this.stickToJoints[num].position;
+                //    SpellActions.SeekingArrow_TimeStamp = Time.time;
+                //    startposition = transform.position;
+                //    SpellActions.SeekingArrow_ChangeTargetOnHit = false;
+                //}
+
+
+
+
                 Vector3 vector2 = (this.stickToJoints[num].position + transform.position) / 2f;
                 Vector3 vector3 = (gameObject.transform.position - vector2).normalized;
                 vector3 = vector2 + vector3 * 0.35f;

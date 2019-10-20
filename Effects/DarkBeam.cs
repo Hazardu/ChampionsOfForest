@@ -53,7 +53,7 @@ namespace ChampionsOfForest
 
                 Light light = lamp.AddComponent<Light>();
                 light.type = LightType.Spot;
-                light.spotAngle = Mathf.Atan(Radius/12) * 2;
+                light.spotAngle = Mathf.Atan(Radius/12) * 90;
                 light.intensity = 0;   //going towards 30
                 light.range = 20;
                 if (fromEnemy)
@@ -134,12 +134,12 @@ namespace ChampionsOfForest
 
 
                 rend.renderMode = ParticleSystemRenderMode.Stretch;
-                rend.velocityScale = 0.12f;
-                rend.lengthScale = 0.9f;
+                rend.velocityScale = 0.11f;
+                rend.lengthScale = 0.87f;
                 rend.pivot = new Vector3(0, -20, 0);
                 rend.normalDirection = 1;
                 rend.sharedMaterial = material;
-                rend.maxParticleSize = 6000;
+                rend.maxParticleSize = 60000;
                 rend.alignment = ParticleSystemRenderSpace.World;
 
                 emission.rateOverTime = 180;

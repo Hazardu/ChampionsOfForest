@@ -193,7 +193,7 @@ namespace ChampionsOfForest.Player
         public static void CreatePlayerBlackHole()
         {
             float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus / 7) * ModdedPlayer.instance.SpellAMP;
-            RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position,Vector3.one*0.6F ,Camera.main.transform.forward,Camera.main.transform.rotation, 160);
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position,Camera.main.transform.forward, 160f);
             for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i].transform.root != LocalPlayer.Transform.root)

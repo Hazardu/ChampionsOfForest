@@ -62,9 +62,9 @@ namespace ChampionsOfForest.Effects
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             int a = 0;
-            if (shader && material && BH.Count > 0)
+            if (shader != null && material != null && BH.Count > 0)
             {
-                RenderTexture temporary = RenderTexture.GetTemporary(destination.width, destination.height, destination.depth, destination.format, RenderTextureReadWrite.Default);
+                RenderTexture temporary = RenderTexture.GetTemporary(source.width, source.height, source.depth, source.format, RenderTextureReadWrite.Default);
                 for (int i = 0; i < BH.Count; i++)
                 {
                     var bh = BH[i];
@@ -77,24 +77,22 @@ namespace ChampionsOfForest.Effects
                         {
                             // Object is in front.
 
-
+                            var mat = material;
                             // Find the position of the black hole in screen coordinates
                             Vector2 pos = new Vector2(
                                cam.WorldToScreenPoint(bh.position).x / cam.pixelWidth,
                                 (cam.WorldToScreenPoint(bh.position).y / cam.pixelHeight));
-
+                            
                             // Install all the required parameters for the shader
-                            material.SetVector("_Position", new Vector2(pos.x, pos.y));
-                            material.SetFloat("_Ratio", ratio);
-                            material.SetFloat("_Rad", bh.transform.localScale.x * 2);
-                            material.SetFloat("_Distance", Vector3.Distance(bh.position, transform.position));
-                            // And is applied to the resulting image.
-                            if(a>0)
-                            Graphics.Blit(source, temporary, material);
-
-                                else
-                            Graphics.Blit(source, temporary, material);
+                            mat.SetVector("_Position", new Vector2(pos.x, pos.y));
+                            mat.SetFloat("_Ratio", ratio);
+                            mat.SetFloat("_Rad", bh.transform.localScale.x );
+                            mat.SetFloat("_Distance", Vector3.Distance(bh.position, transform.position));
+                          
                             a++;
+                            Graphics.Blit(source, temporary, mat);
+                            Graphics.Blit(temporary, source);
+
                         }
                     }
                     else
@@ -102,7 +100,14 @@ namespace ChampionsOfForest.Effects
                         BH.RemoveAt(i);
                     }
                 }
+
+               if(a>0)
+                    Graphics.Blit(temporary, destination);
+
+                
+                temporary.Release();
             }
+
             if (a == 0)
             {
                 Graphics.Blit(source, destination);
