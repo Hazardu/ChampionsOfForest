@@ -794,6 +794,7 @@ namespace ChampionsOfForest.Player
         public static void CastBloodInfArr()
         {
             float takenHP = LocalPlayer.Stats.Health * BIA_HealthTakenMult;
+            if (takenHP > LocalPlayer.Stats.Health - 5) takenHP = LocalPlayer.Stats.Health - 5;
             LocalPlayer.Stats.Health -= takenHP;
             LocalPlayer.Stats.HealthTarget -= takenHP;
             BIA_bonusDamage = takenHP * BIA_HealthDmMult;

@@ -563,7 +563,7 @@ namespace ChampionsOfForest
             }
             catch (Exception e)
             {
-                ModAPI.Log.Write("Poisoning player error" + e.ToString());
+                //ModAPI.Log.Write("Poisoning player error" + e.ToString());
             }
 
 
