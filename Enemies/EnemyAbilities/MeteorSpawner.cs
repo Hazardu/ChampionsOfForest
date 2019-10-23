@@ -39,28 +39,28 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     Damage = Random.Range(360, 500);
                     break;
                 case ModSettings.Difficulty.Challenge1:
-                    Damage = 2000;
+                    Damage = 1000;
 
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    Damage = 7000;
+                    Damage = 2500;
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Damage = 15000;
+                    Damage = 4000;
 
                     break;
                 case ModSettings.Difficulty.Challenge4:
-                    Damage = 20000;
+                    Damage = 9000;
                     break;
                 case ModSettings.Difficulty.Challenge5:
-                    Damage = 40000;
+                    Damage = 15000;
                     break;
                 case ModSettings.Difficulty.Challenge6:
-                    Damage = 50000;
+                    Damage = 21000;
                     break;
                 case ModSettings.Difficulty.Hell:
-                    Damage = 70000;
+                    Damage = 30000;
                     break;
             }
 

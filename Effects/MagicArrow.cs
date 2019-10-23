@@ -15,7 +15,7 @@ namespace ChampionsOfForest.Effects
             MagicArrow a = CreateEffect(pos, dir,dmgdebuff,debuffDuration);
             BoxCollider col = a.gameObject.AddComponent<BoxCollider>();
             col.isTrigger = true;
-            col.size = new Vector3(0.4f, 0.4f, 1.2f);
+            col.size = new Vector3(0.7f, 0.7f, 1.4f);
             a.Damage = Damage;
             a.casterID = CasterID;
             a.DebuffDuration = debuffDuration;

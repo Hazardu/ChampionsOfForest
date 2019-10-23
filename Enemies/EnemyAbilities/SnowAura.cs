@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Player;
+﻿using System.Collections;
+using ChampionsOfForest.Player;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
     public class SnowAura : MonoBehaviour
     {
         private readonly float _radius = 20;
-        private readonly float _duration = 25;
+        private readonly float _duration = 23;
+        private AudioSource src;
         public Transform followTarget;
 
         private static Material _particleMaterial;
@@ -21,8 +23,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     mainTexture = Res.ResourceLoader.instance.LoadedTextures[26]
                 };
             }
-
-            Destroy(gameObject, _duration);
 
             //Creating particle effect
             ParticleSystem p = gameObject.AddComponent<ParticleSystem>();
@@ -48,10 +48,37 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             var siz = p.sizeOverLifetime;
             siz.size = new ParticleSystem.MinMaxCurve(2, 0);
             armorReduction = Mathf.Pow((int)ModSettings.difficulty, 5);
+
+            src = gameObject.AddComponent<AudioSource>();
+            src.clip = Res.ResourceLoader.instance.LoadedAudio[1015];
+            src.loop = true;
+            src.volume = 0;
+            src.Play();
+            StartCoroutine(Lifetime());
         }
 
 
         private float armorReduction;
+
+        IEnumerator Lifetime()
+        {
+            float time = 0;
+            while (time < 1)
+            {
+                time += Time.deltaTime;
+                src.volume = time;
+                yield return null;
+            }
+            yield return new WaitForSeconds(_duration);
+            while (time > 0)
+            {
+                time -= Time.deltaTime;
+                src.volume = time;
+                yield return null;
+            }
+            Destroy(gameObject, _duration);
+
+        }
 
 
         private void Update()

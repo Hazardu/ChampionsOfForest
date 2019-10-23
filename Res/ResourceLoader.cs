@@ -166,7 +166,10 @@ namespace ChampionsOfForest.Res
             ///WWW motdWebsite = new WWW("https://textuploader.com/1avou/raw");
             WWW motdWebsite = new WWW("https://docs.google.com/document/export?format=txt&id=1tq7scNmg0_CAzg0TfOhfq737ugaoCw3Idr-0esbKlhE&token=AC4w5Vgy9AG6mRMGIoA_NgkcxmFpPmmVUA%3A1548265532959&ouid=105695979354176851391&includes_info_params=true");
             yield return motdWebsite;
+            if (string.IsNullOrEmpty(motdWebsite.error))
             MOTD = motdWebsite.text;
+            else
+                MOTD = "Couldn't get update notes ;(";
         }
 
         public enum Status { TheSame, Outdated, Newer }
@@ -371,16 +374,18 @@ namespace ChampionsOfForest.Res
                 WWW www = new WWW(Resource.url + resource.fileName);
                 download = www;
                 yield return www;
-                if (www.isDone)
+                if (string.IsNullOrEmpty(www.error) && www.isDone )
                 {
                     File.WriteAllBytes(Resource.path + resource.fileName, www.bytes);
                 }
                 else
                 {
                     ModAPI.Log.Write(resource.fileName + " - Error with downloading a file " + www.error);
+
+                    
                 }
-                download = null;
-                DownloadedFileNumber++;
+                download.Dispose();
+                    DownloadedFileNumber++;
                 yield return null;
             }
             loadingState = LoadingState.Loading;
@@ -906,6 +911,9 @@ namespace ChampionsOfForest.Res
             new Resource(1010, "Warp.wav");
             new Resource(1011, "SpellUnlock.wav");
             new Resource(1012, "Pickup.wav");
+            new Resource(1013, "sacrificeSfx.wav");
+            new Resource(1014, "SnapFreeze.wav");
+            new Resource(1015, "Blizzard.wav");
 
 
 

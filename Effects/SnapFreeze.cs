@@ -153,7 +153,7 @@ namespace ChampionsOfForest.Effects
                 mainTexture = Res.ResourceLoader.GetTexture(129)
             };
             rend.material = mat1;
-
+            
 
         }
 
@@ -167,6 +167,10 @@ namespace ChampionsOfForest.Effects
             light.color = new Color(0, 0.35f, 1);
             light.intensity = 2f;
             StartCoroutine(Fade(light));
+            var src =gameObject.AddComponent<AudioSource>();
+            src.clip = Res.ResourceLoader.instance.LoadedAudio[1014];
+            src.pitch = UnityEngine.Random.Range(0.7f, 1.2f);
+            src.Play();
         }
 
         private IEnumerator Fade(Light light)

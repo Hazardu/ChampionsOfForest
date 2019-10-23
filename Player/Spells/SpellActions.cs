@@ -192,54 +192,54 @@ namespace ChampionsOfForest.Player
         public static float BLACKHOLE_pullforce = 25;
         public static void CreatePlayerBlackHole()
         {
-            float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus / 7) * ModdedPlayer.instance.SpellAMP;
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position,Camera.main.transform.forward, 160f);
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if (hits[i].transform.root != LocalPlayer.Transform.root)
-                {
-                    using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-                    {
-                        using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-                        {
-                            w.Write(3);
-                            w.Write(1);
-                            w.Write(hits[i].point.x);
-                            w.Write(hits[i].point.y);
-                            w.Write(hits[i].point.z);
-                            w.Write(false);
-                            w.Write(damage);
-                            w.Write(BLACKHOLE_duration);
-                            w.Write(BLACKHOLE_radius);
-                            w.Write(BLACKHOLE_pullforce);
-                        w.Close();
-                        }
-                        ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
-                        answerStream.Close();
-                    }
-                    return;
-                }
-            }
-            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 10;
+            float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus / 6) * ModdedPlayer.instance.SpellAMP;
+            //RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position,Camera.main.transform.forward, 160f);
+            //for (int i = 0; i < hits.Length; i++)
+            //{
+            //    if (hits[i].transform.root != LocalPlayer.Transform.root)
+            //    {
             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
                 using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                 {
                     w.Write(3);
                     w.Write(1);
-                    w.Write(pos.x);
-                    w.Write(pos.y);
-                    w.Write(pos.z);
+                    w.Write(LocalPlayer.Transform.root.position.x);
+                    w.Write(LocalPlayer.Transform.root.position.y);
+                    w.Write(LocalPlayer.Transform.root.position.z);
                     w.Write(false);
                     w.Write(damage);
                     w.Write(BLACKHOLE_duration);
                     w.Write(BLACKHOLE_radius);
                     w.Write(BLACKHOLE_pullforce);
-                w.Close();
+                    w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                 answerStream.Close();
             }
+            //        return;
+            //    }
+            //}
+            //Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * 10;
+            //using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            //{
+            //    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+            //    {
+            //        w.Write(3);
+            //        w.Write(1);
+            //        w.Write(pos.x);
+            //        w.Write(pos.y);
+            //        w.Write(pos.z);
+            //        w.Write(false);
+            //        w.Write(damage);
+            //        w.Write(BLACKHOLE_duration);
+            //        w.Write(BLACKHOLE_radius);
+            //        w.Write(BLACKHOLE_pullforce);
+            //    w.Close();
+            //    }
+            //    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+            //    answerStream.Close();
+            //}
         }
         #endregion
 

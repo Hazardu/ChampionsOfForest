@@ -31,10 +31,10 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                         {
                             if (hit.transform.root == LocalPlayer.Transform.root)
                             {
-                                LocalPlayer.Stats.Hit((int)(dmg * 0.5f * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
+                                LocalPlayer.Stats.Hit((int)(dmg * 0.4f * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
                                 BuffDB.AddBuff(10, 67, 0.5f, 15);
                                 BuffDB.AddBuff(2, 66, 0.5f, 15);
-                                BuffDB.AddBuff(3, 68, dmg/10, 5);
+                                BuffDB.AddBuff(3, 68, dmg/13, 5);
                                 hit.transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                             }
                         }

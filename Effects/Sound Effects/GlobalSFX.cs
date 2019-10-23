@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
     {
         public static GlobalSFX instance;
         private AudioSource[] audioSources;
-        readonly int[] ids = new int[] { 1002, 1003, 1007, 1008, 1009, 1010, 1011, 1012 };
+        readonly int[] ids = new int[] { 1002, 1003, 1007, 1008, 1009, 1010, 1011, 1012,1013 };
 
 
         void Start()

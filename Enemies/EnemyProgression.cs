@@ -779,6 +779,7 @@ namespace ChampionsOfForest
                     }
                     if (abilities.Contains(Abilities.Sacrifice))
                     {
+                        Effects.Sound_Effects.GlobalSFX.Play(1013, 2000);
                         foreach (EnemyProgression item in EnemyManager.hostDictionary.Values)
                         {
                             if (!(item != null && item != this && item.gameObject != null && item.gameObject.activeSelf))
