@@ -2193,7 +2193,8 @@ namespace ChampionsOfForest
 
                 if (LocalPlayer.FpCharacter.crouching)
                 {
-
+                    bool scanning = false;
+                            ClinetEnemyProgression cp = null;
                     RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
                     int enemyHit = -1;
                     for (int i = 0; i < hits.Length; i++)
@@ -2210,7 +2211,6 @@ namespace ChampionsOfForest
                         ScanTime += Time.unscaledDeltaTime * 1.75f;
                         if (hits[enemyHit].transform.root == scannedTransform)
                         {
-                            ClinetEnemyProgression cp = null;
                             if (BoltNetwork.isRunning && scannedEntity != null)
                             {
                                 cp = EnemyManager.GetCP(scannedEntity);
@@ -2224,16 +2224,7 @@ namespace ChampionsOfForest
                             if (cp != null && cp.Level > 0)
                             {
 
-                                Rect scanRect = new Rect(0, 0, 60 * rr, 60 * rr)
-                                {
-                                    center = wholeScreen.center
-                                };
-                                ScanRotation += Time.deltaTime * 45;
-                                Matrix4x4 matrix4X4 = GUI.matrix;
-                                GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
-                                GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
-
-                                GUI.matrix = matrix4X4;
+                                scanning = true;
 
                                 GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
                                 {
@@ -2389,6 +2380,30 @@ namespace ChampionsOfForest
                             ScanTime = 0;
 
                         }
+                    }
+
+                    if(scanning)
+                    {
+                        Rect scanRect = new Rect(0, 0, 60 * rr, 60 * rr)
+                        {
+                            center = wholeScreen.center
+                        };
+                        ScanRotation += Time.deltaTime * 45;
+                        Matrix4x4 matrix4X4 = GUI.matrix;
+                        GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
+                        GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+
+                        GUI.matrix = matrix4X4;
+                    }
+                    else
+                    {
+                        Rect scanRect = new Rect(0, 0, 20 * rr, 20 * rr)
+                        {
+                            center = wholeScreen.center
+                        };
+                        //ScanRotation += Time.deltaTime * 45;
+                        GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+
                     }
                 }
                 else
