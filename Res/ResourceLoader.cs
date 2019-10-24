@@ -914,6 +914,7 @@ namespace ChampionsOfForest.Res
             new Resource(1013, "sacrificeSfx.wav");
             new Resource(1014, "SnapFreeze.wav");
             new Resource(1015, "Blizzard.wav");
+            new Resource(1016, "BlackholeDisappearing.wav");
 
 
 
