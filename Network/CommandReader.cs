@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Network
                                     w.Write((int)ModSettings.difficulty);
                                     w.Write(ModSettings.FriendlyFire);
                                     w.Write((int)ModSettings.dropsOnDeath);
-                                w.Close();
+                                    w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
                                 answerStream.Close();
@@ -67,7 +67,7 @@ namespace ChampionsOfForest.Network
                         else if (spellid == 2)
                         {
                             Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-                            HealingDome.CreateHealingDome(pos, r.ReadSingle(), r.ReadSingle(), r.ReadBoolean(),r.ReadBoolean(), r.ReadSingle());
+                            HealingDome.CreateHealingDome(pos, r.ReadSingle(), r.ReadSingle(), r.ReadBoolean(), r.ReadBoolean(), r.ReadSingle());
                         }
                         else if (spellid == 3)
                         {
@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Network
                                 ar = r.ReadInt32();
                             }
 
-                            WarCry.Cast(pos, radius,speed,dmg, GiveDmg, GiveAr, ar);
+                            WarCry.Cast(pos, radius, speed, dmg, GiveDmg, GiveAr, ar);
 
                         }
                         else if (spellid == 6)
@@ -216,7 +216,7 @@ namespace ChampionsOfForest.Network
                                 }
                             }
                         }
-                    
+
                     }
                     else if (cmdIndex == 4) //remove item 
                     {
@@ -268,7 +268,7 @@ namespace ChampionsOfForest.Network
                                             w.Write((int)item);
                                         }
 
-                                    w.Close();
+                                        w.Close();
                                     }
                                     Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
                                     answerStream.Close();
@@ -392,10 +392,10 @@ namespace ChampionsOfForest.Network
                                         w.Write(LocalPlayer.Transform.position.y);
                                         w.Write(LocalPlayer.Transform.position.z);
                                         w.Write(duration);
-                                w.Close();
+                                        w.Close();
                                     }
                                     NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
-                                answerStream.Close();
+                                    answerStream.Close();
                                 }
                             }
                         }
@@ -450,7 +450,7 @@ namespace ChampionsOfForest.Network
                                 w.Write(19);
                                 w.Write(ModReferences.ThisPlayerID);
                                 w.Write(ModdedPlayer.instance.Level);
-                            w.Close();
+                                w.Close();
                             }
                             Network.NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
                             answerStream.Close();
@@ -520,10 +520,10 @@ namespace ChampionsOfForest.Network
                                 {
                                     w.Write(24);
                                     w.Write(ModdedPlayer.instance.MagicFindMultipier);
-                            w.Close();
+                                    w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
-                            answerStream.Close();
+                                answerStream.Close();
                             }
                         }
                     }
@@ -566,7 +566,7 @@ namespace ChampionsOfForest.Network
                                 {
                                     w.Write(4);
                                     w.Write(itemID);
-                                w.Close();
+                                    w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
                                 answerStream.Close();
@@ -652,7 +652,7 @@ namespace ChampionsOfForest.Network
                                         {
                                             w.Write((int)ability);
                                         }
-                                    w.Close();
+                                        w.Close();
                                     }
                                     NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
                                     answerStream.Close();
@@ -724,7 +724,119 @@ namespace ChampionsOfForest.Network
                             }
                         }
                     }
-                r.Close();
+                    else if (cmdIndex == 35)    //clear ping command
+                    {
+                        string player = r.ReadString();
+                        if (MainMenu.Instance.otherPlayerPings.ContainsKey(player))
+                        {
+                            MainMenu.Instance.otherPlayerPings.Remove(player);
+                        }
+                    }
+                    else if (cmdIndex == 36)    //create ping command
+                    {
+                        string PlayerID = r.ReadString();
+                        MarkObject.PingType ptype = (MarkObject.PingType)r.ReadInt32();
+                        switch (ptype)
+                        {
+                            case MarkObject.PingType.Enemy:
+                                ulong EnemyID = r.ReadUInt64();
+                                if (EnemyManager.allboltEntities.ContainsKey(EnemyID))
+                                {
+                                    bool isElite = r.ReadBoolean();
+                                    string name = r.ReadString();
+                                    Transform tr = EnemyManager.allboltEntities[EnemyID].transform;
+                                    if (PlayerID == ModReferences.ThisPlayerID)
+                                    {
+                                        MainMenu.Instance.localPlayerPing = new MarkEnemy(tr, name, isElite);
+                                    }
+                                    else
+                                    {
+                                        if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
+                                        {
+                                            MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkEnemy(tr, name, isElite);
+                                        }
+                                        else
+                                        {
+                                            MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkEnemy(tr, name, isElite));
+                                        }
+                                    }
+
+                                }
+                                break;
+                            case MarkObject.PingType.Location:
+                                float x = r.ReadSingle(), y = r.ReadSingle(), z = r.ReadSingle();
+                                if (PlayerID == ModReferences.ThisPlayerID)
+                                {
+                                    MainMenu.Instance.localPlayerPing = new MarkPostion(new Vector3(x, y, z));
+                                }
+                                else
+                                {
+                                    if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
+                                    {
+                                        MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkPostion(new Vector3(x, y, z));
+                                    }
+                                    else
+                                    {
+                                        MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkPostion(new Vector3(x, y, z)));
+                                    }
+                                }
+
+                                break;
+                            case MarkObject.PingType.Item:
+                                ulong PickupID = r.ReadUInt64();
+                                if (PickUpManager.PickUps.ContainsKey(PickupID))
+                                {
+                                    var pu = PickUpManager.PickUps[PickupID];
+                                    if (PlayerID == ModReferences.ThisPlayerID)
+                                    {
+                                        MainMenu.Instance.localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+                                    }
+                                    else
+                                    {
+                                        if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
+                                        {
+                                            MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+                                        }
+                                        else
+                                        {
+                                            MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity));
+                                        }
+                                    }
+
+                                }
+                                break;
+                        }
+                    
+                    }
+                    else if (cmdIndex == 37)    //create ping for enemy 
+                    {
+                        if (GameSetup.IsMpServer)
+                        {
+                            string PlayerID = r.ReadString();
+                            ulong EnemyID = r.ReadUInt64();
+                            if (EnemyManager.hostDictionary.ContainsKey(EnemyID))
+                            {
+                                var enemy = EnemyManager.hostDictionary[EnemyID];
+                                using (MemoryStream answerStream = new MemoryStream())
+                                {
+                                    using (BinaryWriter w = new BinaryWriter(answerStream))
+                                    {
+                                        w.Write(36);
+                                        w.Write(PlayerID);
+                                        w.Write(0);
+                                        w.Write(EnemyID);
+                                        w.Write(enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+                                        w.Write(enemy.EnemyName);
+                                        w.Close();
+                                    }
+                                    NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+                                    answerStream.Close();
+                                }
+                            }
+
+                        }
+                    }
+                    r.Close();
                 }
                 stream.Close();
             }

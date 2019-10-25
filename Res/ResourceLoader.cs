@@ -894,6 +894,10 @@ namespace ChampionsOfForest.Res
             new Resource(168, "BowNormals.png");
             new Resource(169, "FireBowTex.png");
             new Resource(170, "ItemFireBow.png");
+            new Resource(171, "EnemyPingElite.png");
+            new Resource(172, "EnemyPingNormal.png");
+            new Resource(173, "LocationPing.png");
+            new Resource(174, "PickupPing.png");
 
 
 
