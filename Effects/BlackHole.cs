@@ -223,6 +223,23 @@ namespace ChampionsOfForest
             t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime);
         }
 
+
+        private static AudioSource blackholeSound;
+        void OnDestroy()
+        {
+            if (blackholeSound == null)
+            {
+                GameObject go = new GameObject();
+
+                blackholeSound = go.AddComponent<AudioSource>();
+
+                blackholeSound.clip = Res.ResourceLoader.instance.LoadedAudio[1016];
+                blackholeSound.maxDistance *= 2;
+                blackholeSound.loop = false;
+            }
+            blackholeSound.Play();
+        
+        }
     }
 }
 
