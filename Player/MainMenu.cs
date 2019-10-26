@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Player;
+﻿using ChampionsOfForest.Network;
+using ChampionsOfForest.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -89,6 +90,18 @@ namespace ChampionsOfForest
 
         private readonly float GuideWidthDecrease = 150;
         private readonly float GuideMargin = 30;
+        private Transform _mainCam;
+        private Transform Cam
+        {
+            get
+            {
+                if (_mainCam == null)
+                {
+                    _mainCam = Camera.main.transform;
+                }
+                return _mainCam;
+            }
+        }
 
         //Textures
         private Texture2D _black;
@@ -231,6 +244,8 @@ namespace ChampionsOfForest
                 //host difficulty raise/lower cooldown
                 if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer) difficultyCooldown = 5 * 60; //once every 5 minutes 
 
+                if (GameSetup.IsMultiplayer) otherPlayerPings = new Dictionary<string, MarkObject>();
+
                 StartCoroutine(ProgressionRefresh());
             }
             catch (Exception ex)
@@ -300,7 +315,7 @@ namespace ChampionsOfForest
                         if (consumedsomething) consumedsomething = false;
                     }
 
-                    if(SelectedItem != -1 && Inventory.Instance.ItemList[SelectedItem] != null)
+                    if (SelectedItem != -1 && Inventory.Instance.ItemList[SelectedItem] != null)
                     {
                         var item = Inventory.Instance.ItemList[SelectedItem];
                         if (UnityEngine.Input.GetMouseButtonDown(0))
@@ -482,6 +497,10 @@ namespace ChampionsOfForest
             {
                 MenuKeyPressAction();
             }
+
+
+            PingMenu();
+
         }
 
         //Draws everything
@@ -1510,7 +1529,7 @@ namespace ChampionsOfForest
             }
 
             //move item
-       
+
         }
 
 
@@ -1716,7 +1735,7 @@ namespace ChampionsOfForest
                                         DraggedItemIndex = -1;
                                         isDragging = false;
                                     }
-                                    else if(DraggedItemIndex != index)
+                                    else if (DraggedItemIndex != index)
                                     {
                                         //stack items
                                         int i = DraggedItem.Amount + Inventory.Instance.ItemList[index].Amount - DraggedItem.StackSize;
@@ -1753,7 +1772,7 @@ namespace ChampionsOfForest
                     {
                         if (r.Contains(mousepos))
                         {
-                            if (UnityEngine.Input.GetMouseButtonDown(0) && !UnityEngine.Input.GetKey(KeyCode.LeftShift)&& !UnityEngine.Input.GetKey(KeyCode.LeftControl))
+                            if (UnityEngine.Input.GetMouseButtonDown(0) && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
                             {
                                 Effects.Sound_Effects.GlobalSFX.Play(0);
 
@@ -1768,7 +1787,7 @@ namespace ChampionsOfForest
 
                                 if (!consumedsomething)
                                 {
-                                        consumedsomething = true;
+                                    consumedsomething = true;
                                     if (Inventory.Instance.ItemList[index].OnConsume())
                                     {
                                         Inventory.Instance.ItemList[index].Amount--;
@@ -1957,7 +1976,7 @@ namespace ChampionsOfForest
 
 
             Rect TitleR = new Rect(r.x, r.y - 35 * rr, r.width, 35 * rr);
-            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(20 * rr), wordWrap = false, alignment = TextAnchor.MiddleCenter,clipping = TextClipping.Overflow });
+            GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(20 * rr), wordWrap = false, alignment = TextAnchor.MiddleCenter, clipping = TextClipping.Overflow });
             DrawInvSlot(r, index);
 
         }
@@ -1966,488 +1985,836 @@ namespace ChampionsOfForest
         #region HUDMethods
         private void DrawHUD()
         {
-            try
+
+
+
+            if (HideHud)
+            {
+                return;
+            }
+            GUI.color = new Color(1, 0.5f, 0.7f, 0.5f);
+            GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
+            for (int i = 0; i < hitMarkers.Count; i++)
+            {
+                hitMarkers[i].lifetime -= Time.unscaledDeltaTime * 2;
+                if (hitMarkers[i].lifetime < 0 || i - hitMarkers.Count + 10 < 0)
+                {
+                    hitMarkers[i].Delete(i);
+                }
+                else
+                {
+                    if (hitMarkers[i].Player)
+                    {
+                        GUI.color = new Color(0.25f, 1, 0.25f, 0.5f);
+
+                    }
+                    else
+                    {
+                        GUI.color = new Color(1, 0.25f, 0.55f, 0.5f);
+
+                    }
+
+
+
+
+                    float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
+                    Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
+                    pos.y = Screen.height - pos.y;
+                    float size = Mathf.Clamp(800 / distance, 10, 80);
+                    size *= rr;
+                    Rect r = new Rect(0, 0, 400, size)
+                    {
+                        center = pos
+                    };
+
+                    GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
+                }
+
+            }
+            GUI.color = Color.white;
+
+
+            float BuffOffsetX = 0;
+            float BuffOffsetY = 1080 - BuffSize;
+            const float MaxX = 540;
+
+            if (ModdedPlayer.instance.Rooted)
+            {
+                TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
+                DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(162), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.RootDuration);
+                BuffOffsetX += BuffSize;
+                if (BuffOffsetX > MaxX)
+                {
+                    BuffOffsetX = 0;
+                    BuffOffsetY -= BuffSize;
+                }
+            }
+            if (ModdedPlayer.instance.Stunned)
+            {
+                TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.StunDuration);
+                DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(163), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.StunDuration);
+                BuffOffsetX += BuffSize;
+                if (BuffOffsetX > MaxX)
+                {
+                    BuffOffsetX = 0;
+                    BuffOffsetY -= BuffSize;
+                }
+            }
+            foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
+            {
+                TimeSpan span = TimeSpan.FromSeconds(buff.Value.duration);
+                string valueText = "";
+                if (buff.Value.DisplayAmount)
+                {
+                    if (buff.Value.DisplayAsPercent)
+                    {
+                        valueText += buff.Value.amount > 0 ? ((buff.Value.amount - 1) * 100).ToString("F2") + "%" : "-" + ((buff.Value.amount - 1) * 100).ToString("F2") + "%";
+                    }
+                    else
+                    {
+                        valueText += "" + buff.Value.amount.ToString("F2");
+                    }
+                }
+                if (valueText.EndsWith(".00") || valueText.EndsWith(",00") || valueText.EndsWith(".00%") || valueText.EndsWith(",00%"))
+                {
+                    valueText = valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
+                }
+                DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
+                BuffOffsetX += BuffSize;
+                if (BuffOffsetX > MaxX)
+                {
+                    BuffOffsetX = 0;
+                    BuffOffsetY -= BuffSize;
+                }
+            }
+
+            GUI.color = Color.blue;
+            GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy).ToString("N0"), HUDStatStyle);
+            GUI.color = new Color(0.8f, 0.0f, 0.0f);
+
+            GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth).ToString("N0"), HUDStatStyle);
+            if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
             {
 
+                GUI.color = new Color(1f, 0.15f, 0.8f);
+                GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
 
-                if (HideHud)
+            }
+            GUI.color = Color.white;
+
+
+            float SquareSize = 45 * rr;
+            for (int i = 0; i < SpellCaster.SpellCount; i++)
+            {
+                Rect r = new Rect(
+                    Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
+                    Screen.height - SquareSize,
+                    SquareSize,
+                    SquareSize
+                    );
+
+
+                GUI.DrawTexture(r, _SpellBG);
+                if (SpellCaster.instance.infos[i].spell == null || SpellCaster.instance.infos[i].spell.icon == null)
                 {
-                    return;
-                }
-                GUI.color = new Color(1, 0.5f, 0.7f, 0.5f);
-                GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
-                for (int i = 0; i < hitMarkers.Count; i++)
-                {
-                    hitMarkers[i].lifetime -= Time.unscaledDeltaTime * 2;
-                    if (hitMarkers[i].lifetime < 0 || i - hitMarkers.Count + 10 < 0)
-                    {
-                        hitMarkers[i].Delete(i);
-                    }
-                    else
-                    {
-                        if (hitMarkers[i].Player)
-                        {
-                            GUI.color = new Color(0.25f, 1, 0.25f, 0.5f);
 
-                        }
-                        else
-                        {
-                            GUI.color = new Color(1, 0.25f, 0.55f, 0.5f);
-
-                        }
-
-
-
-
-                        float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
-                        Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
-                        pos.y = Screen.height - pos.y;
-                        float size = Mathf.Clamp(800 / distance, 10, 80);
-                        size *= rr;
-                        Rect r = new Rect(0, 0, 400, size)
-                        {
-                            center = pos
-                        };
-
-                        GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
-                    }
 
                 }
-                GUI.color = Color.white;
-
-
-                float BuffOffsetX = 0;
-                float BuffOffsetY = 1080 - BuffSize;
-                const float MaxX = 540;
-
-                if (ModdedPlayer.instance.Rooted)
+                else
                 {
-                    TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
-                    DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(162), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.RootDuration);
-                    BuffOffsetX += BuffSize;
-                    if (BuffOffsetX > MaxX)
-                    {
-                        BuffOffsetX = 0;
-                        BuffOffsetY -= BuffSize;
-                    }
-                }
-                if (ModdedPlayer.instance.Stunned)
-                {
-                    TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.StunDuration);
-                    DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(163), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.StunDuration);
-                    BuffOffsetX += BuffSize;
-                    if (BuffOffsetX > MaxX)
-                    {
-                        BuffOffsetX = 0;
-                        BuffOffsetY -= BuffSize;
-                    }
-                }
-                foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
-                {
-                    TimeSpan span = TimeSpan.FromSeconds(buff.Value.duration);
-                    string valueText = "";
-                    if (buff.Value.DisplayAmount)
-                    {
-                        if (buff.Value.DisplayAsPercent)
-                        {
-                            valueText += buff.Value.amount > 0 ? ((buff.Value.amount - 1) * 100).ToString("F2") + "%" : "-" + ((buff.Value.amount - 1) * 100).ToString("F2") + "%";
-                        }
-                        else
-                        {
-                            valueText += "" + buff.Value.amount.ToString("F2");
-                        }
-                    }
-                    if (valueText.EndsWith(".00") || valueText.EndsWith(",00") || valueText.EndsWith(".00%") || valueText.EndsWith(",00%"))
-                    {
-                        valueText = valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
-                    }
-                    DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
-                    BuffOffsetX += BuffSize;
-                    if (BuffOffsetX > MaxX)
-                    {
-                        BuffOffsetX = 0;
-                        BuffOffsetY -= BuffSize;
-                    }
-                }
-
-                GUI.color = Color.blue;
-                GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy).ToString("N0"), HUDStatStyle);
-                GUI.color = new Color(0.8f, 0.0f, 0.0f);
-
-                GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth).ToString("N0"), HUDStatStyle);
-                if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
-                {
-
-                    GUI.color = new Color(1f, 0.15f, 0.8f);
-                    GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
-
-                }
-                GUI.color = Color.white;
-
-
-                float SquareSize = 45 * rr;
-                for (int i = 0; i < SpellCaster.SpellCount; i++)
-                {
-                    Rect r = new Rect(
-                        Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f) + i * SquareSize,
-                        Screen.height - SquareSize,
-                        SquareSize,
-                        SquareSize
-                        );
-
-
-                    GUI.DrawTexture(r, _SpellBG);
-                    if (SpellCaster.instance.infos[i].spell == null || SpellCaster.instance.infos[i].spell.icon == null)
-                    {
-
-
-                    }
-                    else
-                    {
-                        GUI.color = new Color(1, 1, 1, 0.4f);
-                        GUI.color = new Color(1, 1, 1, 1f);
-                        if (ModdedPlayer.instance.Silenced)
-                        {
-                            GUI.color = Color.black;
-                        }
-                        else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && SpellCaster.instance.infos[i].spell.CanCast))
-                        {
-                            GUI.color = Color.blue;
-
-                        }
-                        GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
-
-                        GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
-                        GUI.color = Color.white;
-                        if (!SpellCaster.instance.infos[i].spell.Bought)
-                        {
-                            SpellCaster.instance.SetSpell(i);
-                        }
-                        else if (!SpellCaster.instance.Ready[i])
-                        {
-                            Rect fillr = new Rect(r);
-                            float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.BaseCooldown;
-                            fillr.height *= f;
-                            fillr.y += SquareSize * (1 - f);
-                            GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
-
-                            TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown);
-                            string formattedTime = span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString();
-                            GUI.Label(r, formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
-                        }
-                    }
-
-                    GUI.DrawTexture(r, _SpellFrame);
-
-                }
-                float width = SpellCaster.SpellCount * SquareSize;
-                float height = width * 0.1f;
-                float combatHeight = width * 33 / 1500;
-                //Defining rectangles to later use to draw HUD elements
-                Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
-                Rect XPbarFill = new Rect(XPbar);
-                XPbarFill.width *= ProgressBarAmount;
-                Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
-                Rect CombatBarCount = new Rect(XPbar.x, 30 * rr, SpellCaster.SpellCount * SquareSize, combatHeight);
-
-                float cornerDimension = Screen.height - XPbar.y;
-                Rect LeftCorner = new Rect(XPbar.x - cornerDimension, XPbar.y, cornerDimension, cornerDimension);
-                Rect RightCorner = new Rect(XPbar.xMax, XPbar.y, cornerDimension, cornerDimension);
-                Rect CombatBarText = new Rect(CombatBarCount)
-                {
-                    y = CombatBar.yMax,
-                    height = 100 * rr
-                };
-                Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
-                GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleCenter };
-                GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleToFit, true, 1500 / 150);
-                GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
-                GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleToFit, true, 1500 / 150);
-                GUI.DrawTexture(LeftCorner, Res.ResourceLoader.GetTexture(106));
-                matrixBackup = GUI.matrix;
-                GUIUtility.ScaleAroundPivot(new Vector2(-1, 1), RightCorner.center);
-                GUI.DrawTexture(RightCorner, Res.ResourceLoader.GetTexture(106));
-                GUI.matrix = matrixBackup;
-
-                if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
-                {
-                    GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
-                    GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
-                    if (ModdedPlayer.instance.MassacreText != "")
-                    {
-                        GUI.DrawTexture(CombatBarText, Res.ResourceLoader.GetTexture(142));
-                    }
-
-                    GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
-                    GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime) + 0.2f);
-                    string content = ModdedPlayer.instance.MassacreText;
-                    if (ModdedPlayer.instance.MassacreKills > 5)
-                    {
-                        content += "\t" + ModdedPlayer.instance.MassacreKills + " kills";
-                    }
-
-
-                    GUI.Label(CombatBarText, content, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(45 * rr), alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, richText = true, wordWrap = false });
+                    GUI.color = new Color(1, 1, 1, 0.4f);
                     GUI.color = new Color(1, 1, 1, 1f);
+                    if (ModdedPlayer.instance.Silenced)
+                    {
+                        GUI.color = Color.black;
+                    }
+                    else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && SpellCaster.instance.infos[i].spell.CanCast))
+                    {
+                        GUI.color = Color.blue;
+
+                    }
+                    GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
+
+                    GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+                    GUI.color = Color.white;
+                    if (!SpellCaster.instance.infos[i].spell.Bought)
+                    {
+                        SpellCaster.instance.SetSpell(i);
+                    }
+                    else if (!SpellCaster.instance.Ready[i])
+                    {
+                        Rect fillr = new Rect(r);
+                        float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.BaseCooldown;
+                        fillr.height *= f;
+                        fillr.y += SquareSize * (1 - f);
+                        GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
+
+                        TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown);
+                        string formattedTime = span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString();
+                        GUI.Label(r, formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+                    }
                 }
 
-                if (LocalPlayer.FpCharacter.crouching)
+                GUI.DrawTexture(r, _SpellFrame);
+
+            }
+            float width = SpellCaster.SpellCount * SquareSize;
+            float height = width * 0.1f;
+            float combatHeight = width * 33 / 1500;
+            //Defining rectangles to later use to draw HUD elements
+            Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
+            Rect XPbarFill = new Rect(XPbar);
+            XPbarFill.width *= ProgressBarAmount;
+            Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
+            Rect CombatBarCount = new Rect(XPbar.x, 30 * rr, SpellCaster.SpellCount * SquareSize, combatHeight);
+
+            float cornerDimension = Screen.height - XPbar.y;
+            Rect LeftCorner = new Rect(XPbar.x - cornerDimension, XPbar.y, cornerDimension, cornerDimension);
+            Rect RightCorner = new Rect(XPbar.xMax, XPbar.y, cornerDimension, cornerDimension);
+            Rect CombatBarText = new Rect(CombatBarCount)
+            {
+                y = CombatBar.yMax,
+                height = 100 * rr
+            };
+            Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
+            GUIStyle CombatCountStyle = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(19 * rr), alignment = TextAnchor.MiddleCenter };
+            GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleToFit, true, 1500 / 150);
+            GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
+            GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleToFit, true, 1500 / 150);
+            GUI.DrawTexture(LeftCorner, Res.ResourceLoader.GetTexture(106));
+            matrixBackup = GUI.matrix;
+            GUIUtility.ScaleAroundPivot(new Vector2(-1, 1), RightCorner.center);
+            GUI.DrawTexture(RightCorner, Res.ResourceLoader.GetTexture(106));
+            GUI.matrix = matrixBackup;
+
+            if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
+            {
+                GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
+                GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
+                if (ModdedPlayer.instance.MassacreText != "")
                 {
-                    bool scanning = false;
-                            ClinetEnemyProgression cp = null;
-                    RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
-                    int enemyHit = -1;
-                    for (int i = 0; i < hits.Length; i++)
+                    GUI.DrawTexture(CombatBarText, Res.ResourceLoader.GetTexture(142));
+                }
+
+                GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
+                GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime) + 0.2f);
+                string content = ModdedPlayer.instance.MassacreText;
+                if (ModdedPlayer.instance.MassacreKills > 5)
+                {
+                    content += "\t" + ModdedPlayer.instance.MassacreKills + " kills";
+                }
+
+
+                GUI.Label(CombatBarText, content, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.FloorToInt(45 * rr), alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, richText = true, wordWrap = false });
+                GUI.color = new Color(1, 1, 1, 1f);
+            }
+
+            if (LocalPlayer.FpCharacter.crouching)
+            {
+                bool scanning = false;
+                ClinetEnemyProgression cp = null;
+                RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
+                int enemyHit = -1;
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    if (hits[i].transform.CompareTag("enemyCollide"))
                     {
-                        if (hits[i].transform.CompareTag("enemyCollide"))
-                        {
-                            enemyHit = i;
-                            break;
-                        }
+                        enemyHit = i;
+                        break;
                     }
-                    if (enemyHit != -1)
+                }
+                if (enemyHit != -1)
+                {
+
+                    ScanTime += Time.unscaledDeltaTime * 1.75f;
+                    if (hits[enemyHit].transform.root == scannedTransform)
                     {
-
-                        ScanTime += Time.unscaledDeltaTime * 1.75f;
-                        if (hits[enemyHit].transform.root == scannedTransform)
+                        if (BoltNetwork.isRunning && scannedEntity != null)
                         {
-                            if (BoltNetwork.isRunning && scannedEntity != null)
+                            cp = EnemyManager.GetCP(scannedEntity);
+
+                        }
+                        else
+                        {
+                            cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
+
+                        }
+                        if (cp != null && cp.Level > 0)
+                        {
+
+                            scanning = true;
+
+                            GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
                             {
-                                cp = EnemyManager.GetCP(scannedEntity);
+                                font = MainFont,
+                                fontSize = Mathf.RoundToInt(28 * rr),
+                                alignment = TextAnchor.MiddleRight,
+                                wordWrap = false,
+                                clipping = TextClipping.Overflow,
+                                richText = true,
 
-                            }
-                            else
+                            };
+
+                            Vector2 origin = wholeScreen.center;
+                            origin.y -= 400 * rr;
+                            origin.x += 370 * rr;
+                            float y = 0;
+                            DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * rr, 66 * rr), infoStyle);
+                            y += rr * 60;
+                            DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                            y += rr * 60;
+                            if (ScanTime > 1.5f)
                             {
-                                cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
-
-                            }
-                            if (cp != null && cp.Level > 0)
-                            {
-
-                                scanning = true;
-
-                                GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
-                                {
-                                    font = MainFont,
-                                    fontSize = Mathf.RoundToInt(28 * rr),
-                                    alignment = TextAnchor.MiddleRight,
-                                    wordWrap = false,
-                                    clipping = TextClipping.Overflow,
-                                    richText = true,
-
-                                };
-
-                                Vector2 origin = wholeScreen.center;
-                                origin.y -= 400 * rr;
-                                origin.x += 370 * rr;
-                                float y = 0;
-                                DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * rr, 66 * rr), infoStyle);
+                                DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                 y += rr * 60;
-                                DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                y += rr * 60;
-                                if (ScanTime > 1.5f)
+                            }
+                            if (ScanTime > 3f)
+                            {
+                                DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                y += rr * 40;
+                                if (cp.ArmorReduction > 0)
                                 {
-                                    DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                    y += rr * 60;
-                                }
-                                if (ScanTime > 3f)
-                                {
-                                    DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                    DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
                                     y += rr * 40;
-                                    if (cp.ArmorReduction > 0)
-                                    {
-                                        DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                        y += rr * 40;
-                                    }
-                                    y += rr * 20;
                                 }
-                                if (ScanTime > 4.5f)
+                                y += rr * 20;
+                            }
+                            if (ScanTime > 4.5f)
+                            {
+                                DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                y += rr * 85;
+                            }
+                            if (ScanTime > 6f)
+                            {
+                                if (cp.Affixes.Length > 0)
                                 {
-                                    DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                    y += rr * 85;
-                                }
-                                if (ScanTime > 6f)
-                                {
-                                    if (cp.Affixes.Length > 0)
-                                    {
 
-                                        DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * rr), alignment = TextAnchor.MiddleRight });
+                                    DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * rr), alignment = TextAnchor.MiddleRight });
+                                    y += rr * 50;
+
+                                    Array arr = Enum.GetValues(typeof(EnemyProgression.Abilities));
+                                    foreach (int i in cp.Affixes)
+                                    {
+                                        EnemyProgression.Abilities ability = (EnemyProgression.Abilities)arr.GetValue(i);
+                                        switch (ability)
+                                        {
+                                            case EnemyProgression.Abilities.Poisonous:
+                                                DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Steadfast:
+                                                DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.BossSteadfast:
+                                                DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.EliteSteadfast:
+                                                DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            //case EnemyProgression.Abilities.Molten:
+                                            //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                            //    break;
+                                            case EnemyProgression.Abilities.FreezingAura:
+                                                DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.FireAura:
+                                                DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Rooting:
+                                                DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.BlackHole:
+                                                DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Trapper:
+                                                DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Juggernaut:
+                                                DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Huge:
+                                                DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Tiny:
+                                                DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.ExtraDamage:
+                                                DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.ExtraHealth:
+                                                DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Basher:
+                                                DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Blink:
+                                                DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            //case EnemyProgression.Abilities.Thunder:
+                                            //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                            //    break;
+                                            case EnemyProgression.Abilities.RainEmpowerement:
+                                                DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Shielding:
+                                                DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Meteor:
+                                                DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Flare:
+                                                DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.DoubleLife:
+                                                DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            case EnemyProgression.Abilities.Laser:
+                                                DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                            //case EnemyProgression.Abilities.Avenger:
+                                            //    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                            //    break;
+                                            //case EnemyProgression.Abilities.Sacrifice:
+                                            //    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                            //    break;
+                                            default:
+                                                DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+                                                break;
+                                        }
                                         y += rr * 50;
 
-                                        Array arr = Enum.GetValues(typeof(EnemyProgression.Abilities));
-                                        foreach (int i in cp.Affixes)
-                                        {
-                                            EnemyProgression.Abilities ability = (EnemyProgression.Abilities)arr.GetValue(i);
-                                            switch (ability)
-                                            {
-                                                case EnemyProgression.Abilities.Poisonous:
-                                                    DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Steadfast:
-                                                    DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.BossSteadfast:
-                                                    DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.EliteSteadfast:
-                                                    DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                //case EnemyProgression.Abilities.Molten:
-                                                //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                //    break;
-                                                case EnemyProgression.Abilities.FreezingAura:
-                                                    DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.FireAura:
-                                                    DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Rooting:
-                                                    DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.BlackHole:
-                                                    DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Trapper:
-                                                    DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Juggernaut:
-                                                    DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Huge:
-                                                    DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Tiny:
-                                                    DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.ExtraDamage:
-                                                    DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.ExtraHealth:
-                                                    DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Basher:
-                                                    DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Blink:
-                                                    DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                //case EnemyProgression.Abilities.Thunder:
-                                                //    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                //    break;
-                                                case EnemyProgression.Abilities.RainEmpowerement:
-                                                    DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Shielding:
-                                                    DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Meteor:
-                                                    DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Flare:
-                                                    DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.DoubleLife:
-                                                    DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                case EnemyProgression.Abilities.Laser:
-                                                    DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                                //case EnemyProgression.Abilities.Avenger:
-                                                //    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                //    break;
-                                                //case EnemyProgression.Abilities.Sacrifice:
-                                                //    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                //    break;
-                                                default:
-                                                    DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-                                                    break;
-                                            }
-                                            y += rr * 50;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        scannedTransform = hits[enemyHit].transform.root;
+                        scannedEntity = scannedTransform.GetComponentInChildren<BoltEntity>();
+                        if (scannedEntity == null)
+                        {
+                            scannedEntity = scannedTransform.GetComponent<BoltEntity>();
+                        }
+                        ScanTime = 0;
 
+                    }
+                }
+
+                if (scanning)
+                {
+                    Rect scanRect = new Rect(0, 0, 60 * rr, 60 * rr)
+                    {
+                        center = wholeScreen.center
+                    };
+                    ScanRotation += Time.deltaTime * 45;
+                    Matrix4x4 matrix4X4 = GUI.matrix;
+                    GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
+                    GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+
+                    GUI.matrix = matrix4X4;
+                }
+                else
+                {
+                    Rect scanRect = new Rect(0, 0, 20 * rr, 20 * rr)
+                    {
+                        center = wholeScreen.center
+                    };
+                    //ScanRotation += Time.deltaTime * 45;
+                    GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+
+                }
+            }
+            else
+            {
+                ScanTime = 0;
+
+            }
+
+
+
+            DrawPings();
+
+
+            if (LevelUpDuration > 0)
+            {
+                float y = Mathf.Cos(Mathf.PI * (LevelUpDuration / (2 * lvlUpDuration))) * 50 * rr;
+                //Level up icon
+                Rect r = new Rect(710 * rr, y, 500 * rr, 300 * rr);
+
+                float opacity = 1;
+                if (LevelUpDuration < lvlUpFadeDuration)
+                {
+                    opacity = Mathf.Sin(LevelUpDuration * Mathf.PI / (2 * lvlUpFadeDuration));
+                }
+                else if (LevelUpDuration > lvlUpDuration - lvlUpFadeDuration)
+                {
+                    opacity = Mathf.Sin((lvlUpDuration - LevelUpDuration) * Mathf.PI / (2 * lvlUpFadeDuration));
+                }
+                GUI.color = new Color(1, 1, 1, opacity);
+                GUI.DrawTexture(r, ResourceLoader.GetTexture(164));
+                GUI.Label(r, LevelUpText, new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(46 * rr), });
+                GUI.color = new Color(1, 1, 1, 1);
+
+            }
+        }
+
+        bool pingBlocked;
+        void UnlockPing()
+        {
+            pingBlocked = false;
+        }
+        public void LockPing()
+        {
+            pingBlocked = true;
+            Invoke("UnlockPing", 0.5f);
+        }
+
+        //called at update, shows or hides ping menu, and casts ping commands
+        private void PingMenu()
+        {
+            string toRem = null;
+            foreach (var item in otherPlayerPings)
+            {
+                if (item.Value.pingType == MarkObject.PingType.Enemy)
+                {
+                    if (((MarkEnemy)item.Value).Outdated())
+                    {
+                        //remove ping
+                        toRem = item.Key;
+                        break;
+                    }
+
+                }
+                else if (item.Value.pingType == MarkObject.PingType.Location)
+                {
+                    if (((MarkPostion)item.Value).Outdated())
+                    {
+                        //remove ping
+                        toRem = item.Key;
+                        break;
+                    }
+                }
+                else if (item.Value.pingType == MarkObject.PingType.Item)
+                {
+                    if (((MarkPickup)item.Value).Outdated())
+                    {
+                        //remove ping
+                        toRem = item.Key;
+                        break;
+                    }
+                }
+            }
+            if (toRem != null)
+                otherPlayerPings.Remove(toRem);
+
+            if (localPlayerPing != null)
+            {
+                if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
+                {
+                    if (((MarkEnemy)localPlayerPing).Outdated())
+                    {
+                        localPlayerPing = null;
+
+                    }
+
+                }
+                else if (localPlayerPing.pingType == MarkObject.PingType.Location)
+                {
+                    if (((MarkPostion)localPlayerPing).Outdated())
+                    {
+                        localPlayerPing = null;
+
+                    }
+                }
+                else if (localPlayerPing.pingType == MarkObject.PingType.Item)
+                {
+                    if (((MarkPickup)localPlayerPing).Outdated())
+                    {
+                        localPlayerPing = null;
+
+                    }
+                }
+            }
+
+            drawPingPreview = false;
+            if (!pingBlocked && UnityEngine.Input.GetMouseButton(2))
+            {
+                ModAPI.Console.Write("casting ray");
+                if (localPlayerPing != null)
+                {
+                    SendClearMyPing();
+                    localPlayerPing = null;
+                    LockPing();
+                    return;
+                }
+
+                //is holding middle mouse btn
+                if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, 100))
+                {
+                    ModAPI.Console.Write("ray hit");
+
+                    drawPingPreview = true;
+                    previewPingPos = hit.point;
+                    previewPingDist = hit.distance;
+                    if (hit.transform.CompareTag("enemyCollide"))
+                    {
+                        drawPingPreview = true;
+                        //indicate pinging enemyCollide
+                        previewPingType = MarkObject.PingType.Enemy;
+                        if (UnityEngine.Input.GetMouseButtonDown(1))
+                        {
+                            LockPing();
+                            if (GameSetup.IsMultiplayer)
+                            {
+                                var entity = hit.transform.GetComponentInParent<BoltEntity>();
+                                if (entity != null)
+                                {
+                                    if (GameSetup.IsMpClient)
+                                    {
+
+                                        using (MemoryStream answerStream = new MemoryStream())
+                                        {
+                                            using (BinaryWriter w = new BinaryWriter(answerStream))
+                                            {
+                                                w.Write(37);
+                                                w.Write(ModReferences.ThisPlayerID);
+                                                w.Write(entity.networkId.PackedValue);
+                                                w.Close();
+                                            }
+                                            NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                            answerStream.Close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (EnemyManager.hostDictionary.ContainsKey(entity.networkId.PackedValue))
+                                        {
+                                            var enemy = EnemyManager.hostDictionary[entity.networkId.PackedValue];
+                                            using (MemoryStream answerStream = new MemoryStream())
+                                            {
+                                                using (BinaryWriter w = new BinaryWriter(answerStream))
+                                                {
+                                                    w.Write(36);
+                                                    w.Write(ModReferences.ThisPlayerID);
+                                                    w.Write(0);
+                                                    w.Write(entity.networkId.PackedValue);
+                                                    w.Write(enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+                                                    w.Write(enemy.EnemyName);
+                                                    w.Close();
+                                                }
+                                                NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+                                                answerStream.Close();
+                                            }
+                                            localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
                                         }
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            scannedTransform = hits[enemyHit].transform.root;
-                            scannedEntity = scannedTransform.GetComponentInChildren<BoltEntity>();
-                            if (scannedEntity == null)
+                            else
                             {
-                                scannedEntity = scannedTransform.GetComponent<BoltEntity>();
+                                var enemy = hit.transform.GetComponentInParent<EnemyProgression>();
+                                if (enemy != null)
+                                    localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+
                             }
-                            ScanTime = 0;
-
                         }
-                    }
 
-                    if(scanning)
-                    {
-                        Rect scanRect = new Rect(0, 0, 60 * rr, 60 * rr)
-                        {
-                            center = wholeScreen.center
-                        };
-                        ScanRotation += Time.deltaTime * 45;
-                        Matrix4x4 matrix4X4 = GUI.matrix;
-                        GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
-                        GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 
-                        GUI.matrix = matrix4X4;
                     }
                     else
                     {
-                        Rect scanRect = new Rect(0, 0, 20 * rr, 20 * rr)
+                        var pu = hit.transform.GetComponent<ItemPickUp>();
+                        if (pu != null)
                         {
-                            center = wholeScreen.center
-                        };
-                        //ScanRotation += Time.deltaTime * 45;
-                        GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+                            //pickup marker
+                            previewPingType = MarkObject.PingType.Item;
+                            if (UnityEngine.Input.GetMouseButtonDown(1))
+                            {
+                                LockPing();
+                                if (GameSetup.IsMultiplayer)
+                                {
 
+                                    using (MemoryStream answerStream = new MemoryStream())
+                                    {
+                                        using (BinaryWriter w = new BinaryWriter(answerStream))
+                                        {
+                                            w.Write(36);
+                                            w.Write(ModReferences.ThisPlayerID);
+                                            w.Write(2);
+                                            w.Write(pu.ID);
+                                            w.Close();
+                                        }
+                                        NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+                                        answerStream.Close();
+                                    }
+                                    localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+
+                                }
+                                else
+                                {
+                                    localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            //location marker
+                            previewPingType = MarkObject.PingType.Location;
+                            if (UnityEngine.Input.GetMouseButtonDown(1))
+                            {
+                                LockPing();
+                                if (GameSetup.IsMultiplayer)
+                                {
+
+                                    using (MemoryStream answerStream = new MemoryStream())
+                                    {
+                                        using (BinaryWriter w = new BinaryWriter(answerStream))
+                                        {
+                                            w.Write(36);
+                                            w.Write(ModReferences.ThisPlayerID);
+                                            w.Write(1);
+                                            w.Write(hit.point.x);
+                                            w.Write(hit.point.y);
+                                            w.Write(hit.point.z);
+                                            w.Close();
+                                        }
+                                        NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+                                        answerStream.Close();
+                                    }
+                                    localPlayerPing = new MarkPostion(hit.point);
+
+                                }
+                                else
+                                {
+                                    localPlayerPing = new MarkPostion(hit.point);
+
+                                }
+                            }
+                        }
                     }
                 }
-                else
+
+            }
+
+        }
+
+
+        void SendClearMyPing()
+        {
+            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            {
+                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                 {
-                    ScanTime = 0;
-
+                    w.Write(19);
+                    w.Write(ModReferences.ThisPlayerID);
+                    w.Write(ModdedPlayer.instance.Level);
+                    w.Close();
                 }
-
-
-            }
-            catch (Exception e)
-            {
-                CotfUtils.Log("Scanning enemy ex: " + e.ToString());
-            }
-
-            try
-            {
-                if (LevelUpDuration > 0)
-                {
-                    float y = Mathf.Cos(Mathf.PI * (LevelUpDuration / (2 * lvlUpDuration))) * 50 * rr;
-                    //Level up icon
-                    Rect r = new Rect(710 * rr, y, 500 * rr, 300 * rr);
-
-                    float opacity = 1;
-                    if (LevelUpDuration < lvlUpFadeDuration)
-                    {
-                        opacity = Mathf.Sin(LevelUpDuration * Mathf.PI / (2 * lvlUpFadeDuration));
-                    }
-                    else if (LevelUpDuration > lvlUpDuration - lvlUpFadeDuration)
-                    {
-                        opacity = Mathf.Sin((lvlUpDuration - LevelUpDuration) * Mathf.PI / (2 * lvlUpFadeDuration));
-                    }
-                    GUI.color = new Color(1, 1, 1, opacity);
-                    GUI.DrawTexture(r, ResourceLoader.GetTexture(164));
-                    GUI.Label(r, LevelUpText, new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(46 * rr), });
-                    GUI.color = new Color(1, 1, 1, 1);
-
-                }
-            }
-            catch
-            {
-
+                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                answerStream.Close();
             }
         }
+
+        bool drawPingPreview;
+        Vector3 previewPingPos;
+        MarkObject.PingType previewPingType;
+        float previewPingDist;
+        void DrawPings()
+        {
+            if (otherPlayerPings != null)
+            {
+                foreach (var item in otherPlayerPings.Values)
+                {
+                    if (item.pingType == MarkObject.PingType.Enemy)
+                    {
+                        ((MarkEnemy)item).Draw();
+
+                    }
+                    else if (item.pingType == MarkObject.PingType.Location)
+                    {
+                        ((MarkPostion)item).Draw();
+
+                    }
+                    else if (item.pingType == MarkObject.PingType.Item)
+                    {
+                        ((MarkPickup)item).Draw();
+
+                    }
+                }
+            }
+            if (localPlayerPing != null)
+            {
+                if (localPlayerPing != null)
+                {
+                    if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
+                    {
+                        ((MarkEnemy)localPlayerPing).Draw();
+
+                    }
+                    else if (localPlayerPing.pingType == MarkObject.PingType.Location)
+                    {
+                        ((MarkPostion)localPlayerPing).Draw();
+
+                    }
+                    else if (localPlayerPing.pingType == MarkObject.PingType.Item)
+                    {
+                        ((MarkPickup)localPlayerPing).Draw();
+
+                    }
+                }
+            }
+            else if (drawPingPreview)
+            {
+                try
+                {
+
+
+                    Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
+                    pos.y = Screen.height - pos.y;
+                    float size = Mathf.Clamp(500 / previewPingDist, 10, 80);
+                    size *= rr;
+                    Rect r = previewPingType != MarkObject.PingType.Item ?
+                        new Rect(0, 0, size * 3.34f, size)
+                        {
+                            center = pos
+                        } :
+                        new Rect(0, 0, size * 1.3f, size * 2.4f)
+                        {
+                            center = pos
+                        };
+
+                    GUI.color = new Color(1, 1, 1, 0.4f);
+                    switch (previewPingType)
+                    {
+                        case MarkObject.PingType.Enemy:
+                            GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
+                            break;
+                        case MarkObject.PingType.Location:
+                            GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
+                            break;
+                        case MarkObject.PingType.Item:
+                            GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));
+                            break;
+                        default:
+                            break;
+                    }
+
+                    GUI.color = Color.white;
+                }
+                catch (Exception e)
+                {
+
+                    ModAPI.Console.Write(e.ToString());
+                }
+            }
+
+        }
+
+        public Dictionary<string, MarkObject> otherPlayerPings;
+        public MarkObject localPlayerPing;
+
 
         private const float lvlUpDuration = 3;
         private const float lvlUpFadeDuration = 1;
@@ -3054,16 +3421,16 @@ namespace ChampionsOfForest
             Stat("Headshot damage", Math.Round(ModdedPlayer.instance.HeadShotDamage * 100) + "%", "Damage multipier on headshot");
             Stat("No consume chance", ModdedPlayer.instance.ReusabilityChance.ToString("P"));
             Stat("Spear headshot chance", ModdedPlayer.instance.SpearCritChance.ToString("P"));
-            if(ModdedPlayer.instance.SpearhellChance>0) Stat("Double spear chance", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-            if(ModdedPlayer.instance.SpearDamageMult != 1) Stat("Spear damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-            if(ModdedPlayer.instance.SpearArmorRedBonus) Stat("Spears reduce additional armor","" );
+            if (ModdedPlayer.instance.SpearhellChance > 0) Stat("Double spear chance", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if (ModdedPlayer.instance.SpearDamageMult != 1) Stat("Spear damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if (ModdedPlayer.instance.SpearArmorRedBonus) Stat("Spears reduce additional armor", "");
             Stat("Bullet headshot chance", ModdedPlayer.instance.BulletCritChance.ToString("P"));
-            if(ModdedPlayer.instance.BulletDamageMult != 1) Stat("Bullet damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-            if(ModdedPlayer.instance.CrossbowDamageMult != 1) Stat("Crossbow damage", ModdedPlayer.instance.CrossbowDamageMult.ToString("P"));
-            if(ModdedPlayer.instance.BowDamageMult != 1) Stat("Bow damage", ModdedPlayer.instance.BowDamageMult.ToString("P"));
+            if (ModdedPlayer.instance.BulletDamageMult != 1) Stat("Bullet damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
+            if (ModdedPlayer.instance.CrossbowDamageMult != 1) Stat("Crossbow damage", ModdedPlayer.instance.CrossbowDamageMult.ToString("P"));
+            if (ModdedPlayer.instance.BowDamageMult != 1) Stat("Bow damage", ModdedPlayer.instance.BowDamageMult.ToString("P"));
             if (ModdedPlayer.instance.IsCrossfire) Stat("Shooting an enemy creates magic arrows", "");
 
-            Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ?(4+ModdedPlayer.instance.MultishotCount).ToString("N"): ModdedPlayer.instance.MultishotCount.ToString("N"));
+            Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ? (4 + ModdedPlayer.instance.MultishotCount).ToString("N") : ModdedPlayer.instance.MultishotCount.ToString("N"));
             Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 0.5f * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount : 5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 3) * 5");
 
 
@@ -3078,7 +3445,7 @@ namespace ChampionsOfForest
              "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
-            Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100)*-1 + "%", "");
+            Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) * -1 + "%", "");
             Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
             Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
 
@@ -3106,8 +3473,8 @@ namespace ChampionsOfForest
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
             Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
             Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
-            if (ModdedPlayer.instance.TurboRaft) 
-            Stat("Turbo raft speed", ModdedPlayer.instance.RaftSpeedMultipier + "%", "Speed multiplier of rafts");
+            if (ModdedPlayer.instance.TurboRaft)
+                Stat("Turbo raft speed", ModdedPlayer.instance.RaftSpeedMultipier + "%", "Speed multiplier of rafts");
 
 
             Space(40);
@@ -3120,12 +3487,12 @@ namespace ChampionsOfForest
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
             Space(10);
-            if(ModdedPlayer.instance.GeneratedResources.Count>0)
-            Header("Generated resources");
-            foreach (var  pair in ModdedPlayer.instance.GeneratedResources)
+            if (ModdedPlayer.instance.GeneratedResources.Count > 0)
+                Header("Generated resources");
+            foreach (var pair in ModdedPlayer.instance.GeneratedResources)
             {
                 string item_name = Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
-                Stat(item_name,  pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
+                Stat(item_name, pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
             }
 
 
@@ -3347,7 +3714,7 @@ namespace ChampionsOfForest
                 Perk p = SelectedPerk;
                 Hovered = true;
                 r.center = SelectedPerk_center;
-                if(_perkDetailAlpha==0)
+                if (_perkDetailAlpha == 0)
                     Effects.Sound_Effects.GlobalSFX.Play(0);
 
                 _perkDetailAlpha += Time.unscaledDeltaTime;
