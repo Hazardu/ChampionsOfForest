@@ -292,7 +292,7 @@ namespace ChampionsOfForest
         {
             int rarity = 0;
 
-            if ((w > 20 && Random.value < 0.80f) || ((int)ModSettings.difficulty > 5 && w > 2000))
+            if ((w > 20 && Random.value < 0.80f) || ((int)ModSettings.difficulty > 5 && w > 2000) || Random.value < ((int)ModSettings.difficulty * 0.075))
             {
                 rarity = 1;
 
@@ -301,22 +301,22 @@ namespace ChampionsOfForest
                     if (ModSettings.difficulty > 0)
                     {
                         rarity = 2;
-                        if (w > 180 && (Random.value < 0.50f || Random.value < (0.06f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 8)
+                        if (w > 180 && (Random.value < 0.50f || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 8)
                         {
                             if (ModSettings.difficulty > 0)
                             {
                                 rarity = 3;
-                                if (w > 230 && (Random.value < 0.5f || Random.value < (0.03f * (int)ModSettings.difficulty)))
+                                if (w > 230 && (Random.value < 0.5f || Random.value < (0.04f * (int)ModSettings.difficulty)))
                                 {
                                     if ((int)ModSettings.difficulty > 1)
                                     {
                                         rarity = 4;
-                                        if (w > 300 && (Random.value < 0.45f || Random.value < (0.02f * (int)ModSettings.difficulty)))
+                                        if (w > 300 && (Random.value < 0.45f || Random.value < (0.03f * (int)ModSettings.difficulty)))
                                         {
                                             if ((int)ModSettings.difficulty > 2)
                                             {
                                                 rarity = 5;
-                                                if (w > 400 && (Random.value < 0.25f || Random.value < (0.0025f * (int)ModSettings.difficulty)))
+                                                if (w > 400 && (Random.value < 0.25f || Random.value < (0.001f * (int)ModSettings.difficulty)))
                                                 {
                                                     if ((int)ModSettings.difficulty > 3)
                                                     {
@@ -1053,6 +1053,7 @@ namespace ChampionsOfForest
                 new int[] {0,42 },
                 new int[] {50 },
                 new int[] {43,16 },
+                new int[] {1,0 },
 
 
              })
@@ -1074,6 +1075,7 @@ namespace ChampionsOfForest
                 new int[] {1,2,3,4,0,42 },
                 new int[] {0,42 },
                 new int[] {50 },
+                new int[] {1,0 },
                 new int[] {43,16 },
                 new int[] {43,16,0,0 },
 
@@ -2941,6 +2943,7 @@ new int[] {16,50},
 new int[] {-1},
 new int[] {-1},
 new int[] {-1},
+new int[] {-1},
 new int[] {39,40,41,42,43,50,57},
 new int[] {39,40,41,42,43,50,57},
             })
@@ -2964,6 +2967,8 @@ new int[] {39,40,41,42,43,50,57},
             {
 new int[] {15,14},
 new int[] {2,3,4,1,41,42,57},
+new int[] {-1},
+new int[] {-1},
 new int[] {-1},
 new int[] {2,4,5,6},
 new int[] {16,7,8,22,23,25,26},
@@ -4284,6 +4289,7 @@ new int[] {0,0,0,0,62,63,64},
                 new int[] {16,1,2,3,4,21,22,23,24,25,26,31,15,5,6,7,8,9},
                 new int[] {1,2,3,4,57},
                 new int[] {16,45,46,0,0,0},
+                new int[] {-1 },
                 new int[] {-1 },
                 new int[] {-1 },
                 new int[] {-1 },

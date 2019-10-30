@@ -306,6 +306,19 @@ namespace ChampionsOfForest
 
             if (difficultyCooldown > 0) difficultyCooldown -= Time.deltaTime;
             LevelUpDuration -= Time.deltaTime;
+
+            try
+            {
+                PingUpdate();
+
+            }
+            catch (Exception exc)
+            {
+                ModAPI.Console.Write("ERROR with ping update\n" + exc.ToString());
+            }
+
+
+
             if (_openedMenu != OpenedMenuMode.Hud)
             {
                 if (_openedMenu == OpenedMenuMode.Inventory)
@@ -499,7 +512,6 @@ namespace ChampionsOfForest
             }
 
 
-            PingMenu();
 
         }
 
@@ -2212,7 +2224,6 @@ namespace ChampionsOfForest
             if (LocalPlayer.FpCharacter.crouching)
             {
                 bool scanning = false;
-                ClinetEnemyProgression cp = null;
                 RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
                 int enemyHit = -1;
                 for (int i = 0; i < hits.Length; i++)
@@ -2389,6 +2400,8 @@ namespace ChampionsOfForest
                     }
                     else
                     {
+                        cp = null;
+
                         scannedTransform = hits[enemyHit].transform.root;
                         scannedEntity = scannedTransform.GetComponentInChildren<BoltEntity>();
                         if (scannedEntity == null)
@@ -2432,7 +2445,7 @@ namespace ChampionsOfForest
 
 
 
-            DrawPings();
+            PingGUIDraw();
 
 
             if (LevelUpDuration > 0)
@@ -2457,8 +2470,9 @@ namespace ChampionsOfForest
 
             }
         }
+        ClinetEnemyProgression cp = null;
 
-        bool pingBlocked;
+        bool pingBlocked = false;
         void UnlockPing()
         {
             pingBlocked = false;
@@ -2466,80 +2480,94 @@ namespace ChampionsOfForest
         public void LockPing()
         {
             pingBlocked = true;
-            Invoke("UnlockPing", 0.5f);
+            Invoke("UnlockPing", 1f);
+
         }
 
         //called at update, shows or hides ping menu, and casts ping commands
-        private void PingMenu()
+        private void PingUpdate()
         {
-            string toRem = null;
-            foreach (var item in otherPlayerPings)
+
+
+
+            try
             {
-                if (item.Value.pingType == MarkObject.PingType.Enemy)
+                if (otherPlayerPings != null)
                 {
-                    if (((MarkEnemy)item.Value).Outdated())
+                    string toRem = null;
+                    foreach (var item in otherPlayerPings)
                     {
-                        //remove ping
-                        toRem = item.Key;
-                        break;
-                    }
+                        if (item.Value.pingType == MarkObject.PingType.Enemy)
+                        {
+                            if (((MarkEnemy)item.Value).Outdated())
+                            {
+                                //remove ping
+                                toRem = item.Key;
+                                break;
+                            }
 
-                }
-                else if (item.Value.pingType == MarkObject.PingType.Location)
-                {
-                    if (((MarkPostion)item.Value).Outdated())
-                    {
-                        //remove ping
-                        toRem = item.Key;
-                        break;
+                        }
+                        else if (item.Value.pingType == MarkObject.PingType.Location)
+                        {
+                            if (((MarkPostion)item.Value).Outdated())
+                            {
+                                //remove ping
+                                toRem = item.Key;
+                                break;
+                            }
+                        }
+                        else if (item.Value.pingType == MarkObject.PingType.Item)
+                        {
+                            if (((MarkPickup)item.Value).Outdated())
+                            {
+                                //remove ping
+                                toRem = item.Key;
+                                break;
+                            }
+                        }
                     }
+                    if (!string.IsNullOrEmpty(toRem))
+                        otherPlayerPings.Remove(toRem);
                 }
-                else if (item.Value.pingType == MarkObject.PingType.Item)
-                {
-                    if (((MarkPickup)item.Value).Outdated())
+                    if (localPlayerPing != null)
                     {
-                        //remove ping
-                        toRem = item.Key;
-                        break;
+                        if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
+                        {
+                            if (((MarkEnemy)localPlayerPing).Outdated())
+                            {
+                                localPlayerPing = null;
+
+                            }
+
+                        }
+                        else if (localPlayerPing.pingType == MarkObject.PingType.Location)
+                        {
+                            if (((MarkPostion)localPlayerPing).Outdated())
+                            {
+                                localPlayerPing = null;
+
+                            }
+                        }
+                        else if (localPlayerPing.pingType == MarkObject.PingType.Item)
+                        {
+                            if (((MarkPickup)localPlayerPing).Outdated())
+                            {
+                                localPlayerPing = null;
+
+                            }
+                        }
                     }
-                }
+                
+
             }
-            if (toRem != null)
-                otherPlayerPings.Remove(toRem);
-
-            if (localPlayerPing != null)
+            catch (Exception exc)
             {
-                if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
-                {
-                    if (((MarkEnemy)localPlayerPing).Outdated())
-                    {
-                        localPlayerPing = null;
-
-                    }
-
-                }
-                else if (localPlayerPing.pingType == MarkObject.PingType.Location)
-                {
-                    if (((MarkPostion)localPlayerPing).Outdated())
-                    {
-                        localPlayerPing = null;
-
-                    }
-                }
-                else if (localPlayerPing.pingType == MarkObject.PingType.Item)
-                {
-                    if (((MarkPickup)localPlayerPing).Outdated())
-                    {
-                        localPlayerPing = null;
-
-                    }
-                }
+                ModAPI.Log.Write(exc.ToString());
             }
-
+          
             drawPingPreview = false;
-            if (!pingBlocked && UnityEngine.Input.GetMouseButton(2))
+            if (!pingBlocked && (ModAPI.Input.GetButton("ping")|| UnityEngine.Input.GetMouseButton(2)))
             {
-                ModAPI.Console.Write("casting ray");
                 if (localPlayerPing != null)
                 {
                     SendClearMyPing();
@@ -2549,16 +2577,77 @@ namespace ChampionsOfForest
                 }
 
                 //is holding middle mouse btn
-                if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, 100))
+                if (Physics.Raycast(Cam.position  +Cam.forward, Cam.forward, out RaycastHit hit, 200))
                 {
-                    ModAPI.Console.Write("ray hit");
 
                     drawPingPreview = true;
                     previewPingPos = hit.point;
                     previewPingDist = hit.distance;
-                    if (hit.transform.CompareTag("enemyCollide"))
+                    if (ScanTime > 0)
                     {
-                        drawPingPreview = true;
+                        previewPingType = MarkObject.PingType.Enemy;
+                        previewPingPos = scannedTransform.position+Vector3.up;
+
+                        if (UnityEngine.Input.GetMouseButtonDown(1))
+                        {
+                            LockPing();
+                            if (GameSetup.IsMultiplayer)
+                            {
+                                if (cp != null && cp.Level > 0)
+                                {
+                                    if (GameSetup.IsMpClient)
+                                    {
+
+                                        using (MemoryStream answerStream = new MemoryStream())
+                                        {
+                                            using (BinaryWriter w = new BinaryWriter(answerStream))
+                                            {
+                                                w.Write(37);
+                                                w.Write(ModReferences.ThisPlayerID);
+                                                w.Write(scannedEntity.networkId.PackedValue);
+                                                w.Close();
+                                            }
+                                            NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+                                            answerStream.Close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (EnemyManager.hostDictionary.ContainsKey(scannedEntity.networkId.PackedValue))
+                                        {
+                                            using (MemoryStream answerStream = new MemoryStream())
+                                            {
+                                                using (BinaryWriter w = new BinaryWriter(answerStream))
+                                                {
+                                                    w.Write(36);
+                                                    w.Write(ModReferences.ThisPlayerID);
+                                                    w.Write(0);
+                                                    w.Write(scannedEntity.networkId.PackedValue);
+                                                    w.Write(cp.Affixes.Length > 0);
+                                                    w.Write(cp.EnemyName);
+                                                    w.Close();
+                                                }
+                                                NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+                                                answerStream.Close();
+                                            }
+                                            localPlayerPing = new MarkEnemy(scannedTransform, cp.EnemyName, cp.Affixes.Length > 0);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                var enemy = hit.transform.GetComponentInParent<EnemyProgression>();
+                                if (enemy != null)
+                                    localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+
+                            }
+                        }
+                    }
+
+
+                    else if (hit.transform.CompareTag("enemyCollide"))
+                    {
                         //indicate pinging enemyCollide
                         previewPingType = MarkObject.PingType.Enemy;
                         if (UnityEngine.Input.GetMouseButtonDown(1))
@@ -2612,9 +2701,8 @@ namespace ChampionsOfForest
                             }
                             else
                             {
-                                var enemy = hit.transform.GetComponentInParent<EnemyProgression>();
-                                if (enemy != null)
-                                    localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+                                if (cp != null)
+                                    localPlayerPing = new MarkEnemy(scannedTransform, cp.EnemyName, cp.Affixes.Length > 0);
 
                             }
                         }
@@ -2623,6 +2711,7 @@ namespace ChampionsOfForest
                     }
                     else
                     {
+                        ModAPI.Console.Write(hit.transform.tag);
                         var pu = hit.transform.GetComponent<ItemPickUp>();
                         if (pu != null)
                         {
@@ -2676,19 +2765,19 @@ namespace ChampionsOfForest
                                             w.Write(ModReferences.ThisPlayerID);
                                             w.Write(1);
                                             w.Write(hit.point.x);
-                                            w.Write(hit.point.y);
+                                            w.Write(hit.point.y + 1);
                                             w.Write(hit.point.z);
                                             w.Close();
                                         }
                                         NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
                                         answerStream.Close();
                                     }
-                                    localPlayerPing = new MarkPostion(hit.point);
+                                    localPlayerPing = new MarkPostion(hit.point + Vector3.up);
 
                                 }
                                 else
                                 {
-                                    localPlayerPing = new MarkPostion(hit.point);
+                                    localPlayerPing = new MarkPostion(hit.point + Vector3.up);
 
                                 }
                             }
@@ -2697,23 +2786,26 @@ namespace ChampionsOfForest
                 }
 
             }
-
+           
         }
 
 
         void SendClearMyPing()
         {
-            using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+            if (GameSetup.IsMultiplayer)
             {
-                using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                 {
-                    w.Write(19);
-                    w.Write(ModReferences.ThisPlayerID);
-                    w.Write(ModdedPlayer.instance.Level);
-                    w.Close();
+                    using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+                    {
+                        w.Write(19);
+                        w.Write(ModReferences.ThisPlayerID);
+                        w.Write(ModdedPlayer.instance.Level);
+                        w.Close();
+                    }
+                    ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+                    answerStream.Close();
                 }
-                ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
-                answerStream.Close();
             }
         }
 
@@ -2721,7 +2813,7 @@ namespace ChampionsOfForest
         Vector3 previewPingPos;
         MarkObject.PingType previewPingType;
         float previewPingDist;
-        void DrawPings()
+        void PingGUIDraw()
         {
             if (otherPlayerPings != null)
             {
@@ -2773,7 +2865,7 @@ namespace ChampionsOfForest
 
                     Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
                     pos.y = Screen.height - pos.y;
-                    float size = Mathf.Clamp(500 / previewPingDist, 10, 80);
+                    float size = Mathf.Clamp(700 / previewPingDist, 10, 40);
                     size *= rr;
                     Rect r = previewPingType != MarkObject.PingType.Item ?
                         new Rect(0, 0, size * 3.34f, size)
@@ -2784,8 +2876,8 @@ namespace ChampionsOfForest
                         {
                             center = pos
                         };
-
-                    GUI.color = new Color(1, 1, 1, 0.4f);
+                    
+                    GUI.color = new Color(1, 1, 1, 0.35f);
                     switch (previewPingType)
                     {
                         case MarkObject.PingType.Enemy:
@@ -2802,6 +2894,7 @@ namespace ChampionsOfForest
                     }
 
                     GUI.color = Color.white;
+                    GUI.Label(new Rect(Screen.width/2 - 300*rr,  10*rr, 1000*rr, 100), "Right click to place marker. When placed, press middle mouse or ping key to clear", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, fontStyle = FontStyle.Italic, fontSize = (int)(15f * rr), font = MainFont });
                 }
                 catch (Exception e)
                 {

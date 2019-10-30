@@ -117,6 +117,21 @@ namespace ChampionsOfForest
 
         public float SpellDamageBonus = 0;
         public float MeleeDamageBonus = 0;
+        public float ParryCounterStrikeDamage = 0;
+        public float GetParryCSDmg()
+        {
+            if (ParryCounterStrikeDamage > 0)
+            {
+                float f = ParryCounterStrikeDamage;
+                if (BuffDB.activeBuffs.ContainsKey(88))
+                {
+                    BuffDB.activeBuffs[88].ForceEndBuff(88);
+                }
+                ParryCounterStrikeDamage = 0;
+                return f;
+            }
+            return 0;
+        }
         public float RangedDamageBonus = 0;
 
         public float MeleeRange = 1;
@@ -127,6 +142,7 @@ namespace ChampionsOfForest
         public float CritChance = 0.05f;
         public float CritDamage = 50;
         public float LifeOnHit = 0;
+        public float StaminaOnHit = 0;
         public float LifeRegen = 0;
         public float StaminaRegen = 0;
         public float DodgeChance = 0;
@@ -269,6 +285,7 @@ namespace ChampionsOfForest
 
         public bool BunnyHop = false;
         public bool BunnyHopUpgrade = false;
+        public bool DanceOfFiregod = false;
 
 
         public bool ProjectileDamageIncreasedBySize = false;
@@ -886,6 +903,7 @@ namespace ChampionsOfForest
                 LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
                 LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
+                LocalPlayer.Stats.Stamina += StaminaOnHit * StaminaAndEnergyRegenAmp;
                 SpellActions.OnFrenzyAttack();
          
         }
@@ -969,15 +987,47 @@ namespace ChampionsOfForest
         }
         
 
-        public void OnHit_Ranged()
+        public void OnHit_Ranged(Transform hit)
         {
             SpellCaster.InfinityLoopEffect();
-         
+            if (SpellActions.FurySwipes)
+            {
+                if (hit == FurySwipesLastHit)
+                {
+                    FurySwipesDmg += 1;
+                    RangedDamageBonus += 1;
+                    MeleeDamageBonus += 1;
+                }
+                else
+                {
+                    FurySwipesLastHit = hit;
+                    RangedDamageBonus -= FurySwipesDmg;
+                    MeleeDamageBonus -= FurySwipesDmg;
+                    FurySwipesDmg = 0;
+                }
+            }
         }
-        public void OnHit_Melee()
+        public int FurySwipesDmg;
+        Transform FurySwipesLastHit;
+        public void OnHit_Melee(Transform hit)
         {
             SpellCaster.InfinityLoopEffect();
-
+            if (SpellActions.FurySwipes)
+            {
+                if (hit == FurySwipesLastHit)
+                {
+                    FurySwipesDmg += 6;
+                    RangedDamageBonus += 6;
+                    MeleeDamageBonus += 6;
+                }
+                else
+                {
+                    FurySwipesLastHit = hit;
+                    RangedDamageBonus -= FurySwipesDmg;
+                    MeleeDamageBonus -= FurySwipesDmg;
+                    FurySwipesDmg = 0;
+                }
+            }
         }
 
         public bool DoAreaDamage(Transform rootTR, float damage)
@@ -1342,9 +1392,13 @@ namespace ChampionsOfForest
             SpellActions.Focus = false;
             SpellActions.ParryHeal = 5;
             SpellActions.ParryEnergy = 10;
-            SpellActions. CataclysmDamage = 24;
-SpellActions. CataclysmDuration = 12;
-SpellActions. CataclysmRadius = 5;
+            SpellActions.CataclysmDamage = 24;
+            SpellActions.ParryDmgBonus = 0;
+            SpellActions.ParryBuffDamage = 0;
+            SpellActions.FrenzyMS = false;
+            SpellActions.FurySwipes = false;
+        SpellActions. CataclysmDuration = 12;
+SpellActions.CataclysmRadius = 5;
             SpellActions.BIA_bonusDamage=0;
         SpellActions.BIA_SpellDmMult = 1.2f;
         SpellActions.BIA_HealthDmMult = 3f;
@@ -1372,6 +1426,7 @@ SpellActions. CataclysmRadius = 5;
             instance.StaminaRegenPercent = 0;
             instance.HealthBonus = 0;
             instance.EnergyBonus = 0;
+            instance.DanceOfFiregod = false;
             instance.MaxHealthPercent = 0;
             instance.MaxEnergyPercent = 0;
             instance.GreatBowIgnites = false;
@@ -1393,6 +1448,7 @@ SpellActions. CataclysmRadius = 5;
             instance.CritChance = 0.05f;
             instance.CritDamage = 50;
             instance.LifeOnHit = 0;
+            instance.StaminaOnHit = 0;
             instance.LifeRegen = 0;
             instance.StaminaRegen = 0;
             instance.DodgeChance = 0;

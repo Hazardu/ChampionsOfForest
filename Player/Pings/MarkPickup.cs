@@ -35,7 +35,7 @@ namespace ChampionsOfForest
                     float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
                     Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
                     pos.y = Screen.height - pos.y;
-                    float size = Mathf.Clamp(500 / distance, 8, 50);
+                    float size = Mathf.Clamp(500 / distance, 16, 50);
                     size *= ChampionsOfForest.MainMenu.Instance.rr;
                     
                     Rect r = new Rect(0, 0, 1.3f * size,2.4f* size)

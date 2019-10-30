@@ -229,10 +229,10 @@ namespace ChampionsOfForest.Player
                         if (BoltNetwork.isRunning)
                         {
                             ModdedPlayer.instance.OnHit();
-                            ModdedPlayer.instance.OnHit_Melee();
+                            ModdedPlayer.instance.OnHit_Melee(other.transform);
 
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                            hitPlayer.damage = Mathf.FloorToInt(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
+                            hitPlayer.damage = Mathf.FloorToInt(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus+ ModdedPlayer.instance.GetParryCSDmg()) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
                             hitPlayer.Send();
                         }
                     }
@@ -260,7 +260,7 @@ namespace ChampionsOfForest.Player
                     setup.pmNoise.SendEvent("toWeaponNoise");
                     Mood.HitRumble();
                     other.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
-                    float damage = WeaponDamage * 4f + ModdedPlayer.instance.MeleeDamageBonus;
+                    float damage = WeaponDamage * 4f + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
                     damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
                     if (tht.atEnemy)
                     {
@@ -363,7 +363,7 @@ namespace ChampionsOfForest.Player
                 if ((other.gameObject.CompareTag("enemyCollide") || other.gameObject.CompareTag("animalCollide")) && mainTrigger && !enemyDelay && !animControl.smashBool)
                 {
                     ModdedPlayer.instance.OnHit();
-                    ModdedPlayer.instance.OnHit_Melee();
+                    ModdedPlayer.instance.OnHit_Melee(other.transform);
                     if (ModdedPlayer.instance.MeleeArmorReduction > 0 && other.gameObject.CompareTag("enemyCollide"))
                     {
                         if (BoltNetwork.isClient)
@@ -522,7 +522,7 @@ namespace ChampionsOfForest.Player
 
                         }
                     }
-                    float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                    float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
                     float crit = ModdedPlayer.instance.CritDamageBuff;
                     num2 *= crit * ModdedPlayer.instance.MeleeAMP;
                     if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
@@ -659,6 +659,10 @@ namespace ChampionsOfForest.Player
                         }
                     }
 
+                    if (ModdedPlayer.instance.DanceOfFiregod && Effects.BlackFlame.IsOn)
+                    {
+                        num2 *=1+ LocalPlayer.Rigidbody.velocity.magnitude;
+                    }
 
                     DamageMath.DamageClamp(num2, out int d, out int a);
 
@@ -864,12 +868,12 @@ namespace ChampionsOfForest.Player
             }
             if ((other.CompareTag("enemyCollide") || other.CompareTag("lb_bird") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("EnemyBodyPart")) && !mainTrigger && !enemyDelay && (animControl.smashBool || chainSaw))
             {
-                float num3 = smashDamage + ModdedPlayer.instance.MeleeDamageBonus;
+                float num3 = smashDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
 
                 if (chainSaw && !mainTrigger)
                 {
                     base.StartCoroutine(chainSawClampRotation(0.25f));
-                    num3 = (smashDamage + ModdedPlayer.instance.MeleeDamageBonus) / 2f;
+                    num3 = (smashDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg()) / 2f;
                 }
                 float crit = ModdedPlayer.instance.CritDamageBuff;
                 num3 *= crit * ModdedPlayer.instance.MeleeAMP;

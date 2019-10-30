@@ -72,11 +72,19 @@
       <EN></EN>
     </Description>
   </Button>
+  <Button Standard="Z" ID="ping">
+    <Name>
+      <EN>Ping Object</EN>
+    </Name>
+    <Description>
+      <EN>Sygnalize a item, enemy or location to other players. hold z and rightclick to mark an enemy</EN>
+    </Description>
+  </Button>
   <Name>
     <EN>Champions of The Forest</EN>
   </Name>
   <Description>
     <EN>Champs is the smallest mod. Adds no content whatsoever. I never lie. Check key binds if launching for the first time</EN>
   </Description>
-  <Version>1.5.2.36</Version>
+  <Version>1.5.2.56</Version>
 </Mod>

@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Effects
     {
         public static BlackFlame instance;
         public static float DmgAmp = 1;
-        public static float FireDamageBonus => (20 + ModdedPlayer.instance.SpellDamageBonus/2) * ModdedPlayer.instance.SpellAMP * DmgAmp /4;
+        public static float FireDamageBonus => (30 + ModdedPlayer.instance.SpellDamageBonus/3f) * ModdedPlayer.instance.SpellAMP * DmgAmp /4;
 
         private static Material mat1;
         private static Material mat2;
@@ -136,8 +136,9 @@ namespace ChampionsOfForest.Effects
                 }
                 if (GiveDamageBuff)
                 {
-                    BuffDB.AddBuff(13, 44, 1.5f, 0.1f);
+                    BuffDB.AddBuff(13, 44, 1.5f, 1f);
                 }
+             
             }
         }
 

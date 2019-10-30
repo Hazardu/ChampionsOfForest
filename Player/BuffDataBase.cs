@@ -112,10 +112,15 @@ namespace ChampionsOfForest.Player
                 {
                     ModdedPlayer.instance.AttackSpeedMult /= 1+ f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult /= 1+f * SpellActions.FrenzyDmg;
+                    if(SpellActions.FrenzyMS)
+                        ModdedPlayer.instance.MoveSpeed -=f * 0.05f;
+
                     SpellActions.FrenzyStacks = 0;
                 },f => {
                     ModdedPlayer.instance.AttackSpeedMult *= 1 + f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult *= 1 + f * SpellActions.FrenzyDmg;
+                    if (SpellActions.FrenzyMS)
+                        ModdedPlayer.instance.MoveSpeed += f * 0.05f;
                 })
                 { DisplayAsPercent = false };
 
@@ -124,6 +129,8 @@ namespace ChampionsOfForest.Player
                 new Buff(21,147, "Armor Corruption", true, true, 1, f => ModdedPlayer.instance.ArmorReduction += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ArmorReduction -= Mathf.RoundToInt(f)) { DisplayAsPercent = false };
 
                 new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageBonus -= f, f => ModdedPlayer.instance.MeleeDamageBonus += f);
+                new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.instance.ParryCounterStrikeDamage = 0) { OnAddOverrideAmount = true };
+                new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.instance.CritDamage -=f, f => ModdedPlayer.instance.CritDamage += f);
 
 
             }
@@ -256,3 +263,5 @@ namespace ChampionsOfForest.Player
 //82,83 near death buffs
 //84,85,86 wind armor buffs
 //87 momentum transfer
+//88 counter strike passive
+//89 bash crit dmg passive

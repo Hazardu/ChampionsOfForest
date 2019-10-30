@@ -307,7 +307,7 @@ namespace ChampionsOfForest.Player
                 NewHitAi(target, flag || flag3, headDamage);
                 ModdedPlayer.instance.DoAreaDamage(target.root, OutputDmg);
                 ModdedPlayer.instance.OnHit();
-                ModdedPlayer.instance.OnHit_Ranged();
+                ModdedPlayer.instance.OnHit_Ranged(target);
 
                 BoltEntity be = target.GetComponentInParent<BoltEntity>();
                 if (be == null) { be = target.GetComponent<BoltEntity>(); }

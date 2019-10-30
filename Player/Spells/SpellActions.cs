@@ -536,7 +536,7 @@ namespace ChampionsOfForest.Player
 
         #region Bash
         public static float BashExtraDamage = 1.16f;
-        public static float BashDamageBuff = 1f;
+        public static float BashDamageBuff = 0f;
         public static float BashSlowAmount = 0.7f;
         public static float BashLifesteal = 0.0f;
         public static bool BashEnabled = false;
@@ -562,6 +562,10 @@ namespace ChampionsOfForest.Player
                     LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
                     LocalPlayer.Stats.Energy += dmg * BashLifesteal;
                 }
+                if(BashDamageBuff>0 )
+                {
+                    BuffDB.AddBuff(24, 89, BashDamageBuff, 2);
+                }
             }
 
         }
@@ -570,9 +574,18 @@ namespace ChampionsOfForest.Player
             if (BashEnabled)
             {
                 int id = 44+ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-            
-                if (BashLifesteal > 0) LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
 
+                if (BashLifesteal > 0)
+                {
+                    LocalPlayer.Stats.HealthTarget += dmg * BashLifesteal;
+                    LocalPlayer.Stats.Energy += dmg * BashLifesteal;
+
+                }
+
+                if (BashDamageBuff > 0)
+                {
+                    BuffDB.AddBuff(24, 89, BashDamageBuff, 2);
+                }
                 using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
                 {
                     using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -599,6 +612,8 @@ namespace ChampionsOfForest.Player
         public static int FrenzyMaxStacks= 5, FrenzyStacks= 0;
         public static float FrenzyAtkSpeed = 0.02f, FrenzyDmg = 0.075f;
         public static bool Frenzy;
+        public static bool FrenzyMS = false;
+        public static bool FurySwipes=false;
         public static void OnFrenzyAttack()
         {
             if (Frenzy)
@@ -692,6 +707,8 @@ namespace ChampionsOfForest.Player
         public static float ParryDamage = 40,ParryRadius = 3.5f,ParryBuffDuration = 10,ParryHeal = 5,ParryEnergy = 10;
         public static bool ChanceToParryOnHit = false;
         public static bool ParryIgnites = false;
+        public static float ParryDmgBonus = 0;
+        public static float ParryBuffDamage = 0;
         public static void DoParry(Vector3 parryPos)
         {
             if (Parry)
@@ -707,7 +724,12 @@ namespace ChampionsOfForest.Player
                 float energy = ParryEnergy * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + ModdedPlayer.instance.EnergyOnHit *2 + ModdedPlayer.instance.MaxEnergy / 12.5f;
                 LocalPlayer.Stats.Energy += energy;
                 LocalPlayer.Stats.Stamina += energy;
-
+                if(ParryDmgBonus > 0)
+                {
+                    float f = dmg * ParryDmgBonus;
+                    BuffDB.AddBuff(23, 88, f, 20);
+                    ModdedPlayer.instance.ParryCounterStrikeDamage += f;
+                }
 
                 if (GameSetup.IsMpClient) {
                     if (BoltNetwork.isRunning)

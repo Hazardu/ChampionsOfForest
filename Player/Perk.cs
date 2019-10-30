@@ -1185,8 +1185,8 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.1f; ModdedPlayer.instance.StaminaAttackCost *= 1.2f; },
-                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.1f; ModdedPlayer.instance.StaminaAttackCost /= 1.2f; },
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.25f; ModdedPlayer.instance.StaminaAttackCost *= 2f; },
+                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.25f; ModdedPlayer.instance.StaminaAttackCost /= 2f; },
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11, 10 },
                 LevelRequirement = 15,
@@ -1195,7 +1195,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Power Swing",
-                Description = "Attacks use 20% more stamina and deal 10% more damage",
+                Description = "Attacks use 100% more stamina and deal 25% more damage",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1531,7 +1531,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.SeekingArrow_HeadDamage =2,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
-                LevelRequirement = 9,
+                LevelRequirement = 13,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 0.5f,
@@ -1547,7 +1547,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.SeekingArrow_DamagePerDistance -= 0.01f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 92 },
-                LevelRequirement = 11,
+                LevelRequirement = 19,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 0f,
@@ -1563,7 +1563,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.SeekingArrow_SlowDuration -=4,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 93 },
-                LevelRequirement = 20,
+                LevelRequirement = 26,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 0.5f,
@@ -1595,7 +1595,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.FocusOnHS -= 0.5f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55},
-                LevelRequirement = 9,
+                LevelRequirement = 14,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = -0.5f,
@@ -1611,7 +1611,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 96},
-                LevelRequirement = 9,
+                LevelRequirement = 15,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = -1f,
@@ -1627,7 +1627,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 97},
-                LevelRequirement = 9,
+                LevelRequirement = 25,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = -0.5f,
@@ -1643,7 +1643,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.FocusSlowDuration -= 20f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 97},
-                LevelRequirement = 9,
+                LevelRequirement = 35,
                 PointsToBuy = 2,
                 Size = 1,
                 PosOffsetX = -1.5f,
@@ -2355,6 +2355,128 @@ namespace ChampionsOfForest.Player
                 Description = "Magic damage is increased by 100%, but ranged and melee are weaker by 60% ",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.ParryDmgBonus += 1.5f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 107 },
+                LevelRequirement = 10,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = 0.75f,
+                Name = "Counter Strike",
+                Description = "When parrying, gain attack dmg for the next attack. Bonus melee damage is equial to damage of parry. This effect can stack, lasts 20 seconds, and is consumed upon performing a melee attack.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add+= 0.5f,
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 11 },
+                LevelRequirement = 45,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -1.5f,
+                Name = "Skull Basher",
+                Description = "When bash is equipped, melee weapons deal 50% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.6f,
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 144 },
+                LevelRequirement = 50,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1f,
+                PosOffsetY = -2.25f,
+                Name = "Skull Basher II",
+                Description = "When bash is equipped, melee weapons deal 110% more damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.DanceOfFiregod=true,
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 71 },
+                LevelRequirement = 45,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = -0.75f,
+                Name = "Dance of the Firegod",
+                Description = "When black flame is on, your melee damage is increased, based on how fast youre going.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.StaminaOnHit += 3,
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 9 },
+                LevelRequirement = 5,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = 1.5f,
+                Name = "Combat Regen",
+                Description = "Gain 3 points of stamina on hit",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FrenzyMS =true,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 102 },
+                LevelRequirement = 26,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5f,
+                PosOffsetY = -0.75f,
+                Name = "Mania",
+                Description = "Frenzy increases movement speed by 5% per stack",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.FurySwipes = true,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 148 },
+                LevelRequirement = 43,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 6f,
+                PosOffsetY = -0.75f,
+                Name = "Fury Swipes",
+                Description = "When during frenzy you hit the same enemy over and over, gain more and more damage. Melee stacks 6 times faster.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BashDamageBuff++,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 103 },
+                LevelRequirement = 27,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = -1.5f,
+                Name = "Lucky Bashes",
+                Description = "When you bash an enemy, gain 100% critical hit damage for 2 seconds.",
+                TextureVariation = 0,
+                Endless = true,
             };
         }
 

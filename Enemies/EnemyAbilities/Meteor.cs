@@ -17,7 +17,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private void Update()
         {
             transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 25);
-
         }
 
         private static AudioClip hitSound, InitSound;
@@ -57,7 +56,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
             {
-                other.SendMessage("Hit", Damage *2, SendMessageOptions.DontRequireReceiver);
+                other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
                 other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position, Damage), SendMessageOptions.DontRequireReceiver);
 
             }
