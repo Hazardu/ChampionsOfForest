@@ -244,13 +244,14 @@ namespace ChampionsOfForest.Player
         #endregion
 
         #region SustainShield
-        public static float ShieldPerSecond = 4;
+        //TODO make this toggleable
+        public static float ShieldPerSecond = 2;
         public static float MaxShield = 40;
         public static float ShieldCastTime;
         public static float ShieldPersistanceLifetime = 20;
         public static void CastSustainShieldActive()
         {
-            float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus / 2;
+            float max = MaxShield + ModdedPlayer.instance.SpellDamageBonus;
             max *= ModdedPlayer.instance.SpellAMP;
             float gain = ShieldPerSecond + ModdedPlayer.instance.SpellDamageBonus / 20;
             gain *= ModdedPlayer.instance.SpellAMP;
@@ -341,12 +342,15 @@ namespace ChampionsOfForest.Player
 
 
         public static bool MagicArrowDmgDebuff = false;
+        public static bool MagicArrowCrit = false;
         public static bool MagicArrowDoubleSlow = false;
         public static float MagicArrowDuration = 10f;
         public static void CastMagicArrow()
         {
-            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.7f + ModdedPlayer.instance.RangedDamageBonus/2;
+            float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 2.2f + ModdedPlayer.instance.RangedDamageBonus/2;
             damage = damage * ModdedPlayer.instance.SpellAMP;
+            if (MagicArrowCrit)
+                BashBleedDmg *= ModdedPlayer.instance.CritDamageBuff;
             Vector3 pos = Camera.main.transform.position;
             Vector3 dir = Camera.main.transform.forward;
             if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -416,7 +420,7 @@ namespace ChampionsOfForest.Player
         }
 
 
-        public static float PurgeRadius = 20;
+        public static float PurgeRadius = 30;
         public static bool PurgeHeal = false;
         public static void CastPurge()
         {
@@ -445,13 +449,13 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        public static float SnapFreezeDist = 15;
+        public static float SnapFreezeDist = 20;
         public static float SnapFloatAmount = 0.2f;
         public static float SnapFreezeDuration = 7f;
         public static void CastSnapFreeze()
         {
             Vector3 pos = LocalPlayer.Transform.position;
-            float dmg = 23 + ModdedPlayer.instance.SpellDamageBonus;
+            float dmg = 23 + ModdedPlayer.instance.SpellDamageBonus*1.5f;
             dmg *= ModdedPlayer.instance.SpellAMP;
             using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
             {
@@ -473,12 +477,14 @@ namespace ChampionsOfForest.Player
             }
         }
 
-        public static float BL_Damage = 120;
+        public static float BL_Damage = 220;
+        public static bool BL_Crit =false;
         public static void CastBallLightning()
         {
-            float dmg = BL_Damage + (3.85f * ModdedPlayer.instance.SpellDamageBonus);
+            float dmg = BL_Damage + (5f * ModdedPlayer.instance.SpellDamageBonus);
             dmg *= ModdedPlayer.instance.SpellAMP;
-
+            if (BL_Crit)
+                dmg *= ModdedPlayer.instance.CritDamageBuff;
 
             Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward;
             Vector3 speed = Camera.main.transform.forward;
@@ -810,7 +816,6 @@ namespace ChampionsOfForest.Player
         public static float BIA_bonusDamage;
         public static float BIA_SpellDmMult = 1.25f;
         public static float BIA_HealthDmMult = 3f;
-    
         public static float BIA_HealthTakenMult = 0.65f;
         
         public static void CastBloodInfArr()

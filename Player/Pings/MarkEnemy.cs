@@ -26,7 +26,7 @@ namespace ChampionsOfForest
         }
         public void Draw()
         {
-            Vector3 tPos = transform.position + Vector3.up * 2.7f;
+            Vector3 tPos = transform.position + Vector3.up * 3f;
             Vector3 heading = tPos - LocalPlayer.Transform.position;
             float sqrMag = (heading).sqrMagnitude;
             if (sqrMag <= MaxRange)
@@ -43,6 +43,7 @@ namespace ChampionsOfForest
                     {
                         center = pos
                     };
+                    r.y -= size / 2;
                     if (Elite)
                     {
                         GUI.color = Color.red;

@@ -144,7 +144,7 @@ namespace ChampionsOfForest.Effects
                             ep.HitMagic(dmg * 2);
                             ep.Slow(141, 0.0f, 2);
                             ep.DmgTakenDebuff(140, 1.5f, 10);
-                            ep.FireDebuff(140, dmg / 3, 25);
+                            ep.FireDebuff(140, dmg / 6, 25);
 
                         }
                         else
@@ -152,7 +152,7 @@ namespace ChampionsOfForest.Effects
                             ep.HitMagic(dmg / 2);
                             ep.Slow(140, 0.6f, 7);
                             ep.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                            ep.FireDebuff(140, dmg / 4, 25);
+                            ep.FireDebuff(140, dmg / 10, 25);
 
                         }
                 yield return null;

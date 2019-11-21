@@ -16,6 +16,16 @@ namespace ChampionsOfForest.Enemies
         private Vector3 originalScale = Vector3.zero;
         private BoltEntity entity;
         private float LastReqTime;
+
+        void OnEnable()
+        {
+            if(originalScale != Vector3.zero)
+            {
+                transform.localScale = originalScale;
+
+            }
+        }
+
         public void SetTriggerScaleForTiny()
         {
             if (originalScale == Vector3.zero)
@@ -40,17 +50,13 @@ namespace ChampionsOfForest.Enemies
                     {
                         entity = gameObject.GetComponentInChildren<BoltEntity>();
                     }
-                    if (entity == null)
-                    {
-                        Debug.Log("ITS A TOTAL DISASTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    }
                 }
                 else {
                     if (ModSettings.DifficultyChoosen)
                     {
                         if (!EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
                         {
-                            if(Time.time-LastReqTime > 10)
+                            if(Time.time-LastReqTime > 20)
                             {
                                 LastReqTime = Time.time;
                                 using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())

@@ -18,8 +18,7 @@ namespace ChampionsOfForest.Player
             if (other.transform.CompareTag("projectile"))
             {
                 Physics.IgnoreCollision(other.collider, col, true);
-                Debug.Log("Colliding & ignoring");
             }
-            }
+        }
     }
 }

@@ -27,6 +27,16 @@ namespace ChampionsOfForest.Player
             }
             base.Start();
             OutputDmg = damage + ModdedPlayer.instance.RangedDamageBonus;
+
+            if (ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed)
+            {
+                if(ModdedPlayer.instance.Critted)
+                OutputDmg *= ModdedPlayer.instance.ProjectileSpeedRatio * ((ModdedPlayer.instance.CritDamage / 100f) + 1);
+            }
+            else
+            {
+                OutputDmg *= ModdedPlayer.instance.CritDamageBuff;
+            }
             if (GreatBow.isEnabled)
             {
                 OutputDmg += 105;

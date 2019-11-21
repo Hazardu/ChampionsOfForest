@@ -1073,16 +1073,7 @@ namespace ChampionsOfForest
 
                 if (ModdedPlayer.instance.CraftingReroll)
                 {
-                    try
-                    {
                         DrawCrafting(eq.xMax + 30 * rr);
-
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
                 }
             }
             catch (Exception exception)
@@ -2185,7 +2176,7 @@ namespace ChampionsOfForest
             Rect RightCorner = new Rect(XPbar.xMax, XPbar.y, cornerDimension, cornerDimension);
             Rect CombatBarText = new Rect(CombatBarCount)
             {
-                y = CombatBar.yMax,
+                y = CombatBar.yMax + 40 * rr,
                 height = 100 * rr
             };
             Rect CombatBarTimer = new Rect(CombatBar.xMax, CombatBar.y, 300, combatHeight);
@@ -2637,10 +2628,17 @@ namespace ChampionsOfForest
                             }
                             else
                             {
-                                var enemy = hit.transform.GetComponentInParent<EnemyProgression>();
+                                   var enemy = hit.transform.root.GetComponent<EnemyProgression>();
+                                if(enemy == null)
+                                {
+                                enemy = hit.transform.root.GetComponentInChildren<EnemyProgression>();
+                                }
                                 if (enemy != null)
                                     localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
-
+                                else
+                                {
+                                    localPlayerPing = new MarkEnemy(enemy.transform, "Enemy", false);
+                                }
                             }
                         }
                     }
@@ -2702,8 +2700,13 @@ namespace ChampionsOfForest
                             else
                             {
                                 if (cp != null)
+                                {
                                     localPlayerPing = new MarkEnemy(scannedTransform, cp.EnemyName, cp.Affixes.Length > 0);
-
+                                }
+                                else
+                                {
+                                    ModAPI.Console.Write("Cp is null");
+                                }
                             }
                         }
 
@@ -3524,7 +3527,7 @@ namespace ChampionsOfForest
             if (ModdedPlayer.instance.IsCrossfire) Stat("Shooting an enemy creates magic arrows", "");
 
             Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ? (4 + ModdedPlayer.instance.MultishotCount).ToString("N") : ModdedPlayer.instance.MultishotCount.ToString("N"));
-            Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 0.5f * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount : 5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 3) * 5");
+            Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 1f * Mathf.Pow(ModdedPlayer.instance.MultishotCount,1.75f) : 10 * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f)).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
 
 
 

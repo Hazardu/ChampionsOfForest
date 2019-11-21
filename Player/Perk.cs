@@ -1221,7 +1221,7 @@ namespace ChampionsOfForest.Player
                 DisableMethods = () => SpellActions.MagicArrowDmgDebuff = false,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
-                LevelRequirement = 35,
+                LevelRequirement = 25,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3f,
@@ -1350,7 +1350,6 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MultishotCount += 2,
-                DisableMethods = () => ModdedPlayer.instance.MultishotCount -= 2,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 31,
@@ -1981,7 +1980,7 @@ namespace ChampionsOfForest.Player
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 13 },
-                LevelRequirement = 4,
+                LevelRequirement = 32,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3f,
@@ -2478,6 +2477,73 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = true,
             };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.MaxLogs++,
+                Category = PerkCategory.Utility,
+                InheritIDs = new int[] { 61 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -11f,
+                PosOffsetY = -0.75f,
+                Name = "More Carried Logs",
+                Description = "Increases the base amount of logs that a player can carry on their shoulder. The additional carried logs are invisible",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed = true,
+                DisableMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed = false,
+                Category = PerkCategory.RangedOffense,
+                Icon = null,
+                InheritIDs = new int[] { 14 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 0f,
+                Name = "Speed Matters",
+                Description = "Projectile speed increases projectile's crit damage.",
+                TextureVariation = 0, //0 or 1
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.MagicArrowCrit = true,
+                DisableMethods = () => SpellActions.MagicArrowCrit = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 73 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = -3f,
+                Name = "Magic Arrow Devastation",
+                Description = "Magic arrow can critically hit.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BL_Crit = true,
+                DisableMethods = () => SpellActions.BL_Crit = false,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 88 },
+                LevelRequirement = 62,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 6f,
+                PosOffsetY = 0.75f,
+                Name = "Nuke Conjuration",
+                Description = "Ball Lightning can critically hit.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
         }
 
         public int ID;

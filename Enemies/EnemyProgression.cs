@@ -118,90 +118,22 @@ namespace ChampionsOfForest
         public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
-
-        #region Name
-        public static string[] Mnames = new string[]
+        public static string[] femaleNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
+                    "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
+                    "Victoria",  "Chloe", "Camila", "Layla", "Lillian","Dora the explorer", "Zoey", "Hannah", "Lily",
+                    "Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
+                    "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
+                    "Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice",
+                    "Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Ruby", "Serenity", "Willow", "Everly",  "Kaylee",
+                    "Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina",
+                    "Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Delilah", "Isla", "Rylee",
+                    "Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
+                    "Annabelle", "Faith", "Alexandra", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa",
+                    "Eliza", "Rose", "Ariel", "Alexis","xKito","Sophie Francis","Albedo","Rbwy" };
+    #region Name
+    public static string[] Mnames = new string[]
               {
-            "Farket",
-            "Hazard",
-            "Moritz",
-            "Souldrinker",
-            "Olivier Broadbent",
-            "Subscribe to Pewds",
-            "Kutie",
-            "Axt",
-            "Fionera",
-            "Cleetus",
-            "Kaspito",
-            "SiXxKiLuR",
-            "Hellsing",
-            "Metamoth",
-            "Teledorktronics",
-            "SmokeyThePerson",
-            "NightOwl",
-            "PuffedRice",
-            "PhoenixDeath",
-            "Lyon the weeb",
-            "Danny Parker",
-            "Kaspito",
-            "Lukaaa",
-            "Chefen",
-            "Lauren",
-            "DrowsyCob",
-            "Ali",
-            "ArcKaino",
-            "Calean",
-            "LordSidonus",
-            "DTfang",
-            "Malкae",
-            "R3iGN",
-            "Torsin",
-            "θฯ12",
-            "Иio",
-            "Komissar bAv",
-            "The Strange Man",
-            "Micha",
-            "MiikaHD",
-            "NÜT",
-            "AssPirate",
-            "Azpect",
-            "LumaR",
-            "TeigRolle",
-            "Foreck",
-            "Gaullin",
-            "Alichipmunk",
-            "Chad",
-            "Blight",
-            "Cheddar",
-            "CHUNGUS",
-            "MadVladd",
-            "Wren",
-            "Ross Draws",
-            "Sam Gorski",
-            "Mike Diva",
-            "Niko Pueringer",
-            "Freddy Wong",
-            "PewDiePie",
-            "Salad Ass",
-            "Morgan Page",
-            "Hex Cougar",
-            "Unlike Pluto",
-            "Sora",
-            "Film Crafterz",
-            "Fon",
-            "Sigmar",
-            "Mohammed",
-            "Cyde",
-            "MaximumAsp79",
-            "Diavolo",
-            "Doppio Vinegar",
-            "Dio Brando",
-            "Giorno Giovanna",
-            "Fellow Komrade",
-            "Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan",
-            "Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi",
-            "Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Neonize","Agusfer"
-
+                  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Kaspito","SiXxKiLuR","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor"
               };
         /// <summary>
         /// Picks a random name for the enemy
@@ -212,24 +144,13 @@ namespace ChampionsOfForest
             string prefix = "";
             if (_AI.female || _AI.creepy || _AI.femaleSkinny)    //is female
             {
-                prefix = "♀ ";
-                names.AddRange(new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
-                    "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
-                    "Victoria",  "Chloe", "Camila", "Layla", "Lillian","Dora the explorer", "Zoey", "Hannah", "Lily",
-                    "Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
-                    "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
-                    "Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice",
-                    "Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Ruby", "Serenity", "Willow", "Everly",  "Kaylee",
-                    "Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina",
-                    "Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Brielle", "Delilah", "Isla", "Rylee",
-                    "Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
-                    "Annabelle", "Faith", "Alexandra", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa",
-                    "Eliza", "Rose", "Ariel", "Alexis","xKito","Sophie Francis","Albedo" });
+                //prefix = "♀ ";
+                names.AddRange(femaleNames);
 
             }
             else                                                 // is male
             {
-                prefix = "♂ ";
+                //prefix = "♂ ";
                 names.AddRange(Mnames);
             }
             if (_AI.creepy_male)
@@ -363,7 +284,7 @@ namespace ChampionsOfForest
             DamageMult = Mathf.Pow(Level, 2.85f) / 100f + 0.5f;
             DamageMult *= (int)ModSettings.difficulty + 1;
 
-            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.25f) *0.3f+ 1, Mathf.Pow(Level, 2.275f) * 0.9f + 20));
+            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.35f) *0.36f+ 1, Mathf.Pow(Level, 2.42f)+ 20));
             Armor *= (int)ModSettings.difficulty/2 + 1;
             ArmorReduction = 0;
             _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.53f)/(15)));
@@ -391,6 +312,9 @@ namespace ChampionsOfForest
                     break;
                 case EnemyRarity.Boss:
                     _hp *= 10;
+                    if (!abilities.Contains(Abilities.Tiny))
+                        gameObject.transform.localScale *= 1.1f;
+
                     break;
             }
             _hp *= (float)((int)ModSettings.difficulty) * 0.25f + 0.7f ;
@@ -432,7 +356,7 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.ExtraDamage))
             {
-                DamageMult *= 2.5f;
+                DamageMult *= 4f;
             }
             if (abilities.Contains(Abilities.RainEmpowerement))
             {
@@ -443,6 +367,8 @@ namespace ChampionsOfForest
             {
                 CCimmune = true;
                 AnimSpeed /= 1.4f;
+                DamageMult *= 2;
+
             }
             if (abilities.Contains(Abilities.Avenger))
             {
@@ -833,7 +759,7 @@ namespace ChampionsOfForest
 
                 if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
                 {
-                    int itemCount = Random.Range(1, 4) + Random.Range(1,4)*(ModReferences.Players.Count-1);
+                    int itemCount = Random.Range(1, 4) + Random.Range(1,3)*(ModReferences.Players.Count-1);
                     if (_AI.creepy_boss)
                     {
                         itemCount += 15;
@@ -873,7 +799,7 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(10);
-                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.65f + ModReferences.Players.Count * 0.35f))));
+                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.3f + ModReferences.Players.Count * 0.7f))));
                         w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);

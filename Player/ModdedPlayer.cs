@@ -80,7 +80,10 @@ namespace ChampionsOfForest
 
 
         private int _level = 1;
-        public int Level { get => _level; set => _level = value; }
+        public int Level
+        {
+            get => _level; set => _level = value;
+        }
         public float HealingMultipier = 1;
         public int strenght = 1;    //increases damage
         public int intelligence = 1; //increases spell damage
@@ -286,9 +289,10 @@ namespace ChampionsOfForest
         public bool BunnyHop = false;
         public bool BunnyHopUpgrade = false;
         public bool DanceOfFiregod = false;
-
+        public static int MaxLogs = 2;
 
         public bool ProjectileDamageIncreasedBySize = false;
+        public bool ProjectileDamageIncreasedBySpeed = false;
         public bool isGreed = false;
         public bool isWindArmor = false;
         private float _greedCooldown;
@@ -406,7 +410,7 @@ namespace ChampionsOfForest
 
         IEnumerator InitializeCamera()
         {
-            while (Camera.main == null) 
+            while (Camera.main == null)
             {
                 yield return null;
             }
@@ -421,7 +425,7 @@ namespace ChampionsOfForest
                 if (BoltNetwork.isRunning)
                 {
                     NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " has reached level " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
-   
+
                 }
             }
             MainMenu.Instance.LevelUpAction();
@@ -432,7 +436,7 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    string s ="II"+ LocalPlayer.Entity.GetState<IPlayerState>().name + " JOINED THE SERVER!\nWELCOME!\n INSTALLED MODS: \n";
+                    string s = "II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " JOINED THE SERVER!\nWELCOME!\n INSTALLED MODS: \n";
                     Regex regex = new Regex(@"\w+");
                     foreach (var item in ModAPI.Mods.LoadedMods)
                     {
@@ -449,7 +453,7 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    string s = "II"+Player + " LEFT! FAREWELL!";
+                    string s = "II" + Player + " LEFT! FAREWELL!";
                     NetworkManager.SendText(s, NetworkManager.Target.Everyone);
                 }
             }
@@ -457,7 +461,8 @@ namespace ChampionsOfForest
 
         public static int AttributeBonus(int x)
         {
-            if (x == 1) return 1;
+            if (x == 1)
+                return 1;
             int bonus = Mathf.RoundToInt(Mathf.Sqrt(x));
             return AttributeBonus(x - 1) + bonus;
         }
@@ -472,9 +477,9 @@ namespace ChampionsOfForest
             agility = x;
         }
 
-        private static string ListComponents(Transform t,string prefix ="")
+        private static string ListComponents(Transform t, string prefix = "")
         {
-            string result = prefix+ t.name+":\n";
+            string result = prefix + t.name + ":\n";
             var components = t.gameObject.GetComponents<Component>();
             foreach (var comp in components)
             {
@@ -482,7 +487,7 @@ namespace ChampionsOfForest
             }
             foreach (Transform child in t)
             {
-                result += ListComponents(child, prefix +"\t");
+                result += ListComponents(child, prefix + "\t");
             }
             return result;
         }
@@ -534,12 +539,12 @@ namespace ChampionsOfForest
                 for (int i = 0; i < keys.Length; i++)
                 {
                     Buff buff = BuffDB.activeBuffs[keys[i]];
-                    if (DebuffImmune>0 && buff.isNegative && buff.DispellAmount <= 2)
+                    if (DebuffImmune > 0 && buff.isNegative && buff.DispellAmount <= 2)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                         continue;
                     }
-                    else if (DebuffResistant>0 && buff.isNegative && buff.DispellAmount <= 1)
+                    else if (DebuffResistant > 0 && buff.isNegative && buff.DispellAmount <= 1)
                     {
                         BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                         continue;
@@ -588,7 +593,8 @@ namespace ChampionsOfForest
             if (LocalPlayer.Stats != null)
             {
                 float ats = ModdedPlayer.instance.AttackSpeed;
-                if (GreatBow.isEnabled) ats /= 2f;
+                if (GreatBow.isEnabled)
+                    ats /= 2f;
 
 
                 if (LocalPlayer.Stats.Stamina > 4)
@@ -641,7 +647,7 @@ namespace ChampionsOfForest
             //        try
             //        {
             //            Debug.LogWarning(trans.name);
-                 
+
             //        if (trans.gameObject.activeSelf)
             //        {
             //            var components = trans.gameObject.GetComponents<Component>();
@@ -653,7 +659,7 @@ namespace ChampionsOfForest
             //            s += "\n\n\n" + ModReferences.ListAllChildren(trans, "");
             //            ModAPI.Log.Write(s);
             //           Debug.Log(s);
-                        
+
             //        }
             //        }
             //        catch (Exception e)
@@ -693,7 +699,7 @@ namespace ChampionsOfForest
 
             if (Rooted)
             {
-                if (StunImmune>0 || RootImmune>0)
+                if (StunImmune > 0 || RootImmune > 0)
                 {
                     Rooted = false;
                     if (!Stunned)
@@ -723,7 +729,7 @@ namespace ChampionsOfForest
             }
             if (Stunned)
             {
-                if (StunImmune>0)
+                if (StunImmune > 0)
                 {
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
@@ -739,16 +745,16 @@ namespace ChampionsOfForest
                 StunDuration -= Time.deltaTime;
                 if (StunDuration < 0)
                 {
-                 
+
                     Stunned = false;
                     LocalPlayer.FpCharacter.Locked = false;
                     if (!Rooted)
                     {
                         LocalPlayer.FpCharacter.MovementLocked = false;
                         LocalPlayer.FpCharacter.CanJump = true;
-   LocalPlayer.Rigidbody.isKinematic = false;
-                    LocalPlayer.Rigidbody.useGravity = true;
-                    LocalPlayer.Rigidbody.WakeUp();
+                        LocalPlayer.Rigidbody.isKinematic = false;
+                        LocalPlayer.Rigidbody.useGravity = true;
+                        LocalPlayer.Rigidbody.WakeUp();
                     }
                 }
             }
@@ -779,7 +785,7 @@ namespace ChampionsOfForest
             {
                 DamageOutputMult /= DeathPact_Amount;
 
-                DeathPact_Amount =1 +Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth)) * 100) * 0.03f;
+                DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / MaxHealth)) * 100) * 0.03f;
                 AddBuff(12, 43, DeathPact_Amount, 1f);
 
                 DamageOutputMult *= DeathPact_Amount;
@@ -788,7 +794,7 @@ namespace ChampionsOfForest
             if (isGreed)
             {
                 _greedCooldown -= Time.deltaTime;
-                if(_greedCooldown< 0)
+                if (_greedCooldown < 0)
                 {
                     AutoPickupItems.DoPickup();
                     _greedCooldown = 1f;
@@ -818,7 +824,7 @@ namespace ChampionsOfForest
 
         public void Root(float duration)
         {
-            if (StunImmune>0 || RootImmune>0)
+            if (StunImmune > 0 || RootImmune > 0)
             {
                 return;
             }
@@ -832,7 +838,7 @@ namespace ChampionsOfForest
         }
         public void Stun(float duration)
         {
-            if (StunImmune>0)
+            if (StunImmune > 0)
             {
                 return;
             }
@@ -861,7 +867,7 @@ namespace ChampionsOfForest
         }
         public void AddFinalExperience(long Amount)
         {
-         
+
             ExpCurrent += Convert.ToInt64(Amount * ExpFactor);
             int i = 0;
             while (ExpCurrent >= ExpGoal || (Level > 100 && ExpCurrent < 0))
@@ -883,7 +889,7 @@ namespace ChampionsOfForest
                             w.Write(19);
                             w.Write(ModReferences.ThisPlayerID);
                             w.Write(ModdedPlayer.instance.Level);
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                         answerStream.Close();
@@ -893,21 +899,21 @@ namespace ChampionsOfForest
         }
         public void OnGetHit()
         {
-            if(SpellActions.ChanceToParryOnHit&& Random.value < 0.15f)
+            if (SpellActions.ChanceToParryOnHit && Random.value < 0.15f)
             {
                 SpellActions.DoParry(LocalPlayer.Transform.forward + LocalPlayer.Transform.position);
             }
         }
         public void OnHit()
         {
-                LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
-                LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
-                LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
-                LocalPlayer.Stats.Stamina += StaminaOnHit * StaminaAndEnergyRegenAmp;
-                SpellActions.OnFrenzyAttack();
-         
+            LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
+            LocalPlayer.Stats.Health += LifeOnHit * HealingMultipier;
+            LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
+            LocalPlayer.Stats.Stamina += StaminaOnHit * StaminaAndEnergyRegenAmp;
+            SpellActions.OnFrenzyAttack();
+
         }
-        public void OnHitEffectsClient(BoltEntity ent,float damage)
+        public void OnHitEffectsClient(BoltEntity ent, float damage)
         {
             if (ent != null)
             {
@@ -921,7 +927,7 @@ namespace ChampionsOfForest
                             w.Write(ent.networkId.PackedValue);
                             w.Write(Mathf.CeilToInt(damage / 20));
                             w.Write(10);
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
                         answerStream.Close();
@@ -939,7 +945,7 @@ namespace ChampionsOfForest
                             w.Write(0.5f);
                             w.Write(8f);
                             w.Write(id);
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
                         answerStream.Close();
@@ -953,11 +959,11 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(34);
-                            w.Write(ent.networkId.PackedValue );
+                            w.Write(ent.networkId.PackedValue);
                             w.Write(id);
                             w.Write(1.2f);
                             w.Write(8f);
-                        w.Close();
+                            w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
                         answerStream.Close();
@@ -965,7 +971,7 @@ namespace ChampionsOfForest
                 }
             }
         }
-        public void OnHitEffectsHost(EnemyProgression p,float damage)
+        public void OnHitEffectsHost(EnemyProgression p, float damage)
         {
             if (p != null)
             {
@@ -985,7 +991,7 @@ namespace ChampionsOfForest
                 }
             }
         }
-        
+
 
         public void OnHit_Ranged(Transform hit)
         {
@@ -1112,8 +1118,8 @@ namespace ChampionsOfForest
             int x = lvl;
             if (x >= 146)
                 return 9000000000000000000;
-           // var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
-            var y = 120*System.Math.Pow(1.345f,x-10) + 20 + 5* x*x*x;
+            // var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
+            var y = 120 * System.Math.Pow(1.345f, x - 10) + 20 + 5 * x * x * x;
             y = y / 3.3;
             return Convert.ToInt64(y);
         }
@@ -1289,21 +1295,22 @@ namespace ChampionsOfForest
             foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemList)
             {
 
-                  if (item.Value == null) continue;
+                if (item.Value == null)
+                    continue;
                 if (item.Value.Equipped)
                 {
                     item.Value.onUnequip?.Invoke();
                     item.Value.Equipped = false;
                     foreach (var stat in item.Value.Stats)
                     {
-                try
-                {
-                        stat.OnUnequip?.Invoke(stat.Amount);
-                }
-                catch (Exception e)
-                {
+                        try
+                        {
+                            stat.OnUnequip?.Invoke(stat.Amount);
+                        }
+                        catch (Exception e)
+                        {
                             Debug.Log("err: " + e.Message);
-                } 
+                        }
                     }
                 }
             }
@@ -1315,16 +1322,16 @@ namespace ChampionsOfForest
                     Perk.AllPerks[i].DisableMethods?.Invoke();
                 }
             }
-            
+
         }
         public static void ResetAllStats()
         {
-           
+
             foreach (var item in instance.ExtraCarryingCapactity)
             {
-            item.Value.Remove();
+                item.Value.Remove();
             }
-            
+
             activeBuffs.Clear();
             SpellCaster.InfinityEnabled = false;
             SpellCaster.InfinityLoopEnabled = false;
@@ -1355,10 +1362,10 @@ namespace ChampionsOfForest
             SpellActions.MagicArrowDmgDebuff = false;
             SpellActions.MagicArrowDoubleSlow = false;
             SpellActions.MagicArrowDuration = 10;
-            SpellActions. SnapFreezeDist = 15;
-            SpellActions. SnapFloatAmount = 0.2f;
-            SpellActions. SnapFreezeDuration = 7f;
-        SpellActions.BL_Damage = 120;
+            SpellActions.SnapFreezeDist = 15;
+            SpellActions.SnapFloatAmount = 0.2f;
+            SpellActions.SnapFreezeDuration = 7f;
+            SpellActions.BL_Damage = 120;
             SpellActions.BashExtraDamage = 1.06f;
             SpellActions.BashDamageBuff = 1f;
             SpellActions.BashSlowAmount = 0.7f;
@@ -1370,7 +1377,7 @@ namespace ChampionsOfForest
             SpellActions.FrenzyStacks = 0;
             SpellActions.FrenzyAtkSpeed = 0.02f;
             SpellActions.FrenzyDmg = 0.075f;
-            SpellActions.FocusBonusDmg =0;
+            SpellActions.FocusBonusDmg = 0;
             SpellActions.FocusOnHS = 1;
             SpellActions.FocusOnBS = 0.2f;
             SpellActions.FocusOnAtkSpeed = 1.3f;
@@ -1397,15 +1404,17 @@ namespace ChampionsOfForest
             SpellActions.ParryBuffDamage = 0;
             SpellActions.FrenzyMS = false;
             SpellActions.FurySwipes = false;
-        SpellActions. CataclysmDuration = 12;
-SpellActions.CataclysmRadius = 5;
-            SpellActions.BIA_bonusDamage=0;
-        SpellActions.BIA_SpellDmMult = 1.2f;
-        SpellActions.BIA_HealthDmMult = 3f;
+            SpellActions.MagicArrowCrit = false;
+            SpellActions.BL_Crit = false;
+            SpellActions.CataclysmDuration = 12;
+            SpellActions.CataclysmRadius = 5;
+            SpellActions.BIA_bonusDamage = 0;
+            SpellActions.BIA_SpellDmMult = 1.2f;
+            SpellActions.BIA_HealthDmMult = 3f;
             SpellActions.BIA_HealthTakenMult = 0.65f;
-        BlackFlame.DmgAmp = 1;
-            BlackFlame.GiveAfterburn =false;
-            BlackFlame.GiveDamageBuff =false;
+            BlackFlame.DmgAmp = 1;
+            BlackFlame.GiveAfterburn = false;
+            BlackFlame.GiveDamageBuff = false;
             WeaponInfoMod.AlwaysIgnite = false;
             AutoPickupItems.radius = 7.5f;
             Berserker.active = false;
@@ -1504,7 +1513,7 @@ SpellActions.CataclysmRadius = 5;
             instance.HammerSmashDamageAmp = 1f;
             instance.flashlightIntensity = 1;
             instance.flashlightBatteryDrain = 1;
-            instance. RangedAttackSpeed = 1;
+            instance.RangedAttackSpeed = 1;
             instance.HexedPantsOfMrM_Enabled = false;
             instance.HexedPantsOfMrM_StandTime = 0;
             instance.DeathPact_Enabled = false;
@@ -1514,6 +1523,7 @@ SpellActions.CataclysmRadius = 5;
             instance.SpearDamageMult = 1;
             instance.isGreed = false;
             instance.BunnyHop = false;
+            instance.ProjectileDamageIncreasedBySpeed = false;
             instance.BulletDamageMult = 1;
             instance.CrossbowDamageMult = 1;
             instance.BowDamageMult = 1;
@@ -1523,10 +1533,10 @@ SpellActions.CataclysmRadius = 5;
             instance.MultishotCount = 1;
             instance.SpearCritChance = 0.04f;
             instance.SpearhellChance = 0.00f;
-            instance. BulletCritChance = 0.1f;
-        instance.TurboRaft = false;
+            instance.BulletCritChance = 0.1f;
+            instance.TurboRaft = false;
             instance.RaftSpeedMultipier = 1;
-            instance.FireAmp=0;
+            instance.FireAmp = 0;
             instance.HeadShotDamage = 6;
             instance.SpellAmpFireDmg = false;
             instance.ProjectileDamageIncreasedBySize = false;
@@ -1539,6 +1549,9 @@ SpellActions.CataclysmRadius = 5;
             instance.HammerStunAmount = 0.25f;
             instance.HammerSmashDamageAmp = 1f;
             instance.IsHazardCrown = false;
+            MaxLogs = 2;
+
+
             ReapplyAllItems();
             ReapplyAllPerks();
             ReapplyAllSpell();
@@ -1552,7 +1565,7 @@ SpellActions.CataclysmRadius = 5;
         {
             for (int i = 0; i < SpellCaster.SpellCount; i++)
             {
-                SpellCaster.instance.infos[i].spell?.passive?.Invoke(true);   
+                SpellCaster.instance.infos[i].spell?.passive?.Invoke(true);
             }
         }
 
@@ -1566,7 +1579,7 @@ SpellActions.CataclysmRadius = 5;
                     Inventory.Instance.ItemList[key].Equipped = false;
                 }
             }
-                    }
+        }
         public static void ReapplyAllPerks()
         {
             //perks
@@ -1578,19 +1591,19 @@ SpellActions.CataclysmRadius = 5;
                     {
                         for (int j = 0; j < Perk.AllPerks[i].ApplyAmount; j++)
                         {
-                    Perk.AllPerks[i].ApplyMethods();
+                            Perk.AllPerks[i].ApplyMethods();
 
                         }
                     }
-                    else 
-                    Perk.AllPerks[i].ApplyMethods();
+                    else
+                        Perk.AllPerks[i].ApplyMethods();
                 }
             }
         }
 
         public static void Respec()
         {
-            MainMenu.Instance.StartCoroutine(  MainMenu.Instance.FadeMenuSwitch(MainMenu.OpenedMenuMode.Hud));
+            MainMenu.Instance.StartCoroutine(MainMenu.Instance.FadeMenuSwitch(MainMenu.OpenedMenuMode.Hud));
             LocalPlayer.Stats.Health = 1;
             LocalPlayer.Stats.HealthTarget = 1;
             LocalPlayer.Stats.Energy = 1;
@@ -1626,11 +1639,12 @@ SpellActions.CataclysmRadius = 5;
             int repeats = 1;
             if (Effects.Multishot.IsOn)
             {
-                bool b = ModdedPlayer.instance.SoraSpecial ? SpellCaster.RemoveStamina(0.5f * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount) : SpellCaster.RemoveStamina(5 * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount * ModdedPlayer.instance.MultishotCount);
+                bool b = ModdedPlayer.instance.SoraSpecial ? SpellCaster.RemoveStamina(Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f)) : SpellCaster.RemoveStamina(10 * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f));
                 if (b)
                 {
                     repeats += ModdedPlayer.instance.MultishotCount;
-                    if (ModdedPlayer.instance.SoraSpecial) repeats += 4;
+                    if (ModdedPlayer.instance.SoraSpecial)
+                        repeats += 4;
 
                 }
                 else

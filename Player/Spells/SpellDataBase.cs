@@ -58,11 +58,11 @@ namespace ChampionsOfForest.Player
                 usePassiveOnUpdate = true,
             
             };
-            new Spell(6, 117, 2, 10, 0.5f, "Wide Reach", "Picks up all resources in a small radius around you.")
+            new Spell(6, 117, 2, 10, 0.4f, "Wide Reach", "Picks up all resources in a small radius around you.")
             {
                 active = AutoPickupItems.DoPickup,            
             };
-            new Spell(7, 115, 6, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 17, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
@@ -70,7 +70,7 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastWarCry,            
             };
-            new Spell(9, 114, 15, 200, 45, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
+            new Spell(9, 114, 15, 100, 35, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
             {
                 active =SpellActions.CastPortal,            
             };
@@ -110,7 +110,7 @@ namespace ChampionsOfForest.Player
             {
                 passive = x=> SpellActions.Frenzy = x,            
             };
-            new Spell(19, 135, 5, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
+            new Spell(19, 135, 27, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
             {
                 active = SpellActions.SeekingArrow_Active,
             };
@@ -122,7 +122,7 @@ namespace ChampionsOfForest.Player
             {
                 passive = x => SpellActions.Parry = x,
             };
-            new Spell(22, 141, 22, 145, 240, "Cataclysm", "Creates a fire tornado that ignites enemies, slows them and deals damage.")
+            new Spell(22, 141, 50, 400, 300, "Cataclysm", "Creates a fire tornado that ignites enemies, slows them and deals damage.")
             {
                 active = ()=> SpellActions.CastCataclysm(),
             };
