@@ -50,7 +50,7 @@ namespace ChampionsOfForest
                 return (1 + f) * SpellDamageAmplifier * DamageOutputMultTotal;
             }
         }
-        public float MeleeAMP => DamageOutputMultTotal * ((strenght * DamagePerStrenght) + 1) * MeleeDamageAmplifier;
+        public float MeleeAMP => DamageOutputMultTotal * ((strength * DamagePerStrength) + 1) * MeleeDamageAmplifier;
         public float RangedAMP
         {
             get
@@ -85,12 +85,12 @@ namespace ChampionsOfForest
             get => _level; set => _level = value;
         }
         public float HealingMultipier = 1;
-        public int strenght = 1;    //increases damage
+        public int strength = 1;    //increases damage
         public int intelligence = 1; //increases spell damage
         public int agility = 1;     //increases energy
         public int vitality = 1;     //increases health  
         public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
-        public float DamagePerStrenght = 0.00f;
+        public float DamagePerStrength = 0.00f;
         public float SpellDamageperInt = 0.00f;
         public float RangedDamageperAgi = 0.00f;
         public float EnergyRegenPerInt = 0.00f;
@@ -436,11 +436,10 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    string s = "II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " JOINED THE SERVER!\nWELCOME!\n INSTALLED MODS: \n";
-                    Regex regex = new Regex(@"\w+");
+                    string s = "IIWelcome " + LocalPlayer.Entity.GetState<IPlayerState>().name + "!\nChampion level: "+Level+"\nINSTALLED MODS: \n";
                     foreach (var item in ModAPI.Mods.LoadedMods)
                     {
-                        s += regex.Match(item.Value.UniqueId).Value + " [" + item.Value.Version + "]\n";
+                        s +="- "+ item.Value.Id + " [" + item.Value.Version + "]\n";
                     }
                     NetworkManager.SendText(s, NetworkManager.Target.Everyone);
                 }
@@ -453,7 +452,7 @@ namespace ChampionsOfForest
             {
                 if (BoltNetwork.isRunning)
                 {
-                    string s = "II" + Player + " LEFT! FAREWELL!";
+                    string s = "II" + Player + " is gone";
                     NetworkManager.SendText(s, NetworkManager.Target.Everyone);
                 }
             }
@@ -471,7 +470,7 @@ namespace ChampionsOfForest
         {
             int x = AttributeBonus(Level);
 
-            strenght = x;
+            strength = x;
             intelligence = x;
             vitality = x;
             agility = x;
@@ -1104,7 +1103,7 @@ namespace ChampionsOfForest
 
             int ap = Mathf.RoundToInt(Mathf.Sqrt(Level));
             agility += ap;
-            strenght += ap;
+            strength += ap;
             vitality += ap;
             intelligence += ap;
 
@@ -1419,12 +1418,12 @@ namespace ChampionsOfForest
             AutoPickupItems.radius = 7.5f;
             Berserker.active = false;
             instance.HealingMultipier = 1;
-            instance.strenght = 1;
+            instance.strength = 1;
             instance.intelligence = 1;
             instance.agility = 1;
             instance.vitality = 1;
             instance.AssignLevelAttributes();
-            instance.DamagePerStrenght = 0.00f;
+            instance.DamagePerStrength = 0.00f;
             instance.SpellDamageperInt = 0.00f;
             instance.RangedDamageperAgi = 0.00f;
             instance.ArmorReduction = 0;

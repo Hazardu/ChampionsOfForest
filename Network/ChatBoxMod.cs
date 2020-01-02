@@ -8,7 +8,7 @@ namespace ChampionsOfForest.Network
     public class ChatBoxMod : ChatBox
     {
         //UNIQUE ID OF THE FAKE PLAYER
-        public static ulong ModSenderPacked = 999999421;
+        public const ulong ModSenderPacked = 999999421;
 
         public static NetworkId ModNetworkID;
 

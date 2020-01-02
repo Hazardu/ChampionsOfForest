@@ -13,8 +13,8 @@ namespace ChampionsOfForest.Player
             AllPerks.Clear();
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.DamagePerStrenght += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.DamagePerStrenght -= 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.DamagePerStrength += 0.005f,
+                DisableMethods = () => ModdedPlayer.instance.DamagePerStrength -= 0.005f,
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -179,7 +179,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Damage",
-                Description = "Grip strenght increases by 1 kg.\nIncreases melee damage by 5",
+                Description = "Grip strength increases by 1 kg.\nIncreases melee damage by 5",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -202,8 +202,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.strenght += 10,
-                DisableMethods = () => ModdedPlayer.instance.strenght -= 10,
+                ApplyMethods = () => ModdedPlayer.instance.strength += 10,
+                DisableMethods = () => ModdedPlayer.instance.strength -= 10,
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 10 },
@@ -212,8 +212,8 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
-                Name = "Strenght",
-                Description = "All flexors gain in size.\nIncreases strenght by 10",
+                Name = "Strength",
+                Description = "All flexors gain in size.\nIncreases strength by 10",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -247,7 +247,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Size",
-                Description = "Increased overall physical strenght allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
+                Description = "Increased overall physical strength allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -264,7 +264,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Speed",
-                Description = "Increased overall physical strenght allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
+                Description = "Increased overall physical strength allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -366,7 +366,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "All attributes",
-                Description = "+5 to every strenght, agility, vitality and intelligence",
+                Description = "+5 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -383,7 +383,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "All attributes",
-                Description = "+15 to every strenght, agility, vitality and intelligence",
+                Description = "+15 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -467,7 +467,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "All attributes",
-                Description = "+10 to every strenght, agility, vitality and intelligence",
+                Description = "+10 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -2221,7 +2221,7 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 8f,
                 PosOffsetY = -0.75f,
-                Name = "Curse of Strenghtening",
+                Name = "Curse of Strengthening",
                 Description = "Decreases attack speed by 50%, but greatly increases melee damage by 150%",
                 TextureVariation = 1, //0 or 1
                 Endless = false,

@@ -519,7 +519,7 @@
 //                BuilderCore.Core.CreateMaterial(
 //                    new BuilderCore.BuildingData()
 //                    {
-//                        OcclusionStrenght = 0.75f,
+//                        OcclusionStrength = 0.75f,
 //                        Smoothness = 0.6f,
 //                        Metalic = 0.6f,
 //                        MainTexture = Res.ResourceLoader.instance.LoadedTextures[61],

@@ -363,7 +363,7 @@ namespace ChampionsOfForest
         public static void FillStats()
         {
             int i = 1;
-            new ItemStat(i, 1, 2.2f, 0.82f, "Strenght", 4, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 1, 2.2f, 0.82f, "Strength", 4, StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength); i++;
             new ItemStat(i, 1, 2, 0.82f, "Agility", 4, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
             new ItemStat(i, 1, 2, 0.82f, "Vitality", 4, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
             new ItemStat(i, 1, 2, 0.82f, "Intelligence", 4, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
@@ -392,7 +392,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.0025f, 0.015f, 0f, "Energy Per Agility", 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.01f, 0.05f, 0f, "Health Per Vitality", 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = false, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0013f, 0.0025f, 0f, "Spell Damage Per Int", 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strenght", 7, StatActions.AddDamagePerStrenght, StatActions.RemoveDamagePerStrenght, StatActions.AddDamagePerStrenght) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strength", 7, StatActions.AddDamagePerStrength, StatActions.RemoveDamagePerStrength, StatActions.AddDamagePerStrength) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.0005f, 0.003f, 0.6f, "All Healing %", 6, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; i++;
             new ItemStat(i, 1f / 4f, 1f / 4f, 0f, "PERMANENT PERK POINTS", 6, null, null, StatActions.PERMANENT_perkPointIncrease); i++;
             new ItemStat(i, 100f, 110f, 3f, "EXPERIENCE", 5, null, null, StatActions.PERMANENT_expIncrease); i++;
@@ -401,7 +401,7 @@ namespace ChampionsOfForest
             new ItemStat(i, 0.001f, 0.01f, 0.5f, "Attack Cost Reduction", 3, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost /= 1 - f, f => ModdedPlayer.instance.StaminaAttackCost *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.001f, 0.005f, 0.4f, "Spell Cost Reduction", 6, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f, f => ModdedPlayer.instance.SpellCostRatio /= 1 - f, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
             new ItemStat(i, 0.005f, 0.009f, 0.4f, "Spell Cost to Stamina", 5, f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, f), f => AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 }; i++;
-            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Strenght", 2, StatActions.AddStrenght, StatActions.RemoveStrenght, StatActions.AddStrenght); i++;
+            new ItemStat(i, 0.4f, 0.8f, 0.8f, "Strength", 2, StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength); i++;
             new ItemStat(i, 0.4f, 0.8f, 0.8f, "Agility", 2, StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); i++;
             new ItemStat(i, 0.4f, 0.8f, 0.8f, "Vitality", 2, StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); i++;
             new ItemStat(i, 0.4f, 0.8f, 0.8f, "Intelligence", 2, StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); i++;
@@ -1488,7 +1488,7 @@ namespace ChampionsOfForest
             })
                 {
                     name = "Black Hammer",
-                    description = "It's slow but with enough strenght i can make it a very deadly tool",
+                    description = "It's slow but with enough strength i can make it a very deadly tool",
                     lore = "",
                     tooltip = "Hammers stun enemies with every hit, but are slow. They also deal high smash damage",
                     Rarity = 4,

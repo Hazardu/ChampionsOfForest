@@ -158,7 +158,7 @@ namespace ChampionsOfForest.Player
                 Smoothness = 0.0f,
                 MainTexture = Res.ResourceLoader.GetTexture(169),
                 EmissionMap = Res.ResourceLoader.GetTexture(169),
-            }), new Vector3(0, 0, 1.1f), new Vector3(0, 180, 0), Vector3.zero, 1.1f);
+            }), new Vector3(0, 0, 1.1f), new Vector3(0, 0, 0), Vector3.zero, 1.1f);
 
             instance = new GameObject().AddComponent<CoopCustomWeapons>();
 

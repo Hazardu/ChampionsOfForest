@@ -843,6 +843,10 @@ namespace ChampionsOfForest
 
                 return;
             }
+            if (setup.ai.creepy_boss && !setup.ai.girlFullyTransformed)
+            {
+                return;
+            }
             if (Time.time - CreationTime < 4)
             {
                 if (_hp > MaxHealth) MaxHealth = _hp;
@@ -856,6 +860,8 @@ namespace ChampionsOfForest
                     OnDieCalled = false;
                 }
             }
+
+
             FireDmgBonus = 0;
             foreach (EnemyDebuff item in FireDamageDebuffs.Values)
             {

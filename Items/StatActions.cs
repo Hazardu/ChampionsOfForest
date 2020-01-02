@@ -13,13 +13,13 @@ namespace ChampionsOfForest.Items
         {
             ChampionsOfForest.ModdedPlayer.instance.vitality -= Mathf.RoundToInt(f);
         }
-        public static void AddStrenght(float f)
+        public static void AddStrength(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.strength += Mathf.RoundToInt(f);
         }
-        public static void RemoveStrenght(float f)
+        public static void RemoveStrength(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght -= Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.strength -= Mathf.RoundToInt(f);
         }
         public static void AddAgility(float f)
         {
@@ -245,13 +245,13 @@ namespace ChampionsOfForest.Items
         {
             ChampionsOfForest.ModdedPlayer.instance.SpellDamageperInt -= f;
         }
-        public static void AddDamagePerStrenght(float f)
+        public static void AddDamagePerStrength(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DamagePerStrenght += f;
+            ChampionsOfForest.ModdedPlayer.instance.DamagePerStrength += f;
         }
-        public static void RemoveDamagePerStrenght(float f)
+        public static void RemoveDamagePerStrength(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.DamagePerStrenght -= f;
+            ChampionsOfForest.ModdedPlayer.instance.DamagePerStrength -= f;
         }
         public static void AddHealingMultipier(float f)
         {
@@ -332,14 +332,14 @@ namespace ChampionsOfForest.Items
 
         public static void AddAllStats(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght += Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.strength += Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.vitality += Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.agility += Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.intelligence += Mathf.RoundToInt(f);
         }
         public static void RemoveAllStats(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.strenght -= Mathf.RoundToInt(f);
+            ChampionsOfForest.ModdedPlayer.instance.strength -= Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.vitality -= Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.agility -= Mathf.RoundToInt(f);
             ChampionsOfForest.ModdedPlayer.instance.intelligence -= Mathf.RoundToInt(f);

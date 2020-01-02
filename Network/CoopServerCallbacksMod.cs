@@ -175,7 +175,7 @@ namespace ChampionsOfForest.Network
         public override void EntityReceived(BoltEntity entity)
         {
             if (entity.StateIs<IPlayerState>() && GameSetup.IsMpServer)
-                NetworkManager.SendText("IIA NEW CHAMPION APPROACHES \n" + entity.GetState<IPlayerState>().name, NetworkManager.Target.Everyone);
+                NetworkManager.SendText("IIA champion approaches... \n" + entity.GetState<IPlayerState>().name, NetworkManager.Target.Everyone);
 
             base.EntityReceived(entity);
         }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static ChampionsOfForest.Player.BuffDB;
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
@@ -192,6 +193,13 @@ namespace ChampionsOfForest
 
             try
             {
+                var sceneName = SceneManager.GetActiveScene().name;
+                if (sceneName == "TitleScene" || sceneName == "TitleSceneLoader")
+                {
+                    Destroy(gameObject);
+                }
+
+
                 rr = Screen.height / 1080f;
                 wholeScreen = new Rect(0, 0, Screen.width, Screen.height);
 
@@ -569,13 +577,18 @@ namespace ChampionsOfForest
 
                 if (!ModSettings.DifficultyChoosen)
                 {
-                    if (GameSetup.IsMpClient)
+                    if (LocalPlayer.Stats != null)
                     {
-                        DifficultySelectionClinet();
-                    }
-                    else
-                    {
-                        DifficultySelectionHost();
+
+
+                        if (GameSetup.IsMpClient)
+                        {
+                            DifficultySelectionClinet();
+                        }
+                        else
+                        {
+                            DifficultySelectionHost();
+                        }
                     }
                 }
                 else
@@ -3426,7 +3439,7 @@ namespace ChampionsOfForest
                 BookPositionY += 155 * rr;
             }
 
-            Stat("Strenght", ModdedPlayer.instance.strenght.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrenght * 100 + "% for every 1 point of strenght. Current bonus melee damage from strenght [" + ModdedPlayer.instance.strenght * 100 * ModdedPlayer.instance.DamagePerStrenght + "]");
+            Stat("Strength", ModdedPlayer.instance.strength.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrength * 100 + "% for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.instance.strength * 100 * ModdedPlayer.instance.DamagePerStrength + "]");
             Stat("Agility", ModdedPlayer.instance.agility.ToString("N0") + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
                 "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
             Stat("Vitality", ModdedPlayer.instance.vitality.ToString("N0") + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
@@ -3495,7 +3508,7 @@ namespace ChampionsOfForest
             Space(10);
 
             Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-                "Bonus from strenght: " + Math.Round(ModdedPlayer.instance.strenght * ModdedPlayer.instance.DamagePerStrenght * 100, 2) + "%\n" +
+                "Bonus from strength: " + Math.Round(ModdedPlayer.instance.strength * ModdedPlayer.instance.DamagePerStrength * 100, 2) + "%\n" +
                 "Melee damage amplification: " + Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier - 1) * 100, 2) + "%\n" +
                 "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
@@ -3579,7 +3592,7 @@ namespace ChampionsOfForest
             Space(10);
             foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
             {
-                string item_name = Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
+                string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
                 Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
             }
             Space(10);
@@ -3587,7 +3600,7 @@ namespace ChampionsOfForest
                 Header("Generated resources");
             foreach (var pair in ModdedPlayer.instance.GeneratedResources)
             {
-                string item_name = Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
+                string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
                 Stat(item_name, pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
             }
 
@@ -3607,7 +3620,7 @@ namespace ChampionsOfForest
 
             Space(100);
             Header("Enemies");
-            Label("\tEnemies in the forest have evolved. They become faster and stronger, the more experience they get. But speed and strenght alone shouldn't be my main concern. There are a lot more dangerous beings out there." +
+            Label("\tEnemies in the forest have evolved. They become faster and stronger, the more experience they get. But speed and strength alone shouldn't be my main concern. There are a lot more dangerous beings out there." +
                 "\n\n" +
                 "Normal enemies changed slightly. Their health has drastically increased. I was not able to find the cause of such change. I must keep looking for the answer.\n" +
                 "Apart from increased health, enemies have armor. It noticeably reduces damage when dealing with stronger enemies." +
@@ -3622,7 +3635,7 @@ namespace ChampionsOfForest
             Label("- Blizzard - A temporary aura around an enemy that slows anyone in its area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting in range. Crowd controll from ranged abilities and running seems like the best option.");
             Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
             Label("- Chains - Roots anyone in a big radius from the enemy. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
-            Label("- Black hole - A very strong ability. Only engage in battle with enemy if I am certain of my strenght. It provides crowd controll and deals a lot of damage. The crowd controll can be avoided by running away from the area of effect of the spell or teleport outside of it. The only weak side of this spell is the high cooldown.");
+            Label("- Black hole - A very strong ability. Only engage in battle with enemy if I am certain of my strength. It provides crowd controll and deals a lot of damage. The crowd controll can be avoided by running away from the area of effect of the spell or teleport outside of it. The only weak side of this spell is the high cooldown.");
             Label("- Trap sphere - Long lasting sphere that forces me to stay inside it untill its effects wears off");
             Label("- Juggernaut - The enemy is completely immune to crowd controll.\n");
             Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");

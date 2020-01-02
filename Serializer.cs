@@ -309,7 +309,7 @@ namespace ChampionsOfForest
                 yield break;
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
 
             DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 
@@ -318,8 +318,8 @@ namespace ChampionsOfForest
             //waiting for buffs and perks to apply 
             yield return new WaitForSeconds(0.5f);
 
-            //bringing health back to correct amount
-            LocalPlayer.Stats.Health = ModdedPlayer.instance.MaxHealth * HealthPercentage;
+
+
 
 
             //fixing missing items 
@@ -332,7 +332,11 @@ namespace ChampionsOfForest
                     LocalPlayer.Inventory.AddItem(item.Key, toAdd);
                 }
             }
-            SpellCaster.instance.SetMaxCooldowns();
+
+            yield return new WaitForSeconds(2f);
+            ModdedPlayer.ResetAllStats();
+            //bringing health back to correct amount
+            LocalPlayer.Stats.Health = ModdedPlayer.instance.MaxHealth * HealthPercentage;
         }
 
 
