@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Effects
             active = true;
             ModdedPlayer.instance.AttackSpeedMult *= 1.2f;
             ModdedPlayer.instance.DamageOutputMult *= 1.2f;
-            ModdedPlayer.instance.MoveSpeed *= 1.3f;
+            ModdedPlayer.instance.MoveSpeedMult *= 1.3f;
             ModdedPlayer.instance.DamageReduction *= 2f;
 
         }
@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Effects
             active = false;
             ModdedPlayer.instance.AttackSpeedMult /= 1.2f;
             ModdedPlayer.instance.DamageOutputMult /= 1.2f;
-            ModdedPlayer.instance.MoveSpeed /= 1.3f;
+            ModdedPlayer.instance.MoveSpeedMult /= 1.3f;
             ModdedPlayer.instance.DamageReduction /= 2f;
             BuffDB.AddBuff(18, 51, LocalPlayer.Stats.Energy, 20);
         }

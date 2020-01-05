@@ -136,7 +136,7 @@ namespace ChampionsOfForest.Effects
                 }
                 if (GiveDamageBuff)
                 {
-                    BuffDB.AddBuff(13, 44, 1.5f, 1f);
+                    BuffDB.AddBuff(13, 44, 2f, 1f);
                 }
              
             }

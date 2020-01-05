@@ -113,14 +113,14 @@ namespace ChampionsOfForest.Player
                     ModdedPlayer.instance.AttackSpeedMult /= 1+ f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult /= 1+f * SpellActions.FrenzyDmg;
                     if(SpellActions.FrenzyMS)
-                        ModdedPlayer.instance.MoveSpeed -=f * 0.05f;
+                        ModdedPlayer.instance.MoveSpeedMult /=1+ f * 0.05f;
 
                     SpellActions.FrenzyStacks = 0;
                 },f => {
                     ModdedPlayer.instance.AttackSpeedMult *= 1 + f * SpellActions.FrenzyAtkSpeed;
                     ModdedPlayer.instance.DamageOutputMult *= 1 + f * SpellActions.FrenzyDmg;
                     if (SpellActions.FrenzyMS)
-                        ModdedPlayer.instance.MoveSpeed += f * 0.05f;
+                        ModdedPlayer.instance.MoveSpeedMult *=1+  f * 0.05f;
                 })
                 { DisplayAsPercent = false };
 

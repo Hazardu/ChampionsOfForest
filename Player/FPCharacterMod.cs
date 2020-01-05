@@ -45,12 +45,12 @@ namespace ChampionsOfForest.Player
         protected override void HandleWalkingSpeedOptions()
         {
             base.HandleWalkingSpeedOptions();
-            speed *= ModdedPlayer.instance.MoveSpeed;
+            speed *= ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult ;
         }
         protected override void HandleRunningStaminaAndSpeed()
         {
             base.HandleRunningStaminaAndSpeed();
-            speed *= ModdedPlayer.instance.MoveSpeed;
+            speed *= ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult;
 
         }
         public override void HandleLanded()

@@ -173,6 +173,7 @@ namespace ChampionsOfForest
         public int DebuffImmune = 0;
         public int DebuffResistant = 0;
         public float MoveSpeed = 1f;
+        public float MoveSpeedMult = 1f;
         public float JumpPower = 1f;
         public float SpellCostToStamina = 0;
         public float SpellCostRatio = 1;
@@ -297,6 +298,10 @@ namespace ChampionsOfForest
         public bool isWindArmor = false;
         private float _greedCooldown;
 
+        public bool SparkOfLightAfterDark = false;
+
+
+
         public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
         public struct ExtraItemCapacity
         {
@@ -396,6 +401,7 @@ namespace ChampionsOfForest
         {
             instance = this;
             MoveSpeed = 1f;
+            MoveSpeedMult = 1f;
             MutationPoints = 1;
             ExpGoal = GetGoalExp();
 
@@ -775,8 +781,8 @@ namespace ChampionsOfForest
                     HexedPantsOfMrM_StandTime = Mathf.Clamp(HexedPantsOfMrM_StandTime + Time.deltaTime, -1.1f, 1.1f);
                     if (HexedPantsOfMrM_StandTime >= 1)
                     {
-                        AddBuff(9, 41, 1.2f, 1f);
-                        AddBuff(11, 42, 1.2f, 1f);
+                        AddBuff(9, 41, 1.4f, 1f);
+                        AddBuff(11, 42, 1.4f, 1f);
                     }
                 }
             }
@@ -1476,6 +1482,7 @@ namespace ChampionsOfForest
             instance.DebuffImmune = 0;
             instance.DebuffResistant = 0;
             instance.MoveSpeed = 1f;
+            instance.MoveSpeedMult = 1f;
             instance.JumpPower = 1f;
             instance.SpellCostToStamina = 0;
             instance.SpellCostRatio = 1;

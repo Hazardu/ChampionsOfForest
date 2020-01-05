@@ -3259,7 +3259,7 @@ namespace ChampionsOfForest
         {
             if (BookPositionY < Screen.height && BookPositionY > -70 * rr)
             {
-                Rect labelRect = new Rect(50 * rr + GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease) - 100 * rr, statStyle.fontSize);
+                Rect labelRect = new Rect(100 * rr + GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease) - 200 * rr, statStyle.fontSize);
                 GUI.Label(labelRect, statName, statStyle);
                 GUI.Label(labelRect, amount, statStyleAmount);
                 BookPositionY += statStyle.fontSize;
@@ -3335,7 +3335,7 @@ namespace ChampionsOfForest
             statStyle = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = Mathf.RoundToInt(30 * rr),
+                fontSize = Mathf.RoundToInt(24 * rr),
                 hover = new GUIStyleState()
                 {
                     textColor = new Color(1, 1, 0.8f)
@@ -3346,7 +3346,7 @@ namespace ChampionsOfForest
             statStyleAmount = new GUIStyle(GUI.skin.label)
             {
                 font = MainFont,
-                fontSize = Mathf.RoundToInt(33 * rr),
+                fontSize = Mathf.RoundToInt(25 * rr),
                 normal = new GUIStyleState()
                 {
                     textColor = new Color(0.3f, 1, 0.3f)
@@ -3526,7 +3526,7 @@ namespace ChampionsOfForest
              "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
             Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
             Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Faster projectiles fly further and fall slower");
-            Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
+            Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSizeRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
             Stat("Headshot damage", Math.Round(ModdedPlayer.instance.HeadShotDamage * 100) + "%", "Damage multipier on headshot");
             Stat("No consume chance", ModdedPlayer.instance.ReusabilityChance.ToString("P"));
             Stat("Spear headshot chance", ModdedPlayer.instance.SpearCritChance.ToString("P"));
@@ -3575,8 +3575,8 @@ namespace ChampionsOfForest
             Header("Survivor stats");
             Space(10);
 
-            Stat("Movement speed", Math.Round(ModdedPlayer.instance.MoveSpeed * 100) + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed + " units per second");
-            Stat("Jump power", Math.Round(ModdedPlayer.instance.MoveSpeed * 100) + "%", "Multipier of base jump power. Increases height of your jumps");
+            Stat("Movement speed", Math.Round(ModdedPlayer.instance.MoveSpeed *ModdedPlayer.instance.MoveSpeedMult * 100 ) + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed *ModdedPlayer.instance.MoveSpeedMult + " units per second");
+            Stat("Jump power", Math.Round(ModdedPlayer.instance.JumpPower * 100) + "%", "Multipier of base jump power. Increases height of your jumps");
             Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal.");
             Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal.");
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
@@ -3837,11 +3837,11 @@ namespace ChampionsOfForest
 
                     Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
 
-                    string desctext = p.Description;
+                    string desctext = p._description;
 
                     if (!p.IsBought || p.Endless)
                     {
-                        desctext = "Press to buy\n" + p.Description;
+                        desctext = "Press to buy\n" + p._description;
                         Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
                         Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
                         if (p.LevelRequirement > ModdedPlayer.instance.Level)
@@ -3888,7 +3888,8 @@ namespace ChampionsOfForest
                                     Perk.AllPerks[SelectedPerk_ID].ApplyAmount++;
                                 }
                                 Perk.AllPerks[SelectedPerk_ID].IsBought = true;
-
+                                Perk.AllPerks[SelectedPerk_ID].OnBuy();
+                                
                                 ModdedPlayer.instance.MutationPoints -= p.PointsToBuy;
                                 Perk.AllPerks[SelectedPerk_ID].ApplyMethods();
                                 Perk.AllPerks[SelectedPerk_ID].Applied = true;

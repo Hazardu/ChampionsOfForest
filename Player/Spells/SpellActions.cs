@@ -128,11 +128,11 @@ namespace ChampionsOfForest.Player
 
         public static void BUFF_MultMS(float f)
         {
-            ModdedPlayer.instance.MoveSpeed *= f;
+            ModdedPlayer.instance.MoveSpeedMult *= f;
         }
         public static void BUFF_DivideMS(float f)
         {
-            ModdedPlayer.instance.MoveSpeed /= f;
+            ModdedPlayer.instance.MoveSpeedMult /= f;
         }
 
         public static void BUFF_MultAS(float f)
@@ -212,6 +212,7 @@ namespace ChampionsOfForest.Player
                     w.Write(BLACKHOLE_duration);
                     w.Write(BLACKHOLE_radius);
                     w.Write(BLACKHOLE_pullforce);
+                    w.Write(ModdedPlayer.instance.SparkOfLightAfterDark? ModReferences.ThisPlayerID: "");
                     w.Close();
                 }
                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
@@ -241,6 +242,12 @@ namespace ChampionsOfForest.Player
             //    answerStream.Close();
             //}
         }
+
+        public static void CallbackSparkOfLightAfterDarkness(Vector3 pos)
+        {
+            CastBallLightning(pos, Vector3.down);
+        }
+
         #endregion
 
         #region SustainShield
@@ -479,15 +486,13 @@ namespace ChampionsOfForest.Player
 
         public static float BL_Damage = 220;
         public static bool BL_Crit =false;
-        public static void CastBallLightning()
+        public static void CastBallLightning(Vector3 pos,Vector3 speed)
         {
             float dmg = BL_Damage + (5f * ModdedPlayer.instance.SpellDamageBonus);
             dmg *= ModdedPlayer.instance.SpellAMP;
             if (BL_Crit)
                 dmg *= ModdedPlayer.instance.CritDamageBuff;
 
-            Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward;
-            Vector3 speed = Camera.main.transform.forward;
 
             speed.y = 0;
             speed.Normalize();
@@ -537,6 +542,14 @@ namespace ChampionsOfForest.Player
                 }
                         BallLightning.lastID++;
             }
+        }
+
+        public static void CastBallLightning()
+        {
+            Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward;
+            Vector3 speed = Camera.main.transform.forward;
+
+            CastBallLightning(pos,speed);
         }
 
 
@@ -866,6 +879,7 @@ namespace ChampionsOfForest.Player
 
         }
         #endregion
+
     }
 
 }

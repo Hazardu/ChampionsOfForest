@@ -24,7 +24,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Hits",
-                Description = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 0.5%.",
+                _description = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -42,7 +42,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Spells",
-                Description = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.",
+                _description = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -60,7 +60,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Projectiles",
-                Description = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 0.5%.",
+                _description = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -77,7 +77,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stamina Recovery",
-                Description = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recover by 0.5%.",
+                _description = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recover by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -94,7 +94,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0,
                 Name = "More Stamina",
-                Description = "Hemoglobin is replaced with an alternative substance capable of carrying more oxygen.\nEvery point of AGILITY increases max stamina by 0.5",
+                _description = "Hemoglobin is replaced with an alternative substance capable of carrying more oxygen.\nEvery point of AGILITY increases max stamina by 0.5",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "More Health",
-                Description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.5",
+                _description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.5",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -128,7 +128,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0,
                 Name = "More Healing",
-                Description = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 5%",
+                _description = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 5%",
+                onPucharseDescriptionUpdate = x =>
+                {
+
+                    float f = 1.05f;
+                    for (int i = 1; i < x; i++)
+                        f *= 1.05f;
+                    return "\nTotal from this perk: " + (f - 1).ToString("P");
+            },
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -145,9 +153,16 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Metabolism",
-                Description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 10%.",
+                _description = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 10%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    float f = 0.9f;
+                    for (int i = 1; i < x; i++)
+                        f *= 0.9f;
+                    return "\nTotal from this perk: " + (1-f).ToString("P");
+                },
             };
             new Perk()
             {
@@ -162,9 +177,16 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -0.75f,
                 Name = "Water Conservation",
-                Description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 10%.",
+                _description = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 10%.",
                 TextureVariation = 1, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    float f = 0.9f;
+                    for (int i = 1; i < x; i++)
+                        f *= 0.9f;
+                    return "\nTotal from this perk: " + (1 - f).ToString("P");
+                },
             };
             new Perk()
             {
@@ -179,9 +201,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Damage",
-                Description = "Grip strength increases by 1 kg.\nIncreases melee damage by 5",
+                _description = "Grip strength increases by 1 kg.\nIncreases melee damage by 5",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    
+                    return "\nTotal from this perk: " + x*5;
+                },
             };
             new Perk()
             {
@@ -196,7 +223,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Damage",
-                Description = "Biceps slightly increases in size.\nIncreases melee damage by 10%",
+                _description = "Biceps slightly increases in size.\nIncreases melee damage by 10%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -213,7 +240,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Strength",
-                Description = "All flexors gain in size.\nIncreases strength by 10",
+                _description = "All flexors gain in size.\nIncreases strength by 10",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -230,9 +257,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Damage",
-                Description = "Shoulder muscules grow.\nIncreases projectile damage by 5",
+                _description = "Shoulder muscules grow.\nIncreases projectile damage by 5",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + x*5;
+                },
             };
             new Perk()
             {
@@ -247,9 +278,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Size",
-                Description = "Increased overall physical strength allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
+                _description = "Increased overall physical strength allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (x*0.05f).ToString("P");
+                },
             };
             new Perk()
             {
@@ -264,9 +299,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Speed",
-                Description = "Increased overall physical strength allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
+                _description = "Increased overall physical strength allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (x * 0.05f).ToString("P");
+                },
             };
             new Perk()
             {
@@ -281,7 +320,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Transmutation",
-                Description = "The costs of casting spells become easier to quicly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.",
+                _description = "The costs of casting spells become easier to quicly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -298,9 +337,16 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Resource Cost Reduction",
-                Description = "In order to preserve energy, spell costs are reduced by 4%",
+                _description = "In order to preserve energy, spell costs are reduced by 4%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    float f = 0.96f;
+                    for (int i = 1; i < x; i++)
+                        f *= 0.96f;
+                    return "\nTotal from this perk: " + (1 - f).ToString("P");
+                },
             };
             //0.7 perks
             new Perk()
@@ -316,7 +362,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Undestructable",
-                Description = "Decreases all damage taken and decreases all damage dealt by 30%",
+                _description = "Decreases all damage taken and decreases all damage dealt by 30%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -333,9 +379,16 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Cool Down Reduction",
-                Description = " Reduces spell cooldown by 4%",
+                _description = " Reduces spell cooldown by 4%",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    float f = 0.96f;
+                    for (int i = 1; i < x; i++)
+                        f *= 0.96f;
+                    return "\nTotal from this perk: " + (1 - f).ToString("P");
+                },
             };
             new Perk()
             {
@@ -349,7 +402,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = 2.25f,
                 Name = "Greater Cool Down Reduction",
-                Description = " Reduces spell cooldown by 7,5%",
+                _description = " Reduces spell cooldown by 7,5%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -366,7 +419,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "All attributes",
-                Description = "+5 to every strength, agility, vitality and intelligence",
+                _description = "+5 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -383,7 +436,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "All attributes",
-                Description = "+15 to every strength, agility, vitality and intelligence",
+                _description = "+15 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -400,9 +453,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Attack speed",
-                Description = "+4% to attack speed ",
+                _description = "+4% to attack speed ",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (0.04f*x).ToString("P");
+                },
             };
 
             new Perk()
@@ -417,9 +474,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability I",
-                Description = "+3% chance to not consume ammo while firing.",
+                _description = "+3% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (0.03f * x).ToString("P");
+                },
             };
 
             new Perk()
@@ -434,7 +495,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Reusability II",
-                Description = "+13% chance to not consume ammo while firing.",
+                _description = "+13% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -450,7 +511,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Reusability III",
-                Description = "+13% chance to not consume ammo while firing.",
+                _description = "+13% chance to not consume ammo while firing.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -467,7 +528,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "All attributes",
-                Description = "+10 to every strength, agility, vitality and intelligence",
+                _description = "+10 to every strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -483,9 +544,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 0.75f,
                 Name = "Jump",
-                Description = "Increases jump height by 6%",
+                _description = "Increases jump height by 6%",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (0.06f * x).ToString("P");
+                },
             };
             new Perk()
             {
@@ -499,9 +564,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Light foot",
-                Description = "Increases movement speed by 3.5%",
+                _description = "Increases movement speed by 3.5%",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (0.035f * x).ToString("P");
+                },
             };
             new Perk()
             {
@@ -515,9 +584,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Bonus Health",
-                Description = "Increases health by 25. This is further multipied by maximum health percent.",
+                _description = "Increases health by 25. This is further multipied by maximum health percent.",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (25 * x).ToString("N");
+                },
             };
             new Perk()
             {
@@ -531,9 +604,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 0f,
                 Name = "Health Regen",
-                Description = "Increases health per second regeneration by 0.25. This is further multipied by health regen percent and all healing percent.",
+                _description = "Increases health per second regeneration by 0.25. This is further multipied by health regen percent and all healing percent.",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (0.25f * x).ToString("N2");
+                },
             };
             new Perk()
             {
@@ -547,9 +624,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 0f,
                 Name = "Bonus Armor",
-                Description = "Increases armor by 40.",
+                _description = "Increases armor by 40.",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    return "\nTotal from this perk: " + (40 * x).ToString("N");
+                },
             };
             new Perk()
             {
@@ -563,7 +644,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "Durability",
-                Description = "Decreases all damage taken by 10%.",
+                _description = "Decreases all damage taken by 10%.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -579,7 +660,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "Durability II",
-                Description = "Further decreases all damage taken by 10%.",
+                _description = "Further decreases all damage taken by 10%.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -597,15 +678,15 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4.5f,
                 PosOffsetY = 1.5f,
                 Name = "Durability III",
-                Description = "Further decreases all damage taken by 10%.",
+                _description = "Further decreases all damage taken by 10%.",
                 TextureVariation = 0,
                 Endless = false,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.02f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.MagicResistance, 0.02f),
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.05f),
+                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.MagicResistance, 0.05f),
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 29, 31 },
                 LevelRequirement = 6,
@@ -614,14 +695,21 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Magic Resistance",
-                Description = "Decreases magic damage taken by 2%",
+                _description = "Decreases magic damage taken by 5%",
                 TextureVariation = 0,
                 Endless = true,
+                onPucharseDescriptionUpdate = x =>
+                {
+                    float f = 0.95f;
+                    for (int i = 1; i < x; i++)
+                        f *= 0.95f;
+                    return "\nTotal from this perk: " + (1-f).ToString("N");
+                },
             };
             new Perk()
             {
-                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DodgeChance, 0.15f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DodgeChance, 0.15f),
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DodgeChance, 0.25f),
+                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DodgeChance, 0.25f),
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 34 },
                 LevelRequirement = 50,
@@ -630,7 +718,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = 0.75f,
                 Name = "Dodge",
-                Description = "Increases dodge chance by 15%",
+                _description = "Increases dodge chance by 25%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -646,7 +734,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = 0.75f,
                 Name = "Armor Penetration",
-                Description = "Increases armor penetration from all sources by 3",
+                _description = "Increases armor penetration from all sources by 3",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -662,7 +750,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Armor Piercing Edge",
-                Description = "Increases armor penetration from melee weapons by 5",
+                _description = "Increases armor penetration from melee weapons by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -678,7 +766,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Anti armor projectiles",
-                Description = "Increases armor penetration from ranged weapons by 5",
+                _description = "Increases armor penetration from ranged weapons by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -694,7 +782,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3.5f,
                 PosOffsetY = 0f,
                 Name = "More Health Regen",
-                Description = "Passive health regeneration is increased by 10%",
+                _description = "Passive health regeneration is increased by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -710,7 +798,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3f,
                 PosOffsetY = -0.75f,
                 Name = "Energy generation",
-                Description = "Passive energy regeneration is increased by 0.15/s",
+                _description = "Passive energy regeneration is increased by 0.15/s",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -727,7 +815,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4.5f,
                 PosOffsetY = 0f,
                 Name = "Insight",
-                Description = "All experience gained increased by 10%",
+                _description = "All experience gained increased by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -743,14 +831,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = -0.75f,
                 Name = "Life On Hit",
-                Description = "Life on hit increased by 1",
+                _description = "Life on hit increased by 1",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyOnHit += 0.25f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyOnHit -= 0.25f,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyOnHit += 0.5f,
+                DisableMethods = () => ModdedPlayer.instance.EnergyOnHit -= 0.5f,
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 41 },
                 LevelRequirement = 20,
@@ -759,7 +847,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Energy On Hit",
-                Description = "Energy on hit increased by 0.25",
+                _description = "Energy on hit increased by 0.5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -775,7 +863,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 0,
                 Name = "Alternative cloth sources",
-                Description = "Increases daily generation of cloth by 6",
+                _description = "Increases daily generation of cloth by 6",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -791,7 +879,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -3.5f,
                 PosOffsetY = 0,
                 Name = "Demolition",
-                Description = "Increases daily generation of bombs by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
+                _description = "Increases daily generation of bombs by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -807,7 +895,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = 0.75f,
                 Name = "Pockets for explosives",
-                Description = "Increases max amount of carried bombs and dynamite by 30",
+                _description = "Increases max amount of carried bombs and dynamite by 30",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -823,7 +911,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4.5f,
                 PosOffsetY = 1.5f,
                 Name = "Demolition Expert",
-                Description = "Increases daily generation of dynamite by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
+                _description = "Increases daily generation of dynamite by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -839,7 +927,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4.5f,
                 PosOffsetY = 0,
                 Name = "Meds",
-                Description = "Increases daily generation of meds by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
+                _description = "Increases daily generation of meds by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -855,7 +943,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -6.5f,
                 PosOffsetY = 0,
                 Name = "Fuel",
-                Description = "Increases daily generation of fuel cans by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
+                _description = "Increases daily generation of fuel cans by 1. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -871,7 +959,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -5.5f,
                 PosOffsetY = 0,
                 Name = "Booze",
-                Description = "Increases daily generation of booze by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
+                _description = "Increases daily generation of booze by 2. If it exceeds your max amount of bombs carried, excess will be lost.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -887,7 +975,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -6f,
                 PosOffsetY = -0.75f,
                 Name = "More Booze",
-                Description = "Increases max amount of carried booze by 15",
+                _description = "Increases max amount of carried booze by 15",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -903,7 +991,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = -0.75f,
                 Name = "More Meds",
-                Description = "Increases max amount of carried meds by 20",
+                _description = "Increases max amount of carried meds by 20",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -920,7 +1008,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = -0.75f,
                 Name = "Infinity",
-                Description = "Gives 50% chance to not consume ammo when firing a projectile",
+                _description = "Gives 50% chance to not consume ammo when firing a projectile",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -936,7 +1024,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Spell Power",
-                Description = "Increases spell damage by 5",
+                _description = "Increases spell damage by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -952,7 +1040,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -7.5f,
                 PosOffsetY = 0,
                 Name = "More Meat",
-                Description = "Increases carry amount of all meats by 5",
+                _description = "Increases carry amount of all meats by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -968,7 +1056,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -8.5f,
                 PosOffsetY = 0,
                 Name = "More Snacks",
-                Description = "Increases carry amount of candy bars and sodas by 20",
+                _description = "Increases carry amount of candy bars and sodas by 20",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -984,7 +1072,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -13.5f,
                 PosOffsetY = 0,
                 Name = "More Bolts",
-                Description = "Increases carry amount of crossbow bolts by 20",
+                _description = "Increases carry amount of crossbow bolts by 20",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1000,7 +1088,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -9.5f,
                 PosOffsetY = 0,
                 Name = "Corpse collecting",
-                Description = "Increases carry amount of bones by 100 and skulls by 20",
+                _description = "Increases carry amount of bones by 100 and skulls by 20",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1016,14 +1104,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -10f,
                 PosOffsetY = 0.75f,
                 Name = "More Limbs",
-                Description = "Increases carry amount of arms, legs, heads and headbombs by 10",
+                _description = "Increases carry amount of arms, legs, heads and headbombs by 10",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, 3); ModdedPlayer.instance.AddExtraItemCapacity(53, 2); ModdedPlayer.instance.AddExtraItemCapacity(54, 1); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, -3); ModdedPlayer.instance.AddExtraItemCapacity(53, -2); ModdedPlayer.instance.AddExtraItemCapacity(54, -1); },
+                ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, 6); ModdedPlayer.instance.AddExtraItemCapacity(53, 2); ModdedPlayer.instance.AddExtraItemCapacity(54, 1); },
+                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, -6); ModdedPlayer.instance.AddExtraItemCapacity(53, -2); ModdedPlayer.instance.AddExtraItemCapacity(54, -1); },
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1032,7 +1120,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -10.5f,
                 PosOffsetY = 0,
                 Name = "More Building Resources",
-                Description = "Increases carry amount of sticks by 3, rocks by 2 and ropes by 1",
+                _description = "Increases carry amount of sticks by 6, rocks by 2 and ropes by 1",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1048,7 +1136,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -11.5f,
                 PosOffsetY = 0,
                 Name = "More Misceleanous Items",
-                Description = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
+                _description = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1064,7 +1152,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -12.5f,
                 PosOffsetY = 0,
                 Name = "More Ammo",
-                Description = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
+                _description = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1081,7 +1169,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Spear Specialization",
-                Description = "Thrown spears deal 100% more damage",
+                _description = "Thrown spears deal 100% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1097,14 +1185,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -2.25f,
                 Name = "Pistol Specialization",
-                Description = "Bullets deal 60% more damage",
+                _description = "Bullets deal 60% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.6f,
-                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.6f,
+                ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.8f,
+                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.8f,
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1113,7 +1201,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0.5f,
                 PosOffsetY = -3f,
                 Name = "Crossbow Specialization",
-                Description = "Bolts deal 60% more damage",
+                _description = "Bolts deal 80% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1129,7 +1217,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0f,
                 PosOffsetY = -3.75f,
                 Name = "Bow Specialization",
-                Description = "Arrows deal 40% more damage",
+                _description = "Arrows deal 40% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1146,7 +1234,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4f,
                 PosOffsetY = 0.75f,
                 Name = "Sanctuary",
-                Description = "Healing dome provides immunity to stuns anr root effects",
+                _description = "Healing dome provides immunity to stuns anr root effects",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1162,7 +1250,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Enchant weapon",
-                Description = "While black flame is on, melee damage is increased by 50%",
+                _description = "While black flame is on, melee damage is increased by 100%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1178,7 +1266,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Empowered War Cry",
-                Description = "Warcry additionally increases all damage dealt",
+                _description = "Warcry additionally increases all damage dealt",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1195,7 +1283,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Power Swing",
-                Description = "Attacks use 100% more stamina and deal 25% more damage",
+                _description = "Attacks use 100% more stamina and deal 25% more damage",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1211,7 +1299,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Overcharge",
-                Description = "Spell damage is increased by 10%, spell costs are increased by 20%",
+                _description = "Spell damage is increased by 10%, spell costs are increased by 20%",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1227,7 +1315,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -2.25f,
                 Name = "Exposure",
-                Description = "Magic arrow causes hit enemies to take 15% more damage for the duration of the slow.",
+                _description = "Magic arrow causes hit enemies to take 15% more damage for the duration of the slow.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1243,7 +1331,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -2.25f,
                 Name = "Disabler",
-                Description = "Magic arrow's negative effects last additional 3 seconds",
+                _description = "Magic arrow's negative effects last additional 3 seconds",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1259,7 +1347,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = -2.25f,
                 Name = "Magic Binding",
-                Description = "Magic arrow's slow amount is doubled. It's upgraded from 35% to 70%",
+                _description = "Magic arrow's slow amount is doubled. It's upgraded from 35% to 70%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1276,7 +1364,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "Charged Attack",
-                Description = "Charged melee attacks deal additional 50%",
+                _description = "Charged melee attacks deal additional 50%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1293,7 +1381,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4.5f,
                 PosOffsetY = 0f,
                 Name = "Super Charged Attack",
-                Description = "Charged melee attacks deal 300% more damage",
+                _description = "Charged melee attacks deal 300% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1309,7 +1397,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = 0.75f,
                 Name = "Lucky Hits",
-                Description = "Increases Critical hit damage by 5%",
+                _description = "Increases Critical hit damage by 5%",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1325,7 +1413,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Overhelming Odds",
-                Description = "Increases Critical chance by 12%.",
+                _description = "Increases Critical chance by 12%.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1341,12 +1429,12 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -0.75f,
                 Name = "Endurance",
-                Description = "Increases maximum energy by 10",
+                _description = "Increases maximum energy by 10",
                 TextureVariation = 0,
                 Endless = true,
             };
 
-            
+
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MultishotCount += 2,
@@ -1358,7 +1446,9 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = -1.5f,
                 Name = "Multishot Empower",
-                Description = "Increases the projectile count of multishot by 2, also increases the spells cost.",
+                _description = "Increases the projectile count of multishot by 2, also increases the spells cost. Multishot does not apply to spears.",
+                onPucharseDescriptionUpdate = x => string.Format("\nMultishot cost now: {1}\nCost after upgrading: {2}", (10 * Mathf.Pow(2*x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2*x), 1.75f)).ToString("N")),
+            
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1376,7 +1466,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -7f,
                 PosOffsetY = 0.75f,
                 Name = "Transporter",
-                Description = "Allows you to use raft on land, turning it into a wooden hovercraft. WORKS FOR HOST ONLY!",
+                _description = "Allows you to use raft on land, turning it into a wooden hovercraft. WORKS FOR HOST/SINGLEPLAYER ONLY!",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1392,7 +1482,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -7.5f,
                 PosOffsetY = 1.5f,
                 Name = "Turbo",
-                Description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%. WORKS FOR HOST ONLY!",
+                _description = "Hovercraft but faster!\nIncreases the speed of rafts by 100%. WORKS FOR HOST/SINGLEPLAYER ONLY!",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1408,7 +1498,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "Transpurgation",
-                Description = "Purge now heals all players instead of reducing their health",
+                _description = "Purge now heals all players for percent of their missing health instead of reducing their health",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1424,14 +1514,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 2.25f,
                 Name = "Greater Cool Down Reduction",
-                Description = " Reduces spell cooldown by 7,5%",
+                _description = " Reduces spell cooldown by 7,5%",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.9f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 85 },
                 LevelRequirement = 35,
@@ -1440,14 +1530,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4.5f,
                 PosOffsetY = 1.5f,
                 Name = "Greater Cool Down Reduction",
-                Description = " Reduces spell cooldown by 7,5%",
+                _description = " Reduces spell cooldown by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
+                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.9f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 86 },
                 LevelRequirement = 46,
@@ -1456,7 +1546,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = 0.75f,
                 Name = "Greater Cool Down Reduction",
-                Description = " Reduces spell cooldown by 7,5%",
+                _description = " Reduces spell cooldown by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1472,7 +1562,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5.5f,
                 PosOffsetY = 0f,
                 Name = "Infinity",
-                Description = "Every time you cast a spell, all cooldowns are reduced by 5%",
+                _description = "Every time you cast a spell, all cooldowns are reduced by 5%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1488,7 +1578,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6.5f,
                 PosOffsetY = 0f,
                 Name = "Armageddon",
-                Description = "Spell damage increased by 50%",
+                _description = "Spell damage increased by 50%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1504,7 +1594,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 0f,
                 Name = "Inner Fire",
-                Description = "Upon hitting an enemy, leave a debuff for 4 seconds, increase fire damage against that enemy equal to your spell amplification",
+                _description = "Upon hitting an enemy, leave a debuff for 4 seconds, increase fire damage against that enemy equal to your spell amplification",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1520,7 +1610,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Near Death Experience",
-                Description = "Upon recieving fatal damage, instead of dieing restore your health to 100% and gain 5 seconds of immunity to debuffs. This may occur once every 10 minutes",
+                _description = "Upon recieving fatal damage, instead of dieing restore your health to 100% and gain 5 seconds of immunity to debuffs. This may occur once every 10 minutes",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1536,7 +1626,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0.5f,
                 PosOffsetY = -1.5f,
                 Name = "Seeking Arrow - Head Hunting",
-                Description = "Seeking arrow additional damage on headshot is increased to x3",
+                _description = "Seeking arrow additional damage on headshot is increased to x3",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1552,7 +1642,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0f,
                 PosOffsetY = -2.25f,
                 Name = "Seeking Arrow - Distant Killer",
-                Description = "Seeking arrow additional damage per distance increased from 1% per 1m to 2% per 1m",
+                _description = "Seeking arrow additional damage per distance increased from 1% per 1m to 2% per 1m",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1568,7 +1658,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0.5f,
                 PosOffsetY = -3f,
                 Name = "Seeking Arrow - Crippling precision",
-                Description = "Seeking arrow slow duration is increased by 4 additional seconds",
+                _description = "Seeking arrow slow duration is increased by 4 additional seconds",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1584,7 +1674,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -3.75f,
                 Name = "Seeking Arrow - Stun Arrows",
-                Description = "Seeking arrow slow amount is increased - from 60% to 80%",
+                _description = "Seeking arrow slow amount is increased - from 60% to 80%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1600,7 +1690,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -0.5f,
                 PosOffsetY = -1.5f,
                 Name = "Focus - Perfection",
-                Description = "Focus damage bonus on headshot is increased from 100% to 150%",
+                _description = "Focus damage bonus on headshot is increased from 100% to 150%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1616,7 +1706,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1f,
                 PosOffsetY = -2.25f,
                 Name = "Focus - Quick Adjustments",
-                Description = "Focus extra attack on bodyshot is increased from 30% to 45%",
+                _description = "Focus extra attack on bodyshot is increased from 30% to 45%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1632,7 +1722,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -0.5f,
                 PosOffsetY = -3f,
                 Name = "Focus - Quicker Adjustments",
-                Description = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
+                _description = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1648,7 +1738,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = -3f,
                 Name = "Focus - Knock Out",
-                Description = "Focus Slow is prolongued by additional 20 seconds",
+                _description = "Focus Slow is prolongued by additional 20 seconds",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1664,7 +1754,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -2.25f,
                 Name = "Afterburn",
-                Description = "Black flames have a 10% chance to apply a weakening effect on enemies, making them take 15% more damage for 25 seconds",
+                _description = "Black flames have a 10% chance to apply a weakening effect on enemies, making them take 15% more damage for 25 seconds",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1680,7 +1770,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -3f,
                 Name = "Netherflame",
-                Description = "Black flames have double damage",
+                _description = "Black flames have double damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1696,7 +1786,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Frenzy - Haste",
-                Description = "Every stack of frenzy increases attack speed by 2%",
+                _description = "Every stack of frenzy increases attack speed by 2%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1712,7 +1802,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Greater Bash",
-                Description = "Bash duration is increased by 1 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
+                _description = "Bash duration is increased by 1 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1728,7 +1818,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Shield - Endurance",
-                Description = "Shield doesnt decay for 1 minute longer.",
+                _description = "Shield doesnt decay for 1 minute longer.",
                 TextureVariation = 0,
                 Endless = true,
             };       new Perk()
@@ -1743,7 +1833,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5.5f,
                 PosOffsetY = 1.5f,
                 Name = "Blink - Passthrough",
-                Description = "Blink now deals damage to enemies that you teleport through",
+                _description = "Blink now deals damage to enemies that you teleport through",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1760,7 +1850,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Stamina Recovery II",
-                Description = "Every point of INTELLIGENCE further increases stamina recover by 0.5%.",
+                _description = "Every point of INTELLIGENCE further increases stamina recover by 0.5%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -1776,7 +1866,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = 0.75f,
                 Name = "Flame Guard",
-                Description = "Parry ignites enemies",
+                _description = "Parry ignites enemies",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1792,7 +1882,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 3f,
                 Name = "Parry range",
-                Description = "Increases the radius of parry by 1m",
+                _description = "Increases the radius of parry by 1m",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1808,7 +1898,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -5.5f,
                 PosOffsetY = 0f,
                 Name = "Luck Enchantment",
-                Description = "Increases magic find by 10%. Magic find increases the quantity of items dropped.",
+                _description = "Increases magic find by 10%. Magic find increases the quantity of items dropped.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1824,7 +1914,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -6.5f,
                 PosOffsetY = 0f,
                 Name = "Item Rain",
-                Description = "Increases magic find by additional 15%. Magic find increases the quantity of items dropped.",
+                _description = "Increases magic find by additional 15%. Magic find increases the quantity of items dropped.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1840,7 +1930,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -3.75f,
                 Name = "Near death arrow",
-                Description = "Blood infused arrow takes 25% more health to convert it to damage",
+                _description = "Blood infused arrow takes 25% more health to convert it to damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1856,7 +1946,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 2.25f,
                 Name = "Arcane Blood",
-                Description = "Blood infused arrow damage per health is increased by 1 dmg/hp.",
+                _description = "Blood infused arrow damage per health is increased by 1 dmg/hp.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1872,7 +1962,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -4.5f,
                 PosOffsetY = 1.5f,
                 Name = "Energy Field",
-                Description = "Healing dome regenerates energy",
+                _description = "Healing dome regenerates energy",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1888,7 +1978,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Enchanced vitality",
-                Description = "Increases max health by 10%",
+                _description = "Increases max health by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1904,7 +1994,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Enchanced energy",
-                Description = "Increases max energy by 10%",
+                _description = "Increases max energy by 10%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1920,7 +2010,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0f,
                 PosOffsetY = 3f,
                 Name = "Crafting - Rerolling",
-                Description = "Opens Crafting Menu in inventory. Allows you to reroll item's properites by placing 2 items of the same rarity as ingredients.",
+                _description = "Opens Crafting Menu in inventory. Allows you to reroll item's properites by placing 2 items of the same rarity as ingredients.",
                 TextureVariation = 1,
                 Endless = false,
             };
@@ -1936,7 +2026,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 3f,
                 Name = "Crafting - Reforging",
-                Description = "Adds a tab to crafting menu. Allows you to reforge an item into any other item of the same tier by placing 3 items of the same or higher rarity as ingredients.",
+                _description = "Adds a tab to crafting menu. Allows you to reforge an item into any other item of the same tier by placing 3 items of the same or higher rarity as ingredients.",
                 TextureVariation = 1,
                 Endless = false,
             };
@@ -1952,7 +2042,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -12f,
                 PosOffsetY = -0.75f,
                 Name = "Light The Way",
-                Description = "Flashlight is 100% brighter and lasts 100% longer",
+                _description = "Flashlight is 100% brighter and lasts 100% longer",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1969,7 +2059,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Glass Cannon",
-                Description = "Increases all damage taken and increases all damage dealt by 10%",
+                _description = "Increases all damage taken and increases all damage dealt by 10%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -1986,7 +2076,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = 0.75f,
                 Name = "Size Matters",
-                Description = "Projectile size increases projectile's damage.",
+                _description = "Projectile size increases projectile's damage.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2003,7 +2093,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = 0.75f,
                 Name = "Momentum transfer",
-                Description = "Upon landing gain shot movement speed buff",
+                _description = "Upon landing gain shot movement speed buff",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2020,7 +2110,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -2.25f,
                 Name = "Long arm",
-                Description = "Increases melee weapon range by 4%",
+                _description = "Increases melee weapon range by 4%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             }; 
@@ -2037,7 +2127,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 1.5f,
                 Name = "Bleed",
-                Description = "Hitting an enemy has 2% chance to make them bleed",
+                _description = "Hitting an enemy has 2% chance to make them bleed",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             }; 
@@ -2054,7 +2144,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -1.5f,
                 Name = "Weaken",
-                Description = "Hitting an enemy has 2.5% chance to make them take more damage",
+                _description = "Hitting an enemy has 2.5% chance to make them take more damage",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -2071,7 +2161,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0.5f,
                 PosOffsetY = -1.5f,
                 Name = "Javelin",
-                Description = "Spear has increased headshot chance to 40%",
+                _description = "Spear has increased headshot chance to 40%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2088,7 +2178,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 0f,
                 PosOffsetY = -2.25f,
                 Name = "Spear gamble",
-                Description = "Spear has increased headshot chance to 50%",
+                _description = "Spear has increased headshot chance to 50%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2105,7 +2195,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1f,
                 PosOffsetY = -2.25f,
                 Name = "Double spears",
-                Description = "When a spear hits a target, it has a 30% chance summon another spear and launch it at the enemy",
+                _description = "When a spear hits a target, it has a 30% chance summon another spear and launch it at the enemy",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2122,7 +2212,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2f,
                 PosOffsetY = -2.25f,
                 Name = "Spearinfinity",
-                Description = "Increases the chance of doublespears by 2%",
+                _description = "Increases the chance of doublespears by 2%",
                 TextureVariation = 0, //0 or 1
                 Endless = true,
             };
@@ -2139,7 +2229,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -0.5f,
                 PosOffsetY = -3f,
                 Name = "Spear Mastery",
-                Description = "Increases spear damage by 75%",
+                _description = "Increases spear damage by 75%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2156,7 +2246,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = -2.25f,
                 Name = "Deadeye",
-                Description = "Increases headshot chance of pistol's bullets by 20%, to a total of 30%",
+                _description = "Increases headshot chance of pistol's bullets by 20%, to a total of 30%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2173,7 +2263,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = -3f,
                 Name = "Piercing",
-                Description = "Spear armor reduction from ranged is increased to 150%, additionally, thrown spears also reduce armor equal to melee armor reduction",
+                _description = "Spear armor reduction from ranged is increased to 150%, additionally, thrown spears also reduce armor equal to melee armor reduction",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2190,7 +2280,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 1.5f,
                 Name = "Bunny hopping",
-                Description = "Increases the speed and duration of the buff",
+                _description = "Increases the speed and duration of the buff",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2206,7 +2296,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 7f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Quickening",
-                Description = "Increases attack speed by 65%, but decreases melee damage by 50% and ranged damage by 90%",
+                _description = "Increases attack speed by 65%, but decreases melee damage by 50% and ranged damage by 90%",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2222,7 +2312,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 8f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Strengthening",
-                Description = "Decreases attack speed by 50%, but greatly increases melee damage by 150%",
+                _description = "Decreases attack speed by 50%, but greatly increases melee damage by 150%",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2238,7 +2328,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Binding",
-                Description = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal 110% less damage, but at the same time, you deal 100% increased melee damage",
+                _description = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal 110% less damage, but at the same time, you deal 100% increased melee damage",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2254,7 +2344,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 2.25f,
                 Name = "Melee Mastery",
-                Description = "Increases melee weapon damage and attack speed by 20%",
+                _description = "Increases melee weapon damage and attack speed by 20%",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2270,13 +2360,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 7f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Binding",
-                Description = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 100% less damage, but at the same time, you deal 100% increased ranged damage",
+                _description = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 100% less damage, but at the same time, you deal 100% increased ranged damage",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add += 1.2f; ModdedPlayer.instance.MoveSpeed *= 0.8f; ModdedPlayer.instance.JumpPower *= 0.7f; },
+                ApplyMethods = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add += 1.2f; ModdedPlayer.instance.MoveSpeedMult *= 0.8f; ModdedPlayer.instance.JumpPower *= 0.7f; },
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 89 },
@@ -2286,7 +2376,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 8f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Crippling",
-                Description = "You become more deadly but less precise.\nYour ranged damage is increased by 120%, but you loose 20% movement speed and 30% jump power.",
+                _description = "You become more deadly but less precise.\nYour ranged damage is increased by 120%, but you loose 20% movement speed and 30% jump power.",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2302,7 +2392,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 9f,
                 PosOffsetY = -0.75f,
                 Name = "Curse of Quickening",
-                Description = "Increases attack speed by 65%, but decreases melee damage by 90% and ranged damage by 25%",
+                _description = "Increases attack speed by 65%, but decreases melee damage by 90% and ranged damage by 25%",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2319,7 +2409,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 7.5f,
                 PosOffsetY = 0f,
                 Name = "Curse of Exhaustion",
-                Description = "Increases attack spell damage by 100%, but your energy is reduced by 50% and stamina regenerates slower",
+                _description = "Increases attack spell damage by 100%, but your energy is reduced by 50% and stamina regenerates slower",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2335,7 +2425,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 8.5f,
                 PosOffsetY = 0f,
                 Name = "Curse of Speed",
-                Description = "Cooldown reduction increased by 35%, but attack speed decreased by 40%",
+                _description = "Cooldown reduction increased by 35%, but attack speed decreased by 40%",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2351,7 +2441,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 9.5f,
                 PosOffsetY = 0f,
                 Name = "Curse of Power",
-                Description = "Magic damage is increased by 100%, but ranged and melee are weaker by 60% ",
+                _description = "Magic damage is increased by 100%, but ranged and melee are weaker by 60% ",
                 TextureVariation = 1, //0 or 1
                 Endless = false,
             };
@@ -2366,7 +2456,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "Counter Strike",
-                Description = "When parrying, gain attack dmg for the next attack. Bonus melee damage is equial to damage of parry. This effect can stack, lasts 20 seconds, and is consumed upon performing a melee attack.",
+                _description = "When parrying, gain attack dmg for the next attack. Bonus melee damage is equial to damage of parry. This effect can stack, lasts 20 seconds, and is consumed upon performing a melee attack.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2382,7 +2472,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Skull Basher",
-                Description = "When bash is equipped, melee weapons deal 50% more damage",
+                _description = "When bash is equipped, melee weapons deal 50% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2397,7 +2487,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1f,
                 PosOffsetY = -2.25f,
                 Name = "Skull Basher II",
-                Description = "When bash is equipped, melee weapons deal 110% more damage",
+                _description = "When bash is equipped, melee weapons deal 110% more damage",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2413,7 +2503,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -0.75f,
                 Name = "Dance of the Firegod",
-                Description = "When black flame is on, your melee damage is increased, based on how fast youre going.",
+                _description = "When black flame is on, your melee damage is increased, based on how fast youre going.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2428,7 +2518,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Combat Regen",
-                Description = "Gain 3 points of stamina on hit",
+                _description = "Gain 3 points of stamina on hit",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -2443,7 +2533,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = -0.75f,
                 Name = "Mania",
-                Description = "Frenzy increases movement speed by 5% per stack",
+                _description = "Frenzy increases movement speed by 5% per stack",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2458,7 +2548,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6f,
                 PosOffsetY = -0.75f,
                 Name = "Fury Swipes",
-                Description = "When during frenzy you hit the same enemy over and over, gain more and more damage. Melee stacks 6 times faster.",
+                _description = "When during frenzy you hit the same enemy over and over, gain more and more damage. Melee stacks 6 times faster.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2473,7 +2563,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4.5f,
                 PosOffsetY = -1.5f,
                 Name = "Lucky Bashes",
-                Description = "When you bash an enemy, gain 100% critical hit damage for 2 seconds.",
+                _description = "When you bash an enemy, gain 100% critical hit damage for 2 seconds.",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -2488,7 +2578,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -11f,
                 PosOffsetY = -0.75f,
                 Name = "More Carried Logs",
-                Description = "Increases the base amount of logs that a player can carry on their shoulder. The additional carried logs are invisible",
+                _description = "Increases the base amount of logs that a player can carry on their shoulder. The additional carried logs are invisible",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -2505,7 +2595,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "Speed Matters",
-                Description = "Projectile speed increases projectile's crit damage.",
+                _description = "Projectile speed increases projectile's crit damage.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -2522,7 +2612,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = -3f,
                 Name = "Magic Arrow Devastation",
-                Description = "Magic arrow can critically hit.",
+                _description = "Magic arrow can critically hit.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2539,11 +2629,26 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 6f,
                 PosOffsetY = 0.75f,
                 Name = "Nuke Conjuration",
-                Description = "Ball Lightning can critically hit.",
+                _description = "Ball Lightning can critically hit.",
                 TextureVariation = 0,
                 Endless = false,
             };
-
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BlinkRange += 10f,
+                DisableMethods = () => SpellActions.BlinkDamage -= 10f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 105 },
+                LevelRequirement = 40,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 6.5f,
+                PosOffsetY = 1.5f,
+                Name = "Blink - Wormhole",
+                _description = "Blink has 66.6% increased distance",
+                TextureVariation = 0,
+                Endless = false,
+            };
         }
 
         public int ID;
@@ -2556,10 +2661,14 @@ namespace ChampionsOfForest.Player
 
         public delegate void OnApply();
         public delegate void OnDisable();
+        public delegate string OnPucharseDescriptionUpdate(int level);
         public OnApply ApplyMethods;
         public OnDisable DisableMethods;
+        public OnPucharseDescriptionUpdate onPucharseDescriptionUpdate;
+
 
         public string Name;
+        public string _description;
         public string Description;
 
         public Texture2D Icon;
@@ -2577,7 +2686,7 @@ namespace ChampionsOfForest.Player
         public Perk(string name, string description, int[] inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
         {
             Name = name;
-            Description = description;
+            _description = description;
             InheritIDs = inheritIDs;
             Category = category;
             Size = size;
@@ -2604,7 +2713,7 @@ namespace ChampionsOfForest.Player
         public Perk(string name, string description, int inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
         {
             Name = name;
-            Description = description;
+            _description = description;
             InheritIDs = new int[] { inheritIDs };
             PosOffsetX = x;
             PosOffsetY = y;
@@ -2619,6 +2728,22 @@ namespace ChampionsOfForest.Player
             AllPerks.Add(this);
 
         }
+        public void OnBuy()
+        {
+            if (Endless)
+            {
+                if (onPucharseDescriptionUpdate != null)
+                    Description = _description + ' ' + onPucharseDescriptionUpdate(ApplyAmount);
+            }
+            else
+            {
+                if (onPucharseDescriptionUpdate != null)
+                    Description = _description +' '+ onPucharseDescriptionUpdate(1);
+
+            }
+        }
+
+
     }
 
 

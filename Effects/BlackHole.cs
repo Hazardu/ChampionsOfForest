@@ -1,14 +1,16 @@
 ﻿using BuilderCore;
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Network;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
 {
     public class BlackHole : MonoBehaviour
     {
-        public static void CreateBlackHole(Vector3 pos, bool fromEnemy, float damage, float duration = 3, float radius = 20, float pullforce = 12)
+        public static void CreateBlackHole(Vector3 pos, bool fromEnemy, float damage, float duration = 3, float radius = 20, float pullforce = 12, string SparkOfLightAfterDarkness_PlayerID= null)
         {
             GameObject go = Core.Instantiate(401, pos);
             BlackHole b = go.AddComponent<BlackHole>();
@@ -21,6 +23,14 @@ namespace ChampionsOfForest
             if (fromEnemy)
             {
                 go.GetComponent<Light>().color = Color.red;
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty( SparkOfLightAfterDarkness_PlayerID))
+                {
+                    b.doSparkOfLight = true;
+                    b.casterID = SparkOfLightAfterDarkness_PlayerID;
+                }
             }
         }
 
@@ -40,6 +50,8 @@ namespace ChampionsOfForest
         private GameObject particleGO;
 
         public bool startDone = false;
+        private bool doSparkOfLight;
+        private string casterID;
 
         private IEnumerator Start()
         {
@@ -238,7 +250,44 @@ namespace ChampionsOfForest
                 blackholeSound.loop = false;
             }
             blackholeSound.Play();
-        
+            if (doSparkOfLight&& CoughtEnemies.Count >= 5)
+            {
+                if (BoltNetwork.isRunning)
+                {
+                    if (GameSetup.IsMpServer)
+                    {
+
+                        if (casterID == ModReferences.ThisPlayerID)
+                        {
+                            //local Player Callback
+                            Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+
+                        }
+                        else
+                        {
+                            using (MemoryStream answerStream = new MemoryStream())
+                            {
+                                Vector3 pos = transform.position;
+                                using (BinaryWriter w = new BinaryWriter(answerStream))
+                                {
+                                    w.Write(38);
+                                    w.Write(casterID);
+                                    w.Write(pos.x);
+                                    w.Write(pos.y);
+                                    w.Write(pos.z);
+                                    w.Close();
+                                }
+                                NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
+                                answerStream.Close();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+                }
+            }
         }
     }
 }

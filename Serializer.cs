@@ -130,6 +130,8 @@ namespace ChampionsOfForest
                             Perk.AllPerks[ID].Applied = true;
 
                         }
+                        Perk.AllPerks[ID].OnBuy();
+
                     }
                 }
 
@@ -336,11 +338,9 @@ namespace ChampionsOfForest
             yield return new WaitForSeconds(2f);
             ModdedPlayer.ResetAllStats();
             //bringing health back to correct amount
+            yield return null;
             LocalPlayer.Stats.Health = ModdedPlayer.instance.MaxHealth * HealthPercentage;
         }
-
-
-
 
 
 

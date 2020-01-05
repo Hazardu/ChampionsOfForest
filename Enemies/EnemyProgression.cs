@@ -1480,7 +1480,9 @@ namespace ChampionsOfForest
                                     w.Write(duration);
                                     w.Write(radius);
                                     w.Write(pullforce);
-                                w.Close();
+                                    w.Write("");
+
+                                    w.Close();
                                 }
                                 ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                                 answerStream.Close();

@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Network
                         if (spellid == 1)
                         {
                             Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-                            BlackHole.CreateBlackHole(pos, r.ReadBoolean(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+                            BlackHole.CreateBlackHole(pos, r.ReadBoolean(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(),r.ReadString());
                         }
                         else if (spellid == 2)
                         {
@@ -834,6 +834,19 @@ namespace ChampionsOfForest.Network
                                 }
                             }
 
+                        }
+                    }
+                    else if (cmdIndex == 38)    //spark of light after darkness callback to clients
+                    {
+                        if (GameSetup.IsMpClient)
+                        {
+                            string PlayerID = r.ReadString();
+                            if (ModReferences.ThisPlayerID == PlayerID)
+                            {
+
+                                Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+                                SpellActions.CastBallLightning(pos, Vector3.down);
+                            }
                         }
                     }
                     r.Close();
