@@ -1447,7 +1447,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetY = -1.5f,
                 Name = "Multishot Empower",
                 _description = "Increases the projectile count of multishot by 2, also increases the spells cost. Multishot does not apply to spears.",
-                onPucharseDescriptionUpdate = x => string.Format("\nMultishot cost now: {1}\nCost after upgrading: {2}", (10 * Mathf.Pow(2*x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2*x), 1.75f)).ToString("N")),
+                onPucharseDescriptionUpdate = x => string.Format("\nMultishot cost now: {0}\nCost after upgrading: {1}", (10 * Mathf.Pow(2*x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2*x), 1.75f)).ToString("N")),
             
                 TextureVariation = 0,
                 Endless = true,
@@ -2730,6 +2730,9 @@ namespace ChampionsOfForest.Player
         }
         public void OnBuy()
         {
+            try
+            {
+
             if (Endless)
             {
                 if (onPucharseDescriptionUpdate != null)
@@ -2740,6 +2743,11 @@ namespace ChampionsOfForest.Player
                 if (onPucharseDescriptionUpdate != null)
                     Description = _description +' '+ onPucharseDescriptionUpdate(1);
 
+            }
+            }
+            catch (System.Exception)
+            {
+                
             }
         }
 

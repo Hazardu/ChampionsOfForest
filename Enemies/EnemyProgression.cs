@@ -632,6 +632,8 @@ namespace ChampionsOfForest
                     return 0;
                 }
             }
+            if (!abilities.Contains(Abilities.Juggernaut))
+                
             damage = Mathf.CeilToInt(damage * dmgTakenIncrease);
             if (pure)
             {
@@ -1698,6 +1700,7 @@ namespace ChampionsOfForest
                 float t = Time.time;
                 for (int i = 0; i < DamageOverTimeList.Count; i++)
                 {
+
                     if (DamageOverTimeList[i].StopTime < t)
                     {
                         DamageOverTimeList.RemoveAt(i);
@@ -1711,6 +1714,7 @@ namespace ChampionsOfForest
 
         public void DoDoT(int dmg, float duration)
         {
+           if(! abilities.Contains(Abilities.Juggernaut))
             DamageOverTimeList.Add(new DoT(dmg, duration));
         }
     }

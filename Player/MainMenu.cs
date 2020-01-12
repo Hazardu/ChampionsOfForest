@@ -19,7 +19,7 @@ namespace ChampionsOfForest
         public static MainMenu Instance { get; private set; }
 
         //Difficulty Settings
-        public string[] DiffSel_Names = new string[] { "Normal", "Hard", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", "Challenge VI", "Hell", };
+        public string[] DiffSel_Names = new string[] { "Easy", "Veteran", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", "Challenge VI", "Hell", };
         public string[] DiffSel_Descriptions = new string[]
         {
             "Easiest difficulty, recommended for new games.",
@@ -719,7 +719,7 @@ namespace ChampionsOfForest
                 //drawing difficulty raise lower buttons
                 if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
                 {
-                    if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * rr, 90 * rr, 200 * rr, 40 * rr), "Raise Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
+                    if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * rr, 90 * rr, 200 * rr, 40 * rr), "Raise Difficulty", new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } }))
                     {
                         //raise difficulty
                         difficultyCooldown = 10 * 60;
@@ -738,7 +738,7 @@ namespace ChampionsOfForest
                             answerStream.Close();
                         }
                     }
-                    if (ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10 * rr, 130 * rr, 200 * rr, 40 * rr), "Lower Difficulty", new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
+                    if (ModSettings.difficulty > (int)ModSettings.Difficulty.Normal && GUI.Button(new Rect(10 * rr, 130 * rr, 200 * rr, 40 * rr), "Lower Difficulty", new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(20f * rr), alignment = TextAnchor.MiddleLeft, font = MainFont, hover = new GUIStyleState() { textColor = new Color(0f, 0.6f, 0) } }))
                     {
                         //lower difficulty
                         difficultyCooldown = 10 * 60;
@@ -766,13 +766,13 @@ namespace ChampionsOfForest
                 Rect r4 = new Rect(r1);
                 float Mindist = 500f / 1500f;
                 Mindist *= r1.width;
-                MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Backpack", new Vector2(1, -1), ref Opacity1);
+                MenuButton(Mindist, r1, OpenedMenuMode.Inventory, "Inventory", new Vector2(1, -1), ref Opacity1,-50*rr,-50*rr);
                 r2.position = center - r1.size;
-                MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Abilities", new Vector2(-1, 1), ref Opacity2);
+                MenuButton(Mindist, r2, OpenedMenuMode.Spells, "Abilities", new Vector2(-1, 1), ref Opacity2, 50 * rr, 50 * rr);
                 r3.position = center - new Vector2(0, r1.width);
-                MenuButton(Mindist, r3, OpenedMenuMode.Stats, "Guide", Vector2.one, ref Opacity3);
+                MenuButton(Mindist, r3, OpenedMenuMode.Stats, "Guide & Stats", Vector2.one, ref Opacity3, -50 * rr, 50 * rr);
                 r4.position = center - new Vector2(r1.width, 0);
-                MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Genetics", -Vector2.one, ref Opacity4);
+                MenuButton(Mindist, r4, OpenedMenuMode.Perks, "Mutations", -Vector2.one, ref Opacity4, 50 * rr, -50 * rr);
                 GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.Level.ToString(), MenuBtnStyle);
 
                 string HudHideStatus = "[ HUD ]";
@@ -781,7 +781,7 @@ namespace ChampionsOfForest
                     HudHideStatus = "[ NO HUD ]";
                 }
 
-                if (GUI.Button(new Rect(Screen.width - 120 * rr, 40 * rr, 120 * rr, 40 * rr), HudHideStatus, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(23 * rr), alignment = TextAnchor.MiddleCenter }))
+                if (GUI.Button(new Rect(Screen.width - 120 * rr, 40 * rr, 120 * rr, 40 * rr), HudHideStatus, new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(19 * rr), alignment = TextAnchor.MiddleCenter }))
                 {
                     HideHud = !HideHud;
                 }
@@ -797,7 +797,7 @@ namespace ChampionsOfForest
         }
 
         //Draws a single main menu button
-        private void MenuButton(float mindist, Rect rect, OpenedMenuMode mode, string text, Vector2 Scale, ref float Opacity, float r = 1, float g = 1, float b = 1)
+        private void MenuButton(float mindist, Rect rect, OpenedMenuMode mode, string text, Vector2 Scale, ref float Opacity, float offset_X,float offset_Y)
         {
 
             Matrix4x4 backupMatrix = GUI.matrix;
@@ -821,12 +821,14 @@ namespace ChampionsOfForest
             if (Opacity > 0)
             {
 
-                GUI.color = new Color(r, g, b, Opacity);
+                GUI.color = new Color(1,1,1, Opacity);
                 GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[2]);
                 GUI.color = Color.white;
 
             }
             GUI.matrix = backupMatrix;
+            rect.x += offset_X;
+            rect.y += offset_Y;
             GUI.Label(rect, text, MenuBtnStyle);
 
         }
@@ -3006,7 +3008,7 @@ namespace ChampionsOfForest
 
         private void DrawSpellMenu()
         {
-            GUIStyle style = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 50), alignment = TextAnchor.MiddleLeft };
+            GUIStyle style = new GUIStyle(GUI.skin.label) { font = MainFont, fontSize = Mathf.RoundToInt(rr * 41), alignment = TextAnchor.MiddleLeft };
             float y = spellOffset;
             for (int i = 0; i < SpellDataBase.SortedSpellIDs.Length; i++)
             {
@@ -3180,17 +3182,20 @@ namespace ChampionsOfForest
 
         private void DrawSpell(ref float y, Spell s, GUIStyle style)
         {
-            Rect bg = new Rect(0, y, Screen.width * 3 / 5, 100 * rr);
+            Rect bg = new Rect(0, y, Screen.width * 3.3f / 5, 100 * rr);
             bg.x = (Screen.width - bg.width) / 2;
             GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
             Rect nameRect = new Rect(30 * rr + bg.x, y, bg.width / 2, 100 * rr);
-
+            bool locked = false;
             if (s.Levelrequirement > ModdedPlayer.instance.Level)
             {
-                GUI.color = Color.gray;
+                locked = true;
+                GUI.color = Color.black;
             }
             else
             {
+                if(!s.Bought)
+                GUI.color = Color.gray;
                 if (bg.Contains(mousepos))
                 {
                     if (displayedSpellInfo == null)
@@ -3205,7 +3210,11 @@ namespace ChampionsOfForest
                     }
                 }
             }
-            GUI.Label(nameRect, s.Name + "  (LEVEL: " + s.Levelrequirement + ")", style);
+            if(locked)
+            GUI.Label(nameRect,"Unlocked at level "+ s.Levelrequirement, style);
+
+                else
+            GUI.Label(nameRect, s.Name, style);
             Rect iconRect = new Rect(bg.xMax - 140 * rr, y + 15 * rr, 70 * rr, 70 * rr);
             GUI.DrawTexture(iconRect, s.icon);
 
@@ -3390,7 +3399,7 @@ namespace ChampionsOfForest
             BookPositionY = BookScrollAmount;
             SetGuiStylesForGuide();
 
-            Header("Me");
+            Header("Basic Information");
             MarkBookmark("Home");
             Label("\tExperience");
             Stat("Current level", ModdedPlayer.instance.Level.ToString("N0"));
@@ -3401,44 +3410,81 @@ namespace ChampionsOfForest
                 "\nHigher level allow me to equip better equipement. " +
                 "\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. ");
             Space(50);
-            Label("\nWhat to do in order to get stronger:" +
-                "\n-Kill enemies - combat is the most reliable way of progression." +
-                "\n-Hunt animals - experience gained does not increase with difficulty." +
-                "\n-Cut down bushes and breaking effigies" +
-                "\n-Chop trees" +
-                "\n-Eat rare consumabes\n" +
-                "\nExperience from kills can be increased by quickly killing multipe enemies." +
-                "\nThe gray bar that appears on screen after killing an enemy sygnalizes how much time you have left to sustain your killing spree. You can make the massacre last longer by equiping items with correct stats. Killing a enemy while the there is still time left will result in adding some time to the duration (it will increase the time left by " + ModdedPlayer.instance.TimeBonusPerKill + " seconds). " +
-                "\nWhen the time runs out, all the exp you gained will be multipied by the some multipier that is dependant on the size of your streak. Then the experience is added to your exp pool and the kill streak is reset");
-            Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime.ToString() + " s");
-            Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill.ToString() + " s");
+            Label("\nSources of experience" +
+                "\n-Mutants - Enemies give the most experience, it's possible to chain kills to get more exp, and the reward is exp reward is based on bounty." +
+                "\n-Animals - Experience gained does not increase with difficulty. It's only viable for levels <10" +
+                "\n-Tall bushes - Give minium amount of experience. Not viable after level 6" +
+                "\n-Trees - Gives little experience for every tree chopped down." +
+                "\n-Effigies - It's possible to gain experience and low rarity items by breaking effigies scattered across the map." +
+                "\n-Rare consumable - Gives a large amount of experience, it's rarity is orange\n");
+
+            Space(100);
+            
+            Header("Information - Items");
+            Label("\tEquipement can be obtained by killing enemies and breaking effigies. Normal enemies can drop a few items on death, if the odds are in your favor. The chance to get any items from a normal enemy is 10%. The amount of items obtained from normal enemies is at least 1 and maximum amount increases with players in a lobby.\n" +
+             "Elite enemies always drop items in large amounts.\n" +
+             "\tItems can be equipped by dragging and dropping them onto a right equipement slot or shift+left click. The item will grant it's stats only if you meets item's level requirement. The best tier of items is only obtainable on high difficulties.");
+            Label("By unlocking a perk in the survival category, it's possible to change the stats on your existing items, and reforge unused items into something useful. Reforged item will have the same level as item put into the main crafting slot.");
+            
+            Space(100);
+            
+            Header("Information - Mutations and Abilities");
+            Label("\tUpon leveling up, the player will recieve a upgrade point. Then it's up to the player to use it to unlock a mutation, that will serve as a permanent perk, or to spend two upgrade points to unlock a ability.\n" +
+                "Abilities are in majority of the cases more powerful than perks, as they cost more and the number of active abilities is limitied to 6.\n" +
+                "Some perks can be bought multiple times.\n" +
+                "\n" +
+                "Refunding - it is possible to refund all points, to do so, heart of purity needs to be consumed. This item is of yellow rarity, and thus unobtainable on easy and veteran difficulties." +
+                "More points - to gain a point without leveling, a rare item of green rarity needs to be consumed. It permamently adds a upgrade point, and it persists even after refunding.");
+            Space(100);
+
+            Header("Information - Enemies");
+            Label("\tEnemies in the forest have adapted to your skill. As they level with you, they become faster and stronger. But speed and strength alone shouldn't be your main concern. There are a lot more dangerous beings out there." +
+                "\n\n" +
+                "Common enemies changed slightly. Their health increases with level.\n" +
+                "A new statistic to enemies is 'Armor'. This property reduces damage taken by the enemies from physical attacks, and partly reduces damage from magical attacks. Armor can be reduced in a number of ways.\n" +
+                "The easiest way to reduce armor is to use fire. Fire works as a way to crowd control enemies, it renders a few enemies unable to run and attack as they shake off the flames.\n" +
+                "Other way to reduce armor is to equip items, which reduce armor on hit.\n" +
+                "If you dont have any way to reduce enemy's armor, damaging them with spells would decrease the reduction from armor by 2/3, allowing you to deal some damage.");
+            Space(30);
+            Label("Elite enemies\n" +
+                "An elite is a uncommon type of a mutant with increased stats and access to special abilities, that make encounters with them challenging." +
+                "\nEnemy abilities:");
+            Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters nuke instances of damage.");
+            Label("- Blizzard - A temporary aura around an enemy, that slows anyone in it's area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting within it's range. Crowd controll from ranged attacks and running seems like the best option.");
+            Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
+            Label("- Chains - Roots anyone in a big radius around the elite. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
+            Label("- Black hole - A very strong ability. The spell has a fixed cooldown, and the enemy will attempt to cast it as soon as a player gets within his range effective.");
+            Label("- Trap sphere - Long lasting sphere that forces you to stay inside it untill it's effects wears off");
+            Label("- Juggernaut - The enemy is completely immune to crowd controll and bleeding.\n");
+            Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
+            Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes.");
+            Label("- Extra tough - enemy has a lot more healt");
+            Label("- Extra deadly - enemy has a lot more damage");
+            Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit or parry it's attacks.");
+            Label("- Warping - An ability allowing to teleport. Strong against glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
+            Label("- Rain Empowerment - If it rains, the enemy gains in strenght, speed, armor and size.");
+            Label("- Meteors - Periodically spawns a rain of powerful meteors. They are rather easy to spot and they move at a slow medium speed.");
+            Label("- Flare - Slows and damages me if you stand inside. Heals and makes enemies faster.");
+            Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
+            Label("- Plasma cannon - Creates a turret that fires a laser beam that damages players and buildings.");
+            Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is adviced to retreat and wait for the poison stop damaging you.");
+            Label("- Cataclysm - Enemy uses the cataclysm spell to slow you down and damage you.");
+
+
+            Header("Changes");
+            Label("Champions of The Forest provides variety of changes to in-game mechanics." +
+                "\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
+                "\nPlayer is slowed down if out of stamina (the inner blue bar)" +
+                "\nTraps no longer instantly kill cannibals. Instead they deal damage." +
+                "\nDynamite no longer instantly kills enemies." +
+                "\nEnemies have armor and increased health." +
+                "\nPlayers take increased damage from explosives. This affects how much damage the worm does" +
+                "\nPlayer deal increased damage to other players if friendly fire is enabled.");
+
+
             Space(300);
 
             Header("Statistics");
-
-            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
-            {
-                Rect labelRect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), 85 * rr);
-                if (GUI.Button(labelRect, "Bugged stats? Click to reset", new GUIStyle(GUI.skin.button)
-                {
-                    font = MainFont,
-                    fontSize = Mathf.RoundToInt(70 * rr),
-                    alignment = TextAnchor.UpperCenter,
-                    richText = true,
-                }))
-                {
-                    ModdedPlayer.ResetAllStats();
-                }
-                BookPositionY += 85 * rr;
-                Rect imageRect = new Rect(400 * rr, BookPositionY, Screen.width - 800 * rr, 60 * rr);
-                GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
-                BookPositionY += 70 * rr;
-            }
-            else
-            {
-                BookPositionY += 155 * rr;
-            }
-
             Stat("Strength", ModdedPlayer.instance.strength.ToString("N0") + " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrength * 100 + "% for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.instance.strength * 100 * ModdedPlayer.instance.DamagePerStrength + "]");
             Stat("Agility", ModdedPlayer.instance.agility.ToString("N0") + " agi", "Increases ranged damage by " + ModdedPlayer.instance.RangedDamageperAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * 100 * ModdedPlayer.instance.RangedDamageperAgi + "]\n" +
                 "Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility * ModdedPlayer.instance.EnergyPerAgility + "]");
@@ -3449,7 +3495,7 @@ namespace ChampionsOfForest
 
             Space(60);
             Image(105, 70);
-            Label("Health & Energy");
+            Header("Health & Energy");
             Space(10);
 
             Stat("Max health", ModdedPlayer.instance.MaxHealth.ToString("N0") + "", "Total health pool.\n" +
@@ -3604,86 +3650,56 @@ namespace ChampionsOfForest
                 Stat(item_name, pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
             }
 
-
-
-            Space(200);
-            Header("Differences");
-            Label("Champions of The Forest provides variety of changes to in-game mechanics." +
-                "\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
-                "\nTraps no longer instantly kill cannibals. Instead they deal damage." +
-                "\nDynamite no longer instantly kills enemies." +
-                "\nEnemies have armor and increased health." +
-                "\nPlayers take increased damage from explosives." +
-                "\nPlayer deal increased damage to other players.");
-
-
-
-            Space(100);
-            Header("Enemies");
-            Label("\tEnemies in the forest have evolved. They become faster and stronger, the more experience they get. But speed and strength alone shouldn't be my main concern. There are a lot more dangerous beings out there." +
-                "\n\n" +
-                "Normal enemies changed slightly. Their health has drastically increased. I was not able to find the cause of such change. I must keep looking for the answer.\n" +
-                "Apart from increased health, enemies have armor. It noticeably reduces damage when dealing with stronger enemies." +
-                "\nThe easiest way to reduce one's armor is to ignite them. Fire additionally works as crowd controll, rendering some burning enemies incapable to fighting back.\n" +
-                "Other way to reduce armor is to equip items, which reduce armor on hit.\n" +
-                "If you dont have any way to reduce enemy's armor, damaging them with spells would ignore it on the whole.");
-            Space(30);
-            Label("Elite enemies\n" +
-                "An elite is a rare enemy with increased stats and special abilities, that force me to pick a strategy of dealing with them." +
-                "Enemy abilities:");
-            Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters slow but powerful sources of damage.");
-            Label("- Blizzard - A temporary aura around an enemy that slows anyone in its area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting in range. Crowd controll from ranged abilities and running seems like the best option.");
-            Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
-            Label("- Chains - Roots anyone in a big radius from the enemy. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
-            Label("- Black hole - A very strong ability. Only engage in battle with enemy if I am certain of my strength. It provides crowd controll and deals a lot of damage. The crowd controll can be avoided by running away from the area of effect of the spell or teleport outside of it. The only weak side of this spell is the high cooldown.");
-            Label("- Trap sphere - Long lasting sphere that forces me to stay inside it untill its effects wears off");
-            Label("- Juggernaut - The enemy is completely immune to crowd controll.\n");
-            Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
-            Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes. Tiny enemies are slower.");
-            Label("- Extra tough - enemy has a lot more healt");
-            Label("- Extra deadly - enemy has a lot more damage");
-            Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit.");
-            Label("- Warping - An ability allowing to teleport. Strong agnist glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
-            Label("- Rain Empowerment - During the rain, the enemy gains in strengt, speed, armor and size.");
-            Label("- Meteors - Periodically spawns a rain of damaging meteors. They are rather easy to spot and move slowly. If I start running early enough, I should not have any trouble with avoiding them");
-            Label("- Flare - The same ability that I can use. Slows and damages me if I stand inside. Heals and makes enemies faster.");
-            Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
-            Label("- Plasma cannon - Creates a turret that fires a laser beam that damages me and buildings.");
-            Label("- Poisonous - Enemies gain attack modifier that on every hit applies a stacking debuff that deals damage over time. Once I get hit with this, I need to retreat and wait for the poison to end.");
-
-
-
-            Space(100);
-            Header("Items");
-            Label("\tEquipement can be obtained by killing enemies. Normal enemies can drop a few items on death, if the odds are correct. The chance to get any items from a normal enemy is 10%. The amount of items obtained from normal enemies is at least 1 and maximum of 5\n" +
-                "Elite enemies have a 100% chance to drop an item and they usually drop more.\n" +
-                "\tItems can be equipped by dragging and dropping them onto a right equipement slot. The item will grant it's stats only if I met the level requirements. The best rarity of items are only obtainable on high difficulties. Through there is a really small chance to get a legendary item on normal.");
-
-            Space(200);
-            Header("Dairy");
-            Stat("Day 0", "");
-            Label("I barely survived the plane crash. Shortly after hitting the ground I lost consciousness. I remember my son Timmy being taken by a red human, and nothing else. I need to find my boy...\n");
-            if (LocalPlayer.Stats.DaySurvived < 1)
+            if (BookPositionY < Screen.height && BookPositionY > -140 * rr)
             {
-                return;
+                Rect labelRect = new Rect(GuideWidthDecrease * rr + GuideMargin * rr, BookPositionY, Screen.width - 2 * rr * (GuideMargin + GuideWidthDecrease), 85 * rr);
+                if (GUI.Button(labelRect, "Bugged stats? Click to reset", new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.RoundToInt(70 * rr),
+                    alignment = TextAnchor.UpperCenter,
+                    richText = true,
+                }))
+                {
+                    ModdedPlayer.ResetAllStats();
+                }
+                BookPositionY += 85 * rr;
+                Rect imageRect = new Rect(400 * rr, BookPositionY, Screen.width - 800 * rr, 60 * rr);
+                GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
+                BookPositionY += 70 * rr;
+            }
+            else
+            {
+                BookPositionY += 155 * rr;
             }
 
-            Stat("Day 1", "");
-            Label("There is something weird about this island. I swear I have seen some people. They did not look friendly. I'd better stay on guard.\n");
-            if (LocalPlayer.Stats.DaySurvived < 2)
-            {
-                return;
-            }
 
-            Stat("Day 2", "");
-            Label("They are clearly hostile towards me. They are horrifying. They are cannibals. I need to find a way to defend myself.\n");
-            if (LocalPlayer.Stats.DaySurvived < 10)
-            {
-                return;
-            }
 
-            Stat("Day 10", "");
-            Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
+            //Space(200);
+            //Header("Dairy");
+            //Stat("Day 0", "");
+            //Label("I barely survived the plane crash. Shortly after hitting the ground I lost consciousness. I remember my son Timmy being taken by a red human, and nothing else. I need to find my boy...\n");
+            //if (LocalPlayer.Stats.DaySurvived < 1)
+            //{
+            //    return;
+            //}
+
+            //Stat("Day 1", "");
+            //Label("There is something weird about this island. I swear I have seen some people. They did not look friendly. I'd better stay on guard.\n");
+            //if (LocalPlayer.Stats.DaySurvived < 2)
+            //{
+            //    return;
+            //}
+
+            //Stat("Day 2", "");
+            //Label("They are clearly hostile towards me. They are horrifying. They are cannibals. I need to find a way to defend myself.\n");
+            //if (LocalPlayer.Stats.DaySurvived < 10)
+            //{
+            //    return;
+            //}
+
+            //Stat("Day 10", "");
+            //Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
         }
         #endregion
 
