@@ -1,7 +1,7 @@
 # Champions Of The Forest
 Turns a survival horror game "The Forest" into a RPG.
 This was an attempt at creating a modification with models, sounds and HD textures.
-
+Download here: https://modapi.survivetheforest.net/mod/101/champions-of-the-forest
 
 
 ### List of handy things:
