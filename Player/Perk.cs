@@ -1936,8 +1936,8 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.BIA_HealthDmMult +=1f,
-                DisableMethods = () => SpellActions.BIA_HealthDmMult -=1f,
+                ApplyMethods = () => SpellActions.BIA_HealthDmMult +=2f,
+                DisableMethods = () => SpellActions.BIA_HealthDmMult -=2f,
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 19 },
                 LevelRequirement = 14,
@@ -1946,9 +1946,9 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2f,
                 PosOffsetY = 2.25f,
                 Name = "Arcane Blood",
-                _description = "Blood infused arrow damage per health is increased by 1 dmg/hp.",
+                _description = "Blood infused arrow damage per health is increased by 2 dmg/hp.",
                 TextureVariation = 0,
-                Endless = false,
+                Endless = true,
             };
             new Perk()
             {
@@ -2646,6 +2646,37 @@ namespace ChampionsOfForest.Player
                 PosOffsetY = 1.5f,
                 Name = "Blink - Wormhole",
                 _description = "Blink has 66.6% increased distance",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.FireAmp +=0.1f,
+                DisableMethods = () => ModdedPlayer.instance.FireAmp -= 0.1f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 90 },
+                LevelRequirement = 2,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -2.5f,
+                PosOffsetY = 0f,
+                Name = "Fiery Embrace",
+                _description = "Fire damage is increased by 10%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BIA_TripleDmg = true,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 111 },
+                LevelRequirement = 48,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = -3.75f,
+                Name = "Sniper",
+                _description = "Blood infused arrow deals triple damage",
                 TextureVariation = 0,
                 Endless = false,
             };

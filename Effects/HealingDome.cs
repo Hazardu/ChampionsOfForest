@@ -18,10 +18,10 @@ namespace ChampionsOfForest.Effects
         {
             if (material == null)
             {
-                material = new Material(Shader.Find("Particles/Additive"))
-                {
-                    color = new Color(0, 0.7f, 0, 0.5f)
-                };
+                material = new Material(Shader.Find("Particles/Additive"));
+                //{
+                //    color = new Color(0, 0.7f, 0, 0.5f)
+                //};
                 material.SetColor("_TintColor", new Color(0, 0.15f, 0, 0.3f));
             }
             GameObject go = new GameObject();

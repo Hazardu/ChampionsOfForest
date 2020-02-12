@@ -162,7 +162,7 @@ namespace ChampionsOfForest
                 names.Add("Zebulon");
             }
             EnemyName = prefix + names[Random.Range(0, names.Count)];
-
+        
         }
         #endregion
 
@@ -759,7 +759,7 @@ namespace ChampionsOfForest
                     }
                 }
 
-                if (Random.value <= 0.1f || _AI.creepy_boss || abilities.Count > 0)
+                if (Random.value <= 0.1f * ItemDataBase.MagicFind || _AI.creepy_boss || abilities.Count > 0)
                 {
                     int itemCount = Random.Range(1, 4) + Random.Range(1,3)*(ModReferences.Players.Count-1);
                     if (_AI.creepy_boss)

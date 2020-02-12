@@ -15,7 +15,9 @@ namespace ChampionsOfForest.Player
             try
             {
             ModdedPlayer.ResetAllStats();
-              
+                CustomBowBase.baseBow = null;
+                CustomBowBase.baseBowC = null;
+                GreatBow.instance = null;
             }
             catch (Exception e)
             {
@@ -30,7 +32,6 @@ namespace ChampionsOfForest.Player
             ModdedPlayer.instance.MassacreKills = 0;
             ModdedPlayer.instance.MassacreMultipier = 1;
             ModdedPlayer.instance.TimeUntillMassacreReset = 0;
-            GreatBow.instance = null;
             ModdedPlayer.instance.InitializeHandHeld();
               BlackFlame.instance.Start();
         }

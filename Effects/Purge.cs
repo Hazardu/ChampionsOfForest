@@ -9,9 +9,9 @@ namespace ChampionsOfForest.Effects
     public class Purge : MonoBehaviour
     {
         private float speed = -30;
-        private float radius = 2;
+        float radius = 5;
         private static Material mat;
-        public static void Cast(Vector3 pos, float radius, bool heal)
+        public static void Cast(Vector3 pos, float radius, bool heal,bool damageBonus)
         {
             if (mat == null)
             {
@@ -37,11 +37,11 @@ namespace ChampionsOfForest.Effects
 
             if ((LocalPlayer.Transform.position - pos).sqrMagnitude < radius * radius)
             {
-                PurgeLocalPlayer(heal);
+                PurgeLocalPlayer(heal, damageBonus);
             }
 
         }
-        private static void PurgeLocalPlayer(bool heal)
+        private static void PurgeLocalPlayer(bool heal, bool bonusDamage)
         {
             int[] keys = BuffDB.activeBuffs.Keys.ToArray();
             int a = heal?1:0;
@@ -50,21 +50,24 @@ namespace ChampionsOfForest.Effects
                 if (BuffDB.activeBuffs[keys[i]].isNegative)
                 {
                     BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
-                    a++;
                 }
             }
             ModdedPlayer.instance.StunDuration = 0;
             ModdedPlayer.instance.RootDuration= 0;
 
-
-            for (int i = 0; i < a; i++)
+                if (heal)
+                {
+                    float healAmount = (ModdedPlayer.instance.MaxHealth - LocalPlayer.Stats.Health);
+            if (bonusDamage)
             {
-                float mult = heal ? 1.30f : 0.8f;
-
-                LocalPlayer.Stats.Health *= mult;
-                LocalPlayer.Stats.HealthTarget *= mult;
-                LocalPlayer.Stats.Energy *= mult;
+                    float buffAmount =1+( healAmount / ModdedPlayer.instance.MaxHealth) * 3;
+                    BuffDB.AddBuff(9, 90, buffAmount,6.5f);
             }
+                healAmount *= 0.5f;
+                    LocalPlayer.Stats.Health += healAmount;
+                    LocalPlayer.Stats.HealthTarget += healAmount;
+                    LocalPlayer.Stats.Energy += (ModdedPlayer.instance.MaxEnergy - LocalPlayer.Stats.Energy) * 0.5f;
+                }
 
 
         }

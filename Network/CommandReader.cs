@@ -128,7 +128,7 @@ namespace ChampionsOfForest.Network
                         }
                         else if (spellid == 8)
                         {
-                            Purge.Cast(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle(), r.ReadBoolean());
+                            Purge.Cast(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle(), r.ReadBoolean(),r.ReadBoolean());
 
                         }
                         else if (spellid == 9)

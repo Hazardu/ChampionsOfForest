@@ -44,7 +44,9 @@ namespace ChampionsOfForest.Player
             new Spell(3, 121, 3, 25, 12, "Blink", "Short distance teleportation")
             {
                 active = SpellActions.DoBlink,
-
+                CastOnRelease = true,
+                aim = SpellActions.DoBlinkAim,
+                
             };
             new Spell(4, 120, 10, 100, 45, "Flare", "A light column heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
             {
@@ -86,7 +88,7 @@ namespace ChampionsOfForest.Player
             {
                 active =Gold.Cast,            
             };
-            new Spell(13, 132, 7, 40, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Those debuffs can be poison. For every debuff purged, the player looses 20% of his current health and energy")
+            new Spell(13, 132, 7, 40, 15, "Purge", "Everyone in your surroudings gets cleansed of their negative debuffs. Negates poison.")
             {
                 active =SpellActions.CastPurge,            
             };

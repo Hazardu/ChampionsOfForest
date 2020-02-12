@@ -3626,6 +3626,7 @@ namespace ChampionsOfForest
             Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal.");
             Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal.");
             Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
+            Stat("Magic find", ItemDataBase.MagicFind * 100 + "%", "Affects quantity of items looted from monsters, as well as the chance to get items from non-elite enemies");
             Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
             Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
             if (ModdedPlayer.instance.TurboRaft)

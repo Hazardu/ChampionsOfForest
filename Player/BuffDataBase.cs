@@ -265,3 +265,4 @@ namespace ChampionsOfForest.Player
 //87 momentum transfer
 //88 counter strike passive
 //89 bash crit dmg passive
+//90 purge damage buff

@@ -517,10 +517,17 @@ namespace ChampionsOfForest
                         }
                         else
                         {
+
+                            //Equiping custom bow
+
                             PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
                             LocalPlayer.Inventory.StashEquipedWeapon(false);
                             if (LocalPlayer.Inventory.Equip(79, false))
                             {
+                                if (GreatBow.instance == null)
+                                {
+                                
+                                }
                                 CustomBowBase.baseBow.SetActive(false);
                                 GreatBow.instance.SetActive(true);
 
@@ -1359,6 +1366,7 @@ namespace ChampionsOfForest
             SpellActions.ShieldCastTime = 0;
             SpellActions.ShieldPersistanceLifetime = 3;
             SpellActions.PurgeHeal = false;
+            SpellActions.PurgeDamageBonus = false;
             SpellActions.WarCryRadius = 50;
             SpellActions.CataclysmArcane = false;
             SpellActions.WarCryGiveDamage = false;
@@ -1372,6 +1380,7 @@ namespace ChampionsOfForest
             SpellActions.SnapFreezeDuration = 7f;
             SpellActions.BL_Damage = 120;
             SpellActions.BashExtraDamage = 1.06f;
+            SpellActions.BIA_TripleDmg = false;
             SpellActions.BashDamageBuff = 1f;
             SpellActions.BashSlowAmount = 0.7f;
             SpellActions.BashLifesteal = 0.0f;

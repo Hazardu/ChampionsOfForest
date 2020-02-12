@@ -7,22 +7,25 @@ namespace ChampionsOfForest
 {
     public class SomeFuckingBowControllerClass : BowController
     {
+        CustomBowBase cbb;
+        protected override void OnEnable()
+        {
+            if (cbb == null)
+            {
+               cbb=  gameObject.AddComponent<CustomBowBase>();
+
+            }
+            base.OnEnable();
+        }
+
+
 
         protected override void Start()
         {
-            try
-            {
                 if (_bowItemId == 79)
                 {
-                    gameObject.AddComponent<CustomBowBase>();
+                    cbb = gameObject.AddComponent<CustomBowBase>();
                 }
-
-            }
-            catch (System.Exception)
-            {
-
-
-            }
             base.Start();
         }
     }
