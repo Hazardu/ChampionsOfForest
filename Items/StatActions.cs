@@ -111,11 +111,11 @@ namespace ChampionsOfForest.Items
         }
         public static void AddCritDamage(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.CritDamage += f;
+            ChampionsOfForest.ModdedPlayer.instance.CritDamage += f*100;
         }
         public static void RemoveCritDamage(float f)
         {
-            ChampionsOfForest.ModdedPlayer.instance.CritDamage -= f;
+            ChampionsOfForest.ModdedPlayer.instance.CritDamage -= f * 100;
         }
         public static void AddLifeOnHit(float f)
         {

@@ -475,7 +475,8 @@ namespace ChampionsOfForest.Network
 
                         int amount = r.ReadInt32();
                         Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-                        new MainMenu.HitMarker(amount, pos);
+                        Color c = new Color(r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+                        MainMenu.CreateHitMarker(amount, pos,c);
                     }
                     else if (cmdIndex == 21)  //player hitmarker
                     {
@@ -848,6 +849,37 @@ namespace ChampionsOfForest.Network
                                 SpellActions.CastBallLightning(pos, Vector3.down);
                             }
                         }
+                    }  
+                    else if (cmdIndex == 39)    //archangel bow hit a player
+                    {
+                        var s = r.ReadString();
+                        if (ModReferences.ThisPlayerID == s)
+                        {
+                            BuffDB.AddBuff(25, 91, r.ReadSingle(), 30);
+                            BuffDB.AddBuff(9, 92, 1.35f, 30);
+                            ModdedPlayer.instance.damageAbsorbAmounts[2] = r.ReadSingle();
+                        }
+                    } 
+                    else if (cmdIndex == 40)    //buff a player by ID
+                    {
+                        var s = r.ReadString();
+                        if (ModReferences.ThisPlayerID == s)
+                        {
+                            BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
+                        }
+                    }
+                    else if (cmdIndex == 41)    //buff a player by distance
+                    {
+                        var vector = new Vector3(r.ReadSingle(),r.ReadSingle(),r.ReadSingle());
+                        var dist = r.ReadSingle();
+                        if ((vector-LocalPlayer.Transform.position).sqrMagnitude<= dist*dist)
+                        {
+                            BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
+                        }
+                    } 
+                    else if (cmdIndex == 42)    //buff all players globally
+                    {
+                            BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
                     }
                     r.Close();
                 }

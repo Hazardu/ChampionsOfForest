@@ -7,6 +7,7 @@ namespace ChampionsOfForest.Player
 		public Texture2D icon;
 		public int Levelrequirement;
 		public float EnergyCost;
+		public float Cooldown;
 		public float BaseCooldown;
 		public float ChanneledTime;
 		public bool Channeled;
@@ -50,6 +51,7 @@ namespace ChampionsOfForest.Player
 			ID = iD;
 			Levelrequirement = levelrequirement;
 			EnergyCost = energyCost;
+			Cooldown = baseCooldown;
 			BaseCooldown = baseCooldown;
 			Name = name;
 			Description = description;
@@ -70,7 +72,7 @@ namespace ChampionsOfForest.Player
 			Levelrequirement = levelrequirement;
 			EnergyCost = energyCost;
 			Channeled = true;
-			BaseCooldown = 1;
+			Cooldown = 1;
 			Name = name;
 			Description = description;
 			CanCast = true;

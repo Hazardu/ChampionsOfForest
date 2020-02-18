@@ -59,8 +59,6 @@ namespace ChampionsOfForest
                 yield return null;
             }
             ThisPlayerID = LocalPlayer.Entity.GetState<IPlayerState>().name;
-            ThisPlayerID.Replace(';', '0');
-            ThisPlayerID= CotfUtils.TrimNonAscii( ThisPlayerID);
 
         }
 
@@ -198,7 +196,7 @@ namespace ChampionsOfForest
                 IPlayerState state = entity.GetState<IPlayerState>();
                 if (state == null) return "";
                 else
-                return CotfUtils.TrimNonAscii(state.name);
+                return state.name;
             }
 
         }

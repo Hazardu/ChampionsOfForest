@@ -200,7 +200,7 @@ namespace ChampionsOfForest
             StopAllCoroutines();
             RollName();
 
-            Steadfast = 101;
+            Steadfast = 100;
             slows = new Dictionary<int, EnemyDebuff>();
             dmgTakenDebuffs = new Dictionary<int, EnemyDebuff>();
             dmgDealtDebuffs = new Dictionary<int, EnemyDebuff>();
@@ -281,15 +281,16 @@ namespace ChampionsOfForest
             SetLevel();
 
             //Assigning rest of stats
-            DamageMult = Mathf.Pow(Level, 2.85f) / 100f + 0.5f;
-            DamageMult *= (int)ModSettings.difficulty + 1;
+            int dif = (int)ModSettings.difficulty;
+            DamageMult = Mathf.Pow(Level, 4) / 100f + 0.5f;
+            DamageMult *= dif*2 + 1;
 
-            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.35f) *0.36f+ 1, Mathf.Pow(Level, 2.42f)+ 20));
-            Armor *= (int)ModSettings.difficulty/2 + 1;
+            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.4f) *0.36f+ 1, Mathf.Pow(Level, 2.45f)+ 20));
+            Armor *= dif/2 + 1;
             ArmorReduction = 0;
-            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.53f)/(15)));
-            _hp *= (int)ModSettings.difficulty/2 + 1;
-            AnimSpeed =0.9f + (float)Level / 240;
+            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.425f+(dif*0.066f))/(16)));
+            _hp *= dif/2 + 1;
+            AnimSpeed =0.9f + (float)Level / 205;
        
             if(_rarity != EnemyRarity.Normal)
             {
@@ -317,10 +318,10 @@ namespace ChampionsOfForest
 
                     break;
             }
-            _hp *= (float)((int)ModSettings.difficulty) * 0.25f + 0.7f ;
-            if ((int)ModSettings.difficulty > 3)
+            _hp *= (float)(dif * 0.25f + 0.7f);
+            if (dif > 3)
                 _hp *= 1.75f;
-                if ((int)ModSettings.difficulty > 7)
+                if (dif > 7)
                 _hp *= 1.25f;
             //Applying some abilities
             if (abilities.Contains(Abilities.Huge))
@@ -574,6 +575,8 @@ namespace ChampionsOfForest
         public void HitMagic(int damage)
         {
             damage = ClampDamage(false, damage, true);
+            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage, new Color(0f, 0, 1f, 0.8f));
+
             _Health.HitReal(damage);
 
         }

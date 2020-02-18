@@ -257,7 +257,8 @@ namespace ChampionsOfForest
                         {
                             LocalPlayer.Stats.Health += Healing * Time.deltaTime;
                             LocalPlayer.Stats.HealthTarget += Healing * 1.5f * Time.deltaTime;
-                            Player.BuffDB.AddBuff(5, 6, Boost, 20);
+                            Player.BuffDB.AddBuff(5, 6, Boost, 30);
+                            Player.BuffDB.AddBuff(26, 94, 0.5f, 10);
 
                         }
                     }

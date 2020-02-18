@@ -10,8 +10,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         private float Lifetime;
         private readonly float rotSpeed = 30f;
         private bool coughtPlayer = false;
+        Transform playerTransform;
         public static GameObject Prefab;
-
+        static Material mat;
         public static void Create(Vector3 pos, float radius, float duration)
         {
             if (Prefab == null)
@@ -24,9 +25,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     Prefab.AddComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[68];
                     Prefab.transform.localScale = Vector3.one * radius;
                     MeshRenderer r = Prefab.AddComponent<MeshRenderer>();
-
-                    r.material = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainColor = new Color(1, 0.83f, 0, 0.2f), Metalic = 0f, Smoothness = 0f, renderMode = BuilderCore.BuildingData.RenderMode.Fade });
-
+                    if(mat == null)
+                    mat = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData() { MainColor = new Color(1, 0.83f, 0, 0.2f), Metalic = 0f, Smoothness = 0f, renderMode = BuilderCore.BuildingData.RenderMode.Fade });
+                    r.material = mat;
 
                 }
                 catch (System.Exception ex)
@@ -60,12 +61,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         {
             transform.Rotate((transform.forward + transform.up + Vector3.right) * rotSpeed * Time.deltaTime);
             Lifetime += Time.deltaTime;
-                if (coughtPlayer && 0==ModdedPlayer.instance.StunImmune)
+                if (coughtPlayer && 0==ModdedPlayer.instance.StunImmune && playerTransform != null)
                 {
-                var mag = (LocalPlayer.Transform.position - transform.position).sqrMagnitude;
+                var mag = (playerTransform.position - transform.position).sqrMagnitude;
                     if (mag > Radius * Radius)
                     {
-                        LocalPlayer.Transform.position = Vector3.MoveTowards(LocalPlayer.Transform.position, transform.position, mag/2 * Time.deltaTime);
+                    playerTransform.position = Vector3.MoveTowards(playerTransform.position, transform.position, mag/2 * Time.deltaTime);
                     Player.BuffDB.AddBuff(5, 71, 0.6f, 5);
                     Player.BuffDB.AddBuff(10, 72, 0.6f, 5);
                     }
@@ -80,6 +81,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                 if ((LocalPlayer.Transform.root.position - transform.position).sqrMagnitude < Radius * Radius - 2)
                 {
                     coughtPlayer = true;
+                    playerTransform = LocalPlayer.Transform.root;
                 }
             }
             else

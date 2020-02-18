@@ -333,7 +333,6 @@ namespace ChampionsOfForest.Player
 
         protected override void FireRangedWeapon()
         {
-            Debug.LogWarning("Fire ranged");
             var cache = _equipmentSlots[0].ItemCache;
             bool noconsume = false;
             if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
@@ -341,7 +340,10 @@ namespace ChampionsOfForest.Player
                 noconsume = true;
             }
             noconsume = noconsume || cache._maxAmount < 0 || RemoveItem(cache._ammoItemId, 1, false, true);
-
+            if (noconsume && cache._ammoItemId == 231)
+            {
+                AddItem(231);
+            }
             this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
 
             _weaponChargeStartTime = 0f;

@@ -171,13 +171,13 @@ namespace ChampionsOfForest
             {
                 if (ep.entity != null)
                 {
-                    if (ep.entity.networkId != null)
-                    {
-                        if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+                        if (ep.entity.networkId != null)
                         {
-                            hostDictionary.Remove(ep.entity.networkId.PackedValue);
+                            if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
+                            {
+                                hostDictionary.Remove(ep.entity.networkId.PackedValue);
+                            }
                         }
-                    }
                 }
                else if (GameSetup.IsSinglePlayer) singlePlayerList.Remove(ep);
                 if (spProgression != null)

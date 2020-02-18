@@ -875,8 +875,8 @@ namespace ChampionsOfForest
                 {
                     Health = ModdedPlayer.instance.MaxHealth;
                     BuffDB.AddBuff(20, 61, 0, 600);
-                    BuffDB.AddBuff(6, 82, 0, 5);
-                    BuffDB.AddBuff(7, 83, 0, 5);
+                    BuffDB.AddBuff(6, 82, 0, 10);
+                    BuffDB.AddBuff(26, 83, 0, 10);
                     return;
                 }
 

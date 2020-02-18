@@ -129,6 +129,9 @@ namespace ChampionsOfForest.Effects
         {
             if (IsOn)
             {
+                if(ModdedPlayer.instance.DanceOfFiregod)
+                SpellCaster.RemoveStamina(Cost *10* Time.deltaTime);
+                    else
                 SpellCaster.RemoveStamina(Cost * Time.deltaTime);
                 if (LocalPlayer.Stats.Stamina < 5)
                 {
@@ -136,7 +139,7 @@ namespace ChampionsOfForest.Effects
                 }
                 if (GiveDamageBuff)
                 {
-                    BuffDB.AddBuff(13, 44, 2f, 1f);
+                    BuffDB.AddBuff(13, 44, 1.6f, 1f);
                 }
              
             }

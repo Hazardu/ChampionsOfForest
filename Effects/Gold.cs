@@ -54,6 +54,8 @@ namespace ChampionsOfForest.Effects
             ModdedPlayer.instance.StunImmune++;
             ModdedPlayer.instance.DebuffResistant++;
             ModdedPlayer.instance.AttackSpeedMult *= 1.2f;
+            if(ModdedPlayer.instance.GoldenResolve)
+            ModdedPlayer.instance.DamageReduction *= 0.5f;
         }
 
 
@@ -66,6 +68,8 @@ namespace ChampionsOfForest.Effects
             ModdedPlayer.instance.DebuffResistant--;
 
             ModdedPlayer.instance.AttackSpeedMult /= 1.2f;
+            if (ModdedPlayer.instance.GoldenResolve)
+                ModdedPlayer.instance.DamageReduction /= 0.5f;
 
         }
     }

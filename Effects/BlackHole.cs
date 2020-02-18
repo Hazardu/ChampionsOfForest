@@ -168,13 +168,13 @@ namespace ChampionsOfForest
                 }
             }
 
-            transform.Translate(Vector3.up * 0.55f * Time.deltaTime * (Mathf.Pow(duration - (lifetime), 2)) / duration);
+            transform.Translate(Vector3.up * 1.55f * Time.deltaTime * (duration - lifetime) / duration);
             transform.Rotate(Vector3.up * rotationSpeed);
             if (FromEnemy)
             {
                 if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
                 {
-                    if (ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0)
+                    if (ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0 && !ModdedPlayer.instance.BlackholePullImmune)
                     Pull(LocalPlayer.Transform);
                 }
             }
@@ -232,7 +232,7 @@ namespace ChampionsOfForest
 
         private void Pull(Transform t)
         {
-            t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime);
+            t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime,Space.World);
         }
 
 

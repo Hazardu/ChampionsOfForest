@@ -73,7 +73,7 @@ namespace ChampionsOfForest.Effects
             {
                 transform.localScale += Vector3.forward * Time.deltaTime / 2;
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.3f);
             setupComplete = true;
 
         }
@@ -90,7 +90,7 @@ namespace ChampionsOfForest.Effects
             transform.Rotate(transform.forward * 80 * Time.deltaTime, Space.World);
             if (setupComplete)
             {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                transform.Translate(Vector3.forward * speed * Time.deltaTime*2);
             }
         }
 
@@ -112,7 +112,7 @@ namespace ChampionsOfForest.Effects
                         {
                         prog.HitMagic(d);
                         }
-                        float slowAmount = 0.35f;
+                        float slowAmount = 0.45f;
                         if (GiveDoubleSlow)
                         {
                             slowAmount *= 2;
@@ -121,7 +121,7 @@ namespace ChampionsOfForest.Effects
                         prog.Slow(41, 1 - slowAmount, DebuffDuration);
                         if (GiveDmgDebuff)
                         {
-                            prog.DmgTakenDebuff(41, 1.15f, DebuffDuration);
+                            prog.DmgTakenDebuff(41, 1.25f, DebuffDuration);
                         }
                     }
                     else

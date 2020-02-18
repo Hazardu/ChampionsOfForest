@@ -17,14 +17,15 @@ namespace ChampionsOfForest.Effects
 
         public static GameObject localPlayerInstance;
         public static bool IsOn;
-
+        public static Material mat;
         public static GameObject Create(Transform root, Transform hand)
         {
             GameObject go = new GameObject("__SPELL EFFECT 1__");
 
             GameObject child = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Material mat = new Material(Shader.Find("Particles/Additive"));
-            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f, 0.03f));
+            if(mat == null)
+            mat = new Material(Shader.Find("Particles/Additive"));
+            mat.SetColor("_TintColor", new Color(0.0f, 0.3f, 0.2f,0.05f));
             mat.mainTexture = Res.ResourceLoader.GetTexture(126);
             child.GetComponent<Renderer>().material = mat;
 
@@ -58,8 +59,9 @@ namespace ChampionsOfForest.Effects
 
         public static void Fired()
         {
-            opacity = -1;
+            opacity = 0;
         }
+        const float maxOpacity = 1f,regainOpacityRate = 0.3f;
 
         void Update()
         {
@@ -67,6 +69,14 @@ namespace ChampionsOfForest.Effects
             child1.Rotate(Vector3.forward * 90*Time.deltaTime);
             child2.Rotate(-Vector3.forward * 45 * Time.deltaTime);
             child3.Rotate(Vector3.forward * 20 * Time.deltaTime);
+
+            if (opacity < maxOpacity)
+            {
+                opacity += Time.deltaTime * regainOpacityRate;
+                mat.SetColor("_TintColor", new Color(0.0f, 0.3f* opacity, 0.2f* opacity, 0.05f* opacity));
+
+            }
+
         }
     }
 }

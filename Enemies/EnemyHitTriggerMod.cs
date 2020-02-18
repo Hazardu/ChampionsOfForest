@@ -139,7 +139,7 @@ namespace ChampionsOfForest.Enemies
                         Vector3 direction = other.transform.position - position;
                         if (!Physics.Raycast(position, direction, out hit, direction.magnitude, enemyHitMask, QueryTriggerInteraction.Ignore))
                         {
-                            if (!creepy_male && !creepy && !creepy_baby && !creepy_fat && events && componentInParent)
+                            if (((!creepy_male && !creepy && !creepy_baby && !creepy_fat)||ModdedPlayer.instance.ParryAnything) && events && componentInParent)
                             {
                                 bool flag = InFront(other.gameObject);
                                 if ((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && (componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash))
@@ -266,13 +266,26 @@ namespace ChampionsOfForest.Enemies
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                         {
 
-                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10)/7, poisonDuration);
+                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
 
                                         }
                                         if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
                                         {
 
                                             ModdedPlayer.instance.Stun(stunDuration);
+                                        }
+                                        if (ModdedPlayer.instance.thornsDamage > 0)
+                                        {
+                                            DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+                                            ModAPI.Console.Write("Hitting thorns as client");
+                                            PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+                                            playerHitEnemy.Target = entity;
+                                            playerHitEnemy.Hit = dmg;
+                                            if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+                                                playerHitEnemy.Burn = true;
+                                            AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps);
+
+
                                         }
                                     }
                                 }
@@ -306,8 +319,15 @@ namespace ChampionsOfForest.Enemies
                                         if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
                                         {
                                             ModdedPlayer.instance.Stun(stunDuration);
+                                        }
 
+                                        if (ModdedPlayer.instance.thornsDamage > 0)
+                                        {
+                                            ModAPI.Console.Write("Hitting thorns as server");
 
+                                            DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+                                            for (int i = 0; i < reps; i++)
+                                                EnemyProg._Health.Hit(dmg);
 
                                         }
                                     }

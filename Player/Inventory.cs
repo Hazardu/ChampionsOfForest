@@ -97,7 +97,7 @@ namespace ChampionsOfForest.Player
                 {
                     amount = Mathf.Min(amount, i.Amount);
                 }
-                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up*1.5f + LocalPlayer.Transform.forward, amount);
+                Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up*1.5f + LocalPlayer.Transform.forward *3, amount);
                 ItemList[key].Amount -= amount;
                 if (ItemList[key].Amount <= 0)
                 {

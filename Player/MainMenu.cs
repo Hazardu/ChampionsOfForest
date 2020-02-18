@@ -143,10 +143,28 @@ namespace ChampionsOfForest
         }
         public OpenedMenuMode _openedMenu;
 
-
+        public static void CreateHitMarker(int t, Vector3 p,Color color)
+        {
+            var marker = Instance.hitMarkers.Where(x => x.Player == false && (x.worldPosition - p).sqrMagnitude < 4 && x.color == color);
+            if (marker.Count() > 0)
+            {
+                var m = marker.First();
+                m.lifetime = 4;
+                m.dmg += t;
+                m.txt = m.dmg.ToString("N0");
+                m.worldPosition = p;
+            }
+            else
+            {
+                new HitMarker(t, p, color);
+            }
+        }
         public List<HitMarker> hitMarkers = new List<HitMarker>();
         public class HitMarker
         {
+            public Color color;
+            public const float StartLifetime = 5;
+            public float dmg;
             public string txt;
             public Vector3 worldPosition;
             public float lifetime;
@@ -155,19 +173,23 @@ namespace ChampionsOfForest
             {
                 Instance.hitMarkers.RemoveAt(i);
             }
-            public HitMarker(int t, Vector3 p)
+            public HitMarker(int t, Vector3 p,Color c)
             {
+                color = c;
+                dmg = t;
                 txt = t.ToString("N0");
                 worldPosition = p;
-                lifetime = 4f;
+                lifetime = StartLifetime;
                 Instance.hitMarkers.Add(this);
             }
             public HitMarker(int t, Vector3 p, bool Player)
             {
                 txt = t.ToString("N0");
                 worldPosition = p;
-                lifetime = 6f;
+                lifetime = StartLifetime;
                 this.Player = Player;
+                if (Player)
+                    color = new Color(0,0.75f,0,0.75f);
                 Instance.hitMarkers.Add(this);
             }
         }
@@ -2023,12 +2045,12 @@ namespace ChampionsOfForest
                 {
                     if (hitMarkers[i].Player)
                     {
-                        GUI.color = new Color(0.25f, 1, 0.25f, 0.5f);
+                        GUI.color = new Color(0.15f, 1, 0.15f, 0.5f);
 
                     }
                     else
                     {
-                        GUI.color = new Color(1, 0.25f, 0.55f, 0.5f);
+                        GUI.color = hitMarkers[i].color;
 
                     }
 
@@ -2162,12 +2184,12 @@ namespace ChampionsOfForest
                     else if (!SpellCaster.instance.Ready[i])
                     {
                         Rect fillr = new Rect(r);
-                        float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.BaseCooldown;
+                        float f = SpellCaster.instance.infos[i].Cooldown / SpellCaster.instance.infos[i].spell.Cooldown;
                         fillr.height *= f;
                         fillr.y += SquareSize * (1 - f);
                         GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
 
-                        TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown);
+                        TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown * ModdedPlayer.instance.CoolDownMultipier);
                         string formattedTime = span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString();
                         GUI.Label(r, formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(rr * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
                     }
@@ -3521,6 +3543,7 @@ namespace ChampionsOfForest
             Stat("Block", ModdedPlayer.instance.BlockFactor * 100 + "%");
             Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
             Stat("Fire resistance", Math.Round((1 - ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
+            Stat("Thorns", ModdedPlayer.instance.thornsDamage.ToString("N0"));
 
 
             Space(60);
@@ -3730,6 +3753,23 @@ namespace ChampionsOfForest
         private float _perkDetailAlpha;
         private float _timeToBuyPerk;
 
+
+        private bool PerkRequirementsMet(Perk perk)
+        {
+            if (perk.RequiredIds== null)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < perk.RequiredIds.Length; i++)
+            {
+                if (!Perk.AllPerks[perk.RequiredIds[i]].IsBought)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private bool PerkEnabled(Perk perk)
         {
             if (perk.InheritIDs.Length == 0)
@@ -3878,7 +3918,7 @@ namespace ChampionsOfForest
 
                         GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
                         GUI.color = Color.white;
-                        if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkEnabled(Perk.AllPerks[SelectedPerk_ID]) && Perk.AllPerks[SelectedPerk_ID].LevelRequirement <= ModdedPlayer.instance.Level)
+                        if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkRequirementsMet(Perk.AllPerks[SelectedPerk_ID]) && PerkEnabled(Perk.AllPerks[SelectedPerk_ID]) && Perk.AllPerks[SelectedPerk_ID].LevelRequirement <= ModdedPlayer.instance.Level)
                         {
                             _timeToBuyPerk += Time.unscaledDeltaTime;
                             Buying = true;
@@ -4003,9 +4043,19 @@ namespace ChampionsOfForest
             Perk p = Perk.AllPerks[a];
 
             bool show = false;
+            if (p.RequiredIds != null)
+            {
+                for (int i = 0; i < p.RequiredIds.Length; i++)
+                {
+                    if (!Perk.AllPerks[p.RequiredIds[i]].IsBought)
+                    {
+                        return;
+                    }
+                }
+            }
             for (int i = 0; i < p.InheritIDs.Length; i++)
             {
-                if (p.InheritIDs[i] == -1 || Perk.AllPerks[p.InheritIDs[i]].IsBought)
+                if (p.InheritIDs[i] == -1 || (Perk.AllPerks[p.InheritIDs[i]].IsBought))
                 {
                     show = true;
                     break;

@@ -234,7 +234,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (infos[i].spell != null)
 			{
-				infos[i].Cooldown = infos[i].spell.BaseCooldown;
+				infos[i].Cooldown = infos[i].spell.Cooldown;
 				Ready[i] = false;
 
 			}

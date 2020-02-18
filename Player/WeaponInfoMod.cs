@@ -661,7 +661,7 @@ namespace ChampionsOfForest.Player
 
                     if (ModdedPlayer.instance.DanceOfFiregod && Effects.BlackFlame.IsOn)
                     {
-                        num2 *=1+ LocalPlayer.Rigidbody.velocity.magnitude/4;
+                        num2 *=1+ LocalPlayer.Rigidbody.velocity.magnitude;
                     }
 
                     DamageMath.DamageClamp(num2, out int d, out int a);

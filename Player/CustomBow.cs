@@ -1,4 +1,5 @@
-﻿using BuilderCore;
+﻿using System.Collections;
+using BuilderCore;
 using ChampionsOfForest.Player;
 using TheForest.Items.World;
 using UnityEngine;
@@ -10,22 +11,24 @@ namespace ChampionsOfForest
         CustomBowBase cbb;
         protected override void OnEnable()
         {
-            if (cbb == null)
+            if (_bowItemId == 79)
             {
-               cbb=  gameObject.AddComponent<CustomBowBase>();
-
-            }
-            base.OnEnable();
-        }
-
-
-
-        protected override void Start()
-        {
-                if (_bowItemId == 79)
+                if (cbb == null)
                 {
                     cbb = gameObject.AddComponent<CustomBowBase>();
                 }
+            }
+            base.OnEnable();
+        }
+        protected override void Start()
+        {
+            if (_bowItemId == 79)
+            {
+                if (cbb == null)
+                {
+                    cbb = gameObject.AddComponent<CustomBowBase>();
+                }
+            }
             base.Start();
         }
     }
@@ -33,20 +36,19 @@ namespace ChampionsOfForest
     {
         public static GameObject baseBow;
         public static BowController baseBowC;
-        void Start()
+        void Initialize()
         {
             if (baseBow == null)
             {
                 baseBow = gameObject;
                 baseBowC = gameObject.GetComponent<BowController>();
                 var greatbow = Instantiate(gameObject, transform.position, transform.rotation, transform.parent);
-                CotfUtils.Log("Created greatbow obj");
                 greatbow.AddComponent<GreatBow>();
             }
         }
         void OnEnable()
         {
-            Start();
+            Invoke("Initialize", 0.5f);
         }
         
     }

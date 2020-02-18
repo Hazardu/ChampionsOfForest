@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             r.material = _particleMaterial;
             ParticleSystem.ShapeModule s = p.shape;
             s.shapeType = ParticleSystemShapeType.Circle;
-           
+
             s.radius = _radius;
             ParticleSystem.EmissionModule e = p.emission;
             e.rateOverTime = 350;
@@ -44,7 +44,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             var vel = p.velocityOverLifetime;
             vel.enabled = true;
             vel.space = ParticleSystemSimulationSpace.World;
-            vel.y = new ParticleSystem.MinMaxCurve(3,0);
+            vel.y = new ParticleSystem.MinMaxCurve(3, 0);
             var siz = p.sizeOverLifetime;
             siz.size = new ParticleSystem.MinMaxCurve(2, 0);
             armorReduction = Mathf.Pow((int)ModSettings.difficulty, 5);
@@ -85,11 +85,20 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
         {
             transform.position = followTarget.position;                                         //copies position of the caster
             transform.Rotate(Vector3.up * 720 * Time.deltaTime, Space.World);                   //rotates
-            if ((LocalPlayer.Transform.position- transform.position).sqrMagnitude < _radius* _radius) //if player is in range, slows him
+            if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < _radius * _radius) //if player is in range, slows him
             {
-                BuffDB.AddBuff(1, 30, 0.6f, 5);
-                BuffDB.AddBuff(2, 31, 0.3f, 5);
-                BuffDB.AddBuff(21, 70, armorReduction*Time.deltaTime, 20);
+                if (ModdedPlayer.instance.BlizzardSlowReduced)
+                {
+                    BuffDB.AddBuff(1, 30, 0.8f, 1);
+                    BuffDB.AddBuff(2, 31, 0.9f, 1);
+                    BuffDB.AddBuff(21, 70, armorReduction * Time.deltaTime / 2, 10);
+                }
+                else
+                {
+                    BuffDB.AddBuff(1, 30, 0.5f, 6);
+                    BuffDB.AddBuff(2, 31, 0.25f, 6);
+                    BuffDB.AddBuff(21, 70, armorReduction * Time.deltaTime, 20);
+                }
             }
         }
     }

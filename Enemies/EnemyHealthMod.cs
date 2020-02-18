@@ -59,6 +59,12 @@ namespace ChampionsOfForest
             base.Update();
         }
 
+        public override void Detached()
+        {
+            EnemyManager.RemoveEnemy(progression);
+            base.Detached();
+        }
+
         public override void getStealthAttack()
         {
             doStealthKill = false;
@@ -95,6 +101,7 @@ namespace ChampionsOfForest
         public void HitPhysical(int damage)
         {
             int dmg = progression.ClampDamage(false, damage);
+                Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg,new Color(1,0.4f,0,1f));
             HitReal(dmg);
         }
 
@@ -118,19 +125,23 @@ namespace ChampionsOfForest
                 if (this.ai.creepy_boss)
                 {
                     i = Mathf.CeilToInt(2 * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * (1 + progression.FireDmgAmp));
+                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-                    this.HitFireDamageOnly(i);
+                    base.HitFireDamageOnly(i);
                 }
                 else if (this.ai.creepy || this.ai.creepy_male || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
                 {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
+                    i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
+                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-                    this.Hit(i);
+                    base.Hit(i);
                 }
                 else
                 {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(4, 6) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
-                    this.Hit(i);
+                    i = Mathf.CeilToInt(UnityEngine.Random.Range(4,10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
+                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
+
+                    base.Hit(i);
                 }
                 progression.ArmorReduction += i;
             }
@@ -140,11 +151,7 @@ namespace ChampionsOfForest
         public override void HitReal(int damage)
         {
             //Creating a hit marker for every player 
-            if(LastHitTime+ HitMaxFrequency < Time.time)
-            {
-                Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage);
-                LastHitTime = Time.time;
-            }
+        
 
             //if (!ai.creepy_fat)
             //{
@@ -155,6 +162,7 @@ namespace ChampionsOfForest
                 damage -= i;
             }
             //}
+            hitBlock = false;
             base.HitReal(damage);
 
         }
@@ -174,13 +182,13 @@ namespace ChampionsOfForest
                     if (this.ai.creepy_boss)
                     {
                         this.Health -= 500;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500,Color.white);
 
                     }
                     else
                     {
                         this.Health -= 700;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700, Color.white);
 
                     }
                     if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
@@ -229,7 +237,7 @@ namespace ChampionsOfForest
                         this.animator.SetTriggerReflected("damageTrigger");
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
                         this.Health -= 800;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800, Color.white);
 
                         if (this.Health < 1)
                         {
@@ -271,7 +279,7 @@ namespace ChampionsOfForest
                         }
                         this.setSkinDamage(UnityEngine.Random.Range(0, 3));
                         this.Health -= 300;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300, Color.white);
 
                         if (this.Health < 1)
                         {
@@ -335,6 +343,8 @@ namespace ChampionsOfForest
             //}
             //Explosives deal 200 pure damage, as of yet, its not scaling with any stat
             HitReal(100);
+            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
+
             if (progression.OnDie())
             {
                 base.dieExplode();
@@ -349,6 +359,8 @@ namespace ChampionsOfForest
             //}
             //Since the trap doesnt one shot cannibals, it will deal pure damage to them
             HitReal(400);
+            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
+
             if (type == 2) return;
             if (progression.OnDie())
             {

@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.DamagePerStrength += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.DamagePerStrength -= 0.005f,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -32,7 +32,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpellDamageperInt += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageperInt -= 0.005f,
+                
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -50,7 +50,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.RangedDamageperAgi += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.RangedDamageperAgi -= 0.005f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -67,7 +67,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyRegenPerInt -= 0.005f,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -84,7 +84,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyPerAgility += 0.5f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyPerAgility -= 0.5f,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -101,7 +101,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HealthPerVitality += 1.5f,
-                DisableMethods = () => ModdedPlayer.instance.HealthPerVitality -= 1.5f,
+                
                 Category = PerkCategory.Defense,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -118,7 +118,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HealingMultipier *= 1.05f,
-                DisableMethods = () => ModdedPlayer.instance.HealingMultipier /= 1.05f,
+                
                 Category = PerkCategory.Support,
                 Icon = null,
                 InheritIDs = new int[] { -1 },
@@ -143,7 +143,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HungerRate *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.HungerRate /= 0.9f,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -167,7 +167,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ThirstRate *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.ThirstRate /= 0.9f,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 4 },
@@ -191,7 +191,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MeleeDamageBonus += 5,
-                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 5,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 10 },
@@ -213,7 +213,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add -= 0.1f,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 9, 11 },
@@ -230,7 +230,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.strength += 10,
-                DisableMethods = () => ModdedPlayer.instance.strength -= 10,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 0, 10 },
@@ -247,7 +247,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.RangedDamageBonus += 5,
-                DisableMethods = () => ModdedPlayer.instance.MeleeDamageBonus -= 5,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 2 },
@@ -268,7 +268,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileSizeRatio += 0.05f,
-                DisableMethods = () => ModdedPlayer.instance.ProjectileSizeRatio -= 0.05f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 2 },
@@ -289,7 +289,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio += 0.05f,
-                DisableMethods = () => ModdedPlayer.instance.ProjectileSpeedRatio -= 0.05f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 2 },
@@ -310,7 +310,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.1f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.1f),
+                
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 1 },
@@ -327,7 +327,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpellCostRatio *= 1 - 0.04f,
-                DisableMethods = () => ModdedPlayer.instance.SpellCostRatio /= 1 - 0.04f,
+                
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 15 },
@@ -352,7 +352,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks *= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.70f; },
-                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks /= 0.70f; },
+                
                 Category = PerkCategory.Defense,
                 Icon = null,
                 InheritIDs = new int[] { 5 },
@@ -370,7 +370,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.96f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.96f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
                 LevelRequirement = 7,
@@ -393,7 +393,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 18 },
                 LevelRequirement = 8,
@@ -410,7 +410,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddAllStats(5),
-                DisableMethods = () => StatActions.RemoveAllStats(5),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 1,
@@ -427,7 +427,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddAllStats(15),
-                DisableMethods = () => StatActions.RemoveAllStats(15),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 20 },
                 LevelRequirement = 2,
@@ -444,7 +444,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddAttackSpeed(0.04f),
-                DisableMethods = () => StatActions.AddAttackSpeed(0.04f),
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11 },
                 LevelRequirement = 6,
@@ -465,7 +465,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12, 14 },
                 LevelRequirement = 7,
@@ -486,7 +486,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.13f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 23 },
                 LevelRequirement = 9,
@@ -502,7 +502,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.13f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 24 },
                 LevelRequirement = 12,
@@ -519,7 +519,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddAllStats(10),
-                DisableMethods = () => StatActions.RemoveAllStats(10),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 21 },
                 LevelRequirement = 15,
@@ -535,7 +535,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.JumpPower += 0.06f,
-                DisableMethods = () => ModdedPlayer.instance.JumpPower -= 0.06f,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 10,
@@ -555,7 +555,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MoveSpeed += 0.035f,
-                DisableMethods = () => ModdedPlayer.instance.MoveSpeed -= 0.035f,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 27 },
                 LevelRequirement = 15,
@@ -575,7 +575,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HealthBonus += 25,
-                DisableMethods = () => ModdedPlayer.instance.HealthBonus -=25,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 2,
@@ -595,7 +595,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.LifeRegen += 0.25f,
-                DisableMethods = () => ModdedPlayer.instance.LifeRegen -= 0.25f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 6 },
                 LevelRequirement = 10,
@@ -615,7 +615,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.Armor += 40,
-                DisableMethods = () => ModdedPlayer.instance.Armor -= 40,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 2,
@@ -635,11 +635,11 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 31 },
                 LevelRequirement = 20,
-                PointsToBuy = 2,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
@@ -651,11 +651,11 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 32 },
                 LevelRequirement = 35,
-                PointsToBuy = 2,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
@@ -669,11 +669,11 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.DamageReductionPerks /= 0.9f,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 33 },
                 LevelRequirement = 40,
-                PointsToBuy = 2,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 4.5f,
                 PosOffsetY = 1.5f,
@@ -686,11 +686,11 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.05f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.MagicResistance, 0.05f),
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 29, 31 },
                 LevelRequirement = 6,
-                PointsToBuy = 2,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
@@ -709,14 +709,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DodgeChance, 0.25f),
-                DisableMethods = () => ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DodgeChance, 0.25f),
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 34 },
                 LevelRequirement = 50,
-                PointsToBuy = 2,
+                PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 5f,
-                PosOffsetY = 0.75f,
+                PosOffsetY = 2.25f,
                 Name = "Dodge",
                 _description = "Increases dodge chance by 25%",
                 TextureVariation = 0,
@@ -725,7 +725,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ARreduction_all += 3,
-                DisableMethods = () => ModdedPlayer.instance.ARreduction_all -= 3,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 6 },
                 LevelRequirement = 6,
@@ -741,7 +741,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ARreduction_melee += 5,
-                DisableMethods = () => ModdedPlayer.instance.ARreduction_melee -= 5,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 37 },
                 LevelRequirement = 8,
@@ -757,7 +757,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ARreduction_ranged += 5,
-                DisableMethods = () => ModdedPlayer.instance.ARreduction_ranged -= 5,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 37 },
                 LevelRequirement = 8,
@@ -773,7 +773,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HealthRegenPercent += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.HealthRegenPercent -= 0.1f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 30 },
                 LevelRequirement = 10,
@@ -789,7 +789,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyPerSecond += 0.15f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyPerSecond -= 0.15f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 30 },
                 LevelRequirement = 10,
@@ -806,7 +806,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ExpFactor *= 1.1f,
-                DisableMethods = () => ModdedPlayer.instance.ExpFactor /= 1.1f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 40 },
                 LevelRequirement = 10,
@@ -822,7 +822,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.LifeOnHit += 1f,
-                DisableMethods = () => ModdedPlayer.instance.LifeOnHit -= 1f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 40 },
                 LevelRequirement = 20,
@@ -838,7 +838,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyOnHit += 0.5f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyOnHit -= 0.5f,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 41 },
                 LevelRequirement = 20,
@@ -854,7 +854,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, 6),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(33, -6),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 4 },
                 LevelRequirement = 12,
@@ -870,7 +870,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, 2),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(29, -2),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -886,7 +886,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, 10); ModdedPlayer.instance.AddExtraItemCapacity(175, 15); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(29, -10); ModdedPlayer.instance.AddExtraItemCapacity(175, -15); },
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 46 },
                 LevelRequirement = 20,
@@ -902,7 +902,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, 2),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(175, -2),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 47 },
                 LevelRequirement = 20,
@@ -918,7 +918,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(49, 1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(49, -1),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -934,7 +934,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(262, 1),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(262, -1),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -950,7 +950,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, 2),
-                DisableMethods = () => ModdedPlayer.instance.AddGeneratedResource(37, -2),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -966,7 +966,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(37, 15),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(37, -15),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 51 },
                 LevelRequirement = 20,
@@ -982,7 +982,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, 20),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(49, -20),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 49 },
                 LevelRequirement = 20,
@@ -999,7 +999,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ReusabilityChance+= 0.5f,
-                DisableMethods = () => ModdedPlayer.instance.ReusabilityChance -= 0.5f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 25 },
                 LevelRequirement = 45,
@@ -1015,7 +1015,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpellDamageBonus += 5,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageBonus -= 5,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 1 },
                 LevelRequirement = 8,
@@ -1031,7 +1031,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 76, 35, 123, 207, 127 }, 5),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 76, 35, 123, 207, 127 }, -5),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1047,7 +1047,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 109, 89 }, 20),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 109, 89 }, -20),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1063,7 +1063,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(307, 20),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(307, -20),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1079,7 +1079,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(94, 20); ModdedPlayer.instance.AddExtraItemCapacity(178, 100); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(94, -20); ModdedPlayer.instance.AddExtraItemCapacity(178, -100); },
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1095,7 +1095,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 90, 47, 46, 101 }, 10),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 90, 47, 46, 101 }, -10),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 59 },
                 LevelRequirement = 20,
@@ -1111,7 +1111,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, 6); ModdedPlayer.instance.AddExtraItemCapacity(53, 2); ModdedPlayer.instance.AddExtraItemCapacity(54, 1); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(57, -6); ModdedPlayer.instance.AddExtraItemCapacity(53, -2); ModdedPlayer.instance.AddExtraItemCapacity(54, -1); },
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1127,7 +1127,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 31, 142, 141, 41, 43, 144 }, 5),
-                DisableMethods = () => ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 31, 142, 141, 41, 43, 144 }, -5),
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1143,7 +1143,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5); ModdedPlayer.instance.AddExtraItemCapacity(82, 50); },
-                DisableMethods = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, -5); ModdedPlayer.instance.AddExtraItemCapacity(82, -50); },
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 45 },
                 LevelRequirement = 20,
@@ -1160,7 +1160,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *= 2f,
-                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /= 2f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1176,7 +1176,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.BulletDamageMult *= 1.6f,
-                DisableMethods = () => ModdedPlayer.instance.BulletDamageMult /= 1.6f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1192,7 +1192,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.8f,
-                DisableMethods = () => ModdedPlayer.instance.CrossbowDamageMult /= 1.8f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1208,7 +1208,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.BowDamageMult *= 1.4f,
-                DisableMethods = () => ModdedPlayer.instance.BowDamageMult /= 1.4f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 12 },
                 LevelRequirement = 15,
@@ -1225,7 +1225,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.HealingDomeGivesImmunity = true,
-                DisableMethods = () => SpellActions.HealingDomeGivesImmunity = false,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 40 },
                 LevelRequirement = 35,
@@ -1241,7 +1241,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => BlackFlame.GiveDamageBuff = true,
-                DisableMethods = () => BlackFlame.GiveDamageBuff = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
                 LevelRequirement = 10,
@@ -1250,14 +1250,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = -1.5f,
                 Name = "Enchant weapon",
-                _description = "While black flame is on, melee damage is increased by 100%",
+                _description = "While black flame is on, melee damage is increased by 60%",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
                 ApplyMethods = () => SpellActions.WarCryGiveDamage = true,
-                DisableMethods = () => SpellActions.WarCryGiveDamage = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
                 LevelRequirement = 25,
@@ -1274,7 +1274,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.25f; ModdedPlayer.instance.StaminaAttackCost *= 2f; },
-                DisableMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult /= 1.25f; ModdedPlayer.instance.StaminaAttackCost /= 2f; },
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11, 10 },
                 LevelRequirement = 15,
@@ -1290,7 +1290,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.1f; ModdedPlayer.instance.SpellCostRatio *= 1.2f; },
-                DisableMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.1f; ModdedPlayer.instance.SpellCostRatio /= 1.2f; },
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 15, 55 },
                 LevelRequirement = 15,
@@ -1306,7 +1306,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.MagicArrowDmgDebuff = true,
-                DisableMethods = () => SpellActions.MagicArrowDmgDebuff = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
                 LevelRequirement = 25,
@@ -1322,7 +1322,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.MagicArrowDuration += 3,
-                DisableMethods = () => SpellActions.MagicArrowDuration -= 3,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 73 },
                 LevelRequirement = 40,
@@ -1338,7 +1338,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.MagicArrowDoubleSlow = true,
-                DisableMethods = () => SpellActions.MagicArrowDoubleSlow = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 74 },
                 LevelRequirement = 46,
@@ -1355,7 +1355,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HeavyAttackMult *= 1.5f,
-                DisableMethods = () => ModdedPlayer.instance.HeavyAttackMult /= 1.5f,
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 10 },
                 LevelRequirement = 15,
@@ -1372,7 +1372,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.HeavyAttackMult *= 2f,
-                DisableMethods = () => ModdedPlayer.instance.HeavyAttackMult /= 2f,
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 76 },
                 LevelRequirement = 35,
@@ -1388,7 +1388,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CritDamage += 5,
-                DisableMethods = () => ModdedPlayer.instance.CritDamage -= 5,
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 9,10 },
                 LevelRequirement = 20,
@@ -1404,7 +1404,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CritChance += 0.12f,
-                DisableMethods = () => ModdedPlayer.instance.CritChance -= 0.12f,
+                
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 9,78 },
                 LevelRequirement = 35,
@@ -1420,7 +1420,7 @@ namespace ChampionsOfForest.Player
              new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyBonus += 10,
-                DisableMethods = () => ModdedPlayer.instance.EnergyBonus -= 10,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 3 },
                 LevelRequirement = 8,
@@ -1457,7 +1457,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.TurboRaft = true,
-                DisableMethods = () => ModdedPlayer.instance.TurboRaft=false,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 50 },
                 LevelRequirement = 22,
@@ -1473,7 +1473,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.RaftSpeedMultipier++,
-                DisableMethods = () => ModdedPlayer.instance.RaftSpeedMultipier--,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 82 },
                 LevelRequirement = 23,
@@ -1489,7 +1489,7 @@ namespace ChampionsOfForest.Player
               new Perk()
             {
                 ApplyMethods = () =>SpellActions.PurgeHeal =true,
-                DisableMethods = () => SpellActions.PurgeHeal = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 15 },
                 LevelRequirement = 10,
@@ -1498,21 +1498,21 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3.5f,
                 PosOffsetY = 0f,
                 Name = "Transpurgation",
-                _description = "Purge now heals all players for percent of their missing health instead of reducing their health",
+                _description = "Purge now heals all players for percent of their missing health and restores energy for percent of missing energy.",
                 TextureVariation = 0,
                 Endless = false,
             };
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.925f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 19 },
                 LevelRequirement = 24,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 4f,
-                PosOffsetY = 2.25f,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 3f,
                 Name = "Greater Cool Down Reduction",
                 _description = " Reduces spell cooldown by 7,5%",
                 TextureVariation = 0,
@@ -1521,14 +1521,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.9f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 85 },
                 LevelRequirement = 35,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 4.5f,
-                PosOffsetY = 1.5f,
+                PosOffsetX = 2f,
+                PosOffsetY = 3.75f,
                 Name = "Greater Cool Down Reduction",
                 _description = " Reduces spell cooldown by 10%",
                 TextureVariation = 0,
@@ -1537,14 +1537,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
-                DisableMethods = () => ModdedPlayer.instance.CoolDownMultipier /= 0.9f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 86 },
                 LevelRequirement = 46,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 5f,
-                PosOffsetY = 0.75f,
+                PosOffsetX = 1.5f,
+                PosOffsetY = 4.5f,
                 Name = "Greater Cool Down Reduction",
                 _description = " Reduces spell cooldown by 10%",
                 TextureVariation = 0,
@@ -1553,14 +1553,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () =>SpellCaster.InfinityEnabled =true,
-                DisableMethods = () => SpellCaster.InfinityEnabled =false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 87 },
                 LevelRequirement = 60,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 5.5f,
-                PosOffsetY = 0f,
+                PosOffsetX = 1f,
+                PosOffsetY = 5.25f,
                 Name = "Infinity",
                 _description = "Every time you cast a spell, all cooldowns are reduced by 5%",
                 TextureVariation = 0,
@@ -1569,14 +1569,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 0.5f,
-                DisableMethods = () => ModdedPlayer.instance.SpellDamageAmplifier_Add -= 0.5f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 88 },
                 LevelRequirement = 61,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 6.5f,
-                PosOffsetY = 0f,
+                PosOffsetX = 0.5f,
+                PosOffsetY = 6f,
                 Name = "Armageddon",
                 _description = "Spell damage increased by 50%",
                 TextureVariation = 0,
@@ -1585,7 +1585,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpellAmpFireDmg =true,
-                DisableMethods = () => ModdedPlayer.instance.SpellAmpFireDmg = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { -1 },
                 LevelRequirement = 2,
@@ -1601,7 +1601,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.NearDeathExperienceUnlocked =true,
-                DisableMethods = () => ModdedPlayer.instance.NearDeathExperienceUnlocked = false,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 35 },
                 LevelRequirement = 20,
@@ -1617,7 +1617,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.SeekingArrow_HeadDamage =3,
-                DisableMethods = () => SpellActions.SeekingArrow_HeadDamage =2,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55 },
                 LevelRequirement = 13,
@@ -1633,7 +1633,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.SeekingArrow_DamagePerDistance +=0.01f,
-                DisableMethods = () => SpellActions.SeekingArrow_DamagePerDistance -= 0.01f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 92 },
                 LevelRequirement = 19,
@@ -1649,7 +1649,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.SeekingArrow_SlowDuration += 4,
-                DisableMethods = () => SpellActions.SeekingArrow_SlowDuration -=4,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 93 },
                 LevelRequirement = 26,
@@ -1665,7 +1665,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.SeekingArrow_SlowAmount -= 0.2f,
-                DisableMethods = () => SpellActions.SeekingArrow_SlowAmount += 0.2f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 94 },
                 LevelRequirement = 30,
@@ -1681,7 +1681,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.FocusOnHS +=0.5f,
-                DisableMethods = () => SpellActions.FocusOnHS -= 0.5f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 55},
                 LevelRequirement = 14,
@@ -1697,7 +1697,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.15f,
-                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 96},
                 LevelRequirement = 15,
@@ -1713,7 +1713,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.FocusOnAtkSpeed += 0.15f,
-                DisableMethods = () => SpellActions.FocusOnAtkSpeed -= 0.15f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 97},
                 LevelRequirement = 25,
@@ -1729,7 +1729,7 @@ namespace ChampionsOfForest.Player
               new Perk()
             {
                 ApplyMethods = () => SpellActions.FocusSlowDuration += 20f,
-                DisableMethods = () => SpellActions.FocusSlowDuration -= 20f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 97},
                 LevelRequirement = 35,
@@ -1745,7 +1745,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => BlackFlame.GiveAfterburn = true,
-                DisableMethods = () => BlackFlame.GiveAfterburn = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 69 },
                 LevelRequirement = 20,
@@ -1761,7 +1761,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => BlackFlame.DmgAmp = 2,
-                DisableMethods = () => BlackFlame.DmgAmp = 1,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 100 },
                 LevelRequirement = 20,
@@ -1777,7 +1777,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.FrenzyAtkSpeed += 0.02f,
-                DisableMethods = () => SpellActions.FrenzyAtkSpeed -= 0.02f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 72 },
                 LevelRequirement = 20,
@@ -1793,7 +1793,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.BashDuration += 1,
-                DisableMethods = () => SpellActions.BashDuration-= 1,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 72 },
                 LevelRequirement = 26,
@@ -1809,7 +1809,7 @@ namespace ChampionsOfForest.Player
                new Perk()
             {
                 ApplyMethods = () => SpellActions.ShieldPersistanceLifetime += 60f,
-                DisableMethods = () => SpellActions.ShieldPersistanceLifetime -= 60f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
                 LevelRequirement = 10,
@@ -1824,14 +1824,14 @@ namespace ChampionsOfForest.Player
             };       new Perk()
             {
                 ApplyMethods = () => SpellActions.BlinkDamage += 14f,
-                DisableMethods = () => SpellActions.BlinkDamage -= 14f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 86 },
                 LevelRequirement = 40,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 5.5f,
-                PosOffsetY = 1.5f,
+                PosOffsetX = 3f,
+                PosOffsetY = 3.75f,
                 Name = "Blink - Passthrough",
                 _description = "Blink now deals damage to enemies that you teleport through",
                 TextureVariation = 0,
@@ -1840,7 +1840,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f,
-                DisableMethods = () => ModdedPlayer.instance.EnergyRegenPerInt -= 0.005f,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 21 },
@@ -1857,7 +1857,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.ParryIgnites = true,
-                DisableMethods = () => SpellActions.ParryIgnites = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
                 LevelRequirement = 10,
@@ -1873,14 +1873,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.ParryRadius++,
-                DisableMethods = () => SpellActions.ParryRadius--,
+                
                 Category = PerkCategory.MagicOffense,
-                InheritIDs = new int[] { 19 },
+                InheritIDs = new int[] { 19,107 },
                 LevelRequirement = 20,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 3.5f,
-                PosOffsetY = 3f,
+                PosOffsetY = 1.5f,
                 Name = "Parry range",
                 _description = "Increases the radius of parry by 1m",
                 TextureVariation = 0,
@@ -1889,7 +1889,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddMagicFind(0.1f),
-                DisableMethods = () => StatActions.AddMagicFind(-0.1f),
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 42 },
                 LevelRequirement = 14,
@@ -1905,7 +1905,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => StatActions.AddMagicFind(0.15f),
-                DisableMethods = () => StatActions.AddMagicFind(-0.15f),
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 109 },
                 LevelRequirement = 55,
@@ -1921,7 +1921,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.BIA_HealthTakenMult +=0.25f,
-                DisableMethods = () => SpellActions.BIA_HealthTakenMult -= 0.25f,
+                
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 67 },
                 LevelRequirement = 16,
@@ -1937,7 +1937,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.BIA_HealthDmMult +=2f,
-                DisableMethods = () => SpellActions.BIA_HealthDmMult -=2f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 19 },
                 LevelRequirement = 14,
@@ -1953,7 +1953,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.HealingDomeRegEnergy = true,
-                DisableMethods = () => SpellActions.HealingDomeRegEnergy = false,
+                
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 68 },
                 LevelRequirement = 36,
@@ -1969,7 +1969,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MaxHealthPercent += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.MaxHealthPercent -= 0.1f,
+                
                 Category = PerkCategory.Defense,
                 InheritIDs = new int[] { 29},
                 LevelRequirement = 4,
@@ -1985,7 +1985,7 @@ namespace ChampionsOfForest.Player
              new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MaxEnergyPercent += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.MaxEnergyPercent -= 0.1f,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 80},
                 LevelRequirement = 9,
@@ -2001,7 +2001,7 @@ namespace ChampionsOfForest.Player
              new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CraftingReroll= true,
-                DisableMethods = () => ModdedPlayer.instance.CraftingReroll = false,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { -1},
                 LevelRequirement = 10,
@@ -2017,7 +2017,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.CraftingReforge= true,
-                DisableMethods = () => ModdedPlayer.instance.CraftingReforge = false,
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 116},
                 LevelRequirement = 25,
@@ -2033,7 +2033,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.flashlightIntensity++;ModdedPlayer.instance.flashlightBatteryDrain++;  },
-                DisableMethods = () => { ModdedPlayer.instance.flashlightIntensity--; ModdedPlayer.instance.flashlightBatteryDrain--; },
+                
                 Category = PerkCategory.Utility,
                 InheritIDs = new int[] { 62 },
                 LevelRequirement = 20,
@@ -2049,14 +2049,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => { ModdedPlayer.instance.DamageReductionPerks *= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks *= 1.1f; },
-                DisableMethods = () => { ModdedPlayer.instance.DamageReductionPerks /= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks /= 1.1f; },
+                
                 Category = PerkCategory.Defense,
                 Icon = null,
                 InheritIDs = new int[] { 5 },
                 LevelRequirement = 8,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 2.5f,
+                PosOffsetX = 1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Glass Cannon",
                 _description = "Increases all damage taken and increases all damage dealt by 10%",
@@ -2066,7 +2066,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySize= true,
-                DisableMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySize =false,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 13 },
@@ -2083,7 +2083,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.BunnyHop = true,
-                DisableMethods = () => ModdedPlayer.instance.BunnyHop = false,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 27 },
@@ -2100,7 +2100,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.MeleeRange += 0.04f,
-                DisableMethods = () => ModdedPlayer.instance.MeleeRange -= 0.04f,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 22 },
@@ -2117,7 +2117,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ChanceToBleedOnHit += 0.02f,
-                DisableMethods = () => ModdedPlayer.instance.ChanceToBleedOnHit -= 0.02f,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 78,79 },
@@ -2134,7 +2134,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ChanceToWeakenOnHit += 0.025f,
-                DisableMethods = () => ModdedPlayer.instance.ChanceToWeakenOnHit -= 0.025f,
+                
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
                 InheritIDs = new int[] { 71,22 },
@@ -2151,7 +2151,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearCritChance += 0.36f,
-                DisableMethods = () => ModdedPlayer.instance.SpearCritChance -= 0.36f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 64 },
@@ -2168,7 +2168,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearCritChance += 0.1f,
-                DisableMethods = () => ModdedPlayer.instance.SpearCritChance -= 0.1f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 125 },
@@ -2185,7 +2185,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearhellChance += 0.45f,
-                DisableMethods = () => ModdedPlayer.instance.SpearhellChance -= 0.45f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 126 },
@@ -2202,7 +2202,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearhellChance += 0.02f,
-                DisableMethods = () => ModdedPlayer.instance.SpearhellChance -= 0.02f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 127 },
@@ -2219,7 +2219,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearDamageMult *=1.75f,
-                DisableMethods = () => ModdedPlayer.instance.SpearDamageMult /=1.75f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 126 },
@@ -2236,7 +2236,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.BulletCritChance +=0.2f,
-                DisableMethods = () => ModdedPlayer.instance.BulletCritChance -= 0.2f,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 65 },
@@ -2253,7 +2253,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.SpearArmorRedBonus=true,
-                DisableMethods = () => ModdedPlayer.instance.SpearArmorRedBonus =false,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 127,129 },
@@ -2270,7 +2270,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.BunnyHopUpgrade = true,
-                DisableMethods = () => ModdedPlayer.instance.BunnyHopUpgrade = false,
+                
                 Category = PerkCategory.Utility,
                 Icon = null,
                 InheritIDs = new int[] { 121 },
@@ -2325,8 +2325,8 @@ namespace ChampionsOfForest.Player
                 LevelRequirement = 77,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 6f,
-                PosOffsetY = -0.75f,
+                PosOffsetX = 7.5f,
+                PosOffsetY = 0f,
                 Name = "Curse of Binding",
                 _description = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal 110% less damage, but at the same time, you deal 100% increased melee damage",
                 TextureVariation = 1, //0 or 1
@@ -2357,8 +2357,8 @@ namespace ChampionsOfForest.Player
                 LevelRequirement = 77,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 7f,
-                PosOffsetY = -0.75f,
+                PosOffsetX = 8.5f,
+                PosOffsetY = -1.5f,
                 Name = "Curse of Binding",
                 _description = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 100% less damage, but at the same time, you deal 100% increased ranged damage",
                 TextureVariation = 1, //0 or 1
@@ -2406,8 +2406,8 @@ namespace ChampionsOfForest.Player
                 LevelRequirement = 77,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 7.5f,
-                PosOffsetY = 0f,
+                PosOffsetX = 9f,
+                PosOffsetY = -0.75f,
                 Name = "Curse of Exhaustion",
                 _description = "Increases attack spell damage by 100%, but your energy is reduced by 50% and stamina regenerates slower",
                 TextureVariation = 1, //0 or 1
@@ -2585,7 +2585,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed = true,
-                DisableMethods = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed = false,
+                
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
                 InheritIDs = new int[] { 14 },
@@ -2603,7 +2603,7 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.MagicArrowCrit = true,
-                DisableMethods = () => SpellActions.MagicArrowCrit = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 73 },
                 LevelRequirement = 30,
@@ -2620,14 +2620,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.BL_Crit = true,
-                DisableMethods = () => SpellActions.BL_Crit = false,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 88 },
                 LevelRequirement = 62,
                 PointsToBuy = 2,
                 Size = 1,
-                PosOffsetX = 6f,
-                PosOffsetY = 0.75f,
+                PosOffsetX = 1.5f,
+                PosOffsetY = 6f,
                 Name = "Nuke Conjuration",
                 _description = "Ball Lightning can critically hit.",
                 TextureVariation = 0,
@@ -2636,14 +2636,14 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => SpellActions.BlinkRange += 10f,
-                DisableMethods = () => SpellActions.BlinkDamage -= 10f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 105 },
                 LevelRequirement = 40,
                 PointsToBuy = 1,
                 Size = 1,
-                PosOffsetX = 6.5f,
-                PosOffsetY = 1.5f,
+                PosOffsetX = 4f,
+                PosOffsetY = 3.75f,
                 Name = "Blink - Wormhole",
                 _description = "Blink has 66.6% increased distance",
                 TextureVariation = 0,
@@ -2652,10 +2652,10 @@ namespace ChampionsOfForest.Player
             new Perk()
             {
                 ApplyMethods = () => ModdedPlayer.instance.FireAmp +=0.1f,
-                DisableMethods = () => ModdedPlayer.instance.FireAmp -= 0.1f,
+                
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 90 },
-                LevelRequirement = 2,
+                LevelRequirement = 10,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = -2.5f,
@@ -2667,16 +2667,324 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.BIA_TripleDmg = true,
+                ApplyMethods = () => { SpellActions.BIA_TripleDmg = true; ModdedPlayer.instance.HealingMultipier *= 0.5f; },
                 Category = PerkCategory.RangedOffense,
                 InheritIDs = new int[] { 111 },
-                LevelRequirement = 48,
+                LevelRequirement = 55,
                 PointsToBuy = 1,
                 Size = 1,
                 PosOffsetX = 2f,
                 PosOffsetY = -3.75f,
-                Name = "Sniper",
-                _description = "Blood infused arrow deals triple damage",
+                Name = "All or Nothing",
+                _description = "Blood infused arrow deals triple damage, but healing recieved is halved",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.BIA_Weaken = true,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 111 },
+                LevelRequirement = 30,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 1.5f,
+                PosOffsetY = -4.5f,
+                Name = "Cursed Blood",
+                _description = "Enemies hit by blood infused arrow take 100% increased damage from all sources for 15 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.EnergyOnHit += 1f; ModdedPlayer.instance.LifeOnHit += 1.5f; },
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 44,43 },
+                LevelRequirement = 47,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -3.5f,
+                PosOffsetY = -1.5f,
+                Name = "Rejuvenation",
+                _description = "Gain +1 energy on hit, and +1.5 life per hit.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { SpellDataBase.spellDictionary[10].Cooldown -= 15; },
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 153,75 },
+                LevelRequirement = 47,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = -3f,
+                Name = "Endless stream",
+                _description = "Reduce the cooldown of Magic Arrow by 15 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { SpellActions.ParryRadius++; ModdedPlayer.instance.ParryAnything = true; },
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 78 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = 0.75f,
+                Name = "Parry Mastery",
+                _description = "Increases the radius of Parry by 1m, allows you to parry any type of enemy.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.thornsPerStrenght+=1.2f,
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 31},
+                LevelRequirement = 3,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 0.75f,
+                Name = "Thorny Skin",
+                _description = "Every point of strength increases thorns by 1.2\nThorns scale with melee damage multipier stats",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { ModdedPlayer.instance.thornsMult *= 2; ModdedPlayer.instance.Armor += 400; },
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 32 },
+                LevelRequirement = 25,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = 0f,
+                Name = "Iron Maiden",
+                _description = "Increases armor by 400, and increases thorns damage by 100%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.2f),
+
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 35,32 },
+                LevelRequirement = 24,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4f,
+                PosOffsetY = -0.75f,
+                Name = "Anti-Magic Training",
+                _description = "Decreases magic damage taken by 20%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BlackholePullImmune = true,
+
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 164 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = -1.5f,
+                Name = "Dense Matter",
+                _description = "Black holes cannot suck you in",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.BlizzardSlowReduced = true,
+
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 164 },
+                LevelRequirement = 30,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5f,
+                PosOffsetY = -2.25f,
+                Name = "Warmth",
+                _description = "Blizzard slow effect greatly reduced",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.TrueAim =true,
+                Category = PerkCategory.RangedOffense,
+                InheritIDs = new int[] { 54 },
+                RequiredIds= new int[] { 67 },
+                LevelRequirement = 70,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5.5f,
+                PosOffsetY = 0f,
+                Name = "True Aim",
+                _description = "Arrow headshots which hit enemies over 60 m away and are not affected by seeking arrow hit enemies twice, and deal 4x damage",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.thorns += 50,
+
+                Category = PerkCategory.Defense,
+                InheritIDs = new int[] { 162 },
+                LevelRequirement = 15,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 1.5f,
+                Name = "Spikes",
+                _description = "Adds 50 thorns",
+                TextureVariation = 0,
+                Endless = false,
+            };
+
+            new Perk()
+            {
+                ApplyMethods = () => SpellDataBase.spellDictionary[16].Cooldown-=60,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 154 },
+                LevelRequirement = 80,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2f,
+                PosOffsetY = 6.75f,
+                Name = "Storm Season",
+                _description = "Ball Lightning has its cooldown reduced by 60 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellDataBase.spellDictionary[16].Cooldown -= 20,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 169 },
+                LevelRequirement = 120,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3f,
+                PosOffsetY = 6.75f,
+                Name = "Endless Storm",
+                _description = "Ball Lightning has its cooldown reduced by 20 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellDataBase.spellDictionary[3].Cooldown -= 7,
+
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 155 },
+                LevelRequirement = 66,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 5f,
+                PosOffsetY = 3.75f,
+                Name = "Blink - Ascendancy",
+                _description = "Blink has it's cooldown reduced by 7 seconds",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellDataBase.spellDictionary[4].Cooldown -= 20,
+
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 85 },
+                LevelRequirement = 44,
+                PointsToBuy = 2,
+                Size = 1,
+                PosOffsetX = 3.5f,
+                PosOffsetY = 3f,
+                Name = "Wrath of the Sun",
+                _description = "Sun Flare cooldown is reduced by 20",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.ParryDmgBonus += 2f,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 143 },
+                LevelRequirement = 20,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 4.5f,
+                PosOffsetY = 1.5f,
+                Name = "Full Counter",
+                _description = "Increase the damage bonus from parrying",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.GoldenResolve=true,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 87 },
+                LevelRequirement = 50,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 2.5f,
+                PosOffsetY = 4.5f,
+                Name = "Golden Resolve",
+                _description = "Gold reduces damage taken by 50%",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellDataBase.spellDictionary[4].Cooldown -= 90,
+                Category = PerkCategory.MagicOffense,
+                InheritIDs = new int[] { 87 },
+                LevelRequirement = 50,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 0.5f,
+                PosOffsetY = 4.5f,
+                Name = "Sudden Rampage",
+                _description = "Cooldown of Berserk is decreased by 90",
+                TextureVariation = 0,
+                Endless = true,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => SpellActions.HealingDomeDuration += 50,
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 113 },
+                LevelRequirement = 44,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -5.5f,
+                PosOffsetY = 1.5f,
+                Name = "Safe Heaven",
+                _description = "Healing dome lasts a minute.",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => { SpellDataBase.spellDictionary[2].Cooldown -= 35; SpellDataBase.spellDictionary[13].Cooldown -= 7.5f; },
+                Category = PerkCategory.Support,
+                InheritIDs = new int[] { 176 },
+                LevelRequirement = 58,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = -6.5f,
+                PosOffsetY = 1.5f,
+                Name = "Time of Need",
+                _description = "The cooldown of healing dome and purge is reduced by 50%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2684,6 +2992,7 @@ namespace ChampionsOfForest.Player
 
         public int ID;
         public int[] InheritIDs;
+        public int[] RequiredIds;
         public int PointsToBuy = 1;
         public int LevelRequirement;
 
@@ -2691,10 +3000,8 @@ namespace ChampionsOfForest.Player
         public bool Applied = false;
 
         public delegate void OnApply();
-        public delegate void OnDisable();
         public delegate string OnPucharseDescriptionUpdate(int level);
         public OnApply ApplyMethods;
-        public OnDisable DisableMethods;
         public OnPucharseDescriptionUpdate onPucharseDescriptionUpdate;
 
 
@@ -2714,7 +3021,7 @@ namespace ChampionsOfForest.Player
         public enum PerkCategory { MeleeOffense, RangedOffense, MagicOffense, Defense, Support, Utility }
         public PerkCategory Category;
 
-        public Perk(string name, string description, int[] inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
+        public Perk(string name, string description, int[] inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods)
         {
             Name = name;
             _description = description;
@@ -2726,7 +3033,6 @@ namespace ChampionsOfForest.Player
             PosOffsetY = y;
             LevelRequirement = levelRequirement;
             ApplyMethods = applyMethods;
-            DisableMethods = disableMethods;
             ID = AllPerks.Count;
             Applied = false;
             AllPerks.Add(this);
@@ -2741,7 +3047,7 @@ namespace ChampionsOfForest.Player
             AllPerks.Add(this);
 
         }
-        public Perk(string name, string description, int inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods, OnDisable disableMethods)
+        public Perk(string name, string description, int inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods)
         {
             Name = name;
             _description = description;
@@ -2753,7 +3059,6 @@ namespace ChampionsOfForest.Player
             Endless = false;
             LevelRequirement = levelRequirement;
             ApplyMethods = applyMethods;
-            DisableMethods = disableMethods;
             ID = AllPerks.Count;
             Applied = false;
             AllPerks.Add(this);

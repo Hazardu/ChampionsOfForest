@@ -42,23 +42,23 @@ namespace ChampionsOfForest
 
         }
 
-        public BaseItem(int[][] possibleStats)
+        public BaseItem(params int[][] possibleStats)
         {
             PossibleStats = new List<List<ItemStat>>();
             foreach (int[] a in possibleStats)
             {
                 List<ItemStat> list = new List<ItemStat>();
-                foreach (int b in a)
+                foreach (int statID in a)
                 {
-                    if (b == 0)
+                    if (statID == 0)
                     {
                         list.Add(null);
                     }
-                    else if (b == -1)
+                    else if (statID == -1)
                     {
                         int[] allstats = new int[]
                         {
-                            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64
+                            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65
                         };
                         foreach (int c in allstats)
                         {
@@ -67,7 +67,7 @@ namespace ChampionsOfForest
                     }
                     else
                     {
-                        list.Add(new ItemStat(ItemDataBase.Stats[b]));
+                        list.Add(new ItemStat(ItemDataBase.Stats[statID]));
                     }
                 }
                 PossibleStats.Add(list);

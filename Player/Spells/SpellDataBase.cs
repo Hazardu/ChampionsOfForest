@@ -9,7 +9,13 @@ namespace ChampionsOfForest.Player
     {
         public static Dictionary<int, Spell> spellDictionary = new Dictionary<int, Spell>();
         public static int[] SortedSpellIDs;
-
+        public static void Reset()
+        {
+            foreach (var spell in spellDictionary.Values)
+            {
+                spell.Cooldown = spell.BaseCooldown;
+            }
+        }
         public static void Initialize()
         {
             try
@@ -48,7 +54,7 @@ namespace ChampionsOfForest.Player
                 aim = SpellActions.DoBlinkAim,
                 
             };
-            new Spell(4, 120, 10, 100, 45, "Flare", "A light column heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
+            new Spell(4, 120, 10, 100, 45, "Sun Flare", "A light column heals players inside and gives them +25% movement speed, while slowing damaging enemies. Slow amount is equal to 25%")
             {
                 active = SpellActions.CastFlare,
                 
@@ -80,7 +86,7 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastMagicArrow,            
             };
-            new Spell(11, 127, 35, 1, 1, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
+            new Spell(11, 127, 35, 10, 10, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
             {
                 active =SpellActions.ToggleMultishot,            
             };
