@@ -33,6 +33,7 @@ namespace ChampionsOfForest.Network
                                     w.Write((int)ModSettings.difficulty);
                                     w.Write(ModSettings.FriendlyFire);
                                     w.Write((int)ModSettings.dropsOnDeath);
+                                    w.Write(ModSettings.killOnDowned);
                                     w.Close();
                                 }
                                 Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
@@ -47,6 +48,7 @@ namespace ChampionsOfForest.Network
                         int index = r.ReadInt32();
                         ModSettings.FriendlyFire = r.ReadBoolean();
                         ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)r.ReadInt32();
+                        ModSettings.killOnDowned = r.ReadBoolean();
                         Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
                         ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(index);
                         if (!ModSettings.DifficultyChoosen)

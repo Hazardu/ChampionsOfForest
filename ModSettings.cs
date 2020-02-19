@@ -11,6 +11,7 @@ namespace ChampionsOfForest
         public static bool DifficultyChoosen = false;
         public static bool FriendlyFire = true;
         public static bool IsDedicated = false;
+        public static bool killOnDowned = false;
 
 
 

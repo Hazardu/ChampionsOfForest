@@ -895,8 +895,12 @@ namespace ChampionsOfForest
                     this.DeathInWater(0);
                     return;
                 }
+
                 this.Dead = true;
                 this.Player.enabled = false;
+                if(ModSettings.killOnDowned)
+                    TheForest.Save.PlayerRespawnMP.KillPlayer();
+                else
                 this.FallDownDead();
             }
         }

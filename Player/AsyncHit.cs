@@ -12,13 +12,14 @@ namespace ChampionsOfForest.Player
             instance = this;
         }
 
-        public static void SendPlayerHitEnemy(PlayerHitEnemy playerHitEnemy, int rep)
+        public static void SendPlayerHitEnemy(PlayerHitEnemy playerHitEnemy, int rep,float delay = 0)
         {
-            instance.StartCoroutine(instance.SendPlayerHitEnemyCoroutine(playerHitEnemy, rep));
+            instance.StartCoroutine(instance.SendPlayerHitEnemyCoroutine(playerHitEnemy, rep,delay));
         }
 
-        public IEnumerator SendPlayerHitEnemyCoroutine(PlayerHitEnemy playerHitEnemy, int rep)
+        public IEnumerator SendPlayerHitEnemyCoroutine(PlayerHitEnemy playerHitEnemy, int rep,float delay)
         {
+            yield return new WaitForSeconds(delay);
             for (int i = 0; i < rep; i++)
             {
                 playerHitEnemy.Send();

@@ -164,9 +164,7 @@
 
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildables\Sawmill.cs"  />
-<Compile Include="CotfUtils.cs"  />
-<Compile Include="DamageMath.cs"  />
+    <Compile Include="CotfUtils.cs"  />
 <Compile Include="Effects\BallLightning.cs"  />
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
@@ -213,7 +211,6 @@
 <Compile Include="Player\Pings\MarkPickup.cs"  />
 <Compile Include="Player\Pings\Ping.cs"  />
 <Compile Include="Player\PlayerRespawnMod.cs"  />
-<Compile Include="Player\ProjectileIgnoreCollision.cs"  />
 <Compile Include="Player\RCoroutines.cs"  />
 <Compile Include="Player\Spells\ForceGrab.cs"  />
 <Compile Include="Res\Buildings.cs"  />

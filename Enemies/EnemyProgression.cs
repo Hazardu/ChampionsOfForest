@@ -295,7 +295,6 @@ namespace ChampionsOfForest
             if(_rarity != EnemyRarity.Normal)
             {
                 Armor *= 3;
-                
             }
 
             StartCoroutine(UpdateDoT());
@@ -1570,15 +1569,15 @@ namespace ChampionsOfForest
                     Level = Random.Range(1, 4);
                     break;
                 case ModSettings.Difficulty.Hard:
-                    Level = Random.Range(7, 11);
+                    Level = Random.Range(5, 10);
 
                     break;
                 case ModSettings.Difficulty.Elite:
-                    Level = Random.Range(20, 25);
+                    Level = Random.Range(14, 20);
 
                     break;
                 case ModSettings.Difficulty.Master:
-                    Level = Random.Range(35, 45);
+                    Level = Random.Range(30, 40);
 
                     break;
                 case ModSettings.Difficulty.Challenge1:
@@ -1586,11 +1585,11 @@ namespace ChampionsOfForest
 
                     break;
                 case ModSettings.Difficulty.Challenge2:
-                    Level = Random.Range(80, 90);
+                    Level = Random.Range(86, 96);
 
                     break;
                 case ModSettings.Difficulty.Challenge3:
-                    Level = Random.Range(95, 105);
+                    Level = Random.Range(100, 110);
 
                     break;
                 case ModSettings.Difficulty.Challenge4:

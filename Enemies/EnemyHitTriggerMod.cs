@@ -1,4 +1,5 @@
-﻿using Bolt;
+﻿using System.Collections;
+using Bolt;
 using ChampionsOfForest.Player;
 using TheForest.Utils;
 using TheForest.Utils.Settings;
@@ -277,13 +278,10 @@ namespace ChampionsOfForest.Enemies
                                         if (ModdedPlayer.instance.thornsDamage > 0)
                                         {
                                             DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
-                                            ModAPI.Console.Write("Hitting thorns as client");
                                             PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
                                             playerHitEnemy.Target = entity;
                                             playerHitEnemy.Hit = dmg;
-                                            if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
-                                                playerHitEnemy.Burn = true;
-                                            AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps);
+                                            AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps,0.25f);
 
 
                                         }
@@ -308,11 +306,7 @@ namespace ChampionsOfForest.Enemies
                                         //POISON ATTACKS 
                                         if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                         {
-
-
                                             BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
-
-
                                         }
 
                                         //STUN ON HIT
@@ -323,12 +317,7 @@ namespace ChampionsOfForest.Enemies
 
                                         if (ModdedPlayer.instance.thornsDamage > 0)
                                         {
-                                            ModAPI.Console.Write("Hitting thorns as server");
-
-                                            DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
-                                            for (int i = 0; i < reps; i++)
-                                                EnemyProg._Health.Hit(dmg);
-
+                                            StartCoroutine(HitEnemeyDelayed());
                                         }
                                     }
                                 }
@@ -460,5 +449,15 @@ namespace ChampionsOfForest.Enemies
                 ModAPI.Log.Write(ee.ToString());
             }
         }
+
+        IEnumerator HitEnemeyDelayed()
+        {
+            yield return new WaitForSeconds(0.25f);
+            DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+            for (int i = 0; i < reps; i++)
+                EnemyProg._Health.Hit(dmg);
+        }
+
+
     }
 }

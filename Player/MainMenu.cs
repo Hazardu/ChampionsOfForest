@@ -916,22 +916,47 @@ namespace ChampionsOfForest
             {
                 GUI.color = Color.red;
 
-                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button)
+                if (GUI.Button(new Rect(Screen.width / 2 - 300 * rr, Screen.height - 120 * rr,600 * rr, 50 * rr), "Friendly Fire enabled", new GUIStyle(GUI.skin.button)
                 {
                     font = MainFont,
-                    fontSize = Mathf.FloorToInt(30 * rr)
+                    fontSize = Mathf.FloorToInt(20 * rr)
                 }))
                 { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
             }
             else
             {
                 GUI.color = Color.gray;
-                if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 120 * rr, 400 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
+                if (GUI.Button(new Rect(Screen.width / 2 - 300 * rr, Screen.height - 120 * rr, 600 * rr, 50 * rr), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
                 {
                     font = MainFont,
-                    fontSize = Mathf.FloorToInt(30 * rr)
+                    fontSize = Mathf.FloorToInt(20 * rr)
                 }))
                 { ModSettings.FriendlyFire = !ModSettings.FriendlyFire; }
+            }
+            if (ModSettings.killOnDowned)
+            {
+                GUI.color = Color.red;
+
+                if (GUI.Button(new Rect(Screen.width / 2 - 300 * rr, Screen.height - 170 * rr, 600 * rr, 50 * rr), "Players instantly die on getting downed", new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.FloorToInt(20 * rr)
+                }))
+                {
+                    ModSettings.killOnDowned = !ModSettings.killOnDowned;
+                }
+            }
+            else
+            {
+                GUI.color = Color.gray;
+                if (GUI.Button(new Rect(Screen.width / 2 - 300 * rr, Screen.height - 170 * rr, 600 * rr, 50 * rr), "Players bleed out normally", new GUIStyle(GUI.skin.button)
+                {
+                    font = MainFont,
+                    fontSize = Mathf.FloorToInt(20 * rr)
+                }))
+                {
+                    ModSettings.killOnDowned = !ModSettings.killOnDowned;
+                }
             }
 
             switch (ModSettings.dropsOnDeath)
@@ -948,10 +973,10 @@ namespace ChampionsOfForest
                 default:
                     break;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 - 200 * rr, Screen.height - 70 * rr, 400 * rr, 50 * rr), "Item drops on death: " + ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)
+            if (GUI.Button(new Rect(Screen.width / 2 - 300 * rr, Screen.height - 70 * rr, 600 * rr, 50 * rr), "Item drops on death: " + ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)
             {
                 font = MainFont,
-                fontSize = Mathf.FloorToInt(30 * rr)
+                fontSize = Mathf.FloorToInt(20 * rr)
             }))
             {
                 int i = (int)ModSettings.dropsOnDeath + 1;
