@@ -75,7 +75,7 @@ namespace ChampionsOfForest
         public float FireDmgAmp = 1;
         public float FireDmgBonus;
 
-        public long Bounty;
+        public long bounty;
 
         public float Steadfast = 100;
         private int SteadfastCap = 100000;
@@ -288,7 +288,7 @@ namespace ChampionsOfForest
             Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.4f) *0.36f+ 1, Mathf.Pow(Level, 2.45f)+ 20));
             Armor *= dif/2 + 1;
             ArmorReduction = 0;
-            _hp = Mathf.RoundToInt((_Health.Health * Mathf.Pow(Level, 2.425f+(dif*0.066f))/(16)));
+            _hp = (_Health.Health * Mathf.Pow((float)Level, 2.215f + (dif * 0.19f)) /16);
             _hp *= dif/2 + 1;
             AnimSpeed =0.9f + (float)Level / 205;
        
@@ -317,11 +317,11 @@ namespace ChampionsOfForest
 
                     break;
             }
-            _hp *= (float)(dif * 0.25f + 0.7f);
+            _hp *= (float)(dif * 0.35f + 0.55f);
             if (dif > 3)
-                _hp *= 1.75f;
+                _hp *= 2.35f;
                 if (dif > 7)
-                _hp *= 1.25f;
+                _hp *= 3f;
             //Applying some abilities
             if (abilities.Contains(Abilities.Huge))
             {
@@ -763,7 +763,7 @@ namespace ChampionsOfForest
 
                 if (Random.value <= 0.1f * ItemDataBase.MagicFind || _AI.creepy_boss || abilities.Count > 0)
                 {
-                    int itemCount = Random.Range(1, 4) + Random.Range(1,3)*(ModReferences.Players.Count-1);
+                    int itemCount = Random.Range(1, 3 + ModReferences.Players.Count);
                     if (_AI.creepy_boss)
                     {
                         itemCount += 15;
@@ -783,12 +783,8 @@ namespace ChampionsOfForest
                     itemCount += Mathf.RoundToInt((int)ModSettings.difficulty);
                     itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
 
+                    ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
 
-
-                    for (int i = 0; i < itemCount; i++)
-                    {
-                        Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Bounty, enemyType), transform.position + Vector3.up * (2f + i / 4));
-                    }
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 4)
                     {
                         //Drop megan only amulet
@@ -803,32 +799,31 @@ namespace ChampionsOfForest
                         using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                         {
                             w.Write(10);
-                            w.Write(Convert.ToInt64(Bounty / (Mathf.Max(1, 0.3f + ModReferences.Players.Count * 0.7f))));
+                            w.Write(Convert.ToInt64(bounty / (Mathf.Max(1, 0.7f + ModReferences.Players.Count * 0.3f))));
                         w.Close();
                         }
                         ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
                         answerStream.Close();
                     }
-
                 }
                 else if (GameSetup.IsSinglePlayer)
                 {
-                    ModdedPlayer.instance.AddKillExperience(Bounty);
+                    ModdedPlayer.instance.AddKillExperience(bounty);
                 }
                 OnDieCalled = true;
-                timeOfDeath = 90;
-
+                timeOfDeath = 120;
+                _Health.Health = 0;
+                _hp = 0;
             }
             catch (Exception ex)
             {
-
                 ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex.ToString());
             }
 
             return true;
 
         }
-
+       
         private void OnEnable()
         {
             OnDieCalled = false;
@@ -1613,7 +1608,7 @@ namespace ChampionsOfForest
         }
         private void AssignBounty()
         {
-            double b = Random.Range((MaxHealth) * 0.5f, MaxHealth) * Mathf.Pow(Level,0.3f) + Armor;
+            double b = Random.Range((MaxHealth) * 0.2f, MaxHealth*0.5f) * Mathf.Pow(Level,0.5f)*0.5f + Armor;
             if (abilities.Count > 1)
             {
                 b = b * abilities.Count * 0.9f;
@@ -1660,7 +1655,7 @@ namespace ChampionsOfForest
 
                     break;
             }
-            Bounty = Convert.ToInt64(b);
+            bounty = Convert.ToInt64(b);
         }
 
         private void SendFireAura()

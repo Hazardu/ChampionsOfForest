@@ -26,13 +26,13 @@ namespace ChampionsOfForest.Player
                     setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.instance.StaminaAttackCost;
                     setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
                     setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
-                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
+                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent;
                 }
                 else
                 {
                     setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
                     setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
-                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent / 5;
+                    LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent ;
 
                 }
                 //float ats = ModdedPlayer.instance.AttackSpeed;
@@ -231,8 +231,11 @@ namespace ChampionsOfForest.Player
                             ModdedPlayer.instance.OnHit();
                             ModdedPlayer.instance.OnHit_Melee(other.transform);
 
+                            DamageMath.DamageClamp(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg()) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff, out int dmg, out int repetitions);
+
                             HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
-                            hitPlayer.damage = Mathf.FloorToInt(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus+ ModdedPlayer.instance.GetParryCSDmg()) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff);
+                            hitPlayer.damage = dmg;
+                            for (int i = 0; i < repetitions; i++)
                             hitPlayer.Send();
                         }
                     }
@@ -718,7 +721,10 @@ namespace ChampionsOfForest.Player
                     {
                         if ((bool)component6)
                         {
-                            component6.hitRelay((int)num2);
+                            for (int i = 0; i < a; i++)
+                            {
+                            component6.hitRelay(d);
+                            }
                         }
                         else
                         {
@@ -894,7 +900,7 @@ namespace ChampionsOfForest.Player
                     other.transform.SendMessageUpwards("ignoreCutting", SendMessageOptions.DontRequireReceiver);
                 }
                 other.transform.SendMessage("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
-                other.transform.SendMessage("hitSuitCase", num3, SendMessageOptions.DontRequireReceiver);
+                other.transform.SendMessage("hitSuitCase", dmg, SendMessageOptions.DontRequireReceiver);
                 other.gameObject.SendMessage("getAttacker", Player, SendMessageOptions.DontRequireReceiver);
                 other.gameObject.SendMessage("getAttackerType", 4, SendMessageOptions.DontRequireReceiver);
                 if (fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw)

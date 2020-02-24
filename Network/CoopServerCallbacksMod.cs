@@ -179,5 +179,29 @@ namespace ChampionsOfForest.Network
 
             base.EntityReceived(entity);
         }
+
+
+        public override void Disconnected(BoltConnection connection)
+        {
+            if (BoltNetwork.isClient)
+            {
+                ModAPI.Console.Write("Saving client data to avoid item duping");
+                Serializer.EmergencySave();
+            }
+            base.Disconnected(connection);
+        }
     }
+    public class BoltConnectionEx : BoltConnection
+    {
+        public BoltConnectionEx(UdpKit.UdpConnection c) : base(c)
+        {
+        
+        }
+        public override void Disconnect()
+        {
+            Serializer.EmergencySave();
+            base.Disconnect();
+        }
+    }
+
 }

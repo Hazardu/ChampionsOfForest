@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TheForest.Tools;
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
@@ -23,7 +24,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     progression.BaseDamageMult *= 1.25f;
                     progression.BaseAnimSpeed *= 1.05f;
                     progression.ArmorReduction =0;
-                    
+                    LocalPlayer.Sfx.PlayWokenByEnemies();
                     Stacks++;
                 }
             }

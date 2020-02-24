@@ -182,7 +182,7 @@ namespace ChampionsOfForest
 		public float JumpPower = 1f;
 		public float SpellCostToStamina = 0;
 		public float SpellCostRatio = 1;
-		public float StaminaAttackCost = 0;
+		public float StaminaAttackCost = 1;
 		public float BlockFactor = 0.5f;
 		public float ExpFactor = 1;
 		public long ExpCurrent = 0;
@@ -296,6 +296,7 @@ namespace ChampionsOfForest
 		public bool BunnyHop = false;
 		public bool BunnyHopUpgrade = false;
 		public bool DanceOfFiregod = false;
+		public bool DanceOfFiregodAtkCap = false;
 		public static int MaxLogs = 2;
 
 		public bool ProjectileDamageIncreasedBySize = false;
@@ -616,9 +617,9 @@ namespace ChampionsOfForest
 
 			if (LocalPlayer.Stats != null)
 			{
-				if (ModdedPlayer.instance.DanceOfFiregod && Effects.BlackFlame.IsOn)
+				if (ModdedPlayer.instance.DanceOfFiregodAtkCap && Effects.BlackFlame.IsOn)
 				{
-					LocalPlayer.Animator.speed = 0.9f;
+					LocalPlayer.Animator.speed = 1.0f;
 					return;
 				}
 				float ats = ModdedPlayer.instance.AttackSpeed;
@@ -1411,14 +1412,14 @@ namespace ChampionsOfForest
 			SpellActions.FocusOnHS = 1;
 			SpellActions.FocusOnBS = 0.2f;
 			SpellActions.FocusOnAtkSpeed = 1.3f;
-			SpellActions.FocusSlowAmount = 0.5f;
+			SpellActions.FocusSlowAmount = 0.8f;
 			SpellActions.FocusSlowDuration = 4;
 			SpellActions.SeekingArrow_ChangeTargetOnHit = false;
 			SpellActions.SeekingArrow_TimeStamp = 0;
 			SpellActions.SeekingArrow_HeadDamage = 2;
 			SpellActions.SeekingArrow_SlowDuration = 4;
 			SpellActions.FocusOnAtkSpeedDuration = 4;
-			SpellActions.SeekingArrow_SlowAmount = 0.4f;
+			SpellActions.SeekingArrow_SlowAmount = 0.8f;
 			SpellActions.SeekingArrowDuration = 30f;
 			SpellActions.SeekingArrow_DamagePerDistance = 0.01f;
 			SpellActions.ChanceToParryOnHit = false;
@@ -1504,6 +1505,7 @@ namespace ChampionsOfForest
 			instance.BunnyHopUpgrade = false;
 			instance.AttackSpeedMult = 1;
 			instance.AttackSpeedAdd = 1;
+			instance.DanceOfFiregodAtkCap = false;
 			instance.StunImmune = 0;
 			instance.RootImmune = 0;
 			instance.DebuffImmune = 0;
@@ -1513,7 +1515,7 @@ namespace ChampionsOfForest
 			instance.JumpPower = 1f;
 			instance.SpellCostToStamina = 0;
 			instance.SpellCostRatio = 1;
-			instance.StaminaAttackCost = 0;
+			instance.StaminaAttackCost = 1;
 			instance.BlockFactor = 0.5f;
 			instance.ExpFactor = 1;
 			instance.MaxMassacreTime = 20;

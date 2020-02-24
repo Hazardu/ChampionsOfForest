@@ -1273,7 +1273,7 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 1.25f; ModdedPlayer.instance.StaminaAttackCost *= 2f; },
+                ApplyMethods = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.25f; ModdedPlayer.instance.StaminaAttackCost *= 1.3f; },
                 
                 Category = PerkCategory.MeleeOffense,
                 InheritIDs = new int[] { 11, 10 },
@@ -1283,13 +1283,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Power Swing",
-                _description = "Attacks use 100% more stamina and deal 25% more damage",
+                _description = "Attacks use 30% more stamina and deal 25% more damage",
                 TextureVariation = 0,
                 Endless = true,
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.1f; ModdedPlayer.instance.SpellCostRatio *= 1.2f; },
+                ApplyMethods = () => { ModdedPlayer.instance.SpellDamageAmplifier_Add += 0.1f; ModdedPlayer.instance.SpellCostRatio *= 1.25f; },
                 
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 15, 55 },
@@ -1299,7 +1299,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -0.75f,
                 Name = "Overcharge",
-                _description = "Spell damage is increased by 10%, spell costs are increased by 20%",
+                _description = "Spell damage is increased by 10%, spell costs are increased by 25%",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1321,7 +1321,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => SpellActions.MagicArrowDuration += 3,
+                ApplyMethods = () => SpellActions.MagicArrowDuration += 5,
                 
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 73 },
@@ -1331,7 +1331,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = -2.25f,
                 Name = "Disabler",
-                _description = "Magic arrow's negative effects last additional 3 seconds",
+                _description = "Magic arrow's negative effects last additional 5 seconds",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2675,8 +2675,8 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 2f,
                 PosOffsetY = -3.75f,
-                Name = "All or Nothing",
-                _description = "Blood infused arrow deals triple damage, but healing recieved is halved",
+                Name = "Cursed Arrow",
+                _description = "Blood infused arrow deals triple damage, but healing recieved is halved, and you loose energy for a short time after casting the spell",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -2690,7 +2690,7 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 1.5f,
                 PosOffsetY = -4.5f,
-                Name = "Cursed Blood",
+                Name = "Deep Wounds",
                 _description = "Enemies hit by blood infused arrow take 100% increased damage from all sources for 15 seconds",
                 TextureVariation = 0,
                 Endless = false,
@@ -2985,6 +2985,21 @@ namespace ChampionsOfForest.Player
                 PosOffsetY = 1.5f,
                 Name = "Time of Need",
                 _description = "The cooldown of healing dome and purge is reduced by 50%",
+                TextureVariation = 0,
+                Endless = false,
+            };
+            new Perk()
+            {
+                ApplyMethods = () => ModdedPlayer.instance.DanceOfFiregodAtkCap = true,
+                Category = PerkCategory.MeleeOffense,
+                InheritIDs = new int[] { 146 },
+                LevelRequirement = 46,
+                PointsToBuy = 1,
+                Size = 1,
+                PosOffsetX = 5f,
+                PosOffsetY = -0.75f,
+                Name = "Breathing Tehniques",
+                _description = "When black flame is on, your attack speed is fixed at 100%",
                 TextureVariation = 0,
                 Endless = false,
             };

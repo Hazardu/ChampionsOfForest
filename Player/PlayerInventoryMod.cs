@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Network;
+﻿using ChampionsOfForest.Effects;
+using ChampionsOfForest.Network;
 using System.Collections;
 using System.Collections.Generic;
 using TheForest.Items.Inventory;
@@ -344,6 +345,7 @@ namespace ChampionsOfForest.Player
             {
                 AddItem(231);
             }
+            Multishot.Fired();
             this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
 
             _weaponChargeStartTime = 0f;

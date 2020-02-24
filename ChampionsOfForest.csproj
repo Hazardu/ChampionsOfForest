@@ -201,6 +201,7 @@
 <Compile Include="Player\ArrowStickToTargetMod.cs"  />
 <Compile Include="Player\AsyncHit.cs"  />
 <Compile Include="Player\AutoPickupItems.cs"  />
+<Compile Include="Player\BoltPlayerSetupEx.cs"  />
 <Compile Include="Player\CoopCustomWeapons.cs"  />
 <Compile Include="Player\Crafting.cs"  />
 <Compile Include="Player\CustomBow.cs"  />

@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Enemies
 {
     public class EnemyHitTriggerMod : enemyWeaponMelee
     {
-        public static readonly float poisonDuration = 10;
+        public static readonly float poisonDuration = 6;
         public static readonly float stunDuration = 1f;
 
         private Vector3 originalScale = Vector3.zero;
@@ -140,36 +140,50 @@ namespace ChampionsOfForest.Enemies
                         Vector3 direction = other.transform.position - position;
                         if (!Physics.Raycast(position, direction, out hit, direction.magnitude, enemyHitMask, QueryTriggerInteraction.Ignore))
                         {
-                            if (((!creepy_male && !creepy && !creepy_baby && !creepy_fat)||ModdedPlayer.instance.ParryAnything) && events && componentInParent)
+                            ModAPI.Console.Write("Starting to get hit");
+                            if (((!creepy_male && !creepy && !creepy_baby && !creepy_fat) || ModdedPlayer.instance.ParryAnything) && events)
                             {
-                                bool flag = InFront(other.gameObject);
-                                if ((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && (componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash))
+                                ModAPI.Console.Write("events exists");
+
+                                if (componentInParent)
                                 {
-                                    int parryDir = events.parryDir;
-                                    BoltSetReflectedShim.SetIntegerReflected(animator, "parryDirInt", parryDir);
-                                    if (BoltNetwork.isClient && netPrefab)
+                                ModAPI.Console.Write("componentInParent exists");
+
+                                    bool flag = InFront(other.gameObject);
+                                    ModAPI.Console.Write("in front: "+ flag+
+                                        "\nevents.parryBool: " + events.parryBool+
+                                        "\nnext tagHash: "+ (componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash)+
+                                        "\ncurrent tagHash" + (componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash)+
+                                        "\nfirst condition"+ (!BoltNetwork.isServer || !netPrefab));
+                                    if ((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && ((componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash) || ModdedPlayer.instance.ParryAnything))
                                     {
-                                        BoltSetReflectedShim.SetTriggerReflected(animator, "ClientParryTrigger");
-                                        hitPrediction.StartParryPrediction();
-                                        parryEnemy parryEnemy = parryEnemy.Create(GlobalTargets.OnlyServer);
-                                        parryEnemy.Target = transform.root.GetComponent<BoltEntity>();
-                                        parryEnemy.Send();
-                                        FMODCommon.PlayOneshot(parryEvent, base.transform);
+                                        ModAPI.Console.Write("Parrying successful");
+                                        int parryDir = events.parryDir;
+                                        BoltSetReflectedShim.SetIntegerReflected(animator, "parryDirInt", parryDir);
+                                        if (BoltNetwork.isClient && netPrefab)
+                                        {
+                                            BoltSetReflectedShim.SetTriggerReflected(animator, "ClientParryTrigger");
+                                            hitPrediction.StartParryPrediction();
+                                            parryEnemy parryEnemy = parryEnemy.Create(GlobalTargets.OnlyServer);
+                                            parryEnemy.Target = transform.root.GetComponent<BoltEntity>();
+                                            parryEnemy.Send();
+                                            FMODCommon.PlayOneshot(parryEvent, base.transform);
+                                        }
+                                        else
+                                        {
+                                            BoltSetReflectedShim.SetTriggerReflected(animator, "parryTrigger");
+                                        }
+                                        SpellActions.DoParry(transform.position);
+                                        events.StartCoroutine("disableAllWeapons");
+                                        playerHitReactions componentInParent2 = other.gameObject.GetComponentInParent<playerHitReactions>();
+                                        if (componentInParent2 != null)
+                                        {
+                                            componentInParent2.enableParryState();
+                                        }
+                                        FMODCommon.PlayOneshotNetworked(parryEvent, base.transform, FMODCommon.NetworkRole.Server);
+                                        events.parryBool = false;
+                                        return;
                                     }
-                                    else
-                                    {
-                                        BoltSetReflectedShim.SetTriggerReflected(animator, "parryTrigger");
-                                    }
-                                    SpellActions.DoParry(transform.position);
-                                    events.StartCoroutine("disableAllWeapons");
-                                    playerHitReactions componentInParent2 = other.gameObject.GetComponentInParent<playerHitReactions>();
-                                    if (componentInParent2 != null)
-                                    {
-                                        componentInParent2.enableParryState();
-                                    }
-                                    FMODCommon.PlayOneshotNetworked(parryEvent, base.transform, FMODCommon.NetworkRole.Server);
-                                    events.parryBool = false;
-                                    return;
                                 }
                             }
                             if ((bool)events)
@@ -281,7 +295,7 @@ namespace ChampionsOfForest.Enemies
                                             PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
                                             playerHitEnemy.Target = entity;
                                             playerHitEnemy.Hit = dmg;
-                                            AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps,0.25f);
+                                            AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps,0.1f);
 
 
                                         }
@@ -306,7 +320,7 @@ namespace ChampionsOfForest.Enemies
                                         //POISON ATTACKS 
                                         if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
                                         {
-                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
+                                            BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 10, poisonDuration);
                                         }
 
                                         //STUN ON HIT
@@ -317,7 +331,7 @@ namespace ChampionsOfForest.Enemies
 
                                         if (ModdedPlayer.instance.thornsDamage > 0)
                                         {
-                                            StartCoroutine(HitEnemeyDelayed());
+                                            Invoke("HitEnemeyDelayed",0.1f);
                                         }
                                     }
                                 }
@@ -450,9 +464,8 @@ namespace ChampionsOfForest.Enemies
             }
         }
 
-        IEnumerator HitEnemeyDelayed()
+        void HitEnemeyDelayed()
         {
-            yield return new WaitForSeconds(0.25f);
             DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
             for (int i = 0; i < reps; i++)
                 EnemyProg._Health.Hit(dmg);

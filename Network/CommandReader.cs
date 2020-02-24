@@ -260,7 +260,7 @@ namespace ChampionsOfForest.Network
                                         w.Write(ep.Level);
                                         w.Write(ep._hp + ep._Health.Health);
                                         w.Write(ep.MaxHealth);
-                                        w.Write(ep.Bounty);
+                                        w.Write(ep.bounty);
                                         w.Write(ep.Armor);
                                         w.Write(ep.ArmorReduction);
                                         w.Write(ep.Steadfast);
@@ -743,6 +743,8 @@ namespace ChampionsOfForest.Network
                         {
                             case MarkObject.PingType.Enemy:
                                 ulong EnemyID = r.ReadUInt64();
+                                if (!EnemyManager.allboltEntities.ContainsKey(EnemyID))
+                                    EnemyManager.GetAllEntities();
                                 if (EnemyManager.allboltEntities.ContainsKey(EnemyID))
                                 {
                                     bool isElite = r.ReadBoolean();

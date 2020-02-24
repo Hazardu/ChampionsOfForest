@@ -62,7 +62,7 @@ namespace ChampionsOfForest
                 }
                 else
                 {
-                    light.color = new Color(0.71f, 0.0f, 1);
+                    light.color = new Color(1f, 0.5f, 0);
                 }
                 light.shadows = LightShadows.None;
 
@@ -161,7 +161,7 @@ namespace ChampionsOfForest
             StartCoroutine(LightIn());
             yield return null;
             system.Pause();
-            while (light.intensity < 10)
+            while (light.intensity < 25)
             {
                 yield return null;
             }
@@ -175,10 +175,10 @@ namespace ChampionsOfForest
 
         private IEnumerator LightIn()
         {
-            while (light.intensity < 15)
+            while (light.intensity < 25)
             {
 
-                light.intensity += 6f * Time.deltaTime;
+                light.intensity += 10f * Time.deltaTime;
 
                 yield return null;
             }
@@ -250,8 +250,9 @@ namespace ChampionsOfForest
                     {
                         if (fromEnemy)
                         {
-                            LocalPlayer.Stats.HealthChange(Damage * Time.deltaTime * (1 - ModdedPlayer.instance.MagicResistance));
+                            LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * (1 - ModdedPlayer.instance.MagicResistance)*ModdedPlayer.instance.DamageReductionTotal);
                             Player.BuffDB.AddBuff(1, 5, Slow, 20);
+                        LocalPlayer.Stats.Burn();
                         }
                         else
                         {

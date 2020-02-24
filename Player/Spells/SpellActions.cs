@@ -19,43 +19,53 @@ namespace ChampionsOfForest.Player
 				blinkAim = new SpellAimLine();
 			}
 			Transform t = Camera.main.transform;
-			RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one / 2, t.forward, t.rotation, BlinkRange);
-			foreach (RaycastHit hit in hits)
+			var hits1 = Physics.RaycastAll(t.position, t.forward, BlinkRange + 1f);
+			foreach (var hit in hits1)
 			{
-				if (!hit.transform.CompareTag("enemyCollide")&& hit.transform.root != LocalPlayer.Transform.root && (hit.point - LocalPlayer.Transform.position).sqrMagnitude > 5)
+				if (!hit.transform.CompareTag("enemyCollide") && hit.transform.root != LocalPlayer.Transform.root)
 				{
-				
-						blinkAim.UpdatePosition(t.position + Vector3.down, hit.point);
-						return;
-					
-
+					blinkAim.UpdatePosition(t.position + Vector3.down * 2, hit.point - t.forward + Vector3.up * 0.25f);
+					return;
 				}
 			}
-						blinkAim.UpdatePosition(t.position + Vector3.down, LocalPlayer.Transform.position + t.forward * 5);
+
+			blinkAim.UpdatePosition(t.position + Vector3.down * 2, LocalPlayer.Transform.position + t.forward * BlinkRange);
 		}
 		public static void DoBlink()
 		{
 			blinkAim?.Disable();
-			RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one / 2, Camera.main.transform.forward, Camera.main.transform.rotation, BlinkRange);
-			foreach (RaycastHit hit in hits)
-			{
-				if (hit.transform.CompareTag("enemyCollide"))
-				{
-					if (BlinkDamage != 0)
-					{
 
+			Transform t = Camera.main.transform;
+			Vector3 blinkPoint = Vector3.zero;
+			var hits1 = Physics.RaycastAll(t.position, t.forward, BlinkRange+1f);
+			foreach (var hit in hits1)
+			{
+				if (!hit.transform.CompareTag("enemyCollide") && hit.transform.root != LocalPlayer.Transform.root)
+				{
+					blinkPoint = hit.point - t.forward + Vector3.up * 0.25f;
+					break;
+				}
+			}
+			if (blinkPoint == Vector3.zero)
+			{
+				blinkPoint = LocalPlayer.Transform.position + t.forward * BlinkRange;
+			}
+			if (BlinkDamage > 0)
+			{
+				RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one*1.2f, blinkPoint-t.position, t.rotation, Vector3.Distance(blinkPoint,t.position)+1);
+				foreach (RaycastHit hit in hits)
+				{
+					if (hit.transform.CompareTag("enemyCollide"))
+					{
+						ModAPI.Console.Write("Hit enemy on layer " + hit.transform.gameObject.layer);
 						float dmg = BlinkDamage + ModdedPlayer.instance.SpellDamageBonus;
 						dmg *= ModdedPlayer.instance.SpellAMP * 3;
-
-						int dmgInt = 0;
-						DamageMath.DamageClamp(dmg, out dmgInt, out int repetitions);
+						DamageMath.DamageClamp(dmg, out int dmgInt, out int repetitions);
 						if (GameSetup.IsMpClient)
 						{
 							BoltEntity enemyEntity = hit.transform.GetComponentInParent<BoltEntity>();
 							if (enemyEntity == null)
-							{
 								enemyEntity = hit.transform.gameObject.GetComponent<BoltEntity>();
-							}
 
 							if (enemyEntity != null)
 							{
@@ -64,37 +74,29 @@ namespace ChampionsOfForest.Player
 								playerHitEnemy.explosion = true;
 								playerHitEnemy.Hit = dmgInt;
 								for (int i = 0; i < repetitions; i++)
-								{
-
 									playerHitEnemy.Send();
-								}
-
 							}
 						}
 						else
 						{
-							for (int i = 0; i < repetitions; i++)
+							var v = hit.transform.GetComponentInParent<EnemyProgression>();
+							if (v == null)
+								v = hit.transform.GetComponent<EnemyProgression>();
+							if (v != null)
+							{
+								for (int i = 0; i < repetitions; i++)
+									v.HitMagic(dmgInt);
+							}
+							else
 							{
 								hit.transform.SendMessageUpwards("Hit", dmgInt, SendMessageOptions.DontRequireReceiver);
 							}
 						}
 					}
 				}
-				else if (hit.transform.root != LocalPlayer.Transform.root && (hit.point - LocalPlayer.Transform.position).sqrMagnitude > 5)
-				{
-					
-						ModAPI.Console.Write("Teleporting issued via line 74");
-
-						BlinkTowards(hit.point);
-						return;
-
-				
-
-				}
 			}
-			ModAPI.Console.Write("Teleporting issued via line 83");
 
-			BlinkTowards(LocalPlayer.Transform.position + Camera.main.transform.forward * 5);
+			BlinkTowards(blinkPoint);
 
 
 		}
@@ -676,7 +678,7 @@ namespace ChampionsOfForest.Player
 		#endregion
 
 		#region Focus
-		public static float FocusBonusDmg, FocusOnHS = 1, FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 4, FocusSlowAmount = 0.5f, FocusSlowDuration = 4;
+		public static float FocusBonusDmg, FocusOnHS = 1, FocusOnBS = 0.2f, FocusOnAtkSpeed = 1.3f, FocusOnAtkSpeedDuration = 4, FocusSlowAmount = 0.8f, FocusSlowDuration = 4;
 		public static bool Focus;
 
 		public static float FocusOnBodyShot()
@@ -718,7 +720,7 @@ namespace ChampionsOfForest.Player
 		public static Transform SeekingArrow_Target;
 		public static bool SeekingArrow;
 		public static bool SeekingArrow_ChangeTargetOnHit;
-		public static float SeekingArrow_TimeStamp, SeekingArrow_HeadDamage = 2, SeekingArrow_SlowDuration = 4, SeekingArrow_SlowAmount = 0.4f, SeekingArrow_DamagePerDistance = 0.01f, SeekingArrowDuration = 30;
+		public static float SeekingArrow_TimeStamp, SeekingArrow_HeadDamage = 2, SeekingArrow_SlowDuration = 4, SeekingArrow_SlowAmount = 0.8f, SeekingArrow_DamagePerDistance = 0.01f, SeekingArrowDuration = 30;
 		public static void SeekingArrow_Initialize()
 		{
 			SeekingArrow_Target = new GameObject().transform;
@@ -865,7 +867,11 @@ namespace ChampionsOfForest.Player
 			BIA_bonusDamage += BIA_SpellDmMult * ModdedPlayer.instance.SpellDamageBonus;
 			BIA_bonusDamage *= ModdedPlayer.instance.SpellAMP;
 			if (BIA_TripleDmg)
+			{
 				BIA_bonusDamage *= 3;
+				BuffDB.AddBuff(18, 95, ModdedPlayer.instance.MaxEnergy/16, 8);
+
+			}
 			if (ModdedPlayer.instance.IsHazardCrown)
 				ModdedPlayer.instance.HazardCrownBonus = 5;
 			Effects.Sound_Effects.GlobalSFX.Play(4);

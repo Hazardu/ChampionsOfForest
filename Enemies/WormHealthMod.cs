@@ -8,9 +8,9 @@ using UnityEngine;
 //As if the worm was weak in the first place
 namespace ChampionsOfForest.Enemies
 {
-    internal class WormHealthMod : wormHealth
+    public class WormHealthMod : wormHealth
     {
-        void HitMagic(int damage)
+        public void HitMagic(int damage)
         {
             base.Hit(damage);
         }
@@ -23,7 +23,7 @@ namespace ChampionsOfForest.Enemies
 
     }
 
-    internal class WormHiveControllerMod : wormHiveController
+    public class WormHiveControllerMod : wormHiveController
     {
         protected override void Start()
         {
@@ -49,38 +49,40 @@ namespace ChampionsOfForest.Enemies
             {
                 if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
                 {
-                    float multipier = 1;
+                    long Exp;
                     switch (ModSettings.difficulty)
                     {
+                        case ModSettings.Difficulty.Normal:
+                            Exp = 5000;
+                            break;
                         case ModSettings.Difficulty.Hard:
-                            multipier = 2.3f;
+                            Exp = 20000;
                             break;
                         case ModSettings.Difficulty.Elite:
-                            multipier = 9;
+                            Exp = 100000;
                             break;
                         case ModSettings.Difficulty.Master:
-                            multipier = 20;
+                            Exp = 3000000;
                             break;
                         case ModSettings.Difficulty.Challenge1:
-                            multipier = 70;
+                            Exp = 50000000;
                             break;
                         case ModSettings.Difficulty.Challenge2:
-                            multipier = 200;
+                            Exp = 100000000;
                             break;
                         case ModSettings.Difficulty.Challenge3:
-                            multipier = 1000;
+                            Exp = 500000000;
                             break;
                         case ModSettings.Difficulty.Challenge4:
-                            multipier = 7000;
+                            Exp = 1000000000;
                             break;
                         case ModSettings.Difficulty.Challenge5:
-                            multipier = 50000;
+                            Exp = 5000000000;
                             break;
                         default:
-                            multipier = 100000;
+                            Exp = 10000000000;
                             break;
                     }
-                    float Exp = UnityEngine.Random.Range(300, 350);
                     if (GameSetup.IsMpServer)
                     {
                         using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -88,7 +90,7 @@ namespace ChampionsOfForest.Enemies
                             using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
                             {
                                 w.Write(10);
-                                w.Write(Convert.ToInt64(Exp*multipier / (Mathf.Max(1, 0.8f + ModReferences.Players.Count * 0.2f))));
+                                w.Write(Exp);
                             w.Close();
                             }
                             ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
@@ -97,13 +99,14 @@ namespace ChampionsOfForest.Enemies
                     }
                     else
                     {
-                        ModdedPlayer.instance.AddKillExperience(Convert.ToInt64(Exp * multipier));
+                        ModdedPlayer.instance.AddKillExperience(Exp);
                     }
-                    int itemCount = UnityEngine.Random.Range(5, 7);
+                    int itemCount = UnityEngine.Random.Range(15, 26);
                     for (int i = 0; i < itemCount; i++)
                     {
                         Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
                     }
+                    ModAPI.Console.Write("Worm Died");
                 }
                 UnityEngine.Object.Destroy(base.gameObject);
             }

@@ -12,8 +12,19 @@ namespace ChampionsOfForest.Player
         {
             i = this;
         }
-
-
+   
+        public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return null;
+                yield return null;
+                yield return null;
+                yield return null;
+                yield return null;
+                Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4));
+            }
+        }
         public IEnumerator AsyncCrossbowFire(int _ammoId, GameObject _ammoSpawnPosGo, GameObject _boltProjectile, crossbowController cc)
         {
             int repeats = ModdedPlayer.RangedRepetitions();

@@ -118,11 +118,11 @@ namespace ChampionsOfForest.Player
             {
                 passive = x=> SpellActions.Frenzy = x,            
             };
-            new Spell(19, 135, 27, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 60% for 4 seconds.")
+            new Spell(19, 135, 27, 40, 10, "Seeking Arrow", "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 20% for 4 seconds.")
             {
                 active = SpellActions.SeekingArrow_Active,
             };
-            new Spell(20, 137, 4, 0, 1, "Focus", "Passively, when landing a headshot, next projectile will deal 100% more damage and slow the enemy by 80%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.")
+            new Spell(20, 137, 4, 0, 1, "Focus", "Passively, when landing a headshot, next projectile will deal 100% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.")
             {
                 passive = x => SpellActions.Focus = x,
             };

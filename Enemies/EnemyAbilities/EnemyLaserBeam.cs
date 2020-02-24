@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             {
 
 
-                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, 50);
+                RaycastHit[] hits = Physics.BoxCastAll(transform.position,Vector3.one*0.5f, transform.forward,transform.rotation, 50);
                 foreach (RaycastHit hit in hits)
                 {
                     if (hit.transform != null)
@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                         {
                             if (hit.transform.root == LocalPlayer.Transform.root)
                             {
-                                LocalPlayer.Stats.Hit((int)(dmg * 0.4f * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
+                                LocalPlayer.Stats.Hit((int)(dmg * 0.3f * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Fire);
                                 BuffDB.AddBuff(10, 67, 0.5f, 15);
                                 BuffDB.AddBuff(2, 66, 0.5f, 15);
                                 BuffDB.AddBuff(3, 68, dmg/13, 5);

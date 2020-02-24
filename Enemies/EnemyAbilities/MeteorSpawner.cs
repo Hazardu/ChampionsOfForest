@@ -63,20 +63,21 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
                     Damage = 30000;
                     break;
             }
-
-            for (int i = 0; i < random.Next(16, 33); i++)
+            int x = random.Next(16, 33);
+            for (int i = 0; i < x; i++)
             {
 
                 GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                go.transform.localScale *= 6.5f;
-                go.AddComponent<Meteor>().Damage = Damage;
+                go.transform.localScale *= 5.5f;
                 Light l = go.AddComponent<Light>();
-                l.intensity = 2;
+                l.intensity = 1.3f;
                 l.range = 30;
                 l.color = Color.red;
                 go.GetComponent<Renderer>().material.color = Color.black;
                 go.transform.position = position + Vector3.forward * random.Next(-6, 6) * 2.5f + Vector3.right * random.Next(-6, 6) * 2.5f + Vector3.up * 80 + Vector3.forward * -40;
+                yield return null;
                 go.GetComponent<SphereCollider>().isTrigger = true;
+                go.AddComponent<Meteor>().Damage = Damage;
                 yield return new WaitForSeconds((float)random.Next(10, 35) / 100f);
             }
         }

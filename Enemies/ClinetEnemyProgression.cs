@@ -38,7 +38,7 @@ namespace ChampionsOfForest
                 Level = p.Level;
                 Health = p._hp + p._Health.Health;
                 MaxHealth = p.MaxHealth;
-                ExpBounty = p.Bounty;
+                ExpBounty = p.bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
                 Steadfast = p.Steadfast;
@@ -81,7 +81,7 @@ namespace ChampionsOfForest
                 Level = p.Level;
                 Health = p._hp + p._Health.Health;
                 MaxHealth = p.MaxHealth;
-                ExpBounty = p.Bounty;
+                ExpBounty = p.bounty;
                 Armor = p.Armor;
                 ArmorReduction = p.ArmorReduction;
                 Steadfast = p.Steadfast;

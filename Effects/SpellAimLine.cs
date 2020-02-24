@@ -28,6 +28,7 @@ namespace ChampionsOfForest.Effects
 			}
 
 			lineRenderer.sharedMaterial = material;
+			lineRenderer.widthMultiplier = 0.15f;
 		}
 
 		public void Enable()

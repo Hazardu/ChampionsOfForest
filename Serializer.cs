@@ -23,7 +23,10 @@ namespace ChampionsOfForest
                 Instance = new GameObject().AddComponent<Serializer>();
             }
         }
-
+        void OnApplicationQuit()
+        {
+            EmergencySave();
+        }
         private void DoLoad(string path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems)
         {
             ExtraCarriedItems = new Dictionary<int, int>();
@@ -177,7 +180,7 @@ namespace ChampionsOfForest
             {
                 Thread.Sleep(20);
             }
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
 
             MemoryStream stream = new MemoryStream();
@@ -342,7 +345,24 @@ namespace ChampionsOfForest
             LocalPlayer.Stats.Health = ModdedPlayer.instance.MaxHealth * HealthPercentage;
         }
 
+        public static void EmergencySave()
+        {
+            if (GameSetup.IsMpClient)
+            {
+                ModAPI.Console.Write("Saving");
+            DontDestroyOnLoad(ModdedPlayer.instance.gameObject);
+            DontDestroyOnLoad(LocalPlayer.Inventory.gameObject);
+            DontDestroyOnLoad(LocalPlayer.Stats.gameObject);
+            CreateInstance();
+            if (!Saving)
+            {
+                DoSave();
+            }
+            Destroy(ModdedPlayer.instance.gameObject);
+            Destroy(LocalPlayer.Stats.gameObject);
+            }
 
+        }
 
         public static void Save()
         {

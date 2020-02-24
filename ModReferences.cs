@@ -9,7 +9,7 @@ namespace ChampionsOfForest
         private float LevelRequestCooldown = 10;
         private float MFindRequestCooldown = 300;
         public static Material bloodInfusedMaterial;
-
+        private static ModReferences instance;
         public static ClinetItemPicker ItemPicker => ClinetItemPicker.Instance;
         public static List<GameObject> Players
         {
@@ -29,6 +29,7 @@ namespace ChampionsOfForest
 
         private void Start()
         {
+            instance = this;
             if (BoltNetwork.isRunning)
             {
                 Players = new List<GameObject>();
@@ -46,9 +47,18 @@ namespace ChampionsOfForest
 
 
         }
+        public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
+        {
+            instance.StartCoroutine(Player.RCoroutines.i.AsyncSendRandomItemDrops(count, type, bounty, position));
+        }
+
 
         private IEnumerator InitPlayerID()
         {
+            if (GameSetup.IsSinglePlayer)
+            {
+                ThisPlayerID = "LocalPlayer";
+            }
             if (ModSettings.IsDedicated)
             {
                 yield break;

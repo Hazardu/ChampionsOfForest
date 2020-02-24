@@ -16,7 +16,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
         private void Update()
         {
-            transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 25);
+            transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
         }
 
         private static AudioClip hitSound, InitSound;
@@ -30,6 +30,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             src =gameObject.AddComponent<AudioSource>();
             src.clip = InitSound;
+            src.rolloffMode = AudioRolloffMode.Logarithmic;
+            src.maxDistance = 60;
             src.Play();
             Destroy(gameObject, 7);
            
@@ -49,7 +51,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
             }
             else if (other.transform.root == LocalPlayer.Transform.root)
             {
-                LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), true, PlayerStats.DamageType.Physical);
+                LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Physical)
+                ;
                 Player.BuffDB.AddBuff(21, 69, Damage, 60);
                 other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
 
