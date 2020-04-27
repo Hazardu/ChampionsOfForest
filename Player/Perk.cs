@@ -2415,7 +2415,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 1.35f; },
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 0.65f; },
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 89 },
@@ -2892,7 +2892,7 @@ namespace ChampionsOfForest.Player
                 Size = 1,
                 PosOffsetX = 5f,
                 PosOffsetY = 3.75f,
-                Name = "Blink - Ascendancy",
+                Name = "Quick Silver",
                 _description = "Blink has it's cooldown reduced by 7 seconds",
                 TextureVariation = 0,
                 Endless = false,

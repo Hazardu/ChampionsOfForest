@@ -3699,7 +3699,7 @@ namespace ChampionsOfForest
 			Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
 			Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) * -1 + "%", "");
 			Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
-			Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
+			Stat("Cooldown reduction", Math.Round((ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
 
 
 			Space(20);
