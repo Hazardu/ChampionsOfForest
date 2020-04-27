@@ -126,7 +126,7 @@ namespace ChampionsOfForest.Player
             {
                 passive = x => SpellActions.Focus = x,
             };
-            new Spell(21, 140, 8, 0, 1, "Parry", "Passively, when parrying an enemy, ignite and deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.")
+            new Spell(21, 140, 8, 0, 1, "Parry", "Passively, when parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.")
             {
                 passive = x => SpellActions.Parry = x,
             };
