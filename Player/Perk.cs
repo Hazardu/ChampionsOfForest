@@ -2415,7 +2415,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 1.35f; },
+                ApplyMethods = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 0.65f; },
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
                 InheritIDs = new int[] { 89 },
