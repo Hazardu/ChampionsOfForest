@@ -140,22 +140,13 @@ namespace ChampionsOfForest.Enemies
                         Vector3 direction = other.transform.position - position;
                         if (!Physics.Raycast(position, direction, out hit, direction.magnitude, enemyHitMask, QueryTriggerInteraction.Ignore))
                         {
-                            ModAPI.Console.Write("Starting to get hit");
-                            if (((!creepy_male && !creepy && !creepy_baby && !creepy_fat) || ModdedPlayer.instance.ParryAnything) && events)
+                            bool doParry = SpellActions.ParryAnythingIsTimed;
+                            if ((!creepy_male && !creepy && !creepy_baby && !creepy_fat && events)|| doParry)
                             {
-                                ModAPI.Console.Write("events exists");
-
                                 if (componentInParent)
                                 {
-                                ModAPI.Console.Write("componentInParent exists");
-
                                     bool flag = InFront(other.gameObject);
-                                    ModAPI.Console.Write("in front: "+ flag+
-                                        "\nevents.parryBool: " + events.parryBool+
-                                        "\nnext tagHash: "+ (componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash)+
-                                        "\ncurrent tagHash" + (componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash)+
-                                        "\nfirst condition"+ (!BoltNetwork.isServer || !netPrefab));
-                                    if ((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && ((componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash) || ModdedPlayer.instance.ParryAnything))
+                                    if (((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && ((componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash) )|| doParry))
                                     {
                                         ModAPI.Console.Write("Parrying successful");
                                         int parryDir = events.parryDir;

@@ -425,9 +425,13 @@ namespace ChampionsOfForest
 			InitializeHandHeld();
 			Invoke("SendJoinMessage", 10);
 			StartCoroutine(InitializeCamera());
+			LocalPlayer.Inventory.Blocked.AddListener(SpellActions.OnBlockSetTimer);
 		}
 
-		IEnumerator InitializeCamera()
+		/// <summary>
+		/// Adds a post processing effect to the camera
+		/// </summary>
+		IEnumerator InitializeCamera()	
 		{
 			while (Camera.main == null)
 			{
@@ -1130,14 +1134,36 @@ namespace ChampionsOfForest
 			Level++;
 			ExpGoal = GetGoalExp();
 			SendLevelMessage();
-
+			GiveSpecialItems();
 			int ap = Mathf.RoundToInt(Mathf.Sqrt(Level));
 			agility += ap;
 			strength += ap;
 			vitality += ap;
 			intelligence += ap;
-
 		}
+
+		public void GiveSpecialItems()
+		{
+			if (Level == 15 || Level == 30)
+			{
+				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
+				item.level = 1;
+				if (!Inventory.Instance.AddItem(item))
+				{
+					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2);
+				}
+			}
+			else if (Level == 50 || Level == 65 || Level == 75)
+			{
+				var item = new Item(ItemDataBase.ItemBaseByName("Greater Mutated Heart"));
+				item.level = 1;
+				if (!Inventory.Instance.AddItem(item))
+				{
+					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2);
+				}
+			}
+		}
+
 		public long GetGoalExp()
 		{
 			return GetGoalExp(Level);

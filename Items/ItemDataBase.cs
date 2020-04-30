@@ -151,6 +151,10 @@ namespace ChampionsOfForest
         {
             return ItemDataBase.Stats[id];
         }
+        public static BaseItem ItemBaseByName(string name)
+        {
+           return ItemDataBase.ItemBases.Values.Where(x => x.name == name).First();
+        }
         public static Item GetRandomItem(float Worth)
         {
 
