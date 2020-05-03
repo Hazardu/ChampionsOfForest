@@ -609,8 +609,7 @@ namespace ChampionsOfForest
 				{
 					if (LocalPlayer.Stats != null)
 					{
-
-
+						LocalPlayer.Inventory.UnequipItemAtSlot(TheForest.Items.Item.EquipmentSlot.RightHand,false,true,false);
 						if (GameSetup.IsMpClient)
 						{
 							DifficultySelectionClinet();
@@ -3507,6 +3506,13 @@ namespace ChampionsOfForest
 				"\n-Effigies - It's possible to gain experience and low rarity items by breaking effigies scattered across the map." +
 				"\n-Rare consumable - Gives a large amount of experience, it's rarity is orange\n");
 
+			Space(100);
+			Header("Information - Statistics");
+			Label("\tAttributes");
+			Label("Strength - This stat increases melee damage multipier. It multiplies with melee damage increase.");
+			Label("Agility - This stat increases ranged damage multipier. Additionally it increases maximum amount of energy");
+			Label("Agility - This stat increases maximum health points, this value is further multiplied by maximum health %");
+			
 			Space(100);
 
 			Header("Information - Items");

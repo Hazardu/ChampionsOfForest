@@ -4690,8 +4690,24 @@ new int[] {0,0,0,0,62,63,64},
                 icon = Res.ResourceLoader.GetTexture(96),
             };
 
-
-
+            new BaseItem(new int[][]
+                         {
+                new int[] {1 },
+                         })
+            {
+                name = "Rusty Polearm",
+                description = "Used by the Ubersreik Five",
+                lore = "",
+                tooltip = "Long range spear-type weapon",
+                Rarity = 1,
+                minLevel = 2,
+                maxLevel = 4,
+                CanConsume = false,
+                StackSize = 1,
+                _itemType = BaseItem.ItemType.Weapon,
+                weaponModel = BaseItem.WeaponModelType.Polearm,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
 
         }
     }

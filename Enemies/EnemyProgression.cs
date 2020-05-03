@@ -20,6 +20,11 @@ namespace ChampionsOfForest
         public Dictionary<int, EnemyDebuff> dmgDealtDebuffs;
         public Dictionary<int, EnemyDebuff> FireDamageDebuffs;
         public List<DoT> DamageOverTimeList;
+        public Vector3 knockbackDir;
+        public float knockbackSpeed;
+
+
+
         public struct DoT
         {
             /// <summary>
@@ -118,22 +123,22 @@ namespace ChampionsOfForest
         public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
-        public static string[] femaleNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
+        public static string[] fNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
                     "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
-                    "Victoria",  "Chloe", "Camila", "Layla", "Lillian","Dora the explorer", "Zoey", "Hannah", "Lily",
+                    "Victoria",  "Chloe", "Camila", "Layla", "Lillian", "Hannah", "Lily",
                     "Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
                     "Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
                     "Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice",
-                    "Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Ruby", "Serenity", "Willow", "Everly",  "Kaylee",
+                    "Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Serenity", "Willow", "Everly",  "Kaylee",
                     "Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina",
                     "Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Delilah", "Isla", "Rylee",
-                    "Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
+                    "Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor Swift", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
                     "Annabelle", "Faith", "Alexandra", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa",
-                    "Eliza", "Rose", "Ariel", "Alexis","xKito","Sophie Francis","Albedo","Rbwy" };
+                    "Eliza", "Ariel", "Alexis","xKito","Sophie Francis","Albedo","Hazardina","Kaspita" };
     #region Name
-    public static string[] Mnames = new string[]
+    public static string[] mNames = new string[]
               {
-                  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Kaspito","SiXxKiLuR","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor"
+                  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor","Eraized", "Xelthaz", "Commanderroot", "Plqauttro","Commula","Tom from Myspace","Maurycy"
               };
         /// <summary>
         /// Picks a random name for the enemy
@@ -145,13 +150,13 @@ namespace ChampionsOfForest
             if (_AI.female || _AI.creepy || _AI.femaleSkinny)    //is female
             {
                 //prefix = "♀ ";
-                names.AddRange(femaleNames);
+                names.AddRange(fNames);
 
             }
             else                                                 // is male
             {
                 //prefix = "♂ ";
-                names.AddRange(Mnames);
+                names.AddRange(mNames);
             }
             if (_AI.creepy_male)
             {
@@ -479,6 +484,7 @@ namespace ChampionsOfForest
             //source - 120-135 -afterburn;
             //source - 140 is cataclysm fire
             //source - 141 is cataclysm arcane
+            //source - 142 is the fart
 
             if (slows.ContainsKey(source))
             {
@@ -858,6 +864,12 @@ namespace ChampionsOfForest
                 {
                     OnDieCalled = false;
                 }
+            }
+
+            if (knockbackSpeed > 0)
+            {
+                knockbackSpeed -= Time.deltaTime * (knockbackSpeed + 3.5f);
+                transform.Translate(knockbackDir * knockbackSpeed);
             }
 
 
@@ -1714,5 +1726,18 @@ namespace ChampionsOfForest
            if(! abilities.Contains(Abilities.Juggernaut))
             DamageOverTimeList.Add(new DoT(dmg, duration));
         }
+
+
+
+        public void AddKnockback(Vector3 dir, float amount)
+        {
+            knockbackDir += dir;
+            knockbackDir.Normalize();
+            if (amount > knockbackSpeed)
+                knockbackSpeed = amount;
+        
+        }
+
+
     }
 }

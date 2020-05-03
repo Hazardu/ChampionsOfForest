@@ -138,6 +138,10 @@ namespace ChampionsOfForest.Player
             {
                 active = ()=> SpellActions.CastBloodInfArr(),
             };
+            new Spell(24, 165, 11, 75, 8, "Roaring Cheeks", "Release a powerful gust of toxic gas that poisons and knocks enemies back")
+            {
+                active = () => SpellActions.RipAFatOne(),
+            };
             //new Spell(24, 165, 1, 1, 2, "Corpse Explosion", "")
             //{
             //    active = () => SpellActions.CastCorpseExplosion(),

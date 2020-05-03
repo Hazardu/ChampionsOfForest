@@ -37,7 +37,7 @@ namespace ChampionsOfForest.Player
 
 			Transform t = Camera.main.transform;
 			Vector3 blinkPoint = Vector3.zero;
-			var hits1 = Physics.RaycastAll(t.position, t.forward, BlinkRange+1f);
+			var hits1 = Physics.RaycastAll(t.position, t.forward, BlinkRange + 1f);
 			foreach (var hit in hits1)
 			{
 				if (!hit.transform.CompareTag("enemyCollide") && hit.transform.root != LocalPlayer.Transform.root)
@@ -52,7 +52,7 @@ namespace ChampionsOfForest.Player
 			}
 			if (BlinkDamage > 0)
 			{
-				RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one*1.2f, blinkPoint-t.position, t.rotation, Vector3.Distance(blinkPoint,t.position)+1);
+				RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one * 1.2f, blinkPoint - t.position, t.rotation, Vector3.Distance(blinkPoint, t.position) + 1);
 				foreach (RaycastHit hit in hits)
 				{
 					if (hit.transform.CompareTag("enemyCollide"))
@@ -121,7 +121,7 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			float radius = 10f;
-			float healing = (ModdedPlayer.instance.LifeRegen *3+ 13.5f + ModdedPlayer.instance.SpellDamageBonus / 30) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
+			float healing = (ModdedPlayer.instance.LifeRegen * 3 + 13.5f + ModdedPlayer.instance.SpellDamageBonus / 30) * ModdedPlayer.instance.SpellAMP * ModdedPlayer.instance.HealingMultipier;
 
 
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -174,7 +174,7 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 dir = LocalPlayer.Transform.position;
 			float dmg = FlareDamage + ModdedPlayer.instance.SpellDamageBonus;
-			dmg *= ModdedPlayer.instance.SpellAMP*1.2f;
+			dmg *= ModdedPlayer.instance.SpellAMP * 1.2f;
 			float slow = FlareSlow;
 			float boost = FlareBoost;
 			float duration = FlareDuration;
@@ -374,9 +374,9 @@ namespace ChampionsOfForest.Player
 		public static void CastMagicArrow()
 		{
 			float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 3.2f + ModdedPlayer.instance.RangedDamageBonus / 2;
-			damage = damage * ModdedPlayer.instance.SpellAMP*2;
+			damage = damage * ModdedPlayer.instance.SpellAMP * 2;
 			if (MagicArrowCrit)
-				BashBleedDmg *= ModdedPlayer.instance.CritDamageBuff*4;
+				BashBleedDmg *= ModdedPlayer.instance.CritDamageBuff * 4;
 			Vector3 pos = Camera.main.transform.position;
 			Vector3 dir = Camera.main.transform.forward;
 			if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -483,7 +483,7 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			float dmg = 23 + ModdedPlayer.instance.SpellDamageBonus * 1.5f;
-			dmg *= ModdedPlayer.instance.SpellAMP*2;
+			dmg *= ModdedPlayer.instance.SpellAMP * 2;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -509,9 +509,9 @@ namespace ChampionsOfForest.Player
 		public static void CastBallLightning(Vector3 pos, Vector3 speed)
 		{
 			float dmg = BL_Damage + (9 * ModdedPlayer.instance.SpellDamageBonus);
-			dmg *= ModdedPlayer.instance.SpellAMP*4;
+			dmg *= ModdedPlayer.instance.SpellAMP * 4;
 			if (BL_Crit)
-				dmg *= ModdedPlayer.instance.CritDamageBuff*4;
+				dmg *= ModdedPlayer.instance.CritDamageBuff * 4;
 
 
 			speed.y = 0;
@@ -752,16 +752,16 @@ namespace ChampionsOfForest.Player
 		public static bool ParryIgnites = false;
 		public static float ParryDmgBonus = 0;
 		public static float ParryBuffDamage = 0;
-		private static float LastBlockTimestamp = 0;	//used for blocking any instance of damage
-		private const float Block_parryTime = 0.6f;	//600ms to get hit since starting blocking will cause a parry
+		private static float LastBlockTimestamp = 0;    //used for blocking any instance of damage
+		private const float Block_parryTime = 0.6f; //600ms to get hit since starting blocking will cause a parry
 		public static void OnBlockSetTimer()
 		{
-			LastBlockTimestamp = Time.time+ Block_parryTime;
+			LastBlockTimestamp = Time.time + Block_parryTime;
 		}
 
 		public static bool ParryAnythingIsTimed =>
 			 ModdedPlayer.instance.ParryAnything && LastBlockTimestamp < Time.time;
-		
+
 
 		public static void DoParry(Vector3 parryPos)
 		{
@@ -769,7 +769,7 @@ namespace ChampionsOfForest.Player
 			{
 				BuffDB.AddBuff(6, 61, 1, ParryBuffDuration);
 				float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus + ModdedPlayer.instance.MeleeDamageBonus;
-				dmg *= ModdedPlayer.instance.SpellDamageAmplifier*1.2f;
+				dmg *= ModdedPlayer.instance.SpellDamageAmplifier * 1.2f;
 
 				float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 6 + ModdedPlayer.instance.LifeRegen + ModdedPlayer.instance.LifeOnHit * 2;
 				heal *= ModdedPlayer.instance.HealingMultipier * (1 + ModdedPlayer.instance.HealthRegenPercent);
@@ -866,7 +866,7 @@ namespace ChampionsOfForest.Player
 		public static float BIA_SpellDmMult = 1.25f;
 		public static float BIA_HealthDmMult = 3f;
 		public static float BIA_HealthTakenMult = 0.65f;
-		public static bool BIA_TripleDmg = false, BIA_Weaken=false;
+		public static bool BIA_TripleDmg = false, BIA_Weaken = false;
 		public static void CastBloodInfArr()
 		{
 			float takenHP = LocalPlayer.Stats.Health * BIA_HealthTakenMult;
@@ -880,7 +880,7 @@ namespace ChampionsOfForest.Player
 			if (BIA_TripleDmg)
 			{
 				BIA_bonusDamage *= 3;
-				BuffDB.AddBuff(18, 95, ModdedPlayer.instance.MaxEnergy/16, 8);
+				BuffDB.AddBuff(18, 95, ModdedPlayer.instance.MaxEnergy / 16, 8);
 
 			}
 			if (ModdedPlayer.instance.IsHazardCrown)
@@ -889,6 +889,76 @@ namespace ChampionsOfForest.Player
 
 		}
 		#endregion
+
+		#region
+
+		public static float fartRadius = 6;
+		public static float fartKnockback = 4, fartSlow = 0.6f, fartDebuffDuration = 6f;
+		public static float fartDoT = 4;
+		public static void RipAFatOne()
+		{
+			var back = -LocalPlayer.Transform.forward;
+			var origin = LocalPlayer.Transform.position;
+			var hits = Physics.SphereCastAll(origin + back * fartRadius, fartRadius, Vector3.one, fartRadius, -10);
+			LocalPlayer.Rigidbody.AddForce(-back * 3, ForceMode.VelocityChange);
+			float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartDoT) * ModdedPlayer.instance.SpellAMP;
+			if (GameSetup.IsMpClient)
+			{
+				foreach (var hit in hits)
+				{
+					if (hit.transform.CompareTag("enemyCollide"))
+					{
+						var entity = hit.transform.GetComponent<BoltEntity>();
+
+						if (entity == null)
+							entity = hit.transform.GetComponentInParent<BoltEntity>();
+						if (entity == null)
+							continue;
+						Vector3 dir = hit.transform.position - origin;
+						dir.Normalize();
+						System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
+
+						System.IO.BinaryWriter writer = new System.IO.BinaryWriter(memoryStream);
+						writer.Write(3);
+						writer.Write(14);
+						writer.Write(entity.networkId.PackedValue);
+						writer.Write(dir.x);
+						writer.Write(dir.y);
+						writer.Write(dir.z);
+						writer.Write(fartKnockback);
+						writer.Write(dmg);
+						writer.Write(fartSlow);
+						writer.Write(fartDebuffDuration);
+
+					}
+				}
+			}
+			else
+			{
+				foreach (var hit in hits)
+				{
+					if (hit.transform.CompareTag("enemyCollide"))
+					{
+						hit.transform.SendMessageUpwards("HitMagic", (int)dmg);
+						var ep = hit.transform.GetComponentInParent<EnemyProgression>();
+						if (ep == null)
+							ep = hit.transform.GetComponent<EnemyProgression>();
+
+						if (ep != null)
+						{
+							ep.DoDoT((int)dmg, fartDebuffDuration);
+							ep.Slow(142,)
+						}
+
+
+					}
+				}
+
+			}
+		}
+		#endregion
+
+
 
 		#region CorpseExplosion
 		//public static float CorpseExpl_HealthTakenMult = 0.10f;

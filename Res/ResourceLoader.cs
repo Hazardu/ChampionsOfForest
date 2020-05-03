@@ -899,10 +899,17 @@ namespace ChampionsOfForest.Res
             new Resource(172, "EnemyPingNormal.png");
             new Resource(173, "LocationPing.png");
             new Resource(174, "PickupPing.png");
+            new Resource(175, "Polearm.obj");
+            new Resource(177, "PolearmBladeTexture.jpg");
+            new Resource(178, "PolearmHandleTexture.jpg");
+            new Resource(179, "PolearmBladeNormals.jpg");
+            new Resource(180, "PolearmHandleNormals.jpg");
+            new Resource(181, "itemPolearm.png");
 
 
 
 
+            //Sound files
             new Resource(1000, "thundersound.wav");
             new Resource(1001, "Levelup.wav");
             new Resource(1002, "ClickUp.wav");
@@ -923,7 +930,7 @@ namespace ChampionsOfForest.Res
 
 
 
-
+            //Asset Bundles
             new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);
             new Resource(2001, "axe", Resource.ResourceType.AssetBundle);
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);

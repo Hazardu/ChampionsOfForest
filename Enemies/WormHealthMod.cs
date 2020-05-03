@@ -15,11 +15,11 @@ namespace ChampionsOfForest.Enemies
             base.Hit(damage);
         }
 
-        public override void Hit(int damage)
-        {
-            damage = Mathf.Min(damage, 7);
-            base.Hit(damage);
-        }
+        //public override void Hit(int damage)
+        //{
+        //   // damage = Mathf.Min(damage, 7);
+        //    base.Hit(damage);
+        //}
 
     }
 
@@ -106,7 +106,6 @@ namespace ChampionsOfForest.Enemies
                     {
                         Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
                     }
-                    ModAPI.Console.Write("Worm Died");
                 }
                 UnityEngine.Object.Destroy(base.gameObject);
             }

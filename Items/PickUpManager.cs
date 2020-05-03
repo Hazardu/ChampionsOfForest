@@ -84,6 +84,11 @@ namespace ChampionsOfForest
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[167];
 
                             }
+                            else if (item.weaponModel == BaseItem.WeaponModelType.Polearm)
+                            {
+                                filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[175];
+
+                            }
 
                             break;
                         case BaseItem.ItemType.Other:
