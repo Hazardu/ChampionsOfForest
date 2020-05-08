@@ -13,7 +13,7 @@ using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
 {
-	public class MainMenu : MonoBehaviour
+	public partial class MainMenu : MonoBehaviour
 	{
 		//Instance of this object
 		public static MainMenu Instance
@@ -41,8 +41,8 @@ namespace ChampionsOfForest
 		private int DiffSelPage = 0;
 
 		//variables
-		public float rr;                                // current resolution to fullHD ratio
-		private Vector2 mousepos;                       //mouse postion in GUI space
+		public float rr;                                // current resolution to fullHD ratio 
+        private Vector2 mousepos;                       //mouse postion in GUI space
 		private Rect wholeScreen;                       //rect that contains the entire screen
 		private bool Crouching;                         //used in hud display, when crouching scans enemies
 		private bool MenuInteractable;                  //determines if menu elements can be clicked or not
@@ -553,47 +553,15 @@ namespace ChampionsOfForest
 
 		}
 
+		partial void DrawDebug();
 		//Draws everything
 		private void OnGUI()
 		{
 			try
 			{
 
-
-				//DETAIL-----------------------------------------------------------------------------
-				//GUI.skin.horizontalSlider.fixedWidth = 150;
-				//GUI.skin.horizontalSlider.fontSize = 30;
-				//PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -0.5f, 0.5f), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -0.5f, 0.5f));
-				//GUILayout.Label(PlayerInventoryMod.Pos.x.ToString());
-				//GUILayout.Label(PlayerInventoryMod.Pos.y.ToString());
-				//GUILayout.Label(PlayerInventoryMod.Pos.z.ToString());
-				//PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-				//GUILayout.Label(PlayerInventoryMod.Rot.ToString());
-				//foreach (var item in PlayerInventoryMod.customWeapons.Values)
-				//{
-				//    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-				//    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-				//    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
-				//}
-
-				// //BIG OFFSET-----------------------------------------------------------------------------
-				//GUILayout.Label("-----------------------------------------------------------------------------------------------------------------------------------------");
-				//PlayerInventoryMod.Pos = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.x, -1, 1), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.y, -1, 1), GUILayout.HorizontalSlider(PlayerInventoryMod.Pos.z, -1, 1));
-				//GUILayout.Label(PlayerInventoryMod.Pos.ToString("N4"));
-				//PlayerInventoryMod.Rot = new Vector3(GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.x, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.y, -180, 180), GUILayout.HorizontalSlider(PlayerInventoryMod.Rot.z, -180, 180));
-				//GUILayout.Label(PlayerInventoryMod.Rot.ToString("N4"));
-				//// PlayerInventoryMod.Sca = GUILayout.HorizontalSlider(PlayerInventoryMod.Sca, 0.01f, 3f);
-				//// GUILayout.Label(PlayerInventoryMod.Sca.ToString("N4"));
-
-				//foreach (var item in PlayerInventoryMod.customWeapons.Values)
-				//{
-				//    item.obj.transform.localPosition = PlayerInventoryMod.OriginalOffset + PlayerInventoryMod.Pos + item.offset;
-				//    item.obj.transform.localRotation = PlayerInventoryMod.originalRotation;
-				//    item.obj.transform.Rotate(PlayerInventoryMod.Rot + item.rotation, UnityEngine.Space.Self);
-				//    //item.obj.transform.localScale = Vector3.one * item.Scale * PlayerInventoryMod.Sca;
-				//}
-
-
+				DrawDebug();
+			
 				GUI.skin.label.normal.textColor = Color.white;
 				GUI.skin.label.onNormal.textColor = Color.white;
 				GUI.contentColor = Color.white;
@@ -709,7 +677,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-		#region MainMenuMethods
+#region MainMenuMethods
 		//Draws main menu with buttons
 		private void DrawMain()
 		{
@@ -893,9 +861,9 @@ namespace ChampionsOfForest
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region DifficultySelectionMethods
+#region DifficultySelectionMethods
 		private void DifficultySelectionHost()
 		{
 			if ((bool)LocalPlayer.FpCharacter)
@@ -1066,9 +1034,9 @@ namespace ChampionsOfForest
 				requestResendTime -= Time.deltaTime;
 			}
 		}
-		#endregion
+#endregion
 
-		#region InventoryMethods
+#region InventoryMethods
 		private void DrawInventory()
 		{
 			Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
@@ -2087,9 +2055,9 @@ namespace ChampionsOfForest
 			DrawInvSlot(r, index);
 
 		}
-		#endregion
+#endregion
 
-		#region HUDMethods
+#region HUDMethods
 		private void DrawHUD()
 		{
 
@@ -3056,7 +3024,7 @@ namespace ChampionsOfForest
 			GUI.Label(rOffset, content, style);
 
 		}
-		#endregion
+#endregion
 
 		//Does fade out fade in transision between menus
 		public IEnumerator FadeMenuSwitch(OpenedMenuMode mode)
@@ -3088,7 +3056,7 @@ namespace ChampionsOfForest
 			MenuInteractable = true;
 		}
 
-		#region SpellsMethods;
+#region SpellsMethods;
 		private Spell displayedSpellInfo;
 		private Texture2D semiBlack;
 		private float semiblackValue;
@@ -3312,10 +3280,10 @@ namespace ChampionsOfForest
 		}
 
 
-		#endregion
+#endregion
 
 
-		#region StatsMenu
+#region StatsMenu
 
 		private float BookPositionY;
 		private float BookScrollAmount;
@@ -3805,7 +3773,7 @@ namespace ChampionsOfForest
 			//Stat("Day 10", "");
 			//Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
 		}
-		#endregion
+#endregion
 
 
 

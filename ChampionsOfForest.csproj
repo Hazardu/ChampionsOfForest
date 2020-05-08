@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CotfUtils.cs"  />
+<Compile Include="Configuration\BuildSettings.cs"  />
 <Compile Include="Effects\BallLightning.cs"  />
 <Compile Include="Effects\Berserker.cs"  />
 <Compile Include="Effects\BlackFlame.cs"  />
@@ -250,10 +251,10 @@
 <Compile Include="Player\FPCharacterMod.cs"  />
 <Compile Include="Effects\HealingDome.cs"  />
 <Compile Include="Player\Inventory.cs"  />
-<Compile Include="Player\MainMenu.cs"  />
+<Compile Include="Player\Main Menu\MainMenu.cs"  />
 <Compile Include="Network\ChatBoxMod.cs"  />
 <Compile Include="Network\NetworkManager.cs"  />
-<Compile Include="Player\ModdedPlayer.cs"  />
+<Compile Include="Player\ModdedPlayer\ModdedPlayer.cs"  />
 <Compile Include="Player\Perk.cs"  />
 <Compile Include="Player\PlayerInventoryMod.cs"  />
 <Compile Include="Player\PlayerStatsEx.cs"  />

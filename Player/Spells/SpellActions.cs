@@ -895,65 +895,53 @@ namespace ChampionsOfForest.Player
 		public static float fartRadius = 6;
 		public static float fartKnockback = 4, fartSlow = 0.6f, fartDebuffDuration = 6f;
 		public static float fartDoT = 4;
+		public static void FartEffect(float radius,float knockback,float damage,float slow,float duration)
+		{
+		
+		
+		}
 		public static void RipAFatOne()
 		{
 			var back = -LocalPlayer.Transform.forward;
 			var origin = LocalPlayer.Transform.position;
-			var hits = Physics.SphereCastAll(origin + back * fartRadius, fartRadius, Vector3.one, fartRadius, -10);
-			LocalPlayer.Rigidbody.AddForce(-back * 3, ForceMode.VelocityChange);
-			float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartDoT) * ModdedPlayer.instance.SpellAMP;
-			if (GameSetup.IsMpClient)
+			if (!LocalPlayer.FpCharacter.Grounded)
 			{
-				foreach (var hit in hits)
+				var vel = LocalPlayer.Rigidbody.velocity;
+				if (vel.y < 0)
 				{
-					if (hit.transform.CompareTag("enemyCollide"))
-					{
-						var entity = hit.transform.GetComponent<BoltEntity>();
-
-						if (entity == null)
-							entity = hit.transform.GetComponentInParent<BoltEntity>();
-						if (entity == null)
-							continue;
-						Vector3 dir = hit.transform.position - origin;
-						dir.Normalize();
+					vel.y = 2;
+				}
+				else
+				{
+					vel.y += 2;
+				}
+				LocalPlayer.Rigidbody.velocity = vel;
+				back.y -= 1.5f;
+				back.Normalize();
+			}
+			LocalPlayer.Rigidbody.AddForce(-back * 3, ForceMode.VelocityChange);
+			
+			float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartDoT) * ModdedPlayer.instance.SpellAMP;
+			if (GameSetup.IsMultiplayer)
+			{
 						System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
-
 						System.IO.BinaryWriter writer = new System.IO.BinaryWriter(memoryStream);
 						writer.Write(3);
 						writer.Write(14);
-						writer.Write(entity.networkId.PackedValue);
-						writer.Write(dir.x);
-						writer.Write(dir.y);
-						writer.Write(dir.z);
-						writer.Write(fartKnockback);
+						writer.Write(LocalPlayer.FpCharacter.Grounded);
+						writer.Write(origin.x);
+						writer.Write(origin.y);
+						writer.Write(origin.z);	
+						writer.Write(back.x);
+						writer.Write(back.y);
+						writer.Write(back.z);
 						writer.Write(dmg);
+						writer.Write(fartKnockback);
 						writer.Write(fartSlow);
 						writer.Write(fartDebuffDuration);
-
-					}
-				}
-			}
-			else
-			{
-				foreach (var hit in hits)
-				{
-					if (hit.transform.CompareTag("enemyCollide"))
-					{
-						hit.transform.SendMessageUpwards("HitMagic", (int)dmg);
-						var ep = hit.transform.GetComponentInParent<EnemyProgression>();
-						if (ep == null)
-							ep = hit.transform.GetComponent<EnemyProgression>();
-
-						if (ep != null)
-						{
-							ep.DoDoT((int)dmg, fartDebuffDuration);
-							ep.Slow(142,)
-						}
-
-
-					}
-				}
-
+				writer.Close();
+				NetworkManager.SendLine(memoryStream.ToArray(),NetworkManager.Target.Others);
+				memoryStream.Close();
 			}
 		}
 		#endregion

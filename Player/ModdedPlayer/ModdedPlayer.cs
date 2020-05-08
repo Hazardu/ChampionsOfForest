@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
-	public class ModdedPlayer : MonoBehaviour
+	public partial class ModdedPlayer : MonoBehaviour
 	{
 		public readonly float baseHealth = 50;
 		public readonly float baseEnergy = 50;
@@ -519,44 +519,31 @@ namespace ChampionsOfForest
 
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
-				if (Inventory.Instance.ItemList[-12] != null)
+				if (Inventory.Instance.ItemList[-12] != null && Inventory.Instance.ItemList[-12].Equipped)
 				{
-					if (Inventory.Instance.ItemList[-12].Equipped)
+					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
+					switch (Inventory.Instance.ItemList[-12].weaponModel)
 					{
-						if (Inventory.Instance.ItemList[-12].weaponModel != BaseItem.WeaponModelType.Greatbow)
-						{
-							PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
-							LocalPlayer.Inventory.StashEquipedWeapon(false);
-							LocalPlayer.Inventory.Equip(80, false);
-							PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+						case BaseItem.WeaponModelType.Polearm:
+							LocalPlayer.Inventory.Equip(56, false);
+							break;
 
-
-						}
-						else
-						{
-
-							//Equiping custom bow
-
-							PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
+						case BaseItem.WeaponModelType.Greatbow:
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							if (LocalPlayer.Inventory.Equip(79, false))
 							{
-								if (GreatBow.instance == null)
-								{
-
-								}
 								CustomBowBase.baseBow.SetActive(false);
 								GreatBow.instance.SetActive(true);
-
 							}
-							else
-							{
-								CotfUtils.Log("NO CRAFTED BOW!");
-							}
-							PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+							break;
 
-						}
+						default:
+							LocalPlayer.Inventory.StashEquipedWeapon(false);
+							LocalPlayer.Inventory.Equip(80, false);
+							break;
 					}
+
+					PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
 				}
 			}
 			try

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest
@@ -257,23 +258,20 @@ namespace ChampionsOfForest
             }
         }
 
-     
 
-        //finds the hand transform of client
-        //public static Transform FindHandRetardedWay(Transform root)
-        //{
-        //    try
-        //    {
-        //        return root.Find("player_BASE").Find("char_Hips").Find("char_Spine").Find("char_Spine1").Find("char_Spine2").Find("char_RightShoulder").Find("char_RightArm").Find("char_RightForeArm").Find("har_RightHand").Find("char_RightHandWeapon").Find("rightHandHeld");
-        //    }
-        //    catch (Exception e)
-        //    {
 
-        //        ModAPI.Log.Write("couldnt find hand " + e.ToString());
-
-        //    }
-        //    return null;
-
-        //}
+        public static void RecursiveComponentList(GameObject go)
+        {
+            RecursiveComponentList(go.transform,"");
+        }
+        static void RecursiveComponentList( Transform tr,string start)
+        {
+            ModAPI.Log.Write(start + tr.name + '-' + tr.GetComponents<Component>().Select(x=>x.GetType().Name).Join(", "));
+            start += '\t';
+            foreach (Transform item in tr)
+            {
+                RecursiveComponentList(item,start);
+            }
+        } 
     }
 }

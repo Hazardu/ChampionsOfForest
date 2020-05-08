@@ -98,10 +98,6 @@ namespace ChampionsOfForest.Player
             ColliderScale = 1;
             Scale = scale;
             this.obj = obj;
-            this.trail = trail;
-            CreateGameObjectNoMeshes();
-            obj.SetParent(this.obj);
-            InitializeCustomWeapon();
             PlayerInventoryMod.customWeapons.Add(model, this);
         }
 
@@ -187,10 +183,6 @@ namespace ChampionsOfForest.Player
         {
             try
             {
-
-
-                obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
-
                 GameObject trailObject = new GameObject();
                 trailObject.transform.SetParent(PlayerInventoryMod.originalParrent, false);
                 trailObject.transform.position = obj.transform.position;
