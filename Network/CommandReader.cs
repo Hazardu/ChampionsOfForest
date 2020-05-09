@@ -232,7 +232,14 @@ namespace ChampionsOfForest.Network
 								}
 								else if (spellid == 14)	//Massive fart
 								{
-								
+									bool grounded = r.ReadBoolean();
+									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+									Vector3 dir = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+									Effects.TheFartCreator.CreateEffect(pos, dir, !grounded);
+									if (GameSetup.IsMpServer)
+									{
+										Effects.TheFartCreator.DealDamageAsHost(pos, dir, r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+									}
 								}
 
 									break;

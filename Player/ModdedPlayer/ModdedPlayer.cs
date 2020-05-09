@@ -425,21 +425,26 @@ namespace ChampionsOfForest
 			InitializeHandHeld();
 			Invoke("SendJoinMessage", 10);
 			StartCoroutine(InitializeCamera());
-			LocalPlayer.Inventory.Blocked.AddListener(SpellActions.OnBlockSetTimer);
 		}
 
 		/// <summary>
 		/// Adds a post processing effect to the camera
 		/// </summary>
-		IEnumerator InitializeCamera()	
+		IEnumerator InitializeCamera()
 		{
-			while (Camera.main == null)
+			while (Camera.main == null|| LocalPlayer.Inventory == null)
 			{
 				yield return null;
 			}
+			yield return null;
+			yield return null;
+			yield return null;
+
 			Camera.main.gameObject.AddComponent<RealisticBlackHoleEffect>();
+			LocalPlayer.Inventory.Blocked.AddListener(SpellActions.OnBlockSetTimer);
 
 		}
+
 
 		public void SendLevelMessage()
 		{
@@ -519,10 +524,10 @@ namespace ChampionsOfForest
 
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
-				if (Inventory.Instance.ItemList[-12] != null && Inventory.Instance.ItemList[-12].Equipped)
+				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].Equipped)
 				{
-					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemList[-12].weaponModel;
-					switch (Inventory.Instance.ItemList[-12].weaponModel)
+					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemSlots[-12].weaponModel;
+					switch (Inventory.Instance.ItemSlots[-12].weaponModel)
 					{
 						case BaseItem.WeaponModelType.Polearm:
 							LocalPlayer.Inventory.Equip(56, false);
@@ -530,10 +535,19 @@ namespace ChampionsOfForest
 
 						case BaseItem.WeaponModelType.Greatbow:
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
-							if (LocalPlayer.Inventory.Equip(79, false))
+							if (CustomBowBase.baseBow == null)
+							{
+								PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+								LocalPlayer.Inventory.Equip(79, false);
+							}
+							else if (LocalPlayer.Inventory.Equip(79, false))
 							{
 								CustomBowBase.baseBow.SetActive(false);
 								GreatBow.instance.SetActive(true);
+							}
+							else
+							{
+								ModAPI.Log.Write("Trying to equip a greatbow but no crafted bow in inventory");
 							}
 							break;
 
@@ -1334,7 +1348,7 @@ namespace ChampionsOfForest
 			instance.ExtraCarryingCapactity.Clear();
 
 
-			foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemList)
+			foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemSlots)
 			{
 
 				if (item.Value == null)
@@ -1630,11 +1644,11 @@ namespace ChampionsOfForest
 		public static void ReapplyAllItems()
 		{
 			//items
-			foreach (int key in Inventory.Instance.ItemList.Keys)
+			foreach (int key in Inventory.Instance.ItemSlots.Keys)
 			{
-				if (Inventory.Instance.ItemList[key] != null)
+				if (Inventory.Instance.ItemSlots[key] != null)
 				{
-					Inventory.Instance.ItemList[key].Equipped = false;
+					Inventory.Instance.ItemSlots[key].Equipped = false;
 				}
 			}
 		}

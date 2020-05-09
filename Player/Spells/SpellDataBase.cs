@@ -138,7 +138,7 @@ namespace ChampionsOfForest.Player
             {
                 active = ()=> SpellActions.CastBloodInfArr(),
             };
-            new Spell(24, 165, 11, 75, 8, "Roaring Cheeks", "Release a powerful gust of toxic gas that poisons and knocks enemies back")
+            new Spell(24, 165, 69, 400, 360, "Roaring Cheeks", "Release a powerful gust of toxic gas that poisons and knocks enemies back, or cast it mid air to perform a secondary jump, the damage and area of effect will be lower but 2/3 of the cooldown will be refunded")
             {
                 active = () => SpellActions.RipAFatOne(),
             };

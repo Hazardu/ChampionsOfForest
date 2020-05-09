@@ -172,9 +172,9 @@ namespace ChampionsOfForest
             transform.Rotate(Vector3.up * rotationSpeed);
             if (FromEnemy)
             {
+                    if (ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0 && !ModdedPlayer.instance.BlackholePullImmune)
                 if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
                 {
-                    if (ModdedPlayer.instance.StunImmune==0&&ModdedPlayer.instance.DebuffImmune==0 && !ModdedPlayer.instance.BlackholePullImmune)
                     Pull(LocalPlayer.Transform);
                 }
             }

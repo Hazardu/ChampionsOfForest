@@ -104,14 +104,20 @@ namespace ChampionsOfForest.Player
 
         public void EnableTrail()
         {
+            if (trail != null)
+            {
             trail.enabled = true;
             trail.Clear();
+            }
 
         }
         public void DisableTrail()
         {
-            trail.Clear();
-            trail.enabled = false;
+            if (trail != null)
+            {
+                trail.Clear();
+                trail.enabled = false;
+            }
         }
 
         private void InitializeCustomWeapon()

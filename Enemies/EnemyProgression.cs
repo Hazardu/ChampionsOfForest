@@ -30,17 +30,21 @@ namespace ChampionsOfForest
             /// <summary>
             /// Amount of damage dealt second
             /// </summary>
-            public int Amount;
+            public float Amount;
 
             /// <summary>
             /// Timestamp when stoptime needs to be deleted;
             /// </summary>
-            public float StopTime;
-
+            private int Ticks;
+            public bool Tick()
+            {
+                Ticks--;
+                return Ticks <= 0;
+            }
             public DoT(int Damage, float duration)
             {
                 Amount = Damage;
-                StopTime = Time.time + duration;
+                Ticks=Mathf.CeilToInt(duration);
             }
         }
 
@@ -302,7 +306,6 @@ namespace ChampionsOfForest
                 Armor *= 3;
             }
 
-            StartCoroutine(UpdateDoT());
 
             //Extra health for boss type enemies
             switch (_rarity)
@@ -677,6 +680,7 @@ namespace ChampionsOfForest
         {
             try
             {
+                DamageOverTimeList.Clear();
                 if (GameSetup.IsMpClient)
                 {
                     return true;
@@ -869,7 +873,7 @@ namespace ChampionsOfForest
             if (knockbackSpeed > 0)
             {
                 knockbackSpeed -= Time.deltaTime * (knockbackSpeed + 3.5f);
-                transform.Translate(knockbackDir * knockbackSpeed);
+                transform.root.Translate(knockbackDir * knockbackSpeed);
             }
 
 
@@ -924,7 +928,7 @@ namespace ChampionsOfForest
                 }
             }
 
-
+            UpdateDoT();
 
             if (ArcaneCataclysmCD > 0)
             {
@@ -1471,7 +1475,7 @@ namespace ChampionsOfForest
                     if (blackholeCD > 0) { blackholeCD -= Time.deltaTime; }
                     else
                     {
-                        float damage = 2f * Level * Level;
+                        float damage = Mathf.Pow(Level,1.7f);
                         float duration = 7.5f;
                         float radius = 21 + 3* (int)ModSettings.difficulty;
                         float pullforce = 35;
@@ -1694,36 +1698,32 @@ namespace ChampionsOfForest
                 }
             }
         }
-
-        private IEnumerator UpdateDoT()
+        float DoTTimestamp;
+        private void UpdateDoT()
         {
-            while (Health > 0)
+            if(DoTTimestamp < Time.time)
             {
-
-                if (!(DamageOverTimeList == null || DamageOverTimeList.Count == 0))
+                if (DamageOverTimeList != null && DamageOverTimeList.Count >0)
                 {
-                    int d = DamageOverTimeList.Sum(x => x.Amount);
+                        DamageMath.DamageClamp(DamageOverTimeList.Sum(x => x.Amount),out int d,out int rep);
+                    Debug.Log("DOT dmg" + d);
+                    for (int i = 0; i < rep; i++)
                     _Health.Hit(d);
                 }
-                yield return null;
-                float t = Time.time;
                 for (int i = 0; i < DamageOverTimeList.Count; i++)
                 {
-
-                    if (DamageOverTimeList[i].StopTime < t)
+                    if (DamageOverTimeList[i].Tick())
                     {
                         DamageOverTimeList.RemoveAt(i);
                     }
                 }
-                yield return new WaitForSeconds(1);
-            }
-            DamageOverTimeList.Clear();
+                DoTTimestamp = Time.time + 1;            }
 
         }
 
         public void DoDoT(int dmg, float duration)
         {
-           if(! abilities.Contains(Abilities.Juggernaut))
+           if(abilities == null || ! abilities.Contains(Abilities.Juggernaut))
             DamageOverTimeList.Add(new DoT(dmg, duration));
         }
 

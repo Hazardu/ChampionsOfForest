@@ -900,10 +900,6 @@ namespace ChampionsOfForest.Res
             new Resource(173, "LocationPing.png");
             new Resource(174, "PickupPing.png");
             new Resource(175, "Polearm.obj");
-            new Resource(177, "PolearmBladeTexture.jpg");
-            new Resource(178, "PolearmHandleTexture.jpg");
-            new Resource(179, "PolearmBladeNormals.jpg");
-            new Resource(180, "PolearmHandleNormals.jpg");
             new Resource(181, "itemPolearm.png");
 
 
@@ -927,6 +923,7 @@ namespace ChampionsOfForest.Res
             new Resource(1014, "SnapFreeze.wav");
             new Resource(1015, "Blizzard.wav");
             new Resource(1016, "BlackholeDisappearing.wav");
+            new Resource(1017, "Roaring Cheeks spell sfx.wav");
 
 
 
@@ -936,6 +933,8 @@ namespace ChampionsOfForest.Res
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);
             new Resource(2003, "fire", Resource.ResourceType.AssetBundle);
             new Resource(2004, "blackholeeffect.bruh", Resource.ResourceType.AssetBundle);
+            new Resource(2005, "armpole.bruh", Resource.ResourceType.AssetBundle);
+            new Resource(2006, "roaring cheeks fx", Resource.ResourceType.AssetBundle);
 
         }
     }

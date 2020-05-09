@@ -183,6 +183,7 @@
 <Compile Include="Effects\SnapFreeze.cs"  />
 <Compile Include="Effects\Sound Effects\GlobalSFX.cs"  />
 <Compile Include="Effects\SpellAimLine.cs"  />
+<Compile Include="Effects\TheFart.cs"  />
 <Compile Include="Effects\WarCry.cs"  />
 <Compile Include="Enemies\EnemyFallingFix.cs"  />
 <Compile Include="Enemies\ClientEnemy.cs"  />

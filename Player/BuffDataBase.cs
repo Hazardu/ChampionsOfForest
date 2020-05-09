@@ -272,3 +272,4 @@ namespace ChampionsOfForest.Player
 //93 archangel bow buff
 //94 - flare resistance
 //95 triple damage Blood Infused Arrow energy leak
+//96 fart slow

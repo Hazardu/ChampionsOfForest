@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -8,8 +9,74 @@ namespace ChampionsOfForest
         public int Amount;
         public bool Equipped;
         public List<ItemStat> Stats = new List<ItemStat>();
+        private Dictionary<int, float> groupedStats;
+        private void GroupStats()
+        {
+            var grouped = new Dictionary<int, List<float>>();
+            foreach (var stat in Stats)
+            {
+                if (grouped.ContainsKey(stat.StatID))
+                    grouped[stat.StatID].Add(stat.Amount);
+                else
+                    grouped.Add(stat.StatID, new List<float>() { stat.Amount });
+            }
+            groupedStats =new Dictionary<int, float>(grouped.Count);
+            foreach (var group in grouped)
+            {
+                groupedStats.Add(group.Key,ItemDataBase.StatByID(group.Key).EvaluateTotalIncrease(group.Value));
+            }
+
+        }
+        public Dictionary<int, float> GetGroupedStats()
+        {
+            if (Stats.Count == 0)
+                return null;
+            if (groupedStats == null)
+                GroupStats();
+            return groupedStats;
+        }
 
 
+        public int destinationSlotID {
+            get
+            {
+                switch (this._itemType)
+                {
+                    case ItemType.Shield:
+                        return -13;
+                    case ItemType.Quiver:
+                        return -13;
+                    case ItemType.Weapon:
+                        return -12;
+                    case ItemType.Other:
+                        return -1;
+                    case ItemType.Material:
+                        return -1;
+                    case ItemType.Helmet:
+                        return -2;
+                    case ItemType.Boot:
+                        return -5;
+                    case ItemType.Pants:
+                        return -4;
+                    case ItemType.ChestArmor:
+                        return -3;
+                    case ItemType.ShoulderArmor:
+                        return -6;
+                    case ItemType.Glove:
+                        return -7;
+                    case ItemType.Bracer:
+                        return -9;
+                    case ItemType.Amulet:
+                        return -8;
+                    case ItemType.Ring:
+                        return -11;
+                    case ItemType.SpellScroll:
+                        return -13;
+                    default:
+                        return -1;
+                }
+            }
+        }
         public Item()
         {
 
@@ -52,6 +119,7 @@ namespace ChampionsOfForest
         //rolls 'amount' on every item stat on this object 
         public void RollStats()
         {
+            groupedStats = null;
             Stats.Clear();
             foreach (List<ItemStat> PS in PossibleStats)
             {

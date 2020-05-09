@@ -2,6 +2,7 @@
 using ChampionsOfForest.Network;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TheForest.Utils;
 using UnityEngine;
 
@@ -743,6 +744,15 @@ namespace ChampionsOfForest.Player
 			SeekingArrow_Target.gameObject.SetActive(false);
 
 		}
+		public static void SetSeekingArrowTarget(Transform bone)
+		{
+		  SpellActions.SeekingArrow = true;
+                    SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
+                    SpellActions.SeekingArrow_Target.transform.parent = bone;
+                    SpellActions.SeekingArrow_Target.transform.position = bone.position;
+                    SpellActions.SeekingArrow_TimeStamp = Time.time;
+                    SpellActions.SeekingArrow_ChangeTargetOnHit = false;
+		}
 		#endregion
 
 		#region Parry
@@ -892,9 +902,8 @@ namespace ChampionsOfForest.Player
 
 		#region
 
-		public static float fartRadius = 6;
-		public static float fartKnockback = 4, fartSlow = 0.6f, fartDebuffDuration = 6f;
-		public static float fartDoT = 4;
+		public static float fartRadius =30;
+		public static float fartKnockback = 2, fartSlow = 0.8f, fartDebuffDuration = 30f, fartBaseDmg = 20f;
 		public static void FartEffect(float radius,float knockback,float damage,float slow,float duration)
 		{
 		
@@ -904,6 +913,7 @@ namespace ChampionsOfForest.Player
 		{
 			var back = -LocalPlayer.Transform.forward;
 			var origin = LocalPlayer.Transform.position;
+			LocalPlayer.Stats.Fullness -= 0.5f;
 			if (!LocalPlayer.FpCharacter.Grounded)
 			{
 				var vel = LocalPlayer.Rigidbody.velocity;
@@ -918,31 +928,44 @@ namespace ChampionsOfForest.Player
 				LocalPlayer.Rigidbody.velocity = vel;
 				back.y -= 1.5f;
 				back.Normalize();
-			}
-			LocalPlayer.Rigidbody.AddForce(-back * 3, ForceMode.VelocityChange);
-			
-			float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartDoT) * ModdedPlayer.instance.SpellAMP;
-			if (GameSetup.IsMultiplayer)
+			LocalPlayer.Rigidbody.AddForce(-back * 5, ForceMode.VelocityChange);
+			float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartBaseDmg) * ModdedPlayer.instance.SpellAMP/5;
+				if (GameSetup.IsMultiplayer)
+				{
+					System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
+					System.IO.BinaryWriter writer = new System.IO.BinaryWriter(memoryStream);
+					writer.Write(3);
+					writer.Write(14);
+					writer.Write(false);
+					writer.Write(origin.x);
+					writer.Write(origin.y);
+					writer.Write(origin.z);
+					writer.Write(back.x);
+					writer.Write(back.y);
+					writer.Write(back.z);
+					writer.Write(fartRadius/2);
+					writer.Write(dmg);
+					writer.Write(fartKnockback/2);
+					writer.Write(fartSlow);
+					writer.Write(fartDebuffDuration/2);
+					writer.Close();
+					NetworkManager.SendLine(memoryStream.ToArray(), NetworkManager.Target.Others);
+					memoryStream.Close();
+				}
+				if (!GameSetup.IsMpClient)
+				{
+					Effects.TheFartCreator.DealDamageAsHost(origin, back, fartRadius / 2, dmg, fartKnockback/2, fartSlow, fartDebuffDuration/2);
+				}
+				SpellCaster.instance.infos.First(x => x.spell.ID == 24).Cooldown /= 3;
+				}
+			else
 			{
-						System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
-						System.IO.BinaryWriter writer = new System.IO.BinaryWriter(memoryStream);
-						writer.Write(3);
-						writer.Write(14);
-						writer.Write(LocalPlayer.FpCharacter.Grounded);
-						writer.Write(origin.x);
-						writer.Write(origin.y);
-						writer.Write(origin.z);	
-						writer.Write(back.x);
-						writer.Write(back.y);
-						writer.Write(back.z);
-						writer.Write(dmg);
-						writer.Write(fartKnockback);
-						writer.Write(fartSlow);
-						writer.Write(fartDebuffDuration);
-				writer.Close();
-				NetworkManager.SendLine(memoryStream.ToArray(),NetworkManager.Target.Others);
-				memoryStream.Close();
+				float dmg = (ModdedPlayer.instance.SpellDamageBonus + fartBaseDmg) * ModdedPlayer.instance.SpellAMP;
+				BuffDB.AddBuff(1,96,0.4f,7.175f);
+				TheFartCreator.FartWarmup(fartRadius, dmg, fartKnockback, fartSlow, fartDebuffDuration);
 			}
+
+
 		}
 		#endregion
 

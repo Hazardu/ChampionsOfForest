@@ -489,33 +489,23 @@ namespace ChampionsOfForest.Player
 
 		public void CreateCustomWeapons_Spears()
 		{
+			ModAPI.Console.Write("cloning spear and creating the polearm held object");
+
 			var original = _itemViews[158]._held;
 			original.gameObject.SetActive(true);
-			ModAPI.Console.Write("original go " + original.gameObject.name);
-			ModAPI.Console.Write("original parent " + original.transform.parent.name);
-			ModAPI.Console.Write("original 2nd parent " + original.transform.parent.parent.name);
-			//ModReferences.RecursiveComponentList(original);
-			var copy = Instantiate(original.gameObject, original.transform.position, original.transform.rotation, original.transform.parent);
-			original.gameObject.SetActive(false);	//TODO check if enabled helps
+			//var copy = Instantiate(original.gameObject, original.transform.position, original.transform.rotation, original.transform.parent);
 
-			var renderer = copy.GetComponentInChildren<Renderer>();
-			var mf = copy.GetComponentInChildren<MeshFilter>();
+			var secondChild = original.transform.GetChild(1);	//second child contains the model of the spear
 
-			mf.mesh = Res.ResourceLoader.instance.LoadedMeshes[175];
-			renderer.materials = new Material[]{
-			BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-			{
-				MainTexture = Res.ResourceLoader.GetTexture(177),
-				BumpMap = Res.ResourceLoader.GetTexture(179),
-			}) ,
-				BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-			{
-				MainTexture = Res.ResourceLoader.GetTexture(178),
-				BumpMap = Res.ResourceLoader.GetTexture(180),
-			})};
-
+			var assetBundle = Res.ResourceLoader.GetAssetBundle(2005);
+			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("polearm.prefab"));  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
+			modelClone.transform.position = secondChild.position;
+			modelClone.transform.rotation = secondChild.rotation;
+			modelClone.transform.SetParent(original);
+			//Destroy(secondChild.gameObject);
+			original.gameObject.SetActive(false);   
 			var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
-					copy,
+					modelClone,
 					Vector3.zero,
 					new Vector3(0, 0, 0),
 					1f)

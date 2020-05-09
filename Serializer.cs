@@ -99,11 +99,11 @@ namespace ChampionsOfForest
 
                             LoadedItem.Stats.Add(stat);
                         }
-                        Player.Inventory.Instance.ItemList[Slot] = LoadedItem;
+                        Player.Inventory.Instance.ItemSlots[Slot] = LoadedItem;
                     }
                     else
                     {
-                        Player.Inventory.Instance.ItemList[Slot] = null;
+                        Player.Inventory.Instance.ItemSlots[Slot] = null;
                     }
                 }
 
@@ -205,9 +205,9 @@ namespace ChampionsOfForest
             }
 
             //saving inventory
-            buf.Write(Player.Inventory.Instance.ItemList.Count);
+            buf.Write(Player.Inventory.Instance.ItemSlots.Count);
 
-            foreach (KeyValuePair<int, Item> item in Player.Inventory.Instance.ItemList)
+            foreach (KeyValuePair<int, Item> item in Player.Inventory.Instance.ItemSlots)
             {
                 buf.Write(item.Key);
 

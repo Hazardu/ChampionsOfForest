@@ -283,6 +283,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (!spearType && !flintLockAmmoType && !flag2)
 				{
+
 					if (arrowStickToTarget && arrowStickToTarget.enabled)
 					{
 						if (flag)
@@ -290,6 +291,8 @@ namespace ChampionsOfForest.Player
 							EventRegistry.Achievements.Publish(TfEvent.Achievements.BirdArrowKill, null);
 						}
 						arrowStickToTarget.CreatureType(flag3, flag, flag2);
+					if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+						startposition = transform.position;
 						if (BoltNetwork.isRunning)
 						{
 							if (at && at._boltEntity && at._boltEntity.isAttached && at._boltEntity.isOwner)
@@ -307,15 +310,18 @@ namespace ChampionsOfForest.Player
 						base.Invoke("destroyMe", 0.1f);
 					}
 				}
-				if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+				else
 				{
-					SpellActions.SeekingArrow = true;
-					SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
-					SpellActions.SeekingArrow_Target.transform.parent = target.transform;
-					SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y - 0.075f, target.transform.position.z);
-					SpellActions.SeekingArrow_TimeStamp = Time.time;
-					startposition = transform.position;
-					SpellActions.SeekingArrow_ChangeTargetOnHit = false;
+					if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+					{
+						SpellActions.SeekingArrow = true;
+						SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
+						SpellActions.SeekingArrow_Target.transform.parent = target.transform;
+						SpellActions.SeekingArrow_Target.transform.position = new Vector3(target.transform.position.x, transform.position.y - 0.075f, target.transform.position.z);
+						SpellActions.SeekingArrow_TimeStamp = Time.time;
+						startposition = transform.position;
+						SpellActions.SeekingArrow_ChangeTargetOnHit = false;
+					}
 				}
 				if (headDamage &&!flintLockAmmoType && ModdedPlayer.instance.TrueAim && SpellActions.SeekingArrow)
 				{
@@ -765,7 +771,7 @@ namespace ChampionsOfForest.Player
 							}
 							playerHitEnemy.getAttackerType = 4;
 							playerHitEnemy.Hit = sendDamage;
-							if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+							if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites || (ignite&&Random.value<0.1f))
 								playerHitEnemy.Burn = true;
 							AsyncHit.SendPlayerHitEnemy(playerHitEnemy, Repetitions);
 						}
@@ -883,7 +889,7 @@ namespace ChampionsOfForest.Player
 								target.gameObject.SendMessageUpwards("ApplyAnimalSkinDamage", animalHitDirection, SendMessageOptions.DontRequireReceiver);
 							}
 							AsyncHit.SendPlayerHitEnemy(target, Repetitions, sendDamage);
-							if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites)
+							if (GreatBow.isEnabled && ModdedPlayer.instance.GreatBowIgnites || (ignite && Random.value < 0.1f))
 								target.gameObject.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
 							target.gameObject.SendMessageUpwards("getSkinHitPosition", base.transform, SendMessageOptions.DontRequireReceiver);
 						}

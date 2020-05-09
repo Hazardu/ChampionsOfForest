@@ -1,9 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace ChampionsOfForest
 {
     public class ItemStat
     {
+        public class StatCompare
+        {
+            public readonly Func<List<float>, float> CalculateValues;
+
+            public StatCompare(Func<List<float>, float> calculateValues)
+            {
+                CalculateValues = calculateValues;
+            }
+        }
+
+
+
         public float LevelPow = 1;
         public float ValueCap = 0;
         public int StatID = 0;
@@ -15,13 +29,21 @@ namespace ChampionsOfForest
         public float Multipier = 1;
         public bool DisplayAsPercent = false;
         public int RoundingCount;
-
+        private StatCompare comparing;
         public delegate void OnEquipDelegate(float f);
         public OnEquipDelegate OnEquip;
         public delegate void OnUnequipDelegate(float f);
         public OnUnequipDelegate OnUnequip;
         public delegate void OnConsumeDelegate(float f);
         public OnConsumeDelegate OnConsume;
+        //public delegate object VariableReturnDelegate();
+        //public VariableReturnDelegate GetVariable;
+        //public Type variableType;
+        public float EvaluateTotalIncrease(List<float> amounts)
+        {
+            return comparing.CalculateValues(amounts);
+        }
+
         /// <summary>
         /// Creates new itemStat and adds it to the database
         /// </summary>
@@ -31,8 +53,9 @@ namespace ChampionsOfForest
         /// <param name="name">Name of the stat, what should be displayed in the item context menu</param>
         /// <param name="rarity">range 0-7</param>
         /// <param name="LvlPower">How much should it increase per level(min max values will be powered to this amount)</param>
-        public ItemStat(int id, float Min, float Max, float LvlPower, string name, int rarity, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
+        public ItemStat(int id, float Min, float Max, float LvlPower, string name,StatCompare comparingMethod, int rarity, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
         {
+            comparing = comparingMethod;
             LevelPow = LvlPower;
             StatID = id;
             MaxAmount = Max;

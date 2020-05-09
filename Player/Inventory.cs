@@ -16,7 +16,7 @@ namespace ChampionsOfForest.Player
         }
         public int SlotCount;
 
-        public Dictionary<int, Item> ItemList = new Dictionary<int, Item>();
+        public Dictionary<int, Item> ItemSlots = new Dictionary<int, Item>();
 
         private void Awake()
         {
@@ -29,34 +29,34 @@ namespace ChampionsOfForest.Player
         private void Start()
         {
             SlotCount = Height * Width;
-            ItemList.Clear();
+            ItemSlots.Clear();
             for (int y = 0; y < Height; y++)
             {
 
 
                 for (int x = 0; x < Width; x++)
                 {
-                    ItemList.Add(x + y * Width, null);
+                    ItemSlots.Add(x + y * Width, null);
                 }
             }
-            ItemList.Add(-2, null);//helmet
-            ItemList.Add(-3, null);//chest
-            ItemList.Add(-4, null);//pants
-            ItemList.Add(-5, null);//boots
-            ItemList.Add(-6, null);//shoulders
-            ItemList.Add(-7, null);//gloves
-            ItemList.Add(-8, null);//tallisman
-            ItemList.Add(-9, null);//bracer
-            ItemList.Add(-10, null);//ringR
-            ItemList.Add(-11, null);//ringL
-            ItemList.Add(-12, null);//mainHand
-            ItemList.Add(-13, null);//offhand
+            ItemSlots.Add(-2, null);//helmet
+            ItemSlots.Add(-3, null);//chest
+            ItemSlots.Add(-4, null);//pants
+            ItemSlots.Add(-5, null);//boots
+            ItemSlots.Add(-6, null);//shoulders
+            ItemSlots.Add(-7, null);//gloves
+            ItemSlots.Add(-8, null);//tallisman
+            ItemSlots.Add(-9, null);//bracer
+            ItemSlots.Add(-10, null);//ringR
+            ItemSlots.Add(-11, null);//ringL
+            ItemSlots.Add(-12, null);//mainHand
+            ItemSlots.Add(-13, null);//offhand
 
 
         }
         private void Update()
         {
-            foreach (KeyValuePair<int, Item> item in ItemList)
+            foreach (KeyValuePair<int, Item> item in ItemSlots)
             {
                 if (item.Value != null)
                 {
@@ -84,9 +84,9 @@ namespace ChampionsOfForest.Player
         }
         public bool DropItem(int key, int amount = 0)
         {
-            if (ItemList[key] != null && ItemList.ContainsKey(key))
+            if (ItemSlots[key] != null && ItemSlots.ContainsKey(key))
             {
-                Item i = ItemList[key];
+                Item i = ItemSlots[key];
 
                 if (amount == 0)
                 {
@@ -98,15 +98,15 @@ namespace ChampionsOfForest.Player
                     amount = Mathf.Min(amount, i.Amount);
                 }
                 Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up*1.5f + LocalPlayer.Transform.forward *3, amount);
-                ItemList[key].Amount -= amount;
-                if (ItemList[key].Amount <= 0)
+                ItemSlots[key].Amount -= amount;
+                if (ItemSlots[key].Amount <= 0)
                 {
-                    if (ItemList[key].Equipped)
+                    if (ItemSlots[key].Equipped)
                     {
-                        ItemList[key].OnUnequip();
-                        ItemList[key].Equipped = false;
+                        ItemSlots[key].OnUnequip();
+                        ItemSlots[key].Equipped = false;
                     }
-                    ItemList[key] = null;
+                    ItemSlots[key] = null;
                 }
 
 
@@ -121,7 +121,7 @@ namespace ChampionsOfForest.Player
         private IEnumerator DropAllCoroutine()
         {
             int itemsDropped = 0;
-            var keys = ItemList.Keys.ToArray();
+            var keys = ItemSlots.Keys.ToArray();
             for (int i = 0; i < keys.Length; i++)
             {        
             try
@@ -145,7 +145,7 @@ namespace ChampionsOfForest.Player
         private IEnumerator DropEquippedCoroutine()
         {
             int itemsDropped = 0;
-            var keys = ItemList.Keys.ToArray();
+            var keys = ItemSlots.Keys.ToArray();
             for (int i = 0; i < keys.Length; i++)
             {
                 
@@ -184,7 +184,7 @@ namespace ChampionsOfForest.Player
             //}
             for (int i = 0; i < SlotCount; i++)
             {
-                if (ItemList[i] == null)
+                if (ItemSlots[i] == null)
                 {
                     return true;
                 }
@@ -195,21 +195,21 @@ namespace ChampionsOfForest.Player
         {
             for (int i = 0; i < SlotCount; i++)
             {
-                if (ItemList[i] != null)
+                if (ItemSlots[i] != null)
                 {
-                    if (ItemList[i].ID == item.ID)
+                    if (ItemSlots[i].ID == item.ID)
                     {
-                        if (ItemList[i].StackSize >= amount + ItemList[i].Amount)
+                        if (ItemSlots[i].StackSize >= amount + ItemSlots[i].Amount)
                         {
-                            ItemList[i].Amount += amount;
-                            PickedUpNotification(ItemList[i].name);
+                            ItemSlots[i].Amount += amount;
+                            PickedUpNotification(ItemSlots[i].name);
                             amount = 0;
 
                         }
-                        else if (ItemList[i].StackSize - ItemList[i].Amount > 0)
+                        else if (ItemSlots[i].StackSize - ItemSlots[i].Amount > 0)
                         {
-                            int extrafit = ItemList[i].StackSize - ItemList[i].Amount;
-                            ItemList[i].Amount = ItemList[i].StackSize;
+                            int extrafit = ItemSlots[i].StackSize - ItemSlots[i].Amount;
+                            ItemSlots[i].Amount = ItemSlots[i].StackSize;
                             amount -= extrafit;
                         }
                         if (amount <= 0)
@@ -221,11 +221,11 @@ namespace ChampionsOfForest.Player
             }
             for (int i = 0; i < SlotCount; i++)
             {
-                if (ItemList[i] == null)
+                if (ItemSlots[i] == null)
                 {
-                    ItemList[i] = item;
-                    ItemList[i].Amount = amount;
-                    PickedUpNotification(ItemList[i].name);
+                    ItemSlots[i] = item;
+                    ItemSlots[i].Amount = amount;
+                    PickedUpNotification(ItemSlots[i].name);
                     return true;
                 }
             }

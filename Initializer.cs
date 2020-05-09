@@ -76,6 +76,7 @@ namespace ChampionsOfForest
                     go.AddComponent<BlackFlame>();
                     go.AddComponent<AsyncHit>();
                     go.AddComponent<GlobalSFX>();
+                    go.AddComponent<TheFartCreator>();
 
 
                    // go.AddComponent<Crafting>();

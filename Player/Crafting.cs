@@ -89,7 +89,7 @@ namespace ChampionsOfForest.Player
                             level = lvl,
                         };
                         newItem.RollStats();
-                        Inventory.Instance.ItemList[cc.changedItem.pos] = newItem;
+                        Inventory.Instance.ItemSlots[cc.changedItem.pos] = newItem;
                         cc.changedItem.i = newItem;
                         Effects.Sound_Effects.GlobalSFX.Play(3);
 
@@ -168,8 +168,8 @@ namespace ChampionsOfForest.Player
             }
             public void RemoveItem()
             {
-                if (Inventory.Instance.ItemList.ContainsKey(pos))
-                Inventory.Instance.ItemList[pos] = null;
+                if (Inventory.Instance.ItemSlots.ContainsKey(pos))
+                Inventory.Instance.ItemSlots[pos] = null;
                 i = null;
                     pos = -1;
             }

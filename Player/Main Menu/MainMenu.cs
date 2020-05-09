@@ -365,9 +365,9 @@ namespace ChampionsOfForest
 							consumedsomething = false;
 					}
 
-					if (SelectedItem != -1 && Inventory.Instance.ItemList[SelectedItem] != null)
+					if (SelectedItem != -1 && Inventory.Instance.ItemSlots[SelectedItem] != null)
 					{
-						var item = Inventory.Instance.ItemList[SelectedItem];
+						var item = Inventory.Instance.ItemSlots[SelectedItem];
 						if (UnityEngine.Input.GetMouseButtonDown(0))
 						{
 							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
@@ -377,15 +377,15 @@ namespace ChampionsOfForest
 								{
 									for (int i = 0; i < Inventory.Instance.SlotCount; i++)
 									{
-										if (Inventory.Instance.ItemList[i] == null)
+										if (Inventory.Instance.ItemSlots[i] == null)
 										{
 											DraggedItem = null;
 											isDragging = false;
 											CustomCrafting.ClearIndex(SelectedItem);
 											CustomCrafting.ClearIndex(i);
 											DraggedItemIndex = -1;
-											Inventory.Instance.ItemList[i] = item;
-											Inventory.Instance.ItemList[SelectedItem] = null;
+											Inventory.Instance.ItemSlots[i] = item;
+											Inventory.Instance.ItemSlots[SelectedItem] = null;
 											SelectedItem = -1;
 											break;
 										}
@@ -422,9 +422,9 @@ namespace ChampionsOfForest
 											targetSlot = -9;
 											break;
 										case BaseItem.ItemType.Ring:
-											if (Inventory.Instance.ItemList[-10] == null)
+											if (Inventory.Instance.ItemSlots[-10] == null)
 												targetSlot = -10;
-											else if (Inventory.Instance.ItemList[-11] == null)
+											else if (Inventory.Instance.ItemSlots[-11] == null)
 												targetSlot = -11;
 											else
 												targetSlot = -10;
@@ -440,14 +440,14 @@ namespace ChampionsOfForest
 									}
 									if (targetSlot != -1)
 									{
-										if (Inventory.Instance.ItemList[targetSlot] == null)
+										if (Inventory.Instance.ItemSlots[targetSlot] == null)
 										{
 											DraggedItem = null;
 											isDragging = false;
 											DraggedItemIndex = -1;
 											CustomCrafting.ClearIndex(SelectedItem);
-											Inventory.Instance.ItemList[targetSlot] = item;
-											Inventory.Instance.ItemList[SelectedItem] = null;
+											Inventory.Instance.ItemSlots[targetSlot] = item;
+											Inventory.Instance.ItemSlots[SelectedItem] = null;
 											SelectedItem = -1;
 
 										}
@@ -457,8 +457,8 @@ namespace ChampionsOfForest
 											isDragging = false;
 											DraggedItemIndex = -1;
 											CustomCrafting.ClearIndex(SelectedItem);
-											Inventory.Instance.ItemList[SelectedItem] = Inventory.Instance.ItemList[targetSlot];
-											Inventory.Instance.ItemList[targetSlot] = item;
+											Inventory.Instance.ItemSlots[SelectedItem] = Inventory.Instance.ItemSlots[targetSlot];
+											Inventory.Instance.ItemSlots[targetSlot] = item;
 											SelectedItem = -1;
 										}
 									}
@@ -696,7 +696,7 @@ namespace ChampionsOfForest
 					if (DraggedItem.Equipped)
 					{
 						DraggedItem.OnUnequip();
-						Inventory.Instance.ItemList[DraggedItemIndex].Equipped = false;
+						Inventory.Instance.ItemSlots[DraggedItemIndex].Equipped = false;
 					}
 					Inventory.Instance.DropItem(DraggedItemIndex);
 					DraggedItem = null;
@@ -1130,8 +1130,20 @@ namespace ChampionsOfForest
 
 			if (SelectedItem != -1)
 			{
-
-				DrawItemInfo(itemPos, Inventory.Instance.ItemList[SelectedItem]);
+				if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+				{
+						var targetSlotID = Inventory.Instance.ItemSlots[SelectedItem].destinationSlotID;
+					if (SelectedItem > -1 && targetSlotID != -1&& Inventory.Instance.ItemSlots[targetSlotID] != null)
+					{
+							DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem],true, Inventory.Instance.ItemSlots[targetSlotID]);
+					}
+					else
+					DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem]);
+				}
+				else
+				{
+					DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem]);
+				}
 			}
 
 			if (isDragging)
@@ -1146,7 +1158,7 @@ namespace ChampionsOfForest
 					if (DraggedItem.Equipped)
 					{
 						DraggedItem.OnUnequip();
-						Inventory.Instance.ItemList[DraggedItemIndex].Equipped = false;
+						Inventory.Instance.ItemSlots[DraggedItemIndex].Equipped = false;
 					}
 					Inventory.Instance.DropItem(DraggedItemIndex);
 					CustomCrafting.ClearIndex(DraggedItemIndex);
@@ -1414,7 +1426,7 @@ namespace ChampionsOfForest
 				}
 			}
 		}
-		private void DrawItemInfo(Vector2 pos, Item item)
+		private void DrawItemInfo(Vector2 pos, Item item, bool drawCompare = false, Item comparedItem = null)
 		{
 			if (item == null)
 			{
@@ -1507,6 +1519,57 @@ namespace ChampionsOfForest
 				{
 					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount), StatValueStyle);
 				}
+				
+			}
+			if (drawCompare)
+			{
+				var grouped = item.GetGroupedStats();
+				var otherGrouped = comparedItem.GetGroupedStats();
+				GUIStyle statCompareStyle = new GUIStyle(StatValueStyle)
+				{
+					fontStyle = FontStyle.Italic,
+					fontSize = (int)(18 * rr),
+					alignment = TextAnchor.MiddleLeft,
+
+					
+				};
+				if (grouped != null)
+				{
+					Rect compareBG = new Rect(StatRects[0].xMax, StatRects[0].y - 5 * rr, 105 * rr, StatRects[StatRects.Length - 1].yMax - StatRects[0].y + 5 * rr);
+					GUI.color = new Color(1, 1, 1, 0.8f);
+					GUI.DrawTexture(compareBG, _black);
+					GUI.color = Color.gray;
+					int count = item.Stats.Count;
+					for (int i = 0; i <count; i++)
+					{
+						Rect compareRect = new Rect(StatRects[i].xMax, StatRects[i].y, 100 * rr, StatRects[i].height);
+						//object baseVarValue = item.Stats[i].GetVariable();
+						//dynamic castedValue = Convert.ChangeType(baseVarValue, item.Stats[i].variableType);
+
+						float statIncr = otherGrouped != null && otherGrouped.ContainsKey(item.Stats[i].StatID) ? -otherGrouped[item.Stats[i].StatID] : 0;
+						statIncr += grouped[item.Stats[i].StatID];
+						string text = "↑   +";
+						if (statIncr > 0)
+						{
+
+							GUI.color = Color.green;
+						}
+						else if (statIncr < 0)
+						{
+							GUI.color = Color.red;
+							text = "↓   ";
+						}
+						if (item.Stats[i].DisplayAsPercent)
+							statIncr *= 100;
+						statIncr =(float) Math.Round(statIncr, item.Stats[i].RoundingCount);
+							text += statIncr.ToString("N");
+						if (item.Stats[i].DisplayAsPercent)
+							text += "%";
+					
+						GUI.Label(compareRect, text, statCompareStyle);
+
+					}
+				}
 			}
 			GUI.color = Color.white;
 			switch (item._itemType)
@@ -1576,7 +1639,7 @@ namespace ChampionsOfForest
 				GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
 			}
 
-			//move item
+		
 		}
 
 
@@ -1588,10 +1651,10 @@ namespace ChampionsOfForest
 			Color frameColor = Color.black;
 			GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[12]);
 
-			if (Inventory.Instance.ItemList[index] != null)
+			if (Inventory.Instance.ItemSlots[index] != null)
 			{
-				frameColor = RarityColors[Inventory.Instance.ItemList[index].Rarity];
-				if (Inventory.Instance.ItemList[index].icon != null)
+				frameColor = RarityColors[Inventory.Instance.ItemSlots[index].Rarity];
+				if (Inventory.Instance.ItemSlots[index].icon != null)
 				{
 
 					Rect itemRect = new Rect(r);
@@ -1609,7 +1672,7 @@ namespace ChampionsOfForest
 
 						}
 					}
-					if (ModdedPlayer.instance.Level < Inventory.Instance.ItemList[index].level && index < -1)
+					if (ModdedPlayer.instance.Level < Inventory.Instance.ItemSlots[index].level && index < -1)
 					{
 						frameColor = Color.black;
 						GUI.color = Color.black;
@@ -1619,12 +1682,12 @@ namespace ChampionsOfForest
 					else
 						GUI.color = new Color(1, 1, 1, 1);
 
-					GUI.DrawTexture(itemRect, Inventory.Instance.ItemList[index].icon);
-					if (Inventory.Instance.ItemList[index].StackSize > 1)
+					GUI.DrawTexture(itemRect, Inventory.Instance.ItemSlots[index].icon);
+					if (Inventory.Instance.ItemSlots[index].StackSize > 1)
 					{
 						GUI.color = Color.white;
 
-						GUI.Label(r, Inventory.Instance.ItemList[index].Amount.ToString("N0"), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold });
+						GUI.Label(r, Inventory.Instance.ItemSlots[index].Amount.ToString("N0"), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerLeft, fontSize = Mathf.RoundToInt(15 * rr), font = MainFont, fontStyle = FontStyle.Bold });
 					}
 
 
@@ -1730,11 +1793,11 @@ namespace ChampionsOfForest
 							}
 							if (DraggedItemIndex < 0)
 							{
-								if (DraggedItem._itemType != Inventory.Instance.ItemList[index]._itemType)
+								if (DraggedItem._itemType != Inventory.Instance.ItemSlots[index]._itemType)
 								{
 									if (DraggedItemIndex == -13)
 									{
-										if (Inventory.Instance.ItemList[index]._itemType != BaseItem.ItemType.Shield || Inventory.Instance.ItemList[index]._itemType != BaseItem.ItemType.Quiver || Inventory.Instance.ItemList[index]._itemType != BaseItem.ItemType.SpellScroll)
+										if (Inventory.Instance.ItemSlots[index]._itemType != BaseItem.ItemType.Shield || Inventory.Instance.ItemSlots[index]._itemType != BaseItem.ItemType.Quiver || Inventory.Instance.ItemSlots[index]._itemType != BaseItem.ItemType.SpellScroll)
 										{
 											canPlace = false;
 										}
@@ -1772,9 +1835,9 @@ namespace ChampionsOfForest
 
 									if (canPlace)
 									{
-										Item backup = Inventory.Instance.ItemList[index];
-										Inventory.Instance.ItemList[index] = DraggedItem;
-										Inventory.Instance.ItemList[DraggedItemIndex] = backup;
+										Item backup = Inventory.Instance.ItemSlots[index];
+										Inventory.Instance.ItemSlots[index] = DraggedItem;
+										Inventory.Instance.ItemSlots[DraggedItemIndex] = backup;
 										CustomCrafting.UpdateIndex(index, DraggedItemIndex);
 										CustomCrafting.UpdateIndex(DraggedItemIndex, index);
 
@@ -1785,24 +1848,24 @@ namespace ChampionsOfForest
 									}
 									else
 									{
-										Inventory.Instance.ItemList[DraggedItemIndex] = DraggedItem;
+										Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
 										DraggedItem = null;
 										DraggedItemIndex = -1;
 									}
 								}
 								else
 								{
-									if (DraggedItem.ID != Inventory.Instance.ItemList[index].ID
+									if (DraggedItem.ID != Inventory.Instance.ItemSlots[index].ID
 									 || DraggedItem.Amount == DraggedItem.StackSize
-									 || Inventory.Instance.ItemList[index].Amount == Inventory.Instance.ItemList[index].StackSize
-									 || (Inventory.Instance.ItemList[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
+									 || Inventory.Instance.ItemSlots[index].Amount == Inventory.Instance.ItemSlots[index].StackSize
+									 || (Inventory.Instance.ItemSlots[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
 									{
 										if (canPlace)
 										{
 											//replace items
-											Item backup = Inventory.Instance.ItemList[index];
-											Inventory.Instance.ItemList[index] = DraggedItem;
-											Inventory.Instance.ItemList[DraggedItemIndex] = backup;
+											Item backup = Inventory.Instance.ItemSlots[index];
+											Inventory.Instance.ItemSlots[index] = DraggedItem;
+											Inventory.Instance.ItemSlots[DraggedItemIndex] = backup;
 											CustomCrafting.UpdateIndex(index, DraggedItemIndex);
 											CustomCrafting.UpdateIndex(DraggedItemIndex, index);
 											DraggedItem = null;
@@ -1813,19 +1876,19 @@ namespace ChampionsOfForest
 									else if (DraggedItemIndex != index)
 									{
 										//stack items
-										int i = DraggedItem.Amount + Inventory.Instance.ItemList[index].Amount - DraggedItem.StackSize;
+										int i = DraggedItem.Amount + Inventory.Instance.ItemSlots[index].Amount - DraggedItem.StackSize;
 										if (i > 0)  //too much to stack completely
 										{
-											Inventory.Instance.ItemList[index].Amount = Inventory.Instance.ItemList[index].StackSize;
-											Inventory.Instance.ItemList[DraggedItemIndex].Amount = i;
+											Inventory.Instance.ItemSlots[index].Amount = Inventory.Instance.ItemSlots[index].StackSize;
+											Inventory.Instance.ItemSlots[DraggedItemIndex].Amount = i;
 											DraggedItem = null;
 											DraggedItemIndex = -1;
 											isDragging = false;
 										}
 										else //enough to stack completely
 										{
-											Inventory.Instance.ItemList[index].Amount += DraggedItem.Amount;
-											Inventory.Instance.ItemList[DraggedItemIndex] = null;
+											Inventory.Instance.ItemSlots[index].Amount += DraggedItem.Amount;
+											Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
 
 											CustomCrafting.ClearIndex(DraggedItemIndex);
 											DraggedItem = null;
@@ -1852,7 +1915,7 @@ namespace ChampionsOfForest
 								Effects.Sound_Effects.GlobalSFX.Play(0);
 
 								isDragging = true;
-								DraggedItem = Inventory.Instance.ItemList[index];
+								DraggedItem = Inventory.Instance.ItemSlots[index];
 								DraggedItemIndex = index;
 
 							}
@@ -1863,12 +1926,12 @@ namespace ChampionsOfForest
 								if (!consumedsomething)
 								{
 									consumedsomething = true;
-									if (Inventory.Instance.ItemList[index].OnConsume())
+									if (Inventory.Instance.ItemSlots[index].OnConsume())
 									{
-										Inventory.Instance.ItemList[index].Amount--;
-										if (Inventory.Instance.ItemList[index].Amount <= 0)
+										Inventory.Instance.ItemSlots[index].Amount--;
+										if (Inventory.Instance.ItemSlots[index].Amount <= 0)
 										{
-											Inventory.Instance.ItemList[index] = null;
+											Inventory.Instance.ItemSlots[index] = null;
 										}
 									}
 								}
@@ -1999,8 +2062,8 @@ namespace ChampionsOfForest
 							}
 							if (canPlace)
 							{
-								Inventory.Instance.ItemList[index] = DraggedItem;
-								Inventory.Instance.ItemList[DraggedItemIndex] = null;
+								Inventory.Instance.ItemSlots[index] = DraggedItem;
+								Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
 								CustomCrafting.UpdateIndex(DraggedItemIndex, index);
 								DraggedItem = null;
 								DraggedItemIndex = -1;
@@ -2009,8 +2072,8 @@ namespace ChampionsOfForest
 							}
 							else
 							{
-								Inventory.Instance.ItemList[index] = null;
-								Inventory.Instance.ItemList[DraggedItemIndex] = DraggedItem;
+								Inventory.Instance.ItemSlots[index] = null;
+								Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
 								DraggedItem = null;
 								DraggedItemIndex = -1;
 							}
@@ -2018,8 +2081,8 @@ namespace ChampionsOfForest
 
 						else if (DraggedItemIndex != index)
 						{
-							Inventory.Instance.ItemList[index] = DraggedItem;
-							Inventory.Instance.ItemList[DraggedItemIndex] = null;
+							Inventory.Instance.ItemSlots[index] = DraggedItem;
+							Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
 							CustomCrafting.UpdateIndex(DraggedItemIndex, index);
 							DraggedItem = null;
 							DraggedItemIndex = -1;
@@ -2034,7 +2097,7 @@ namespace ChampionsOfForest
 			GUI.color = Color.white;
 			if (r.Contains(mousepos))
 			{
-				if (Inventory.Instance.ItemList[index] != null)
+				if (Inventory.Instance.ItemSlots[index] != null)
 				{
 					itemPos = r.position + r.width * Vector2.right;
 					SelectedItem = index;

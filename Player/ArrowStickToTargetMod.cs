@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
-    public class ArrowStickToTargetMod : arrowStickToTarget
+    public class XArrowStickToTargetMod : arrowStickToTarget
     {
         public override bool stickArrowToNearestBone(Transform arrow)
         {
@@ -66,10 +66,10 @@ namespace ChampionsOfForest.Player
             }
             Transform tip = gameObject.GetComponent<global::fakeArrowSetup>().tip;
             tip.position -= tip.forward*1.4f;
-            int num = this.returnNearestJointMidPoint(tip);
+            int number = this.returnNearestJointMidPoint(tip);
             if (this.singleJointMode)
             {
-                num = 0;
+                number = 0;
                 Vector3 vector = (gameObject.transform.position - this.baseJoint.position).normalized;
                 vector = this.baseJoint.position + vector * 0.2f;
                 gameObject.transform.parent = this.baseJoint;
@@ -78,15 +78,15 @@ namespace ChampionsOfForest.Player
             }
             else
             {
-                Transform transform = this.stickToJoints[num];
-                IEnumerator enumerator = this.stickToJoints[num].GetEnumerator();
+                Transform transform = this.stickToJoints[number];
+                IEnumerator enumerator = this.stickToJoints[number].GetEnumerator();
                 try
                 {
                     while (enumerator.MoveNext())
                     {
                         object obj = enumerator.Current;
                         Transform transform2 = (Transform)obj;
-                        if (!transform2.GetComponent<MonoBehaviour>())
+                        if (transform2.GetComponent<MonoBehaviour>()==null)
                         {
                             transform = transform2;
                             break;
@@ -95,41 +95,35 @@ namespace ChampionsOfForest.Player
                 }
                 finally
                 {
-                    IDisposable disposable;
-                    if ((disposable = (enumerator as IDisposable)) != null)
+                    IDisposable disp;
+                    if ((disp = (enumerator as IDisposable)) != null)
                     {
-                        disposable.Dispose();
+                        disp.Dispose();
                     }
                 }
-                //if (SpellActions.SeekingArrow_ChangeTargetOnHit)
-                //{
-                //    SpellActions.SeekingArrow = true;
-                //    SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
-                //    SpellActions.SeekingArrow_Target.transform.parent = this.stickToJoints[num];
-                //    SpellActions.SeekingArrow_Target.transform.position = this.stickToJoints[num].position;
-                //    SpellActions.SeekingArrow_TimeStamp = Time.time;
-                //    startposition = transform.position;
-                //    SpellActions.SeekingArrow_ChangeTargetOnHit = false;
-                //}
+                if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+                {
+                    SpellActions.SetSeekingArrowTarget(stickToJoints[number]);
+                }
 
 
 
 
-                Vector3 vector2 = (this.stickToJoints[num].position + transform.position) / 2f;
+                Vector3 vector2 = (this.stickToJoints[number].position + transform.position) / 2f;
                 Vector3 vector3 = (gameObject.transform.position - vector2).normalized;
                 vector3 = vector2 + vector3 * 0.35f;
-                gameObject.transform.parent = this.stickToJoints[num];
+                gameObject.transform.parent = this.stickToJoints[number];
                 gameObject.transform.position = vector3;
                 gameObject.transform.rotation = Quaternion.LookRotation(gameObject.transform.position - vector2) * Quaternion.Euler(-90f, 0f, 0f);
             }
             bool result = false;
-            if (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<global::headShotObject>())
+            if (this.stickToJoints.Length > 0 && this.stickToJoints[number] && this.stickToJoints[number].GetComponent<global::headShotObject>())
             {
                 result = true;
             }
             if (!this.stuckArrows.ContainsKey(gameObject.transform))
             {
-                this.stuckArrows.Add(gameObject.transform, num);
+                this.stuckArrows.Add(gameObject.transform, number);
                 this.stuckArrowsTypeList.Add(item);
                 global::fakeArrowSetup component3 = gameObject.GetComponent<global::fakeArrowSetup>();
                 if (component3 && BoltNetwork.isRunning)
@@ -146,11 +140,11 @@ namespace ChampionsOfForest.Player
                 {
                     if (this.IsCreature && BoltNetwork.isServer)
                     {
-                        base.StartCoroutine(this.SendArrowMPDelayed(gameObject, num, types, flag));
+                        base.StartCoroutine(this.SendArrowMPDelayed(gameObject, number, types, flag));
                     }
                     else
                     {
-                        this.sendArrowMP(gameObject, num, types, flag);
+                        this.sendArrowMP(gameObject, number, types, flag);
                     }
                 }
             }
