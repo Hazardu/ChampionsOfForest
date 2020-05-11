@@ -98,6 +98,10 @@ namespace ChampionsOfForest.Player
             ColliderScale = 1;
             Scale = scale;
             this.obj = obj;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.Rotate(rotation, Space.Self);
+            obj.transform.localPosition = offset;
+            obj.transform.localScale = Vector3.one * Scale;
             PlayerInventoryMod.customWeapons.Add(model, this);
         }
 

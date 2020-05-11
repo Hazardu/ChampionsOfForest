@@ -33,7 +33,7 @@ namespace ChampionsOfForest
 				GUI.Label(new Rect(700, 430, 100, 30), PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].rotation.y.ToString());
 				GUI.Label(new Rect(800, 430, 100, 30), PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].rotation.z.ToString());
 
-				rotX = GUI.TextField(new Rect(600, 460, 100, 30), rotZ);
+				rotX = GUI.TextField(new Rect(600, 460, 100, 30), rotX);
 				rotY = GUI.TextField(new Rect(700, 460, 100, 30), rotY);
 				rotZ = GUI.TextField(new Rect(800, 460, 100, 30), rotZ);
 
@@ -45,7 +45,9 @@ namespace ChampionsOfForest
 						{
 							if (float.TryParse(posZ, out float z))
 							{
-								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].offset = new Vector3(x, y, z);
+								Vector3 v = new Vector3(x, y, z);
+								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].obj.transform.localPosition = v;
+								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].offset = v;
 							}
 						}
 					}
@@ -55,7 +57,9 @@ namespace ChampionsOfForest
 						{
 							if (float.TryParse(rotZ, out float z))
 							{
-								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].rotation = new Vector3(x1, y, z);
+								Vector3 v = new Vector3(x1, y, z);
+								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].obj.transform.localRotation =Quaternion.Euler( v);
+								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].rotation = v;
 							}  
 						}           
 					}

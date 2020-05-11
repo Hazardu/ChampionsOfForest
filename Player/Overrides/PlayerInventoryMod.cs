@@ -41,9 +41,7 @@ namespace ChampionsOfForest.Player
 				if (itemView != null)
 				{
 					EquippedModel = BaseItem.WeaponModelType.None;
-					if (itemView.gameObject.name == "axePlane_Inv")
-					{
-						if (BoltNetwork.isRunning)
+						if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType!= BaseItem.WeaponModelType.None)
 						{
 							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 							{
@@ -58,6 +56,8 @@ namespace ChampionsOfForest.Player
 								answerStream.Close();
 							}
 						}
+					if (itemView.gameObject.name == "axePlane_Inv")
+					{
 
 						if (ModReferences.rightHandTransform == null)
 						{
@@ -137,7 +137,7 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
 							itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
 							itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
-							itemView._heldWeaponInfo.treeDamage = OriginalTreeDmg;
+							itemView._heldWeaponInfo.treeDamage = 0;
 							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = false;
@@ -171,7 +171,7 @@ namespace ChampionsOfForest.Player
 								itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
 								itemView._heldWeaponInfo.spear = cw.spearType;
 								itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
-								itemView.GetComponent<Renderer>().enabled = false;
+								itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(false);
 							}
 							catch (System.Exception exc)
 							{
@@ -194,7 +194,7 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = true;
-							itemView.GetComponent<Renderer>().enabled = true;
+							itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(true);
 
 						}
 					}
@@ -498,7 +498,7 @@ namespace ChampionsOfForest.Player
 			var secondChild = original.transform.GetChild(1);	//second child contains the model of the spear
 
 			var assetBundle = Res.ResourceLoader.GetAssetBundle(2005);
-			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("polearm.prefab"));  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
+			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("PolearmPrefab.prefab"),original.transform);  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
 			modelClone.transform.position = secondChild.position;
 			modelClone.transform.rotation = secondChild.rotation;
 			modelClone.transform.SetParent(original);
@@ -510,13 +510,14 @@ namespace ChampionsOfForest.Player
 					new Vector3(0, 0, 0),
 					1f)
 			{
-				spearType = false,
+				spearType = true,
 				damage = 90f,
 				staminaDrain = 25,
 				blockTreeCut = false,
 				smashDamage = 300f,
 				swingspeed = 100,
-				
+				ColliderScale = 5,
+				treeDamage = 1,
 			};
 		}
 	}
