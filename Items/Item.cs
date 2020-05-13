@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheForest.Utils;
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -89,7 +90,39 @@ namespace ChampionsOfForest
             base.description = b.description;
             base.minLevel = b.minLevel;
             base.maxLevel = b.maxLevel;
-            base.level = UnityEngine.Random.Range(minLevel, maxLevel + 1) + increasedLevel;
+            if (increasedLevel != -1)
+            {
+                base.level = UnityEngine.Random.Range(minLevel, maxLevel + 1) + increasedLevel;
+            }
+            else
+            {
+                int averageLevel = 1;
+                if (GameSetup.IsMultiplayer)
+                {
+                    int sum = ModReferences.PlayerLevels.Values.Sum();
+                    int count = ModReferences.PlayerLevels.Values.Count;
+
+                    if (!ModSettings.IsDedicated)
+                    {
+                        sum += ModdedPlayer.instance.Level;
+                        count++;
+                    }
+                    else
+                    {
+                        //ModAPI.Log.Write("Is dedicated server bool set to true.");
+                    }
+                    sum = Mathf.Max(1, sum);
+                    count = Mathf.Max(1, count);
+                    sum /= count;
+                    averageLevel = sum;
+                }
+                else
+                {
+                    averageLevel = ModdedPlayer.instance.Level;
+                }
+                averageLevel = Mathf.Max(1, averageLevel);
+                base.level = averageLevel;
+            }
             base.lore = b.lore;
             base.name = b.name;
             base.onEquip = b.onEquip;

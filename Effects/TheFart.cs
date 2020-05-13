@@ -23,10 +23,15 @@ namespace ChampionsOfForest.Effects
 				instance = this;
 				if (prefabStanding == null)
 				{
-					var bundle = Res.ResourceLoader.GetAssetBundle(2006);
+					var bundle = Res.ResourceLoader.GetAssetBundle(2005);
 					prefabStanding = bundle.LoadAsset<GameObject>("roaringFX.prefab");
 					prefabJumping = bundle.LoadAsset<GameObject>("roaring jump.prefab");
 					ModAPI.Log.Write("prefabStanding = " + prefabStanding.name);
+					var renderers = prefabStanding.GetComponentsInChildren<Renderer>();
+					foreach (var item in renderers)
+					{
+						ModAPI.Console.Write(item.material.shader.name);
+					}
 				}
 			}
 			catch (Exception e)
@@ -63,12 +68,14 @@ namespace ChampionsOfForest.Effects
 		}
 		IEnumerator FartWarmupAsync(float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
+			ModAPI.Console.Write("1");
 			PlayAudio(LocalPlayer.Transform.position);
 			yield return new WaitForSeconds(7.17f);
 			var origin = LocalPlayer.Transform.position;
 			var back = -LocalPlayer.Transform.forward;
+			ModAPI.Console.Write("2");
 
-			Instantiate(prefabStanding, origin, Quaternion.LookRotation(back));
+			var obj =  Instantiate(prefabStanding, origin, Quaternion.LookRotation(back));
 			LocalPlayer.Rigidbody.AddForce((-back*2+Vector3.up) * 5, ForceMode.VelocityChange);
 			if (GameSetup.IsMultiplayer)
 			{

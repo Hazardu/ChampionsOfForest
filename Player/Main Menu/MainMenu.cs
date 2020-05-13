@@ -49,6 +49,7 @@ namespace ChampionsOfForest
 		private GUIStyle MenuBtnStyle;                  //style of font for main menu button
 		private readonly float DarkeningSpeed = 2;      //speed of transion between menus
 		public Font MainFont;                           //main font for the mod
+		public Font SecondaryFont;                      //secondary font
 		private float requestResendTime = 0;            //float that measures time between difficulty request times
 
 
@@ -228,7 +229,7 @@ namespace ChampionsOfForest
 				rr = Screen.height / 1080f;
 				wholeScreen = new Rect(0, 0, Screen.width, Screen.height);
 
-				slotDim = new Vector2(100 * rr, 100 * rr);
+				slotDim = new Vector2(50 * rr, 50 * rr);
 
 				_black = new Texture2D(1, 1);
 				_black.SetPixel(0, 0, Color.black);
@@ -256,7 +257,9 @@ namespace ChampionsOfForest
 				{
 					MainFont = Font.CreateDynamicFontFromOSFont("Arial", Mathf.RoundToInt(24 * rr));
 				}
-
+				SecondaryFont = Font.CreateDynamicFontFromOSFont("Old English Text MT", 35);
+				if (!SecondaryFont)
+					SecondaryFont = MainFont;
 				//Getting textures using ResourceLoader
 				_combatDurationTex = ResourceLoader.instance.LoadedTextures[18];
 				_expBarFillTex = ResourceLoader.instance.LoadedTextures[16];
@@ -468,34 +471,42 @@ namespace ChampionsOfForest
 							{
 								if (SelectedItem > -1)
 								{
-									int max = 2;
-									switch (CustomCrafting.instance.craftMode)
+									if (CustomCrafting.instance.changedItem == null)
 									{
-										case CustomCrafting.CraftMode.Rerolling:
-
-											max = CustomCrafting.instance.rerolling.IngredientCount;
-											break;
-										case CustomCrafting.CraftMode.Reforging:
-											max = CustomCrafting.instance.reforging.IngredientCount;
-											break;
-										case CustomCrafting.CraftMode.Repurposing:
-											break;
-										case CustomCrafting.CraftMode.Upgrading:
-											break;
-										default:
-											break;
+										CustomCrafting.instance.changedItem.Assign(SelectedItem, Inventory.Instance.ItemSlots[SelectedItem]);
 									}
-									for (int j = 0; j < max; j++)
+									else
 									{
-										if (CustomCrafting.instance.ingredients[j].i == null)
+
+										int max = 2;
+										switch (CustomCrafting.instance.craftMode)
 										{
-											if (!(CustomCrafting.instance.ingredients.Any(x => x.i == item) || CustomCrafting.instance.changedItem.i == item))
-											{
-												CustomCrafting.instance.ingredients[j].Assign(SelectedItem, item);
-												DraggedItem = null;
-												DraggedItemIndex = -1;
-												isDragging = false;
+											case CustomCrafting.CraftMode.Rerolling:
+
+												max = CustomCrafting.instance.rerolling.IngredientCount;
 												break;
+											case CustomCrafting.CraftMode.Reforging:
+												max = CustomCrafting.instance.reforging.IngredientCount;
+												break;
+											case CustomCrafting.CraftMode.Repurposing:
+												break;
+											case CustomCrafting.CraftMode.Upgrading:
+												break;
+											default:
+												break;
+										}
+										for (int j = 0; j < max; j++)
+										{
+											if (CustomCrafting.instance.ingredients[j].i == null)
+											{
+												if (!(CustomCrafting.instance.ingredients.Any(x => x.i == item) || CustomCrafting.instance.changedItem.i == item))
+												{
+													CustomCrafting.instance.ingredients[j].Assign(SelectedItem, item);
+													DraggedItem = null;
+													DraggedItemIndex = -1;
+													isDragging = false;
+													break;
+												}
 											}
 										}
 									}
@@ -1040,7 +1051,7 @@ namespace ChampionsOfForest
 		private void DrawInventory()
 		{
 			Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
-			GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
+			GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = SecondaryFont, fontSize = Mathf.RoundToInt(65 * rr) });
 			SelectedItem = -1;
 
 			try
@@ -1058,8 +1069,8 @@ namespace ChampionsOfForest
 
 				//PlayerSlots
 				Rect eq = new Rect(SlotsRect.xMax + 30 * rr, 0, 420 * rr, Screen.height);
-				GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = MainFont, fontSize = Mathf.RoundToInt(65 * rr) });
-				Rect head = new Rect(Vector2.zero, slotDim)
+				GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = SecondaryFont, fontSize = Mathf.RoundToInt(65 * rr) });
+				Rect head = new Rect(Vector2.zero, slotDim*2)
 				{
 					center = eq.center
 				};
@@ -2131,7 +2142,7 @@ namespace ChampionsOfForest
 				return;
 			}
 			GUI.color = new Color(1, 0.5f, 0.7f, 0.5f);
-			GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = MainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
+			GUIStyle HitmarkerStyle = new GUIStyle(GUI.skin.label) { font = SecondaryFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter };
 			for (int i = 0; i < hitMarkers.Count; i++)
 			{
 				hitMarkers[i].lifetime -= Time.unscaledDeltaTime * 2;
@@ -2158,7 +2169,7 @@ namespace ChampionsOfForest
 					float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
 					Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
 					pos.y = Screen.height - pos.y;
-					float size = Mathf.Clamp(800 / distance, 10, 80);
+					float size = Mathf.Clamp(600 / distance, 10, 50);
 					size *= rr;
 					Rect r = new Rect(0, 0, 400, size)
 					{
@@ -2769,7 +2780,7 @@ namespace ChampionsOfForest
 									enemy = hit.transform.root.GetComponentInChildren<EnemyProgression>();
 								}
 								if (enemy != null)
-									localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+									localPlayerPing = new MarkEnemy(enemy.transform, enemy.enemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
 								else
 								{
 									localPlayerPing = new MarkEnemy(enemy.transform, "Enemy", false);
@@ -2821,13 +2832,13 @@ namespace ChampionsOfForest
 													w.Write(0);
 													w.Write(entity.networkId.PackedValue);
 													w.Write(enemy._rarity != EnemyProgression.EnemyRarity.Normal);
-													w.Write(enemy.EnemyName);
+													w.Write(enemy.enemyName);
 													w.Close();
 												}
 												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 												answerStream.Close();
 											}
-											localPlayerPing = new MarkEnemy(enemy.transform, enemy.EnemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+											localPlayerPing = new MarkEnemy(enemy.transform, enemy.enemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
 										}
 									}
 								}
@@ -3451,7 +3462,7 @@ namespace ChampionsOfForest
 		{
 			headerstyle = new GUIStyle(GUI.skin.label)
 			{
-				font = MainFont,
+				font = SecondaryFont,
 				fontSize = Mathf.RoundToInt(70 * rr),
 				hover = new GUIStyleState()
 				{

@@ -933,8 +933,7 @@ namespace ChampionsOfForest.Res
             new Resource(2002, "deathmark", Resource.ResourceType.AssetBundle);
             new Resource(2003, "fire", Resource.ResourceType.AssetBundle);
             new Resource(2004, "blackholeeffect.bruh", Resource.ResourceType.AssetBundle);
-            new Resource(2005, "polearmassetbundle", Resource.ResourceType.AssetBundle);
-            new Resource(2006, "roaring cheeks fx", Resource.ResourceType.AssetBundle);
+            new Resource(2005, "update157", Resource.ResourceType.AssetBundle);
 
         }
     }

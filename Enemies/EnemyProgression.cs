@@ -65,13 +65,12 @@ namespace ChampionsOfForest
 
         //Variables
         #region Variables
-        public string EnemyName;
+        public string enemyName;
 
         public int Level;
         public int Armor;
         public int ArmorReduction;
 
-        public int Health { get => (int)Mathf.Min(_hp, int.MaxValue - 5); set { _Health.Health = value; _hp = value; } }
         public float FinalHealth;
 
         public float _hp;
@@ -149,6 +148,13 @@ namespace ChampionsOfForest
         /// </summary>
         private void RollName()
         {
+            if (enemyType == Enemy.Megan)
+            {
+                enemyName = "Megan Cross";
+                return;
+            } 
+
+
             List<string> names = new List<string>();
             string prefix = "";
             if (_AI.female || _AI.creepy || _AI.femaleSkinny)    //is female
@@ -170,7 +176,7 @@ namespace ChampionsOfForest
             {
                 names.Add("Zebulon");
             }
-            EnemyName = prefix + names[Random.Range(0, names.Count)];
+            enemyName = prefix + names[Random.Range(0, names.Count)];
         
         }
         #endregion
@@ -207,7 +213,7 @@ namespace ChampionsOfForest
             }
 
             StopAllCoroutines();
-            RollName();
+           
 
             Steadfast = 100;
             slows = new Dictionary<int, EnemyDebuff>();
@@ -285,10 +291,8 @@ namespace ChampionsOfForest
 
 
             SetType();
-
-            //Assigning level
             SetLevel();
-
+            RollName();
             //Assigning rest of stats
             int dif = (int)ModSettings.difficulty;
             DamageMult = Mathf.Pow(Level, 4) / 100f + 0.5f;
@@ -797,8 +801,10 @@ namespace ChampionsOfForest
 
                     if (enemyType == Enemy.Megan && (int)ModSettings.difficulty > 4)
                     {
+                       
+                       
                         //Drop megan only amulet
-                        Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, 2), transform.position + Vector3.up * 3);
+                        Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1,-1), transform.position + Vector3.up * 3);
 
                     }
                 }
@@ -1537,7 +1543,7 @@ namespace ChampionsOfForest
             else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleSkinnyMale; }
             else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedSkinnyMale; }
             else if (_AI.male && _AI.pale && !_AI.painted && !_AI.leader && !_AI.skinned) { enemyType = Enemy.PaleMale; }
-            else if (_AI.maleSkinny && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedMale; }
+            else if (_AI.male && _AI.pale && !_AI.painted && !_AI.leader && _AI.skinned) { enemyType = Enemy.PaleSkinnedMale; }
         }
         private void SetLevel()
         {
@@ -1701,32 +1707,67 @@ namespace ChampionsOfForest
         float DoTTimestamp;
         private void UpdateDoT()
         {
-            if(DoTTimestamp < Time.time)
+            if (DoTTimestamp < Time.time)
             {
-                if (DamageOverTimeList != null && DamageOverTimeList.Count >0)
+                if (DamageOverTimeList != null && DamageOverTimeList.Count > 0)
                 {
-                        DamageMath.DamageClamp(DamageOverTimeList.Sum(x => x.Amount),out int d,out int rep);
-                    Debug.Log("DOT dmg" + d);
-                    for (int i = 0; i < rep; i++)
-                    _Health.Hit(d);
-                }
-                for (int i = 0; i < DamageOverTimeList.Count; i++)
-                {
-                    if (DamageOverTimeList[i].Tick())
+                    if (_hp > 0)
                     {
-                        DamageOverTimeList.RemoveAt(i);
+
+                        float i = Mathf.Min(_hp, DoTTotal);
+                        _hp -= i;
+                        _Health.Health -= Mathf.FloorToInt(DoTTotal - i);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, (int)DoTTotal, Color.black);
+                    }
+                    else
+                    {
+                        _Health.Health -= Mathf.FloorToInt(DoTTotal);
+                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, (int)DoTTotal, Color.black);
+
+                    }
+
+
+
+                    for (int i = 0; i < DamageOverTimeList.Count; i++)
+                    {
+                        if (DamageOverTimeList[i].Tick())
+                        {
+                            DamageOverTimeList.RemoveAt(i);
+                            GetTotalDoT();
+                        }
                     }
                 }
-                DoTTimestamp = Time.time + 1;            }
-
+                    DoTTimestamp = Time.time + 1;
+            }
         }
-
-        public void DoDoT(int dmg, float duration)
+        public enum DamageType
         {
-           if(abilities == null || ! abilities.Contains(Abilities.Juggernaut))
-            DamageOverTimeList.Add(new DoT(dmg, duration));
+        Pure, Physical, Magical
         }
-
+        public void DoDoT(int dmg, float duration, DamageType dt = DamageType.Physical)
+        {
+            if (abilities == null || !abilities.Contains(Abilities.Juggernaut))
+            {
+                switch (dt)
+                {
+                    case DamageType.Pure:
+                        DamageOverTimeList.Add(new DoT(dmg, duration));
+                        break;
+                    case DamageType.Physical:
+                        DamageOverTimeList.Add(new DoT(ClampDamage(false, dmg, false), duration));
+                        break;
+                    case DamageType.Magical:
+                        DamageOverTimeList.Add(new DoT(ClampDamage(false, dmg, true), duration));
+                        break;
+                }
+                GetTotalDoT();
+            }
+        }
+        private float DoTTotal;
+        private void GetTotalDoT()
+        {
+            DoTTotal =DamageOverTimeList.Sum(x => x.Amount);
+        }
 
 
         public void AddKnockback(Vector3 dir, float amount)

@@ -281,7 +281,7 @@ namespace ChampionsOfForest.Network
 											{
 												w.Write(7);
 												w.Write(packed);
-												w.Write(ep.EnemyName);
+												w.Write(ep.enemyName);
 												w.Write(ep.Level);
 												w.Write(ep._hp + ep._Health.Health);
 												w.Write(ep.MaxHealth);
@@ -934,7 +934,7 @@ namespace ChampionsOfForest.Network
 												w.Write(0);
 												w.Write(EnemyID);
 												w.Write(enemy._rarity != EnemyProgression.EnemyRarity.Normal);
-												w.Write(enemy.EnemyName);
+												w.Write(enemy.enemyName);
 												w.Close();
 											}
 											NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);

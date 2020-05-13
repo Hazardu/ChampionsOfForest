@@ -7,8 +7,8 @@ namespace ChampionsOfForest.Player
 {
     public class Inventory : MonoBehaviour
     {
-        public static int Height = 8;
-        public static int Width = 6;
+        public static int Height = 10;
+        public static int Width = 8;
         public static Inventory Instance
         {
             get;

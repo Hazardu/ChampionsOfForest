@@ -763,14 +763,14 @@ namespace ChampionsOfForest.Player
 		public static float ParryDmgBonus = 0;
 		public static float ParryBuffDamage = 0;
 		private static float LastBlockTimestamp = 0;    //used for blocking any instance of damage
-		private const float Block_parryTime = 0.6f; //600ms to get hit since starting blocking will cause a parry
+		private const float Block_parryTime = 0.4f; //600ms to get hit since starting blocking will cause a parry
 		public static void OnBlockSetTimer()
 		{
 			LastBlockTimestamp = Time.time + Block_parryTime;
 		}
 
 		public static bool ParryAnythingIsTimed =>
-			 ModdedPlayer.instance.ParryAnything && LastBlockTimestamp < Time.time;
+			 ModdedPlayer.instance.ParryAnything && LastBlockTimestamp > Time.time;
 
 
 		public static void DoParry(Vector3 parryPos)

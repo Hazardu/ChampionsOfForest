@@ -34,7 +34,7 @@ namespace ChampionsOfForest
             }
             if (p != null)
             {
-                EnemyName = p.EnemyName;
+                EnemyName = p.enemyName;
                 Level = p.Level;
                 Health = p._hp + p._Health.Health;
                 MaxHealth = p.MaxHealth;
@@ -77,7 +77,7 @@ namespace ChampionsOfForest
             {
                 Debug.Log("Enemy in dictionary + " + Packed + " contains: " + EnemyManager.hostDictionary.ContainsKey(Packed));
                 EnemyProgression p = EnemyManager.hostDictionary[Packed];
-                EnemyName = p.EnemyName;
+                EnemyName = p.enemyName;
                 Level = p.Level;
                 Health = p._hp + p._Health.Health;
                 MaxHealth = p.MaxHealth;
