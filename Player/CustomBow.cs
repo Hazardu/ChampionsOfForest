@@ -6,32 +6,32 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-    public class SomeFuckingBowControllerClass : BowController
-    {
-        CustomBowBase cbb;
-        protected override void OnEnable()
-        {
-            if (_bowItemId == 79)
-            {
-                if (cbb == null)
-                {
-                    cbb = gameObject.AddComponent<CustomBowBase>();
-                }
-            }
-            base.OnEnable();
-        }
-        protected override void Start()
-        {
-            if (_bowItemId == 79)
-            {
-                if (cbb == null)
-                {
-                    cbb = gameObject.AddComponent<CustomBowBase>();
-                }
-            }
-            base.Start();
-        }
-    }
+ //   public class SomeFuckingBowControllerClass : BowController
+ //   {
+ //       CustomBowBase cbb;
+ //       protected override void OnEnable()
+ //       {
+ //           if (_bowItemId == 79)
+ //           {
+ //               if (cbb == null)
+ //               {
+ //                   cbb = gameObject.AddComponent<CustomBowBase>();
+ //               }
+ //           }
+ //           base.OnEnable();
+ //       }
+ //       protected override void Start()
+ //       {
+ //           if (_bowItemId == 79)
+ //           {
+ //               if (cbb == null)
+ //               {
+ //                   cbb = gameObject.AddComponent<CustomBowBase>();
+ //               }
+ //           }
+ //           base.Start();
+ //       }
+	//}
     public class CustomBowBase : MonoBehaviour
     {
         public static GameObject baseBow;
@@ -48,7 +48,7 @@ namespace ChampionsOfForest
         }
         void OnEnable()
         {
-            Invoke("Initialize", 0.5f);
+            Initialize();
         }
         
     }
@@ -109,6 +109,8 @@ namespace ChampionsOfForest
             try
             {
                 var bow = transform.Find("Bow");
+                if (bow == null)
+                    ModAPI.Log.Write("Bow is null");
                 Destroy(transform.Find("TapedLight").gameObject);
                 //if (modelPrefab == null) modelPrefab = Res.ResourceLoader.GetAssetBundle(2004).LoadAsset<GameObject>("firebow.prefab");
                 //model = Instantiate(modelPrefab);
@@ -137,14 +139,11 @@ namespace ChampionsOfForest
             catch (System.Exception e)
             {
 
-                Debug.Log(e.Message);
+                ModAPI.Log.Write(e.Message);
             }
            
         }
-        public void OnAmmoFired(GameObject projectile)
-        {
 
-        }
 
     }
 }

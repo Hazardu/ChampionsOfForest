@@ -543,7 +543,14 @@ namespace ChampionsOfForest
 							else if (LocalPlayer.Inventory.Equip(79, false))
 							{
 								CustomBowBase.baseBow.SetActive(false);
-								GreatBow.instance.SetActive(true);
+								if (GreatBow.instance != null)
+								{
+									GreatBow.instance.SetActive(true);
+								}
+								else
+								{
+								
+								}
 							}
 							else
 							{

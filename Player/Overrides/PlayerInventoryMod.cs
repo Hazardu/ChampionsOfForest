@@ -371,6 +371,15 @@ namespace ChampionsOfForest.Player
 			base.HideRightHand(hideOnly);
 		}
 
+
+		public override void Start()
+		{
+			InitializeGreatBow();
+			base.Start();
+
+
+		}
+
 		protected override void FireRangedWeapon()
 		{
 			var cache = _equipmentSlots[0].ItemCache;
@@ -395,6 +404,12 @@ namespace ChampionsOfForest.Player
 				duration *= 10;
 			SetReloadDelay(duration);
 			_isThrowing = false;
+		}
+
+		public void InitializeGreatBow()
+		{
+			var go = _itemViews[48]._held;
+			go.AddComponent<CustomBowBase>();
 		}
 
 		public void CreateCustomWeapons_Axes()
@@ -498,12 +513,18 @@ namespace ChampionsOfForest.Player
 			var secondChild = original.transform.GetChild(1);	//second child contains the model of the spear
 
 			var assetBundle = Res.ResourceLoader.GetAssetBundle(2005);
-			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("PolearmPrefab.prefab"),original.transform);  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
+			ModAPI.Log.Write(assetBundle.GetAllAssetNames().Join("\n"));
+			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("assets/PolearmPrefab.prefab"), original.transform);  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
+
+			var rend = modelClone.GetComponentsInChildren<Renderer>();
+			ModAPI.Console.Write("Renderers in clone of spear" + rend.Length);
+
+
 			modelClone.transform.position = secondChild.position;
 			modelClone.transform.rotation = secondChild.rotation;
 			modelClone.transform.SetParent(original);
 			//Destroy(secondChild.gameObject);
-			original.gameObject.SetActive(false);   
+			//original.gameObject.SetActive(false);   
 			var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
 					modelClone,
 					Vector3.zero,
