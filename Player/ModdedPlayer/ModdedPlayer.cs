@@ -524,6 +524,18 @@ namespace ChampionsOfForest
 
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
+#if Debugging_Enabled
+
+			var assets = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("assets/PolearmPrefab.prefab");
+				foreach (var asset in assets)
+				{
+					ModAPI.Console.Write(asset.name);
+					if (asset.name == "PolearmPrefab")
+					{
+						Instantiate(asset, LocalPlayer.Transform.position,Quaternion.identity);
+					}
+				}
+					#endif
 				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].Equipped)
 				{
 					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemSlots[-12].weaponModel;

@@ -1,7 +1,4 @@
-﻿#define Debugging_Enabled
-//Uncomment this for extra menus
-
-using ChampionsOfForest.Player;
+﻿using ChampionsOfForest.Player;
 using UnityEngine;
 
 

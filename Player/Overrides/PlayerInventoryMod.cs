@@ -501,7 +501,7 @@ namespace ChampionsOfForest.Player
 
 			CreateCustomWeapons_Spears();
 		}
-
+		
 		public void CreateCustomWeapons_Spears()
 		{
 			ModAPI.Console.Write("cloning spear and creating the polearm held object");
@@ -515,16 +515,18 @@ namespace ChampionsOfForest.Player
 			var assetBundle = Res.ResourceLoader.GetAssetBundle(2005);
 			ModAPI.Log.Write(assetBundle.GetAllAssetNames().Join("\n"));
 			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("assets/PolearmPrefab.prefab"), original.transform);  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
-
+#if Debugging_Enabled
 			var rend = modelClone.GetComponentsInChildren<Renderer>();
 			ModAPI.Console.Write("Renderers in clone of spear" + rend.Length);
-
-
+			foreach (var item in rend)
+			{
+				ModAPI.Log.Write("Spear renderer material: "+ item.material.name);
+			}
+#endif
 			modelClone.transform.position = secondChild.position;
 			modelClone.transform.rotation = secondChild.rotation;
 			modelClone.transform.SetParent(original);
-			//Destroy(secondChild.gameObject);
-			//original.gameObject.SetActive(false);   
+
 			var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
 					modelClone,
 					Vector3.zero,
