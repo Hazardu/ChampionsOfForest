@@ -20,7 +20,7 @@ namespace ChampionsOfForest.Player
         public float ColliderScale;
         public float Scale;
         public Material material;
-        public GameObject obj;
+        public GameObject obj,objectToHide;
         public TrailRenderer trail;
         public Renderer renderer;
 

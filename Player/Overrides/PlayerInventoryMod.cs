@@ -40,6 +40,10 @@ namespace ChampionsOfForest.Player
 					GreatBow.instance.SetActive(false);
 				if (itemView != null)
 				{
+					if (EquippedModel != BaseItem.WeaponModelType.None)
+					{
+						customWeapons[EquippedModel].objectToHide?.SetActive(true);
+					}
 					EquippedModel = BaseItem.WeaponModelType.None;
 					if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType != BaseItem.WeaponModelType.None)
 					{
@@ -119,6 +123,7 @@ namespace ChampionsOfForest.Player
 								itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
 								itemView._heldWeaponInfo.spear = cw.spearType;
 								itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
+								cw.objectToHide?.SetActive(false);
 								originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = noMesh;
 							}
 							catch (System.Exception exc)
@@ -141,7 +146,6 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = false;
-
 							itemView._heldWeaponInfo.transform.localScale = Vector3.one * 0.6f;
 							originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = originalMesh;
 						}
@@ -170,6 +174,8 @@ namespace ChampionsOfForest.Player
 								itemView._heldWeaponInfo.staminaDrain = cw.staminaDrain;
 								itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
 								itemView._heldWeaponInfo.spear = cw.spearType;
+								cw.objectToHide?.SetActive(false);
+
 								itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
 								itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(false);
 							}
@@ -220,6 +226,8 @@ namespace ChampionsOfForest.Player
 
 		protected override void ThrowProjectile()
 		{
+			if (EquippedModel == BaseItem.WeaponModelType.Polearm)
+				return;
 			this._isThrowing = false;
 			InventoryItemView inventoryItemView = this._equipmentSlots[0];
 			if (inventoryItemView != null)
@@ -337,7 +345,7 @@ namespace ChampionsOfForest.Player
 			}
 			base.Attack();
 		}
-
+	
 		public override void AddMaxAmountBonus(int itemId, int amount)
 		{
 			if (ModSettings.IsDedicated)
@@ -376,9 +384,10 @@ namespace ChampionsOfForest.Player
 		{
 			InitializeGreatBow();
 			base.Start();
-
-
 		}
+
+
+
 
 		protected override void FireRangedWeapon()
 		{
@@ -498,13 +507,13 @@ namespace ChampionsOfForest.Player
 				ColliderScale = 0.4f
 			};
 			AxeTrail.gameObject.SetActive(false);
-
 			CreateCustomWeapons_Spears();
 		}
 
 		public void CreateCustomWeapons_Spears()
 		{
-			ModAPI.Console.Write("cloning spear and creating the polearm held object");
+			if (customWeapons.ContainsKey(BaseItem.WeaponModelType.Polearm) && customWeapons[BaseItem.WeaponModelType.Polearm].obj != null)
+				return;
 			var original = _itemViews[158]._held;
 			original.gameObject.SetActive(true);
 			var assets = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("assets/PolearmPrefab.prefab");
@@ -518,24 +527,27 @@ namespace ChampionsOfForest.Player
 					GameObject modelClone = (GameObject)Instantiate(asset, LocalPlayer.Transform.position, Quaternion.identity, Clone.transform);
 					modelClone.transform.localPosition = secondChild.localPosition;
 					modelClone.transform.localRotation = secondChild.localRotation;
-					modelClone.transform.Rotate(new Vector3(90, 0, 0));
+					modelClone.transform.Rotate(new Vector3(90, 0, 0)); ;
+					modelClone.transform.localScale *= 0.7f/3;
 					Destroy(secondChild);
 					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
 						Clone,
 						Vector3.zero,
 						new Vector3(0, 0, 0),
-						0.8f)
+						2)
 					{
-						spearType = false,
-						tiredswingspeed = 1,
-						damage = 90f,
-						staminaDrain = 25,
+						spearType = true,
+						tiredswingspeed = 20,
+						damage = 50f,
+						staminaDrain = 14,
 						blockTreeCut = false,
-						smashDamage = 300f,
+						smashDamage = 350f,
 						swingspeed = 100,
-						ColliderScale = 3,
+						ColliderScale = 3f,
 						treeDamage = 1,
+						objectToHide = original.transform.GetChild(1).gameObject
 					};
+			original.gameObject.SetActive(false);
 					return;
 				}
 			}

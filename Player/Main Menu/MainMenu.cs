@@ -4018,12 +4018,12 @@ namespace ChampionsOfForest
 					GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 
 					Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
-
-					string desctext = p._description;
+					
+					string desctext = p.Description;
 
 					if (!p.IsBought || p.Endless)
 					{
-						desctext = "Press to buy\n" + p._description;
+						desctext = "Press to buy\n" + p.Description;
 						Rect LevelReq = new Rect(r.x - 440 * rr, r.y, 400 * rr, r.height);
 						Rect Cost = new Rect(r.xMax + 40 * rr, r.y, 400 * rr, r.height);
 						if (p.LevelRequirement > ModdedPlayer.instance.Level)

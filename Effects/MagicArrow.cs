@@ -69,11 +69,11 @@ namespace ChampionsOfForest.Effects
             transform.localScale = new Vector3(4, 4, 0);
 
             yield return null;
-            while (transform.localScale.z < 4)
+            while (transform.localScale.z < 3)
             {
-                transform.localScale += Vector3.forward * Time.deltaTime / 2;
+                transform.localScale += Vector3.forward * Time.deltaTime *2;
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
             setupComplete = true;
 
         }
@@ -121,7 +121,7 @@ namespace ChampionsOfForest.Effects
                         prog.Slow(41, 1 - slowAmount, DebuffDuration);
                         if (GiveDmgDebuff)
                         {
-                            prog.DmgTakenDebuff(41, 1.25f, DebuffDuration);
+                            prog.DmgTakenDebuff(41, 1.4f, DebuffDuration);
                         }
                     }
                     else

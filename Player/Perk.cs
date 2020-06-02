@@ -13,7 +13,7 @@ namespace ChampionsOfForest.Player
             AllPerks.Clear();
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.DamagePerStrength += 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.DamagePerStrength += 0.01f,
                 
                 Category = PerkCategory.MeleeOffense,
                 Icon = null,
@@ -24,14 +24,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Hits",
-                _description = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 0.5%.",
+                _description = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 1%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.SpellDamageperInt += 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.SpellDamageperInt += 0.01f,
                 
                 Category = PerkCategory.MagicOffense,
                 Icon = null,
@@ -42,14 +42,14 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Spells",
-                _description = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 0.5%.",
+                _description = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 1%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.RangedDamageperAgi += 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.RangedDamageperAgi += 0.01f,
                 
                 Category = PerkCategory.RangedOffense,
                 Icon = null,
@@ -60,13 +60,13 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stronger Projectiles",
-                _description = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 0.5%.",
+                _description = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 1%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f,
+                ApplyMethods = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.01f,
                 
                 Category = PerkCategory.Utility,
                 Icon = null,
@@ -77,7 +77,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "Stamina Recovery",
-                _description = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recover by 0.5%.",
+                _description = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recovery rate by 1%.",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -100,7 +100,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.HealthPerVitality += 1.5f,
+                ApplyMethods = () => ModdedPlayer.instance.HealthPerVitality += 1.75f,
                 
                 Category = PerkCategory.Defense,
                 Icon = null,
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 1.5f,
                 PosOffsetY = 0,
                 Name = "More Health",
-                _description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.5",
+                _description = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.75",
                 TextureVariation = 0, //0 or 1
                 Endless = false,
             };
@@ -369,7 +369,7 @@ namespace ChampionsOfForest.Player
 
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.96f,
+                ApplyMethods = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
                 
                 Category = PerkCategory.MagicOffense,
                 InheritIDs = new int[] { 16 },
@@ -379,7 +379,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 2.5f,
                 PosOffsetY = 1.5f,
                 Name = "Cool Down Reduction",
-                _description = " Reduces spell cooldown by 4%",
+                _description = " Reduces spell cooldown by 10%",
                 TextureVariation = 0,
                 Endless = true,
                 onPucharseDescriptionUpdate = x =>
@@ -528,7 +528,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 4f,
                 PosOffsetY = 0.75f,
                 Name = "All attributes",
-                _description = "+10 to every strength, agility, vitality and intelligence",
+                _description = "+10 to strength, agility, vitality and intelligence",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -604,7 +604,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -2.5f,
                 PosOffsetY = 0f,
                 Name = "Health Regen",
-                _description = "Increases health per second regeneration by 0.25. This is further multipied by health regen percent and all healing percent.",
+                _description = "Increases health per second regeneration by 0.25 HP/second. This is further multipied by health regen percent and all healing percent.",
                 TextureVariation = 0,
                 Endless = true,
                 onPucharseDescriptionUpdate = x =>
@@ -740,7 +740,7 @@ namespace ChampionsOfForest.Player
             };
             new Perk()
             {
-                ApplyMethods = () => ModdedPlayer.instance.ARreduction_melee += 5,
+                ApplyMethods = () => ModdedPlayer.instance.ARreduction_melee += 10,
                 
                 Category = PerkCategory.Support,
                 InheritIDs = new int[] { 37 },
@@ -750,7 +750,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -1.5f,
                 PosOffsetY = 1.5f,
                 Name = "Armor Piercing Edge",
-                _description = "Increases armor penetration from melee weapons by 5",
+                _description = "Increases armor penetration from melee weapons by 10",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -975,7 +975,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = -6f,
                 PosOffsetY = -0.75f,
                 Name = "More Booze",
-                _description = "Increases max amount of carried booze by 15",
+                _description = "Increases max amount of carried booze by 25",
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -1315,7 +1315,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 3f,
                 PosOffsetY = -2.25f,
                 Name = "Exposure",
-                _description = "Magic arrow causes hit enemies to take 15% more damage for the duration of the slow.",
+                _description = "Magic arrow causes hit enemies to take 40% more damage for the duration of the slow.",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1347,7 +1347,7 @@ namespace ChampionsOfForest.Player
                 PosOffsetX = 5f,
                 PosOffsetY = -2.25f,
                 Name = "Magic Binding",
-                _description = "Magic arrow's slow amount is doubled. It's upgraded from 35% to 70%",
+                _description = "Magic arrow's slow amount is doubled. It's upgraded from 45% to 90%",
                 TextureVariation = 0,
                 Endless = false,
             };
@@ -1448,7 +1448,6 @@ namespace ChampionsOfForest.Player
                 Name = "Multishot Empower",
                 _description = "Increases the projectile count of multishot by 2, also increases the spells cost. Multishot does not apply to spears.",
                 onPucharseDescriptionUpdate = x => string.Format("\nMultishot cost now: {0}\nCost after upgrading: {1}", (10 * Mathf.Pow(2*x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2*x), 1.75f)).ToString("N")),
-            
                 TextureVariation = 0,
                 Endless = true,
             };
@@ -3003,6 +3002,17 @@ namespace ChampionsOfForest.Player
                 TextureVariation = 0,
                 Endless = false,
             };
+
+
+
+
+
+
+
+			foreach (var item in AllPerks)
+			{
+                item.Description = item._description;
+			}
         }
 
         public int ID;
@@ -3022,7 +3032,8 @@ namespace ChampionsOfForest.Player
 
         public string Name;
         public string _description;
-        public string Description;
+        public string Description { get; set; }
+        
 
         public Texture2D Icon;
 
@@ -3083,22 +3094,21 @@ namespace ChampionsOfForest.Player
         {
             try
             {
-
-            if (Endless)
-            {
                 if (onPucharseDescriptionUpdate != null)
-                    Description = _description + ' ' + onPucharseDescriptionUpdate(ApplyAmount);
-            }
-            else
-            {
-                if (onPucharseDescriptionUpdate != null)
-                    Description = _description +' '+ onPucharseDescriptionUpdate(1);
-
-            }
+                {
+                    if (Endless)
+                        Description = _description + ' ' + onPucharseDescriptionUpdate(ApplyAmount);
+                    else
+                        Description = _description + ' ' + onPucharseDescriptionUpdate(1);
+                }
+                else
+                {
+                    Description = _description;
+                }
             }
             catch (System.Exception)
             {
-                
+
             }
         }
 

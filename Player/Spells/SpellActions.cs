@@ -118,6 +118,21 @@ namespace ChampionsOfForest.Player
 		public static bool HealingDomeGivesImmunity = false;
 		public static bool HealingDomeRegEnergy = false;
 		public static float HealingDomeDuration = 10;
+		private static SpellAimSphere healingDomeaimSphere;
+
+		public static void HealingDomeAim()
+		{
+
+			if (healingDomeaimSphere == null)
+			{
+				healingDomeaimSphere = new Effects.SpellAimSphere(new Color(0f, 1f, 0f, 0.5f), 10f);
+			}
+			healingDomeaimSphere.UpdatePosition(LocalPlayer.Transform.position);
+		}
+		public static void HealingDomeAimEnd()
+		{
+			healingDomeaimSphere.Disable();
+		}
 		public static void CreateHealingDome()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
@@ -210,9 +225,57 @@ namespace ChampionsOfForest.Player
 		public static float BLACKHOLE_duration = 9;
 		public static float BLACKHOLE_radius = 15;
 		public static float BLACKHOLE_pullforce = 25;
+		private static SpellAimSphere blackholeAim;
+		public static void BlackHoleAimEnd()
+		{
+			blackholeAim.Disable();
+		}
+		public static void BlackHoleAim()
+		{
+			if (blackholeAim == null)
+			{
+				blackholeAim = new SpellAimSphere(new Color(0f, .6f, 0.95f, 0.5f), BLACKHOLE_radius);
+			}
+			Transform t = Camera.main.transform;
+
+			Vector3 point = Vector3.zero;
+			var hits1 = Physics.RaycastAll(t.position, t.forward, 35f);
+			foreach (var hit in hits1)
+			{
+				if (hit.transform.root != LocalPlayer.Transform.root)
+				{
+					point = hit.point +Vector3.up * 2f;
+					break;
+				}
+			}
+			if (point == Vector3.zero)
+			{
+				point = LocalPlayer.Transform.position + t.forward * 30;
+			}
+			blackholeAim.SetRadius(BLACKHOLE_radius);
+			blackholeAim.UpdatePosition(point);
+			
+
+		}
 		public static void CreatePlayerBlackHole()
 		{
 			float damage = (BLACKHOLE_damage + ModdedPlayer.instance.SpellDamageBonus / 3) * ModdedPlayer.instance.SpellAMP;
+			Transform t = Camera.main.transform;
+
+			Vector3 point = Vector3.zero;
+			var hits1 = Physics.RaycastAll(t.position, t.forward, 35f);
+			foreach (var hit in hits1)
+			{
+				if (hit.transform.root != LocalPlayer.Transform.root)
+				{
+					point = hit.point;
+					break;
+				}
+			}
+			if (point == Vector3.zero)
+			{
+				point = LocalPlayer.Transform.position + t.forward * 30;
+			}
 			//RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position,Camera.main.transform.forward, 160f);
 			//for (int i = 0; i < hits.Length; i++)
 			//{
@@ -224,9 +287,9 @@ namespace ChampionsOfForest.Player
 				{
 					w.Write(3);
 					w.Write(1);
-					w.Write(LocalPlayer.Transform.root.position.x);
-					w.Write(LocalPlayer.Transform.root.position.y);
-					w.Write(LocalPlayer.Transform.root.position.z);
+					w.Write(point.x);
+					w.Write(point.y-1);
+					w.Write(point.z);
 					w.Write(false);
 					w.Write(damage);
 					w.Write(BLACKHOLE_duration);
@@ -372,6 +435,28 @@ namespace ChampionsOfForest.Player
 		public static bool MagicArrowCrit = false;
 		public static bool MagicArrowDoubleSlow = false;
 		public static float MagicArrowDuration = 10f;
+		private static SpellAimSphere arrowAim;
+		public static void MagicArrowAimEnd()
+		{
+			arrowAim.Disable();
+		}
+		public static void MagicArrowAim()
+		{
+			if (arrowAim == null)
+			{
+				arrowAim = new SpellAimSphere(new Color(0f, 1f, 0.55f, 0.5f),1f);
+			}
+			Transform t = Camera.main.transform;
+			if (Physics.Raycast(t.position + t.forward, t.forward, out RaycastHit hit, 250))
+			{
+				arrowAim.UpdatePosition(hit.point);
+			}
+			else
+			{
+				arrowAim.Disable();
+			}
+			
+		}
 		public static void CastMagicArrow()
 		{
 			float damage = 55 + ModdedPlayer.instance.SpellDamageBonus * 3.2f + ModdedPlayer.instance.RangedDamageBonus / 2;
@@ -480,6 +565,21 @@ namespace ChampionsOfForest.Player
 		public static float SnapFreezeDist = 20;
 		public static float SnapFloatAmount = 0.2f;
 		public static float SnapFreezeDuration = 7f;
+			private static SpellAimSphere snapFreezeAim;
+		public static void SnapFreezeAimEnd()
+		{
+			snapFreezeAim.Disable();
+		}
+		public static void SnapFreezeAim()
+		{
+			if (snapFreezeAim == null)
+			{
+				snapFreezeAim = new Effects.SpellAimSphere(new Color(1f, .55f, 0f, 0.5f), SnapFreezeDist);
+			}
+			snapFreezeAim.SetRadius(SnapFreezeDist);
+			snapFreezeAim.UpdatePosition(LocalPlayer.Transform.position);
+
+		}
 		public static void CastSnapFreeze()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
@@ -568,7 +668,7 @@ namespace ChampionsOfForest.Player
 		public static void CastBallLightning()
 		{
 			Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward;
-			Vector3 speed = Camera.main.transform.forward;
+			Vector3 speed = Camera.main.transform.forward*2;
 
 			CastBallLightning(pos, speed);
 		}
@@ -842,6 +942,21 @@ namespace ChampionsOfForest.Player
 		#region Cataclysm       
 		public static float CataclysmDamage = 24, CataclysmDuration = 12, CataclysmRadius = 5;
 		public static bool CataclysmArcane = false;
+		private static SpellAimSphere cataclysmAim;
+		public static void CataclysmAimEnd()
+		{
+			cataclysmAim.Disable();
+		}
+		public static void CataclysmAim()
+		{
+			if (cataclysmAim == null)
+			{
+				cataclysmAim = new Effects.SpellAimSphere(new Color(1f, 0.0f, 0f, 0.5f), CataclysmRadius);
+			}
+			cataclysmAim.SetRadius(CataclysmRadius);
+			cataclysmAim.UpdatePosition(LocalPlayer.Transform.position);
+
+		}
 		public static void CastCataclysm()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;

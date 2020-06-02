@@ -24,14 +24,15 @@ namespace ChampionsOfForest.Effects
 				if (prefabStanding == null)
 				{
 					var bundle = Res.ResourceLoader.GetAssetBundle(2005);
-					prefabStanding = bundle.LoadAsset<GameObject>("assets/roaringfx.prefab");
-					prefabJumping = bundle.LoadAsset<GameObject>("assets/roaring jump.prefab");
-					ModAPI.Log.Write("prefabStanding = " + prefabStanding.name);
+					prefabStanding =(GameObject) bundle.LoadAssetWithSubAssets("assets/roaringfx.prefab")[0];
+					prefabJumping = (GameObject) bundle.LoadAssetWithSubAssets("assets/roaring jump.prefab")[1];
+					ModAPI.Log.Write("prefabJumping = " + prefabJumping.name);
 					var renderers = prefabStanding.GetComponentsInChildren<Renderer>();
 					foreach (var item in renderers)
 					{
 						ModAPI.Console.Write(item.material.shader.name);
 					}
+					
 				}
 			}
 			catch (Exception e)

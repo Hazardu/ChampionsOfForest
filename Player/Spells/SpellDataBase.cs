@@ -40,11 +40,17 @@ namespace ChampionsOfForest.Player
             Spell bh = new Spell(1, 119, 20, 50, 120, "Black Hole", "Creates a black hole that pulls enemies in and damages them every second")
             {
                 active = SpellActions.CreatePlayerBlackHole,
+                CastOnRelease = true,
+                aim = SpellActions.BlackHoleAim,
+                aimEnd = SpellActions.BlackHoleAimEnd
 
             };
             Spell healingDome = new Spell(2, 122, 6, 80, 70, "Healing Dome", "Creates a sphere of vaporized aloe that heals all allies inside. Items can further expand this ability to cleanese debuffs. Scales with healing multipier and spell amplification.")
             {
                 active = SpellActions.CreateHealingDome,
+                CastOnRelease = true,
+                aim = SpellActions.HealingDomeAim,
+                aimEnd = SpellActions.HealingDomeAimEnd
 
             };
             new Spell(3, 121, 3, 25, 12, "Blink", "Short distance teleportation")
@@ -68,7 +74,11 @@ namespace ChampionsOfForest.Player
             };
             new Spell(6, 117, 2, 10, 0.4f, "Wide Reach", "Picks up all resources in a small radius around you.")
             {
-                active = AutoPickupItems.DoPickup,            
+                active = AutoPickupItems.DoPickup,
+                CastOnRelease = true,
+                aim= AutoPickupItems.Aim,
+                aimEnd = AutoPickupItems.AimEnd
+                
             };
             new Spell(7, 115, 17, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
@@ -84,7 +94,10 @@ namespace ChampionsOfForest.Player
             };
             new Spell(10, 125, 30, 90, 20, "Magic Arrow", "A large arrow is shot where you're looking at. Slows any enemies on hit and deals big damage")
             {
-                active =SpellActions.CastMagicArrow,            
+                active = SpellActions.CastMagicArrow,
+                CastOnRelease = true,
+                aim=SpellActions.MagicArrowAim,
+                aimEnd = SpellActions.MagicArrowAimEnd
             };
             new Spell(11, 127, 35, 10, 10, "Multishot", "An attack modifier. Enchants your ranged weapons to shoot multipe projectiles. Upgradeable by perks. Energy is consumed upon firing and depends on the amount of projectiles fired")
             {
@@ -100,7 +113,10 @@ namespace ChampionsOfForest.Player
             };
             new Spell(14, 128, 20, 280, 40, "Snap Freeze", "Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them")
             {
-                active =SpellActions.CastSnapFreeze,            
+                active =SpellActions.CastSnapFreeze,       
+                CastOnRelease=true,
+                aim=SpellActions.SnapFreezeAim,
+                aimEnd = SpellActions.SnapFreezeAimEnd
             };
             new Spell(15, 131, 25, 15, 180, "Berserk", "For short amount of time, gain damage, attack speed and movement speed, take additional damage and have unlimited stamina.")
             {
@@ -133,6 +149,9 @@ namespace ChampionsOfForest.Player
             new Spell(22, 141, 50, 400, 300, "Cataclysm", "Creates a fire tornado that ignites enemies, slows them and deals damage.")
             {
                 active = ()=> SpellActions.CastCataclysm(),
+                CastOnRelease = true,
+                aim = SpellActions.CataclysmAim,
+                aimEnd = SpellActions.CataclysmAimEnd
             };
             new Spell(23, 165, 11, 75, 8, "Blood Infused Arrow", "Sacrifice your own vitals to empower your next arrow. Drains percent of your current health and adds lost health as damage.")
             {
