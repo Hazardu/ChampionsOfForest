@@ -41,21 +41,21 @@ namespace ChampionsOfForest.Player
 				if (itemView != null)
 				{
 					EquippedModel = BaseItem.WeaponModelType.None;
-						if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType!= BaseItem.WeaponModelType.None)
+					if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType != BaseItem.WeaponModelType.None)
+					{
+						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 						{
-							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+							using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 							{
-								using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-								{
-									w.Write(28);
-									w.Write(ModReferences.ThisPlayerID);
-									w.Write((int)PlayerInventoryMod.ToEquipWeaponType);
-									w.Close();
-								}
-								ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
-								answerStream.Close();
+								w.Write(28);
+								w.Write(ModReferences.ThisPlayerID);
+								w.Write((int)PlayerInventoryMod.ToEquipWeaponType);
+								w.Close();
 							}
+							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+							answerStream.Close();
 						}
+					}
 					if (itemView.gameObject.name == "axePlane_Inv")
 					{
 
@@ -102,7 +102,7 @@ namespace ChampionsOfForest.Player
 							EquippedModel = ToEquipWeaponType;
 							try
 							{
-							
+
 								foreach (CustomWeapon item in customWeapons.Values)
 								{
 									item.obj.SetActive(false);
@@ -148,7 +148,7 @@ namespace ChampionsOfForest.Player
 					}
 					else if (itemView.gameObject.name == "Spear_Inv")
 					{
-						ModAPI.Log.Write("------------Bruh "+ ToEquipWeaponType);
+						ModAPI.Log.Write("------------Bruh " + ToEquipWeaponType);
 						if (ToEquipWeaponType == BaseItem.WeaponModelType.Polearm)
 						{
 							EquippedModel = ToEquipWeaponType;
@@ -501,47 +501,44 @@ namespace ChampionsOfForest.Player
 
 			CreateCustomWeapons_Spears();
 		}
-		
+
 		public void CreateCustomWeapons_Spears()
 		{
 			ModAPI.Console.Write("cloning spear and creating the polearm held object");
-
 			var original = _itemViews[158]._held;
 			original.gameObject.SetActive(true);
-			//var copy = Instantiate(original.gameObject, original.transform.position, original.transform.rotation, original.transform.parent);
-
-			var secondChild = original.transform.GetChild(1);	//second child contains the model of the spear
-
-			var assetBundle = Res.ResourceLoader.GetAssetBundle(2005);
-			ModAPI.Log.Write(assetBundle.GetAllAssetNames().Join("\n"));
-			var modelClone = Instantiate<GameObject>(assetBundle.LoadAsset<GameObject>("assets/PolearmPrefab.prefab"), original.transform);  //i stylized the typos after the forest's devs, see Talky Walky references in their code. or, on second thought, dont look at it, you may be left with brain damage.
-#if Debugging_Enabled
-			var rend = modelClone.GetComponentsInChildren<Renderer>();
-			ModAPI.Console.Write("Renderers in clone of spear" + rend.Length);
-			foreach (var item in rend)
+			var assets = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("assets/PolearmPrefab.prefab");
+			foreach (var asset in assets)
 			{
-				ModAPI.Log.Write("Spear renderer material: "+ item.material.name);
+				ModAPI.Console.Write(asset.name);
+				if (asset.name == "PolearmPrefab")
+				{
+					var Clone = (GameObject)Instantiate(original,original.transform.position,original.transform.rotation, original.transform.parent);
+					var secondChild = Clone.transform.GetChild(1);   //second child contains the og model of the spear
+					GameObject modelClone = (GameObject)Instantiate(asset, LocalPlayer.Transform.position, Quaternion.identity, Clone.transform);
+					modelClone.transform.localPosition = secondChild.localPosition;
+					modelClone.transform.localRotation = secondChild.localRotation;
+					modelClone.transform.Rotate(new Vector3(90, 0, 0));
+					Destroy(secondChild);
+					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
+						Clone,
+						Vector3.zero,
+						new Vector3(0, 0, 0),
+						0.8f)
+					{
+						spearType = false,
+						tiredswingspeed = 1,
+						damage = 90f,
+						staminaDrain = 25,
+						blockTreeCut = false,
+						smashDamage = 300f,
+						swingspeed = 100,
+						ColliderScale = 3,
+						treeDamage = 1,
+					};
+					return;
+				}
 			}
-#endif
-			modelClone.transform.position = secondChild.position;
-			modelClone.transform.rotation = secondChild.rotation;
-			modelClone.transform.SetParent(original);
-
-			var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
-					modelClone,
-					Vector3.zero,
-					new Vector3(0, 0, 0),
-					1f)
-			{
-				spearType = true,
-				damage = 90f,
-				staminaDrain = 25,
-				blockTreeCut = false,
-				smashDamage = 300f,
-				swingspeed = 100,
-				ColliderScale = 5,
-				treeDamage = 1,
-			};
 		}
 	}
 }

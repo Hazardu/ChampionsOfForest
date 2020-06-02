@@ -293,7 +293,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call $(ProjectDir)CleanupModsFolder.bat
+    <PostBuildEvent>call del $(ProjectDir)..\..\..\mods\TheForest\Champions*.mod
 powershell start-process $(ProjectDir)../../../ModAPI.exe</PostBuildEvent>
   </PropertyGroup>
 </Project>

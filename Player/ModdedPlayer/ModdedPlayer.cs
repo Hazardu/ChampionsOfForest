@@ -524,18 +524,6 @@ namespace ChampionsOfForest
 
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
-#if Debugging_Enabled
-
-			var assets = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("assets/PolearmPrefab.prefab");
-				foreach (var asset in assets)
-				{
-					ModAPI.Console.Write(asset.name);
-					if (asset.name == "PolearmPrefab")
-					{
-						Instantiate(asset, LocalPlayer.Transform.position,Quaternion.identity);
-					}
-				}
-					#endif
 				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].Equipped)
 				{
 					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemSlots[-12].weaponModel;
@@ -561,12 +549,16 @@ namespace ChampionsOfForest
 								}
 								else
 								{
-								
+#if Debugging_Enabled
+									ModAPI.Console.Write("No Greatbow instance");
+#endif
 								}
 							}
 							else
 							{
+#if Debugging_Enabled
 								ModAPI.Log.Write("Trying to equip a greatbow but no crafted bow in inventory");
+#endif
 							}
 							break;
 
@@ -689,39 +681,6 @@ namespace ChampionsOfForest
 				}
 
 			}
-			//if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
-			//{
-
-			//    for (int i = 0; i < ModReferences.rightHandTransform.childCount; i++)
-			//    {
-			//        Transform trans = ModReferences.rightHandTransform.GetChild(i);
-
-
-			//        try
-			//        {
-			//            Debug.LogWarning(trans.name);
-
-			//        if (trans.gameObject.activeSelf)
-			//        {
-			//            var components = trans.gameObject.GetComponents<Component>();
-			//            string s = trans.name+"\n\n\n";
-			//            foreach (var item in components)
-			//            {
-			//                s += "\n" + item.ToString();
-			//            }
-			//            s += "\n\n\n" + ModReferences.ListAllChildren(trans, "");
-			//            ModAPI.Log.Write(s);
-			//           Debug.Log(s);
-
-			//        }
-			//        }
-			//        catch (Exception e)
-			//        {
-
-			//            Debug.LogError(e.ToString());
-			//        }
-			//    }
-			//}
 
 
 
