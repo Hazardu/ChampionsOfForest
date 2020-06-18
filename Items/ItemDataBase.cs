@@ -83,6 +83,8 @@ namespace ChampionsOfForest
 
             //LogInfo();
         }
+
+#if Debugging_Enabled
         /// <summary>
         /// Prints a pretty summary to a log file
         /// </summary>
@@ -139,6 +141,7 @@ namespace ChampionsOfForest
             ModAPI.Log.Write(s);
 
         }
+#endif
         public static void AddItem(BaseItem item)
         {
             _Item_Bases.Add(item);
@@ -462,6 +465,43 @@ namespace ChampionsOfForest
             new ItemStat(i, 1, 1, 0, "Stun on hit", scAdd, 1, f => ModdedPlayer.instance.IsHammerStun = true, f => ModdedPlayer.instance.IsHammerStun = false, null); i++;
             new ItemStat(i, 1, 3.5f, 0, "Snap Freeze Duration", scAdd, 3, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null); i++;
             new ItemStat(i, 0.5f, 1.25f, 0, "Raft Speed - HOST ONLY", scAdd, 4, f => ModdedPlayer.instance.RaftSpeedMultipier += f, f => ModdedPlayer.instance.RaftSpeedMultipier -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; i++;
+            i = 3000;
+            new ItemStat(i++, 1, 3.5f, 0, "Empty Socket", scAdd, 0, null, null, null) {Multipier = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Crit Chance", scAdd, 0, StatActions.AddCritChance, StatActions.RemoveCritChance, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Agility", scAdd, 0, StatActions.AddAgility, StatActions.RemoveAgility, null) { RoundingCount = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Movement Speed", scAdd,0, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Ranged Damage", scMult, 0, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };    
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Ranged Armor Piercing", scAdd, 0, f => ModdedPlayer.instance.ARreduction_ranged += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_ranged += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
+
+            //3006
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Attack Speed", scAdd, 0, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed,null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Strength", scAdd, 0, StatActions.AddStrength, StatActions.RemoveStrength, null) { RoundingCount = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Damage Reduction", scOneMinusMult, 0, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Melee Damage", scMult, 0, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Melee Armor Piercing", scAdd, 0, f => ModdedPlayer.instance.ARreduction_melee += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ARreduction_melee += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
+
+            //30011
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Cooldown Reduction", scOneMinusMult, 0, f => ModdedPlayer.instance.CoolDownMultipier *= (1 - f), f => ModdedPlayer.instance.CoolDownMultipier /= (1 - f), null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Intelligence", scAdd, 0, StatActions.AddIntelligence, StatActions.RemoveIntelligence, null) { RoundingCount = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Cost Reduction", scOneMinusMult, 0, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f, f => ModdedPlayer.instance.SpellCostRatio /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Damage", scMult, 0, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Energy On Hit", scAdd, 0, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, null) { RoundingCount = 2, Multipier = 0.02f };
+
+
+            //3016
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Experience Gain", scMult, 0, StatActions.AddExpFactor, StatActions.RemoveExpFactor, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Vitality ", scAdd, 0, StatActions.AddVitality, StatActions.RemoveVitality, null) { RoundingCount = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Magic Find", scMult, 0, f => ModdedPlayer.instance.SpellCostRatio *= 1 - f, f => ModdedPlayer.instance.SpellCostRatio /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: All Healing", scMult, 0, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Life Per Second", scAdd, 0, StatActions.AddHPRegen, StatActions.RemoveHPRegen, null) { RoundingCount = 1, Multipier = 0.04f };
+
+            //3021
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scAdd, 0, StatActions.AddHealth, StatActions.RemoveHealth, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Armor ", scAdd, 0, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Resistance To Magic", scOneMinusMult, 0, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Weapon Range", scMult, 0, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+            new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Thorns", scAdd, 0, f => ModdedPlayer.instance.thorns += f, f => ModdedPlayer.instance.thorns -= f, null) { RoundingCount =0, Multipier = 1.5f };
+
 
         }
 
@@ -4610,8 +4650,8 @@ new int[] {0,0,0,0,62,63,64},
                 _itemType = BaseItem.ItemType.Weapon,
                 weaponModel = BaseItem.WeaponModelType.Greatbow,
                 icon = Res.ResourceLoader.GetTexture(170),
-                onEquip = () => ModdedPlayer.instance.EruptionBow = true,
-                onUnequip = () => ModdedPlayer.instance.EruptionBow = false,
+                onEquip = () => ModdedPlayer.instance.ArchangelBow = true,
+                onUnequip = () => ModdedPlayer.instance.ArchangelBow = false,
             }.PossibleStats[0][0].Multipier = -0.6f;
             new BaseItem(new int[][]
             {
@@ -4722,7 +4762,499 @@ new int[] {0,0,0,0,62,63,64},
                 weaponModel = BaseItem.WeaponModelType.Polearm,
                 icon = Res.ResourceLoader.GetTexture(181),
             };
+            new BaseItem(new int[][] { })
+            {
+                name = "Crude Feather",
+                description = "If equipped on a weapon, increases ranged damage by 10%\n" +
+                "If equipped on boots, increases movement speed by 6.5%\n" +
+                "If equipped on a helmet, increases critical hit chance by 7.5%\n" +
+                "If equipped on an amulet, increases ranged armor piercing by 50\n" +
+                "If equipped in other slots, increases agility by 15",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 3,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 1,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Soft Feather",
+                description = "If equipped on a weapon, increases ranged damage by 20%\n" +
+                "If equipped on boots, increases movement speed by 12.5%\n" +
+                "If equipped on a helmet, increases critical hit chance by 12.5%\n" +
+                "If equipped on an amulet, increases ranged armor piercing by 100\n" +
+                "If equipped in other slots, increases agility by 30",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 4,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 1,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Ornate Feather",
+                description = "If equipped on a weapon, increases ranged damage by 35%\n" +
+                    "If equipped on boots, increases movement speed by 18%\n" +
+                    "If equipped on a helmet, increases critical hit chance by 20%\n" +
+                    "If equipped on an amulet, increases ranged armor piercing by 200\n" +
+                    "If equipped in other slots, increases agility by 60",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 5,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 1,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
 
+            new BaseItem(new int[][] { })
+            {
+                name = "Wonderful Feather",
+                description = "If equipped on a weapon, increases ranged damage by 50%\n" +
+                   "If equipped on boots, increases movement speed by 24%\n" +
+                   "If equipped on a helmet, increases critical hit chance by 25%\n" +
+                   "If equipped on an amulet, increases ranged armor piercing by 350\n" +
+                   "If equipped in other slots, increases agility by 120",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 6,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 1,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "White Crow's Feather",
+                description = "If equipped on a weapon, increases ranged damage by 70%\n" +
+                "If equipped on boots, increases movement speed by 30%\n" +
+                "If equipped on a helmet, increases critical hit chance by 30%\n" +
+                "If equipped on an amulet, increases ranged armor piercing by 600\n" +
+                "If equipped in other slots, increases agility by 250",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 1,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            //-------------- Shark teeth
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Reef Shark",
+                description = "If equipped on a weapon, increases melee damage by 10%\n" +
+                "If equipped on boots, increases damage reduction by 6.5%\n" +
+                "If equipped on a helmet, increases attack speed by 7.5%\n" +
+                "If equipped on an amulet, increases melee armor piercing by 50\n" +
+                "If equipped in other slots, increases strength by 15",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 3,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 2,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Tiger Shark Tooth",
+                description = "If equipped on a weapon, increases melee damage by 20%\n" +
+                "If equipped on boots, increases damage reduction by 12.5%\n" +
+                "If equipped on a helmet, increases attack speed by 12.5%\n" +
+                "If equipped on an amulet, increases melee armor piercing by 100\n" +
+                "If equipped in other slots, increases strength by 30",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 4,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 2,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Whale Shark Tooth",
+                description = "If equipped on a weapon, increases melee damage by 35%\n" +
+                    "If equipped on boots, increases damage reduction by 18%\n" +
+                    "If equipped on a helmet, increases attack speed by 20%\n" +
+                    "If equipped on an amulet, increases melee armor piercing by 200\n" +
+                    "If equipped in other slots, increases strength by 60",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 5,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 2,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Great White",
+                description = "If equipped on a weapon, increases melee damage by 50%\n" +
+                   "If equipped on boots, increases damage reduction by 24%\n" +
+                   "If equipped on a helmet, increases attack speed by 25%\n" +
+                   "If equipped on an amulet, increases melee armor piercing by 350\n" +
+                   "If equipped in other slots, increases strength by 120",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 6,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 2,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Megalodon's Tooth",
+                description = "If equipped on a weapon, increases melee damage by 70%\n" +
+                "If equipped on boots, increases damage reduction by 30%\n" +
+                "If equipped on a helmet, increases attack speed by 30%\n" +
+                "If equipped on an amulet, increases melee armor piercing by 600\n" +
+                "If equipped in other slots, increases strength by 250",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 2,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            //------------- Sapphires
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Uncut Sapphire",
+                description = "If equipped on a weapon, increases magic damage by 10%\n" +
+            "If equipped on boots, decreases spell cost by 6.5%\n" +
+            "If equipped on a helmet, decreases spell cooldown by 7.5%\n" +
+            "If equipped on an amulet, increases energy on hit by 1\n" +
+            "If equipped in other slots, increases intelligence by 15",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 3,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 3,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Clear Sapphire",
+                description = "If equipped on a weapon, increases magic damage by 20%\n" +
+                "If equipped on boots, decreases spell cost by 12.5%\n" +
+                "If equipped on a helmet, decreases spell cooldown by 12.5%\n" +
+                "If equipped on an amulet, increases energy on hit by 2\n" +
+                "If equipped in other slots, increases intelligence by 30",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 4,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 3,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Shiny Sapphire",
+                description = "If equipped on a weapon, increases magic damage by 35%\n" +
+                    "If equipped on boots, decreases spell cost by 18%\n" +
+                    "If equipped on a helmet, decreases spell cooldown by 20%\n" +
+                    "If equipped on an amulet, increases energy on hit by 4\n" +
+                    "If equipped in other slots, increases intelligence by 60",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 5,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 3,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Enchanted Sapphire",
+                description = "If equipped on a weapon, increases magic damage by 50%\n" +
+                   "If equipped on boots, decreases spell cost by 24%\n" +
+                   "If equipped on a helmet, decreases spell cooldown by 25%\n" +
+                   "If equipped on an amulet, increases energy on hit by 7\n" +
+                   "If equipped in other slots, increases intelligence by 120",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 6,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 3,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Celestial Sapphire",
+                description = "If equipped on a weapon, increases magic damage by 70%\n" +
+                "If equipped on boots, decreases spell cost by 30%\n" +
+                "If equipped on a helmet, decreases spell cooldown by 30%\n" +
+                "If equipped on an amulet, increases energy on hit by 12\n" +
+                "If equipped in other slots, increases intelligence by 250",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 3,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            // -------- Moonstones
+            new BaseItem(new int[][] { })
+            {
+                name = "Uncut Moonstone",
+                description = "If equipped on a weapon, increases all healing by 10%\n" +
+     "If equipped on boots, increases magic find by 6.5%\n" +
+     "If equipped on a helmet, increases experience recieved by 7.5%\n" +
+     "If equipped on an amulet, increases life per second by 2\n" +
+     "If equipped in other slots, increases vitality by 15",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 3,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 4,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Clear Moonstone",
+                description = "If equipped on a weapon, increases all healing by 20%\n" +
+                "If equipped on boots, increases magic find by 12.5%\n" +
+                "If equipped on a helmet, increases experience recieved by 12.5%\n" +
+                "If equipped on an amulet, increases life per second by 4\n" +
+                "If equipped in other slots, increases vitality by 30",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 4,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 4,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Shiny Moonstone",
+                description = "If equipped on a weapon, increases all healing by 35%\n" +
+                    "If equipped on boots, increases magic find by 18%\n" +
+                    "If equipped on a helmet, increases experience recieved by 20%\n" +
+                    "If equipped on an amulet, increases life per second by 8\n" +
+                    "If equipped in other slots, increases vitality by 60",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 5,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 4,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Enchanted Moonstone",
+                description = "If equipped on a weapon, increases all healing by 50%\n" +
+                   "If equipped on boots, increases magic find by 24%\n" +
+                   "If equipped on a helmet, increases experience recieved by 25%\n" +
+                   "If equipped on an amulet, increases life per second by 14\n" +
+                   "If equipped in other slots, increases vitality by 120",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 6,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 4,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Celestial Moonstone",
+                description = "If equipped on a weapon, increases all healing by 70%\n" +
+                "If equipped on boots, increases magic find by 30%\n" +
+                "If equipped on a helmet, increases experience recieved by 30%\n" +
+                "If equipped on an amulet, increases life per second by 24\n" +
+                "If equipped in other slots, increases vitality by 250",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 4,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+
+            // ----------------- Ores
+
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Lead Ore",
+                description = "If equipped on a weapon, increases weapon range by 10%\n" +
+  "If equipped on boots, increases resistance to magic by 6.5%\n" +
+  "If equipped on a helmet, increases maximum health by 7.5%\n" +
+  "If equipped on an amulet, increases thorns by 75\n" +
+  "If equipped in other slots, increases armor by 15",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 3,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 5,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Vanadium Ore",
+                description = "If equipped on a weapon, increases weapon range by 20%\n" +
+                "If equipped on boots, increases resistance to magic by 12.5%\n" +
+                "If equipped on a helmet, increases maximum health by 12.5%\n" +
+                "If equipped on an amulet, increases thorns by 150\n" +
+                "If equipped in other slots, increases armor by 30",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 4,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 5,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Titanium Ore",
+                description = "If equipped on a weapon, increases weapon range by 35%\n" +
+                    "If equipped on boots, increases resistance to magic by 18%\n" +
+                    "If equipped on a helmet, increases maximum health by 20%\n" +
+                    "If equipped on an amulet, increases thorns by 300\n" +
+                    "If equipped in other slots, increases armor by 60",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 5,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 5,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+
+            new BaseItem(new int[][] { })
+            {
+                name = "Chromium Ore",
+                description = "If equipped on a weapon, increases weapon range by 50%\n" +
+                   "If equipped on boots, increases resistance to magic by 24%\n" +
+                   "If equipped on a helmet, increases maximum health by 25%\n" +
+                   "If equipped on an amulet, increases thorns by 525\n" +
+                   "If equipped in other slots, increases armor by 120",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 6,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 5,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
+            new BaseItem(new int[][] { })
+            {
+                name = "Tungsten Ore",
+                description = "If equipped on a weapon, increases weapon range by 70%\n" +
+                "If equipped on boots, increases resistance to magic by 30%\n" +
+                "If equipped on a helmet, increases maximum health by 30%\n" +
+                "If equipped on an amulet, increases thorns by 900\n" +
+                "If equipped in other slots, increases armor by 250",
+                lore = "",
+                tooltip = "Materials can be put inside empty sockets to add stats to items",
+                Rarity = 7,
+                minLevel = 20,
+                maxLevel = 21,
+                CanConsume = false,
+                StackSize = 100,
+                subtype = 5,
+                _itemType = BaseItem.ItemType.Material,
+                icon = Res.ResourceLoader.GetTexture(181),
+            };
         }
     }
 }

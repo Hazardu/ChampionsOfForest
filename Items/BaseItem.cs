@@ -5,7 +5,7 @@ namespace ChampionsOfForest
 {
     public class BaseItem
     {
-        public enum ItemType { Shield, Quiver, Weapon, Other, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring, SpellScroll }
+        public enum ItemType { Shield, Quiver, Weapon, Other, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring, SpellScroll  }
         public delegate void OnItemEquip();
         public delegate void OnItemUnequip();
         public delegate void OnItemConsume();
@@ -31,7 +31,7 @@ namespace ChampionsOfForest
         public int maxLevel = 1;
         public Texture2D icon;              //icon of this item
         public bool PickUpAll = true;              //should the item be picked one by one, or grab all at once
-
+        public int subtype = 0;               
         //Drop settings
         public List<EnemyProgression.Enemy> LootsFrom;
 

@@ -154,10 +154,11 @@ namespace ChampionsOfForest.Fun
                 Debug.LogWarning("Wrong command usage \t cotfspawnitembyname [itemname]");
                 return;
         }
+#if Debugging_Enabled
         private void _cotflogitemdatabase(string param)
         {
             ItemDataBase.LogInfo();
         }
-
+#endif
     }
 }

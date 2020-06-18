@@ -236,5 +236,14 @@ namespace ChampionsOfForest.Player
 
         }
 
+        public static void SwapItems(int a, int b)
+        {
+            Item backup = Inventory.Instance.ItemSlots[a];
+            Inventory.Instance.ItemSlots[a] = Inventory.Instance.ItemSlots[b];
+            Inventory.Instance.ItemSlots[b] = backup;
+            CustomCrafting.UpdateIndex(a, b);
+            CustomCrafting.UpdateIndex(b, a);
+        }
+
     }
 }

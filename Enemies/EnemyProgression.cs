@@ -123,7 +123,7 @@ namespace ChampionsOfForest
 
         private Color normalColor;
 
-        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, DoubleLife, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
+        public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
         public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
         #endregion
         public static string[] fNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
@@ -267,7 +267,7 @@ namespace ChampionsOfForest
                             canAdd = false;
                         }
                     }
-                    else if (ab == Abilities.DoubleLife && !(_AI.creepy || _AI.creepy_fat))
+                    else if (ab == Abilities.Undead && !(_AI.creepy || _AI.creepy_fat))
                     {
                         canAdd = false;
 
@@ -693,7 +693,7 @@ namespace ChampionsOfForest
                 {
                     return true;
                 }
-                if (abilities.Contains(Abilities.DoubleLife))
+                if (abilities.Contains(Abilities.Undead))
                 {
                     if (!DualLifeSpend)
                     {
@@ -1048,7 +1048,7 @@ namespace ChampionsOfForest
                 BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
 
             }
-            if (abilities.Contains(Abilities.DoubleLife))
+            if (abilities.Contains(Abilities.Undead))
             {
                 if (DualLifeSpend)
                 {

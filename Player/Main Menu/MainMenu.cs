@@ -1,14 +1,19 @@
 ﻿using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using TheForest.Utils;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 using static ChampionsOfForest.Player.BuffDB;
+
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
@@ -42,7 +47,7 @@ namespace ChampionsOfForest
 
 		//variables
 		public float rr;                                // current resolution to fullHD ratio 
-        private Vector2 mousepos;                       //mouse postion in GUI space
+		private Vector2 mousepos;                       //mouse postion in GUI space
 		private Rect wholeScreen;                       //rect that contains the entire screen
 		private bool Crouching;                         //used in hud display, when crouching scans enemies
 		private bool MenuInteractable;                  //determines if menu elements can be clicked or not
@@ -572,7 +577,7 @@ namespace ChampionsOfForest
 			{
 
 				DrawDebug();
-			
+
 				GUI.skin.label.normal.textColor = Color.white;
 				GUI.skin.label.onNormal.textColor = Color.white;
 				GUI.contentColor = Color.white;
@@ -588,7 +593,7 @@ namespace ChampionsOfForest
 				{
 					if (LocalPlayer.Stats != null)
 					{
-						LocalPlayer.Inventory.UnequipItemAtSlot(TheForest.Items.Item.EquipmentSlot.RightHand,false,true,false);
+						LocalPlayer.Inventory.UnequipItemAtSlot(TheForest.Items.Item.EquipmentSlot.RightHand, false, true, false);
 						if (GameSetup.IsMpClient)
 						{
 							DifficultySelectionClinet();
@@ -688,7 +693,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-#region MainMenuMethods
+		#region MainMenuMethods
 		//Draws main menu with buttons
 		private void DrawMain()
 		{
@@ -872,9 +877,9 @@ namespace ChampionsOfForest
 			}
 		}
 
-#endregion
+		#endregion
 
-#region DifficultySelectionMethods
+		#region DifficultySelectionMethods
 		private void DifficultySelectionHost()
 		{
 			if ((bool)LocalPlayer.FpCharacter)
@@ -1045,9 +1050,9 @@ namespace ChampionsOfForest
 				requestResendTime -= Time.deltaTime;
 			}
 		}
-#endregion
+		#endregion
 
-#region InventoryMethods
+		#region InventoryMethods
 		private void DrawInventory()
 		{
 			Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
@@ -1070,7 +1075,7 @@ namespace ChampionsOfForest
 				//PlayerSlots
 				Rect eq = new Rect(SlotsRect.xMax + 30 * rr, 0, 420 * rr, Screen.height);
 				GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = SecondaryFont, fontSize = Mathf.RoundToInt(65 * rr) });
-				Rect head = new Rect(Vector2.zero, slotDim*2)
+				Rect head = new Rect(Vector2.zero, slotDim * 2)
 				{
 					center = eq.center
 				};
@@ -1143,13 +1148,13 @@ namespace ChampionsOfForest
 			{
 				if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
 				{
-						var targetSlotID = Inventory.Instance.ItemSlots[SelectedItem].destinationSlotID;
-					if (SelectedItem > -1 && targetSlotID != -1&& Inventory.Instance.ItemSlots[targetSlotID] != null)
+					var targetSlotID = Inventory.Instance.ItemSlots[SelectedItem].destinationSlotID;
+					if (SelectedItem > -1 && targetSlotID != -1 && Inventory.Instance.ItemSlots[targetSlotID] != null)
 					{
-							DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem],true, Inventory.Instance.ItemSlots[targetSlotID]);
+						DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem], true, Inventory.Instance.ItemSlots[targetSlotID]);
 					}
 					else
-					DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem]);
+						DrawItemInfo(itemPos, Inventory.Instance.ItemSlots[SelectedItem]);
 				}
 				else
 				{
@@ -1530,7 +1535,7 @@ namespace ChampionsOfForest
 				{
 					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount), StatValueStyle);
 				}
-				
+
 			}
 			if (drawCompare)
 			{
@@ -1542,7 +1547,7 @@ namespace ChampionsOfForest
 					fontSize = (int)(18 * rr),
 					alignment = TextAnchor.MiddleLeft,
 
-					
+
 				};
 				if (grouped != null)
 				{
@@ -1551,7 +1556,7 @@ namespace ChampionsOfForest
 					GUI.DrawTexture(compareBG, _black);
 					GUI.color = Color.gray;
 					int count = item.Stats.Count;
-					for (int i = 0; i <count; i++)
+					for (int i = 0; i < count; i++)
 					{
 						Rect compareRect = new Rect(StatRects[i].xMax, StatRects[i].y, 100 * rr, StatRects[i].height);
 						//object baseVarValue = item.Stats[i].GetVariable();
@@ -1572,11 +1577,11 @@ namespace ChampionsOfForest
 						}
 						if (item.Stats[i].DisplayAsPercent)
 							statIncr *= 100;
-						statIncr =(float) Math.Round(statIncr, item.Stats[i].RoundingCount);
-							text += statIncr.ToString("N");
+						statIncr = (float)Math.Round(statIncr, item.Stats[i].RoundingCount);
+						text += statIncr.ToString("N");
 						if (item.Stats[i].DisplayAsPercent)
 							text += "%";
-					
+
 						GUI.Label(compareRect, text, statCompareStyle);
 
 					}
@@ -1650,7 +1655,7 @@ namespace ChampionsOfForest
 				GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
 			}
 
-		
+
 		}
 
 
@@ -1706,99 +1711,8 @@ namespace ChampionsOfForest
 					{
 						if (r.Contains(mousepos))
 						{
-
-							bool canPlace = false;
-							if (index < -1)
-							{
-								switch (index)
-								{
-									case -2:
-										if (DraggedItem._itemType == BaseItem.ItemType.Helmet)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -3:
-										if (DraggedItem._itemType == BaseItem.ItemType.ChestArmor)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -4:
-										if (DraggedItem._itemType == BaseItem.ItemType.Pants)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -5:
-										if (DraggedItem._itemType == BaseItem.ItemType.Boot)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -6:
-										if (DraggedItem._itemType == BaseItem.ItemType.ShoulderArmor)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -7:
-										if (DraggedItem._itemType == BaseItem.ItemType.Glove)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -8:
-										if (DraggedItem._itemType == BaseItem.ItemType.Amulet)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -9:
-										if (DraggedItem._itemType == BaseItem.ItemType.Bracer)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -10:
-										if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -11:
-										if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -12:
-										if (DraggedItem._itemType == BaseItem.ItemType.Weapon)
-										{
-											canPlace = true;
-										}
-
-										break;
-									case -13:
-										if (DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Shield)
-										{
-											canPlace = true;
-										}
-
-										break;
-								}
-							}
-							else
+							bool canPlace = DraggedItem.CanPlaceInSlot(in index);
+							if(index > -1)
 							{
 								canPlace = true;
 							}
@@ -1840,18 +1754,14 @@ namespace ChampionsOfForest
 							{
 								SelectedItem = index;
 								Effects.Sound_Effects.GlobalSFX.Play(1);
-
+								if (Inventory.Instance.ItemSlots[index].CombineItems(DraggedItem))
+									return;
 								if (index < -1)
 								{
 
 									if (canPlace)
 									{
-										Item backup = Inventory.Instance.ItemSlots[index];
-										Inventory.Instance.ItemSlots[index] = DraggedItem;
-										Inventory.Instance.ItemSlots[DraggedItemIndex] = backup;
-										CustomCrafting.UpdateIndex(index, DraggedItemIndex);
-										CustomCrafting.UpdateIndex(DraggedItemIndex, index);
-
+										Inventory.SwapItems(index, DraggedItemIndex);
 
 										DraggedItem = null;
 										DraggedItemIndex = -1;
@@ -1874,11 +1784,7 @@ namespace ChampionsOfForest
 										if (canPlace)
 										{
 											//replace items
-											Item backup = Inventory.Instance.ItemSlots[index];
-											Inventory.Instance.ItemSlots[index] = DraggedItem;
-											Inventory.Instance.ItemSlots[DraggedItemIndex] = backup;
-											CustomCrafting.UpdateIndex(index, DraggedItemIndex);
-											CustomCrafting.UpdateIndex(DraggedItemIndex, index);
+											Inventory.SwapItems(index, DraggedItemIndex);
 											DraggedItem = null;
 											DraggedItemIndex = -1;
 											isDragging = false;
@@ -1983,94 +1889,7 @@ namespace ChampionsOfForest
 						isDragging = false;
 						if (index < -1)
 						{
-							bool canPlace = false;
-							switch (index)
-							{
-								case -2:
-									if (DraggedItem._itemType == BaseItem.ItemType.Helmet)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -3:
-									if (DraggedItem._itemType == BaseItem.ItemType.ChestArmor)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -4:
-									if (DraggedItem._itemType == BaseItem.ItemType.Pants)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -5:
-									if (DraggedItem._itemType == BaseItem.ItemType.Boot)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -6:
-									if (DraggedItem._itemType == BaseItem.ItemType.ShoulderArmor)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -7:
-									if (DraggedItem._itemType == BaseItem.ItemType.Glove)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -8:
-									if (DraggedItem._itemType == BaseItem.ItemType.Amulet)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -9:
-									if (DraggedItem._itemType == BaseItem.ItemType.Bracer)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -10:
-									if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -11:
-									if (DraggedItem._itemType == BaseItem.ItemType.Ring)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -12:
-									if (DraggedItem._itemType == BaseItem.ItemType.Weapon)
-									{
-										canPlace = true;
-									}
-
-									break;
-								case -13:
-									if (DraggedItem._itemType == BaseItem.ItemType.SpellScroll || DraggedItem._itemType == BaseItem.ItemType.Quiver || DraggedItem._itemType == BaseItem.ItemType.Shield)
-									{
-										canPlace = true;
-									}
-
-									break;
-							}
+							bool canPlace = DraggedItem.CanPlaceInSlot(in index);
 							if (canPlace)
 							{
 								Inventory.Instance.ItemSlots[index] = DraggedItem;
@@ -2129,9 +1948,9 @@ namespace ChampionsOfForest
 			DrawInvSlot(r, index);
 
 		}
-#endregion
+		#endregion
 
-#region HUDMethods
+		#region HUDMethods
 		private void DrawHUD()
 		{
 
@@ -2512,7 +2331,7 @@ namespace ChampionsOfForest
 											case EnemyProgression.Abilities.Flare:
 												DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
 												break;
-											case EnemyProgression.Abilities.DoubleLife:
+											case EnemyProgression.Abilities.Undead:
 												DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
 												break;
 											case EnemyProgression.Abilities.Laser:
@@ -3098,7 +2917,7 @@ namespace ChampionsOfForest
 			GUI.Label(rOffset, content, style);
 
 		}
-#endregion
+		#endregion
 
 		//Does fade out fade in transision between menus
 		public IEnumerator FadeMenuSwitch(OpenedMenuMode mode)
@@ -3130,7 +2949,7 @@ namespace ChampionsOfForest
 			MenuInteractable = true;
 		}
 
-#region SpellsMethods;
+		#region SpellsMethods;
 		private Spell displayedSpellInfo;
 		private Texture2D semiBlack;
 		private float semiblackValue;
@@ -3354,10 +3173,10 @@ namespace ChampionsOfForest
 		}
 
 
-#endregion
+		#endregion
 
 
-#region StatsMenu
+		#region StatsMenu
 
 		private float BookPositionY;
 		private float BookScrollAmount;
@@ -3554,7 +3373,7 @@ namespace ChampionsOfForest
 			Label("Strength - This stat increases melee damage multipier. It multiplies with melee damage increase.");
 			Label("Agility - This stat increases ranged damage multipier. Additionally it increases maximum amount of energy");
 			Label("Agility - This stat increases maximum health points, this value is further multiplied by maximum health %");
-			
+
 			Space(100);
 
 			Header("Information - Items");
@@ -3847,7 +3666,7 @@ namespace ChampionsOfForest
 			//Stat("Day 10", "");
 			//Label("Something is seriousely wrong about this place. Those creatures... I started seeing them on the surface. They appear to have human elements, but they are definitely monsters. They are extremely hostile. \n I need to get stronger or else i'll get slaughtered here.");
 		}
-#endregion
+		#endregion
 
 
 
@@ -4018,7 +3837,7 @@ namespace ChampionsOfForest
 					GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * rr), font = MainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 
 					Rect Desc = new Rect(r.x - 200 * rr, r.yMax + 30 * rr, 400 * rr + r.width, 1000 * rr);
-					
+
 					string desctext = p.Description;
 
 					if (!p.IsBought || p.Endless)

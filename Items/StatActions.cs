@@ -287,7 +287,6 @@ namespace ChampionsOfForest.Items
         //    ChampionsOfForest.ModdedPlayer.instance. -= f;
         //}
 
-
         public static void PERMANENT_perkPointIncrease(float f)
         {
             ChampionsOfForest.ModdedPlayer.instance.PermanentBonusPerkPoints += Mathf.RoundToInt(f);
@@ -346,7 +345,139 @@ namespace ChampionsOfForest.Items
         }
 
 
+        public static ItemStat GetSocketedStat(in int rarity, BaseItem.ItemType type, int subtypeOffset)
+        {
+            float value = 1;
+            int statid = 0;
+			switch (type)
+			{
+				case BaseItem.ItemType.Shield:
+				case BaseItem.ItemType.Quiver:
+				case BaseItem.ItemType.Pants:
+				case BaseItem.ItemType.ChestArmor:
+				case BaseItem.ItemType.ShoulderArmor:
+				case BaseItem.ItemType.Glove:
+				case BaseItem.ItemType.Bracer:
+				case BaseItem.ItemType.Ring:
+				case BaseItem.ItemType.SpellScroll:
+                    value = GetSocketStatAmount_Other(in rarity);
+                    statid = 1;
+					break;
+				case BaseItem.ItemType.Weapon:
+                    value = GetSocketStatAmount_Weapon(in rarity);
+                    statid = 3;
+                    break;
+				case BaseItem.ItemType.Helmet:
+                    value = GetSocketStatAmount_Helmet(in rarity);
+                    statid = 0;
+                    break;
+				case BaseItem.ItemType.Boot:
+                    value = GetSocketStatAmount_Boots(in rarity);
+                    statid = 2;
+                    break;
+				case BaseItem.ItemType.Amulet:
+                    value = GetSocketStatAmount_Amulet(in rarity);
+                    statid = 4;
+                    break;
 
+            }
+            statid = 5 * (subtypeOffset - 1) + 3001 + statid;
+            ItemStat stat = new ItemStat(ItemDataBase.StatByID(statid));
+            stat.Amount = value * stat.Multipier;
+            return stat;
+        }
+
+        private static float GetSocketStatAmount_Amulet(in int rarity)
+        {
+            switch (rarity)
+            {
+                case 3:
+                    return 50f;
+                case 4:
+                    return 100f;
+                case 5:
+                    return 200f;
+                case 6:
+                    return 350f;
+                case 7:
+                    return 600f;
+                default:
+                    return 20f;
+            }
+        }
+
+        private static float GetSocketStatAmount_Weapon(in int rarity)
+        {
+			switch (rarity)
+			{
+                case 3:
+                    return 1.1f;
+                case 4:
+                    return 1.2f;
+                case 5:
+                    return 1.35f;
+                case 6:
+                    return 1.50f;
+                case 7:
+                    return 1.70f;
+				default:
+                    return 1.05f;
+			}
+		}
+        private static float GetSocketStatAmount_Boots(in int rarity)
+        {
+            switch (rarity)
+            {
+                case 3:
+                    return 1.065f;
+                case 4:
+                    return 1.125f;
+                case 5:
+                    return 1.18f;
+                case 6:
+                    return 1.24f;
+                case 7:
+                    return 1.30f;
+                default:
+                    return 1.04f;
+            }
+        }
+        private static float GetSocketStatAmount_Helmet(in int rarity)
+        {
+            switch (rarity)
+            {
+                case 3:
+                    return 1.075f;
+                case 4:
+                    return 1.125f;
+                case 5:
+                    return 1.2f;
+                case 6:
+                    return 1.25f;
+                case 7:
+                    return 1.30f;
+                default:
+                    return 1.04f;
+            }
+        }
+         private static float GetSocketStatAmount_Other(in int rarity)
+        {
+            switch (rarity)
+            {
+                case 3:
+                    return 15f;
+                case 4:
+                    return 30f;
+                case 5:
+                    return 60f;
+                case 6:
+                    return 120f;
+                case 7:
+                    return 250f;
+                default:
+                    return 5f;
+            }
+        }
 
     }
 }

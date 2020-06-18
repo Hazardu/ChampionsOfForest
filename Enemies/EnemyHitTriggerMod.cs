@@ -148,6 +148,7 @@ namespace ChampionsOfForest.Enemies
                                     bool flag = InFront(other.gameObject);
                                     if (((!BoltNetwork.isServer || !netPrefab) && flag && events.parryBool && ((componentInParent.GetNextAnimatorStateInfo(1).tagHash == blockHash || componentInParent.GetCurrentAnimatorStateInfo(1).tagHash == blockHash) )|| doParry))
                                     {
+                                        SpellActions.DoParry(transform.position);
                                         ModAPI.Console.Write("Parrying successful");
                                         int parryDir = events.parryDir;
                                         BoltSetReflectedShim.SetIntegerReflected(animator, "parryDirInt", parryDir);
@@ -164,7 +165,6 @@ namespace ChampionsOfForest.Enemies
                                         {
                                             BoltSetReflectedShim.SetTriggerReflected(animator, "parryTrigger");
                                         }
-                                        SpellActions.DoParry(transform.position);
                                         events.StartCoroutine("disableAllWeapons");
                                         playerHitReactions componentInParent2 = other.gameObject.GetComponentInParent<playerHitReactions>();
                                         if (componentInParent2 != null)

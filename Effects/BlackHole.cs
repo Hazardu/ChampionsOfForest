@@ -202,7 +202,7 @@ namespace ChampionsOfForest
             }
             while (FromEnemy)
             {
-                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
+                if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
                 {
                     LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance)*0.5f);
                     yield return new WaitForSeconds(0.5f);
