@@ -226,16 +226,9 @@ namespace ChampionsOfForest
                 return true;
             }
 
-            if (ItemBases[i].minLevel <= averageLevel + 7)
+            if (ItemBases[i].minLevel <= averageLevel)
             {
-                if (ItemBases[i].LootsFrom == null)
-                {
-                    return true;
-                }
-                if (ItemBases[i].LootsFrom.Contains(e))
-                {
-                    return true;
-                }
+                return (ItemBases[i].lootTable & e) != 0;
             }
             return false;
         }

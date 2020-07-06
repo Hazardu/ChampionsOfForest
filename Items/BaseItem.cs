@@ -33,7 +33,7 @@ namespace ChampionsOfForest
         public bool PickUpAll = true;              //should the item be picked one by one, or grab all at once
         public int subtype = 0;               
         //Drop settings
-        public List<EnemyProgression.Enemy> LootsFrom;
+        public EnemyProgression.Enemy lootTable;
 
 
 
@@ -172,61 +172,44 @@ namespace ChampionsOfForest
         /// </summary>
         private void LootsFromAssignDefault()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy,EnemyProgression.Enemy.RegularVags,EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.Cowman,EnemyProgression.Enemy.Baby,EnemyProgression.Enemy.Girl,EnemyProgression.Enemy.Worm,EnemyProgression.Enemy.Megan,EnemyProgression.Enemy.NormalMale,EnemyProgression.Enemy.NormalLeaderMale,EnemyProgression.Enemy.NormalFemale,EnemyProgression.Enemy.NormalSkinnyMale,EnemyProgression.Enemy.NormalSkinnyFemale,EnemyProgression.Enemy.PaleMale,EnemyProgression.Enemy.PaleSkinnyMale,EnemyProgression.Enemy.PaleSkinnedMale,EnemyProgression.Enemy.PaleSkinnedSkinnyMale,EnemyProgression.Enemy.PaintedMale,EnemyProgression.Enemy.PaintedLeaderMale,EnemyProgression.Enemy.PaintedFemale,EnemyProgression.Enemy.Fireman
-            };
+            //Lootable from everything
+            lootTable =(EnemyProgression.Enemy) 0b1111111111111111111111;
         }
 
         //Sets the item to drop from only a specyfic group of enemies
         public void DropSettings_OnlyArmsy()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy
-            };
+            lootTable = EnemyProgression.Enemy.RegularArmsy | EnemyProgression.Enemy.PaleArmsy;
+            
         }
         public void DropSettings_OnlyVags()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.RegularVags
-            };
+            lootTable = EnemyProgression.Enemy.PaleVags | EnemyProgression.Enemy.RegularVags;
+           
         }
         public void DropSettings_OnlyCow()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.Cowman,
-            };
+            lootTable = EnemyProgression.Enemy.Cowman;
+           
         }
         public void DropSettings_OnlyBaby()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.Baby
-            };
+            lootTable = EnemyProgression.Enemy.Baby;
         }
         public void DropSettings_OnlyMegan()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.Megan
-            };
+            lootTable = EnemyProgression.Enemy.Megan;
         }
         public void DropSettings_OnlyCreepy()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-               EnemyProgression.Enemy.RegularArmsy,EnemyProgression.Enemy.PaleArmsy,EnemyProgression.Enemy.RegularVags,EnemyProgression.Enemy.PaleVags,EnemyProgression.Enemy.Cowman,EnemyProgression.Enemy.Baby,EnemyProgression.Enemy.Girl,EnemyProgression.Enemy.Worm,EnemyProgression.Enemy.Megan
-            };
+            lootTable = EnemyProgression.Enemy.RegularArmsy | EnemyProgression.Enemy.PaleArmsy | EnemyProgression.Enemy.RegularVags | EnemyProgression.Enemy.PaleVags | EnemyProgression.Enemy.Cowman | EnemyProgression.Enemy.Baby | EnemyProgression.Enemy.Girl | EnemyProgression.Enemy.Worm | EnemyProgression.Enemy.Megan;
+            
         }
         public void DropSettings_OnlyCannibals()
         {
-            LootsFrom = new List<EnemyProgression.Enemy>()
-            {
-                EnemyProgression.Enemy.NormalMale,EnemyProgression.Enemy.NormalLeaderMale,EnemyProgression.Enemy.NormalFemale,EnemyProgression.Enemy.NormalSkinnyMale,EnemyProgression.Enemy.NormalSkinnyFemale,EnemyProgression.Enemy.PaleMale,EnemyProgression.Enemy.PaleSkinnyMale,EnemyProgression.Enemy.PaleSkinnedMale,EnemyProgression.Enemy.PaleSkinnedSkinnyMale,EnemyProgression.Enemy.PaintedMale,EnemyProgression.Enemy.PaintedLeaderMale,EnemyProgression.Enemy.PaintedFemale,EnemyProgression.Enemy.Fireman
-            };
+            lootTable =
+                EnemyProgression.Enemy.NormalMale | EnemyProgression.Enemy.NormalLeaderMale | EnemyProgression.Enemy.NormalFemale | EnemyProgression.Enemy.NormalSkinnyMale | EnemyProgression.Enemy.NormalSkinnyFemale | EnemyProgression.Enemy.PaleMale | EnemyProgression.Enemy.PaleSkinnyMale | EnemyProgression.Enemy.PaleSkinnedMale | EnemyProgression.Enemy.PaleSkinnedSkinnyMale | EnemyProgression.Enemy.PaintedMale | EnemyProgression.Enemy.PaintedLeaderMale | EnemyProgression.Enemy.PaintedFemale | EnemyProgression.Enemy.Fireman;
+          
         }
     }
 

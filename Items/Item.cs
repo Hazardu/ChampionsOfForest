@@ -246,7 +246,7 @@ namespace ChampionsOfForest
 			base.onConsume = b.onConsume;
 			base.CanConsume = b.CanConsume;
 			base.weaponModel = b.weaponModel;
-			base.LootsFrom = b.LootsFrom;
+			base.lootTable = b.lootTable;
 			base.subtype = b.subtype;
 			Amount = amount;
 			Equipped = false;

@@ -124,7 +124,30 @@ namespace ChampionsOfForest
         private Color normalColor;
 
         public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
-        public enum Enemy { RegularArmsy, PaleArmsy, RegularVags, PaleVags, Cowman, Baby, Girl, Worm, Megan, NormalMale, NormalLeaderMale, NormalFemale, NormalSkinnyMale, NormalSkinnyFemale, PaleMale, PaleSkinnyMale, PaleSkinnedMale, PaleSkinnedSkinnyMale, PaintedMale, PaintedLeaderMale, PaintedFemale, Fireman };
+        public enum Enemy {
+            RegularArmsy =                  0b1, 
+            PaleArmsy =                     0b10,
+            RegularVags =                   0b100,
+            PaleVags =                      0b1000,
+            Cowman =                        0b10000, 
+            Baby =                          0b100000, 
+            Girl =                          0b1000000, 
+            Worm =                          0b10000000, 
+            Megan =                         0b100000000, 
+            NormalMale =                    0b1000000000, 
+            NormalLeaderMale =              0b10000000000,
+            NormalFemale =                  0b100000000000, 
+            NormalSkinnyMale =              0b1000000000000, 
+            NormalSkinnyFemale =            0b10000000000000,
+            PaleMale =                      0b100000000000000, 
+            PaleSkinnyMale =                0b1000000000000000, 
+            PaleSkinnedMale =               0b10000000000000000, 
+            PaleSkinnedSkinnyMale =         0b100000000000000000, 
+            PaintedMale =                   0b1000000000000000000, 
+            PaintedLeaderMale =             0b10000000000000000000, 
+            PaintedFemale =                 0b100000000000000000000, 
+            Fireman =                       0b1000000000000000000000
+        };
         #endregion
         public static string[] fNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
                     "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
@@ -141,7 +164,7 @@ namespace ChampionsOfForest
     #region Name
     public static string[] mNames = new string[]
               {
-                  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor","Eraized", "Xelthaz", "Commanderroot", "Plqauttro","Commula","Tom from Myspace","Maurycy"
+                  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor","Eraized", "Xelthaz", "Commanderroot", "Plqauttro","Commula","Tom from Myspace","Maurycy","Kuldar, stab this guy"
               };
         /// <summary>
         /// Picks a random name for the enemy
