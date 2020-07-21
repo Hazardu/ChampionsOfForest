@@ -321,19 +321,22 @@ namespace ChampionsOfForest
             DamageMult = Mathf.Pow(Level, 4) / 100f + 0.5f;
             DamageMult *= dif*2 + 1;
 
-            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.4f) *0.36f+ 1, Mathf.Pow(Level, 2.45f)+ 20));
+            Armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(Level, 2.4f) *0.36f+ 1, Mathf.Pow(Level, 2.45f)+ 20) * ModSettings.EnemyArmorMultiplier);
             Armor *= dif/2 + 1;
             ArmorReduction = 0;
             _hp = (_Health.Health * Mathf.Pow((float)Level, 2.215f + (dif * 0.19f)) /16);
             _hp *= dif/2 + 1;
             AnimSpeed =0.9f + (float)Level / 205;
-       
-            if(_rarity != EnemyRarity.Normal)
+
+            _hp *= ModSettings.EnemyHealthMultiplier;
+            DamageMult *= ModSettings.EnemyDamageMultiplier;
+            AnimSpeed *= ModSettings.EnemySpeedMultiplier;
+
+
+            if (_rarity != EnemyRarity.Normal)
             {
-                Armor *= 3;
+                Armor *= 2;
             }
-
-
             //Extra health for boss type enemies
             switch (_rarity)
             {
@@ -364,7 +367,7 @@ namespace ChampionsOfForest
                 gameObject.transform.localScale *= 2;
                 _hp *= 2;
                 DamageMult *= 2;
-                AnimSpeed /= 2;
+                AnimSpeed /= 1.6f;
             }
             else if (abilities.Contains(Abilities.Tiny))
             {
@@ -375,15 +378,15 @@ namespace ChampionsOfForest
             }
             if (abilities.Contains(Abilities.Steadfast))
             {
-                Steadfast = 8;
+                Steadfast = 5;
             }
             if (abilities.Contains(Abilities.EliteSteadfast))
             {
-                Steadfast = 2.5f;
+                Steadfast = 2f;
             }
             if (abilities.Contains(Abilities.BossSteadfast))
             {
-                Steadfast = 1.5f;
+                Steadfast = 0.25f;
             }
             if (abilities.Contains(Abilities.ExtraHealth))
             {
@@ -798,7 +801,7 @@ namespace ChampionsOfForest
                     }
                 }
 
-                if (Random.value <= 0.1f * ItemDataBase.MagicFind || _AI.creepy_boss || abilities.Count > 0)
+                if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ItemDataBase.MagicFind || _AI.creepy_boss || abilities.Count > 0)
                 {
                     int itemCount = Random.Range(1, 3 + ModReferences.Players.Count);
                     if (_AI.creepy_boss)
@@ -818,7 +821,7 @@ namespace ChampionsOfForest
                         itemCount += 3;
                     }
                     itemCount += Mathf.RoundToInt((int)ModSettings.difficulty);
-                    itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind);
+                    itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind * ModSettings.DropQuantityMultiplier);
 
                     ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
 
@@ -1649,7 +1652,7 @@ namespace ChampionsOfForest
 
                     break;
             }
-            Level = Mathf.CeilToInt(Level + extraLevels);
+            Level = Mathf.CeilToInt(Level + extraLevels + ModSettings.EnemyLevelIncrease);
         }
         private void AssignBounty()
         {
@@ -1700,6 +1703,7 @@ namespace ChampionsOfForest
 
                     break;
             }
+            b *= ModSettings.ExpMultiplier;
             bounty = Convert.ToInt64(b);
         }
 

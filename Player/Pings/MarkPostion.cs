@@ -30,14 +30,14 @@ namespace ChampionsOfForest
                 Vector3 pos = Camera.main.WorldToScreenPoint(position);
                 pos.y = Screen.height - pos.y;
                 float size = Mathf.Clamp(700 / distance, 16, 50);
-                size *= ChampionsOfForest.MainMenu.Instance.rr;
+                size *= ChampionsOfForest.MainMenu.Instance.screenScale;
 
                 Rect r = new Rect(0, 0, 3.35f * size, size)
                 {
                     center = pos
                 };
 
-                GUI.Label(r, distance.ToString("N1")+ 'm', new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.MainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
+                GUI.Label(r, distance.ToString("N1")+ 'm', new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
                 r.y += size+5;
                 GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
 

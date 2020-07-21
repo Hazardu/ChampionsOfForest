@@ -37,7 +37,7 @@ namespace ChampionsOfForest
                     Vector3 pos = Camera.main.WorldToScreenPoint(tPos);
                     pos.y = Screen.height - pos.y;
                     float size = Mathf.Clamp(700 / distance, 14, 50);
-                    size *= ChampionsOfForest.MainMenu.Instance.rr;
+                    size *= ChampionsOfForest.MainMenu.Instance.screenScale;
                     if (Elite) size *= 1.1f;
                     Rect r = new Rect(0, 0, 3.35f * size, size)
                     {
@@ -47,7 +47,7 @@ namespace ChampionsOfForest
                     if (Elite)
                     {
                         GUI.color = Color.red;
-                        GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), fontStyle= FontStyle.Bold, font = MainMenu.Instance.MainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
+                        GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), fontStyle= FontStyle.Bold, font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
                         GUI.color = Color.white;
                         r.y += size;
                         GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(171));
@@ -55,7 +55,7 @@ namespace ChampionsOfForest
                     else
                     {
                         GUI.color = Color.red;
-                        GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.MainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
+                        GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
                         GUI.color = Color.white;
                         r.y += size+5;
                         GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));

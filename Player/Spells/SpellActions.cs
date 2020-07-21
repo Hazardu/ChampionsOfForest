@@ -108,7 +108,7 @@ namespace ChampionsOfForest.Player
 			vel.y /= 6;
 			LocalPlayer.Rigidbody.velocity = vel * 1.5f;
 			Effects.Sound_Effects.GlobalSFX.Play(5);
-			ModAPI.Console.Write("Teleporting to: " + point);
+			BuffDB.AddBuff(4, 97, 1, 0.1f);
 		}
 
 

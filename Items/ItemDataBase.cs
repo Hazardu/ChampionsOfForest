@@ -301,7 +301,7 @@ namespace ChampionsOfForest
                     if (ModSettings.difficulty > 0)
                     {
                         rarity = 2;
-                        if (w > 180 && (Random.value < 0.50f || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 8)
+                        if (w > 180 && (Random.value < 0.50f || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 7)
                         {
                             if (ModSettings.difficulty > 0)
                             {

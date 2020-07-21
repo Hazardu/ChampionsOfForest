@@ -143,32 +143,34 @@ namespace ChampionsOfForest.Enemies
                                 damage = 150;
                                 break;
                             case ModSettings.Difficulty.Elite:
-                                damage = 250;
+                                damage = 230;
                                 break;
                             case ModSettings.Difficulty.Master:
-                                damage = 425;
+                                damage = 360;
                                 break;
                             case ModSettings.Difficulty.Challenge1:
-                                damage = 50000;
+                                damage = 1500;
                                 break;
                             case ModSettings.Difficulty.Challenge2:
-                                damage = 250000;
+                                damage = 5000;
                                 break;
                             case ModSettings.Difficulty.Challenge3:
-                                damage = 1000000;
+                                damage = 12000;
                                 break;
                             case ModSettings.Difficulty.Challenge4:
-                                damage = 5000000;
+                                damage = 20000;
                                 break;
                             case ModSettings.Difficulty.Challenge5:
-                                damage = 15000000;
+                                damage = 30000;
                                 break;
                             case ModSettings.Difficulty.Challenge6:
                             case ModSettings.Difficulty.Hell:
-                                damage = 25000000;
+                                damage = 40000;
                                 break;
 
                         }
+                        if (ModdedPlayer.instance.EruptionBow)
+                            damage /= 10;
                         LocalPlayer.Stats.Hit(damage, false);
                     }
                     if (BoltNetwork.isClient)

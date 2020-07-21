@@ -65,6 +65,8 @@ namespace ChampionsOfForest.Network
 								{
 									LocalPlayer.FpCharacter.UnLockView();
 									LocalPlayer.FpCharacter.MovementLocked = false;
+									Cheats.GodMode = false;
+									MainMenu.Instance.ClearDiffSelectionObjects();
 								}
 								ModSettings.DifficultyChoosen = true;
 								break;

@@ -52,8 +52,10 @@ namespace ChampionsOfForest.Effects
                     BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
                 }
             }
+
             ModdedPlayer.instance.StunDuration = 0;
             ModdedPlayer.instance.RootDuration= 0;
+            BuffDB.AddBuff(7, 98, 1, 3f);
 
                 if (heal)
                 {

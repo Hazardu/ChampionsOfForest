@@ -220,6 +220,12 @@
     <Compile Include="Fun\SpaceX.cs" />
     <Compile Include="Items\Crafting.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_HUD.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_Inventory.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_Perks.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_Spells.cs" />
     <Compile Include="Player\Overrides\ArrowStickToTargetMod.cs" />
     <Compile Include="Player\AsyncHit.cs" />
     <Compile Include="Player\AutoPickupItems.cs" />

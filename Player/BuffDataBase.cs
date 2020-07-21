@@ -273,3 +273,4 @@ namespace ChampionsOfForest.Player
 //94 - flare resistance
 //95 triple damage Blood Infused Arrow energy leak
 //96 fart slow
+//97 - blink cc break

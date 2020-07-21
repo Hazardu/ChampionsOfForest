@@ -25,5 +25,15 @@ namespace ChampionsOfForest
         {
            116
         };
+
+        public static float DropQuantityMultiplier= 1;
+        public static float DropChanceMultiplier = 1;
+        public static float ExpMultiplier= 1;
+        public static int EnemyLevelIncrease= 0;
+        public static float EnemyDamageMultiplier=  1;
+        public static float EnemyHealthMultiplier= 1;
+        public static float EnemyArmorMultiplier= 1;
+        public static float EnemySpeedMultiplier= 1;
+
     }
 }

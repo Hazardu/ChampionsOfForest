@@ -64,7 +64,7 @@ namespace ChampionsOfForest
                 Vector3 pos = mainCam.WorldToScreenPoint(transform.position);
                 pos.y = Screen.height - pos.y;
 
-                Rect r = new Rect(0, 0, 400 * MainMenu.Instance.rr, 200 * MainMenu.Instance.rr)
+                Rect r = new Rect(0, 0, 400 * MainMenu.Instance.screenScale, 200 * MainMenu.Instance.screenScale)
                 {
                     center = pos
                 };
@@ -82,7 +82,7 @@ namespace ChampionsOfForest
                     }
                 }
 
-                GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.MainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.rr) };
+                GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.mainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.screenScale) };
                 float height = style.CalcHeight(new GUIContent(label), r.width);
                 style.margin = new RectOffset(10, 10, 10, 10);
                 Rect bg = new Rect(r)
