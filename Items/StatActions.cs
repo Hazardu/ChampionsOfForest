@@ -391,15 +391,15 @@ namespace ChampionsOfForest.Items
                     statid = 1;
 					break;
 				case BaseItem.ItemType.Weapon:
-                    value = GetSocketStatAmount_Weapon(in rarity);
+                    value = GetSocketStatAmount_Weapon(in rarity)-1;
                     statid = 3;
                     break;
 				case BaseItem.ItemType.Helmet:
-                    value = GetSocketStatAmount_Helmet(in rarity);
+                    value = GetSocketStatAmount_Helmet(in rarity)-1;
                     statid = 0;
                     break;
 				case BaseItem.ItemType.Boot:
-                    value = GetSocketStatAmount_Boots(in rarity);
+                    value = GetSocketStatAmount_Boots(in rarity)-1;
                     statid = 2;
                     break;
 				case BaseItem.ItemType.Amulet:

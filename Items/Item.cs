@@ -41,7 +41,7 @@ namespace ChampionsOfForest
 				GroupStats();
 			return groupedStats;
 		}
-
+		
 		public bool CombineItems(Item other)
 		{
 			//if other is a socketable item

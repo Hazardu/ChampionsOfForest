@@ -302,7 +302,7 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Life Per Second", scAdd, 0, StatActions.AddHPRegen, StatActions.RemoveHPRegen, null) { RoundingCount = 1, Multipier = 0.04f };
 
 			//3021
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scAdd, 0, StatActions.AddHealth, StatActions.RemoveHealth, null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scMult, 0, f => ModdedPlayer.instance.MaxHealthPercent*=1+f , f => ModdedPlayer.instance.MaxHealthPercent /= 1+f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Armor ", scAdd, 0, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Resistance To Magic", scOneMinusMult, 0, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Weapon Range", scMult, 0, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, null) { DisplayAsPercent = true, RoundingCount = 1 };

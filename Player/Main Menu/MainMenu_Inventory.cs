@@ -729,7 +729,16 @@ namespace ChampionsOfForest
 								SelectedItem = index;
 								Effects.Sound_Effects.GlobalSFX.Play(1);
 								if (Inventory.Instance.ItemSlots[index].CombineItems(DraggedItem))
+								{
+									Inventory.Instance.ItemSlots[index].Amount--;
+									DraggedItem = null;
+									DraggedItemIndex = -1;
+									if (Inventory.Instance.ItemSlots[index].Amount <= 0)
+									{
+										Inventory.Instance.ItemSlots[index] = null;
+									}
 									return;
+								}
 								if (index < -1)
 								{
 
