@@ -30,14 +30,14 @@ namespace ChampionsOfForest
 
 		private bool PerkRequirementsMet(Perk perk)
 		{
-			if (perk.RequiredIds == null)
+			if (perk.unlockRequirement == null)
 			{
 				return true;
 			}
 
-			for (int i = 0; i < perk.RequiredIds.Length; i++)
+			for (int i = 0; i < perk.unlockRequirement.Length; i++)
 			{
-				if (!Perk.AllPerks[perk.RequiredIds[i]].IsBought)
+				if (!PerkDatabase.perks[perk.unlockRequirement[i]].isBought)
 				{
 					return false;
 				}
@@ -46,18 +46,18 @@ namespace ChampionsOfForest
 		}
 		private bool PerkEnabled(Perk perk)
 		{
-			if (perk.InheritIDs.Length == 0)
+			if (perk.unlockPath.Length == 0)
 			{
 				return true;
 			}
 
-			for (int i = 0; i < perk.InheritIDs.Length; i++)
+			for (int i = 0; i < perk.unlockPath.Length; i++)
 			{
-				if (perk.InheritIDs[i] == -1)
+				if (perk.unlockPath[i] == -1)
 				{
 					return true;
 				}
-				else if (Perk.AllPerks[perk.InheritIDs[i]].IsBought)
+				else if (PerkDatabase.perks[perk.unlockPath[i]].isBought)
 				{
 					return true;
 				}
@@ -129,7 +129,7 @@ namespace ChampionsOfForest
 			//filling DisplayedPerkIDs with perk ids where category is the same as the selected one
 			if (DisplayedPerkIDs == null)
 			{
-				DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
+				DisplayedPerkIDs = PerkDatabase.perks.Where(p => p.category == _perkpage).Select(p => p.id).ToArray();
 			}
 
 			//Drawing Perks
@@ -167,24 +167,24 @@ namespace ChampionsOfForest
 
 					Rect Name = new Rect(r.x - 200 * screenScale, r.y - 130 * screenScale, 400 * screenScale + r.width, 90 * screenScale);
 
-					GUI.Label(Name, p.Name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+					GUI.Label(Name, p.name, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 
 					Rect Desc = new Rect(r.x - 200 * screenScale, r.yMax + 30 * screenScale, 400 * screenScale + r.width, 1000 * screenScale);
 
 					string desctext = p.Description;
 
-					if (!p.IsBought || p.Endless)
+					if (!p.isBought || p.uncapped)
 					{
 						desctext = "Press to buy\n" + p.Description;
 						Rect LevelReq = new Rect(r.x - 440 * screenScale, r.y, 400 * screenScale, r.height);
 						Rect Cost = new Rect(r.xMax + 40 * screenScale, r.y, 400 * screenScale, r.height);
-						if (p.LevelRequirement > ModdedPlayer.instance.Level)
+						if (p.levelReq > ModdedPlayer.instance.Level)
 						{
 							GUI.color = Color.red;
 						}
 
-						GUI.Label(LevelReq, "Level " + p.LevelRequirement, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
-						if (ModdedPlayer.instance.MutationPoints < p.PointsToBuy)
+						GUI.Label(LevelReq, "Level " + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+						if (ModdedPlayer.instance.MutationPoints < p.cost)
 						{
 							GUI.color = Color.red;
 						}
@@ -193,9 +193,9 @@ namespace ChampionsOfForest
 							GUI.color = Color.white;
 						}
 
-						GUI.Label(Cost, "Cost in mutation points: " + p.PointsToBuy, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+						GUI.Label(Cost, "Cost in mutation points: " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = Color.white;
-						if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.PointsToBuy && PerkRequirementsMet(Perk.AllPerks[SelectedPerk_ID]) && PerkEnabled(Perk.AllPerks[SelectedPerk_ID]) && Perk.AllPerks[SelectedPerk_ID].LevelRequirement <= ModdedPlayer.instance.Level)
+						if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.Level)
 						{
 							_timeToBuyPerk += Time.unscaledDeltaTime;
 							Buying = true;
@@ -204,7 +204,7 @@ namespace ChampionsOfForest
 							r.height *= _timeToBuyPerk / 2;
 
 							GUI.color = SelectedPerk_Color;
-							if (p.Endless && p.IsBought)
+							if (p.uncapped && p.isBought)
 							{
 								Color c = GUI.color;
 								c.a = 0.5f;
@@ -213,20 +213,20 @@ namespace ChampionsOfForest
 								c.b /= 2;
 								GUI.color = c;
 							}
-							GUI.DrawTextureWithTexCoords(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81 + 1), buyRect);
+							GUI.DrawTextureWithTexCoords(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81 + 1), buyRect);
 							GUI.color = Color.white;
 							if (_timeToBuyPerk >= 2)
 							{
-								if (Perk.AllPerks[SelectedPerk_ID].Endless)
+								if (PerkDatabase.perks[SelectedPerk_ID].uncapped)
 								{
-									Perk.AllPerks[SelectedPerk_ID].ApplyAmount++;
+									PerkDatabase.perks[SelectedPerk_ID].boughtTimes++;
 								}
-								Perk.AllPerks[SelectedPerk_ID].IsBought = true;
-								Perk.AllPerks[SelectedPerk_ID].OnBuy();
+								PerkDatabase.perks[SelectedPerk_ID].isBought = true;
+								PerkDatabase.perks[SelectedPerk_ID].OnBuy();
 
-								ModdedPlayer.instance.MutationPoints -= p.PointsToBuy;
-								Perk.AllPerks[SelectedPerk_ID].ApplyMethods();
-								Perk.AllPerks[SelectedPerk_ID].Applied = true;
+								ModdedPlayer.instance.MutationPoints -= p.cost;
+								PerkDatabase.perks[SelectedPerk_ID].apply();
+								PerkDatabase.perks[SelectedPerk_ID].isApplied = true;
 								Buying = false;
 								Effects.Sound_Effects.GlobalSFX.Play(3);
 
@@ -302,7 +302,7 @@ namespace ChampionsOfForest
 					_perkpage = (Perk.PerkCategory)menus.GetValue(i);
 					targetPerkOffset = wholeScreenRect.center;
 					currentPerkOffset = targetPerkOffset;
-					DisplayedPerkIDs = Perk.AllPerks.Where(p => p.Category == _perkpage).Select(p => p.ID).ToArray();
+					DisplayedPerkIDs = PerkDatabase.perks.Where(p => p.category == _perkpage).Select(p => p.id).ToArray();
 				}
 
 
@@ -317,22 +317,22 @@ namespace ChampionsOfForest
 
 		private void DrawPerk(int a)
 		{
-			Perk p = Perk.AllPerks[a];
+			Perk p = PerkDatabase.perks[a];
 
 			bool show = false;
-			if (p.RequiredIds != null)
+			if (p.unlockRequirement != null)
 			{
-				for (int i = 0; i < p.RequiredIds.Length; i++)
+				for (int i = 0; i < p.unlockRequirement.Length; i++)
 				{
-					if (!Perk.AllPerks[p.RequiredIds[i]].IsBought)
+					if (!PerkDatabase.perks[p.unlockRequirement[i]].isBought)
 					{
 						return;
 					}
 				}
 			}
-			for (int i = 0; i < p.InheritIDs.Length; i++)
+			for (int i = 0; i < p.unlockPath.Length; i++)
 			{
-				if (p.InheritIDs[i] == -1 || (Perk.AllPerks[p.InheritIDs[i]].IsBought))
+				if (p.unlockPath[i] == -1 || (PerkDatabase.perks[p.unlockPath[i]].isBought))
 				{
 					show = true;
 					break;
@@ -343,10 +343,10 @@ namespace ChampionsOfForest
 				return;
 			}
 
-			Vector2 center = new Vector2(PerkWidth * p.PosOffsetX, PerkHeight * p.PosOffsetY);
+			Vector2 center = new Vector2(PerkWidth * p.posX, PerkHeight * p.posY);
 			center += currentPerkOffset;
 			Vector2 size = new Vector2(PerkWidth, PerkHeight);
-			size *= p.Size;
+			size *= p.scale;
 			Rect r = new Rect(Vector2.zero, size)
 			{
 				center = center
@@ -376,14 +376,14 @@ namespace ChampionsOfForest
 				default:
 					break;
 			}
-			if (p.IsBought)
+			if (p.isBought)
 			{
 				GUI.color = color;
-				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81 + 1));
-				if (p.Endless)
+				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81 + 1));
+				if (p.uncapped)
 				{
 					GUI.color = Color.black;
-					GUI.Label(r, p.ApplyAmount.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
+					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
 				}
 				GUI.color = Color.white;
 
@@ -391,13 +391,13 @@ namespace ChampionsOfForest
 			else
 			{
 				GUI.color = Color.gray;
-				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.TextureVariation * 2 + 81));
+				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));
 				GUI.color = Color.white;
 
 			}
-			if (p.Icon != null)
+			if (p.texture != null)
 			{
-				GUI.DrawTexture(r, p.Icon);
+				GUI.DrawTexture(r, p.texture);
 
 			}
 			float distsquared = (mousePos - r.center).sqrMagnitude;

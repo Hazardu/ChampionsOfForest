@@ -210,7 +210,7 @@ namespace ChampionsOfForest
 						GUI.color = RarityColors[highestObtainableLootTierPerLevel[ii]];
 						GUI.Label(name, DiffSel_Names[ii], DiffNameStyle);
 						GUI.color = Color.white;
-						if (ii < 5)
+						if (ii < 4)
 							GUI.DrawTexture(icon, Res.ResourceLoader.GetTexture(172));
 						else
 							GUI.DrawTexture(icon, Res.ResourceLoader.GetTexture(171));

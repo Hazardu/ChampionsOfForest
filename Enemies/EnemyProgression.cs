@@ -125,6 +125,7 @@ namespace ChampionsOfForest
 
         public enum Abilities { Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm }
         public enum Enemy {
+            All = 0,
             RegularArmsy =                  0b1, 
             PaleArmsy =                     0b10,
             RegularVags =                   0b100,
@@ -616,6 +617,25 @@ namespace ChampionsOfForest
             Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage, new Color(0f, 0, 1f, 0.8f));
 
             _Health.HitReal(damage);
+
+        }
+        public void HitPhysicalSilent(int damage)
+        {
+            damage = ClampDamage(false, damage, true);
+            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage, new Color(0f, 0, 1f, 0.8f));
+
+            if (_hp > 0)
+            {
+                int i = (int)Mathf.Min(_hp, (float)damage);
+                _hp -= i;
+                damage -= i;
+            }
+            if (damage > 0)
+            {
+                _Health.Health -= damage;
+                if (_Health.Health < 1)
+                    _Health.HitReal(25);
+            }
 
         }
         public int ClampDamage(bool pure, int damage, bool magic = false)
@@ -1805,6 +1825,12 @@ namespace ChampionsOfForest
                 knockbackSpeed = amount;
         
         }
+
+        public void Taunt(GameObject player, in float duration)
+        {
+            setup.search.GetComponent<Enemies.enemySearchMod>().Taunt(player, duration);
+        }
+
 
 
     }

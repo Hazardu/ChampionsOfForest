@@ -5,6 +5,8 @@ using ChampionsOfForest.Player;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+
 using TheForest.Utils;
 using UnityEngine;
 
@@ -243,8 +245,23 @@ namespace ChampionsOfForest.Network
 										Effects.TheFartCreator.DealDamageAsHost(pos, dir, r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									}
 								}
-
-									break;
+								else if (spellid == 15) //taunt
+								{
+									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+									float radius = r.ReadSingle();
+									if (GameSetup.IsMpServer)
+									{
+									float duration = r.ReadSingle();
+										string playerID = r.ReadString();
+										var player = ModReferences.AllPlayerEntities.First(x => x.GetState<IPlayerState>().name == playerID);
+										if (player)
+										{
+											Taunt.Cast(pos, radius, player.gameObject, duration);	
+										}
+									}
+									Taunt.CastEffect(pos, radius);
+								}
+								break;
 							}
 
 						case 4:

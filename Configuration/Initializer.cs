@@ -5,6 +5,8 @@ using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
 using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
+using ChampionsOfForest.Res;
+
 using ModAPI.Attributes;
 using System;
 using System.IO;
@@ -33,22 +35,13 @@ namespace ChampionsOfForest
 
                 if (ModSettings.IsDedicated)
                 {
-                    ReadDediServerConfig();
+                    DedicatedServer.COTFDS.ReadDediServerConfig();
                     new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
                     GameObject go = new GameObject("Playerobj");
-                    //go.AddComponent<ModdedPlayer>();
-                    //go.AddComponent<Inventory>();
                     go.AddComponent<ModReferences>();
-                    //go.AddComponent<SpellCaster>();
-                    //go.AddComponent<ClinetItemPicker>();
-                    //go.AddComponent<MeteorSpawner>();
-                    //BuffDB.FillBuffList();
                     ItemDataBase.Initialize();
-                    //SpellDataBase.Initialize();
                     EnemyManager.Initialize();
-                    //new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
-                    //Res.Buildings.InitBuildings();
                     ExpEvents.Initialize();
                     return;
                 }
@@ -77,6 +70,7 @@ namespace ChampionsOfForest
                     go.AddComponent<AsyncHit>();
                     go.AddComponent<GlobalSFX>();
                     go.AddComponent<TheFartCreator>();
+                    go.AddComponent<RCoroutines>();
 
 
                    // go.AddComponent<Crafting>();
@@ -88,14 +82,13 @@ namespace ChampionsOfForest
                     new GameObject("MainMenuObj").AddComponent<MainMenu>();
                     Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
                     Res.Buildings.InitBuildings();
-                    Perk.FillPerkList();
+                    PerkDatabase.FillPerkList();
                     ExpEvents.Initialize();
                     Portal.InitializePortals();
                     CoopCustomWeapons.Init();
                     BallLightning.InitPrefab();
-                    AddAxeMesh();
+                    ResourceInitializer.SetupMeshesFromOtherAssets();
                     Cataclysm.AssignPrefabs();
-                    new RCoroutines();
                 }
 
             }
@@ -106,46 +99,6 @@ namespace ChampionsOfForest
             }
 
         }
-        private static void AddAxeMesh()
-        {
-            if (!Res.ResourceLoader.instance.LoadedMeshes.ContainsKey(2001))
-            {
-                var meshfilter = GameObject.Instantiate( Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab")).GetComponent<MeshFilter>();
-                Res.ResourceLoader.instance.LoadedMeshes.Add(2001, meshfilter.mesh);
-                UnityEngine.GameObject.Destroy(meshfilter.gameObject);
-            }
-        }
-        private static void ReadDediServerConfig()
-        {
-            string path = Application.dataPath + "/CotFConfig.txt";
-            if (File.Exists(path))
-            {
-                var content = File.ReadAllText(path);
-                var difficultyRegex = new Regex(@"(?<=Difficulty=)\d+");
-                var friendlyFireRegex = new Regex(@"(?<=FriendlyFire=)\d+");
-
-                ModSettings.difficulty = (ModSettings.Difficulty)(int.Parse(difficultyRegex.Match(content).Value));
-                ModSettings.FriendlyFire = difficultyRegex.Match(content).Value=="1";
-               ModSettings.DifficultyChoosen = true;
-
-            }
-            else
-            {
-                string[] DefaultConfig = new string[]
-                {
-                    "This is a config file for Champions of the Forest for Dedicated Server.",
-                    "To set it up properly, please do the following:",
-                    "-Only modify text to the right of '='",
-                    "-For difficulty, please write a number from 0 to 8. (0-Normal, 1-Hard, 2-Elite, 3-Master, 4-Challenge1, 5-Challenge2, 6-Challenge3, 7-Challenge4, 8-Challenge5, 9-Challenge6, 10-Hell)",
-                    "-For friendly fire, write 0 if disabled, 1 if enabled",
-                    "--------------------------------------------------------------------",
-                    "Difficulty=0",
-                    "FriendlyFire=1",
-                };
-                Debug.Log("Champions Of The Forest for Dedicated Server created a config file at " + path);
-                File.WriteAllLines(path, DefaultConfig);
-                ModSettings.DifficultyChoosen = true;
-            }
-        }
+        
     }
 }

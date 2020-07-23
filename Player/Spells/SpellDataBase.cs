@@ -80,7 +80,7 @@ namespace ChampionsOfForest.Player
                 aimEnd = AutoPickupItems.AimEnd
                 
             };
-            new Spell(7, 115, 17, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
+            new Spell(7, 115, 21, 25, 2f, "Black Flame", "Ignites your weapon with a dark flame that empowers all attacks.")
             {
                 active =BlackFlame.Toggle,            
             };
@@ -88,7 +88,7 @@ namespace ChampionsOfForest.Player
             {
                 active =SpellActions.CastWarCry,            
             };
-            new Spell(9, 114, 15, 100, 35, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
+            new Spell(9, 114, 7, 80, 35, "Portal", "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
             {
                 active =SpellActions.CastPortal,            
             };
@@ -157,9 +157,17 @@ namespace ChampionsOfForest.Player
             {
                 active = ()=> SpellActions.CastBloodInfArr(),
             };
-            new Spell(24, 165, 69, 400, 360, "Roaring Cheeks", "Release a powerful gust of toxic gas that poisons and knocks enemies back, or cast it mid air to perform a secondary jump, the damage and area of effect will be lower but 2/3 of the cooldown will be refunded")
+            new Spell(24, 182, 55, 400, 360, "Roaring Cheeks", "Release a powerful gust of toxic gas that poisons and knocks enemies back, or cast it mid air to perform a secondary jump, the damage and area of effect will be lower but 2/3 of the cooldown will be refunded")
             {
                 active = () => SpellActions.RipAFatOne(),
+            };
+            new Spell(25, 119, 14, 40, 45, "Taunt", "Makes enemies hyper agressive and forces them to attack you")
+            {
+                active = Taunt.OnSpellUsed,
+                CastOnRelease = true,
+                aim = Taunt.Aim,
+                aimEnd = Taunt.AimEnd
+
             };
             //new Spell(24, 165, 1, 1, 2, "Corpse Explosion", "")
             //{

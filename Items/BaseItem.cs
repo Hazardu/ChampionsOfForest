@@ -33,15 +33,16 @@ namespace ChampionsOfForest
         public bool PickUpAll = true;              //should the item be picked one by one, or grab all at once
         public int subtype = 0;               
         //Drop settings
-        public EnemyProgression.Enemy lootTable;
-
-
+        public EnemyProgression.Enemy lootTable = EnemyProgression.Enemy.All;
 
         public BaseItem()
         {
 
         }
-
+        readonly int[] commonstatIds = new int[]
+        {
+            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65
+        };
         public BaseItem(params int[][] possibleStats)
         {
             PossibleStats = new List<List<ItemStat>>();
@@ -73,6 +74,39 @@ namespace ChampionsOfForest
                 PossibleStats.Add(list);
             }
             ID = ItemDataBase._Item_Bases.Count; ;
+            ItemDataBase._Item_Bases.Add(this);
+
+        }
+
+        public BaseItem(params ItemDataBase.Stat[][] possibleStats)
+        {
+            PossibleStats = new List<List<ItemStat>>();
+            foreach (var statRow in possibleStats)
+            {
+                List<ItemStat> list = new List<ItemStat>();
+                foreach (var stat in statRow)
+                {
+                    int statID = (int)stat;
+                    if (statID == 0)
+                    {
+                        list.Add(null);
+                    }
+                    else if (statID == -1)
+                    {
+                        foreach (int c in commonstatIds)
+                        {
+                            list.Add(new ItemStat(ItemDataBase.Stats[c]));
+                        }
+                    }
+                    else
+                    {
+                        list.Add(new ItemStat(ItemDataBase.Stats[statID]));
+                    }
+                }
+                PossibleStats.Add(list);
+            }
+            ID = ItemDataBase._Item_Bases.Count;
+            ;
             ItemDataBase._Item_Bases.Add(this);
 
         }

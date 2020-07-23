@@ -186,6 +186,7 @@
   <ItemGroup>
     <Compile Include="CotfUtils.cs" />
     <Compile Include="Configuration\DebugFeatures.cs" />
+    <Compile Include="DedicatedServer\COTFDS.cs" />
     <Compile Include="Effects\BallLightning.cs" />
     <Compile Include="Effects\Berserker.cs" />
     <Compile Include="Effects\BlackFlame.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Effects\SnapFreeze.cs" />
     <Compile Include="Effects\Sound Effects\GlobalSFX.cs" />
     <Compile Include="Effects\SpellAimLine.cs" />
+    <Compile Include="Effects\Taunt.cs" />
     <Compile Include="Effects\TheFart.cs" />
     <Compile Include="Effects\WarCry.cs" />
     <Compile Include="Enemies\EnemyFallingFix.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Enemies\EnemyAbilities\FireAura.cs" />
     <Compile Include="Enemies\EnemyCorpse.cs" />
     <Compile Include="Enemies\EnemyDebuff.cs" />
+    <Compile Include="Enemies\enemySearchMod.cs" />
     <Compile Include="ExpSources\AnimalExp.cs" />
     <Compile Include="ExpSources\CutBush2AddExp.cs" />
     <Compile Include="ExpSources\CutBushAddExp.cs" />
@@ -219,6 +222,9 @@
     <Compile Include="Fun\Cheats.cs" />
     <Compile Include="Fun\SpaceX.cs" />
     <Compile Include="Items\Crafting.cs" />
+    <Compile Include="Items\ItemDataBase_ItemDefinitions.cs" />
+    <Compile Include="Items\ItemDataBase_Loot.cs" />
+    <Compile Include="Items\ItemDataBase_StatDefinitions.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
     <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
@@ -235,6 +241,7 @@
     <Compile Include="Player\CustomBow.cs" />
     <Compile Include="Player\Overrides\FlashlightMod.cs" />
     <Compile Include="Player\Overrides\LogControllerMoreLogs.cs" />
+    <Compile Include="Player\Perks\PerkDatabase.cs" />
     <Compile Include="Player\Pings\MarkEnemy.cs" />
     <Compile Include="Player\Pings\MarkPostion.cs" />
     <Compile Include="Player\Pings\MarkPickup.cs" />
@@ -258,7 +265,7 @@
     <Compile Include="Items\BaseItem.cs" />
     <Compile Include="Enemies\EnemyHealthMod.cs" />
     <Compile Include="Enemies\EnemyProgression.cs" />
-    <Compile Include="Initializer.cs" />
+    <Compile Include="Configuration\Initializer.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemDataBase.cs" />
     <Compile Include="Items\ItemPicker.cs" />
@@ -282,7 +289,7 @@
     <Compile Include="Network\ChatBoxMod.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Player\ModdedPlayer\ModdedPlayer.cs" />
-    <Compile Include="Player\Perk.cs" />
+    <Compile Include="Player\Perks\Perk.cs" />
     <Compile Include="Player\Overrides\PlayerInventoryMod.cs" />
     <Compile Include="Player\Overrides\PlayerStatsEx.cs" />
     <Compile Include="Player\Overrides\SlingShotMod.cs" />
@@ -292,6 +299,7 @@
     <Compile Include="Player\Spells\SpellDataBase.cs" />
     <Compile Include="Player\Overrides\WeaponInfoMod.cs" />
     <Compile Include="Res\Resource.cs" />
+    <Compile Include="Res\ResourceInitializer.cs" />
     <Compile Include="Res\ResourceLoader.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="TrapHitMod.cs" />

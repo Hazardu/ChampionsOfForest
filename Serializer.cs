@@ -114,26 +114,26 @@ namespace ChampionsOfForest
                     int ID = buf.ReadInt32();
                     bool isBought = buf.ReadBoolean();
                     int ApplyCount = buf.ReadInt32();
-                    Perk.AllPerks[ID].IsBought = isBought;
+                    PerkDatabase.perks[ID].isBought = isBought;
                     if (isBought)
                     {
-                        Perk.AllPerks[ID].ApplyAmount = ApplyCount;
+                        PerkDatabase.perks[ID].boughtTimes = ApplyCount;
                         if (ApplyCount == 0)
                         {
-                            Perk.AllPerks[ID].Applied = true;
-                            Perk.AllPerks[ID].ApplyMethods();
+                            PerkDatabase.perks[ID].isApplied = true;
+                            PerkDatabase.perks[ID].apply();
                         }
                         else
                         {
                             for (int a = 0; a < ApplyCount; a++)
                             {
-                                Perk.AllPerks[ID].ApplyMethods();
+                                PerkDatabase.perks[ID].apply();
 
                             }
-                            Perk.AllPerks[ID].Applied = true;
+                            PerkDatabase.perks[ID].isApplied = true;
 
                         }
-                        Perk.AllPerks[ID].OnBuy();
+                        PerkDatabase.perks[ID].OnBuy();
 
                     }
                 }
@@ -235,12 +235,12 @@ namespace ChampionsOfForest
             }
 
             //saving perks
-            buf.Write(Perk.AllPerks.Count);
-            foreach (Perk item in Perk.AllPerks)
+            buf.Write(PerkDatabase.perks.Count);
+            foreach (Perk item in PerkDatabase.perks)
             {
-                buf.Write(item.ID);
-                buf.Write(item.IsBought);
-                buf.Write(item.ApplyAmount);
+                buf.Write(item.id);
+                buf.Write(item.isBought);
+                buf.Write(item.boughtTimes);
             }
 
             //saving bought spells

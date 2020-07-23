@@ -14,7 +14,7 @@ namespace ChampionsOfForest
 
         private static Material pickupMaterial;
         private static Material Heart_pickupMaterial;
-
+        private static GameObject chestPrefab;
 
         /// <summary>
         /// spawns a pickup for the clinet.
@@ -34,7 +34,7 @@ namespace ChampionsOfForest
 
                     if (pickupMaterial == null)
                     {
-                        pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.35f, Smoothness = 0.7f });
+                        pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.gray, Metalic = 0.65f, Smoothness = 0.8f });
                         Heart_pickupMaterial = Core.CreateMaterial(new BuildingData() { MainColor = Color.white, Metalic = 0.1f, Smoothness = 0.4f, MainTexture = Res.ResourceLoader.GetTexture(103), BumpMap = Res.ResourceLoader.GetTexture(104) });
                     }
 
@@ -78,15 +78,20 @@ namespace ChampionsOfForest
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[2001];
                                 renderer.materials = new Material[] { pickupMaterial, pickupMaterial };
+                                spawn.transform.localScale *= 1.12f;
 
-                            } else if (item.weaponModel == BaseItem.WeaponModelType.Greatbow)
+
+                            }
+                            else if (item.weaponModel == BaseItem.WeaponModelType.Greatbow)
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[167];
+                                spawn.transform.localScale *= 1.1f;
 
                             }
                             else if (item.weaponModel == BaseItem.WeaponModelType.Polearm)
                             {
                                 filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[175];
+                                spawn.transform.localScale *= 0.60f;
 
                             }
 
@@ -112,8 +117,51 @@ namespace ChampionsOfForest
 
                             break;
                         case BaseItem.ItemType.Material:
+                            Object.Destroy(filter);
+                            Object.Destroy(renderer);
+                            if (!chestPrefab)
+                            {
+                                var objs = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("Assets/chest.prefab");
+								foreach (var i in objs)
+								{
+                                    if (i.name=="chest")
+                                    {
+                                        ModAPI.Console.Write("Found Chest");
+                                        chestPrefab = (GameObject)i;
+                                    }
+								}
+                                if (!chestPrefab)
+                                    ModAPI.Log.Write("Big yike, no chest in the assetbundle");
+                            }
 
+                            var spawnedChest= GameObject.Instantiate(chestPrefab,spawn.transform.position,Quaternion.identity, spawn.transform);
+							var meshRenderes = spawnedChest.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>();   //get the outer metal frame, its split into 2 objects, because the mesh is too big.
 
+							foreach (var rend in meshRenderes)
+							{
+                                rend.material.color = MainMenu.RarityColors[item.Rarity];
+                            }
+                            if (item.Rarity > 2)
+                            {
+                                Light l = spawn.AddComponent<Light>();
+                                l.type = LightType.Point;
+                                l.shadowStrength = 1;
+                                l.color = MainMenu.RarityColors[item.Rarity];
+                                l.intensity = 1f;
+                                l.range = 4f;
+                                if (item.Rarity > 5)
+                                {
+                                    l.range = 7f;
+                                    l.intensity = 1.7f;
+                                    l.cookieSize = 5f;
+                                    if (item.Rarity == 7)
+                                    {
+                                        l.range = 12f;
+                                        l.intensity = 4f;
+                                    }
+                                }
+                            }
+                            goto aftercolorsetup;
                             break;
                         case BaseItem.ItemType.Helmet:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[48];
@@ -127,7 +175,7 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.Pants:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[50];
-                            spawn.transform.localScale *= 1.7f;
+                            spawn.transform.localScale *= 1.75f;
 
                             break;
                         case BaseItem.ItemType.ChestArmor:
@@ -137,13 +185,13 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.ShoulderArmor:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[53];
-                            spawn.transform.localScale *= 1.6f;
+                            spawn.transform.localScale *= 1.65f;
 
 
                             break;
                         case BaseItem.ItemType.Glove:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[41];
-                            spawn.transform.localScale *= 2.2f;
+                            spawn.transform.localScale *= 2.22f;
 
                             break;
                         case BaseItem.ItemType.Bracer:
@@ -152,11 +200,12 @@ namespace ChampionsOfForest
                             break;
                         case BaseItem.ItemType.Amulet:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[40];
-                            spawn.transform.localScale *= 0.9f;
+                            spawn.transform.localScale *= 0.85f;
 
                             break;
                         case BaseItem.ItemType.Ring:
                             filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[43];
+                            spawn.transform.localScale *= 0.85f;
 
                             break;
                         default:
@@ -185,11 +234,11 @@ namespace ChampionsOfForest
                             {
                                 l.range = 12f;
                                 l.intensity = 4f;
-
                             }
                         }
                     }
 
+aftercolorsetup:
                     var bounds = filter.mesh.bounds;
                     col.size = bounds.size;
                     col.center = bounds.center;

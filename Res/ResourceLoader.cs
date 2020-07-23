@@ -901,6 +901,13 @@ namespace ChampionsOfForest.Res
             new Resource(174, "PickupPing.png");
             new Resource(175, "Polearm.obj");
             new Resource(181, "itemPolearm.png");
+            new Resource(182, "FartSpell.png");
+
+            new Resource(184, "ItemOre.png");
+            new Resource(185, "ItemFeather.png");
+            new Resource(186, "ItemSharkTooth.png");
+            new Resource(187, "ItemSapphire.png");
+            new Resource(188, "ItemMoonstone.png");
 
 
 

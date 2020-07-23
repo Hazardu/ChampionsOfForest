@@ -311,9 +311,17 @@ namespace ChampionsOfForest
 				}
 			}
 
-			if (this.destinationSlotID < -1 && this.level > 20 && Random.value <= 0.05f)
+			if (this.destinationSlotID < -1 && this.level > 20 && Random.value <= 0.175f)
 			{
-				Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
+				var socketAmount = StatActions.GetMaxSocketAmountOnItem(this._itemType);
+				if (socketAmount > 0)
+				{
+					socketAmount = Random.Range(1, socketAmount + 1);
+					for (int i = 0; i < socketAmount; i++)
+					{
+						Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
+					}
+				}
 			}
 			Stats.Sort((y, x) => x.Rarity.CompareTo(y.Rarity));
 		}

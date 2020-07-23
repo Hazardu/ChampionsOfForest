@@ -344,7 +344,34 @@ namespace ChampionsOfForest.Items
             ChampionsOfForest.ModdedPlayer.instance.intelligence -= Mathf.RoundToInt(f);
         }
 
-
+        public static int GetMaxSocketAmountOnItem(in BaseItem.ItemType type)
+        {
+			switch (type)
+			{
+				case BaseItem.ItemType.Other:
+				case BaseItem.ItemType.Material:
+                    return 0;
+				case BaseItem.ItemType.ShoulderArmor:
+				case BaseItem.ItemType.Weapon:
+				case BaseItem.ItemType.Helmet:
+				case BaseItem.ItemType.Glove:
+				case BaseItem.ItemType.Boot:
+				case BaseItem.ItemType.Amulet:
+				case BaseItem.ItemType.Ring:
+                    return 1;
+				case BaseItem.ItemType.Bracer:
+				case BaseItem.ItemType.Pants:
+				case BaseItem.ItemType.SpellScroll:
+				case BaseItem.ItemType.Shield:
+				case BaseItem.ItemType.Quiver:
+                    return 2;
+				case BaseItem.ItemType.ChestArmor:
+                    return 3;
+				default:
+                    return 0;
+			}
+		}
+        
         public static ItemStat GetSocketedStat(in int rarity, BaseItem.ItemType type, int subtypeOffset)
         {
             float value = 1;

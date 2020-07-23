@@ -20,7 +20,7 @@ namespace ChampionsOfForest
 		public static float basejumpPower;
 		public static ModdedPlayer instance = null;
 
-
+		
 		public float MaxHealth
 		{
 			get
@@ -136,7 +136,6 @@ namespace ChampionsOfForest
 			return 0;
 		}
 		public float RangedDamageBonus = 0;
-
 		public float MeleeRange = 1;
 		public float DamageReduction = 1;
 		public float DamageReductionPerks = 1;
@@ -1348,11 +1347,11 @@ namespace ChampionsOfForest
 					}
 				}
 			}
-			for (int i = 0; i < Perk.AllPerks.Count; i++)
+			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
-				if (Perk.AllPerks[i].IsBought)
+				if (PerkDatabase.perks[i].isBought)
 				{
-					Perk.AllPerks[i].IsBought = false;
+					PerkDatabase.perks[i].isBought = false;
 				}
 			}
 
@@ -1633,20 +1632,20 @@ namespace ChampionsOfForest
 		public static void ReapplyAllPerks()
 		{
 			//perks
-			for (int i = 0; i < Perk.AllPerks.Count; i++)
+			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
-				if (Perk.AllPerks[i].IsBought)
+				if (PerkDatabase.perks[i].isBought)
 				{
-					if (Perk.AllPerks[i].Endless)
+					if (PerkDatabase.perks[i].uncapped)
 					{
-						for (int j = 0; j < Perk.AllPerks[i].ApplyAmount; j++)
+						for (int j = 0; j < PerkDatabase.perks[i].boughtTimes; j++)
 						{
-							Perk.AllPerks[i].ApplyMethods();
+							PerkDatabase.perks[i].apply();
 
 						}
 					}
 					else
-						Perk.AllPerks[i].ApplyMethods();
+						PerkDatabase.perks[i].apply();
 				}
 			}
 		}
@@ -1672,12 +1671,12 @@ namespace ChampionsOfForest
 			}
 
 
-			for (int i = 0; i < Perk.AllPerks.Count; i++)
+			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
 
-				Perk.AllPerks[i].IsBought = false;
-				Perk.AllPerks[i].Applied = false;
-				Perk.AllPerks[i].ApplyAmount = 0;
+				PerkDatabase.perks[i].isBought = false;
+				PerkDatabase.perks[i].isApplied = false;
+				PerkDatabase.perks[i].boughtTimes = 0;
 
 
 			}

@@ -5,14 +5,54 @@ using TheForest.Utils;
 using UnityEngine;
 namespace ChampionsOfForest.Player
 {
-    public class RCoroutines
+    public class RCoroutines : MonoBehaviour
     {
-        public static RCoroutines i;
-        public RCoroutines()
+
+
+
+		public static RCoroutines i;
+		void Start()
+		{
+
+			i = this;
+		}
+        public static void InvokeCoroutine(in IEnumerator routine)
         {
-            i = this;
+            i.StartCoroutine(routine);
         }
-   
+	    
+
+        public IEnumerator CTauntedEnemies(Vector3 pos, float radius, GameObject player, float duration)
+        {
+            int c = 1;
+            float sqrRad = radius * radius;
+            if (GameSetup.IsMpServer)
+            {
+                foreach (var enemy in EnemyManager.hostDictionary.Values)
+                {
+                    if ((enemy.transform.position - pos).sqrMagnitude <= sqrRad)
+                    {
+                        enemy.Taunt(player, duration);
+                    }
+                    c++;
+                    if (c % 50 == 0)
+                        yield return null;
+                }
+            }
+            else //singleplayer
+            {
+                foreach (var enemy in EnemyManager.singlePlayerList)
+                {
+                    if ((enemy.transform.position - pos).sqrMagnitude <= sqrRad)
+                    {
+                        enemy.Taunt(player, duration);
+                    }
+                    c++;
+                    if (c % 40 == 0)
+                        yield return null;
+                }
+            }
+        }
         public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
         {
             for (int i = 0; i < count; i++)

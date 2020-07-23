@@ -16,20 +16,63 @@ namespace ChampionsOfForest.Network
             {
                 return;
             }
-            if (!ev.Target)
-            {
-                return;
-            }
-            if (ev.Hit == 0)
+			if (!ev.Target)
+			{
+				return;
+			}
+			if (ev.Hit == 0)
             {
                 return;
             }
             try
             {
-                if (global::EnemyHealth.CurrentAttacker == null)
+				if (global::EnemyHealth.CurrentAttacker == null)
+				{
+					global::EnemyHealth.CurrentAttacker = ev.Target;
+				}
+                var packed = ev.Target.networkId.PackedValue;
+                if (EnemyManager.hostDictionary.ContainsKey(packed))
                 {
-                    global::EnemyHealth.CurrentAttacker = ev.Target;
+                    var enemy = EnemyManager.hostDictionary[packed];
+                    if (ev.explosion)
+                    {
+                        enemy._Health.Explosion(-1);
+                    }
+                    if (ev.getStealthAttack && ev.HitAxe)
+                    {
+                        //ghost hit 
+                        //sure replaces a the stealth hits with an axe to not deal the bonus 100 damage points, but who cares, noone does stealth hits with axes. bows FTW
+                        enemy.HitPhysicalSilent(ev.Hit);
+                    }
+                    else
+                    {
+                        if (ev.Hit > 0)
+                        {
+                            //just in case i ever need this
+                            //this is how to get the player object which raised the event (ev.RaisedBy.UserData as BoltEntity)
+                            enemy._Health.getAttackDirection(ev.getAttackerType);
+                            var attackerGO = (ev.RaisedBy.UserData as BoltEntity).gameObject;
+                            enemy.setup.search.switchToNewTarget(attackerGO);
+                            enemy.setup.hitReceiver.getAttackDirection(ev.getAttackDirection);
+                            enemy.setup.hitReceiver.getCombo(ev.getCombo);
+                            enemy._Health.takeDamage(ev.takeDamage);
+                            enemy._Health.setSkinDamage(1);
+                            enemy._Health.Hit(ev.Hit);
+                            if (ev.Burn)
+                            {
+                                enemy._Health.Burn();
+                            }
+                        }
+                        else
+                        {
+                            enemy.ReduceArmor(ev.Hit);
+
+                        }
+                    }
+                    return;
                 }
+
+                //Fuck all of this spaghetti below
                 global::lb_Bird component = ev.Target.GetComponent<global::lb_Bird>();
                 global::Fish componentInChildren = ev.Target.GetComponentInChildren<global::Fish>();
                 Transform transform;
@@ -93,29 +136,21 @@ namespace ChampionsOfForest.Network
                 }
                 else
                 {
-                    if (ev.Hit > 0)
+                    transform.SendMessage("getAttacker", (ev.RaisedBy.UserData as BoltEntity).gameObject, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("getAttackerType", ev.getAttackerType, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("getAttackDirection", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("getCombo", ev.getCombo, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("takeDamage", ev.takeDamage, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("setSkinDamage", UnityEngine.Random.Range(0, 3), SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("ApplyAnimalSkinDamage", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
+                    transform.SendMessage("Hit", ev.Hit, SendMessageOptions.DontRequireReceiver);
+                    if (ev.HitAxe)
                     {
-                        transform.SendMessage("getAttacker", (ev.RaisedBy.UserData as BoltEntity).gameObject, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("getAttackerType", ev.getAttackerType, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("getAttackDirection", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("getCombo", ev.getCombo, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("takeDamage", ev.takeDamage, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("setSkinDamage", UnityEngine.Random.Range(0, 3), SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("ApplyAnimalSkinDamage", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
-                        transform.SendMessage("Hit", ev.Hit, SendMessageOptions.DontRequireReceiver);
-                        if (ev.HitAxe)
-                        {
-                            transform.SendMessage("HitAxe", SendMessageOptions.DontRequireReceiver);
-                        }
-                        if (ev.Burn)
-                        {
-                            transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-                        }
+                        transform.SendMessage("HitAxe", SendMessageOptions.DontRequireReceiver);
                     }
-                    else
+                    if (ev.Burn)
                     {
-                        transform.SendMessage("ReduceAr", -ev.Hit, SendMessageOptions.DontRequireReceiver);
-
+                        transform.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
                     }
                 }
             }

@@ -253,7 +253,7 @@ namespace ChampionsOfForest.Enemies
                                 num = Mathf.FloorToInt(num / 1.6f);
                             }
 
-                            //My additional code
+                            //COTF additional code
                             try
                             {
                                 if (GameSetup.IsMpClient)
@@ -285,6 +285,11 @@ namespace ChampionsOfForest.Enemies
                                             DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
                                             PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
                                             playerHitEnemy.Target = entity;
+                                            
+                                            //these two booleans make the attack not stagger the enemy
+                                            playerHitEnemy.HitAxe = true;
+											playerHitEnemy.getStealthAttack = true;
+
                                             playerHitEnemy.Hit = dmg;
                                             AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps,0.1f);
 
@@ -459,7 +464,7 @@ namespace ChampionsOfForest.Enemies
         {
             DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
             for (int i = 0; i < reps; i++)
-                EnemyProg._Health.Hit(dmg);
+                EnemyProg.HitPhysicalSilent(dmg);
         }
 
 
