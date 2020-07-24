@@ -1,12 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
-
-using ChampionsOfForest.Player;
-
-using TheForest.Utils;
-
-using UnityEngine;
+﻿using ChampionsOfForest.Player;
 
 using static ChampionsOfForest.ItemDataBase.Stat;
 
@@ -16,7 +8,6 @@ namespace ChampionsOfForest
 	{
 		public static void PopulateItems()
 		{
-
 			new BaseItem(new int[][]
 			{
 				new int[] { 34 },
@@ -32,7 +23,7 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -52,7 +43,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -72,7 +63,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -92,7 +83,7 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -113,7 +104,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -134,7 +125,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -157,7 +148,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			}.DropSettings_OnlyArmsy();
 			new BaseItem(new int[][]
@@ -176,7 +167,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -196,7 +187,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -217,7 +208,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -239,7 +230,7 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -257,7 +248,7 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			new BaseItem(new int[][]
@@ -275,7 +266,7 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			new BaseItem(new int[][]
@@ -294,9 +285,8 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
-
 			};
 			new BaseItem(new int[][]
 		   {
@@ -316,9 +306,8 @@ namespace ChampionsOfForest
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
-
 			};
 			new BaseItem(new int[][]
 		   {
@@ -326,7 +315,6 @@ namespace ChampionsOfForest
 				new int[] {5 },
 				new int[] {16},
 				new int[] {7,11 },
-
 		   })
 			{
 				name = "Boar Skin Armor",
@@ -338,7 +326,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
@@ -349,7 +337,6 @@ namespace ChampionsOfForest
 				new int[] {6,8,9},
 				new int[] {6,8,9},
 				new int[] {12,13,0,65 },
-
 		   })
 			{
 				name = "Crocodile Skin Armor",
@@ -361,7 +348,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			BaseItem baseItem1 = new BaseItem(new int[][]
@@ -373,7 +360,6 @@ namespace ChampionsOfForest
 				new int[] {65,0},
 				new int[] {12,13,1,2,3,4},
 				new int[] {25,22,0},
-
 		   })
 			{
 				name = "Plate armour",
@@ -385,7 +371,7 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			baseItem1.PossibleStats[1][0].Multipier = 2.5f;
@@ -399,7 +385,6 @@ namespace ChampionsOfForest
 				new int[] {6,8,9},
 				new int[] {45,43,39,42},
 				new int[] {7,10,11,17,18,31},
-
 		   })
 			{
 				name = "Bear Skin Armor",
@@ -411,7 +396,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
@@ -435,7 +420,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
@@ -451,7 +436,6 @@ namespace ChampionsOfForest
 				new int[] {16,23,4,5,6},
 				new int[] {45,46},
 				new int[] {27,48},
-
 		   })
 			{
 				name = "Hazard's Gear",
@@ -463,7 +447,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
@@ -490,7 +474,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 				onEquip = () => SpellActions.CataclysmArcane = true,
 				onUnequip = () => SpellActions.CataclysmArcane = false
@@ -501,7 +485,6 @@ namespace ChampionsOfForest
 				new int[] {39,40,41,42,44,8,14,49 },
 				new int[] {0,62,63,64},
 				new int[] {1,0,65},
-
 					})
 			{
 				name = "Rusty Longsword",
@@ -513,7 +496,7 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
@@ -536,7 +519,7 @@ namespace ChampionsOfForest
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
@@ -561,7 +544,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
@@ -575,7 +558,6 @@ namespace ChampionsOfForest
 				new int[] {14,31,49 },
 				new int[] {14,18,49 },
 				new int[] {38,36,1,3,4,5,6,16 ,62,63,64},
-
 		  })
 			{
 				name = "The Leech",
@@ -587,7 +569,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
@@ -603,7 +585,6 @@ namespace ChampionsOfForest
 				new int[] {2,23,26,51},
 				new int[] {2,23,26,20,16,15,60},
 				new int[] {52,60,0,0},
-
 				  })
 			{
 				name = "Smokey's Sacred Quiver",
@@ -615,7 +596,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.instance.IsSmokeysQuiver = true,
 				onUnequip = () => ModdedPlayer.instance.IsSmokeysQuiver = false,
@@ -626,8 +607,6 @@ namespace ChampionsOfForest
 				new int[] {50 },
 				new int[] {43,16 },
 				new int[] {1,0 },
-
-
 		 })
 			{
 				name = "Broken shield",
@@ -639,9 +618,8 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-
 			};
 			new BaseItem(new int[][]
 	{
@@ -651,8 +629,6 @@ namespace ChampionsOfForest
 				new int[] {1,0 },
 				new int[] {43,16 },
 				new int[] {43,16,0,0 },
-
-
 	})
 			{
 				name = "Shield",
@@ -664,9 +640,8 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-
 			};
 			new BaseItem(new int[][]
 	 {
@@ -677,8 +652,6 @@ namespace ChampionsOfForest
 				new int[] {16,0,45,46},
 				new int[] {0,42,11 },
 				new int[] {50 },
-
-
 	 })
 			{
 				name = "Tower Shield",
@@ -690,15 +663,13 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-
 			};
 			new BaseItem(new int[][]
 				   {
 				new int[] {5,6,7,8,0,0,0},
 				new int[] {43},
-
 				   })
 			{
 				name = "Broken Leather Shoulder Armor",
@@ -710,14 +681,13 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 			new BaseItem(new int[][]
 		 {
 				new int[] {5,6,7,8},
 				new int[] {43},
-
 		 })
 			{
 				name = "Leather Shoulder Armor",
@@ -729,7 +699,7 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 			new BaseItem(new int[][]
@@ -743,8 +713,6 @@ namespace ChampionsOfForest
 				new int[] {16,18,11,34},
 				new int[] {37,34},
 				new int[] {-1},
-
-
 		 })
 			{
 				name = "Phase Pauldrons",
@@ -756,7 +724,7 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () => { Player.SpellActions.BlinkRange += 40; Player.SpellActions.BlinkDamage += 60; },
 				onUnequip = () => { Player.SpellActions.BlinkRange -= 40; Player.SpellActions.BlinkDamage -= 60; },
@@ -766,7 +734,6 @@ namespace ChampionsOfForest
 				new int[] {39,49,5,6,7,8,0,0,0},
 				new int[] {43,0},
 				new int[] {43},
-
 					  })
 			{
 				name = "MAGA Cap",
@@ -778,7 +745,7 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 			new BaseItem(new int[][]
@@ -806,14 +773,12 @@ namespace ChampionsOfForest
 				maxLevel = 11,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
-
 			};
 			new BaseItem(new int[][]
 				   {
 				new int[] {39,40,41,42,43,12,13},
-
 				   })
 			{
 				name = "Broken Loop",
@@ -825,14 +790,13 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
 			{
 				new int[] {-1},
 				new int[] {39,40,41,42,43,12,13},
-
 			})
 			{
 				name = "Loop",
@@ -844,7 +808,7 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
@@ -853,7 +817,6 @@ namespace ChampionsOfForest
 				new int[] {-1},
 				new int[] {39,40,41,42,43,12,13,5,6,7,8,9,12,13,15,16,17,18,10,11},
 				new int[] {1,2,3,4,21,22,23,24,25,26,43,12,13},
-
 			})
 			{
 				name = "Toxic Ring",
@@ -865,14 +828,13 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
 					  {
 				new int[] {39,40,41,42,43},
 				new int[] {-1},
-
 					  })
 			{
 				name = "Scarf",
@@ -884,14 +846,13 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			};
 			new BaseItem(new int[][]
 					{
 				new int[] {39,40,41,42,43},
 				new int[] {43},
-
 					})
 			{
 				name = "Damaged Bracer",
@@ -903,7 +864,7 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -911,7 +872,6 @@ namespace ChampionsOfForest
 				new int[] {39,40,41,42,43},
 				new int[] {43},
 				new int[] {16},
-
 		   })
 			{
 				name = "Worn Bracer",
@@ -923,7 +883,7 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -932,7 +892,6 @@ namespace ChampionsOfForest
 				new int[] {16},
 				new int[] {16},
 				new int[] {5,6,7,8,9,10},
-
 		   })
 			{
 				name = "Leather Bracer",
@@ -944,13 +903,12 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(94),
 			};
 			new BaseItem(new int[][]
 					  {
 				new int[] {32},
-
 					  })
 			{
 				name = "Greater Mutated Heart",
@@ -962,13 +920,12 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = true,
 				StackSize = 100,
-				_itemType = BaseItem.ItemType.Other,
+				type = BaseItem.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 			};
 			new BaseItem(new int[][]
 			{
 				new int[] {33},
-
 			})
 			{
 				name = "Lesser Mutated Heart",
@@ -980,7 +937,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = true,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Other,
+				type = BaseItem.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 			};
 			new BaseItem(new int[][]
@@ -989,7 +946,6 @@ namespace ChampionsOfForest
 				new int[] {1,2},
 				new int[] {-1},
 				new int[] {53,54},
-
 		})
 			{
 				name = "Spiked ring",
@@ -1001,7 +957,7 @@ namespace ChampionsOfForest
 				maxLevel = 16,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 
@@ -1013,7 +969,6 @@ namespace ChampionsOfForest
 				new int[] {-1 },
 				new int[] {1,2,3,4,21,22,23,24,25,26,18,16},
 				new int[] {55},
-
 			})
 			{
 				name = "Piercer",
@@ -1025,7 +980,7 @@ namespace ChampionsOfForest
 				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 			};
 			new BaseItem(new int[][]
@@ -1047,7 +1002,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
@@ -1068,7 +1023,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
@@ -1089,7 +1044,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1111,7 +1066,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
@@ -1132,7 +1087,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			//Silver Rings---------------------------------------------------------------------------
@@ -1153,7 +1108,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1174,7 +1129,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1195,7 +1150,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1216,7 +1171,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1237,7 +1192,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1257,7 +1212,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1278,7 +1233,7 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1298,7 +1253,7 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1331,7 +1286,7 @@ namespace ChampionsOfForest
 				maxLevel = 30,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
@@ -1355,7 +1310,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1377,7 +1332,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1399,7 +1354,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1421,13 +1376,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
-
 			//Silver Lockets---------------------------------------------------------------------------
-
 
 			new BaseItem(new int[][]
 			{
@@ -1447,7 +1400,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1469,7 +1422,7 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1491,7 +1444,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1513,13 +1466,11 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
-
 			// Emerald Pendant-----------------------------------------------------------
-
 
 			new BaseItem(new int[][]
 			{
@@ -1540,7 +1491,7 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1563,7 +1514,7 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1587,7 +1538,7 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1610,13 +1561,11 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
-
 			// Diamond Pendant-----------------------------------------------------------
-
 
 			new BaseItem(new int[][]
 			{
@@ -1638,7 +1587,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1663,7 +1612,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1687,7 +1636,7 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
@@ -1712,13 +1661,11 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
-
 			//Rare Amulets -----------------------------------------------------------------------------------------
-
 
 			new BaseItem(new int[][]
 			{
@@ -1741,7 +1688,7 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			}.DropSettings_OnlyArmsy();
 
@@ -1767,9 +1714,8 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
-
 			}.DropSettings_OnlyVags();
 
 			new BaseItem(new int[][]
@@ -1794,7 +1740,7 @@ namespace ChampionsOfForest
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			}.DropSettings_OnlyCow();
 
@@ -1819,15 +1765,13 @@ namespace ChampionsOfForest
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 				onEquip = () => SpellCaster.InfinityLoopEnabled = true,
 				onUnequip = () => SpellCaster.InfinityLoopEnabled = false,
 			}.DropSettings_OnlyBaby();
 
-
 			//Boss drop Amulet----------------------------------------------------------------------------------------
-
 
 			new BaseItem(new int[][]
 			{
@@ -1855,19 +1799,16 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			}.DropSettings_OnlyMegan();
 
-
 			BaseItem RelicHammer = new BaseItem(new int[][]
 		{
-
 				new int[] {25 },
 				new int[] {18 },
 				new int[] {2004 },
 				new int[] {1,62,63,64 },
-
 		})
 			{
 				name = "Relic Hammer",
@@ -1879,7 +1820,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 			};
@@ -1894,8 +1835,6 @@ namespace ChampionsOfForest
 				new int[] {53,16},
 				new int[] {39,31,43,0,0},
 				new int[] {25 ,22,1,12,13,5,6},
-
-
 		})
 			{
 				name = "Black Hammer",
@@ -1907,7 +1846,7 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 			};
@@ -1928,10 +1867,9 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
-
 
 			//Item 1/6
 			new BaseItem(new int[][]
@@ -1951,10 +1889,9 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
-
 
 			//Item 2/6
 			new BaseItem(new int[][]
@@ -1975,10 +1912,9 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
-
 
 			//Item 3/6
 			new BaseItem(new int[][]
@@ -2000,10 +1936,9 @@ namespace ChampionsOfForest
 				maxLevel = 11,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
-
 
 			//Item 4/6
 			new BaseItem(new int[][]
@@ -2028,10 +1963,9 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
-
 
 			//Item 5/6
 			new BaseItem(new int[][]
@@ -2050,13 +1984,9 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
-
-
-
-
 
 			new BaseItem(new int[][]
 			{
@@ -2075,10 +2005,9 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-
 
 			//Item 1/7
 			new BaseItem(new int[][]
@@ -2099,10 +2028,9 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-
 
 			//Item 2/7
 			new BaseItem(new int[][]
@@ -2125,10 +2053,9 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-
 
 			//Item 3/7
 			new BaseItem(new int[][]
@@ -2150,10 +2077,9 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-
 
 			//Item 4/7
 			new BaseItem(new int[][]
@@ -2180,12 +2106,11 @@ namespace ChampionsOfForest
 				maxLevel = 28,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => { ModdedPlayer.instance.HammerSmashDamageAmp += 0.5f; ModdedPlayer.instance.HammerStunAmount += 0.3f; },
 				onUnequip = () => { ModdedPlayer.instance.HammerSmashDamageAmp -= 0.5f; ModdedPlayer.instance.HammerStunAmount -= 0.3f; },
 			};
-
 
 			//Item 5/7
 			new BaseItem(new int[][]
@@ -2208,10 +2133,9 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-
 
 			//Item 6/7
 			new BaseItem(new int[][]
@@ -2237,15 +2161,14 @@ namespace ChampionsOfForest
 				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => ModdedPlayer.instance.HexedPantsOfMrM_Enabled = true,
 				onUnequip = () => ModdedPlayer.instance.HexedPantsOfMrM_Enabled = false,
 			};
 			//Created using Hazard's app
 
-
-			//    - ITEMS 
+			//    - ITEMS
 
 			//Item 0/6
 			new BaseItem(new int[][]
@@ -2263,10 +2186,9 @@ new int[] {39,40,41,42,43},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-
 
 			//Item 1/6
 			new BaseItem(new int[][]
@@ -2286,10 +2208,9 @@ new int[] {39,40,41,42,43},
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-
 
 			//Item 2/6
 			BaseItem Heavy_Shoulder_Plates = new BaseItem(new int[][]
@@ -2314,7 +2235,7 @@ new int[] {39,40,41,42,43},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 			Heavy_Shoulder_Plates.PossibleStats[0][0].Multipier = -1;
@@ -2340,10 +2261,9 @@ new int[] {39,40,41,42,43},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-
 
 			//Item 4/6
 			new BaseItem(new int[][]
@@ -2367,10 +2287,9 @@ new int[] {39,40,41,42,43},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-
 
 			//Item 5/6
 			new BaseItem(new int[][]
@@ -2399,7 +2318,7 @@ new int[] {39,40,41,42,43},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () => ModdedPlayer.instance.DeathPact_Enabled = true,
 				onUnequip = () => ModdedPlayer.instance.DeathPact_Enabled = false,
@@ -2416,7 +2335,6 @@ new int[] {39,40,41,42,43},
 				new int[] {55,54,53,50},
 				new int[] {1,2,3,4,21,22,23,24,25,26},
 				new int[] {16,0,0,0,1,2,3,4,0,0,0,0},
-
 			})
 			{
 				name = "Maximale Qualitöt",
@@ -2428,7 +2346,7 @@ new int[] {39,40,41,42,43},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
@@ -2444,7 +2362,7 @@ new int[] {39,40,41,42,43},
 				maxLevel = 2,
 				CanConsume = true,
 				StackSize = 100,
-				_itemType = BaseItem.ItemType.Other,
+				type = BaseItem.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 				onConsume = ModdedPlayer.Respec
 			};
@@ -2467,10 +2385,9 @@ new int[] {5,6,9,8,10,12,13,14,},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-
 
 			//Item 1/5
 			new BaseItem(new int[][]
@@ -2490,10 +2407,9 @@ new int[] {50},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-
 
 			//Item 2/5
 			new BaseItem(new int[][]
@@ -2517,10 +2433,9 @@ new int[] {39,40,41,42,43,50,57},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-
 
 			//Item 3/5
 			new BaseItem(new int[][]
@@ -2544,7 +2459,7 @@ new int[] {16,7,8,22,23,25,26},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
@@ -2563,7 +2478,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			}.PossibleStats[0][0].Multipier = -3;
@@ -2586,12 +2501,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () => SpellActions.WarCryGiveArmor = true,
 				onUnequip = () => SpellActions.WarCryGiveArmor = false,
 			}.PossibleStats[0][0].Multipier = 2;
-
 
 			//Item 1/5
 			new BaseItem(new int[][]
@@ -2618,12 +2532,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () => SpellActions.WarCryGiveArmor = true,
 				onUnequip = () => SpellActions.WarCryGiveArmor = false,
 			}.PossibleStats[0][0].Multipier = 5;
-
 
 			//Item 2/5
 			new BaseItem(new int[][]
@@ -2645,10 +2558,9 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-
 
 			//Item 3/5
 			new BaseItem(new int[][]
@@ -2667,10 +2579,9 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-
 
 			//Item 4/5
 			BaseItem mask = new BaseItem(new int[][]
@@ -2694,7 +2605,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 			mask.PossibleStats[2][0].Multipier = -4;
@@ -2721,7 +2632,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 			new BaseItem(new int[][]
@@ -2747,7 +2658,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(94),
 				onEquip = () => SpellActions.PortalDuration = 600,
 				onUnequip = () => SpellActions.PortalDuration = 30,
@@ -2765,7 +2676,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {27,28,29,30,48,47},
 				new int[] {-1},
 				new int[] {-1},
-
 			})
 			{
 				name = "Cripplers",
@@ -2777,7 +2687,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 				onEquip = () => SpellActions.MagicArrowDuration += 10,
 				onUnequip = () => SpellActions.MagicArrowDuration -= 10,
@@ -2807,7 +2717,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.instance.IsCrossfire = true,
 				onUnequip = () => ModdedPlayer.instance.IsCrossfire = false,
@@ -2831,7 +2741,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 
@@ -2853,10 +2763,9 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-
 
 			//Item 1/2
 			new BaseItem(new int[][]
@@ -2878,7 +2787,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			new BaseItem(new int[][]
@@ -2900,7 +2809,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 			new BaseItem(new int[][]
@@ -2922,7 +2831,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 			new BaseItem(new int[][]
@@ -2942,7 +2851,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 1.6f;
@@ -2964,7 +2873,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 2.5f;
@@ -2989,7 +2898,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 2.5f;
@@ -3013,7 +2922,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 3;
@@ -3038,7 +2947,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
@@ -3061,7 +2970,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
-				_itemType = BaseItem.ItemType.Amulet,
+				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
@@ -3078,7 +2987,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			};
@@ -3095,8 +3004,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {2,23,26,20,16,15,60},
 				new int[] {52,60,0,0},
 				new int[] {-1},
-
-
 				  })
 			{
 				name = "Precise Adjustments",
@@ -3108,7 +3015,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Quiver,
+				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => SpellActions.FocusOnAtkSpeedDuration += 16,
 				onUnequip = () => SpellActions.FocusOnAtkSpeedDuration -= 16,
@@ -3138,7 +3045,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => SpellActions.FrenzyMaxStacks += 10,
@@ -3170,7 +3077,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 				onEquip = () => SpellActions.BashBleedChance += 0.1f,
@@ -3192,7 +3099,6 @@ new int[] {0,0,0,0,62,63,64},
 						new int[] {15,14,45,7,35,10},
 						new int[] {62,63,64, },
 						new int[] {53,61 },
-
 					  })
 			{
 				name = "Bloodthirster",
@@ -3204,7 +3110,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 				onEquip = () => SpellActions.BashLifesteal += 0.02f,
@@ -3212,7 +3118,6 @@ new int[] {0,0,0,0,62,63,64},
 			}.PossibleStats[0][0].Multipier = 3;
 			new BaseItem(new int[][]
 		 {
-
 				new int[] {25 },
 				new int[] {22 },
 				new int[] {2004 },
@@ -3225,7 +3130,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 		 })
 			{
 				name = "Frost Giant",
@@ -3237,7 +3141,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () =>
@@ -3266,8 +3170,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
-
 			})
 			{
 				name = "Alexander's Shield",
@@ -3279,7 +3181,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 				onEquip = () => SpellActions.ChanceToParryOnHit = true,
 				onUnequip = () => SpellActions.ChanceToParryOnHit = false,
@@ -3299,8 +3201,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
-
 	 })
 			{
 				name = "King Qruies",
@@ -3312,7 +3212,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 				onEquip = () => ModdedPlayer.instance.KingQruiesSpecial = true,
@@ -3343,7 +3243,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 				onEquip = () => ModdedPlayer.instance.SoraSpecial = true,
 				onUnequip = () => ModdedPlayer.instance.SoraSpecial = false,
@@ -3368,7 +3268,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 			}.PossibleStats[0][0].Multipier = -1.55f;
@@ -3386,7 +3286,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-
 		})
 			{
 				name = "Phoenix's Death",
@@ -3398,7 +3297,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.instance.GreatBowIgnites = true,
@@ -3420,7 +3319,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-
 		})
 			{
 				name = "Soulstring",
@@ -3432,7 +3330,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => SpellActions.BIA_HealthDmMult += 20,
@@ -3444,7 +3342,6 @@ new int[] {0,0,0,0,62,63,64},
 			  new int[] {18},
 
 				new int[] {2,40,0},
-
 			})
 			{
 				name = "Greatbow",
@@ -3456,7 +3353,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 			}.PossibleStats[0][0].Multipier = -2.7f;
@@ -3487,7 +3384,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => ModdedPlayer.instance.IsHazardCrown = true,
 				onUnequip = () => ModdedPlayer.instance.IsHazardCrown = false,
@@ -3499,7 +3396,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {0,6,24,21,16,3,47,49,38,17,10,11,9,8,7,6},
 				new int[] {37,4},
 				new int[] {43,16,17,37,47 },
-
 				   })
 			{
 				name = "Novice Magic Caster's Bracers",
@@ -3511,7 +3407,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -3521,7 +3417,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,0,0,0},
 				new int[] {43,16,2 },
-
 				   })
 			{
 				name = "Ranger's Bracers",
@@ -3533,7 +3428,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -3554,7 +3449,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -3566,7 +3461,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 				   })
 			{
 				name = "Healer's Bracers",
@@ -3578,7 +3472,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Bracer,
+				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
@@ -3588,7 +3482,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {0,6,24,21,16,3,47,49,38,17,10,11,9,8,7,6},
 				new int[] {37,0,0,0},
 				new int[] {43,4 },
-
 				 })
 			{
 				name = "Novice Magic Caster's Gloves",
@@ -3600,7 +3493,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -3610,7 +3503,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,0,0,0},
 				new int[] {43,2 },
-
 				   })
 			{
 				name = "Ranger's Gloves",
@@ -3622,7 +3514,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -3643,7 +3535,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -3655,7 +3547,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 				   })
 			{
 				name = "Healer's Gloves",
@@ -3667,7 +3558,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -3680,7 +3571,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 				   })
 			{
 				name = "Fate Gloves",
@@ -3692,7 +3582,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
@@ -3705,7 +3595,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 				   })
 			{
 				name = "Fate Boots",
@@ -3717,7 +3606,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -3732,7 +3621,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 				   })
 			{
 				name = "Greed",
@@ -3744,7 +3632,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 				onEquip = () => ModdedPlayer.instance.isGreed = true,
 				onUnequip = () => ModdedPlayer.instance.isGreed = false,
@@ -3759,7 +3647,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 			 })
 			{
 				name = "Titanium Leggins",
@@ -3771,7 +3658,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Pants,
+				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			titaniumleggins.PossibleStats[0][0].Multipier = 3;
@@ -3794,7 +3681,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 
@@ -3822,7 +3709,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Glove,
+				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 				onEquip = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.75f; ModdedPlayer.instance.SpellCostRatio *= 2.5f; },
 				onUnequip = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.75f; ModdedPlayer.instance.SpellCostRatio /= 2.5f; }
@@ -3847,7 +3734,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Boot,
+				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
@@ -3861,8 +3748,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1 },
 				new int[] {-1 },
 				new int[] {-1 },
-
-
 			})
 			{
 				name = "Broken Protector",
@@ -3874,9 +3759,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Shield,
+				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-
 			}.PossibleStats[0][0].Multipier = 2;
 
 			new BaseItem(new int[][]
@@ -3900,7 +3784,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 
@@ -3913,8 +3797,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {16,18,11,34},
 				new int[] {37,34},
 				new int[] {-1},
-
-
 		  })
 			{
 				name = "Doom Pauldrons",
@@ -3926,9 +3808,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ShoulderArmor,
+				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
-
 			};
 			new BaseItem(new int[][]
 		  {
@@ -3942,20 +3823,18 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
-
 		  })
 			{
 				name = "Wind armor",
 				description = "Run fast like the wind",
 				lore = "",
-				tooltip = "Upon dodging an attack, gain 10% movement speed, 15% damage and 1500 armor",
+				tooltip = "Upon dodging an attack, gain 20% movement speed, 35% damage, 2000 armor, and heal for 5% of your maximum health",
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 				onEquip = () => ModdedPlayer.instance.isWindArmor = true,
 				onUnequip = () => ModdedPlayer.instance.isWindArmor = false,
@@ -3981,7 +3860,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
@@ -4003,7 +3882,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Helmet,
+				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 			new BaseItem(new int[][]
@@ -4031,7 +3910,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.SpellScroll,
+				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 				onEquip = () => ModdedPlayer.instance.SparkOfLightAfterDark = true,
 				onUnequip = () => ModdedPlayer.instance.SparkOfLightAfterDark = false
@@ -4048,7 +3927,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 		   })
 			{
 				name = "Purgatory",
@@ -4062,10 +3940,9 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => SpellActions.PurgeDamageBonus = true,
 				onUnequip = () => SpellActions.PurgeDamageBonus = false,
-				_itemType = BaseItem.ItemType.Ring,
+				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			}.DropSettings_OnlyCannibals();
-
 
 			new BaseItem(new int[][]
 		{
@@ -4082,7 +3959,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-
 		})
 			{
 				name = "Eruption",
@@ -4094,13 +3970,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.instance.EruptionBow = true,
 				onUnequip = () => ModdedPlayer.instance.EruptionBow = false,
 			}.PossibleStats[0][0].Multipier = -0.6f;
-
 
 			new BaseItem(new int[][]
 		{
@@ -4117,7 +3992,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-
 		})
 			{
 				name = "Archangel",
@@ -4129,7 +4003,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.instance.ArchangelBow = true,
@@ -4156,7 +4030,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
@@ -4175,7 +4049,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {45,46},
 				new int[] {27,49},
 				new int[] {-1},
-
 			  })
 			{
 				name = "Moon Cuirass",
@@ -4189,7 +4062,7 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.instance.TrueAimUpgrade = true,
 				onUnequip = () => ModdedPlayer.instance.TrueAimUpgrade = false,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
@@ -4208,7 +4081,6 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-
 			  })
 			{
 				name = "Thornmail",
@@ -4222,7 +4094,7 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.instance.thornsMult *= 2,
 				onUnequip = () => ModdedPlayer.instance.thornsMult /= 2,
-				_itemType = BaseItem.ItemType.ChestArmor,
+				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
@@ -4240,7 +4112,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
@@ -4262,11 +4134,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-
 
 			//Feathers
 			new BaseItem(new int[][] { })
@@ -4285,7 +4156,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 			new BaseItem(new int[][] { })
@@ -4304,7 +4175,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 			new BaseItem(new int[][] { })
@@ -4323,7 +4194,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 
@@ -4343,7 +4214,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 			new BaseItem(new int[][] { })
@@ -4362,7 +4233,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 
@@ -4384,7 +4255,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 			new BaseItem(new int[][] { })
@@ -4403,7 +4274,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 			new BaseItem(new int[][] { })
@@ -4422,7 +4293,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 
@@ -4442,7 +4313,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 			new BaseItem(new int[][] { })
@@ -4461,7 +4332,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 
@@ -4483,7 +4354,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 			new BaseItem(new int[][] { })
@@ -4502,7 +4373,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 			new BaseItem(new int[][] { })
@@ -4521,7 +4392,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 
@@ -4541,7 +4412,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 			new BaseItem(new int[][] { })
@@ -4560,7 +4431,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 
@@ -4581,7 +4452,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 			new BaseItem(new int[][] { })
@@ -4600,7 +4471,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 			new BaseItem(new int[][] { })
@@ -4619,7 +4490,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 
@@ -4639,7 +4510,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 			new BaseItem(new int[][] { })
@@ -4658,13 +4529,11 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 
-
 			// ----------------- Ores
-
 
 			new BaseItem(new int[][] { })
 			{
@@ -4672,7 +4541,7 @@ new int[] {0,0,0,0,62,63,64},
 				description = "If equipped on a weapon, increases weapon range by 10%\n" +
   "If equipped on boots, increases resistance to magic by 6.5%\n" +
   "If equipped on a helmet, increases maximum health by 7.5%\n" +
-  "If equipped on an amulet, increases thorns by 75\n" +
+  "If equipped on an amulet, increases thorns by 150\n" +
   "If equipped in other slots, increases armor by 15",
 				lore = "",
 				tooltip = "Materials can be put inside empty sockets to add stats to items",
@@ -4682,7 +4551,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 			new BaseItem(new int[][] { })
@@ -4691,7 +4560,7 @@ new int[] {0,0,0,0,62,63,64},
 				description = "If equipped on a weapon, increases weapon range by 20%\n" +
 				"If equipped on boots, increases resistance to magic by 12.5%\n" +
 				"If equipped on a helmet, increases maximum health by 12.5%\n" +
-				"If equipped on an amulet, increases thorns by 150\n" +
+				"If equipped on an amulet, increases thorns by 300\n" +
 				"If equipped in other slots, increases armor by 30",
 				lore = "",
 				tooltip = "Materials can be put inside empty sockets to add stats to items",
@@ -4701,7 +4570,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 			new BaseItem(new int[][] { })
@@ -4710,7 +4579,7 @@ new int[] {0,0,0,0,62,63,64},
 				description = "If equipped on a weapon, increases weapon range by 35%\n" +
 					"If equipped on boots, increases resistance to magic by 18%\n" +
 					"If equipped on a helmet, increases maximum health by 20%\n" +
-					"If equipped on an amulet, increases thorns by 300\n" +
+					"If equipped on an amulet, increases thorns by 600\n" +
 					"If equipped in other slots, increases armor by 60",
 				lore = "",
 				tooltip = "Materials can be put inside empty sockets to add stats to items",
@@ -4720,7 +4589,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 
@@ -4730,7 +4599,7 @@ new int[] {0,0,0,0,62,63,64},
 				description = "If equipped on a weapon, increases weapon range by 50%\n" +
 				   "If equipped on boots, increases resistance to magic by 24%\n" +
 				   "If equipped on a helmet, increases maximum health by 25%\n" +
-				   "If equipped on an amulet, increases thorns by 525\n" +
+				   "If equipped on an amulet, increases thorns by 1100\n" +
 				   "If equipped in other slots, increases armor by 120",
 				lore = "",
 				tooltip = "Materials can be put inside empty sockets to add stats to items",
@@ -4740,7 +4609,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 			new BaseItem(new int[][] { })
@@ -4749,7 +4618,7 @@ new int[] {0,0,0,0,62,63,64},
 				description = "If equipped on a weapon, increases weapon range by 70%\n" +
 				"If equipped on boots, increases resistance to magic by 30%\n" +
 				"If equipped on a helmet, increases maximum health by 30%\n" +
-				"If equipped on an amulet, increases thorns by 900\n" +
+				"If equipped on an amulet, increases thorns by 1800\n" +
 				"If equipped in other slots, increases armor by 250",
 				lore = "",
 				tooltip = "Materials can be put inside empty sockets to add stats to items",
@@ -4759,7 +4628,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				_itemType = BaseItem.ItemType.Material,
+				type = BaseItem.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 
@@ -4785,13 +4654,40 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				_itemType = BaseItem.ItemType.Weapon,
+				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-
-
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {STRENGTH,ALLATTRIBUTES,MELEEARMORPIERCING,MELEEDAMAGEINCREASE,COOLDOWNREDUCTION,SPELLDAMAGEINCREASE},
+				new [] {MAXIMUMLIFE,VITALITY,PERCENTMAXIMUMLIFE,ALLATTRIBUTES},
+				new [] {MELEEDAMAGEINCREASE,DAMAGEREDUCTION},
+				new [] {THORNS},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION,THORNS},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ENERGYPERSECOND,MAXIMUMENERGY,DODGECHANCE,ARMOR,},
+				new [] {STRENGTH,INTELLIGENCE,ARMOR,ARMORPIERCING,THORNS,}
+			})
+			{
+				name = "Fists of Nails",
+				description = "Swiss sheese makers",
+				lore = "",
+				tooltip = "Gain 5 thorns per vitality",
+				Rarity = 7,
+				minLevel = 20,
+				maxLevel = 22,
+				CanConsume = false,
+				StackSize = 1,
+				onEquip = () => ModdedPlayer.instance.thornsPerVit += 5,
+				onUnequip = () => ModdedPlayer.instance.thornsPerVit -= 5,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
 		}
-
 	}
 }

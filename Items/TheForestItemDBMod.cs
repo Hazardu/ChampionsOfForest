@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TheForest.Items;
+﻿using TheForest.Items;
 
 namespace ChampionsOfForest.Items
 {
-    public class TheForestItemDBMod : ItemDatabase
-    {
-        public override void OnEnable()
-        {
-            base.OnEnable();
-            //turtle shell is now addable to quick select
-            this._itemsCache[141]._type |= TheForest.Items.Item.Types.Weapon;
-        }
-    }
+	public class TheForestItemDBMod : ItemDatabase
+	{
+		public override void OnEnable()
+		{
+			base.OnEnable();
+			//turtle shell is now addable to quick select
+			this._itemsCache[141]._type |= TheForest.Items.Item.Types.Weapon;
+		}
+	}
 }

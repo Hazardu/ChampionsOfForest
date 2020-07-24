@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using Bolt;
+﻿using Bolt;
 
 using ChampionsOfForest.Player;
 
@@ -23,12 +21,11 @@ namespace ChampionsOfForest.Enemies
 		private BoltEntity entity;
 		private float LastReqTime;
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			if (originalScale != Vector3.zero)
 			{
 				transform.localScale = originalScale;
-
 			}
 		}
 
@@ -39,7 +36,6 @@ namespace ChampionsOfForest.Enemies
 				originalScale = transform.localScale;
 			}
 			transform.localScale = originalScale * 5;
-
 		}
 
 		protected override void Update()
@@ -86,7 +82,6 @@ namespace ChampionsOfForest.Enemies
 			base.Update();
 		}
 
-
 		private EnemyProgression EnemyProg;
 
 		[ModAPI.Attributes.Priority(100)]
@@ -94,7 +89,6 @@ namespace ChampionsOfForest.Enemies
 		{
 			try
 			{
-
 				if (GameSetup.IsMpClient)
 				{
 					if (entity == null && !EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
@@ -113,7 +107,6 @@ namespace ChampionsOfForest.Enemies
 							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 							answerStream.Close();
 						}
-
 					}
 				}
 
@@ -160,11 +153,10 @@ namespace ChampionsOfForest.Enemies
 
 										if ((!creepy_male && !creepy && !creepy_baby && !creepy_fat && events))
 										{
-										int parryDir = events != null ? events.parryDir : 1;
-										BoltSetReflectedShim.SetIntegerReflected(animator, "parryDirInt", parryDir);
+											int parryDir = events != null ? events.parryDir : 1;
+											BoltSetReflectedShim.SetIntegerReflected(animator, "parryDirInt", parryDir);
 											if (BoltNetwork.isClient && netPrefab)
 											{
-
 												BoltSetReflectedShim.SetTriggerReflected(animator, "ClientParryTrigger");
 												hitPrediction.StartParryPrediction();
 												FMODCommon.PlayOneshot(parryEvent, base.transform);
@@ -172,7 +164,6 @@ namespace ChampionsOfForest.Enemies
 												parryEnemy.Target = transform.root.GetComponent<BoltEntity>();
 												parryEnemy.Send();
 											}
-
 											else
 											{
 												BoltSetReflectedShim.SetTriggerReflected(animator, "parryTrigger");
@@ -189,299 +180,284 @@ namespace ChampionsOfForest.Enemies
 										return;
 									}
 								}
-
 							}
-						if ((bool)events)
-						{
-							events.parryBool = false;
-						}
-						other.transform.root.SendMessage("getHitDirection", rootTr.position, SendMessageOptions.DontRequireReceiver);
-						int num = 0;
-						if (maleSkinny || femaleSkinny)
-						{
-							if (pale)
+							if ((bool)events)
 							{
-								num = ((!skinned) ? Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
+								events.parryBool = false;
 							}
-							else
+							other.transform.root.SendMessage("getHitDirection", rootTr.position, SendMessageOptions.DontRequireReceiver);
+							int num = 0;
+							if (maleSkinny || femaleSkinny)
 							{
-								num = Mathf.FloorToInt(13f * GameSettings.Ai.skinnyDamageRatio);
-								if (maleSkinny && props.regularStick.activeSelf && events.leftHandWeapon)
+								if (pale)
 								{
-									num = Mathf.FloorToInt(num * 1.35f);
-								}
-							}
-						}
-						else if (male && pale)
-						{
-							num = ((!skinned) ? Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio) : Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
-						}
-						else if (male && !firemanMain)
-						{
-							num = ((!painted) ? Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio) : Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio * GameSettings.Ai.paintedDamageRatio));
-						}
-						else if (female)
-						{
-							num = Mathf.FloorToInt(17f * GameSettings.Ai.regularFemaleDamageRatio);
-						}
-						else if (creepy)
-						{
-							num = ((!pale) ? Mathf.FloorToInt(28f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(35f * GameSettings.Ai.creepyDamageRatio));
-						}
-						else if (creepy_male)
-						{
-							num = ((!pale) ? Mathf.FloorToInt(60f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(120f * GameSettings.Ai.creepyDamageRatio));
-						}
-						else if (creepy_baby)
-						{
-							num = Mathf.FloorToInt(26f * GameSettings.Ai.creepyBabyDamageRatio);
-						}
-						else if (firemanMain)
-						{
-							num = Mathf.FloorToInt(12f * GameSettings.Ai.regularMaleDamageRatio);
-							if (events && !enemyAtStructure && !events.noFireAttack)
-							{
-								if (BoltNetwork.isRunning && netPrefab)
-								{
-									other.gameObject.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+									num = ((!skinned) ? Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
 								}
 								else
 								{
-									other.gameObject.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+									num = Mathf.FloorToInt(13f * GameSettings.Ai.skinnyDamageRatio);
+									if (maleSkinny && props.regularStick.activeSelf && events.leftHandWeapon)
+									{
+										num = Mathf.FloorToInt(num * 1.35f);
+									}
 								}
 							}
-						}
-						if (!female && male)
-						{
-							if (holdingRegularWeapon() && events.leftHandWeapon)
+							else if (male && pale)
 							{
-								num += 7;
+								num = ((!skinned) ? Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio) : Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
 							}
-							else if (holdingAdvancedWeapon() && events.leftHandWeapon)
+							else if (male && !firemanMain)
 							{
-								num += 15;
+								num = ((!painted) ? Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio) : Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio * GameSettings.Ai.paintedDamageRatio));
 							}
-						}
-						if (setup && setup.health.poisoned)
-						{
-							num = Mathf.FloorToInt(num / 1.6f);
-						}
-
-						//COTF additional code
-						try
-						{
-							if (GameSetup.IsMpClient)
+							else if (female)
 							{
-								if (other.transform.root == LocalPlayer.Transform.root)
+								num = Mathf.FloorToInt(17f * GameSettings.Ai.regularFemaleDamageRatio);
+							}
+							else if (creepy)
+							{
+								num = ((!pale) ? Mathf.FloorToInt(28f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(35f * GameSettings.Ai.creepyDamageRatio));
+							}
+							else if (creepy_male)
+							{
+								num = ((!pale) ? Mathf.FloorToInt(60f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(120f * GameSettings.Ai.creepyDamageRatio));
+							}
+							else if (creepy_baby)
+							{
+								num = Mathf.FloorToInt(26f * GameSettings.Ai.creepyBabyDamageRatio);
+							}
+							else if (firemanMain)
+							{
+								num = Mathf.FloorToInt(12f * GameSettings.Ai.regularMaleDamageRatio);
+								if (events && !enemyAtStructure && !events.noFireAttack)
 								{
-									var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
-									num = Mathf.RoundToInt(num * x.damagemult);
-									if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
+									if (BoltNetwork.isRunning && netPrefab)
 									{
-										if (TheForest.Utils.Scene.WeatherSystem.Raining)
+										other.gameObject.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+									}
+									else
+									{
+										other.gameObject.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+									}
+								}
+							}
+							if (!female && male)
+							{
+								if (holdingRegularWeapon() && events.leftHandWeapon)
+								{
+									num += 7;
+								}
+								else if (holdingAdvancedWeapon() && events.leftHandWeapon)
+								{
+									num += 15;
+								}
+							}
+							if (setup && setup.health.poisoned)
+							{
+								num = Mathf.FloorToInt(num / 1.6f);
+							}
+
+							//COTF additional code
+							try
+							{
+								if (GameSetup.IsMpClient)
+								{
+									if (other.transform.root == LocalPlayer.Transform.root)
+									{
+										var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
+										num = Mathf.RoundToInt(num * x.damagemult);
+										if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
 										{
-											num *= 5;
+											if (TheForest.Utils.Scene.WeatherSystem.Raining)
+											{
+												num *= 5;
+											}
+										}
+										if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+										{
+											BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
+										}
+										if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
+										{
+											ModdedPlayer.instance.Stun(stunDuration);
+										}
+										if (ModdedPlayer.instance.thornsDamage > 0)
+										{
+											DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+											PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+											playerHitEnemy.Target = entity;
+
+											//these two booleans make the attack not stagger the enemy
+											playerHitEnemy.HitAxe = true;
+											playerHitEnemy.getStealthAttack = true;
+
+											playerHitEnemy.Hit = dmg;
+											AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps, 0.1f);
 										}
 									}
-									if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-									{
-
-										BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
-
-									}
-									if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
-									{
-
-										ModdedPlayer.instance.Stun(stunDuration);
-									}
-									if (ModdedPlayer.instance.thornsDamage > 0)
-									{
-										DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
-										PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
-										playerHitEnemy.Target = entity;
-
-										//these two booleans make the attack not stagger the enemy
-										playerHitEnemy.HitAxe = true;
-										playerHitEnemy.getStealthAttack = true;
-
-										playerHitEnemy.Hit = dmg;
-										AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps, 0.1f);
-
-
-									}
 								}
-							}
-							else
-							{
-								if (other.transform.root == LocalPlayer.Transform.root)
+								else
 								{
-									if (EnemyProg == null)
+									if (other.transform.root == LocalPlayer.Transform.root)
 									{
-										EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
-									}
-									num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
-									BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-									if (bo == null)
-									{
-										bo = other.transform.root.GetComponentInChildren<BoltEntity>();
-									}
+										if (EnemyProg == null)
+										{
+											EnemyProg = setup.health.gameObject.GetComponent<EnemyProgression>();
+										}
+										num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
+										BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
+										if (bo == null)
+										{
+											bo = other.transform.root.GetComponentInChildren<BoltEntity>();
+										}
 
+										//POISON ATTACKS
+										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
+										{
+											BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 10, poisonDuration);
+										}
 
-									//POISON ATTACKS 
-									if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
-									{
-										BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 10, poisonDuration);
-									}
+										//STUN ON HIT
+										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
+										{
+											ModdedPlayer.instance.Stun(stunDuration);
+										}
 
-									//STUN ON HIT
-									if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Basher))
-									{
-										ModdedPlayer.instance.Stun(stunDuration);
-									}
-
-									if (ModdedPlayer.instance.thornsDamage > 0)
-									{
-										Invoke("HitEnemeyDelayed", 0.1f);
+										if (ModdedPlayer.instance.thornsDamage > 0)
+										{
+											Invoke("HitEnemeyDelayed", 0.1f);
+										}
 									}
 								}
 							}
-						}
-						catch (System.Exception ex)
-						{
-
-							ModAPI.Log.Write(ex.ToString());
-						}
-
-
-						PlayerStats component2 = other.transform.root.GetComponent<PlayerStats>();
-						if (male || female || creepy_male || creepy_fat || creepy || creepy_baby)
-						{
-							netId component3 = other.transform.GetComponent<netId>();
-							if (BoltNetwork.isServer && component3)
+							catch (System.Exception ex)
 							{
-								other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
-								return;
+								ModAPI.Log.Write(ex.ToString());
 							}
-							if (BoltNetwork.isClient && netPrefab && !(bool)component3)
+
+							PlayerStats component2 = other.transform.root.GetComponent<PlayerStats>();
+							if (male || female || creepy_male || creepy_fat || creepy || creepy_baby)
 							{
-								other.transform.root.SendMessage("setCurrentAttacker", this, SendMessageOptions.DontRequireReceiver);
-								other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
-								other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
-							}
-							else if (BoltNetwork.isServer)
-							{
-								if (!(bool)component3)
+								netId component3 = other.transform.GetComponent<netId>();
+								if (BoltNetwork.isServer && component3)
+								{
+									other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
+									return;
+								}
+								if (BoltNetwork.isClient && netPrefab && !(bool)component3)
 								{
 									other.transform.root.SendMessage("setCurrentAttacker", this, SendMessageOptions.DontRequireReceiver);
 									other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
+									other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
+								}
+								else if (BoltNetwork.isServer)
+								{
+									if (!(bool)component3)
+									{
+										other.transform.root.SendMessage("setCurrentAttacker", this, SendMessageOptions.DontRequireReceiver);
+										other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
+									}
+								}
+								else if (!BoltNetwork.isRunning && component2)
+								{
+									component2.setCurrentAttacker(this);
+									component2.hitFromEnemy(num);
 								}
 							}
-							else if (!BoltNetwork.isRunning && component2)
+							else if (!netPrefab && component2)
 							{
 								component2.setCurrentAttacker(this);
 								component2.hitFromEnemy(num);
 							}
+
+							goto IL_092f;
 						}
-						else if (!netPrefab && component2)
-						{
-							component2.setCurrentAttacker(this);
-							component2.hitFromEnemy(num);
-						}
+						return;
+					}
+					goto IL_092f;
+				}
 
-
-
-						goto IL_092f;
+				return;
+			IL_092f:
+				if (other.gameObject.CompareTag("enemyCollide") && mainTrigger && bodyCollider && !enemyAtStructure)
+				{
+					setupAttackerType();
+					if (other.gameObject != bodyCollider)
+					{
+						other.transform.SendMessageUpwards("getAttackDirection", Random.Range(0, 2), SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessageUpwards("getCombo", Random.Range(1, 4), SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessage("getAttackerType", attackerType, SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessage("getAttacker", rootTr.gameObject, SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessageUpwards("Hit", 6, SendMessageOptions.DontRequireReceiver);
+						FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
+					}
+				}
+				if (other.gameObject.CompareTag("BreakableWood") || (other.gameObject.CompareTag("BreakableRock") && mainTrigger))
+				{
+					other.transform.SendMessage("Hit", 50, SendMessageOptions.DontRequireReceiver);
+					other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, 50f), SendMessageOptions.DontRequireReceiver);
+					FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
+				}
+				if (other.gameObject.CompareTag("SmallTree") && !mainTrigger)
+				{
+					other.SendMessage("Hit", 2, SendMessageOptions.DontRequireReceiver);
+				}
+				if (other.gameObject.CompareTag("Fire") && mainTrigger && firemanMain && !events.noFireAttack)
+				{
+					other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
+				}
+				if (other.gameObject.CompareTag("Tree") && mainTrigger && creepy_male)
+				{
+					other.SendMessage("Explosion", 5f, SendMessageOptions.DontRequireReceiver);
+					FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
+				}
+				if (!other.gameObject.CompareTag("structure") && !other.gameObject.CompareTag("SLTier1") && !other.gameObject.CompareTag("SLTier2") && !other.gameObject.CompareTag("SLTier3") && !other.gameObject.CompareTag("jumpObject") && !other.gameObject.CompareTag("UnderfootWood"))
+				{
+					return;
+				}
+				if (!mainTrigger)
+				{
+					return;
+				}
+				getStructureStrength component4 = other.gameObject.GetComponent<getStructureStrength>();
+				bool flag2 = false;
+				if (component4 == null)
+				{
+					flag2 = true;
+				}
+				enemyAtStructure = true;
+				int num2 = 0;
+				if (!creepy_male && !creepy && !creepy_fat && !creepy_baby)
+				{
+					if (!flag2)
+					{
+						num2 = ((maleSkinny || femaleSkinny) ? ((component4._strength == getStructureStrength.strength.weak) ? Mathf.FloorToInt(8f * GameSettings.Ai.regularStructureDamageRatio) : 0) : ((pale || painted || skinned) ? ((component4._strength != getStructureStrength.strength.veryStrong) ? Mathf.FloorToInt(16f * GameSettings.Ai.regularStructureDamageRatio) : 0) : ((component4._strength != getStructureStrength.strength.veryStrong) ? Mathf.FloorToInt(12f * GameSettings.Ai.regularStructureDamageRatio) : 0)));
+						goto IL_0d63;
 					}
 					return;
 				}
-				goto IL_092f;
-			}
-
-				return;
-		IL_092f:
-			if (other.gameObject.CompareTag("enemyCollide") && mainTrigger && bodyCollider && !enemyAtStructure)
-			{
-				setupAttackerType();
-				if (other.gameObject != bodyCollider)
+				num2 = ((!creepy_baby) ? Mathf.FloorToInt(30f * GameSettings.Ai.creepyStructureDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.creepyStructureDamageRatio));
+				goto IL_0d63;
+			IL_0d63:
+				if (setup && setup.health.poisoned)
 				{
-					other.transform.SendMessageUpwards("getAttackDirection", Random.Range(0, 2), SendMessageOptions.DontRequireReceiver);
-					other.transform.SendMessageUpwards("getCombo", Random.Range(1, 4), SendMessageOptions.DontRequireReceiver);
-					other.transform.SendMessage("getAttackerType", attackerType, SendMessageOptions.DontRequireReceiver);
-					other.transform.SendMessage("getAttacker", rootTr.gameObject, SendMessageOptions.DontRequireReceiver);
-					other.transform.SendMessageUpwards("Hit", 6, SendMessageOptions.DontRequireReceiver);
-					FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
+					num2 /= 2;
 				}
-			}
-			if (other.gameObject.CompareTag("BreakableWood") || (other.gameObject.CompareTag("BreakableRock") && mainTrigger))
-			{
-				other.transform.SendMessage("Hit", 50, SendMessageOptions.DontRequireReceiver);
-				other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, 50f), SendMessageOptions.DontRequireReceiver);
+				other.SendMessage("Hit", num2, SendMessageOptions.DontRequireReceiver);
+				other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, num2), SendMessageOptions.DontRequireReceiver);
 				FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
 			}
-			if (other.gameObject.CompareTag("SmallTree") && !mainTrigger)
+			catch (System.Exception ee)
 			{
-				other.SendMessage("Hit", 2, SendMessageOptions.DontRequireReceiver);
+				ModAPI.Log.Write(ee.ToString());
 			}
-			if (other.gameObject.CompareTag("Fire") && mainTrigger && firemanMain && !events.noFireAttack)
-			{
-				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-			}
-			if (other.gameObject.CompareTag("Tree") && mainTrigger && creepy_male)
-			{
-				other.SendMessage("Explosion", 5f, SendMessageOptions.DontRequireReceiver);
-				FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
-			}
-			if (!other.gameObject.CompareTag("structure") && !other.gameObject.CompareTag("SLTier1") && !other.gameObject.CompareTag("SLTier2") && !other.gameObject.CompareTag("SLTier3") && !other.gameObject.CompareTag("jumpObject") && !other.gameObject.CompareTag("UnderfootWood"))
-			{
-				return;
-			}
-			if (!mainTrigger)
-			{
-				return;
-			}
-			getStructureStrength component4 = other.gameObject.GetComponent<getStructureStrength>();
-			bool flag2 = false;
-			if (component4 == null)
-			{
-				flag2 = true;
-			}
-			enemyAtStructure = true;
-			int num2 = 0;
-			if (!creepy_male && !creepy && !creepy_fat && !creepy_baby)
-			{
-				if (!flag2)
-				{
-					num2 = ((maleSkinny || femaleSkinny) ? ((component4._strength == getStructureStrength.strength.weak) ? Mathf.FloorToInt(8f * GameSettings.Ai.regularStructureDamageRatio) : 0) : ((pale || painted || skinned) ? ((component4._strength != getStructureStrength.strength.veryStrong) ? Mathf.FloorToInt(16f * GameSettings.Ai.regularStructureDamageRatio) : 0) : ((component4._strength != getStructureStrength.strength.veryStrong) ? Mathf.FloorToInt(12f * GameSettings.Ai.regularStructureDamageRatio) : 0)));
-					goto IL_0d63;
-				}
-				return;
-			}
-			num2 = ((!creepy_baby) ? Mathf.FloorToInt(30f * GameSettings.Ai.creepyStructureDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.creepyStructureDamageRatio));
-			goto IL_0d63;
-		IL_0d63:
-			if (setup && setup.health.poisoned)
-			{
-				num2 /= 2;
-			}
-			other.SendMessage("Hit", num2, SendMessageOptions.DontRequireReceiver);
-			other.SendMessage("LocalizedHit", new LocalizedHitData(base.transform.position, num2), SendMessageOptions.DontRequireReceiver);
-			FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
-
 		}
-            catch (System.Exception ee)
-            {
 
-                ModAPI.Log.Write(ee.ToString());
-            }
-}
-
-void HitEnemeyDelayed()
-{
-	DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
-	for (int i = 0; i < reps; i++)
-		EnemyProg.HitPhysicalSilent(dmg);
-}
-
-
-    }
+		private void HitEnemeyDelayed()
+		{
+			DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+			for (int i = 0; i < reps; i++)
+				EnemyProg.HitPhysicalSilent(dmg);
+		}
+	}
 }

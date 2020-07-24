@@ -1,20 +1,9 @@
-﻿using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System;
 
 using TheForest.Utils;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-using static ChampionsOfForest.Player.BuffDB;
-
-using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
 {
@@ -22,15 +11,15 @@ namespace ChampionsOfForest
 	{
 		internal class MainMenuDifficultySelectionClient
 		{
-			Texture blackSquareTex;
-			Font mainFont;
-			float screenScale;
+			private Texture blackSquareTex;
+			private Font mainFont;
+			private float screenScale;
 
-			float requestResendTime;
-			float timeStamp;
-			const float timeToQuit = 5f;
+			private float requestResendTime;
+			private float timeStamp;
+			private const float timeToQuit = 5f;
 
-			GUIStyle labelStyle;
+			private GUIStyle labelStyle;
 
 			internal MainMenuDifficultySelectionClient(MainMenu mm)
 			{
@@ -40,10 +29,11 @@ namespace ChampionsOfForest
 				screenScale = mm.screenScale;
 			}
 
-			bool initialziedStyles;
-			void InitStyles()
+			private bool initialziedStyles;
+
+			private void InitStyles()
 			{
-				initialziedStyles =true;
+				initialziedStyles = true;
 				labelStyle = new GUIStyle(GUI.skin.label)
 				{
 					alignment = TextAnchor.MiddleCenter,
@@ -83,7 +73,7 @@ namespace ChampionsOfForest
 					GUI.color = new Color(c, c, c, c);
 					GUI.Label(new Rect(0, Screen.height / 2f, Screen.width, screenScale * 150),
 						"The server may not have Champions of The Forest Mod installed, playing on vanilla servers is impossible.\nDo you want to leave?", labelStyle);
-					if (GUI.Button(new Rect(Screen.width/2-  120*screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), "Click to disconnect"))
+					if (GUI.Button(new Rect(Screen.width / 2 - 120 * screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), "Click to disconnect"))
 					{
 						SceneManager.LoadScene("TitleScene");
 					}
@@ -93,9 +83,7 @@ namespace ChampionsOfForest
 					GUI.color = Color.white;
 					GUI.DrawTexture(r, blackSquareTex);
 					GUI.Label(r, "Please wait for the host to choose a difficulty", labelStyle);
-
 				}
-
 
 				ResendRequest();
 			}
@@ -122,19 +110,21 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		internal class MainMenuDifficultySelectionHost
 		{
-			Texture blackSquareTex;
-			Font mainFont;
-			float screenScale;
-			int page = 0;
+			private Texture blackSquareTex;
+			private Font mainFont;
+			private float screenScale;
+			private int page = 0;
 
-			GUIStyle ButtonStyle;
-			GUIStyle DiffNameStyle;
-			GUIStyle DescriptionStyle;
-			GUIStyle CheatLabel;
-			GUIStyle CheatSlider;
-			GUIStyle OptionsButton;
+			private GUIStyle ButtonStyle;
+			private GUIStyle DiffNameStyle;
+			private GUIStyle DescriptionStyle;
+			private GUIStyle CheatLabel;
+			private GUIStyle CheatSlider;
+			private GUIStyle OptionsButton;
+
 			//Constructor
 			internal MainMenuDifficultySelectionHost(MainMenu mm)
 			{
@@ -143,8 +133,9 @@ namespace ChampionsOfForest
 				screenScale = mm.screenScale;
 			}
 
-			bool initialziedStyles;
-			void InitStyles()
+			private bool initialziedStyles;
+
+			private void InitStyles()
 			{
 				initialziedStyles = true;
 				ButtonStyle = new GUIStyle(GUI.skin.button);
@@ -159,9 +150,8 @@ namespace ChampionsOfForest
 					alignment = TextAnchor.MiddleCenter,
 					fontSize = Mathf.FloorToInt(16 * screenScale),
 					font = mainFont,
-
 				};
-				OptionsButton=  new GUIStyle(GUI.skin.button)
+				OptionsButton = new GUIStyle(GUI.skin.button)
 				{
 					font = mainFont,
 					fontSize = Mathf.FloorToInt(20 * screenScale)
@@ -177,8 +167,10 @@ namespace ChampionsOfForest
 					stretchHeight = true
 				};
 			}
-			readonly int[] highestObtainableLootTierPerLevel = { 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7 };
-			void DrawDifficultyTabs()
+
+			private readonly int[] highestObtainableLootTierPerLevel = { 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7 };
+
+			private void DrawDifficultyTabs()
 			{
 				GUI.color = Color.white;
 				for (int i = 0; i < 4; i++)
@@ -204,9 +196,9 @@ namespace ChampionsOfForest
 						//original image is 500 x 154, so im taking half here
 						Rect icon = new Rect(name.x, name.yMax, 250 * screenScale, 77 * screenScale);
 						Rect desc = new Rect(r);
-						desc.height = 400* screenScale;
+						desc.height = 400 * screenScale;
 						desc.y = icon.yMax;
-						
+
 						GUI.color = RarityColors[highestObtainableLootTierPerLevel[ii]];
 						GUI.Label(name, DiffSel_Names[ii], DiffNameStyle);
 						GUI.color = Color.white;
@@ -214,7 +206,7 @@ namespace ChampionsOfForest
 							GUI.DrawTexture(icon, Res.ResourceLoader.GetTexture(172));
 						else
 							GUI.DrawTexture(icon, Res.ResourceLoader.GetTexture(171));
-						
+
 						GUI.Label(desc, DiffSel_Descriptions[ii], DescriptionStyle);
 					}
 				}
@@ -228,16 +220,16 @@ namespace ChampionsOfForest
 				{
 					page = Mathf.Clamp(page + 1, 0, 2);
 				}
-
 			}
-			void DrawSettings()
+
+			private void DrawSettings()
 			{
 				//Friendly fire
 				if (ModSettings.FriendlyFire)
 				{
 					GUI.color = Color.red;
 
-					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale), "Friendly Fire enabled",OptionsButton))
+					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale), "Friendly Fire enabled", OptionsButton))
 					{
 						ModSettings.FriendlyFire = !ModSettings.FriendlyFire;
 					}
@@ -254,7 +246,6 @@ namespace ChampionsOfForest
 						ModSettings.FriendlyFire = !ModSettings.FriendlyFire;
 					}
 				}
-
 
 				//Bleeding out
 				if (ModSettings.killOnDowned)
@@ -289,12 +280,15 @@ namespace ChampionsOfForest
 					case ModSettings.DropsOnDeathMode.All:
 						GUI.color = Color.red;
 						break;
+
 					case ModSettings.DropsOnDeathMode.Equipped:
 						GUI.color = Color.yellow;
 						break;
+
 					case ModSettings.DropsOnDeathMode.Disabled:
 						GUI.color = Color.gray;
 						break;
+
 					default:
 						break;
 				}
@@ -310,35 +304,33 @@ namespace ChampionsOfForest
 				}
 
 				float y = 300;
-				DrawCheatOption(ref ModSettings.DropQuantityMultiplier,"Item Drop Quantity", ref y);
-				DrawCheatOption(ref ModSettings.DropChanceMultiplier,"Item Drop Chance", ref y);
-				DrawCheatOption(ref ModSettings.ExpMultiplier,"Enemy Bounty", ref y);
-				DrawCheatOption(ref ModSettings.EnemyLevelIncrease,"Enemy Level Increase", ref y);
-				DrawCheatOption(ref ModSettings.EnemyDamageMultiplier,"Enemy Damage", ref y);
-				DrawCheatOption(ref ModSettings.EnemyHealthMultiplier,"Enemy Health", ref y);
-				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier,"Enemy Armor", ref y);
-				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier,"Enemy Speed", ref y);
-
-
+				DrawCheatOption(ref ModSettings.DropQuantityMultiplier, "Item Drop Quantity", ref y);
+				DrawCheatOption(ref ModSettings.DropChanceMultiplier, "Item Drop Chance", ref y);
+				DrawCheatOption(ref ModSettings.ExpMultiplier, "Enemy Bounty", ref y);
+				DrawCheatOption(ref ModSettings.EnemyLevelIncrease, "Enemy Level Increase", ref y);
+				DrawCheatOption(ref ModSettings.EnemyDamageMultiplier, "Enemy Damage", ref y);
+				DrawCheatOption(ref ModSettings.EnemyHealthMultiplier, "Enemy Health", ref y);
+				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier, "Enemy Armor", ref y);
+				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, "Enemy Speed", ref y);
 			}
 
-			void DrawCheatOption(ref float value,in string text, ref float y, float min = 0.5f, float max = 2.0f )
+			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.5f, float max = 2.0f)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max);
 				GUI.Label(new Rect(1500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value.ToString("P0"), CheatLabel);
 				y += 40;
 			}
-			void DrawCheatOption(ref int value, in string text, ref float y,int min =0, int max = 50)
+
+			private void DrawCheatOption(ref int value, in string text, ref float y, int min = 0, int max = 50)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
-				value =Mathf.RoundToInt( GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max));
+				value = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max));
 				GUI.Label(new Rect(1500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value.ToString("N0"), CheatLabel);
 				y += 40;
-
 			}
 
-			bool showSettings = false;
+			private bool showSettings = false;
 
 			internal void Draw()
 			{
@@ -355,14 +347,18 @@ namespace ChampionsOfForest
 					DrawDifficultyTabs();
 			}
 		}
+
 		#region DifficultySelectionMethods
-		MainMenuDifficultySelectionHost hostDiffSel;
-		MainMenuDifficultySelectionClient clientDiffSel;
+
+		private MainMenuDifficultySelectionHost hostDiffSel;
+		private MainMenuDifficultySelectionClient clientDiffSel;
+
 		public void ClearDiffSelectionObjects()
 		{
 			hostDiffSel = null;
 			clientDiffSel = null;
 		}
+
 		private void DifficultySelectionScreen()
 		{
 			if (LocalPlayer.Stats != null)
@@ -375,7 +371,6 @@ namespace ChampionsOfForest
 					LocalPlayer.FpCharacter.MovementLocked = true;
 				}
 				LocalPlayer.Inventory.UnequipItemAtSlot(TheForest.Items.Item.EquipmentSlot.RightHand, false, true, false);
-
 
 				if (GameSetup.IsMpClient)
 				{
@@ -392,7 +387,6 @@ namespace ChampionsOfForest
 			}
 		}
 
-		#endregion
-
+		#endregion DifficultySelectionMethods
 	}
 }

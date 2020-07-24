@@ -1,68 +1,66 @@
 ﻿using TheForest.Utils;
 using TheForest.World;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
-    public class Meteor : MonoBehaviour
-    {
-        private AudioSource src;
-        public static void CreateEnemy(Vector3 position, int seed)
-        {
-            MeteorSpawner.Instance.Spawn(position, seed);
-        }
+	public class Meteor : MonoBehaviour
+	{
+		private AudioSource src;
 
-        public int Damage;
+		public static void CreateEnemy(Vector3 position, int seed)
+		{
+			MeteorSpawner.Instance.Spawn(position, seed);
+		}
 
-        private void Update()
-        {
-            transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
-        }
+		public int Damage;
 
-        private static AudioClip hitSound, InitSound;
+		private void Update()
+		{
+			transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
+		}
 
-        private void Start()
-        {
-            if (hitSound == null)
-            {
-                hitSound = Res.ResourceLoader.instance.LoadedAudio[1005];
-                InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
-            }
-            src =gameObject.AddComponent<AudioSource>();
-            src.clip = InitSound;
-            src.rolloffMode = AudioRolloffMode.Logarithmic;
-            src.maxDistance = 60;
-            src.Play();
-            Destroy(gameObject, 7);
-           
-        }
+		private static AudioClip hitSound, InitSound;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            src.clip = hitSound;
-            src.Play();
-            LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
+		private void Start()
+		{
+			if (hitSound == null)
+			{
+				hitSound = Res.ResourceLoader.instance.LoadedAudio[1005];
+				InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
+			}
+			src = gameObject.AddComponent<AudioSource>();
+			src.clip = InitSound;
+			src.rolloffMode = AudioRolloffMode.Logarithmic;
+			src.maxDistance = 60;
+			src.Play();
+			Destroy(gameObject, 7);
+		}
 
-            if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") || other.CompareTag("SmallTree"))
-            {
-                other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
-                other.SendMessage("Explosion", 0.1f, SendMessageOptions.DontRequireReceiver);
+		private void OnTriggerEnter(Collider other)
+		{
+			src.clip = hitSound;
+			src.Play();
+			LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
 
-            }
-            else if (other.transform.root == LocalPlayer.Transform.root)
-            {
-                LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Physical)
-                ;
-                Player.BuffDB.AddBuff(21, 69, Damage, 60);
-                other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
-
-            }
-            else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
-            {
-                other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
-                other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position, Damage), SendMessageOptions.DontRequireReceiver);
-
-            }
-        }
-    }
+			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") || other.CompareTag("SmallTree"))
+			{
+				other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
+				other.SendMessage("Explosion", 0.1f, SendMessageOptions.DontRequireReceiver);
+			}
+			else if (other.transform.root == LocalPlayer.Transform.root)
+			{
+				LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Physical)
+				;
+				Player.BuffDB.AddBuff(21, 69, Damage, 60);
+				other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
+			}
+			else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
+			{
+				other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
+				other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position, Damage), SendMessageOptions.DontRequireReceiver);
+			}
+		}
+	}
 }

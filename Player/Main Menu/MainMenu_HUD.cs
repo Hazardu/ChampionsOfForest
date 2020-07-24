@@ -1,14 +1,17 @@
-﻿using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
+using ChampionsOfForest.Network;
+using ChampionsOfForest.Player;
+
 using TheForest.Utils;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using static ChampionsOfForest.Player.BuffDB;
+
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
@@ -17,6 +20,7 @@ namespace ChampionsOfForest
 	{
 		//HUD variables
 		private float ScanTime = 0;
+
 		private float ScanRotation = 0;
 		private Transform scannedTransform;
 		private BoltEntity scannedEntity;
@@ -26,7 +30,6 @@ namespace ChampionsOfForest
 		private Rect HUDHealthLabelRect;
 		private Rect HUDShieldLabelRect;
 		private GUIStyle HUDStatStyle;
-
 
 		private Texture2D _SpellFrame;
 		private Texture2D _SpellCoolDownFill;
@@ -39,6 +42,7 @@ namespace ChampionsOfForest
 		internal int LevelsToGain = 0;
 
 		private const float BuffSize = 50;
+
 		private void DrawBuff(float x, float y, Texture2D tex, string amount, string time, bool isPositive, float durationInSeconds)
 		{
 			Rect r = new Rect(x * screenScale, y * screenScale, BuffSize * screenScale, BuffSize * screenScale);
@@ -56,7 +60,6 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(145));
 				GUI.color = new Color(1, 1, 1, 1);
 			}
-
 
 			GUI.DrawTexture(r, tex);
 
@@ -82,7 +85,9 @@ namespace ChampionsOfForest
 				new HitMarker(t, p, color);
 			}
 		}
+
 		public readonly List<HitMarker> hitMarkers = new List<HitMarker>();
+
 		public class HitMarker
 		{
 			public Color color;
@@ -92,10 +97,12 @@ namespace ChampionsOfForest
 			public Vector3 worldPosition;
 			public float lifetime;
 			public bool Player;
+
 			public void Delete(int i)
 			{
 				Instance.hitMarkers.RemoveAt(i);
 			}
+
 			public HitMarker(int t, Vector3 p, Color c)
 			{
 				color = c;
@@ -105,6 +112,7 @@ namespace ChampionsOfForest
 				lifetime = StartLifetime;
 				Instance.hitMarkers.Add(this);
 			}
+
 			public HitMarker(int t, Vector3 p, bool Player)
 			{
 				txt = t.ToString("N0");
@@ -117,13 +125,10 @@ namespace ChampionsOfForest
 			}
 		}
 
-
 		#region HUDMethods
+
 		private void DrawHUD()
 		{
-
-
-
 			if (HideHud)
 			{
 				return;
@@ -142,16 +147,11 @@ namespace ChampionsOfForest
 					if (hitMarkers[i].Player)
 					{
 						GUI.color = new Color(0.15f, 1, 0.15f, 0.5f);
-
 					}
 					else
 					{
 						GUI.color = hitMarkers[i].color;
-
 					}
-
-
-
 
 					float distance = Vector3.Distance(Camera.main.transform.position, hitMarkers[i].worldPosition);
 					Vector3 pos = Camera.main.WorldToScreenPoint(hitMarkers[i].worldPosition);
@@ -165,10 +165,8 @@ namespace ChampionsOfForest
 
 					GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
 				}
-
 			}
 			GUI.color = Color.white;
-
 
 			float BuffOffsetX = 0;
 			float BuffOffsetY = 1080 - BuffSize;
@@ -231,13 +229,10 @@ namespace ChampionsOfForest
 			GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth).ToString("N0"), HUDStatStyle);
 			if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
 			{
-
 				GUI.color = new Color(1f, 0.15f, 0.8f);
 				GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
-
 			}
 			GUI.color = Color.white;
-
 
 			float SquareSize = 45 * screenScale;
 			for (int i = 0; i < SpellCaster.SpellCount; i++)
@@ -249,12 +244,9 @@ namespace ChampionsOfForest
 					SquareSize
 					);
 
-
 				GUI.DrawTexture(r, _SpellBG);
 				if (SpellCaster.instance.infos[i].spell == null || SpellCaster.instance.infos[i].spell.icon == null)
 				{
-
-
 				}
 				else
 				{
@@ -267,7 +259,6 @@ namespace ChampionsOfForest
 					else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && SpellCaster.instance.infos[i].spell.CanCast))
 					{
 						GUI.color = Color.blue;
-
 					}
 					GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
 
@@ -292,7 +283,6 @@ namespace ChampionsOfForest
 				}
 
 				GUI.DrawTexture(r, _SpellFrame);
-
 			}
 			float width = SpellCaster.SpellCount * SquareSize;
 			float height = width * 0.1f;
@@ -340,7 +330,6 @@ namespace ChampionsOfForest
 					content += "\t" + ModdedPlayer.instance.MassacreKills + " kills";
 				}
 
-
 				GUI.Label(CombatBarText, content, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.FloorToInt(45 * screenScale), alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, richText = true, wordWrap = false });
 				GUI.color = new Color(1, 1, 1, 1f);
 			}
@@ -360,23 +349,19 @@ namespace ChampionsOfForest
 				}
 				if (enemyHit != -1)
 				{
-
 					ScanTime += Time.unscaledDeltaTime * 1.75f;
 					if (hits[enemyHit].transform.root == scannedTransform)
 					{
 						if (BoltNetwork.isRunning && scannedEntity != null)
 						{
 							cp = EnemyManager.GetCP(scannedEntity);
-
 						}
 						else
 						{
 							cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
-
 						}
 						if (cp != null && cp.Level > 0)
 						{
-
 							scanning = true;
 
 							GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
@@ -387,7 +372,6 @@ namespace ChampionsOfForest
 								wordWrap = false,
 								clipping = TextClipping.Overflow,
 								richText = true,
-
 							};
 
 							Vector2 origin = wholeScreenRect.center;
@@ -423,7 +407,6 @@ namespace ChampionsOfForest
 							{
 								if (cp.Affixes.Length > 0)
 								{
-
 									DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
 									y += screenScale * 50;
 
@@ -436,12 +419,15 @@ namespace ChampionsOfForest
 											case EnemyProgression.Abilities.Poisonous:
 												DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Steadfast:
 												DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.BossSteadfast:
 												DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.EliteSteadfast:
 												DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
@@ -451,36 +437,47 @@ namespace ChampionsOfForest
 											case EnemyProgression.Abilities.FreezingAura:
 												DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.FireAura:
 												DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Rooting:
 												DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.BlackHole:
 												DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Trapper:
 												DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Juggernaut:
 												DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Huge:
 												DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Tiny:
 												DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.ExtraDamage:
 												DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.ExtraHealth:
 												DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Basher:
 												DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Blink:
 												DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
@@ -490,18 +487,23 @@ namespace ChampionsOfForest
 											case EnemyProgression.Abilities.RainEmpowerement:
 												DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Shielding:
 												DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Meteor:
 												DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Flare:
 												DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Undead:
 												DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
+
 											case EnemyProgression.Abilities.Laser:
 												DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 												break;
@@ -516,7 +518,6 @@ namespace ChampionsOfForest
 												break;
 										}
 										y += screenScale * 50;
-
 									}
 								}
 							}
@@ -533,7 +534,6 @@ namespace ChampionsOfForest
 							scannedEntity = scannedTransform.GetComponent<BoltEntity>();
 						}
 						ScanTime = 0;
-
 					}
 				}
 
@@ -558,19 +558,14 @@ namespace ChampionsOfForest
 					};
 					//ScanRotation += Time.deltaTime * 45;
 					GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
-
 				}
 			}
 			else
 			{
 				ScanTime = 0;
-
 			}
 
-
-
 			PingGUIDraw();
-
 
 			if (LevelUpDuration > 0)
 			{
@@ -591,29 +586,27 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(164));
 				GUI.Label(r, LevelUpText, new GUIStyle(GUI.skin.label) { font = mainFont, clipping = TextClipping.Overflow, wordWrap = true, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(46 * screenScale), });
 				GUI.color = new Color(1, 1, 1, 1);
-
 			}
 		}
-		ClinetEnemyProgression cp = null;
 
-		bool pingBlocked = false;
-		void UnlockPing()
+		private ClinetEnemyProgression cp = null;
+
+		private bool pingBlocked = false;
+
+		private void UnlockPing()
 		{
 			pingBlocked = false;
 		}
+
 		public void LockPing()
 		{
 			pingBlocked = true;
 			Invoke("UnlockPing", 1f);
-
 		}
 
 		//called at update, shows or hides ping menu, and casts ping commands
 		private void PingUpdate()
 		{
-
-
-
 			try
 			{
 				if (otherPlayerPings != null)
@@ -629,7 +622,6 @@ namespace ChampionsOfForest
 								toRem = item.Key;
 								break;
 							}
-
 						}
 						else if (item.Value.pingType == MarkObject.PingType.Location)
 						{
@@ -660,16 +652,13 @@ namespace ChampionsOfForest
 						if (((MarkEnemy)localPlayerPing).Outdated())
 						{
 							localPlayerPing = null;
-
 						}
-
 					}
 					else if (localPlayerPing.pingType == MarkObject.PingType.Location)
 					{
 						if (((MarkPostion)localPlayerPing).Outdated())
 						{
 							localPlayerPing = null;
-
 						}
 					}
 					else if (localPlayerPing.pingType == MarkObject.PingType.Item)
@@ -677,12 +666,9 @@ namespace ChampionsOfForest
 						if (((MarkPickup)localPlayerPing).Outdated())
 						{
 							localPlayerPing = null;
-
 						}
 					}
 				}
-
-
 			}
 			catch (Exception exc)
 			{
@@ -703,7 +689,6 @@ namespace ChampionsOfForest
 				//is holding middle mouse btn
 				if (Physics.Raycast(MainCamera.position + MainCamera.forward, MainCamera.forward, out RaycastHit hit, 200))
 				{
-
 					drawPingPreview = true;
 					previewPingPos = hit.point;
 					previewPingDist = hit.distance;
@@ -721,7 +706,6 @@ namespace ChampionsOfForest
 								{
 									if (GameSetup.IsMpClient)
 									{
-
 										using (MemoryStream answerStream = new MemoryStream())
 										{
 											using (BinaryWriter w = new BinaryWriter(answerStream))
@@ -775,8 +759,6 @@ namespace ChampionsOfForest
 							}
 						}
 					}
-
-
 					else if (hit.transform.CompareTag("enemyCollide"))
 					{
 						//indicate pinging enemyCollide
@@ -791,7 +773,6 @@ namespace ChampionsOfForest
 								{
 									if (GameSetup.IsMpClient)
 									{
-
 										using (MemoryStream answerStream = new MemoryStream())
 										{
 											using (BinaryWriter w = new BinaryWriter(answerStream))
@@ -842,8 +823,6 @@ namespace ChampionsOfForest
 								}
 							}
 						}
-
-
 					}
 					else
 					{
@@ -857,7 +836,6 @@ namespace ChampionsOfForest
 								LockPing();
 								if (GameSetup.IsMultiplayer)
 								{
-
 									using (MemoryStream answerStream = new MemoryStream())
 									{
 										using (BinaryWriter w = new BinaryWriter(answerStream))
@@ -872,15 +850,12 @@ namespace ChampionsOfForest
 										answerStream.Close();
 									}
 									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
-
 								}
 								else
 								{
 									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
-
 								}
 							}
-
 						}
 						else
 						{
@@ -891,7 +866,6 @@ namespace ChampionsOfForest
 								LockPing();
 								if (GameSetup.IsMultiplayer)
 								{
-
 									using (MemoryStream answerStream = new MemoryStream())
 									{
 										using (BinaryWriter w = new BinaryWriter(answerStream))
@@ -908,24 +882,19 @@ namespace ChampionsOfForest
 										answerStream.Close();
 									}
 									localPlayerPing = new MarkPostion(hit.point + Vector3.up);
-
 								}
 								else
 								{
 									localPlayerPing = new MarkPostion(hit.point + Vector3.up);
-
 								}
 							}
 						}
 					}
 				}
-
 			}
-
 		}
 
-
-		void SendClearMyPing()
+		private void SendClearMyPing()
 		{
 			if (GameSetup.IsMultiplayer)
 			{
@@ -944,11 +913,12 @@ namespace ChampionsOfForest
 			}
 		}
 
-		bool drawPingPreview;
-		Vector3 previewPingPos;
-		MarkObject.PingType previewPingType;
-		float previewPingDist;
-		void PingGUIDraw()
+		private bool drawPingPreview;
+		private Vector3 previewPingPos;
+		private MarkObject.PingType previewPingType;
+		private float previewPingDist;
+
+		private void PingGUIDraw()
 		{
 			if (otherPlayerPings != null)
 			{
@@ -957,17 +927,14 @@ namespace ChampionsOfForest
 					if (item.pingType == MarkObject.PingType.Enemy)
 					{
 						((MarkEnemy)item).Draw();
-
 					}
 					else if (item.pingType == MarkObject.PingType.Location)
 					{
 						((MarkPostion)item).Draw();
-
 					}
 					else if (item.pingType == MarkObject.PingType.Item)
 					{
 						((MarkPickup)item).Draw();
-
 					}
 				}
 			}
@@ -978,17 +945,14 @@ namespace ChampionsOfForest
 					if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
 					{
 						((MarkEnemy)localPlayerPing).Draw();
-
 					}
 					else if (localPlayerPing.pingType == MarkObject.PingType.Location)
 					{
 						((MarkPostion)localPlayerPing).Draw();
-
 					}
 					else if (localPlayerPing.pingType == MarkObject.PingType.Item)
 					{
 						((MarkPickup)localPlayerPing).Draw();
-
 					}
 				}
 			}
@@ -996,8 +960,6 @@ namespace ChampionsOfForest
 			{
 				try
 				{
-
-
 					Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
 					pos.y = Screen.height - pos.y;
 					float size = Mathf.Clamp(700 / previewPingDist, 10, 40);
@@ -1018,12 +980,15 @@ namespace ChampionsOfForest
 						case MarkObject.PingType.Enemy:
 							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
 							break;
+
 						case MarkObject.PingType.Location:
 							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
 							break;
+
 						case MarkObject.PingType.Item:
 							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));
 							break;
+
 						default:
 							break;
 					}
@@ -1033,22 +998,20 @@ namespace ChampionsOfForest
 				}
 				catch (Exception e)
 				{
-
 					ModAPI.Console.Write(e.ToString());
 				}
 			}
-
 		}
 
 		public Dictionary<string, MarkObject> otherPlayerPings;
 		public MarkObject localPlayerPing;
-
 
 		private const float lvlUpDuration = 3;
 		private const float lvlUpFadeDuration = 1;
 		public float LevelUpDuration;
 		public string LevelUpText;
 		public AudioSource lvlUpAudio;
+
 		public void LevelUpAction()
 		{
 			LevelUpDuration = lvlUpDuration;
@@ -1070,12 +1033,7 @@ namespace ChampionsOfForest
 				lvlUpAudio.transform.position = LocalPlayer.Transform.position;
 				lvlUpAudio.Play();
 			}
-
-
 		}
-
-
-
 
 		private void DrawScannedEnemyLabel(string content, Rect r, GUIStyle style)
 		{
@@ -1083,9 +1041,8 @@ namespace ChampionsOfForest
 			Rect rOffset = new Rect(r);
 			rOffset.x -= 30;
 			GUI.Label(rOffset, content, style);
-
 		}
-		#endregion
 
+		#endregion HUDMethods
 	}
 }

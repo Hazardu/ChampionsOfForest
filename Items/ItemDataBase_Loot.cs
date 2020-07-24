@@ -1,9 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-
-using LibNoise.Unity.Operator;
 
 using TheForest.Utils;
 
@@ -38,7 +34,7 @@ namespace ChampionsOfForest
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
 			{
-				itemIdPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i, highestLevel,EnemyProgression.Enemy.All))).ToArray();
+				itemIdPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i, highestLevel, EnemyProgression.Enemy.All))).ToArray();
 				if (itemIdPool.Length == 0)
 				{
 					rarity--;
@@ -51,13 +47,13 @@ namespace ChampionsOfForest
 			int randomID = Random.Range(0, itemIdPool.Length);
 			Item item = new Item(ItemBases[itemIdPool[randomID]], 1, 0);
 
-			item.level = Mathf.Max(item.minLevel, Random.Range(averageLevel-4, averageLevel + 2));
-			if (item.ID == 42 || item.ID == 103)
+			item.level = Mathf.Max(item.minLevel, Random.Range(averageLevel - 4, averageLevel + 2));
+			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
 				item.level = 1;
 			item.RollStats();
 			return item;
-
 		}
+
 		public static bool AllowItemDrop(int i, in int level, EnemyProgression.Enemy e)
 		{
 			if (!ItemBases.ContainsKey(i))
@@ -68,9 +64,9 @@ namespace ChampionsOfForest
 				return (ItemBases[i].lootTable & e) != 0 && ItemBases[i].minLevel <= level;
 			return ItemBases[i].minLevel <= level;
 		}
+
 		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType)
 		{
-
 			int averageLevel = 1;
 			int highestLevel = 1;
 			if (GameSetup.IsMultiplayer)
@@ -89,8 +85,6 @@ namespace ChampionsOfForest
 
 			int rarity = GetRarity(w);
 
-
-
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
 			{
@@ -107,14 +101,13 @@ namespace ChampionsOfForest
 			int randomID = Random.Range(0, itemIdPool.Length);
 			Item item = new Item(ItemBases[itemIdPool[randomID]], 1, 0);
 
-
 			item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel + 2));
 			if (item.ID == 42 || item.ID == 103)
 				item.level = 1;
 			item.RollStats();
 			return item;
-
 		}
+
 		public static int GetRarity(float w)
 		{
 			int rarity = 0;
@@ -168,6 +161,7 @@ namespace ChampionsOfForest
 			}
 			return rarity;
 		}
+
 		public static void RequestMagicFind()
 		{
 			MagicFind = ModdedPlayer.instance.MagicFindMultipier;
@@ -185,7 +179,5 @@ namespace ChampionsOfForest
 				}
 			}
 		}
-
-
 	}
 }

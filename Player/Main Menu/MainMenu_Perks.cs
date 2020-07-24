@@ -1,21 +1,16 @@
-﻿using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System;
 using System.Linq;
-using TheForest.Utils;
+
+using ChampionsOfForest.Player;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static ChampionsOfForest.Player.BuffDB;
+
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
 {
 	public partial class MainMenu : MonoBehaviour
 	{
-
 		private Perk.PerkCategory _perkpage = Perk.PerkCategory.MeleeOffense;
 		private readonly float[] _perkCategorySizes = new float[6];
 		private int[] DisplayedPerkIDs = new int[0];
@@ -24,7 +19,7 @@ namespace ChampionsOfForest
 		private float _perkDetailAlpha;
 		private float _timeToBuyPerk;
 
-		const float PerkHexagonSide = 60;
+		private const float PerkHexagonSide = 60;
 		private float PerkHeight;
 		private float PerkWidth;
 
@@ -44,6 +39,7 @@ namespace ChampionsOfForest
 			}
 			return true;
 		}
+
 		private bool PerkEnabled(Perk perk)
 		{
 			if (perk.unlockPath.Length == 0)
@@ -67,6 +63,7 @@ namespace ChampionsOfForest
 
 		private bool Hovered;
 		private bool Buying;
+
 		private void DrawPerks()
 		{
 			//offset for background
@@ -74,37 +71,36 @@ namespace ChampionsOfForest
 			float y = Mathf.Clamp((currentPerkOffset.y - wholeScreenRect.center.y) / (Screen.height * 5) + 0.25f, 0, 0.5f);
 			Rect bgRectCords = new Rect(x, y, 0.5f, 0.5f);
 
-
 			//Drawing background images
 			switch (_perkpage)
 			{
 				case Perk.PerkCategory.MeleeOffense:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(72), bgRectCords);
 					break;
+
 				case Perk.PerkCategory.RangedOffense:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(74), bgRectCords);
 					break;
+
 				case Perk.PerkCategory.MagicOffense:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(73), bgRectCords);
 					break;
+
 				case Perk.PerkCategory.Defense:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(75), bgRectCords);
 					break;
+
 				case Perk.PerkCategory.Support:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(77), bgRectCords);
 					break;
+
 				case Perk.PerkCategory.Utility:
 					GUI.DrawTextureWithTexCoords(wholeScreenRect, ResourceLoader.GetTexture(76), bgRectCords);
 					break;
+
 				default:
 					break;
 			}
-
-
-
-
-
-
 
 			//move left right
 			if (mousePos.y > Screen.height - 30 * screenScale)
@@ -114,7 +110,6 @@ namespace ChampionsOfForest
 			else if (mousePos.y < 30 * screenScale)
 			{
 				targetPerkOffset += Vector2.down * Time.unscaledDeltaTime * -300;
-
 			}
 			if (mousePos.x > Screen.width - 30 * screenScale)
 			{
@@ -141,8 +136,6 @@ namespace ChampionsOfForest
 			GUI.color = Color.black;
 			GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(80 * screenScale), fontStyle = FontStyle.Bold, font = mainFont });
 			GUI.color = Color.white;
-
-
 
 			Hovered = false;
 			Buying = false;
@@ -229,16 +222,13 @@ namespace ChampionsOfForest
 								PerkDatabase.perks[SelectedPerk_ID].isApplied = true;
 								Buying = false;
 								Effects.Sound_Effects.GlobalSFX.Play(3);
-
 							}
 						}
 					}
 					GUIStyle descStyle = new GUIStyle(GUI.skin.box) { margin = new RectOffset(5, 5, Mathf.RoundToInt(10 * screenScale), 10), alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(28 * screenScale), font = mainFont, fontStyle = FontStyle.Normal, richText = true, wordWrap = true };
 					Desc.height = descStyle.CalcHeight(new GUIContent(desctext), Desc.width) + 10 * screenScale;
 					GUI.Label(Desc, desctext, descStyle);
-
 				}
-
 
 				GUI.color = Color.white;
 			}
@@ -278,21 +268,27 @@ namespace ChampionsOfForest
 					case Perk.PerkCategory.MeleeOffense:
 						content = "Melee";
 						break;
+
 					case Perk.PerkCategory.RangedOffense:
 						content = "Ranged";
 						break;
+
 					case Perk.PerkCategory.MagicOffense:
 						content = "Magic";
 						break;
+
 					case Perk.PerkCategory.Defense:
 						content = "Defensive";
 						break;
+
 					case Perk.PerkCategory.Support:
 						content = "Support";
 						break;
+
 					case Perk.PerkCategory.Utility:
 						content = "Survival";
 						break;
+
 					default:
 						content = ((Perk.PerkCategory)menus.GetValue(i)).ToString();
 						break;
@@ -304,8 +300,6 @@ namespace ChampionsOfForest
 					currentPerkOffset = targetPerkOffset;
 					DisplayedPerkIDs = PerkDatabase.perks.Where(p => p.category == _perkpage).Select(p => p.id).ToArray();
 				}
-
-
 			}
 		}
 
@@ -358,21 +352,27 @@ namespace ChampionsOfForest
 				case Perk.PerkCategory.MeleeOffense:
 					color = Color.red;
 					break;
+
 				case Perk.PerkCategory.RangedOffense:
 					color = Color.green;
 					break;
+
 				case Perk.PerkCategory.MagicOffense:
 					color = Color.blue;
 					break;
+
 				case Perk.PerkCategory.Defense:
 					color = Color.magenta;
 					break;
+
 				case Perk.PerkCategory.Support:
 					color = Color.yellow;
 					break;
+
 				case Perk.PerkCategory.Utility:
 					color = Color.white;
 					break;
+
 				default:
 					break;
 			}
@@ -386,19 +386,16 @@ namespace ChampionsOfForest
 					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
 				}
 				GUI.color = Color.white;
-
 			}
 			else
 			{
 				GUI.color = Color.gray;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));
 				GUI.color = Color.white;
-
 			}
 			if (p.texture != null)
 			{
 				GUI.DrawTexture(r, p.texture);
-
 			}
 			float distsquared = (mousePos - r.center).sqrMagnitude;
 			if (r.Contains(mousePos) && distsquared < PerkHexagonSide * PerkHexagonSide * 0.81f)
@@ -409,9 +406,6 @@ namespace ChampionsOfForest
 				SelectedPerk_ID = a;
 				SelectedPerk_Color = color;
 			}
-
-
 		}
-
 	}
 }

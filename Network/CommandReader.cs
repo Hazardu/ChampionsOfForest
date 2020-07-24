@@ -1,26 +1,27 @@
-﻿using ChampionsOfForest.Effects;
-using ChampionsOfForest.Enemies;
-using ChampionsOfForest.Enemies.EnemyAbilities;
-using ChampionsOfForest.Player;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using ChampionsOfForest.Effects;
+using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Player;
+
 using TheForest.Utils;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Network
 {
 	public class CommandReader
 	{
-		delegate void Command(BinaryReader r);
-		//private static readonly Dictionary<int, Command> commands = new Dictionary<int, Command>();
+		private delegate void Command(BinaryReader r);
 
+		//private static readonly Dictionary<int, Command> commands = new Dictionary<int, Command>();
 
 		public static void OnCommand(byte[] bytes)
 		{
-
 			using (MemoryStream stream = new MemoryStream(bytes))
 			{
 				using (BinaryReader r = new BinaryReader(stream))
@@ -97,7 +98,6 @@ namespace ChampionsOfForest.Network
 									bool isOn = r.ReadBoolean();
 									string packed = r.ReadString();
 									BlackFlame.ToggleOtherPlayer(packed, isOn);
-
 								}
 								else if (spellid == 5)
 								{
@@ -114,7 +114,6 @@ namespace ChampionsOfForest.Network
 									}
 
 									WarCry.Cast(pos, radius, speed, dmg, GiveDmg, GiveAr, ar);
-
 								}
 								else if (spellid == 6)
 								{
@@ -142,12 +141,10 @@ namespace ChampionsOfForest.Network
 									{
 										MagicArrow.CreateEffect(pos, dir, dmgdebuff, duration);
 									}
-
 								}
 								else if (spellid == 8)
 								{
 									Purge.Cast(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle(), r.ReadBoolean(), r.ReadBoolean());
-
 								}
 								else if (spellid == 9)
 								{
@@ -159,7 +156,6 @@ namespace ChampionsOfForest.Network
 									{
 										SnapFreeze.HostAction(pos, dist, r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									}
-
 								}
 								else if (spellid == 10)
 								{
@@ -174,7 +170,6 @@ namespace ChampionsOfForest.Network
 									}
 
 									BallLightning.Create(pos, speed, dmg, id);
-
 								}
 								else if (spellid == 11)
 								{
@@ -188,7 +183,7 @@ namespace ChampionsOfForest.Network
 								}
 								else if (spellid == 12)
 								{
-									//a request from a client to a host to spawn a ball lightning. The host assigns the id of 
+									//a request from a client to a host to spawn a ball lightning. The host assigns the id of
 									//a ball lightning to not create overlapping ids
 									using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 									{
@@ -234,7 +229,7 @@ namespace ChampionsOfForest.Network
 										}
 									}
 								}
-								else if (spellid == 14)	//Massive fart
+								else if (spellid == 14) //Massive fart
 								{
 									bool grounded = r.ReadBoolean();
 									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
@@ -251,12 +246,12 @@ namespace ChampionsOfForest.Network
 									float radius = r.ReadSingle();
 									if (GameSetup.IsMpServer)
 									{
-									float duration = r.ReadSingle();
+										float duration = r.ReadSingle();
 										string playerID = r.ReadString();
 										var player = ModReferences.AllPlayerEntities.First(x => x.GetState<IPlayerState>().name == playerID);
 										if (player)
 										{
-											Taunt.Cast(pos, radius, player.gameObject, duration);	
+											Taunt.Cast(pos, radius, player.gameObject, duration);
 										}
 									}
 									Taunt.CastEffect(pos, radius);
@@ -267,6 +262,7 @@ namespace ChampionsOfForest.Network
 						case 4:
 							PickUpManager.RemovePickup(r.ReadUInt64());
 							break;
+
 						case 5:
 							{
 								Item item = new Item(ItemDataBase.ItemBases[r.ReadInt32()], 1, 0, false);   //reading first value, id
@@ -427,9 +423,11 @@ namespace ChampionsOfForest.Network
 						case 10:
 							ModdedPlayer.instance.AddKillExperience(r.ReadInt64());
 							break;
+
 						case 11:
 							ModdedPlayer.instance.AddFinalExperience(r.ReadInt64());
 							break;
+
 						case 12:
 							{
 								if (ModdedPlayer.instance.RootImmune == 0 && ModdedPlayer.instance.StunImmune == 0)
@@ -623,6 +621,7 @@ namespace ChampionsOfForest.Network
 							if (GameSetup.IsMpServer)
 								ItemDataBase.MagicFind *= r.ReadSingle();
 							break;
+
 						case 25:
 							{
 								if (GameSetup.IsMpServer)
@@ -689,7 +688,6 @@ namespace ChampionsOfForest.Network
 									}
 
 									Player.Inventory.Instance.AddItem(item, item.Amount);
-
 								}
 
 								break;
@@ -699,7 +697,6 @@ namespace ChampionsOfForest.Network
 							{
 								if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
 								{
-
 									ulong id = r.ReadUInt64();
 									if (EnemyManager.hostDictionary.ContainsKey(id))
 									{
@@ -719,7 +716,6 @@ namespace ChampionsOfForest.Network
 								int weaponID = r.ReadInt32();
 								if (!ModReferences.PlayerHands.ContainsKey(id))
 								{
-
 									ModReferences.FindHands();
 								}
 
@@ -885,9 +881,9 @@ namespace ChampionsOfForest.Network
 													MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkEnemy(tr, name, isElite));
 												}
 											}
-
 										}
 										break;
+
 									case MarkObject.PingType.Location:
 										float x = r.ReadSingle(), y = r.ReadSingle(), z = r.ReadSingle();
 										if (PlayerID == ModReferences.ThisPlayerID)
@@ -907,6 +903,7 @@ namespace ChampionsOfForest.Network
 										}
 
 										break;
+
 									case MarkObject.PingType.Item:
 										ulong PickupID = r.ReadUInt64();
 										if (PickUpManager.PickUps.ContainsKey(PickupID))
@@ -927,7 +924,6 @@ namespace ChampionsOfForest.Network
 													MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity));
 												}
 											}
-
 										}
 										break;
 								}
@@ -960,7 +956,6 @@ namespace ChampionsOfForest.Network
 											answerStream.Close();
 										}
 									}
-
 								}
 
 								break;
@@ -973,7 +968,6 @@ namespace ChampionsOfForest.Network
 									string PlayerID = r.ReadString();
 									if (ModReferences.ThisPlayerID == PlayerID)
 									{
-
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										SpellActions.CastBallLightning(pos, Vector3.down);
 									}
@@ -1012,7 +1006,7 @@ namespace ChampionsOfForest.Network
 								var dist = r.ReadSingle();
 								if ((vector - LocalPlayer.Transform.position).sqrMagnitude <= dist * dist)
 								{
-									BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(),r.ReadSingle());
+									BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
 								}
 
 								break;
@@ -1021,6 +1015,7 @@ namespace ChampionsOfForest.Network
 						case 42:
 							BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
 							break;
+
 						case 43:
 							{
 								if (GameSetup.IsMpServer)
@@ -1031,7 +1026,6 @@ namespace ChampionsOfForest.Network
 										var enemy = EnemyManager.hostDictionary[EnemyID];
 										enemy.AddKnockback(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle());
 									}
-
 								}
 
 								break;
@@ -1044,4 +1038,3 @@ namespace ChampionsOfForest.Network
 		}
 	}
 }
-

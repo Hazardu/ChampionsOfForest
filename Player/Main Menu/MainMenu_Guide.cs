@@ -1,21 +1,16 @@
-﻿using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using TheForest.Utils;
+
+using ChampionsOfForest.Player;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static ChampionsOfForest.Player.BuffDB;
+
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
 {
 	public partial class MainMenu : MonoBehaviour
 	{
-
 		private readonly float GuideWidthDecrease = 150;
 		private readonly float GuideMargin = 30;
 
@@ -28,11 +23,13 @@ namespace ChampionsOfForest
 		private GUIStyle statStyleAmount;
 		private GUIStyle statStyleTooltip;
 		private GUIStyle TextLabel;
+
 		public struct Bookmark
 		{
 			public float position;
 			public string name;
 		}
+
 		public List<Bookmark> Bookmarks = new List<Bookmark>();
 
 		private void Header(string s)
@@ -56,6 +53,7 @@ namespace ChampionsOfForest
 		{
 			BookPositionY += pixelsUnscaled * screenScale;
 		}
+
 		private void Stat(string statName, string amount, string tooltip = "")
 		{
 			if (BookPositionY < Screen.height && BookPositionY > -70 * screenScale)
@@ -70,7 +68,6 @@ namespace ChampionsOfForest
 					Rect tooltipRect = new Rect(GuideWidthDecrease * screenScale + 150 * screenScale, BookPositionY, Screen.width - 500 * screenScale, h);
 					GUI.Label(tooltipRect, tooltip, statStyleTooltip);
 					BookPositionY += h;
-
 				}
 				BookPositionY += 5 * screenScale;
 			}
@@ -81,6 +78,7 @@ namespace ChampionsOfForest
 				BookPositionY += statStyle.fontSize;
 			}
 		}
+
 		private void Label(string s)
 		{
 			float h = TextLabel.CalcHeight(new GUIContent(s), Screen.width - 500 * screenScale);
@@ -96,12 +94,12 @@ namespace ChampionsOfForest
 				BookPositionY += h;
 			}
 		}
+
 		private void Image(int iconID, float height, float centerPosition = 0.5f)
 		{
 			height *= screenScale;
 			if (BookPositionY < Screen.height && BookPositionY > -height * screenScale)
 			{
-
 				Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
 				Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
 				{
@@ -115,6 +113,7 @@ namespace ChampionsOfForest
 				BookPositionY += height;
 			}
 		}
+
 		private void MarkBookmark(string s)
 		{
 			Bookmarks.Add(new Bookmark() { name = s, position = BookPositionY });
@@ -269,7 +268,6 @@ namespace ChampionsOfForest
 			Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is adviced to retreat and wait for the poison stop damaging you.");
 			Label("- Cataclysm - Enemy uses the cataclysm spell to slow you down and damage you.");
 
-
 			Header("Changes");
 			Label("Champions of The Forest provides variety of changes to in-game mechanics." +
 				"\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
@@ -280,7 +278,6 @@ namespace ChampionsOfForest
 				"\nPlayers take increased damage from explosives. This affects how much damage the worm does" +
 				"\nPlayer deal increased damage to other players if friendly fire is enabled.");
 
-
 			Space(300);
 
 			Header("Statistics");
@@ -290,7 +287,6 @@ namespace ChampionsOfForest
 			Stat("Vitality", ModdedPlayer.instance.vitality.ToString("N0") + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality * ModdedPlayer.instance.HealthPerVitality + "]");
 			Stat("Intelligence", ModdedPlayer.instance.intelligence.ToString("N0") + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
 				"Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
-
 
 			Space(60);
 			Image(105, 70);
@@ -308,7 +304,6 @@ namespace ChampionsOfForest
 				"\nEnergy from agility: " + ModdedPlayer.instance.EnergyPerAgility * ModdedPlayer.instance.agility +
 				"\nEnergy multipier: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%");
 
-
 			Space(60);
 			Image(99, 70);
 			Header("Defense");
@@ -320,8 +315,7 @@ namespace ChampionsOfForest
 			Stat("Block", ModdedPlayer.instance.BlockFactor * 100 + "%");
 			Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
 			Stat("Fire resistance", Math.Round((1 - ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
-			Stat("Thorns", ModdedPlayer.instance.thornsDamage.ToString("N0"));
-
+			Stat("Thorns", ModdedPlayer.instance.thornsDamage.ToString("N0"), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.instance.thorns.ToString("N0")}. Thorns from strength {(ModdedPlayer.instance.thornsPerStrenght * ModdedPlayer.instance.strength).ToString("N0")}");
 
 			Space(60);
 			Header("Recovery");
@@ -346,7 +340,6 @@ namespace ChampionsOfForest
 			Stat("Bleed chance", ModdedPlayer.instance.ChanceToBleedOnHit.ToString("P"), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
 			Stat("Weaken chance", ModdedPlayer.instance.ChanceToWeakenOnHit.ToString("P"), "Weakened enemies take 20% increased damage from all players.");
 			Stat("Slow chance", ModdedPlayer.instance.ChanceToSlowOnHit.ToString("P"), "Slowed enemies move and attack 50% slower");
-
 
 			Space(20);
 			Image(89, 70);
@@ -395,8 +388,6 @@ namespace ChampionsOfForest
 			Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ? (4 + ModdedPlayer.instance.MultishotCount).ToString("N") : ModdedPlayer.instance.MultishotCount.ToString("N"));
 			Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 1f * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f) : 10 * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f)).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
 
-
-
 			Space(20);
 			Image(110, 70);
 			Header("Magic");
@@ -409,8 +400,7 @@ namespace ChampionsOfForest
 			Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
 			Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) * -1 + "%", "");
 			Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
-			Stat("Cooldown reduction", Math.Round((ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
-
+			Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.instance.CoolDownMultipier) * 100) + "%", "");
 
 			Space(20);
 			GUI.color = Color.red;
@@ -421,7 +411,6 @@ namespace ChampionsOfForest
 			Stat("Melee", ModdedPlayer.instance.ARreduction_melee + "", "Total melee armor reduction: " + ModdedPlayer.instance.MeleeArmorReduction);
 			Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
 			Stat("Any source", ModdedPlayer.instance.ARreduction_all + "", "Decreases armor of enemies hit by either of the sources");
-
 
 			Space(60);
 
@@ -438,7 +427,6 @@ namespace ChampionsOfForest
 			Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
 			if (ModdedPlayer.instance.TurboRaft)
 				Stat("Turbo raft speed", ModdedPlayer.instance.RaftSpeedMultipier + "%", "Speed multiplier of rafts");
-
 
 			Space(40);
 			Image(90, 70);
@@ -481,8 +469,7 @@ namespace ChampionsOfForest
 				BookPositionY += 155 * screenScale;
 			}
 		}
-		#endregion
 
-
+		#endregion StatsMenu
 	}
 }

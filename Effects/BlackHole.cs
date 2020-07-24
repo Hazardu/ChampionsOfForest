@@ -1,15 +1,16 @@
-﻿using BuilderCore;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+
+using BuilderCore;
 
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-
 using TheForest.Utils;
 
 using UnityEngine;
+
 namespace ChampionsOfForest
 {
 	public class BlackHole : MonoBehaviour
@@ -37,7 +38,6 @@ namespace ChampionsOfForest
 				}
 			}
 		}
-
 
 		public bool FromEnemy;
 		public float pullForce;
@@ -74,7 +74,6 @@ namespace ChampionsOfForest
 					Metalic = 0.2f,
 					Smoothness = 0.6f,
 					renderMode = BuildingData.RenderMode.Cutout
-
 				});
 			}
 			if (FromEnemy)
@@ -86,7 +85,6 @@ namespace ChampionsOfForest
 			if (!FromEnemy && !GameSetup.IsMpClient)
 			{
 				CoughtEnemies = new Dictionary<Transform, EnemyProgression>();
-
 			}
 			if (GameSetup.IsMpClient)
 			{
@@ -139,8 +137,6 @@ namespace ChampionsOfForest
 				return;
 			lifetime += Time.deltaTime;
 
-
-
 			scale = Mathf.Clamp(scale + Time.deltaTime * radius * 1.5f / duration / 2, 0, radius / 5);
 			transform.localScale = Vector3.one * scale / 3;
 			RaycastHit[] hits = Physics.SphereCastAll(transform.position, scale * 5, Vector3.one, scale * 5, -10);
@@ -190,7 +186,6 @@ namespace ChampionsOfForest
 			{
 				foreach (var t in CoughtEnemies)
 				{
-
 					if (!t.Value.CCimmune)
 					{
 						Pull(t.Key);
@@ -203,8 +198,6 @@ namespace ChampionsOfForest
 		{
 			while (!FromEnemy)
 			{
-
-
 				StartCoroutine(HitEnemies());
 				yield return new WaitForSeconds(0.5f);
 			}
@@ -218,10 +211,10 @@ namespace ChampionsOfForest
 				else
 				{
 					yield return null;
-
 				}
 			}
 		}
+
 		private IEnumerator HitEnemies()
 		{
 			foreach (var t in CoughtEnemies)
@@ -243,9 +236,9 @@ namespace ChampionsOfForest
 			t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime, Space.World);
 		}
 
-
 		private static AudioSource blackholeSound;
-		void OnDestroy()
+
+		private void OnDestroy()
 		{
 			if (blackholeSound == null)
 			{
@@ -264,12 +257,10 @@ namespace ChampionsOfForest
 				{
 					if (GameSetup.IsMpServer)
 					{
-
 						if (casterID == ModReferences.ThisPlayerID)
 						{
 							//local Player Callback
 							Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
-
 						}
 						else
 						{
@@ -299,5 +290,3 @@ namespace ChampionsOfForest
 		}
 	}
 }
-
-

@@ -1,21 +1,15 @@
-﻿using ChampionsOfForest.Network;
+﻿using System;
+
 using ChampionsOfForest.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using TheForest.Utils;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static ChampionsOfForest.Player.BuffDB;
-using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
 {
 	public partial class MainMenu : MonoBehaviour
 	{
 		#region SpellsMethods;
+
 		private Spell displayedSpellInfo;
 		private Texture2D semiBlack;
 		private float semiblackValue;
@@ -64,7 +58,6 @@ namespace ChampionsOfForest
 					displayedSpellInfo = null;
 					Effects.Sound_Effects.GlobalSFX.Play(1);
 					return;
-
 				}
 
 				GUI.Label(new Rect(Screen.width / 2 - 300 * screenScale, 225 * screenScale, 600 * screenScale, 70 * screenScale),
@@ -126,7 +119,6 @@ namespace ChampionsOfForest
 
 										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
 										Effects.Sound_Effects.GlobalSFX.Play(0);
-
 									}
 								}
 								else
@@ -170,7 +162,6 @@ namespace ChampionsOfForest
 								displayedSpellInfo.Bought = true;
 								ModdedPlayer.instance.MutationPoints -= 2;
 								Effects.Sound_Effects.GlobalSFX.Play(6);
-
 							}
 						}
 						else
@@ -190,9 +181,7 @@ namespace ChampionsOfForest
 					}
 				}
 				GUI.color = Color.white;
-
 			}
-
 		}
 
 		private void DrawSpell(ref float y, Spell s, GUIStyle style)
@@ -227,7 +216,6 @@ namespace ChampionsOfForest
 			}
 			if (locked)
 				GUI.Label(nameRect, "Unlocked at level " + s.Levelrequirement, style);
-
 			else
 				GUI.Label(nameRect, s.Name, style);
 			Rect iconRect = new Rect(bg.xMax - 140 * screenScale, y + 15 * screenScale, 70 * screenScale, 70 * screenScale);
@@ -235,12 +223,8 @@ namespace ChampionsOfForest
 
 			GUI.color = Color.white;
 			y += 100 * screenScale;
-
 		}
 
-
-		#endregion
-
-
+		#endregion SpellsMethods;
 	}
 }

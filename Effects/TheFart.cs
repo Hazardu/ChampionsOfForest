@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using ChampionsOfForest.Network;
-using ModAPI;
+
 using TheForest.Utils;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Effects
 {
 	public class TheFartCreator : MonoBehaviour
 	{
-		static GameObject prefabStanding;
-		static GameObject prefabJumping;
-		static TheFartCreator instance;
+		private static GameObject prefabStanding;
+		private static GameObject prefabJumping;
+		private static TheFartCreator instance;
 
-		void Start()
+		private void Start()
 		{
 			try
 			{
@@ -24,23 +24,22 @@ namespace ChampionsOfForest.Effects
 				if (prefabStanding == null)
 				{
 					var bundle = Res.ResourceLoader.GetAssetBundle(2005);
-					prefabStanding =(GameObject) bundle.LoadAssetWithSubAssets("assets/roaringfx.prefab")[0];
-					prefabJumping = (GameObject) bundle.LoadAssetWithSubAssets("assets/roaring jump.prefab").Where(x=>x.name== "roaring jump").First();
+					prefabStanding = (GameObject)bundle.LoadAssetWithSubAssets("assets/roaringfx.prefab")[0];
+					prefabJumping = (GameObject)bundle.LoadAssetWithSubAssets("assets/roaring jump.prefab").Where(x => x.name == "roaring jump").First();
 					ModAPI.Log.Write("prefabJumping = " + prefabJumping.name);
 					var renderers = prefabStanding.GetComponentsInChildren<Renderer>();
 					foreach (var item in renderers)
 					{
 						ModAPI.Console.Write(item.material.shader.name);
 					}
-					
 				}
 			}
 			catch (Exception e)
 			{
 				ModAPI.Log.Write(e.ToString());
 			}
-
 		}
+
 		public static void FartWarmup(float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
 			instance.StartCoroutine(instance.FartWarmupAsync(radius, dmg, knockback, slowAmount, duration));
@@ -58,16 +57,15 @@ namespace ChampionsOfForest.Effects
 				var go = Instantiate(prefabStanding, pos, Quaternion.LookRotation(dir));
 				ModAPI.Console.Write("Created fart " + go.name);
 				Destroy(go, 15f);
-
 			}
 		}
+
 		public static void DealDamageAsHost(Vector3 pos, Vector3 dir, float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
-
 			instance.StartCoroutine(instance.AsyncHitEnemies(pos, dir, radius, Mathf.RoundToInt(dmg), knockback, slowAmount, duration));
-
 		}
-		IEnumerator FartWarmupAsync(float radius, float dmg, float knockback, float slowAmount, float duration)
+
+		private IEnumerator FartWarmupAsync(float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
 			ModAPI.Console.Write("1");
 			PlayAudio(LocalPlayer.Transform.position);
@@ -76,8 +74,8 @@ namespace ChampionsOfForest.Effects
 			var back = -LocalPlayer.Transform.forward;
 			ModAPI.Console.Write("2");
 
-			var obj =  Instantiate(prefabStanding, origin, Quaternion.LookRotation(back));
-			LocalPlayer.Rigidbody.AddForce((-back*2+Vector3.up) * 5, ForceMode.VelocityChange);
+			var obj = Instantiate(prefabStanding, origin, Quaternion.LookRotation(back));
+			LocalPlayer.Rigidbody.AddForce((-back * 2 + Vector3.up) * 5, ForceMode.VelocityChange);
 			if (GameSetup.IsMultiplayer)
 			{
 				System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
@@ -107,9 +105,9 @@ namespace ChampionsOfForest.Effects
 			}
 			else
 			{
-			
 			}
 		}
+
 		public static void PlayAudio(Vector3 pos)
 		{
 			var src = new GameObject().AddComponent<AudioSource>();
@@ -119,11 +117,7 @@ namespace ChampionsOfForest.Effects
 			src.Play();
 		}
 
-		
-
-
-
-		IEnumerator AsyncHitEnemies(Vector3 pos, Vector3 dir, float radius, int dmg, float knockback, float slowAmount, float duration)
+		private IEnumerator AsyncHitEnemies(Vector3 pos, Vector3 dir, float radius, int dmg, float knockback, float slowAmount, float duration)
 		{
 			int scanCount = 0;
 			Vector3 center = pos + dir * radius;
@@ -139,7 +133,6 @@ namespace ChampionsOfForest.Effects
 					float sqrDist = (center - enemy.transform.position).sqrMagnitude;
 					if (sqrDist <= radsqr)
 					{
-
 						enemy.HitMagic(dmg * 2);
 
 						enemy.DoDoT(dmg, duration);
@@ -168,6 +161,4 @@ namespace ChampionsOfForest.Effects
 			}
 		}
 	}
-
-
 }

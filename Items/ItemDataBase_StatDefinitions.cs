@@ -1,11 +1,7 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
-
-using TheForest.Utils;
 
 using UnityEngine;
 
@@ -17,7 +13,7 @@ namespace ChampionsOfForest
 		{
 			ALL = -1,
 			NONE = 0,
-			STRENGTH =1,
+			STRENGTH = 1,
 			AGILITY,
 			VITALITY,
 			INTELLIGENCE,
@@ -293,7 +289,6 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Damage", scMult, 0, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Energy On Hit", scAdd, 0, f => ModdedPlayer.instance.EnergyOnHit += f, f => ModdedPlayer.instance.EnergyOnHit += -f, null) { RoundingCount = 2, Multipier = 0.02f };
 
-
 			//3016
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Experience Gain", scMult, 0, StatActions.AddExpFactor, StatActions.RemoveExpFactor, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Vitality ", scAdd, 0, StatActions.AddVitality, StatActions.RemoveVitality, null) { RoundingCount = 0 };
@@ -302,14 +297,11 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Life Per Second", scAdd, 0, StatActions.AddHPRegen, StatActions.RemoveHPRegen, null) { RoundingCount = 1, Multipier = 0.04f };
 
 			//3021
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scMult, 0, f => ModdedPlayer.instance.MaxHealthPercent*=1+f , f => ModdedPlayer.instance.MaxHealthPercent /= 1+f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scMult, 0, f => ModdedPlayer.instance.MaxHealthPercent *= 1 + f, f => ModdedPlayer.instance.MaxHealthPercent /= 1 + f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Armor ", scAdd, 0, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Resistance To Magic", scOneMinusMult, 0, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Weapon Range", scMult, 0, f => ModdedPlayer.instance.MeleeRange += f, f => ModdedPlayer.instance.MeleeRange -= f, null) { DisplayAsPercent = true, RoundingCount = 1 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Thorns", scAdd, 0, f => ModdedPlayer.instance.thorns += f, f => ModdedPlayer.instance.thorns -= f, null) { RoundingCount = 0, Multipier = 1.5f };
-
-
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Thorns", scAdd, 0, f => ModdedPlayer.instance.thorns += f, f => ModdedPlayer.instance.thorns -= f, null) { RoundingCount = 0, Multipier = 3f };
 		}
-
 	}
 }

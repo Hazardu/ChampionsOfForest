@@ -1,386 +1,381 @@
 ﻿using UnityEngine;
+
 namespace ChampionsOfForest
 {
-    public class EnemyHealthMod : EnemyHealth
-    {
-        public EnemyProgression progression = null;
-        public float LastHitTime;
-        private const float HitMaxFrequency = 0.05f;
+	public class EnemyHealthMod : EnemyHealth
+	{
+		public EnemyProgression progression = null;
+		public float LastHitTime;
+		private const float HitMaxFrequency = 0.05f;
 
-        //creates progression
-        protected override void OnEnable()
-        {
+		//creates progression
+		protected override void OnEnable()
+		{
+			Invoke("LateProgressionCreate", 2);
 
-            Invoke("LateProgressionCreate", 2);
+			base.OnEnable();
+		}
 
+		//It takes some time for enemies to appear on screen.
+		private void LateProgressionCreate()
+		{
+			try
+			{
+				if (progression == null)
+				{
+					progression = gameObject.AddComponent<EnemyProgression>();
+					progression._Health = this;
+					progression._AI = ai;
+					progression.entity = entity;
+					progression.setup = setup;
+				}
+				progression.setupComplete = false;
+				progression.OnDieCalled = false;
+			}
+			catch (System.Exception e)
+			{
+				ModAPI.Log.Write(e.ToString());
+			}
+		}
 
-            base.OnEnable();
-        }
+		protected override void Update()
+		{
+			if (progression == null)
+			{
+				progression = GetComponent<EnemyProgression>();
+			}
+			if (setup.waterDetect.drowned && !deadBlock)
+			{
+				Health = 0;
+				progression._hp = 0;
+				dieExplode();
+			}
+			base.Update();
+		}
 
-        //It takes some time for enemies to appear on screen.
-        private void LateProgressionCreate()
-        {
-            try
-            {
+		public override void Detached()
+		{
+			EnemyManager.RemoveEnemy(progression);
+			base.Detached();
+		}
 
+		public override void getStealthAttack()
+		{
+			doStealthKill = false;
+		}
 
-                if (progression == null)
-                {
-                    progression = gameObject.AddComponent<EnemyProgression>();
-                    progression._Health = this;
-                    progression._AI = ai;
-                    progression.entity = entity;
-                    progression.setup = setup;
+		protected override void OnDestroy()
+		{
+			//if (!ai.creepy_fat)
+			//{
+			if (Health <= 0)
+			{
+				progression.OnDie();
+			}
+			//}
+			base.OnDestroy();
+		}
 
-                }
-                progression.setupComplete = false;
-                progression.OnDieCalled = false;
-            }
-            catch (System.Exception e)
-            {
+		//changes how damage is calculated to include armor and abilities
+		public override void Hit(int damage)
+		{
+			//if (ai.creepy_fat)
+			//{
+			//base.Hit(damage);
+			//return;
+			//}
+			HitPhysical(damage);
+		}
 
-                ModAPI.Log.Write(e.ToString());
-            }
-        }
+		public void ReduceAr(int value)
+		{
+			progression.ArmorReduction += value;
+			return;
+		}
 
-        protected override void Update()
-        {
-            if (progression == null)
-            {
-                progression = GetComponent<EnemyProgression>();
-            }
-            if (setup.waterDetect.drowned && !deadBlock )
-            {
-                Health = 0;
-                progression._hp = 0;
-                dieExplode();
-                
-            }
-            base.Update();
-        }
+		//Reduced damage
+		public void HitPhysical(int damage)
+		{
+			int dmg = progression.ClampDamage(false, damage);
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg, new Color(1, 0.4f, 0, 1f));
+			HitReal(dmg);
+		}
 
-        public override void Detached()
-        {
-            EnemyManager.RemoveEnemy(progression);
-            base.Detached();
-        }
+		//Fire additionally reduces armor
+		protected override void HitFire()
+		{
+			if (this.ai.creepy_boss && !this.ai.girlFullyTransformed)
+			{
+				return;
+			}
+			if (!this.deadBlock)
+			{
+				this.setSkinDamage(UnityEngine.Random.Range(0, 3));
+				this.targetSwitcher.attackerType = 4;
+				int num = this.douseMult - 1;
+				int i = 0;
+				if (num < 1)
+				{
+					num = 1;
+				}
+				if (this.ai.creepy_boss)
+				{
+					i = Mathf.CeilToInt(2 * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * (1 + progression.FireDmgAmp));
+					Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-        public override void getStealthAttack()
-        {
-            doStealthKill = false;
-        }
+					base.HitFireDamageOnly(i);
+				}
+				else if (this.ai.creepy || this.ai.creepy_male || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
+				{
+					i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
+					Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-        protected override void OnDestroy()
-        {
-            //if (!ai.creepy_fat)
-            //{
-            if (Health <= 0)
-            {
-                progression.OnDie();
-            }
-            //}
-            base.OnDestroy();
-        }
+					base.Hit(i);
+				}
+				else
+				{
+					i = Mathf.CeilToInt(UnityEngine.Random.Range(4, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
+					Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-        //changes how damage is calculated to include armor and abilities
-        public override void Hit(int damage)
-        {
-            //if (ai.creepy_fat)
-            //{
-            //base.Hit(damage);
-            //return;
-            //}
-            HitPhysical(damage);
-        }
-        public void ReduceAr(int value)
-        {
-            progression.ArmorReduction += value;
-            return;
-        }
-        //Reduced damage 
-        public void HitPhysical(int damage)
-        {
-            int dmg = progression.ClampDamage(false, damage);
-                Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg,new Color(1,0.4f,0,1f));
-            HitReal(dmg);
-        }
+					base.Hit(i);
+				}
+				progression.ArmorReduction += i;
+			}
+		}
 
-        //Fire additionally reduces armor
-        protected override void HitFire()
-        {
-            if (this.ai.creepy_boss && !this.ai.girlFullyTransformed)
-            {
-                return;
-            }
-            if (!this.deadBlock)
-            {
-                this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                this.targetSwitcher.attackerType = 4;
-                int num = this.douseMult - 1;
-                int i = 0;
-                if (num < 1)
-                {
-                    num = 1;
-                }
-                if (this.ai.creepy_boss)
-                {
-                    i = Mathf.CeilToInt(2 * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * (1 + progression.FireDmgAmp));
-                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
+		//pure damage
+		public override void HitReal(int damage)
+		{
+			//Creating a hit marker for every player
 
-                    base.HitFireDamageOnly(i);
-                }
-                else if (this.ai.creepy || this.ai.creepy_male || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
-                {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
-                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
+			//if (!ai.creepy_fat)
+			//{
+			if (progression._hp > 0)
+			{
+				int i = (int)Mathf.Min(progression._hp, (float)damage);
+				progression._hp -= i;
+				damage -= i;
+			}
+			//}
+			hitBlock = false;
+			base.HitReal(damage);
+		}
 
-                    base.Hit(i);
-                }
-                else
-                {
-                    i = Mathf.CeilToInt(UnityEngine.Random.Range(4,10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
-                    Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
+		//Overriden to forbid enemies from getting oneshotted,
+		//Instead they take damage
+		public override void Explosion(float explodeDist)
+		{
+			if (this.ai.creepy_boss && !this.ai.girlFullyTransformed)
+			{
+				return;
+			}
+			if (!this.explodeBlock)
+			{
+				if (this.ai.creepy_male || this.ai.creepy || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
+				{
+					if (this.ai.creepy_boss)
+					{
+						this.Health -= 500;
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500, Color.white);
+					}
+					else
+					{
+						this.Health -= 700;
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700, Color.white);
+					}
+					if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
+					{
+						if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
+						{
+							this.setup.propManager.lowSkinnyBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+						}
+						if (this.setup.propManager && this.setup.propManager.lowBody)
+						{
+							this.setup.propManager.lowBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+						}
+						this.MySkin.sharedMaterial = this.Burnt;
+						this.alreadyBurnt = true;
+					}
+					this.setSkinDamage(UnityEngine.Random.Range(0, 3));
+					if (this.Health <= 0)
+					{
+						if (this.ai.creepy_boss)
+						{
+							this.Die();
+						}
+						else
+						{
+							this.dieExplode();
+						}
+					}
+					else
+					{
+						if (UnityEngine.Random.value > 0.75f && this.ai.creepy_boss && !this.animator.GetBool("hitStagger"))
+						{
+							this.setup.pmCombat.FsmVariables.GetFsmBool("staggered").Value = true;
+							this.animator.SetBool("hitStagger", true);
+							base.Invoke("resetStagger", 10f);
+						}
+						this.setup.pmCombat.SendEvent("toHitExplode");
+					}
+				}
+				else if (this.ai.male || this.ai.female)
+				{
+					if (explodeDist <= 0f)
+					{
+						this.getAttackDirection(5);
+						this.targetSwitcher.attackerType = 4;
+						this.animator.SetIntegerReflected("hurtLevelInt", 4);
+						this.animator.SetTriggerReflected("damageTrigger");
+						this.setSkinDamage(UnityEngine.Random.Range(0, 3));
+						this.Health -= 800;
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800, Color.white);
 
-                    base.Hit(i);
-                }
-                progression.ArmorReduction += i;
-            }
-        }
+						if (this.Health < 1)
+						{
+							UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+							progression.OnDie();
+							this.typeSetup.removeFromSpawnAndExplode();
+							return;
+						}
+						this.pmGotHit();
+					}
+					else if (explodeDist < 10.5f)
+					{
+						HitReal(800);
+						if (this.Health < 1)
+						{
+							UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+							progression.OnDie();
+							this.typeSetup.removeFromSpawnAndExplode();
+						}
+					}
+					else if (explodeDist > 10.5f && explodeDist < 18f)
+					{
+						this.getAttackDirection(5);
+						this.targetSwitcher.attackerType = 4;
+						this.animator.SetIntegerReflected("hurtLevelInt", 4);
+						this.animator.SetTriggerReflected("damageTrigger");
+						if (this.Burnt && this.MySkin)
+						{
+							if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
+							{
+								this.setup.propManager.lowSkinnyBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+							}
+							if (this.setup.propManager && this.setup.propManager.lowBody)
+							{
+								this.setup.propManager.lowBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+							}
+							this.MySkin.sharedMaterial = this.Burnt;
+							this.alreadyBurnt = true;
+						}
+						this.setSkinDamage(UnityEngine.Random.Range(0, 3));
+						this.Health -= 300;
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300, Color.white);
 
-        //pure damage
-        public override void HitReal(int damage)
-        {
-            //Creating a hit marker for every player 
-        
+						if (this.Health < 1)
+						{
+							this.HitReal(10);
+							return;
+						}
+						this.pmGotHit();
+					}
+					else if (explodeDist > 18f && explodeDist < 25f)
+					{
+						this.getAttackDirection(3);
+						this.targetSwitcher.attackerType = 4;
+						this.animator.SetIntegerReflected("hurtLevelInt", 0);
+						this.Hit(40);
+					}
+				}
+				else
+				{
+					HitReal(800);
+					if (Health < 1)
+					{
+						this.setup.pmCombat.enabled = true;
+						this.setup.pmCombat.FsmVariables.GetFsmBool("deathFinal").Value = true;
+						this.setup.pmCombat.SendEvent("toDeath");
+						if (this.familyFunctions)
+						{
+							this.familyFunctions.cancelEatMeEvent();
+							this.familyFunctions.cancelRescueEvent();
+						}
 
-            //if (!ai.creepy_fat)
-            //{
-            if(progression._hp > 0)
-            {
-                int i = (int)Mathf.Min(progression._hp, (float)damage);
-                progression._hp -= i;
-                damage -= i;
-            }
-            //}
-            hitBlock = false;
-            base.HitReal(damage);
+						UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+						progression.OnDie();
+						this.typeSetup.removeFromSpawnAndExplode();
+					}
+				}
+				this.explodeBlock = true;
+			}
+			base.Invoke("resetExplodeBlock", 0.05f);
+		}
 
-        }
+		#region DieOverride
 
-        //Overriden to forbid enemies from getting oneshotted,
-        //Instead they take damage
-        public override void Explosion(float explodeDist)
-        {
-            if (this.ai.creepy_boss && !this.ai.girlFullyTransformed)
-            {
-                return;
-            }
-            if (!this.explodeBlock)
-            {
-                if (this.ai.creepy_male || this.ai.creepy || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
-                {
-                    if (this.ai.creepy_boss)
-                    {
-                        this.Health -= 500;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500,Color.white);
+		//Those functions, along with HitReal
+		//can proc the OnDie() of EnemyProgression of this current enemy
 
-                    }
-                    else
-                    {
-                        this.Health -= 700;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700, Color.white);
+		//Doing that, it can either return false, if the enemy is not supposed to die yet
+		//as for example he has a affix that revives it after death
+		//or it can return true.
 
-                    }
-                    if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
-                    {
-                        if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
-                        {
-                            this.setup.propManager.lowSkinnyBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
-                        }
-                        if (this.setup.propManager && this.setup.propManager.lowBody)
-                        {
-                            this.setup.propManager.lowBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
-                        }
-                        this.MySkin.sharedMaterial = this.Burnt;
-                        this.alreadyBurnt = true;
-                    }
-                    this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                    if (this.Health <= 0)
-                    {
-                        if (this.ai.creepy_boss)
-                        {
-                            this.Die();
-                        }
-                        else
-                        {
-                            this.dieExplode();
-                        }
-                    }
-                    else
-                    {
-                        if (UnityEngine.Random.value > 0.75f && this.ai.creepy_boss && !this.animator.GetBool("hitStagger"))
-                        {
-                            this.setup.pmCombat.FsmVariables.GetFsmBool("staggered").Value = true;
-                            this.animator.SetBool("hitStagger", true);
-                            base.Invoke("resetStagger", 10f);
-                        }
-                        this.setup.pmCombat.SendEvent("toHitExplode");
-                    }
-                }
-                else if (this.ai.male || this.ai.female)
-                {
-                    if (explodeDist <= 0f)
-                    {
-                        this.getAttackDirection(5);
-                        this.targetSwitcher.attackerType = 4;
-                        this.animator.SetIntegerReflected("hurtLevelInt", 4);
-                        this.animator.SetTriggerReflected("damageTrigger");
-                        this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 800;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800, Color.white);
+		//if true, the die function will be called normally.
+		//if false, it will be skipped
 
-                        if (this.Health < 1)
-                        {
-                            UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
-                            progression.OnDie();
-                            this.typeSetup.removeFromSpawnAndExplode();
-                            return;
-                        }
-                        this.pmGotHit();
-                    }
-                    else if (explodeDist < 10.5f)
-                    {
-                        HitReal(800);
-                        if (this.Health < 1)
-                        {
-                            UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
-                            progression.OnDie();
-                            this.typeSetup.removeFromSpawnAndExplode();
-                        }
-                    }
-                    else if (explodeDist > 10.5f && explodeDist < 18f)
-                    {
-                        this.getAttackDirection(5);
-                        this.targetSwitcher.attackerType = 4;
-                        this.animator.SetIntegerReflected("hurtLevelInt", 4);
-                        this.animator.SetTriggerReflected("damageTrigger");
-                        if (this.Burnt && this.MySkin)
-                        {
-                            if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
-                            {
-                                this.setup.propManager.lowSkinnyBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
-                            }
-                            if (this.setup.propManager && this.setup.propManager.lowBody)
-                            {
-                                this.setup.propManager.lowBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
-                            }
-                            this.MySkin.sharedMaterial = this.Burnt;
-                            this.alreadyBurnt = true;
-                        }
-                        this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-                        this.Health -= 300;
-                        Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300, Color.white);
+		//Dieing of traps is changed, as it gives exp
+		//its also changed to no longer oneshot enemies
 
-                        if (this.Health < 1)
-                        {
-                            this.HitReal(10);
-                            return;
-                        }
-                        this.pmGotHit();
-                    }
-                    else if (explodeDist > 18f && explodeDist < 25f)
-                    {
-                        this.getAttackDirection(3);
-                        this.targetSwitcher.attackerType = 4;
-                        this.animator.SetIntegerReflected("hurtLevelInt", 0);
-                        this.Hit(40);
-                    }
-                }
-                else
-                {
-                    HitReal(800);
-                    if (Health < 1)
-                    {
-                        this.setup.pmCombat.enabled = true;
-                        this.setup.pmCombat.FsmVariables.GetFsmBool("deathFinal").Value = true;
-                        this.setup.pmCombat.SendEvent("toDeath");
-                        if (this.familyFunctions)
-                        {
-                            this.familyFunctions.cancelEatMeEvent();
-                            this.familyFunctions.cancelRescueEvent();
-                        }
+		protected override void dieExplode()
+		{
+			//if (ai.creepy_fat)
+			//{
+			//    base.dieExplode();
+			//    return;
+			//}
+			//Explosives deal 200 pure damage, as of yet, its not scaling with any stat
+			HitReal(100);
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
 
-                        UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
-                        progression.OnDie();
-                        this.typeSetup.removeFromSpawnAndExplode();
-                    }
-                }
-                this.explodeBlock = true;
-            }
-            base.Invoke("resetExplodeBlock", 0.05f);
-        }
+			if (progression.OnDie())
+			{
+				base.dieExplode();
+			}
+		}
 
-        #region DieOverride
-        //Those functions, along with HitReal
-        //can proc the OnDie() of EnemyProgression of this current enemy
+		protected override void DieTrap(int type)
+		{
+			//if (ai.creepy_fat)
+			//{
+			//    base.DieTrap(type);
+			//    return;
+			//}
+			//Since the trap doesnt one shot cannibals, it will deal pure damage to them
+			HitReal(400);
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
 
-        //Doing that, it can either return false, if the enemy is not supposed to die yet
-        //as for example he has a affix that revives it after death
-        //or it can return true. 
+			if (type == 2)
+				return;
+			if (progression.OnDie())
+			{
+				base.DieTrap(type);
+			}
+		}
 
-        //if true, the die function will be called normally.
-        //if false, it will be skipped
+		public override void Die()
+		{
+			//if (ai.creepy_fat)
+			//{
+			//    base.Die();
+			//    return;
+			//}
+			if (progression.OnDie())
+			{
+				base.Die();
+			}
+		}
 
-        //Dieing of traps is changed, as it gives exp
-        //its also changed to no longer oneshot enemies
-
-        protected override void dieExplode()
-        {
-            //if (ai.creepy_fat)
-            //{
-            //    base.dieExplode();
-            //    return;
-            //}
-            //Explosives deal 200 pure damage, as of yet, its not scaling with any stat
-            HitReal(100);
-            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
-
-            if (progression.OnDie())
-            {
-                base.dieExplode();
-            }
-        }
-        protected override void DieTrap(int type)
-        {
-            //if (ai.creepy_fat)
-            //{
-            //    base.DieTrap(type);
-            //    return;
-            //}
-            //Since the trap doesnt one shot cannibals, it will deal pure damage to them
-            HitReal(400);
-            Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
-
-            if (type == 2) return;
-            if (progression.OnDie())
-            {
-
-                base.DieTrap(type);
-            }
-        }
-        public override void Die()
-        {
-            //if (ai.creepy_fat)
-            //{
-            //    base.Die();
-            //    return;
-            //}
-            if (progression.OnDie())
-            {
-                base.Die();
-            }
-        }
-        #endregion
-    }
-
+		#endregion DieOverride
+	}
 }

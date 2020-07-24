@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChampionsOfForest.Player
+﻿namespace ChampionsOfForest.Player
 {
-	class BoltPlayerSetupEx : BoltPlayerSetup
+	internal class BoltPlayerSetupEx : BoltPlayerSetup
 	{
 		public override void OnEvent(HitPlayer evnt)
 		{

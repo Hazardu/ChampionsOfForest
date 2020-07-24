@@ -62,7 +62,6 @@ namespace ChampionsOfForest.Player
 					}
 					if (itemView.gameObject.name == "axePlane_Inv")
 					{
-
 						if (ModReferences.rightHandTransform == null)
 						{
 							try
@@ -106,7 +105,6 @@ namespace ChampionsOfForest.Player
 							EquippedModel = ToEquipWeaponType;
 							try
 							{
-
 								foreach (CustomWeapon item in customWeapons.Values)
 								{
 									item.obj.SetActive(false);
@@ -201,7 +199,6 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = true;
 							itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(true);
-
 						}
 					}
 					else if (BoltNetwork.isRunning)
@@ -345,7 +342,7 @@ namespace ChampionsOfForest.Player
 			}
 			base.Attack();
 		}
-	
+
 		public override void AddMaxAmountBonus(int itemId, int amount)
 		{
 			if (ModSettings.IsDedicated)
@@ -379,15 +376,11 @@ namespace ChampionsOfForest.Player
 			base.HideRightHand(hideOnly);
 		}
 
-
 		public override void Start()
 		{
 			InitializeGreatBow();
 			base.Start();
 		}
-
-
-
 
 		protected override void FireRangedWeapon()
 		{
@@ -522,13 +515,14 @@ namespace ChampionsOfForest.Player
 				ModAPI.Console.Write(asset.name);
 				if (asset.name == "PolearmPrefab")
 				{
-					var Clone = (GameObject)Instantiate(original,original.transform.position,original.transform.rotation, original.transform.parent);
+					var Clone = (GameObject)Instantiate(original, original.transform.position, original.transform.rotation, original.transform.parent);
 					var secondChild = Clone.transform.GetChild(1);   //second child contains the og model of the spear
 					GameObject modelClone = (GameObject)Instantiate(asset, LocalPlayer.Transform.position, Quaternion.identity, Clone.transform);
 					modelClone.transform.localPosition = secondChild.localPosition;
 					modelClone.transform.localRotation = secondChild.localRotation;
-					modelClone.transform.Rotate(new Vector3(90, 0, 0)); ;
-					modelClone.transform.localScale *= 0.7f/3;
+					modelClone.transform.Rotate(new Vector3(90, 0, 0));
+					;
+					modelClone.transform.localScale *= 0.7f / 3;
 					Destroy(secondChild);
 					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
 						Clone,
@@ -547,7 +541,7 @@ namespace ChampionsOfForest.Player
 						treeDamage = 1,
 						objectToHide = original.transform.GetChild(1).gameObject
 					};
-			original.gameObject.SetActive(false);
+					original.gameObject.SetActive(false);
 					return;
 				}
 			}

@@ -1,6 +1,4 @@
-﻿using ChampionsOfForest.Player;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace ChampionsOfForest
 {
@@ -57,18 +55,18 @@ namespace ChampionsOfForest
 								Vector3 v = new Vector3(x1, y, z);
 								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].obj.transform.localRotation =Quaternion.Euler( v);
 								PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].rotation = v;
-							}  
-						}           
+							}
+						}
 					}
 				}
-
-
 			}
 		}
 #else
-			partial void DrawDebug() { }
+
+		partial void DrawDebug()
+		{
+		}
 
 #endif
 	}
 }
-		

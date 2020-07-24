@@ -1,14 +1,19 @@
-﻿using Bolt;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+using Bolt;
+
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+
 using TheForest.Utils;
+
 using UnityEngine;
+
 using static ChampionsOfForest.Player.BuffDB;
+
 using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
@@ -20,7 +25,6 @@ namespace ChampionsOfForest
 		public static float basejumpPower;
 		public static ModdedPlayer instance = null;
 
-		
 		public float MaxHealth
 		{
 			get
@@ -31,6 +35,7 @@ namespace ChampionsOfForest
 				return x;
 			}
 		}
+
 		public float MaxEnergy
 		{
 			get
@@ -41,7 +46,9 @@ namespace ChampionsOfForest
 				return x;
 			}
 		}
+
 		public bool Critted => CritChance >= UnityEngine.Random.value;
+
 		public float SpellAMP
 		{
 			get
@@ -50,16 +57,18 @@ namespace ChampionsOfForest
 				return (1 + f) * SpellDamageAmplifier * DamageOutputMultTotal;
 			}
 		}
+
 		public float MeleeAMP => DamageOutputMultTotal * ((strength * DamagePerStrength) + 1) * MeleeDamageAmplifier;
+
 		public float RangedAMP
 		{
 			get
 			{
 				float f = (agility) * RangedDamageperAgi;
 				return (1 + f) * RangedDamageAmplifier * DamageOutputMultTotal;
-
 			}
 		}
+
 		public float CritDamageBuff
 		{
 			get
@@ -71,6 +80,7 @@ namespace ChampionsOfForest
 				return 1;
 			}
 		}
+
 		public float StaminaAndEnergyRegenAmp => 1 + (intelligence) * EnergyRegenPerInt;
 		public float ArmorDmgRed => ModReferences.DamageReduction(Armor - (int)ArmorReduction);
 		public float DamageReductionTotal => (DamageReduction) * (DamageReductionPerks);
@@ -78,17 +88,18 @@ namespace ChampionsOfForest
 		public int MeleeArmorReduction => ARreduction_all + ARreduction_melee;
 		public int RangedArmorReduction => ARreduction_all + ARreduction_ranged;
 
-
 		private int _level = 1;
+
 		public int Level
 		{
 			get => _level; set => _level = value;
 		}
+
 		public float HealingMultipier = 1;
 		public int strength = 1;    //increases damage
 		public int intelligence = 1; //increases spell damage
 		public int agility = 1;     //increases energy
-		public int vitality = 1;     //increases health  
+		public int vitality = 1;     //increases health
 		public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
 		public float DamagePerStrength = 0.00f;
 		public float SpellDamageperInt = 0.00f;
@@ -117,10 +128,10 @@ namespace ChampionsOfForest
 		public float MeleeDamageAmplifier_Add = 1;
 		public float RangedDamageAmplifier_Add = 1;
 
-
 		public float SpellDamageBonus = 0;
 		public float MeleeDamageBonus = 0;
 		public float ParryCounterStrikeDamage = 0;
+
 		public float GetParryCSDmg()
 		{
 			if (ParryCounterStrikeDamage > 0)
@@ -135,6 +146,7 @@ namespace ChampionsOfForest
 			}
 			return 0;
 		}
+
 		public float RangedDamageBonus = 0;
 		public float MeleeRange = 1;
 		public float DamageReduction = 1;
@@ -156,7 +168,6 @@ namespace ChampionsOfForest
 		public float ArmorReduction = 0;
 		public float MagicResistance = 0;
 
-
 		public float AttackSpeed => AttackSpeedAdd * AttackSpeedMult;
 		public float AttackSpeedMult = 1;
 		public float AttackSpeedAdd = 1;
@@ -168,9 +179,9 @@ namespace ChampionsOfForest
 		public float thornsMult = 1;
 		public float thorns = 0;
 		public float thornsPerStrenght = 0;
-		public float totalThorns =>thorns+ thornsPerStrenght * strength;
+		public float thornsPerVit = 0;
+		public float totalThorns => thorns + thornsPerStrenght * strength + thornsPerVit * vitality;
 		public float thornsDamage => totalThorns * thornsMult * MeleeDamageAmplifier_Mult * DamageOutputMult * DamageOutputMultPerks;
-
 
 		public int StunImmune = 0;
 		public int RootImmune = 0;
@@ -205,6 +216,7 @@ namespace ChampionsOfForest
 		public float ChanceToSlowOnHit = 0;
 		public float ChanceToBleedOnHit = 0;
 		public float ChanceToWeakenOnHit = 0;
+
 		public float DamageAbsorbAmount
 		{
 			get
@@ -217,9 +229,9 @@ namespace ChampionsOfForest
 				return f;
 			}
 		}
+
 		public float[] damageAbsorbAmounts = new float[3];//every unique source of shielding gets their own slot here, if its not unique it uses [0]
 														  //[1] is channeled shield spell;
-
 
 		public float StealthDamage = 1; //to do
 
@@ -238,11 +250,14 @@ namespace ChampionsOfForest
 
 		public float MagicFindMultipier = 1;
 
-		//perks 
+		//perks
 		public float ReusabilityChance = 0;
+
 		public int ReusabilityAmount = 1;
+
 		//public TheForest.Items.Item lastShotProjectile;
 		public float SpearDamageMult = 1;
+
 		public float SpearCritChance = 0.04f;
 		public float SpearhellChance = 0;
 		public float BulletCritChance = 0.1f;
@@ -254,6 +269,7 @@ namespace ChampionsOfForest
 		//Item abilities variables
 		//Smokeys quiver
 		public bool IsSmokeysQuiver = false;
+
 		public bool SpearArmorRedBonus = false;
 		public bool IsCrossfire = false;
 		public bool IsHazardCrown = false;
@@ -262,18 +278,20 @@ namespace ChampionsOfForest
 
 		//Any hammer
 		public bool IsHammerStun = false;
+
 		public float HammerStunDuration = 0.4f;
 		public float HammerStunAmount = 0.25f;
 		public float HammerSmashDamageAmp = 1f;
 
 		//Hexed pants of mr Moritz
 		public bool HexedPantsOfMrM_Enabled = false;
+
 		public float HexedPantsOfMrM_StandTime = 0;
 
 		//Death Pact shoulders
 		public bool DeathPact_Enabled = false;
-		public float DeathPact_Amount = 1;
 
+		public float DeathPact_Amount = 1;
 
 		public int LastDayOfGeneration = 0;
 		public float RootDuration = 0;
@@ -289,6 +307,8 @@ namespace ChampionsOfForest
 
 		public bool CraftingReroll = false;
 		public bool CraftingReforge = false;
+		public bool CraftingPolishing = false;
+		public bool CraftingEmpowering = false;
 		public bool EruptionBow = false;
 		public bool ArchangelBow = false;
 
@@ -301,6 +321,7 @@ namespace ChampionsOfForest
 		public bool ProjectileDamageIncreasedBySize = false;
 		public bool ProjectileDamageIncreasedBySpeed = false;
 		public bool isGreed = false;
+		public bool isShieldAutocast = false;
 		public bool isWindArmor = false;
 		private float _greedCooldown;
 
@@ -312,20 +333,21 @@ namespace ChampionsOfForest
 		public bool TrueAimUpgrade = false;
 		public bool GoldenResolve = false;
 
-
-
 		public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
+
 		public struct ExtraItemCapacity
 		{
 			public int ID;
 			public int Amount;
 			public bool applied;
+
 			public ExtraItemCapacity(int id, int amount)
 			{
 				ID = id;
 				Amount = amount;
 				applied = false;
 			}
+
 			public void NewApply()
 			{
 				applied = true;
@@ -347,11 +369,10 @@ namespace ChampionsOfForest
 				{
 					instance.ExtraCarryingCapactity.Remove(ID);
 				}
-
 			}
+
 			public void Remove()
 			{
-
 				switch (ID)
 				{
 					case 53:    //rock and rock bag
@@ -360,34 +381,37 @@ namespace ChampionsOfForest
 							LocalPlayer.Inventory.SetMaxAmountBonus(ID, 5);
 						}
 						break;
+
 					case 82:    //small rock and small rock bag
 						if (LocalPlayer.Inventory.AmountOf(282) > 0)
 						{
 							LocalPlayer.Inventory.SetMaxAmountBonus(ID, 15);
 						}
 						break;
+
 					case 57:    //stick and stick bag
 						if (LocalPlayer.Inventory.AmountOf(215) > 0)
 						{
 							LocalPlayer.Inventory.SetMaxAmountBonus(ID, 10);
 						}
 						break;
+
 					case 56:    //spears and spear bag
 						if (LocalPlayer.Inventory.AmountOf(290) > 0)
 						{
 							LocalPlayer.Inventory.SetMaxAmountBonus(ID, 4);
 						}
 						break;
+
 					default:
 
 						LocalPlayer.Inventory.SetMaxAmountBonus(ID, 0);
 						break;
-
-
 				}
 				applied = false;
 			}
 		}
+
 		public void AddExtraItemCapacity(int ID, int Amount)
 		{
 			if (ExtraCarryingCapactity.ContainsKey(ID))
@@ -401,6 +425,7 @@ namespace ChampionsOfForest
 				ExtraCarryingCapactity.Add(ID, EIC);
 			}
 		}
+
 		public void AddExtraItemCapacity(int[] ID, int Amount)
 		{
 			for (int i = 0; i < ID.Length; i++)
@@ -429,9 +454,9 @@ namespace ChampionsOfForest
 		/// <summary>
 		/// Adds a post processing effect to the camera
 		/// </summary>
-		IEnumerator InitializeCamera()
+		private IEnumerator InitializeCamera()
 		{
-			while (Camera.main == null|| LocalPlayer.Inventory == null)
+			while (Camera.main == null || LocalPlayer.Inventory == null)
 			{
 				yield return null;
 			}
@@ -441,9 +466,7 @@ namespace ChampionsOfForest
 
 			Camera.main.gameObject.AddComponent<RealisticBlackHoleEffect>();
 			LocalPlayer.Inventory.Blocked.AddListener(SpellActions.OnBlockSetTimer);
-
 		}
-
 
 		public void SendLevelMessage()
 		{
@@ -452,11 +475,11 @@ namespace ChampionsOfForest
 				if (BoltNetwork.isRunning)
 				{
 					NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " has reached level " + ModdedPlayer.instance.Level + "!", NetworkManager.Target.Everyone);
-
 				}
 			}
 			MainMenu.Instance.LevelUpAction();
 		}
+
 		public void SendJoinMessage()
 		{
 			if (ChatBoxMod.instance != null)
@@ -520,7 +543,6 @@ namespace ChampionsOfForest
 
 		private void Update()
 		{
-
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
 				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].Equipped)
@@ -614,21 +636,16 @@ namespace ChampionsOfForest
 					{
 						BuffDB.AddBuff(1, 33, 0.7f, 1);
 					}
-
-
 				}
 				if (LocalPlayer.Stats.Health <= 0 && !LocalPlayer.Stats.Dead)
 				{
 					LocalPlayer.Stats.Hit(10, true, PlayerStats.DamageType.Drowning);
 				}
-
 			}
 			catch (Exception e)
 			{
 				//ModAPI.Log.Write("Poisoning player error" + e.ToString());
 			}
-
-
 
 			if (LocalPlayer.Stats != null)
 			{
@@ -643,17 +660,12 @@ namespace ChampionsOfForest
 
 				if (LocalPlayer.Stats.Stamina > 4)
 				{
-
 					LocalPlayer.Animator.speed = ats;
 				}
 				else
 				{
 					LocalPlayer.Animator.speed = Mathf.Min(0.5f, ats / 2);
-
 				}
-
-
-
 
 				if (LocalPlayer.Stats.Health < MaxHealth)
 				{
@@ -678,10 +690,7 @@ namespace ChampionsOfForest
 					}
 					LastDayOfGeneration = Clock.Day;
 				}
-
 			}
-
-
 
 			if (TimeUntillMassacreReset > 0)
 			{
@@ -694,8 +703,6 @@ namespace ChampionsOfForest
 					MassacreKills = 0;
 					CountMassacre();
 				}
-
-
 			}
 
 			if (Effects.Multishot.IsOn)
@@ -726,7 +733,6 @@ namespace ChampionsOfForest
 				RootDuration -= Time.deltaTime;
 				if (RootDuration < 0)
 				{
-
 					Rooted = false;
 					if (!Stunned)
 					{
@@ -756,7 +762,6 @@ namespace ChampionsOfForest
 				StunDuration -= Time.deltaTime;
 				if (StunDuration < 0)
 				{
-
 					Stunned = false;
 					LocalPlayer.FpCharacter.Locked = false;
 					if (!Rooted)
@@ -800,7 +805,6 @@ namespace ChampionsOfForest
 				AddBuff(12, 43, DeathPact_Amount, 1f);
 
 				DamageOutputMult *= DeathPact_Amount;
-
 			}
 			if (isGreed)
 			{
@@ -811,7 +815,24 @@ namespace ChampionsOfForest
 					_greedCooldown = 1f;
 				}
 			}
+			if (isShieldAutocast)
+			{
+				float mx = MaxEnergy * 0.90f;
+				if (LocalPlayer.Stats.Energy >= mx)
+				{
+					if (LocalPlayer.Stats.Stamina >= mx)
+					{
+						var spell = SpellDataBase.spellDictionary[5];
+						if (spell.IsEquipped)
+						{
+							if (SpellCaster.RemoveStamina(10 * Time.deltaTime))
+								spell.active();
+						}
+					}
+				}
+			}
 		}
+
 		public float DealDamageToShield(float f)
 		{
 			for (int i = 0; i < damageAbsorbAmounts.Length; i++)
@@ -847,6 +868,7 @@ namespace ChampionsOfForest
 				RootDuration = duration;
 			}
 		}
+
 		public void Stun(float duration)
 		{
 			if (StunImmune > 0)
@@ -861,6 +883,7 @@ namespace ChampionsOfForest
 				StunDuration = duration;
 			}
 		}
+
 		public void AddKillExperience(long Amount)
 		{
 			MassacreKills++;
@@ -874,11 +897,10 @@ namespace ChampionsOfForest
 				TimeUntillMassacreReset = Mathf.Clamp(TimeUntillMassacreReset + TimeBonusPerKill, 20, MaxMassacreTime);
 			}
 			NewlyGainedExp += Amount;
-
 		}
+
 		public void AddFinalExperience(long Amount)
 		{
-
 			ExpCurrent += Convert.ToInt64(Amount * ExpFactor);
 			int i = 0;
 			while (ExpCurrent >= ExpGoal || (Level > 100 && ExpCurrent < 0))
@@ -908,6 +930,7 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		public void OnGetHit()
 		{
 			if (SpellActions.ChanceToParryOnHit && Random.value < 0.15f)
@@ -915,6 +938,7 @@ namespace ChampionsOfForest
 				SpellActions.DoParry(LocalPlayer.Transform.forward + LocalPlayer.Transform.position);
 			}
 		}
+
 		public void OnHit()
 		{
 			LocalPlayer.Stats.HealthTarget += LifeOnHit * HealingMultipier;
@@ -922,8 +946,8 @@ namespace ChampionsOfForest
 			LocalPlayer.Stats.Energy += EnergyOnHit * StaminaAndEnergyRegenAmp;
 			LocalPlayer.Stats.Stamina += StaminaOnHit * StaminaAndEnergyRegenAmp;
 			SpellActions.OnFrenzyAttack();
-
 		}
+
 		public void OnHitEffectsClient(BoltEntity ent, float damage)
 		{
 			if (ent != null)
@@ -982,6 +1006,7 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		public void OnHitEffectsHost(EnemyProgression p, float damage)
 		{
 			if (p != null)
@@ -1003,7 +1028,6 @@ namespace ChampionsOfForest
 			}
 		}
 
-
 		public void OnHit_Ranged(Transform hit)
 		{
 			SpellCaster.InfinityLoopEffect();
@@ -1024,8 +1048,10 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		public int FurySwipesDmg;
-		Transform FurySwipesLastHit;
+		private Transform FurySwipesLastHit;
+
 		public void OnHit_Melee(Transform hit)
 		{
 			SpellCaster.InfinityLoopEffect();
@@ -1059,11 +1085,11 @@ namespace ChampionsOfForest
 			}
 			catch (Exception exc)
 			{
-
 				ModAPI.Log.Write("Area dmg exception " + exc.ToString());
 			}
 			return false;
 		}
+
 		public void DoGuaranteedAreaDamage(Transform rootTR, float damage)
 		{
 			RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, AreaDamageRadius, Vector3.one, AreaDamageRadius);
@@ -1099,7 +1125,6 @@ namespace ChampionsOfForest
 						else if (hits[i].transform.tag == "BreakableWood" || hits[i].transform.tag == "animalCollide")
 						{
 							hits[i].transform.root.SendMessage("Hit", d, SendMessageOptions.DontRequireReceiver);
-
 						}
 					}
 				}
@@ -1146,6 +1171,7 @@ namespace ChampionsOfForest
 		{
 			return GetGoalExp(Level);
 		}
+
 		public long GetGoalExp(int lvl)
 		{
 			int x = lvl;
@@ -1156,6 +1182,7 @@ namespace ChampionsOfForest
 			y = y / 3.3;
 			return Convert.ToInt64(y);
 		}
+
 		public void CountMassacre()
 		{
 			if (KCInRange(0, 3))
@@ -1251,7 +1278,6 @@ namespace ChampionsOfForest
 
 		private void FinishMassacre()
 		{
-
 			TimeUntillMassacreReset = 0;
 			long Amount = Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier);
 			NewlyGainedExp = 0;
@@ -1263,7 +1289,8 @@ namespace ChampionsOfForest
 		{
 			StartCoroutine(InitHandCoroutine());
 		}
-		IEnumerator InitHandCoroutine()
+
+		private IEnumerator InitHandCoroutine()
 		{
 			while (ModReferences.rightHandTransform == null)
 			{
@@ -1287,7 +1314,6 @@ namespace ChampionsOfForest
 
 			//}
 			//while (PlayerInventoryMod.originalBowModel == null);
-
 		}
 
 		public void AddGeneratedResource(int id, int amount)
@@ -1297,7 +1323,6 @@ namespace ChampionsOfForest
 				if (GeneratedResources.ContainsKey(id))
 				{
 					GeneratedResources[id] += amount;
-
 				}
 				else
 				{
@@ -1316,6 +1341,7 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		public static void UnAssignAllStats()
 		{
 			foreach (var item in instance.ExtraCarryingCapactity)
@@ -1324,10 +1350,8 @@ namespace ChampionsOfForest
 			}
 			instance.ExtraCarryingCapactity.Clear();
 
-
 			foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemSlots)
 			{
-
 				if (item.Value == null)
 					continue;
 				if (item.Value.Equipped)
@@ -1354,11 +1378,10 @@ namespace ChampionsOfForest
 					PerkDatabase.perks[i].isBought = false;
 				}
 			}
-
 		}
+
 		public static void ResetAllStats()
 		{
-
 			foreach (var item in instance.ExtraCarryingCapactity)
 			{
 				item.Value.Remove();
@@ -1598,8 +1621,11 @@ namespace ChampionsOfForest
 			instance.thornsMult = 1;
 			instance.thorns = 0;
 			instance.thornsPerStrenght = 0;
+			instance.CraftingPolishing = false;
+			instance.CraftingEmpowering = false;
+			instance.isShieldAutocast = false;
+			instance.thornsPerVit = 0;
 			MaxLogs = 2;
-
 
 			ReapplyAllItems();
 			ReapplyAllPerks();
@@ -1629,6 +1655,7 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
 		public static void ReapplyAllPerks()
 		{
 			//perks
@@ -1641,7 +1668,6 @@ namespace ChampionsOfForest
 						for (int j = 0; j < PerkDatabase.perks[i].boughtTimes; j++)
 						{
 							PerkDatabase.perks[i].apply();
-
 						}
 					}
 					else
@@ -1659,7 +1685,6 @@ namespace ChampionsOfForest
 			UnAssignAllStats();
 			Effects.Sound_Effects.GlobalSFX.Play(2);
 
-
 			instance.MutationPoints = instance.Level + instance.PermanentBonusPerkPoints;
 			foreach (int i in SpellDataBase.spellDictionary.Keys)
 			{
@@ -1670,15 +1695,11 @@ namespace ChampionsOfForest
 				SpellCaster.instance.SetSpell(i);
 			}
 
-
 			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
-
 				PerkDatabase.perks[i].isBought = false;
 				PerkDatabase.perks[i].isApplied = false;
 				PerkDatabase.perks[i].boughtTimes = 0;
-
-
 			}
 			ResetAllStats();
 		}
@@ -1694,7 +1715,6 @@ namespace ChampionsOfForest
 					repeats += ModdedPlayer.instance.MultishotCount;
 					if (ModdedPlayer.instance.SoraSpecial)
 						repeats += 4;
-
 				}
 				else
 				{

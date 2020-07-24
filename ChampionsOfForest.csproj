@@ -214,6 +214,7 @@
     <Compile Include="Enemies\EnemyCorpse.cs" />
     <Compile Include="Enemies\EnemyDebuff.cs" />
     <Compile Include="Enemies\enemySearchMod.cs" />
+    <Compile Include="Enemies\mutantFamilyMod.cs" />
     <Compile Include="ExpSources\AnimalExp.cs" />
     <Compile Include="ExpSources\CutBush2AddExp.cs" />
     <Compile Include="ExpSources\CutBushAddExp.cs" />
@@ -226,6 +227,12 @@
     <Compile Include="Items\ItemDataBase_Loot.cs" />
     <Compile Include="Items\ItemDataBase_StatDefinitions.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
+    <Compile Include="Player\Crafting\CraftingIngredient.cs" />
+    <Compile Include="Player\Crafting\CraftingInterface.cs" />
+    <Compile Include="Player\Crafting\Empowering.cs" />
+    <Compile Include="Player\Crafting\Polishing.cs" />
+    <Compile Include="Player\Crafting\Reforging.cs" />
+    <Compile Include="Player\Crafting\Rerolling.cs" />
     <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
     <Compile Include="Player\Main Menu\MainMenu_HUD.cs" />
@@ -237,7 +244,7 @@
     <Compile Include="Player\AutoPickupItems.cs" />
     <Compile Include="Player\Overrides\BoltPlayerSetupEx.cs" />
     <Compile Include="Player\CoopCustomWeapons.cs" />
-    <Compile Include="Player\Crafting.cs" />
+    <Compile Include="Player\Crafting\Crafting.cs" />
     <Compile Include="Player\CustomBow.cs" />
     <Compile Include="Player\Overrides\FlashlightMod.cs" />
     <Compile Include="Player\Overrides\LogControllerMoreLogs.cs" />

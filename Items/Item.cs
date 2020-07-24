@@ -41,11 +41,11 @@ namespace ChampionsOfForest
 				GroupStats();
 			return groupedStats;
 		}
-		
+
 		public bool CombineItems(Item other)
 		{
 			//if other is a socketable item
-			if (other._itemType == ItemType.Material)
+			if (other.type == ItemType.Material)
 			{
 				if (this.Stats.Any(x => x.StatID == 3000))
 				{
@@ -55,7 +55,7 @@ namespace ChampionsOfForest
 					}
 
 					int statindex = Stats.FindIndex(x => x.StatID == 3000);
-					Stats[statindex] = StatActions.GetSocketedStat(other.Rarity, this._itemType, other.subtype);
+					Stats[statindex] = StatActions.GetSocketedStat(other.Rarity, this.type, other.subtype);
 					OnEquip();
 					return true;
 				}
@@ -68,62 +68,62 @@ namespace ChampionsOfForest
 			switch (slotIndex)
 			{
 				case -2:
-					if (this._itemType == BaseItem.ItemType.Helmet)
+					if (this.type == BaseItem.ItemType.Helmet)
 						return true;
 					break;
 
 				case -3:
-					if (this._itemType == BaseItem.ItemType.ChestArmor)
+					if (this.type == BaseItem.ItemType.ChestArmor)
 						return true;
 					break;
 
 				case -4:
-					if (this._itemType == BaseItem.ItemType.Pants)
+					if (this.type == BaseItem.ItemType.Pants)
 						return true;
 					break;
 
 				case -5:
-					if (this._itemType == BaseItem.ItemType.Boot)
+					if (this.type == BaseItem.ItemType.Boot)
 						return true;
 					break;
 
 				case -6:
-					if (this._itemType == BaseItem.ItemType.ShoulderArmor)
+					if (this.type == BaseItem.ItemType.ShoulderArmor)
 						return true;
 					break;
 
 				case -7:
-					if (this._itemType == BaseItem.ItemType.Glove)
+					if (this.type == BaseItem.ItemType.Glove)
 						return true;
 					break;
 
 				case -8:
-					if (this._itemType == BaseItem.ItemType.Amulet)
+					if (this.type == BaseItem.ItemType.Amulet)
 						return true;
 					break;
 
 				case -9:
-					if (this._itemType == BaseItem.ItemType.Bracer)
+					if (this.type == BaseItem.ItemType.Bracer)
 						return true;
 					break;
 
 				case -10:
-					if (this._itemType == BaseItem.ItemType.Ring)
+					if (this.type == BaseItem.ItemType.Ring)
 						return true;
 					break;
 
 				case -11:
-					if (this._itemType == BaseItem.ItemType.Ring)
+					if (this.type == BaseItem.ItemType.Ring)
 						return true;
 					break;
 
 				case -12:
-					if (this._itemType == BaseItem.ItemType.Weapon)
+					if (this.type == BaseItem.ItemType.Weapon)
 						return true;
 					break;
 
 				case -13:
-					if (this._itemType == BaseItem.ItemType.Quiver || this._itemType == BaseItem.ItemType.SpellScroll || this._itemType == BaseItem.ItemType.Shield)
+					if (this.type == BaseItem.ItemType.Quiver || this.type == BaseItem.ItemType.SpellScroll || this.type == BaseItem.ItemType.Shield)
 						return true;
 					break;
 			}
@@ -134,7 +134,7 @@ namespace ChampionsOfForest
 		{
 			get
 			{
-				switch (this._itemType)
+				switch (this.type)
 				{
 					case ItemType.Shield:
 						return -13;
@@ -240,7 +240,7 @@ namespace ChampionsOfForest
 			base.Rarity = b.Rarity;
 			base.tooltip = b.tooltip;
 			base.ID = b.ID;
-			base._itemType = b._itemType;
+			base.type = b.type;
 			base.StackSize = b.StackSize;
 			base.icon = b.icon;
 			base.onConsume = b.onConsume;
@@ -257,6 +257,45 @@ namespace ChampionsOfForest
 			}
 		}
 
+		public float GetRarityMultiplier()
+		{
+			switch (Rarity)
+			{
+				case 0:
+					return 0.5f;
+					break;
+
+				case 1:
+					return 0.7f;
+					break;
+
+				case 2:
+					return 1f;
+					break;
+
+				case 3:
+					return 1.4f;
+					break;
+
+				case 4:
+					return 2.3f;
+					break;
+
+				case 5:
+					return 3.4f;
+					break;
+
+				case 6:
+					return 4.5f;
+					break;
+
+				case 7:
+					return 5.6f;
+					break;
+			}
+			return 1;
+		}
+
 		//rolls 'amount' on every item stat on this object
 		public void RollStats()
 		{
@@ -268,40 +307,7 @@ namespace ChampionsOfForest
 				if (PS[random] != null)
 				{
 					ItemStat stat = new ItemStat(PS[random], level);
-					switch (Rarity)
-					{
-						case 0:
-							stat.Amount *= 0.5f;
-							break;
-
-						case 1:
-							stat.Amount *= 0.7f;
-							break;
-
-						case 2:
-							stat.Amount *= 1f;
-							break;
-
-						case 3:
-							stat.Amount *= 1.4f;
-							break;
-
-						case 4:
-							stat.Amount *= 2.3f;
-							break;
-
-						case 5:
-							stat.Amount *= 3.4f;
-							break;
-
-						case 6:
-							stat.Amount *= 4.5f;
-							break;
-
-						case 7:
-							stat.Amount *= 5.6f;
-							break;
-					}
+					stat.Amount *= GetRarityMultiplier();
 					if (stat.ValueCap != 0)
 					{
 						stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
@@ -313,7 +319,7 @@ namespace ChampionsOfForest
 
 			if (this.destinationSlotID < -1 && this.level > 20 && Random.value <= 0.175f)
 			{
-				var socketAmount = StatActions.GetMaxSocketAmountOnItem(this._itemType);
+				var socketAmount = StatActions.GetMaxSocketAmountOnItem(this.type);
 				if (socketAmount > 0)
 				{
 					socketAmount = Random.Range(1, socketAmount + 1);
