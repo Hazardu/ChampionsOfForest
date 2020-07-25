@@ -16,6 +16,8 @@ namespace ChampionsOfForest
 		private static ModReferences instance;
 		public static ClinetItemPicker ItemPicker => ClinetItemPicker.Instance;
 
+		public static List<IPlayerState> PlayerStates = new List<IPlayerState>();
+		
 		public static List<GameObject> Players
 		{
 			get;
@@ -215,15 +217,20 @@ namespace ChampionsOfForest
 			while (true)
 			{
 				yield return null;
+				if (Players.Any(x => x == null))
+				{
 				Players.Clear();
 				AllPlayerEntities.Clear();
-				for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
-				{
-					Players.Add(Scene.SceneTracker.allPlayers[i]);
-					BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
-					if (b != null)
+				PlayerStates.Clear();
+					Players.AddRange(Scene.SceneTracker.allPlayers);
+					for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
 					{
-						AllPlayerEntities.Add(b);
+						BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
+						if (b != null)
+						{
+							AllPlayerEntities.Add(b);
+							PlayerStates.Add(b.GetState<IPlayerState>());
+						}
 					}
 				}
 

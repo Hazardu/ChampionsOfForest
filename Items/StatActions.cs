@@ -20,12 +20,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddStrength(float f)
 		{
-			ModdedPlayer.instance.strength.Add( Mathf.RoundToInt(f);
+			ModdedPlayer.instance.strength.Add( Mathf.RoundToInt(f));
 		}
 
 		public static void RemoveStrength(float f)
 		{
-			ModdedPlayer.instance.strength -= Mathf.RoundToInt(f);
+			ModdedPlayer.instance.strength.Add(-Mathf.RoundToInt(f));
 		}
 
 		public static void AddAgility(float f)

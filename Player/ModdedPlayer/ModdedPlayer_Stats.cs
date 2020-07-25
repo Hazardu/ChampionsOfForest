@@ -22,10 +22,14 @@ namespace ChampionsOfForest.Player
 	{
 		internal List<CPlayerStatBase> allStats = new List<CPlayerStatBase>();
 
-		public AdditivePlayerStat<int> strength =				new AdditivePlayerStat<int>(1,			(a,b)=>a+b);
-		public AdditivePlayerStat<int> intelligence =			new AdditivePlayerStat<int>(1,			(a,b)=>a+b);
-		public AdditivePlayerStat<int> agility =				new AdditivePlayerStat<int>(1,			(a,b)=>a+b);
-		public AdditivePlayerStat<int> vitality =				new AdditivePlayerStat<int>(1,			(a,b)=>a+b);
-	
+		public AdditivePlayerStat<int> strength =				new AdditivePlayerStat<int>(1, addint,substractint);
+		public AdditivePlayerStat<int> intelligence =			new AdditivePlayerStat<int>(1, addint, substractint);
+		public AdditivePlayerStat<int> agility =				new AdditivePlayerStat<int>(1, addint, substractint);
+		public AdditivePlayerStat<int> vitality =				new AdditivePlayerStat<int>(1, addint, substractint);
+
 	}
+}
+
+namespace ChampionsOfForest.Player
+{
 }

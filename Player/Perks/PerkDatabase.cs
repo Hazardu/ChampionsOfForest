@@ -230,8 +230,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.strength.Add( 10,
-
+				apply = () => ModdedPlayer.instance.strength.Add( 15),
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 0, 10 },
@@ -241,7 +240,7 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -0.75f,
 				name = "Strength",
-				originalDescription = "All flexors gain in size.\nIncreases strength by 10",
+				originalDescription = "All flexors gain in size.\nIncreases strength by 15",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};

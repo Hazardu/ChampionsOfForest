@@ -28,8 +28,15 @@ namespace ChampionsOfForest.Network
 				{
 					int cmdIndex = r.ReadInt32();
 
-					switch (cmdIndex)  //previousely AB
+					switch (cmdIndex) 
 					{
+						case -1:	//Network stat has been updated by another player
+							{
+								var nID = r.ReadInt32();
+								NetworkPlayerStats.syncedStats[nID].RecievedOtherPlayerChange(r);
+								break;
+							}
+
 						case 1:
 							{
 								if (GameSetup.IsMpServer && ModSettings.DifficultyChoosen)

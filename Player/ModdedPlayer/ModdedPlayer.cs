@@ -511,10 +511,10 @@ namespace ChampionsOfForest.Player
 		{
 			int x = AttributeBonus(Level);
 
-			strength = x;
-			intelligence = x;
-			vitality = x;
-			agility = x;
+			strength += x;
+			intelligence += x;
+			vitality += x;
+			agility += x;
 		}
 
 		private static string ListComponents(Transform t, string prefix = "")
@@ -1380,6 +1380,11 @@ namespace ChampionsOfForest.Player
 
 			activeBuffs.Clear();
 			SpellDataBase.Reset();
+
+			foreach (var stat in instance.allStats)
+			{
+				stat.Reset();
+			}
 			SpellCaster.InfinityEnabled = false;
 			SpellCaster.InfinityLoopEnabled = false;
 			SpellActions.BlinkRange = 15;
@@ -1470,10 +1475,6 @@ namespace ChampionsOfForest.Player
 			AutoPickupItems.radius = 7.5f;
 			Berserker.active = false;
 			instance.HealingMultipier = 1;
-			instance.strength = 1;
-			instance.intelligence = 1;
-			instance.agility = 1;
-			instance.vitality = 1;
 			instance.AssignLevelAttributes();
 			instance.DamagePerStrength = 0.00f;
 			instance.SpellDamageperInt = 0.00f;

@@ -53,7 +53,7 @@ namespace ChampionsOfForest
 				else
 				{
 					Res.ResourceLoader.InMainMenu = false;
-
+					NetworkPlayerStats.Reset();
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");
 					go.AddComponent<ModdedPlayer>();
