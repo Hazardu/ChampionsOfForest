@@ -9,12 +9,12 @@ namespace ChampionsOfForest.Player
 		protected Func<T, T, T> mult;
 		protected Func<T, T, T> divide;
 
-		protected T valueAdditive;
+		public T valueAdditive;
 		protected T default_valueAdditive;
-		protected T valueMultiplicative;
+		public T valueMultiplicative;
 		protected T default_valueMultiplicative;
 
-		public MultiOperationPlayerStat(T default_valueAdditive, T default_valueMultiplicative, Func<T, T, T> addFunc,Func<T, T, T> substractFunc, Func<T, T, T> multFunc,Func<T, T, T> divideFunc,string formatting= "N0")
+		public MultiOperationPlayerStat(T default_valueAdditive, T default_valueMultiplicative, in Func<T, T, T> addFunc, in Func<T, T, T> substractFunc, in Func<T, T, T> multFunc, in Func<T, T, T> divideFunc,string formatting= "N0")
 		{
 			this.default_valueAdditive = default_valueAdditive;
 			this.valueAdditive = default_valueAdditive;
@@ -50,9 +50,19 @@ namespace ChampionsOfForest.Player
 			valueMultiplicative = mult(valueMultiplicative, amount);
 			return Value;
 		}
+		public T Divide(T amount)
+		{
+			valueMultiplicative = divide(valueMultiplicative, amount);
+			return Value;
+		}
 		public T Add(T amount)
 		{
 			valueAdditive = add(valueAdditive, amount);
+			return Value;
+		}
+		public T Substract(T amount)
+		{
+			valueAdditive = substract(valueAdditive, amount);
 			return Value;
 		}
 

@@ -58,7 +58,7 @@ namespace ChampionsOfForest
 				ModdedPlayer.instance.ExpCurrent = buf.ReadInt64();                 //buf.Write(ModdedPlayer.instance.ExpCurrent);
 				HealthPercentage = buf.ReadSingle();                          //buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
 				ModdedPlayer.instance.MutationPoints = buf.ReadInt32();             //buf.Write(ModdedPlayer.instance.MutationPoints);
-				ModdedPlayer.instance.Level = buf.ReadInt32();                      //buf.Write(ModdedPlayer.instance.Level);
+				ModdedPlayer.instance.level = buf.ReadInt32();                      //buf.Write(ModdedPlayer.instance.Level);
 				ModdedPlayer.instance.AssignLevelAttributes();
 				ModdedPlayer.instance.PermanentBonusPerkPoints = buf.ReadInt32();   //buf.Write(ModdedPlayer.instance.PermanentBonusPerkPoints);
 				ModdedPlayer.instance.LastDayOfGeneration = buf.ReadInt32();        //buf.Write(ModdedPlayer.instance.LastDayOfGeneration);
@@ -189,7 +189,7 @@ namespace ChampionsOfForest
 			buf.Write(ModdedPlayer.instance.ExpCurrent);
 			buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
 			buf.Write(ModdedPlayer.instance.MutationPoints);
-			buf.Write(ModdedPlayer.instance.Level);
+			buf.Write(ModdedPlayer.instance.level);
 			buf.Write(ModdedPlayer.instance.PermanentBonusPerkPoints);
 			buf.Write(ModdedPlayer.instance.LastDayOfGeneration);
 

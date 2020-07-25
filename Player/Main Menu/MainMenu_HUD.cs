@@ -904,7 +904,7 @@ namespace ChampionsOfForest
 					{
 						w.Write(19);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write(ModdedPlayer.instance.Level);
+						w.Write(ModdedPlayer.instance.level);
 						w.Close();
 					}
 					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
@@ -1015,7 +1015,7 @@ namespace ChampionsOfForest
 		public void LevelUpAction()
 		{
 			LevelUpDuration = lvlUpDuration;
-			LevelUpText = "\n" + ModdedPlayer.instance.Level.ToString();
+			LevelUpText = "\n" + ModdedPlayer.instance.level.ToString();
 
 			///TODO play some audio upon leveling up
 			///

@@ -506,7 +506,7 @@ namespace ChampionsOfForest
 				}
 				if (Health < HealthTarget)
 				{
-					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth * 0.0025f + ModdedPlayer.instance.LifeRegen) * (ModdedPlayer.instance.HealthRegenPercent + 1) * ModdedPlayer.instance.HealingMultipier * Time.deltaTime);
+					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth * 0.0025f + ModdedPlayer.Stats.healthRecoveryPerSecond) * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
 
 					TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
 				}
@@ -735,7 +735,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				float f = ModdedPlayer.instance.MaxHealth * 0.002f * amount * ModdedPlayer.instance.HealingMultipier + amount;
+				float f = ModdedPlayer.instance.MaxHealth * 0.002f * amount * ModdedPlayer.Stats.allRecoveryMult + amount;
 				HealthTarget += f;
 			}
 		}

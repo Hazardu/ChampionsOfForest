@@ -29,5 +29,12 @@ namespace ChampionsOfForest.Player
 			}
 
 		}
+		public static void PlayerLeft()
+		{
+			foreach (var stat in syncedStats)
+			{
+				stat.PlayerDisconnected();
+			}
+		}
 	}
 }

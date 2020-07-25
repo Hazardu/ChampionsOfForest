@@ -13,7 +13,7 @@ namespace ChampionsOfForest.Effects
 	{
 		public static BlackFlame instance;
 		public static float DmgAmp = 1;
-		public static float FireDamageBonus => (30 + ModdedPlayer.instance.SpellDamageBonus / 3f) * ModdedPlayer.instance.SpellAMP * DmgAmp / 4;
+		public static float FireDamageBonus => (30 + ModdedPlayer.instance.SpellDamageBonus / 3f) * ModdedPlayer.instance.TotalSpellAmplification * DmgAmp / 4;
 
 		private static Material mat1;
 		private static Material mat2;

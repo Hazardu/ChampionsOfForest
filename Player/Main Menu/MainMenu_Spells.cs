@@ -150,7 +150,7 @@ namespace ChampionsOfForest
 				{
 					//buy button
 					Rect UnlockRect = new Rect(bg.x + 150 * screenScale, 800 * screenScale, bg.width - 300 * screenScale, 100 * screenScale);
-					if (displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.Level)
+					if (displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.level)
 					{
 						if (ModdedPlayer.instance.MutationPoints >= 2)
 						{
@@ -191,7 +191,7 @@ namespace ChampionsOfForest
 			GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
 			Rect nameRect = new Rect(30 * screenScale + bg.x, y, bg.width / 2, 100 * screenScale);
 			bool locked = false;
-			if (s.Levelrequirement > ModdedPlayer.instance.Level)
+			if (s.Levelrequirement > ModdedPlayer.instance.level)
 			{
 				locked = true;
 				GUI.color = Color.black;

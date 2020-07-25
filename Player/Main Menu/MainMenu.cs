@@ -622,7 +622,7 @@ namespace ChampionsOfForest
 				MenuButton(minDist, ref r3, OpenedMenuMode.Stats, "Guide & Stats", Vector2.one, ref buttonHighlightOpacity[2], -50 * screenScale, 50 * screenScale);
 				r4.position = center - new Vector2(r1.width, 0);
 				MenuButton(minDist, ref r4, OpenedMenuMode.Perks, "Mutations", -Vector2.one, ref buttonHighlightOpacity[3], 50 * screenScale, -50 * screenScale);
-				GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.Level.ToString(), menuBtnStyle);
+				GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.level.ToString(), menuBtnStyle);
 
 				if (GUI.Button(new Rect(Screen.width - 120 * screenScale, 40 * screenScale, 120 * screenScale, 40 * screenScale), HideHud ? "[ NO HUD ]" : "[ HUD ]", chgDiffLabelStyle))
 				{

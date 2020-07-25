@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 		protected T valueMultiplicative;
 		protected T default_valueMultiplicative;
 
-		public MultiplicativePlayerStat(T default_valueMultiplicative, Func<T, T, T> multFunc,Func<T, T, T> divideFunc, string formatting = "N0")
+		public MultiplicativePlayerStat(T default_valueMultiplicative, in Func<T, T, T> multFunc, in Func<T, T, T> divideFunc, string formatting = "N0")
 		{
 			this.default_valueMultiplicative = default_valueMultiplicative;
 			this.valueMultiplicative = default_valueMultiplicative;

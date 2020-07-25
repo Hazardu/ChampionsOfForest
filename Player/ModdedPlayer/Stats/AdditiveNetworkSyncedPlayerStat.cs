@@ -13,7 +13,7 @@ namespace ChampionsOfForest.Player
 		protected T valueAdditive;
 		protected T default_valueAdditive;
 
-		public AdditiveNetworkSyncedPlayerStat(T default_valueAdditive, Func<T, T, T> addFunc, Func<T, T, T> substractFunc, string formatting = "N0")
+		public AdditiveNetworkSyncedPlayerStat(T default_valueAdditive,in Func<T, T, T> addFunc, in Func<T, T, T> substractFunc, string formatting = "N0")
 		{
 			this.default_valueAdditive = default_valueAdditive;
 			this.valueAdditive = default_valueAdditive;

@@ -214,7 +214,7 @@ namespace ChampionsOfForest
 
 					if (!ModSettings.IsDedicated)
 					{
-						sum += ModdedPlayer.instance.Level;
+						sum += ModdedPlayer.instance.level;
 						count++;
 					}
 					else
@@ -228,7 +228,7 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					averageLevel = ModdedPlayer.instance.Level;
+					averageLevel = ModdedPlayer.instance.level;
 				}
 				averageLevel = Mathf.Max(1, averageLevel);
 				base.level = averageLevel;
@@ -361,7 +361,7 @@ namespace ChampionsOfForest
 
 		public bool OnConsume()
 		{
-			if (CanConsume && ModdedPlayer.instance.Level >= level)
+			if (CanConsume && ModdedPlayer.instance.level >= level)
 			{
 				onConsume?.Invoke();
 				foreach (ItemStat item in Stats)

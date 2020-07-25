@@ -463,7 +463,7 @@ namespace ChampionsOfForest
 					GUI.Label(LevelAndTypeRect, "Scroll", TypeStyle);
 					break;
 			}
-			if (item.level <= ModdedPlayer.instance.Level)
+			if (item.level <= ModdedPlayer.instance.level)
 			{
 				//GUI.color = Color.white;
 				GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
@@ -510,7 +510,7 @@ namespace ChampionsOfForest
 							GUI.color = new Color(1, 1, 1, 0.5f);
 						}
 					}
-					if (ModdedPlayer.instance.Level < Inventory.Instance.ItemSlots[index].level && index < -1)
+					if (ModdedPlayer.instance.level < Inventory.Instance.ItemSlots[index].level && index < -1)
 					{
 						frameColor = Color.black;
 						GUI.color = Color.black;

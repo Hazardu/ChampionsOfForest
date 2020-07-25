@@ -2,7 +2,7 @@
 {
 	public class BooleanPlayerStat : CPlayerStatBase<bool>
 	{
-		private bool value;
+		public bool value;
 		private bool default_value;
 
 		public BooleanPlayerStat(bool default_value)

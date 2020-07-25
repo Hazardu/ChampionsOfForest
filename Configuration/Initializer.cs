@@ -56,7 +56,7 @@ namespace ChampionsOfForest
 					NetworkPlayerStats.Reset();
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");
-					go.AddComponent<ModdedPlayer>();
+					var moddedPlayer = go.AddComponent<ModdedPlayer>();
 					go.AddComponent<Inventory>();
 					go.AddComponent<ModReferences>();
 					go.AddComponent<SpellCaster>();
@@ -67,6 +67,7 @@ namespace ChampionsOfForest
 					go.AddComponent<GlobalSFX>();
 					go.AddComponent<TheFartCreator>();
 					go.AddComponent<RCoroutines>();
+
 
 					// go.AddComponent<Crafting>();
 					CustomCrafting.Init();

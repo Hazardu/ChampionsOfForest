@@ -76,7 +76,7 @@ namespace ChampionsOfForest.Player
 					{
 						if (item.Key < -1)
 						{
-							if (item.Value.level <= ModdedPlayer.instance.Level)
+							if (item.Value.level <= ModdedPlayer.instance.level)
 							{
 								item.Value.Equipped = true;
 								item.Value.OnEquip();

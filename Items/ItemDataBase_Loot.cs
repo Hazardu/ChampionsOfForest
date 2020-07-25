@@ -24,7 +24,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				averageLevel = ModdedPlayer.instance.Level;
+				averageLevel = ModdedPlayer.instance.level;
 				highestLevel = averageLevel;
 			}
 			averageLevel = Mathf.Max(1, averageLevel);
@@ -78,7 +78,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				averageLevel = ModdedPlayer.instance.Level;
+				averageLevel = ModdedPlayer.instance.level;
 				highestLevel = averageLevel;
 			}
 			averageLevel = Mathf.Max(1, averageLevel);

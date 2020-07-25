@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Player.Crafting
 				{
 					if (validRecipe)
 					{
-						CraftingHandler.changedItem.i.level = ModdedPlayer.instance.Level;
+						CraftingHandler.changedItem.i.level = ModdedPlayer.instance.level;
 						foreach (var stat in CraftingHandler.changedItem.i.Stats)
 						{
 				
@@ -114,7 +114,7 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						if (validRecipe)
 						{
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), "Bring item to level " + ModdedPlayer.instance.Level, styles[2]))
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), "Bring item to level " + ModdedPlayer.instance.level, styles[2]))
 							{
 								Craft();
 							}

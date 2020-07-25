@@ -632,7 +632,7 @@ namespace ChampionsOfForest.Player
 					{
 						int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 						float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 3;
-						dmg *= ModdedPlayer.instance.SpellAMP;
+						dmg *= ModdedPlayer.instance.TotalSpellAmplification;
 						dmg *= ModdedPlayer.instance.FireAmp + 1;
 						dmg *= 0.3f;
 

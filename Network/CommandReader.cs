@@ -527,7 +527,7 @@ namespace ChampionsOfForest.Network
 									{
 										w.Write(19);
 										w.Write(ModReferences.ThisPlayerID);
-										w.Write(ModdedPlayer.instance.Level);
+										w.Write(ModdedPlayer.instance.level);
 										w.Close();
 									}
 									Network.NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);

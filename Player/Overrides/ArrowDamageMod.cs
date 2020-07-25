@@ -36,7 +36,7 @@ namespace ChampionsOfForest.Player
 			if (ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed)
 			{
 				if (ModdedPlayer.instance.Critted)
-					OutputDmg *= ModdedPlayer.instance.ProjectileSpeedRatio * ((ModdedPlayer.instance.CritDamage / 100f) + 1);
+					OutputDmg *= ModdedPlayer.instance.ProjectileSpeedRatio * ((ModdedPlayer.instance.CritDamage ) + 1);
 			}
 			else
 			{
@@ -201,7 +201,7 @@ namespace ChampionsOfForest.Player
 						{
 							ModdedPlayer.instance.LastCrossfireTime = Time.time;
 							float damage1 = 55 + ModdedPlayer.instance.SpellDamageBonus * 1.25f;
-							damage1 = damage1 * ModdedPlayer.instance.SpellAMP;
+							damage1 = damage1 * ModdedPlayer.instance.TotalSpellAmplification;
 							Vector3 pos = Camera.main.transform.position + Camera.main.transform.right * 5;
 							Vector3 dir = transform.position - pos;
 							dir.Normalize();
@@ -354,7 +354,7 @@ namespace ChampionsOfForest.Player
 				{
 					int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 					float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 3;
-					dmg *= ModdedPlayer.instance.SpellAMP;
+					dmg *= ModdedPlayer.instance.TotalSpellAmplification;
 					dmg *= ModdedPlayer.instance.FireAmp + 1;
 					dmg *= 0.3f;
 					if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)

@@ -12,7 +12,7 @@ namespace ChampionsOfForest.Fun
 	{
 		public static void SetLevel(int lvl)
 		{
-			ModdedPlayer.instance.Level = lvl;
+			ModdedPlayer.instance.level = lvl;
 			ModdedPlayer.Respec();
 		}
 
@@ -165,7 +165,7 @@ namespace ChampionsOfForest.Fun
 			var matches = ItemDataBase.ItemBases.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.ID).ToArray();
 			if (matches.Length > 0)
 			{
-				CotfCheats.CotfItem(matches[0], ModdedPlayer.instance.Level);
+				CotfCheats.CotfItem(matches[0], ModdedPlayer.instance.level);
 				return;
 			}
 			Debug.LogWarning("Wrong command usage \t cotfspawnitembyname [itemname]");
