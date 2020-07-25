@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 using Bolt;
 
@@ -694,6 +695,8 @@ namespace ChampionsOfForest.Player
 
 			if (i > 0)
 			{
+				SendLevelMessage();
+
 				if (GameSetup.IsMultiplayer)
 				{
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -917,7 +920,6 @@ namespace ChampionsOfForest.Player
 			MutationPoints++;
 			level++;
 			ExpGoal = GetGoalExp();
-			SendLevelMessage();
 			GiveSpecialItems();
 			int ap = Mathf.RoundToInt(Mathf.Sqrt(level));
 			agility += ap;

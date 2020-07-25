@@ -5,7 +5,7 @@ namespace ChampionsOfForest.Player
 	public class AdditivePlayerStat<T> : NumericPlayerStatBase<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 	{
 		protected Func<T, T, T> add,substract;
-		protected T valueAdditive;
+		public T valueAdditive;
 		protected T default_valueAdditive;
 
 		public AdditivePlayerStat(T default_valueAdditive,in Func<T, T, T> addFunc,in Func<T, T, T> substractFunc, string formatting = "N0")

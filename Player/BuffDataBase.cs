@@ -140,9 +140,9 @@ namespace ChampionsOfForest.Player
 				new Buff(21, 147, "Armor Corruption", true, true, 1, f => ModdedPlayer.instance.ArmorReduction += Mathf.RoundToInt(f), f => ModdedPlayer.instance.ArmorReduction -= Mathf.RoundToInt(f)) { DisplayAsPercent = false };
 
 				new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.instance.MeleeDamageBonus -= f, f => ModdedPlayer.instance.MeleeDamageBonus += f);
-				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.instance.ParryCounterStrikeDamage = 0) { DisplayAsPercent = false };
-				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.instance.CritDamage -= f * 100, f => ModdedPlayer.instance.CritDamage += f * 100);
-				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.instance.LifeRegen -= f, f => ModdedPlayer.instance.LifeRegen += f);
+				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.instance.Stats.perk_parryCounterStrikeDamage = 0) { DisplayAsPercent = false };
+				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.instance.CritDamage -= f , f => ModdedPlayer.instance.CritDamage += f );
+				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond -= f, f => ModdedPlayer.Stats.healthRecoveryPerSecond += f);
 				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.instance.DamageReduction /= 1 - f, f => ModdedPlayer.instance.DamageReduction *= 1 - f);
 			}
 			catch (System.Exception ex)

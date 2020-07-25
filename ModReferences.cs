@@ -76,32 +76,41 @@ namespace ChampionsOfForest
 			}
 			ThisPlayerID = LocalPlayer.Entity.GetState<IPlayerState>().name;
 		}
-
+		float lastLevelCheckTimestamp;
+		private int lastPlayerLevelCount;
+		public static void RequestAllPlayerLevels()
+		{
+			if (Time.time - instance.lastLevelCheckTimestamp > 120|| instance.lastPlayerLevelCount != Players.Count)
+			{
+				instance.lastLevelCheckTimestamp = Time.time;
+				PlayerLevels.Clear();
+				instance.lastPlayerLevelCount = Players.Count;
+				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+				{
+					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+					{
+						w.Write(18);
+						w.Write("x");
+						w.Close();
+					}
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+					answerStream.Close();
+				}
+			}
+		}
 		private void UpdateLevelData()
 		{
 			if (Players.Count > 1)
 			{
 				LevelRequestCooldown -= 1;
-				if (LevelRequestCooldown < 0)
+				if (LevelRequestCooldown < 0 || lastPlayerLevelCount != Players.Count)
 				{
 					LevelRequestCooldown = 120;
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-						{
-							w.Write(18);
-							w.Write("x");
-							w.Close();
-						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
-						answerStream.Close();
-					}
-				}
-				else if (Players.Count != PlayerLevels.Count + 1)
-				{
-					LevelRequestCooldown = 120;
+					lastLevelCheckTimestamp = Time.time;
+					lastPlayerLevelCount = Players.Count;
+
 					PlayerLevels.Clear();
-					//PlayerLevels.Add(ThisPlayerPacked, ModdedPlayer.instance.Level);
+
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
 						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -114,6 +123,7 @@ namespace ChampionsOfForest
 						answerStream.Close();
 					}
 				}
+			
 				MFindRequestCooldown--;
 				if (MFindRequestCooldown <= 0)
 				{

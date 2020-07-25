@@ -70,12 +70,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddHPRegen(float f)
 		{
-			ModdedPlayer.instance.LifeRegen += f;
+			ModdedPlayer.Stats.healthRecoveryPerSecond += f;
 		}
 
 		public static void RemoveHPRegen(float f)
 		{
-			ModdedPlayer.instance.LifeRegen -= f;
+			ModdedPlayer.Stats.healthRecoveryPerSecond -= f;
 		}
 
 		public static void AddStaminaRegen(float f)
@@ -110,12 +110,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddHealthRegenPercent(float f)
 		{
-			ModdedPlayer.instance.HealthRegenPercent += f;
+			ModdedPlayer.Stats.healthPerSecRate += f;
 		}
 
 		public static void RemoveHealthRegenPercent(float f)
 		{
-			ModdedPlayer.instance.HealthRegenPercent -= f;
+			ModdedPlayer.Stats.healthPerSecRate -= f;
 		}
 
 		public static void AddDamageReduction(float f)
@@ -140,12 +140,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddCritDamage(float f)
 		{
-			ModdedPlayer.instance.CritDamage += f * 100;
+			ModdedPlayer.instance.CritDamage += f ;
 		}
 
 		public static void RemoveCritDamage(float f)
 		{
-			ModdedPlayer.instance.CritDamage -= f * 100;
+			ModdedPlayer.instance.CritDamage -= f ;
 		}
 
 		public static void AddLifeOnHit(float f)
@@ -320,12 +320,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddHealingMultipier(float f)
 		{
-			ModdedPlayer.instance.HealingMultipier *= 1 + f;
+			ModdedPlayer.Stats.allRecoveryMult *= 1 + f;
 		}
 
 		public static void RemoveHealingMultipier(float f)
 		{
-			ModdedPlayer.instance.HealingMultipier /= 1 + f;
+			ModdedPlayer.Stats.allRecoveryMult /= 1 + f;
 		}
 
 		public static void AddMoveSpeed(float f)

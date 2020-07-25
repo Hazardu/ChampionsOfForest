@@ -19,8 +19,9 @@ namespace ChampionsOfForest
 			int highestLevel = 1;
 			if (GameSetup.IsMultiplayer)
 			{
+				ModReferences.RequestAllPlayerLevels();
 				averageLevel = Convert.ToInt32(ModReferences.PlayerLevels.Values.Average());
-				highestLevel = ModReferences.PlayerLevels.Values.Max();
+				highestLevel = Mathf.Max( ModReferences.PlayerLevels.Values.Max(), ModdedPlayer.instance.level);
 			}
 			else
 			{

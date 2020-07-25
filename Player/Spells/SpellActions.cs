@@ -134,7 +134,7 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			float radius = 10f;
-			float healing = (ModdedPlayer.instance.LifeRegen * 3 + 13.5f + ModdedPlayer.instance.SpellDamageBonus / 30) * ModdedPlayer.instance.TotalSpellAmplification * ModdedPlayer.instance.HealingMultipier;
+			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * 3 + 13.5f + ModdedPlayer.instance.SpellDamageBonus / 30) * ModdedPlayer.instance.TotalSpellAmplification * ModdedPlayer.Stats.allRecoveryMult;
 
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
@@ -190,7 +190,7 @@ namespace ChampionsOfForest.Player
 			float boost = FlareBoost;
 			float duration = FlareDuration;
 			float radius = FlareRadius;
-			float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 20 + (ModdedPlayer.instance.LifeRegen) * ModdedPlayer.instance.HealthRegenPercent;
+			float Healing = FlareHeal + ModdedPlayer.instance.SpellDamageBonus / 20 + (ModdedPlayer.Stats.healthRecoveryPerSecond) * ModdedPlayer.Stats.healthPerSecRate;
 			Healing *= ModdedPlayer.instance.TotalSpellAmplification;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
@@ -867,8 +867,8 @@ namespace ChampionsOfForest.Player
 				float dmg = ParryDamage + ModdedPlayer.instance.SpellDamageBonus + ModdedPlayer.instance.MeleeDamageBonus;
 				dmg *= ModdedPlayer.instance.SpellDamageAmplifier * 1.2f;
 
-				float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 6 + ModdedPlayer.instance.LifeRegen + ModdedPlayer.instance.LifeOnHit * 2;
-				heal *= ModdedPlayer.instance.HealingMultipier * (1 + ModdedPlayer.instance.HealthRegenPercent);
+				float heal = ParryHeal + ModdedPlayer.instance.SpellDamageBonus / 6 + ModdedPlayer.Stats.healthRecoveryPerSecond + ModdedPlayer.instance.LifeOnHit * 2;
+				heal *= ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate);
 				LocalPlayer.Stats.HealthTarget += heal;
 				ParrySound.Play(parryPos);
 				float energy = ParryEnergy * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + ModdedPlayer.instance.EnergyOnHit * 2 + ModdedPlayer.instance.MaxEnergy / 12.5f;
@@ -976,7 +976,10 @@ namespace ChampionsOfForest.Player
 
 		#region Blood Infused Arrow
 		public static float BIA_bonusDamage;
-	
+		public static float BIA_SpellDmMult = 1.25f;
+		public static float BIA_HealthDmMult = 3f;
+		public static float BIA_HealthTakenMult = 0.65f;
+		public static bool BIA_TripleDmg = false, BIA_Weaken = false;
 
 		public static void CastBloodInfArr()
 		{
@@ -1000,9 +1003,11 @@ namespace ChampionsOfForest.Player
 
 		#endregion Blood Infused Arrow
 
-		#region Fart
+		#region
 
-	
+		public static float fartRadius = 30;
+		public static float fartKnockback = 2, fartSlow = 0.8f, fartDebuffDuration = 30f, fartBaseDmg = 20f;
+
 		public static void FartEffect(float radius, float knockback, float damage, float slow, float duration)
 		{
 		}

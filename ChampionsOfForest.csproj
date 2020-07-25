@@ -241,6 +241,7 @@
     <Compile Include="Player\Main Menu\MainMenu_Inventory.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Perks.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Spells.cs" />
+    <Compile Include="Player\ModdedPlayer\ModdedPlayer.ModdedPlayerStats.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\AdditiveNetworkSyncedPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\AdditivePlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\BooleanPlayerStat.cs" />
@@ -250,7 +251,6 @@
     <Compile Include="Player\ModdedPlayer\Stats\INetworkSyncedPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\IPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\ModdedPlayer_Stats_Arithmetics.cs" />
-    <Compile Include="Player\ModdedPlayer\ModdedPlayer_Stats.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiOperationPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiplicativeNetworkSyncedPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiplicativePlayerStat.cs" />

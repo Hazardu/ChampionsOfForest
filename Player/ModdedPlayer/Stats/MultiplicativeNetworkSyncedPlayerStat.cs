@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Player
 		protected Func<T, T, T> mult;
 		protected Func<T, T, T> divide;
 
-		protected T valueMultiplicative;
+		public T valueMultiplicative;
 		protected T default_valueMultiplicative;
 
 		public MultiplicativeNetworkSyncedPlayerStat(T default_valueMultiplicative, in Func<T, T, T> multFunc, in Func<T, T, T> divideFunc, string formatting = "N0")

@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HealingMultipier *= 1.05f,
+				apply = () => ModdedPlayer.Stats.allRecoveryMult *= 1.05f,
 
 				category = PerkCategory.Support,
 				texture = null,
@@ -589,7 +589,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.LifeRegen += 0.25f,
+				apply = () => ModdedPlayer.Stats.healthRecoveryPerSecond += 0.25f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 6 },
@@ -766,7 +766,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HealthRegenPercent += 0.1f,
+				apply = () => ModdedPlayer.Stats.healthPerSecRate += 0.1f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 30 },
@@ -1391,7 +1391,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CritDamage += 10,
+				apply = () => ModdedPlayer.instance.CritDamage += 0.10f,
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 9, 10 },
@@ -2669,7 +2669,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { SpellActions.BIA_TripleDmg = true; ModdedPlayer.instance.HealingMultipier *= 0.5f; },
+				apply = () => { SpellActions.BIA_TripleDmg = true; ModdedPlayer.Stats.allRecoveryMult *= 0.5f; },
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 111 },
 				levelReq = 55,

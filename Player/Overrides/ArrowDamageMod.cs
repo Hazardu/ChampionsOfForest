@@ -422,7 +422,7 @@ namespace ChampionsOfForest.Player
 								{
 									w.Write(39);
 									w.Write(be.GetState<IPlayerState>().name);
-									w.Write((ModdedPlayer.instance.LifeRegen) * ModdedPlayer.instance.HealingMultipier * (1 + ModdedPlayer.instance.HealthRegenPercent));
+									w.Write((ModdedPlayer.Stats.healthRecoveryPerSecond) * ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate));
 									w.Write(ModdedPlayer.instance.MaxHealth * 0.25f);
 									w.Close();
 								}
