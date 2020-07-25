@@ -1,4 +1,6 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+
+using TheForest.Utils;
 
 using UnityEngine;
 

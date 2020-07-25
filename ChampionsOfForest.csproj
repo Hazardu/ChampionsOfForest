@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath\)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -20,6 +20,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <OutputPath>Mod\</OutputPath>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -239,6 +241,8 @@
     <Compile Include="Player\Main Menu\MainMenu_Inventory.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Perks.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Spells.cs" />
+    <Compile Include="Player\ModdedPlayer\IPlayerStat.cs" />
+    <Compile Include="Player\ModdedPlayer\ModdedPlayer_Stats.cs" />
     <Compile Include="Player\Overrides\ArrowStickToTargetMod.cs" />
     <Compile Include="Player\AsyncHit.cs" />
     <Compile Include="Player\AutoPickupItems.cs" />

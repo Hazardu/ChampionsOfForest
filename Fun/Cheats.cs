@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 
+using ChampionsOfForest.Player;
+
 using TheForest;
 
 using UnityEngine;

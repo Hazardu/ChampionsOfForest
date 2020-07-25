@@ -165,11 +165,11 @@ namespace ChampionsOfForest
 					Run = false;
 				}
 
-				HealthTarget = Mathf.Clamp(HealthTarget, 0, ChampionsOfForest.ModdedPlayer.instance.MaxHealth);
+				HealthTarget = Mathf.Clamp(HealthTarget, 0, ModdedPlayer.instance.MaxHealth);
 				GreyZoneThreshold = Mathf.RoundToInt(ModdedPlayer.instance.MaxHealth * 0.05f);
-				//if (HealthTarget > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
+				//if (HealthTarget > ModdedPlayer.instance.MaxHealth)
 				//{
-				//    HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+				//    HealthTarget = ModdedPlayer.instance.MaxHealth;
 				//}
 				if (Stamina > 5 && IsTired)
 				{
@@ -177,8 +177,8 @@ namespace ChampionsOfForest
 				}
 				fsmStamina.Value = 100 * Stamina / ModdedPlayer.instance.MaxEnergy;
 				fsmMaxStamina.Value = 100 * Energy / ModdedPlayer.instance.MaxEnergy;
-				HealthResult = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth + (ChampionsOfForest.ModdedPlayer.instance.MaxHealth - Health) / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.5f;
-				float num3 = HealthTarget / ChampionsOfForest.ModdedPlayer.instance.MaxHealth + (ChampionsOfForest.ModdedPlayer.instance.MaxHealth - HealthTarget) / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.5f;
+				HealthResult = Health / ModdedPlayer.instance.MaxHealth + (ModdedPlayer.instance.MaxHealth - Health) / ModdedPlayer.instance.MaxHealth * 0.5f;
+				float num3 = HealthTarget / ModdedPlayer.instance.MaxHealth + (ModdedPlayer.instance.MaxHealth - HealthTarget) / ModdedPlayer.instance.MaxHealth * 0.5f;
 				if (HealthTargetResult < num3)
 				{
 					HealthTargetResult = Mathf.MoveTowards(HealthTargetResult, num3, 1f * Time.fixedDeltaTime);
@@ -187,8 +187,8 @@ namespace ChampionsOfForest
 				{
 					HealthTargetResult = num3;
 				}
-				StaminaResult = Stamina / ChampionsOfForest.ModdedPlayer.instance.MaxEnergy + (ChampionsOfForest.ModdedPlayer.instance.MaxEnergy - Stamina) / ChampionsOfForest.ModdedPlayer.instance.MaxEnergy * 0.5f;
-				EnergyResult = Energy / ChampionsOfForest.ModdedPlayer.instance.MaxEnergy + (ChampionsOfForest.ModdedPlayer.instance.MaxEnergy - Energy) / ChampionsOfForest.ModdedPlayer.instance.MaxEnergy * 0.5f;
+				StaminaResult = Stamina / ModdedPlayer.instance.MaxEnergy + (ModdedPlayer.instance.MaxEnergy - Stamina) / ModdedPlayer.instance.MaxEnergy * 0.5f;
+				EnergyResult = Energy / ModdedPlayer.instance.MaxEnergy + (ModdedPlayer.instance.MaxEnergy - Energy) / ModdedPlayer.instance.MaxEnergy * 0.5f;
 				int num4 = 0;
 				int num5 = 0;
 				for (int i = 0; i < CurrentArmorTypes.Length; i++)
@@ -488,9 +488,9 @@ namespace ChampionsOfForest
 				{
 					StopIfPlaying(DrowningEventInstance);
 				}
-				if (Energy > ChampionsOfForest.ModdedPlayer.instance.MaxEnergy)
+				if (Energy > ModdedPlayer.instance.MaxEnergy)
 				{
-					Energy = ChampionsOfForest.ModdedPlayer.instance.MaxEnergy;
+					Energy = ModdedPlayer.instance.MaxEnergy;
 				}
 				if (Energy < 5)
 				{
@@ -500,9 +500,9 @@ namespace ChampionsOfForest
 				{
 					Health = 0f;
 				}
-				if (Health > ChampionsOfForest.ModdedPlayer.instance.MaxHealth)
+				if (Health > ModdedPlayer.instance.MaxHealth)
 				{
-					Health = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+					Health = ModdedPlayer.instance.MaxHealth;
 				}
 				if (Health < HealthTarget)
 				{
@@ -661,13 +661,13 @@ namespace ChampionsOfForest
 				}
 				if (Cheats.InfiniteEnergy)
 				{
-					Energy = ChampionsOfForest.ModdedPlayer.instance.MaxEnergy;
-					Stamina = ChampionsOfForest.ModdedPlayer.instance.MaxEnergy;
+					Energy = ModdedPlayer.instance.MaxEnergy;
+					Stamina = ModdedPlayer.instance.MaxEnergy;
 				}
 				if (Cheats.GodMode)
 				{
-					Health = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
-					HealthTarget = ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+					Health = ModdedPlayer.instance.MaxHealth;
+					HealthTarget = ModdedPlayer.instance.MaxHealth;
 				}
 				return;
 			IL_01cb:
@@ -685,14 +685,14 @@ namespace ChampionsOfForest
 		{
 			NormalizeHealthTarget();
 			HealthTarget += ModdedPlayer.instance.MaxHealth * 0.6f;
-			BleedBehavior.BloodReductionRatio = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 1.5f;
+			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.instance.MaxHealth * 1.5f;
 		}
 
 		public override void AteAloe()
 		{
 			NormalizeHealthTarget();
 			HealthTarget += ModdedPlayer.instance.MaxHealth * 0.06f;
-			BleedBehavior.BloodReductionRatio = Health / ChampionsOfForest.ModdedPlayer.instance.MaxHealth;
+			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.instance.MaxHealth;
 		}
 
 		//armor now only can absorb 70% of the damage taken;
@@ -735,7 +735,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				float f = ChampionsOfForest.ModdedPlayer.instance.MaxHealth * 0.002f * amount * ChampionsOfForest.ModdedPlayer.instance.HealingMultipier + amount;
+				float f = ModdedPlayer.instance.MaxHealth * 0.002f * amount * ModdedPlayer.instance.HealingMultipier + amount;
 				HealthTarget += f;
 			}
 		}

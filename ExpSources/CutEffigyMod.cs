@@ -1,4 +1,6 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+
+using TheForest.Utils;
 
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace ChampionsOfForest.ExpSources
 				ModdedPlayer.instance.AddFinalExperience(Expamount);
 				if (!GameSetup.IsMpClient && Random.value < 0.3f + ModReferences.Players.Count * 0.10f)
 				{
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(99, EnemyProgression.Enemy.NormalSkinnyMale), transform.position + Vector3.up * (1.75f));
+					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(170, EnemyProgression.Enemy.NormalSkinnyMale), transform.position + Vector3.up * (1.75f));
 				}
 			}
 			base.CutDown();

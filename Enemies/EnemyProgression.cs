@@ -5,6 +5,7 @@ using System.Linq;
 using Bolt;
 
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 

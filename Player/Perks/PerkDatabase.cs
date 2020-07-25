@@ -230,7 +230,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.strength += 10,
+				apply = () => ModdedPlayer.instance.strength.Add( 10,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,

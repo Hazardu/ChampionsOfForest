@@ -1,4 +1,6 @@
-﻿namespace ChampionsOfForest.ExpSources
+﻿using ChampionsOfForest.Player;
+
+namespace ChampionsOfForest.ExpSources
 {
 	internal class CutBush2AddExp : CutBush2
 	{

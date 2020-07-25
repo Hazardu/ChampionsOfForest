@@ -1,4 +1,6 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+
+using TheForest.Utils;
 
 namespace ChampionsOfForest.ExpSources
 {
@@ -6,46 +8,46 @@ namespace ChampionsOfForest.ExpSources
 	{
 		protected override void Die()
 		{
-			int xp = 0;
+			long xp = 0;
 			if (spawnFunctions.lizard)
 			{
-				xp = UnityEngine.Random.Range(20, 25);
+				xp = UnityEngine.Random.Range(40, 65);
 			}
 			if (spawnFunctions.turtle)
 			{
-				xp = UnityEngine.Random.Range(10, 20);
+				xp = UnityEngine.Random.Range(40, 60);
 			}
 			if (spawnFunctions.rabbit)
 			{
-				xp = UnityEngine.Random.Range(25, 30);
+				xp = UnityEngine.Random.Range(45, 60);
 			}
 			if (spawnFunctions.fish)
 			{
-				xp = UnityEngine.Random.Range(10, 15);
+				xp = UnityEngine.Random.Range(30, 45);
 			}
 			if (spawnFunctions.tortoise)
 			{
-				xp = UnityEngine.Random.Range(30, 35);
+				xp = UnityEngine.Random.Range(100, 110);
 			}
 			if (spawnFunctions.raccoon)
 			{
-				xp = UnityEngine.Random.Range(40, 45);
+				xp = UnityEngine.Random.Range(200, 200);
 			}
 			if (spawnFunctions.deer)
 			{
-				xp = UnityEngine.Random.Range(50, 60);
+				xp = UnityEngine.Random.Range(75 , 80);
 			}
 			if (spawnFunctions.squirrel)
 			{
-				xp = UnityEngine.Random.Range(10, 20);
+				xp = UnityEngine.Random.Range(70, 100);
 			}
 			if (spawnFunctions.boar)
 			{
-				xp = UnityEngine.Random.Range(60, 70);
+				xp = UnityEngine.Random.Range(150, 170);
 			}
 			if (spawnFunctions.crocodile)
 			{
-				xp = UnityEngine.Random.Range(180, 200);
+				xp = UnityEngine.Random.Range(350, 390);
 			}
 
 			if (GameSetup.IsMultiplayer)
@@ -57,13 +59,10 @@ namespace ChampionsOfForest.ExpSources
 						w.Write(11);
 						w.Write(xp);
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 				}
 			}
-			else
-			{
-				ModdedPlayer.instance.AddFinalExperience(xp);
-			}
+			ModdedPlayer.instance.AddFinalExperience(xp);
 
 			base.Die();
 		}

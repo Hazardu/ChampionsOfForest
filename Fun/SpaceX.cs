@@ -1,5 +1,7 @@
 ﻿using Bolt;
 
+using ChampionsOfForest.Player;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Fun

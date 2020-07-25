@@ -1,5 +1,7 @@
 ﻿using Bolt;
 
+using ChampionsOfForest.Player;
+
 using TheForest.Utils;
 
 using UnityEngine;

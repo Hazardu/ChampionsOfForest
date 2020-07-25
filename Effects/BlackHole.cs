@@ -6,6 +6,7 @@ using BuilderCore;
 
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
+using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 

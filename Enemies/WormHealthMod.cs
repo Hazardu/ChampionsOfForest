@@ -1,4 +1,6 @@
-﻿using TheForest.Utils;
+﻿using ChampionsOfForest.Player;
+
+using TheForest.Utils;
 
 using UnityEngine;
 
@@ -100,7 +102,7 @@ namespace ChampionsOfForest.Enemies
 								w.Write(Exp);
 								w.Close();
 							}
-							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 							answerStream.Close();
 						}
 					}

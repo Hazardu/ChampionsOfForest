@@ -150,13 +150,11 @@ namespace ChampionsOfForest.Player
 					}
 					else if (itemView.gameObject.name == "Spear_Inv")
 					{
-						ModAPI.Log.Write("------------Bruh " + ToEquipWeaponType);
 						if (ToEquipWeaponType == BaseItem.WeaponModelType.Polearm)
 						{
 							EquippedModel = ToEquipWeaponType;
 							try
 							{
-								ModAPI.Log.Write("------------Spear cw");
 								foreach (CustomWeapon item in customWeapons.Values)
 								{
 									item.obj.SetActive(false);
@@ -184,8 +182,6 @@ namespace ChampionsOfForest.Player
 						}
 						else
 						{
-							ModAPI.Log.Write("---------Spear normal");
-
 							itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
 							foreach (CustomWeapon item in customWeapons.Values)
 							{
@@ -521,9 +517,8 @@ namespace ChampionsOfForest.Player
 					modelClone.transform.localPosition = secondChild.localPosition;
 					modelClone.transform.localRotation = secondChild.localRotation;
 					modelClone.transform.Rotate(new Vector3(90, 0, 0));
-					;
 					modelClone.transform.localScale *= 0.7f / 3;
-					Destroy(secondChild);
+					Destroy(secondChild.gameObject);
 					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
 						Clone,
 						Vector3.zero,

@@ -1,4 +1,6 @@
-﻿using TheForest.Tools;
+﻿using ChampionsOfForest.Player;
+
+using TheForest.Tools;
 using TheForest.Utils;
 
 namespace ChampionsOfForest.ExpSources
@@ -52,15 +54,5 @@ namespace ChampionsOfForest.ExpSources
 				ModdedPlayer.instance.AddFinalExperience(xp);
 			}
 		}
-
-		//int xp = 12;
-		//    if (GameSetup.IsMultiplayer)
-		//    {
-		//        Network.NetworkManager.SendLine("KY" + xp + ";", Network.NetworkManager.Target.Everyone);
-		//    }
-		//    else
-		//    {
-		//        ModdedPlayer.instance.AddFinalExperience(xp);
-		//    }
 	}
 }

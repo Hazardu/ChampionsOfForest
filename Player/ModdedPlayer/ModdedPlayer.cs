@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using Bolt;
-
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
-
 using TheForest.Utils;
-
 using UnityEngine;
-
 using static ChampionsOfForest.Player.BuffDB;
-
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Player
 {
 	public partial class ModdedPlayer : MonoBehaviour
 	{
@@ -96,10 +90,7 @@ namespace ChampionsOfForest
 		}
 
 		public float HealingMultipier = 1;
-		public int strength = 1;    //increases damage
-		public int intelligence = 1; //increases spell damage
-		public int agility = 1;     //increases energy
-		public int vitality = 1;     //increases health
+		
 		public float StaminaRecover => (4 + StaminaRegen) * (1 + StaminaRegenPercent);
 		public float DamagePerStrength = 0.00f;
 		public float SpellDamageperInt = 0.00f;
@@ -924,7 +915,7 @@ namespace ChampionsOfForest
 							w.Write(ModdedPlayer.instance.Level);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 						answerStream.Close();
 					}
 				}
@@ -964,7 +955,7 @@ namespace ChampionsOfForest
 							w.Write(10);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
@@ -982,7 +973,7 @@ namespace ChampionsOfForest
 							w.Write(id);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
@@ -1000,7 +991,7 @@ namespace ChampionsOfForest
 							w.Write(8f);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}

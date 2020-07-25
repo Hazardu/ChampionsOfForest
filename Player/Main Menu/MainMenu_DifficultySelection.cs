@@ -314,7 +314,7 @@ namespace ChampionsOfForest
 				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, "Enemy Speed", ref y);
 			}
 
-			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.5f, float max = 2.0f)
+			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.1f, float max = 10.0f)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max);
@@ -322,11 +322,11 @@ namespace ChampionsOfForest
 				y += 40;
 			}
 
-			private void DrawCheatOption(ref int value, in string text, ref float y, int min = 0, int max = 50)
+			private void DrawCheatOption(ref int value, in string text, ref float y, int min = 0, int max = 100)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max));
-				GUI.Label(new Rect(1500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value.ToString("N0"), CheatLabel);
+				GUI.Label(new Rect(1500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale),"+" +value.ToString("N0"), CheatLabel);
 				y += 40;
 			}
 

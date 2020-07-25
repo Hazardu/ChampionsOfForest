@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ChampionsOfForest.Items;
+using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 

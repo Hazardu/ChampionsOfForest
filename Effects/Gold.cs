@@ -1,5 +1,7 @@
 ﻿using BuilderCore;
 
+using ChampionsOfForest.Player;
+
 using TheForest.Utils;
 
 using UnityEngine;
