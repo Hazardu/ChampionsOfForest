@@ -1,4 +1,6 @@
-﻿namespace ChampionsOfForest.Player
+﻿using UnityEngine;
+
+namespace ChampionsOfForest.Player
 {
 	public partial class ModdedPlayer
 	{
@@ -12,9 +14,9 @@
 			public readonly AdditivePlayerStat<int> intelligence = new AdditivePlayerStat<int>(1, addint, substractint);
 			public readonly AdditivePlayerStat<int> agility = new AdditivePlayerStat<int>(1, addint, substractint);
 			public readonly AdditivePlayerStat<int> vitality = new AdditivePlayerStat<int>(1, addint, substractint);
-			public readonly AdditivePlayerStat<float> maxEnergyMult = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+			public readonly MultiOperationPlayerStat<float> maxEnergyMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<int> maxEnergy = new AdditivePlayerStat<int>(0, addint, substractint);
-			public readonly AdditivePlayerStat<float> maxHealthMult = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+			public readonly MultiOperationPlayerStat<float> maxHealthMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<int> maxHealth = new AdditivePlayerStat<int>(0, addint, substractint);
 			public readonly AdditivePlayerStat<float> meleeDmgFromStr = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> spellDmgFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
@@ -23,12 +25,12 @@
 			public readonly AdditivePlayerStat<float> maxEnergyFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> maxHealthFromVit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> fireDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-			public readonly AdditivePlayerStat<float> healthPerSecRate = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-			public readonly AdditivePlayerStat<float> staminaPerSecRate = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+			public readonly MultiOperationPlayerStat<float> healthPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> staminaPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 			public readonly MultiplicativePlayerStat<float> cooldown = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly MultiOperationPlayerStat<float> allDamage = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 			public readonly MultiOperationPlayerStat<float> attackSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-			public readonly MultiOperationPlayerStat<float> movementSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> movementSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P1");
 			public readonly AdditivePlayerStat<float> critChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> critDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P");
 
@@ -97,13 +99,14 @@
 
 			//blink
 			public readonly AdditivePlayerStat<float> spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat,"P");
 			public readonly AdditivePlayerStat<float> spell_blinkDamage = new AdditivePlayerStat<float>( 0,addfloat, substractfloat);
 			//parry
 			public readonly BooleanPlayerStat spell_parry;
 			public readonly AdditivePlayerStat<float> spell_parryDamage = new AdditivePlayerStat<float>( 40,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_parryRadius = new AdditivePlayerStat<float>( 3.5f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_parryBuffDuration = new AdditivePlayerStat<float>( 10,addfloat, substractfloat);
-			public readonly AdditivePlayerStat<float> spell_parryHeal = new AdditivePlayerStat<float>( 5,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_parryHeal = new AdditivePlayerStat<float>( 10,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_parryEnergy = new AdditivePlayerStat<float>( 10,addfloat, substractfloat);
 			public readonly BooleanPlayerStat spell_chanceToParryOnHit = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat spell_parryIgnites = new BooleanPlayerStat(false);
@@ -115,13 +118,15 @@
 			public readonly AdditivePlayerStat<float> spell_healingDomeDuration = new AdditivePlayerStat<float>( 10,addfloat, substractfloat);
 			//flare 	
 			public readonly AdditivePlayerStat<float> spell_flareDamage = new AdditivePlayerStat<float>( 40,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_flareDamageScaling = new AdditivePlayerStat<float>( 1.65f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_flareSlow = new AdditivePlayerStat<float>( 0.4f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_flareBoost = new AdditivePlayerStat<float>( 1.35f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_flareHeal = new AdditivePlayerStat<float>( 11,addfloat, substractfloat);
-			public readonly AdditivePlayerStat<float> spell_flareRadius = new AdditivePlayerStat<float>( 5.5f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_flareRadius = new AdditivePlayerStat<float>( 8.5f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_flareDuration = new AdditivePlayerStat<float>( 20,addfloat, substractfloat);
 			//black hole 
 			public readonly AdditivePlayerStat<float> spell_blackhole_damage = new AdditivePlayerStat<float>( 40,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_blackhole_damageScaling = new AdditivePlayerStat<float>( 2.25f,addfloat, substractfloat,"P");
 			public readonly AdditivePlayerStat<float> spell_blackhole_duration = new AdditivePlayerStat<float>( 9,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_blackhole_radius = new AdditivePlayerStat<float>( 15,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_blackhole_pullforce = new AdditivePlayerStat<float>( 25,addfloat, substractfloat);
@@ -142,19 +147,24 @@
 			public readonly BooleanPlayerStat spell_magicArrowCrit = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat spell_magicArrowDoubleSlow = new BooleanPlayerStat(false);
 			public readonly AdditivePlayerStat<float> spell_magicArrowDuration = new AdditivePlayerStat<float>( 10f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_magicArrowDamageScaling = new AdditivePlayerStat<float>( 5f,addfloat, substractfloat,"P");
 			//purge
+			public readonly AdditivePlayerStat<float> spell_blackFlameDamageScaling = new AdditivePlayerStat<float>( 1/2.5f,addfloat, substractfloat,"P");
+
 			public readonly AdditivePlayerStat<float> spell_purgeRadius = new AdditivePlayerStat<float>( 30,addfloat, substractfloat);
 			public readonly BooleanPlayerStat spell_purgeHeal = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat spell_purgeDamageBonus = new BooleanPlayerStat(false);
 			//snap freeze
 			public readonly AdditivePlayerStat<float> spell_snapFreezeDist = new AdditivePlayerStat<float>( 20,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_snapFloatAmount = new AdditivePlayerStat<float>( 0.2f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_snapDamageScaling = new AdditivePlayerStat<float>(3.5f,addfloat, substractfloat,"P");
 			public readonly AdditivePlayerStat<float> spell_snapFreezeDuration = new AdditivePlayerStat<float>( 7f,addfloat, substractfloat);
 			//ball lightning
-			public readonly AdditivePlayerStat<float> spell_ballLightning_Damage = new AdditivePlayerStat<float>( 620f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_ballLightning_Damage = new AdditivePlayerStat<float>( 720f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_ballLightning_DamageScaling = new AdditivePlayerStat<float>( 26.66f,addfloat, substractfloat,"P");
 			public readonly BooleanPlayerStat spell_ballLightning_Crit = new BooleanPlayerStat(false);
 			//bash
-			public readonly AdditivePlayerStat<float> spell_bashExtraDamage = new AdditivePlayerStat<float>( 1.30f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_bashExtraDamage = new AdditivePlayerStat<float>( 1.30f,addfloat, substractfloat,"P");
 			public readonly AdditivePlayerStat<float> spell_bashDamageBuff = new AdditivePlayerStat<float>( 0f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_bashSlowAmount = new AdditivePlayerStat<float>( 0.4f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_bashLifesteal = new AdditivePlayerStat<float>( 0.0f,addfloat, substractfloat);
@@ -166,7 +176,7 @@
 			public readonly AdditivePlayerStat<int> spell_frenzyMaxStacks = new AdditivePlayerStat<int>( 5,addint, substractint);
 			public readonly AdditivePlayerStat<int> spell_frenzyStacks = new AdditivePlayerStat<int>( 0, addint, substractint);
 			public readonly AdditivePlayerStat<float> spell_frenzyAtkSpeed = new AdditivePlayerStat<float>( 0.02f,addfloat, substractfloat);
-			public readonly AdditivePlayerStat<float> spell_frenzyDmg = new AdditivePlayerStat<float>( 0.075f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_frenzyDmg = new AdditivePlayerStat<float>( 0.075f,addfloat, substractfloat,"P");
 			public readonly BooleanPlayerStat spell_frenzy;
 			public readonly BooleanPlayerStat spell_frenzyMS = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat spell_furySwipes = new BooleanPlayerStat(false);
@@ -188,13 +198,15 @@
 			public readonly BooleanPlayerStat spell_seekingArrow;
 			//cataclysm			  
 			public readonly AdditivePlayerStat<float> spell_cataclysmDamage = new AdditivePlayerStat<float>( 24f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_cataclysmDamageScaling = new AdditivePlayerStat<float>( 3f,addfloat, substractfloat,"P");
 			public readonly AdditivePlayerStat<float> spell_cataclysmDuration = new AdditivePlayerStat<float>( 12f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_cataclysmRadius = new AdditivePlayerStat<float>( 5f,addfloat, substractfloat);
 			public readonly BooleanPlayerStat spell_cataclysmArcane = new BooleanPlayerStat(false);
 			//blood infused arrow
-			public readonly AdditivePlayerStat<float> spell_bia_SpellDmMult = new AdditivePlayerStat<float>( 1.25f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_bia_SpellDmMult = new AdditivePlayerStat<float>( 1.15f,addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> spell_bia_HealthDmMult = new AdditivePlayerStat<float>( 3f,addfloat, substractfloat);
-			public readonly AdditivePlayerStat<float> spell_bia = new AdditivePlayerStat<float>( 0.65f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_bia_HealthTaken = new AdditivePlayerStat<float>( 0.65f,addfloat, substractfloat);
+			public readonly AdditivePlayerStat<float> spell_bia_AccumulatedDamage = new AdditivePlayerStat<float>( 0f,addfloat, substractfloat);
 			public readonly BooleanPlayerStat spell_bia_TripleDmg = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat spell_bia_Weaken = new BooleanPlayerStat(false);
 			//roaring cheeks
@@ -214,6 +226,8 @@
 			public readonly MultiplicativePlayerStat<float> perk_hungerRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<float> perk_projectileNoConsumeChance = new AdditivePlayerStat<float>(0f, addfloat, substractfloat,"P");
 			public readonly MultiplicativePlayerStat<float> perk_thrownSpearDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+			public readonly BooleanPlayerStat perk_thrownSpearExtraArmorReduction = new BooleanPlayerStat(false);
+
 			public readonly AdditivePlayerStat<float> perk_thrownSpearCritChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> perk_thrownSpearhellChance = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> perk_bulletCritChance = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat, "P");
@@ -299,6 +313,22 @@
 			public float SpellCostToStamina => 1 - spellCostEnergyCost;
 			public float TotalThorns => thorns.Value + thornsPerStrenght * strength.Value + thornsPerVit * vitality.Value;
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
+			public float TotalArmor => armor.Value - instance.lostArmor;
+			public float TotalStaminaRecoveryAmount => (baseStaminaRecovery + staminaRecoveryperSecond)* TotalStaminaRecoveryMultiplier;
+			public float TotalStaminaRecoveryMultiplier =>1+ intelligence * energyRecoveryFromInt * allRecoveryMult * staminaRecoveryperSecond;
+			public float TotalEnergyRecoveryMultiplier => 1 + intelligence * energyRecoveryFromInt * allRecoveryMult;
+
+
+			public float MeleeDamageMult => 1+ allDamage.Value * meleeIncreasedDmg.Value * strength*meleeDmgFromStr;
+			public float RangedDamageMult => 1+ allDamage.Value * rangedIncreasedDmg.Value * agility*rangedDmgFromAgi * (perk_projectileDamageIncreasedBySize?projectileSize.Value:1f);
+			public float SpellDamageMult => 1+ allDamage.Value * spellIncreasedDmg.Value * intelligence*spellDmgFromInt;
+
+			public int TotalMeleeArmorPiercing => allArmorPiercing + meleeArmorPiercing;
+			public int TotalRangedArmorPiercing => allArmorPiercing + rangedArmorPiercing;
+			public int TotalThornsArmorPiercing => allArmorPiercing + thornsArmorPiercing;
+			public bool Critted => Random.value < critChance;
+			public float RandomCritDamage => Random.value < critChance? 1f+critDamage: 1f;
+
 
 		}
 	}

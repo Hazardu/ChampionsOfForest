@@ -281,125 +281,124 @@ namespace ChampionsOfForest
 			Space(300);
 
 			Header("Statistics");
-			Stat("Strength", ModdedPlayer.instance.strength.GetFormattedAmount()+ " str", "Increases melee damage by " + ModdedPlayer.instance.DamagePerStrength * 100 + "% for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.instance.strength.Value * 100 * ModdedPlayer.instance.DamagePerStrength + "]");
-			Stat("Agility", ModdedPlayer.instance.agility.GetFormattedAmount() + " agi", "Increases ranged damage by " + ModdedPlayer.instance.rangedDmgFromAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility.Value * 100 * ModdedPlayer.instance.rangedDmgFromAgi + "]\n" +
-				"Increases maximum energy by " + ModdedPlayer.instance.EnergyPerAgility + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.instance.agility.Value * ModdedPlayer.instance.EnergyPerAgility + "]");
-			Stat("Vitality", ModdedPlayer.instance.vitality.GetFormattedAmount() + " vit", "Increases health by " + ModdedPlayer.instance.HealthPerVitality + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.instance.vitality.Value * ModdedPlayer.instance.HealthPerVitality + "]");
-			Stat("Intelligence", ModdedPlayer.instance.intelligence.GetFormattedAmount() + " int", "Increases spell damage by " + ModdedPlayer.instance.SpellDamageperInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.instance.intelligence.Value * 100 * ModdedPlayer.instance.SpellDamageperInt + "]\n" +
-				"Increases stamina regen by " + ModdedPlayer.instance.EnergyRegenPerInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.instance.intelligence.Value * 100 * ModdedPlayer.instance.EnergyRegenPerInt + "]");
+			Stat("Strength", ModdedPlayer.Stats.strength.GetFormattedAmount()+ " str", "Increases melee damage by " + ModdedPlayer.Stats.meleeDmgFromStr * 100 + "% for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.Stats.strength.Value * 100 * ModdedPlayer.Stats.meleeDmgFromStr + "]");
+			Stat("Agility", ModdedPlayer.Stats.agility.GetFormattedAmount() + " agi", "Increases ranged damage by " + ModdedPlayer.Stats.rangedDmgFromAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.Value * 100 * ModdedPlayer.Stats.rangedDmgFromAgi + "]\n" +
+				"Increases maximum energy by " + ModdedPlayer.Stats.maxEnergyFromAgi + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.Value * ModdedPlayer.Stats.maxEnergyFromAgi + "]");
+			Stat("Vitality", ModdedPlayer.Stats.vitality.GetFormattedAmount() + " vit", "Increases health by " + ModdedPlayer.Stats.maxHealthFromVit + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.Stats.vitality.Value * ModdedPlayer.Stats.maxHealthFromVit + "]");
+			Stat("Intelligence", ModdedPlayer.Stats.intelligence.GetFormattedAmount() + " int", "Increases spell damage by " + ModdedPlayer.Stats.spellDmgFromInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.Stats.intelligence.Value * 100 * ModdedPlayer.Stats.spellDmgFromInt + "]\n" +
+				"Increases stamina regen by " + ModdedPlayer.Stats.energyRecoveryFromInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.Stats.intelligence.Value * 100 * ModdedPlayer.Stats.energyRecoveryFromInt + "]");
 
 			Space(60);
 			Image(105, 70);
 			Header("Health & Energy");
 			Space(10);
 
-			Stat("Max health", ModdedPlayer.instance.MaxHealth.ToString("N0") + "", "Total health pool.\n" +
-				"Base health: " + ModdedPlayer.instance.baseHealth +
-				"\nBonus health: " + ModdedPlayer.instance.HealthBonus +
-				"\nHealth from vitality: " + ModdedPlayer.instance.HealthPerVitality * ModdedPlayer.instance.vitality.Value +
-				"\nHealth multipier: " + ModdedPlayer.instance.MaxHealthPercent * 100 + "%");
-			Stat("Max energy", ModdedPlayer.instance.MaxEnergy.ToString("N0") + "", "Total energy pool.\n" +
-				"Base energy: " + ModdedPlayer.instance.baseEnergy +
-				"\nBonus energy: " + ModdedPlayer.instance.EnergyBonus +
-				"\nEnergy from agility: " + ModdedPlayer.instance.EnergyPerAgility * ModdedPlayer.instance.agility.Value +
-				"\nEnergy multipier: " + ModdedPlayer.instance.MaxEnergyPercent * 100 + "%");
+			Stat("Max health", ModdedPlayer.Stats.TotalMaxHealth.ToString("N0"), "Total health pool.\n" +
+				"Base health: " + ModdedPlayer.ModdedPlayerStats.baseHealth +
+				"\nBonus health: " + ModdedPlayer.Stats.maxHealth +
+				"\nHealth from vitality: " + ModdedPlayer.Stats.maxHealthFromVit * ModdedPlayer.Stats.vitality.Value +
+				"\nHealth multipier: " + ModdedPlayer.Stats.maxHealthMult * 100 + "%");
+			Stat("Max energy", ModdedPlayer.Stats.TotalMaxEnergy.ToString("N0"), "Total energy pool.\n" +
+				"Base energy: " + ModdedPlayer.ModdedPlayerStats.baseEnergy +
+				"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy +
+				"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi * ModdedPlayer.Stats.agility.Value +
+				"\nEnergy multipier: " + ModdedPlayer.Stats.maxEnergyMult * 100 + "%");
 
 			Space(60);
 			Image(99, 70);
 			Header("Defense");
 			Space(10);
-			Stat("Armor", ModdedPlayer.instance.Armor.ToString("N0"), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.instance.ArmorDmgRed * 100 + "% dmg reduction.");
-			Stat("Magic resistance", ModdedPlayer.Stats.magicDamageTaken * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
-			Stat("Dodge Chance", ModdedPlayer.instance.DodgeChance * 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
-			Stat("Damage taken reduction", Math.Round((ModdedPlayer.Stats.allDamageTakenTotal - 1) * 100, 1) + "%");
-			Stat("Block", ModdedPlayer.instance.BlockFactor * 100 + "%");
-			Stat("Absorb amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
-			Stat("Fire resistance", Math.Round((1 - ModdedPlayer.instance.FireDamageTakenMult) * 100) + "%");
-			Stat("Thorns", ModdedPlayer.Stats.TotalThornsDamage.ToString("N0"), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.instance.thorns.ToString("N0")}. Thorns from attributes {(ModdedPlayer.instance.thornsPerStrenght * ModdedPlayer.instance.strength.Value+ ModdedPlayer.instance.vitality.Value * ModdedPlayer.instance.thornsPerVit).ToString("N0")}.");
+			Stat("Armor", ModdedPlayer.Stats.armor.valueAdditive.ToString("N0"), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.Stats.armor * 100 + "% dmg reduction.");
+			Stat("Magic resistance", (ModdedPlayer.Stats.magicDamageTaken-1) * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
+			Stat("Dodge Chance", (1-ModdedPlayer.Stats.getHitChance )* 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
+			Stat("Damage taken reduction", Math.Round((ModdedPlayer.Stats.allDamageTaken-1 ) * 100, 1) + "%");
+			Stat("Block", ModdedPlayer.Stats.block * 100 + "%");
+			Stat("Shield amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
+			Stat("Fire resistance", Math.Round((ModdedPlayer.Stats.fireDamageTaken-1) * 100) + "%");
+			Stat("Thorns", ModdedPlayer.Stats.TotalThornsDamage.ToString("N0"), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.Stats.thorns.Value.ToString("N0")}. Thorns from attributes {(ModdedPlayer.Stats.thornsPerStrenght * ModdedPlayer.Stats.strength.Value+ ModdedPlayer.Stats.vitality.Value * ModdedPlayer.Stats.thornsPerVit).ToString("N0")}.");
 
 			Space(60);
 			Header("Recovery");
 			Space(10);
 
-			Stat("Total Stamina recovery per second", ModdedPlayer.instance.StaminaRecover + "", "Stamina regen is temporairly paused after sprinting");
-			Stat("Stamina per second", ModdedPlayer.instance.StaminaRegen * (1 + ModdedPlayer.instance.StaminaRegenPercent) + "", "Stamina per second: " + ModdedPlayer.instance.StaminaRegen + "\nStamina regen bonus: " + ModdedPlayer.instance.StaminaRegenPercent * 100 + "%");
+			Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount + "", "Stamina regen is temporairly paused after sprinting");
+			Stat("Stamina per second", ModdedPlayer.Stats.staminaRecoveryperSecond * (1 + ModdedPlayer.Stats.staminaPerSecRate) + "", "Stamina per second: " + ModdedPlayer.Stats.staminaRecoveryperSecond + "\nStamina regen bonus: " + ModdedPlayer.Stats.staminaPerSecRate * 100 + "%");
 
-			Stat("Energy per second", ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy per second: " + ModdedPlayer.instance.EnergyPerSecond + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100 + "%");
-			Stat("Energy on hit", ModdedPlayer.instance.EnergyOnHit * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + "", "Energy on hit: " + ModdedPlayer.instance.EnergyOnHit + "\nStamina and energy regen multipier: " + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 100 + "%");
-			Stat("Health per second", ModdedPlayer.Stats.healthRecoveryPerSecond * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult + "", "Health per second: " + ModdedPlayer.Stats.healthRecoveryPerSecond + "\nStamina regen bonus: " + ModdedPlayer.Stats.healthPerSecRate * 100 + "%\nAll Healing Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
-			Stat("Health on hit", ModdedPlayer.instance.LifeOnHit * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult + "", "Health on hit: " + ModdedPlayer.instance.LifeOnHit + "\nStamina regen bonus: " + Math.Round(ModdedPlayer.Stats.healthPerSecRate * 100, 2) + "%\nAll Healing Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
+			Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy per second: " + ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive + "\nStamina and energy regen multipier: " + ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier * 100 + "%");
+			Stat("Energy on hit", ModdedPlayer.Stats.energyOnHit * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy on hit from items and perks: " + ModdedPlayer.Stats.energyOnHit);
+			Stat("Health per second", ModdedPlayer.Stats.healthRecoveryPerSecond * (ModdedPlayer.Stats.healthPerSecRate ) * ModdedPlayer.Stats.allRecoveryMult + "", "Health per second: " + ModdedPlayer.Stats.healthRecoveryPerSecond + "\nStamina regen bonus: " + ModdedPlayer.Stats.healthPerSecRate * 100 + "%\nAll Recovery Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
+			Stat("Health on hit", ModdedPlayer.Stats.healthOnHit * ModdedPlayer.Stats.allRecoveryMult + "", "Health on hit: " + ModdedPlayer.Stats.healthOnHit + "\nHealth regen bonus: " + Math.Round(ModdedPlayer.Stats.allRecoveryMult * 100, 2) + "%\nAll Healing Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
 
 			Space(60);
 			Header("Attack");
 			Space(10);
-			Stat("All damage amplification", Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-			Stat("Critical hit damage", Math.Round(ModdedPlayer.instance.CritDamage, 2) + "%");
-			Stat("Critical hit chance", Math.Round(ModdedPlayer.instance.CritChance * 100, 2) + "%");
-			Stat("Attack speed", Math.Round(ModdedPlayer.instance.AttackSpeed * 100, 2) + "%", "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
-			Stat("Additional fire damage", Math.Round(ModdedPlayer.instance.FireAmp * 100, 2) + "%", "Increases fire damage");
-			Stat("Bleed chance", ModdedPlayer.instance.ChanceToBleedOnHit.ToString("P"), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
-			Stat("Weaken chance", ModdedPlayer.instance.ChanceToWeakenOnHit.ToString("P"), "Weakened enemies take 20% increased damage from all players.");
-			Stat("Slow chance", ModdedPlayer.instance.ChanceToSlowOnHit.ToString("P"), "Slowed enemies move and attack 50% slower");
+			Stat("All damage amplification", Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
+			Stat("Critical hit damage", Math.Round(ModdedPlayer.Stats.critDamage, 2) + "%");
+			Stat("Critical hit chance", Math.Round(ModdedPlayer.Stats.critChance * 100, 2) + "%");
+			Stat("Attack speed", Math.Round(ModdedPlayer.Stats.attackSpeed * 100, 2) + "%", "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
+			Stat("Additional fire damage", Math.Round(ModdedPlayer.Stats.fireDamage * 100, 2) + "%", "Increases fire damage");
+			Stat("Bleed chance", ModdedPlayer.Stats.chanceToBleed.GetFormattedAmount(), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
+			Stat("Weaken chance", ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), "Weakened enemies take 20% increased damage from all players.");
+			Stat("Slow chance", ModdedPlayer.Stats.chanceToSlow.GetFormattedAmount(), "Slowed enemies move and attack 50% slower");
 
 			Space(20);
 			Image(89, 70);
 			Header("Melee");
 			Space(10);
 
-			Stat("Melee damage", Math.Round(ModdedPlayer.instance.MeleeAMP * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-				"Bonus from strength: " + Math.Round(ModdedPlayer.instance.strength.Value * ModdedPlayer.instance.DamagePerStrength * 100, 2) + "%\n" +
-				"Melee damage amplification: " + Math.Round((ModdedPlayer.instance.MeleeDamageAmplifier - 1) * 100, 2) + "%\n" +
-				"Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-			Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.instance.MeleeDamageBonus) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
-			Stat("Melee range", Math.Round(ModdedPlayer.instance.MeleeRange * 100) + "%");
-			Stat("Heavy attack damage", ModdedPlayer.instance.HeavyAttackMult.ToString("P"));
+			Stat("Melee damage", Math.Round(ModdedPlayer.Stats.MeleeDamageMult * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				"Bonus from strength: " + Math.Round(ModdedPlayer.Stats.strength.Value * ModdedPlayer.Stats.meleeDmgFromStr * 100, 2) + "%\n" +
+				"Melee damage amplification: " + Math.Round((ModdedPlayer.Stats.meleeIncreasedDmg - 1) * 100, 2) + "%\n" +
+				"Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
+			Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.Stats.meleeFlatDmg) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
+			Stat("Melee range", Math.Round(ModdedPlayer.Stats.weaponRange * 100) + "%");
+			Stat("Heavy attack damage", ModdedPlayer.Stats.heavyAttackDmg.Value.ToString("P"));
 
 			Space(20);
 			Image(98, 70);
 			Header("Ranged");
 			Space(10);
 
-			Stat("Ranged damage", Math.Round(ModdedPlayer.instance.RangedAMP * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-			 "Bonus from agility: " + Math.Round(ModdedPlayer.instance.agility.Value * ModdedPlayer.instance.rangedDmgFromAgi * 100, 2) + "%\n" +
-			 "Ranged damage amplification: " + Math.Round((ModdedPlayer.instance.RangedDamageAmplifier - 1) * 100, 2) + "%\n" +
-			 "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-			Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.instance.RangedDamageBonus) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
-			Stat("Projectile speed", Math.Round(ModdedPlayer.instance.ProjectileSpeedRatio * 100) + "%", "Faster projectiles fly further and fall slower");
-			Stat("Projectile size", Math.Round(ModdedPlayer.instance.ProjectileSizeRatio * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
-			Stat("Headshot damage", Math.Round(ModdedPlayer.instance.HeadShotDamage * 100) + "%", "Damage multipier on headshot");
-			Stat("No consume chance", ModdedPlayer.instance.ReusabilityChance.ToString("P"));
-			Stat("Spear headshot chance", ModdedPlayer.instance.SpearCritChance.ToString("P"));
-			if (ModdedPlayer.instance.SpearhellChance > 0)
-				Stat("Double spear chance", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-			if (ModdedPlayer.instance.SpearDamageMult != 1)
-				Stat("Spear damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-			if (ModdedPlayer.instance.SpearArmorRedBonus)
-				Stat("Spears reduce additional armor", "");
-			Stat("Bullet headshot chance", ModdedPlayer.instance.BulletCritChance.ToString("P"));
-			if (ModdedPlayer.instance.BulletDamageMult != 1)
-				Stat("Bullet damage", ModdedPlayer.instance.SpearhellChance.ToString("P"));
-			if (ModdedPlayer.instance.CrossbowDamageMult != 1)
-				Stat("Crossbow damage", ModdedPlayer.instance.CrossbowDamageMult.ToString("P"));
-			if (ModdedPlayer.instance.BowDamageMult != 1)
-				Stat("Bow damage", ModdedPlayer.instance.BowDamageMult.ToString("P"));
-			if (ModdedPlayer.instance.i_CrossfireQuiver.value)
+			Stat("Ranged damage", Math.Round(ModdedPlayer.Stats.RangedDamageMult * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+			 "Bonus from agility: " + Math.Round(ModdedPlayer.Stats.agility.Value * ModdedPlayer.Stats.rangedDmgFromAgi * 100, 2) + "%\n" +
+			 "Ranged damage amplification: " + Math.Round((ModdedPlayer.Stats.rangedIncreasedDmg - 1) * 100, 2) + "%\n" +
+			 "Ranged damage from increased projectile size: " + Math.Round(((ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize ? ModdedPlayer.Stats.projectileSize.Value : 1f) - 1f) * 100, 2) + "%\n" +
+			 "Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
+			Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.Stats.rangedFlatDmg) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+			Stat("Projectile speed", Math.Round(ModdedPlayer.Stats.projectileSpeed * 100) + "%", "Faster projectiles fly further and fall slower");
+			Stat("Projectile size", Math.Round(ModdedPlayer.Stats.projectileSize * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
+			Stat("Headshot damage", Math.Round(ModdedPlayer.Stats.headShotDamage * 100) + "%", "Damage multipier on headshot");
+			Stat("No consume chance", ModdedPlayer.Stats.perk_projectileNoConsumeChance.Value.ToString("P"));
+			Stat("Spear headshot chance", ModdedPlayer.Stats.perk_thrownSpearCritChance.Value.ToString("P"));
+			if (ModdedPlayer.Stats.perk_thrownSpearhellChance > 0)
+				Stat("Double spear chance", ModdedPlayer.Stats.perk_thrownSpearhellChance.Value.ToString("P"));
+			if (ModdedPlayer.Stats.perk_thrownSpearDamageMult != 1)
+				Stat("Spear damage", ModdedPlayer.Stats.perk_thrownSpearDamageMult.Value.ToString("P"));
+			Stat("Bullet headshot chance", ModdedPlayer.Stats.perk_bulletCritChance.Value.ToString("P"));
+			if (ModdedPlayer.Stats.perk_bulletDamageMult != 1)
+				Stat("Bullet damage", ModdedPlayer.Stats.perk_bulletDamageMult.Value.ToString("P"));
+			if (ModdedPlayer.Stats.perk_crossbowDamageMult != 1)
+				Stat("Crossbow damage", ModdedPlayer.Stats.perk_crossbowDamageMult.Value.ToString("P"));
+			if (ModdedPlayer.Stats.perk_bowDamageMult.Value != 1)
+				Stat("Bow damage", ModdedPlayer.Stats.perk_bowDamageMult.Value.ToString("P"));
+			if (ModdedPlayer.Stats.i_CrossfireQuiver.value)
 				Stat("Shooting an enemy creates magic arrows", "");
 
-			Stat("Multishot Projectiles", ModdedPlayer.instance.SoraSpecial ? (4 + ModdedPlayer.instance.MultishotCount).ToString("N") : ModdedPlayer.instance.MultishotCount.ToString("N"));
-			Stat("Multishot Cost", (ModdedPlayer.instance.SoraSpecial ? 1f * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f) : 10 * Mathf.Pow(ModdedPlayer.instance.MultishotCount, 1.75f)).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
+			Stat("Multishot Projectiles", ModdedPlayer.Stats.i_SoraBracers ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount).ToString("N") : ModdedPlayer.Stats.perk_multishotProjectileCount.Value.ToString("N"));
+			Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount, 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount, 1.75f)).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
 
 			Space(20);
 			Image(110, 70);
 			Header("Magic");
 			Space(10);
 
-			Stat("Spell damage", Math.Round(ModdedPlayer.instance.TotalSpellAmplification * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-			 "Bonus from intelligence: " + Math.Round(ModdedPlayer.instance.intelligence.Value * ModdedPlayer.instance.SpellDamageperInt * 100, 2) + "%\n" +
-			 "Spell damage amplification: " + Math.Round((ModdedPlayer.instance.SpellDamageAmplifier - 1) * 100, 2) + "%\n" +
-			 "Damage output amplification" + Math.Round((ModdedPlayer.instance.DamageOutputMultTotal - 1) * 100, 2) + "%");
-			Stat("Additional spell damage", Math.Round(ModdedPlayer.instance.SpellDamageBonus) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
-			Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.instance.SpellCostRatio) * 100) * -1 + "%", "");
-			Stat("Spell cost to stamina", Math.Round((ModdedPlayer.instance.SpellCostToStamina) * 100) + "%", "");
+			Stat("Spell damage", Math.Round(ModdedPlayer.Stats.TotalMagicDamageMultiplier * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+			 "Bonus from intelligence: " + Math.Round(ModdedPlayer.Stats.intelligence.Value * ModdedPlayer.Stats.spellDmgFromInt * 100, 2) + "%\n" +
+			 "Spell damage amplification: " + Math.Round((ModdedPlayer.Stats.spellIncreasedDmg - 1) * 100, 2) + "%\n" +
+			 "Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
+			Stat("Additional spell damage", Math.Round(ModdedPlayer.Stats.spellFlatDmg) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
+			Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.Stats.spellCost) * 100) * -1 + "%", "");
+			Stat("Spell cost redirected to stamina", Math.Round((ModdedPlayer.Stats.SpellCostToStamina) * 100) + "%", "");
 			Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.Stats.cooldown) * 100) + "%", "");
 
 			Space(20);
@@ -408,25 +407,26 @@ namespace ChampionsOfForest
 			GUI.color = Color.white;
 			Header("Armor reduction");
 			Space(10);
-			Stat("Melee", ModdedPlayer.instance.ARreduction_melee + "", "Total melee armor reduction: " + ModdedPlayer.instance.MeleeArmorReduction);
-			Stat("Ranged", ModdedPlayer.instance.ARreduction_ranged + "", "Total ranged armor reduction: " + ModdedPlayer.instance.RangedArmorReduction);
-			Stat("Any source", ModdedPlayer.instance.ARreduction_all + "", "Decreases armor of enemies hit by either of the sources");
+			Stat("Melee", ModdedPlayer.Stats.meleeArmorPiercing + "", "Total melee armor reduction: " + ModdedPlayer.Stats.TotalMeleeArmorPiercing);
+			Stat("Ranged", ModdedPlayer.Stats.rangedArmorPiercing + "", "Total ranged armor reduction: " + ModdedPlayer.Stats.TotalRangedArmorPiercing);
+			Stat("Thorns", ModdedPlayer.Stats.thornsArmorPiercing + "", "Total thorns armor reduction: " + ModdedPlayer.Stats.TotalThornsArmorPiercing);
+			Stat("Any source", ModdedPlayer.Stats.allArmorPiercing + "", "Decreases armor of enemies hit by either of the sources");
 
 			Space(60);
 
 			Header("Survivor stats");
 			Space(10);
 
-			Stat("Movement speed", Math.Round(ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult * 100) + "% ms", "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " units per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult + " units per second");
-			Stat("Jump power", Math.Round(ModdedPlayer.instance.JumpPower * 100) + "%", "Multipier of base jump power. Increases height of your jumps");
-			Stat("Hunger rate", (1 / ModdedPlayer.instance.HungerRate) * 100 + "%", "How much slower is the rate of consuming food compared to normal.");
-			Stat("Thirst rate", (1 / ModdedPlayer.instance.ThirstRate) * 100 + "%", "How much slower is the rate of consuming water compared to normal.");
-			Stat("Experience gain", ModdedPlayer.instance.ExpFactor * 100 + "%", "Multipier of any experience gained");
+			Stat("Movement speed", ModdedPlayer.Stats.movementSpeed.ToString(), "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " meters per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed  + " meters/second");
+			Stat("Jump power",ModdedPlayer.Stats.jumpPower.ToString(), "Multipier of base jump power. Increases height of your jumps");
+			Stat("Hunger rate", (1/ModdedPlayer.Stats.perk_hungerRate.Value).ToString("P"), "How much slower is the rate of consuming food compared to normal.");
+			Stat("Thirst rate", (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), "How much slower is the rate of consuming water compared to normal.");
+			Stat("Experience gain", ModdedPlayer.Stats.expGain.ToString(), "Multipier of any experience gained");
 			Stat("Magic find", ItemDataBase.MagicFind * 100 + "%", "Affects quantity of items looted from monsters, as well as the chance to get items from non-elite enemies");
-			Stat("Massacre duration", ModdedPlayer.instance.MaxMassacreTime + " s", "How long massacres can last");
-			Stat("Time on kill", ModdedPlayer.instance.TimeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
-			if (ModdedPlayer.instance.TurboRaft)
-				Stat("Turbo raft speed",  ModdedPlayer.Stats.perk_RaftSpeedMultipier + "%", "Speed multiplier of rafts");
+			Stat("Massacre duration", ModdedPlayer.Stats.maxMassacreTime + " s", "How long massacres can last");
+			Stat("Time on kill", ModdedPlayer.Stats.timeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
+			if (ModdedPlayer.Stats.perk_turboRaftOwners>0)
+				Stat("Turbo raft speed",  ModdedPlayer.Stats.perk_RaftSpeedMultipier.Value + "%", "Speed multiplier of rafts. Other player's items and perks also affect this value");
 
 			Space(40);
 			Image(90, 70);

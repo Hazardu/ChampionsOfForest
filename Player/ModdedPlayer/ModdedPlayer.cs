@@ -9,6 +9,8 @@ using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 
+using Mono.Posix;
+
 using TheForest.Utils;
 
 using UnityEngine;
@@ -97,10 +99,10 @@ namespace ChampionsOfForest.Player
 		private float lostArmor = 0;
 
 
-		private float _greedCooldown;
-		private float _lastCrossfireTime;
-		private float _HexedPantsOfMrM_StandTime;
-		private float _DeathPact_Amount = 1;
+		public float _greedCooldown;
+		public float _lastCrossfireTime;
+		public float _HexedPantsOfMrM_StandTime;
+		public float _DeathPact_Amount = 1;
 
 
 
@@ -404,7 +406,7 @@ namespace ChampionsOfForest.Player
 				if (dmgPerSecond != 0)
 				{
 					dmgPerSecond *=  stats.magicDamageTaken;
-					dmgPerSecond *= stats.allDamageTaken;
+					dmgPerSecond *= Stats.allDamageTaken;
 					LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
 					LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime * 2;
 
@@ -447,11 +449,11 @@ namespace ChampionsOfForest.Player
 				{
 					if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
 					{
-						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond* (stats.healthPerSecRate + 1) * stats.allRecoveryMult;
+						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond* (stats.healthPerSecRate) * stats.allRecoveryMult;
 					}
 					else
 					{
-						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond * (stats.healthPerSecRate + 1) * stats.allRecoveryMult / 10;
+						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond * (stats.healthPerSecRate) * stats.allRecoveryMult / 10;
 					}
 				}
 
@@ -575,17 +577,17 @@ namespace ChampionsOfForest.Player
 			}
 			if (stats.i_DeathPact_Enabled)
 			{
-				stats.allDamage.Divide(_DeathPact_Amount);
+				Stats.allDamage.Divide(_DeathPact_Amount);
 
 				_DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / Stats.TotalMaxHealth)) * 100) * 0.03f;
 				AddBuff(12, 43, _DeathPact_Amount, 1f);
 
-				stats.allDamage.Multiply(_DeathPact_Amount);
+				Stats.allDamage.Multiply(_DeathPact_Amount);
 			}
 			else if(_DeathPact_Amount != 1)
 			{
 				
-				stats.allDamage.Divide(_DeathPact_Amount);
+				Stats.allDamage.Divide(_DeathPact_Amount);
 				_DeathPact_Amount = 1;
 			}
 			if (stats.i_isGreed)
@@ -727,8 +729,8 @@ namespace ChampionsOfForest.Player
 		{
 			LocalPlayer.Stats.HealthTarget +=stats.healthOnHit *stats.allRecoveryMult;
 			LocalPlayer.Stats.Health += stats.healthOnHit * stats.allRecoveryMult;
-			LocalPlayer.Stats.Energy += stats.energyOnHit * stats. StaminaAndEnergyRegenAmp;
-			LocalPlayer.Stats.Stamina += stats.staminaOnHit * StaminaAndEnergyRegenAmp;
+			LocalPlayer.Stats.Energy += stats.energyOnHit * stats.TotalEnergyRecoveryMultiplier;
+			LocalPlayer.Stats.Stamina += stats.staminaOnHit * Stats.TotalEnergyRecoveryMultiplier;
 			SpellActions.OnFrenzyAttack();
 		}
 
@@ -736,7 +738,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (ent != null)
 			{
-				if (ChanceToBleedOnHit > 0 && Random.value < ChanceToBleedOnHit)
+				if (stats.chanceToBleed > 0 && Random.value < stats.chanceToBleed)
 				{
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
@@ -752,7 +754,7 @@ namespace ChampionsOfForest.Player
 						answerStream.Close();
 					}
 				}
-				if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
+				if (stats.chanceToSlow > 0 && Random.value < stats.chanceToSlow)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -770,7 +772,7 @@ namespace ChampionsOfForest.Player
 						answerStream.Close();
 					}
 				}
-				if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
+				if (stats.chanceToWeaken > 0 && Random.value < stats.chanceToWeaken)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -795,16 +797,16 @@ namespace ChampionsOfForest.Player
 		{
 			if (p != null)
 			{
-				if (ChanceToBleedOnHit > 0 && Random.value < ChanceToBleedOnHit)
+				if (stats.chanceToBleed > 0 && Random.value < stats.chanceToBleed)
 				{
 					p.DoDoT(Mathf.CeilToInt(damage / 20), 10);
 				}
-				if (ChanceToSlowOnHit > 0 && Random.value < ChanceToSlowOnHit)
+				if (stats.chanceToSlow > 0 && Random.value < stats.chanceToSlow)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 					p.Slow(id, 0.5f, 8);
 				}
-				if (ChanceToWeakenOnHit > 0 && Random.value < ChanceToWeakenOnHit)
+				if (stats.chanceToWeaken > 0 && Random.value < stats.chanceToWeaken)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 					p.DmgTakenDebuff(id, 1.2f, 8);
@@ -815,44 +817,57 @@ namespace ChampionsOfForest.Player
 		public void OnHit_Ranged(Transform hit)
 		{
 			SpellCaster.InfinityLoopEffect();
-			if (SpellActions.FurySwipes)
+			if (stats.spell_furySwipes)
 			{
 				if (hit == FurySwipesLastHit)
 				{
 					FurySwipesDmg += 1;
-					RangedDamageBonus += 1;
-					MeleeDamageBonus += 1;
+					Stats.rangedFlatDmg.valueAdditive += 1;
+					Stats.spellFlatDmg.valueAdditive += 1;
+					Stats.meleeFlatDmg.valueAdditive += 1;
+					BuffDB.AddBuff(27, 98, 1, 60);
+
 				}
 				else
 				{
 					FurySwipesLastHit = hit;
-					RangedDamageBonus -= FurySwipesDmg;
-					MeleeDamageBonus -= FurySwipesDmg;
+					Stats.rangedFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
+					if (BuffDB.activeBuffs.ContainsKey(98))
+						BuffDB.activeBuffs[98].amount = 0;
 				}
 			}
 		}
 
 		public int FurySwipesDmg;
-		private Transform FurySwipesLastHit;
+		public Transform FurySwipesLastHit;
 
 		public void OnHit_Melee(Transform hit)
 		{
 			SpellCaster.InfinityLoopEffect();
-			if (SpellActions.FurySwipes)
+			if (stats.spell_furySwipes)
 			{
 				if (hit == FurySwipesLastHit)
 				{
 					FurySwipesDmg += 6;
-					RangedDamageBonus += 6;
-					MeleeDamageBonus += 6;
+					Stats.rangedFlatDmg.valueAdditive += 6;
+					Stats.spellFlatDmg.valueAdditive +=6;
+					Stats.meleeFlatDmg.valueAdditive += 6;
+					BuffDB.AddBuff(27, 98, 6, 60);
+
 				}
 				else
 				{
 					FurySwipesLastHit = hit;
-					RangedDamageBonus -= FurySwipesDmg;
-					MeleeDamageBonus -= FurySwipesDmg;
+					Stats.rangedFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
+					if (BuffDB.activeBuffs.ContainsKey(98))
+						BuffDB.activeBuffs[98].amount = 0;
+
 				}
 			}
 		}
@@ -861,7 +876,7 @@ namespace ChampionsOfForest.Player
 		{
 			try
 			{
-				if (Random.value < AreaDamageProcChance && AreaDamage > 0)
+				if (Random.value < stats.areaDamageChance && stats.areaDamage > 0)
 				{
 					DoGuaranteedAreaDamage(rootTR, damage);
 					return true;
@@ -876,8 +891,8 @@ namespace ChampionsOfForest.Player
 
 		public void DoGuaranteedAreaDamage(Transform rootTR, float damage)
 		{
-			RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, AreaDamageRadius, Vector3.one, AreaDamageRadius);
-			int d = Mathf.FloorToInt(damage * AreaDamage);
+			RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, stats.areaDamageRadius, Vector3.one, stats.areaDamageRadius,-9);
+			int d = Mathf.FloorToInt(damage * stats.areaDamage);
 			if (d > 0)
 			{
 				for (int i = 0; i < hits.Length; i++)
@@ -922,10 +937,10 @@ namespace ChampionsOfForest.Player
 			ExpGoal = GetGoalExp();
 			GiveSpecialItems();
 			int ap = Mathf.RoundToInt(Mathf.Sqrt(level));
-			agility += ap;
-			strength += ap;
-			vitality += ap;
-			intelligence += ap;
+			stats.agility.valueAdditive+=ap;
+			stats.strength.valueAdditive  += ap;
+			stats.vitality.valueAdditive += ap;
+			stats.intelligence.valueAdditive += ap;
 		}
 
 		public void GiveSpecialItems()

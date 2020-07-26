@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Player
 			for (int i = 0; i < repeats; i++)
 			{
 				bool noconsume = false;
-				if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
 				{
 					noconsume = true;
 				}
@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Player
 						rotation = _ammoSpawnPosVR.transform.rotation;
 					}
 					GameObject gameObject = Object.Instantiate(_Ammo, position, rotation);
-					gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+					gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 
 					Rigidbody component = gameObject.GetComponent<Rigidbody>();
 					rockSound component2 = gameObject.GetComponent<rockSound>();
@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Player
 					{
 						forward = _ammoSpawnPosVR.transform.forward;
 					}
-					component.AddForce(4000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forward);
+					component.AddForce(4000f * ModdedPlayer.Stats.projectileSpeed * (0.016666f / Time.fixedDeltaTime) * forward);
 				}
 			}
 		}

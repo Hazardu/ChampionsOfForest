@@ -56,7 +56,7 @@ namespace ChampionsOfForest
 					}
 				}
 				ModdedPlayer.instance.ExpCurrent = buf.ReadInt64();                 //buf.Write(ModdedPlayer.instance.ExpCurrent);
-				HealthPercentage = buf.ReadSingle();                          //buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
+				HealthPercentage = buf.ReadSingle();                          //buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.Stats.TotalMaxHealth);
 				ModdedPlayer.instance.MutationPoints = buf.ReadInt32();             //buf.Write(ModdedPlayer.instance.MutationPoints);
 				ModdedPlayer.instance.level = buf.ReadInt32();                      //buf.Write(ModdedPlayer.instance.Level);
 				ModdedPlayer.instance.AssignLevelAttributes();
@@ -187,7 +187,7 @@ namespace ChampionsOfForest
 			//saving modded player variables
 			buf.Write(ModSettings.Version);
 			buf.Write(ModdedPlayer.instance.ExpCurrent);
-			buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.instance.MaxHealth);
+			buf.Write(LocalPlayer.Stats.Health / ModdedPlayer.Stats.TotalMaxHealth);
 			buf.Write(ModdedPlayer.instance.MutationPoints);
 			buf.Write(ModdedPlayer.instance.level);
 			buf.Write(ModdedPlayer.instance.PermanentBonusPerkPoints);
@@ -329,7 +329,7 @@ namespace ChampionsOfForest
 			ModdedPlayer.ResetAllStats();
 			//bringing health back to correct amount
 			yield return null;
-			LocalPlayer.Stats.Health = ModdedPlayer.instance.MaxHealth * HealthPercentage;
+			LocalPlayer.Stats.Health = ModdedPlayer.Stats.TotalMaxHealth * HealthPercentage;
 		}
 
 		public static void EmergencySave()

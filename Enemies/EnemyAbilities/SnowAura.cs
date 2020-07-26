@@ -87,7 +87,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			transform.Rotate(Vector3.up * 720 * Time.deltaTime, Space.World);                   //rotates
 			if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < _radius * _radius) //if player is in range, slows him
 			{
-				if (ModdedPlayer.instance.BlizzardSlowReduced)
+				if (ModdedPlayer.Stats.perk_blizzardSlowReduced)
 				{
 					BuffDB.AddBuff(1, 30, 0.8f, 1);
 					BuffDB.AddBuff(2, 31, 0.9f, 1);

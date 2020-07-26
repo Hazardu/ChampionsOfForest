@@ -248,12 +248,12 @@ namespace ChampionsOfForest.Items
 			ModdedPlayer.Stats.rangedIncreasedDmg.Substract( f);
 		}
 
-		public static void AddSpellDamageBonus( float f)
+		public static void AddspellFlatDmg( float f)
 		{
 			ModdedPlayer.Stats.spellFlatDmg.Add( f);
 		}
 
-		public static void RemoveSpellDamageBonus( float f)
+		public static void RemovespellFlatDmg( float f)
 		{
 			ModdedPlayer.Stats.spellFlatDmg.Substract( f);
 		}
@@ -278,42 +278,42 @@ namespace ChampionsOfForest.Items
 			ModdedPlayer.Stats.rangedFlatDmg.Substract( f);
 		}
 
-		public static void AddEnergyPerAgility( float f)
+		public static void AddmaxEnergyFromAgi( float f)
 		{
 			ModdedPlayer.Stats.maxEnergyFromAgi.Add( f);
 		}
 
-		public static void RemoveEnergyPerAgility( float f)
+		public static void RemovemaxEnergyFromAgi( float f)
 		{
 			ModdedPlayer.Stats.maxEnergyFromAgi .Substract( f);
 		}
 
-		public static void AddHealthPerVitality( float f)
+		public static void AddmaxHealthFromVit( float f)
 		{
 			ModdedPlayer.Stats.maxHealthFromVit.Add( f);
 		}
 
-		public static void RemoveHealthPerVitality( float f)
+		public static void RemovemaxHealthFromVit( float f)
 		{
 			ModdedPlayer.Stats.maxHealthFromVit.Substract( f);
 		}
 
-		public static void AddSpellDamageperInt( float f)
+		public static void AddspellDmgFromInt( float f)
 		{
 			ModdedPlayer.Stats.spellDmgFromInt.Add( f);
 		}
 
-		public static void RemoveSpellDamageperInt( float f)
+		public static void RemovespellDmgFromInt( float f)
 		{
 			ModdedPlayer.Stats.spellDmgFromInt .Substract( f);
 		} 
 
-		public static void AddDamagePerStrength( float f)
+		public static void AddmeleeDmgFromStr( float f)
 		{
 			ModdedPlayer.Stats.meleeDmgFromStr.Add( f);
 		}
 
-		public static void RemoveDamagePerStrength( float f)
+		public static void RemovemeleeDmgFromStr( float f)
 		{
 			ModdedPlayer.Stats.meleeDmgFromStr .Substract( f);
 		}

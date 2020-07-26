@@ -154,14 +154,14 @@ namespace ChampionsOfForest.Player
 								}
 								else
 								{
-									if (Ready[i] && !ModdedPlayer.instance.Silenced)
+									if (Ready[i] && !ModdedPlayer.Stats.silenced)
 									{
 										if (LocalPlayer.Stats.Energy >= 10 && LocalPlayer.Stats.Stamina >= 10 && infos[i].spell.CanCast)
 										{
-											LocalPlayer.Stats.Energy -= Time.deltaTime * infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.spellCost;
+											LocalPlayer.Stats.Energy -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.Stats.spellCostEnergyCost * ModdedPlayer.Stats.spellCost;
 											if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
 												LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-											LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.spellCost;
+											LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
 											infos[i].spell.active();
 											infos[i].spell.ChanneledTime += Time.deltaTime;
@@ -178,12 +178,12 @@ namespace ChampionsOfForest.Player
 							if (infos[i].spell.CastOnRelease && ModAPI.Input.GetButtonUp(btnname))
 							{
 								infos[i].spell.aimEnd?.Invoke();
-								if (Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.spellCost && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.spellCost && infos[i].spell.CanCast)
+								if (Ready[i] && !ModdedPlayer.Stats.silenced && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.Stats.SpellCostToStamina) * ModdedPlayer.Stats.spellCost && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost && infos[i].spell.CanCast)
 								{
-									LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.spellCost;
+									LocalPlayer.Stats.Energy -= infos[i].spell.EnergyCost * (1 - ModdedPlayer.Stats.SpellCostToStamina) * ModdedPlayer.Stats.spellCost;
 									if (LocalPlayer.Stats.Stamina > LocalPlayer.Stats.Energy)
 										LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
-									LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.spellCost;
+									LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
 									InfinityCooldownReduction();
 									Ready[i] = false;

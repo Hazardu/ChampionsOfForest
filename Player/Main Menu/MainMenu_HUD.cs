@@ -172,7 +172,7 @@ namespace ChampionsOfForest
 			float BuffOffsetY = 1080 - BuffSize;
 			const float MaxX = 540;
 
-			if (ModdedPlayer.instance.Rooted)
+			if (ModdedPlayer.Stats.rooted)
 			{
 				TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.RootDuration);
 				DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(162), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.RootDuration);
@@ -183,7 +183,7 @@ namespace ChampionsOfForest
 					BuffOffsetY -= BuffSize;
 				}
 			}
-			if (ModdedPlayer.instance.Stunned)
+			if (ModdedPlayer.Stats.stunned)
 			{
 				TimeSpan span = TimeSpan.FromSeconds(ModdedPlayer.instance.StunDuration);
 				DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(163), "", (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), false, ModdedPlayer.instance.StunDuration);
@@ -223,10 +223,10 @@ namespace ChampionsOfForest
 			}
 
 			GUI.color = Color.blue;
-			GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxEnergy).ToString("N0"), HUDStatStyle);
+			GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.Stats.TotalMaxEnergy).ToString("N0"), HUDStatStyle);
 			GUI.color = new Color(0.8f, 0.0f, 0.0f);
 
-			GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.instance.MaxHealth).ToString("N0"), HUDStatStyle);
+			GUI.Label(HUDHealthLabelRect, Mathf.Floor(LocalPlayer.Stats.Health).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.Stats.TotalMaxHealth).ToString("N0"), HUDStatStyle);
 			if (ModdedPlayer.instance.DamageAbsorbAmount > 0)
 			{
 				GUI.color = new Color(1f, 0.15f, 0.8f);
@@ -252,11 +252,11 @@ namespace ChampionsOfForest
 				{
 					GUI.color = new Color(1, 1, 1, 0.4f);
 					GUI.color = new Color(1, 1, 1, 1f);
-					if (ModdedPlayer.instance.Silenced)
+					if (ModdedPlayer.Stats.silenced)
 					{
 						GUI.color = Color.black;
 					}
-					else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.instance.Silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * (1 - ModdedPlayer.instance.SpellCostToStamina) * ModdedPlayer.instance.SpellCostRatio && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.instance.SpellCostToStamina * ModdedPlayer.instance.SpellCostRatio && SpellCaster.instance.infos[i].spell.CanCast))
+					else if (!(SpellCaster.instance.Ready[i] && !ModdedPlayer.Stats.silenced && LocalPlayer.Stats.Energy >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.Stats.spellCostEnergyCost * ModdedPlayer.Stats.spellCost && LocalPlayer.Stats.Stamina >= SpellCaster.instance.infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost && SpellCaster.instance.infos[i].spell.CanCast))
 					{
 						GUI.color = Color.blue;
 					}
@@ -291,7 +291,7 @@ namespace ChampionsOfForest
 			Rect XPbar = new Rect(Screen.width / 2f - (SquareSize * SpellCaster.SpellCount / 2f), Screen.height - height - SquareSize, width, height);
 			Rect XPbarFill = new Rect(XPbar);
 			XPbarFill.width *= ProgressBarAmount;
-			Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), combatHeight);
+			Rect CombatBar = new Rect(XPbar.x, 0, SpellCaster.SpellCount * SquareSize * (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.Stats.maxMassacreTime), combatHeight);
 			Rect CombatBarCount = new Rect(XPbar.x, 30 * screenScale, SpellCaster.SpellCount * SquareSize, combatHeight);
 
 			float cornerDimension = Screen.height - XPbar.y;
@@ -315,7 +315,7 @@ namespace ChampionsOfForest
 
 			if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
 			{
-				GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime), 1));
+				GUI.DrawTextureWithTexCoords(CombatBar, _combatDurationTex, new Rect(0, 0, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.Stats.maxMassacreTime), 1));
 				GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
 				if (ModdedPlayer.instance.MassacreText != "")
 				{
@@ -323,7 +323,7 @@ namespace ChampionsOfForest
 				}
 
 				GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
-				GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.instance.MaxMassacreTime) + 0.2f);
+				GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.Stats.maxMassacreTime) + 0.2f);
 				string content = ModdedPlayer.instance.MassacreText;
 				if (ModdedPlayer.instance.MassacreKills > 5)
 				{
@@ -687,7 +687,7 @@ namespace ChampionsOfForest
 				}
 
 				//is holding middle mouse btn
-				if (Physics.Raycast(MainCamera.position + MainCamera.forward, MainCamera.forward, out RaycastHit hit, 200))
+				if (Physics.Raycast(MainCamera.position + MainCamera.forward, MainCamera.forward, out RaycastHit hit, 1000))
 				{
 					drawPingPreview = true;
 					previewPingPos = hit.point;

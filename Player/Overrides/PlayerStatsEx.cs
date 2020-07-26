@@ -66,7 +66,7 @@ namespace ChampionsOfForest
 					}
 					if (Sitted)
 					{
-						Energy += 0.02f * ModdedPlayer.instance.MaxEnergy * Time.deltaTime + ModdedPlayer.instance.StaminaAndEnergyRegenAmp * 6 * Time.deltaTime;
+						Energy += 0.02f * ModdedPlayer.Stats.TotalMaxEnergy * Time.deltaTime + ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier* 6 * Time.deltaTime;
 					}
 					if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
 					{
@@ -165,20 +165,20 @@ namespace ChampionsOfForest
 					Run = false;
 				}
 
-				HealthTarget = Mathf.Clamp(HealthTarget, 0, ModdedPlayer.instance.MaxHealth);
-				GreyZoneThreshold = Mathf.RoundToInt(ModdedPlayer.instance.MaxHealth * 0.05f);
-				//if (HealthTarget > ModdedPlayer.instance.MaxHealth)
+				HealthTarget = Mathf.Clamp(HealthTarget, 0, ModdedPlayer.Stats.TotalMaxHealth);
+				GreyZoneThreshold = Mathf.RoundToInt(ModdedPlayer.Stats.TotalMaxHealth * 0.05f);
+				//if (HealthTarget > ModdedPlayer.Stats.TotalMaxHealth)
 				//{
-				//    HealthTarget = ModdedPlayer.instance.MaxHealth;
+				//    HealthTarget = ModdedPlayer.Stats.TotalMaxHealth;
 				//}
 				if (Stamina > 5 && IsTired)
 				{
 					IsTired = false;
 				}
-				fsmStamina.Value = 100 * Stamina / ModdedPlayer.instance.MaxEnergy;
-				fsmMaxStamina.Value = 100 * Energy / ModdedPlayer.instance.MaxEnergy;
-				HealthResult = Health / ModdedPlayer.instance.MaxHealth + (ModdedPlayer.instance.MaxHealth - Health) / ModdedPlayer.instance.MaxHealth * 0.5f;
-				float num3 = HealthTarget / ModdedPlayer.instance.MaxHealth + (ModdedPlayer.instance.MaxHealth - HealthTarget) / ModdedPlayer.instance.MaxHealth * 0.5f;
+				fsmStamina.Value = 100 * Stamina / ModdedPlayer.Stats.TotalMaxEnergy;
+				fsmMaxStamina.Value = 100 * Energy / ModdedPlayer.Stats.TotalMaxEnergy;
+				HealthResult = Health / ModdedPlayer.Stats.TotalMaxHealth + (ModdedPlayer.Stats.TotalMaxHealth - Health) / ModdedPlayer.Stats.TotalMaxHealth * 0.5f;
+				float num3 = HealthTarget / ModdedPlayer.Stats.TotalMaxHealth + (ModdedPlayer.Stats.TotalMaxHealth - HealthTarget) / ModdedPlayer.Stats.TotalMaxHealth * 0.5f;
 				if (HealthTargetResult < num3)
 				{
 					HealthTargetResult = Mathf.MoveTowards(HealthTargetResult, num3, 1f * Time.fixedDeltaTime);
@@ -187,8 +187,8 @@ namespace ChampionsOfForest
 				{
 					HealthTargetResult = num3;
 				}
-				StaminaResult = Stamina / ModdedPlayer.instance.MaxEnergy + (ModdedPlayer.instance.MaxEnergy - Stamina) / ModdedPlayer.instance.MaxEnergy * 0.5f;
-				EnergyResult = Energy / ModdedPlayer.instance.MaxEnergy + (ModdedPlayer.instance.MaxEnergy - Energy) / ModdedPlayer.instance.MaxEnergy * 0.5f;
+				StaminaResult = Stamina / ModdedPlayer.Stats.TotalMaxEnergy + (ModdedPlayer.Stats.TotalMaxEnergy - Stamina) / ModdedPlayer.Stats.TotalMaxEnergy * 0.5f;
+				EnergyResult = Energy / ModdedPlayer.Stats.TotalMaxEnergy + (ModdedPlayer.Stats.TotalMaxEnergy - Energy) / ModdedPlayer.Stats.TotalMaxEnergy * 0.5f;
 				int num4 = 0;
 				int num5 = 0;
 				for (int i = 0; i < CurrentArmorTypes.Length; i++)
@@ -239,7 +239,7 @@ namespace ChampionsOfForest
 				}
 				if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
 				{
-					Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.4f * ModdedPlayer.instance.HungerRate);
+					Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.4f * ModdedPlayer.Stats.perk_hungerRate);
 				}
 				if (!Cheats.NoSurvival)
 				{
@@ -318,7 +318,7 @@ namespace ChampionsOfForest
 									ThirstSettings.TakingDamage = true;
 									LocalPlayer.Tuts.ShowThirstTut();
 								}
-								Hit(Mathf.CeilToInt(ModdedPlayer.instance.MaxHealth * 0.2f * GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
+								Hit(Mathf.CeilToInt(ModdedPlayer.Stats.TotalMaxHealth * 0.2f * GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
 								BleedBehavior.BloodAmount += 0.6f;
 								TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.ResetToBeginning();
 								TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.PlayForward();
@@ -337,7 +337,7 @@ namespace ChampionsOfForest
 						{
 							if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
 							{
-								Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.instance.ThirstRate * 0.4f);
+								Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.Stats.perk_thirstRate * 0.4f);
 							}
 							if (Thirst > ThirstSettings.TutorialThreshold)
 							{
@@ -432,7 +432,7 @@ namespace ChampionsOfForest
 							AirBreathing.DamageCounter += AirBreathing.Damage * Time.deltaTime;
 							if (AirBreathing.DamageCounter >= 1f)
 							{
-								int dmg = 3 + (int)(ModdedPlayer.instance.MaxHealth * 0.1f);
+								int dmg = 3 + (int)(ModdedPlayer.Stats.TotalMaxHealth * 0.1f);
 								Hit(dmg, true, DamageType.Drowning);
 								AirBreathing.DamageCounter -= (int)AirBreathing.DamageCounter;
 							}
@@ -488,9 +488,9 @@ namespace ChampionsOfForest
 				{
 					StopIfPlaying(DrowningEventInstance);
 				}
-				if (Energy > ModdedPlayer.instance.MaxEnergy)
+				if (Energy > ModdedPlayer.Stats.TotalMaxEnergy)
 				{
-					Energy = ModdedPlayer.instance.MaxEnergy;
+					Energy = ModdedPlayer.Stats.TotalMaxEnergy;
 				}
 				if (Energy < 5)
 				{
@@ -500,13 +500,13 @@ namespace ChampionsOfForest
 				{
 					Health = 0f;
 				}
-				if (Health > ModdedPlayer.instance.MaxHealth)
+				if (Health > ModdedPlayer.Stats.TotalMaxHealth)
 				{
-					Health = ModdedPlayer.instance.MaxHealth;
+					Health = ModdedPlayer.Stats.TotalMaxHealth;
 				}
 				if (Health < HealthTarget)
 				{
-					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.instance.MaxHealth * 0.0025f + ModdedPlayer.Stats.healthRecoveryPerSecond) * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
+					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.Stats.TotalMaxHealth * 0.0025f + ModdedPlayer.Stats.healthRecoveryPerSecond) * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
 
 					TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
 				}
@@ -546,8 +546,8 @@ namespace ChampionsOfForest
 				{
 					if (!LocalPlayer.FpCharacter.running && !(LocalPlayer.FpCharacter.recoveringFromRun > 0f))
 					{
-						Stamina += ModdedPlayer.instance.StaminaRecover * Time.deltaTime * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * (1 + ModdedPlayer.instance.StaminaRegenPercent);
-						Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
+						Stamina += ModdedPlayer.Stats.TotalStaminaRecoveryAmount * Time.deltaTime;
+						Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 					}
 					else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f && Thirst < 1)
 					{
@@ -557,7 +557,7 @@ namespace ChampionsOfForest
 				else
 				{
 					Stamina = Energy;
-					Energy += ModdedPlayer.instance.EnergyPerSecond * ModdedPlayer.instance.StaminaAndEnergyRegenAmp * Time.deltaTime;
+					Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value	 * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 				}
 				if (CheckingBlood && TheForest.Utils.Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
 				{
@@ -600,7 +600,7 @@ namespace ChampionsOfForest
 							{
 								if (FrostDamageSettings.DamageChance == 0)
 								{
-									Hit((int)((ModdedPlayer.instance.MaxHealth * 0.015f + FrostDamageSettings.Damage) * GameSettings.Survival.FrostDamageRatio), true, DamageType.Frost);
+									Hit((int)((ModdedPlayer.Stats.TotalMaxHealth * 0.015f + FrostDamageSettings.Damage) * GameSettings.Survival.FrostDamageRatio), true, DamageType.Frost);
 									FrostScript.coverage = 0.506f;
 									FrostDamageSettings.DoDeFrost = true;
 									FrostDamageSettings.CurrentTimer = 0f;
@@ -661,13 +661,13 @@ namespace ChampionsOfForest
 				}
 				if (Cheats.InfiniteEnergy)
 				{
-					Energy = ModdedPlayer.instance.MaxEnergy;
-					Stamina = ModdedPlayer.instance.MaxEnergy;
+					Energy = ModdedPlayer.Stats.TotalMaxEnergy;
+					Stamina = ModdedPlayer.Stats.TotalMaxEnergy;
 				}
 				if (Cheats.GodMode)
 				{
-					Health = ModdedPlayer.instance.MaxHealth;
-					HealthTarget = ModdedPlayer.instance.MaxHealth;
+					Health = ModdedPlayer.Stats.TotalMaxHealth;
+					HealthTarget = ModdedPlayer.Stats.TotalMaxHealth;
 				}
 				return;
 			IL_01cb:
@@ -684,15 +684,15 @@ namespace ChampionsOfForest
 		public override void AteMeds()
 		{
 			NormalizeHealthTarget();
-			HealthTarget += ModdedPlayer.instance.MaxHealth * 0.6f;
-			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.instance.MaxHealth * 1.5f;
+			HealthTarget += ModdedPlayer.Stats.TotalMaxHealth * 0.6f;
+			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.Stats.TotalMaxHealth * 1.5f;
 		}
 
 		public override void AteAloe()
 		{
 			NormalizeHealthTarget();
-			HealthTarget += ModdedPlayer.instance.MaxHealth * 0.06f;
-			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.instance.MaxHealth;
+			HealthTarget += ModdedPlayer.Stats.TotalMaxHealth * 0.06f;
+			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.Stats.TotalMaxHealth;
 		}
 
 		//armor now only can absorb 70% of the damage taken;
@@ -708,7 +708,7 @@ namespace ChampionsOfForest
 		//    //float f = damage * ModdedPlayer.Stats.allDamageTaken;
 		//    //if (!ignoreArmor)
 		//    //{
-		//    //    f *= ModdedPlayer.instance.ArmorDmgRed;
+		//    //    f *= ModdedPlayer.Stats.armor.valueAdditiveDmgRed;
 		//    //}
 		//    //if (type == DamageType.Fire)
 		//    //{
@@ -735,7 +735,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				float f = ModdedPlayer.instance.MaxHealth * 0.002f * amount * ModdedPlayer.Stats.allRecoveryMult + amount;
+				float f = ModdedPlayer.Stats.TotalMaxHealth * 0.002f * amount * ModdedPlayer.Stats.allRecoveryMult + amount;
 				HealthTarget += f;
 			}
 		}
@@ -744,33 +744,34 @@ namespace ChampionsOfForest
 		{
 			if (type == DamageType.Physical)
 			{
-				if (UnityEngine.Random.value < ModdedPlayer.instance.DodgeChance)
+				if (UnityEngine.Random.value > ModdedPlayer.Stats.getHitChance)
 				{
-					if (ModdedPlayer.instance.isWindArmor)
+					if (ModdedPlayer.Stats.i_isWindArmor)
 					{
 						//grant buffs;
 						BuffDB.AddBuff(5, 84, 1.2f, 30);
 						BuffDB.AddBuff(9, 85, 1.35f, 10);
 						BuffDB.AddBuff(15, 86, 2000, 10);
-						HealthTarget += ModdedPlayer.instance.MaxHealth * 0.05f;
+						HealthTarget += ModdedPlayer.Stats.TotalMaxHealth * 0.05f;
 					}
+					Sfx.PlayWhoosh();
 					return;
 				}
 			}
-			float f = damage * ModdedPlayer.Stats.allDamageTakenTotal;
+			float f = damage * ModdedPlayer.Stats.allDamageTaken;
 			if (!ignoreArmor)
 			{
-				f *= 1 - ModdedPlayer.instance.ArmorDmgRed;
+				f *= 1 - ModReferences.DamageReduction( ModdedPlayer.Stats.armor);
 			}
 			if (type == DamageType.Fire)
 			{
-				f *= 0.01f * ModdedPlayer.instance.MaxHealth;
+				f *= 0.01f * ModdedPlayer.Stats.TotalMaxHealth;
 				f *= UnityEngine.Random.Range(0.9f, 1.4f);
 				//f *= 1-ModdedPlayer.Stats.magicDamageTaken;
-				f *= ModdedPlayer.instance.FireDamageTakenMult;
+				f *= ModdedPlayer.Stats.fireDamageTaken;
 			}
 			damage = Mathf.RoundToInt(f);
-			if (ModdedPlayer.instance.KingQruiesSpecial)
+			if (ModdedPlayer.Stats.i_KingQruiesSword)
 				BuffDB.AddBuff(22, 80, damage / 2, 4);
 
 			base.Hit(damage, ignoreArmor, type);
@@ -854,18 +855,18 @@ namespace ChampionsOfForest
 
 		public override void PoisonMe()
 		{
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth * 0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Poison);
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Poison);
 		}
 
 		public override void HitWaterDelayed(int damage)
 		{
 			base.HitWaterDelayed(damage);
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth * 0.01f * damage) * TheForest.Utils.Settings.GameSettings.Survival.PolutedWaterDamageRatio), true, global::PlayerStats.DamageType.Poison);
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f * damage) * TheForest.Utils.Settings.GameSettings.Survival.PolutedWaterDamageRatio), true, global::PlayerStats.DamageType.Poison);
 		}
 
 		protected override void HitFire()
 		{
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.instance.MaxHealth * 0.01f + 3) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f + 3) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
 			if (TheForest.Utils.LocalPlayer.AnimControl.skinningAnimal)
 			{
 				TheForest.Utils.LocalPlayer.SpecialActions.SendMessage("forceSkinningReset");
@@ -881,12 +882,14 @@ namespace ChampionsOfForest
 			}
 			if (this.Health <= 0f && !this.Dead)
 			{
-				if (ModdedPlayer.instance.NearDeathExperienceUnlocked && !ModdedPlayer.instance.NearDeathExperience)
+				if (ModdedPlayer.Stats.perk_nearDeathExperienceUnlocked && !ModdedPlayer.Stats.perk_nearDeathExperienceTriggered)
 				{
-					Health = ModdedPlayer.instance.MaxHealth;
+					Health = ModdedPlayer.Stats.TotalMaxHealth;
 					BuffDB.AddBuff(20, 61, 0, 600);
-					BuffDB.AddBuff(6, 82, 0, 10);
-					BuffDB.AddBuff(26, 83, 0, 10);
+					BuffDB.AddBuff(6, 82, 1, 10);
+					BuffDB.AddBuff(26, 83, 0.2f, 10);	//80% damage reduction
+					BuffDB.AddBuff(25, 99, 35, 10);		//+35 hp/s
+					BuffDB.AddBuff(11, 100, 10, 10);		//+10 ep/s
 					return;
 				}
 

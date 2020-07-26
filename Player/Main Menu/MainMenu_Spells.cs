@@ -72,7 +72,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * screenScale, 325 * screenScale, 300 * screenScale, 35 * screenScale), Res.ResourceLoader.instance.LoadedTextures[30]);
 
 				GUI.Label(new Rect(Screen.width / 2 - 300 * screenScale, 370 * screenScale, 600 * screenScale, 400 * screenScale),
-					displayedSpellInfo.Description + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost : "") +
+					displayedSpellInfo.GetDescription + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost : "") +
 					"\nRequired level:  " + displayedSpellInfo.Levelrequirement,
 					new GUIStyle(GUI.skin.label)
 					{

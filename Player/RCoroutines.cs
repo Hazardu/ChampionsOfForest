@@ -47,7 +47,7 @@ namespace ChampionsOfForest.Player
 			for (int i = 0; i < repeats; i++)
 			{
 				bool noconsume = false;
-				if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
 				{
 					noconsume = true;
 				}
@@ -61,7 +61,7 @@ namespace ChampionsOfForest.Player
 					}
 
 					GameObject gameObject = Object.Instantiate(_boltProjectile, position, rotation);
-					gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+					gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 					gameObject.layer = 19;
 					Physics.IgnoreLayerCollision(19, 19, true);
 
@@ -91,8 +91,8 @@ namespace ChampionsOfForest.Player
 					}
 					if (i == 0)
 						forceUp = gameObject.transform.up;
-					Vector3 force = 22000f * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * forceUp;
-					if (SpellActions.BIA_bonusDamage > 0)
+					Vector3 force = 22000f * ModdedPlayer.Stats.projectileSpeed * (0.016666f / Time.fixedDeltaTime) * forceUp;
+					if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
 					{
 						gameObject.transform.localScale *= 2f;
 						force *= 2f;
@@ -148,7 +148,7 @@ namespace ChampionsOfForest.Player
 
 					GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation);
 
-					gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+					gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 
 					try
 					{
@@ -171,25 +171,25 @@ namespace ChampionsOfForest.Player
 					{
 						if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
 						{
-							gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+							gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
 						}
 						else
 						{
 							float num = Time.time - _weaponChargeStartTime;
 							if (ForestVR.Enabled)
 							{
-								gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.instance.ProjectileSpeedRatio * itemCache._projectileThrowForceRange);
+								gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange);
 							}
 							else
 							{
-								Vector3 proj_force = forceUp * ModdedPlayer.instance.ProjectileSpeedRatio * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
+								Vector3 proj_force = forceUp * ModdedPlayer.Stats.projectileSpeed * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
 								var proj_rb = gameObject.GetComponent<Rigidbody>();
 								if (GreatBow.isEnabled)
 								{
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;
 								}
-								if (SpellActions.BIA_bonusDamage > 0)
+								if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage> 0)
 								{
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;

@@ -228,7 +228,7 @@ namespace ChampionsOfForest.Player
 				TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
 				bool flag = itemCache._maxAmount < 0;
 				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>((!this.UseAltWorldPrefab) ? inventoryItemView._worldPrefab : inventoryItemView._altWorldPrefab, inventoryItemView._held.transform.position, inventoryItemView._held.transform.rotation);
-				gameObject.transform.localScale *= ModdedPlayer.instance.ProjectileSizeRatio;
+				gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 				Rigidbody component = gameObject.GetComponent<Rigidbody>();
 				Collider component2 = gameObject.GetComponent<Collider>();
 				if (BoltNetwork.isRunning)
@@ -239,8 +239,8 @@ namespace ChampionsOfForest.Player
 						BoltNetwork.Attach(gameObject);
 					}
 				}
-				Vector3 force = ((float)itemCache._projectileThrowForceRange) * ModdedPlayer.instance.ProjectileSpeedRatio * (0.016666f / Time.fixedDeltaTime) * TheForest.Utils.LocalPlayer.MainCamTr.forward;
-				if (SpellActions.BIA_bonusDamage > 0)
+				Vector3 force = ((float)itemCache._projectileThrowForceRange) * ModdedPlayer.Stats.projectileSpeed* (0.016666f / Time.fixedDeltaTime) * TheForest.Utils.LocalPlayer.MainCamTr.forward;
+				if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
 				{
 					gameObject.transform.localScale *= 1.5f;
 					force *= 2f;
@@ -311,7 +311,7 @@ namespace ChampionsOfForest.Player
 				{
 					equipPrevious = false;
 				}
-				if (ModdedPlayer.instance.ReusabilityChance < Random.value)
+				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance < Random.value)
 					this.UnequipItemAtSlot(itemCache._equipmentSlot, false, false, equipPrevious);
 				TheForest.Utils.LocalPlayer.Sfx.PlayThrow();
 			}
@@ -332,7 +332,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (ModdedPlayer.Stats.i_DeathPact_Enabled.value)
 				{
-					LocalPlayer.Stats.Health -= ModdedPlayer.instance.MaxHealth * 0.07f;
+					LocalPlayer.Stats.Health -= ModdedPlayer.Stats.TotalMaxHealth * 0.07f;
 					LocalPlayer.Stats.Health = Mathf.Max(1, LocalPlayer.Stats.Health);
 				}
 			}
@@ -384,7 +384,7 @@ namespace ChampionsOfForest.Player
 			if (EquippedModel == BaseItem.WeaponModelType.Polearm)
 				return;
 			bool noconsume = false;
-			if (ModdedPlayer.instance.ReusabilityChance >= 0 && Random.value < ModdedPlayer.instance.ReusabilityChance)
+			if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
 			{
 				noconsume = true;
 			}

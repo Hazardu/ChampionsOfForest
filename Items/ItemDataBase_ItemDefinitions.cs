@@ -4635,7 +4635,7 @@ new int[] {0,0,0,0,62,63,64},
 			//This is the new better way of defining items, no longer uses item ids, now uses enum like in C++, the enum is Stats, you can find it in ItemDataBase_StatDefinitons.cs
 			new BaseItem(new Stat[][]
 			{
-				new [] {DAMAGEPERSTRENGTH},
+				new [] {meleeDmgFromStr},
 				new [] {STRENGTH},
 				new [] {BASEMELEEDAMAGE},
 				new [] {MELEEARMORPIERCING},

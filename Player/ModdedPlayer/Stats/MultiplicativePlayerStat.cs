@@ -20,12 +20,12 @@ namespace ChampionsOfForest.Player
 			AddStatToList();
 		}
 
-		public T Multiply(T amount)
+		public T Multiply(in T amount)
 		{
 			valueMultiplicative = mult(amount, valueMultiplicative);
 			return valueMultiplicative;
 		}
-		public T Divide(T amount)
+		public T Divide(in T amount)
 		{
 			valueMultiplicative = divide(valueMultiplicative, amount);
 			return valueMultiplicative;

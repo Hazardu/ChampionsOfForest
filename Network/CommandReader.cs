@@ -437,7 +437,7 @@ namespace ChampionsOfForest.Network
 
 						case 12:
 							{
-								if (ModdedPlayer.instance.RootImmune == 0 && ModdedPlayer.Stats.stunImmunity == 0)
+								if (ModdedPlayer.Stats.rootImmunity == 0 && ModdedPlayer.Stats.stunImmunity == 0)
 								{
 									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									if ((LocalPlayer.Transform.position - pos).sqrMagnitude < 1250)
@@ -984,8 +984,9 @@ namespace ChampionsOfForest.Network
 								var s = r.ReadString();
 								if (ModReferences.ThisPlayerID == s)
 								{
-									BuffDB.AddBuff(25, 91, r.ReadSingle(), 30);
+									BuffDB.AddBuff(25, 91, r.ReadSingle(), 10);
 									BuffDB.AddBuff(9, 92, 1.35f, 30);
+									LocalPlayer.Stats.Energy += ModdedPlayer.Stats.TotalMaxEnergy / 10f;
 									ModdedPlayer.instance.damageAbsorbAmounts[2] = r.ReadSingle();
 								}
 

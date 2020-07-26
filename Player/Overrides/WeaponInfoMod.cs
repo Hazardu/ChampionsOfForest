@@ -26,16 +26,16 @@ namespace ChampionsOfForest.Player
 				{
 					CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
 					setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
-					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.instance.StaminaAttackCost;
+					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.Stats.attackStaminaCost;
 					setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
-					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent;
+					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
+					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
 				}
 				else
 				{
-					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
-					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.instance.StaminaAttackCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.instance.BlockFactor * blockDamagePercent;
+					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
+					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
+					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
 				}
 				//float ats = ModdedPlayer.instance.AttackSpeed;
 				//if (GreatBow.isEnabled) ats /= 10f;
@@ -127,15 +127,15 @@ namespace ChampionsOfForest.Player
 				mainTriggerScript.smallAxe = smallAxe;
 				if (weaponRange == 0f)
 				{
-					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f * ModdedPlayer.instance.MeleeRange);
+					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f * ModdedPlayer.Stats.weaponRange);
 				}
 				else if (BoltNetwork.isClient)
 				{
-					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp(weaponRange * ModdedPlayer.instance.MeleeRange, 1f, weaponRange * ModdedPlayer.instance.MeleeRange));
+					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, Mathf.Clamp(weaponRange * ModdedPlayer.Stats.weaponRange, 1f, weaponRange * ModdedPlayer.Stats.weaponRange));
 				}
 				else
 				{
-					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, weaponRange * ModdedPlayer.instance.MeleeRange);
+					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, weaponRange * ModdedPlayer.Stats.weaponRange);
 				}
 			}
 		}
@@ -231,7 +231,7 @@ namespace ChampionsOfForest.Player
 							ModdedPlayer.instance.OnHit();
 							ModdedPlayer.instance.OnHit_Melee(other.transform);
 
-							DamageMath.DamageClamp(2f * (WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg()) * ModdedPlayer.instance.MeleeAMP * ModdedPlayer.instance.CritDamageBuff, out int dmg, out int repetitions);
+							DamageMath.DamageClamp(2f * (WeaponDamage + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg()) * ModdedPlayer.Stats.MeleeDamageMult* ModdedPlayer.Stats.RandomCritDamage, out int dmg, out int repetitions);
 
 							HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
 							hitPlayer.damage = dmg;
@@ -263,8 +263,8 @@ namespace ChampionsOfForest.Player
 					setup.pmNoise.SendEvent("toWeaponNoise");
 					Mood.HitRumble();
 					other.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
-					float damage = WeaponDamage * 4f + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
-					damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+					float damage = WeaponDamage * 4f + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg();
+					damage *= ModdedPlayer.Stats.RandomCritDamage * ModdedPlayer.Stats.MeleeDamageMult;
 					if (tht.atEnemy)
 					{
 						damage *= 0.125f;
@@ -273,8 +273,8 @@ namespace ChampionsOfForest.Player
 				}
 				if (BoltNetwork.isClient && (other.CompareTag("jumpObject") || other.CompareTag("UnderfootWood")) && !repairTool)
 				{
-					float damage = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus;
-					damage *= ModdedPlayer.instance.CritDamageBuff * ModdedPlayer.instance.MeleeAMP;
+					float damage = WeaponDamage + ModdedPlayer.Stats.meleeFlatDmg;
+					damage *= ModdedPlayer.Stats.RandomCritDamage * ModdedPlayer.Stats.MeleeDamageMult;
 					FauxMpHit(Mathf.CeilToInt(damage * 4f));
 				}
 				switch (other.gameObject.tag)
@@ -367,15 +367,15 @@ namespace ChampionsOfForest.Player
 				{
 					ModdedPlayer.instance.OnHit();
 					ModdedPlayer.instance.OnHit_Melee(other.transform);
-					if (ModdedPlayer.instance.MeleeArmorReduction > 0 && other.gameObject.CompareTag("enemyCollide"))
+					if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0 && other.gameObject.CompareTag("enemyCollide"))
 					{
 						if (BoltNetwork.isClient)
 						{
-							EnemyProgression.ReduceArmor(playerHitEnemy.Target, ModdedPlayer.instance.MeleeArmorReduction);
+							EnemyProgression.ReduceArmor(playerHitEnemy.Target, ModdedPlayer.Stats.TotalMeleeArmorPiercing);
 						}
 						else
 						{
-							other.gameObject.SendMessageUpwards("ReduceArmor", ModdedPlayer.instance.MeleeArmorReduction, SendMessageOptions.DontRequireReceiver);
+							other.gameObject.SendMessageUpwards("ReduceArmor", ModdedPlayer.Stats.TotalMeleeArmorPiercing, SendMessageOptions.DontRequireReceiver);
 						}
 					}
 					if (BoltNetwork.isClient && other.gameObject.CompareTag("enemyCollide"))
@@ -524,9 +524,9 @@ namespace ChampionsOfForest.Player
 							playerHitEnemy.Burn = true;
 						}
 					}
-					float num2 = WeaponDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
-					float crit = ModdedPlayer.instance.CritDamageBuff;
-					num2 *= crit * ModdedPlayer.instance.MeleeAMP;
+					float num2 = WeaponDamage + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg();
+					float crit = ModdedPlayer.Stats.RandomCritDamage;
+					num2 *= crit * ModdedPlayer.Stats.MeleeDamageMult;
 					if (component2 && chainSaw && (component2.typeMaleCreepy || component2.typeFemaleCreepy || component2.typeFatCreepy))
 					{
 						num2 /= 2f;
@@ -562,13 +562,13 @@ namespace ChampionsOfForest.Player
 							}
 						}
 					}
-					if (ModdedPlayer.instance.IsHammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+					if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
 					{
 						if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
 						{
 							if (ep != null)
 							{
-								ep.Slow(40, ModdedPlayer.Stats.i_HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
+								ep.Slow(40, ModdedPlayer.Stats.i_HammerStunAmount, ModdedPlayer.Stats.i_HammerStunDuration);
 							}
 						}
 						else if (playerHitEnemy != null)
@@ -580,7 +580,7 @@ namespace ChampionsOfForest.Player
 									w.Write(22);
 									w.Write(playerHitEnemy.Target.networkId.PackedValue);
 									w.Write(ModdedPlayer.Stats.i_HammerStunAmount);
-									w.Write(ModdedPlayer.instance.HammerStunDuration);
+									w.Write(ModdedPlayer.Stats.i_HammerStunDuration);
 									w.Write(40);
 									w.Close();
 								}
@@ -628,12 +628,12 @@ namespace ChampionsOfForest.Player
 							//Network.NetworkManager.SendLine("AH" + playerHitEnemy.Target.networkId.PackedValue + ";" + Effects.BlackFlame.FireDamageBonus + ";" + 20 + ";1;", Network.NetworkManager.Target.OnlyServer);
 						}
 					}
-					if (ModdedPlayer.instance.SpellAmpFireDmg)
+					if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 					{
 						int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-						float dmg = 1 + ModdedPlayer.instance.SpellDamageBonus / 3;
-						dmg *= ModdedPlayer.instance.TotalSpellAmplification;
-						dmg *= ModdedPlayer.instance.FireAmp + 1;
+						float dmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+						dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+						dmg *= ModdedPlayer.Stats.fireDamage + 1;
 						dmg *= 0.3f;
 
 						if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
@@ -659,7 +659,7 @@ namespace ChampionsOfForest.Player
 						}
 					}
 
-					if (ModdedPlayer.instance.DanceOfFiregod && Effects.BlackFlame.IsOn)
+					if (ModdedPlayer.Stats.perk_danceOfFiregod && Effects.BlackFlame.IsOn)
 					{
 						num2 *= 1 + LocalPlayer.Rigidbody.velocity.magnitude;
 					}
@@ -668,7 +668,7 @@ namespace ChampionsOfForest.Player
 
 					if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
 					{
-						num2 *= ModdedPlayer.instance.HeavyAttackMult;
+						num2 *= ModdedPlayer.Stats.heavyAttackDmg;
 						DamageMath.DamageClamp(num2*3, out d, out a);
 
 						if ((bool)component6)
@@ -870,18 +870,18 @@ namespace ChampionsOfForest.Player
 			}
 			if ((other.CompareTag("enemyCollide") || other.CompareTag("lb_bird") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("EnemyBodyPart")) && !mainTrigger && !enemyDelay && (animControl.smashBool || chainSaw))
 			{
-				float num3 = smashDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg();
+				float num3 = smashDamage + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg();
 
 				if (chainSaw && !mainTrigger)
 				{
 					base.StartCoroutine(chainSawClampRotation(0.25f));
-					num3 = (smashDamage + ModdedPlayer.instance.MeleeDamageBonus + ModdedPlayer.instance.GetParryCSDmg()) / 2f;
+					num3 = (smashDamage + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg()) / 2f;
 				}
-				float crit = ModdedPlayer.instance.CritDamageBuff;
-				num3 *= crit * ModdedPlayer.instance.MeleeAMP;
+				float crit = ModdedPlayer.Stats.RandomCritDamage;
+				num3 *= crit * ModdedPlayer.Stats.MeleeDamageMult;
 				if (PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
 				{
-					num3 *= ModdedPlayer.Stats.i_HammerSmashDamageAmp.Multiply;
+					num3 *= ModdedPlayer.Stats.i_HammerSmashDamageAmp;
 				}
 
 				DamageMath.DamageClamp(num3, out int dmg, out int a);

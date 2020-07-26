@@ -10,13 +10,13 @@ namespace ChampionsOfForest.Player
 		{
 			base.Start();
 			basewalkSpeed = walkSpeed;
-			ModdedPlayer.basejumpPower = jumpHeight;
+			ModdedPlayer.instance.basejumpPower = jumpHeight;
 		}
 
 		protected override void Update()
 		{
-			jumpHeight = ModdedPlayer.basejumpPower * ModdedPlayer.Stats.JumpPower;
-			if (ModdedPlayer.Stats.Rooted)
+			jumpHeight = ModdedPlayer.instance.basejumpPower * ModdedPlayer.Stats.jumpPower;
+			if (ModdedPlayer.Stats.rooted)
 			{
 				this.rb.Sleep();
 				this.rb.isKinematic = true;
@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Player
 				CanJump = false;
 				allowJump = false;
 			}
-			if (ModdedPlayer.Stats.Stunned)
+			if (ModdedPlayer.Stats.stunned)
 			{
 				this.rb.Sleep();
 				this.rb.isKinematic = true;
@@ -45,13 +45,13 @@ namespace ChampionsOfForest.Player
 		protected override void HandleWalkingSpeedOptions()
 		{
 			base.HandleWalkingSpeedOptions();
-			speed *= ModdedPlayer.Stats.MoveSpeed * ModdedPlayer.Stats.MoveSpeedMult;
+			speed *= ModdedPlayer.Stats.movementSpeed;
 		}
 
 		protected override void HandleRunningStaminaAndSpeed()
 		{
 			base.HandleRunningStaminaAndSpeed();
-			speed *= ModdedPlayer.Stats.MoveSpeed * ModdedPlayer.Stats.MoveSpeedMult;
+			speed *= ModdedPlayer.Stats.movementSpeed;
 		}
 
 		public override void HandleLanded()
@@ -62,12 +62,12 @@ namespace ChampionsOfForest.Player
 			this.jumpTimerStarted = false;
 			float num = 28f;
 			bool flag = false;
-			if (ModdedPlayer.Stats.BunnyHop)
+			if (ModdedPlayer.Stats.perk_bunnyHop)
 			{
-				if (ModdedPlayer.Stats.BunnyHopUpgrade)
-					BuffDB.AddBuff(5, 87, 1.5f, 0.75f * ModdedPlayer.Stats.JumpPower);
+				if (ModdedPlayer.Stats.perk_bunnyHopUpgrade)
+					BuffDB.AddBuff(5, 87, 1.6f, 0.75f * ModdedPlayer.Stats.jumpPower);
 				else
-					BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.Stats.JumpPower);
+					BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.Stats.jumpPower);
 			}
 			if ((TheForest.Utils.LocalPlayer.AnimControl.doShellRideMode || TheForest.Utils.LocalPlayer.AnimControl.flyingGlider) && this.prevVelocityXZ.magnitude > 32f)
 			{

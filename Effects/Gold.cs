@@ -10,7 +10,7 @@ using static ChampionsOfForest.Player.BuffDB;
 
 namespace ChampionsOfForest.Effects
 {
-	public class Gold
+	public class GoldenSkin
 	{
 		public static Material originalmaterial;
 		public static Material goldmaterial;

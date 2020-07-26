@@ -202,7 +202,7 @@ namespace ChampionsOfForest
 						EnemyProgression ep = hit.transform.GetComponentInParent<EnemyProgression>();
 						if (ep != null)
 						{
-							DamageMath.DamageClamp(Damage / 2, out int dmg, out int a);
+							DamageMath.DamageClamp(Damage, out int dmg, out int a);
 
 							if (fromEnemy)
 							{
@@ -245,7 +245,7 @@ namespace ChampionsOfForest
 				{
 					if (fromEnemy)
 					{
-						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * (1 - ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTakenTotal);
+						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
 						Player.BuffDB.AddBuff(1, 5, Slow, 20);
 						LocalPlayer.Stats.Burn();
 					}

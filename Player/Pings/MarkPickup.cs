@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 		public Transform transform;
 		private string Name;
 		private int Rarity;
-		private const float MaxRange = 100 * 100;   //100 meters
+		private const float MaxRange = 1000 * 1000;   //1 kilometer
 		private const float Duration = 60;     // 1 min
 
 		public bool Outdated()

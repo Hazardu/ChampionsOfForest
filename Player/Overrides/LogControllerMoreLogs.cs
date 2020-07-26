@@ -172,7 +172,7 @@ namespace ChampionsOfForest.Player
 
 		public bool LiftNew()
 		{
-			if (this._logs + additional_logs < ModdedPlayer.MaxLogs && !LocalPlayer.AnimControl.swimming && !LocalPlayer.FpCharacter.PushingSled && !LocalPlayer.FpCharacter.SailingRaft && !LocalPlayer.AnimControl.carry && !LocalPlayer.AnimControl.useRootMotion)
+			if (this._logs + additional_logs < ModdedPlayer.Stats.MaxLogs && !LocalPlayer.AnimControl.swimming && !LocalPlayer.FpCharacter.PushingSled && !LocalPlayer.FpCharacter.SailingRaft && !LocalPlayer.AnimControl.carry && !LocalPlayer.AnimControl.useRootMotion)
 			{
 				if (_logs < 2)
 				{

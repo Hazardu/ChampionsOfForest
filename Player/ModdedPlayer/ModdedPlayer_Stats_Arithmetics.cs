@@ -5,6 +5,8 @@ namespace ChampionsOfForest.Player
 {
 	public partial class ModdedPlayer : MonoBehaviour
 	{
+
+
 		static float addfloat(float a, float b) => a + b;
 		static float substractfloat(float a, float b) => a - b;
 		static float multfloat(float a, float b) => a * b;

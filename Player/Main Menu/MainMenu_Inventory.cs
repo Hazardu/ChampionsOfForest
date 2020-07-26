@@ -96,7 +96,7 @@ namespace ChampionsOfForest
 				DrawInvSlot(weapon, -12, "Main hand");
 				DrawInvSlot(offhand, -13, "Offhand");
 
-				if (ModdedPlayer.instance.CraftingReroll)
+				if (ModdedPlayer.Stats.perk_craftingReroll)
 				{
 					DrawCrafting(eq.xMax + 30 * screenScale);
 				}
@@ -176,7 +176,7 @@ namespace ChampionsOfForest
 			}
 			i++;
 
-			if (ModdedPlayer.instance.CraftingReforge)
+			if (ModdedPlayer.Stats.perk_craftingReforge)
 			{
 				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Reforging", style))
 				{
@@ -188,7 +188,7 @@ namespace ChampionsOfForest
 				}
 				i++;
 			}
-			if (ModdedPlayer.instance.CraftingPolishing)
+			if (ModdedPlayer.Stats.perk_craftingPolishing)
 			{
 				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Polishing", style))
 				{
@@ -201,7 +201,7 @@ namespace ChampionsOfForest
 				}
 				i++;
 			}
-			if (ModdedPlayer.instance.CraftingEmpowering)
+			if (ModdedPlayer.Stats.perk_craftingEmpowering)
 			{
 				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Empowering", style))
 				{

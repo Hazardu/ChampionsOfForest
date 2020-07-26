@@ -18,7 +18,7 @@ namespace ChampionsOfForest.Player
 			perks.Clear();
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DamagePerStrength += 0.01f,
+				apply = () => ModdedPlayer.Stats.meleeDmgFromStr.valueAdditive +=  0.01f,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -35,7 +35,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpellDamageperInt += 0.01f,
+				apply = () => ModdedPlayer.Stats.spellDmgFromInt.valueAdditive +=  0.01f,
 
 				category = PerkCategory.MagicOffense,
 				texture = null,
@@ -52,7 +52,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.rangedDmgFromAgi += 0.01f,
+				apply = () => ModdedPlayer.Stats.rangedDmgFromAgi.valueAdditive +=  0.01f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.01f,
+				apply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive +=  0.01f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -86,7 +86,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyPerAgility += 0.5f,
+				apply = () => ModdedPlayer.Stats.maxEnergyFromAgi.valueAdditive +=  0.5f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -103,7 +103,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HealthPerVitality += 1.75f,
+				apply = () => ModdedPlayer.Stats.maxHealthFromVit.valueAdditive +=  1.75f,
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.allRecoveryMult *= 1.05f,
+				apply = () => ModdedPlayer.Stats.allRecoveryMult.valueMultiplicative *=  1.05f,
 
 				category = PerkCategory.Support,
 				texture = null,
@@ -131,12 +131,12 @@ namespace ChampionsOfForest.Player
 				posX = -1.5f,
 				posY = 0,
 				name = "More Healing",
-				originalDescription = "Blood becomes denser, is less vunerable to bleeding and wounds are healed faster.\nIncreases all healing by 5%",
+				originalDescription = "Blood becomes denser and binds more oxygen, is less vunerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 5%",
 				updateDescription = x =>
 				{
 					float f = 1.05f;
 					for (int i = 1; i < x; i++)
-						f *= 1.05f;
+						f *=  1.05f;
 					return "\nTotal from this perk: " + (f - 1).ToString("P");
 				},
 				textureVariation = 0, //0 or 1
@@ -144,7 +144,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HungerRate *= 0.9f,
+				apply = () => ModdedPlayer.Stats.perk_hungerRate.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -162,13 +162,13 @@ namespace ChampionsOfForest.Player
 				{
 					float f = 0.9f;
 					for (int i = 1; i < x; i++)
-						f *= 0.9f;
+						f *=  0.9f;
 					return "\nTotal from this perk: " + (1 - f).ToString("P");
 				},
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ThirstRate *= 0.9f,
+				apply = () => ModdedPlayer.Stats.perk_thirstRate.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -186,13 +186,13 @@ namespace ChampionsOfForest.Player
 				{
 					float f = 0.9f;
 					for (int i = 1; i < x; i++)
-						f *= 0.9f;
+						f *=  0.9f;
 					return "\nTotal from this perk: " + (1 - f).ToString("P");
 				},
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MeleeDamageBonus += 5,
+				apply = () => ModdedPlayer.Stats.meleeFlatDmg.valueAdditive +=  5,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -203,7 +203,7 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = 0.75f,
 				name = "Damage",
-				originalDescription = "Grip strength increases by 1 kg.\nIncreases melee damage by 5",
+				originalDescription = "Grip strength increases.\nIncreases melee damage by 5",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
@@ -213,7 +213,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.1f,
+				apply = () => ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive +=  0.1f,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -230,7 +230,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.strength.Add( 15),
+				apply = () => ModdedPlayer.Stats.strength.Add( 15),
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 0, 10 },
@@ -246,8 +246,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.RangedDamageBonus += 5,
-
+				apply = () => ModdedPlayer.Stats.rangedFlatDmg.valueAdditive +=  5,
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 2 },
@@ -267,8 +266,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.projectileSize += 0.05f,
-
+				apply = () => ModdedPlayer.Stats.projectileSize.valueAdditive +=  0.05f,
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 2 },
@@ -288,7 +286,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.projectileSpeed += 0.05f,
+				apply = () => ModdedPlayer.Stats.projectileSpeed.valueAdditive +=  0.05f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -309,7 +307,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.SpellCostToStamina, 0.1f),
+				apply = () => ModdedPlayer.Stats.spellCostEnergyCost.Multiply( 0.9f),
 
 				category = PerkCategory.MagicOffense,
 				texture = null,
@@ -326,7 +324,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpellCostRatio *= 1 - 0.04f,
+				apply = () => ModdedPlayer.Stats.spellCost.valueMultiplicative *=  1 - 0.04f,
 
 				category = PerkCategory.MagicOffense,
 				texture = null,
@@ -344,13 +342,13 @@ namespace ChampionsOfForest.Player
 				{
 					float f = 0.96f;
 					for (int i = 1; i < x; i++)
-						f *= 0.96f;
+						f *=  0.96f;
 					return "\nTotal from this perk: " + (1 - f).ToString("P");
 				},
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.70f; },
+				apply = () => { ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  0.70f; ModdedPlayer.Stats.allDamage.valueMultiplicative *=  0.70f; },
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -367,7 +365,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.95f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 16 },
 				levelReq = 7,
@@ -376,20 +374,20 @@ namespace ChampionsOfForest.Player
 				posX = 2.5f,
 				posY = 1.5f,
 				name = "Cool Down Reduction",
-				originalDescription = " Reduces spell cooldown by 10%",
+				originalDescription = " Reduces spell cooldown by 5%",
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
 				{
 					float f = 0.96f;
 					for (int i = 1; i < x; i++)
-						f *= 0.96f;
+						f *=  0.95f;
 					return "\nTotal from this perk: " + (1 - f).ToString("P");
 				},
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.cooldown *= 0.925f,
+				apply = () => ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.925f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 18 },
 				levelReq = 8,
@@ -459,7 +457,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ReusabilityChance += 0.03f,
+				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive +=  0.03f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12, 14 },
@@ -480,7 +478,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
+				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive +=  0.13f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 23 },
@@ -496,7 +494,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ReusabilityChance += 0.13f,
+				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive +=  0.13f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 24 },
@@ -529,7 +527,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.JumpPower += 0.06f,
+				apply = () => ModdedPlayer.Stats.jumpPower.valueAdditive +=  0.06f,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 3 },
@@ -549,7 +547,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MoveSpeed += 0.035f,
+				apply = () => ModdedPlayer.Stats.movementSpeed.valueAdditive +=  0.035f,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 27 },
@@ -569,7 +567,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HealthBonus += 25,
+				apply = () => ModdedPlayer.Stats.maxHealth.valueAdditive +=  25,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 5 },
@@ -589,7 +587,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.healthRecoveryPerSecond += 0.25f,
+				apply = () => ModdedPlayer.Stats.healthRecoveryPerSecond.valueAdditive +=  0.25f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 6 },
@@ -609,7 +607,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.Armor += 40,
+				apply = () => ModdedPlayer.Stats.armor.valueAdditive +=  40,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 5 },
@@ -629,7 +627,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 31 },
@@ -645,7 +643,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 32 },
@@ -662,7 +660,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 33 },
@@ -679,7 +677,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, 0.05f),
+				apply = () =>  ModdedPlayer.Stats.magicDamageTaken.Multiply(0.93f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 29, 31 },
@@ -689,20 +687,20 @@ namespace ChampionsOfForest.Player
 				posX = 3f,
 				posY = -0.75f,
 				name = "Magic Resistance",
-				originalDescription = "Decreases magic damage taken by 5%",
+				originalDescription = "Decreases magic damage taken by 7%",
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
 				{
-					float f = 0.95f;
+					float f = 0.97f;
 					for (int i = 1; i < x; i++)
-						f *= 0.95f;
+						f *=  0.97f;
 					return "\nTotal from this perk: " + (1 - f).ToString("N");
 				},
 			};
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DodgeChance, 0.25f),
+				apply = () =>  ModdedPlayer.Stats.getHitChance.Multiply( 0.75f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 34 },
@@ -718,7 +716,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.allArmorPiercing += 3,
+				apply = () => ModdedPlayer.Stats.allArmorPiercing.valueAdditive +=  3,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 6 },
@@ -734,7 +732,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.meleeArmorPiercing += 10,
+				apply = () => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive +=  12,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 37 },
@@ -744,13 +742,13 @@ namespace ChampionsOfForest.Player
 				posX = -1.5f,
 				posY = 1.5f,
 				name = "Armor Piercing Edge",
-				originalDescription = "Increases armor penetration from melee weapons by 10",
+				originalDescription = "Increases armor penetration from melee weapons by 12",
 				textureVariation = 0,
 				uncapped = true,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.rangedArmorPiercing += 5,
+				apply = () => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive +=  5,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 37 },
@@ -766,7 +764,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.healthPerSecRate += 0.1f,
+				apply = () => ModdedPlayer.Stats.healthPerSecRate.valueAdditive +=  0.1f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 30 },
@@ -782,7 +780,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyPerSecond += 0.15f,
+				apply = () => ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive +=  0.15f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 30 },
@@ -799,7 +797,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ExpFactor *= 1.1f,
+				apply = () => ModdedPlayer.Stats.expGain.valueMultiplicative *=  1.1f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 40 },
@@ -815,7 +813,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.LifeOnHit += 1f,
+				apply = () => ModdedPlayer.Stats.healthOnHit.valueAdditive +=  1f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 40 },
@@ -831,7 +829,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyOnHit += 0.5f,
+				apply = () => ModdedPlayer.Stats.energyOnHit.valueAdditive +=  0.5f,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 41 },
@@ -992,7 +990,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ReusabilityChance += 0.5f,
+				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive +=  0.5f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 25 },
@@ -1008,7 +1006,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpellDamageBonus += 5,
+				apply = () => ModdedPlayer.Stats.spellFlatDmg.valueAdditive +=  5,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 1 },
@@ -1153,7 +1151,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearDamageMult *= 2f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.valueMultiplicative *=  2f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12 },
@@ -1169,7 +1167,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BulletDamageMult *= 1.6f,
+				apply = () => ModdedPlayer.Stats.perk_bulletDamageMult.valueMultiplicative *=  1.6f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12 },
@@ -1185,7 +1183,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CrossbowDamageMult *= 1.8f,
+				apply = () => ModdedPlayer.Stats.perk_crossbowDamageMult.valueMultiplicative *=  1.8f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12 },
@@ -1201,7 +1199,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BowDamageMult *= 1.4f,
+				apply = () => ModdedPlayer.Stats.perk_bowDamageMult.valueMultiplicative *=  1.4f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12 },
@@ -1218,7 +1216,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => SpellActions.HealingDomeGivesImmunity = true,
+				apply = () => ModdedPlayer.Stats.spell_healingDomeGivesImmunity.value = true,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 40 },
@@ -1250,7 +1248,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.WarCryGiveDamage = true,
+				apply = () => ModdedPlayer.Stats.spell_warCryGiveDamage.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 55 },
@@ -1267,7 +1265,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.25f; ModdedPlayer.instance.StaminaAttackCost *= 1.4f; },
+				apply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive +=  0.25f; ModdedPlayer.Stats.attackStaminaCost.valueMultiplicative *=  1.4f; },
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 11, 10 },
@@ -1284,16 +1282,16 @@ namespace ChampionsOfForest.Player
 				{
 					float f = 1.25f;
 					for (int i = 1; i < x; i++)
-						f += 0.25f;
+						f +=  0.25f;
 					float f1 = 1.3f;
 					for (int i = 1; i < x; i++)
-						f1 *= 1.4f;
+						f1 *=  1.4f;
 					return "\nTotal from this perk:\nDamage - " + (f - 1).ToString("P") + "\nStamina Cost - " + (f1 - 1).ToString("P");
 				},
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.SpellDamageAmplifier_Add += 0.1f; ModdedPlayer.instance.SpellCostRatio *= 1.25f; },
+				apply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive +=  0.1f; ModdedPlayer.Stats.spellCost.valueMultiplicative *=  1.25f; },
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 15, 55 },
@@ -1309,7 +1307,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.MagicArrowDmgDebuff = true,
+				apply = () => ModdedPlayer.Stats.spell_magicArrowDmgDebuff.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 55 },
@@ -1325,7 +1323,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.MagicArrowDuration += 5,
+				apply = () => ModdedPlayer.Stats.spell_magicArrowDuration.valueAdditive +=  5,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 73 },
@@ -1341,7 +1339,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.MagicArrowDoubleSlow = true,
+				apply = () => ModdedPlayer.Stats.spell_magicArrowDoubleSlow.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 74 },
@@ -1358,7 +1356,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HeavyAttackMult *= 1.5f,
+				apply = () => ModdedPlayer.Stats.heavyAttackDmg.valueMultiplicative *=  1.5f,
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 10 },
@@ -1375,7 +1373,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.HeavyAttackMult *= 4f,
+				apply = () => ModdedPlayer.Stats.heavyAttackDmg.valueMultiplicative *=  3f,
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 76 },
@@ -1391,7 +1389,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CritDamage += 0.10f,
+				apply = () => ModdedPlayer.Stats.critDamage.valueAdditive +=  0.10f,
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 9, 10 },
@@ -1407,23 +1405,23 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CritChance += 0.12f,
+				apply = () => ModdedPlayer.Stats.critChance.valueAdditive +=  0.10f,
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 9, 78 },
 				levelReq = 35,
-				cost = 2,
+				cost = 1,
 				scale = 1,
 				posX = 2.5f,
 				posY = 1.5f,
 				name = "Overhelming Odds",
-				originalDescription = "Increases Critical chance by 12%.",
+				originalDescription = "Increases Critical chance by 10%.",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.maxEnergy += 10,
+				apply = () => ModdedPlayer.Stats.maxEnergy.valueAdditive +=  15,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 3 },
@@ -1433,14 +1431,14 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -0.75f,
 				name = "Endurance",
-				originalDescription = "Increases maximum energy by 10",
+				originalDescription = "Increases maximum energy by 15",
 				textureVariation = 0,
 				uncapped = true,
 			};
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MultishotCount += 2,
+				apply = () => ModdedPlayer.Stats.perk_multishotProjectileCount.valueAdditive +=  2,
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 12 },
 				levelReq = 31,
@@ -1457,7 +1455,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_turboRaftOwners= true,
+				apply = () => ModdedPlayer.Stats.perk_turboRaftOwners.Add(1),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 50 },
@@ -1473,7 +1471,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () =>  ModdedPlayer.Stats.perk_RaftSpeedMultipier++,
+				apply = () =>  ModdedPlayer.Stats.perk_RaftSpeedMultipier.Add(1),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 82 },
@@ -1489,7 +1487,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.PurgeHeal = true,
+				apply = () => ModdedPlayer.Stats.spell_purgeHeal.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 15 },
@@ -1505,7 +1503,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.cooldown *= 0.925f,
+				apply = () => ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.925f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
@@ -1521,7 +1519,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 85 },
@@ -1537,7 +1535,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.9f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 86 },
@@ -1553,7 +1551,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellCaster.InfinityEnabled = true,
+				apply = () => ModdedPlayer.Stats.perk_infinityMagic.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 87 },
@@ -1569,7 +1567,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpellDamageAmplifier_Add += 0.5f,
+				apply = () => ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive *=  1.5f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 88 },
@@ -1585,7 +1583,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpellAmpFireDmg = true,
+				apply = () => ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { -1 },
@@ -1601,7 +1599,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.NearDeathExperienceUnlocked = true,
+				apply = () => ModdedPlayer.Stats.perk_nearDeathExperienceUnlocked.value = true,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 35 },
@@ -1617,7 +1615,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.SeekingArrow_HeadDamage = 3,
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(1),
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 55 },
@@ -1627,13 +1625,13 @@ namespace ChampionsOfForest.Player
 				posX = 0.5f,
 				posY = -1.5f,
 				name = "Seeking Arrow - Head Hunting",
-				originalDescription = "Seeking arrow additional damage on headshot is increased to x3",
+				originalDescription = "Seeking arrow additional damage on headshot is increased from 200% to 300%",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.SeekingArrow_DamagePerDistance += 0.01f,
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_DamagePerDistance.valueAdditive +=  0.01f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 92 },
@@ -1649,7 +1647,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.SeekingArrow_SlowDuration += 4,
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.valueAdditive +=  4,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 93 },
@@ -1665,7 +1663,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.SeekingArrow_SlowAmount -= 0.2f,
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowAmount.valueAdditive -= 0.2f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 94 },
@@ -1681,7 +1679,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FocusOnHS += 0.5f,
+				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive +=  0.5f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 55 },
@@ -1697,7 +1695,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FocusOnAtkSpeed += 0.15f,
+				apply = () => ModdedPlayer.Stats.spell_focusOnAtkSpeed.valueAdditive +=  0.15f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 96 },
@@ -1713,7 +1711,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FocusOnAtkSpeed += 0.15f,
+				apply = () => ModdedPlayer.Stats.spell_focusOnAtkSpeed.valueAdditive +=  0.15f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 97 },
@@ -1729,7 +1727,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FocusSlowDuration += 20f,
+				apply = () => ModdedPlayer.Stats.spell_focusSlowDuration.valueAdditive +=  20f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 97 },
@@ -1777,7 +1775,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FrenzyAtkSpeed += 0.02f,
+				apply = () => ModdedPlayer.Stats.spell_frenzyAtkSpeed.valueAdditive +=  0.02f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 72 },
@@ -1793,7 +1791,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BashDuration += 1,
+				apply = () => ModdedPlayer.Stats.spell_bashDuration.valueAdditive +=  1,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 72 },
@@ -1809,7 +1807,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.ShieldPersistanceLifetime += 60f,
+				apply = () => ModdedPlayer.Stats.spell_shieldPersistanceLifetime.valueAdditive +=  60f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 16 },
@@ -1825,7 +1823,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_blinkDamage+= 14f,
+				apply = () => ModdedPlayer.Stats.spell_blinkDamage.Add(14f),
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 86 },
@@ -1841,7 +1839,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyRegenPerInt += 0.005f,
+				apply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive +=  0.005f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -1858,7 +1856,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.ParryIgnites = true,
+				apply = () => ModdedPlayer.Stats.spell_parryIgnites.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 16 },
@@ -1874,10 +1872,10 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.ParryRadius++,
+				apply = () => ModdedPlayer.Stats.spell_parryRadius.Add(1),
 
 				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 19, 107 },
+				unlockPath = new int[] { 19, 16 },
 				levelReq = 20,
 				cost = 1,
 				scale = 1,
@@ -1922,7 +1920,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BIA_HealthTakenMult += 0.25f,
+				apply = () => ModdedPlayer.Stats.spell_bia_HealthTaken.valueAdditive +=  0.25f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 67 },
@@ -1938,7 +1936,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BIA_HealthDmMult += 2f,
+				apply = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.valueAdditive +=  1f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
@@ -1948,13 +1946,13 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = 2.25f,
 				name = "Arcane Blood",
-				originalDescription = "Blood infused arrow damage per health is increased by 2 dmg/hp.",
+				originalDescription = "Blood infused arrow damage per health is increased by 1 dmg/hp.",
 				textureVariation = 0,
 				uncapped = true,
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.HealingDomeRegEnergy = true,
+				apply = () => ModdedPlayer.Stats.spell_healingDomeRegEnergy.value = true,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 68 },
@@ -1970,7 +1968,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MaxHealthPercent += 0.1f,
+				apply = () => ModdedPlayer.Stats.maxHealthMult.valueAdditive +=  0.1f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 29 },
@@ -1986,7 +1984,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MaxEnergyPercent += 0.1f,
+				apply = () => ModdedPlayer.Stats.maxEnergyMult.valueAdditive +=  0.1f,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 80 },
@@ -2002,7 +2000,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CraftingReroll = true,
+				apply = () => ModdedPlayer.Stats.perk_craftingReroll.value = true,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { -1 },
@@ -2018,7 +2016,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CraftingReforge = true,
+				apply = () => ModdedPlayer.Stats.perk_craftingReforge.value = true,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 116 },
@@ -2034,7 +2032,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.flashlightIntensity++; ModdedPlayer.instance.flashlightBatteryDrain++; },
+				apply = () => { ModdedPlayer.Stats.perk_flashlightIntensity.valueAdditive++; ModdedPlayer.Stats.perk_flashlightBatteryDrain.valueAdditive++; },
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 62 },
@@ -2050,7 +2048,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks *= 1.1f; },
+				apply = () => { ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  1.1f; ModdedPlayer.Stats.allDamage.valueMultiplicative *=  1.1f; },
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -2064,10 +2062,17 @@ namespace ChampionsOfForest.Player
 				originalDescription = "Increases all damage taken and increases all damage dealt by 10%",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
+				updateDescription = x =>
+				{
+					float f = 1.1f;
+					for (int i = 1; i < x; i++)
+						f *= 1.1f;
+					return "\nTotal from this perk: " + (f - 1).ToString("P") + "increase to damage taken and dealt";
+				},
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySize = true,
+				apply = () => ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.value = true,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2084,7 +2089,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BunnyHop = true,
+				apply = () => ModdedPlayer.Stats.perk_bunnyHop.value = true,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -2101,7 +2106,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MeleeRange += 0.04f,
+				apply = () => ModdedPlayer.Stats.weaponRange.valueMultiplicative +=  1.04f,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -2118,7 +2123,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ChanceToBleedOnHit += 0.02f,
+				apply = () => ModdedPlayer.Stats.chanceToBleed.valueAdditive +=  0.025f,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -2129,13 +2134,13 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 1.5f,
 				name = "Bleed",
-				originalDescription = "Hitting an enemy has 2% chance to make them bleed",
+				originalDescription = "Hitting an enemy has 2.5% chance to make them bleed",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ChanceToWeakenOnHit += 0.025f,
+				apply = () => ModdedPlayer.Stats.chanceToWeaken.valueAdditive +=  0.03f,
 
 				category = PerkCategory.MeleeOffense,
 				texture = null,
@@ -2146,13 +2151,13 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = -1.5f,
 				name = "Weaken",
-				originalDescription = "Hitting an enemy has 2.5% chance to make them take more damage",
+				originalDescription = "Hitting an enemy has 3% chance to make them take more damage",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearCritChance += 0.36f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearCritChance.valueAdditive +=  0.36f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2162,14 +2167,14 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 0.5f,
 				posY = -1.5f,
-				name = "Javelin",
-				originalDescription = "Spear has increased headshot chance to 40%",
+				name = "Gold Medalist",
+				originalDescription = "Greatly increases spear throw skill. Spear has increased headshot chance to 40%. Headshots trigger randomly.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearCritChance += 0.1f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearCritChance.valueAdditive +=  0.1f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2186,7 +2191,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearhellChance += 0.45f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.45f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2203,7 +2208,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearhellChance += 0.02f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.02f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2220,7 +2225,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearDamageMult *= 1.75f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.valueMultiplicative *=  2f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2231,13 +2236,13 @@ namespace ChampionsOfForest.Player
 				posX = -0.5f,
 				posY = -3f,
 				name = "Spear Mastery",
-				originalDescription = "Increases spear damage by 75%",
+				originalDescription = "Doubles thrown spear damage",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BulletCritChance += 0.2f,
+				apply = () => ModdedPlayer.Stats.perk_bulletCritChance.valueAdditive +=  0.2f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2248,13 +2253,13 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -2.25f,
 				name = "Deadeye",
-				originalDescription = "Increases headshot chance of pistol's bullets by 20%, to a total of 30%",
+				originalDescription = "Increases headshot chance of pistol's bullets by 20%, to a total of 30%. Bullet headshots trigger randomly on hit",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.SpearArmorRedBonus = true,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearExtraArmorReduction.value = true,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2271,7 +2276,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BunnyHopUpgrade = true,
+				apply = () => ModdedPlayer.Stats.perk_bunnyHopUpgrade.value = true,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -2288,7 +2293,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.attackSpeed *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.9f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 2; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *=  1.65f; ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *=  0.9f; ModdedPlayer.Stats.rangedIncreasedDmg.Divide( 2); },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2304,7 +2309,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.attackSpeed *= 0.5f; ModdedPlayer.instance.MeleeDamageAmplifier_Add += 1.5f; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *=  0.5f; ModdedPlayer.Stats.meleeIncreasedDmg.Multiply(2); },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2314,13 +2319,13 @@ namespace ChampionsOfForest.Player
 				posX = 8f,
 				posY = -0.75f,
 				name = "Curse of Strengthening",
-				originalDescription = "Decreases attack speed by 50%, but greatly increases melee damage by 150%",
+				originalDescription = "Decreases attack speed by 50%, but greatly increases melee damage is doubled",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 2f; ModdedPlayer.instance.RangedDamageAmplifier_Mult *= 0; },
+				apply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive +=  2f; ModdedPlayer.Stats.rangedIncreasedDmg.valueMultiplicative *=  0; },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2336,7 +2341,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.2f; ModdedPlayer.Stats.attackSpeed *= 1.2f; },
+				apply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive +=  0.2f; ModdedPlayer.Stats.attackSpeed.valueMultiplicative *=  1.2f; },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 79 },
@@ -2352,7 +2357,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add += 1.5f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0; },
+				apply = () => { ModdedPlayer.Stats.rangedIncreasedDmg.valueMultiplicative *=  2f; ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *=  0; },
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2362,13 +2367,13 @@ namespace ChampionsOfForest.Player
 				posX = 8.5f,
 				posY = -1.5f,
 				name = "Curse of Binding",
-				originalDescription = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 0 damage, but at the same time, you deal 150% increased ranged damage",
+				originalDescription = "Makes you unable to damage enemies with melee weapons, causing all of them to deal 0 damage, but at the same time, you deal double ranged damage",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.RangedDamageAmplifier_Add += 1.2f; ModdedPlayer.instance.MoveSpeedMult *= 0.8f; ModdedPlayer.instance.JumpPower *= 0.7f; },
+				apply = () => { ModdedPlayer.Stats.rangedIncreasedDmg.valueAdditive +=  1.2f; ModdedPlayer.Stats.movementSpeed.valueMultiplicative *=  0.8f; ModdedPlayer.Stats.jumpPower.valueAdditive -=  0.7f; },
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2384,7 +2389,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.attackSpeed *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.1f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 4; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *=  1.65f; ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *=  0.4f; ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(0.90f); },
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2394,14 +2399,14 @@ namespace ChampionsOfForest.Player
 				posX = 9f,
 				posY = -0.75f,
 				name = "Curse of Quickening",
-				originalDescription = "Increases attack speed by 65%, but decreases melee damage by 90% and ranged damage by 25%",
+				originalDescription = "Increases attack speed by 65%, but decreases melee damage by 60% and ranged damage by 10%",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
 
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MaxEnergyPercent *= 0.5f; ModdedPlayer.instance.StaminaRegenPercent -= 0.5f; ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f; },
+				apply = () => { ModdedPlayer.Stats.maxEnergyMult.Multiply(0.4f); ModdedPlayer.Stats.staminaPerSecRate.Multiply( 0.5f); ModdedPlayer.Stats.spellIncreasedDmg.Multiply(2); },
 				category = PerkCategory.MagicOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2411,13 +2416,13 @@ namespace ChampionsOfForest.Player
 				posX = 9f,
 				posY = -0.75f,
 				name = "Curse of Exhaustion",
-				originalDescription = "Increases attack spell damage by 100%, but your energy is reduced by 50% and stamina regenerates slower",
+				originalDescription = "Doubles spell damage, but your energy is reduced by 60% and stamina regenerates slower",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.attackSpeed *= 0.6f; ModdedPlayer.Stats.cooldown *= 0.65f; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *=  0.6f; ModdedPlayer.Stats.cooldown.valueMultiplicative *=  0.65f; },
 				category = PerkCategory.MagicOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2433,7 +2438,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.4f; ModdedPlayer.instance.RangedDamageAmplifier_Mult *= 0.4f; ModdedPlayer.instance.SpellDamageAmplifier_Add += 1f; },
+				apply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *=  0.5f; ModdedPlayer.Stats.rangedIncreasedDmg.valueMultiplicative *=  0.5f; ModdedPlayer.Stats.spellIncreasedDmg.Add(1.5f); },
 				category = PerkCategory.MagicOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2443,13 +2448,13 @@ namespace ChampionsOfForest.Player
 				posX = 9.5f,
 				posY = 0f,
 				name = "Curse of Power",
-				originalDescription = "Magic damage is increased by 100%, but ranged and melee are weaker by 60% ",
+				originalDescription = "Magic damage is increased by 150%, but ranged and melee damage are halved",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.ParryDmgBonus += 1.5f,
+				apply = () => ModdedPlayer.Stats.spell_parryDmgBonus.valueAdditive +=  1.5f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 107 },
 				levelReq = 10,
@@ -2465,7 +2470,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.5f,
+				apply = () => ModdedPlayer.Stats.spell_bashExtraDamage.valueAdditive +=  0.3f,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 11 },
 				levelReq = 45,
@@ -2474,13 +2479,13 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = -1.5f,
 				name = "Skull Basher",
-				originalDescription = "When bash is equipped, melee weapons deal 50% more damage",
+				originalDescription = "Bashed enemies  take additional 30% more damage. Debuff lasts as long as bash slow.",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.6f,
+				apply = () => ModdedPlayer.Stats.spell_bashExtraDamage.valueAdditive +=  0.4f,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 144 },
 				levelReq = 50,
@@ -2489,14 +2494,14 @@ namespace ChampionsOfForest.Player
 				posX = 1f,
 				posY = -2.25f,
 				name = "Skull Basher II",
-				originalDescription = "When bash is equipped, melee weapons deal 110% more damage",
+				originalDescription = "Bashed enemies take 40% additional damage. With previous perk, the total value is 100% increased damage versus bashed enemies.",
 				textureVariation = 0,
 				uncapped = false,
 			};
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DanceOfFiregod = true,
+				apply = () => ModdedPlayer.Stats.perk_danceOfFiregod.value = true,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 71 },
 				levelReq = 45,
@@ -2511,7 +2516,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.StaminaOnHit += 3,
+				apply = () => ModdedPlayer.Stats.staminaOnHit.valueAdditive +=  5,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 9 },
 				levelReq = 5,
@@ -2520,13 +2525,13 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 1.5f,
 				name = "Combat Regen",
-				originalDescription = "Gain 3 points of stamina on hit",
+				originalDescription = "Gain 5 points of stamina on hit",
 				textureVariation = 0,
 				uncapped = true,
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FrenzyMS = true,
+				apply = () => ModdedPlayer.Stats.spell_frenzyMS.value = true,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 102 },
 				levelReq = 26,
@@ -2541,7 +2546,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.FurySwipes = true,
+				apply = () => ModdedPlayer.Stats.spell_furySwipes.value = true,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 148 },
 				levelReq = 43,
@@ -2556,7 +2561,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BashDamageBuff++,
+				apply = () => ModdedPlayer.Stats.spell_bashDamageBuff.valueAdditive++,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 103 },
 				levelReq = 27,
@@ -2568,10 +2573,17 @@ namespace ChampionsOfForest.Player
 				originalDescription = "When you bash an enemy, gain 15% critical hit damage for 2 seconds.",
 				textureVariation = 0,
 				uncapped = true,
+				updateDescription = x =>
+				{
+					float f = 1.15f;
+					for (int i = 1; i < x; i++)
+						f += 0.15f;
+					return "\nTotal from this perk:\nCrit damage after bashing - " + (f - 1).ToString("P");
+				},
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.MaxLogs++,
+				apply = () => ModdedPlayer.Stats.MaxLogs.Add(1),
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 61 },
 				levelReq = 20,
@@ -2586,7 +2598,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed = true,
+				apply = () => ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed.value = true,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2604,7 +2616,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => SpellActions.MagicArrowCrit = true,
+				apply = () => ModdedPlayer.Stats.spell_magicArrowCrit.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 73 },
@@ -2621,7 +2633,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => SpellActions.BL_Crit = true,
+				apply = () => ModdedPlayer.Stats.spell_ballLightning_Crit.value = true,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 88 },
@@ -2637,7 +2649,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_blinkRange += 10f,
+				apply = () => ModdedPlayer.Stats.spell_blinkRange.valueAdditive +=  10f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 105 },
@@ -2653,7 +2665,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.FireAmp += 0.1f,
+				apply = () => ModdedPlayer.Stats.fireDamage.valueAdditive +=  0.15f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 90 },
@@ -2663,13 +2675,13 @@ namespace ChampionsOfForest.Player
 				posX = -2.5f,
 				posY = 0f,
 				name = "Fiery Embrace",
-				originalDescription = "Fire damage is increased by 10%",
+				originalDescription = "Fire damage is increased by 15%",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => { SpellActions.BIA_TripleDmg = true; ModdedPlayer.Stats.allRecoveryMult *= 0.5f; },
+				apply = () => { ModdedPlayer.Stats.spell_bia_TripleDmg.value = true; ModdedPlayer.Stats.allRecoveryMult.valueMultiplicative *=  0.5f; },
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 111 },
 				levelReq = 55,
@@ -2678,13 +2690,13 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -3.75f,
 				name = "Cursed Arrow",
-				originalDescription = "Blood infused arrow deals triple damage, but healing recieved is halved, and you loose energy for a short time after casting the spell",
+				originalDescription = "Blood infused arrow deals triple damage, but all recovery is halved, and you loose energy for a short time after casting the spell",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BIA_Weaken = true,
+				apply = () => ModdedPlayer.Stats.spell_bia_Weaken.value = true,
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 111 },
 				levelReq = 30,
@@ -2699,7 +2711,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.EnergyOnHit += 1f; ModdedPlayer.instance.LifeOnHit += 1.5f; },
+				apply = () => { ModdedPlayer.Stats.energyOnHit.valueAdditive +=  1f; ModdedPlayer.Stats.healthOnHit.valueAdditive +=  1.5f; },
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 44, 43 },
 				levelReq = 47,
@@ -2729,7 +2741,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { SpellActions.ParryRadius++; ModdedPlayer.instance.ParryAnything = true; },
+				apply = () => { ModdedPlayer.Stats.spell_parryRadius.Add(1); ModdedPlayer.Stats.perk_parryAnything.value = true; },
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 78 },
 				levelReq = 30,
@@ -2744,7 +2756,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.thornsPerStrenght += 1.2f,
+				apply = () => ModdedPlayer.Stats.thornsPerStrenght.valueAdditive +=  1.2f,
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 31 },
 				levelReq = 3,
@@ -2759,7 +2771,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.thornsMult *= 2; ModdedPlayer.instance.Armor += 400; },
+				apply = () => { ModdedPlayer.Stats.thornsDmgMult.valueMultiplicative *=  2; ModdedPlayer.Stats.armor.valueAdditive +=  400; },
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 32 },
 				levelReq = 25,
@@ -2774,7 +2786,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, 0.2f),
+				apply = () => ModdedPlayer.Stats.magicDamageTaken.Multiply( 0.8f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 35, 32 },
@@ -2790,7 +2802,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BlackholePullImmune = true,
+				apply = () => ModdedPlayer.Stats.perk_blackholePullImmune.value = true,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 164 },
@@ -2806,7 +2818,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.BlizzardSlowReduced = true,
+				apply = () => ModdedPlayer.Stats.perk_blizzardSlowReduced.value = true,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 164 },
@@ -2822,7 +2834,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.TrueAim = true,
+				apply = () => ModdedPlayer.Stats.perk_trueAim.value = true,
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 54 },
 				unlockRequirement = new int[] { 67 },
@@ -2838,7 +2850,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.thorns += 50,
+				apply = () => ModdedPlayer.Stats.thorns.valueAdditive +=  50,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 162 },
@@ -2917,7 +2929,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.ParryDmgBonus += 2f,
+				apply = () => ModdedPlayer.Stats.spell_parryDmgBonus.valueAdditive +=  2f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 143 },
 				levelReq = 20,
@@ -2932,7 +2944,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_goldenResolve = true,
+				apply = () => ModdedPlayer.Stats.perk_goldenResolve.value = true,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 87 },
 				levelReq = 50,
@@ -2962,7 +2974,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.HealingDomeDuration += 50,
+				apply = () => ModdedPlayer.Stats.spell_healingDomeDuration.valueAdditive +=  50,
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 113 },
 				levelReq = 44,
@@ -2992,7 +3004,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DanceOfFiregodAtkCap = true,
+				apply = () => ModdedPlayer.Stats.perk_danceOfFiregodAtkCap.value = true,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 146 },
 				levelReq = 46,
@@ -3007,7 +3019,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CraftingPolishing = true,
+				apply = () => ModdedPlayer.Stats.perk_craftingPolishing.value = true,
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 116 },
 				levelReq = 35,
@@ -3022,7 +3034,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CraftingEmpowering = true,
+				apply = () => ModdedPlayer.Stats.perk_craftingEmpowering.value = true,
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 179, 117 },
 				unlockRequirement = new int[] { 179, 117 },
@@ -3054,7 +3066,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 0.95f; ModdedPlayer.instance.Armor += 500; },
+				apply = () => { ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *=  0.95f; ModdedPlayer.Stats.armor.valueAdditive +=  500; },
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 163, 34 },
 				levelReq = 45,
@@ -3069,7 +3081,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.isShieldAutocast = true,
+				apply = () => ModdedPlayer.Stats.perk_isShieldAutocast.value = true,
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 104, 34 },
 				levelReq = 10,

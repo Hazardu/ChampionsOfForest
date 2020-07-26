@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 		public Transform transform;
 		private string Name;
 		private bool Elite;
-		private const float MaxRange = 200 * 200;   //200 meters
+		private const float MaxRange = 500 * 500;   //500 meters
 		private const float Duration = 300;     // 5 min
 
 		public bool Outdated()

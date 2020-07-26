@@ -39,10 +39,10 @@ namespace ChampionsOfForest
 			BASESPELLDAMAGE,
 			BASEMELEEDAMAGE,
 			BASERANGEDDAMAGE,
-			ENERGYPERAGILITY,
-			HEALTHPERVITALITY,
-			SPELLDAMAGEPERINT,
-			DAMAGEPERSTRENGTH,
+			maxEnergyFromAgi,
+			maxHealthFromVit,
+			spellDmgFromInt,
+			meleeDmgFromStr,
 			ALLHEALINGPERCENT,
 			PERMANENTPERKPOINTS,
 			EXPERIENCE,
@@ -157,19 +157,19 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.01f, 0.015f, 0.45f, "Ranged Damage Increase", scMult, 5, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 0.75f };
 			i++;
-			new ItemStat(i, 0.65f, 1.2f, 1.2f, "Base Spell Damage", scAdd, 4, StatActions.AddSpellDamageBonus, StatActions.RemoveSpellDamageBonus, StatActions.AddSpellDamageBonus);
+			new ItemStat(i, 0.65f, 1.2f, 1.2f, "Base Spell Damage", scAdd, 4, StatActions.AddspellFlatDmg, StatActions.RemovespellFlatDmg, StatActions.AddspellFlatDmg);
 			i++;
 			new ItemStat(i, 0.65f, 0.9f, 1.2f, "Base Melee Damage", scAdd, 4, StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus);
 			i++;
 			new ItemStat(i, 0.85f, 1f, 1.2f, "Base Ranged Damage", scAdd, 4, StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus);
 			i++;
-			new ItemStat(i, 0.0025f, 0.015f, 0f, "Energy Per Agility", scAdd, 7, StatActions.AddEnergyPerAgility, StatActions.RemoveEnergyPerAgility, StatActions.AddEnergyPerAgility) { DisplayAsPercent = false, RoundingCount = 2 };
+			new ItemStat(i, 0.0025f, 0.015f, 0f, "Energy Per Agility", scAdd, 7, StatActions.AddmaxEnergyFromAgi, StatActions.RemovemaxEnergyFromAgi, StatActions.AddmaxEnergyFromAgi) { DisplayAsPercent = false, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.05f, 0.1f, 0f, "Health Per Vitality", scAdd, 7, StatActions.AddHealthPerVitality, StatActions.RemoveHealthPerVitality, StatActions.AddHealthPerVitality) { DisplayAsPercent = false, RoundingCount = 2 };
+			new ItemStat(i, 0.05f, 0.1f, 0f, "Health Per Vitality", scAdd, 7, StatActions.AddmaxHealthFromVit, StatActions.RemovemaxHealthFromVit, StatActions.AddmaxHealthFromVit) { DisplayAsPercent = false, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.0013f, 0.0023f, 0f, "Spell Damage Per Int", scAdd, 7, StatActions.AddSpellDamageperInt, StatActions.RemoveSpellDamageperInt, StatActions.AddSpellDamageperInt) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.0013f, 0.0023f, 0f, "Spell Damage Per Int", scAdd, 7, StatActions.AddspellDmgFromInt, StatActions.RemovespellDmgFromInt, StatActions.AddspellDmgFromInt) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strength", scAdd, 7, StatActions.AddDamagePerStrength, StatActions.RemoveDamagePerStrength, StatActions.AddDamagePerStrength) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.0013f, 0.0025f, 0f, "Damage Per Strength", scAdd, 7, StatActions.AddmeleeDmgFromStr, StatActions.RemovemeleeDmgFromStr, StatActions.AddmeleeDmgFromStr) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
 			new ItemStat(i, 0.0005f, 0.003f, 0.6f, "All Healing %", scMult, 6, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
