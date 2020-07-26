@@ -35,9 +35,9 @@
 			public readonly AdditivePlayerStat<float> rangedFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> meleeFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat );
 			public readonly AdditivePlayerStat<float> spellFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-			public readonly AdditivePlayerStat<float> rangedIncreasedDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-			public readonly AdditivePlayerStat<float> meleeIncreasedDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-			public readonly AdditivePlayerStat<float> spellIncreasedDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+			public readonly MultiOperationPlayerStat<float> rangedIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> meleeIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> spellIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<int> meleeArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
 			public readonly AdditivePlayerStat<int> rangedArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
 			public readonly AdditivePlayerStat<int> thornsArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
@@ -236,6 +236,7 @@
 			public readonly BooleanPlayerStat perk_goldenResolve = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat perk_projectileDamageIncreasedBySize = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat perk_projectileDamageIncreasedBySpeed = new BooleanPlayerStat(false);
+			public readonly BooleanPlayerStat perk_infinityMagic = new BooleanPlayerStat(false);
 			public readonly AdditivePlayerStat<float> perk_flashlightIntensity = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> perk_flashlightBatteryDrain = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P");
 			public readonly BooleanPlayerStat perk_bunnyHop = new BooleanPlayerStat(false);
@@ -261,7 +262,8 @@
 			public readonly BooleanPlayerStat i_KingQruiesSword = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat i_SoraBracers = new BooleanPlayerStat(false);
 			public readonly BooleanPlayerStat i_isWindArmor = new BooleanPlayerStat(false);
-			public readonly BooleanPlayerStat i_SparkOfLightAfterDark = new BooleanPlayerStat(false);
+			public readonly BooleanPlayerStat i_sparkOfLightAfterDark = new BooleanPlayerStat(false);
+			public readonly BooleanPlayerStat i_infinityLoop = new BooleanPlayerStat(false);
 
 
 
@@ -294,6 +296,7 @@
 					return (1 + f) * spellIncreasedDmg.Value * allDamage.Value;
 				}
 			}
+			public float SpellCostToStamina => 1 - spellCostEnergyCost;
 			public float TotalThorns => thorns.Value + thornsPerStrenght * strength.Value + thornsPerVit * vitality.Value;
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
 

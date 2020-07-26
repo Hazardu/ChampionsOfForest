@@ -52,22 +52,22 @@ namespace ChampionsOfForest.Effects
 			//{
 			//    ModAPI.Log.Write(rends[i].ToString());
 			//}
-			ModdedPlayer.instance.StunImmune++;
-			ModdedPlayer.instance.DebuffResistant++;
-			ModdedPlayer.instance.AttackSpeedMult *= 1.2f;
-			if (ModdedPlayer.instance.GoldenResolve)
-				ModdedPlayer.instance.DamageReduction *= 0.5f;
+			ModdedPlayer.Stats.stunImmunity.valueAdditive++;
+			ModdedPlayer.Stats.debuffResistance.Add(1);
+			ModdedPlayer.Stats.attackSpeed.Multiply( 1.2f);
+			if (ModdedPlayer.Stats.perk_goldenResolve)
+				ModdedPlayer.Stats.allDamageTaken.Multiply( 0.5f);
 		}
 
 		public static void Disable()
 		{
 			renderer.material = originalmaterial;
-			ModdedPlayer.instance.StunImmune--;
-			ModdedPlayer.instance.DebuffResistant--;
+			ModdedPlayer.Stats.stunImmunity.Substract(1);
+			ModdedPlayer.Stats.debuffResistance.Substract(1);
 
-			ModdedPlayer.instance.AttackSpeedMult /= 1.2f;
-			if (ModdedPlayer.instance.GoldenResolve)
-				ModdedPlayer.instance.DamageReduction /= 0.5f;
+			ModdedPlayer.Stats.attackSpeed .Divide( 1.2f);
+			if (ModdedPlayer.Stats.perk_goldenResolve)
+				ModdedPlayer.Stats.allDamageTaken .Divide( 0.5f);
 		}
 	}
 }

@@ -330,7 +330,7 @@ namespace ChampionsOfForest.Player
 				{
 					customWeapons[EquippedModel].EnableTrail();
 				}
-				if (ModdedPlayer.instance.DeathPact_Enabled)
+				if (ModdedPlayer.Stats.i_DeathPact_Enabled.value)
 				{
 					LocalPlayer.Stats.Health -= ModdedPlayer.instance.MaxHealth * 0.07f;
 					LocalPlayer.Stats.Health = Mathf.Max(1, LocalPlayer.Stats.Health);

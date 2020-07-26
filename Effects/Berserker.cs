@@ -18,19 +18,19 @@ namespace ChampionsOfForest.Effects
 		public static void OnEnable()
 		{
 			active = true;
-			ModdedPlayer.instance.AttackSpeedMult *= 1.2f;
-			ModdedPlayer.instance.DamageOutputMult *= 1.2f;
-			ModdedPlayer.instance.MoveSpeedMult *= 1.3f;
-			ModdedPlayer.instance.DamageReduction *= 2f;
+			ModdedPlayer.Stats.attackSpeed.Multiply( 1.2f);
+			ModdedPlayer.Stats.allDamage.Multiply(1.2f);
+			ModdedPlayer.Stats.movementSpeed.Multiply(  1.3f);
+			ModdedPlayer.Stats.allDamageTaken.Multiply(  2f);
 		}
 
 		public static void OnDisable()
 		{
 			active = false;
-			ModdedPlayer.instance.AttackSpeedMult /= 1.2f;
-			ModdedPlayer.instance.DamageOutputMult /= 1.2f;
-			ModdedPlayer.instance.MoveSpeedMult /= 1.3f;
-			ModdedPlayer.instance.DamageReduction /= 2f;
+			ModdedPlayer.Stats.attackSpeed.Divide( 1.2f);
+			ModdedPlayer.Stats.allDamage.Divide( 1.2f);
+			ModdedPlayer.Stats.movementSpeed.Divide( 1.3f);
+			ModdedPlayer.Stats.allDamageTaken.Divide( 2f);
 			BuffDB.AddBuff(18, 51, LocalPlayer.Stats.Energy, 20);
 		}
 
@@ -38,7 +38,7 @@ namespace ChampionsOfForest.Effects
 		{
 			if (!active)
 				return;
-			LocalPlayer.Stats.Energy = ModdedPlayer.instance.MaxEnergy;
+			LocalPlayer.Stats.Energy = ModdedPlayer.Stats.TotalMaxEnergy;
 			LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 		}
 	}

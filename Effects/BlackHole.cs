@@ -146,7 +146,7 @@ namespace ChampionsOfForest
 				Rigidbody rb = hit.rigidbody;
 				if (rb != null)
 				{
-					if (rb != LocalPlayer.Rigidbody || (FromEnemy && !ModdedPlayer.instance.BlackholePullImmune))
+					if (rb != LocalPlayer.Rigidbody || (FromEnemy && !ModdedPlayer.Stats.perk_blackholePullImmune))
 					{
 						Vector3 force = transform.position - rb.position;
 						force *= 20 / force.magnitude;
@@ -174,9 +174,8 @@ namespace ChampionsOfForest
 			transform.Rotate(Vector3.up * rotationSpeed);
 			if (FromEnemy)
 			{
-				if (!ModdedPlayer.instance.BlackholePullImmune)
+				if (!ModdedPlayer.Stats.perk_blackholePullImmune)
 				{
-					if (ModdedPlayer.instance.StunImmune == 0 && ModdedPlayer.instance.DebuffImmune == 0)
 						if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
 						{
 							Pull(LocalPlayer.Transform);
@@ -206,7 +205,7 @@ namespace ChampionsOfForest
 			{
 				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
 				{
-					LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.MagicResistance) * 0.5f);
+					LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.magicDamageTaken * 0.5f);
 					yield return new WaitForSeconds(0.5f);
 				}
 				else

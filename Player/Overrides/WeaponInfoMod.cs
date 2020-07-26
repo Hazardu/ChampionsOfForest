@@ -568,7 +568,7 @@ namespace ChampionsOfForest.Player
 						{
 							if (ep != null)
 							{
-								ep.Slow(40, ModdedPlayer.instance.HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
+								ep.Slow(40, ModdedPlayer.Stats.i_HammerStunAmount, ModdedPlayer.instance.HammerStunDuration);
 							}
 						}
 						else if (playerHitEnemy != null)
@@ -579,7 +579,7 @@ namespace ChampionsOfForest.Player
 								{
 									w.Write(22);
 									w.Write(playerHitEnemy.Target.networkId.PackedValue);
-									w.Write(ModdedPlayer.instance.HammerStunAmount);
+									w.Write(ModdedPlayer.Stats.i_HammerStunAmount);
 									w.Write(ModdedPlayer.instance.HammerStunDuration);
 									w.Write(40);
 									w.Close();
@@ -881,7 +881,7 @@ namespace ChampionsOfForest.Player
 				num3 *= crit * ModdedPlayer.instance.MeleeAMP;
 				if (PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
 				{
-					num3 *= ModdedPlayer.instance.HammerSmashDamageAmp;
+					num3 *= ModdedPlayer.Stats.i_HammerSmashDamageAmp.Multiply;
 				}
 
 				DamageMath.DamageClamp(num3, out int dmg, out int a);

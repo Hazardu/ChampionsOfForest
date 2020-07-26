@@ -437,7 +437,7 @@ namespace ChampionsOfForest.Network
 
 						case 12:
 							{
-								if (ModdedPlayer.instance.RootImmune == 0 && ModdedPlayer.instance.StunImmune == 0)
+								if (ModdedPlayer.instance.RootImmune == 0 && ModdedPlayer.Stats.stunImmunity == 0)
 								{
 									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									if ((LocalPlayer.Transform.position - pos).sqrMagnitude < 1250)
@@ -468,7 +468,7 @@ namespace ChampionsOfForest.Network
 							{
 								if (ModSettings.IsDedicated)
 									return;
-								if (ModdedPlayer.instance.StunImmune == 0)
+								if (ModdedPlayer.Stats.stunImmunity == 0)
 								{
 									string playerID = r.ReadString();
 									if (ModReferences.ThisPlayerID == playerID)
@@ -519,8 +519,6 @@ namespace ChampionsOfForest.Network
 
 						case 18:
 							{
-								if (r.BaseStream.Position == r.BaseStream.Length)
-									ModReferences.PlayerLevels.Clear();
 								using (MemoryStream answerStream = new MemoryStream())
 								{
 									using (BinaryWriter w = new BinaryWriter(answerStream))

@@ -169,12 +169,12 @@ namespace ChampionsOfForest.Player
 
 		public static void BUFF_MultAS(float f)
 		{
-			ModdedPlayer.instance.AttackSpeedMult *= f;
+			ModdedPlayer.Stats.attackSpeed *= f;
 		}
 
 		public static void BUFF_DivideAS(float f)
 		{
-			ModdedPlayer.instance.AttackSpeedMult /= f;
+			ModdedPlayer.Stats.attackSpeed /= f;
 		}
 
 		#region FLARE
@@ -975,11 +975,7 @@ namespace ChampionsOfForest.Player
 		#endregion Cataclysm
 
 		#region Blood Infused Arrow
-		public static float BIA_bonusDamage;
-		public static float BIA_SpellDmMult = 1.25f;
-		public static float BIA_HealthDmMult = 3f;
-		public static float BIA_HealthTakenMult = 0.65f;
-		public static bool BIA_TripleDmg = false, BIA_Weaken = false;
+
 
 		public static void CastBloodInfArr()
 		{

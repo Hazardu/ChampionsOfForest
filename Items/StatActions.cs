@@ -120,12 +120,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddDamageReduction(float f)
 		{
-			ModdedPlayer.instance.DamageReduction *= 1 - f;
+			ModdedPlayer.Stats.allDamageTaken *= 1 - f;
 		}
 
 		public static void RemoveDamageReduction(float f)
 		{
-			ModdedPlayer.instance.DamageReduction /= 1 - f;
+			ModdedPlayer.Stats.allDamageTaken /= 1 - f;
 		}
 
 		public static void AddCritChance(float f)
@@ -180,12 +180,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddMagicResistance(float f)
 		{
-			ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, f);
+			ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, f);
 		}
 
 		public static void RemoveMagicResistance(float f)
 		{
-			ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.MagicResistance, f);
+			ItemDataBase.RemovePercentage(ref ModdedPlayer.Stats.magicDamageTaken, f);
 		}
 
 		public static void AddAttackSpeed(float f)

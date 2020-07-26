@@ -8,7 +8,7 @@ namespace ChampionsOfForest
 	{
 		protected override void fireProjectile()
 		{
-			if (ModdedPlayer.instance.IsSmokeysQuiver)
+			if (ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value)
 			{
 				BuffDB.AddBuff(14, 81, 2.5f, 8);
 			}

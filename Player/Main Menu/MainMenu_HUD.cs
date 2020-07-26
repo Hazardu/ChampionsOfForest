@@ -276,7 +276,7 @@ namespace ChampionsOfForest
 						fillr.y += SquareSize * (1 - f);
 						GUI.DrawTexture(fillr, _SpellCoolDownFill, ScaleMode.ScaleAndCrop);
 
-						TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown * ModdedPlayer.instance.CoolDownMultipier);
+						TimeSpan span = TimeSpan.FromSeconds(SpellCaster.instance.infos[i].Cooldown * ModdedPlayer.Stats.cooldown);
 						string formattedTime = span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString();
 						GUI.Label(r, formattedTime, new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(screenScale * 20), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
 					}

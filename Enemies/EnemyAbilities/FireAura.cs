@@ -38,7 +38,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 49)
 				{
-					LocalPlayer.Stats.Health -= Time.deltaTime * damage * ModdedPlayer.instance.DamageReductionTotal * (1 - ModdedPlayer.instance.ArmorDmgRed) * (1 - ModdedPlayer.instance.MagicResistance);
+					LocalPlayer.Stats.Health -= Time.deltaTime * damage * ModdedPlayer.Stats.allDamageTakenTotal * (1 - ModdedPlayer.instance.ArmorDmgRed) * (1 - ModdedPlayer.Stats.magicDamageTaken);
 					Player.BuffDB.AddBuff(10, 72, 0.7f, 5);
 					Player.BuffDB.AddBuff(21, 73, Time.deltaTime * damage / 10, 40);
 				}

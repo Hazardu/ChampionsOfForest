@@ -195,7 +195,7 @@ namespace ChampionsOfForest.Player
 				}
 				else
 				{
-					if (ModdedPlayer.instance.IsCrossfire)
+					if (ModdedPlayer.instance.i_CrossfireQuiver.value)
 					{
 						if (Time.time - ModdedPlayer.instance.LastCrossfireTime > 10)
 						{
@@ -451,7 +451,7 @@ namespace ChampionsOfForest.Player
 							{
 								if (headDamage)
 								{
-									if (ModdedPlayer.instance.EruptionBow && GreatBow.isEnabled)
+									if (ModdedPlayer.Stats.i_EruptionBow && GreatBow.isEnabled)
 									{
 										//if (GameSetup.IsMultiplayer)
 										//{
@@ -591,7 +591,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (headDamage)
 				{
-					if (ModdedPlayer.instance.EruptionBow && GreatBow.isEnabled)
+					if (ModdedPlayer.Stats.i_EruptionBow && GreatBow.isEnabled)
 					{
 						//if (GameSetup.IsMultiplayer)
 						//{

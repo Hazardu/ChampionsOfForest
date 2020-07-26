@@ -185,7 +185,7 @@ namespace ChampionsOfForest.Enemies
 								damage = 40000;
 								break;
 						}
-						if (ModdedPlayer.instance.EruptionBow)
+						if (ModdedPlayer.Stats.i_EruptionBow)
 							damage /= 10;
 						LocalPlayer.Stats.Hit(damage, false);
 					}

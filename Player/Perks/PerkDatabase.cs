@@ -52,7 +52,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.RangedDamageperAgi += 0.01f,
+				apply = () => ModdedPlayer.instance.rangedDmgFromAgi += 0.01f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -350,7 +350,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.DamageReductionPerks *= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.70f; },
+				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 0.70f; ModdedPlayer.instance.DamageOutputMultPerks *= 0.70f; },
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -367,7 +367,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 16 },
 				levelReq = 7,
@@ -389,7 +389,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+				apply = () => ModdedPlayer.Stats.cooldown *= 0.925f,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 18 },
 				levelReq = 8,
@@ -629,7 +629,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 31 },
@@ -645,7 +645,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 32 },
@@ -662,7 +662,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.DamageReductionPerks *= 0.9f,
+				apply = () => ModdedPlayer.Stats.allDamageTakenPerks *= 0.9f,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 33 },
@@ -679,7 +679,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.05f),
+				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, 0.05f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 29, 31 },
@@ -1457,7 +1457,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.TurboRaft = true,
+				apply = () => ModdedPlayer.Stats.perk_turboRaftOwners= true,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 50 },
@@ -1473,7 +1473,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.RaftSpeedMultipier++,
+				apply = () =>  ModdedPlayer.Stats.perk_RaftSpeedMultipier++,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 82 },
@@ -1505,7 +1505,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CoolDownMultipier *= 0.925f,
+				apply = () => ModdedPlayer.Stats.cooldown *= 0.925f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
@@ -1521,7 +1521,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 85 },
@@ -1537,7 +1537,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.CoolDownMultipier *= 0.9f,
+				apply = () => ModdedPlayer.Stats.cooldown *= 0.9f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 86 },
@@ -1825,7 +1825,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BlinkDamage += 14f,
+				apply = () => ModdedPlayer.Stats.spell_blinkDamage+= 14f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 86 },
@@ -2050,7 +2050,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.DamageReductionPerks *= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks *= 1.1f; },
+				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 1.1f; ModdedPlayer.instance.DamageOutputMultPerks *= 1.1f; },
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -2288,7 +2288,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AttackSpeedMult *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.9f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 2; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.9f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 2; },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2304,7 +2304,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.5f; ModdedPlayer.instance.MeleeDamageAmplifier_Add += 1.5f; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed *= 0.5f; ModdedPlayer.instance.MeleeDamageAmplifier_Add += 1.5f; },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2336,7 +2336,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.2f; ModdedPlayer.instance.AttackSpeedMult *= 1.2f; },
+				apply = () => { ModdedPlayer.instance.MeleeDamageAmplifier_Add += 0.2f; ModdedPlayer.Stats.attackSpeed *= 1.2f; },
 				category = PerkCategory.MeleeOffense,
 				texture = null,
 				unlockPath = new int[] { 79 },
@@ -2384,7 +2384,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AttackSpeedMult *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.1f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 4; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed *= 1.65f; ModdedPlayer.instance.MeleeDamageAmplifier_Mult *= 0.1f; ModdedPlayer.instance.RangedDamageAmplifier_Mult /= 4; },
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2417,7 +2417,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AttackSpeedMult *= 0.6f; ModdedPlayer.instance.CoolDownMultipier *= 0.65f; },
+				apply = () => { ModdedPlayer.Stats.attackSpeed *= 0.6f; ModdedPlayer.Stats.cooldown *= 0.65f; },
 				category = PerkCategory.MagicOffense,
 				texture = null,
 				unlockPath = new int[] { 89 },
@@ -2637,7 +2637,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => SpellActions.BlinkRange += 10f,
+				apply = () => ModdedPlayer.Stats.spell_blinkRange += 10f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 105 },
@@ -2774,7 +2774,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.instance.MagicResistance, 0.2f),
+				apply = () => ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, 0.2f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 35, 32 },
@@ -2932,7 +2932,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.GoldenResolve = true,
+				apply = () => ModdedPlayer.Stats.perk_goldenResolve = true,
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 87 },
 				levelReq = 50,
@@ -3054,7 +3054,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.DamageReductionPerks *= 0.95f; ModdedPlayer.instance.Armor += 500; },
+				apply = () => { ModdedPlayer.Stats.allDamageTakenPerks *= 0.95f; ModdedPlayer.instance.Armor += 500; },
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 163, 34 },
 				levelReq = 45,

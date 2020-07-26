@@ -26,7 +26,7 @@ namespace ChampionsOfForest.Fun
 			float num = 1f;
 			if (!this._buoyancy.InWater)
 			{
-				num = ModdedPlayer.instance.TurboRaft ? 1f : 0f;
+				num = ModdedPlayer.Stats.perk_turboRaftOwners >0 ? 1f : 0f;
 			}
 			this._direction *= this._speed * 2f * num;
 			Vector3 velocity = this._rb.velocity;
@@ -41,11 +41,11 @@ namespace ChampionsOfForest.Fun
 				{
 					position.y = this._buoyancy.OverrideCenterOfMass.position.y;
 				}
-				this._rb.AddForceAtPosition(vector * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.RaftSpeedMultipier, position, this._forceMode);
+				this._rb.AddForceAtPosition(vector * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.perk_RaftSpeedMultipier, position, this._forceMode);
 			}
 			else
 			{
-				this._rb.AddForce(vector * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.RaftSpeedMultipier, this._forceMode);
+				this._rb.AddForce(vector * (0.016666f / Time.fixedDeltaTime) *  ModdedPlayer.Stats.perk_RaftSpeedMultipier, this._forceMode);
 			}
 			////fuck the limits
 			//if (!ModdedPlayer.instance.TurboRaft)
@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Fun
 				num2 = Mathf.SmoothDamp(num2, target, ref num, this._torqueDamp);
 				if (!InWater)
 					num2 *= 1.76f;
-				this._rb.AddTorque(0f, num2 * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.instance.RaftSpeedMultipier, 0f, ForceMode.Force);
+				this._rb.AddTorque(0f, num2 * (0.016666f / Time.fixedDeltaTime) *  ModdedPlayer.Stats.perk_RaftSpeedMultipier, 0f, ForceMode.Force);
 			}
 		}
 

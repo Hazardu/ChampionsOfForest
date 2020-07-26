@@ -476,8 +476,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
-				onEquip = () => SpellActions.CataclysmArcane = true,
-				onUnequip = () => SpellActions.CataclysmArcane = false
+				onEquip = () => ModdedPlayer.Stats.spell_cataclysmArcane.value= true,
+				onUnequip = () => ModdedPlayer.Stats.spell_cataclysmArcane.value = false
 			};
 			new BaseItem(new int[][]
 					{
@@ -598,8 +598,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
-				onEquip = () => ModdedPlayer.instance.IsSmokeysQuiver = true,
-				onUnequip = () => ModdedPlayer.instance.IsSmokeysQuiver = false,
+				onEquip = () => ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value= true,
+				onUnequip = () => ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = false,
 			};
 			new BaseItem(new int[][]
 		 {
@@ -726,8 +726,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
-				onEquip = () => { Player.SpellActions.BlinkRange += 40; Player.SpellActions.BlinkDamage += 60; },
-				onUnequip = () => { Player.SpellActions.BlinkRange -= 40; Player.SpellActions.BlinkDamage -= 60; },
+				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(40); ModdedPlayer.Stats.spell_blinkDamage.Add(60); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract( 40); ModdedPlayer.Stats.spell_blinkDamage.Substract( 60); },
 			};
 			new BaseItem(new int[][]
 					  {
@@ -2098,7 +2098,7 @@ namespace ChampionsOfForest
 			})
 			{
 				name = "Hammer Jammers",
-				description = "Increases the damage of your hammer smash by 50%, hammer stun duration is increased by 0,3 seconds",
+				description = "Increases the damage of your hammer smash by 250%, hammer stun duration is doubled",
 				lore = "",
 				tooltip = "",
 				Rarity = 7,
@@ -2108,8 +2108,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
-				onEquip = () => { ModdedPlayer.instance.HammerSmashDamageAmp += 0.5f; ModdedPlayer.instance.HammerStunAmount += 0.3f; },
-				onUnequip = () => { ModdedPlayer.instance.HammerSmashDamageAmp -= 0.5f; ModdedPlayer.instance.HammerStunAmount -= 0.3f; },
+				onEquip = () => { ModdedPlayer.Stats.i_HammerSmashDamageAmp.Multiply( 2.5f); ModdedPlayer.Stats.i_HammerStunAmount.Multiply(2); },
+				onUnequip = () => { ModdedPlayer.Stats.i_HammerSmashDamageAmp.Divide(2.5f); ModdedPlayer.Stats.i_HammerStunAmount .Divide(2); },
 			};
 
 			//Item 5/7
@@ -2163,8 +2163,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
-				onEquip = () => ModdedPlayer.instance.HexedPantsOfMrM_Enabled = true,
-				onUnequip = () => ModdedPlayer.instance.HexedPantsOfMrM_Enabled = false,
+				onEquip = () => ModdedPlayer.Stats.i_HexedPantsOfMrM_Enabled.value = true,
+				onUnequip = () =>  ModdedPlayer.Stats.i_HexedPantsOfMrM_Enabled.value = false,
 			};
 			//Created using Hazard's app
 
@@ -2320,8 +2320,8 @@ new int[] {39,40,41,42,43},
 				StackSize = 1,
 				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
-				onEquip = () => ModdedPlayer.instance.DeathPact_Enabled = true,
-				onUnequip = () => ModdedPlayer.instance.DeathPact_Enabled = false,
+				onEquip = () => ModdedPlayer.Stats.i_DeathPact_Enabled.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_DeathPact_Enabled.value = false,
 			};
 			new BaseItem(new int[][]
 			{
@@ -2503,8 +2503,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
-				onEquip = () => SpellActions.WarCryGiveArmor = true,
-				onUnequip = () => SpellActions.WarCryGiveArmor = false,
+				onEquip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value= true,
+				onUnequip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = false,
 			}.PossibleStats[0][0].Multipier = 2;
 
 			//Item 1/5
@@ -2534,8 +2534,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
-				onEquip = () => SpellActions.WarCryGiveArmor = true,
-				onUnequip = () => SpellActions.WarCryGiveArmor = false,
+				onEquip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = true,
+				onUnequip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = false,
 			}.PossibleStats[0][0].Multipier = 5;
 
 			//Item 2/5
@@ -2660,8 +2660,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(94),
-				onEquip = () => SpellActions.PortalDuration = 600,
-				onUnequip = () => SpellActions.PortalDuration = 30,
+				onEquip = () => ModdedPlayer.Stats.spell_portalDuration.Add(570),
+				onUnequip = () => ModdedPlayer.Stats.spell_portalDuration.Substract(570),
 			};
 			new BaseItem(new int[][]
 			{
@@ -2689,8 +2689,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
-				onEquip = () => SpellActions.MagicArrowDuration += 10,
-				onUnequip = () => SpellActions.MagicArrowDuration -= 10,
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Add( 10),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Substract(10),
 			};
 
 			new BaseItem(new int[][]
@@ -2719,8 +2719,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
-				onEquip = () => ModdedPlayer.instance.IsCrossfire = true,
-				onUnequip = () => ModdedPlayer.instance.IsCrossfire = false,
+				onEquip = () => ModdedPlayer.Stats.i_CrossfireQuiver.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_CrossfireQuiver.value = false,
 			};
 
 			new BaseItem(new int[][]
@@ -3017,8 +3017,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
-				onEquip = () => SpellActions.FocusOnAtkSpeedDuration += 16,
-				onUnequip = () => SpellActions.FocusOnAtkSpeedDuration -= 16,
+				onEquip = () => ModdedPlayer.Stats.spell_focusOnAtkSpeedDuration.Add( 16),
+				onUnequip = () => ModdedPlayer.Stats.spell_focusOnAtkSpeedDuration.Substract(16),
 			};
 			new BaseItem(new int[][]
 		   {
@@ -3048,8 +3048,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
-				onEquip = () => SpellActions.FrenzyMaxStacks += 10,
-				onUnequip = () => SpellActions.FrenzyMaxStacks -= 10,
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add( 10),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(10),
 			}.PossibleStats[0][0].Multipier = 3;
 
 			BaseItem jaggedRipper = new BaseItem(new int[][]
@@ -3069,7 +3069,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = "Jagged Ripper",
-				description = "Bash has 10% a chance to make enemies to bleed for 30% of damage dealt per second for duration of slow",
+				description = "Bash has 20% a chance to make enemies to bleed for 30% of damage dealt per second for duration of slow",
 				lore = "",
 				tooltip = "A legendary axe",
 				Rarity = 7,
@@ -3080,8 +3080,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
-				onEquip = () => SpellActions.BashBleedChance += 0.1f,
-				onUnequip = () => SpellActions.BashBleedChance -= 0.1f,
+				onEquip = () => ModdedPlayer.Stats.spell_bashBleedChance.Add( 0.2f),
+				onUnequip = () => ModdedPlayer.Stats.spell_bashBleedChance.Substract(0.2f),
 			};
 			jaggedRipper.PossibleStats[1][0].Multipier = 2;
 
@@ -3113,8 +3113,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
-				onEquip = () => SpellActions.BashLifesteal += 0.02f,
-				onUnequip = () => SpellActions.BashLifesteal -= 0.02f,
+				onEquip = () => ModdedPlayer.Stats.spell_bashLifesteal.Add( 0.02f),
+				onUnequip = () => ModdedPlayer.Stats.spell_bashLifesteal.Substract(0.02f),
 			}.PossibleStats[0][0].Multipier = 3;
 			new BaseItem(new int[][]
 		 {
@@ -3133,7 +3133,7 @@ new int[] {0,0,0,0,62,63,64},
 		 })
 			{
 				name = "Frost Giant",
-				description = "Insted of slowing enemies on hit, hammers now freeze them for 1 second.",
+				description = "Insted of slowing enemies on hit, and the duration is twice as long as the previous effect.",
 				lore = "",
 				tooltip = "This hammer freezes enemies on hit. They also deal high smash damage",
 				Rarity = 7,
@@ -3146,13 +3146,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () =>
 				{
-					ModdedPlayer.instance.HammerStunDuration = 1;
-					ModdedPlayer.instance.HammerStunAmount = 0;
+					ModdedPlayer.Stats.i_HammerStunDuration.Multiply(2) ;
+					ModdedPlayer.Stats.i_HammerStunAmount.Multiply(0);
 				},
 				onUnequip = () =>
 				{
-					ModdedPlayer.instance.HammerStunDuration = 0.4f;
-					ModdedPlayer.instance.HammerStunAmount = 0.25f;
+					ModdedPlayer.Stats.i_HammerStunDuration.Divide(2);
+					ModdedPlayer.Stats.i_HammerStunAmount.Reset();
 				},
 			}.PossibleStats[0][0].Multipier = 3.25f;
 
@@ -3183,8 +3183,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-				onEquip = () => SpellActions.ChanceToParryOnHit = true,
-				onUnequip = () => SpellActions.ChanceToParryOnHit = false,
+				onEquip = () => ModdedPlayer.Stats.spell_chanceToParryOnHit.value = true,
+				onUnequip = () => ModdedPlayer.Stats.spell_chanceToParryOnHit.value = false,
 			};
 
 			new BaseItem(new int[][]
@@ -3215,8 +3215,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
-				onEquip = () => ModdedPlayer.instance.KingQruiesSpecial = true,
-				onUnequip = () => ModdedPlayer.instance.KingQruiesSpecial = false,
+				onEquip = () => ModdedPlayer.Stats.i_KingQruiesSword.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_KingQruiesSword.value = false,
 			};
 
 			new BaseItem(new int[][]
@@ -3245,8 +3245,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
-				onEquip = () => ModdedPlayer.instance.SoraSpecial = true,
-				onUnequip = () => ModdedPlayer.instance.SoraSpecial = false,
+				onEquip = () => ModdedPlayer.Stats.i_SoraBracers.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_SoraBracers.value = false,
 			};
 			new BaseItem(new int[][]
 		   {
@@ -3300,8 +3300,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
-				onEquip = () => ModdedPlayer.instance.GreatBowIgnites = true,
-				onUnequip = () => ModdedPlayer.instance.GreatBowIgnites = false,
+				onEquip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = false,
 			}.PossibleStats[0][0].Multipier = -0.7f;
 
 			new BaseItem(new int[][]
@@ -3333,8 +3333,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
-				onEquip = () => SpellActions.BIA_HealthDmMult += 20,
-				onUnequip = () => SpellActions.BIA_HealthDmMult -= 20,
+				onEquip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Add( 20),
+				onUnequip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Substract(20),
 			}.PossibleStats[0][0].Multipier = -0.7f;
 
 			new BaseItem(new int[][]
@@ -3386,8 +3386,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
-				onEquip = () => ModdedPlayer.instance.IsHazardCrown = true,
-				onUnequip = () => ModdedPlayer.instance.IsHazardCrown = false,
+				onEquip = () => ModdedPlayer.Stats.i_HazardCrown.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_HazardCrown.value = false,
 			};
 			new BaseItem(new int[][]
 				   {
@@ -3634,8 +3634,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
-				onEquip = () => ModdedPlayer.instance.isGreed = true,
-				onUnequip = () => ModdedPlayer.instance.isGreed = false,
+				onEquip = () => ModdedPlayer.Stats.i_isGreed.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_isGreed.value = false,
 			};
 			BaseItem titaniumleggins = new BaseItem(new int[][]
 			 {
@@ -3711,8 +3711,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
-				onEquip = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult *= 1.75f; ModdedPlayer.instance.SpellCostRatio *= 2.5f; },
-				onUnequip = () => { ModdedPlayer.instance.SpellDamageAmplifier_Mult /= 1.75f; ModdedPlayer.instance.SpellCostRatio /= 2.5f; }
+				onEquip = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueMultiplicative *= 1.75f; ModdedPlayer.Stats.spellCost.valueMultiplicative *= 2.5f; },
+				onUnequip = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueMultiplicative /= 1.75f; ModdedPlayer.Stats.spellCost.valueMultiplicative /= 2.5f; }
 			};
 			new BaseItem(new int[][]
 			   {
@@ -3836,8 +3836,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
-				onEquip = () => ModdedPlayer.instance.isWindArmor = true,
-				onUnequip = () => ModdedPlayer.instance.isWindArmor = false,
+				onEquip = () => ModdedPlayer.Stats.i_isWindArmor.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_isWindArmor.value = false,
 			};
 			new BaseItem(new int[][]
 			{
@@ -3912,8 +3912,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
-				onEquip = () => ModdedPlayer.instance.SparkOfLightAfterDark = true,
-				onUnequip = () => ModdedPlayer.instance.SparkOfLightAfterDark = false
+				onEquip = () => ModdedPlayer.Stats.i_sparkOfLightAfterDark.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_sparkOfLightAfterDark.value = false
 			};
 			new BaseItem(new int[][]
 		   {
@@ -3938,8 +3938,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 26,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => SpellActions.PurgeDamageBonus = true,
-				onUnequip = () => SpellActions.PurgeDamageBonus = false,
+				onEquip = () => ModdedPlayer.Stats.spell_purgeDamageBonus.value = true,
+				onUnequip = () => ModdedPlayer.Stats.spell_purgeDamageBonus.value = false,
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			}.DropSettings_OnlyCannibals();
@@ -3973,8 +3973,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
-				onEquip = () => ModdedPlayer.instance.EruptionBow = true,
-				onUnequip = () => ModdedPlayer.instance.EruptionBow = false,
+				onEquip = () => ModdedPlayer.Stats.i_EruptionBow.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_EruptionBow.value = false,
 			}.PossibleStats[0][0].Multipier = -0.6f;
 
 			new BaseItem(new int[][]
@@ -4006,8 +4006,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
-				onEquip = () => ModdedPlayer.instance.ArchangelBow = true,
-				onUnequip = () => ModdedPlayer.instance.ArchangelBow = false,
+				onEquip = () => ModdedPlayer.Stats.i_ArchangelBow.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_ArchangelBow.value = false,
 			}.PossibleStats[0][0].Multipier = -0.6f;
 			new BaseItem(new int[][]
 			{
@@ -4060,8 +4060,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => ModdedPlayer.instance.TrueAimUpgrade = true,
-				onUnequip = () => ModdedPlayer.instance.TrueAimUpgrade = false,
+				onEquip = () => ModdedPlayer.Stats.perk_trueAimUpgrade.value = true,
+				onUnequip = () => ModdedPlayer.Stats.perk_trueAimUpgrade.value = false,
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
@@ -4092,8 +4092,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => ModdedPlayer.instance.thornsMult *= 2,
-				onUnequip = () => ModdedPlayer.instance.thornsMult /= 2,
+				onEquip = () => ModdedPlayer.Stats.thornsDmgMult.valueMultiplicative *= 2,
+				onUnequip = () => ModdedPlayer.Stats.thornsDmgMult.valueMultiplicative /= 2,
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
@@ -4683,8 +4683,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => ModdedPlayer.instance.thornsPerVit += 5,
-				onUnequip = () => ModdedPlayer.instance.thornsPerVit -= 5,
+				onEquip = () => ModdedPlayer.Stats.thornsPerVit.Add( 5),
+				onUnequip = () => ModdedPlayer.Stats.thornsPerVit.Substract(5),
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};

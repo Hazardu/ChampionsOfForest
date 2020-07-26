@@ -55,7 +55,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		{
 			transform.Rotate((transform.forward + transform.up + Vector3.right) * rotSpeed * Time.deltaTime);
 			Lifetime += Time.deltaTime;
-			if (coughtPlayer && 0 == ModdedPlayer.instance.StunImmune && playerTransform != null)
+			if (coughtPlayer && 0 == ModdedPlayer.Stats.stunImmunity && playerTransform != null)
 			{
 				var mag = (playerTransform.position - transform.position).sqrMagnitude;
 				if (mag > Radius * Radius)

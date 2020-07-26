@@ -705,14 +705,14 @@ namespace ChampionsOfForest
 
 		//public override void Hit(int damage, bool ignoreArmor, DamageType type)
 		//{
-		//    //float f = damage * ModdedPlayer.instance.DamageReduction;
+		//    //float f = damage * ModdedPlayer.Stats.allDamageTaken;
 		//    //if (!ignoreArmor)
 		//    //{
 		//    //    f *= ModdedPlayer.instance.ArmorDmgRed;
 		//    //}
 		//    //if (type == DamageType.Fire)
 		//    //{
-		//    //    f *= ModdedPlayer.instance.MagicResistance;
+		//    //    f *= ModdedPlayer.Stats.magicDamageTaken;
 		//    //}
 		//    //damage = Mathf.RoundToInt(f);
 		//    //base.Hit(damage, ignoreArmor, type);
@@ -757,7 +757,7 @@ namespace ChampionsOfForest
 					return;
 				}
 			}
-			float f = damage * ModdedPlayer.instance.DamageReductionTotal;
+			float f = damage * ModdedPlayer.Stats.allDamageTakenTotal;
 			if (!ignoreArmor)
 			{
 				f *= 1 - ModdedPlayer.instance.ArmorDmgRed;
@@ -766,7 +766,7 @@ namespace ChampionsOfForest
 			{
 				f *= 0.01f * ModdedPlayer.instance.MaxHealth;
 				f *= UnityEngine.Random.Range(0.9f, 1.4f);
-				//f *= 1-ModdedPlayer.instance.MagicResistance;
+				//f *= 1-ModdedPlayer.Stats.magicDamageTaken;
 				f *= ModdedPlayer.instance.FireDamageTakenMult;
 			}
 			damage = Mathf.RoundToInt(f);

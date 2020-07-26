@@ -281,9 +281,9 @@ namespace ChampionsOfForest.Enemies
 										{
 											ModdedPlayer.instance.Stun(stunDuration);
 										}
-										if (ModdedPlayer.instance.thornsDamage > 0)
+										if (ModdedPlayer.Stats.TotalThornsDamage > 0)
 										{
-											DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+											DamageMath.DamageClamp(ModdedPlayer.Stats.TotalThornsDamage, out int dmg, out int reps);
 											PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 											playerHitEnemy.Target = entity;
 
@@ -323,7 +323,7 @@ namespace ChampionsOfForest.Enemies
 											ModdedPlayer.instance.Stun(stunDuration);
 										}
 
-										if (ModdedPlayer.instance.thornsDamage > 0)
+										if (ModdedPlayer.Stats.TotalThornsDamage > 0)
 										{
 											Invoke("HitEnemeyDelayed", 0.1f);
 										}
@@ -455,7 +455,7 @@ namespace ChampionsOfForest.Enemies
 
 		private void HitEnemeyDelayed()
 		{
-			DamageMath.DamageClamp(ModdedPlayer.instance.thornsDamage, out int dmg, out int reps);
+			DamageMath.DamageClamp(ModdedPlayer.Stats.TotalThornsDamage, out int dmg, out int reps);
 			for (int i = 0; i < reps; i++)
 				EnemyProg.HitPhysicalSilent(dmg);
 		}

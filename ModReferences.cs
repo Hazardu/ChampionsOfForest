@@ -78,12 +78,30 @@ namespace ChampionsOfForest
 		}
 		float lastLevelCheckTimestamp;
 		private int lastPlayerLevelCount;
+
+		public static void RemoveUnusedPlayerLevels()
+		{
+			List<string> stringsToRemove = new List<string>();
+			foreach (var item in PlayerLevels)
+			{
+				if (!PlayerStates.Any(x => x.name == item.Key))
+				{
+					stringsToRemove.Add(item.Key);
+				}
+			}
+			foreach (var item in stringsToRemove)
+			{
+				PlayerLevels.Remove(item);
+			}
+		}
+
 		public static void RequestAllPlayerLevels()
 		{
 			if (Time.time - instance.lastLevelCheckTimestamp > 120|| instance.lastPlayerLevelCount != Players.Count)
 			{
+				RemoveUnusedPlayerLevels();
+				instance.LevelRequestCooldown = 120;
 				instance.lastLevelCheckTimestamp = Time.time;
-				PlayerLevels.Clear();
 				instance.lastPlayerLevelCount = Players.Count;
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 				{
@@ -108,15 +126,12 @@ namespace ChampionsOfForest
 					LevelRequestCooldown = 120;
 					lastLevelCheckTimestamp = Time.time;
 					lastPlayerLevelCount = Players.Count;
-
-					PlayerLevels.Clear();
-
+					RemoveUnusedPlayerLevels();
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
 						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 						{
 							w.Write(18);
-							w.Write("x");
 							w.Close();
 						}
 						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
@@ -160,7 +175,6 @@ namespace ChampionsOfForest
 					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 					{
 						w.Write(18);
-						w.Write("x");
 						w.Close();
 					}
 					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);

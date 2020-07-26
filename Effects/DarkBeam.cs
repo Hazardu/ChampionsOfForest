@@ -245,7 +245,7 @@ namespace ChampionsOfForest
 				{
 					if (fromEnemy)
 					{
-						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * (1 - ModdedPlayer.instance.MagicResistance) * ModdedPlayer.instance.DamageReductionTotal);
+						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * (1 - ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTakenTotal);
 						Player.BuffDB.AddBuff(1, 5, Slow, 20);
 						LocalPlayer.Stats.Burn();
 					}

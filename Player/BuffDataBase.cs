@@ -17,7 +17,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (BuffsByID.ContainsKey(id))
 				{
-					if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.instance.DebuffResistant > 0))
+					if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.Stats.debuffResistance > 0))
 						return false;
 					if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 2 && (ModdedPlayer.instance.DebuffImmune > 0))
 						return false;
@@ -85,7 +85,7 @@ namespace ChampionsOfForest.Player
 
 				new Buff(5, 150, "Move speed increased", false, false, 1, SpellActions.BUFF_DivideMS, SpellActions.BUFF_MultMS);
 
-				new Buff(6, 155, "Stun Immune", false, false, 0, (f) => ModdedPlayer.instance.StunImmune--, f => ModdedPlayer.instance.StunImmune++)
+				new Buff(6, 155, "Stun Immune", false, false, 0, (f) => ModdedPlayer.Stats.stunImmunity--, f => ModdedPlayer.Stats.stunImmunity++)
 				{
 					DisplayAmount = false
 				};
@@ -93,7 +93,7 @@ namespace ChampionsOfForest.Player
 				{
 					DisplayAmount = false
 				};
-				new Buff(8, 155, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.instance.DebuffResistant--, f => ModdedPlayer.instance.DebuffResistant++)
+				new Buff(8, 155, "Debuff Resistant", false, false, 0, (f) => ModdedPlayer.Stats.debuffResistance--, f => ModdedPlayer.Stats.debuffResistance++)
 				{
 					DisplayAmount = false
 				};
@@ -118,7 +118,7 @@ namespace ChampionsOfForest.Player
 
 				new Buff(19, 136, "Frenzy", false, false, 1, f =>
 				{
-					ModdedPlayer.instance.AttackSpeedMult /= 1 + f * SpellActions.FrenzyAtkSpeed;
+					ModdedPlayer.Stats.attackSpeed /= 1 + f * SpellActions.FrenzyAtkSpeed;
 					ModdedPlayer.instance.DamageOutputMult /= 1 + f * SpellActions.FrenzyDmg;
 					if (SpellActions.FrenzyMS)
 						ModdedPlayer.instance.MoveSpeedMult /= 1 + f * 0.05f;
@@ -126,7 +126,7 @@ namespace ChampionsOfForest.Player
 					SpellActions.FrenzyStacks = 0;
 				}, f =>
 				{
-					ModdedPlayer.instance.AttackSpeedMult *= 1 + f * SpellActions.FrenzyAtkSpeed;
+					ModdedPlayer.Stats.attackSpeed *= 1 + f * SpellActions.FrenzyAtkSpeed;
 					ModdedPlayer.instance.DamageOutputMult *= 1 + f * SpellActions.FrenzyDmg;
 					if (SpellActions.FrenzyMS)
 						ModdedPlayer.instance.MoveSpeedMult *= 1 + f * 0.05f;
@@ -143,7 +143,7 @@ namespace ChampionsOfForest.Player
 				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.instance.Stats.perk_parryCounterStrikeDamage = 0) { DisplayAsPercent = false };
 				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.instance.CritDamage -= f , f => ModdedPlayer.instance.CritDamage += f );
 				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond -= f, f => ModdedPlayer.Stats.healthRecoveryPerSecond += f);
-				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.instance.DamageReduction /= 1 - f, f => ModdedPlayer.instance.DamageReduction *= 1 - f);
+				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.Stats.allDamageTaken /= 1 - f, f => ModdedPlayer.Stats.allDamageTaken *= 1 - f);
 			}
 			catch (System.Exception ex)
 			{
@@ -217,7 +217,7 @@ namespace ChampionsOfForest.Player
 			/// </summary>
 			public void UpdateBuff(int source)
 			{
-				if (isNegative && DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.instance.DebuffResistant > 0))
+				if (isNegative && DispellAmount <= 1 && (ModdedPlayer.instance.DebuffImmune > 0 || ModdedPlayer.Stats.debuffResistance > 0))
 					duration = 0;
 				if (isNegative && DispellAmount <= 2 && (ModdedPlayer.instance.DebuffImmune > 0))
 					duration = 0;

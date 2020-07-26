@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			}
 			else if (other.transform.root == LocalPlayer.Transform.root)
 			{
-				LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Physical)
+				LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.Stats.magicDamageTaken)), false, PlayerStats.DamageType.Physical)
 				;
 				Player.BuffDB.AddBuff(21, 69, Damage, 60);
 				other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);

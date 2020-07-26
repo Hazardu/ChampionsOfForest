@@ -172,7 +172,7 @@ namespace ChampionsOfForest.Effects
 			float sqrMagnitude = (LocalPlayer.Transform.position - transform.position).sqrMagnitude;
 			if (sqrMagnitude < radius * radius)
 			{
-				int dmg = (int)(damage * (1 - ModdedPlayer.instance.MagicResistance));
+				int dmg = (int)(damage * (1 - ModdedPlayer.Stats.magicDamageTaken));
 
 				if (isArcane)
 				{
@@ -188,7 +188,7 @@ namespace ChampionsOfForest.Effects
 					BuffDB.AddBuff(2, 65, 0.7f, 6);
 					LocalPlayer.Stats.Burn();
 				}
-				LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.instance.MagicResistance)), false, PlayerStats.DamageType.Drowning);
+				LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.Stats.magicDamageTaken)), false, PlayerStats.DamageType.Drowning);
 			}
 		}
 
