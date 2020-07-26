@@ -15,8 +15,8 @@ namespace ChampionsOfForest.Player
 
 		protected override void Update()
 		{
-			jumpHeight = ModdedPlayer.basejumpPower * ModdedPlayer.instance.JumpPower;
-			if (ModdedPlayer.instance.Rooted)
+			jumpHeight = ModdedPlayer.basejumpPower * ModdedPlayer.Stats.JumpPower;
+			if (ModdedPlayer.Stats.Rooted)
 			{
 				this.rb.Sleep();
 				this.rb.isKinematic = true;
@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Player
 				CanJump = false;
 				allowJump = false;
 			}
-			if (ModdedPlayer.instance.Stunned)
+			if (ModdedPlayer.Stats.Stunned)
 			{
 				this.rb.Sleep();
 				this.rb.isKinematic = true;
@@ -45,13 +45,13 @@ namespace ChampionsOfForest.Player
 		protected override void HandleWalkingSpeedOptions()
 		{
 			base.HandleWalkingSpeedOptions();
-			speed *= ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult;
+			speed *= ModdedPlayer.Stats.MoveSpeed * ModdedPlayer.Stats.MoveSpeedMult;
 		}
 
 		protected override void HandleRunningStaminaAndSpeed()
 		{
 			base.HandleRunningStaminaAndSpeed();
-			speed *= ModdedPlayer.instance.MoveSpeed * ModdedPlayer.instance.MoveSpeedMult;
+			speed *= ModdedPlayer.Stats.MoveSpeed * ModdedPlayer.Stats.MoveSpeedMult;
 		}
 
 		public override void HandleLanded()
@@ -62,12 +62,12 @@ namespace ChampionsOfForest.Player
 			this.jumpTimerStarted = false;
 			float num = 28f;
 			bool flag = false;
-			if (ModdedPlayer.instance.BunnyHop)
+			if (ModdedPlayer.Stats.BunnyHop)
 			{
-				if (ModdedPlayer.instance.BunnyHopUpgrade)
-					BuffDB.AddBuff(5, 87, 1.5f, 0.75f * ModdedPlayer.instance.JumpPower);
+				if (ModdedPlayer.Stats.BunnyHopUpgrade)
+					BuffDB.AddBuff(5, 87, 1.5f, 0.75f * ModdedPlayer.Stats.JumpPower);
 				else
-					BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.instance.JumpPower);
+					BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.Stats.JumpPower);
 			}
 			if ((TheForest.Utils.LocalPlayer.AnimControl.doShellRideMode || TheForest.Utils.LocalPlayer.AnimControl.flyingGlider) && this.prevVelocityXZ.magnitude > 32f)
 			{
@@ -80,7 +80,7 @@ namespace ChampionsOfForest.Player
 					this.jumpCoolDown = true;
 					this.jumpLand = true;
 					float num2 = this.prevVelocity * 0.9f * (this.prevVelocity / 27.5f);
-					int damage = (int)num2 + (int)(ModdedPlayer.instance.MaxHealth * 0.008f * num2);
+					int damage = (int)num2 + (int)(ModdedPlayer.Stats.TotalMaxHealth * 0.008f * num2);
 					float num3 = 3.8f;
 					if (TheForest.Utils.LocalPlayer.AnimControl.doShellRideMode)
 					{
@@ -89,16 +89,16 @@ namespace ChampionsOfForest.Player
 					bool flag2 = false;
 					if (this.jumpingTimer > num3 && !TheForest.Utils.LocalPlayer.AnimControl.flyingGlider)
 					{
-						damage = (int)(1000f + ModdedPlayer.instance.MaxHealth);
+						damage = (int)(1000f + ModdedPlayer.Stats.TotalMaxHealth);
 						flag2 = true;
 					}
 					if (TheForest.Utils.LocalPlayer.AnimControl.doShellRideMode && !flag2)
 					{
-						damage = 17 + (int)(ModdedPlayer.instance.MaxHealth * 0.13f);
+						damage = 17 + (int)(ModdedPlayer.Stats.TotalMaxHealth * 0.13f);
 					}
 					if (TheForest.Utils.LocalPlayer.AnimControl.disconnectFromGlider)
 					{
-						damage = 12 + (int)(ModdedPlayer.instance.MaxHealth * 0.08f);
+						damage = 12 + (int)(ModdedPlayer.Stats.TotalMaxHealth * 0.08f);
 						TheForest.Utils.LocalPlayer.SpecialActions.SendMessage("DropGlider", true);
 						this.enforceHighDrag = true;
 						base.Invoke("disableHighDrag", 0.65f);

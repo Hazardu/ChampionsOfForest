@@ -267,7 +267,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ProjectileSizeRatio += 0.05f,
+				apply = () => ModdedPlayer.instance.projectileSize += 0.05f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -288,7 +288,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ProjectileSpeedRatio += 0.05f,
+				apply = () => ModdedPlayer.instance.projectileSpeed += 0.05f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -718,7 +718,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ARreduction_all += 3,
+				apply = () => ModdedPlayer.instance.allArmorPiercing += 3,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 6 },
@@ -734,7 +734,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ARreduction_melee += 10,
+				apply = () => ModdedPlayer.instance.meleeArmorPiercing += 10,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 37 },
@@ -750,7 +750,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.ARreduction_ranged += 5,
+				apply = () => ModdedPlayer.instance.rangedArmorPiercing += 5,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 37 },
@@ -1423,7 +1423,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.EnergyBonus += 10,
+				apply = () => ModdedPlayer.instance.maxEnergy += 10,
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 3 },

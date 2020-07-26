@@ -20,7 +20,7 @@ namespace ChampionsOfForest.Effects
 		private void Update()
 		{
 			transform.LookAt(Camera.main.transform);
-			if (!SpellActions.SeekingArrow)
+			if (!ModdedPlayer.Stats.spell_seekingArrow)
 				transform.gameObject.SetActive(false);
 		}
 	}

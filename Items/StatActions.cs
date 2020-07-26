@@ -8,369 +8,369 @@ namespace ChampionsOfForest.Items
 {
 	internal class StatActions
 	{
-		public static void AddVitality(float f)
+		public static void AddVitality( float f)
 		{
-			ModdedPlayer.instance.vitality .Add(Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.vitality .Add(Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveVitality(float f)
+		public static void RemoveVitality( float f)
 		{
-			ModdedPlayer.instance.vitality.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.vitality.Add(-Mathf.RoundToInt(f));
 		}
 
-		public static void AddStrength(float f)
+		public static void AddStrength( float f)
 		{
-			ModdedPlayer.instance.strength.Add( Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.strength.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveStrength(float f)
+		public static void RemoveStrength( float f)
 		{
-			ModdedPlayer.instance.strength.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.strength.Add(-Mathf.RoundToInt(f));
 		}
 
-		public static void AddAgility(float f)
+		public static void AddAgility( float f)
 		{
-			ModdedPlayer.instance.agility += Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.agility.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveAgility(float f)
+		public static void RemoveAgility( float f)
 		{
-			ModdedPlayer.instance.agility -= Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.agility .Substract( Mathf.RoundToInt(f));
 		}
 
-		public static void AddIntelligence(float f)
+		public static void AddIntelligence( float f)
 		{
-			ModdedPlayer.instance.intelligence += Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.intelligence.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveIntelligence(float f)
+		public static void RemoveIntelligence( float f)
 		{
-			ModdedPlayer.instance.intelligence -= Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.intelligence .Substract( Mathf.RoundToInt(f));
 		}
 
-		public static void AddHealth(float f)
+		public static void AddHealth( float f)
 		{
-			ModdedPlayer.instance.HealthBonus += Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.maxHealth.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveHealth(float f)
+		public static void RemoveHealth( float f)
 		{
-			ModdedPlayer.instance.HealthBonus -= Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.maxHealth .Substract( Mathf.RoundToInt(f));
 		}
 
-		public static void AddEnergy(float f)
+		public static void AddEnergy( float f)
 		{
-			ModdedPlayer.instance.EnergyBonus += Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.maxEnergy.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveEnergy(float f)
+		public static void RemoveEnergy( float f)
 		{
-			ModdedPlayer.instance.EnergyBonus -= Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.maxEnergy .Substract( Mathf.RoundToInt(f));
 		}
 
-		public static void AddHPRegen(float f)
+		public static void AddHPRegen( float f)
 		{
-			ModdedPlayer.Stats.healthRecoveryPerSecond += f;
+			ModdedPlayer.Stats.healthRecoveryPerSecond.Add( f);
 		}
 
-		public static void RemoveHPRegen(float f)
+		public static void RemoveHPRegen( float f)
 		{
-			ModdedPlayer.Stats.healthRecoveryPerSecond -= f;
+			ModdedPlayer.Stats.healthRecoveryPerSecond .Substract( f);
 		}
 
-		public static void AddStaminaRegen(float f)
+		public static void AddStaminaRegen( float f)
 		{
-			ModdedPlayer.instance.StaminaRegen += f;
+			ModdedPlayer.Stats.staminaRecoveryperSecond.Add( f);
 		}
 
-		public static void RemoveStaminaRegen(float f)
+		public static void RemoveStaminaRegen( float f)
 		{
-			ModdedPlayer.instance.StaminaRegen -= f;
+			ModdedPlayer.Stats.staminaRecoveryperSecond.Substract( f);
 		}
 
-		public static void AddEnergyRegen(float f)
+		public static void AddEnergyRegen( float f)
 		{
-			ModdedPlayer.instance.EnergyPerSecond += f;
+			ModdedPlayer.Stats.energyRecoveryperSecond.Add( f);
 		}
 
-		public static void RemoveEnergyRegen(float f)
+		public static void RemoveEnergyRegen( float f)
 		{
-			ModdedPlayer.instance.EnergyPerSecond -= f;
+			ModdedPlayer.Stats.energyRecoveryperSecond.Substract( f);
 		}
 
-		public static void AddStaminaRegenPercent(float f)
+		public static void AddStaminaRegenPercent( float f)
 		{
-			ModdedPlayer.instance.StaminaRegenPercent += f;
+			ModdedPlayer.Stats.staminaPerSecRate.Add( f);
 		}
 
-		public static void RemoveStaminaRegenPercent(float f)
+		public static void RemoveStaminaRegenPercent( float f)
 		{
-			ModdedPlayer.instance.StaminaRegenPercent -= f;
+			ModdedPlayer.Stats.staminaPerSecRate.Substract( f);
 		}
 
-		public static void AddHealthRegenPercent(float f)
+		public static void AddHealthRegenPercent( float f)
 		{
-			ModdedPlayer.Stats.healthPerSecRate += f;
+			ModdedPlayer.Stats.healthPerSecRate.Add( f);
 		}
 
-		public static void RemoveHealthRegenPercent(float f)
+		public static void RemoveHealthRegenPercent( float f)
 		{
-			ModdedPlayer.Stats.healthPerSecRate -= f;
+			ModdedPlayer.Stats.healthPerSecRate .Substract( f);
 		}
 
-		public static void AddDamageReduction(float f)
+		public static void AddDamageReduction( float f)
 		{
-			ModdedPlayer.Stats.allDamageTaken *= 1 - f;
+			ModdedPlayer.Stats.allDamageTaken.Multiply(1 - f);
 		}
 
-		public static void RemoveDamageReduction(float f)
+		public static void RemoveDamageReduction( float f)
 		{
-			ModdedPlayer.Stats.allDamageTaken /= 1 - f;
+			ModdedPlayer.Stats.allDamageTaken.Divide( 1 - f);
 		}
 
-		public static void AddCritChance(float f)
+		public static void AddCritChance( float f)
 		{
-			ModdedPlayer.instance.CritChance += f;
+			ModdedPlayer.Stats.critChance.Add( f);
 		}
 
-		public static void RemoveCritChance(float f)
+		public static void RemoveCritChance( float f)
 		{
-			ModdedPlayer.instance.CritChance -= f;
+			ModdedPlayer.Stats.critChance .Substract( f);
 		}
 
-		public static void AddCritDamage(float f)
+		public static void AddCritDamage( float f)
 		{
-			ModdedPlayer.instance.CritDamage += f ;
+			ModdedPlayer.Stats.critDamage.Add( f) ;
 		}
 
-		public static void RemoveCritDamage(float f)
+		public static void RemoveCritDamage( float f)
 		{
-			ModdedPlayer.instance.CritDamage -= f ;
+			ModdedPlayer.Stats.critDamage .Substract( f );
 		}
 
-		public static void AddLifeOnHit(float f)
+		public static void AddLifeOnHit( float f)
 		{
-			ModdedPlayer.instance.LifeOnHit += f;
+			ModdedPlayer.Stats.healthOnHit.Add( f);
 		}
 
-		public static void RemoveLifeOnHit(float f)
+		public static void RemoveLifeOnHit( float f)
 		{
-			ModdedPlayer.instance.LifeOnHit -= f;
+			ModdedPlayer.Stats.healthOnHit.Substract( f);
 		}
 
-		public static void AddDodgeChance(float f)
+		public static void AddDodgeChance( float f)
 		{
-			ItemDataBase.AddPercentage(ref ModdedPlayer.instance.DodgeChance, f);
+			 ModdedPlayer.Stats.getHitChance.valueMultiplicative*= 1-f;
 		}
 
-		public static void RemoveDodgeChance(float f)
+		public static void RemoveDodgeChance( float f)
 		{
-			ItemDataBase.RemovePercentage(ref ModdedPlayer.instance.DodgeChance, f);
+			ModdedPlayer.Stats.getHitChance.valueMultiplicative /= 1 - f;
 		}
 
-		public static void AddArmor(float f)
+		public static void AddArmor( float f)
 		{
-			ModdedPlayer.instance.Armor += Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.armor.Add( Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveArmor(float f)
+		public static void RemoveArmor( float f)
 		{
-			ModdedPlayer.instance.Armor -= Mathf.RoundToInt(f);
+			ModdedPlayer.Stats.armor.Substract( Mathf.RoundToInt(f));
 		}
 
-		public static void AddMagicResistance(float f)
+		public static void AddMagicResistance( float f)
 		{
-			ItemDataBase.AddPercentage(ref ModdedPlayer.Stats.magicDamageTaken, f);
+			ModdedPlayer.Stats.magicDamageTaken.valueMultiplicative *= 1 - f;
 		}
 
-		public static void RemoveMagicResistance(float f)
+		public static void RemoveMagicResistance( float f)
 		{
-			ItemDataBase.RemovePercentage(ref ModdedPlayer.Stats.magicDamageTaken, f);
+			ModdedPlayer.Stats.magicDamageTaken.valueMultiplicative /= 1 - f;
 		}
 
-		public static void AddAttackSpeed(float f)
+		public static void AddAttackSpeed( float f)
 		{
-			ModdedPlayer.instance.AttackSpeedAdd += f;
+			ModdedPlayer.Stats.attackSpeed.Add( f);
 		}
 
-		public static void RemoveAttackSpeed(float f)
+		public static void RemoveAttackSpeed( float f)
 		{
-			ModdedPlayer.instance.AttackSpeedAdd -= f;
+			ModdedPlayer.Stats.attackSpeed.Substract( f);
 		}
 
-		public static void AddExpFactor(float f)
+		public static void AddExpFactor( float f)
 		{
-			ModdedPlayer.instance.ExpFactor *= 1 + f;
+			ModdedPlayer.Stats.expGain .Multiply( 1 + f);
 		}
 
-		public static void RemoveExpFactor(float f)
+		public static void RemoveExpFactor( float f)
 		{
-			ModdedPlayer.instance.ExpFactor /= 1 + f;
+			ModdedPlayer.Stats.expGain.Divide( 1 + f);
 		}
 
-		public static void AddMaxMassacreTime(float f)
+		public static void AddMaxMassacreTime( float f)
 		{
-			ModdedPlayer.instance.MaxMassacreTime += f;
+			ModdedPlayer.Stats.maxMassacreTime.Add( f);
 		}
 
-		public static void RemoveMaxMassacreTime(float f)
+		public static void RemoveMaxMassacreTime( float f)
 		{
-			ModdedPlayer.instance.MaxMassacreTime -= f;
+			ModdedPlayer.Stats.maxMassacreTime.Substract( f);
 		}
 
-		public static void AddSpellDamageAmplifier(float f)
+		public static void AddSpellDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.SpellDamageAmplifier_Add += f;
+			ModdedPlayer.Stats.spellIncreasedDmg.Add( f);
 		}
 
-		public static void RemoveSpellDamageAmplifier(float f)
+		public static void RemoveSpellDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.SpellDamageAmplifier_Add -= f;
+			ModdedPlayer.Stats.spellIncreasedDmg.Substract( f);
 		}
 
-		public static void AddMeleeDamageAmplifier(float f)
+		public static void AddMeleeDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.MeleeDamageAmplifier_Add += f;
+			ModdedPlayer.Stats.meleeIncreasedDmg.Add( f);
 		}
 
-		public static void RemoveMeleeDamageAmplifier(float f)
+		public static void RemoveMeleeDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.MeleeDamageAmplifier_Add -= f;
+			ModdedPlayer.Stats.meleeIncreasedDmg.Substract( f);
 		}
 
-		public static void AddRangedDamageAmplifier(float f)
+		public static void AddRangedDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.RangedDamageAmplifier_Add += f;
+			ModdedPlayer.Stats.rangedIncreasedDmg.Add( f);
 		}
 
-		public static void RemoveRangedDamageAmplifier(float f)
+		public static void RemoveRangedDamageAmplifier( float f)
 		{
-			ModdedPlayer.instance.RangedDamageAmplifier_Add -= f;
+			ModdedPlayer.Stats.rangedIncreasedDmg.Substract( f);
 		}
 
-		public static void AddSpellDamageBonus(float f)
+		public static void AddSpellDamageBonus( float f)
 		{
-			ModdedPlayer.instance.SpellDamageBonus += f;
+			ModdedPlayer.Stats.spellFlatDmg.Add( f);
 		}
 
-		public static void RemoveSpellDamageBonus(float f)
+		public static void RemoveSpellDamageBonus( float f)
 		{
-			ModdedPlayer.instance.SpellDamageBonus -= f;
+			ModdedPlayer.Stats.spellFlatDmg.Substract( f);
 		}
 
-		public static void AddMeleeDamageBonus(float f)
+		public static void AddMeleeDamageBonus( float f)
 		{
-			ModdedPlayer.instance.MeleeDamageBonus += f;
+			ModdedPlayer.Stats.meleeFlatDmg.Add( f);
 		}
 
-		public static void RemoveMeleeDamageBonus(float f)
+		public static void RemoveMeleeDamageBonus( float f)
 		{
-			ModdedPlayer.instance.MeleeDamageBonus -= f;
+			ModdedPlayer.Stats.meleeFlatDmg.Substract( f);
 		}
 
-		public static void AddRangedDamageBonus(float f)
+		public static void AddRangedDamageBonus( float f)
 		{
-			ModdedPlayer.instance.RangedDamageBonus += f;
+			ModdedPlayer.Stats.rangedFlatDmg.Add( f);
 		}
 
-		public static void RemoveRangedDamageBonus(float f)
+		public static void RemoveRangedDamageBonus( float f)
 		{
-			ModdedPlayer.instance.RangedDamageBonus -= f;
+			ModdedPlayer.Stats.rangedFlatDmg.Substract( f);
 		}
 
-		public static void AddEnergyPerAgility(float f)
+		public static void AddEnergyPerAgility( float f)
 		{
-			ModdedPlayer.instance.EnergyPerAgility += f;
+			ModdedPlayer.Stats.maxEnergyFromAgi.Add( f);
 		}
 
-		public static void RemoveEnergyPerAgility(float f)
+		public static void RemoveEnergyPerAgility( float f)
 		{
-			ModdedPlayer.instance.EnergyPerAgility -= f;
+			ModdedPlayer.Stats.maxEnergyFromAgi .Substract( f);
 		}
 
-		public static void AddHealthPerVitality(float f)
+		public static void AddHealthPerVitality( float f)
 		{
-			ModdedPlayer.instance.HealthPerVitality += f;
+			ModdedPlayer.Stats.maxHealthFromVit.Add( f);
 		}
 
-		public static void RemoveHealthPerVitality(float f)
+		public static void RemoveHealthPerVitality( float f)
 		{
-			ModdedPlayer.instance.HealthPerVitality -= f;
+			ModdedPlayer.Stats.maxHealthFromVit.Substract( f);
 		}
 
-		public static void AddSpellDamageperInt(float f)
+		public static void AddSpellDamageperInt( float f)
 		{
-			ModdedPlayer.instance.SpellDamageperInt += f;
+			ModdedPlayer.Stats.spellDmgFromInt.Add( f);
 		}
 
-		public static void RemoveSpellDamageperInt(float f)
+		public static void RemoveSpellDamageperInt( float f)
 		{
-			ModdedPlayer.instance.SpellDamageperInt -= f;
-		}
+			ModdedPlayer.Stats.spellDmgFromInt .Substract( f);
+		} 
 
-		public static void AddDamagePerStrength(float f)
+		public static void AddDamagePerStrength( float f)
 		{
-			ModdedPlayer.instance.DamagePerStrength += f;
+			ModdedPlayer.Stats.meleeDmgFromStr.Add( f);
 		}
 
-		public static void RemoveDamagePerStrength(float f)
+		public static void RemoveDamagePerStrength( float f)
 		{
-			ModdedPlayer.instance.DamagePerStrength -= f;
+			ModdedPlayer.Stats.meleeDmgFromStr .Substract( f);
 		}
 
-		public static void AddHealingMultipier(float f)
+		public static void AddHealingMultipier( float f)
 		{
-			ModdedPlayer.Stats.allRecoveryMult *= 1 + f;
+			ModdedPlayer.Stats.allRecoveryMult .Multiply( 1 + f);
 		}
 
-		public static void RemoveHealingMultipier(float f)
+		public static void RemoveHealingMultipier( float f)
 		{
-			ModdedPlayer.Stats.allRecoveryMult /= 1 + f;
+			ModdedPlayer.Stats.allRecoveryMult.Divide( 1 + f);
 		}
 
-		public static void AddMoveSpeed(float f)
+		public static void AddMoveSpeed( float f)
 		{
-			ModdedPlayer.instance.MoveSpeed += f;
+			ModdedPlayer.Stats.movementSpeed.Add( f);
 		}
 
-		public static void RemoveMoveSpeed(float f)
+		public static void RemoveMoveSpeed( float f)
 		{
-			ModdedPlayer.instance.MoveSpeed -= f;
+			ModdedPlayer.Stats.movementSpeed.Substract( f);
 		}
 
-		public static void AddJump(float f)
+		public static void AddJump( float f)
 		{
-			ModdedPlayer.instance.JumpPower *= 1 + f;
+			ModdedPlayer.Stats.jumpPower .Add( f);
 		}
 
-		public static void RemoveJump(float f)
+		public static void RemoveJump( float f)
 		{
-			ModdedPlayer.instance.JumpPower /= 1 + f;
+			ModdedPlayer.Stats.jumpPower.Substract(  f);
 		}
 
-		//   public static void Add(float f)
+		//   public static void Add( float f)
 		//{
-		//    ModdedPlayer.instance. += f;
+		//    ModdedPlayer.Stats..Add( f;
 		//}
-		//public static void Remove(float f)
+		//public static void Remove( float f)
 		//{
-		//    ModdedPlayer.instance. -= f;
+		//    ModdedPlayer.Stats. .Substract( f;
 		//}
 
-		public static void PERMANENT_perkPointIncrease(float f)
+		public static void PERMANENT_perkPointIncrease( float f)
 		{
-			ModdedPlayer.instance.PermanentBonusPerkPoints += Mathf.RoundToInt(f);
-			ModdedPlayer.instance.MutationPoints += Mathf.RoundToInt(f);
+			ModdedPlayer.instance.PermanentBonusPerkPoints+=Mathf.RoundToInt(f);
+			ModdedPlayer.instance.MutationPoints+= Mathf.RoundToInt(f);
 		}
 
-		public static void PERMANENT_expIncrease(float f)
+		public static void PERMANENT_expIncrease( float f)
 		{
 			ModdedPlayer.instance.AddFinalExperience((long)f);
 		}
 
-		public static void AddMagicFind(float f)
+		public static void AddMagicFind( float f)
 		{
-			ModdedPlayer.instance.MagicFindMultipier += f;
+			ModdedPlayer.instance.MagicFindMultipier+= f;
 			if (GameSetup.IsMultiplayer)
 			{
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -384,7 +384,7 @@ namespace ChampionsOfForest.Items
 			}
 		}
 
-		public static void RemoveMagicFind(float f)
+		public static void RemoveMagicFind( float f)
 		{
 			ModdedPlayer.instance.MagicFindMultipier -= f;
 			if (GameSetup.IsMultiplayer)
@@ -400,20 +400,20 @@ namespace ChampionsOfForest.Items
 			}
 		}
 
-		public static void AddAllStats(float f)
+		public static void AddAllStats( float f)
 		{
-			ModdedPlayer.instance.strength.Add(Mathf.RoundToInt(f));
-			ModdedPlayer.instance.vitality.Add(Mathf.RoundToInt(f));
-			ModdedPlayer.instance.agility.Add(Mathf.RoundToInt(f));
-			ModdedPlayer.instance.intelligence.Add(Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.strength.Add(Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.vitality.Add(Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.agility.Add(Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.intelligence.Add(Mathf.RoundToInt(f));
 		}
 
-		public static void RemoveAllStats(float f)
+		public static void RemoveAllStats( float f)
 		{
-			ModdedPlayer.instance.strength.Add(-Mathf.RoundToInt(f));
-			ModdedPlayer.instance.vitality.Add(-Mathf.RoundToInt(f));
-			ModdedPlayer.instance.agility.Add(-Mathf.RoundToInt(f));
-			ModdedPlayer.instance.intelligence.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.strength.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.vitality.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.agility.Add(-Mathf.RoundToInt(f));
+			ModdedPlayer.Stats.intelligence.Add(-Mathf.RoundToInt(f));
 		}
 
 		public static int GetMaxSocketAmountOnItem(in BaseItem.ItemType type)

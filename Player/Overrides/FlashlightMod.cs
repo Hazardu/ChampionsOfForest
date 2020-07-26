@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Player
 	{
 		public override void SetIntensity(float intensity)
 		{
-			_mainLight.intensity = ModdedPlayer.instance.flashlightIntensity * intensity;
+			_mainLight.intensity = ModdedPlayer.Stats.flashlightIntensity * intensity;
 
 			float num = intensity / 2f;
 			if (intensity < 0.3f)
@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Player
 
 			if ((bool)_fillLight)
 			{
-				_fillLight.intensity = ModdedPlayer.instance.flashlightIntensity * num;
+				_fillLight.intensity = ModdedPlayer.Stats.flashlightIntensity * num;
 			}
 		}
 
@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (!BoltNetwork.isRunning || (BoltNetwork.isRunning && (bool)base.entity && base.entity.isAttached && base.entity.isOwner))
 			{
-				LocalPlayer.Stats.BatteryCharge -= _batterieCostPerSecond * Time.deltaTime / ModdedPlayer.instance.flashlightBatteryDrain;
+				LocalPlayer.Stats.BatteryCharge -= _batterieCostPerSecond * Time.deltaTime / ModdedPlayer.Stats.flashlightBatteryDrain;
 
 				if (LocalPlayer.Stats.BatteryCharge > 50f)
 				{
@@ -87,7 +87,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (BoltNetwork.isRunning)
 				{
-					base.state.BatteryTorchIntensity = ModdedPlayer.instance.flashlightIntensity * _mainLight.intensity;
+					base.state.BatteryTorchIntensity = ModdedPlayer.Stats.flashlightIntensity * _mainLight.intensity;
 					base.state.BatteryTorchEnabled = _mainLight.enabled;
 					base.state.BatteryTorchColor = _mainLight.color;
 				}

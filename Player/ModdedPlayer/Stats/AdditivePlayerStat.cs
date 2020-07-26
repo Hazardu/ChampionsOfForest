@@ -18,17 +18,17 @@ namespace ChampionsOfForest.Player
 			AddStatToList();
 		}
 
-		public T Add(T amount)
+		public T Add(in T amount)
 		{
 			valueAdditive = add(valueAdditive, amount);
 			return Value;
 		}
-		public T Substract(T amount)
+		public T Substract(in T amount)
 		{
 			valueAdditive = substract(valueAdditive, amount);
 			return Value;
 		}
-		public T GetAmountAfterAdding(T chngAdd)
+		public T GetAmountAfterAdding(in T chngAdd)
 		{
 			return add(valueAdditive, chngAdd);
 		}

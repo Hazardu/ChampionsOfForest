@@ -183,7 +183,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.01f, 0.015f, 0.4f, "Attack Cost Reduction", scOneMinusMult, 3, f => ModdedPlayer.Stats.attackStaminaCost.Multiply(1 - f), f => ModdedPlayer.Stats.attackStaminaCost.Divide(1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.5f };
 			i++;
-			new ItemStat(i, 0.001f, 0.006f, 0.4f, "Spell Cost Reduction", scOneMinusMult, 6, f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative.valueAdditive *= 1 - f) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.3f };
+			new ItemStat(i, 0.001f, 0.006f, 0.4f, "Spell Cost Reduction", scOneMinusMult, 6, f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative*= 1 - f) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.3f };
 			i++;
 			new ItemStat(i, 0.005f, 0.009f, 0.4f, "Spell Cost to Stamina", scOneMinusMult, 5, f => ModdedPlayer.Stats.spellCostEnergyCost.Multiply(1-f), f => ModdedPlayer.Stats.spellCostEnergyCost.Divide(1 - f)) { ValueCap = 0.95f, DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
@@ -211,15 +211,15 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.01f, 0.035f, 0.7f, "Block", scAdd, 1, f => ModdedPlayer.Stats.block.valueAdditive += f, f => ModdedPlayer.Stats.block.valueAdditive += -f, f => ModdedPlayer.Stats.block.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.005f, 0.015f, 0.4f, "Projectile speed", scAdd, 4, f => ModdedPlayer.Stats.projectileSpeedRatio.valueAdditive += f, f => ModdedPlayer.Stats.projectileSpeedRatio.valueAdditive += -f, f => ModdedPlayer.Stats.projectileSpeedRatio.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i, 0.005f, 0.015f, 0.4f, "Projectile speed", scAdd, 4, f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += f, f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += -f, f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.01f, 0.03f, 0.4f, "Projectile size", scAdd, 4, f => ModdedPlayer.Stats.projectileSizeRatio.valueAdditive += f, f => ModdedPlayer.Stats.projectileSizeRatio.valueAdditive += -f, f => ModdedPlayer.Stats.projectileSizeRatio.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i, 0.01f, 0.03f, 0.4f, "Projectile size", scAdd, 4, f => ModdedPlayer.Stats.projectileSize.valueAdditive += f, f => ModdedPlayer.Stats.projectileSize.valueAdditive += -f, f => ModdedPlayer.Stats.projectileSize.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.75f, 1.25f, 1.21f, "Melee armor piercing", scAdd, 5, f => ModdedPlayer.Stats.aRreduction_melee.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_melee.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_melee.valueAdditive += Mathf.RoundToInt(f));
+			new ItemStat(i, 0.75f, 1.25f, 1.21f, "Melee armor piercing", scAdd, 5, f => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive += Mathf.RoundToInt(f));
 			i++;
-			new ItemStat(i, 0.35f, 0.9f, 1.21f, "Ranged armor piercing", scAdd, 5, f => ModdedPlayer.Stats.aRreduction_ranged.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_ranged.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_ranged.valueAdditive += Mathf.RoundToInt(f));
+			new ItemStat(i, 0.35f, 0.9f, 1.21f, "Ranged armor piercing", scAdd, 5, f => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive += Mathf.RoundToInt(f));
 			i++;
-			new ItemStat(i, 0.35f, 0.75f, 1.21f, "Armor piercing", scAdd, 5, f => ModdedPlayer.Stats.aRreduction_all.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_all.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_all.valueAdditive += Mathf.RoundToInt(f));
+			new ItemStat(i, 0.35f, 0.75f, 1.21f, "Armor piercing", scAdd, 5, f => ModdedPlayer.Stats.allArmorPiercing.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.allArmorPiercing.valueAdditive += -Mathf.RoundToInt(f), f => ModdedPlayer.Stats.allArmorPiercing.valueAdditive += Mathf.RoundToInt(f));
 			i++;
 			new ItemStat(i, 0.001f, 0.013f, 0.4f, "Magic Find", scAdd, 7, StatActions.AddMagicFind, StatActions.RemoveMagicFind, StatActions.AddMagicFind) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 0.25f };
 			i++;
@@ -227,17 +227,17 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0, 0, 0, "Refund points", scAdd, 7, f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec(), f => ModdedPlayer.Respec());
 			i++;
-			new ItemStat(i, 0.003f, 0.008f, 0.4f, "Jump Power", scMult, 4, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.003f, 0.008f, 0.4f, "Jump Power", scAdd, 4, StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.026f, 0.066f, 0.45f, "Headshot Damage", scAdd, 4, f => ModdedPlayer.Stats.headShotDamage.valueAdditive += f, f => ModdedPlayer.Stats.headShotDamage.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.026f, 0.066f, 0.45f, "Headshot Damage", scMult, 4, f => ModdedPlayer.Stats.headShotDamage.valueMultiplicative *= 1+f, f => ModdedPlayer.Stats.headShotDamage.valueMultiplicative/= 1+f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.003f, 0.01f, 0.4f, "Fire Damage", scAdd, 4, f => ModdedPlayer.Stats.fireAmp.valueAdditive += f, f => ModdedPlayer.Stats.fireAmp.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.003f, 0.01f, 0.4f, "Fire Damage", scAdd, 4, f => ModdedPlayer.Stats.fireDamage.valueAdditive += f, f => ModdedPlayer.Stats.fireDamage.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.003f, 0.008f, 0.5f, "Chance on hit to slow", scAdd, 3, f => ModdedPlayer.Stats.chanceToSlowOnHit.valueAdditive += f, f => ModdedPlayer.Stats.chanceToSlowOnHit.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.003f, 0.008f, 0.5f, "Chance on hit to slow", scAdd, 3, f => ModdedPlayer.Stats.chanceToSlow.valueAdditive += f, f => ModdedPlayer.Stats.chanceToSlow.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.001f, 0.005f, 0.4f, "Chance on hit to bleed", scAdd, 3, f => ModdedPlayer.Stats.chanceToBleedOnHit.valueAdditive += f, f => ModdedPlayer.Stats.chanceToBleedOnHit.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.001f, 0.005f, 0.4f, "Chance on hit to bleed", scAdd, 3, f => ModdedPlayer.Stats.chanceToBleed.valueAdditive += f, f => ModdedPlayer.Stats.chanceToBleed.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
-			new ItemStat(i, 0.003f, 0.008f, 0.5f, "Chance on hit to weaken", scAdd, 3, f => ModdedPlayer.Stats.chanceToWeakenOnHit.valueAdditive += f, f => ModdedPlayer.Stats.chanceToWeakenOnHit.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.003f, 0.008f, 0.5f, "Chance on hit to weaken", scAdd, 3, f => ModdedPlayer.Stats.chanceToWeaken.valueAdditive += f, f => ModdedPlayer.Stats.chanceToWeaken.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
 			new ItemStat(i, 0.83f, 1.3f, 1.2f, "Thorns", scAdd, 4, f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, f => ModdedPlayer.Stats.thorns.valueAdditive += f);
 			;
@@ -245,27 +245,27 @@ namespace ChampionsOfForest
 
 			//Extra carry items
 			i = 1000;
-			new ItemStat(i, 6f, 15f, 0f, "Extra Carried Sticks", scAdd, 4, f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(57, Mathf.RoundToInt(f)), f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(57, -Mathf.RoundToInt(f)), null);
+			new ItemStat(i, 6f, 15f, 0f, "Extra Carried Sticks", scAdd, 4, f => ModdedPlayer.instance.AddExtraItemCapacity(57, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(57, -Mathf.RoundToInt(f)), null);
 			i++;
-			new ItemStat(i, 3f, 10f, 0f, "Extra Carried Rocks", scAdd, 4, f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(53, Mathf.RoundToInt(f)), f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(53, -Mathf.RoundToInt(f)), null);
+			new ItemStat(i, 3f, 10f, 0f, "Extra Carried Rocks", scAdd, 4, f => ModdedPlayer.instance.AddExtraItemCapacity(53, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(53, -Mathf.RoundToInt(f)), null);
 			i++;
-			new ItemStat(i, 2f, 8f, 0f, "Extra Carried Ropes", scAdd, 4, f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(54, Mathf.RoundToInt(f)), f => ModdedPlayer.Stats.addExtraItemCapacity.valueAdditive(43, -Mathf.RoundToInt(f)), null);
+			new ItemStat(i, 2f, 8f, 0f, "Extra Carried Ropes", scAdd, 4, f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null);
 			i++;
 
 			i = 2000;
-			new ItemStat(i, 3f, 20f, 0f, "Black Hole Size", scAdd, 6, f => SpellActions.BLACKHOLE_radius += f, f => SpellActions.BLACKHOLE_radius += -f, f => SpellActions.BLACKHOLE_radius += f) { RoundingCount = 1 };
+			new ItemStat(i, 3f, 20f, 0f, "Black Hole Size", scAdd, 6, f => ModdedPlayer.Stats.spell_blackhole_radius.valueAdditive += f, f => ModdedPlayer.Stats.spell_blackhole_radius.valueAdditive += -f, f => ModdedPlayer.Stats.spell_blackhole_radius.valueAdditive += f) { RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.4f, 4f, 0f, "Black Hole Lifetime", scAdd, 6, f => SpellActions.BLACKHOLE_duration += f, f => SpellActions.BLACKHOLE_duration += -f, f => SpellActions.BLACKHOLE_duration += f) { RoundingCount = 1 };
+			new ItemStat(i, 0.4f, 4f, 0f, "Black Hole Lifetime", scAdd, 6, f => ModdedPlayer.Stats.spell_blackhole_duration.valueAdditive += f, f => ModdedPlayer.Stats.spell_blackhole_duration.valueAdditive += -f, f => ModdedPlayer.Stats.spell_blackhole_duration.valueAdditive += f) { RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 1f, 7f, 0f, "Black Hole Gravitational Force", scAdd, 6, f => SpellActions.BLACKHOLE_pullforce += f, f => SpellActions.BLACKHOLE_pullforce += -f, f => SpellActions.BLACKHOLE_pullforce += f) { RoundingCount = 1 };
+			new ItemStat(i, 1f, 7f, 0f, "Black Hole Gravitational Force", scAdd, 6, f => ModdedPlayer.Stats.spell_blackhole_pullforce.valueAdditive += f, f => ModdedPlayer.Stats.spell_blackhole_pullforce.valueAdditive += -f, f => ModdedPlayer.Stats.spell_blackhole_pullforce.valueAdditive += f) { RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.3125f, 0.365f, 1f, "Black Hole damage", scAdd, 6, f => SpellActions.BLACKHOLE_damage += f, f => SpellActions.BLACKHOLE_damage += -f, f => SpellActions.BLACKHOLE_damage += f) { RoundingCount = 1 };
+			new ItemStat(i, 0.3125f, 0.365f, 1f, "Black Hole damage", scAdd, 6, f => ModdedPlayer.Stats.spell_blackhole_damage.valueAdditive += f, f => ModdedPlayer.Stats.spell_blackhole_damage.valueAdditive += -f, f => ModdedPlayer.Stats.spell_blackhole_damage.valueAdditive += f) { RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 1, 1, 0, "Stun on hit", scAdd, 1, f => ModdedPlayer.Stats.isHammerStun.valueAdditive = true, f => ModdedPlayer.Stats.isHammerStun.valueAdditive = false, null);
+			new ItemStat(i, 1, 1, 0, "Stun on hit", scAdd, 1, f => ModdedPlayer.Stats.i_HammerStun.value = true, f => ModdedPlayer.Stats.i_HammerStun.value = false, null);
 			i++;
-			new ItemStat(i, 1, 3.5f, 0, "Snap Freeze Duration", scAdd, 3, f => SpellActions.SnapFreezeDuration += f, f => SpellActions.SnapFreezeDuration -= f, null);
+			new ItemStat(i, 1, 3.5f, 0, "Snap Freeze Duration", scAdd, 3, f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive += f, f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive -= f, null);
 			i++;
-			new ItemStat(i, 0.5f, 1.25f, 0, "Raft Speed - HOST ONLY", scAdd, 4, f => ModdedPlayer.Stats.perk_RaftSpeedMultipier += f, f => ModdedPlayer.Stats.perk_RaftSpeedMultipier -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
+			new ItemStat(i, 0.5f, 1.25f, 0, "Raft Speed", scAdd, 4, f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Add(f), f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
 			i = 3000;
 			new ItemStat(i++, 1, 3.5f, 0, "Empty Socket", scAdd, 0, null, null, null) { Multipier = 0 };
@@ -273,26 +273,26 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Agility", scAdd, 0, StatActions.AddAgility, StatActions.RemoveAgility, null) { RoundingCount = 0 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Movement Speed", scAdd, 0, StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Ranged Damage", scMult, 0, StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Ranged Armor Piercing", scAdd, 0, f => ModdedPlayer.Stats.aRreduction_ranged.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_ranged.valueAdditive += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Feather: Ranged Armor Piercing", scAdd, 0, f => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.rangedArmorPiercing.valueAdditive += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
 
 			//3006
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Attack Speed", scAdd, 0, StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Strength", scAdd, 0, StatActions.AddStrength, StatActions.RemoveStrength, null) { RoundingCount = 0 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Damage Reduction", scOneMinusMult, 0, StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Melee Damage", scMult, 0, StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Melee Armor Piercing", scAdd, 0, f => ModdedPlayer.Stats.aRreduction_melee.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.aRreduction_melee.valueAdditive += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Shark Tooth: Melee Armor Piercing", scAdd, 0, f => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive += Mathf.RoundToInt(f), f => ModdedPlayer.Stats.meleeArmorPiercing.valueAdditive += -Mathf.RoundToInt(f), null) { RoundingCount = 0 };
 
 			//30011
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Cooldown Reduction", scOneMinusMult, 0, f => ModdedPlayer.Stats.cooldown *= (1 - f), f => ModdedPlayer.Stats.cooldown /= (1 - f), null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Cooldown Reduction", scOneMinusMult, 0, f => ModdedPlayer.Stats.cooldown.valueMultiplicative *= (1 - f), f => ModdedPlayer.Stats.cooldown.valueMultiplicative /= (1 - f), null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Intelligence", scAdd, 0, StatActions.AddIntelligence, StatActions.RemoveIntelligence, null) { RoundingCount = 0 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Cost Reduction", scOneMinusMult, 0, f => ModdedPlayer.Stats.spellCost.valueMultiplicative.valueAdditive *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative.valueAdditive /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Cost Reduction", scOneMinusMult, 0, f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Spell Damage", scMult, 0, StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Sapphire: Energy On Hit", scAdd, 0, f => ModdedPlayer.Stats.energyOnHit.valueAdditive += f, f => ModdedPlayer.Stats.energyOnHit.valueAdditive += -f, null) { RoundingCount = 2, Multipier = 0.02f };
 
 			//3016
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Experience Gain", scMult, 0, StatActions.AddExpFactor, StatActions.RemoveExpFactor, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Vitality ", scAdd, 0, StatActions.AddVitality, StatActions.RemoveVitality, null) { RoundingCount = 0 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Magic Find", scMult, 0, f => ModdedPlayer.Stats.spellCost.valueMultiplicative.valueAdditive *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative.valueAdditive /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Magic Find", scMult, 0, f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: All Healing", scMult, 0, StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Moonstone: Life Per Second", scAdd, 0, StatActions.AddHPRegen, StatActions.RemoveHPRegen, null) { RoundingCount = 1, Multipier = 0.04f };
 
@@ -300,7 +300,7 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Maximum Health ", scMult, 0, f => ModdedPlayer.Stats.maxHealthMult.valueAdditive *= 1 + f, f => ModdedPlayer.Stats.maxHealthMult.valueAdditive /= 1 + f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Armor ", scAdd, 0, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Resistance To Magic", scOneMinusMult, 0, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 };
-			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Weapon Range", scMult, 0, f => ModdedPlayer.Stats.weaponRange.valueAdditive += f, f => ModdedPlayer.Stats.weaponRange.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 1 };
+			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Weapon Range", scMult, 0, f => ModdedPlayer.Stats.weaponRange.Multiply(1+f), f => ModdedPlayer.Stats.weaponRange.Divide(1+f), null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 1, 3.5f, 7, "Socketed Ore: Thorns", scAdd, 0, f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, null) { RoundingCount = 0, Multipier = 3f };
 		}
 	}

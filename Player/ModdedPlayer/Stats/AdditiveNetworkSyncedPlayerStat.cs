@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 	{
 
 		protected Func<T, T, T> add, substract;
-		public T valueAdditive;
+		private T valueAdditive;
 		protected T default_valueAdditive;
 
 		public AdditiveNetworkSyncedPlayerStat(T default_valueAdditive,in Func<T, T, T> addFunc, in Func<T, T, T> substractFunc, string formatting = "N0")

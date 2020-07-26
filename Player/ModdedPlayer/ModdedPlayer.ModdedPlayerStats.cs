@@ -48,12 +48,12 @@
 			public readonly AdditivePlayerStat<float> areaDamageChance = new AdditivePlayerStat<float>(0.10f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> areaDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 			public readonly AdditivePlayerStat<float> areaDamageRadius = new AdditivePlayerStat<float>(4.0f, addfloat, substractfloat, "P");
-			public readonly MultiplicativePlayerStat<float> projectileSpeed = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-			public readonly MultiplicativePlayerStat<float> projectileSize = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-			public readonly MultiplicativePlayerStat<float> heavyAttackDmg = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> projectileSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> projectileSize = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+			public readonly MultiOperationPlayerStat<float> heavyAttackDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 
 			public readonly MultiplicativePlayerStat<float> weaponRange = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-			public readonly MultiplicativePlayerStat<float> HeadShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
+			public readonly MultiplicativePlayerStat<float> headShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
 
 			public readonly MultiplicativePlayerStat<float> allRecoveryMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<float> healthOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -83,7 +83,7 @@
 			public readonly MultiplicativePlayerStat<float> spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly MultiplicativePlayerStat<float> attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<float> block = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P");
-			public readonly AdditivePlayerStat<float> expGain = new AdditivePlayerStat<float>(1.0f, addfloat, substractfloat, "P");
+			public readonly MultiplicativePlayerStat<float> expGain = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 			public readonly AdditivePlayerStat<float> maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<float> timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P");
 			public readonly AdditivePlayerStat<int> MaxLogs = new AdditivePlayerStat<int>(2, addint, substractint);

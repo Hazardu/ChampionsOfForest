@@ -1767,8 +1767,8 @@ namespace ChampionsOfForest
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
-				onEquip = () => SpellCaster.InfinityLoopEnabled = true,
-				onUnequip = () => SpellCaster.InfinityLoopEnabled = false,
+				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value= true,
+				onUnequip = () => ModdedPlayer.Stats.i_infinityLoop.value = false,
 			}.DropSettings_OnlyBaby();
 
 			//Boss drop Amulet----------------------------------------------------------------------------------------

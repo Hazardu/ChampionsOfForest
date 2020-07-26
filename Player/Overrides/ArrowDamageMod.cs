@@ -36,7 +36,7 @@ namespace ChampionsOfForest.Player
 			if (ModdedPlayer.instance.ProjectileDamageIncreasedBySpeed)
 			{
 				if (ModdedPlayer.instance.Critted)
-					OutputDmg *= ModdedPlayer.instance.ProjectileSpeedRatio * ((ModdedPlayer.instance.CritDamage ) + 1);
+					OutputDmg *= ModdedPlayer.instance.projectileSpeed * ((ModdedPlayer.instance.CritDamage ) + 1);
 			}
 			else
 			{
@@ -122,7 +122,7 @@ namespace ChampionsOfForest.Player
 					Vector3 targetvel = SpellActions.SeekingArrow_Target.position - transform.position;
 					targetvel.Normalize();
 					targetvel *= vel.magnitude;
-					PhysicBody.velocity = Vector3.RotateTowards(PhysicBody.velocity, targetvel, Time.deltaTime * 2.6f * ModdedPlayer.instance.ProjectileSpeedRatio, 0.275f);
+					PhysicBody.velocity = Vector3.RotateTowards(PhysicBody.velocity, targetvel, Time.deltaTime * 2.6f * ModdedPlayer.instance.projectileSpeed, 0.275f);
 				}
 			}
 		}
@@ -423,7 +423,7 @@ namespace ChampionsOfForest.Player
 									w.Write(39);
 									w.Write(be.GetState<IPlayerState>().name);
 									w.Write((ModdedPlayer.Stats.healthRecoveryPerSecond) * ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate));
-									w.Write(ModdedPlayer.instance.MaxHealth * 0.25f);
+									w.Write(ModdedPlayer.Stats.TotalMaxHealth * 0.25f);
 									w.Close();
 								}
 								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
@@ -479,7 +479,7 @@ namespace ChampionsOfForest.Player
 								dmgUnclamped *= 2.1f;
 							dmgUnclamped *= ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
 							if (ModdedPlayer.instance.ProjectileDamageIncreasedBySize)
-								dmgUnclamped *= ModdedPlayer.instance.ProjectileSizeRatio;
+								dmgUnclamped *= ModdedPlayer.instance.projectileSize;
 
 							DamageMath.DamageClamp(dmgUnclamped, out int sendDamage, out Repetitions);
 
@@ -619,7 +619,7 @@ namespace ChampionsOfForest.Player
 				dmgUnclamped *= 2.1f;
 			dmgUnclamped *= ModdedPlayer.instance.RangedAMP * ModdedPlayer.instance.CritDamageBuff;
 			if (ModdedPlayer.instance.ProjectileDamageIncreasedBySize)
-				dmgUnclamped *= ModdedPlayer.instance.ProjectileSizeRatio;
+				dmgUnclamped *= ModdedPlayer.instance.projectileSize;
 			DamageMath.DamageClamp(dmgUnclamped, out int sendDamage, out Repetitions);
 
 			if (this.PhysicBody)

@@ -61,16 +61,16 @@ namespace ChampionsOfForest.Effects
 
 			if (heal)
 			{
-				float healAmount = (ModdedPlayer.instance.MaxHealth - LocalPlayer.Stats.Health);
+				float healAmount = (ModdedPlayer.Stats.TotalMaxHealth - LocalPlayer.Stats.Health);
 				if (bonusDamage)
 				{
-					float buffAmount = 1 + (healAmount / ModdedPlayer.instance.MaxHealth) * 3;
+					float buffAmount = 1 + (healAmount / ModdedPlayer.Stats.TotalMaxHealth) * 3;
 					BuffDB.AddBuff(9, 90, buffAmount, 6.5f);
 				}
 				healAmount *= 0.4f * ModdedPlayer.Stats.allRecoveryMult;
 				LocalPlayer.Stats.Health += healAmount;
 				LocalPlayer.Stats.HealthTarget += healAmount;
-				LocalPlayer.Stats.Energy += (ModdedPlayer.instance.MaxEnergy - LocalPlayer.Stats.Energy) * 0.5f;
+				LocalPlayer.Stats.Energy += (ModdedPlayer.Stats.TotalMaxEnergy - LocalPlayer.Stats.Energy) * 0.5f;
 			}
 		}
 

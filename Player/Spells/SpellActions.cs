@@ -871,7 +871,7 @@ namespace ChampionsOfForest.Player
 				heal *= ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate);
 				LocalPlayer.Stats.HealthTarget += heal;
 				ParrySound.Play(parryPos);
-				float energy = ParryEnergy * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + ModdedPlayer.instance.EnergyOnHit * 2 + ModdedPlayer.instance.MaxEnergy / 12.5f;
+				float energy = ParryEnergy * ModdedPlayer.instance.StaminaAndEnergyRegenAmp + ModdedPlayer.instance.EnergyOnHit * 2 + ModdedPlayer.Stats.TotalMaxEnergy / 12.5f;
 				LocalPlayer.Stats.Energy += energy;
 				LocalPlayer.Stats.Stamina += energy;
 				if (ParryDmgBonus > 0)
@@ -990,7 +990,7 @@ namespace ChampionsOfForest.Player
 			if (BIA_TripleDmg)
 			{
 				BIA_bonusDamage *= 3;
-				BuffDB.AddBuff(18, 95, ModdedPlayer.instance.MaxEnergy / 16, 8);
+				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 16, 8);
 			}
 			if (ModdedPlayer.instance.IsHazardCrown)
 				ModdedPlayer.instance.HazardCrownBonus = 5;

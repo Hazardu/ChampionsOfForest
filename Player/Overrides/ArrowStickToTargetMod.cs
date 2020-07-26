@@ -46,9 +46,9 @@ namespace ChampionsOfForest.Player
 				gameObject = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowBonePickup, parent.transform.position, parent.transform.rotation);
 				item = 1;
 			}
-			if (ModdedPlayer.instance.ReusabilityChance > 0.35f || (int)ModSettings.difficulty > 2)
+			if (ModdedPlayer.Stats.ReusabilityChance > 0.35f || (int)ModSettings.difficulty > 2)
 			{
-				float multishotMult = Mathf.Min(14.4f, ModdedPlayer.instance.MultishotCount / 0.9f);
+				float multishotMult = Mathf.Min(14.4f, ModdedPlayer.Stats.MultishotCount / 0.9f);
 				Destroy(gameObject, 15 - multishotMult);
 			}
 			if (flag)
