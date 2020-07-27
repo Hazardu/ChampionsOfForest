@@ -20,12 +20,12 @@ namespace ChampionsOfForest.Player
 			AddStatToList();
 		}
 
-		public T Multiply(in T amount)
+		public T Multiply(T amount)
 		{
 			valueMultiplicative = mult(amount, valueMultiplicative);
 			return valueMultiplicative;
 		}
-		public T Divide(in T amount)
+		public T Divide(T amount)
 		{
 			valueMultiplicative = divide(valueMultiplicative, amount);
 			return valueMultiplicative;
@@ -39,15 +39,13 @@ namespace ChampionsOfForest.Player
 			valueMultiplicative = default_valueMultiplicative;
 		}
 		public override T GetAmount() => valueMultiplicative;
-		public static MultiplicativePlayerStat<T> operator *(MultiplicativePlayerStat<T> a, T b)
+		public static T operator *(MultiplicativePlayerStat<T> a, T b)
 		{
-			a.valueMultiplicative = a.mult(a.valueMultiplicative, b);
-			return a;
+			return a.mult(a.valueMultiplicative, b);
 		}
-		public static MultiplicativePlayerStat<T> operator /(MultiplicativePlayerStat<T> a, T b)
+		public static T operator /(MultiplicativePlayerStat<T> a, T b)
 		{
-			a.valueMultiplicative = a.divide(a.valueMultiplicative, b);
-			return a;
+			return a.divide(a.valueMultiplicative, b);
 		}
 	}
 }

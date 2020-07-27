@@ -18,17 +18,17 @@ namespace ChampionsOfForest.Player
 			AddStatToList();
 		}
 
-		public T Add(in T amount)
+		public T Add(T amount)
 		{
 			valueAdditive = add(valueAdditive, amount);
 			return Value;
 		}
-		public T Substract(in T amount)
+		public T Substract(T amount)
 		{
 			valueAdditive = substract(valueAdditive, amount);
 			return Value;
 		}
-		public T GetAmountAfterAdding(in T chngAdd)
+		public T GetAmountAfterAdding(T chngAdd)
 		{
 			return add(valueAdditive, chngAdd);
 		}
@@ -37,14 +37,13 @@ namespace ChampionsOfForest.Player
 			valueAdditive = default_valueAdditive;
 		}
 		public override T GetAmount() => valueAdditive;
-		public static AdditivePlayerStat<T> operator +(AdditivePlayerStat<T> a, T b){
-			a.valueAdditive= a.add(a.valueAdditive, b);
-			return a;
-		}
-		public static AdditivePlayerStat<T> operator -(AdditivePlayerStat<T> a, T b)
+		public static T operator +(AdditivePlayerStat<T> a, T b)
 		{
-			a.valueAdditive = a.substract(a.valueAdditive, b);
-			return a;
+			return a.add(a.valueAdditive, b);
+		}
+		public static T operator -(AdditivePlayerStat<T> a, T b)
+		{
+			return a.substract(a.valueAdditive, b);
 		}
 	}
 }

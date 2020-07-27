@@ -16,6 +16,8 @@ namespace ChampionsOfForest.Player
 
 		public static void SendUpdate(int nID)
 		{
+			if (!BoltNetwork.isRunning)
+				return;
 			using (MemoryStream answerStream = new MemoryStream())
 			{
 				using (BinaryWriter w = new BinaryWriter(answerStream))
@@ -24,7 +26,7 @@ namespace ChampionsOfForest.Player
 					syncedStats[nID].WriteToCommand(w);
 					w.Close();
 				}
-				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 				answerStream.Close();
 			}
 

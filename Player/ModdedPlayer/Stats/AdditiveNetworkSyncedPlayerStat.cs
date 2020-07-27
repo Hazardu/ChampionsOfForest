@@ -56,19 +56,13 @@ namespace ChampionsOfForest.Player
 			}
 			return value;
 		}
-		public static AdditiveNetworkSyncedPlayerStat<T> operator +(AdditiveNetworkSyncedPlayerStat<T> a, T b)
+		public static T operator +(AdditiveNetworkSyncedPlayerStat<T> a, T b)
 		{
-			a.valueAdditive = a.add(a.valueAdditive, b);
-			a.ValueChanged();
-
-			return a;
+			return a.add(a.valueAdditive, b);
 		}
-		public static AdditiveNetworkSyncedPlayerStat<T> operator -(AdditiveNetworkSyncedPlayerStat<T> a, T b)
+		public static T operator -(AdditiveNetworkSyncedPlayerStat<T> a, T b)
 		{
-			a.valueAdditive = a.substract(a.valueAdditive, b);
-			a.ValueChanged();
-
-			return a;
+			return a.substract(a.valueAdditive, b);
 		}
 
 		public Dictionary<string, T> OtherPlayerValues
@@ -106,7 +100,7 @@ namespace ChampionsOfForest.Player
 			// Copy data from unmanaged memory to managed buffer.
 			Marshal.Copy(ptr, bytes, 0, size);
 			// Release unmanaged memory.
-			Marshal.FreeHGlobal(ptr);
+			//Marshal.FreeHGlobal(ptr);
 
 			writer.Write(StatNetworkIndex);
 			writer.Write(ModReferences.ThisPlayerID);
@@ -121,7 +115,7 @@ namespace ChampionsOfForest.Player
 			Marshal.Copy(bytes, 0, ptr, size);
 			var newVal = (T)Marshal.PtrToStructure(ptr, typeof(T));
 
-			Marshal.FreeHGlobal(ptr);
+			//Marshal.FreeHGlobal(ptr);
 			if (OtherPlayerValues.ContainsKey(playerName))
 			{
 				OtherPlayerValues[playerName] = newVal;

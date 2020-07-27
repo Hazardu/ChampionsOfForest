@@ -66,25 +66,21 @@ namespace ChampionsOfForest.Player
 			return Value;
 		}
 
-		public static MultiOperationPlayerStat<T> operator +(MultiOperationPlayerStat<T> a, T b)
+		public static T operator +(MultiOperationPlayerStat<T> a, T b)
 		{
-			a.valueAdditive = a.add(a.valueAdditive, b);
-			return a;
+			return a.add(a.valueAdditive, b);
 		}
-		public static MultiOperationPlayerStat<T> operator -(MultiOperationPlayerStat<T> a, T b)
+		public static T operator -(MultiOperationPlayerStat<T> a, T b)
 		{
-			a.valueAdditive = a.substract(a.valueAdditive, b);
-			return a;
+			return a.substract(a.valueAdditive, b);
 		}
-		public static MultiOperationPlayerStat<T> operator *(MultiOperationPlayerStat<T> a, T b)
+		public static T operator *(MultiOperationPlayerStat<T> a, T b)
 		{
-			a.valueMultiplicative = a.mult(a.valueMultiplicative, b);
-			return a;
+			return a.mult(a.valueMultiplicative, b);
 		}
-		public static MultiOperationPlayerStat<T> operator /(MultiOperationPlayerStat<T> a, T b)
+		public static T operator /(MultiOperationPlayerStat<T> a, T b)
 		{
-			a.valueMultiplicative = a.divide(a.valueMultiplicative, b);
-			return a;
+			return a.divide(a.valueMultiplicative, b);
 		}
 	}
 }

@@ -56,13 +56,13 @@ namespace ChampionsOfForest.ExpSources
 				{
 					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 					{
-						w.Write(11);
+						w.Write(10);
 						w.Write(xp);
 					}
 					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 				}
 			}
-			ModdedPlayer.instance.AddFinalExperience(xp);
+			ModdedPlayer.instance.AddKillExperience(xp);
 
 			base.Die();
 		}

@@ -187,11 +187,10 @@ namespace ChampionsOfForest
 		{
 			armor = Mathf.Max(armor, 0);
 
-			float arReduction = 1;
-			arReduction *= armor;
-			arReduction /= armor + 30 * 10;
+			float a = armor;
+			float b = (armor + 100f) / 100f;
 
-			return arReduction;
+			return a/b;
 		}
 
 		//invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself

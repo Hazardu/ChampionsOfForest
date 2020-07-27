@@ -38,7 +38,7 @@ namespace ChampionsOfForest
 					center = pos
 				};
 
-				GUI.Label(r, distance.ToString("N1") + 'm', new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
+				GUI.Label(r, (distance/3.28f).ToString("N0") + 'm', new GUIStyle(GUI.skin.label) { fontSize = ((int)size-2), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
 				r.y += size + 5;
 				GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
 			}

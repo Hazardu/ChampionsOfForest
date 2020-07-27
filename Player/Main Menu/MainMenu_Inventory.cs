@@ -4,6 +4,8 @@ using System.Linq;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
 
+using TheForest.Player.Data;
+
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -16,6 +18,7 @@ namespace ChampionsOfForest
 
 		public bool isDragging;
 		private bool consumedsomething;
+		private bool drawTotal;
 
 		public Item DraggedItem = null;
 		private Vector2 itemPos;
@@ -354,6 +357,37 @@ namespace ChampionsOfForest
 					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount), StatValueStyle);
 				}
 			}
+			if (drawTotal)
+			{
+				
+					int count = item.Stats.Count;
+				if (count > 0)
+				{
+					GUIStyle totalStatStyle = new GUIStyle(StatValueStyle)
+					{
+						fontSize = (int)(18 * screenScale),
+						alignment = TextAnchor.MiddleLeft,
+					};
+					Rect totalBG = new Rect(StatRects[0].xMax+5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale,0);
+					totalBG.yMax = StatRects[StatRects.Length - 1].yMax + 5f;
+					GUI.color = new Color(1, 1, 1, 0.8f);
+					GUI.DrawTexture(totalBG, blackSquareTex);
+					GUI.color = Color.gray;
+					GUI.Label(new Rect(totalBG.x, totalBG.y, totalBG.width, 30 * screenScale), "Total", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });
+					for (int i = 0; i < count; i++)
+					{
+						if (item.Stats[i].GetTotalStat != null)
+						{
+							Rect rect = new Rect(StatRects[i].xMax + 3f, StatRects[i].y, 100 * screenScale, StatRects[i].height);
+							GUI.Label(rect, item.Stats[i].GetTotalStat(), totalStatStyle);
+						}
+					}
+					GUI.color = Color.white;
+
+
+				}
+			}
+
 			if (drawCompare)
 			{
 				var grouped = item.GetGroupedStats();
@@ -366,14 +400,17 @@ namespace ChampionsOfForest
 				};
 				if (grouped != null)
 				{
-					Rect compareBG = new Rect(StatRects[0].xMax, StatRects[0].y - 5 * screenScale, 105 * screenScale, StatRects[StatRects.Length - 1].yMax - StatRects[0].y + 5 * screenScale);
+					Rect compareBG = new Rect(drawTotal?StatRects[0].xMax + 110 * screenScale: StatRects[0].xMax + 5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale,0);
+					compareBG.yMax = StatRects[StatRects.Length - 1].yMax + 5f;
+
 					GUI.color = new Color(1, 1, 1, 0.8f);
 					GUI.DrawTexture(compareBG, blackSquareTex);
 					GUI.color = Color.gray;
+					GUI.Label(new Rect(compareBG.x, compareBG.y, compareBG.width, 30 * screenScale), "Compare", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });
 					int count = item.Stats.Count;
 					for (int i = 0; i < count; i++)
 					{
-						Rect compareRect = new Rect(StatRects[i].xMax, StatRects[i].y, 100 * screenScale, StatRects[i].height);
+						Rect compareRect = new Rect(compareBG.x + 5 * screenScale, StatRects[i].y, 100 * screenScale, StatRects[i].height);
 						//object baseVarValue = item.Stats[i].GetVariable();
 						//dynamic castedValue = Convert.ChangeType(baseVarValue, item.Stats[i].variableType);
 

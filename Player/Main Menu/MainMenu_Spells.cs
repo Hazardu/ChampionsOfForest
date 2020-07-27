@@ -66,20 +66,24 @@ namespace ChampionsOfForest
 					{
 						font = mainFont,
 						fontSize = Mathf.RoundToInt(screenScale * 50),
-						fontStyle = FontStyle.Bold,
-						alignment = TextAnchor.MiddleCenter
+						fontStyle = FontStyle.Normal,
+						alignment = TextAnchor.MiddleCenter,
+						
 					});
 				GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * screenScale, 325 * screenScale, 300 * screenScale, 35 * screenScale), Res.ResourceLoader.instance.LoadedTextures[30]);
 
-				GUI.Label(new Rect(Screen.width / 2 - 300 * screenScale, 370 * screenScale, 600 * screenScale, 400 * screenScale),
-					displayedSpellInfo.GetDescription + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy cost:  " + displayedSpellInfo.EnergyCost : "") +
-					"\nRequired level:  " + displayedSpellInfo.Levelrequirement,
+				GUI.Label(new Rect(bg.x+25 * screenScale, 370 * screenScale,bg.width-50 * screenScale, 500 * screenScale),
+					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy:  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
+					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  " + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
+					: "") +
+					"\nRequired level:  <b>" + displayedSpellInfo.Levelrequirement + "</b></color></size>",
 					new GUIStyle(GUI.skin.label)
 					{
 						font = mainFont,
-						fontSize = Mathf.RoundToInt(screenScale * 29),
+						fontSize = Mathf.RoundToInt(screenScale * 23),
 						fontStyle = FontStyle.Normal,
-						alignment = TextAnchor.MiddleCenter
+						alignment = TextAnchor.MiddleCenter,
+						richText = true
 					});
 
 				if (displayedSpellInfo.Bought)
@@ -89,7 +93,7 @@ namespace ChampionsOfForest
 					{
 						try
 						{
-							Rect btn = new Rect(bg.x + 25f * screenScale + i * 100 * screenScale, 800 * screenScale, 100 * screenScale, 100 * screenScale);
+							Rect btn = new Rect(bg.x + 25f * screenScale + i * 100 * screenScale, 900 * screenScale, 100 * screenScale, 100 * screenScale);
 
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[5]);
 
@@ -149,7 +153,7 @@ namespace ChampionsOfForest
 				else
 				{
 					//buy button
-					Rect UnlockRect = new Rect(bg.x + 150 * screenScale, 800 * screenScale, bg.width - 300 * screenScale, 100 * screenScale);
+					Rect UnlockRect = new Rect(bg.x + 150 * screenScale, 870 * screenScale, bg.width - 300 * screenScale, 100 * screenScale);
 					if (displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.level)
 					{
 						if (ModdedPlayer.instance.MutationPoints >= 2)
@@ -167,9 +171,9 @@ namespace ChampionsOfForest
 						else
 						{
 							GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
-							morePointsStyle.onNormal.textColor = Color.gray;
-							morePointsStyle.onActive.textColor = Color.white;
-							GUI.Label(UnlockRect, "You need 2 points to unlock an ability", morePointsStyle);
+							GUI.color = Color.gray;
+							GUI.Label(UnlockRect, "Can't afford", morePointsStyle);
+							GUI.color= Color.white;
 						}
 					}
 					else
@@ -177,7 +181,7 @@ namespace ChampionsOfForest
 						GUIStyle moreLevelsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 						moreLevelsStyle.onNormal.textColor = Color.gray;
 						moreLevelsStyle.onActive.textColor = Color.white;
-						GUI.Label(UnlockRect, "YOUR LEVEL IS TOO LOW TO UNLOCK", moreLevelsStyle);
+						GUI.Label(UnlockRect, "Level too low", moreLevelsStyle);
 					}
 				}
 				GUI.color = Color.white;

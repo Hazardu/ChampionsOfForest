@@ -687,7 +687,7 @@ namespace ChampionsOfForest
 				}
 
 				//is holding middle mouse btn
-				if (Physics.Raycast(MainCamera.position + MainCamera.forward, MainCamera.forward, out RaycastHit hit, 1000))
+				if (Physics.Raycast(MainCamera.position + MainCamera.forward, MainCamera.forward, out RaycastHit hit, 3000))
 				{
 					drawPingPreview = true;
 					previewPingPos = hit.point;

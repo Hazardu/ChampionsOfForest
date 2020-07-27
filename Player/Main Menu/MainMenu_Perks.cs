@@ -128,7 +128,7 @@ namespace ChampionsOfForest
 			}
 
 			//Drawing Perks
-			Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth, PerkHeight) * 2)
+			Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth+0.25f, PerkHeight + 0.25f) * 2)
 			{
 				center = currentPerkOffset
 			};

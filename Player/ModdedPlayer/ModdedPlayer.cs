@@ -210,8 +210,12 @@ namespace ChampionsOfForest.Player
 		void Awake()
 		{
 			instance = this;
+		}
+	public	void SetStats()
+		{
 			stats = new ModdedPlayerStats();
 		}
+
 		private void Start()
 		{
 			ExpGoal = GetGoalExp();
@@ -945,7 +949,7 @@ namespace ChampionsOfForest.Player
 
 		public void GiveSpecialItems()
 		{
-			if (level == 15 || level == 30)
+			if (level == 15 || level == 30 || level == 40)
 			{
 				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
 				item.level = 1;
@@ -1201,13 +1205,14 @@ namespace ChampionsOfForest.Player
 			WeaponInfoMod.AlwaysIgnite = false;
 			AutoPickupItems.radius = 7.5f;
 			Berserker.active = false;
-			instance.AssignLevelAttributes();
 			instance.damageAbsorbAmounts = new float[2];
 			
 			instance.GeneratedResources.Clear();
 			instance.MagicFindMultipier = 1;
 			Items.StatActions.AddMagicFind(0);  //synchronizes magicfind in multiplayer
 
+
+			instance.AssignLevelAttributes();
 			ReapplyAllItems();
 			ReapplyAllPerks();
 			ReapplyAllSpell();
@@ -1233,6 +1238,7 @@ namespace ChampionsOfForest.Player
 				if (Inventory.Instance.ItemSlots[key] != null)
 				{
 					Inventory.Instance.ItemSlots[key].Equipped = false;
+					
 				}
 			}
 		}

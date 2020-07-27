@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using ChampionsOfForest.Player;
+
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -29,7 +31,7 @@ namespace ChampionsOfForest
 		public bool DisplayAsPercent = false;
 		public int RoundingCount;
 		private StatCompare comparing;
-
+		public Func<string> GetTotalStat; 
 		public delegate void OnEquipDelegate(float f);
 
 		public OnEquipDelegate OnEquip;
@@ -59,7 +61,7 @@ namespace ChampionsOfForest
 		/// <param name="name">Name of the stat, what should be displayed in the item context menu</param>
 		/// <param name="rarity">range 0-7</param>
 		/// <param name="LvlPower">How much should it increase per level(min max values will be powered to this amount)</param>
-		public ItemStat(int id, float Min, float Max, float LvlPower, string name, StatCompare comparingMethod, int rarity, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
+		public ItemStat(int id, float Min, float Max, float LvlPower, string name, StatCompare comparingMethod, int rarity,Func<string> getValueFunc, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
 		{
 			comparing = comparingMethod;
 			LevelPow = LvlPower;
@@ -71,6 +73,7 @@ namespace ChampionsOfForest
 			OnEquip = onEquip;
 			OnUnequip = onUnequip;
 			OnConsume = onConsume;
+			GetTotalStat = getValueFunc;
 			ItemDataBase.AddStat(this);
 		}
 
@@ -87,6 +90,8 @@ namespace ChampionsOfForest
 			OnConsume = s.OnConsume;
 			RoundingCount = s.RoundingCount;
 			DisplayAsPercent = s.DisplayAsPercent;
+			GetTotalStat = s.GetTotalStat;
+
 			this.ValueCap = s.ValueCap;
 			if (Multipier != 0)
 			{

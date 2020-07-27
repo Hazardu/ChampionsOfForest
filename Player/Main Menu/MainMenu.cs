@@ -191,12 +191,40 @@ namespace ChampionsOfForest
 				ModAPI.Log.Write("ERROR: Failure in start of Main Menu: " + ex.ToString());
 			}
 		}
-
+		float BookScrollAmountGoal = 0;
 		private void Update()
 		{
 			if (difficultyCooldown > 0)
 				difficultyCooldown -= Time.deltaTime;
 			LevelUpDuration -= Time.deltaTime;
+
+			if (_openedMenu == OpenedMenuMode.Stats)
+			{
+				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
+				if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
+				{
+					ChangePage(guidePage + 1);
+				}
+				if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
+				{
+					ChangePage(guidePage - 1);
+
+				}
+				if (UnityEngine.Input.GetKeyDown(KeyCode.DownArrow))
+				{
+					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal - 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
+				}
+				if (UnityEngine.Input.GetKeyDown(KeyCode.UpArrow))
+				{
+					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
+				}
+				BookScrollAmount = Vector3.Slerp(new Vector3(BookScrollAmount, 0, 0), new Vector3(BookScrollAmountGoal, 0, 0), Time.deltaTime * 30f * screenScale).x;
+			}
+			else if (_openedMenu == OpenedMenuMode.Inventory)
+			{
+				if (UnityEngine.Input.GetKeyDown(KeyCode.LeftAlt))
+					drawTotal =! drawTotal;
+			}
 
 			try
 			{
@@ -329,7 +357,7 @@ namespace ChampionsOfForest
 							{
 								if (SelectedItem > -1 && CustomCrafting.instance.craftMode != CustomCrafting.CraftMode.None)
 								{
-									if (CustomCrafting.instance.changedItem == null)
+									if (CustomCrafting.instance.changedItem.i == null)
 									{
 										CustomCrafting.instance.changedItem.Assign(SelectedItem, Inventory.Instance.ItemSlots[SelectedItem]);
 									}

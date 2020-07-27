@@ -158,11 +158,11 @@ namespace ChampionsOfForest
 				alignment = TextAnchor.MiddleRight,
 				richText = true,
 			};
-			int margin = Mathf.RoundToInt(25 * screenScale);
+			int margin = Mathf.RoundToInt(20 * screenScale);
 			statStyleTooltip = new GUIStyle(GUI.skin.label)
 			{
 				font = mainFont,
-				fontSize = Mathf.RoundToInt(28 * screenScale),
+				fontSize = Mathf.RoundToInt(20 * screenScale),
 				fontStyle = FontStyle.Italic,
 				margin = new RectOffset(margin, margin, margin, margin),
 				stretchWidth = true,
@@ -182,294 +182,329 @@ namespace ChampionsOfForest
 				},
 			};
 		}
-
+		public int guidePage;
 		private void DrawGuide()
 		{
+			GUI.Label(new Rect(0, 0, 300, 100), "Page: " + guidePage);
+			int a = 0;
+
 			Bookmarks.Clear();
-			BookScrollAmount = Mathf.Clamp(BookScrollAmount + 200 * screenScale * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 20 * screenScale, 0);
+			
 			BookPositionY = BookScrollAmount;
 			SetGuiStylesForGuide();
 
-			Header("Basic Information");
-			MarkBookmark("Home");
-			Label("\tExperience");
-			Stat("Current level", ModdedPlayer.instance.level.ToString("N0"));
-			Stat("Current experience", ModdedPlayer.instance.ExpCurrent.ToString("N0"));
-			Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString("N0"), "Next level: " + (ModdedPlayer.instance.level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.level + 1).ToString("N0"));
-			Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal) * 100).ToString() + "%");
-			Label("\tLevel is the estimation of my power. I must become stronger to survive." +
-				"\nHigher level allow me to equip better equipement. " +
-				"\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. ");
-			Space(50);
-			Label("\nSources of experience" +
-				"\n-Mutants - Enemies give the most experience, it's possible to chain kills to get more exp, and the reward is exp reward is based on bounty." +
-				"\n-Animals - Experience gained does not increase with difficulty. It's only viable for levels <10" +
-				"\n-Tall bushes - Give minium amount of experience. Not viable after level 6" +
-				"\n-Trees - Gives little experience for every tree chopped down." +
-				"\n-Effigies - It's possible to gain experience and low rarity items by breaking effigies scattered across the map." +
-				"\n-Rare consumable - Gives a large amount of experience, it's rarity is orange\n");
-
-			Space(100);
-			Header("Information - Statistics");
-			Label("\tAttributes");
-			Label("Strength - This stat increases melee damage multipier. It multiplies with melee damage increase.");
-			Label("Agility - This stat increases ranged damage multipier. Additionally it increases maximum amount of energy");
-			Label("Agility - This stat increases maximum health points, this value is further multiplied by maximum health %");
-
-			Space(100);
-
-			Header("Information - Items");
-			Label("\tEquipement can be obtained by killing enemies and breaking effigies. Normal enemies can drop a few items on death, if the odds are in your favor. The chance to get any items from a normal enemy is 10%. The amount of items obtained from normal enemies is at least 1 and maximum amount increases with players in a lobby.\n" +
-			 "Elite enemies always drop items in large amounts.\n" +
-			 "\tItems can be equipped by dragging and dropping them onto a right equipement slot or shift+left click. The item will grant it's stats only if you meets item's level requirement. The best tier of items is only obtainable on high difficulties.");
-			Label("By unlocking a perk in the survival category, it's possible to change the stats on your existing items, and reforge unused items into something useful. Reforged item will have the same level as item put into the main crafting slot.");
-
-			Space(100);
-
-			Header("Information - Mutations and Abilities");
-			Label("\tUpon leveling up, the player will recieve a upgrade point. Then it's up to the player to use it to unlock a mutation, that will serve as a permanent perk, or to spend two upgrade points to unlock a ability.\n" +
-				"Abilities are in majority of the cases more powerful than perks, as they cost more and the number of active abilities is limitied to 6.\n" +
-				"Some perks can be bought multiple times.\n" +
-				"\n" +
-				"Refunding - it is possible to refund all points, to do so, heart of purity needs to be consumed. This item is of yellow rarity, and thus unobtainable on easy and veteran difficulties." +
-				"More points - to gain a point without leveling, a rare item of green rarity needs to be consumed. It permamently adds a upgrade point, and it persists even after refunding.");
-			Space(100);
-
-			Header("Information - Enemies");
-			Label("\tEnemies in the forest have adapted to your skill. As they level with you, they become faster and stronger. But speed and strength alone shouldn't be your main concern. There are a lot more dangerous beings out there." +
-				"\n\n" +
-				"Common enemies changed slightly. Their health increases with level.\n" +
-				"A new statistic to enemies is 'Armor'. This property reduces damage taken by the enemies from physical attacks, and partly reduces damage from magical attacks. Armor can be reduced in a number of ways.\n" +
-				"The easiest way to reduce armor is to use fire. Fire works as a way to crowd control enemies, it renders a few enemies unable to run and attack as they shake off the flames.\n" +
-				"Other way to reduce armor is to equip items, which reduce armor on hit.\n" +
-				"If you dont have any way to reduce enemy's armor, damaging them with spells would decrease the reduction from armor by 2/3, allowing you to deal some damage.");
-			Space(30);
-			Label("Elite enemies\n" +
-				"An elite is a uncommon type of a mutant with increased stats and access to special abilities, that make encounters with them challenging." +
-				"\nEnemy abilities:");
-			Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters nuke instances of damage.");
-			Label("- Blizzard - A temporary aura around an enemy, that slows anyone in it's area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting within it's range. Crowd controll from ranged attacks and running seems like the best option.");
-			Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
-			Label("- Chains - Roots anyone in a big radius around the elite. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
-			Label("- Black hole - A very strong ability. The spell has a fixed cooldown, and the enemy will attempt to cast it as soon as a player gets within his range effective.");
-			Label("- Trap sphere - Long lasting sphere that forces you to stay inside it untill it's effects wears off");
-			Label("- Juggernaut - The enemy is completely immune to crowd controll and bleeding.\n");
-			Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
-			Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes.");
-			Label("- Extra tough - enemy has a lot more healt");
-			Label("- Extra deadly - enemy has a lot more damage");
-			Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit or parry it's attacks.");
-			Label("- Warping - An ability allowing to teleport. Strong against glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
-			Label("- Rain Empowerment - If it rains, the enemy gains in strenght, speed, armor and size.");
-			Label("- Meteors - Periodically spawns a rain of powerful meteors. They are rather easy to spot and they move at a slow medium speed.");
-			Label("- Flare - Slows and damages me if you stand inside. Heals and makes enemies faster.");
-			Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
-			Label("- Plasma cannon - Creates a turret that fires a laser beam that damages players and buildings.");
-			Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is adviced to retreat and wait for the poison stop damaging you.");
-			Label("- Cataclysm - Enemy uses the cataclysm spell to slow you down and damage you.");
-
-			Header("Changes");
-			Label("Champions of The Forest provides variety of changes to in-game mechanics." +
-				"\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
-				"\nPlayer is slowed down if out of stamina (the inner blue bar)" +
-				"\nTraps no longer instantly kill cannibals. Instead they deal damage." +
-				"\nDynamite no longer instantly kills enemies." +
-				"\nEnemies have armor and increased health." +
-				"\nPlayers take increased damage from explosives. This affects how much damage the worm does" +
-				"\nPlayer deal increased damage to other players if friendly fire is enabled.");
-
-			Space(300);
-
-			Header("Statistics");
-			Stat("Strength", ModdedPlayer.Stats.strength.GetFormattedAmount()+ " str", "Increases melee damage by " + ModdedPlayer.Stats.meleeDmgFromStr * 100 + "% for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.Stats.strength.Value * 100 * ModdedPlayer.Stats.meleeDmgFromStr + "]");
-			Stat("Agility", ModdedPlayer.Stats.agility.GetFormattedAmount() + " agi", "Increases ranged damage by " + ModdedPlayer.Stats.rangedDmgFromAgi * 100 + "% for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.Value * 100 * ModdedPlayer.Stats.rangedDmgFromAgi + "]\n" +
-				"Increases maximum energy by " + ModdedPlayer.Stats.maxEnergyFromAgi + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.Value * ModdedPlayer.Stats.maxEnergyFromAgi + "]");
-			Stat("Vitality", ModdedPlayer.Stats.vitality.GetFormattedAmount() + " vit", "Increases health by " + ModdedPlayer.Stats.maxHealthFromVit + "for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.Stats.vitality.Value * ModdedPlayer.Stats.maxHealthFromVit + "]");
-			Stat("Intelligence", ModdedPlayer.Stats.intelligence.GetFormattedAmount() + " int", "Increases spell damage by " + ModdedPlayer.Stats.spellDmgFromInt * 100 + "% for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.Stats.intelligence.Value * 100 * ModdedPlayer.Stats.spellDmgFromInt + "]\n" +
-				"Increases stamina regen by " + ModdedPlayer.Stats.energyRecoveryFromInt * 100 + "% for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.Stats.intelligence.Value * 100 * ModdedPlayer.Stats.energyRecoveryFromInt + "]");
-
-			Space(60);
-			Image(105, 70);
-			Header("Health & Energy");
-			Space(10);
-
-			Stat("Max health", ModdedPlayer.Stats.TotalMaxHealth.ToString("N0"), "Total health pool.\n" +
-				"Base health: " + ModdedPlayer.ModdedPlayerStats.baseHealth +
-				"\nBonus health: " + ModdedPlayer.Stats.maxHealth +
-				"\nHealth from vitality: " + ModdedPlayer.Stats.maxHealthFromVit * ModdedPlayer.Stats.vitality.Value +
-				"\nHealth multipier: " + ModdedPlayer.Stats.maxHealthMult * 100 + "%");
-			Stat("Max energy", ModdedPlayer.Stats.TotalMaxEnergy.ToString("N0"), "Total energy pool.\n" +
-				"Base energy: " + ModdedPlayer.ModdedPlayerStats.baseEnergy +
-				"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy +
-				"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi * ModdedPlayer.Stats.agility.Value +
-				"\nEnergy multipier: " + ModdedPlayer.Stats.maxEnergyMult * 100 + "%");
-
-			Space(60);
-			Image(99, 70);
-			Header("Defense");
-			Space(10);
-			Stat("Armor", ModdedPlayer.Stats.armor.valueAdditive.ToString("N0"), "Armor provides physical damage reduction\nYour current amount of armor provides " + ModdedPlayer.Stats.armor * 100 + "% dmg reduction.");
-			Stat("Magic resistance", (ModdedPlayer.Stats.magicDamageTaken-1) * 100 + "%", "Magic damage reduction. Decreases damage from enemy abilities.");
-			Stat("Dodge Chance", (1-ModdedPlayer.Stats.getHitChance )* 100 + "%", "A chance to avoid entire instance of damage. Works only for physical damage sources.");
-			Stat("Damage taken reduction", Math.Round((ModdedPlayer.Stats.allDamageTaken-1 ) * 100, 1) + "%");
-			Stat("Block", ModdedPlayer.Stats.block * 100 + "%");
-			Stat("Shield amount", ModdedPlayer.instance.DamageAbsorbAmount * 100 + "%");
-			Stat("Fire resistance", Math.Round((ModdedPlayer.Stats.fireDamageTaken-1) * 100) + "%");
-			Stat("Thorns", ModdedPlayer.Stats.TotalThornsDamage.ToString("N0"), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.Stats.thorns.Value.ToString("N0")}. Thorns from attributes {(ModdedPlayer.Stats.thornsPerStrenght * ModdedPlayer.Stats.strength.Value+ ModdedPlayer.Stats.vitality.Value * ModdedPlayer.Stats.thornsPerVit).ToString("N0")}.");
-
-			Space(60);
-			Header("Recovery");
-			Space(10);
-
-			Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount + "", "Stamina regen is temporairly paused after sprinting");
-			Stat("Stamina per second", ModdedPlayer.Stats.staminaRecoveryperSecond * (1 + ModdedPlayer.Stats.staminaPerSecRate) + "", "Stamina per second: " + ModdedPlayer.Stats.staminaRecoveryperSecond + "\nStamina regen bonus: " + ModdedPlayer.Stats.staminaPerSecRate * 100 + "%");
-
-			Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy per second: " + ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive + "\nStamina and energy regen multipier: " + ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier * 100 + "%");
-			Stat("Energy on hit", ModdedPlayer.Stats.energyOnHit * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy on hit from items and perks: " + ModdedPlayer.Stats.energyOnHit);
-			Stat("Health per second", ModdedPlayer.Stats.healthRecoveryPerSecond * (ModdedPlayer.Stats.healthPerSecRate ) * ModdedPlayer.Stats.allRecoveryMult + "", "Health per second: " + ModdedPlayer.Stats.healthRecoveryPerSecond + "\nStamina regen bonus: " + ModdedPlayer.Stats.healthPerSecRate * 100 + "%\nAll Recovery Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
-			Stat("Health on hit", ModdedPlayer.Stats.healthOnHit * ModdedPlayer.Stats.allRecoveryMult + "", "Health on hit: " + ModdedPlayer.Stats.healthOnHit + "\nHealth regen bonus: " + Math.Round(ModdedPlayer.Stats.allRecoveryMult * 100, 2) + "%\nAll Healing Amplification: " + (ModdedPlayer.Stats.allRecoveryMult - 1) * 100 + "%");
-
-			Space(60);
-			Header("Attack");
-			Space(10);
-			Stat("All damage amplification", Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
-			Stat("Critical hit damage", Math.Round(ModdedPlayer.Stats.critDamage, 2) + "%");
-			Stat("Critical hit chance", Math.Round(ModdedPlayer.Stats.critChance * 100, 2) + "%");
-			Stat("Attack speed", Math.Round(ModdedPlayer.Stats.attackSpeed * 100, 2) + "%", "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
-			Stat("Additional fire damage", Math.Round(ModdedPlayer.Stats.fireDamage * 100, 2) + "%", "Increases fire damage");
-			Stat("Bleed chance", ModdedPlayer.Stats.chanceToBleed.GetFormattedAmount(), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
-			Stat("Weaken chance", ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), "Weakened enemies take 20% increased damage from all players.");
-			Stat("Slow chance", ModdedPlayer.Stats.chanceToSlow.GetFormattedAmount(), "Slowed enemies move and attack 50% slower");
-
-			Space(20);
-			Image(89, 70);
-			Header("Melee");
-			Space(10);
-
-			Stat("Melee damage", Math.Round(ModdedPlayer.Stats.MeleeDamageMult * 100, 2) + "%", "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-				"Bonus from strength: " + Math.Round(ModdedPlayer.Stats.strength.Value * ModdedPlayer.Stats.meleeDmgFromStr * 100, 2) + "%\n" +
-				"Melee damage amplification: " + Math.Round((ModdedPlayer.Stats.meleeIncreasedDmg - 1) * 100, 2) + "%\n" +
-				"Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
-			Stat("Additional melee weapon damage", Math.Round(ModdedPlayer.Stats.meleeFlatDmg) + "", "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
-			Stat("Melee range", Math.Round(ModdedPlayer.Stats.weaponRange * 100) + "%");
-			Stat("Heavy attack damage", ModdedPlayer.Stats.heavyAttackDmg.Value.ToString("P"));
-
-			Space(20);
-			Image(98, 70);
-			Header("Ranged");
-			Space(10);
-
-			Stat("Ranged damage", Math.Round(ModdedPlayer.Stats.RangedDamageMult * 100, 2) + "%", "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-			 "Bonus from agility: " + Math.Round(ModdedPlayer.Stats.agility.Value * ModdedPlayer.Stats.rangedDmgFromAgi * 100, 2) + "%\n" +
-			 "Ranged damage amplification: " + Math.Round((ModdedPlayer.Stats.rangedIncreasedDmg - 1) * 100, 2) + "%\n" +
-			 "Ranged damage from increased projectile size: " + Math.Round(((ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize ? ModdedPlayer.Stats.projectileSize.Value : 1f) - 1f) * 100, 2) + "%\n" +
-			 "Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
-			Stat("Additional ranged weapon damage", Math.Round(ModdedPlayer.Stats.rangedFlatDmg) + "", "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
-			Stat("Projectile speed", Math.Round(ModdedPlayer.Stats.projectileSpeed * 100) + "%", "Faster projectiles fly further and fall slower");
-			Stat("Projectile size", Math.Round(ModdedPlayer.Stats.projectileSize * 100) + "%", "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
-			Stat("Headshot damage", Math.Round(ModdedPlayer.Stats.headShotDamage * 100) + "%", "Damage multipier on headshot");
-			Stat("No consume chance", ModdedPlayer.Stats.perk_projectileNoConsumeChance.Value.ToString("P"));
-			Stat("Spear headshot chance", ModdedPlayer.Stats.perk_thrownSpearCritChance.Value.ToString("P"));
-			if (ModdedPlayer.Stats.perk_thrownSpearhellChance > 0)
-				Stat("Double spear chance", ModdedPlayer.Stats.perk_thrownSpearhellChance.Value.ToString("P"));
-			if (ModdedPlayer.Stats.perk_thrownSpearDamageMult != 1)
-				Stat("Spear damage", ModdedPlayer.Stats.perk_thrownSpearDamageMult.Value.ToString("P"));
-			Stat("Bullet headshot chance", ModdedPlayer.Stats.perk_bulletCritChance.Value.ToString("P"));
-			if (ModdedPlayer.Stats.perk_bulletDamageMult != 1)
-				Stat("Bullet damage", ModdedPlayer.Stats.perk_bulletDamageMult.Value.ToString("P"));
-			if (ModdedPlayer.Stats.perk_crossbowDamageMult != 1)
-				Stat("Crossbow damage", ModdedPlayer.Stats.perk_crossbowDamageMult.Value.ToString("P"));
-			if (ModdedPlayer.Stats.perk_bowDamageMult.Value != 1)
-				Stat("Bow damage", ModdedPlayer.Stats.perk_bowDamageMult.Value.ToString("P"));
-			if (ModdedPlayer.Stats.i_CrossfireQuiver.value)
-				Stat("Shooting an enemy creates magic arrows", "");
-
-			Stat("Multishot Projectiles", ModdedPlayer.Stats.i_SoraBracers ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount).ToString("N") : ModdedPlayer.Stats.perk_multishotProjectileCount.Value.ToString("N"));
-			Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount, 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount, 1.75f)).ToString("N"), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
-
-			Space(20);
-			Image(110, 70);
-			Header("Magic");
-			Space(10);
-
-			Stat("Spell damage", Math.Round(ModdedPlayer.Stats.TotalMagicDamageMultiplier * 100, 2) + "%", "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
-			 "Bonus from intelligence: " + Math.Round(ModdedPlayer.Stats.intelligence.Value * ModdedPlayer.Stats.spellDmgFromInt * 100, 2) + "%\n" +
-			 "Spell damage amplification: " + Math.Round((ModdedPlayer.Stats.spellIncreasedDmg - 1) * 100, 2) + "%\n" +
-			 "Damage output amplification" + Math.Round((ModdedPlayer.Stats.allDamage - 1) * 100, 2) + "%");
-			Stat("Additional spell damage", Math.Round(ModdedPlayer.Stats.spellFlatDmg) + "", "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
-			Stat("Spell cost reduction", Math.Round((1 - ModdedPlayer.Stats.spellCost) * 100) * -1 + "%", "");
-			Stat("Spell cost redirected to stamina", Math.Round((ModdedPlayer.Stats.SpellCostToStamina) * 100) + "%", "");
-			Stat("Cooldown reduction", Math.Round((1 - ModdedPlayer.Stats.cooldown) * 100) + "%", "");
-
-			Space(20);
-			GUI.color = Color.red;
-			Image(96, 70);
-			GUI.color = Color.white;
-			Header("Armor reduction");
-			Space(10);
-			Stat("Melee", ModdedPlayer.Stats.meleeArmorPiercing + "", "Total melee armor reduction: " + ModdedPlayer.Stats.TotalMeleeArmorPiercing);
-			Stat("Ranged", ModdedPlayer.Stats.rangedArmorPiercing + "", "Total ranged armor reduction: " + ModdedPlayer.Stats.TotalRangedArmorPiercing);
-			Stat("Thorns", ModdedPlayer.Stats.thornsArmorPiercing + "", "Total thorns armor reduction: " + ModdedPlayer.Stats.TotalThornsArmorPiercing);
-			Stat("Any source", ModdedPlayer.Stats.allArmorPiercing + "", "Decreases armor of enemies hit by either of the sources");
-
-			Space(60);
-
-			Header("Survivor stats");
-			Space(10);
-
-			Stat("Movement speed", ModdedPlayer.Stats.movementSpeed.ToString(), "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " meters per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed  + " meters/second");
-			Stat("Jump power",ModdedPlayer.Stats.jumpPower.ToString(), "Multipier of base jump power. Increases height of your jumps");
-			Stat("Hunger rate", (1/ModdedPlayer.Stats.perk_hungerRate.Value).ToString("P"), "How much slower is the rate of consuming food compared to normal.");
-			Stat("Thirst rate", (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), "How much slower is the rate of consuming water compared to normal.");
-			Stat("Experience gain", ModdedPlayer.Stats.expGain.ToString(), "Multipier of any experience gained");
-			Stat("Magic find", ItemDataBase.MagicFind * 100 + "%", "Affects quantity of items looted from monsters, as well as the chance to get items from non-elite enemies");
-			Stat("Massacre duration", ModdedPlayer.Stats.maxMassacreTime + " s", "How long massacres can last");
-			Stat("Time on kill", ModdedPlayer.Stats.timeBonusPerKill + " s", "Amount of time that is added to massacre for every kill");
-			if (ModdedPlayer.Stats.perk_turboRaftOwners>0)
-				Stat("Turbo raft speed",  ModdedPlayer.Stats.perk_RaftSpeedMultipier.Value + "%", "Speed multiplier of rafts. Other player's items and perks also affect this value");
-
-			Space(40);
-			Image(90, 70);
-			Header("Inventory Stats");
-			Space(10);
-			foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
+			if (GUI.Button(new Rect(5f * screenScale, 5f * screenScale, 100 * screenScale, 50 * screenScale), "<", headerstyle))
 			{
-				string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
-				Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
+				ChangePage(guidePage - 1);
 			}
-			Space(10);
-			if (ModdedPlayer.instance.GeneratedResources.Count > 0)
-				Header("Generated resources");
-			foreach (var pair in ModdedPlayer.instance.GeneratedResources)
+			if (GUI.Button(new Rect(Screen.width -105f * screenScale, 5f * screenScale, 100 * screenScale, 50 * screenScale), ">", headerstyle))
 			{
-				string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
-				Stat(item_name, pair.Value.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
+				ChangePage(guidePage +1);
 			}
 
-			if (BookPositionY < Screen.height && BookPositionY > -140 * screenScale)
+
+
+
+
+			if (guidePage == a++)
 			{
-				Rect labelRect = new Rect(GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease), 85 * screenScale);
-				if (GUI.Button(labelRect, "Bugged stats? Click to reset", new GUIStyle(GUI.skin.button)
+
+				Header("Basic Information");
+				MarkBookmark("Home");
+				Label("\tExperience");
+				Stat("Current level", ModdedPlayer.instance.level.ToString());
+				Stat("Current experience", ModdedPlayer.instance.ExpCurrent.ToString());
+				Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString(), "Next level: " + (ModdedPlayer.instance.level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.level + 1));
+				Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal).ToString("P")));
+				Label("\tLevel is the estimation of my power. I must become stronger to survive." +
+					"\nHigher level allow me to equip better equipement. " +
+					"\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. ");
+				Space(50);
+				Label("\nSources of experience" +
+					"\n-Mutants - Enemies give the most experience, it's possible to chain kills to get more exp, and the reward is exp reward is based on bounty." +
+					"\n-Animals - Experience gained does not increase with difficulty. Good way of gaining experience. Rarer animals like crocodiles and racoons give more experience compared to common like rabbits and lizards" +
+					"\n-Tall bushes - Give minium amount of experience." +
+					"\n-Trees - A bit more than bushes." +
+					"\n-Effigies - It's possible to gain experience and low rarity items by breaking effigies scattered across the map." +
+					"\n-Rare consumable - Gives a large amount of experience, it's rarity is orange\n");
+
+				Space(100);
+
+				Header("Information - Items");
+				Label($"\tEquipement can be obtained by killing enemies and breaking effigies. Normal enemies can drop a few items on death, if the odds are in your favor. The chance to get any items from a normal enemy is {0.1f* ItemDataBase.MagicFind * ModSettings.DropChanceMultiplier:P}. The amount of items obtained from normal enemies increases with more players in a lobby.\n" +
+				 "Elite enemies always drop items in large amounts.\n" +
+				 "\tItems can be equipped by dragging and dropping them onto a right equipement slot or shift+left click. The item will grant it's stats only if you meets item's level requirement. The best tier of items is only obtainable on high difficulties.");
+				Label("By unlocking a perk in the survival category, it's possible to change the stats on your existing items, and reforge unused items into something useful. Reforged item will have the same level as item put into the main crafting slot.");
+				Label("In the inventory, you can compare an item with your equipped item by holding down left shift.");
+				Label("By holding down left shift and clicking on an item, it will be equipped. This server the same purpose as dragging and dropping an item.");
+				Label("By holding down left control and clicking on an item, be used as an ingredient for crafting.");
+				Label("By pressing left alt you toggle a window to show total amount of a stat when you hover over it.");
+				
+				Space(100);
+				Header("Information - Statistics");
+				Label("\tAttributes");
+				Label("Strength - This stat increases melee damage and thorns. It multiplies with melee damage increase.");
+				Label("Agility - This stat increases ranged damage and maximum energy.");
+				Label("Intelligence - This stat increases magic damage and energy regeneration rate.");
+				Label("Vitality - This stat increases maximum health");
+
+				Space(100);
+
+				Header("Information - Mutations and Abilities");
+				Label("\tUpon leveling up, the player will recieve a upgrade point. Then it's up to the player to use it to unlock a mutation, that will serve as a permanent perk, or to spend two upgrade points to unlock a ability.\n" +
+					"Abilities are in majority of the cases more powerful than perks, as they cost more and the number of active abilities is limitied to 6.\n" +
+					"Some perks can be bought multiple times for increased effects.\n" +
+					"\n" +
+					"Refunding - it is possible to refund all points, to do so, heart of purity needs to be consumed. This item is of yellow rarity, and thus unobtainable on easy and veteran difficulties. Heart of purity will be granted to a player upon reaching level 15, 30 and 40" +
+					"More points - to gain a point without leveling, a rare item of green rarity needs to be consumed. It permamently adds a upgrade point, and it persists even after refunding. Items to grant additional upgrade points are granted to player to upon reaching level 50, 65 and 75. To obtain them in different means, you need to play on challenge difficulties or higher");
+				Space(100);
+
+				Header("Information - Enemies");
+				Label("\tEnemies in the forest have adapted to your skill. As they level with you, they become faster and stronger. But speed and strength alone shouldn't be your main concern. There are a lot more dangerous beings out there." +
+					"\n\n" +
+					"Common enemies changed slightly. Their health increases with level.\n" +
+					"A new statistic to enemies is 'Armor'. This property reduces damage taken by the enemies from physical attacks, and partly reduces damage from magical attacks. Armor can be reduced in a number of ways.\n" +
+					"The easiest way to reduce armor is to use fire. Fire works as a way to crowd control enemies, it renders a few enemies unable to run and attack as they shake off the flames.\n" +
+					"Other way to reduce armor is to equip items, which reduce armor on hit.\n" +
+					"If you dont have any way to reduce enemy's armor, damaging them with spells would decrease the reduction from armor by 2/3, allowing you to deal some damage.");
+				Space(30);
+				Label("Elite enemies\n" +
+					"An elite is a uncommon type of a mutant with increased stats and access to special abilities, that make encounters with them challenging." +
+					"\nEnemy abilities:");
+				Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters nuke instances of damage.");
+				Label("- Blizzard - A temporary aura around an enemy, that slows anyone in it's area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting within it's range. Crowd controll from ranged attacks and running seems like the best option.");
+				Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
+				Label("- Chains - Roots anyone in a big radius around the elite. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
+				Label("- Black hole - A very strong ability. The spell has a fixed cooldown, and the enemy will attempt to cast it as soon as a player gets within his range effective.");
+				Label("- Trap sphere - Long lasting sphere that forces you to stay inside it untill it's effects wears off");
+				Label("- Juggernaut - The enemy is completely immune to crowd controll and bleeding.\n");
+				Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
+				Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes.");
+				Label("- Extra tough - enemy has a lot more healt");
+				Label("- Extra deadly - enemy has a lot more damage");
+				Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit or parry it's attacks.");
+				Label("- Warping - An ability allowing to teleport. Strong against glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
+				Label("- Rain Empowerment - If it rains, the enemy gains in strenght, speed, armor and size.");
+				Label("- Meteors - Periodically spawns a rain of powerful meteors. They are rather easy to spot and they move at a slow medium speed.");
+				Label("- Flare - Slows and damages me if you stand inside. Heals and makes enemies faster.");
+				Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
+				Label("- Plasma cannon - Creates a turret that fires a laser beam that damages players and buildings.");
+				Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is adviced to retreat and wait for the poison stop damaging you.");
+				Label("- Cataclysm - Enemy uses the cataclysm spell to slow you down and damage you.");
+
+				Header("Changes");
+				Label("Champions of The Forest provides variety of changes to in-game mechanics." +
+					"\nArmor no longer absorbs all damage. Instead it reduces the damage by 70%." +
+					"\nPlayer is slowed down if out of stamina (the inner blue bar)" +
+					"\nTraps no longer instantly kill cannibals. Instead they deal damage." +
+					"\nDynamite no longer instantly kills enemies. Instead it deals up to 700 damage" +
+					"\nEnemies have armor and increased health." +
+					"\nPlayers now take increased damage from fire, frost, drowning, falling, food poisoning and polluted water based on their maximum health" +
+					"\nPlayers take increased damage from explosives. This affects how much damage the worm does" +
+					"\nPlayer deal increased damage to other players if friendly fire is enabled.");
+			}
+			else if (guidePage == a++)
+			{
+
+
+				Header("Statistics");
+				Stat("Strength", ModdedPlayer.Stats.strength.GetFormattedAmount() + " str", "Increases melee damage by " + ModdedPlayer.Stats.meleeDmgFromStr.GetFormattedAmount() + " for every 1 point of strength. Current bonus melee damage from strength [" + ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount() *100+ "%]");
+				Stat("Agility", ModdedPlayer.Stats.agility.GetFormattedAmount() + " agi", "Increases ranged damage by " + ModdedPlayer.Stats.rangedDmgFromAgi.GetFormattedAmount() + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount() + "]\n" +
+					"Increases maximum energy by " + ModdedPlayer.Stats.maxEnergyFromAgi.GetFormattedAmount() + " for every 1 point of agility. Current bonus ranged damage from agility [" + ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount()*100 + "%]");
+				Stat("Vitality", ModdedPlayer.Stats.vitality.GetFormattedAmount() + " vit", "Increases health by " + ModdedPlayer.Stats.maxHealthFromVit.GetFormattedAmount() + " for every 1 point of vitality. Current bonus health from vitality [" + ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.maxHealthFromVit.GetAmount() + "]");
+				Stat("Intelligence", ModdedPlayer.Stats.intelligence.GetFormattedAmount() + " int", "Increases spell damage by " + ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount() + " for every 1 point of intelligence. Current bonus spell damage from intelligence [" + ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount() + "]\n" +
+					"Increases stamina regen by " + ModdedPlayer.Stats.energyRecoveryFromInt.GetFormattedAmount() + " for every 1 point of intelligence. Current bonus stamina regen from intelligence [" + ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.energyRecoveryFromInt.GetAmount()*100 + "%]");
+			
+
+				Space(60);
+				Image(99, 70);
+				Header("Defense");
+				Space(10);
+				Stat("Max health", ModdedPlayer.Stats.TotalMaxHealth.ToString(), "Total health pool.\n" +
+					"Base health: " + ModdedPlayer.ModdedPlayerStats.baseHealth +
+					"\nBonus health: " + ModdedPlayer.Stats.maxHealth.GetFormattedAmount() +
+					"\nHealth from vitality: " + ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount() +
+					"\nHealth multipier: " + ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount());
+				Stat("Max energy", ModdedPlayer.Stats.TotalMaxEnergy.ToString(), "Total energy pool.\n" +
+					"Base energy: " + ModdedPlayer.ModdedPlayerStats.baseEnergy +
+					"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy.GetFormattedAmount() +
+					"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount() +
+					"\nEnergy multipier: " + ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount());
+				Stat("Armor", ModdedPlayer.Stats.armor.GetFormattedAmount(), $"Armor provides physical damage reduction.\nPhysical damage reduction from {ModdedPlayer.Stats.armor.GetFormattedAmount()} armor is equal to {1-ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value):P}");
+				Stat("Magic resistance", (1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"), "Magic damage reduction. Decreases damage from enemy abilities.");
+				Stat("Dodge Chance", (1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"), "A chance to avoid entire instance of damage. Works only for physical damage sources.");
+				Stat("Damage taken reduction", (1f - ModdedPlayer.Stats.allDamageTaken.GetAmount()).ToString("P"));
+				Stat("Block", ModdedPlayer.Stats.block.GetFormattedAmount());
+				Stat("Shield amount", ModdedPlayer.instance.DamageAbsorbAmount.ToString());
+				Stat("Fire resistance", (1 - ModdedPlayer.Stats.fireDamageTaken.GetAmount()).ToString("P"));
+				Stat("Thorns", ModdedPlayer.Stats.TotalThornsDamage.ToString(), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.Stats.thorns.GetFormattedAmount()}. Thorns from attributes {(ModdedPlayer.Stats.thornsPerStrenght.GetAmount() * ModdedPlayer.Stats.strength.GetAmount() + ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.thornsPerVit.GetAmount())}.");
+		
+				Space(60);
+				Header("Recovery");
+				Space(10);
+
+
+				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString() + "", "Stamina regen is temporairly paused after sprinting");
+				Stat("Stamina per second", ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() *  ModdedPlayer.Stats.staminaPerSecRate.GetAmount() + "", "Stamina per second: " + ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() + "\nStamina regen bonus: " + ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount());
+
+				Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy per second: " + ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() + "\nStamina and energy regen multipier: " + ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier);
+				Stat("Energy on hit", ModdedPlayer.Stats.energyOnHit.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy on hit from items and perks: " + ModdedPlayer.Stats.energyOnHit.GetAmount());
+				Stat("Health per second", ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount() * (ModdedPlayer.Stats.healthPerSecRate.GetAmount()) * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", "Health per second: " + ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount() + "\nStamina regen bonus: " + ModdedPlayer.Stats.healthPerSecRate.GetFormattedAmount() + "\nAll Recovery Amplification: " + (ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
+				Stat("Health on hit", ModdedPlayer.Stats.healthOnHit.GetAmount() * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", "Health on hit: " + ModdedPlayer.Stats.healthOnHit.GetAmount() + "\nHealth regen bonus: " + ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount() + "\nAll Healing Amplification: " + (ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
+		
+				Space(60);
+				Header("Attack");
+				Space(10);
+				Stat("All damage", ModdedPlayer.Stats.allDamage.GetFormattedAmount());
+				Stat("Critical hit damage", ModdedPlayer.Stats.critDamage.GetFormattedAmount());
+				Stat("Critical hit chance", ModdedPlayer.Stats.critChance.GetFormattedAmount());
+				Stat("Attack speed", ModdedPlayer.Stats.attackSpeed.GetFormattedAmount(), "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");
+				Stat("Fire damage", ModdedPlayer.Stats.fireDamage.GetFormattedAmount(), "Increases fire damage");
+				Stat("Bleed chance", ModdedPlayer.Stats.chanceToBleed.GetFormattedAmount(), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");
+				Stat("Weaken chance", ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), "Weakened enemies take 20% increased damage from all players.");
+				Stat("Slow chance", ModdedPlayer.Stats.chanceToSlow.GetFormattedAmount(), "Slowed enemies move and attack 50% slower");
+		
+				Space(20);
+				Image(89, 70);
+				Header("Melee");
+				Space(10);
+
+				Stat("Melee damage", ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				   "Bonus from strength: " + ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount() + "\n" +
+				   "Melee damage multiplier: " + ModdedPlayer.Stats.meleeIncreasedDmg.GetFormattedAmount() + "\n" +
+				   "Damage output amplification" + ModdedPlayer.Stats.allDamage.GetFormattedAmount());
+				Stat("Additional melee weapon damage", ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");
+				Stat("Melee range", ModdedPlayer.Stats.weaponRange.GetFormattedAmount());
+				Stat("Heavy attack damage", ModdedPlayer.Stats.heavyAttackDmg.GetFormattedAmount());
+		
+				Space(20);
+				Image(98, 70);
+				Header("Ranged");
+				Space(10);
+
+				Stat("Ranged damage", ModdedPlayer.Stats.RangedDamageMult.ToString("P"), "Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				"Bonus from agility: " + (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P") + "\n" +
+				"Ranged damage multiplier: " + (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount()).ToString("P") + "\n" +
+				"Ranged damage from increased projectile size: " + (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? ModdedPlayer.Stats.projectileSize.GetAmount() : 1f).ToString("P") +
+				"\nDamage output: " + ModdedPlayer.Stats.allDamage.GetFormattedAmount());
+				Stat("Additional ranged weapon damage", ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
+				Stat("Projectile speed", ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), "Faster projectiles fly further and fall slower");
+				Stat("Projectile size", ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
+				Stat("Headshot damage", ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), "Damage multipier on headshot");
+				Stat("No consume chance", ModdedPlayer.Stats.perk_projectileNoConsumeChance.GetFormattedAmount());
+				Stat("Spear headshot chance", ModdedPlayer.Stats.perk_thrownSpearCritChance.GetFormattedAmount());
+				if (ModdedPlayer.Stats.perk_thrownSpearhellChance.GetAmount() > 0)
+					Stat("Double spear chance", ModdedPlayer.Stats.perk_thrownSpearhellChance.GetFormattedAmount());
+				if (ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetAmount() != 1)
+					Stat("Spear damage", ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount());
+				Stat("Bullet headshot chance", ModdedPlayer.Stats.perk_bulletCritChance.GetFormattedAmount());
+				if (ModdedPlayer.Stats.perk_bulletDamageMult.GetAmount() != 1)
+					Stat("Bullet damage", ModdedPlayer.Stats.perk_bulletDamageMult.GetFormattedAmount());
+				if (ModdedPlayer.Stats.perk_crossbowDamageMult.GetAmount() != 1)
+					Stat("Crossbow damage", ModdedPlayer.Stats.perk_crossbowDamageMult.GetFormattedAmount());
+				if (ModdedPlayer.Stats.perk_bowDamageMult.GetAmount() != 1)
+					Stat("Bow damage", ModdedPlayer.Stats.perk_bowDamageMult.GetFormattedAmount());
+				if (ModdedPlayer.Stats.i_CrossfireQuiver.GetAmount())
+					Stat("Shooting an enemy creates magic arrows", "");
+
+				Stat("Multishot Projectiles", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()) : ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()).ToString("N"));
+				Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f)).ToString(), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10"); ;
+		
+				Space(20);
+				Image(110, 70);
+				Header("Magic");
+				Space(10);
+
+				Stat("Spell damage", ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				"Bonus from intelligence: " + (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P") + "\n" +
+				"Spell damage: " + ModdedPlayer.Stats.spellIncreasedDmg.GetFormattedAmount() + "\n" +
+				"Damage output" + ModdedPlayer.Stats.allDamage.GetFormattedAmount());
+				Stat("Additional spell damage", ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");
+				Stat("Spell cost reduction", (1 - ModdedPlayer.Stats.spellCost.GetAmount()).ToString("P"));
+				Stat("Spell cost redirected to stamina", ModdedPlayer.Stats.SpellCostToStamina.ToString("P"));
+				Stat("Cooldown reduction", (1 - ModdedPlayer.Stats.cooldown.GetAmount()).ToString("P"));
+	
+				Space(20);
+				GUI.color = Color.red;
+				Image(96, 70);
+				GUI.color = Color.white;
+				Header("Armor reduction");
+				Space(10);
+				Stat("Melee", ModdedPlayer.Stats.meleeArmorPiercing.GetAmount() + "", "Total melee armor reduction: " + ModdedPlayer.Stats.TotalMeleeArmorPiercing.ToString());
+				Stat("Ranged", ModdedPlayer.Stats.rangedArmorPiercing.GetAmount() + "", "Total ranged armor reduction: " + ModdedPlayer.Stats.TotalRangedArmorPiercing.ToString());
+				//Stat("Thorns", ModdedPlayer.Stats.thornsArmorPiercing.GetAmount() + "", "Total thorns armor reduction: " + ModdedPlayer.Stats.TotalThornsArmorPiercing.ToString());
+				Stat("Any source", ModdedPlayer.Stats.allArmorPiercing.GetAmount() + "", "Decreases armor of enemies hit by either of the sources");
+			}
+			else if (guidePage == a++)
+			{
+				Header("Survivor stats");
+				Space(10);
+
+				Stat("Movement speed", ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " feet per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount() + " feet/second");
+				Stat("Jump power", ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), "Multipier of base jump power. Increases height of your jumps");
+				Stat("Hunger rate", (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), "How much slower is the rate of consuming food compared to normal.");
+				Stat("Thirst rate", (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), "How much slower is the rate of consuming water compared to normal.");
+				Stat("Experience gain", ModdedPlayer.Stats.expGain.GetFormattedAmount(), "Multipier of any experience gained");
+				Stat("Magic find", ModdedPlayer.instance.MagicFindMultipier.ToString("P"), "Affects quantity of items looted from monsters, as well as the chance to get items from non-elite enemies");
+				if (ItemDataBase.MagicFind != ModdedPlayer.instance.MagicFindMultipier)
+					Stat("Total Magic find", ItemDataBase.MagicFind.ToString("P"), "Magic find of you and other players");
+				Stat("Massacre duration", ModdedPlayer.Stats.maxMassacreTime.GetAmount() + " s", "How long massacres can last");
+				Stat("Time on kill", ModdedPlayer.Stats.timeBonusPerKill.GetAmount() + " s", "Amount of time that is added to massacre for every kill");
+				if (ModdedPlayer.Stats.perk_turboRaftOwners.GetAmount() > 0)
+					Stat("Turbo raft speed", ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), "Speed multiplier of rafts. Other player's items and perks also affect this value");
+	
+				Space(40);
+				Image(90, 70);
+				Header("Inventory Stats");
+				Space(10);
+				foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
 				{
-					font = mainFont,
-					fontSize = Mathf.RoundToInt(70 * screenScale),
-					alignment = TextAnchor.UpperCenter,
-					richText = true,
-				}))
-				{
-					ModdedPlayer.ResetAllStats();
+					string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
+					Stat(item_name, "+" + pair.Value.Amount, "How many extra '" + item_name + "' you can carry. Item ID is " + pair.Value.ID);
 				}
-				BookPositionY += 85 * screenScale;
-				Rect imageRect = new Rect(400 * screenScale, BookPositionY, Screen.width - 800 * screenScale, 60 * screenScale);
-				GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
-				BookPositionY += 70 * screenScale;
+				Space(10);
+				if (ModdedPlayer.instance.GeneratedResources.Count > 0)
+					Header("Generated resources");
+				foreach (var pair in ModdedPlayer.instance.GeneratedResources)
+				{
+					string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
+					Stat(item_name, pair.ToString(), "How many '" + item_name + "' you generate daily. Item ID is " + pair.Key);
+				}
 			}
-			else
+			else if (guidePage == a++)
 			{
-				BookPositionY += 155 * screenScale;
+				if (BookPositionY < Screen.height && BookPositionY > -140 * screenScale)
+				{
+					Rect labelRect = new Rect(GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease), 85 * screenScale);
+					if (GUI.Button(labelRect, "Bugged stats? Click to reset", new GUIStyle(GUI.skin.button)
+					{
+						font = mainFont,
+						fontSize = Mathf.RoundToInt(70 * screenScale),
+						alignment = TextAnchor.UpperCenter,
+						richText = true,
+					}))
+					{
+						ModdedPlayer.ResetAllStats();
+					}
+					BookPositionY += 85 * screenScale;
+					Rect imageRect = new Rect(400 * screenScale, BookPositionY, Screen.width - 800 * screenScale, 60 * screenScale);
+					GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
+					BookPositionY += 70 * screenScale;
+				}
+				else
+				{
+					BookPositionY += 155 * screenScale;
+				}
 			}
+
 		}
 
+		void ChangePage(int pageNumber)
+		{
+			guidePage = Mathf.Clamp(pageNumber,0,3);
+			BookScrollAmount = 0;
+			BookScrollAmountGoal = 0;
+		}
 		#endregion StatsMenu
 	}
 }

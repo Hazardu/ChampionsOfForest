@@ -287,6 +287,7 @@ namespace ChampionsOfForest
 			yield return null;
 			yield return null;
 			yield return null;
+			yield return null;
 
 			//waits some frames
 
@@ -307,12 +308,12 @@ namespace ChampionsOfForest
 				yield break;
 			}
 
-			yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(1f);
 
 			DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 
 			//waiting for buffs and perks to apply
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(4.5f);
 
 			//fixing missing items
 			foreach (KeyValuePair<int, int> item in ExtraCarriedItems)

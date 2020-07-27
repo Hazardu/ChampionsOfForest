@@ -43,19 +43,14 @@ namespace ChampionsOfForest.Player
 			valueMultiplicative = default_valueMultiplicative;
 			ValueChanged();
 		}
-		public static MultiplicativeNetworkSyncedPlayerStat<T> operator *(MultiplicativeNetworkSyncedPlayerStat<T> a, T b)
-		{
-			a.valueMultiplicative = a.mult(a.valueMultiplicative, b);
-			a.ValueChanged();
 
-			return a;
+		public static T operator *(MultiplicativeNetworkSyncedPlayerStat<T> a, T b)
+		{
+			return a.mult(a.valueMultiplicative, b);
 		}
-		public static MultiplicativeNetworkSyncedPlayerStat<T> operator /(MultiplicativeNetworkSyncedPlayerStat<T> a, T b)
+		public static T operator /(MultiplicativeNetworkSyncedPlayerStat<T> a, T b)
 		{
-			a.valueMultiplicative = a.divide(a.valueMultiplicative, b);
-			a.ValueChanged();
-
-			return a;
+			return a.divide(a.valueMultiplicative, b);
 		}
 
 		public override T GetAmount()
@@ -103,7 +98,7 @@ namespace ChampionsOfForest.Player
 			// Copy data from unmanaged memory to managed buffer.
 			Marshal.Copy(ptr, bytes, 0, size);
 			// Release unmanaged memory.
-			Marshal.FreeHGlobal(ptr);
+			//Marshal.FreeHGlobal(ptr);
 
 			writer.Write(StatNetworkIndex);
 			writer.Write(ModReferences.ThisPlayerID);
@@ -118,7 +113,7 @@ namespace ChampionsOfForest.Player
 			Marshal.Copy(bytes, 0, ptr, size);
 			var newVal = (T)Marshal.PtrToStructure(ptr, typeof(T));
 
-			Marshal.FreeHGlobal(ptr);
+			//Marshal.FreeHGlobal(ptr);
 			if (OtherPlayerValues.ContainsKey(playerName))
 			{
 				OtherPlayerValues[playerName] = newVal;
