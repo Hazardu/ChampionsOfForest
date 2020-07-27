@@ -1,18 +1,24 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChampionsOfForest", "ChampionsOfForest.csproj", "{53821041-E269-4717-BAED-3C9C6836E83F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53821041-E269-4717-BAED-3C9C6836E83F}.Debug|x86.ActiveCfg = Debug|x86
+		{53821041-E269-4717-BAED-3C9C6836E83F}.Debug|x86.Build.0 = Debug|x86
 		{53821041-E269-4717-BAED-3C9C6836E83F}.Release|x86.ActiveCfg = Release|x86
 		{53821041-E269-4717-BAED-3C9C6836E83F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63B04295-7151-40DA-9A90-978875A674B5}
 	EndGlobalSection
 EndGlobal

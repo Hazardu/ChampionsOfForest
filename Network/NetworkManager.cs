@@ -1,9 +1,11 @@
-﻿using Bolt;
-using System;
-using System.IO;
-using TheForest.UI.Multiplayer;
+﻿using System;
+
+using Bolt;
+
 using TheForest.Utils;
+
 using UnityEngine;
+
 namespace ChampionsOfForest.Network
 {
 	public class NetworkManager : MonoBehaviour
@@ -12,7 +14,9 @@ namespace ChampionsOfForest.Network
 		{
 			OnlyServer, Everyone, Clients, Others
 		}
+
 		public delegate void OnGetMessage(byte[] arr);
+
 		public OnGetMessage onGetMessage;
 		public static NetworkManager instance;
 
@@ -51,15 +55,19 @@ namespace ChampionsOfForest.Network
 						case Target.OnlyServer:
 							chatEvent = ChatEvent.Create(GlobalTargets.OnlyServer);
 							break;
+
 						case Target.Everyone:
 							chatEvent = ChatEvent.Create(GlobalTargets.Everyone);
 							break;
+
 						case Target.Clients:
 							chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
 							break;
+
 						case Target.Others:
 							chatEvent = ChatEvent.Create(GlobalTargets.Others);
 							break;
+
 						default:
 							break;
 					}
@@ -81,15 +89,19 @@ namespace ChampionsOfForest.Network
 						case Target.OnlyServer:
 							chatEvent = ChatEvent.Create(GlobalTargets.OnlyServer);
 							break;
+
 						case Target.Everyone:
 							chatEvent = ChatEvent.Create(GlobalTargets.Everyone);
 							break;
+
 						case Target.Clients:
 							chatEvent = ChatEvent.Create(GlobalTargets.AllClients);
 							break;
+
 						case Target.Others:
 							chatEvent = ChatEvent.Create(GlobalTargets.Others);
 							break;
+
 						default:
 							break;
 					}
@@ -110,7 +122,6 @@ namespace ChampionsOfForest.Network
 			{
 				if (BoltNetwork.isRunning)
 				{
-
 					ChatEvent chatEvent = ChatEvent.Create(con);
 					chatEvent.Message = EncodeCommand(bytearray);
 					chatEvent.Sender = ChatBoxMod.ModNetworkID;
@@ -118,7 +129,6 @@ namespace ChampionsOfForest.Network
 				}
 			}
 		}
-
 
 		public static byte[] DecodeCommand(string cmd)
 		{
@@ -130,6 +140,7 @@ namespace ChampionsOfForest.Network
 			}
 			return b;
 		}
+
 		public static string EncodeCommand(byte[] b)
 		{
 			string s = string.Empty;
@@ -156,8 +167,8 @@ namespace ChampionsOfForest.Network
 			}
 		}
 
-
 		public static ulong lastDropID = 10;
+
 		/// <summary>
 		/// Sends a command to create a item drop for all players.
 		/// </summary>
@@ -195,6 +206,7 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
+
 		public static void SendItemToPlayer(Item item, string playerID, int amount = 1)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -217,6 +229,7 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
+
 		public static void SendHitmarker(Vector3 pos, int amount, Color c)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -238,6 +251,7 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
+
 		public static void SendPlayerHitmarker(Vector3 pos, int amount)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -255,7 +269,6 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
-
 
 		/// <summary>
 		/// Sends a buff commands to players close to a location
@@ -283,6 +296,7 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
+
 		/// <summary>
 		/// Send buff to a player with a name
 		/// </summary>
@@ -294,7 +308,7 @@ namespace ChampionsOfForest.Network
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 				{
 					w.Write(40);
-					
+
 					w.Write(id);
 					w.Write(buffId);
 					w.Write(sourceId);
@@ -305,7 +319,8 @@ namespace ChampionsOfForest.Network
 				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
-		}	
+		}
+
 		/// <summary>
 		/// Send buff to everyone, globally
 		/// </summary>

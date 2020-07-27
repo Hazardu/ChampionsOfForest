@@ -9,7 +9,6 @@
 
 //namespace ChampionsOfForest.Items
 //{
-
 //    //public class ItemsDebug : ItemDatabase
 //    //{
 //    //    public override void OnEnable()
@@ -23,7 +22,6 @@
 //    //        ModAPI.Log.Write(msg);
 //    //    }
 //    //}
-
 
 //    //from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
 //    public class Crafting : MonoBehaviour
@@ -45,7 +43,6 @@
 //                arrows._type = Receipe.Types.Upgrade;
 //                arrows._productItemType = TheForest.Items.Item.Types.Ammo;
 
-
 //                Receipe r = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault();
 //                //ModAPI.Log.Write( "_batchUpgrade " + r._batchUpgrade+
 //                //    "\n_forceUnique " + r._forceUnique+
@@ -62,7 +59,7 @@
 
 //                r._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
 //                r._ingredients[1] = CreateReceipeIngredient(91,2);
-              
+
 //            }
 //            catch (Exception e)
 //            {
@@ -80,9 +77,8 @@
 //            }
 //        }
 
-
 //        public static bool AddReceipes(List<Receipe> newReceipes)
-//        {          
+//        {
 //            int num = ReceipeDatabase._instance._receipes.Length;
 //            Receipe[] receipes = ReceipeDatabase._instance._receipes;
 //            List<Receipe> list = new List<Receipe>();
