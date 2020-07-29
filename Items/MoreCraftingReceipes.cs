@@ -35,6 +35,7 @@ public static class MoreCraftingReceipes
 		ClothFromRabbit,
 		ClothFromRacoon,
 		ClothFromBoar,
+		PlaneAxe,
 	}
 
 
@@ -88,6 +89,13 @@ public static class MoreCraftingReceipes
 		CreateReceipe(CLOTH, 10,
 			CreateReceipeIngredient(BOARSKIN, 1));
 
+		CreateReceipe(AXEPLANE, 1,
+			CreateReceipeIngredient(AXECRAFTED, 1),
+			CreateReceipeIngredient(ROPE, 1),
+			CreateReceipeIngredient(STICK, 2),
+			CreateReceipeIngredient(CLOTH, 25),
+			CreateReceipeIngredient(RABBITSKIN, 1)
+			);
 
 	}
 
