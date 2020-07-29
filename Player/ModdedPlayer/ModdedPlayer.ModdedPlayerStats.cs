@@ -146,6 +146,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_magicArrowDmgDebuff;
 			public readonly BooleanPlayerStat spell_magicArrowCrit;
 			public readonly BooleanPlayerStat spell_magicArrowDoubleSlow;
+			public readonly AdditivePlayerStat<int> spell_magicArrowVolleyCount;
 			public readonly AdditivePlayerStat<float> spell_magicArrowDuration;
 			public readonly AdditivePlayerStat<float> spell_magicArrowDamageScaling;
 			//purge
@@ -358,7 +359,7 @@ namespace ChampionsOfForest.Player
 				this.spellCostEnergyCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.block = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P");
+				this.block = new AdditivePlayerStat<float>(0.25f, addfloat, substractfloat, "P");
 				this.expGain = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P");
 				this.timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P");
@@ -420,6 +421,7 @@ namespace ChampionsOfForest.Player
 				this.spell_magicArrowDmgDebuff = new BooleanPlayerStat(false);
 				this.spell_magicArrowCrit = new BooleanPlayerStat(false);
 				this.spell_magicArrowDoubleSlow = new BooleanPlayerStat(false);
+				this.spell_magicArrowVolleyCount = new AdditivePlayerStat<int>(0, addint, substractint);
 				this.spell_magicArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
 				this.spell_magicArrowDamageScaling = new AdditivePlayerStat<float>(5f, addfloat, substractfloat, "P");
 				//purge
@@ -468,7 +470,7 @@ namespace ChampionsOfForest.Player
 				this.spell_seekingArrow_SlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
 				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
 				this.spell_seekingArrow_DamagePerDistance = new AdditivePlayerStat<float>(0.01f, addfloat, substractfloat);
-				this.spell_seekingArrowDuration = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
+				this.spell_seekingArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
 				this.spell_seekingArrow = new BooleanPlayerStat(false);
 				//cataclysm			  
 				this.spell_cataclysmDamage = new AdditivePlayerStat<float>(24f, addfloat, substractfloat);
@@ -563,7 +565,7 @@ namespace ChampionsOfForest.Player
 				get
 				{
 					float x = baseHealth + (vitality.Value * maxHealthFromVit.Value) + maxHealth.Value;
-					x *= 1 + maxHealthMult;
+					x *= maxHealthMult;
 					return x;
 				}
 			}
@@ -572,7 +574,7 @@ namespace ChampionsOfForest.Player
 				get
 				{
 					float x = baseEnergy + (agility.Value * maxEnergyFromAgi.Value) + maxEnergy.Value;
-					x *= 1 + maxEnergyMult;
+					x *= maxEnergyMult;
 					return x;
 				}
 			}

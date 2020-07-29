@@ -45,7 +45,7 @@ namespace ChampionsOfForest
 		public float damage;
 		public float duration;
 		public float radius;
-		public static float rotationSpeed = 15f;
+		public const float rotationSpeed = 20f;
 		private float scale;
 		public SphereCollider col;
 		private Dictionary<Transform, EnemyProgression> CoughtEnemies;

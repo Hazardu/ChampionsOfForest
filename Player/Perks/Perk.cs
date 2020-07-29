@@ -43,7 +43,10 @@ namespace ChampionsOfForest.Player
 		{
 			MeleeOffense, RangedOffense, MagicOffense, Defense, Support, Utility
 		}
-
+		public void ResetDescription()
+		{
+			Description = originalDescription;
+		}
 		public PerkCategory category;
 
 		public Perk(string name, string description, int[] inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods)

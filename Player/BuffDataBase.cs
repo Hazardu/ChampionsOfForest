@@ -139,10 +139,10 @@ namespace ChampionsOfForest.Player
 
 				new Buff(21, 147, "Armor Corruption", true, true, 1, null,null) { DisplayAsPercent = false };
 
-				new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.Stats.meleeFlatDmg.Substract(f), f => ModdedPlayer.Stats.meleeFlatDmg.Add(f));
+				new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.Stats.meleeFlatDmg.Substract(f), f => ModdedPlayer.Stats.meleeFlatDmg.Add(f)) { DisplayAsPercent = false };
 				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.Stats.perk_parryCounterStrikeDamage.valueAdditive = 0) { DisplayAsPercent = false };
 				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.Stats.critDamage.Substract(f), f => ModdedPlayer.Stats.critDamage.Add(f) );
-				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(- f), f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(f));
+				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(- f), f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(f)) { DisplayAsPercent = false };
 				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.Stats.allDamageTaken.Divide(1 - f), f => ModdedPlayer.Stats.allDamageTaken.Multiply( 1 - f));
 				new Buff(27, 136, "Fury Swipes", false, true, 1, f =>
 				{
@@ -151,7 +151,12 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.spellFlatDmg.valueAdditive -= ModdedPlayer.instance.FurySwipesDmg;
 					ModdedPlayer.Stats.meleeFlatDmg.valueAdditive -= ModdedPlayer.instance.FurySwipesDmg;
 					ModdedPlayer.instance.FurySwipesDmg = 0;
-				});
+				})
+				{
+					DisplayAsPercent = false
+				};
+				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f), f => ModdedPlayer.Stats.critChance.Add(f));
+
 			}
 			catch (System.Exception ex)
 			{

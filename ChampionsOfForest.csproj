@@ -194,7 +194,7 @@
     <Compile Include="Effects\BlackFlame.cs" />
     <Compile Include="Effects\Cataclysm.cs" />
     <Compile Include="Effects\DarkBeam.cs" />
-    <Compile Include="Effects\Focus.cs" />
+    <Compile Include="Effects\SeekingArrow.cs" />
     <Compile Include="Effects\Gold.cs" />
     <Compile Include="Effects\MagicArrow.cs" />
     <Compile Include="Effects\MainMenuVisual.cs" />
@@ -224,6 +224,7 @@
     <Compile Include="ExpSources\ExpEvents.cs" />
     <Compile Include="Fun\Cheats.cs" />
     <Compile Include="Fun\SpaceX.cs" />
+    <Compile Include="Items\COTFItemUtils.cs" />
     <Compile Include="Items\Crafting.cs" />
     <Compile Include="Items\ItemDataBase_ItemDefinitions.cs" />
     <Compile Include="Items\ItemDataBase_Loot.cs" />

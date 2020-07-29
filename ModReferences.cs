@@ -188,7 +188,7 @@ namespace ChampionsOfForest
 			armor = Mathf.Max(armor, 0);
 
 			float a = armor;
-			float b = (armor + 100f) / 100f;
+			float b = (armor + 500f);
 
 			return a/b;
 		}

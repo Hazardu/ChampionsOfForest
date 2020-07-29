@@ -440,15 +440,8 @@ namespace ChampionsOfForest.Player
 				arrowAim.Disable();
 			}
 		}
-
-		public static void CastMagicArrow()
+		private static void SendMagicArrow(Vector3 pos, Vector3 dir, float damage)
 		{
-			float damage = 55 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_magicArrowDamageScaling + ModdedPlayer.Stats.rangedFlatDmg/ 2;
-			damage = damage * ModdedPlayer.Stats.TotalMagicDamageMultiplier * 2;
-			if (ModdedPlayer.Stats.spell_magicArrowCrit)
-				damage *= ModdedPlayer.Stats.RandomCritDamage;
-			Vector3 pos = Camera.main.transform.position;
-			Vector3 dir = Camera.main.transform.forward;
 			if (GameSetup.IsSinglePlayer || GameSetup.IsMpServer)
 			{
 				MagicArrow.Create(pos, dir, damage, ModReferences.ThisPlayerID, ModdedPlayer.Stats.spell_magicArrowDuration, ModdedPlayer.Stats.spell_magicArrowDoubleSlow, ModdedPlayer.Stats.spell_magicArrowDmgDebuff);
@@ -503,6 +496,22 @@ namespace ChampionsOfForest.Player
 					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
+			}
+		}
+		public static void CastMagicArrow()
+		{
+			float damage = 55 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_magicArrowDamageScaling + ModdedPlayer.Stats.rangedFlatDmg/ 2;
+			damage = damage * ModdedPlayer.Stats.TotalMagicDamageMultiplier * 2;
+			if (ModdedPlayer.Stats.spell_magicArrowCrit)
+				damage *= ModdedPlayer.Stats.RandomCritDamage;
+			var cam = Camera.main.transform;
+			Vector3 pos = cam.position;
+			Vector3 dir = cam.forward;
+			SendMagicArrow(pos, dir, damage);
+			for (int i = 0; i < ModdedPlayer.Stats.spell_magicArrowVolleyCount; i++)
+			{
+				SendMagicArrow(pos + (i * cam.right * 0.04f), Vector3.RotateTowards(dir, cam.right, Mathf.PI * i * 0.065f, 0),damage);
+				SendMagicArrow(pos - (i * cam.right * 0.04f), Vector3.RotateTowards(dir, -cam.right, Mathf.PI * i * 0.065f, 0),damage);
 			}
 		}
 

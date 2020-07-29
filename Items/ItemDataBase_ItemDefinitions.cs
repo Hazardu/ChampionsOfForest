@@ -11,7 +11,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] { 34 },
-				new int[] {43,0 },
+				new int[] {43,0,39,59 },
 			})
 			{
 				name = "Broken Flip-Flops",
@@ -89,8 +89,8 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 		   {
 			   new int[] {34 },
-				new int[] {34,39,41,11 },
-				new int[] {16,39,41 },
+				new int[] {34,39,41,11,57 },
+				new int[] {-1},
 				new int[] {16,7,8 },
 				new int[] {43,65 },
 			})
@@ -111,7 +111,7 @@ namespace ChampionsOfForest
 		   {
 				new int[] {34 },
 				new int[] {34,3,2,11 },
-				new int[] {16,3,2,1,4 },
+				new int[] {-1},
 				new int[] {16,7,8 },
 				new int[] {43,65 },
 		   })
@@ -132,9 +132,9 @@ namespace ChampionsOfForest
 		   {
 			   new int[] {25,22 },
 			   new int[] {11,1,3,17 },
-			   new int[] {11,1,3,17 },
-			   new int[] {11,1,65 },
-			   new int[] {1, },
+			   new int[] {22,1,3,17 },
+			   new int[] {28,1,65 },
+			   new int[] {-1 },
 			   new int[] {5,6,16,31,7,8,9,10 },
 			   new int[] {5,6,16,31,7,8,9,10 },
 		   })
@@ -154,7 +154,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 	  {
 				new int[] {42,0 },
-				new int[] {40 },
+				new int[] {40,41,26,25 },
 				new int[] {43,65,0 },
 	  })
 			{
@@ -174,7 +174,7 @@ namespace ChampionsOfForest
 			{
 				new int[] {39,40,41,42,43,24,25,26 },
 				new int[] {39,40,41,42,43,24,25,26,44 },
-				new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,16 },
+				new int[] {43,0,7,0,5,6,8,0,21,22,23,16 },
 				new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,65 },
 			})
 			{
@@ -195,8 +195,8 @@ namespace ChampionsOfForest
 				new int[] {39,40,41,42},
 				new int[] {39,40,41,42},
 				new int[] {1,2,3,4,5,6,7},
-				new int[] {0,18,14,0,0,0},
-				new int[] {43,0,0,5,6,0,0,21,22,23,16 },
+				new int[] {0,18,14},
+				new int[] {-1 },
 			})
 			{
 				name = "Tribal Glove",
@@ -214,7 +214,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 		  {
 				new int[] {1,2,4,6,8,9},
-				new int[] {1,0,65},
+				new int[] {1,11,65},
 				new int[] {21,22,23},
 				new int[] {12,13,15},
 				new int[] {12,13,24,25,26},
@@ -236,7 +236,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 	   {
 				new int[] {43,0 },
-				new int[] {43,0 },
+				new int[] {43,39,40,41,42 },
 	   })
 			{
 				name = "Worn Shorts",
@@ -492,8 +492,8 @@ namespace ChampionsOfForest
 				lore = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.",
 				tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
 				Rarity = 3,
-				minLevel = 1,
-				maxLevel = 5,
+				minLevel = 13,
+				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -514,9 +514,9 @@ namespace ChampionsOfForest
 				description = "Sharp and long",
 				lore = "The sword is in perfect contidion.",
 				tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
-				Rarity = 5,
-				minLevel = 1,
-				maxLevel = 7,
+				Rarity = 4,
+				minLevel = 20,
+				maxLevel = 27,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -540,8 +540,8 @@ namespace ChampionsOfForest
 				lore = "A normal human cannot lift this.",
 				tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
 				Rarity = 6,
-				minLevel = 6,
-				maxLevel = 9,
+				minLevel = 50,
+				maxLevel = 52,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -565,8 +565,8 @@ namespace ChampionsOfForest
 				lore = "",
 				tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
 				Rarity = 6,
-				minLevel = 6,
-				maxLevel = 9,
+				minLevel = 60,
+				maxLevel = 61,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -890,7 +890,7 @@ namespace ChampionsOfForest
 		   {
 				new int[] {39,40,41,42,43},
 				new int[] {16},
-				new int[] {16},
+				new int[] {-1},
 				new int[] {5,6,7,8,9,10},
 		   })
 			{
@@ -943,7 +943,9 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 		{
 				new int[] {1,2},
-				new int[] {1,2},
+				new int[] {1,2,3,5,6},
+				new int[] {65},
+				new int[] {-1},
 				new int[] {-1},
 				new int[] {53,54},
 		})
@@ -964,7 +966,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] {1,2,3,4,5,6},
-				new int[] {1,2,3,4,5,6},
+				new int[] {1,2,3,4,5,6,65},
 				new int[] {-1},
 				new int[] {-1 },
 				new int[] {1,2,3,4,21,22,23,24,25,26,18,16},
@@ -1008,10 +1010,11 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] {1},
+				new int[] {1,57,18,36},
 				new int[] {12,13,1},
 				new int[] {22,25,1},
-				new int[] {50,53,0,1},
-				new int[] {0,0,39,1}
+				new int[] {22,25,1},
+				new int[] {50,53,35},
 			})
 			{
 				name = "Golden Ring of Strength",
@@ -1029,10 +1032,11 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] {3},
-				new int[] {5,3,41},
-				new int[] {7,10,31},
+				new int[] {3,31,6,7,8,9},
+				new int[] {5,3,41,45},
+				new int[] {7,10,31,14},
 				new int[] {14,16,11,17},
-				new int[] {45,41,0,0}
+				new int[] {65,57,45,46},
 			})
 			{
 				name = "Golden Ring of Vitality",
@@ -1051,10 +1055,11 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] {2},
-				new int[] {12,13,51,8,9, },
-				new int[] {15,18,34,36,0},
-				new int[] {23,48,54,26},
-				new int[] {6,57,0,0}
+				new int[] {12,13,8,9, },
+				new int[] {15,18,34,36},
+				new int[] {23,48,54,26,59,55,16},
+				new int[] {6,57,2,34,},
+				new int[] {52,51,2,23}
 			})
 			{
 				name = "Golden Ring of Agility",
@@ -1073,9 +1078,10 @@ namespace ChampionsOfForest
 			{
 				new int[] {4},
 				new int[] {12,13,21,24,6},
-				new int[] {12,13,21,24,0},
-				new int[] {19,47,49,0},
-				new int[] { 37,38,0}
+				new int[] {12,13,21,24},
+				new int[] {19,47,49},
+				new int[] { 37,38,4,24,61,44},
+				new int[] { 57,44,6,24,21,47}
 			})
 			{
 				name = "Golden Ring of Intelligence",
@@ -1095,7 +1101,7 @@ namespace ChampionsOfForest
 			  {
 				new int[] {1},
 				new int[] {22,25,12,13},
-				new int[] {35,50,53,0},
+				new int[] {35,50,53},
 				new int[] {20,0,0,0}
 			  })
 			{
@@ -1137,8 +1143,8 @@ namespace ChampionsOfForest
 			  {
 				new int[] {2},
 				new int[] {12,13,51,8,9, },
-				new int[] {12,13,51, 57,15,18,34,36,},
-				new int[] {23,48,54,26,6,57,0,0, }
+				new int[] {15,18,34,36,0},
+				new int[] {23,48,54,26,6,57,0,0,0 }
 			  })
 			{
 				name = "Silver Ring of Agility",
@@ -1179,7 +1185,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			  {
 				  new int[] {1},
-				  new int[] {12,13},
+				  new int[] {12,13,65},
 				  new int[] {22,25, 57,35,50,53,20},
 			  })
 			{
@@ -1199,7 +1205,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			  {
 				new int[] {3},
-				new int[] {7,10,31,5,},
+				new int[] {7,10,31,5,65},
 				new int[] {14,16, 45,11,17,0},
 			  })
 			{
@@ -1220,8 +1226,7 @@ namespace ChampionsOfForest
 			  {
 				new int[] {2},
 				new int[] {8,9, 12,13,51,57},
-				new int[] {23,54,26},
-				new int[] {6,57,0,0}
+				new int[] {23,54,26,59,18,34},
 			  })
 			{
 				name = "Steel Ring of Agility",
@@ -1241,7 +1246,7 @@ namespace ChampionsOfForest
 			  {
 				new int[] {4},
 				new int[] {12,13,21,24,6},
-				new int[] {19,47,49,57,37,38,0},
+				new int[] {19,47,49,57,37,38,21,24},
 			  })
 			{
 				name = "Steel Ring of Intelligence",
@@ -1275,6 +1280,7 @@ namespace ChampionsOfForest
 				new int[] {21,24},
 				new int[] {19,47,49,57,6},
 				new int[] {29,37,38,57},
+				new int[] {65},
 			  })
 			{
 				name = "The One Ring To Rule Them All",
@@ -1298,7 +1304,7 @@ namespace ChampionsOfForest
 			new int[] {12,13},
 			new int[] {22,25,57,},
 			new int[] {35,50,53},
-			new int[] {-1}
+			new int[] {65,1,57,47,34,36,18}
 			})
 			{
 				name = "Golden Locket of Strength",
@@ -1317,7 +1323,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {3},
-			new int[] {5,},
+			new int[] {5,6,7},
 			new int[] {7,10,31},
 			new int[] {11,17},
 			new int[] {14,16,45},
@@ -1340,9 +1346,9 @@ namespace ChampionsOfForest
 			{
 			new int[] {2},
 			new int[] {12,13,51,52,8,9,},
-			new int[] {12,13,51,52,0},
+			new int[] {12,13,51,52},
 			new int[] {23,48,54,26},
-			new int[] {-1}
+			new int[] {57,18,47}
 			})
 			{
 				name = "Golden Locket of Agility",
@@ -1476,10 +1482,10 @@ namespace ChampionsOfForest
 			{
 			new int[] {1},
 			new int[] {12,13},
-			new int[] {22,25,57,},
+			new int[] {22,25,57,1},
 			new int[] {35,50,53},
-			new int[] {-1},
-			new int[] {-1},
+			new int[] {36,65,22,25},
+			new int[] {11,18,37,6,8},
 			})
 			{
 				name = "Emerald Pendant of Strength",
@@ -1500,9 +1506,9 @@ namespace ChampionsOfForest
 			new int[] {3},
 			new int[] {7,10,31,5},
 			new int[] {11,17},
-			new int[] {14,16},
-			new int[] {-1},
-			new int[] {-1},
+			new int[] {14,16,57,55},
+			new int[] {5,7,10,3,31},
+			new int[] {57,65},
 			})
 			{
 				name = "Emerald Pendant of Vitality",
@@ -1525,7 +1531,7 @@ namespace ChampionsOfForest
 			new int[] {12,13,51,52},
 			new int[] {15,18,34,36},
 			new int[] {23,48,54,26},
-			new int[] {-1},
+			new int[] {52,23,26,2},
 			new int[] {-1},
 			})
 			{
@@ -1545,9 +1551,10 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {4},
-			new int[] {},
+			new int[] {29,37,21,24,46,56,19},
 			new int[] {12,13,21,24,6},
-			new int[] {19,47,49},
+			new int[] {21,4,47,49},
+			new int[] {4,57,47,24},
 			new int[] {-1},
 			new int[] {-1},
 			})
@@ -1573,7 +1580,7 @@ namespace ChampionsOfForest
 			new int[] {12,13},
 			new int[] {22,25,1,},
 			new int[] {35,50,53, },
-			new int[] {-1},
+			new int[] {65,30},
 			new int[] {-1},
 			new int[] {-1},
 		   })
@@ -1594,11 +1601,11 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {3},
-			new int[] {5,},
+			new int[] {5,6,7,8,9,10},
 			new int[] {7,10,31},
 			new int[] {11,17},
 			new int[] {14,16},
-			new int[] {-1},
+			new int[] {28,11},
 			new int[] {-1},
 			new int[] {-1},
 			})
@@ -1622,8 +1629,9 @@ namespace ChampionsOfForest
 			new int[] {8,9,12,13,51,52},
 			new int[] {12,13,51,52,15,18,34,36 },
 			new int[] {23,48,54,26},
-			new int[] {-1},
-			new int[] {-1},
+			new int[] {54,52,2},
+			new int[] {2,18,38},
+			new int[] {57,2,6},
 			new int[] {-1},
 			})
 			{
@@ -1644,10 +1652,11 @@ namespace ChampionsOfForest
 			{
 			new int[] {4},
 			new int[] {12,13,21,24},
-			new int[] {12,13,21,24,6},
-			new int[] {19,47,49,},
-			new int[] {57,37,38,},
-			new int[] {-1},
+			new int[] {12,13,21,24,6,65},
+			new int[] {19,47,49,11,5,6,7,8,46,34},
+			new int[] {29,4},
+			new int[] {21,4,47,49},
+			new int[] {4,57,47,24},
 			new int[] {-1},
 			new int[] {-1},
 			})
@@ -1667,11 +1676,11 @@ namespace ChampionsOfForest
 
 			//Rare Amulets -----------------------------------------------------------------------------------------
 
-			new BaseItem(new int[][]
+			var armsyFingerNecklace = new BaseItem(new int[][]
 			{
 			new int[] {1},
-			new int[] {1},
-			new int[] {-1},
+			new int[] {65},
+			new int[] {18,11},
 			new int[] {-1},
 			new int[] {12,13},
 			new int[] {22,25,30,},
@@ -1690,13 +1699,16 @@ namespace ChampionsOfForest
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
-			}.DropSettings_OnlyArmsy();
 
-			new BaseItem(new int[][]
+			};
+			armsyFingerNecklace.DropSettings_OnlyArmsy();
+			armsyFingerNecklace.PossibleStats[0][0].Multipier = 2;
+			armsyFingerNecklace.PossibleStats[1][0].Multipier = 2;
+			var virginiaHeartPedant = new BaseItem(new int[][]
 			{
 			new int[] {2},
-			new int[] {2},
-			new int[] {-1},
+			new int[] {23},
+			new int[] {48},
 			new int[] {-1},
 			new int[] {5,28},
 			new int[] {7,10,31},
@@ -1716,19 +1728,22 @@ namespace ChampionsOfForest
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
-			}.DropSettings_OnlyVags();
+			};
+			virginiaHeartPedant.DropSettings_OnlyVags();
+			virginiaHeartPedant.PossibleStats[0][0].Multipier = 2;
+			virginiaHeartPedant.PossibleStats[1][0].Multipier = 2.25f;
 
-			new BaseItem(new int[][]
+			var cowmanToeNecklace = new BaseItem(new int[][]
 			{
 			new int[] {3},
-			new int[] {3},
-			new int[] {3,0},
+			new int[] {31,6},
+			new int[] {28},
 			new int[] {8,9,27},
 			new int[] {12,13,51,52},
 			new int[] {12,13,51,52,57},
 			new int[] {15,18,34,36,57},
 			new int[] {23,48,54,26},
-			new int[] {6,57}
+			new int[] {65,57}
 			})
 			{
 				name = "Cowman Toe Necklace",
@@ -1742,12 +1757,17 @@ namespace ChampionsOfForest
 				StackSize = 1,     //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
-			}.DropSettings_OnlyCow();
-
+			};
+			cowmanToeNecklace.DropSettings_OnlyCow();
+			cowmanToeNecklace.PossibleStats[0][0].Multipier = 3;
+			cowmanToeNecklace.PossibleStats[1][0].Multipier = 2;
 			new BaseItem(new int[][]
 			{
-			new int[] {4},
-			new int[] {4},
+			new int[] {47},
+			new int[] {4,0},
+			new int[] {21,0},
+			new int[] {38,31,49,14},
+			new int[] {-1},
 			new int[] {-1},
 			new int[] {-1},
 			new int[] {12,13,21,24,6},
@@ -1816,8 +1836,8 @@ namespace ChampionsOfForest
 				lore = "",
 				tooltip = "Hammers stun enemies with every hit, but are slow. They also deal high smash damage",
 				Rarity = 2,
-				minLevel = 1,
-				maxLevel = 2,
+				minLevel = 20,
+				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -1842,8 +1862,8 @@ namespace ChampionsOfForest
 				lore = "",
 				tooltip = "Hammers stun enemies with every hit, but are slow. They also deal high smash damage",
 				Rarity = 4,
-				minLevel = 1,
-				maxLevel = 2,
+				minLevel = 30,
+				maxLevel = 35,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -1970,9 +1990,10 @@ namespace ChampionsOfForest
 			//Item 5/6
 			new BaseItem(new int[][]
 			{
-					new int[] {37, 24},
+					new int[] {37, 24,47},
 					new int[] {42,6,17,61},
 					new int[] {-1},
+					new int[] {4,0},
 			})
 			{
 				name = "Spell Scroll",
@@ -1991,8 +2012,8 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] {16,43},
-				new int[] {43},
-				new int[] {43},
+				new int[] {43,39,40,41,42},
+				new int[] {43,39,40,41,42},
 				new int[] {43,0,0,0},
 			})
 			{
@@ -2474,8 +2495,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "",
 				Rarity = 0,
-				minLevel = 1,
-				maxLevel = 3,
+				minLevel = 15,
+				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -2847,8 +2868,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "A really fast axe",
 				Rarity = 3,
-				minLevel = 1,
-				maxLevel = 5,
+				minLevel = 15,
+				maxLevel = 17,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -2869,8 +2890,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "A really fast axe",
 				Rarity = 4,
-				minLevel = 4,
-				maxLevel = 5,
+				minLevel = 25,
+				maxLevel = 25,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -2894,8 +2915,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "A really fast axe",
 				Rarity = 5,
-				minLevel = 6,
-				maxLevel = 9,
+				minLevel = 35,
+				maxLevel = 36,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -2904,17 +2925,17 @@ new int[] {0,0,0,0,62,63,64},
 			}.PossibleStats[1][0].Multipier = 2.5f;
 			new BaseItem(new int[][]
 					   {
-				new int[]{1,26,22},
-				new int[]{18},
+				new int[]{26,22},
+				new int[]{63},
 				new int[]{1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,20,34,35,36,37,38,44,45,46,47,49,53,54,55,},
-				new int[]{62,63,64,0,0,0},
+				new int[]{62,63,64,65},
 				new int[]{19,56},
-				new int[] {1,2,3,4,6,55,59,57,34,35,36,14,44,49},
+				new int[] {26},
 				new int[] {53,22,25,12,13,1,2,3,4,39,40,41,42,43},
 					   })
 			{
-				name = "Golden Axe of Fortune",
-				description = "",
+				name = "Axe of Misfortune",
+				description = "Misfortunate are the ones on the recieving end. They will bleed a lot",
 				lore = "",
 				tooltip = "A really fast axe",
 				Rarity = 5,
@@ -2983,8 +3004,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "A really fast axe",
 				Rarity = 0,
-				minLevel = 1,
-				maxLevel = 3,
+				minLevel = 15,
+				maxLevel = 24,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -3069,7 +3090,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = "Jagged Ripper",
-				description = "Bash has 20% a chance to make enemies to bleed for 30% of damage dealt per second for duration of slow",
+				description = "Bash has 30% a chance to make enemies to bleed for 30% of damage dealt per second for duration of slow",
 				lore = "",
 				tooltip = "A legendary axe",
 				Rarity = 7,
@@ -3080,8 +3101,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
-				onEquip = () => ModdedPlayer.Stats.spell_bashBleedChance.Add( 0.2f),
-				onUnequip = () => ModdedPlayer.Stats.spell_bashBleedChance.Substract(0.2f),
+				onEquip = () => ModdedPlayer.Stats.spell_bashBleedChance.Add( 0.3f),
+				onUnequip = () => ModdedPlayer.Stats.spell_bashBleedChance.Substract(0.3f),
 			};
 			jaggedRipper.PossibleStats[1][0].Multipier = 2;
 
@@ -3103,7 +3124,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Bloodthirster",
 				description = "When bashing an enemy, you have gain 2% of damage dealt as health and energy. Based on damage before armor reduction.",
-				lore = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.",
+				lore = "The sword appears to be from medieval ages, through it's not. It was made a lot earlier. The means to reproduce this weapon have been long lost.",
 				tooltip = "Long swords are slow, have little block and consume a lot of stamina. They have extraordinary weapon range and high damage",
 				Rarity = 7,
 				minLevel = 1,
@@ -3349,8 +3370,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "",
 				Rarity = 2,
-				minLevel = 10,
-				maxLevel = 12,
+				minLevel = 25,
+				maxLevel = 28,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -3979,7 +4000,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {18},
+			  new int[] {31},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
@@ -4008,13 +4029,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_ArchangelBow.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_ArchangelBow.value = false,
-			}.PossibleStats[0][0].Multipier = -0.6f;
+			}.PossibleStats[0][0].Multipier = 2f;
 			new BaseItem(new int[][]
 			{
 				new int[] {1,4 },
 				new int[] {1,3,5,6,49 },
-				new int[] {22,0},
-				new int[] {25,0},
+				new int[] {22},
+				new int[] {25},
 				new int[] {12},
 				new int[] {13},
 				new int[] {1,12,13,22,25,30,53,57,65 },
@@ -4024,10 +4045,10 @@ new int[] {0,0,0,0,62,63,64},
 				name = "The Executioner",
 				description = "A sword for decapitating",
 				lore = "",
-				tooltip = "Critical hit can greatly increase how much damage you deal.",
+				tooltip = "Critical hit can greatly increase how much damage you deal. ",
 				Rarity = 4,
-				minLevel = 1,
-				maxLevel = 7,
+				minLevel = 25,
+				maxLevel = 27,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -4108,8 +4129,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "Long range spear-type weapon",
 				Rarity = 1,
-				minLevel = 2,
-				maxLevel = 4,
+				minLevel = 10,
+				maxLevel = 16,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -4130,8 +4151,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "Long range spear-type weapon",
 				Rarity = 4,
-				minLevel = 2,
-				maxLevel = 4,
+				minLevel = 20,
+				maxLevel = 24,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -4635,7 +4656,7 @@ new int[] {0,0,0,0,62,63,64},
 			//This is the new better way of defining items, no longer uses item ids, now uses enum like in C++, the enum is Stats, you can find it in ItemDataBase_StatDefinitons.cs
 			new BaseItem(new Stat[][]
 			{
-				new [] {meleeDmgFromStr},
+				new [] {MELEEDMGFROMSTR},
 				new [] {STRENGTH},
 				new [] {BASEMELEEDAMAGE},
 				new [] {MELEEARMORPIERCING},
@@ -4650,8 +4671,8 @@ new int[] {0,0,0,0,62,63,64},
 				lore = "",
 				tooltip = "Long range spear-type weapon",
 				Rarity = 5,
-				minLevel = 2,
-				maxLevel = 4,
+				minLevel = 30,
+				maxLevel = 34,
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
@@ -4687,6 +4708,89 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.thornsPerVit.Substract(5),
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new int[][]
+		   {
+				new int[] {1000},
+				new int[] {1001},
+				new int[] {1002},
+				new int[] {1,2,3,4,5,6 },
+				new int[] {-1 },
+				new int[] {-1 },
+				new int[] {-1 },
+		   })
+			{
+				name = "Cargo Shorts MK2",
+				description = "Deepest pockets out there",
+				lore = "Improved cargo pants. Twice as many pockets, and since they didnt fit on the outside, they are inside. They are still ugly as hell tho",
+				tooltip = "Pants provide armor and sometimes they increase carrying capactiy.",
+				Rarity = 4,
+				minLevel = 30,
+				maxLevel = 33,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {INTELLIGENCE,AGILITY},
+				new [] {MAGICFIND,SPELLDAMAGEINCREASE,BASESPELLDAMAGE},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE},
+				new [] {MAXENERGYFROMAGI,SPELLDMGFROMINT,RANGEDDMGFROMAGI},
+				new [] {ARMOR},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION,INTELLIGENCE,AGILITY,STRENGTH,ALLATTRIBUTES},
+				new [] {COOLDOWNREDUCTION,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,MOVEMENTSPEED,DAMAGEREDUCTION},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {DODGECHANCE,ARMOR,BASESPELLDAMAGE,BASERANGEDDAMAGE},
+				new [] {BASERANGEDDAMAGE,RANGEDARMORPIERCING,RANGEDDAMAGEINCREASE}
+			})
+			{
+				name = "Aezyn",
+				description = "Enchanted with magic as strong as power swing. It's purpose? Hit harder.",
+				lore = "",
+				tooltip = "Magic arrow damage scaling is increased by 666%",
+				Rarity = 7,
+				minLevel = 20,
+				maxLevel = 22,
+				CanConsume = false,
+				StackSize = 1,
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Add(6.66f),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(6.66f),
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {INTELLIGENCE,AGILITY},
+				new [] {CRITICALHITCHANCE},
+				new [] {CRITICALHITDAMAGE},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION,INTELLIGENCE,AGILITY,STRENGTH,ALLATTRIBUTES},
+				new [] {COOLDOWNREDUCTION,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,MOVEMENTSPEED,DAMAGEREDUCTION},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {DODGECHANCE,ARMOR,BASESPELLDAMAGE,BASERANGEDDAMAGE},
+				new [] {BASERANGEDDAMAGE,RANGEDARMORPIERCING,RANGEDDAMAGEINCREASE}
+		})
+			{
+				name = "Punny's Reflective Ring",
+				description = "Enchanted with magic as strong as power swing. It's purpose? Hit harder.",
+				lore = "",
+				tooltip = "Magic arrow is shot in volleys. This effect can stack if more of the same item is equipped.",
+				Rarity = 7,
+				minLevel = 20,
+				maxLevel = 22,
+				CanConsume = false,
+				StackSize = 1,
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(3),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(3),
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90),
 			};
 		}
 	}

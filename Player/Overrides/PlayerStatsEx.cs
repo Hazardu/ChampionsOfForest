@@ -761,7 +761,7 @@ namespace ChampionsOfForest
 			float f = damage * ModdedPlayer.Stats.allDamageTaken;
 			if (!ignoreArmor)
 			{
-				f *= 1 - ModReferences.DamageReduction( ModdedPlayer.Stats.armor);
+				f *= 1 - ModReferences.DamageReduction( Mathf.Max(0,ModdedPlayer.Stats.armor-(int)ModdedPlayer.instance.lostArmor));
 			}
 			if (type == DamageType.Fire)
 			{

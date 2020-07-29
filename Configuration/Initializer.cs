@@ -71,6 +71,8 @@ namespace ChampionsOfForest
 
 
 					// go.AddComponent<Crafting>();
+					MoreCraftingReceipes.Initialize();
+
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
 					ItemDataBase.Initialize();

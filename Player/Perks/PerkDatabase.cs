@@ -379,7 +379,7 @@ namespace ChampionsOfForest.Player
 				uncapped = true,
 				updateDescription = x =>
 				{
-					float f = 0.96f;
+					float f = 0.95f;
 					for (int i = 1; i < x; i++)
 						f *=  0.95f;
 					return "\nTotal from this perk: " + (1 - f).ToString("P");
@@ -692,10 +692,10 @@ namespace ChampionsOfForest.Player
 				uncapped = true,
 				updateDescription = x =>
 				{
-					float f = 0.97f;
+					float f = 0.93f;
 					for (int i = 1; i < x; i++)
-						f *=  0.97f;
-					return "\nTotal from this perk: " + (1 - f).ToString("N");
+						f *=  0.93f;
+					return "\nTotal from this perk: " + (1 - f).ToString("P");
 				},
 			};
 			new Perk()
@@ -845,17 +845,23 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.instance.AddGeneratedResource(33, 6),
+				apply = () => { ModdedPlayer.instance.AddGeneratedResource(33, 6);
 
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromBoar,true);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromDeer,true);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRabbit,true);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRacoon,true);;
+					MoreCraftingReceipes.AddReceipes();
+					},
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 4 },
-				levelReq = 12,
+				levelReq = 5,
 				cost = 1,
 				scale = 1,
 				posX = -2.5f,
 				posY = 0,
 				name = "Alternative cloth sources",
-				originalDescription = "Increases daily generation of cloth by 6",
+				originalDescription = "Increases daily generation of cloth by 6. Allows turning animal fur skin into cloth by crafting.",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1138,13 +1144,13 @@ namespace ChampionsOfForest.Player
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 45 },
-				levelReq = 20,
+				levelReq = 10,
 				cost = 1,
 				scale = 1,
 				posX = -12.5f,
 				posY = 0,
 				name = "More Ammo",
-				originalDescription = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50",
+				originalDescription = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50. Allows you to craft flint lock ammo, crossbow bolts, and modern arrows	 ",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1283,7 +1289,7 @@ namespace ChampionsOfForest.Player
 					float f = 1.25f;
 					for (int i = 1; i < x; i++)
 						f +=  0.25f;
-					float f1 = 1.3f;
+					float f1 = 1.4f;
 					for (int i = 1; i < x; i++)
 						f1 *=  1.4f;
 					return "\nTotal from this perk:\nDamage - " + (f - 1).ToString("P") + "\nStamina Cost - " + (f1 - 1).ToString("P");
@@ -1615,17 +1621,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(1),
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.5f),
 
-				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 55 },
-				levelReq = 13,
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 13,55 },
+				levelReq = 30,
 				cost = 1,
 				scale = 1,
-				posX = 0.5f,
-				posY = -1.5f,
+				posX = 1f,
+				posY = 2.25f,
 				name = "Seeking Arrow - Head Hunting",
-				originalDescription = "Seeking arrow additional damage on headshot is increased from 200% to 300%",
+				originalDescription = "Seeking arrow additional damage on headshot is increased from 200% to 250%",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1633,13 +1639,13 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_seekingArrow_DamagePerDistance.valueAdditive +=  0.01f,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 92 },
-				levelReq = 19,
+				levelReq = 40,
 				cost = 1,
 				scale = 1,
-				posX = 0f,
-				posY = -2.25f,
+				posX = 2f,
+				posY = 2.25f,
 				name = "Seeking Arrow - Distant Killer",
 				originalDescription = "Seeking arrow additional damage per distance increased from 1% per 1m to 2% per 1m",
 				textureVariation = 0,
@@ -1647,17 +1653,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.valueAdditive +=  4,
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.valueAdditive +=  3,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 93 },
-				levelReq = 26,
+				levelReq = 41,
 				cost = 1,
 				scale = 1,
-				posX = 0.5f,
-				posY = -3f,
+				posX = 3f,
+				posY = 2.25f,
 				name = "Seeking Arrow - Crippling precision",
-				originalDescription = "Seeking arrow slow duration is increased by 4 additional seconds",
+				originalDescription = "Seeking arrow slow duration is increased by 3 additional seconds",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1665,15 +1671,15 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowAmount.valueAdditive -= 0.2f,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 94 },
-				levelReq = 30,
+				levelReq = 42,
 				cost = 1,
 				scale = 1,
-				posX = 1f,
-				posY = -3.75f,
-				name = "Seeking Arrow - Stun Arrows",
-				originalDescription = "Seeking arrow slow amount is increased - from 60% to 80%",
+				posX = 4f,
+				posY = 2.25f,
+				name = "Seeking Arrow - Movement Imparing Arrows",
+				originalDescription = "Seeking arrow slow amount is increased - from 20% to 40%",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1681,13 +1687,13 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive +=  0.5f,
 
-				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 55 },
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 13,14 },
 				levelReq = 14,
 				cost = 1,
 				scale = 1,
-				posX = -0.5f,
-				posY = -1.5f,
+				posX = 1.5f,
+				posY = 1.5f,
 				name = "Focus - Perfection",
 				originalDescription = "Focus damage bonus on headshot is increased from 100% to 150%",
 				textureVariation = 0,
@@ -1697,13 +1703,13 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_focusOnAtkSpeed.valueAdditive +=  0.15f,
 
-				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 96 },
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 96,13 },
 				levelReq = 15,
 				cost = 1,
 				scale = 1,
-				posX = -1f,
-				posY = -2.25f,
+				posX = 2.5f,
+				posY = 1.5f,
 				name = "Focus - Quick Adjustments",
 				originalDescription = "Focus extra attack on bodyshot is increased from 30% to 45%",
 				textureVariation = 0,
@@ -1713,13 +1719,13 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_focusOnAtkSpeed.valueAdditive +=  0.15f,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 97 },
 				levelReq = 25,
 				cost = 1,
 				scale = 1,
-				posX = -0.5f,
-				posY = -3f,
+				posX = 3.5f,
+				posY = 1.5f,
 				name = "Focus - Quicker Adjustments",
 				originalDescription = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
 				textureVariation = 0,
@@ -1729,13 +1735,13 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_focusSlowDuration.valueAdditive +=  20f,
 
-				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 97 },
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 98 },
 				levelReq = 35,
 				cost = 2,
 				scale = 1,
-				posX = -1.5f,
-				posY = -3f,
+				posX = 4.5f,
+				posY = 1.5f,
 				name = "Focus - Knock Out",
 				originalDescription = "Focus Slow is prolongued by additional 20 seconds",
 				textureVariation = 0,
@@ -1801,7 +1807,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = -1.5f,
 				name = "Greater Bash",
-				originalDescription = "Bash duration is increased by 1 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
+				originalDescription = "Bash active effect and passive effect duration is increased by 1 seconds.\nIf bash applies bleed, bleeding deals overall more damage",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -2416,7 +2422,7 @@ namespace ChampionsOfForest.Player
 				posX = 9f,
 				posY = -0.75f,
 				name = "Curse of Exhaustion",
-				originalDescription = "Doubles spell damage, but your energy is reduced by 60% and stamina regenerates slower",
+				originalDescription = "Doubles spell damage, but your maximum energy is reduced by 60% and stamina regenerates slower",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
@@ -2456,7 +2462,7 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.spell_parryDmgBonus.valueAdditive +=  1.5f,
 				category = PerkCategory.MagicOffense,
-				unlockPath = new int[] { 107 },
+				unlockPath = new int[] { 107,108 },
 				levelReq = 10,
 				cost = 1,
 				scale = 1,
@@ -2510,7 +2516,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -0.75f,
 				name = "Dance of the Firegod",
-				originalDescription = "When black flame is on, your melee damage is increased, based on how fast youre going.",
+				originalDescription = "When black flame is on, your melee damage is increased, based on how fast youre going. However the spell cost is greatly increased.",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -2677,7 +2683,8 @@ namespace ChampionsOfForest.Player
 				name = "Fiery Embrace",
 				originalDescription = "Fire damage is increased by 15%",
 				textureVariation = 0,
-				uncapped = false,
+				uncapped = true,
+				updateDescription = x=> $"Total from this perk: {x*0.15f:P}"
 			};
 			new Perk()
 			{
@@ -3094,8 +3101,37 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = false,
 			};
-		
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_seekingArrowDuration.Add(20),
 
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 95 },
+				levelReq = 45,
+				cost = 1,
+				scale = 1,
+				posX = 5f,
+				posY = 2.25f,
+				name = "Seeking Arrow - Improved Memory",
+				originalDescription = "Seeking arrow target stays for 20 seconds longer before disappearing",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_ballLightning_DamageScaling.Add(15),
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 170 },
+				levelReq = 130,
+				cost = 2,
+				scale = 1,
+				posX = 3.5f,
+				posY = 7.5f,
+				name = "Storm of the century",
+				originalDescription = "Ball Lightning damage scaling is increased by 1500%",
+				textureVariation = 0,
+				uncapped = false,
+			};
 
 
 
