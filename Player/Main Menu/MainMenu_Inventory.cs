@@ -168,7 +168,7 @@ namespace ChampionsOfForest
 			float btnW = craftingrect.width / 4;
 
 			int i = 0;
-			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont };
+			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont,fontSize=Mathf.RoundToInt(25 * screenScale) };
 			if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Rerolling", style))
 			{
 				CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Rerolling;

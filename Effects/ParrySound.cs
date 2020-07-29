@@ -24,6 +24,7 @@ namespace ChampionsOfForest.Effects
 				instance.Initialize();
 			}
 			instance.transform.position = pos;
+			instance.source.pitch = Random.Range(0.6f, 1f);
 			instance.source.Play();
 		}
 	}

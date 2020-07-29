@@ -114,16 +114,16 @@ namespace ChampionsOfForest.Player
 				aim = SpellActions.SnapFreezeAim,
 				aimEnd = SpellActions.SnapFreezeAimEnd
 			};
-			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain damage, attack speed and movement speed and have unlimited stamina, hovewer, you take increased damage.")
+			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, hovewer, you take increased damage.")
 			{
 				active = Berserker.Cast,
 			};
-			new Spell(iD: 16, TextureID: 130, levelrequirement: 44, energyCost: 350, baseCooldown: 100, name: "Ball Lightning", () => $"A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 320% spell damage.\nScaling{ModdedPlayer.Stats.spell_ballLightning_DamageScaling} spell damage")
+			new Spell(iD: 16, TextureID: 130, levelrequirement: 44, energyCost: 350, baseCooldown: 100, name: "Ball Lightning", () => $"A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 320% spell damage.\nScaling: {ModdedPlayer.Stats.spell_ballLightning_DamageScaling} spell damage")
 			{
 				active = SpellActions.CastBallLightning,
 			};
 			new Spell(iD: 17, TextureID: 134, levelrequirement: 17, energyCost: 25, baseCooldown: 25, name: "Bash",
-				() => $"Passive: Every attack slows enemies for {ModdedPlayer.Stats.spell_bashDuration} seconds, and increases their damage taken by {ModdedPlayer.Stats.spell_bashExtraDamage}\nActive: Melee damage is increased for {ModdedPlayer.Stats.spell_bashDuration} seconds by {ModdedPlayer.Stats.spell_bashExtraDamage}")
+				() => $"Passive: Every attack slows enemies for {ModdedPlayer.Stats.spell_bashDuration} seconds, and increases their damage taken by {ModdedPlayer.Stats.spell_bashExtraDamage}\nActive: Melee damage is increased for {ModdedPlayer.Stats.spell_bashDuration} seconds by {(ModdedPlayer.Stats.spell_bashExtraDamage-1):P}")
 			{
 				passive = SpellActions.BashPassiveEnabled,
 				active = SpellActions.BashActive
@@ -143,19 +143,19 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}
 			};
-			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting spell empowers arrow, causing all arrows to head in the same direction for 30 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 20% for 4 seconds.")
+			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting spell empowers arrow, causing all arrows to head in the same direction for 10 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 20% for 4 seconds.")
 			{
 				active = SpellActions.SeekingArrow_Active,
 			};
-			new Spell(20, 137, 4, 50, 30, "Focus", () => "Passive: When landing a headshot, next projectile will deal 100% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.\nActive: Gain 50% critical hit damage for 5 seconds")
+			new Spell(20, 137, 4, 50, 30, "Focus", () => "Passive: When landing a headshot, next projectile will deal 100% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.\nActive: Gain 15% critical hit chance for 5 seconds")
 			{
 				passive = x => ModdedPlayer.Stats.spell_focus.value = x,
-				active = () => BuffDB.AddBuff(24, 102, 0.5f, 5f)
+				active = () => BuffDB.AddBuff(28, 102, 0.15f, 5f)
 			};
-			new Spell(21, 140, 8, 35, 60, "Parry", () => "Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 65% damage reduction for 10 seconds")
+			new Spell(21, 140, 8, 35, 60, "Parry", () => "Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 50% damage reduction for 10 seconds")
 			{
 				passive = x => ModdedPlayer.Stats.spell_parry.value = x,
-				active = () => BuffDB.AddBuff(26, 103, 0.65f, 10f)
+				active = () => BuffDB.AddBuff(26, 103, 0.5f, 10f)
 
 			};
 			new Spell(22, 141, 50, 500, 300, "Cataclysm", () => $"Creates a fire tornado that ignites enemies, slows them and deals damage. \nScaling{ModdedPlayer.Stats.spell_cataclysmDamageScaling} spell damage")

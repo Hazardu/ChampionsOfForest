@@ -96,7 +96,7 @@ namespace ChampionsOfForest.Player
 
 
 
-		private float lostArmor = 0;
+		public float lostArmor = 0;
 
 
 		public float _greedCooldown;
@@ -222,6 +222,7 @@ namespace ChampionsOfForest.Player
 
 			if (!GameSetup.IsNewGame)
 			{
+				MoreCraftingReceipes.BlockUpdating = true;
 				Serializer.Load();
 			}
 			InitializeHandHeld();
@@ -1211,7 +1212,8 @@ namespace ChampionsOfForest.Player
 			instance.MagicFindMultipier = 1;
 			Items.StatActions.AddMagicFind(0);  //synchronizes magicfind in multiplayer
 
-
+			MoreCraftingReceipes.LockAll();
+			MoreCraftingReceipes.BlockUpdating = true;
 			instance.AssignLevelAttributes();
 			ReapplyAllItems();
 			ReapplyAllPerks();
@@ -1220,6 +1222,8 @@ namespace ChampionsOfForest.Player
 			{
 				extraItem.Value.NewApply();
 			}
+			MoreCraftingReceipes.BlockUpdating = false;
+			MoreCraftingReceipes.AddReceipes();
 		}
 
 		public static void ReapplyAllSpell()
@@ -1248,6 +1252,8 @@ namespace ChampionsOfForest.Player
 			//perks
 			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
+				PerkDatabase.perks[i].ResetDescription();
+
 				if (PerkDatabase.perks[i].isBought)
 				{
 					if (PerkDatabase.perks[i].uncapped)
@@ -1255,10 +1261,12 @@ namespace ChampionsOfForest.Player
 						for (int j = 0; j < PerkDatabase.perks[i].boughtTimes; j++)
 						{
 							PerkDatabase.perks[i].apply();
+
 						}
 					}
 					else
 						PerkDatabase.perks[i].apply();
+					PerkDatabase.perks[i].OnBuy();
 				}
 			}
 		}

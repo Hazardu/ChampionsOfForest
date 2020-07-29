@@ -74,7 +74,7 @@ namespace ChampionsOfForest
 
 				GUI.Label(new Rect(bg.x+25 * screenScale, 370 * screenScale,bg.width-50 * screenScale, 500 * screenScale),
 					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy:  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
-					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  " + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
+					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
 					: "") +
 					"\nRequired level:  <b>" + displayedSpellInfo.Levelrequirement + "</b></color></size>",
 					new GUIStyle(GUI.skin.label)

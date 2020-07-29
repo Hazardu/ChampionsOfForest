@@ -1,620 +1,419 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using TheForest.Items;
-//using TheForest.Items.Craft;
-//using TheForest.Utils;
-//using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-//namespace ChampionsOfForest.Items
-//{
-//    //public class ItemsDebug : ItemDatabase
-//    //{
-//    //    public override void OnEnable()
-//    //    {
-//    //        base.OnEnable();
-//    //        string msg = "";
-//    //        foreach (var i in _itemsCache)
-//    //        {
-//    //            msg += i.Value._name + "\t\t\t" + i.Value._id + "\n";
-//    //        }
-//    //        ModAPI.Log.Write(msg);
-//    //    }
-//    //}
+using ChampionsOfForest;
 
-//    //from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
-//    public class Crafting : MonoBehaviour
-//    {
-//        private static readonly int IdStartIndex = 600;
+using TheForest.Items;
+using TheForest.Items.Craft;
+using TheForest.Utils;
+using UnityEngine;
 
-//        void Start()
-//        {
-//            try
-//            {
-//                var arrows = CreateReceipe(83, 1, new ReceipeIngredient[]{
-//                    CreateReceipeIngredient(83,1),
-//                    CreateReceipeIngredient(91,2),
-//                    });
-//                arrows._weaponStatUpgrades = new WeaponStatUpgrade[]
-//                {
-//                    new WeaponStatUpgrade(){_type = WeaponStatUpgrade.Types.ModernAmmo, _amount = 1, _itemId = 0}
-//                };
-//                arrows._type = Receipe.Types.Upgrade;
-//                arrows._productItemType = TheForest.Items.Item.Types.Ammo;
+		using static MoreCraftingReceipes.VanillaItemIDs;
 
-//                Receipe r = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault();
-//                //ModAPI.Log.Write( "_batchUpgrade " + r._batchUpgrade+
-//                //    "\n_forceUnique " + r._forceUnique+
-//                //    "\n_hidden " + r._hidden+
-//                //    "\n_id " + r._id+
-//                //    "\n_name " + r._name+
-//                //    "\n_productItemType " + r._productItemType.ToString()+
-//                //    "\n_type " + r._type.ToString()+
-//                //    "\n_weaponStatUpgrades.Count " + r._weaponStatUpgrades.Length);
-//                //foreach (var item in r._weaponStatUpgrades)
-//                //{
-//                //    ModAPI.Log.Write(" _amount " + item._amount + "\n_type" + item._type + "\n_itemId" + item._itemId);
-//                //}
+//based off code from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
+public static class MoreCraftingReceipes
+{
+	public class COTFCustomReceipe
+	{
+		public Receipe receipe;
+		public bool unlocked;
 
-//                r._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
-//                r._ingredients[1] = CreateReceipeIngredient(91,2);
+		public COTFCustomReceipe(Receipe receipe, bool unlocked = false)
+		{
+			this.receipe = receipe;
+			this.unlocked = unlocked;
+		}
+	}
+	public enum CustomReceipe
+	{
+		ModernArrows,
+		FlintlockAmmo,
+		CrossbowAmmo,
+		ClothFromDeer,
+		ClothFromRabbit,
+		ClothFromRacoon,
+		ClothFromBoar,
+	}
 
-//            }
-//            catch (Exception e)
-//            {
-//                CotfUtils.Log("adding items error\n" + e.Message);
-//            }
-//        }
 
-//        private static int _NextReceipeId = IdStartIndex;
+	private static List<Receipe> baseReceipes;
+	private static List<COTFCustomReceipe> customReceipeList = new List<COTFCustomReceipe>();
+	public static void SetCustomReceipeUnlockState(CustomReceipe customReceipe, in bool b)
+	{
+		customReceipeList[(int)customReceipe].unlocked = b;
+	}
+	public static bool BlockUpdating = false;
+	private const int IdStartIndex = 600;
+	public static void LockAll()
+	{
+		foreach (var item in customReceipeList)
+		{
+			item.unlocked = false;
+		}
+	}
 
-//        public static int NextReceipeId
-//        {
-//            get
-//            {
-//                return _NextReceipeId++;
-//            }
-//        }
+	/// <summary>
+	/// Populate the list that contains custom receipes
+	/// </summary>
+	public static void Initialize()
+	{
+		customReceipeList.Clear();
+		_NextReceipeId = IdStartIndex;
+		Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault().CopyReceipe();
+		poisonArrowsCopy._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
+		poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 15);
+		poisonArrowsCopy._name = "Modern Arrows";
+		customReceipeList.Add(new COTFCustomReceipe(poisonArrowsCopy));
 
-//        public static bool AddReceipes(List<Receipe> newReceipes)
-//        {
-//            int num = ReceipeDatabase._instance._receipes.Length;
-//            Receipe[] receipes = ReceipeDatabase._instance._receipes;
-//            List<Receipe> list = new List<Receipe>();
-//            using (List<Receipe>.Enumerator enumerator = newReceipes.GetEnumerator())
-//            {
-//                while (enumerator.MoveNext())
-//                {
-//                    Receipe newReceipe = enumerator.Current;
-//                    if (!receipes.Any((Receipe r) => r.IngredientHash == newReceipe.IngredientHash && r._productItemID == newReceipe._productItemID))
-//                    {
-//                        list.Add(newReceipe);
-//                    }
-//                }
-//            }
-//            if (list.Count > 0)
-//            {
-//                //RMoreCrafting._instance.Log(string.Concat(new object[]
-//                //{
-//                //    "Merging ",
-//                //    list.Count,
-//                //    " Recipe",
-//                //    (list.Count == 1) ? "" : "s",
-//                //    "..."
-//                //}));
-//                try
-//                {
-//                    Receipe[] receipes2 = receipes.Concat(list).ToArray<Receipe>();
-//                    ReceipeDatabase._instance._receipes = receipes2;
-//                    //RMoreCrafting._instance.Log("Merging Complete");
-//                }
-//                catch
-//                {
-//                    //RMoreCrafting._instance.Log("Merging Failed");
-//                }
-//            }
-//            int num2 = ReceipeDatabase._instance._receipes.Length;
-//            //RMoreCrafting._instance.Log(string.Concat(new object[]
-//            //{
-//            //    "Receipe Count: ",
-//            //    num,
-//            //    " -> ",
-//            //    num2
-//            //}));
-//            return num2 > num;
-//        }
+		CreateReceipe(FLINTLOCKAMMO, 3,
+			CreateReceipeIngredient(COINS, 15),
+			CreateReceipeIngredient(SMALLROCK, 3),
+			CreateReceipeIngredient(ROCK, 1));
+		
+		CreateReceipe(CROSSBOWAMMO, 1,
+			CreateReceipeIngredient(ROCK, 1),
+			CreateReceipeIngredient(STICK, 1));
 
-//        public static ReceipeIngredient CreateReceipeIngredient(int itemId, int amount)
-//        {
-//            return new ReceipeIngredient
-//            {
-//                _amount = amount,
-//                _itemID = itemId
-//            };
-//        }
-//        public static Receipe CreateReceipe(int productItemId, int productItemAmout, ReceipeIngredient[] receipeIngredients)
-//        {
-//            return new Receipe
-//            {
-//                _id = NextReceipeId,
-//                _ingredients = receipeIngredients,
-//                _productItemAmount = new RandomRange
-//                {
-//                    _max = productItemAmout,
-//                    _min = productItemAmout
-//                },
-//                _productItemID = productItemId,
-//                _productItemType = ItemDatabase.ItemById(productItemId)._type,
-//                _type = Receipe.Types.Craft,
-//                _weaponStatUpgrades = new WeaponStatUpgrade[0]
-//            };
-//        }
-//    }
-//}
-/*
- [2019-08-01 16:05] BombTimed			29
-CBoard			31
-Cloth			33
-Leaf			34
-TapeSticky			280
-Lizard			35
-Battery			36
-Fuel			262
-Booze			37
-Cash			38
-Watch			41
-Feather			42
-Flare			43
-FlareGun			44
-FlintLock			230
-FlintLock part 1			232
-FlintLock part 2			233
-FlintLock part 3			234
-FlintLock part 4			235
-FlintLock part 5			236
-FlintLock part 6			237
-FlintLock part 7			238
-FlintLock part 8			241
-Head			46
-Leg			47
-Lighter			48
-Meds			49
-PlasticTorch			51
-PlasticTorch_Bow			283
-PlasticTorch_ModernBow			287
-PlasticTorch_Chainsaw			288
-PlasticTorch_Flintlock			289
-Rock			53
-Rope			54
-Spear			56
-Stick			57
-Tooth			60
-Walkman			61
-Pedometer			63
-Marigold			67
-MedicineCrafted			68
-MedicineCraftedPlus			212
-Cassette 1			69
-Molotov			71
-SurvivalBook			74
-FireStick			75
-Hairspray			291
-Rabbit Dead			76
-Rabbit Alive			77
-Log			78
-Bow			79
-BowCross			306
-Slingshot			281
-RecurveBow			279
-Axe Plane			80
-Chainsaw			261
-Tennis Ball			81
-ArtifactBall			294
-Small Rock			82
-Arrows			83
-AxeRusty			86
-AxeCrafted			87
-RepairTool			257
-AxeModern			88
-ChocolateBar			89
-Arm			90
-Coins			91
-LizardSkin			92
-Skull			94
-ClubCrafted			95
-Club			96
-ConeFlower			97
-Chicory			98
-Aloe			99
-EnergyMix			100
-EnergyMixPlus			213
-HeadBomb			101
-Seed_Aloe			103
-TreeSap			104
-StickUpgraded			105
-RockUpgraded			106
-FlareGunAmmo			107
-flintlockAmmo			231
-CrossbowAmmo			307
-Glass			108
-Soda			109
-PlaneFood			110
-twinberry			112
-SnowBerry			113
-BlueBerry			114
-MushroomAmanita			115
-MushroomJack			277
-MushroomChanterelle			116
-MushroomDeerMush			278
-MushroomLibertyCap			276
-MushroomPuffmush			275
-Cassette 2			117
-Cassette 4			118
-Cassette 3			119
-Cassette 5			120
-CamcorderTape1			269
-CamcorderTape2			272
-CamcorderTape4			271
-CamcorderTape5			274
-CamcorderTape6			273
-CamcorderTape3			270
-WalkyTalky			122
-GenericMeat			123
-DeerSkin			126
-Warmsuit			299
-BoarSkin			292
-RacoonSkin			293
-Cod			127
-RabbitSkin			129
-Pouch			130
-BluePaint			131
-OrangePaint			132
-Toy_Head			133
-Toy_Arm			134
-Toy_Leg			135
-Toy_Torso			136
-StealthArmor			137
-Axe Climbing			138
-Map_Cave2			139
-Cross			140
-PaintBrush			240
-TurtleShell			141
-Pot			142
-Rebreather			143
-AirCanister			144
-Waterskin			145
-MagazineCaver			147
-Magazine			148
-MagazineLimestone			149
-Bible			150
-PolaroidYacht			152
-PolaroidKeyCard1			258
-PolaroidKeyCard2			259
-PolaroidKeyCard3			260
-PageChurch			308
-PageGlider			309
-PageRollercoaster			310
-PageTower			311
-PhotoCache1			220
-PhotoCache2			226
-PhotoCache3			225
-PhotoCache8			224
-PhotoCache9			227
-PhotoTimmy			302
-PhotoCache6			223
-PhotoCache5			222
-shippingManifest			229
-RestrainingOrder			243
-TerminationLetter			244
-MorgueReport			245
-BiblePage1			246
-MeganDrawingFlower			251
-MeganDrawingUnicorn			253
-MeganDrawingDaddy			252
-MeganDrawingDino			254
-MeganCrayons			248
-Camcorder			267
-ArtifactPhoto			249
-EmailPlane			255
-EmailPhoto			256
-BiblePage2			247
-BiblePage3			303
-PhotoCache4			221
-PolaroidMegan			219
-PolaroidVagz			153
-SketchSinkhole			154
-SketchVagz			155
-MapPiece_1			156
-MapPiece_2			157
-MapPiece_4			159
-MapPiece_3			165
-MapFull			169
-Compass			173
-dynamite			175
-MilkCarton			176
-SpearUpgraded			177
-bone			178
-ToyFull			179
-Katana			180
-Machete			265
-Oyster			181
-PolaroidTeddy			182
-NewspaperStripper			183
-TennisRaquet			184
-AnimalHead_rabbit			185
-AnimalHead_Boar			186
-AnimalHead_Deer			187
-AnimalHead_Crocodile			188
-AnimalHead_Racoon			189
-AnimalHead_Lizard			190
-AnimalHead_Seagul			191
-AnimalHead_Squirrel			192
-AnimalHead_Tortoise			193
-CreepyHead_Armsy			295
-CreepyHead_Baby			296
-CreepyHead_Fat			297
-CreepyHead_Vag			298
-AnimalHead_Goose			194
-AnimalHead_Shark			195
-CaveMap			196
-PassengerManifest			197
-MetalTinTray			198
-SnowShoes			199
-Quiver 			200
-RockBag			214
-StickBag			215
-SmallRockBag			282
-SpearBag			290
-RabbitFurBoots			201
-fortune			202
-BookDarkHaired			203
-BoneArmor			204
-CreepySkin			301
-Seed_Coneflower			205
-Seed_BlueBerry			206
-SmallGenericMeat			207
-TimmyDrawing			208
-Magazine_reality			209
-ChainsawAd			263
-Magazine_science			218
-Keycard			210
-artifactKey			305
-KeycardElevator			242
-SketchArtifact			217
-SketchArtifact4			250
-BlackBerry			211
+		CreateReceipe(CLOTH, 10,
+			CreateReceipeIngredient(DEERSKIN, 1));
 
-[2019-08-01 16:06] BombTimed			29
-CBoard			31
-Cloth			33
-Leaf			34
-TapeSticky			280
-Lizard			35
-Battery			36
-Fuel			262
-Booze			37
-Cash			38
-Watch			41
-Feather			42
-Flare			43
-FlareGun			44
-FlintLock			230
-FlintLock part 1			232
-FlintLock part 2			233
-FlintLock part 3			234
-FlintLock part 4			235
-FlintLock part 5			236
-FlintLock part 6			237
-FlintLock part 7			238
-FlintLock part 8			241
-Head			46
-Leg			47
-Lighter			48
-Meds			49
-PlasticTorch			51
-PlasticTorch_Bow			283
-PlasticTorch_ModernBow			287
-PlasticTorch_Chainsaw			288
-PlasticTorch_Flintlock			289
-Rock			53
-Rope			54
-Spear			56
-Stick			57
-Tooth			60
-Walkman			61
-Pedometer			63
-Marigold			67
-MedicineCrafted			68
-MedicineCraftedPlus			212
-Cassette 1			69
-Molotov			71
-SurvivalBook			74
-FireStick			75
-Hairspray			291
-Rabbit Dead			76
-Rabbit Alive			77
-Log			78
-Bow			79
-BowCross			306
-Slingshot			281
-RecurveBow			279
-Axe Plane			80
-Chainsaw			261
-Tennis Ball			81
-ArtifactBall			294
-Small Rock			82
-Arrows			83
-AxeRusty			86
-AxeCrafted			87
-RepairTool			257
-AxeModern			88
-ChocolateBar			89
-Arm			90
-Coins			91
-LizardSkin			92
-Skull			94
-ClubCrafted			95
-Club			96
-ConeFlower			97
-Chicory			98
-Aloe			99
-EnergyMix			100
-EnergyMixPlus			213
-HeadBomb			101
-Seed_Aloe			103
-TreeSap			104
-StickUpgraded			105
-RockUpgraded			106
-FlareGunAmmo			107
-flintlockAmmo			231
-CrossbowAmmo			307
-Glass			108
-Soda			109
-PlaneFood			110
-twinberry			112
-SnowBerry			113
-BlueBerry			114
-MushroomAmanita			115
-MushroomJack			277
-MushroomChanterelle			116
-MushroomDeerMush			278
-MushroomLibertyCap			276
-MushroomPuffmush			275
-Cassette 2			117
-Cassette 4			118
-Cassette 3			119
-Cassette 5			120
-CamcorderTape1			269
-CamcorderTape2			272
-CamcorderTape4			271
-CamcorderTape5			274
-CamcorderTape6			273
-CamcorderTape3			270
-WalkyTalky			122
-GenericMeat			123
-DeerSkin			126
-Warmsuit			299
-BoarSkin			292
-RacoonSkin			293
-Cod			127
-RabbitSkin			129
-Pouch			130
-BluePaint			131
-OrangePaint			132
-Toy_Head			133
-Toy_Arm			134
-Toy_Leg			135
-Toy_Torso			136
-StealthArmor			137
-Axe Climbing			138
-Map_Cave2			139
-Cross			140
-PaintBrush			240
-TurtleShell			141
-Pot			142
-Rebreather			143
-AirCanister			144
-Waterskin			145
-MagazineCaver			147
-Magazine			148
-MagazineLimestone			149
-Bible			150
-PolaroidYacht			152
-PolaroidKeyCard1			258
-PolaroidKeyCard2			259
-PolaroidKeyCard3			260
-PageChurch			308
-PageGlider			309
-PageRollercoaster			310
-PageTower			311
-PhotoCache1			220
-PhotoCache2			226
-PhotoCache3			225
-PhotoCache8			224
-PhotoCache9			227
-PhotoTimmy			302
-PhotoCache6			223
-PhotoCache5			222
-shippingManifest			229
-RestrainingOrder			243
-TerminationLetter			244
-MorgueReport			245
-BiblePage1			246
-MeganDrawingFlower			251
-MeganDrawingUnicorn			253
-MeganDrawingDaddy			252
-MeganDrawingDino			254
-MeganCrayons			248
-Camcorder			267
-ArtifactPhoto			249
-EmailPlane			255
-EmailPhoto			256
-BiblePage2			247
-BiblePage3			303
-PhotoCache4			221
-PolaroidMegan			219
-PolaroidVagz			153
-SketchSinkhole			154
-SketchVagz			155
-MapPiece_1			156
-MapPiece_2			157
-MapPiece_4			159
-MapPiece_3			165
-MapFull			169
-Compass			173
-dynamite			175
-MilkCarton			176
-SpearUpgraded			177
-bone			178
-ToyFull			179
-Katana			180
-Machete			265
-Oyster			181
-PolaroidTeddy			182
-NewspaperStripper			183
-TennisRaquet			184
-AnimalHead_rabbit			185
-AnimalHead_Boar			186
-AnimalHead_Deer			187
-AnimalHead_Crocodile			188
-AnimalHead_Racoon			189
-AnimalHead_Lizard			190
-AnimalHead_Seagul			191
-AnimalHead_Squirrel			192
-AnimalHead_Tortoise			193
-CreepyHead_Armsy			295
-CreepyHead_Baby			296
-CreepyHead_Fat			297
-CreepyHead_Vag			298
-AnimalHead_Goose			194
-AnimalHead_Shark			195
-CaveMap			196
-PassengerManifest			197
-MetalTinTray			198
-SnowShoes			199
-Quiver 			200
-RockBag			214
-StickBag			215
-SmallRockBag			282
-SpearBag			290
-RabbitFurBoots			201
-fortune			202
-BookDarkHaired			203
-BoneArmor			204
-CreepySkin			301
-Seed_Coneflower			205
-Seed_BlueBerry			206
-SmallGenericMeat			207
-TimmyDrawing			208
-Magazine_reality			209
-ChainsawAd			263
-Magazine_science			218
-Keycard			210
-artifactKey			305
-KeycardElevator			242
-SketchArtifact			217
-SketchArtifact4			250
-BlackBerry			211
+		CreateReceipe(CLOTH, 8,
+			CreateReceipeIngredient(RABBITSKIN, 1));
 
-*/
+		CreateReceipe(CLOTH, 8,
+			CreateReceipeIngredient(RACOONSKIN, 1));
+
+		CreateReceipe(CLOTH, 10,
+			CreateReceipeIngredient(BOARSKIN, 1));
+
+
+	}
+
+	private static int _NextReceipeId = IdStartIndex;
+
+	public static int NextReceipeId
+	{
+		get
+		{
+			return _NextReceipeId++;
+		}
+	}
+
+
+
+	public static void AddReceipes()
+	{
+		if (BlockUpdating)
+			return;
+		int num = ReceipeDatabase._instance._receipes.Length;
+		if(baseReceipes==null)
+			baseReceipes = ReceipeDatabase._instance._receipes.ToList();
+		var customReceipes = customReceipeList.Where(x => x.unlocked).Select(x => x.receipe);
+
+		if (customReceipes.Count() > 0)
+		{
+			try
+			{
+
+				var receipes2 = new List<Receipe>(baseReceipes);
+				receipes2.AddRange(customReceipes);
+				ReceipeDatabase._instance._receipes = receipes2.ToArray();
+			}
+			catch
+			{
+				CotfUtils.Log("Crafting: Merging Failed");
+			}
+		}
+		else
+		{
+			ReceipeDatabase._instance._receipes = baseReceipes.ToArray();
+		}
+		int num2 = ReceipeDatabase._instance._receipes.Length;
+	}
+
+	public static ReceipeIngredient CreateReceipeIngredient(VanillaItemIDs itemId, int amount)
+	{
+		return new ReceipeIngredient
+		{
+			_amount = amount,
+			_itemID = (int)itemId
+		};
+	}
+	public static Receipe CopyReceipe(this Receipe r)
+	{
+		return new Receipe()
+		{
+			_id = NextReceipeId,
+			_batchUpgrade = r._batchUpgrade,
+			_forceUnique = r._forceUnique,
+			_hidden = r._hidden,
+			_ingredients = r._ingredients,
+			_name = r._name,
+			_productItemAmount = r._productItemAmount,
+			_productItemID = r._productItemID,
+			_productItemType = r._productItemType,
+			_type = r._type,
+			_weaponStatUpgrades = r._weaponStatUpgrades
+		};
+	}
+	public static Receipe CreateReceipe(VanillaItemIDs productItemId, int productItemAmout, params ReceipeIngredient[] receipeIngredients)
+	{
+		var r = new Receipe
+		{
+			_id = NextReceipeId,
+			_ingredients = receipeIngredients,
+			_productItemAmount = new RandomRange
+			{
+				_max = productItemAmout,
+				_min = productItemAmout
+			},
+			_productItemID = (int)productItemId,
+			_productItemType = ItemDatabase.ItemById((int)productItemId)._type,
+			_type = Receipe.Types.Craft,
+			_weaponStatUpgrades = new WeaponStatUpgrade[0]
+		};
+		customReceipeList.Add(new COTFCustomReceipe(r));
+
+		return r;
+	}
+	//		--------------------------ITEM IDs--------------------------
+
+	public enum VanillaItemIDs
+	{
+		BOMBTIMED = 29,
+		CBOARD = 31,
+		CLOTH = 33,
+		LEAF = 34,
+		TAPESTICKY = 280,
+		LIZARD = 35,
+		BATTERY = 36,
+		FUEL = 262,
+		BOOZE = 37,
+		CASH = 38,
+		WATCH = 41,
+		FEATHER = 42,
+		FLARE = 43,
+		FLAREGUN = 44,
+		FLINTLOCK = 230,
+		FLINTLOCKPART1 = 232,
+		FLINTLOCKPART2 = 233,
+		FLINTLOCKPART3 = 234,
+		FLINTLOCKPART4 = 235,
+		FLINTLOCKPART5 = 236,
+		FLINTLOCKPART6 = 237,
+		FLINTLOCKPART7 = 238,
+		FLINTLOCKPART8 = 241,
+		HEAD = 46,
+		LEG = 47,
+		LIGHTER = 48,
+		MEDS = 49,
+		PLASTICTORCH = 51,
+		PLASTICTORCH_BOW = 283,
+		PLASTICTORCH_MODERNBOW = 287,
+		PLASTICTORCH_CHAINSAW = 288,
+		PLASTICTORCH_FLINTLOCK = 289,
+		ROCK = 53,
+		ROPE = 54,
+		SPEAR = 56,
+		STICK = 57,
+		TOOTH = 60,
+		WALKMAN = 61,
+		PEDOMETER = 63,
+		MARIGOLD = 67,
+		MEDICINECRAFTED = 68,
+		MEDICINECRAFTEDPLUS = 212,
+		CASSETTE1 = 69,
+		MOLOTOV = 71,
+		SURVIVALBOOK = 74,
+		FIRESTICK = 75,
+		HAIRSPRAY = 291,
+		RABBITDEAD = 76,
+		RABBITALIVE = 77,
+		LOG = 78,
+		BOW = 79,
+		BOWCROSS = 306,
+		SLINGSHOT = 281,
+		RECURVEBOW = 279,
+		AXEPLANE = 80,
+		CHAINSAW = 261,
+		TENNISBALL = 81,
+		ARTIFACTBALL = 294,
+		SMALLROCK = 82,
+		ARROWS = 83,
+		AXERUSTY = 86,
+		AXECRAFTED = 87,
+		REPAIRTOOL = 257,
+		AXEMODERN = 88,
+		CHOCOLATEBAR = 89,
+		ARM = 90,
+		COINS = 91,
+		LIZARDSKIN = 92,
+		SKULL = 94,
+		CLUBCRAFTED = 95,
+		CLUB = 96,
+		CONEFLOWER = 97,
+		CHICORY = 98,
+		ALOE = 99,
+		ENERGYMIX = 100,
+		ENERGYMIXPLUS = 213,
+		HEADBOMB = 101,
+		SEED_ALOE = 103,
+		TREESAP = 104,
+		STICKUPGRADED = 105,
+		ROCKUPGRADED = 106,
+		FLAREGUNAMMO = 107,
+		FLINTLOCKAMMO = 231,
+		CROSSBOWAMMO = 307,
+		GLASS = 108,
+		SODA = 109,
+		PLANEFOOD = 110,
+		TWINBERRY = 112,
+		SNOWBERRY = 113,
+		BLUEBERRY = 114,
+		MUSHROOMAMANITA = 115,
+		MUSHROOMJACK = 277,
+		MUSHROOMCHANTERELLE = 116,
+		MUSHROOMDEERMUSH = 278,
+		MUSHROOMLIBERTYCAP = 276,
+		MUSHROOMPUFFMUSH = 275,
+		CASSETTE2 = 117,
+		CASSETTE4 = 118,
+		CASSETTE3 = 119,
+		CASSETTE5 = 120,
+		CAMCORDERTAPE1 = 269,
+		CAMCORDERTAPE2 = 272,
+		CAMCORDERTAPE4 = 271,
+		CAMCORDERTAPE5 = 274,
+		CAMCORDERTAPE6 = 273,
+		CAMCORDERTAPE3 = 270,
+		WALKYTALKY = 122,
+		GENERICMEAT = 123,
+		DEERSKIN = 126,
+		WARMSUIT = 299,
+		BOARSKIN = 292,
+		RACOONSKIN = 293,
+		COD = 127,
+		RABBITSKIN = 129,
+		POUCH = 130,
+		BLUEPAINT = 131,
+		ORANGEPAINT = 132,
+		TOY_HEAD = 133,
+		TOY_ARM = 134,
+		TOY_LEG = 135,
+		TOY_TORSO = 136,
+		STEALTHARMOR = 137,
+		AXECLIMBING = 138,
+		MAP_CAVE2 = 139,
+		CROSS = 140,
+		PAINTBRUSH = 240,
+		TURTLESHELL = 141,
+		POT = 142,
+		REBREATHER = 143,
+		AIRCANISTER = 144,
+		WATERSKIN = 145,
+		MAGAZINECAVER = 147,
+		MAGAZINE = 148,
+		MAGAZINELIMESTONE = 149,
+		BIBLE = 150,
+		POLAROIDYACHT = 152,
+		POLAROIDKEYCARD1 = 258,
+		POLAROIDKEYCARD2 = 259,
+		POLAROIDKEYCARD3 = 260,
+		PAGECHURCH = 308,
+		PAGEGLIDER = 309,
+		PAGEROLLERCOASTER = 310,
+		PAGETOWER = 311,
+		PHOTOCACHE1 = 220,
+		PHOTOCACHE2 = 226,
+		PHOTOCACHE3 = 225,
+		PHOTOCACHE8 = 224,
+		PHOTOCACHE9 = 227,
+		PHOTOTIMMY = 302,
+		PHOTOCACHE6 = 223,
+		PHOTOCACHE5 = 222,
+		SHIPPINGMANIFEST = 229,
+		RESTRAININGORDER = 243,
+		TERMINATIONLETTER = 244,
+		MORGUEREPORT = 245,
+		BIBLEPAGE1 = 246,
+		MEGANDRAWINGFLOWER = 251,
+		MEGANDRAWINGUNICORN = 253,
+		MEGANDRAWINGDADDY = 252,
+		MEGANDRAWINGDINO = 254,
+		MEGANCRAYONS = 248,
+		CAMCORDER = 267,
+		ARTIFACTPHOTO = 249,
+		EMAILPLANE = 255,
+		EMAILPHOTO = 256,
+		BIBLEPAGE2 = 247,
+		BIBLEPAGE3 = 303,
+		PHOTOCACHE4 = 221,
+		POLAROIDMEGAN = 219,
+		POLAROIDVAGZ = 153,
+		SKETCHSINKHOLE = 154,
+		SKETCHVAGZ = 155,
+		MAPPIECE_1 = 156,
+		MAPPIECE_2 = 157,
+		MAPPIECE_4 = 159,
+		MAPPIECE_3 = 165,
+		MAPFULL = 169,
+		COMPASS = 173,
+		DYNAMITE = 175,
+		MILKCARTON = 176,
+		SPEARUPGRADED = 177,
+		BONE = 178,
+		TOYFULL = 179,
+		KATANA = 180,
+		MACHETE = 265,
+		OYSTER = 181,
+		POLAROIDTEDDY = 182,
+		NEWSPAPERSTRIPPER = 183,
+		TENNISRAQUET = 184,
+		ANIMALHEAD_RABBIT = 185,
+		ANIMALHEAD_BOAR = 186,
+		ANIMALHEAD_DEER = 187,
+		ANIMALHEAD_CROCODILE = 188,
+		ANIMALHEAD_RACOON = 189,
+		ANIMALHEAD_LIZARD = 190,
+		ANIMALHEAD_SEAGUL = 191,
+		ANIMALHEAD_SQUIRREL = 192,
+		ANIMALHEAD_TORTOISE = 193,
+		CREEPYHEAD_ARMSY = 295,
+		CREEPYHEAD_BABY = 296,
+		CREEPYHEAD_FAT = 297,
+		CREEPYHEAD_VAG = 298,
+		ANIMALHEAD_GOOSE = 194,
+		ANIMALHEAD_SHARK = 195,
+		CAVEMAP = 196,
+		PASSENGERMANIFEST = 197,
+		METALTINTRAY = 198,
+		SNOWSHOES = 199,
+		QUIVER = 200,
+		ROCKBAG = 214,
+		STICKBAG = 215,
+		SMALLROCKBAG = 282,
+		SPEARBAG = 290,
+		RABBITFURBOOTS = 201,
+		FORTUNE = 202,
+		BOOKDARKHAIRED = 203,
+		BONEARMOR = 204,
+		CREEPYSKIN = 301,
+		SEED_CONEFLOWER = 205,
+		SEED_BLUEBERRY = 206,
+		SMALLGENERICMEAT = 207,
+		TIMMYDRAWING = 208,
+		MAGAZINE_REALITY = 209,
+		CHAINSAWAD = 263,
+		MAGAZINE_SCIENCE = 218,
+		KEYCARD = 210,
+		ARTIFACTKEY = 305,
+		KEYCARDELEVATOR = 242,
+		SKETCHARTIFACT = 217,
+		SKETCHARTIFACT4 = 250,
+		BLACKBERRY = 211
+	}
+	//		------------------------------------------------------------1
+
+}
