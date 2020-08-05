@@ -77,12 +77,7 @@ namespace ChampionsOfForest.Player
 		
 		public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
 
-		//not going to touch magic find yet
-		public float MagicFindMultipier = 1;
-
-				//Smokeys quiver
-		
-
+		//Smokeys quiver
 		//Hexed pants of mr Moritz
 		
 		public int LastDayOfGeneration = 0;
@@ -229,6 +224,12 @@ namespace ChampionsOfForest.Player
 			Invoke("SendJoinMessage", 6);
 			StartCoroutine(InitializeCamera());
 		}
+		public void AfterRespawn()
+		{
+			InitializeHandHeld();
+			StartCoroutine(InitializeCamera());
+
+		}
 
 		/// <summary>
 		/// Adds a post processing effect to the camera
@@ -283,7 +284,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (BoltNetwork.isRunning)
 				{
-					string s = "II" + Player + " is gone";
+					string s = "II" + Player + " left the server";
 					NetworkManager.SendText(s, NetworkManager.Target.Everyone);
 				}
 		
@@ -334,6 +335,7 @@ namespace ChampionsOfForest.Player
 					switch (Inventory.Instance.ItemSlots[-12].weaponModel)
 					{
 						case BaseItem.WeaponModelType.Polearm:
+							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							LocalPlayer.Inventory.Equip(56, false);
 							break;
 
@@ -351,19 +353,19 @@ namespace ChampionsOfForest.Player
 								{
 									GreatBow.instance.SetActive(true);
 								}
+#if Debugging_Enabled
 								else
 								{
-#if Debugging_Enabled
 									ModAPI.Console.Write("No Greatbow instance");
-#endif
 								}
+#endif
 							}
+#if Debugging_Enabled
 							else
 							{
-#if Debugging_Enabled
 								ModAPI.Log.Write("Trying to equip a greatbow but no crafted bow in inventory");
-#endif
 							}
+#endif
 							break;
 
 						default:
@@ -751,7 +753,7 @@ namespace ChampionsOfForest.Player
 						{
 							w.Write(32);
 							w.Write(ent.networkId.PackedValue);
-							w.Write(Mathf.CeilToInt(damage / 20));
+							w.Write(damage / 20);
 							w.Write(10);
 							w.Close();
 						}
@@ -804,7 +806,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (stats.chanceToBleed > 0 && Random.value < stats.chanceToBleed)
 				{
-					p.DoDoT(Mathf.CeilToInt(damage / 20), 10);
+					p.DoDoT(damage / 20, 10);
 				}
 				if (stats.chanceToSlow > 0 && Random.value < stats.chanceToSlow)
 				{
@@ -897,7 +899,7 @@ namespace ChampionsOfForest.Player
 		public void DoGuaranteedAreaDamage(Transform rootTR, float damage)
 		{
 			RaycastHit[] hits = Physics.SphereCastAll(rootTR.position, stats.areaDamageRadius, Vector3.one, stats.areaDamageRadius,-9);
-			int d = Mathf.FloorToInt(damage * stats.areaDamage);
+			var d =damage * stats.areaDamage;
 			if (d > 0)
 			{
 				for (int i = 0; i < hits.Length; i++)
@@ -916,7 +918,8 @@ namespace ChampionsOfForest.Player
 								if (entity != null)
 								{
 									PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
-									playerHitEnemy.Hit = d;
+									playerHitEnemy.Hit =  DamageMath.GetSendableDamage( d);
+									playerHitEnemy.getAttackerType = DamageMath.SILENTattackerType;		//silent hit
 									playerHitEnemy.Target = entity;
 									playerHitEnemy.Send();
 								}
@@ -978,11 +981,15 @@ namespace ChampionsOfForest.Player
 		public long GetGoalExp(int lvl)
 		{
 			int x = lvl;
-			if (x >= 146)
-				return 9000000000000000000;
-			// var y = 125*System.Math.Pow(1.35f,x-10) + 20 + 5* System.Math.Pow(x, 3.1);
-			var y = 120 * System.Math.Pow(1.345f, x - 10) + 20 + 5 * x * x * x;
-			y = y / 3.3;
+			if (x >= 131)
+				return 5000000000000000000;
+			var y = ((3.461 * x * x * x * x) +
+				(4 * x * x * x) +
+				(10 * x * x)) * (0.000275 * x * x * x) + 
+				(25 * x) + 
+				(System.Math.Pow(1.32, 1.215 * (x-1)) * 0.4);
+			//var y = 120 * System.Math.Pow(1.345f, x - 10) + 20 + 5 * x * x * x;
+			//y = y / 3.3;
 			return Convert.ToInt64(y);
 		}
 
@@ -1098,10 +1105,7 @@ namespace ChampionsOfForest.Player
 			while (ModReferences.rightHandTransform == null)
 			{
 				yield return null;
-				if (LocalPlayer.Inventory != null)
-				{
-					LocalPlayer.Inventory.Equip(80, false);
-				}
+				LocalPlayer.Inventory?.SendMessage("GetRightHand");
 			}
 			yield return null;
 
@@ -1209,8 +1213,6 @@ namespace ChampionsOfForest.Player
 			instance.damageAbsorbAmounts = new float[2];
 			
 			instance.GeneratedResources.Clear();
-			instance.MagicFindMultipier = 1;
-			Items.StatActions.AddMagicFind(0);  //synchronizes magicfind in multiplayer
 
 			MoreCraftingReceipes.LockAll();
 			MoreCraftingReceipes.BlockUpdating = true;

@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using Bolt;
+
+using ManagedSteam.CallbackStructures;
+
 using TheForest.Utils;
 
 using UnityEngine;
@@ -22,10 +26,10 @@ namespace ChampionsOfForest.Effects
 			{
 				Camera cam1 = new GameObject("__CAM__").AddComponent<Camera>();
 				cam1.transform.parent = p1.transform;
-				cam1.fieldOfView = 50;
+				cam1.fieldOfView = 45;
 				Light light = p1.AddComponent<Light>();
 				light.type = LightType.Point;
-				light.range = 20;
+				light.range = 30;
 				Material mat = new Material(Shader.Find("Unlit/Texture"));
 				mat.color = Color.blue;
 				p1.GetComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[112];
@@ -54,8 +58,15 @@ namespace ChampionsOfForest.Effects
 		{
 			portals[portalID].gameObject.SetActive(true);
 			portals[portalID].transform.position = pos;
-
-			portals[portalID].Duration = Duration;
+			if (portals[(portalID + 1) % 2].gameObject.activeSelf)
+			{
+				portals[portalID].Duration = Mathf.Max(Duration,portals[(portalID + 1) % 2].Duration);
+				portals[(portalID + 1) % 2].Duration = portals[portalID].Duration;
+			}
+			else
+			{
+				portals[portalID].Duration = Duration;
+			}
 			portals[portalID].Cave = leadsToCaves;
 			portals[portalID].Endgame = leadsToEndgame;
 			portals[portalID].Enable();
@@ -124,7 +135,7 @@ namespace ChampionsOfForest.Effects
 		// Start is called before the first frame update
 		private void Start()
 		{
-			renderTexture = new RenderTexture(512, 512, 16);
+			renderTexture = new RenderTexture(1024, 1024, 0);
 			cam.forceIntoRenderTexture = true;
 			cam.targetTexture = renderTexture;
 			Excludedtransforms = new List<Transform>();
@@ -167,10 +178,11 @@ namespace ChampionsOfForest.Effects
 
 		private IEnumerator ScaleIn()
 		{
+			Effects.Sound_Effects.GlobalSFX.Play(1016, 0, 2);
 			yield return null;
-			while (transform.localScale.x < 2)
+			while (transform.localScale.x < 2.2)
 			{
-				transform.localScale += Vector3.one * Time.deltaTime;
+				transform.localScale += Vector3.one * Time.deltaTime*0.5f;
 				yield return null;
 			}
 		}
@@ -191,6 +203,14 @@ namespace ChampionsOfForest.Effects
 				Duration--;
 				yield return new WaitForSeconds(1);
 			}
+			float t = 1;
+			while (t > 0)
+			{
+				transform.Rotate(Vector3.up * Time.deltaTime / t);
+				t -= Time.deltaTime*2;
+				transform.localScale =Vector3.one* (2.2f * t);
+			}
+
 			gameObject.SetActive(false);
 		}
 
@@ -201,9 +221,9 @@ namespace ChampionsOfForest.Effects
 				return;
 			}
 
-			if (!ModSettings.IsDedicated && other.transform.root == LocalPlayer.Transform)
+			if ( other.transform.root == LocalPlayer.Transform)
 			{
-				if (TimeOfPass + 2f < Time.time)
+				if (TimeOfPass + 0.2f < Time.time)
 				{
 					if ((other.transform.root.position - transform.position).sqrMagnitude < 5)
 					{
@@ -212,7 +232,7 @@ namespace ChampionsOfForest.Effects
 						LocalPlayer.Transform.position = otherPortal.transform.position;
 						Vector3 dir = LocalPlayer.Transform.position - transform.position;
 						dir.Normalize();
-						LocalPlayer.Rigidbody.AddForce(dir * 3, ForceMode.VelocityChange);
+						LocalPlayer.Rigidbody.AddForce(dir * 15, ForceMode.VelocityChange);
 
 						if ((otherPortal.Endgame && !LocalPlayer.IsInEndgame) || (!otherPortal.Endgame && LocalPlayer.IsInEndgame))
 						{
@@ -229,18 +249,19 @@ namespace ChampionsOfForest.Effects
 					}
 				}
 			}
-			else if (other.attachedRigidbody != null && !other.attachedRigidbody.isKinematic)
+			else if (other.attachedRigidbody != null)
 			{
+				ModAPI.Console.Write("Collided with rigidbody");
 				if (Excludedtransforms.Contains(other.attachedRigidbody.transform))
 				{
 					return;
 				}
-
-				other.attachedRigidbody.transform.position = otherPortal.transform.position;
-				Vector3 dir = other.attachedRigidbody.transform.position - transform.position;
-				dir.Normalize();
-				other.attachedRigidbody.AddForce(dir * 3, ForceMode.VelocityChange);
 				otherPortal.Excludedtransforms.Add(other.attachedRigidbody.transform);
+				
+				other.attachedRigidbody.position = otherPortal.transform.position;
+				Vector3 dir = other.attachedRigidbody.position - transform.position;
+				dir.Normalize();
+				other.attachedRigidbody.AddForce(dir * 15, ForceMode.VelocityChange);
 			}
 		}
 

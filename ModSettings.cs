@@ -6,7 +6,7 @@ namespace ChampionsOfForest
 	{
 		public enum Difficulty
 		{
-			Normal, Hard, Elite, Master, Challenge1, Challenge2, Challenge3, Challenge4, Challenge5, Challenge6, Hell
+			Easy, Veteran, Elite, Master, Challenge1, Challenge2, Challenge3, Challenge4, Challenge5, Challenge6, Hell
 		}
 
 		public enum DropsOnDeathMode
@@ -14,7 +14,7 @@ namespace ChampionsOfForest
 			All, Equipped, Disabled
 		}
 
-		public static Difficulty difficulty = Difficulty.Normal;
+		public static Difficulty difficulty = Difficulty.Easy;
 		public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.Disabled;
 		public static bool DifficultyChoosen = false;
 		public static bool FriendlyFire = true;

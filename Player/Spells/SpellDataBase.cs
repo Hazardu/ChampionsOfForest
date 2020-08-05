@@ -72,9 +72,7 @@ namespace ChampionsOfForest.Player
 			new Spell(iD: 6, TextureID: 117, levelrequirement: 2, energyCost: 10, baseCooldown: 0.4f, name: "Wide Reach", () => "Picks up all items, including equipment, in a small radius around you.")
 			{
 				active = AutoPickupItems.DoPickup,
-				CastOnRelease = true,
-				aim = AutoPickupItems.Aim,
-				aimEnd = AutoPickupItems.AimEnd
+				CastOnRelease = false,
 			};
 			new Spell(iD: 7, TextureID: 115, levelrequirement: 21, energyCost: 25, baseCooldown: 2.5f, name: "Black Flame", () => $"Ignites your melee weapon or your ranged projectile with a dark flame that burns enemies for a large amount of damage. Scaling: {ModdedPlayer.Stats.spell_blackFlameDamageScaling} spell damage")
 			{
@@ -86,6 +84,8 @@ namespace ChampionsOfForest.Player
 			};
 			new Spell(iD: 9, TextureID: 114, levelrequirement: 12, energyCost: 90, baseCooldown: 60, name: "Portal", () => "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
 			{
+				CastOnRelease= true,
+				aim= SpellActions.DoPortalAim,
 				active = SpellActions.CastPortal,
 			};
 			new Spell(iD: 10, TextureID: 125, levelrequirement: 27, energyCost: 100, baseCooldown: 20, name: "Magic Arrow", () => $"A large spectral arrow is shot where you're looking at. The arrow pierces everything, slows any enemies hit and deals big damage. Scaling: {ModdedPlayer.Stats.spell_magicArrowDamageScaling} spell damage")
@@ -150,7 +150,7 @@ namespace ChampionsOfForest.Player
 			new Spell(20, 137, 4, 50, 30, "Focus", () => "Passive: When landing a headshot, next projectile will deal 100% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.\nActive: Gain 15% critical hit chance for 5 seconds")
 			{
 				passive = x => ModdedPlayer.Stats.spell_focus.value = x,
-				active = () => BuffDB.AddBuff(28, 102, 0.15f, 5f)
+				active = () => BuffDB.AddBuff(28, 102, 1.15f, 5f)
 			};
 			new Spell(21, 140, 8, 35, 60, "Parry", () => "Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 50% damage reduction for 10 seconds")
 			{

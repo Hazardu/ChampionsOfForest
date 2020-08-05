@@ -770,9 +770,8 @@ namespace ChampionsOfForest
 				//f *= 1-ModdedPlayer.Stats.magicDamageTaken;
 				f *= ModdedPlayer.Stats.fireDamageTaken;
 			}
-			damage = Mathf.RoundToInt(f);
 			if (ModdedPlayer.Stats.i_KingQruiesSword)
-				BuffDB.AddBuff(22, 80, damage / 2, 4);
+				BuffDB.AddBuff(22, 80, f, 1);
 
 			base.Hit(damage, ignoreArmor, type);
 		}

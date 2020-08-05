@@ -11,7 +11,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 				new int[] { 34 },
-				new int[] {43,0,39,59 },
+				new int[] {43,0,39,59,67  },
 			})
 			{
 				name = "Broken Flip-Flops",
@@ -31,7 +31,7 @@ namespace ChampionsOfForest
 				new int[] {34 },
 				new int[] {34,0,40,41 },
 				new int[] {43 },
-				new int[] {43,0 },
+				new int[] {43,0 ,67 },
 			})
 			{
 				name = "Old Boots",
@@ -51,7 +51,7 @@ namespace ChampionsOfForest
 				new int[] {34 },
 				new int[] {34,40,41 },
 				new int[] {43,3,2 },
-				new int[] {43,65 },
+				new int[] {43,65,67  },
 		   })
 			{
 				name = "Damaged Leather Boots",
@@ -71,7 +71,7 @@ namespace ChampionsOfForest
 				new int[] {34 },
 				new int[] {3,2 },
 				new int[] {43,3,2,1,4 },
-				new int[] {43,65 },
+				new int[] {43,65,67  },
 		   })
 			{
 				name = "Sturdy Leather Boots",
@@ -92,7 +92,7 @@ namespace ChampionsOfForest
 				new int[] {34,39,41,11,57 },
 				new int[] {-1},
 				new int[] {16,7,8 },
-				new int[] {43,65 },
+				new int[] {43,65,67  },
 			})
 			{
 				name = "Damaged Army Boots",
@@ -113,7 +113,7 @@ namespace ChampionsOfForest
 				new int[] {34,3,2,11 },
 				new int[] {-1},
 				new int[] {16,7,8 },
-				new int[] {43,65 },
+				new int[] {43,65,67  },
 		   })
 			{
 				name = "Army Boots",
@@ -154,7 +154,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 	  {
 				new int[] {42,0 },
-				new int[] {40,41,26,25 },
+				new int[] {40,41,26,25,67  },
 				new int[] {43,65,0 },
 	  })
 			{
@@ -174,8 +174,8 @@ namespace ChampionsOfForest
 			{
 				new int[] {39,40,41,42,43,24,25,26 },
 				new int[] {39,40,41,42,43,24,25,26,44 },
-				new int[] {43,0,7,0,5,6,8,0,21,22,23,16 },
-				new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,65 },
+				new int[] {43,0,7,0,5,6,8,0,21,22,23,16,67 },
+				new int[] {43,0,7,0,5,6,8,0,0,0,0,21,22,23,65,66,67 },
 			})
 			{
 				name = "Thick Rubber Glove",
@@ -254,6 +254,7 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 		   {
 				new int[] {1000,1001,1002},
+				new int[] {1000,1001,1002,1003,1004,0,0,0,0},
 				new int[] {8,9,0,0,0,0 },
 		   })
 			{
@@ -273,7 +274,7 @@ namespace ChampionsOfForest
 					{
 				new int[] {5 },
 				new int[] {43,16,0,41 },
-				new int[] {39,40,41,42,43,44,0,0,0,0,0,0},
+				new int[] {39,40,41,42,43,44,0,0,0,0,0,0,1003,1004},
 					})
 			{
 				name = "Passenger's Jacket",
@@ -294,7 +295,7 @@ namespace ChampionsOfForest
 				new int[] {1,2,3,4,5,6,65},
 				new int[] {43,16,0,41,3,2,1 },
 				new int[] {6,7,8,9,10,16,17,31, },
-				new int[] {39,40,41,42,43,44,0,0,0,0,0,0},
+				new int[] {39,40,41,42,43,44,0,0,0,0,0,0,1003,1004},
 		   })
 			{
 				name = "Leather Jacket",
@@ -336,7 +337,7 @@ namespace ChampionsOfForest
 				new int[] {14,0,0,0 },
 				new int[] {6,8,9},
 				new int[] {6,8,9},
-				new int[] {12,13,0,65 },
+				new int[] {12,13,0,65,66 },
 		   })
 			{
 				name = "Crocodile Skin Armor",
@@ -384,7 +385,7 @@ namespace ChampionsOfForest
 				new int[] {16,0,43},
 				new int[] {6,8,9},
 				new int[] {45,43,39,42},
-				new int[] {7,10,11,17,18,31},
+				new int[] {7,10,11,17,18,31,66},
 		   })
 			{
 				name = "Bear Skin Armor",
@@ -407,7 +408,7 @@ namespace ChampionsOfForest
 				new int[] {23,26},
 				new int[] {34,2,2},
 				new int[] {15,14},
-				new int[] {16,23,4,5,6},
+				new int[] {16,23,4,5,6,66},
 				new int[] {16,23,4,5,6,0,0,0,0},
 		   })
 			{
@@ -434,7 +435,7 @@ namespace ChampionsOfForest
 				new int[] {34,2,2},
 				new int[] {15,14},
 				new int[] {16,23,4,5,6},
-				new int[] {45,46},
+				new int[] {45,46,66},
 				new int[] {27,48},
 		   })
 			{
@@ -584,7 +585,8 @@ namespace ChampionsOfForest
 				new int[] {2,23,26},
 				new int[] {2,23,26,51},
 				new int[] {2,23,26,20,16,15,60},
-				new int[] {52,60,0,0},
+				new int[] {52,66,60,0,0},
+				new int[] {66},
 				  })
 			{
 				name = "Smokey's Sacred Quiver",
@@ -740,7 +742,7 @@ namespace ChampionsOfForest
 				description = "Wearing this item channels the power of D.Trump to you",
 				lore = "... or does it?",
 				tooltip = "Provides usefull stat bonuses",
-				Rarity = 0,
+				Rarity = 1,
 				minLevel = 1,
 				maxLevel = 3,
 				CanConsume = false,
@@ -1059,7 +1061,7 @@ namespace ChampionsOfForest
 				new int[] {15,18,34,36},
 				new int[] {23,48,54,26,59,55,16},
 				new int[] {6,57,2,34,},
-				new int[] {52,51,2,23}
+				new int[] {52,66,51,2,23}
 			})
 			{
 				name = "Golden Ring of Agility",
@@ -1274,7 +1276,7 @@ namespace ChampionsOfForest
 				new int[] {7,10,31},
 				new int[] {11,17,14,16 },
 				new int[] {8,9,27,45},
-				new int[] {51,52},
+				new int[] {51,52,66},
 				new int[] {15,18,34,36,57},
 				new int[] {23,48,54,26},
 				new int[] {21,24},
@@ -1345,8 +1347,8 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {2},
-			new int[] {12,13,51,52,8,9,},
-			new int[] {12,13,51,52},
+			new int[] {12,13,51,52,66,8,9,},
+			new int[] {12,13,51,52,66},
 			new int[] {23,48,54,26},
 			new int[] {57,18,47}
 			})
@@ -1435,8 +1437,8 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {2},
-			new int[] {12,13,51,52,8,9,6,},
-			new int[] {12,13,51,52,0},
+			new int[] {12,13,51,52,66,8,9,6,},
+			new int[] {12,13,51,52,66,0},
 			new int[] {15,18,34,36,0},
 			new int[] {23,48,54,26},
 			})
@@ -1527,11 +1529,11 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {2},
-			new int[] {8,9,12,13,51,52},
-			new int[] {12,13,51,52},
+			new int[] {8,9,12,13,51,52,66},
+			new int[] {12,13,51,52,66},
 			new int[] {15,18,34,36},
 			new int[] {23,48,54,26},
-			new int[] {52,23,26,2},
+			new int[] {52,66,23,26,2},
 			new int[] {-1},
 			})
 			{
@@ -1626,10 +1628,10 @@ namespace ChampionsOfForest
 			new BaseItem(new int[][]
 			{
 			new int[] {2},
-			new int[] {8,9,12,13,51,52},
-			new int[] {12,13,51,52,15,18,34,36 },
+			new int[] {8,9,12,13,51,52,66},
+			new int[] {12,13,51,52,66,15,18,34,36 },
 			new int[] {23,48,54,26},
-			new int[] {54,52,2},
+			new int[] {54,52,66,2},
 			new int[] {2,18,38},
 			new int[] {57,2,6},
 			new int[] {-1},
@@ -1739,8 +1741,8 @@ namespace ChampionsOfForest
 			new int[] {31,6},
 			new int[] {28},
 			new int[] {8,9,27},
-			new int[] {12,13,51,52},
-			new int[] {12,13,51,52,57},
+			new int[] {12,13,51,52,66},
+			new int[] {12,13,51,52,66,57},
 			new int[] {15,18,34,36,57},
 			new int[] {23,48,54,26},
 			new int[] {65,57}
@@ -1803,7 +1805,7 @@ namespace ChampionsOfForest
 			new int[] {-1},
 			new int[] {-1},
 			new int[] {45,16,10,11,9,8, 14, 16, 57,11, 17,57},
-			new int[] { 51, 52,8, 9,27},
+			new int[] { 51, 52,66,8, 9,27},
 			new int[] {15,18,34,36,57},
 			new int[] {23,48,54,26},
 			new int[] {6,55,46,54,53},
@@ -1941,7 +1943,7 @@ namespace ChampionsOfForest
 			{
 					new int[] {26,23},
 					new int[] {24,21},
-					new int[] {17,16,18,54,51,52},
+					new int[] {17,16,18,54,51,52,66},
 					new int[] {2,3,4,15,14,13,12,11,10},
 					new int[] {5,6,47,60,61},
 					new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
@@ -1967,7 +1969,7 @@ namespace ChampionsOfForest
 					new int[] {23},
 					new int[] {2,3,4},
 					new int[] {34,18,17,16,15,14,60,61,55,},
-					new int[] {16,19,23,31,54,51,52,57},
+					new int[] {16,19,23,31,54,51,52,66,57},
 					new int[] {2,0},
 					new int[] {2,3,4,5,6,7,8,9,10},
 					new int[] {2,1,5,6},
@@ -2037,7 +2039,7 @@ namespace ChampionsOfForest
 				new int[] {1,2,3,4},
 				new int[] {5,6},
 				new int[] {16,43,39,40,41,42},
-				new int[] {1000,1001,1002,43,0,0,0},
+				new int[] {1000,1001,1002,1003,1004,43,0,0,0},
 			})
 			{
 				name = "Rough Hide Leggins",
@@ -2129,8 +2131,8 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
-				onEquip = () => { ModdedPlayer.Stats.i_HammerSmashDamageAmp.Multiply( 2.5f); ModdedPlayer.Stats.i_HammerStunAmount.Multiply(2); },
-				onUnequip = () => { ModdedPlayer.Stats.i_HammerSmashDamageAmp.Divide(2.5f); ModdedPlayer.Stats.i_HammerStunAmount .Divide(2); },
+				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply( 2.5f); ModdedPlayer.Stats.i_HammerStunAmount.Multiply(2); },
+				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(2.5f); ModdedPlayer.Stats.i_HammerStunAmount .Divide(2); },
 			};
 
 			//Item 5/7
@@ -2141,7 +2143,7 @@ namespace ChampionsOfForest
 				new int[] {1,2,4,6,7,8},
 				new int[] {-1},
 				new int[] {26,23,24,21},
-				new int[] {1000, 1001,1002,0,0,0,1,2,4},
+				new int[] {1000, 1001,1002, 1003, 1004, 0,0,0,1,2,4},
 				new int[] {51,1,2,3,4,55},
 			})
 			{
@@ -2840,7 +2842,7 @@ new int[] {0,0,0,0,62,63,64},
 					new int[] {34,45,46,15,1,2,3,4,57,11,14,7,10,59},
 					new int[] {8,1,2,3,4,9,5,6},
 					new int[] {1000,1001,1002},
-					new int[] {1000,1001,1002,0,0,0,0,0,0,0},
+					new int[] {1000,1001,1002, 1003, 1004, 0,0,0,0,0,0,0},
 		   })
 			{
 				name = "Motorboat Modification Blueprints",
@@ -3023,7 +3025,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {2,23,26},
 				new int[] {2,23,26,51},
 				new int[] {2,23,26,20,16,15,60},
-				new int[] {52,60,0,0},
+				new int[] {52,66,60,0,0},
 				new int[] {-1},
 				  })
 			{
@@ -3227,7 +3229,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = "King Qruies",
 				description = "A mighty sword seeking for it's owner",
 				lore = "",
-				tooltip = "With King Qruies' equipped you gain additional melee damage equal to last instance of physical damage.",
+				tooltip = "With King Qruies' sword equipped you gain additional melee damage equal to the last instance of physical damage taken.",
 				Rarity = 7,
 				minLevel = 10,
 				maxLevel = 12,
@@ -3274,7 +3276,7 @@ new int[] {0,0,0,0,62,63,64},
 			  new int[] {18},
 				new int[] {60,0},
 				new int[] {2,40},
-				new int[] {12,13,2,40,16},
+				new int[] {12,13,2,40,16,66},
 				new int[] {39,40,41,42,43,0,0},
 				new int[] {23,26},
 				new int[] {-1,0},
@@ -3301,7 +3303,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {2,0,0,0},
 				new int[] {12,13,2,40,16},
 				new int[] {39,40,41,42,43,0,0},
-				new int[] {23,26},
+				new int[] {23,26,2,66},
 				new int[] {23,26},
 				new int[] {-1},
 				new int[] {-1},
@@ -3310,7 +3312,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = "Phoenix's Death",
-				description = "A massive and slow bow, it ignites enemies on hit",
+				description = "Ignites enemies on hit",
 				lore = "",
 				tooltip = "",
 				Rarity = 6,
@@ -3331,7 +3333,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
-				new int[] {39,40,41,42,43,0,0},
+				new int[] {39,40,41,42,43,66},
 				new int[] {23,26},
 				new int[] {23,26},
 				new int[] {-1},
@@ -3434,7 +3436,7 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][]
 				   {
 				new int[] {2,12,13,23,26,40,43,54},
-				new int[] {2,12,13,23,26,40,43,60,62,63,51,52},
+				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,0,0,0},
 				new int[] {43,16,2 },
@@ -3520,7 +3522,7 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][]
 				   {
 				new int[] {2,12,13,23,26,40,43,54},
-				new int[] {2,12,13,23,26,40,43,60,62,63,51,52},
+				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,0,0,0},
 				new int[] {43,2 },
@@ -3940,7 +3942,7 @@ new int[] {0,0,0,0,62,63,64},
 		   {
 				new int[] {21,22,23,24,25,26,1,2,4},
 				new int[] {12,13,11,47},
-				new int[] {62,63,64,1000,1001,1002},
+				new int[] {62,63,64,1000,1001,1002,1003,1004},
 				new int[] {61},
 				new int[] {5,57},
 				new int[] {-1},
@@ -4320,7 +4322,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][] { })
 			{
-				name = "Great White",
+				name = "Great White Shark Tooth",
 				description = "If equipped on a weapon, increases melee damage by 50%\n" +
 				   "If equipped on boots, increases damage reduction by 24%\n" +
 				   "If equipped on a helmet, increases attack speed by 25%\n" +
@@ -4714,6 +4716,8 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {1000},
 				new int[] {1001},
 				new int[] {1002},
+				new int[] {1003},
+				new int[] {1004},
 				new int[] {1,2,3,4,5,6 },
 				new int[] {-1 },
 				new int[] {-1 },
@@ -4791,6 +4795,25 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(3),
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
+			};
+			new BaseItem(new int[][]
+					  {
+				new int[] {39,0},
+				new int[] {43,0},
+				new int[] {67},
+					  })
+			{
+				name = "Eyepatch",
+				description = "A wise man once said:",
+				lore = "Everyone thinks I'm just a one-eyed bloody monster, god damnit... (sobbing)",
+				tooltip = "Explosion damage is also applied when performing jump attacks",
+				Rarity = 0,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
 			};
 		}
 	}

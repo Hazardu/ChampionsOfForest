@@ -6,7 +6,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 	{
 		public static GlobalSFX instance;
 		private AudioSource[] audioSources;
-		private readonly int[] ids = new int[] { 1002, 1003, 1007, 1008, 1009, 1010, 1011, 1012, 1013 };
+		private readonly int[] ids = new int[] { 1002, 1003, 1007, 1008, 1009, 1010, 1011, 1012, 1013,1016 };
 
 		private void Start()
 		{
@@ -24,11 +24,12 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 			instance = this;
 		}
 
-		public static void Play(int id, ulong delay = 0)
+		public static void Play(int id, ulong delay = 0, float pitch = 1)
 		{
 			if (id > -1 && id < instance.audioSources.Length)
 			{
 				instance.audioSources[id].gameObject.SetActive(true);
+				instance.audioSources[id].pitch=pitch;
 				instance.audioSources[id].Play(delay);
 			}
 		}

@@ -74,7 +74,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Hard:
+				case ModSettings.Difficulty.Veteran:
 					dmg = Random.Range(55, 75);
 					break;
 

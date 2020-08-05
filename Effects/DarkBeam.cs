@@ -202,7 +202,6 @@ namespace ChampionsOfForest
 						EnemyProgression ep = hit.transform.GetComponentInParent<EnemyProgression>();
 						if (ep != null)
 						{
-							DamageMath.DamageClamp(Damage, out int dmg, out int a);
 
 							if (fromEnemy)
 							{
@@ -211,10 +210,7 @@ namespace ChampionsOfForest
 							}
 							else
 							{
-								for (int i = 0; i < a; i++)
-								{
-									ep.HitMagic(dmg);
-								}
+								ep.HitMagic(Damage);
 								ep.Slow(6, Slow, 10);
 							}
 						}

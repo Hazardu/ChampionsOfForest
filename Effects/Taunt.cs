@@ -118,14 +118,14 @@ namespace ChampionsOfForest.Effects
 			{
 				Debug.Log("Singleplayer Cast");
 
-				foreach (var enemy in EnemyManager.singlePlayerList)
+				foreach (var enemy in EnemyManager.enemyByTransform)
 				{
 					try
 					{
-					if ((enemy.transform.position - pos).sqrMagnitude <= sqrRad)
+					if ((enemy.Key.position - pos).sqrMagnitude <= sqrRad)
 					{
-						enemy.Taunt(player, duration);
-						Debug.Log("Taunted " + enemy.enemyName);
+						enemy.Value.Taunt(player, duration);
+						Debug.Log("Taunted " + enemy.Value.enemyName);
 
 					}
 					}

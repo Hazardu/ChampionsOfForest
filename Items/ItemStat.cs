@@ -77,7 +77,7 @@ namespace ChampionsOfForest
 			ItemDataBase.AddStat(this);
 		}
 
-		public ItemStat(ItemStat s, int level = 1, float Multipier = 0)
+		public ItemStat(ItemStat s, int level = 1)
 		{
 			Name = s.Name;
 			LevelPow = s.LevelPow;
@@ -91,21 +91,14 @@ namespace ChampionsOfForest
 			RoundingCount = s.RoundingCount;
 			DisplayAsPercent = s.DisplayAsPercent;
 			GetTotalStat = s.GetTotalStat;
-
 			this.ValueCap = s.ValueCap;
-			if (Multipier != 0)
-			{
-				this.Multipier = Multipier;
-			}
-			else
-			{
 				this.Multipier = s.Multipier;
-			}
-			Amount = this.Multipier * RollValue(level);
+			Amount = RollValue(level);
 			if (ValueCap != 0)
 			{
 				Amount = Mathf.Min(ValueCap, Amount);
 			}
+			Amount *= Multipier;
 		}
 
 		public ItemStat()
@@ -123,24 +116,35 @@ namespace ChampionsOfForest
 			return f;
 		}
 
-		public float GetMaxValue(int level = 1)
+		public string GetMaxValue(int level,float rarityMult)
 		{
+			string formatting = (DisplayAsPercent ? "P" : "N" )+ RoundingCount;
 			float mult = 1;
 			if (LevelPow != 0)
 			{
 				mult = Mathf.Pow(level, LevelPow);
 			}
-			return mult * MaxAmount * Multipier;
+			float f =  MaxAmount * mult*rarityMult;
+			if (ValueCap != 0)
+				return (Mathf.Min(f, ValueCap)*Multipier).ToString(formatting);
+			else
+				return (f* Multipier).ToString(formatting);
 		}
 
-		public float GetMinValue(int level = 1)
+		public string GetMinValue(int level, float rarityMult)
 		{
+			string formatting =( DisplayAsPercent ? "P" : "N" )+ RoundingCount;
+
 			float mult = 1;
 			if (LevelPow != 0)
 			{
 				mult = Mathf.Pow(level, LevelPow);
 			}
-			return mult * MinAmount * Multipier;
+			float f = MinAmount * mult * rarityMult;
+			if (ValueCap != 0)
+				return (Mathf.Min(f, ValueCap) * Multipier).ToString(formatting);
+			else
+				return (f * Multipier).ToString(formatting);
 		}
 	}
 }

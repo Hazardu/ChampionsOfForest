@@ -29,22 +29,53 @@ namespace ChampionsOfForest.Player
 		public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
 		public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
 		public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
+		public void GetRightHand()
+		{
+			ModReferences.rightHandTransform = this._itemViews[64]._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
+		}
+		public void SetupCOTF()
+		{
+			instance = this;
+
+				customWeapons.Clear();
+				originalPlaneAxe = this._itemViews[64];
+				originalPlaneAxeModel = this._itemViews[64]._heldWeaponInfo.transform.parent.GetChild(2).gameObject;
+				originalRotation = originalPlaneAxeModel.transform.localRotation;
+				OriginalOffset = originalPlaneAxeModel.transform.localPosition;
+				originalParrent = originalPlaneAxeModel.transform.parent;
+				OriginalTreeDmg = this._itemViews[64]._heldWeaponInfo.treeDamage;
+				originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
+				noMesh = new Mesh();
+			
+				CreateCustomWeapons();
+				SetupComplete = true;
+		}
 
 		[ModAPI.Attributes.Priority(1000)]
 		protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
 		{
-			ModAPI.Console.Write("Item: " + itemView.gameObject.name);
 			if (!ModSettings.IsDedicated)
 			{
 				if (GreatBow.instance != null)
 					GreatBow.instance.SetActive(false);
+				if (ToEquipWeaponType == BaseItem.WeaponModelType.None)
+				{
+					foreach (CustomWeapon item in customWeapons.Values)
+					{
+						item.obj.SetActive(false);
+						item.objectToHide?.SetActive(true);
+					}
+				}
 				if (itemView != null)
 				{
 					if (EquippedModel != BaseItem.WeaponModelType.None)
 					{
 						customWeapons[EquippedModel].objectToHide?.SetActive(true);
 					}
+					
 					EquippedModel = BaseItem.WeaponModelType.None;
+
+					//Send network event to display a custom weapon for other players
 					if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType != BaseItem.WeaponModelType.None)
 					{
 						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -60,49 +91,13 @@ namespace ChampionsOfForest.Player
 							answerStream.Close();
 						}
 					}
+
+
 					if (itemView.gameObject.name == "axePlane_Inv")
 					{
-						if (ModReferences.rightHandTransform == null)
-						{
-							try
-							{
-								ModReferences.rightHandTransform = itemView._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
-							}
-							catch (System.Exception)
-							{
-							}
-						}
 
-						if (!SetupComplete)
-						{
-							try
-							{
-								if (instance == null)
-								{
-									instance = this;
-								}
-								SetupComplete = true;
-								customWeapons.Clear();
-								originalPlaneAxe = itemView;
-								originalPlaneAxeModel = itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject;
-								originalRotation = originalPlaneAxeModel.transform.localRotation;
-								OriginalOffset = originalPlaneAxeModel.transform.localPosition;
-								originalParrent = originalPlaneAxeModel.transform.parent;
-								OriginalTreeDmg = itemView._heldWeaponInfo.treeDamage;
-								originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
-								noMesh = new Mesh();
-
-								//Creating custom weapons---------
-								CreateCustomWeapons_Axes();
-							}
-							catch (System.Exception eee)
-							{
-								ModAPI.Log.Write("Error with setting up custom weaponry " + eee.ToString());
-							}
-						}
 						if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
 						{
-							EquippedModel = ToEquipWeaponType;
 							try
 							{
 								foreach (CustomWeapon item in customWeapons.Values)
@@ -128,8 +123,10 @@ namespace ChampionsOfForest.Player
 							{
 								ModAPI.Log.Write("Error with EQUIPPING custom weaponry " + exc.ToString());
 							}
+							EquippedModel = ToEquipWeaponType;
 						}
 						else
+							//equip the base plane axe
 						{
 							itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
 							foreach (CustomWeapon item in customWeapons.Values)
@@ -140,7 +137,7 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
 							itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
 							itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
-							itemView._heldWeaponInfo.treeDamage = 0;
+							itemView._heldWeaponInfo.treeDamage = 1;
 							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = false;
@@ -148,7 +145,7 @@ namespace ChampionsOfForest.Player
 							originalPlaneAxeModel.GetComponent<MeshFilter>().mesh = originalMesh;
 						}
 					}
-					else if (itemView.gameObject.name == "Spear_Inv")
+					else if (itemView == _itemViews[158])	//spear
 					{
 						if (ToEquipWeaponType == BaseItem.WeaponModelType.Polearm)
 						{
@@ -171,7 +168,6 @@ namespace ChampionsOfForest.Player
 								itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
 								itemView._heldWeaponInfo.spear = cw.spearType;
 								cw.objectToHide?.SetActive(false);
-
 								itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
 								itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(false);
 							}
@@ -182,34 +178,24 @@ namespace ChampionsOfForest.Player
 						}
 						else
 						{
-							itemView._heldWeaponInfo.transform.parent.GetChild(2).gameObject.SetActive(true);
+							itemView._heldWeaponInfo.transform.parent.GetChild(2)?.gameObject.SetActive(true);
 							foreach (CustomWeapon item in customWeapons.Values)
 							{
 								item.obj.SetActive(false);
 							}
+							customWeapons[BaseItem.WeaponModelType.Polearm].objectToHide?.SetActive(true);
+
 							itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed;
 							itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
 							itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
 							itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
-							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
+							itemView._heldWeaponInfo.weaponRange = 2f;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = true;
+							itemView._heldWeaponInfo.spear = true;
+							itemView._heldWeaponInfo.transform.localScale = Vector3.one;
+
 							itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(true);
-						}
-					}
-					else if (BoltNetwork.isRunning)
-					{
-						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-						{
-							using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-							{
-								w.Write(28);
-								w.Write(ModReferences.ThisPlayerID);
-								w.Write(0);
-								w.Close();
-							}
-							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
-							answerStream.Close();
 						}
 					}
 				}
@@ -374,8 +360,10 @@ namespace ChampionsOfForest.Player
 
 		public override void Start()
 		{
+			SetupCOTF();
 			InitializeGreatBow();
 			base.Start();
+
 		}
 
 		protected override void FireRangedWeapon()
@@ -410,7 +398,7 @@ namespace ChampionsOfForest.Player
 			go.AddComponent<CustomBowBase>();
 		}
 
-		public void CreateCustomWeapons_Axes()
+		public void CreateCustomWeapons()
 		{
 			//long sword
 			new CustomWeapon(BaseItem.WeaponModelType.LongSword,

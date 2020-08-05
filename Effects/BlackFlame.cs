@@ -111,10 +111,7 @@ namespace ChampionsOfForest.Effects
 			while (ModReferences.rightHandTransform == null)
 			{
 				yield return null;
-				if (LocalPlayer.Inventory != null)
-				{
-					LocalPlayer.Inventory.Equip(80, false);
-				}
+				LocalPlayer.Inventory?.SendMessage("GetRightHand");
 			}
 			yield return null;
 			if (instanceLocalPlayer == null)

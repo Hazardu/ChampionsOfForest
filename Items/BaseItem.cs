@@ -50,7 +50,7 @@ namespace ChampionsOfForest
 
 		private readonly int[] commonstatIds = new int[]
 		{
-			1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65
+			1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65,66,67
 		};
 
 		public BaseItem(params int[][] possibleStats)
@@ -67,11 +67,7 @@ namespace ChampionsOfForest
 					}
 					else if (statID == -1)
 					{
-						int[] allstats = new int[]
-						{
-							1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65
-						};
-						foreach (int c in allstats)
+						foreach (int c in commonstatIds)
 						{
 							list.Add(new ItemStat(ItemDataBase.Stats[c]));
 						}
@@ -116,7 +112,6 @@ namespace ChampionsOfForest
 				PossibleStats.Add(list);
 			}
 			ID = ItemDataBase._Item_Bases.Count;
-			;
 			ItemDataBase._Item_Bases.Add(this);
 		}
 

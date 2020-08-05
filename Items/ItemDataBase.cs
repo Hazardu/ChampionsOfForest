@@ -12,7 +12,6 @@ namespace ChampionsOfForest
 
 		private static Dictionary<int, List<int>> ItemRarityGroups;
 
-		public static float MagicFind = 1;
 
 		//Called from Initializer
 

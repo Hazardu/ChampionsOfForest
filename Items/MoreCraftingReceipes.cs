@@ -71,23 +71,23 @@ public static class MoreCraftingReceipes
 		CreateReceipe(FLINTLOCKAMMO, 3,
 			CreateReceipeIngredient(COINS, 15),
 			CreateReceipeIngredient(SMALLROCK, 3),
-			CreateReceipeIngredient(ROCK, 1));
+			CreateReceipeIngredient(ROCK, 1))._name="Flintlock ammo";
 		
 		CreateReceipe(CROSSBOWAMMO, 1,
 			CreateReceipeIngredient(ROCK, 1),
-			CreateReceipeIngredient(STICK, 1));
+			CreateReceipeIngredient(STICK, 1))._name = "Crossbow bolts";
 
 		CreateReceipe(CLOTH, 10,
-			CreateReceipeIngredient(DEERSKIN, 1));
+			CreateReceipeIngredient(DEERSKIN, 1))._name = "Cloth";
 
 		CreateReceipe(CLOTH, 8,
-			CreateReceipeIngredient(RABBITSKIN, 1));
+			CreateReceipeIngredient(RABBITSKIN, 1))._name = "Cloth";
 
 		CreateReceipe(CLOTH, 8,
-			CreateReceipeIngredient(RACOONSKIN, 1));
+			CreateReceipeIngredient(RACOONSKIN, 1))._name = "Cloth";
 
 		CreateReceipe(CLOTH, 10,
-			CreateReceipeIngredient(BOARSKIN, 1));
+			CreateReceipeIngredient(BOARSKIN, 1))._name = "Cloth";
 
 		CreateReceipe(AXEPLANE, 1,
 			CreateReceipeIngredient(AXECRAFTED, 1),
@@ -95,7 +95,7 @@ public static class MoreCraftingReceipes
 			CreateReceipeIngredient(STICK, 2),
 			CreateReceipeIngredient(CLOTH, 25),
 			CreateReceipeIngredient(RABBITSKIN, 1)
-			);
+			)._name = "Plane Axe";
 
 	}
 

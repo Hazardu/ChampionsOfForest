@@ -1,8 +1,12 @@
-﻿using Bolt;
+﻿using System;
+
+using Bolt;
 
 using ChampionsOfForest.Player;
 
 using TheForest.Utils;
+
+using UdpKit;
 
 using UnityEngine;
 
@@ -41,16 +45,22 @@ namespace ChampionsOfForest.Network
 					{
 						enemy._Health.Explosion(-1);
 					}
-					if (ev.getStealthAttack && ev.HitAxe)
+
+					if (ev.getAttackerType == 2000000)
 					{
 						//ghost hit
-						//sure replaces a the stealth hits with an axe to not deal the bonus 100 damage points, but who cares, noone does stealth hits with axes. bows FTW
-						enemy.HitPhysicalSilent(ev.Hit);
+
+						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
+						enemy.HitPhysicalSilent(damage);
 					}
 					else
 					{
 						if (ev.Hit > 0)
 						{
+
+							float damage = ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
+							if (ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType)
+								ev.getAttackerType -= DamageMath.CONVERTEDFLOATattackerType;
 							//just in case i ever need this
 							//this is how to get the player object which raised the event (ev.RaisedBy.UserData as BoltEntity)
 							enemy._Health.getAttackDirection(ev.getAttackerType);
@@ -60,7 +70,7 @@ namespace ChampionsOfForest.Network
 							enemy.setup.hitReceiver.getCombo(ev.getCombo);
 							enemy._Health.takeDamage(ev.takeDamage);
 							enemy._Health.setSkinDamage(1);
-							enemy._Health.Hit(ev.Hit);
+							enemy.HitPhysical(damage);
 							if (ev.Burn)
 							{
 								enemy._Health.Burn();
@@ -129,12 +139,13 @@ namespace ChampionsOfForest.Network
 				{
 					transform.SendMessage("getStealthAttack", SendMessageOptions.DontRequireReceiver);
 				}
+				float dmg = ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
 				if (ev.hitFallDown)
 				{
 					global::mutantHitReceiver componentInChildren5 = transform.GetComponentInChildren<global::mutantHitReceiver>();
 					if (componentInChildren5)
 					{
-						componentInChildren5.sendHitFallDown(ev.Hit);
+						componentInChildren5.sendHitFallDown(dmg);
 					}
 				}
 				else
@@ -148,7 +159,7 @@ namespace ChampionsOfForest.Network
 						transform.SendMessage("takeDamage", ev.takeDamage, SendMessageOptions.DontRequireReceiver);
 						transform.SendMessage("setSkinDamage", UnityEngine.Random.Range(0, 3), SendMessageOptions.DontRequireReceiver);
 						transform.SendMessage("ApplyAnimalSkinDamage", ev.getAttackDirection, SendMessageOptions.DontRequireReceiver);
-						transform.SendMessage("Hit", ev.Hit, SendMessageOptions.DontRequireReceiver);
+						transform.SendMessage("Hit", dmg, SendMessageOptions.DontRequireReceiver);
 						if (ev.HitAxe)
 						{
 							transform.SendMessage("HitAxe", SendMessageOptions.DontRequireReceiver);
@@ -161,7 +172,7 @@ namespace ChampionsOfForest.Network
 					else
 					{
 						ModAPI.Console.Write("The bad armor reduction");
-						transform.SendMessage("ReduceArmor", -ev.Hit, SendMessageOptions.DontRequireReceiver);
+						transform.SendMessage("ReduceArmor", -dmg, SendMessageOptions.DontRequireReceiver);
 					}
 				}
 			}
@@ -212,31 +223,42 @@ namespace ChampionsOfForest.Network
 
 		public override void EntityDetached(BoltEntity entity)
 		{
-			if (entity.StateIs<IPlayerState>() && TheForest.Utils.Scene.SceneTracker && GameSetup.IsMpServer)
+			if (entity != null)
 			{
-				ModdedPlayer.instance.SendLeaveMessage(entity.GetState<IPlayerState>().name);
+				if (entity.StateIs<IPlayerState>() && TheForest.Utils.Scene.SceneTracker && GameSetup.IsMpServer)
+				{
+					if (entity.source.udpConnection.IsConnected)
+					{
+						NetworkManager.SendText("II" + entity.GetState<IPlayerState>().name + " has died", NetworkManager.Target.Everyone);
+					}
+					else
+					{
+						ModdedPlayer.instance.SendLeaveMessage(entity.GetState<IPlayerState>().name);
+					}
+				}
 			}
 			base.EntityDetached(entity);
 		}
-
-		public override void EntityReceived(BoltEntity entity)
+		public override void Connected(BoltConnection connection)
 		{
-			if (entity.StateIs<IPlayerState>() && GameSetup.IsMpServer)
-				NetworkManager.SendText("IIA champion approaches... \n" + entity.GetState<IPlayerState>().name, NetworkManager.Target.Everyone);
+			NetworkManager.SendText("IIA champion approaches", NetworkManager.Target.Everyone);
 
-			base.EntityReceived(entity);
+			base.Connected(connection);
+
 		}
 
-		public override void Disconnected(BoltConnection connection)
-		{
-			if (BoltNetwork.isClient)
-			{
-				ModAPI.Console.Write("Saving client data to avoid item duping");
-				Serializer.EmergencySave();
-			}
-			base.Disconnected(connection);
-		}
+
 	}
+
+	internal class CoopClientCallbacksMod : CoopClientCallbacks
+	{
+		public override void Disconnected(BoltConnection connection)
+			{
+			ModAPI.Console.Write("Saving client data to avoid item duping");
+			Serializer.EmergencySave();
+			base.Disconnected(connection);
+	}
+}
 
 	public class BoltConnectionEx : BoltConnection
 	{

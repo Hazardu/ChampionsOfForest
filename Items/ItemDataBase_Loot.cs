@@ -28,7 +28,7 @@ namespace ChampionsOfForest
 					if (l > highestLevel)
 						highestLevel = l;
 				}
-				averageLevel = Convert.ToInt32(level/(1 + ModReferences.PlayerLevels.Count));
+				averageLevel = Convert.ToInt32(level / (1 + ModReferences.PlayerLevels.Count));
 			}
 			else
 			{
@@ -36,8 +36,8 @@ namespace ChampionsOfForest
 				highestLevel = averageLevel;
 			}
 			averageLevel = Mathf.Max(1, averageLevel);
-			float w = Worth / (averageLevel);
-			w *= MagicFind;
+			float w = Worth;
+			w *= ModdedPlayer.Stats.magicFind.Value;
 
 			int rarity = GetRarity(w);
 
@@ -99,7 +99,7 @@ namespace ChampionsOfForest
 			}
 			averageLevel = Mathf.Max(1, averageLevel);
 			float w = Worth / (averageLevel);
-			w *= MagicFind;
+			w *= ModdedPlayer.Stats.magicFind.Value;
 
 			int rarity = GetRarity(w);
 
@@ -129,42 +129,40 @@ namespace ChampionsOfForest
 		public static int GetRarity(float w)
 		{
 			int rarity = 0;
-
-			if ((w > 20 && Random.value < 0.80f) || ((int)ModSettings.difficulty > 5 && w > 2000) || Random.value < ((int)ModSettings.difficulty * 0.075))
+			float mf = ModdedPlayer.Stats.magicFind.Value - 1;
+			mf /= 2f;
+			if ((w > 20 && Random.value < 0.70f + 0.5 * mf) || ((int)ModSettings.difficulty > 5 && w > 2000) || Random.value < ((int)ModSettings.difficulty * 0.075))
 			{
 				rarity = 1;
 
-				if (w > 120 && (Random.value < 0.50f || w > 2200 && (int)ModSettings.difficulty > 6))
+				if (w > 80 && (Random.value < 0.50f + 0.4 * mf || w > 2200 && (int)ModSettings.difficulty > 6))
 				{
-					if (ModSettings.difficulty > 0)
+					rarity = 2;
+					if (w > 180 && (Random.value < 0.50f + 0.3 * mf || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 7)
 					{
-						rarity = 2;
-						if (w > 180 && (Random.value < 0.50f || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 7)
+						if (ModSettings.difficulty > 0)
 						{
-							if (ModSettings.difficulty > 0)
+							rarity = 3;
+							if (w > 230 && (Random.value < 0.5f + 0.2 * mf || Random.value < (0.04f * (int)ModSettings.difficulty) || (int)ModSettings.difficulty > 8))
 							{
-								rarity = 3;
-								if (w > 230 && (Random.value < 0.5f || Random.value < (0.04f * (int)ModSettings.difficulty)))
+								if ((int)ModSettings.difficulty > 1)
 								{
-									if ((int)ModSettings.difficulty > 1)
+									rarity = 4;
+									if (w > 300 && (Random.value < 0.3f + 0.08 * mf || Random.value < (0.02f * (int)ModSettings.difficulty)))
 									{
-										rarity = 4;
-										if (w > 300 && (Random.value < 0.45f || Random.value < (0.03f * (int)ModSettings.difficulty)))
+										if ((int)ModSettings.difficulty > 2)
 										{
-											if ((int)ModSettings.difficulty > 2)
+											rarity = 5;
+											if (w > 400 && (Random.value < 0.2f + 0.03 * mf || Random.value < (0.002f * (int)ModSettings.difficulty)))
 											{
-												rarity = 5;
-												if (w > 400 && (Random.value < 0.25f || Random.value < (0.001f * (int)ModSettings.difficulty)))
+												if ((int)ModSettings.difficulty > 3)
 												{
-													if ((int)ModSettings.difficulty > 3)
+													rarity = 6;
+													if (w > 500 && (Random.value < 0.04f + 0.02 * mf || Random.value < (0.0015f * (int)ModSettings.difficulty)))
 													{
-														rarity = 6;
-														if (w > 500 && (Random.value < 0.07f || Random.value < (0.00009f * (int)ModSettings.difficulty)))
+														if ((int)ModSettings.difficulty > 4)
 														{
-															if ((int)ModSettings.difficulty > 4)
-															{
-																rarity = 7;
-															}
+															rarity = 7;
 														}
 													}
 												}
@@ -176,26 +174,9 @@ namespace ChampionsOfForest
 						}
 					}
 				}
+
 			}
 			return rarity;
-		}
-
-		public static void RequestMagicFind()
-		{
-			MagicFind = ModdedPlayer.instance.MagicFindMultipier;
-			if (GameSetup.IsMultiplayer)
-			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(23);
-						w.Close();
-					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
-					answerStream.Close();
-				}
-			}
 		}
 	}
 }

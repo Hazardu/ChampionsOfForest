@@ -11,9 +11,9 @@ namespace ChampionsOfForest.Enemies
 {
 	public class WormHealthMod : wormHealth
 	{
-		public void HitMagic(int damage)
+		public void HitMagic(float damage)
 		{
-			base.Hit(damage);
+			base.Hit(damage>int.MaxValue/2? int.MaxValue/2:(int)damage);
 		}
 
 		//public override void Hit(int damage)
@@ -52,11 +52,11 @@ namespace ChampionsOfForest.Enemies
 					long Exp;
 					switch (ModSettings.difficulty)
 					{
-						case ModSettings.Difficulty.Normal:
+						case ModSettings.Difficulty.Easy:
 							Exp = 5000;
 							break;
 
-						case ModSettings.Difficulty.Hard:
+						case ModSettings.Difficulty.Veteran:
 							Exp = 20000;
 							break;
 
@@ -148,7 +148,7 @@ namespace ChampionsOfForest.Enemies
 						int damage = 85;
 						switch (ModSettings.difficulty)
 						{
-							case ModSettings.Difficulty.Hard:
+							case ModSettings.Difficulty.Veteran:
 								damage = 150;
 								break;
 

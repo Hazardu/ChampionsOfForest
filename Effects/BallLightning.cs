@@ -33,10 +33,7 @@ public class BallLightning : MonoBehaviour
 		GameObject o = GameObject.Instantiate(prefab, position, Quaternion.identity);
 		o.tag = "enemyCollide";
 		BallLightning b = o.AddComponent<BallLightning>();
-
-		DamageMath.DamageClamp(damage, out int dmg, out int rep);
-		b.dmg = dmg;
-		b.rep = rep;
+		b.dmg = damage;
 		b.ID = id;
 		b.speed = speed;
 		list.Add(id, b);
@@ -47,7 +44,6 @@ public class BallLightning : MonoBehaviour
 	public GameObject mainFX;
 	public Rigidbody rb;
 	public float dmg;
-	public float rep;
 	public Vector3 speed;
 	private bool _triggered;
 
@@ -134,16 +130,12 @@ public class BallLightning : MonoBehaviour
 		Destroy(gameObject, 5);
 	}
 
-	//TODO
 	public void OnExplode()
 	{
 		//deal damage to enemies, apply force to rigidbodies etc
 
 		StartCoroutine(ExplosionDamageAsync());
-		//foreach (RaycastHit hit in hits)
-		//{
-		//    hit.rigidbody?.AddExplosionForce(500, transform.position, 30,1.2f,ForceMode.Impulse);
-		//}
+		
 	}
 
 	private IEnumerator ExplosionDamageAsync()
@@ -154,6 +146,8 @@ public class BallLightning : MonoBehaviour
 		{
 			foreach (RaycastHit hit in hits)
 			{
+
+				hit.rigidbody?.AddExplosionForce(500, transform.position, 30, 1.2f, ForceMode.Impulse);
 				if (hit.transform.CompareTag("enemyCollide"))
 				{
 					HitEnemy(hit.transform);
@@ -162,12 +156,12 @@ public class BallLightning : MonoBehaviour
 				}
 				else if (!hit.transform.CompareTag("Player") && hit.transform.root != LocalPlayer.Transform || !hit.transform.CompareTag("structure"))
 				{
-					hit.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
-					hit.transform.SendMessage("Hit", dmg, SendMessageOptions.DontRequireReceiver);
+					hit.transform.SendMessageUpwards("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
+					hit.transform.SendMessage("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
 					if ((hit.transform.position - transform.position).sqrMagnitude < 36)
 					{
-						hit.transform.SendMessageUpwards("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
-						hit.transform.SendMessage("Explosion", hit.distance, SendMessageOptions.DontRequireReceiver);
+						hit.transform.SendMessageUpwards("Explosion", (int)hit.distance, SendMessageOptions.DontRequireReceiver);
+						hit.transform.SendMessage("Explosion", (int)hit.distance, SendMessageOptions.DontRequireReceiver);
 					}
 					hit.transform.SendMessage("CutDown", SendMessageOptions.DontRequireReceiver);
 					hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
@@ -179,11 +173,7 @@ public class BallLightning : MonoBehaviour
 
 	public void HitEnemy(Transform t)
 	{
-		for (int i = 0; i < rep; i++)
-		{
-			t.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
-			t.SendMessage("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
-		}
+		t.root.SendMessage("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
 	}
 
 	public void Hit(int damage)
@@ -200,8 +190,8 @@ public class BallLightning : MonoBehaviour
 		}
 		else if (!(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PlayerNet")))
 		{
-			collision.transform.SendMessageUpwards("Hit", dmg, SendMessageOptions.DontRequireReceiver);
-			collision.transform.SendMessage("Hit", dmg, SendMessageOptions.DontRequireReceiver);
+			collision.transform.SendMessageUpwards("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
+			collision.transform.SendMessage("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
 			collision.transform.SendMessageUpwards("Explosion", 0, SendMessageOptions.DontRequireReceiver);
 			collision.transform.SendMessage("Explosion", 0, SendMessageOptions.DontRequireReceiver);
 			Vector3 normal = collision.contacts[0].normal;

@@ -64,7 +64,6 @@ namespace ChampionsOfForest.Player
 						ModAPI.Console.Write("Hit enemy on layer " + hit.transform.gameObject.layer);
 						float dmg = ModdedPlayer.Stats.spell_blinkDamage + ModdedPlayer.Stats.spellFlatDmg* ModdedPlayer.Stats.spell_blinkDamageScaling;
 						dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-						DamageMath.DamageClamp(dmg, out int dmgInt, out int repetitions);
 						if (GameSetup.IsMpClient)
 						{
 							BoltEntity enemyEntity = hit.transform.GetComponentInParent<BoltEntity>();
@@ -75,25 +74,20 @@ namespace ChampionsOfForest.Player
 							{
 								PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
 								playerHitEnemy.hitFallDown = true;
-								playerHitEnemy.explosion = true;
-								playerHitEnemy.Hit = dmgInt;
-								for (int i = 0; i < repetitions; i++)
-									playerHitEnemy.Send();
+								playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
+								playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
+								playerHitEnemy.Send();
 							}
 						}
 						else
 						{
-							var v = hit.transform.GetComponentInParent<EnemyProgression>();
-							if (v == null)
-								v = hit.transform.GetComponent<EnemyProgression>();
-							if (v != null)
+							if (EnemyManager.enemyByTransform.ContainsKey(hit.transform.root))
 							{
-								for (int i = 0; i < repetitions; i++)
-									v.HitMagic(dmgInt);
+								 EnemyManager.enemyByTransform[hit.transform.root].HitMagic(dmg);
 							}
 							else
 							{
-								hit.transform.SendMessageUpwards("Hit", dmgInt, SendMessageOptions.DontRequireReceiver);
+								hit.transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
 							}
 						}
 					}
@@ -323,8 +317,6 @@ namespace ChampionsOfForest.Player
 		
 		#region SustainShield
 
-		//TODO make this toggleable
-
 		public static float ShieldCastTime;
 
 		public static void CastSustainShieldActive()
@@ -358,7 +350,7 @@ namespace ChampionsOfForest.Player
 
 		#region WarCry
 	
-		public static int WarCryArmor => ModdedPlayer.Stats.armor.Value / 10;
+		public static int WarCryArmor => ModdedPlayer.Stats.armor.Value / 5;
 
 		public static void CastWarCry()
 		{
@@ -396,10 +388,46 @@ namespace ChampionsOfForest.Player
 		}
 
 		#endregion WarCry
+		const float portalCastMaxRange = 66;
+		public static void DoPortalAim()
+		{
+			if (portalAimLine == null)
+			{
+				portalAimLine = new SpellAimLine();
+			}
+			Transform t = Camera.main.transform;
+			var hits1 = Physics.RaycastAll(t.position, t.forward, portalCastMaxRange + 1f);
+			foreach (var hit in hits1)
+			{
+				if (!hit.transform.CompareTag("enemyCollide") && hit.transform.root != LocalPlayer.Transform.root)
+				{
+					portalAimLine.UpdatePosition(t.position + Vector3.down * 2, hit.point - t.forward + Vector3.up);
+					return;
+				}
+			}
+
+			portalAimLine.UpdatePosition(t.position + Vector3.down * 2, LocalPlayer.Transform.position + t.forward * portalCastMaxRange);
+		}
+		private static SpellAimLine portalAimLine;
 
 		public static void CastPortal()
 		{
-			Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward * 6;
+			portalAimLine.Disable();
+			Transform t = Camera.main.transform;
+			var hits1 = Physics.RaycastAll(t.position, t.forward, portalCastMaxRange + 1f);
+			Vector3 pos;
+			foreach (var hit in hits1)
+			{
+				if (!hit.transform.CompareTag("enemyCollide") && hit.transform.root != LocalPlayer.Transform.root)
+				{
+					pos= hit.point - t.forward*2.5f + Vector3.up*2.1f;
+					goto portal_postPickingPos;
+				}
+			}
+
+			pos = LocalPlayer.Transform.position + t.forward * (portalCastMaxRange-2) + Vector3.up * 2f;
+portal_postPickingPos:
+
 			int id = Portal.GetPortalID();
 			try
 			{
@@ -500,14 +528,21 @@ namespace ChampionsOfForest.Player
 		}
 		public static void CastMagicArrow()
 		{
+			var cam = Camera.main.transform;
+			Vector3 pos = cam.position + cam.forward;
+			Vector3 dir = cam.forward;
+			CastMagicArrow(pos, dir);
+		}
+		public static void CastMagicArrow(Vector3 pos, Vector3 dir)
+		{
 			float damage = 55 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_magicArrowDamageScaling + ModdedPlayer.Stats.rangedFlatDmg/ 2;
 			damage = damage * ModdedPlayer.Stats.TotalMagicDamageMultiplier * 2;
 			if (ModdedPlayer.Stats.spell_magicArrowCrit)
 				damage *= ModdedPlayer.Stats.RandomCritDamage;
-			var cam = Camera.main.transform;
-			Vector3 pos = cam.position;
-			Vector3 dir = cam.forward;
+
 			SendMagicArrow(pos, dir, damage);
+			var cam = Camera.main.transform;
+
 			for (int i = 0; i < ModdedPlayer.Stats.spell_magicArrowVolleyCount; i++)
 			{
 				SendMagicArrow(pos + (i * cam.right * 0.04f), Vector3.RotateTowards(dir, cam.right, Mathf.PI * i * 0.065f, 0),damage);
@@ -843,7 +878,7 @@ namespace ChampionsOfForest.Player
 		#region Parry
 
 		private static float LastBlockTimestamp = 0;    //used for blocking any instance of damage
-		private const float Block_parryTime = 0.4f; //600ms to get hit since starting blocking will cause a parry
+		private const float Block_parryTime = 0.3f; //300ms to get hit since starting blocking will cause a parry
 		public static float GetParryCounterStrikeDmg()
 		{
 			if (ModdedPlayer.Stats.perk_parryCounterStrikeDamage.Value > 0)
@@ -913,17 +948,17 @@ namespace ChampionsOfForest.Player
 				}
 				else
 				{
-					DamageMath.DamageClamp(dmg, out int d, out int r);
 					var hits = Physics.SphereCastAll(parryPos, ModdedPlayer.Stats.spell_parryRadius, Vector3.one);
 					for (int i = 0; i < hits.Length; i++)
 					{
 						if (hits[i].transform.CompareTag("enemyCollide"))
 						{
-							for (int a = 0; a < r; a++)
+							if (EnemyManager.enemyByTransform.ContainsKey(hits[i].transform.root))
 							{
-								hits[i].transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+								var prog = EnemyManager.enemyByTransform[hits[i].transform.root];
+								prog.HitMagic(dmg);
 								if (ModdedPlayer.Stats.spell_parryIgnites)
-									hits[i].transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+								prog._Health.Burn();
 							}
 						}
 					}
@@ -1000,6 +1035,7 @@ namespace ChampionsOfForest.Player
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
 			Effects.Sound_Effects.GlobalSFX.Play(4);
+			Network.NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
 		}
 
 		#endregion Blood Infused Arrow
@@ -1100,9 +1136,9 @@ namespace ChampionsOfForest.Player
 
 		#region Devour
 
-		public static void CastDevour()
-		{
-		}
+		//public static void CastDevour()
+		//{
+		//}
 
 		#endregion
 	}

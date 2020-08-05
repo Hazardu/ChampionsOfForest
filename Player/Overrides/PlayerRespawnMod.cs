@@ -30,7 +30,7 @@ namespace ChampionsOfForest.Player
 			ModdedPlayer.instance.MassacreKills = 0;
 			ModdedPlayer.instance.MassacreMultipier = 1;
 			ModdedPlayer.instance.TimeUntillMassacreReset = 0;
-			ModdedPlayer.instance.InitializeHandHeld();
+			ModdedPlayer.instance.AfterRespawn();
 			BlackFlame.instance.Start();
 		}
 	}

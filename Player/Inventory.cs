@@ -86,7 +86,32 @@ namespace ChampionsOfForest.Player
 				}
 			}
 		}
+		public bool DropItemOnPosition(int key, Vector3 pos)
+		{
+			if (ItemSlots[key] != null && ItemSlots.ContainsKey(key))
+			{
+				Item i = ItemSlots[key];
 
+				int amount = i.Amount;
+				i.Amount = 1;
+				for (int ind = 0; ind < amount; ind++)
+				{
+					Network.NetworkManager.SendItemDrop(i, pos, 1);
+
+				}
+
+				if (ItemSlots[key].Equipped)
+				{
+					ItemSlots[key].OnUnequip();
+					ItemSlots[key].Equipped = false;
+				}
+				ItemSlots[key] = null;
+
+
+				return true;
+			}
+			return false;
+		}
 		public bool DropItem(int key, int amount = 0)
 		{
 			if (ItemSlots[key] != null && ItemSlots.ContainsKey(key))
@@ -125,19 +150,19 @@ namespace ChampionsOfForest.Player
 
 		private IEnumerator DropAllCoroutine()
 		{
+			Vector3 dropPos = LocalPlayer.Transform.position;
 			int itemsDropped = 0;
 			var keys = ItemSlots.Keys.ToArray();
 			for (int i = 0; i < keys.Length; i++)
 			{
 				try
 				{
-					itemsDropped += DropItem(keys[i]) ? 1 : 0;
+					itemsDropped += DropItemOnPosition(keys[i], dropPos) ? 1 : 0;
 				}
 				catch (System.Exception e)
 				{
 					Debug.LogError("dropping error\n" + e.Message);
 				}
-				yield return null;
 				yield return null;
 			}
 		}
@@ -150,6 +175,8 @@ namespace ChampionsOfForest.Player
 		private IEnumerator DropEquippedCoroutine()
 		{
 			int itemsDropped = 0;
+			Vector3 dropPos = LocalPlayer.Transform.position;
+
 			var keys = ItemSlots.Keys.ToArray();
 			for (int i = 0; i < keys.Length; i++)
 			{
@@ -157,13 +184,12 @@ namespace ChampionsOfForest.Player
 				{
 					try
 					{
-						itemsDropped += DropItem(keys[i]) ? 1 : 0;
+						itemsDropped += DropItemOnPosition(keys[i], dropPos) ? 1 : 0;
 					}
 					catch (System.Exception e)
 					{
 						Debug.LogError("dropping error\n" + e.Message);
 					}
-					yield return null;
 					yield return null;
 				}
 			}
@@ -171,19 +197,6 @@ namespace ChampionsOfForest.Player
 
 		public bool HasSpaceFor(Item item, int amount = 1)
 		{
-			//for (int i = 0; i < SlotCount; i++)
-			//{
-			//    if (ItemList[i] != null)
-			//    {
-			//        if (ItemList[i].ID == item.ID)
-			//        {
-			//            if (ItemList[i].StackSize >= amount + ItemList[i].Amount)
-			//            {
-			//                return true;
-			//            }
-			//        }
-			//    }
-			//}
 			for (int i = 0; i < SlotCount; i++)
 			{
 				if (ItemSlots[i] == null)

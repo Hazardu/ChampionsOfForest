@@ -283,16 +283,18 @@ namespace ChampionsOfForest.Enemies
 										}
 										if (ModdedPlayer.Stats.TotalThornsDamage > 0)
 										{
-											DamageMath.DamageClamp(ModdedPlayer.Stats.TotalThornsDamage, out int dmg, out int reps);
-											PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+
+											if (ModdedPlayer.Stats.TotalThornsArmorPiercing > 0)
+												EnemyProgression.ReduceArmor(entity, ModdedPlayer.Stats.TotalThornsArmorPiercing);
+													
+											PlayerHitEnemy playerHitEnemy =		PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 											playerHitEnemy.Target = entity;
 
-											//these two booleans make the attack not stagger the enemy
-											playerHitEnemy.HitAxe = true;
-											playerHitEnemy.getStealthAttack = true;
+											//this integer make the attack not stagger the enemy
+											playerHitEnemy.getAttackerType = 2000000;
 
-											playerHitEnemy.Hit = dmg;
-											AsyncHit.SendPlayerHitEnemy(playerHitEnemy, reps, 0.1f);
+											playerHitEnemy.Hit = DamageMath.GetSendableDamage(ModdedPlayer.Stats.TotalThornsDamage);
+											playerHitEnemy.Send();
 										}
 									}
 								}
@@ -325,7 +327,10 @@ namespace ChampionsOfForest.Enemies
 
 										if (ModdedPlayer.Stats.TotalThornsDamage > 0)
 										{
-											Invoke("HitEnemeyDelayed", 0.1f);
+											EnemyProg.HitPhysicalSilent(ModdedPlayer.Stats.TotalThornsDamage);
+											if (ModdedPlayer.Stats.TotalThornsArmorPiercing > 0)
+												EnemyProg.ReduceArmor( ModdedPlayer.Stats.TotalThornsArmorPiercing);
+
 										}
 									}
 								}
@@ -453,11 +458,5 @@ namespace ChampionsOfForest.Enemies
 			}
 		}
 
-		private void HitEnemeyDelayed()
-		{
-			DamageMath.DamageClamp(ModdedPlayer.Stats.TotalThornsDamage, out int dmg, out int reps);
-			for (int i = 0; i < reps; i++)
-				EnemyProg.HitPhysicalSilent(dmg);
-		}
 	}
 }

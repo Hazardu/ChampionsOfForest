@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ChampionsOfForest.Player;
+
+using UnityEngine;
 
 namespace ChampionsOfForest
 {
@@ -23,7 +25,7 @@ namespace ChampionsOfForest
 			{
 				if (progression == null)
 				{
-					progression = gameObject.AddComponent<EnemyProgression>();
+					progression = transform.root.gameObject.AddComponent<EnemyProgression>();
 					progression._Health = this;
 					progression._AI = ai;
 					progression.entity = entity;
@@ -173,16 +175,10 @@ namespace ChampionsOfForest
 			{
 				if (this.ai.creepy_male || this.ai.creepy || this.ai.creepy_fat || this.ai.creepy_baby || this.ai.creepy_boss)
 				{
-					if (this.ai.creepy_boss)
-					{
-						this.Health -= 500;
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 500, Color.white);
-					}
-					else
-					{
-						this.Health -= 700;
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 700, Color.white);
-					}
+				
+						this.progression.HitPure(750 * (1+ModdedPlayer.Stats.explosionDamage.Value));
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 750 * (1 + ModdedPlayer.Stats.explosionDamage.Value), Color.white);
+					
 					if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
 					{
 						if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
@@ -228,8 +224,8 @@ namespace ChampionsOfForest
 						this.animator.SetIntegerReflected("hurtLevelInt", 4);
 						this.animator.SetTriggerReflected("damageTrigger");
 						this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-						this.Health -= 800;
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 800, Color.white);
+						this.progression.HitPure(850 * (1 + ModdedPlayer.Stats.explosionDamage.Value));
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 850 * (1 + ModdedPlayer.Stats.explosionDamage.Value), Color.white);
 
 						if (this.Health < 1)
 						{
@@ -270,8 +266,8 @@ namespace ChampionsOfForest
 							this.alreadyBurnt = true;
 						}
 						this.setSkinDamage(UnityEngine.Random.Range(0, 3));
-						this.Health -= 300;
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 300, Color.white);
+						this.progression.HitPure(350 * (1 + ModdedPlayer.Stats.explosionDamage.Value));
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 350f*(1 + ModdedPlayer.Stats.explosionDamage.Value), Color.white);
 
 						if (this.Health < 1)
 						{
@@ -336,7 +332,7 @@ namespace ChampionsOfForest
 			//}
 			//Explosives deal 200 pure damage, as of yet, its not scaling with any stat
 			HitReal(100);
-			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, Color.white);
 
 			if (progression.OnDie())
 			{
@@ -377,5 +373,101 @@ namespace ChampionsOfForest
 		}
 
 		#endregion DieOverride
+
+
+
+		public override void Burn()
+		{
+			if (this.ai.creepy_boss && !this.ai.girlFullyTransformed)
+			{
+				return;
+			}
+			if (this.ai.fireman_dynamite)
+			{
+				base.Invoke("doBeltExplosion", 4f);
+			}
+			if (this.douseMult > 1)
+			{
+				TheForest.Utils.GameStats.BurntEnemy.Invoke();
+				if (this.Burnt && this.MySkin)
+				{
+					if (this.setup.propManager && this.setup.propManager.lowSkinnyBody)
+					{
+						this.setup.propManager.lowSkinnyBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+					}
+					if (this.setup.propManager && this.setup.propManager.lowBody)
+					{
+						this.setup.propManager.lowBody.GetComponent<SkinnedMeshRenderer>().sharedMaterial = this.Burnt;
+					}
+					this.MySkin.sharedMaterial = this.Burnt;
+					this.alreadyBurnt = true;
+				}
+				float num;
+				if (this.setup.ai.creepy_fat)
+				{
+					num = 10f;
+				}
+				else if (this.setup.ai.fireman || this.setup.ai.creepy_boss)
+				{
+					num = 5f;
+				}
+				else
+				{
+					num = UnityEngine.Random.Range(7f, 14f);
+				}
+				num *= 1 + ModdedPlayer.Stats.fireDuration;
+				if (this.Fire != null && this.Fire.Length > 0)
+				{
+					foreach (GameObject gameObject in this.Fire)
+					{
+						if (gameObject && !gameObject.activeSelf)
+						{
+							gameObject.SetActive(true);
+							gameObject.SendMessage("setFireDuration", num + 7f, SendMessageOptions.DontRequireReceiver);
+						}
+					}
+				}
+				this.onFire = true;
+				if (!this.ai.creepy_boss && this.setup.pmCombat)
+				{
+					this.setup.pmCombat.FsmVariables.GetFsmBool("onFireBool").Value = true;
+				}
+				this.targetSwitcher.attackerType = 4;
+				int num2 = this.douseMult - 1;
+				if (num2 < 1)
+				{
+					num2 = 1;
+				}
+				this.Hit(5 * num2);
+				if (this.ai.creepy_male || this.ai.creepy || this.ai.creepy_fat || this.ai.creepy_baby)
+				{
+					if (!this.ai.creepy_boss)
+					{
+						this.animator.SetIntegerReflected("randInt1", UnityEngine.Random.Range(0, 3));
+						this.animator.SetBoolReflected("onFireBool", true);
+						this.setup.pmCombat.SendEvent("goToOnFire");
+					}
+					this.StartOnFireEvent();
+				}
+				if (!base.IsInvoking("HitFire"))
+				{
+					base.InvokeRepeating("HitFire", 1f / (1 + ModdedPlayer.Stats.fireTickRate), 1f/(1+ModdedPlayer.Stats.fireTickRate));
+				}
+				if (!base.IsInvoking("disableBurn"))
+				{
+					base.Invoke("disableBurn", num);
+				}
+				else
+				{
+					CancelInvoke("disableBurn");
+					base.Invoke("disableBurn", num);
+
+				}
+			}
+			else
+			{
+				this.singeBurn();
+			}
+		}
 	}
 }

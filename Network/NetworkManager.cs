@@ -177,6 +177,8 @@ namespace ChampionsOfForest.Network
 		/// <param name="amount">How many of this item should be spawned</param>
 		public static void SendItemDrop(Item item, Vector3 pos, int amount = 1)
 		{
+			if (item == null)
+				return;
 			ulong id = lastDropID + 1;
 			while (PickUpManager.PickUps.ContainsKey(id))
 			{
@@ -229,8 +231,11 @@ namespace ChampionsOfForest.Network
 				answerStream.Close();
 			}
 		}
-
-		public static void SendHitmarker(Vector3 pos, int amount, Color c)
+		public static void HitEnemyMagic()
+		{
+			
+		}
+		public static void SendHitmarker(Vector3 pos, float amount, Color c)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{

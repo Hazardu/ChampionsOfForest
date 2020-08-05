@@ -370,34 +370,13 @@ namespace ChampionsOfForest.Items
 
 		public static void AddMagicFind( float f)
 		{
-			ModdedPlayer.instance.MagicFindMultipier+= f;
-			if (GameSetup.IsMultiplayer)
-			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(23);
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
-				}
-			}
+			ModdedPlayer.Stats.magicFind.Multiply(1+ f);
 		}
 
 		public static void RemoveMagicFind( float f)
 		{
-			ModdedPlayer.instance.MagicFindMultipier -= f;
-			if (GameSetup.IsMultiplayer)
-			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(23);
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
-				}
-			}
+			ModdedPlayer.Stats.magicFind.Divide(1 + f);
+
 		}
 
 		public static void AddAllStats( float f)

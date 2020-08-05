@@ -2,6 +2,8 @@
 
 using TheForest.Utils;
 
+using UnityEngine;
+
 namespace ChampionsOfForest.ExpSources
 {
 	internal class AnimalExp : animalHealth
@@ -31,23 +33,23 @@ namespace ChampionsOfForest.ExpSources
 			}
 			if (spawnFunctions.raccoon)
 			{
-				xp = UnityEngine.Random.Range(200, 200);
+				xp = UnityEngine.Random.Range(200, 250);
 			}
 			if (spawnFunctions.deer)
 			{
-				xp = UnityEngine.Random.Range(75 , 80);
+				xp = UnityEngine.Random.Range(75 , 85);
 			}
 			if (spawnFunctions.squirrel)
 			{
-				xp = UnityEngine.Random.Range(70, 100);
+				xp = UnityEngine.Random.Range(70, 75);
 			}
 			if (spawnFunctions.boar)
 			{
-				xp = UnityEngine.Random.Range(150, 170);
+				xp = UnityEngine.Random.Range(150, 200);
 			}
 			if (spawnFunctions.crocodile)
 			{
-				xp = UnityEngine.Random.Range(350, 390);
+				xp = UnityEngine.Random.Range(350, 450);
 			}
 
 			if (GameSetup.IsMultiplayer)
@@ -63,7 +65,12 @@ namespace ChampionsOfForest.ExpSources
 				}
 			}
 			ModdedPlayer.instance.AddKillExperience(xp);
+			if (xp > 82)
+			{
+				if(Random.value < 0.5f)
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(xp), transform.position + Vector3.up * 4f);
 
+			}
 			base.Die();
 		}
 	}

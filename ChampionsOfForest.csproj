@@ -219,6 +219,7 @@
     <Compile Include="Enemies\mutantFamilyMod.cs" />
     <Compile Include="ExpSources\AnimalExp.cs" />
     <Compile Include="ExpSources\CutBush2AddExp.cs" />
+    <Compile Include="ExpSources\CutBush3AddExp.cs" />
     <Compile Include="ExpSources\CutBushAddExp.cs" />
     <Compile Include="ExpSources\CutEffigyMod.cs" />
     <Compile Include="ExpSources\ExpEvents.cs" />
@@ -301,7 +302,7 @@
     <Compile Include="ModSettings.cs" />
     <Compile Include="Effects\BlackHole.cs" />
     <Compile Include="Network\CoopServerCallbacksMod.cs" />
-    <Compile Include="Player\Overrides\ArrowDamageMod.cs" />
+    <Compile Include="Player\Overrides\XBArrowDamageMod.cs" />
     <Compile Include="Player\BuffDataBase.cs" />
     <Compile Include="Network\CommandReader.cs" />
     <Compile Include="Player\Overrides\CrossBowControllerMod.cs" />

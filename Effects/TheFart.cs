@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Effects
 
 		public static void DealDamageAsHost(Vector3 pos, Vector3 dir, float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
-			instance.StartCoroutine(instance.AsyncHitEnemies(pos, dir, radius, Mathf.RoundToInt(dmg), knockback, slowAmount, duration));
+			instance.StartCoroutine(instance.AsyncHitEnemies(pos, dir, radius, dmg, knockback, slowAmount, duration));
 		}
 
 		private IEnumerator FartWarmupAsync(float radius, float dmg, float knockback, float slowAmount, float duration)
@@ -117,47 +117,27 @@ namespace ChampionsOfForest.Effects
 			src.Play();
 		}
 
-		private IEnumerator AsyncHitEnemies(Vector3 pos, Vector3 dir, float radius, int dmg, float knockback, float slowAmount, float duration)
+		private IEnumerator AsyncHitEnemies(Vector3 pos, Vector3 dir, float radius, float dmg, float knockback, float slowAmount, float duration)
 		{
 			int scanCount = 0;
 			Vector3 center = pos + dir * radius;
 			float radsqr = radius * radius;
-			if (EnemyManager.singlePlayerList != null)
-			{
-				foreach (var enemy in EnemyManager.singlePlayerList)
+			
+				foreach (var enemy in EnemyManager.enemyByTransform)
 				{
-					if (!enemy.enabled)
+					if (!enemy.Key.gameObject.activeSelf)
 						continue;
 					if ((scanCount++) % 10 == 0)
 						yield return null;
-					float sqrDist = (center - enemy.transform.position).sqrMagnitude;
+					float sqrDist = (center - enemy.Key.position).sqrMagnitude;
 					if (sqrDist <= radsqr)
 					{
-						enemy.HitMagic(dmg * 2);
-
-						enemy.DoDoT(dmg, duration);
-						enemy.Slow(142, slowAmount, duration);
-						enemy.AddKnockback(dir, knockback);
+						enemy.Value.HitMagic(dmg * 2);
+						enemy.Value.DoDoT(dmg, duration);
+						enemy.Value.Slow(142, slowAmount, duration);
+						enemy.Value.AddKnockback(dir, knockback);
 					}
-				}
-			}
-			else if (EnemyManager.hostDictionary != null)
-			{
-				foreach (var enemy in EnemyManager.hostDictionary.Values)
-				{
-					if (!enemy.enabled)
-						continue;
-					if ((scanCount++) % 10 == 0)
-						yield return null;
-					float sqrDist = (center - enemy.transform.position).sqrMagnitude;
-					if (sqrDist <= radsqr)
-					{
-						enemy.HitMagic(dmg * 2);
-						enemy.DoDoT(dmg, duration);
-						enemy.Slow(142, slowAmount, duration);
-						enemy.AddKnockback(dir, knockback);
-					}
-				}
+				
 			}
 		}
 	}

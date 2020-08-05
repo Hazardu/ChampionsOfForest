@@ -12,20 +12,21 @@ namespace ChampionsOfForest.Effects
 		public static void HostAction(Vector3 pos, float dist, float slowMultipier, float duration, float damage)
 		{
 			RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one, -10);
-			DamageMath.DamageClamp(damage, out int dmg, out int rep);
 			for (int i = 0; i < hits.Length; i++)
 			{
 				if (hits[i].transform.CompareTag("enemyCollide"))
 				{
 					EnemyProgression prog = hits[i].transform.gameObject.GetComponentInParent<EnemyProgression>();
-					prog?.Slow(20, slowMultipier, duration);
-					for (int a = 0; a < rep; a++)
-					{
-						prog?.HitMagic(dmg);
-					}
+					
+
 					if (prog == null)
 					{
-						hits[i].transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
+						hits[i].transform.SendMessageUpwards("HitMagic", damage, SendMessageOptions.DontRequireReceiver);
+					}
+					else
+					{
+					prog.Slow(20, slowMultipier, duration);
+						prog.HitMagic(damage);
 					}
 				}
 			}

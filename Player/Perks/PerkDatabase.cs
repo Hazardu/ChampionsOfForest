@@ -144,7 +144,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_hungerRate.valueMultiplicative *=  0.9f,
+				apply = () => { ModdedPlayer.Stats.perk_hungerRate.valueMultiplicative *= 0.9f; ModdedPlayer.Stats.perk_thirstRate.valueMultiplicative *= 0.9f; },
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -155,8 +155,8 @@ namespace ChampionsOfForest.Player
 				posX = -2f,
 				posY = 0.75f,
 				name = "Metabolism",
-				originalDescription = "Additional microorganisms are now present in the digestive system that allow to feed of previousely undigested food.\nDecreases hunger rate by 10%.",
-				textureVariation = 1, //0 or 1
+				originalDescription = "Additional microorganisms are now present in the digestive system. Sweating is decreased\nDecreases hunger and thirst rate by 10%.",
+				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
 				{
@@ -168,7 +168,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_thirstRate.valueMultiplicative *=  0.9f,
+				apply = () => ModdedPlayer.Stats.staminaRecoveryperSecond.Add(0.5f),
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -178,17 +178,11 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -2f,
 				posY = -0.75f,
-				name = "Water Conservation",
-				originalDescription = "Sweating is decreased, kidneys keep more water.\nDecreases thirst rate by 10%.",
-				textureVariation = 1, //0 or 1
+				name = "Breath under control",
+				originalDescription = "Recovers 0.5 more stamina per second. Stamina is used for sprinting and swinging weapons.",
+				textureVariation = 0, //0 or 1
 				uncapped = true,
-				updateDescription = x =>
-				{
-					float f = 0.9f;
-					for (int i = 1; i < x; i++)
-						f *=  0.9f;
-					return "\nTotal from this perk: " + (1 - f).ToString("P");
-				},
+				updateDescription = x => $"Total: {0.5f*x:N1}"
 			};
 			new Perk()
 			{
@@ -728,7 +722,7 @@ namespace ChampionsOfForest.Player
 				name = "Armor Penetration",
 				originalDescription = "Increases armor penetration from all sources by 3",
 				textureVariation = 0,
-				uncapped = false,
+				uncapped = true,
 			};
 			new Perk()
 			{
@@ -845,12 +839,11 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AddGeneratedResource(33, 6);
-
+				apply = () => { ModdedPlayer.instance.AddGeneratedResource(33, 10);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromBoar,true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromDeer,true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRabbit,true);
-					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRacoon,true);;
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRacoon,true);
 					MoreCraftingReceipes.AddReceipes();
 					},
 				category = PerkCategory.Utility,
@@ -861,9 +854,9 @@ namespace ChampionsOfForest.Player
 				posX = -2.5f,
 				posY = 0,
 				name = "Alternative cloth sources",
-				originalDescription = "Increases daily generation of cloth by 6. Allows turning animal fur skin into cloth by crafting.",
+				originalDescription = "Increases daily generation of cloth by 10. Allows turning animal fur skin into cloth by crafting.",
 				textureVariation = 0,
-				uncapped = true,
+				uncapped = false,
 			};
 			new Perk()
 			{
@@ -1297,7 +1290,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive +=  0.1f; ModdedPlayer.Stats.spellCost.valueMultiplicative *=  1.25f; },
+				apply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive +=  0.15f; ModdedPlayer.Stats.spellCost.valueMultiplicative *=  1.20f; },
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 15, 55 },
@@ -1307,9 +1300,15 @@ namespace ChampionsOfForest.Player
 				posX = 3f,
 				posY = -0.75f,
 				name = "Overcharge",
-				originalDescription = "Spell damage is increased by 10%, spell costs are increased by 25%",
+				originalDescription = "Spell damage is increased by 15%, spell costs are increased by 20%",
 				textureVariation = 0,
 				uncapped = true,
+				updateDescription= x =>
+				{
+					float f1 = 0.15f* x;
+					float f2 = Mathf.Pow(1.2f, x);
+					return $"Total increase to spell damage: {f1:P}\nspell cost: {f2 - 1f:P1}";
+				}
 			};
 			new Perk()
 			{
@@ -1471,7 +1470,7 @@ namespace ChampionsOfForest.Player
 				posX = -7f,
 				posY = 0.75f,
 				name = "Transporter",
-				originalDescription = "Allows you to use raft on land, turning it into a wooden hovercraft. WORKS FOR HOST/SINGLEPLAYER ONLY!",
+				originalDescription = "Allows you to use raft on land, turning it into a wooden hovercraft.",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1487,7 +1486,7 @@ namespace ChampionsOfForest.Player
 				posX = -7.5f,
 				posY = 1.5f,
 				name = "Turbo",
-				originalDescription = "Hovercraft but faster!\nIncreases the speed of rafts by 100%. WORKS FOR HOST/SINGLEPLAYER ONLY!",
+				originalDescription = "Hovercraft but faster!\nIncreases the speed of rafts by 100%.",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1591,12 +1590,12 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit.value = true,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.Support,
 				unlockPath = new int[] { -1 },
 				levelReq = 2,
 				cost = 1,
 				scale = 1,
-				posX = -1.5f,
+				posX = 1.5f,
 				posY = 0f,
 				name = "Inner Fire",
 				originalDescription = "Upon hitting an enemy, leave a debuff for 4 seconds, increase fire damage against that enemy equal to your spell amplification",
@@ -1624,7 +1623,7 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.5f),
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 13,55 },
+				unlockPath = new int[] { 13 },
 				levelReq = 30,
 				cost = 1,
 				scale = 1,
@@ -2092,6 +2091,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = "Projectile size increases projectile's damage.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
+				updateDescription = _ => "Every 1% of increased projectile size increses ranged damage by 2%"
 			};
 			new Perk()
 			{
@@ -2197,7 +2197,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.45f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.40f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2208,13 +2208,13 @@ namespace ChampionsOfForest.Player
 				posX = -1f,
 				posY = -2.25f,
 				name = "Double spears",
-				originalDescription = "When a spear hits a target, it has a 30% chance summon another spear and launch it at the enemy",
+				originalDescription = "When a spear hits a target, it has a 40% chance summon another spear and launch it at the enemy",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.02f,
+				apply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive +=  0.03f,
 
 				category = PerkCategory.RangedOffense,
 				texture = null,
@@ -2224,10 +2224,11 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -2f,
 				posY = -2.25f,
-				name = "Spearinfinity",
-				originalDescription = "Increases the chance of doublespears by 2%",
+				name = "Spears!",
+				originalDescription = "Increases the chance of doublespears by 3%",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
+				updateDescription = x=> $"Total chance to cast another spear: {x*0.03f + 0.4f:P}\nGetting above 100% will yield no results"
 			};
 			new Perk()
 			{
@@ -2516,7 +2517,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -0.75f,
 				name = "Dance of the Firegod",
-				originalDescription = "When black flame is on, your melee damage is increased, based on how fast youre going. However the spell cost is greatly increased.",
+				originalDescription = "When black flame is on, your melee damage is increased, based on how fast youre going. However the spell cost is increased by 10 times. Activating black flame disables berserk stamina refilling, and when black flame is put out, berserk spell returns to normal",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -2673,12 +2674,12 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.fireDamage.valueAdditive +=  0.15f,
 
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.Support,
 				unlockPath = new int[] { 90 },
 				levelReq = 10,
 				cost = 1,
 				scale = 1,
-				posX = -2.5f,
+				posX = 2.5f,
 				posY = 0f,
 				name = "Fiery Embrace",
 				originalDescription = "Fire damage is increased by 15%",
@@ -2857,7 +2858,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.thorns.valueAdditive +=  50,
+				apply = () => ModdedPlayer.Stats.thorns.valueAdditive +=  30,
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 162 },
@@ -2867,9 +2868,9 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 1.5f,
 				name = "Spikes",
-				originalDescription = "Adds 50 thorns",
+				originalDescription = "Adds 30 thorns",
 				textureVariation = 0,
-				uncapped = false,
+				uncapped = true,
 			};
 
 			new Perk()
@@ -3035,7 +3036,7 @@ namespace ChampionsOfForest.Player
 				posX = -1.25f,
 				posY = 1.85f,
 				name = "Polishing",
-				originalDescription = "Adds a tab to crafting menu. Allows you to change the value of a single stat into either higher or not change it at all. Requires one item of the same rarity or greater",
+				originalDescription = "Adds a tab to crafting menu. Allows you to change the value of a single stat into either higher or lower. Allows emptying of sockets. Requires one item of the same rarity or greater",
 				textureVariation = 1,
 				uncapped = false,
 			};
@@ -3060,7 +3061,7 @@ namespace ChampionsOfForest.Player
 				apply = () => StatActions.AddMagicFind(0.15f),
 
 				category = PerkCategory.Utility,
-				unlockPath = new int[] { 109 },
+				unlockPath = new int[] { 110 },
 				levelReq = 55,
 				cost = 2,
 				scale = 1f,
@@ -3132,9 +3133,332 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = false,
 			};
+			new Perk()
+			{
+				apply = () => {
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.PlaneAxe, true);
+					MoreCraftingReceipes.AddReceipes();
+				},
+				category = PerkCategory.Utility,
+				unlockPath = new int[] { 45 },
+				levelReq = 5,
+				cost = 1,
+				scale = 1,
+				posX = -3f,
+				posY = 0.75f,
+				name = "Craftable Plane Axe",
+				originalDescription = "Allows you to craft a plane axe from the crafted axe",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.headShotDamage.Multiply(2f),
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 66 },
+				levelReq = 38,
+				cost = 1,
+				scale = 1,
+				posX = 1.5f,
+				posY = -3f,
+				name = "Hawk's eye",
+				originalDescription = "Headshot damage is greatly increased",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.explosionDamage.Add(0.15f),
+				category = PerkCategory.Utility,
+				unlockPath = new int[] { 45 },
+				levelReq = 5,
+				cost = 1,
+				scale = 1,
+				posX = -3f,
+				posY = -0.75f,
+				name = "Explosion Damage Up",
+				originalDescription = "Increases explosion and dropkick attack damage by 15%. This affects explosions of other players too.",
+				textureVariation = 0,
+				uncapped = true,
+				updateDescription = x=>$"\nTotal: {x*0.15f:P}"
+			};
+			new Perk()
+			{
+				apply = () => {
+					ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(1.3f);
+					ModdedPlayer.Stats.headShotDamage.Multiply(1.3f);
+					ModdedPlayer.Stats.critDamage.Add(1f);
+					},
+				category = PerkCategory.RangedOffense,
+				unlockPath = new int[] { 67 },
+				unlockRequirement = new int[] { 67,66,65,64},
+				levelReq = 65,
+				cost = 2,
+				scale = 1,
+				posX = -0.5f,
+				posY = -4.5f,
+				name = "Ranged Mastery",
+				originalDescription = "Ranged damage and headshot damage are increased by 30%. Critical hit damage is increased by 100%",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.perk_doubleStickHarvesting.value=true,
+				category = PerkCategory.Utility,
+				unlockPath = new int[] { 56,57 },
+				levelReq = 5,
+				cost = 1,
+				scale = 1,
+				posX = -8f,
+				posY = -0.75f,
+				name = "Harvester",
+				originalDescription = "Bushes drop twice as many sticks",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.block.Add(0.2f),
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 29,35 },
+				levelReq = 45,
+				cost = 1,
+				scale = 1,
+				posX = 2.5f,
+				posY = -1.5f,
+				name = "Block",
+				originalDescription = "Increases block by 20%. Block makes you take less damage while getting hit and blocking with a weapon.",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.thornsPerVit.Add(0.5f),
 
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 168 },
+				levelReq = 16,
+				cost = 1,
+				scale = 1,
+				posX = 3f,
+				posY = 2.25f,
+				name = "Thorny Skin II",
+				originalDescription = "Every 2 points of vitality adds 1 thorns",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.thornsArmorPiercing.Add(2f),
 
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 192 },
+				levelReq = 17,
+				cost = 1,
+				scale = 1,
+				posX = 3.5f,
+				posY = 3f,
+				name = "Corrosive Skin",
+				originalDescription = "Getting hit reduces enemy armor for 250% of your all armor penetration stat",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.fireTickRate.Add(0.1f),
 
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 156 },
+				levelReq = 20,
+				cost = 1,
+				scale = 1,
+				posX = 3f,
+				posY = -0.75f,
+				name = "Pyromancy",
+				originalDescription = "Fire damage ticks 10% faster on enemies. This property stacks with other players",
+				textureVariation = 0,
+				uncapped = true,
+				updateDescription = x => $"Total: {x * 0.10f:P}"
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.fireTickRate.Add(1f),
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 194 },
+				levelReq = 70,
+				cost = 1,
+				scale = 1,
+				posX = 4f,
+				posY = -0.75f,
+				name = "Heat Surge",
+				originalDescription = "Fire damage ticks 100% faster on enemies. This property stacks with other players",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.fireDuration.Add(0.07f),
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 156 },
+				levelReq = 20,
+				cost = 1,
+				scale = 1,
+				posX = 3f,
+				posY = 0.75f,
+				name = "Flame lifetime",
+				originalDescription = "Enemies are ignited for 7% longer. This property stacks with other players",
+				textureVariation = 0,
+				uncapped = true,
+				updateDescription = x => $"Total: {x * 0.07f:P}"
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.fireDuration.Add(0.4f),
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 196 },
+				levelReq = 70,
+				cost = 1,
+				scale = 1,
+				posX = 4f,
+				posY = 0.75f,
+				name = "Living flame",
+				originalDescription = "Enemies are ignited for 40% longer. This property stacks with other players",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.expGain.valueMultiplicative *= 1.1f,
+
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 42 },
+				levelReq = 25,
+				cost = 1,
+				scale = 1,
+				posX = -5.5f,
+				posY = 0f,
+				name = "Insight II",
+				originalDescription = "All experience gained increased by 10%",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spellFlatDmg.Add(1300),
+
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 89 },
+				levelReq = 122,
+				cost = 2,
+				scale = 1,
+				posX = -0.5f,
+				posY = 6f,
+				name = "The Real Armageddon",
+				originalDescription = "The previous Armageddon was the 2012 kind, very underwhelming.\nBase spell damage is increased by 1300",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_blackhole_radius.Add(15),
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 199 },
+				levelReq = 128,
+				cost = 2,
+				scale = 1,
+				posX = -1.5f,
+				posY = 6f,
+				name = "The Big Succ",
+				originalDescription = "Increase the size of the blackhole by 15 meters. Which is basically double the size",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_blackhole_radius.Add(2.5f),
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 200 },
+				levelReq = 132,
+				cost = 1,
+				scale = 1,
+				posX = -2.5f,
+				posY = 6f,
+				name = "The Mega Endless Succ",
+				originalDescription = "Increase the size of the black hole by 2.5 meters",
+				textureVariation = 0,
+				uncapped = true,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_blackhole_pullforce.Add(25),
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 200 },
+				levelReq = 130,
+				cost = 1,
+				scale = 1,
+				posX = -2f,
+				posY = 5.25f,
+				name = "The Mega Endless Succ",
+				originalDescription = "Increase the pull force of the black hole by 25",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.vitality.Add(20),
+
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 114 },
+				levelReq = 5,
+				cost = 1,
+				scale = 1,
+				posX = 0.5f,
+				posY = -1.5f,
+				name = "Vitality",
+				originalDescription = "Increase vitality by 20",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () =>
+				{
+					ModdedPlayer.Stats.thornsDmgMult.Multiply(2f);
+					ModdedPlayer.Stats.thornsArmorPiercing.Add(2.5f);
+					ModdedPlayer.Stats.allDamageTaken.Multiply(0.95f);
+					ModdedPlayer.Stats.meleeIncreasedDmg.Multiply(0.9f);
+					ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(0.9f);
+					ModdedPlayer.Stats.spellIncreasedDmg.Multiply(0.9f);
+				},
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 89 },
+				unlockRequirement = new int[] { 193 },
+				levelReq = 77,
+				cost = 2,
+				scale = 1,
+				posX = 4f,
+				posY = 3.75f,
+				name = "Curse of Thorns",
+				originalDescription = "Thorns damage is doubled. Thorns armor piercing is doubled. Damage taken is slightly reduced. Melee, ranged and spell damage are decreased by 10%",
+				textureVariation = 1,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () =>  ModdedPlayer.Stats.allRecoveryMult.Multiply(1.5f),
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 159 },
+				levelReq = 76,
+				cost = 1,
+				scale = 1,
+				posX = -4f,
+				posY = -2.25f,
+				name = "Restoration",
+				originalDescription = "All healing and stamina/energy recovery are increased by 50%",
+				textureVariation = 0,
+				uncapped = false,
+			};
 
 
 			foreach (var item in perks)

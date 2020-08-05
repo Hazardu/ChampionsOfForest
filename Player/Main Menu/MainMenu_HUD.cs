@@ -69,20 +69,20 @@ namespace ChampionsOfForest
 		}
 
 		//Hit markers
-		public static void CreateHitMarker(int t, Vector3 p, Color color)
+		public static void CreateHitMarker(float dmg, Vector3 p, Color color)
 		{
 			var marker = Instance.hitMarkers.Where(x => x.Player == false && (x.worldPosition - p).sqrMagnitude < 4 && x.color == color);
 			if (marker.Count() > 0)
 			{
 				var m = marker.First();
 				m.lifetime = 4;
-				m.dmg += t;
+				m.dmg += dmg;
 				m.txt = m.dmg.ToString("N0");
 				m.worldPosition = p;
 			}
 			else
 			{
-				new HitMarker(t, p, color);
+				new HitMarker(dmg, p, color);
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace ChampionsOfForest
 				Instance.hitMarkers.RemoveAt(i);
 			}
 
-			public HitMarker(int t, Vector3 p, Color c)
+			public HitMarker(float t, Vector3 p, Color c)
 			{
 				color = c;
 				dmg = t;
@@ -1017,8 +1017,7 @@ namespace ChampionsOfForest
 			LevelUpDuration = lvlUpDuration;
 			LevelUpText = "\n" + ModdedPlayer.instance.level.ToString();
 
-			///TODO play some audio upon leveling up
-			///
+
 			if (lvlUpAudio == null)
 			{
 				lvlUpAudio = new GameObject("LvlupAudio").AddComponent<AudioSource>();

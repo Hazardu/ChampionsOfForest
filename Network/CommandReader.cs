@@ -220,19 +220,20 @@ namespace ChampionsOfForest.Network
 									bool ignite = r.ReadBoolean();
 									float dmg = r.ReadSingle();
 
-									DamageMath.DamageClamp(dmg, out int d, out int rep);
 									var hits = Physics.SphereCastAll(pos, radius, Vector3.one);
 
 									for (int i = 0; i < hits.Length; i++)
 									{
 										if (hits[i].transform.CompareTag("enemyCollide"))
 										{
-											for (int a = 0; a < rep; a++)
-											{
-												hits[i].transform.SendMessageUpwards("Hit", d, SendMessageOptions.DontRequireReceiver);
+											var prog = hits[i].transform.root.GetComponent<EnemyProgression>();
+											if (prog == null)
+												hits[i].transform.root.SendMessageUpwards("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
+											else
+												prog.HitPhysical(dmg);
 												if (ignite)
 													hits[i].transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
-											}
+											
 										}
 									}
 								}
@@ -388,7 +389,7 @@ namespace ChampionsOfForest.Network
 								break;
 							}
 
-						case 8:
+						case 8:	//enemy spells
 							{
 								int id = r.ReadInt32();
 								if (id == 1) //snow aura
@@ -412,10 +413,10 @@ namespace ChampionsOfForest.Network
 								break;
 							}
 
-						case 9:
+						case 9:	//add buff to a player by id
 							{
 								string playerID = r.ReadString();
-								if (ModReferences.ThisPlayerID == playerID)
+								if (playerID=="@everyone" || ModReferences.ThisPlayerID == playerID)
 								{
 									int source = r.ReadInt32();
 									float amount = r.ReadSingle();
@@ -554,7 +555,7 @@ namespace ChampionsOfForest.Network
 								if (ModSettings.IsDedicated)
 									return;
 
-								int amount = r.ReadInt32();
+								float amount = r.ReadSingle();
 								Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 								Color c = new Color(r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 								MainMenu.CreateHitMarker(amount, pos, c);
@@ -572,7 +573,7 @@ namespace ChampionsOfForest.Network
 								break;
 							}
 
-						case 22:
+						case 22:	//slow enemy by id
 							{
 								if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
 								{
@@ -589,42 +590,7 @@ namespace ChampionsOfForest.Network
 								break;
 							}
 
-						case 23:
-							{
-								if (GameSetup.IsMpServer)
-								{
-									if (ModSettings.IsDedicated)
-									{
-										ItemDataBase.MagicFind = 1;
-									}
-									else
-									{
-										ItemDataBase.MagicFind = ModdedPlayer.instance.MagicFindMultipier;
-									}
-								}
-								else
-								{
-									using (MemoryStream answerStream = new MemoryStream())
-									{
-										using (BinaryWriter w = new BinaryWriter(answerStream))
-										{
-											w.Write(24);
-											w.Write(ModdedPlayer.instance.MagicFindMultipier);
-											w.Close();
-										}
-										Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
-										answerStream.Close();
-									}
-								}
-
-								break;
-							}
-
-						case 24:
-							if (GameSetup.IsMpServer)
-								ItemDataBase.MagicFind *= r.ReadSingle();
-							break;
-
+						//case 23 & 24 obsolete - were related to syncing magic find
 						case 25:
 							{
 								if (GameSetup.IsMpServer)
@@ -796,7 +762,7 @@ namespace ChampionsOfForest.Network
 								if (EnemyManager.hostDictionary.ContainsKey(id))
 								{
 									EnemyProgression p = EnemyManager.hostDictionary[id];
-									p.DoDoT(r.ReadInt32(), r.ReadSingle());
+									p.DoDoT(r.ReadSingle(), r.ReadSingle());
 								}
 
 								break;

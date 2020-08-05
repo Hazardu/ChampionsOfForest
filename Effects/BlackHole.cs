@@ -221,12 +221,9 @@ namespace ChampionsOfForest
 			{
 				if (t.Value != null)
 				{
-					DamageMath.DamageClamp(damage, out int d, out int a);
-					for (int i = 0; i < a; i++)
-					{
-						t.Value.HitMagic(Mathf.RoundToInt(d / 2.4f));
+						t.Value.HitMagic(damage);
 						yield return null;
-					}
+					
 				}
 			}
 		}

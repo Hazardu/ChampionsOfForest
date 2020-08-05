@@ -28,11 +28,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			int Damage = 10;
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Normal:
+				case ModSettings.Difficulty.Easy:
 					Damage = Random.Range(20, 30);
 					break;
 
-				case ModSettings.Difficulty.Hard:
+				case ModSettings.Difficulty.Veteran:
 					Damage = Random.Range(60, 110);
 					break;
 

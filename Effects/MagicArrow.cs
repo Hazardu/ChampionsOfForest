@@ -105,14 +105,12 @@ namespace ChampionsOfForest.Effects
 			{
 				if (!GameSetup.IsMpClient)
 				{
-					EnemyProgression prog = other.GetComponentInParent<EnemyProgression>();
-					DamageMath.DamageClamp(Damage, out int d, out int a);
-					if (prog != null)
+					
+					if (EnemyManager.enemyByTransform.ContainsKey(other.transform.root))
 					{
-						for (int i = 0; i < a; i++)
-						{
-							prog.HitMagic(d);
-						}
+						var prog = EnemyManager.enemyByTransform[other.transform.root];
+							prog.HitMagic(Damage);
+						
 						float slowAmount = 0.45f;
 						if (GiveDoubleSlow)
 						{
@@ -127,7 +125,7 @@ namespace ChampionsOfForest.Effects
 					}
 					else
 					{
-						other.SendMessageUpwards("HitMagic", d, SendMessageOptions.DontRequireReceiver);
+						other.SendMessageUpwards("HitMagic", Damage, SendMessageOptions.DontRequireReceiver);
 					}
 				}
 			}

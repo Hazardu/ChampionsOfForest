@@ -3,6 +3,8 @@
 using TheForest.Tools;
 using TheForest.Utils;
 
+using UnityEngine;
+
 namespace ChampionsOfForest.ExpSources
 {
 	public class ExpEvents
@@ -52,6 +54,11 @@ namespace ChampionsOfForest.ExpSources
 			else
 			{
 				ModdedPlayer.instance.AddKillExperience(xp);
+			}
+			if (!GameSetup.IsMpClient)
+			{
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270), LocalPlayer.Transform.position+Vector3.up*6f);
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270), LocalPlayer.Transform.position+Vector3.up*6f);
 			}
 		}
 	}

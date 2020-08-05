@@ -88,36 +88,17 @@ namespace ChampionsOfForest.Player.Crafting
 							Rect statRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 26 * screenScale);
 							Rect valueMinMaxRect = new Rect(statRect.xMax + 15 * screenScale, ypos, statRect.width, statRect.height);
 							ypos += 26 * screenScale;
-							float maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level) * mult;
-							float minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level) * mult;
-							if (stat.ValueCap != 0)
-								maxAmount = Mathf.Min(maxAmount, stat.ValueCap);
-							float amount = stat.Amount;
-							if (stat.DisplayAsPercent)
-							{
-								amount *= 100;
-								maxAmount *= 100;
-								minAmount *= 100;
-							}
-
-							amount = (float)Math.Round(amount, stat.RoundingCount);
-							maxAmount = (float)Math.Round(maxAmount, stat.RoundingCount);
-							
-							minAmount = (float)Math.Round(minAmount, stat.RoundingCount);
+							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
+							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
+							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
 							GUI.color = MainMenu.RarityColors[stat.Rarity];
 							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
 							GUI.color = Color.white;
 							ind++;
-							if (stat.DisplayAsPercent)
-							{
-								GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount) + "%", styles[1]);
-								GUI.Label(valueMinMaxRect, "[" + minAmount.ToString("N" + stat.RoundingCount) + "%" + " - " + maxAmount.ToString("N" + stat.RoundingCount) + "%]", styles[4]);
-							}
-							else
-							{
-								GUI.Label(statRect, amount.ToString("N" + stat.RoundingCount), styles[1]);
-								GUI.Label(valueMinMaxRect, "[" + minAmount.ToString("N" + stat.RoundingCount) + " - " + maxAmount.ToString("N" + stat.RoundingCount) + "]", styles[4]);
-							}
+
+							GUI.Label(statRect, amount, styles[1]);
+							GUI.Label(valueMinMaxRect, "[ " + minAmount + " - " + maxAmount + " ]", styles[4]);
+
 						}
 					}
 					catch (Exception e)

@@ -41,11 +41,10 @@ namespace ChampionsOfForest
 
 			public bool Tick()
 			{
-				Ticks--;
-				return Ticks <= 0;
+				return --Ticks <= 0;
 			}
 
-			public DoT(int Damage, float duration)
+			public DoT(float Damage, float duration)
 			{
 				Amount = Damage;
 				Ticks = Mathf.CeilToInt(duration);
@@ -95,7 +94,7 @@ namespace ChampionsOfForest
 		public long bounty;
 
 		public float Steadfast = 100;
-		private int SteadfastCap = 100000;
+		private float SteadfastCap = 100000;
 		public bool setupComplete = false;
 		public bool CCimmune = false;
 		private bool DualLifeSpend = false;
@@ -128,7 +127,7 @@ namespace ChampionsOfForest
 		private GameObject closestPlayer;
 
 		private float closestPlayerMagnitude;
-		private Avenger avengerability;
+		public Avenger avengerability;
 
 		private float timeOfDeath;
 
@@ -223,7 +222,10 @@ namespace ChampionsOfForest
 		}
 
 		#endregion Name
-
+		void OnDestroy()
+		{
+			EnemyManager.enemyByTransform.Remove(transform);
+		}
 		private void Setup()
 		{
 			try
@@ -244,10 +246,8 @@ namespace ChampionsOfForest
 					}
 					EnemyManager.AddHostEnemy(this);
 				}
-				else if (GameSetup.IsSinglePlayer)
-				{
-					EnemyManager.singlePlayerList.Add(this);
-				}
+				if (!EnemyManager.enemyByTransform.ContainsKey(transform))
+					EnemyManager.enemyByTransform.Add(this.transform, this);
 			}
 			catch (Exception ex)
 			{
@@ -454,6 +454,10 @@ namespace ChampionsOfForest
 				avengerability.progression = this;
 				avengerability.Stacks = 0;
 			}
+			else if (avengerability != null)
+			{
+				Destroy(avengerability);
+			}
 			if (abilities.Contains(Abilities.FireAura))
 			{
 				float aurDmg = (5 * Level + 1) * ((int)ModSettings.difficulty + 1.3f);
@@ -511,7 +515,7 @@ namespace ChampionsOfForest
 
 			AssignBounty();
 
-			SteadfastCap = Mathf.RoundToInt(Steadfast * 0.01f * MaxHealth);
+			SteadfastCap = Mathf.Max(Steadfast * 0.01f * MaxHealth, 1f);
 			if (SteadfastCap < 1) // Making sure the enemy can be killed
 			{
 				SteadfastCap = 1;
@@ -656,34 +660,56 @@ namespace ChampionsOfForest
 			target.ArmorReduction += amount;
 		}
 
-		public void HitMagic(int damage)
+		public void HitMagic(float damage)
 		{
 			damage = ClampDamage(false, damage, true);
 			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage, new Color(0f, 0, 1f, 0.8f));
 
-			_Health.HitReal(damage);
+			damage -= 1f;
+			DealDamage(damage);
+			_Health.HitReal(1);
 		}
+		private void DealDamage(float damage)
+		{
+			if (_hp > 0)
+			{
+				float i = Mathf.Min(_hp, damage);
+				_hp -= i;
+				damage -= i;
+			}
+			if (damage > 0)
+			{
+				if (damage > _Health.Health)
 
-		public void HitPhysicalSilent(int damage)
+					_Health.Health = 0;
+
+				else
+					_Health.Health -= (int)damage;
+			}
+		}
+		public void HitPhysicalSilent(float damage)
 		{
 			damage = ClampDamage(false, damage, true);
 			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, damage, new Color(0.8f, 1, 0.10f, 0.8f));
 
 			if (_hp > 0)
 			{
-				int i = (int)Mathf.Min(_hp, (float)damage);
+				float i = Mathf.Min(_hp, damage);
 				_hp -= i;
 				damage -= i;
 			}
 			if (damage > 0)
 			{
-				_Health.Health -= damage;
+				if (damage > _Health.Health)
+					_Health.Health = 0;
+				else
+					_Health.Health -= (int)damage;
 				if (_Health.Health < 1)
 					_Health.HitReal(25);
 			}
 		}
 
-		public int ClampDamage(bool pure, int damage, bool magic = false)
+		public float ClampDamage(bool pure, float damage, bool magic)
 		{
 			if (abilities.Contains(Abilities.Shielding))
 			{
@@ -695,11 +721,123 @@ namespace ChampionsOfForest
 				{
 					switch (ModSettings.difficulty)
 					{
-						case ModSettings.Difficulty.Normal:
+						case ModSettings.Difficulty.Easy:
 							shieldingCD = 60;
 							break;
 
-						case ModSettings.Difficulty.Hard:
+						case ModSettings.Difficulty.Veteran:
+							shieldingCD = 55;
+
+							break;
+
+						case ModSettings.Difficulty.Elite:
+							shieldingCD = 50;
+
+							break;
+
+						case ModSettings.Difficulty.Master:
+							shieldingCD = 45;
+
+							break;
+
+						case ModSettings.Difficulty.Challenge1:
+							shieldingCD = 40;
+
+							break;
+
+						case ModSettings.Difficulty.Challenge2:
+							shieldingCD = 35;
+
+							break;
+
+						case ModSettings.Difficulty.Challenge3:
+							shieldingCD = 30;
+
+							break;
+
+						case ModSettings.Difficulty.Challenge4:
+							shieldingCD = 25;
+							break;
+
+						case ModSettings.Difficulty.Challenge5:
+							shieldingCD = 20;
+							break;
+
+						default:
+							shieldingCD = 15;
+							break;
+					}
+					normalColor = _Health.MySkin.material.color;
+					_Health.MySkin.material.color = Color.black;
+					shieldingON = 3;
+					return 0f;
+				}
+			}
+			if (!abilities.Contains(Abilities.Juggernaut))
+
+				damage = damage * dmgTakenIncrease;
+			if (pure)
+			{
+				if (damage > SteadfastCap)
+				{
+					if (Steadfast == 100)
+					{
+						return damage;
+					}
+
+					float dmgpure = Mathf.Min(damage, SteadfastCap);
+					return dmgpure;
+				}
+				return damage;
+			}
+
+			float reduction = ModReferences.DamageReduction(Armor - ArmorReduction);
+			if (magic)
+			{
+				reduction /= 1.5f;
+			}
+
+			float dmg = damage * (1 - reduction);
+			if (Steadfast != 100)
+			{
+				dmg = Mathf.Min(dmg, SteadfastCap);
+			}
+
+			return dmg;
+		}
+		public void HitPure(float damage)
+		{
+			float dmg = ClampDamage(true, damage, false);
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg, new Color(1, 0.4f, 0, 1f));
+			damage -= 1f;
+			DealDamage(dmg);
+			_Health.HitReal(1);
+		}
+		public void HitPhysical(float damage)
+		{
+			float dmg = ClampDamage(false, damage, false);
+			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg, new Color(1, 0.4f, 0, 1f));
+			damage -= 1f;
+			DealDamage(dmg);
+			_Health.HitReal(1);
+		}
+		public int ClampDamage(bool pure, int damage)
+		{
+			if (abilities.Contains(Abilities.Shielding))
+			{
+				if (shieldingON > 0)
+				{
+					return 0;
+				}
+				else if (shieldingCD <= 0)
+				{
+					switch (ModSettings.difficulty)
+					{
+						case ModSettings.Difficulty.Easy:
+							shieldingCD = 60;
+							break;
+
+						case ModSettings.Difficulty.Veteran:
 							shieldingCD = 55;
 
 							break;
@@ -759,22 +897,17 @@ namespace ChampionsOfForest
 						return damage;
 					}
 
-					int dmgpure = Mathf.Min(damage, SteadfastCap);
+					int dmgpure = Mathf.Min(damage, (int)SteadfastCap);
 					return dmgpure;
 				}
 				return damage;
 			}
 
 			float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
-			if (magic)
-			{
-				reduction /= 1.5f;
-			}
-
 			int dmg = Mathf.CeilToInt(damage * (1 - reduction));
 			if (Steadfast != 100)
 			{
-				dmg = Mathf.Min(dmg, SteadfastCap);
+				dmg = Mathf.Min(dmg, (int)SteadfastCap);
 			}
 
 			return dmg;
@@ -846,64 +979,36 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					foreach (EnemyProgression item in EnemyManager.singlePlayerList)
+					foreach (var item in EnemyManager.enemyByTransform)
 					{
-						if (item != null && item.gameObject != null && item.gameObject.activeSelf)
+						if (item.Value != null && item.Value.gameObject != null && item.Value.gameObject.activeSelf)
 						{
-							item.gameObject.SendMessage("ThisEnemyDied", this, SendMessageOptions.DontRequireReceiver);
+							if (item.Value.avengerability != null)
+								item.Value.avengerability.ThisEnemyDied(this);
 						}
 					}
 					if (abilities.Contains(Abilities.Sacrifice))
 					{
-						foreach (EnemyProgression item in EnemyManager.singlePlayerList)
+						foreach (var item in EnemyManager.enemyByTransform)
 						{
-							if (!(item != null && item.gameObject != null && item.gameObject.activeSelf))
+							if (item.Value != null && item.Value.gameObject != null && item.Value.gameObject.activeSelf)
 							{
-								continue;
+								if ((item.Key.position - transform.position).sqrMagnitude > 4303)   //20 m radius = 66 ft and then squared
+								{
+									continue;
+								}
+								else
+								{
+									item.Value.ArmorReduction = 0;
+									item.Value.BaseAnimSpeed *= 1.25f;
+									item.Value.BaseDamageMult *= 2f;
+									item.Value._hp = item.Value.MaxHealth;
+								}
 							}
-
-							if ((item.transform.position - transform.position).sqrMagnitude > 100)
-							{
-								continue;
-							}
-							item.ArmorReduction = 0;
-							item.BaseAnimSpeed *= 1.25f;
-							item.BaseDamageMult *= 2f;
-							item._hp = item.MaxHealth;
 						}
 					}
 				}
-
-				if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ItemDataBase.MagicFind || _AI.creepy_boss || abilities.Count > 0)
-				{
-					int itemCount = Random.Range(1, 3 + ModReferences.Players.Count);
-					if (_AI.creepy_boss)
-					{
-						itemCount += 25;
-					}
-					else if (abilities.Count >= 3)
-					{
-						itemCount += Random.Range(3, 7);
-					}
-					if (_rarity == EnemyRarity.Boss)
-					{
-						itemCount += 6;
-					}
-					if (_rarity == EnemyRarity.Miniboss)
-					{
-						itemCount += 3;
-					}
-					itemCount += Mathf.RoundToInt((int)ModSettings.difficulty);
-					itemCount = Mathf.RoundToInt(itemCount * ItemDataBase.MagicFind * ModSettings.DropQuantityMultiplier);
-
-					ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
-
-					if (enemyType == Enemy.Megan && (int)ModSettings.difficulty >= 4)
-					{
-						//Drop megan only amulet
-						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3);
-					}
-				}
+				DropLoot();
 				if (GameSetup.IsMpServer)
 				{
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -933,6 +1038,42 @@ namespace ChampionsOfForest
 			}
 
 			return true;
+		}
+
+		private void DropLoot()
+		{
+
+			if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ModdedPlayer.Stats.magicFind.Value|| _AI.creepy_boss || abilities.Count > 0)
+			{
+				int itemCount = Random.Range(1, 3 + ModReferences.Players.Count / 2);
+				if (_AI.creepy_boss)
+				{
+					itemCount += 25;
+				}
+				else if (abilities.Count >= 3)
+				{
+					itemCount += Random.Range(1, 4);
+				}
+				if (_rarity == EnemyRarity.Boss)
+				{
+					itemCount += 7;
+				}
+				if (_rarity == EnemyRarity.Miniboss)
+				{
+					itemCount += 3;
+				}
+				itemCount += (int)ModSettings.difficulty;
+				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
+				ModAPI.Console.Write("Dropping " + itemCount + " items");
+				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
+
+				if (enemyType == Enemy.Megan && (int)ModSettings.difficulty >= 4)
+				{
+					//Drop megan only amulet
+					Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3);
+				}
+			}
+
 		}
 
 		private void OnEnable()
@@ -1193,7 +1334,7 @@ namespace ChampionsOfForest
 
 					switch (ModSettings.difficulty)
 					{
-						case ModSettings.Difficulty.Hard:
+						case ModSettings.Difficulty.Veteran:
 							dmg = 100;
 							radius = 8f;
 							break;
@@ -1311,11 +1452,11 @@ namespace ChampionsOfForest
 					float duration = 3;
 					switch (ModSettings.difficulty)
 					{
-						case ModSettings.Difficulty.Normal:
+						case ModSettings.Difficulty.Easy:
 							duration = 3;
 							break;
 
-						case ModSettings.Difficulty.Hard:
+						case ModSettings.Difficulty.Veteran:
 							duration = 3.4f;
 							break;
 
@@ -1400,7 +1541,7 @@ namespace ChampionsOfForest
 						float radius = 10;
 						switch (ModSettings.difficulty)
 						{
-							case ModSettings.Difficulty.Hard:
+							case ModSettings.Difficulty.Veteran:
 								dmg = 100;
 								radius = 11;
 								break;
@@ -1481,7 +1622,7 @@ namespace ChampionsOfForest
 						float radius = 10;
 						switch (ModSettings.difficulty)
 						{
-							case ModSettings.Difficulty.Hard:
+							case ModSettings.Difficulty.Veteran:
 								dmg = 100;
 								radius = 11;
 								break;
@@ -1753,11 +1894,11 @@ namespace ChampionsOfForest
 
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Normal:
+				case ModSettings.Difficulty.Easy:
 					Level = Random.Range(1, 4);
 					break;
 
-				case ModSettings.Difficulty.Hard:
+				case ModSettings.Difficulty.Veteran:
 					Level = Random.Range(5, 10);
 
 					break;
@@ -1812,15 +1953,18 @@ namespace ChampionsOfForest
 
 		private void AssignBounty()
 		{
-			double b = Random.Range((MaxHealth) * 0.2f, MaxHealth * 0.5f) * Mathf.Pow(Level, 0.5f) * 0.5f + Armor;
+			double b = Random.Range((MaxHealth) * 0.35f, MaxHealth * 0.45f) * Mathf.Sqrt(Level) * 0.65f + Armor;
 			if (abilities.Count > 1)
 			{
-				b = b * abilities.Count * 0.9f;
+				b = b * abilities.Count;
 			}
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Hard:
-					b = b * 1.25;
+				case ModSettings.Difficulty.Easy:
+					b = b * 1.3f;
+					break;
+				case ModSettings.Difficulty.Veteran:
+					b = b * 1.5;
 					break;
 
 				case ModSettings.Difficulty.Elite:
@@ -1829,42 +1973,42 @@ namespace ChampionsOfForest
 					break;
 
 				case ModSettings.Difficulty.Master:
-					b = b * 2.4;
+					b = b * 2.2;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge1:
-					b = b * 4;
+					b = b * 3;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge2:
-					b = b * 6;
+					b = b * 4;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge3:
-					b = b * 9f;
+					b = b * 5.25f;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge4:
-					b = b * 14;
+					b = b * 6.8;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge5:
-					b = b * 22;
+					b = b * 10;
 
 					break;
 
 				case ModSettings.Difficulty.Challenge6:
-					b = b * 40;
+					b = b * 15;
 
 					break;
 
 				case ModSettings.Difficulty.Hell:
-					b = b * 40;
+					b = b * 15;
 
 					break;
 			}
@@ -1910,22 +2054,17 @@ namespace ChampionsOfForest
 						float i = Mathf.Min(_hp, DoTTotal);
 						_hp -= i;
 						_Health.Health -= Mathf.FloorToInt(DoTTotal - i);
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, (int)DoTTotal, Color.black);
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 					else
 					{
 						_Health.Health -= Mathf.FloorToInt(DoTTotal);
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, (int)DoTTotal, Color.black);
+						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 
-					for (int i = 0; i < DamageOverTimeList.Count; i++)
-					{
-						if (DamageOverTimeList[i].Tick())
-						{
-							DamageOverTimeList.RemoveAt(i);
-							GetTotalDoT();
-						}
-					}
+					DamageOverTimeList.RemoveAll(x => x.Tick());
+
+					GetTotalDoT();
 				}
 				DoTTimestamp = Time.time + 1;
 			}
@@ -1936,7 +2075,7 @@ namespace ChampionsOfForest
 			Pure, Physical, Magical
 		}
 
-		public void DoDoT(int dmg, float duration, DamageType dt = DamageType.Physical)
+		public void DoDoT(float dmg, float duration, DamageType dt = DamageType.Physical)
 		{
 			if (abilities == null || !abilities.Contains(Abilities.Juggernaut))
 			{
@@ -1982,8 +2121,8 @@ namespace ChampionsOfForest
 			this.setup.pmCombat.enabled = true;
 			if (setup.aiManager)
 			{
-			this.setup.aiManager.setAggressiveCombat();
-			this.setup.aiManager.setCaveCombat();   //the most agressive combat mode
+				this.setup.aiManager.setAggressiveCombat();
+				this.setup.aiManager.setCaveCombat();   //the most agressive combat mode
 			}
 			if (setup.pmBrain)
 			{

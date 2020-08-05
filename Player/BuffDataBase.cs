@@ -155,7 +155,7 @@ namespace ChampionsOfForest.Player
 				{
 					DisplayAsPercent = false
 				};
-				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f), f => ModdedPlayer.Stats.critChance.Add(f));
+				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f - 1), f => ModdedPlayer.Stats.critChance.Add(f - 1)) { DisplayAsPercent = true };
 
 			}
 			catch (System.Exception ex)
@@ -299,3 +299,4 @@ namespace ChampionsOfForest.Player
 //101 - bash active
 //102 - focus active
 //103 - parry active
+//104 - true aim crit chance

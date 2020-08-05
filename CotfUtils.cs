@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using UnityEngine;
 
@@ -40,10 +41,15 @@ namespace ChampionsOfForest
 
 	public static class DamageMath
 	{
+		public const int SILENTattackerType = 2000000;
+		public const int CONVERTEDFLOATattackerType = 1000000;
+
+
 		/// <summary>
 		/// Takes a float input damage and returns a integer that is smaller than int.maxvalue and amount of times it has to be sent.
 		/// </summary>
-		public static void DamageClamp(float damage, out int outdamage, out int repetitions)
+		
+		public static void ReduceDamageToSendOverNet(float damage, out int outdamage, out int repetitions)
 		{
 			if (damage < int.MaxValue / 5)
 			{
@@ -53,6 +59,12 @@ namespace ChampionsOfForest
 			}
 			repetitions = Mathf.FloorToInt(damage / ((float)int.MaxValue / 5f)) + 1;
 			outdamage = Mathf.RoundToInt(damage / repetitions);
+		}
+
+		public static int GetSendableDamage(float damage)
+		{
+			return BitConverter.ToInt32(BitConverter.GetBytes(damage), 0);
+
 		}
 	}
 }

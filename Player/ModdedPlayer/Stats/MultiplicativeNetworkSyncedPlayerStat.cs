@@ -34,6 +34,13 @@ namespace ChampionsOfForest.Player
 
 			return valueMultiplicative;
 		}
+		public T Divide(T amount)
+		{
+			valueMultiplicative = divide(amount, valueMultiplicative);
+			ValueChanged();
+
+			return valueMultiplicative;
+		}
 		public T GetAmountAfterMultiplying(T chngMult)
 		{
 			return mult(chngMult, valueMultiplicative);

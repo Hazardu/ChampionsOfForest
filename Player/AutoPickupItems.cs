@@ -1,4 +1,6 @@
-﻿using TheForest.Items.World;
+﻿using LibNoise.Unity.Operator;
+
+using TheForest.Items.World;
 using TheForest.Utils;
 
 using UnityEngine;
@@ -32,6 +34,23 @@ namespace ChampionsOfForest.Player
 			{
 				return;
 			}
+
+			int minRarity = 7;
+			for (int i = -2; i >-14 ; i--)
+			{
+				if (Player.Inventory.Instance.ItemSlots[i] == null)
+				{
+					minRarity = 0;
+					break;
+				}
+				else
+				{
+					if (Player.Inventory.Instance.ItemSlots[i].Rarity < minRarity)
+						minRarity = Player.Inventory.Instance.ItemSlots[i].Rarity;
+				}
+			}
+
+
 			RaycastHit[] hit = Physics.SphereCastAll(LocalPlayer.Transform.position, radius, Vector3.one, radius + 1);
 			for (int i = 0; i < hit.Length; i++)
 			{
@@ -72,6 +91,7 @@ namespace ChampionsOfForest.Player
 					var customPickup = hit[i].transform.gameObject.GetComponent<ItemPickUp>();
 					if (customPickup != null)
 					{
+						if(customPickup.item.Rarity>= minRarity)
 						customPickup.PickUp();
 					}
 				}
