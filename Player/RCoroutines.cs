@@ -63,6 +63,7 @@ namespace ChampionsOfForest.Player
 					Physics.IgnoreLayerCollision(19, 19, true);
 
 					Rigidbody component = gameObject.GetComponent<Rigidbody>();
+					component.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 					if (BoltNetwork.isRunning)
 					{
 						BoltEntity component2 = gameObject.GetComponent<BoltEntity>();
@@ -181,6 +182,8 @@ namespace ChampionsOfForest.Player
 							{
 								Vector3 proj_force = forceUp * ModdedPlayer.Stats.projectileSpeed * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
 								var proj_rb = gameObject.GetComponent<Rigidbody>();
+								proj_rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
 								if (GreatBow.isEnabled)
 								{
 									proj_force *= 1.1f;

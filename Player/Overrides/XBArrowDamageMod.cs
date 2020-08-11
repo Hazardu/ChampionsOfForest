@@ -796,7 +796,7 @@ namespace ChampionsOfForest.Player
 							if (ignite)
 							{
 								if ((ignite && Random.value < 0.5f) || GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites)
-									ep._Health.Burn();
+									ep.HealthScript.Burn();
 								ep.FireDebuff(2200, Effects.BlackFlame.FireDamageBonus, 20);
 								if (BlackFlame.GiveAfterburn && Random.value < 0.1f)
 								{
@@ -820,7 +820,7 @@ namespace ChampionsOfForest.Player
 							{
 								ep.Slow(91, ModdedPlayer.Stats.spell_seekingArrow_SlowAmount, ModdedPlayer.Stats.spell_seekingArrow_SlowDuration);
 							}
-							ep._Health.getAttackDirection(3);
+							ep.HealthScript.getAttackDirection(3);
 							ep.HitPhysical(dmgUnclamped);
 							Debug.Log("HIT PHYSICAL");
 							goto afterdamage;

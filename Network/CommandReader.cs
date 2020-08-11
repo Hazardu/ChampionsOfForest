@@ -306,8 +306,8 @@ namespace ChampionsOfForest.Network
 												w.Write(packed);
 												w.Write(ep.enemyName);
 												w.Write(ep.Level);
-												w.Write(ep._hp + ep._Health.Health);
-												w.Write(ep.MaxHealth);
+												w.Write(ep.extraHealth + ep.HealthScript.Health);
+												w.Write(ep.maxHealth);
 												w.Write(ep.bounty);
 												w.Write(ep.Armor);
 												w.Write(ep.ArmorReduction);

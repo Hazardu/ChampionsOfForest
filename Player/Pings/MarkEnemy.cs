@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 		public Transform transform;
 		private string Name;
 		private bool Elite;
-		private const float MaxRange = 500 * 500;   //500 meters
+		private const float MaxRange = 1000 * 1000;   //500 meters
 		private const float Duration = 300;     // 5 min
 
 		public bool Outdated()
@@ -28,6 +28,8 @@ namespace ChampionsOfForest
 
 		public void Draw()
 		{
+			if (transform == null)
+				return;
 			Vector3 tPos = transform.position + Vector3.up * 3f;
 			Vector3 heading = tPos - LocalPlayer.Transform.position;
 			float sqrMag = (heading).sqrMagnitude;
@@ -38,7 +40,7 @@ namespace ChampionsOfForest
 					float distance = Vector3.Distance(Camera.main.transform.position, tPos);
 					Vector3 pos = Camera.main.WorldToScreenPoint(tPos);
 					pos.y = Screen.height - pos.y;
-					float size = Mathf.Clamp(700 / distance, 14, 50);
+					float size = Mathf.Clamp(700 / distance, 14, 50)/1.3f;
 					size *= ChampionsOfForest.MainMenu.Instance.screenScale;
 					if (Elite)
 						size *= 1.1f;

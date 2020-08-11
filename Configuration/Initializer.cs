@@ -68,17 +68,16 @@ namespace ChampionsOfForest
 					go.AddComponent<GlobalSFX>();
 					go.AddComponent<TheFartCreator>();
 					go.AddComponent<RCoroutines>();
+					new GameObject("MainMenuObj").AddComponent<MainMenu>();
 
 
 					// go.AddComponent<Crafting>();
-					MoreCraftingReceipes.Initialize();
 
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
 					ItemDataBase.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
-					new GameObject("MainMenuObj").AddComponent<MainMenu>();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
 					Res.Buildings.InitBuildings();
 					PerkDatabase.FillPerkList();

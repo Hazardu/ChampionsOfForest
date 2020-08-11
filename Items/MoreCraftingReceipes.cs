@@ -8,9 +8,10 @@ using ChampionsOfForest;
 using TheForest.Items;
 using TheForest.Items.Craft;
 using TheForest.Utils;
+
 using UnityEngine;
 
-		using static MoreCraftingReceipes.VanillaItemIDs;
+using static MoreCraftingReceipes.VanillaItemIDs;
 
 //based off code from another mod RMoreCrafting https://modapi.survivetheforest.net/mod/118/more-crafting by Rurido
 public static class MoreCraftingReceipes
@@ -60,42 +61,59 @@ public static class MoreCraftingReceipes
 	/// </summary>
 	public static void Initialize()
 	{
-		customReceipeList.Clear();
-		_NextReceipeId = IdStartIndex;
-		Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault().CopyReceipe();
-		poisonArrowsCopy._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
-		poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 15);
-		poisonArrowsCopy._name = "Modern Arrows";
-		customReceipeList.Add(new COTFCustomReceipe(poisonArrowsCopy));
+		try
+		{
+			BlockUpdating = false;
+			baseReceipes = null;
+			customReceipeList.Clear();
+			_NextReceipeId = IdStartIndex;
+			try
+			{
+				Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault().CopyReceipe();
+				poisonArrowsCopy._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
+				poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 15);
+				poisonArrowsCopy._name = "Modern Arrows";
+				customReceipeList.Add(new COTFCustomReceipe(poisonArrowsCopy));
+			}
+			catch (Exception e)
+			{
 
-		CreateReceipe(FLINTLOCKAMMO, 3,
-			CreateReceipeIngredient(COINS, 15),
-			CreateReceipeIngredient(SMALLROCK, 3),
-			CreateReceipeIngredient(ROCK, 1))._name="Flintlock ammo";
-		
-		CreateReceipe(CROSSBOWAMMO, 1,
-			CreateReceipeIngredient(ROCK, 1),
-			CreateReceipeIngredient(STICK, 1))._name = "Crossbow bolts";
+				ModAPI.Log.Write("Exception copying receipe " + e);
+			}
+			CreateReceipe(FLINTLOCKAMMO, 3,
+				CreateReceipeIngredient(COINS, 15),
+				CreateReceipeIngredient(SMALLROCK, 3),
+				CreateReceipeIngredient(ROCK, 1))._name = "Flintlock ammo";
 
-		CreateReceipe(CLOTH, 10,
-			CreateReceipeIngredient(DEERSKIN, 1))._name = "Cloth";
+			CreateReceipe(CROSSBOWAMMO, 1,
+				CreateReceipeIngredient(ROCK, 1),
+				CreateReceipeIngredient(STICK, 1))._name = "Crossbow bolts";
 
-		CreateReceipe(CLOTH, 8,
-			CreateReceipeIngredient(RABBITSKIN, 1))._name = "Cloth";
+			CreateReceipe(CLOTH, 10,
+				CreateReceipeIngredient(DEERSKIN, 1))._name = "Cloth";
 
-		CreateReceipe(CLOTH, 8,
-			CreateReceipeIngredient(RACOONSKIN, 1))._name = "Cloth";
+			CreateReceipe(CLOTH, 8,
+				CreateReceipeIngredient(RABBITSKIN, 1))._name = "Cloth";
 
-		CreateReceipe(CLOTH, 10,
-			CreateReceipeIngredient(BOARSKIN, 1))._name = "Cloth";
+			CreateReceipe(CLOTH, 8,
+				CreateReceipeIngredient(RACOONSKIN, 1))._name = "Cloth";
 
-		CreateReceipe(AXEPLANE, 1,
-			CreateReceipeIngredient(AXECRAFTED, 1),
-			CreateReceipeIngredient(ROPE, 1),
-			CreateReceipeIngredient(STICK, 2),
-			CreateReceipeIngredient(CLOTH, 25),
-			CreateReceipeIngredient(RABBITSKIN, 1)
-			)._name = "Plane Axe";
+			CreateReceipe(CLOTH, 10,
+				CreateReceipeIngredient(BOARSKIN, 1))._name = "Cloth";
+
+			CreateReceipe(AXEPLANE, 1,
+				CreateReceipeIngredient(AXECRAFTED, 1),
+				CreateReceipeIngredient(ROPE, 1),
+				CreateReceipeIngredient(STICK, 2),
+				CreateReceipeIngredient(CLOTH, 25),
+				CreateReceipeIngredient(RABBITSKIN, 1)
+				)._name = "Plane Axe";
+		}
+		catch (Exception ex)
+		{
+
+			ModAPI.Log.Write("Custom crafting recipes exception: " + ex);
+		}
 
 	}
 
@@ -116,7 +134,7 @@ public static class MoreCraftingReceipes
 		if (BlockUpdating)
 			return;
 		int num = ReceipeDatabase._instance._receipes.Length;
-		if(baseReceipes==null)
+		if (baseReceipes == null)
 			baseReceipes = ReceipeDatabase._instance._receipes.ToList();
 		var customReceipes = customReceipeList.Where(x => x.unlocked).Select(x => x.receipe);
 

@@ -112,10 +112,7 @@ namespace ChampionsOfForest
 		//setting the instance
 		private void Awake()
 		{
-			if (Instance == null)
-			{
-				Instance = this;
-			}
+			Instance = this;
 		}
 
 		private void Start()
@@ -126,6 +123,7 @@ namespace ChampionsOfForest
 				if (sceneName == "TitleScene" || sceneName == "TitleSceneLoader")
 				{
 					Destroy(gameObject);
+					return;
 				}
 
 				screenScale = Screen.height / 1080f;
@@ -460,7 +458,7 @@ namespace ChampionsOfForest
 				yield return null;
 				foreach (KeyValuePair<ulong, EnemyProgression> item in EnemyManager.hostDictionary)
 				{
-					if (item.Value._hp + item.Value._Health.Health < 1)
+					if (item.Value.extraHealth + item.Value.HealthScript.Health < 1)
 					{
 						EnemyManager.hostDictionary.Remove(item.Key);
 						break;

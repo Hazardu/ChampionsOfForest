@@ -940,66 +940,71 @@ namespace ChampionsOfForest
 			}
 			if (localPlayerPing != null)
 			{
-				if (localPlayerPing != null)
-				{
-					if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
-					{
-						((MarkEnemy)localPlayerPing).Draw();
-					}
-					else if (localPlayerPing.pingType == MarkObject.PingType.Location)
-					{
-						((MarkPostion)localPlayerPing).Draw();
-					}
-					else if (localPlayerPing.pingType == MarkObject.PingType.Item)
-					{
-						((MarkPickup)localPlayerPing).Draw();
-					}
-				}
+				DrawPings();
 			}
 			else if (drawPingPreview)
 			{
-				try
-				{
-					Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
-					pos.y = Screen.height - pos.y;
-					float size = Mathf.Clamp(700 / previewPingDist, 10, 40);
-					size *= screenScale;
-					Rect r = previewPingType != MarkObject.PingType.Item ?
-						new Rect(0, 0, size * 3.34f, size)
-						{
-							center = pos
-						} :
-						new Rect(0, 0, size * 1.3f, size * 2.4f)
-						{
-							center = pos
-						};
-
-					GUI.color = new Color(1, 1, 1, 0.35f);
-					switch (previewPingType)
+				DrawPingPreview();
+			}
+		}
+		void DrawPings()
+		{
+			if (localPlayerPing.pingType == MarkObject.PingType.Enemy)
+			{
+				((MarkEnemy)localPlayerPing).Draw();
+			}
+			else if (localPlayerPing.pingType == MarkObject.PingType.Location)
+			{
+				((MarkPostion)localPlayerPing).Draw();
+			}
+			else if (localPlayerPing.pingType == MarkObject.PingType.Item)
+			{
+				((MarkPickup)localPlayerPing).Draw();
+			}
+		}
+		void DrawPingPreview()
+		{
+			try
+			{
+				Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
+				pos.y = Screen.height - pos.y;
+				float size = Mathf.Clamp(700 / previewPingDist, 10, 40)/2;
+				size *= screenScale;
+				Rect r = previewPingType != MarkObject.PingType.Item ?
+					new Rect(0, 0, size * 3.34f, size)
 					{
-						case MarkObject.PingType.Enemy:
-							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
-							break;
+						center = pos
+					} :
+					new Rect(0, 0, size * 1.3f, size * 2.4f)
+					{
+						center = pos
+					};
 
-						case MarkObject.PingType.Location:
-							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
-							break;
-
-						case MarkObject.PingType.Item:
-							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));
-							break;
-
-						default:
-							break;
-					}
-
-					GUI.color = Color.white;
-					GUI.Label(new Rect(Screen.width / 2 - 300 * screenScale, 10 * screenScale, 1000 * screenScale, 100), "Right click to place marker. When placed, press middle mouse or ping key to clear", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, fontStyle = FontStyle.Italic, fontSize = (int)(15f * screenScale), font = mainFont });
-				}
-				catch (Exception e)
+				GUI.color = new Color(1, 1, 1, 0.3f);
+				switch (previewPingType)
 				{
-					ModAPI.Console.Write(e.ToString());
+					case MarkObject.PingType.Enemy:
+						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
+						break;
+
+					case MarkObject.PingType.Location:
+						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
+						break;
+
+					case MarkObject.PingType.Item:
+						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));
+						break;
+
+					default:
+						break;
 				}
+
+				GUI.color = Color.white;
+				GUI.Label(new Rect(Screen.width / 2 - 300 * screenScale, 10 * screenScale, 1000 * screenScale, 100), "Right click to place marker. When placed, press middle mouse or ping key to clear", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, fontStyle = FontStyle.Italic, fontSize = (int)(15f * screenScale), font = mainFont });
+			}
+			catch (Exception e)
+			{
+				ModAPI.Console.Write(e.ToString());
 			}
 		}
 

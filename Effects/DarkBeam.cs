@@ -205,7 +205,7 @@ namespace ChampionsOfForest
 
 							if (fromEnemy)
 							{
-								ep._Health.Health = (int)Mathf.Clamp(ep._Health.Health + Healing / 2, 0, ep.MaxHealth);
+								ep.HealthScript.Health = (int)Mathf.Clamp(ep.HealthScript.Health + Healing / 2, 0, ep.maxHealth);
 								ep.Slow(6, Boost, 25);
 							}
 							else

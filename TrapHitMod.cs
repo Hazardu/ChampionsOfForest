@@ -58,7 +58,7 @@ namespace ChampionsOfForest
 					{
 						if (this.rb.velocity.magnitude > 11f)
 						{
-							other.gameObject.SendMessageUpwards("Hit", 500, SendMessageOptions.DontRequireReceiver);
+							other.gameObject.SendMessageUpwards("Hit", 1000, SendMessageOptions.DontRequireReceiver);
 							//other.gameObject.SendMessageUpwards("Explosion", -1, SendMessageOptions.DontRequireReceiver);
 							//other.gameObject.SendMessage("lookAtExplosion", base.transform.position, SendMessageOptions.DontRequireReceiver);
 							//other.gameObject.SendMessageUpwards("DieTrap", this.trapType, SendMessageOptions.DontRequireReceiver);

@@ -215,6 +215,9 @@
     <Compile Include="Enemies\EnemyAbilities\FireAura.cs" />
     <Compile Include="Enemies\EnemyCorpse.cs" />
     <Compile Include="Enemies\EnemyDebuff.cs" />
+    <Compile Include="Enemies\EnemyProgression\EnemyProgression_Damage.cs" />
+    <Compile Include="Enemies\EnemyProgression\EnemyProgression_Debuffs.cs" />
+    <Compile Include="Enemies\EnemyProgression\EnemyProgression_Setup.cs" />
     <Compile Include="Enemies\enemySearchMod.cs" />
     <Compile Include="Enemies\mutantFamilyMod.cs" />
     <Compile Include="ExpSources\AnimalExp.cs" />
@@ -289,7 +292,7 @@
     <Compile Include="Enemies\WormHealthMod.cs" />
     <Compile Include="Items\BaseItem.cs" />
     <Compile Include="Enemies\EnemyHealthMod.cs" />
-    <Compile Include="Enemies\EnemyProgression.cs" />
+    <Compile Include="Enemies\EnemyProgression\EnemyProgression.cs" />
     <Compile Include="Configuration\Initializer.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemDataBase.cs" />

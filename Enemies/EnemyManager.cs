@@ -45,7 +45,7 @@ namespace ChampionsOfForest
 		{
 			if (!hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
 			{
-				CotfUtils.Log("Adding enemy " + ep.entity.networkId.PackedValue + " : Level " + ep.Level + " " + ep.enemyType + " with " + ep.MaxHealth.ToString("N0") + " hp");
+				CotfUtils.Log("Adding enemy " + ep.entity.networkId.PackedValue + " : Level " + ep.Level + " " + ep.enemyType + " with " + ep.maxHealth.ToString("N0") + " hp");
 				hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
 			}
 			else
@@ -118,8 +118,8 @@ namespace ChampionsOfForest
 							p = setup.health.gameObject.AddComponent<EnemyProgression>();
 							if (p != null)
 							{
-								p._Health = setup.health;
-								p._AI = setup.ai;
+								p.HealthScript = setup.health;
+								p.AIScript = setup.ai;
 								p.entity = setup.GetComponent<BoltEntity>();
 								p.setup = setup;
 							}

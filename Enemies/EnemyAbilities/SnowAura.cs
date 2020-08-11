@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 	public class SnowAura : MonoBehaviour
 	{
 		private readonly float _radius = 20;
-		private readonly float _duration = 23;
+		private readonly float _duration = 15;
 		private AudioSource src;
 		public Transform followTarget;
 
@@ -29,7 +29,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 			//Creating particle effect
 			ParticleSystem p = gameObject.AddComponent<ParticleSystem>();
-			p.transform.Rotate(Vector3.right * 90);
+			p.transform.Rotate(Vector3.right * 120);
 			Renderer r = p.GetComponent<Renderer>();
 			r.material = _particleMaterial;
 			ParticleSystem.ShapeModule s = p.shape;

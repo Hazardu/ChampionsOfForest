@@ -3,6 +3,8 @@
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
 
+using ModAPI;
+
 using TheForest.Audio;
 using TheForest.Buildings.World;
 using TheForest.Utils;
@@ -17,7 +19,15 @@ namespace ChampionsOfForest.Player
 	public class WeaponInfoMod : weaponInfo
 	{
 		public static bool AlwaysIgnite = false;
-
+		protected override void Start()
+		{
+			base.Start();
+			var rb = animator.gameObject.GetComponent<Rigidbody>();
+			if (rb != null)
+			{
+				rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+			}
+		}
 		protected override void Update()
 		{
 			if (mainTriggerScript != null)
@@ -298,14 +308,17 @@ namespace ChampionsOfForest.Player
 						var progression = EnemyManager.enemyByTransform[other.transform.root];
 						progression.HitPhysical(outputdmg);
 
-						progression._Health.getCombo(3);
-						progression._Health.getAttackDirection(animator.GetInteger("hitDirection"));
+						progression.HealthScript.getCombo(3);
+						progression.HealthScript.getAttackDirection(animator.GetInteger("hitDirection"));
 
 
+						if (fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw)
+						{
+							progression.HealthScript.Explosion(-1f);
+						}
 
 
-
-						if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
+							if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
 							progression.ReduceArmor(ModdedPlayer.Stats.TotalMeleeArmorPiercing);
 						if (Effects.BlackFlame.IsOn)
 						{
@@ -331,7 +344,7 @@ namespace ChampionsOfForest.Player
 
 
 						if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn)
-							progression._Health.Burn();
+							progression.HealthScript.Burn();
 
 
 						AfterHit();

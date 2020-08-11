@@ -958,7 +958,7 @@ portal_postPickingPos:
 								var prog = EnemyManager.enemyByTransform[hits[i].transform.root];
 								prog.HitMagic(dmg);
 								if (ModdedPlayer.Stats.spell_parryIgnites)
-								prog._Health.Burn();
+								prog.HealthScript.Burn();
 							}
 						}
 					}

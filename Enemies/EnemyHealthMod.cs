@@ -26,8 +26,8 @@ namespace ChampionsOfForest
 				if (progression == null)
 				{
 					progression = transform.root.gameObject.AddComponent<EnemyProgression>();
-					progression._Health = this;
-					progression._AI = ai;
+					progression.HealthScript = this;
+					progression.AIScript = ai;
 					progression.entity = entity;
 					progression.setup = setup;
 				}
@@ -49,7 +49,7 @@ namespace ChampionsOfForest
 			if (setup.waterDetect.drowned && !deadBlock)
 			{
 				Health = 0;
-				progression._hp = 0;
+				progression.extraHealth = 0;
 				dieExplode();
 			}
 			base.Update();
@@ -131,15 +131,14 @@ namespace ChampionsOfForest
 				{
 					i = Mathf.CeilToInt(UnityEngine.Random.Range(3, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
 					Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
-
-					base.Hit(i);
+					base.HitReal(i);
 				}
 				else
 				{
 					i = Mathf.CeilToInt(UnityEngine.Random.Range(4, 10) * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageRatio * progression.FireDmgAmp + progression.FireDmgBonus * progression.FireDmgAmp);
 					Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, i, new Color(1, 0, 0, 1f));
 
-					base.Hit(i);
+					base.HitReal(i);
 				}
 				progression.ArmorReduction += i;
 			}
@@ -152,10 +151,10 @@ namespace ChampionsOfForest
 
 			//if (!ai.creepy_fat)
 			//{
-			if (progression._hp > 0)
+			if (progression.extraHealth > 0)
 			{
-				int i = (int)Mathf.Min(progression._hp, (float)damage);
-				progression._hp -= i;
+				int i = (int)Mathf.Min(progression.extraHealth, (float)damage);
+				progression.extraHealth -= i;
 				damage -= i;
 			}
 			//}
@@ -177,7 +176,6 @@ namespace ChampionsOfForest
 				{
 				
 						this.progression.HitPure(750 * (1+ModdedPlayer.Stats.explosionDamage.Value));
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 750 * (1 + ModdedPlayer.Stats.explosionDamage.Value), Color.white);
 					
 					if (this.Burnt && this.MySkin && !this.ai.creepy_boss && explodeDist > 0f)
 					{
@@ -267,7 +265,6 @@ namespace ChampionsOfForest
 						}
 						this.setSkinDamage(UnityEngine.Random.Range(0, 3));
 						this.progression.HitPure(350 * (1 + ModdedPlayer.Stats.explosionDamage.Value));
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 350f*(1 + ModdedPlayer.Stats.explosionDamage.Value), Color.white);
 
 						if (this.Health < 1)
 						{

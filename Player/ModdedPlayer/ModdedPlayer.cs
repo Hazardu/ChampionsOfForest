@@ -980,14 +980,15 @@ namespace ChampionsOfForest.Player
 
 		public long GetGoalExp(int lvl)
 		{
-			int x = lvl;
-			if (x >= 131)
+			double x = lvl;
+			if (x >= 138)	//once you hit this level, its time to stop leveling. thanks.
 				return 5000000000000000000;
-			var y = ((3.461 * x * x * x * x) +
-				(4 * x * x * x) +
-				(10 * x * x)) * (0.000275 * x * x * x) + 
-				(25 * x) + 
-				(System.Math.Pow(1.32, 1.215 * (x-1)) * 0.4);
+			double y = ((0.8 * x * x * x * x) +
+				(x * x * x) +
+				(2 * x * x)) + 
+				(20 * x) +
+				System.Math.Pow(System.Math.E,x/3.3) * 4 + 
+				System.Math.Pow(1.36, x-5);
 			//var y = 120 * System.Math.Pow(1.345f, x - 10) + 20 + 5 * x * x * x;
 			//y = y / 3.3;
 			return Convert.ToInt64(y);
@@ -1108,6 +1109,7 @@ namespace ChampionsOfForest.Player
 				LocalPlayer.Inventory?.SendMessage("GetRightHand");
 			}
 			yield return null;
+			MoreCraftingReceipes.Initialize();
 
 			//Multishot
 			Effects.Multishot.localPlayerInstance = Effects.Multishot.Create(LocalPlayer.Transform, ModReferences.rightHandTransform);
