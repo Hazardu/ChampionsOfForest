@@ -108,6 +108,7 @@ public static class MoreCraftingReceipes
 				CreateReceipeIngredient(CLOTH, 25),
 				CreateReceipeIngredient(RABBITSKIN, 1)
 				)._name = "Plane Axe";
+
 		}
 		catch (Exception ex)
 		{
@@ -133,16 +134,19 @@ public static class MoreCraftingReceipes
 	{
 		if (BlockUpdating)
 			return;
-		int num = ReceipeDatabase._instance._receipes.Length;
 		if (baseReceipes == null)
 			baseReceipes = ReceipeDatabase._instance._receipes.ToList();
-		var customReceipes = customReceipeList.Where(x => x.unlocked).Select(x => x.receipe);
+		foreach (var item in customReceipeList)
+		{
+			LocalPlayer.ReceipeBook.RemoveReceipe(item.receipe._id);
 
+		}
+		var customReceipes = customReceipeList.Where(x => x.unlocked).Select(x => x.receipe);
+		List<int> addedIDs = new List<int>();
 		if (customReceipes.Count() > 0)
 		{
 			try
 			{
-
 				var receipes2 = new List<Receipe>(baseReceipes);
 				receipes2.AddRange(customReceipes);
 				ReceipeDatabase._instance._receipes = receipes2.ToArray();
@@ -151,12 +155,16 @@ public static class MoreCraftingReceipes
 			{
 				CotfUtils.Log("Crafting: Merging Failed");
 			}
+			foreach (var item in customReceipes)
+			{
+				LocalPlayer.ReceipeBook.AddReceipe(item._id);
+
+			}
 		}
 		else
 		{
 			ReceipeDatabase._instance._receipes = baseReceipes.ToArray();
 		}
-		int num2 = ReceipeDatabase._instance._receipes.Length;
 	}
 
 	public static ReceipeIngredient CreateReceipeIngredient(VanillaItemIDs itemId, int amount)

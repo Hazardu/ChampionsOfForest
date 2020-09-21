@@ -14,20 +14,14 @@ namespace ChampionsOfForest.Effects
 			RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one, -10);
 			for (int i = 0; i < hits.Length; i++)
 			{
-				if (hits[i].transform.CompareTag("enemyCollide"))
+				if (EnemyManager.enemyByTransform.ContainsKey( hits[i].transform.root))
 				{
-					EnemyProgression prog = hits[i].transform.gameObject.GetComponentInParent<EnemyProgression>();
-					
-
+					EnemyProgression prog = EnemyManager.enemyByTransform[hits[i].transform.root];
 					if (prog == null)
-					{
-						hits[i].transform.SendMessageUpwards("HitMagic", damage, SendMessageOptions.DontRequireReceiver);
-					}
-					else
-					{
+						continue;
+					prog.HitMagic(damage);
 					prog.Slow(20, slowMultipier, duration);
-						prog.HitMagic(damage);
-					}
+					prog.Slow(21, 0, 0.65f);
 				}
 			}
 		}

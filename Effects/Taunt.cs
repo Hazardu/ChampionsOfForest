@@ -76,6 +76,8 @@ namespace ChampionsOfForest.Effects
 						if (GameSetup.IsMpClient)
 						{
 							w.Write(spellduration);
+							w.Write(ModdedPlayer.Stats.spell_taunt_speedChange);
+							w.Write(ModdedPlayer.Stats.spell_taunt_pullEnemiesIn);
 							w.Write(ModReferences.ThisPlayerID);
 						}
 						w.Close();
@@ -85,19 +87,19 @@ namespace ChampionsOfForest.Effects
 				}
 				if (GameSetup.IsMpServer)
 				{
-					Cast(point, spellradius, LocalPlayer.GameObject, spellduration);
+					Cast(point, spellradius, LocalPlayer.GameObject, spellduration, ModdedPlayer.Stats.spell_taunt_speedChange,ModdedPlayer.Stats.spell_taunt_pullEnemiesIn.GetAmount());
 				}
 				CastEffect(point, spellradius);
 			}
 			else
 			{
-				Cast(point, spellradius, LocalPlayer.GameObject, spellduration);
+				Cast(point, spellradius, LocalPlayer.GameObject, spellduration, ModdedPlayer.Stats.spell_taunt_speedChange, ModdedPlayer.Stats.spell_taunt_pullEnemiesIn.GetAmount());
 				CastEffect(point, spellradius);
 
 			}
 		}
 
-		public static void Cast(in Vector3 pos, in float radius, GameObject player, in float duration)
+		public static void Cast(in Vector3 pos, in float radius, GameObject player, in float duration, in float slow, bool pullIn)
 		{
 			float sqrRad = radius * radius;
 			if (BoltNetwork.isRunning)
@@ -109,7 +111,11 @@ namespace ChampionsOfForest.Effects
 						continue;
 					if ((enemy.transform.position - pos).sqrMagnitude <= sqrRad)
 					{
-						enemy.Taunt(player, duration);
+						if (pullIn)
+						{
+							enemy.AddKnockbackByDistance(pos - enemy.transform.position, Vector3.Distance(pos,enemy.transform.position)/1.4f);
+						}
+						enemy.Taunt(player, duration, slow);
 						Debug.Log("Taunted " + enemy.enemyName);
 					}
 				}
@@ -124,7 +130,11 @@ namespace ChampionsOfForest.Effects
 					{
 					if ((enemy.Key.position - pos).sqrMagnitude <= sqrRad)
 					{
-						enemy.Value.Taunt(player, duration);
+						if (pullIn)
+						{
+								enemy.Value.AddKnockbackByDistance(pos - enemy.Key.position, Vector3.Distance(pos, enemy.Key.transform.position) / 1.4f);
+							}
+							enemy.Value.Taunt(player, duration,slow);
 						Debug.Log("Taunted " + enemy.Value.enemyName);
 
 					}

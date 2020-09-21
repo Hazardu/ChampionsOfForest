@@ -816,7 +816,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -4f,
 				posY = -0.75f,
-				name = "Life On Hit",
+				name = "Combat Health Regen",
 				originalDescription = "Life on hit increased by 1",
 				textureVariation = 0,
 				uncapped = true,
@@ -832,7 +832,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -2.5f,
 				posY = -1.5f,
-				name = "Energy On Hit",
+				name = "Combat Energy Regen",
 				originalDescription = "Energy on hit increased by 0.5",
 				textureVariation = 0,
 				uncapped = true,
@@ -1493,14 +1493,13 @@ namespace ChampionsOfForest.Player
 			new Perk()
 			{
 				apply = () => ModdedPlayer.Stats.spell_purgeHeal.value = true,
-
-				category = PerkCategory.MagicOffense,
+				category = PerkCategory.Support,
 				unlockPath = new int[] { 15 },
 				levelReq = 10,
 				cost = 2,
 				scale = 1,
-				posX = 3.5f,
-				posY = 0f,
+				posX = -2f,
+				posY = -0.75f,
 				name = "Transpurgation",
 				originalDescription = "Purge now heals all players for percent of their missing health and restores energy for percent of missing energy.",
 				textureVariation = 0,
@@ -2999,12 +2998,12 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => { SpellDataBase.spellDictionary[2].Cooldown -= 35; SpellDataBase.spellDictionary[13].Cooldown -= 7.5f; },
 				category = PerkCategory.Support,
-				unlockPath = new int[] { 176 },
+				unlockPath = new int[] { 40 },
 				levelReq = 58,
 				cost = 1,
 				scale = 1,
-				posX = -6.5f,
-				posY = 1.5f,
+				posX = -3f,
+				posY = 0.75f,
 				name = "Time of Need",
 				originalDescription = "The cooldown of healing dome and purge is reduced by 50%",
 				textureVariation = 0,
@@ -3456,6 +3455,70 @@ namespace ChampionsOfForest.Player
 				posY = -2.25f,
 				name = "Restoration",
 				originalDescription = "All healing and stamina/energy recovery are increased by 50%",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_taunt_speedChange.Multiply(0.5f*0.7f),
+
+				category = PerkCategory.MagicOffense,
+				texture = null,
+				unlockPath = new int[] { 15 },
+				levelReq = 10,
+				cost = 1,
+				scale = 1,
+				posX = 3.5f,
+				posY = 0f,
+				name = "Falter",
+				originalDescription = "Taunt no longer makes enemies attack faster. Instead, it slows them by 30%",
+				textureVariation = 0, //0 or 1
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.spell_taunt_pullEnemiesIn.value=true,
+				category = PerkCategory.MagicOffense,
+				texture = null,
+				unlockPath = new int[] { 206 },
+				levelReq = 60,
+				cost = 1,
+				scale = 1,
+				posX = 4.5f,
+				posY = 0f,
+				name = "Can't Take Me Down Alone",
+				originalDescription = "Taunt pulls enemies in to the center",
+				textureVariation = 0, //0 or 1
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.perk_chargedAtkKnockback.value=true,
+
+				category = PerkCategory.MeleeOffense,
+				unlockPath = new int[] { 77 },
+				levelReq = 37,
+				cost = 1,
+				scale = 1,
+				posX = 5.5f,
+				posY = 0f,
+				name = "Charge Pushback",
+				originalDescription = "Charged melee attacks push enemies back",
+				textureVariation = 0,
+				uncapped = false,
+			};
+			new Perk()
+			{
+				apply = () => { ModdedPlayer.Stats.spell_parryRadius.Add(1); ModdedPlayer.Stats.perk_parryAnything.value = true; },
+				category = PerkCategory.MeleeOffense,
+				unlockPath = new int[] { 78 },
+				levelReq = 30,
+				cost = 1,
+				scale = 1,
+				posX = 4.5f,
+				posY = 1.5f,
+				name = "Instant Riposte",
+				originalDescription = "Parrying increases attack speed by 80% for 5 seconds",
 				textureVariation = 0,
 				uncapped = false,
 			};

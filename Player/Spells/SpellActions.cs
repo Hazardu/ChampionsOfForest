@@ -17,7 +17,7 @@ namespace ChampionsOfForest.Player
 
 		public static void DoBlinkAim()
 		{
-			if (blinkAim == null)
+			if (blinkAim == null || !blinkAim.IsValid)
 			{
 				blinkAim = new SpellAimLine();
 			}
@@ -108,20 +108,14 @@ namespace ChampionsOfForest.Player
 		}
 
 	
-		private static SpellAimSphere healingDomeaimSphere;
 
 		public static void HealingDomeAim()
 		{
-			if (healingDomeaimSphere == null)
-			{
-				healingDomeaimSphere = new Effects.SpellAimSphere(new Color(0f, 1f, 0f, 0.5f), 10f);
-			}
-			healingDomeaimSphere.UpdatePosition(LocalPlayer.Transform.position);
+		
 		}
 
 		public static void HealingDomeAimEnd()
 		{
-			healingDomeaimSphere.Disable();
 		}
 
 		public static void CreateHealingDome()
@@ -216,7 +210,7 @@ namespace ChampionsOfForest.Player
 
 		public static void BlackHoleAim()
 		{
-			if (blackholeAim == null)
+			if (blackholeAim == null || !blackholeAim.IsValid)
 			{
 				blackholeAim = new SpellAimSphere(new Color(0f, .6f, 0.95f, 0.5f), ModdedPlayer.Stats.spell_blackhole_radius);
 			}
@@ -391,7 +385,7 @@ namespace ChampionsOfForest.Player
 		const float portalCastMaxRange = 66;
 		public static void DoPortalAim()
 		{
-			if (portalAimLine == null)
+			if (portalAimLine == null || !portalAimLine.IsValid)
 			{
 				portalAimLine = new SpellAimLine();
 			}
@@ -440,6 +434,9 @@ portal_postPickingPos:
 
 			if (BoltNetwork.isRunning)
 			{
+				if (Portal.BothPortalsActive)
+					Portal.SyncBothPortals();
+				else
 				Portal.SyncTransform(pos, ModdedPlayer.Stats.spell_portalDuration, id, LocalPlayer.IsInCaves, LocalPlayer.IsInEndgame);
 			}
 		}
@@ -454,7 +451,7 @@ portal_postPickingPos:
 
 		public static void MagicArrowAim()
 		{
-			if (arrowAim == null)
+			if (arrowAim == null || !arrowAim.IsValid)
 			{
 				arrowAim = new SpellAimSphere(new Color(0f, 1f, 0.55f, 0.5f), 1f);
 			}
@@ -587,21 +584,13 @@ portal_postPickingPos:
 		}
 
 	
-		private static SpellAimSphere snapFreezeAim;
 
 		public static void SnapFreezeAimEnd()
 		{
-			snapFreezeAim.Disable();
 		}
 
 		public static void SnapFreezeAim()
 		{
-			if (snapFreezeAim == null)
-			{
-				snapFreezeAim = new Effects.SpellAimSphere(new Color(1f, .55f, 0f, 0.5f), ModdedPlayer.Stats.spell_snapFreezeDist);
-			}
-			snapFreezeAim.SetRadius(ModdedPlayer.Stats.spell_snapFreezeDist);
-			snapFreezeAim.UpdatePosition(LocalPlayer.Transform.position);
 		}
 
 		public static void CastSnapFreeze()
@@ -609,23 +598,31 @@ portal_postPickingPos:
 			Vector3 pos = LocalPlayer.Transform.position;
 			float dmg = 23 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_snapDamageScaling;
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+			if (GameSetup.IsSinglePlayer)
 			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 				{
-					w.Write(3);
-					w.Write(9);
-					w.Write(pos.x);
-					w.Write(pos.y);
-					w.Write(pos.z);
-					w.Write(ModdedPlayer.Stats.spell_snapFreezeDist);
-					w.Write(ModdedPlayer.Stats.spell_snapFloatAmount);
-					w.Write(ModdedPlayer.Stats.spell_snapFreezeDuration);
-					w.Write(dmg);
-					w.Close();
+					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+					{
+						w.Write(3);
+						w.Write(9);
+						w.Write(pos.x);
+						w.Write(pos.y);
+						w.Write(pos.z);
+						w.Write(ModdedPlayer.Stats.spell_snapFreezeDist);
+						w.Write(ModdedPlayer.Stats.spell_snapFloatAmount);
+						w.Write(ModdedPlayer.Stats.spell_snapFreezeDuration);
+						w.Write(dmg);
+						w.Close();
+					}
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+					answerStream.Close();
 				}
-				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
-				answerStream.Close();
+			}
+			if (!GameSetup.IsMpClient)
+			{
+				Effects.SnapFreeze.CreateEffect(pos, ModdedPlayer.Stats.spell_snapFreezeDist);
+				SnapFreeze.HostAction(pos, ModdedPlayer.Stats.spell_snapFreezeDist, ModdedPlayer.Stats.spell_snapFloatAmount, ModdedPlayer.Stats.spell_snapFreezeDuration, dmg);
 			}
 		}
 
@@ -922,7 +919,11 @@ portal_postPickingPos:
 					ModdedPlayer.Stats.perk_parryCounterStrikeDamage.Add(f);
 					BuffDB.AddBuff(23, 88, f, 20);
 				}
+				if (ModdedPlayer.Stats.spell_parryAttackSpeed > 1)
+				{
+					BuffDB.AddBuff(14, 105, ModdedPlayer.Stats.spell_parryAttackSpeed.Value, 5);
 
+				}
 				if (GameSetup.IsMpClient)
 				{
 					if (BoltNetwork.isRunning)
@@ -970,21 +971,13 @@ portal_postPickingPos:
 
 		#region Cataclysm
 	
-		private static SpellAimSphere cataclysmAim;
 
 		public static void CataclysmAimEnd()
 		{
-			cataclysmAim.Disable();
 		}
 
 		public static void CataclysmAim()
 		{
-			if (cataclysmAim == null)
-			{
-				cataclysmAim = new Effects.SpellAimSphere(new Color(1f, 0.0f, 0f, 0.5f), ModdedPlayer.Stats.spell_cataclysmRadius);
-			}
-			cataclysmAim.SetRadius(ModdedPlayer.Stats.spell_cataclysmRadius);
-			cataclysmAim.UpdatePosition(LocalPlayer.Transform.position);
 		}
 
 		public static void CastCataclysm()
@@ -1030,7 +1023,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.spell_bia_TripleDmg)
 			{
 				ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive *= 3;
-				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 16, 8);
+				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 30, 10);
 			}
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
@@ -1043,7 +1036,7 @@ portal_postPickingPos:
 		#region
 
 		public static float fartRadius = 30;
-		public static float fartKnockback = 2, fartSlow = 0.8f, fartDebuffDuration = 30f, fartBaseDmg = 20f;
+		public static float fartKnockback = 3, fartSlow = 0.8f, fartDebuffDuration = 30f, fartBaseDmg = 20f;
 
 		public static void FartEffect(float radius, float knockback, float damage, float slow, float duration)
 		{
@@ -1109,6 +1102,10 @@ portal_postPickingPos:
 		#endregion
 
 		#region CorpseExplosion
+		//spell that created explosions at corpses, but finding them reliably is troublesome
+		//i have not found a script that corpses contain, neither a common tag or layer
+
+		
 		//public static float CorpseExpl_HealthTakenMult = 0.10f;
 		//public static float CorpseExpl_Radius = 4;
 		//public static void CastCorpseExplosion()

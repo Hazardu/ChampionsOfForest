@@ -300,3 +300,4 @@ namespace ChampionsOfForest.Player
 //102 - focus active
 //103 - parry active
 //104 - true aim crit chance
+//105 parry attack speed

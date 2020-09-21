@@ -109,6 +109,7 @@ namespace ChampionsOfForest.Player
 			//parry
 			public readonly BooleanPlayerStat spell_parry;
 			public readonly AdditivePlayerStat<float> spell_parryDamage;
+			public readonly AdditivePlayerStat<float> spell_parryAttackSpeed;
 			public readonly AdditivePlayerStat<float> spell_parryRadius;
 			public readonly AdditivePlayerStat<float> spell_parryBuffDuration;
 			public readonly AdditivePlayerStat<float> spell_parryHeal;
@@ -221,6 +222,10 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_fartSlow;
 			public readonly AdditivePlayerStat<float> spell_fartDebuffDuration;
 			public readonly AdditivePlayerStat<float> spell_fartBaseDmg;
+			//taunt
+			public readonly MultiplicativePlayerStat<float> spell_taunt_speedChange;
+			public readonly BooleanPlayerStat spell_taunt_pullEnemiesIn;
+
 
 
 			//perks
@@ -264,6 +269,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat perk_danceOfFiregod;
 			public readonly BooleanPlayerStat perk_danceOfFiregodAtkCap;
 			public readonly BooleanPlayerStat perk_doubleStickHarvesting;
+			public readonly BooleanPlayerStat perk_chargedAtkKnockback;
 
 			//items
 			public readonly BooleanPlayerStat i_greatBowIgnites;
@@ -390,6 +396,7 @@ namespace ChampionsOfForest.Player
 				//parry
 				this.spell_parry = new BooleanPlayerStat(false);
 				this.spell_parryDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
+				this.spell_parryAttackSpeed = new AdditivePlayerStat<float>(1, addfloat, substractfloat);
 				this.spell_parryRadius = new AdditivePlayerStat<float>(3.5f, addfloat, substractfloat);
 				this.spell_parryBuffDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
 				this.spell_parryHeal = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
@@ -502,7 +509,9 @@ namespace ChampionsOfForest.Player
 				this.spell_fartSlow = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
 				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartBaseDmg = new AdditivePlayerStat<float>(20f, addfloat, substractfloat);
-
+				//taunt
+				this.spell_taunt_speedChange = new MultiplicativePlayerStat<float>(2, multfloat, dividefloat, "P");
+				this.spell_taunt_pullEnemiesIn = new BooleanPlayerStat(false);
 
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
@@ -545,6 +554,7 @@ namespace ChampionsOfForest.Player
 				this.perk_danceOfFiregod = new BooleanPlayerStat(false);
 				this.perk_danceOfFiregodAtkCap = new BooleanPlayerStat(false);
 				this.perk_doubleStickHarvesting = new BooleanPlayerStat(false);
+				this.perk_chargedAtkKnockback = new BooleanPlayerStat(false);
 
 				//items
 				this.i_greatBowIgnites = new BooleanPlayerStat(false);

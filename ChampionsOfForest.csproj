@@ -220,12 +220,14 @@
     <Compile Include="Enemies\EnemyProgression\EnemyProgression_Setup.cs" />
     <Compile Include="Enemies\enemySearchMod.cs" />
     <Compile Include="Enemies\mutantFamilyMod.cs" />
+    <Compile Include="Enemies\MutantTypeSetupEX.cs" />
     <Compile Include="ExpSources\AnimalExp.cs" />
     <Compile Include="ExpSources\CutBush2AddExp.cs" />
     <Compile Include="ExpSources\CutBush3AddExp.cs" />
     <Compile Include="ExpSources\CutBushAddExp.cs" />
     <Compile Include="ExpSources\CutEffigyMod.cs" />
     <Compile Include="ExpSources\ExpEvents.cs" />
+    <Compile Include="ExpSources\FishEX.cs" />
     <Compile Include="Fun\Cheats.cs" />
     <Compile Include="Fun\SpaceX.cs" />
     <Compile Include="Items\MoreCraftingReceipes.cs" />

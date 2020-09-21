@@ -35,7 +35,7 @@ namespace ChampionsOfForest.Player
 				{
 					attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowPickup, parent.transform.position, parent.transform.rotation);
 					item = 0;
-				}
+				} 
 				else
 				{
 					attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowModernPickup, parent.transform.position, parent.transform.rotation);
@@ -134,6 +134,10 @@ namespace ChampionsOfForest.Player
 			if (this.singleJointMode)
 			{
 				num = 0;
+			}
+			if (SpellActions.SeekingArrow_ChangeTargetOnHit)
+			{
+				SpellActions.SetSeekingArrowTarget(this.stickToJoints[num]);
 			}
 			return (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<global::headShotObject>());
 

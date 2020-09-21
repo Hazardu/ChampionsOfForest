@@ -133,7 +133,7 @@ namespace ChampionsOfForest
 				damage = damage * dmgTakenIncrease;
 			if (pure)
 			{
-				return damage;
+				return Mathf.Abs(damage);
 			}
 
 			float reduction = ModReferences.DamageReduction(Armor - ArmorReduction);
@@ -148,7 +148,7 @@ namespace ChampionsOfForest
 				dmg = Mathf.Min(dmg, SteadfastCap);
 			}
 
-			return dmg;
+			return Mathf.Abs(dmg);
 		}
 		public void HitPure(float damage)
 		{

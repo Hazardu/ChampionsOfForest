@@ -208,7 +208,7 @@ namespace ChampionsOfForest.Player
 						phe.Hit = DamageMath.GetSendableDamage(outputdmg);
 						phe.HitAxe = axe;
 						phe.hitFallDown = fsmHeavyAttackBool.Value && axe;
-						phe.getAttackDirection = 0;
+						phe.getAttackDirection = animator.GetInteger("hitDirection");
 						phe.takeDamage = 1;
 						phe.getCombo = 3;
 						phe.Burn = (fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn;
@@ -218,7 +218,26 @@ namespace ChampionsOfForest.Player
 						ulong packed = entity.networkId.PackedValue;
 						if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
 							EnemyProgression.ReduceArmor(entity, ModdedPlayer.Stats.TotalMeleeArmorPiercing);
+						if ((hitReactions.kingHitBool || fsmHeavyAttackBool.Value) && ModdedPlayer.Stats.perk_chargedAtkKnockback)
+						{	using (System.IO.MemoryStream stream = new System.IO.MemoryStream())
+							{
+								using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(stream))
+								{
+									Vector3 dir = other.transform.position - LocalPlayer.Transform.position;
+									dir.y = 0;
+									w.Write(43);
+									w.Write(packed);
+									w.Write(dir.x);
+									w.Write(dir.y);
+									w.Write(dir.z);
+									w.Write(1f);
+									w.Close();
+								}
+								Network.NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
 
+								stream.Close();
+							}
+						}
 						if (Effects.BlackFlame.IsOn)
 						{
 							using (System.IO.MemoryStream stream = new System.IO.MemoryStream())
@@ -309,17 +328,25 @@ namespace ChampionsOfForest.Player
 						progression.HitPhysical(outputdmg);
 
 						progression.HealthScript.getCombo(3);
-						progression.HealthScript.getAttackDirection(animator.GetInteger("hitDirection"));
-
-
+						var hitDirection = animator.GetInteger("hitDirection");
+						progression.HealthScript.getAttackDirection(hitDirection);
+						progression.setup.hitReceiver.getAttackDirection(hitDirection);
+						progression.setup.hitReceiver.getCombo(3);
 						if (fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw)
 						{
 							progression.HealthScript.Explosion(-1f);
 						}
 
 
-							if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
+						if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
 							progression.ReduceArmor(ModdedPlayer.Stats.TotalMeleeArmorPiercing);
+
+						if ((hitReactions.kingHitBool || fsmHeavyAttackBool.Value) && ModdedPlayer.Stats.perk_chargedAtkKnockback)
+						{
+							Vector3 dir = other.transform.position - LocalPlayer.Transform.position;
+							progression.AddKnockbackByDistance(dir, 1);
+						}
+
 						if (Effects.BlackFlame.IsOn)
 						{
 							progression.FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 20);
@@ -354,7 +381,7 @@ namespace ChampionsOfForest.Player
 			}
 			else if (other.gameObject.CompareTag("PlayerNet") && (mainTrigger || (!mainTrigger && (animControl.smashBool || chainSaw))))
 			{
-				if (!ModSettings.FriendlyFire)
+				if (ModSettings.FriendlyFire)
 				{
 					BoltEntity component3 = other.GetComponent<BoltEntity>();
 					BoltEntity component4 = base.GetComponent<BoltEntity>();

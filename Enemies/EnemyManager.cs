@@ -45,7 +45,6 @@ namespace ChampionsOfForest
 		{
 			if (!hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
 			{
-				CotfUtils.Log("Adding enemy " + ep.entity.networkId.PackedValue + " : Level " + ep.Level + " " + ep.enemyType + " with " + ep.maxHealth.ToString("N0") + " hp");
 				hostDictionary.Add(ep.entity.networkId.PackedValue, ep);
 			}
 			else

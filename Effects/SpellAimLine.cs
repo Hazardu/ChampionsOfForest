@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Effects
 		private LineRenderer lineRenderer;
 		private GameObject gameObject;
 		private static Material material;
-
+		public bool IsValid => gameObject != null && lineRenderer != null;
 		public SpellAimLine()
 		{
 			gameObject = new GameObject("Spell Aim Gizmo-Line");
@@ -58,6 +58,7 @@ namespace ChampionsOfForest.Effects
 		private GameObject gameObject;
 		private Transform transform;
 		private static Shader shader;
+		public bool IsValid => gameObject != null;
 
 		public SpellAimSphere(Color color, float radius)
 		{

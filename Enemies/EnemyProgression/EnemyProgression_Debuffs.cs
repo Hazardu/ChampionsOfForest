@@ -21,6 +21,8 @@ namespace ChampionsOfForest
 		public float knockbackSpeed;
 		public float DebuffDmgMult;
 		public float dmgTakenIncrease;
+		public const float KnockBackDeacceleration = 100f;
+
 
 		//Damage over time
 		public List<DoT> DamageOverTimeList;
@@ -104,14 +106,23 @@ namespace ChampionsOfForest
 			DoTTotal = DamageOverTimeList.Sum(x => x.Amount);
 		}
 
-		public void AddKnockback(Vector3 dir, float amount)
+		public void AddKnockback(Vector3 dir, float speed)
 		{
 			knockbackDir += dir;
 			knockbackDir.Normalize();
-			if (amount > knockbackSpeed)
-				knockbackSpeed = amount;
+			if (speed > knockbackSpeed)
+				knockbackSpeed = speed;
 		}
+		public void AddKnockbackByDistance(Vector3 dir, float distance)
+		{
+			var velocity = Mathf.Sqrt(2*distance*KnockBackDeacceleration);
+			knockbackDir += dir;
+			knockbackDir.Normalize();
+			if (velocity > knockbackSpeed)
+				knockbackSpeed = velocity;
+			
 
+		}
 
 		public void FireDebuff(int source, float amount, float time)
 		{
@@ -135,6 +146,7 @@ namespace ChampionsOfForest
 		public void Slow(int source, float amount, float time)
 		{
 			//source - 20 is snap freeze
+			//source - 21 is snap freeze super slow
 			//source - 40 is hammer attack
 			//source - 41 is magic arrow hit
 			//source - 43-60 are bashes
@@ -210,9 +222,9 @@ namespace ChampionsOfForest
 			target.ArmorReduction += amount;
 		}
 
-		public void Taunt(GameObject player, in float duration)
+		public void Taunt(GameObject player, in float duration,in float slowAmount)
 		{
-			Slow(143, 2, duration);
+			Slow(143, slowAmount, duration);
 			DmgTakenDebuff(143, 1.5f, duration);
 			setup.ai?.resetCombatParams();
 

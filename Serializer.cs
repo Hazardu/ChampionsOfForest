@@ -338,16 +338,11 @@ namespace ChampionsOfForest
 			if (GameSetup.IsMpClient)
 			{
 				ModAPI.Console.Write("Saving");
-				DontDestroyOnLoad(ModdedPlayer.instance.gameObject);
-				DontDestroyOnLoad(LocalPlayer.Inventory.gameObject);
-				DontDestroyOnLoad(LocalPlayer.Stats.gameObject);
 				CreateInstance();
 				if (!Saving)
 				{
 					DoSave();
 				}
-				Destroy(ModdedPlayer.instance.gameObject);
-				Destroy(LocalPlayer.Stats.gameObject);
 			}
 		}
 

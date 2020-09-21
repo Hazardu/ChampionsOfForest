@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Effects
 			p1.SetActive(false);
 			p2.SetActive(false);
 		}
-
+		public static bool BothPortalsActive => portals[0].gameObject.activeSelf && portals[1].gameObject.activeSelf;
 		public static void CreatePortal(Vector3 pos, float Duration, int portalID, bool leadsToCaves, bool leadsToEndgame)
 		{
 			portals[portalID].gameObject.SetActive(true);
@@ -79,7 +79,30 @@ namespace ChampionsOfForest.Effects
 				portalID = 1;
 			}
 		}
-
+		public static void SyncBothPortals()
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				using (System.IO.MemoryStream stream = new System.IO.MemoryStream())
+				{
+					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(stream))
+					{
+						var pos = portals[i].gameObject.transform.position;
+						w.Write(3);
+						w.Write(6);
+						w.Write(pos.x);
+						w.Write(pos.y);
+						w.Write(pos.z);
+						w.Write(portals[i].Duration);
+						w.Write(i);
+						w.Write(portals[i].Cave);
+						w.Write(portals[i].Endgame);
+						w.Close();
+					}
+					ChampionsOfForest.Network.NetworkManager.SendLine(stream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+				}
+			}
+		}
 		public static void SyncTransform(Vector3 pos, float Duration, int portalID, bool inCave, bool inEndgame)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -182,6 +205,7 @@ namespace ChampionsOfForest.Effects
 			yield return null;
 			while (transform.localScale.x < 2.2)
 			{
+				transform.Rotate(Vector3.up * Time.deltaTime *300);
 				transform.localScale += Vector3.one * Time.deltaTime*0.5f;
 				yield return null;
 			}
@@ -195,12 +219,14 @@ namespace ChampionsOfForest.Effects
 				{
 					DoCooldown = true;
 				}
-
+				
 				yield return null;
 			}
 			while (Duration > 0)
 			{
 				Duration--;
+				if (Duration <= 1)
+					transform.localScale *= 0.5f;
 				yield return new WaitForSeconds(1);
 			}
 			float t = 1;
@@ -237,6 +263,16 @@ namespace ChampionsOfForest.Effects
 						if ((otherPortal.Endgame && !LocalPlayer.IsInEndgame) || (!otherPortal.Endgame && LocalPlayer.IsInEndgame))
 						{
 							LocalPlayer.GameObject.GetComponent<LocalPlayer>().SetInEndGame(otherPortal.Endgame);
+							GameObject endgameLoader = GameObject.FindWithTag("EndgameLoader");
+							if (endgameLoader)
+							{
+								TheForest.World.SceneLoadTrigger component = endgameLoader.GetComponent<TheForest.World.SceneLoadTrigger>();
+								if (TheForest.Utils.LocalPlayer.ActiveAreaInfo.HasActiveEndgameArea)
+								{
+									component.SetCanLoad(true);
+									component.ForceLoad();
+								}
+							}
 						}
 						if ((otherPortal.Cave && !LocalPlayer.IsInCaves))
 						{

@@ -20,6 +20,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (this._logs > 0)
 			{
+				Debug.Log("Removing log, _logs:" + _logs + "   extra logs:" + additional_logs);
 				if (additional_logs == 0)
 				{
 					this._logs--;
@@ -44,6 +45,7 @@ namespace ChampionsOfForest.Player
 				else
 				{
 					additional_logs--;
+					PutDownNew(false,false,false,null);
 				}
 			}
 		}

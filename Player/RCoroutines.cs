@@ -159,11 +159,11 @@ namespace ChampionsOfForest.Player
 					gameObject.layer = 19;
 					Physics.IgnoreLayerCollision(19, 19, true);
 					if (noconsume)
-						GameObject.Destroy(gameObject, 5f);
+						GameObject.Destroy(gameObject, 30f);
 					else
 					{
 						if (i >= 4)
-							GameObject.Destroy(gameObject, 7);         //if spamming arrows, delete 4th and further after really show timespan
+							GameObject.Destroy(gameObject, 25);         //if spamming arrows, delete 4th and further after really show timespan
 					}
 					if ((bool)gameObject.GetComponent<Rigidbody>())
 					{

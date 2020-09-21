@@ -166,8 +166,9 @@ namespace ChampionsOfForest
 
 			if (knockbackSpeed > 0)
 			{
-				knockbackSpeed -= Time.deltaTime * (knockbackSpeed + 3.5f);
-				transform.root.Translate(knockbackDir * knockbackSpeed);
+				
+				knockbackSpeed -= Time.deltaTime * KnockBackDeacceleration;
+				transform.root.Translate(knockbackDir * knockbackSpeed*Time.deltaTime);
 			}
 
 			FireDmgBonus = 0;

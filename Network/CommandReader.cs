@@ -27,6 +27,8 @@ namespace ChampionsOfForest.Network
 				using (BinaryReader r = new BinaryReader(stream))
 				{
 					int cmdIndex = r.ReadInt32();
+					try
+					{
 
 					switch (cmdIndex) 
 					{
@@ -255,11 +257,13 @@ namespace ChampionsOfForest.Network
 									if (GameSetup.IsMpServer)
 									{
 										float duration = r.ReadSingle();
+										float slow = r.ReadSingle();
+										bool pullIn = r.ReadBoolean();
 										string playerID = r.ReadString();
 										var player = ModReferences.AllPlayerEntities.First(x => x.GetState<IPlayerState>().name == playerID);
 										if (player)
 										{
-											Taunt.Cast(pos, radius, player.gameObject, duration);
+											Taunt.Cast(pos, radius, player.gameObject, duration,slow, pullIn);
 										}
 									}
 									Taunt.CastEffect(pos, radius);
@@ -683,7 +687,7 @@ namespace ChampionsOfForest.Network
 							{
 								string id = r.ReadString();
 								int weaponID = r.ReadInt32();
-								if (!ModReferences.PlayerHands.ContainsKey(id))
+								if (!ModReferences.PlayerHands.ContainsKey(id) || ModReferences.PlayerHands[id]==null)
 								{
 									ModReferences.FindHands();
 								}
@@ -994,12 +998,18 @@ namespace ChampionsOfForest.Network
 									if (EnemyManager.hostDictionary.ContainsKey(EnemyID))
 									{
 										var enemy = EnemyManager.hostDictionary[EnemyID];
-										enemy.AddKnockback(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle());
+										enemy.AddKnockbackByDistance(new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle()), r.ReadSingle());
 									}
 								}
 
 								break;
 							}
+					}
+					}
+					catch (Exception e)
+					{
+
+						ModAPI.Log.Write("Error: " + cmdIndex+"\n" + e.ToString());
 					}
 					r.Close();
 				}

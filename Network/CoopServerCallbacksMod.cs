@@ -266,6 +266,36 @@ namespace ChampionsOfForest.Network
 		{
 		}
 
+		public override void PacketReceived(UdpPacket udpPacket)
+		{
+			try
+			{
+				using (Packet packet = PacketPool.Acquire())
+				{
+					packet.UdpPacket = udpPacket;
+					packet.Frame = packet.UdpPacket.ReadIntVB();
+					if (packet.Frame > this._remoteFrameActual)
+					{
+						this._remoteFrameAdjust = true;
+						this._remoteFrameActual = packet.Frame;
+					}
+					this._bitsSecondInAcc += packet.UdpPacket.Size;
+					this._packetsReceived++;
+					for (int i = 0; i < this._channels.Length; i++)
+					{
+						this._channels[i].Read(packet);
+					}
+					this._packetStatsIn.Enqueue(packet.Stats);
+				}
+			}
+			catch (Exception exception)
+			{
+				BoltLog.Exception(exception);
+				ModAPI.Log.Write(exception.ToString());
+			}
+
+		}
+
 		public override void Disconnect()
 		{
 			Serializer.EmergencySave();

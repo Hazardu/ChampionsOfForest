@@ -135,7 +135,7 @@ namespace ChampionsOfForest.Effects
 						enemy.Value.HitMagic(dmg * 2);
 						enemy.Value.DoDoT(dmg, duration);
 						enemy.Value.Slow(142, slowAmount, duration);
-						enemy.Value.AddKnockback(dir, knockback);
+						enemy.Value.AddKnockbackByDistance(dir, knockback);
 					}
 				
 			}

@@ -190,7 +190,7 @@ namespace ChampionsOfForest
 			float a = armor;
 			float b = (armor + 500f);
 
-			return a/b;
+			return Mathf.Clamp01(a/b);
 		}
 
 		//invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself
