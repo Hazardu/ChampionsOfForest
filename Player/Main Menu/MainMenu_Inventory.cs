@@ -591,6 +591,9 @@ namespace ChampionsOfForest
 									}
 								}
 							}
+							
+							// Prevent Inventory Item Dupe
+                            if (CustomCrafting.isIngredient(index)) canPlace = false;
 
 							if (canPlace || index > -1)
 							{
