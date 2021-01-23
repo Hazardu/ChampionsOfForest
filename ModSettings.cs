@@ -11,7 +11,7 @@ namespace ChampionsOfForest
 
 		public enum DropsOnDeathMode
 		{
-			All, Equipped, Disabled
+			All, Equipped, Disabled, NonEquipped
 		}
 
 		public static Difficulty difficulty = Difficulty.Easy;

@@ -165,10 +165,10 @@ namespace ChampionsOfForest
 			Rect craftingrect = new Rect(x, 0, Mathf.Min((Screen.width - x), 400 * screenScale), Screen.height);
 			GUI.Box(craftingrect, "");
 
-			float btnW = craftingrect.width / 4;
+			float btnW = craftingrect.width / 5;
 
 			int i = 0;
-			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont,fontSize=Mathf.RoundToInt(25 * screenScale) };
+			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(25 * screenScale) };
 			if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Rerolling", style))
 			{
 				CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Rerolling;
@@ -209,6 +209,18 @@ namespace ChampionsOfForest
 				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Empowering", style))
 				{
 					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Empowering;
+					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
+					{
+						CustomCrafting.Ingredients[index].Clear();
+					}
+				}
+				i++;
+			}
+			if (ModdedPlayer.Stats.perk_craftingRerollingSingleStat)
+			{
+				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Individual\nRerolling", style))
+				{
+					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.IndividualRerolling;
 					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
 					{
 						CustomCrafting.Ingredients[index].Clear();
@@ -359,8 +371,8 @@ namespace ChampionsOfForest
 			}
 			if (drawTotal)
 			{
-				
-					int count = item.Stats.Count;
+
+				int count = item.Stats.Count;
 				if (count > 0)
 				{
 					GUIStyle totalStatStyle = new GUIStyle(StatValueStyle)
@@ -368,7 +380,7 @@ namespace ChampionsOfForest
 						fontSize = (int)(18 * screenScale),
 						alignment = TextAnchor.MiddleLeft,
 					};
-					Rect totalBG = new Rect(StatRects[0].xMax+5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale,0);
+					Rect totalBG = new Rect(StatRects[0].xMax + 5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale, 0);
 					totalBG.yMax = StatRects[StatRects.Length - 1].yMax + 5f;
 					GUI.color = new Color(1, 1, 1, 0.8f);
 					GUI.DrawTexture(totalBG, blackSquareTex);
@@ -400,7 +412,7 @@ namespace ChampionsOfForest
 				};
 				if (grouped != null)
 				{
-					Rect compareBG = new Rect(drawTotal?StatRects[0].xMax + 110 * screenScale: StatRects[0].xMax + 5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale,0);
+					Rect compareBG = new Rect(drawTotal ? StatRects[0].xMax + 110 * screenScale : StatRects[0].xMax + 5 * screenScale, StatRects[0].y - 45 * screenScale, 105 * screenScale, 0);
 					compareBG.yMax = StatRects[StatRects.Length - 1].yMax + 5f;
 
 					GUI.color = new Color(1, 1, 1, 0.8f);
@@ -591,9 +603,10 @@ namespace ChampionsOfForest
 									}
 								}
 							}
-							
+
 							// Prevent Inventory Item Dupe
-                            if (CustomCrafting.isIngredient(index)) canPlace = false;
+							if (CustomCrafting.isIngredient(index))
+								canPlace = false;
 
 							if (canPlace || index > -1)
 							{

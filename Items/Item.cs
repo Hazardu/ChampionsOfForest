@@ -15,6 +15,11 @@ namespace ChampionsOfForest
 		public int Amount;
 		public bool Equipped;
 		public List<ItemStat> Stats = new List<ItemStat>();
+		private List<int> idxStat;
+		public List<ItemStat> GetPossibleStatsAtStatPos(int orderedStatIdx)
+		{
+			return base.PossibleStats[idxStat[orderedStatIdx]];
+		}
 		private Dictionary<int, float> groupedStats;
 
 		private void GroupStats()
@@ -330,7 +335,17 @@ namespace ChampionsOfForest
 					}
 				}
 			}
-			Stats.Sort((y, x) => x.Rarity.CompareTo(y.Rarity));
+			SortStats();
+		}
+		public void SortStats()
+		{
+			var sorted = Stats
+				.Select((x, i) => new KeyValuePair<ItemStat, int>(x, i))
+				.OrderBy(x => x.Key.Rarity)
+				.ToList();
+
+			Stats = sorted.Select(x => x.Key).ToList();
+			idxStat = sorted.Select(x => x.Value).ToList();
 		}
 
 		public void OnEquip()

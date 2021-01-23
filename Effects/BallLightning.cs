@@ -35,7 +35,7 @@ public class BallLightning : MonoBehaviour
 		BallLightning b = o.AddComponent<BallLightning>();
 		b.dmg = damage;
 		b.ID = id;
-		b.speed = speed;
+		b.speed = speed*2;
 		list.Add(id, b);
 	}
 
@@ -210,7 +210,7 @@ public class BallLightning : MonoBehaviour
 		if (!_triggered)
 		{
 			transform.Translate(speed * Time.deltaTime, Space.World);
-			speed.y -= Time.deltaTime * 0.5f;
+			speed.y -= Time.deltaTime * 2.5f;
 		}
 	}
 }

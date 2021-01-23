@@ -901,6 +901,10 @@ namespace ChampionsOfForest
 					case ModSettings.DropsOnDeathMode.Equipped:
 						Inventory.Instance.DropEquipped();
 						break;
+
+					case ModSettings.DropsOnDeathMode.NonEquipped:
+						Inventory.Instance.DropNonEquipped();
+						break;
 				}
 
 				if (TheForest.Utils.LocalPlayer.AnimControl.swimming)

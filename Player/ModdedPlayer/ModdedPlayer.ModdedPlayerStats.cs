@@ -252,6 +252,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat perk_craftingReforge;
 			public readonly BooleanPlayerStat perk_craftingPolishing;
 			public readonly BooleanPlayerStat perk_craftingEmpowering;
+			public readonly BooleanPlayerStat perk_craftingRerollingSingleStat;
 			public readonly BooleanPlayerStat perk_isShieldAutocast;
 			public readonly BooleanPlayerStat perk_parryAnything;
 			public readonly BooleanPlayerStat perk_blackholePullImmune;
@@ -383,7 +384,7 @@ namespace ChampionsOfForest.Player
 				this.stunned = new BooleanPlayerStat(false);
 
 				this.magicFind = new MultiplicativeNetworkSyncedPlayerStat<float>(1.0f, multfloat, dividefloat);
-				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
+				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat,"N1");
 				this.fireTickRate = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.fireDuration = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				//spells
@@ -536,6 +537,7 @@ namespace ChampionsOfForest.Player
 				this.perk_craftingReforge = new BooleanPlayerStat(false);
 				this.perk_craftingPolishing = new BooleanPlayerStat(false);
 				this.perk_craftingEmpowering = new BooleanPlayerStat(false);
+				this.perk_craftingRerollingSingleStat = new BooleanPlayerStat(false);
 				this.perk_isShieldAutocast = new BooleanPlayerStat(false);
 				this.perk_parryAnything = new BooleanPlayerStat(false);
 				this.perk_blackholePullImmune = new BooleanPlayerStat(false);

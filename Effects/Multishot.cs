@@ -54,7 +54,7 @@ namespace ChampionsOfForest.Effects
 			opacity = 0;
 		}
 
-		private const float maxOpacity = 1f, regainOpacityRate = 0.3f;
+		private const float maxOpacity = 0.5f, regainOpacityRate = 0.1f;
 
 		private void Update()
 		{

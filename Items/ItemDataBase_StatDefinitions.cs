@@ -82,6 +82,7 @@ namespace ChampionsOfForest
 			THORNS,
 			PIERCECHANCE,
 			EXPLOSIONDAMAGE,
+			SPEARDAMAGE,
 
 			EXTRACARRIEDSTICKS = 1000,
 			EXTRACARRIEDROCKS,
@@ -267,6 +268,8 @@ namespace ChampionsOfForest
 			new ItemStat(i, 0.065f, 0.08f, 0.5f, "Projectile pierce chance", scAdd, 6, () => ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += -f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
 			new ItemStat(i, 0.06f, 0.08f, 1f, "Explosive damage", scAdd, 6, () => ModdedPlayer.Stats.explosionDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.explosionDamage.Add( f), f => ModdedPlayer.Stats.projectilePierceChance.Substract(f)) { RoundingCount = 1 };
+			i++;
+			new ItemStat(i, 0.03f, 0.04f, 0.6f, "Thrown spear damage", scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
 
 			//Extra carry items

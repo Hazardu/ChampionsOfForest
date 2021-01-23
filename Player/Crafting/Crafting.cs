@@ -13,7 +13,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 		public enum CraftMode
 		{
-			None = -1, Rerolling, Reforging, Polishing, Empowering
+			None = -1, Rerolling, Reforging, Polishing, Empowering, IndividualRerolling
 		}
 
 		public CraftMode craftMode = CraftMode.None;
@@ -26,7 +26,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 		public CustomCrafting()
 		{
-			craftingModes = new ICraftingMode[] { new Rerolling(), new Reforging(), new Polishing(), new Empowering() };
+			craftingModes = new ICraftingMode[] { new Rerolling(), new Reforging(), new Polishing(), new Empowering(),new IndividualRerolling() };
 			ingredients = new CraftingIngredient[9];
 			for (int i = 0; i < 9; i++)
 			{

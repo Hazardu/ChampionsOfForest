@@ -172,6 +172,11 @@ namespace ChampionsOfForest.Player
 			StartCoroutine(DropEquippedCoroutine());
 		}
 
+		public void DropNonEquipped()
+		{
+			StartCoroutine(DropNonEquippedCoroutine());
+		}
+
 		private IEnumerator DropEquippedCoroutine()
 		{
 			int itemsDropped = 0;
@@ -181,6 +186,28 @@ namespace ChampionsOfForest.Player
 			for (int i = 0; i < keys.Length; i++)
 			{
 				if (keys[i] < 0)
+				{
+					try
+					{
+						itemsDropped += DropItemOnPosition(keys[i], dropPos) ? 1 : 0;
+					}
+					catch (System.Exception e)
+					{
+						Debug.LogError("dropping error\n" + e.Message);
+					}
+					yield return null;
+				}
+			}
+		}
+		private IEnumerator DropNonEquippedCoroutine()
+		{
+			int itemsDropped = 0;
+			Vector3 dropPos = LocalPlayer.Transform.position;
+
+			var keys = ItemSlots.Keys.ToArray();
+			for (int i = 0; i < keys.Length; i++)
+			{
+				if (keys[i] >= 0)
 				{
 					try
 					{

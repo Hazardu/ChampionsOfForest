@@ -285,6 +285,10 @@ namespace ChampionsOfForest
 						GUI.color = Color.yellow;
 						break;
 
+					case ModSettings.DropsOnDeathMode.NonEquipped:
+						GUI.color = Color.cyan;
+						break;
+
 					case ModSettings.DropsOnDeathMode.Disabled:
 						GUI.color = Color.gray;
 						break;
@@ -299,7 +303,7 @@ namespace ChampionsOfForest
 				}))
 				{
 					int i = (int)ModSettings.dropsOnDeath + 1;
-					i %= 3;
+					i %= 4;
 					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)i;
 				}
 

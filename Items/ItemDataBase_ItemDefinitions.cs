@@ -3524,7 +3524,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
 				new int[] {5,6,7,8,9,10,16,17,26},
-				new int[] {37,0,0,0},
+				new int[] {37,68},
 				new int[] {43,2 },
 				   })
 			{
@@ -4814,6 +4814,659 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
+			};
+
+			//Items for 1.6
+			new BaseItem(new Stat[][]
+			{
+				new [] {RANGEDARMORPIERCING},
+				new [] {AGILITY},
+				new [] {BASERANGEDDAMAGE,RANGEDDAMAGEINCREASE},
+				new [] {SPEARDAMAGE},
+				new [] {PROJECTILESPEED},
+				new [] {ALLATTRIBUTES,PROJECTILESIZE,LESSERAGILITY},
+				new [] {ENERGYONHIT,VITALITY,LIFEONHIT }
+			})
+			{
+				name = "Javelin",
+				description = "Kasper named this item, his fault",
+				lore = "",
+				tooltip = "Long range spear-type weapon",
+				Rarity = 5,
+				minLevel = 30,
+				maxLevel = 34,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Polearm,
+				icon = Res.ResourceLoader.GetTexture(181),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {STRENGTH},
+
+			})
+			{
+				name = "The GOD's Torso",
+				description = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			{
+				var SomeItem = new BaseItem(new Stat[][]
+					{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {STRENGTH, NONE},
+				})
+				{
+					name = "Torso Of Strength",
+					description = "Enchanted with the power of strength as strong as power swing. It's purpose? Hit harder, daddy.",
+					lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+					tooltip = "",
+					Rarity = 4,
+					minLevel = 1,
+					maxLevel = 3,
+					CanConsume = false,
+					StackSize = 1,
+					type = BaseItem.ItemType.ChestArmor,
+					icon = Res.ResourceLoader.GetTexture(96),
+				};
+				SomeItem.PossibleStats[0][0].Multipier = 1.5f;
+			}
+			{
+				var demoVestItem = new BaseItem(new Stat[][]
+					{
+				new [] {EXPLOSIONDAMAGE},
+				new [] {AGILITY,INTELLIGENCE, ALLATTRIBUTES},
+				new [] {MAXIMUMLIFE, VITALITY, LIFEONHIT},
+				new [] {ALLHEALINGPERCENT},
+				new [] {MELEEWEAPONRANGE,ENERGYONHIT,ARMORPIERCING, DODGECHANCE},
+				new [] {MOVEMENTSPEED,BLOCK,MAGICFIND},
+
+					})
+				{
+					name = "Demoman's Vest",
+					description = "What makes me a good demoman? If I were a bad demoman, I wouldn't be sittin' here discussin' it with you, now would I?! LET'S DO IT! Not one of you's gonna survive this! One crossed wire, one wayward pinch of potassium chlorate, one errant twitch, and KA-BLOOIE! nd I got a manky eye. I'm a black Scottish cyclops. They got more fecking sea monsters in the great Lochett Ness than they got the likes of me. So! T'all you fine dandies, so proud, so cocksure, prancin' about with your heads full of eyeballs... come and get me, I say! I'll be waitin' on you with a whiff of the old brimstone! I'm a Grimm bloody fable with an unhappy bloody end! Oh, they're going to have to glue you back together...IN HELL!",
+					lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+					tooltip = "",
+					Rarity = 5,
+					minLevel = 1,
+					maxLevel = 3,
+					CanConsume = false,
+					StackSize = 1,
+					type = BaseItem.ItemType.ChestArmor,
+					icon = Res.ResourceLoader.GetTexture(96),
+				};
+				demoVestItem.PossibleStats[0][0].Multipier = 4;
+
+			}
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {STRENGTH},
+				new [] {ARMOR},
+
+			})
+			{
+				name = "The GoD's Gloves",
+				description = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "Use the power of the God's wisely",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {ARMORPIERCING},
+				new [] {STRENGTH},
+				new [] {ARMOR},
+
+			})
+			{
+				name = "The Penetration Gloves",
+				description = "Enchanted with the power of the penetration armor. It's purpose? Hit harder, daddy.",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "Useful penetration",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ATTACKSPEED },
+				new [] {RANGEDDAMAGEINCREASE,PROJECTILESIZE,PROJECTILESPEED},
+				new [] {BASERANGEDDAMAGE},
+				new [] {AGILITY},
+				new [] {RANGEDARMORPIERCING, ARMORPIERCING},
+				new [] {ARMOR},
+			})
+			{
+				name = "Ballista",
+				description = "",
+				lore = "",
+				tooltip = "",
+				Rarity = 5,
+				minLevel = 10,
+				maxLevel = 12,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				icon = Res.ResourceLoader.GetTexture(170),
+
+			}.PossibleStats[2][0].Multipier = 2f;
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+
+			})
+			{
+				name = "The God's Scarf",
+				description = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "",
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {ALL},
+				new [] {STRENGTH},
+
+			})
+			{
+				name = "The Devil's Scarf",
+				description = "Enchanted with the power of the devil's armor. It's purpose? Hit harder, daddy.",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "",
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {STRENGTH},
+
+			})
+			{
+				name = "The Peasant's Scarf",
+				description = "Enchanted with the power of the peasant's armor. It's purpose? Become the true peasant",
+				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				tooltip = "",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {AGILITY},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {ALL},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "The Grenade Choker",
+				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {VITALITY},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {ARMOR},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "Explosive Touch",
+				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ARMOR},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE},
+				new [] {ALLATTRIBUTES},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "Green Blood Bracers",
+				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ARMOR},
+				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new [] {COOLDOWNREDUCTION},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "The Green Blood Helmet",
+				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {AGILITY},
+				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
+				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {MOVEMENTSPEED},
+				new [] {AGILITY},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "Gunpowder filled socks",
+				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {AGILITY},
+				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
+				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {MOVEMENTSPEED, AGILITY,MAXIMUMENERGY},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "Gunpowder Panties",
+				description = "Enchanted with the power of the explosive sacks. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {BASEMELEEDAMAGE,ARMOR, CRITICALHITDAMAGE},
+				new [] {MOVEMENTSPEED,STRENGTH,MAXIMUMENERGY},
+				new [] {EXPLOSIONDAMAGE},
+
+			})
+			{
+				name = "Gunpowder Boxers",
+				description = "Enchanted with the power of the explosive sacks. It's purpose? Become the true explosion master",
+				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				tooltip = "Useful for extra explosion damage",
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+	
+			new BaseItem(new Stat[][]
+			{
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {ARMOR},
+				new [] {PERCENTMAXIMUMLIFE},
+
+			})
+			{
+				name = "Jihad Vest",
+				description = "",
+				lore = "",
+				tooltip = "",
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 4,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {CRITICALHITCHANCE},
+				new [] {MAGICFIND},
+				new [] {RANGEDDAMAGEINCREASE,MELEEDAMAGEINCREASE},
+				new [] {STRENGTH,AGILITY},
+				new [] {CHANCEONHITTOBLEED},
+				new [] {CHANCEONHITTOSLOW},
+				new [] {CHANCEONHITTOWEAKEN},
+				new [] {MAXENERGYFROMAGI,FIREDAMAGE,CRITICALHITDAMAGE,RANGEDDMGFROMAGI,MELEEDMGFROMSTR},
+
+
+			})
+			{
+				name = "Ring of Fortune",
+				description = "",
+				lore = "",
+				tooltip = "Increases the chance of various on hit effects occuring",
+				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				minLevel = 10,
+				maxLevel = 14,
+				CanConsume = false,
+				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {SPELLDAMAGEINCREASE},
+				new [] {INTELLIGENCE},
+				new [] {COOLDOWNREDUCTION},
+				new [] {ALLATTRIBUTES, INTELLIGENCE,SPELLDAMAGEINCREASE},
+				new [] {SPELLDMGFROMINT,MAXENERGYFROMAGI},
+				new [] {BASESPELLDAMAGE},
+				new [] {PERCENTMAXIMUMENERGY,ENERGYONHIT,ENERGYPERSECOND},
+				new [] {FIREDAMAGE,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA},
+
+
+			})
+			{
+				name = "Mana Ring",
+				description = "",
+				lore = "",
+				tooltip = "Increases the chance of various on hit effects occuring",
+				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				minLevel = 10,
+				maxLevel = 14,
+				CanConsume = false,
+				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {SPELLDAMAGEINCREASE},
+				new [] {INTELLIGENCE},
+				new [] {COOLDOWNREDUCTION},
+				new [] {ALLATTRIBUTES, INTELLIGENCE,SPELLDAMAGEINCREASE},
+				new [] {SPELLDMGFROMINT,MAXENERGYFROMAGI},
+				new [] {BASESPELLDAMAGE},
+				new [] {PERCENTMAXIMUMENERGY,ENERGYONHIT,ENERGYPERSECOND},
+				new [] {FIREDAMAGE,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA},
+			})
+			{
+				name = "Mana Ring",
+				description = "",
+				lore = "",
+				tooltip = "Increases the chance of various on hit effects occuring",
+				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				minLevel = 10,
+				maxLevel = 14,
+				CanConsume = false,
+				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+			};
+			new BaseItem(new Stat[][]
+			{
+			new [] {STRENGTH},
+			new [] {MOVEMENTSPEED,DODGECHANCE,DAMAGEREDUCTION},
+			new [] {VITALITY,MAXHEALTHFROMVIT,MAXIMUMLIFE,PERCENTMAXIMUMLIFE,ARMOR},
+			new [] {INTELLIGENCE,MAXENERGYFROMAGI,PERCENTMAXIMUMENERGY,MAXIMUMENERGY},
+			new [] {MELEEARMORPIERCING,MELEEDAMAGEINCREASE},
+			new [] {ARMOR,ATTACKSPEED,STRENGTH},
+			new [] {BASEMELEEDAMAGE},
+			new [] {BASEMELEEDAMAGE,MELEEDAMAGEINCREASE},
+			new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
+			new [] {CRITICALHITCHANCE,MELEEWEAPONRANGE,ATTACKSPEED},
+			new [] {CRITICALHITDAMAGE, MELEEDAMAGEINCREASE, STRENGTH},
+			new [] {ENERGYONHIT,ENERGYPERSECOND,MAXIMUMLIFE},
+			})
+			{
+				name = "Moritz's Gear",
+				description = "",
+				lore = "",
+				tooltip = "",
+				Rarity = 6,
+				minLevel = 5,
+				maxLevel = 6,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH,BASEMELEEDAMAGE,MELEEDAMAGEINCREASE,ATTACKSPEED},
+				new [] {MOVEMENTSPEED,DODGECHANCE,DAMAGEREDUCTION},
+				new [] {VITALITY,MAXHEALTHFROMVIT,MAXIMUMLIFE,PERCENTMAXIMUMLIFE,MELEEARMORPIERCING},
+				new [] {INTELLIGENCE,STRENGTH,CRITICALHITDAMAGE,PERCENTMAXIMUMENERGY,MAXIMUMENERGY},
+				new [] {BASEMELEEDAMAGE},
+				new [] {BASEMELEEDAMAGE,MELEEDAMAGEINCREASE},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
+				new [] {CRITICALHITCHANCE,MELEEWEAPONRANGE},
+				new [] {CRITICALHITDAMAGE, MELEEDAMAGEINCREASE, STRENGTH},
+				new [] {ENERGYONHIT,ENERGYPERSECOND,MAXIMUMLIFE},
+			})
+			{
+				name = "Band of Hurting",
+				description = "A ring for a warrior",
+				lore = "",
+				tooltip = "",
+				Rarity = 6,
+				minLevel = 5,
+				maxLevel = 6,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {AGILITY,RANGEDDAMAGEINCREASE},
+				new [] {ALLATTRIBUTES, ARMOR,PERCENTMAXIMUMLIFE},
+				new [] {CRITICALHITCHANCE},
+				new [] {CRITICALHITDAMAGE,NONE},
+			})
+			{
+				name = "Straw Hat",
+				description = "",
+				lore = "",
+				tooltip = "Provides usefull stat bonuses",
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {INTELLIGENCE},
+				new [] {ALLATTRIBUTES, ARMOR,ENERGYONHIT},
+				new [] {BASESPELLDAMAGE},
+				new [] {FIREDAMAGE,SPELLDAMAGEINCREASE,SPELLCOSTREDUCTION},
+			})
+			{
+				name = "Hood",
+				description = "",
+				lore = "",
+				tooltip = "Provides usefull stat bonuses",
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+				new BaseItem(new Stat[][]
+			{
+				new [] {SPEARDAMAGE},
+				new [] {AGILITY},
+				new [] {STAMINAPERSECOND},
+			})
+			{
+				name = "Rusty Javelin",
+				description = "",
+				lore = "",
+				tooltip = "Long range spear-type weapon",
+				Rarity = 3,
+				minLevel = 10,
+				maxLevel = 16,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Polearm,
+				icon = Res.ResourceLoader.GetTexture(181),
+			};
+			new BaseItem(new Stat[][]
+			{
+			new [] {INTELLIGENCE},
+			new [] {DODGECHANCE,DAMAGEREDUCTION},
+			new [] {VITALITY,MAXHEALTHFROMVIT,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+			new [] {SPELLDMGFROMINT},
+			new [] {SPELLCOSTREDUCTION,COOLDOWNREDUCTION},
+			new [] {SPELLCOSTREDUCTION,COOLDOWNREDUCTION},
+			new [] {ENERGYPERSECOND,PERCENTMAXIMUMENERGY,MAXENERGYFROMAGI},
+			new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE},
+			new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE},
+			new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE},
+			new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE},
+			new [] {ENERGYONHIT,ENERGYPERSECOND,MAXIMUMLIFE},
+			})
+			{
+				name = "Star Robe",
+				description = "",
+				lore = "",
+				tooltip = "",
+				Rarity = 6,
+				minLevel = 5,
+				maxLevel = 6,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
 			};
 		}
 	}

@@ -241,6 +241,7 @@
     <Compile Include="Player\Crafting\Polishing.cs" />
     <Compile Include="Player\Crafting\Reforging.cs" />
     <Compile Include="Player\Crafting\Rerolling.cs" />
+    <Compile Include="Player\Crafting\IndividualRerolling.cs" />
     <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
     <Compile Include="Player\Main Menu\MainMenu_HUD.cs" />

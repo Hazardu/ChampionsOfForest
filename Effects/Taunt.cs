@@ -113,9 +113,15 @@ namespace ChampionsOfForest.Effects
 					{
 						if (pullIn)
 						{
-							enemy.AddKnockbackByDistance(pos - enemy.transform.position, Vector3.Distance(pos,enemy.transform.position)/1.4f);
+							enemy.AddKnockbackByDistance(pos - enemy.transform.position, Vector3.Distance(pos, enemy.transform.position) * 2);
+							enemy.Taunt(player, duration, slow/2f);
+
 						}
-						enemy.Taunt(player, duration, slow);
+						else
+						{
+							enemy.Taunt(player, duration, slow);
+						
+						}
 						Debug.Log("Taunted " + enemy.enemyName);
 					}
 				}
@@ -155,7 +161,7 @@ namespace ChampionsOfForest.Effects
 		{
 			GameObject o = new GameObject("__SHOUTPARTICLES__");
 
-			o.transform.position = pos + Vector3.down;
+			o.transform.position = pos;
 			o.transform.rotation = Quaternion.Euler(90, 0, 0);
 			o.transform.localScale = Vector3.one * radius / 50;
 

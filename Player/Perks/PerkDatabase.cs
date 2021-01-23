@@ -2009,7 +2009,7 @@ namespace ChampionsOfForest.Player
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { -1 },
 				levelReq = 10,
-				cost = 1,
+				cost = 0,
 				scale = 1f,
 				posX = -0.75f,
 				posY = 1.1f,
@@ -2025,7 +2025,7 @@ namespace ChampionsOfForest.Player
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 116 },
 				levelReq = 25,
-				cost = 1,
+				cost = 0,
 				scale = 1f,
 				posX = -0.25f,
 				posY = 1.85f,
@@ -3030,7 +3030,7 @@ namespace ChampionsOfForest.Player
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 116 },
 				levelReq = 35,
-				cost = 1,
+				cost = 0,
 				scale = 1f,
 				posX = -1.25f,
 				posY = 1.85f,
@@ -3046,10 +3046,10 @@ namespace ChampionsOfForest.Player
 				unlockPath = new int[] { 179, 117 },
 				unlockRequirement = new int[] { 179, 117 },
 				levelReq = 55,
-				cost = 1,
-				scale = 1.5f,
+				cost = 0,
+				scale = 1f,
 				posX = -0.75f,
-				posY = 2.85f,
+				posY = 2.6f,
 				name = "Empowering",
 				originalDescription = "Adds a tab to crafting menu. Allows you to change the level of an item to player's current level, without rerolling values. Requires nine items of the same or higher rarity",
 				textureVariation = 1,
@@ -3167,7 +3167,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.explosionDamage.Add(0.15f),
+				apply = () => ModdedPlayer.Stats.explosionDamage.Add(0.35f),
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 45 },
 				levelReq = 5,
@@ -3176,10 +3176,10 @@ namespace ChampionsOfForest.Player
 				posX = -3f,
 				posY = -0.75f,
 				name = "Explosion Damage Up",
-				originalDescription = "Increases explosion and dropkick attack damage by 15%. This affects explosions of other players too.",
+				originalDescription = "Increases explosion and dropkick attack damage by 35%. This affects explosions of other players too.",
 				textureVariation = 0,
 				uncapped = true,
-				updateDescription = x=>$"\nTotal: {x*0.15f:P}"
+				updateDescription = x=>$"\nTotal: {x*0.35f:P}"
 			};
 			new Perk()
 			{
@@ -3522,7 +3522,21 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = false,
 			};
-
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.perk_craftingPolishing.value = true,
+				category = PerkCategory.Utility,
+				unlockPath = new int[] { 179 },
+				levelReq = 45,
+				cost = 0,
+				scale = 1f,
+				posX = -1.75f,
+				posY = 2.6f,
+				name = "Rerolling individual stats",
+				originalDescription = "Adds a tab to crafting menu. Allows you to change the value of a single stat another stats that can occur on an item. Allows emptying of sockets. Requires one item of the same rarity or greater",
+				textureVariation = 1,
+				uncapped = false,
+			};
 
 			foreach (var item in perks)
 			{
