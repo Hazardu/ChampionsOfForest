@@ -60,10 +60,13 @@ namespace ChampionsOfForest
 			DamageOverTimeList = new List<DoT>();
 			abilities = new List<Abilities>();
 
+			SetType();
+
+
 			//picking abilities
-			if ((UnityEngine.Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && enemyType != Enemy.Baby)
+			if ((UnityEngine.Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && enemyType != Enemy.Baby && ModSettings.AllowElites)
 			{
-				int abilityAmount = UnityEngine.Random.Range(3, 7);
+				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? UnityEngine.Random.Range(3,   7) : 2;
 				if (AIScript.creepy_boss)
 				{
 					abilityAmount = 10;
@@ -122,6 +125,11 @@ namespace ChampionsOfForest
 					{
 						canAdd = false;
 					}
+					else if (ab == Abilities.ArcaneCataclysm || ab == Abilities.BlackHole || ab == Abilities.FireCataclysm || ab == Abilities.Meteor)
+					{
+						if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Master)
+							canAdd = false;
+					}
 					if (abilities.Contains(ab))
 					{
 						canAdd = false;
@@ -138,7 +146,6 @@ namespace ChampionsOfForest
 				_rarity = EnemyRarity.Normal;
 			}
 
-			SetType();
 			SetLevel();
 			RollName();
 			//Assigning rest of stats

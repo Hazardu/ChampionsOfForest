@@ -78,7 +78,22 @@ namespace ChampionsOfForest
 		}
 		float lastLevelCheckTimestamp;
 		private int lastPlayerLevelCount;
-
+		public static void UpdatePlayerLevel(string nameOfPlayer, int level)
+		{
+			for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
+			{
+				var state = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>().GetState<IPlayerState>();
+				if (state!= null)
+				{
+					if (state.name == nameOfPlayer)
+					{
+						Scene.SceneTracker.allPlayers[i].GetComponentInChildren<TheForest.UI.Multiplayer.PlayerName>().SendMessage("SetNameWithLevel",level);
+						break;
+					}
+				}
+			}
+			
+		}
 		public static void RemoveUnusedPlayerLevels()
 		{
 			List<string> stringsToRemove = new List<string>();

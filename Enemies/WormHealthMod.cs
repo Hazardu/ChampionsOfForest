@@ -143,6 +143,7 @@ namespace ChampionsOfForest.Enemies
 				}
 				if (!this.wormDamageSetup || !collider.GetComponent<global::wormHitReceiver>())
 				{
+					
 					if (collider.transform.root == LocalPlayer.Transform.root)
 					{
 						int damage = 85;
@@ -187,7 +188,8 @@ namespace ChampionsOfForest.Enemies
 						}
 						if (ModdedPlayer.Stats.i_EruptionBow)
 							damage /= 10;
-						LocalPlayer.Stats.Hit(damage, false);
+						if(ModSettings.FriendlyFire || this.wormDamageSetup) 
+							LocalPlayer.Stats.Hit(damage, false);
 					}
 					if (BoltNetwork.isClient)
 					{

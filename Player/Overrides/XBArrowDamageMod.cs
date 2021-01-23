@@ -445,8 +445,8 @@ namespace ChampionsOfForest.Player
 								{
 	
 										var obj = Instantiate(PhysicBody, Camera.main.transform.position + Vector3.up * 2f, Quaternion.LookRotation(PhysicBody.position-Camera.main.transform.position));
-									obj.velocity = PhysicBody.velocity.normalized * 90f * ModdedPlayer.Stats.projectileSpeed;
-									Destroy(obj.gameObject, 18);
+									obj.velocity = PhysicBody.velocity.normalized * 130f * ModdedPlayer.Stats.projectileSpeed;
+									Destroy(obj.gameObject, 25);
 
 								}
 							}
@@ -610,8 +610,8 @@ namespace ChampionsOfForest.Player
 				if (ModdedPlayer.Stats.perk_thrownSpearhellChance > 0 && Random.value <= ModdedPlayer.Stats.perk_thrownSpearhellChance && OutputDmg > 1)
 				{
 					var obj = Instantiate(PhysicBody, Camera.main.transform.position + Vector3.up * 2f, Quaternion.LookRotation(PhysicBody.position - Camera.main.transform.position));
-					obj.velocity = PhysicBody.velocity.normalized * 90f * ModdedPlayer.Stats.projectileSpeed;
-					Destroy(obj.gameObject, 18);
+					obj.velocity = PhysicBody.velocity.normalized * 130f * ModdedPlayer.Stats.projectileSpeed;
+					Destroy(obj.gameObject, 30);
 
 				}
 			}

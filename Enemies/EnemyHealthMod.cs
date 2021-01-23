@@ -358,11 +358,6 @@ namespace ChampionsOfForest
 
 		public override void Die()
 		{
-			//if (ai.creepy_fat)
-			//{
-			//    base.Die();
-			//    return;
-			//}
 			if (progression.OnDie())
 			{
 				base.Die();

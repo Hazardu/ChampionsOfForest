@@ -292,7 +292,6 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat i_sparkOfLightAfterDark;
 			public readonly BooleanPlayerStat i_infinityLoop;
 
-
 			public ModdedPlayerStats()
 			{
 

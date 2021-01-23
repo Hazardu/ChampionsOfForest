@@ -312,6 +312,7 @@ namespace ChampionsOfForest
 				DrawCheatOption(ref ModSettings.EnemyHealthMultiplier, "Enemy Health", ref y);
 				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier, "Enemy Armor", ref y);
 				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, "Enemy Speed", ref y);
+				DrawCheatOption(ref ModSettings.AllowElites, "Allow elite enemies", ref y);
 			}
 
 			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.1f, float max = 10.0f)
@@ -319,6 +320,12 @@ namespace ChampionsOfForest
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max);
 				GUI.Label(new Rect(1500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value.ToString("P0"), CheatLabel);
+				y += 40;
+			}
+				private void DrawCheatOption(ref bool value, in string text, ref float y, float min = 0.1f, float max = 10.0f)
+			{
+				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
+				value = GUI.Toggle(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value,value?"Yes":"No");
 				y += 40;
 			}
 

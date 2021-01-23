@@ -902,9 +902,8 @@ namespace ChampionsOfForest
 				{
 					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 					{
-						w.Write(19);
+						w.Write(35);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write(ModdedPlayer.instance.level);
 						w.Close();
 					}
 					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);

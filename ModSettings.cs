@@ -29,7 +29,7 @@ namespace ChampionsOfForest
 
 		public static readonly List<int> outdatedFiles = new List<int>()
 		{
-		   116
+
 		};
 
 		public static float DropQuantityMultiplier = 1;
@@ -40,5 +40,6 @@ namespace ChampionsOfForest
 		public static float EnemyHealthMultiplier = 1;
 		public static float EnemyArmorMultiplier = 1;
 		public static float EnemySpeedMultiplier = 1;
+		public static bool AllowElites = true;
 	}
 }

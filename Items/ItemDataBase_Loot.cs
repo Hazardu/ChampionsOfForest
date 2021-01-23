@@ -20,15 +20,15 @@ namespace ChampionsOfForest
 			if (GameSetup.IsMultiplayer)
 			{
 				ModReferences.RequestAllPlayerLevels();
-				float level = ModdedPlayer.instance.level;
+				float levelSum = ModdedPlayer.instance.level;
 				highestLevel = ModdedPlayer.instance.level;
 				foreach (var l in ModReferences.PlayerLevels.Values)
 				{
-					level += l;
+					levelSum += l;
 					if (l > highestLevel)
 						highestLevel = l;
 				}
-				averageLevel = Convert.ToInt32(level / (1 + ModReferences.PlayerLevels.Count));
+				averageLevel = Convert.ToInt32(levelSum / (1 + ModReferences.PlayerLevels.Count));
 			}
 			else
 			{

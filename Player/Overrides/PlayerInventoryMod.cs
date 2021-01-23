@@ -167,9 +167,7 @@ namespace ChampionsOfForest.Player
 								itemView._heldWeaponInfo.staminaDrain = cw.staminaDrain;
 								itemView._heldWeaponInfo.noTreeCut = cw.blockTreeCut;
 								itemView._heldWeaponInfo.spear = cw.spearType;
-								cw.objectToHide?.SetActive(false);
-								itemView._heldWeaponInfo.transform.localScale = Vector3.one * cw.ColliderScale;
-								//itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(false);
+								cw.objectToHide.GetComponent<Renderer>().enabled = false;
 							}
 							catch (System.Exception exc)
 							{
@@ -182,17 +180,15 @@ namespace ChampionsOfForest.Player
 							{
 								item.obj.SetActive(false);
 							}
-							customWeapons[BaseItem.WeaponModelType.Polearm].objectToHide?.SetActive(true);
 							itemView._heldWeaponInfo.weaponSpeed = itemView._heldWeaponInfo.baseWeaponSpeed;
 							itemView._heldWeaponInfo.tiredSpeed = itemView._heldWeaponInfo.baseTiredSpeed;
 							itemView._heldWeaponInfo.smashDamage = itemView._heldWeaponInfo.baseSmashDamage;
 							itemView._heldWeaponInfo.weaponDamage = itemView._heldWeaponInfo.baseWeaponDamage;
 							itemView._heldWeaponInfo.weaponRange = itemView._heldWeaponInfo.baseWeaponRange;
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
-							itemView._heldWeaponInfo.noTreeCut = true;
+							itemView._heldWeaponInfo.noTreeCut = false;
 							itemView._heldWeaponInfo.spear = true;
-							itemView._heldWeaponInfo.transform.localScale = Vector3.one;
-							//itemView._held.GetComponentInChildren<Renderer>()?.SetActiveSelfSafe(true);
+							customWeapons[BaseItem.WeaponModelType.Polearm].objectToHide.GetComponent<Renderer>().enabled = true;
 						}
 					}
 				}
@@ -491,29 +487,26 @@ namespace ChampionsOfForest.Player
 				customWeapons.Remove(BaseItem.WeaponModelType.Polearm);
 			}
 			var original = _itemViews[158]._held;
-			original.gameObject.SetActive(true);
-			ModAPI.Console.Write("OG scale: " + _itemViews[158]._heldWeaponInfo.transform.localScale);
+			//original.gameObject.SetActive(true);
 			var assets = Res.ResourceLoader.GetAssetBundle(2005).LoadAssetWithSubAssets("assets/PolearmPrefab.prefab");
 			foreach (var asset in assets)
 			{
 				ModAPI.Console.Write(asset.name);
 				if (asset.name == "PolearmPrefab")
 				{
-					var Clone = new GameObject();
-					Clone.transform.SetParent(original.transform);
-					Clone.transform.localPosition = Vector3.zero;
-					Clone.transform.localRotation = Quaternion.identity;
+					var clone = new GameObject();
+					clone.transform.SetParent(original.transform);
+					clone.transform.localPosition = Vector3.zero;
+					clone.transform.localRotation = Quaternion.identity;
 
 					var secondChild = original.transform.GetChild(1);   //second child contains the og model of the spear
-					GameObject modelClone = (GameObject)Instantiate(asset, LocalPlayer.Transform.position, Quaternion.identity, Clone.transform);
+					GameObject modelClone =Instantiate( (GameObject)asset, LocalPlayer.Transform.position, Quaternion.identity, clone.transform);
 					modelClone.transform.localPosition = secondChild.localPosition;
 					modelClone.transform.localRotation = secondChild.localRotation;
 					modelClone.transform.Rotate(new Vector3(90, 0, 0));
 					modelClone.transform.localScale *= 0.7f / 3;
-					ModAPI.Console.Write(original.transform.GetChild(1).gameObject.name,"1st child");
-					//Destroy(secondChild.gameObject);
 					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
-						Clone,
+						clone,
 						Vector3.zero,
 						new Vector3(0, 0, 0),
 						2)
@@ -527,13 +520,12 @@ namespace ChampionsOfForest.Player
 						swingspeed = 100,
 						ColliderScale = 3f,
 						treeDamage = 1,
-						objectToHide = original.transform.GetChild(1).gameObject
+						objectToHide = secondChild.gameObject
 					};
-					original.gameObject.SetActive(false);
+					clone.SetActive(false);
 					return;
 				}
 			}
-			ModAPI.Console.Write("Big problem with spear");
 		}
 	}
 }

@@ -83,6 +83,8 @@ namespace ChampionsOfForest.Res
 		private LoadingState loadingState;
 		private VersionCheckStatus checkStatus = VersionCheckStatus.Unchecked;
 		private string OnlineVersion;
+		private string Likes;
+		private string Downloads;
 		private string MOTD;
 		private Vector2 MOTDoffset;
 		public static bool InMainMenu;
@@ -134,19 +136,25 @@ namespace ChampionsOfForest.Res
 
 		private IEnumerator VersionCheck()
 		{
-			WWW ModapiWebsite = new WWW("https://modapi.survivetheforest.net/mod/101/champions-of-the-forest");
+			WWW ModapiWebsite = new WWW("https://modapi.survivetheforest.net/api/mods/");
 			yield return ModapiWebsite;
 			if (string.IsNullOrEmpty(ModapiWebsite.error) && !string.IsNullOrEmpty(ModapiWebsite.text))
 			{
-				Regex regex1 = new Regex(@"Version+\W+([0-9.]+)");
+				Regex regex1 = new Regex(@"id.:101([^}])+");
 				Match match1 = regex1.Match(ModapiWebsite.text);
 				if (match1.Success)
 				{
-					Regex regex2 = new Regex(@"([0-9.]+)");
-					Match match2 = regex2.Match(match1.Value);
-					if (match2.Success)
+					Regex versionRegex = new Regex("(?<=version\"..)([0-9.]+)");
+					Regex likesRegex = new Regex("(?<=likes\".)(\\d+)");
+					Regex downloadsRegex = new Regex("(?<=downloads\".)(\\d+)");
+
+					Match versionMatch = versionRegex.Match(match1.Value);
+					Match likesMatch = likesRegex.Match(match1.Value);
+					Match downloadsMatch = downloadsRegex.Match(match1.Value);
+
+					if (versionMatch.Success)
 					{
-						OnlineVersion = match2.Value;
+						OnlineVersion = versionMatch.Value;
 						if (ModSettings.Version == OnlineVersion)
 						{
 							checkStatus = VersionCheckStatus.UpToDate;
@@ -161,6 +169,10 @@ namespace ChampionsOfForest.Res
 						}
 						yield break;
 					}
+					if (likesMatch.Success)
+						Likes = likesMatch.Value;
+					if (downloadsMatch.Success)
+						Downloads = downloadsMatch.Value;
 				}
 			}
 			if (checkStatus == VersionCheckStatus.Unchecked)
@@ -675,7 +687,7 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.UpToDate:
 						GUI.color = Color.green;
-						GUILayout.Label("Champions of The Forest is up to date.", versionStyle);
+						GUILayout.Label("COTF up to date. "+((!string.IsNullOrEmpty(Likes)&& !string.IsNullOrEmpty(Downloads)) ? $"Thanks for {Likes:N} likes and {Downloads:N} downloads!":""), versionStyle);
 
 						break;
 
@@ -683,9 +695,9 @@ namespace ChampionsOfForest.Res
 						GUI.color = Color.red;
 						versionStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.UpperRight, fontSize = 34, richText = true };
 
-						if (GUILayout.Button("<b>Champions of The Forest is outdated!</b> \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion + "\nClick <b>HERE</b> to go to ModAPI page of COTF.", versionStyle))
+						if (GUILayout.Button("<b>Champions of The Forest is outdated!</b> \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle))
 						{
-							Application.OpenURL("https://modapi.survivetheforest.net/mod/101/champions-of-the-forest");
+							Application.OpenURL(@"https://modapi.survivetheforest.net/mod/101/champions-of-the-forest/");
 						}
 
 						break;
@@ -697,7 +709,7 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.NewerThanOnline:
 						GUI.color = Color.yellow;
-						GUILayout.Label("You're using a version newer than uploaded to ModAPI", versionStyle);
+						GUILayout.Label("Preview version", versionStyle);
 						break;
 				}
 				GUI.color = Color.white;

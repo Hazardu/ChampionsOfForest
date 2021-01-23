@@ -151,7 +151,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				if (index != 0)
 				{
 					float mult = index % 2 == 0 ? 1 : -1;
-					go.transform.Rotate(Vector3.up * Time.deltaTime * 63 * mult, Space.World);
+					go.transform.Rotate(Vector3.up * Time.deltaTime * 100 * mult, Space.World);
 					go.transform.Rotate(go.transform.right * Time.deltaTime * 40 * Mathf.Sin(time * 6), Space.World);
 				}
 				yield return null;

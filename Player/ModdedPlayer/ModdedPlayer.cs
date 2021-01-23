@@ -717,7 +717,7 @@ namespace ChampionsOfForest.Player
 							w.Write(ModdedPlayer.instance.level);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 						answerStream.Close();
 					}
 				}

@@ -29,7 +29,7 @@ namespace ChampionsOfForest.Player
 			{
 				yield return null;
 				yield return null;
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4));
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
 			}
 		}
 
@@ -159,11 +159,11 @@ namespace ChampionsOfForest.Player
 					gameObject.layer = 19;
 					Physics.IgnoreLayerCollision(19, 19, true);
 					if (noconsume)
-						GameObject.Destroy(gameObject, 30f);
+						GameObject.Destroy(gameObject, 60f);
 					else
 					{
 						if (i >= 4)
-							GameObject.Destroy(gameObject, 25);         //if spamming arrows, delete 4th and further after really show timespan
+							GameObject.Destroy(gameObject, 50);         //if spamming arrows, delete 4th and further after really show timespan
 					}
 					if ((bool)gameObject.GetComponent<Rigidbody>())
 					{

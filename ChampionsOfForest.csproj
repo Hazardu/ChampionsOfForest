@@ -271,6 +271,7 @@
     <Compile Include="Player\CustomBow.cs" />
     <Compile Include="Player\Overrides\FlashlightMod.cs" />
     <Compile Include="Player\Overrides\LogControllerMoreLogs.cs" />
+    <Compile Include="Player\Overrides\PlayerNameOverlayMod.cs" />
     <Compile Include="Player\Perks\PerkDatabase.cs" />
     <Compile Include="Player\Pings\MarkEnemy.cs" />
     <Compile Include="Player\Pings\MarkPostion.cs" />
