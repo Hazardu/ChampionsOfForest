@@ -110,9 +110,6 @@ namespace ChampionsOfForest.Player
 			new Spell(iD: 14, TextureID: 128, levelrequirement: 20, energyCost: 220, baseCooldown: 40, name: "Snap Freeze", () => $"Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them.\nScaling{ModdedPlayer.Stats.spell_snapDamageScaling} spell damage")
 			{
 				active = SpellActions.CastSnapFreeze,
-				CastOnRelease = true,
-				aim = SpellActions.SnapFreezeAim,
-				aimEnd = SpellActions.SnapFreezeAimEnd
 			};
 			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, hovewer, you take increased damage.")
 			{
@@ -179,6 +176,14 @@ namespace ChampionsOfForest.Player
 				CastOnRelease = true,
 				aim = Taunt.Aim,
 				aimEnd = Taunt.AimEnd
+			};
+			new Spell(26, 117, 6, 45, 20, "Firebolt", () => $"Puts your weapon away and instead allows you to wield fireballs. Each attack consumes stamina. Once you equip another weapon, you can no longer cast fireballs until you use this spell again\nAttack speed affects fire rate\nAttack damage: {ModdedPlayer.Stats.spell_fireboltDamageScaling:P}")
+			{
+				active = () => Spells.ActiveSpellManager.instance.PrepareForFiring(Spells.FireboltSpell.Instance),
+			};
+			new Spell(27, 117, 9, 120, 20, "Snow Storm", () => $"Puts your weapon away and instead allows you to summon a blizzard around you. Hold left mouse button to channel. After 10 seconds spell reaches maximum power - damage and radius is at it's peak\nAttacks twice per second, frost seeps into enemy armor reducing it by a fraction of damage dealt")
+			{
+				active = () => Spells.ActiveSpellManager.instance.PrepareForFiring(Spells.BlizzardSpell.Instance),
 			};
 			//new Spell(24, 165, 1, 1, 2, "Corpse Explosion", "")
 			//{

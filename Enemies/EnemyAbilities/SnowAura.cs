@@ -16,22 +16,28 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		public Transform followTarget;
 
 		private static Material _particleMaterial;
-
+		public static Material ParticleMaterial
+		{
+			get
+			{
+				if (_particleMaterial == null)
+				{
+					_particleMaterial = new Material(Shader.Find("Particles/Additive"))
+					{
+						mainTexture = Res.ResourceLoader.instance.LoadedTextures[26]
+					};
+				}
+				return _particleMaterial;
+			}
+		}
 		private void Start()
 		{
-			if (_particleMaterial == null)
-			{
-				_particleMaterial = new Material(Shader.Find("Particles/Additive"))
-				{
-					mainTexture = Res.ResourceLoader.instance.LoadedTextures[26]
-				};
-			}
 
 			//Creating particle effect
 			ParticleSystem p = gameObject.AddComponent<ParticleSystem>();
 			p.transform.Rotate(Vector3.right * 120);
 			Renderer r = p.GetComponent<Renderer>();
-			r.material = _particleMaterial;
+			r.material = ParticleMaterial;
 			ParticleSystem.ShapeModule s = p.shape;
 			s.shapeType = ParticleSystemShapeType.Circle;
 
@@ -55,7 +61,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			src = gameObject.AddComponent<AudioSource>();
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1015];
 			src.loop = true;
-			src.volume = 0;
+			src.volume = 0.0f;
 			src.Play();
 			StartCoroutine(Lifetime());
 		}

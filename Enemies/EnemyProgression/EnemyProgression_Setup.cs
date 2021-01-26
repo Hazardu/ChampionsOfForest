@@ -60,11 +60,12 @@ namespace ChampionsOfForest
 			DamageOverTimeList = new List<DoT>();
 			abilities = new List<Abilities>();
 
-			SetType();
+			bool isElite = (UnityEngine.Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && ModSettings.AllowElites;
+			SetType(ref isElite);
 
 
 			//picking abilities
-			if ((UnityEngine.Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && enemyType != Enemy.Baby && ModSettings.AllowElites)
+			if (isElite)
 			{
 				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? UnityEngine.Random.Range(3,   7) : 2;
 				if (AIScript.creepy_boss)
@@ -76,12 +77,12 @@ namespace ChampionsOfForest
 				Array abilityArray = Enum.GetValues(typeof(Abilities));
 
 				//Determining if enemy is Elite, Miniboss or Boss type of enemy
-				if (abilityAmount > 6 && Random.value < 0.3f)
+				if (abilityAmount > 6 && Random.value < 0.1f)
 				{
 					_rarity = EnemyRarity.Boss;
 					abilities.Add(Abilities.BossSteadfast);
 				}
-				else if (abilityAmount > 4 && Random.value < 0.3f)
+				else if (abilityAmount > 4 && Random.value < 0.25f)
 				{
 					abilities.Add(Abilities.EliteSteadfast);
 					_rarity = EnemyRarity.Miniboss;
@@ -147,7 +148,7 @@ namespace ChampionsOfForest
 			}
 
 			SetLevel();
-			RollName();
+			RollName(isElite);
 			//Assigning rest of stats
 			int dif = (int)ModSettings.difficulty;
 			DamageMult = Mathf.Pow(Level, 3.5f) / 100f + 0.4f;
@@ -339,31 +340,96 @@ namespace ChampionsOfForest
 
 
 
-		public static string[] fNames = new string[] { "Lizz Plays", "Wolfskull", "Wiktoria",
-					"Emma", "Olivia", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
-					"Victoria",  "Chloe", "Camila", "Layla", "Lillian", "Hannah", "Lily",
-					"Natalie", "Luna", "Savannah", "Leah", "Zoe", "Stella", "Ellie", "Claire", "Bella", "Aurora",
-					"Lucy", "Anna", "Samantha", "Caroline", "Genesis", "Aaliyah", "Kennedy", "Allison",
-					"Maya", "Sarah", "Madelyn", "Adeline", "Alexa", "Ariana", "Elena", "Gabriella", "Naomi", "Alice",
-					"Hailey", "Eva", "Emilia",  "Quinn", "Piper", "Serenity", "Willow", "Everly",  "Kaylee",
-					"Lydia", "Aubree", "Arianna", "Eliana", "Peyton", "Melanie", "Gianna", "Isabelle", "Julia", "Valentina",
-					"Nova", "Clara", "Vivian", "Reagan", "Mackenzie", "Madeline", "Delilah", "Isla", "Rylee",
-					"Katherine", "Sophie",  "Liliana", "Jade", "Maria", "Taylor Swift", "Hadley", "Kylie", "Emery", "Adalynn", "Natalia",
-					"Annabelle", "Faith", "Alexandra", "Athena", "Andrea", "Leilani", "Jasmine", "Lyla", "Margaret", "Alyssa",
-					"Eliza", "Ariel", "Alexis","xKito","Sophie Francis","Albedo","Hazardina","Kaspita" };
+		public static string[] fNames = new string[] { "Lizz", "Wolfskull", "Wiktoria",
+					"Emma", "Isabella", "Sophia", "Mia", "Evelyn","Emily", "Elizabeth", "Sofia",
+					"Victoria", "Chloe", "Camila", "Layla", "Lillian", "Lily",
+					"Natalie","Lucy", "Anna",
+					"Maya", "Alice",
+					"Hailey", "Eva", "Emilia", "Quinn", "Piper", "Kaylee",
+					"Isla", "Katherine", "Jaiden", "Maria", "Taylor Swift", "Natalia",
+					"Annabelle", "Alexandra", "Athena", "Andrea", "Jasmine", "Lyla", "Margaret", "Alyssa",
+					 "Alexis","Sophie Francis","Albedo","Hazardina","Kaspita",
+					//my pet names
+					"Lara", "Misty"
+		};
 		public static string[] mNames = new string[]
 				  {
-				  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyThePerson","NightOwl","PuffedRice","PhoenixDeath","Lyon the weeb","Danny Parker","Kaspito","Lukaaa","Chefen","Lauren","DrowsyCob","Ali","ArcKaino","Calean","LordSidonus","DTfang","Malкae","R3iGN","Torsin","θฯ12","Иio","Komissar bAv","The Strange Man","Micha","MiikaHD","NÜT","AssPirate","Azpect","LumaR","TeigRolle","Foreck","Gaullin","Alichipmunk","Chad","Blight","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Mike Diva","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Morgan Page","Hex Cougar","Unlike Pluto","Sora","Film Crafterz","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Diavolo","Doppio Vinegar","Dio Brando","Giorno Giovanna","Fellow Komrade","Samuel","Sebastian","David","Carter","Wyatt","Jayden","John","Owen","Dylan","Luke","Gabriel","Anthony","Isaac","Grayson","Jack","Julian","Levi","Christopher","Joshua","Andrew","Lincoln","Mateo","Ryan","Jaxon","Xet","Adolf","Geoxor","Eraized", "Xelthaz", "Commanderroot", "Plqauttro","Tom from Myspace","Maurycy","Kuldar, stab this guy","Punny", "Aezyn", "Infernal", "PorkyBunBuns"
+				  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyBear","NightOwl","PuffedRice","PhoenixDeath","Danny Parker","Kaspito","Chefen","Lauren","DrowsyCob","Ali chipmunk","Malкae","R3iGN","Torsin","Иio","The Strange Man","MiikaHD","NÜT","Azpect","Chad","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Unlike Pluto","Sora","Kuldar","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Sebastian","David","John Deere","Isaac","Adolf Hitler","Joseph Stalin","Eraized","Punny", "Aezyn", "Infernal", "PorkyBunBuns","Edgar","Twomad", "Seth Everman"
 				  };
 
-		private void RollName()
+		private void RollName(bool isElite)
 		{
-			if (enemyType == Enemy.Megan)
+			if (AIScript.creepy_boss)
 			{
 				enemyName = "Megan Cross";
 				return;
 			}
-
+			if (!isElite)
+			{
+				switch (enemyType)
+				{
+					case Enemy.RegularArmsy:
+						enemyName = "Armsy";
+						return;
+					case Enemy.PaleArmsy:
+						enemyName = "Old Armsy";
+						return;
+					case Enemy.RegularVags:
+						enemyName = "Virginia";
+						return;
+					case Enemy.PaleVags:
+						enemyName = "Old Virginia";
+						return;
+					case Enemy.Cowman:
+						enemyName = "Fatman";
+						return;
+					case Enemy.Baby:
+						enemyName = "Baby";
+						return;
+					case Enemy.Worm:
+						enemyName = "Baby";
+						return;
+					case Enemy.NormalMale:
+						enemyName = "Cannibal";
+						return;
+					case Enemy.NormalLeaderMale:
+						enemyName = "Cannibal Leader";
+						return;
+					case Enemy.NormalFemale:
+						enemyName = "Cannibal Female";
+						return;
+					case Enemy.NormalSkinnyMale:
+						enemyName = "Feral Cannibal";
+						return;
+					case Enemy.NormalSkinnyFemale:
+						enemyName = "Feral Cannibal";
+						return;
+					case Enemy.PaleMale:
+						enemyName = "Old Cannibal";
+						return;
+					case Enemy.PaleSkinnyMale:
+						enemyName = "Old Feral Cannibal";
+						return;
+					case Enemy.PaleSkinnedMale:
+						enemyName = "Cannibal Savage";
+						return;
+					case Enemy.PaleSkinnedSkinnyMale:
+						enemyName = "Feral Cannibal Savage";
+						return;
+					case Enemy.PaintedMale:
+						enemyName = "Tribal Cannibal";
+						return;
+					case Enemy.PaintedLeaderMale:
+						enemyName = "Tribal Cannibal Leader";
+						return;
+					case Enemy.PaintedFemale:
+						enemyName = "Tribal Cannibal Female";
+						return;
+					case Enemy.Fireman:
+						enemyName = "Tribal Cannibal Firethrower";
+						return;
+				}
+			}
 			List<string> names = new List<string>();
 			string prefix = "";
 			if (AIScript.female || AIScript.creepy || AIScript.femaleSkinny)    //is female
@@ -386,7 +452,7 @@ namespace ChampionsOfForest
 			}
 			enemyName = prefix + names[Random.Range(0, names.Count)];
 		}
-		private void SetType()
+		private void SetType(ref bool IsElite)
 		{
 			if (AIScript.creepy && AIScript.pale)
 			{
@@ -411,6 +477,7 @@ namespace ChampionsOfForest
 			else if (AIScript.creepy_baby)
 			{
 				enemyType = Enemy.Baby;
+				IsElite = false;
 			}
 			else if (AIScript.creepy_boss)
 			{

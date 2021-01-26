@@ -103,6 +103,8 @@ namespace ChampionsOfForest.Player
 			//spells
 
 			//blink
+			public readonly AdditivePlayerStat<float> spell_fireboltDamageScaling;
+			public readonly AdditivePlayerStat<float> spell_fireboltEnergyCost;
 			public readonly AdditivePlayerStat<float> spell_blinkRange;
 			public readonly AdditivePlayerStat<float> spell_blinkDamageScaling;
 			public readonly AdditivePlayerStat<float> spell_blinkDamage;
@@ -390,6 +392,8 @@ namespace ChampionsOfForest.Player
 				//spells
 
 				//blink
+				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
+				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
 				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
@@ -628,7 +632,7 @@ namespace ChampionsOfForest.Player
 			public bool Critted => Random.value < critChance;
 			public float RandomCritDamage => Random.value < critChance ? 1f + critDamage : 1f;
 
-
+		
 		}
 	}
 }

@@ -42,6 +42,7 @@ namespace ChampionsOfForest
 	public static class DamageMath
 	{
 		public const int SILENTattackerType = 2000000;
+		public const int SILENTattackerTypeMagic = 2000001;
 		public const int CONVERTEDFLOATattackerType = 1000000;
 
 

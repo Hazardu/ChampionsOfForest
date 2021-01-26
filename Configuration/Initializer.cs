@@ -6,6 +6,7 @@ using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
+using ChampionsOfForest.Player.Spells;
 using ChampionsOfForest.Res;
 
 using ModAPI.Attributes;
@@ -68,6 +69,7 @@ namespace ChampionsOfForest
 					go.AddComponent<GlobalSFX>();
 					go.AddComponent<TheFartCreator>();
 					go.AddComponent<RCoroutines>();
+					go.AddComponent<ActiveSpellManager>();
 					new GameObject("MainMenuObj").AddComponent<MainMenu>();
 
 

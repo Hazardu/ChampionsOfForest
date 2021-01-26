@@ -279,7 +279,9 @@
     <Compile Include="Player\Pings\MarkPickup.cs" />
     <Compile Include="Player\Pings\Ping.cs" />
     <Compile Include="Player\Overrides\PlayerRespawnMod.cs" />
+    <Compile Include="Player\PlayerUtils.cs" />
     <Compile Include="Player\RCoroutines.cs" />
+    <Compile Include="Player\Spells\ActiveSpellManager.cs" />
     <Compile Include="Player\Spells\ForceGrab.cs" />
     <Compile Include="Res\Buildings.cs" />
     <Compile Include="Enemies\BossScriptEX.cs" />

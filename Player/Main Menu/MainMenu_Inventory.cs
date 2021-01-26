@@ -103,6 +103,7 @@ namespace ChampionsOfForest
 				{
 					DrawCrafting(eq.xMax + 30 * screenScale);
 				}
+				DrawCharacterSummary();
 			}
 			catch (Exception exception)
 			{
@@ -169,7 +170,7 @@ namespace ChampionsOfForest
 
 			int i = 0;
 			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(25 * screenScale) };
-			if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Rerolling", style))
+			if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "1", style))
 			{
 				CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Rerolling;
 				for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
@@ -181,7 +182,7 @@ namespace ChampionsOfForest
 
 			if (ModdedPlayer.Stats.perk_craftingReforge)
 			{
-				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Reforging", style))
+				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "2", style))
 				{
 					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Reforging;
 					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
@@ -193,7 +194,7 @@ namespace ChampionsOfForest
 			}
 			if (ModdedPlayer.Stats.perk_craftingPolishing)
 			{
-				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Polishing", style))
+				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "3", style))
 				{
 					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Polishing;
 					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
@@ -204,11 +205,11 @@ namespace ChampionsOfForest
 				}
 				i++;
 			}
-			if (ModdedPlayer.Stats.perk_craftingEmpowering)
+			if (ModdedPlayer.Stats.perk_craftingRerollingSingleStat)
 			{
-				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Empowering", style))
+				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "4", style))
 				{
-					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Empowering;
+					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.IndividualRerolling;
 					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
 					{
 						CustomCrafting.Ingredients[index].Clear();
@@ -216,11 +217,11 @@ namespace ChampionsOfForest
 				}
 				i++;
 			}
-			if (ModdedPlayer.Stats.perk_craftingRerollingSingleStat)
+			if (ModdedPlayer.Stats.perk_craftingEmpowering)
 			{
-				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "Individual\nRerolling", style))
+				if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "5", style))
 				{
-					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.IndividualRerolling;
+					CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Empowering;
 					for (int index = 0; index < CustomCrafting.Ingredients.Length; index++)
 					{
 						CustomCrafting.Ingredients[index].Clear();
@@ -820,6 +821,31 @@ namespace ChampionsOfForest
 			Rect TitleR = new Rect(r.x, r.y - 35 * screenScale, r.width, 35 * screenScale);
 			GUI.Label(TitleR, title, new GUIStyle(GUI.skin.box) { font = mainFont, fontSize = Mathf.RoundToInt(20 * screenScale), wordWrap = false, alignment = TextAnchor.MiddleCenter, clipping = TextClipping.Overflow });
 			DrawInvSlot(r, index);
+		}
+
+		private void DrawCharacterSummary()
+		{
+			Rect statsRect = new Rect(Screen.width - 300 * screenScale, 0, 300 * screenScale, Screen.height);
+			GUI.Box(statsRect, "Summary", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });
+
+			GUIStyle TitleStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
+			GUIStyle ValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };
+			float y = Screen.height / 2 - 200 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Melee Damage", TitleStyle);
+			y += 25 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerMeleeDamageRating().ToString("N0"),ValueStyle);
+			y += 75 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Ranged Damage", TitleStyle);
+			y += 25 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerRangedDamageRating().ToString("N0"),ValueStyle);
+			y += 75 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Magic Damage", TitleStyle);
+			y += 25 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerSpellDamageRating().ToString("N0"),ValueStyle);
+			y += 75 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Toughness", TitleStyle);
+			y += 25 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"),ValueStyle);
 		}
 
 		#endregion InventoryMethods

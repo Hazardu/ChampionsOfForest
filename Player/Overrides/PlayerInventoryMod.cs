@@ -54,6 +54,7 @@ namespace ChampionsOfForest.Player
 		[ModAPI.Attributes.Priority(1000)]
 		protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
 		{
+			ChampionsOfForest.Player.Spells.ActiveSpellManager.instance.OnWeaponEquipped();
 			if (!ModSettings.IsDedicated)
 			{
 				if (GreatBow.instance != null)
@@ -527,5 +528,8 @@ namespace ChampionsOfForest.Player
 				}
 			}
 		}
+
+
+
 	}
 }

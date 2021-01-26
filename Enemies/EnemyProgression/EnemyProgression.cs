@@ -548,7 +548,7 @@ namespace ChampionsOfForest
 						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 						answerStream.Close();
 					}
-					meteorCD = 55f;
+					meteorCD = 50f;
 					return;
 				}
 				if (abilities.Contains(Abilities.Flare) && sunflareCD <= 0)
@@ -784,43 +784,43 @@ namespace ChampionsOfForest
 								break;
 
 							case ModSettings.Difficulty.Elite:
-								dmg = 250;
+								dmg = 450;
 								radius = 12;
 								break;
 
 							case ModSettings.Difficulty.Master:
-								dmg = 600;
+								dmg = 1000;
 								radius = 13;
 								break;
 
 							case ModSettings.Difficulty.Challenge1:
-								dmg = 1400;
+								dmg = 3500;
 								radius = 14;
 								break;
 
 							case ModSettings.Difficulty.Challenge2:
-								dmg = 3000;
+								dmg = 10000;
 								radius = 15;
 								break;
 
 							case ModSettings.Difficulty.Challenge3:
-								dmg = 7000;
+								dmg = 20000;
 								radius = 16;
 								break;
 
 							case ModSettings.Difficulty.Challenge4:
-								dmg = 13000;
+								dmg = 43000;
 								radius = 17;
 								break;
 
 							case ModSettings.Difficulty.Challenge5:
-								dmg = 20000;
+								dmg = 100000;
 								radius = 18;
 								break;
 
 							case ModSettings.Difficulty.Challenge6:
 							case ModSettings.Difficulty.Hell:
-								dmg = 35000;
+								dmg = 150000;
 								radius = 19;
 								break;
 						}
@@ -848,7 +848,7 @@ namespace ChampionsOfForest
 							}
 						}
 						Effects.Cataclysm.Create(transform.position, radius, dmg, 15, Effects.Cataclysm.TornadoType.Arcane, true);
-						arcaneCataclysmCD = 150;
+						arcaneCataclysmCD = 140;
 						return;
 					}
 				}
@@ -868,43 +868,43 @@ namespace ChampionsOfForest
 								break;
 
 							case ModSettings.Difficulty.Elite:
-								dmg = 250;
+								dmg = 450;
 								radius = 12;
 								break;
 
 							case ModSettings.Difficulty.Master:
-								dmg = 600;
+								dmg = 1000;
 								radius = 13;
 								break;
 
 							case ModSettings.Difficulty.Challenge1:
-								dmg = 1400;
+								dmg = 3500;
 								radius = 14;
 								break;
 
 							case ModSettings.Difficulty.Challenge2:
-								dmg = 3000;
+								dmg = 10000;
 								radius = 15;
 								break;
 
 							case ModSettings.Difficulty.Challenge3:
-								dmg = 7000;
+								dmg = 20000;
 								radius = 16;
 								break;
 
 							case ModSettings.Difficulty.Challenge4:
-								dmg = 13000;
+								dmg = 43000;
 								radius = 17;
 								break;
 
 							case ModSettings.Difficulty.Challenge5:
-								dmg = 20000;
+								dmg = 100000;
 								radius = 18;
 								break;
 
 							case ModSettings.Difficulty.Challenge6:
 							case ModSettings.Difficulty.Hell:
-								dmg = 35000;
+								dmg = 150000;
 								radius = 19;
 								break;
 						}
@@ -974,7 +974,7 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(1.0f, 2f);
 
-						float damage = Mathf.Pow(Level, 1.7f);
+						float damage = Mathf.Pow(Level, 1.7f)* (int)ModSettings.difficulty* 1.3f;
 						float duration = 7.5f;
 						float radius = 21 + 3 * (int)ModSettings.difficulty;
 						float pullforce = 35;

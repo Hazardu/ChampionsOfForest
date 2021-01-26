@@ -142,7 +142,23 @@ namespace ChampionsOfForest
 				});
 			}
 		}
-
+		public static void Slow(BoltEntity entity, int source, float amount, float time)
+		{
+			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+			{
+				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+				{
+					w.Write(22);
+					w.Write(entity.networkId.PackedValue);
+					w.Write(amount);
+					w.Write(time);
+					w.Write(source);
+					w.Close();
+				}
+				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+				answerStream.Close();
+			}
+		}
 		public void Slow(int source, float amount, float time)
 		{
 			//source - 20 is snap freeze
@@ -158,6 +174,7 @@ namespace ChampionsOfForest
 			//source - 141 is cataclysm arcane
 			//source - 142 is the fart
 			//source - 143 is taunt increase in atkspeed
+			//source - 144 is blizzard slow
 			if (abilities.Contains(Abilities.Juggernaut))
 					return;
 			if (slows.ContainsKey(source))

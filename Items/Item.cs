@@ -15,7 +15,7 @@ namespace ChampionsOfForest
 		public int Amount;
 		public bool Equipped;
 		public List<ItemStat> Stats = new List<ItemStat>();
-		private List<int> idxStat;
+		private List<int> idxStat = new List<int>();
 		public List<ItemStat> GetPossibleStatsAtStatPos(int orderedStatIdx)
 		{
 			return base.PossibleStats[idxStat[orderedStatIdx]];
@@ -341,7 +341,7 @@ namespace ChampionsOfForest
 		{
 			var sorted = Stats
 				.Select((x, i) => new KeyValuePair<ItemStat, int>(x, i))
-				.OrderBy(x => x.Key.Rarity)
+				.OrderBy(x => -x.Key.Rarity)
 				.ToList();
 
 			Stats = sorted.Select(x => x.Key).ToList();

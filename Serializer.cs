@@ -102,6 +102,7 @@ namespace ChampionsOfForest
 							};
 
 							LoadedItem.Stats.Add(stat);
+							LoadedItem.SortStats();
 						}
 						Player.Inventory.Instance.ItemSlots[Slot] = LoadedItem;
 					}
