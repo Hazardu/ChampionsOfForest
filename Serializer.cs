@@ -94,9 +94,10 @@ namespace ChampionsOfForest
 						for (int a = 0; a < StatCount; a++)
 						{
 							int statID = buf.ReadInt32();
+							int statgroupID = buf.ReadInt32();
 							float statAMO = buf.ReadSingle();
 
-							ItemStat stat = new ItemStat(ItemDataBase.Stats[statID])
+							ItemStat stat = new ItemStat(ItemDataBase.Stats[statID],1,statgroupID)
 							{
 								Amount = statAMO
 							};
@@ -223,6 +224,7 @@ namespace ChampionsOfForest
 					for (int i = 0; i < item.Value.Stats.Count; i++)
 					{
 						buf.Write(item.Value.Stats[i].StatID);
+						buf.Write(item.Value.Stats[i].possibleStatsIndex);
 						buf.Write(item.Value.Stats[i].Amount);
 					}
 				}

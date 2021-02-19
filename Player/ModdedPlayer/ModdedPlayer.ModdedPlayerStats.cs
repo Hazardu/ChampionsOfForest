@@ -227,6 +227,11 @@ namespace ChampionsOfForest.Player
 			//taunt
 			public readonly MultiplicativePlayerStat<float> spell_taunt_speedChange;
 			public readonly BooleanPlayerStat spell_taunt_pullEnemiesIn;
+			//snow storm
+			public readonly AdditivePlayerStat<float> spell_snowstormMaxCharge;
+			public readonly AdditivePlayerStat<float> spell_snowstormDamageMult;
+			public readonly MultiplicativePlayerStat<float> spell_snowstormHitDelay;
+			public readonly BooleanPlayerStat spell_snowstormPullEnemiesIn;
 
 
 
@@ -294,6 +299,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat i_isWindArmor;
 			public readonly BooleanPlayerStat i_sparkOfLightAfterDark;
 			public readonly BooleanPlayerStat i_infinityLoop;
+			public readonly AdditivePlayerStat<int> i_setcount_AkagisSet;
 
 			public ModdedPlayerStats()
 			{
@@ -386,7 +392,7 @@ namespace ChampionsOfForest.Player
 				this.stunned = new BooleanPlayerStat(false);
 
 				this.magicFind = new MultiplicativeNetworkSyncedPlayerStat<float>(1.0f, multfloat, dividefloat);
-				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat,"N1");
+				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat, "N1");
 				this.fireTickRate = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.fireDuration = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				//spells
@@ -517,6 +523,12 @@ namespace ChampionsOfForest.Player
 				this.spell_taunt_speedChange = new MultiplicativePlayerStat<float>(2, multfloat, dividefloat, "P");
 				this.spell_taunt_pullEnemiesIn = new BooleanPlayerStat(false);
 
+				this.spell_snowstormMaxCharge = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
+				this.spell_snowstormDamageMult = new AdditivePlayerStat<float>(1, addfloat, substractfloat);
+				this.spell_snowstormHitDelay = new MultiplicativePlayerStat<float>(0.5f, multfloat, dividefloat);
+				this.spell_snowstormPullEnemiesIn = new BooleanPlayerStat(false);
+
+
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
 				this.perk_parryCounterStrikeDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
@@ -581,6 +593,7 @@ namespace ChampionsOfForest.Player
 				this.i_isWindArmor = new BooleanPlayerStat(false);
 				this.i_sparkOfLightAfterDark = new BooleanPlayerStat(false);
 				this.i_infinityLoop = new BooleanPlayerStat(false);
+				this.i_setcount_AkagisSet = new AdditivePlayerStat<int>(0,addint,substractint);
 
 				ModAPI.Log.Write("Initialized player stats");
 			}
@@ -618,13 +631,13 @@ namespace ChampionsOfForest.Player
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
 			public float TotalArmor => armor.Value - instance.lostArmor;
 			public float TotalStaminaRecoveryAmount => (baseStaminaRecovery + staminaRecoveryperSecond) * TotalStaminaRecoveryMultiplier;
-			public float TotalStaminaRecoveryMultiplier => 1 + (1+intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaRecoveryperSecond;
-			public float TotalEnergyRecoveryMultiplier => 1 + (1+ intelligence * energyRecoveryFromInt) * allRecoveryMult;
+			public float TotalStaminaRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaRecoveryperSecond;
+			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult;
 
 
-			public float MeleeDamageMult =>  allDamage.Value * meleeIncreasedDmg.Value * (1+ (strength * meleeDmgFromStr));
-			public float RangedDamageMult =>  allDamage.Value * rangedIncreasedDmg.Value *(1+(agility * rangedDmgFromAgi)) * (perk_projectileDamageIncreasedBySize ? 1+(projectileSize.Value-1)*2 : 1f);
-			public float SpellDamageMult =>  allDamage.Value * spellIncreasedDmg.Value * (1+intelligence * spellDmgFromInt);
+			public float MeleeDamageMult => allDamage.Value * meleeIncreasedDmg.Value * (1 + (strength * meleeDmgFromStr));
+			public float RangedDamageMult => allDamage.Value * rangedIncreasedDmg.Value * (1 + (agility * rangedDmgFromAgi)) * (perk_projectileDamageIncreasedBySize ? 1 + (projectileSize.Value - 1) * 2 : 1f);
+			public float SpellDamageMult => allDamage.Value * spellIncreasedDmg.Value * (1 + intelligence * spellDmgFromInt);
 
 			public int TotalMeleeArmorPiercing => allArmorPiercing + meleeArmorPiercing;
 			public int TotalRangedArmorPiercing => allArmorPiercing + rangedArmorPiercing;
@@ -632,7 +645,7 @@ namespace ChampionsOfForest.Player
 			public bool Critted => Random.value < critChance;
 			public float RandomCritDamage => Random.value < critChance ? 1f + critDamage : 1f;
 
-		
+
 		}
 	}
 }

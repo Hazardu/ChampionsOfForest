@@ -169,7 +169,7 @@ namespace ChampionsOfForest
 			float btnW = craftingrect.width / 5;
 
 			int i = 0;
-			GUIStyle style = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(25 * screenScale) };
+			GUIStyle style = new GUIStyle(GUI.skin.button) { font = secondaryFont, fontSize = Mathf.RoundToInt(25 * screenScale) };
 			if (GUI.Button(new Rect(x + i * btnW, 0, btnW, CustomCrafting.CRAFTINGBAR_HEIGHT * screenScale), "1", style))
 			{
 				CustomCrafting.instance.craftMode = CustomCrafting.CraftMode.Rerolling;
@@ -214,6 +214,8 @@ namespace ChampionsOfForest
 					{
 						CustomCrafting.Ingredients[index].Clear();
 					}
+					((CustomCrafting.Polishing)CustomCrafting.instance.CurrentCraftingMode).selectedStat = -1;
+
 				}
 				i++;
 			}

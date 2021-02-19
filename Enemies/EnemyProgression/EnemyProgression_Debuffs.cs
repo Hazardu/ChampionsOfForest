@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+
 using Bolt;
+
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
+
 using TheForest.Utils;
+
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -115,13 +121,32 @@ namespace ChampionsOfForest
 		}
 		public void AddKnockbackByDistance(Vector3 dir, float distance)
 		{
-			var velocity = Mathf.Sqrt(2*distance*KnockBackDeacceleration);
+			var velocity = Mathf.Sqrt(2 * distance * KnockBackDeacceleration);
 			knockbackDir += dir;
 			knockbackDir.Normalize();
 			if (velocity > knockbackSpeed)
 				knockbackSpeed = velocity;
-			
 
+
+		}
+		public static void AddKnockbackByDistance(ulong EnemyID, Vector3 dir, float distance)
+		{
+			using (MemoryStream answerStream = new MemoryStream())
+			{
+				using (BinaryWriter w = new BinaryWriter(answerStream))
+				{
+					w.Write(43);
+					w.Write(EnemyID);
+					w.Write(dir.x);
+					w.Write(dir.y);
+					w.Write(dir.z);
+					w.Write(EnemyID);
+					w.Write(distance);
+					w.Close();
+				}
+				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+				answerStream.Close();
+			}
 		}
 
 		public void FireDebuff(int source, float amount, float time)
@@ -176,7 +201,7 @@ namespace ChampionsOfForest
 			//source - 143 is taunt increase in atkspeed
 			//source - 144 is blizzard slow
 			if (abilities.Contains(Abilities.Juggernaut))
-					return;
+				return;
 			if (slows.ContainsKey(source))
 			{
 				slows[source].duration = Mathf.Max(slows[source].duration, time);
@@ -239,7 +264,7 @@ namespace ChampionsOfForest
 			target.ArmorReduction += amount;
 		}
 
-		public void Taunt(GameObject player, in float duration,in float slowAmount)
+		public void Taunt(GameObject player, in float duration, in float slowAmount)
 		{
 			Slow(143, slowAmount, duration);
 			DmgTakenDebuff(143, 1.5f, duration);

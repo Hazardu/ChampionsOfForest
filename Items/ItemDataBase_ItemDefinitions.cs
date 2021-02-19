@@ -1,4 +1,5 @@
-﻿using ChampionsOfForest.Player;
+﻿using ChampionsOfForest.Items.Sets;
+using ChampionsOfForest.Player;
 
 using static ChampionsOfForest.ItemDataBase.Stat;
 
@@ -5468,6 +5469,163 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ATTACKSPEED},
+				new [] {BASESPELLDAMAGE},
+				new [] {DODGECHANCE,DAMAGEREDUCTION,MELEEWEAPONRANGE,ARMORPIERCING,FIREDAMAGE,CRITICALHITCHANCE},
+				new [] {VITALITY,MAXHEALTHFROMVIT,MAXIMUMLIFE,PERCENTMAXIMUMLIFE,LIFEPERSECOND,LIFEONHIT},
+				new [] {SPELLDMGFROMINT},
+				new [] {SPELLCOSTREDUCTION,COOLDOWNREDUCTION,CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new [] {SPELLCOSTREDUCTION,COOLDOWNREDUCTION,SPELLCOSTTOSTAMINA,PERCENTMAXIMUMENERGY,LIFEREGENERATION},
+				new [] {ENERGYPERSECOND,PERCENTMAXIMUMENERGY,MAXENERGYFROMAGI},
+				new [] {INTELLIGENCE,STAMINAPERSECOND,STAMINAREGENERATION},
+				new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE,BASEMELEEDAMAGE,ALLATTRIBUTES},
+				new [] {BASESPELLDAMAGE,SPELLDAMAGEINCREASE,INTELLIGENCE,DAMAGEREDUCTION},
+				new [] {ENERGYONHIT,ENERGYPERSECOND,MAXIMUMLIFE,MASSACREDURATION,MAGICFIND,EXPLOSIONDAMAGE},
+			})
+			{
+				name = "Wrath",
+				description = "Increases maximum stacks of frenzy by 10",
+				lore = "Downscaled version of Rage, made to be wielded by wizards",
+				tooltip = "Greatswords are giant, incredibly slow and hard hitting.",
+				Rarity = 7,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.LongSword,
+				icon = Res.ResourceLoader.GetTexture(88),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(10),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(10),
+			}.PossibleStats[0][0].Multipier = 1.5f;
+
+
+			new BaseItem(new Stat[][]
+			{
+				new[] { ARMOR },
+				new[] { MOVEMENTSPEED},
+				new[] { SPELLDMGFROMINT },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { BASESPELLDAMAGE, SPELLDAMAGEINCREASE, INTELLIGENCE, ALLATTRIBUTES },
+				new[] { BASESPELLDAMAGE, SPELLDAMAGEINCREASE, INTELLIGENCE, DAMAGEREDUCTION },
+				new[] { VITALITY, MAXHEALTHFROMVIT, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR,MAXHEALTHFROMVIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, SPELLCOSTTOSTAMINA, PERCENTMAXIMUMENERGY, LIFEREGENERATION },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+				new[] { ENERGYONHIT, ENERGYPERSECOND, MAXIMUMLIFE, MASSACREDURATION, MAGICFIND, EXPLOSIONDAMAGE },
+			})
+			{
+				name = "Yuki-Onna Strides",
+				description = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%",
+				lore = "Boots looted off a snow demon",
+				tooltip = "Increses snowstorm damage by 50%",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+				onEquip = () => AkagiSet.Equip(),
+				onUnequip = () => AkagiSet.Unequip(),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new[] { INTELLIGENCE,NONE },
+				new[] { ARMOR },
+				new[] { ALLHEALINGPERCENT,DODGECHANCE,SPELLDAMAGEINCREASE,BASESPELLDAMAGE},
+				new[] { SPELLDMGFROMINT,DAMAGEREDUCTION },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { ARMOR,DAMAGEREDUCTION ,RESISTANCETOMAGIC},
+				new[] { INTELLIGENCE, MAXIMUMLIFE,LIFEPERSECOND,SPELLDAMAGEINCREASE,BASESPELLDAMAGE },
+				new[] { VITALITY, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, SPELLCOSTTOSTAMINA, PERCENTMAXIMUMENERGY, LIFEREGENERATION,RESISTANCETOMAGIC },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI,MAXHEALTHFROMVIT },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+			})
+			{
+				name = "Yuki-Onna Greaves",
+				description = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%",
+				lore = "",
+				tooltip = "Increses snowstorm damage by 50%",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+				onEquip = () => AkagiSet.Equip(),
+				onUnequip = () => AkagiSet.Unequip(),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new[] { INTELLIGENCE,NONE },
+				new[] { ARMOR },
+				new[] { ALLHEALINGPERCENT,DODGECHANCE},
+				new[] { SPELLDMGFROMINT,DAMAGEREDUCTION },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { ARMOR,DAMAGEREDUCTION ,RESISTANCETOMAGIC,SPELLDAMAGEINCREASE,BASESPELLDAMAGE},
+				new[] { INTELLIGENCE, MAXIMUMLIFE,LIFEPERSECOND,SPELLDAMAGEINCREASE,BASESPELLDAMAGE },
+				new[] { VITALITY, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, SPELLCOSTTOSTAMINA, PERCENTMAXIMUMENERGY, LIFEREGENERATION,RESISTANCETOMAGIC },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI,MAXHEALTHFROMVIT },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+			})
+			{
+				name = "Yuki-Onna Kimono",
+				description = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%",
+				lore = "",
+				tooltip = "Increses snowstorm damage by 50%",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+				onEquip = () => AkagiSet.Equip(),
+				onUnequip = () => AkagiSet.Unequip(),
+			};
+
+			new BaseItem(new Stat[][]
+		{
+				new[] { INTELLIGENCE,NONE },
+				new[] { ARMOR },
+				new[] { CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new[] { SPELLDMGFROMINT },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { ARMOR, SPELLDAMAGEINCREASE, BASESPELLDAMAGE, RESISTANCETOMAGIC},
+				new[] { INTELLIGENCE, MAXIMUMLIFE,LIFEPERSECOND },
+				new[] { SPELLDAMAGEINCREASE,BASESPELLDAMAGE, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, SPELLCOSTTOSTAMINA, PERCENTMAXIMUMENERGY, LIFEREGENERATION,RESISTANCETOMAGIC },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI,MAXHEALTHFROMVIT },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+		})
+			{
+				name = "Yuki-Onna's Visage",
+				description = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50% and damage is increased by 300%",
+				lore = "",
+				tooltip = "Increses snowstorm damage by 50%",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+				onEquip = () => AkagiSet.Equip(),
+				onUnequip = () => AkagiSet.Unequip(),
+			};
+
 		}
 	}
 }

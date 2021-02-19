@@ -200,6 +200,7 @@ namespace ChampionsOfForest.Network
 					foreach (ItemStat stat in item.Stats)
 					{
 						w.Write(stat.StatID);
+						w.Write(stat.possibleStatsIndex);
 						w.Write(stat.Amount);
 					}
 					w.Close();
@@ -223,6 +224,7 @@ namespace ChampionsOfForest.Network
 					foreach (ItemStat stat in item.Stats)
 					{
 						w.Write(stat.StatID);
+						w.Write(stat.possibleStatsIndex);
 						w.Write(stat.Amount);
 					}
 					w.Close();

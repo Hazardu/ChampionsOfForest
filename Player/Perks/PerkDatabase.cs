@@ -3540,7 +3540,7 @@ namespace ChampionsOfForest.Player
 			new Perk()
 			{
 				apply = () => {
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 10f; 
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 55f; 
 					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.1f; },
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
@@ -3551,7 +3551,7 @@ namespace ChampionsOfForest.Player
 				posY = 2.25f,
 				name = "Firebolt upgrade",
 				originalDescription = "Firebolt damage increases, but so does it's cost\n" +
-				"Damage scaling increases to 30% from 20%. Cost increases to 25 from 15",
+				"Damage scaling increases to 75% from 20%. Cost increases to 25 from 15",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3559,7 +3559,7 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => {
 					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive;
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.05f; },
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.25f; },
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 211 },
 				levelReq = 17,
@@ -3569,7 +3569,7 @@ namespace ChampionsOfForest.Player
 				posY = 2.25f,
 				name = "Firebolt upgrade",
 				originalDescription = "Firebolt damage increases, but so does it's cost\n" +
-				"Damage scaling increases to 5%. Cost doubles\n",
+				"Damage scaling increases to 25%. Cost doubles\n",
 				updateDescription = x => $"Damage scaling: {ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive:P}\nCost: {ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive:N}",
 				textureVariation = 0,
 				uncapped = true,
@@ -3620,7 +3620,23 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
-
+			new Perk()
+			{
+				apply = () => {
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive /= 4f;
+				},
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 212 },
+				levelReq = 65,
+				cost = 1,
+				scale = 1,
+				posX = 5f,
+				posY = 2.25f,
+				name = "Firebolt cost reduction",
+				originalDescription = "Firebolt cost is reduced by 75%\n",
+				textureVariation = 0,
+				uncapped = false,
+			};
 
 			foreach (var item in perks)
 			{

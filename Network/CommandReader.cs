@@ -277,14 +277,16 @@ namespace ChampionsOfForest.Network
 
 							case 5:
 								{
-									Item item = new Item(ItemDataBase.ItemBases[r.ReadInt32()], 1, 0, false);   //reading first value, id
+									var baseItem = ItemDataBase.ItemBases[r.ReadInt32()];
+									Item item = new Item(baseItem, 1, 0, false);   //reading first value, id
 									ulong id = r.ReadUInt64();
-									item.level = r.ReadInt32();
+									int itemLvl = r.ReadInt32();
+									item.level = itemLvl;
 									int amount = r.ReadInt32();
 									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									while (r.BaseStream.Position != r.BaseStream.Length)
 									{
-										ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()])
+										ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
 										{
 											Amount = r.ReadSingle()
 										};
@@ -656,7 +658,9 @@ namespace ChampionsOfForest.Network
 										//adding stats to the item
 										while (r.BaseStream.Position != r.BaseStream.Length)
 										{
-											ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()])
+											int statId = r.ReadInt32();
+											int statPoolIdx = r.ReadInt32();
+											ItemStat stat = new ItemStat(ItemDataBase.Stats[statId], 1, statPoolIdx)
 											{
 												Amount = r.ReadSingle()
 											};

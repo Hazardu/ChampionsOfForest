@@ -234,6 +234,7 @@
     <Compile Include="Items\ItemDataBase_ItemDefinitions.cs" />
     <Compile Include="Items\ItemDataBase_Loot.cs" />
     <Compile Include="Items\ItemDataBase_StatDefinitions.cs" />
+    <Compile Include="Items\Sets\ItemSets.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
     <Compile Include="Player\Crafting\CraftingIngredient.cs" />
     <Compile Include="Player\Crafting\CraftingInterface.cs" />

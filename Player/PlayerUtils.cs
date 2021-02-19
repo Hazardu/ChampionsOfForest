@@ -57,7 +57,7 @@ namespace ChampionsOfForest.Player
 		}
 		internal static float GetPlayerSpellDamageRating()
 		{
-			float dps = ModdedPlayer.Stats.meleeFlatDmg;
+			float dps = ModdedPlayer.Stats.spellFlatDmg +1;
 			dps *= ModdedPlayer.Stats.SpellDamageMult;
 
 			return dps;

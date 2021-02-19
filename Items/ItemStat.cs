@@ -30,6 +30,7 @@ namespace ChampionsOfForest
 		public float Multipier = 1;
 		public bool DisplayAsPercent = false;
 		public int RoundingCount;
+		public int possibleStatsIndex = -1;
 		private StatCompare comparing;
 		public Func<string> GetTotalStat; 
 		public delegate void OnEquipDelegate(float f);
@@ -77,7 +78,7 @@ namespace ChampionsOfForest
 			ItemDataBase.AddStat(this);
 		}
 
-		public ItemStat(ItemStat s, int level = 1)
+		public ItemStat(ItemStat s, int level = 1, int possibleStatsIdx= -1)
 		{
 			Name = s.Name;
 			LevelPow = s.LevelPow;
@@ -99,6 +100,7 @@ namespace ChampionsOfForest
 				Amount = Mathf.Min(ValueCap, Amount);
 			}
 			Amount *= Multipier;
+			possibleStatsIndex = possibleStatsIdx;
 		}
 
 		public ItemStat()

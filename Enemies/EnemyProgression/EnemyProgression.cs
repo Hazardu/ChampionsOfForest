@@ -390,7 +390,7 @@ namespace ChampionsOfForest
 
 			if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ModdedPlayer.Stats.magicFind.Value || AIScript.creepy_boss || abilities.Count > 0)
 			{
-				int itemCount = Random.Range(1, 3 + ModReferences.Players.Count / 2);
+				int itemCount = Random.Range(1, 3);
 				if (AIScript.creepy_boss)
 				{
 					itemCount += 25;
@@ -407,12 +407,12 @@ namespace ChampionsOfForest
 				{
 					itemCount += 3;
 				}
-				itemCount += (int)ModSettings.difficulty;
+				itemCount += (int)ModSettings.difficulty/2;
 				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
 				ModAPI.Console.Write("Dropping " + itemCount + " items");
 				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
 
-				if (enemyType == Enemy.Megan && (int)ModSettings.difficulty >= 4)
+				if (enemyType == Enemy.Megan)
 				{
 					//Drop megan only amulet
 					Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3);

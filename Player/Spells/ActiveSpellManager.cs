@@ -145,7 +145,7 @@ namespace ChampionsOfForest.Player.Spells
 
 		public void Active()
 		{
-			radius = Mathf.Clamp(radius += Time.deltaTime, 1, 10);
+			radius = Mathf.Clamp(radius += Time.deltaTime, 1, ModdedPlayer.Stats.spell_snowstormMaxCharge);
 			s.radius = radius;
 			e.rateOverTime = 30 * radius;
 			src.pitch = 1 + radius / 12;
@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player.Spells
 		{
 			while (true)
 			{
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForSeconds(ModdedPlayer.Stats.spell_snowstormHitDelay.Value);
 				StartCoroutine(DealDamage());
 			}
 		}
@@ -171,6 +171,7 @@ namespace ChampionsOfForest.Player.Spells
 			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg/3f;
 			dmg *= ModdedPlayer.Stats.SpellDamageMult * ModdedPlayer.Stats.RandomCritDamage;
 			dmg *= radius / 3.33333f;
+			dmg *= ModdedPlayer.Stats.spell_snowstormDamageMult;
 			var hits = Physics.SphereCastAll(LocalPlayer.Transform.position, radius, Vector3.one, radius, -9);
 			int onHitEffectProcs = 0;
 			if (GameSetup.IsMpClient)
@@ -197,6 +198,13 @@ namespace ChampionsOfForest.Player.Spells
 							EnemyProgression.ReduceArmor(entity, Mathf.CeilToInt(dmg / 100f));
 							EnemyProgression.Slow(entity, 144, 0.2f, 0.95f);
 							yield return null;
+							if (ModdedPlayer.Stats.spell_snowstormPullEnemiesIn)
+							{
+								if ((hits[i].point - LocalPlayer.Transform.position).sqrMagnitude > 4)
+								{
+									EnemyProgression.AddKnockbackByDistance(entity.networkId.PackedValue, (LocalPlayer.Transform.position - hits[i].transform.position).normalized, 1);
+								}
+							}
 						}
 					}
 				}
@@ -219,6 +227,13 @@ namespace ChampionsOfForest.Player.Spells
 						{
 							ModdedPlayer.instance.OnHit();
 							onHitEffectProcs++;
+						}
+						if (ModdedPlayer.Stats.spell_snowstormPullEnemiesIn)
+						{
+							if ((hits[i].point - LocalPlayer.Transform.position).sqrMagnitude > 4)
+							{
+								prog.AddKnockbackByDistance((LocalPlayer.Transform.position - hits[i].transform.position).normalized, 1);
+							}
 						}
 						yield return null;
 					}

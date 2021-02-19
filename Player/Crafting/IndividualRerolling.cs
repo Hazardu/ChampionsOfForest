@@ -19,6 +19,13 @@ namespace ChampionsOfForest.Player.Crafting
 				{
 					if (CraftingHandler.changedItem.i == null)
 						return false;
+					if (selectedStat == -1)
+						return false;
+					var stat = CraftingHandler.changedItem.i.Stats[selectedStat];
+					if (stat.possibleStatsIndex == -1)
+						return false;
+					if (CraftingHandler.changedItem.i.PossibleStats[stat.possibleStatsIndex].Count < 2)
+						return false;
 					int itemCount = 0;
 					int rarity = CraftingHandler.changedItem.i.Rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
@@ -51,7 +58,7 @@ namespace ChampionsOfForest.Player.Crafting
 						}
 						else
 						{
-							var options = CraftingHandler.changedItem.i.GetPossibleStatsAtStatPos(selectedStat).Where(x => x != null).Distinct().ToList();
+							var options = CraftingHandler.changedItem.i.PossibleStats[stat.possibleStatsIndex];
 							int random = UnityEngine.Random.Range(0, options.Count);
 							{
 								ItemStat newStat = new ItemStat(options[random], CraftingHandler.changedItem.i.level);
@@ -81,6 +88,8 @@ namespace ChampionsOfForest.Player.Crafting
 
 			public void DrawUI(in float x, in float w, in float screenScale, in GUIStyle[] styles)
 			{
+
+
 				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Stat to change", styles[3]);
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
@@ -150,9 +159,11 @@ namespace ChampionsOfForest.Player.Crafting
 						Debug.LogWarning("reroll stats button ex " + e.ToString());
 					}
 				}
-				float baseX = x + ((w - 200 * screenScale) / 2);
+				float baseX = x + ((w - 250 * screenScale) / 2);
 				float baseY = ypos + 30 * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
+				{
+
 					for (int j = 0; j < 1; j++)
 					{
 						for (int k = 0; k < 1; k++)
@@ -161,16 +172,33 @@ namespace ChampionsOfForest.Player.Crafting
 							MainMenu.Instance.CraftingIngredientBox(new Rect(baseX + j * 80 * screenScale, baseY + k * 80 * screenScale, 80 * screenScale, 80 * screenScale), CustomCrafting.instance.ingredients[index]);
 						}
 					}
-				if (selectedStat != -1)
-				{
-					var options = CraftingHandler.changedItem.i.GetPossibleStatsAtStatPos(selectedStat).Where(s => s != null).Distinct().ToList();
-					string optionsStr = "Possible stats:\n";
-					foreach (var stat in options)
+					if (selectedStat != -1)
 					{
-						optionsStr += stat.Name + '\n';
-					}
-					GUI.Label(new Rect(x, ypos, w, 300 * screenScale), optionsStr, styles[0]);
+						var stat = CraftingHandler.changedItem.i.Stats[selectedStat];
+						if (stat.possibleStatsIndex != -1)
+						{
+							var options = CraftingHandler.changedItem.i.PossibleStats[stat.possibleStatsIndex];
+							if (options.Count == 1)
+							{
+								GUI.Label(new Rect(x, ypos, w, Screen.height - x), "This stat cannot be changed", new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true });
 
+							}
+							else
+							{
+								string optionsStr = "Possible stats:\n";
+								foreach (var stat1 in options)
+								{
+									optionsStr += stat1.Name + '\t';
+								}
+								GUI.Label(new Rect(x, ypos, w, Screen.height - x), optionsStr, new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true });
+							}
+						}
+						else
+						{
+							GUI.Label(new Rect(x, ypos, w, Screen.height - x), "This stat cannot be changed", new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true });
+						}
+
+					}
 				}
 			}
 		}

@@ -15,11 +15,7 @@ namespace ChampionsOfForest
 		public int Amount;
 		public bool Equipped;
 		public List<ItemStat> Stats = new List<ItemStat>();
-		private List<int> idxStat = new List<int>();
-		public List<ItemStat> GetPossibleStatsAtStatPos(int orderedStatIdx)
-		{
-			return base.PossibleStats[idxStat[orderedStatIdx]];
-		}
+		
 		private Dictionary<int, float> groupedStats;
 
 		private void GroupStats()
@@ -307,6 +303,7 @@ namespace ChampionsOfForest
 		{
 			groupedStats = null;
 			Stats.Clear();
+			int i = 0;
 			foreach (List<ItemStat> PS in PossibleStats)
 			{
 				int random = UnityEngine.Random.Range(0, PS.Count);
@@ -318,9 +315,10 @@ namespace ChampionsOfForest
 					{
 						stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
 					}
-
+					stat.possibleStatsIndex = i;
 					Stats.Add(stat);
 				}
+				i++;
 			}
 
 			if (this.destinationSlotID < -1 && this.level > 20 && Random.value <= 0.175f)
@@ -329,7 +327,7 @@ namespace ChampionsOfForest
 				if (socketAmount > 0)
 				{
 					socketAmount = Random.Range(1, socketAmount + 1);
-					for (int i = 0; i < socketAmount; i++)
+					for (int j = 0; j < socketAmount; j++)
 					{
 						Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
 					}
@@ -339,13 +337,7 @@ namespace ChampionsOfForest
 		}
 		public void SortStats()
 		{
-			var sorted = Stats
-				.Select((x, i) => new KeyValuePair<ItemStat, int>(x, i))
-				.OrderBy(x => -x.Key.Rarity)
-				.ToList();
-
-			Stats = sorted.Select(x => x.Key).ToList();
-			idxStat = sorted.Select(x => x.Value).ToList();
+			Stats = Stats.OrderBy(x => -x.Rarity).ToList();
 		}
 
 		public void OnEquip()
