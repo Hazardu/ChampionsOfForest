@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player.Spells
 		{
 			get
 			{
-				if (instance == null)
+				if (instance == null || instance.fx== null)
 					instance = new BlizzardSpell();
 				return instance;
 			}
@@ -169,7 +169,9 @@ namespace ChampionsOfForest.Player.Spells
 		IEnumerator DealDamage()
 		{
 			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg/3f;
-			dmg *= ModdedPlayer.Stats.SpellDamageMult * ModdedPlayer.Stats.RandomCritDamage;
+			dmg *= ModdedPlayer.Stats.SpellDamageMult;
+				float crit = ModdedPlayer.Stats.RandomCritDamage;
+			dmg *= crit;
 			dmg *= radius / 3.33333f;
 			dmg *= ModdedPlayer.Stats.spell_snowstormDamageMult;
 			var hits = Physics.SphereCastAll(LocalPlayer.Transform.position, radius, Vector3.one, radius, -9);
@@ -191,6 +193,11 @@ namespace ChampionsOfForest.Player.Spells
 							phe.Send();
 							if (onHitEffectProcs < 6)
 							{
+								{
+									var hitContext = new Events.HitOtherParams(dmg, crit != 1, entity, this);
+									ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
+									ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+								}
 								ModdedPlayer.instance.OnHit();
 								onHitEffectProcs++;
 							}
@@ -218,8 +225,10 @@ namespace ChampionsOfForest.Player.Spells
 					if (EnemyManager.enemyByTransform.ContainsKey(hits[i].transform.root))
 					{
 						EnemyProgression prog = EnemyManager.enemyByTransform[hits[i].transform.root];
+						
 						if (prog == null)
 							continue;
+						
 						prog.HitMagic(dmg);
 						prog.Slow(144, 0.2f, 0.85f);
 						prog.ReduceArmor(Mathf.CeilToInt(dmg / 100f));
@@ -227,6 +236,12 @@ namespace ChampionsOfForest.Player.Spells
 						{
 							ModdedPlayer.instance.OnHit();
 							onHitEffectProcs++;
+							
+						}
+						{
+							var hitContext = new Events.HitOtherParams(dmg, crit != 1, prog, this);
+							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
 						}
 						if (ModdedPlayer.Stats.spell_snowstormPullEnemiesIn)
 						{
@@ -251,7 +266,7 @@ namespace ChampionsOfForest.Player.Spells
 		{
 			get
 			{
-				if (instance == null)
+				if (instance == null || instance.pool[0] == null)
 					instance = new FireboltSpell();
 				else
 				{
@@ -374,13 +389,18 @@ namespace ChampionsOfForest.Player.Spells
 			{
 				var crit = ModdedPlayer.Stats.RandomCritDamage;
 				var dmgOutput = dmg *crit;
+			
 				ModdedPlayer.instance.OnHit();
 				if (GameSetup.IsMpClient)
 				{
 					var entity = other.GetComponentInParent<BoltEntity>();
 					if (entity != null)
 					{
-
+						{
+							var hitContext = new Events.HitOtherParams(dmgOutput,crit!=1, entity, this);
+							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+						}
 						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 						phe.Target = entity;
 						phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
@@ -415,6 +435,11 @@ namespace ChampionsOfForest.Player.Spells
 					if (EnemyManager.enemyByTransform.ContainsKey(other.transform.root))
 					{
 						var progression = EnemyManager.enemyByTransform[other.transform.root];
+						{
+							var hitContext = new Events.HitOtherParams(dmgOutput, crit != 1, progression, this);
+							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+						}
 						progression.HitMagic(dmgOutput);
 						if (crit > 1)
 						{

@@ -178,8 +178,8 @@ namespace ChampionsOfForest.Player
 			else
 				outputdmg = weaponDamage;
 			outputdmg += ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg();
-
-			outputdmg *= ModdedPlayer.Stats.RandomCritDamage * ModdedPlayer.Stats.MeleeDamageMult;
+			float critDmg = ModdedPlayer.Stats.RandomCritDamage;
+			outputdmg *= critDmg * ModdedPlayer.Stats.MeleeDamageMult;
 
 			if (hitReactions.kingHitBool || fsmHeavyAttackBool.Value)
 				outputdmg *= ModdedPlayer.Stats.heavyAttackDmg * 3;
@@ -194,8 +194,15 @@ namespace ChampionsOfForest.Player
 
 			if (other.CompareTag("enemyCollide") || other.CompareTag("enemyRoot"))
 			{
+				{
+					var eventContext = new Events.HitOtherParams(outputdmg, critDmg!= 1, other, this);
+					ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(eventContext);
+					ChampionsOfForest.Player.Events.Instance.OnHitMelee.Invoke(eventContext);
+
+				}
 				ModdedPlayer.instance.OnHit();
 				ModdedPlayer.instance.OnHit_Melee(other.transform);
+
 				if (GameSetup.IsMpClient)
 				{
 					var entity = other.GetComponentInParent<BoltEntity>();
@@ -212,6 +219,8 @@ namespace ChampionsOfForest.Player
 						phe.takeDamage = 1;
 						phe.getCombo = 3;
 						phe.Burn = (fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn;
+						if (phe.Burn)
+							ChampionsOfForest.Player.Events.Instance.OnIgniteMelee.Invoke();
 						phe.explosion = fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw;
 						phe.Send();
 
@@ -371,8 +380,10 @@ namespace ChampionsOfForest.Player
 
 
 						if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn)
+						{
+							ChampionsOfForest.Player.Events.Instance.OnIgniteMelee.Invoke();
 							progression.HealthScript.Burn();
-
+						}
 
 						AfterHit();
 						return true;

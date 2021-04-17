@@ -152,9 +152,10 @@ public class BallLightning : MonoBehaviour
 				{
 					HitEnemy(hit.transform);
 					hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+
 					yield return null;
 				}
-				else if (!hit.transform.CompareTag("Player") && hit.transform.root != LocalPlayer.Transform || !hit.transform.CompareTag("structure"))
+				else if (!hit.transform.CompareTag("Player") && hit.transform.root != LocalPlayer.Transform)
 				{
 					hit.transform.SendMessageUpwards("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
 					hit.transform.SendMessage("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
@@ -165,6 +166,7 @@ public class BallLightning : MonoBehaviour
 					}
 					hit.transform.SendMessage("CutDown", SendMessageOptions.DontRequireReceiver);
 					hit.transform.SendMessageUpwards("Burn", SendMessageOptions.DontRequireReceiver);
+
 					yield return null;
 				}
 			}

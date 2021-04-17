@@ -301,16 +301,24 @@ namespace ChampionsOfForest
 			GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(35 * screenScale), fontStyle = FontStyle.Bold, font = mainFont };
 			float y = 70 + pos.y;
 			Rect[] StatRects = new Rect[item.Stats.Count];
-			GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };
-			GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(20 * screenScale), fontStyle = FontStyle.Bold, font = mainFont };
+			GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(18 * screenScale), font = mainFont,richText = true };
+			GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(18 * screenScale), fontStyle = FontStyle.Bold, font = mainFont, richText = true };
 
 			for (int i = 0; i < StatRects.Length; i++)
 			{
-				StatRects[i] = new Rect(pos.x, y, width, 22 * screenScale);
+				StatRects[i] = new Rect(pos.x, y, width, 20 * screenScale);
 				y += 22 * screenScale;
 			}
-			y += 30 * screenScale;
+			y += 2 * screenScale;
+			var uniqueStatGuiContext = new GUIContent(string.IsNullOrEmpty(item.uniqueStat) ? "" : "<color=gold>★</color>" + item.uniqueStat);
+			Rect uniqueStatHeaderRect = new Rect(pos.x, y, width, StatValueStyle.fontSize);
+			Rect uniqueStatRect = new Rect(pos.x, y+ uniqueStatHeaderRect.height, width, StatNameStyle.CalcHeight(uniqueStatGuiContext, width));
+			if (string.IsNullOrEmpty(item.uniqueStat))
+			{
+				y += uniqueStatHeaderRect.height + uniqueStatRect.height;
+			}
 
+			y += 22 * screenScale;
 			Rect LevelAndTypeRect = new Rect(pos.x, y, width, 35 * screenScale);
 			GUIStyle TypeStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(14 * screenScale), font = mainFont };
 			GUIStyle LevelStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerRight, fontSize = Mathf.RoundToInt(28 * screenScale), font = mainFont, fontStyle = FontStyle.Italic };
@@ -318,7 +326,6 @@ namespace ChampionsOfForest
 
 			GUIStyle DescriptionStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(16 * screenScale), font = mainFont };
 			GUIStyle LoreStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(13 * screenScale), font = mainFont, fontStyle = FontStyle.Italic };
-			GUIStyle TooltipStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, fontSize = Mathf.RoundToInt(15 * screenScale), font = mainFont, fontStyle = FontStyle.Bold };
 
 			Rect DescrRect = new Rect(pos.x, y, width, DescriptionStyle.CalcHeight(new GUIContent(item.description), width));
 			y += DescrRect.height;
@@ -328,11 +335,7 @@ namespace ChampionsOfForest
 			y += LoreRect.height;
 			y += 30 * screenScale;
 
-			Rect toolTipTitleRect = new Rect(pos.x, y, width, TooltipStyle.fontSize + 2);
-			y += toolTipTitleRect.height;
-			Rect toolTipRect = new Rect(pos.x, y, width, TooltipStyle.CalcHeight(new GUIContent(item.tooltip), width));
-			y += toolTipRect.height;
-			descriptionBox.height = toolTipRect.yMax - descriptionBox.y + 5;
+			descriptionBox.height = LoreRect.yMax - descriptionBox.y + 5;
 			if (descriptionBox.yMax > Screen.height)
 			{
 				float f = Screen.height - descriptionBox.yMax;
@@ -345,8 +348,8 @@ namespace ChampionsOfForest
 				LevelAndTypeRect.y += f;
 				DescrRect.y += f;
 				LoreRect.y += f;
-				toolTipTitleRect.y += f;
-				toolTipRect.y += f;
+				uniqueStatHeaderRect.y += f;
+				uniqueStatRect.y += f;
 			}
 			GUI.color = new Color(1, 1, 1, 0.8f);
 			GUI.DrawTexture(descriptionBox, blackSquareTex);
@@ -528,10 +531,9 @@ namespace ChampionsOfForest
 			GUI.color = Color.white;
 			GUI.Label(DescrRect, item.description, DescriptionStyle);
 			GUI.Label(LoreRect, item.lore, LoreStyle);
-			if (!string.IsNullOrEmpty(item.tooltip))
+			if (!string.IsNullOrEmpty(item.uniqueStat))
 			{
-				GUI.Label(toolTipTitleRect, "Tooltip:", TooltipStyle);
-				GUI.Label(toolTipRect, item.tooltip, TooltipStyle);
+				GUI.Label(uniqueStatRect, uniqueStatGuiContext, StatNameStyle);
 			}
 		}
 

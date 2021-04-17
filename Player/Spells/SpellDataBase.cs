@@ -140,11 +140,11 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}
 			};
-			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting spell empowers arrow, causing all arrows to head in the same direction for 10 seconds. While active, arrows deal more damage, the further target they hit, headshots deal double damage and bodyshots slow enemies by 20% for 4 seconds.")
+			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, projectiles deal 50% less headshot damage and bodyshots slow enemies by 10% for 4 seconds.")
 			{
 				active = SpellActions.SeekingArrow_Active,
 			};
-			new Spell(20, 137, 4, 50, 30, "Focus", () => "Passive: When landing a headshot, next projectile will deal 100% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 20% more damage, but attack speed is increased.\nActive: Gain 15% critical hit chance for 5 seconds")
+			new Spell(20, 137, 4, 50, 30, "Focus", () => "Passive: When landing a headshot, next projectile will deal 50% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 15% more damage, but attack speed is increased.\nActive: Gain 15% critical hit chance for 5 seconds")
 			{
 				passive = x => ModdedPlayer.Stats.spell_focus.value = x,
 				active = () => BuffDB.AddBuff(28, 102, 1.15f, 5f)

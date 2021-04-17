@@ -146,7 +146,7 @@ namespace ChampionsOfForest.Effects
 						{
 							ep.HitMagic(dmg * 2);
 							ep.Slow(141, 0.0f, 2);
-							ep.DmgTakenDebuff(140, 1.5f, 10);
+							ep.DmgTakenDebuff(140, 1.65f, 10);
 							ep.FireDebuff(140, dmg / 6, 25);
 						}
 						else

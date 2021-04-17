@@ -240,7 +240,7 @@ namespace ChampionsOfForest
 			base.onUnequip = b.onUnequip;
 			base.PossibleStats = b.PossibleStats;
 			base.Rarity = b.Rarity;
-			base.tooltip = b.tooltip;
+			base.uniqueStat = b.uniqueStat;
 			base.ID = b.ID;
 			base.type = b.type;
 			base.StackSize = b.StackSize;

@@ -370,12 +370,12 @@ namespace ChampionsOfForest.Items
 
 		public static void AddMagicFind( float f)
 		{
-			ModdedPlayer.Stats.magicFind.Multiply(1+ f);
+			ModdedPlayer.Stats.magicFind.Add(f);
 		}
 
 		public static void RemoveMagicFind( float f)
 		{
-			ModdedPlayer.Stats.magicFind.Divide(1 + f);
+			ModdedPlayer.Stats.magicFind.Substract(f);
 
 		}
 

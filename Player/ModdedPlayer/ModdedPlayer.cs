@@ -568,7 +568,7 @@ namespace ChampionsOfForest.Player
 					{
 						if (LocalPlayer.Stats.Health > 5)
 						{
-							LocalPlayer.Stats.Health -= Time.deltaTime * stats.TotalMaxHealth * 0.015f;
+							LocalPlayer.Stats.Health -= Time.deltaTime * stats.TotalMaxHealth * 0.01f;
 						}
 					}
 				}
@@ -658,6 +658,8 @@ namespace ChampionsOfForest.Player
 			{
 				RootDuration = duration;
 			}
+			ChampionsOfForest.Player.Events.Instance.OnStun.Invoke();
+
 		}
 
 		public void Stun(float duration)
@@ -673,10 +675,14 @@ namespace ChampionsOfForest.Player
 			{
 				StunDuration = duration;
 			}
+			ChampionsOfForest.Player.Events.Instance.OnStun.Invoke();
+
 		}
 
 		public void AddKillExperience(long Amount)
 		{
+			ChampionsOfForest.Player.Events.Instance.OnKill.Invoke();
+
 			MassacreKills++;
 			CountMassacre();
 			if (TimeUntillMassacreReset == 0)
@@ -692,6 +698,8 @@ namespace ChampionsOfForest.Player
 
 		public void AddFinalExperience(long Amount)
 		{
+			ChampionsOfForest.Player.Events.Instance.OnGainExp.Invoke();
+
 			ExpCurrent += Convert.ToInt64(Amount * stats.expGain);
 			int i = 0;
 			while (ExpCurrent >= ExpGoal || (level > 100 && ExpCurrent < 0))
@@ -704,6 +712,8 @@ namespace ChampionsOfForest.Player
 
 			if (i > 0)
 			{
+				ChampionsOfForest.Player.Events.Instance.OnGainLevel.Invoke();
+
 				SendLevelMessage();
 
 				if (GameSetup.IsMultiplayer)
@@ -734,6 +744,7 @@ namespace ChampionsOfForest.Player
 
 		public void OnHit()
 		{
+			
 			LocalPlayer.Stats.HealthTarget +=stats.healthOnHit *stats.allRecoveryMult;
 			LocalPlayer.Stats.Health += stats.healthOnHit * stats.allRecoveryMult;
 			LocalPlayer.Stats.Energy += stats.energyOnHit * stats.TotalEnergyRecoveryMultiplier;
@@ -853,6 +864,7 @@ namespace ChampionsOfForest.Player
 
 		public void OnHit_Melee(Transform hit)
 		{
+
 			SpellCaster.InfinityLoopEffect();
 			if (stats.spell_furySwipes)
 			{
@@ -1308,7 +1320,7 @@ namespace ChampionsOfForest.Player
 			int repeats = 1;
 			if (Effects.Multishot.IsOn)
 			{
-				bool b = Stats.i_SoraBracers ? SpellCaster.RemoveStamina(Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f)) : SpellCaster.RemoveStamina(10 * Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f));
+				bool b = Stats.i_SoraBracers ? SpellCaster.RemoveStamina(7*Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f)) : SpellCaster.RemoveStamina(10 * Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f));
 				if (b)
 				{
 					repeats += Stats.perk_multishotProjectileCount;

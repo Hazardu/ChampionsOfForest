@@ -22,7 +22,18 @@ namespace ChampionsOfForest.Player
 			i.StartCoroutine(routine);
 		}
 
-	
+		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, XBArrowDamageMod dmgScript, int frame_delays )
+		{
+			for (int i = 0; i < frame_delays; i++)
+			{
+				yield return null;
+			}
+			dmgScript.NewHitAi(target, false, headshot);
+			ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
+			ModdedPlayer.instance.OnHit();
+			ModdedPlayer.instance.OnHit_Ranged(target);
+		}
+
 		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
 		{
 			for (int i = 0; i < count; i++)

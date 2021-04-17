@@ -148,6 +148,8 @@ namespace ChampionsOfForest
 
 		public bool PickUp()
 		{
+			ChampionsOfForest.Player.Events.Instance.OnLootPickup.Invoke();
+
 			if (item.PickUpAll)
 			{
 				if (!GameSetup.IsMpClient)

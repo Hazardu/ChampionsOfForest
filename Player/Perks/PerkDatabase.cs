@@ -79,8 +79,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
-				name = "Stamina Recovery",
-				originalDescription = "Heart's muscules become even more resistant to exhaustion.\nEvery point of INTELLIGENCE increases stamina recovery rate by 1%.",
+				name = "Inner Energy",
+				originalDescription = "Heart's muscules become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by 1%.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -1619,7 +1619,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.5f),
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.25f),
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 13 },
@@ -1629,13 +1629,13 @@ namespace ChampionsOfForest.Player
 				posX = 1f,
 				posY = 2.25f,
 				name = "Seeking Arrow - Head Hunting",
-				originalDescription = "Seeking arrow additional damage on headshot is increased from 200% to 250%",
+				originalDescription = "Seeking arrow headshot pennalty is decreased from -50% to -25%",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_seekingArrow_DamagePerDistance.valueAdditive += 0.01f,
+				apply = () => ModdedPlayer.Stats.projectile_DamagePerDistance.valueAdditive += 0.01f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 92 },
@@ -1644,8 +1644,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 2f,
 				posY = 2.25f,
-				name = "Seeking Arrow - Distant Killer",
-				originalDescription = "Seeking arrow additional damage per distance increased from 1% per 1m to 2% per 1m",
+				name = "Sniper",
+				originalDescription = "Projectiles deal additional 1% damage for every meter they travelled. ",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1677,13 +1677,13 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = 2.25f,
 				name = "Seeking Arrow - Movement Imparing Arrows",
-				originalDescription = "Seeking arrow slow amount is increased - from 20% to 40%",
+				originalDescription = "Seeking arrow slow amount is increased from 10% to 30%",
 				textureVariation = 0,
 				uncapped = false,
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive += 0.5f,
+				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive += 0.3f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 13, 14 },
@@ -1693,7 +1693,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 1.5f,
 				name = "Focus - Perfection",
-				originalDescription = "Focus damage bonus on headshot is increased from 100% to 150%",
+				originalDescription = "Focus damage bonus on headshot is increased from 50% to 80%",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1708,7 +1708,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 2.5f,
 				posY = 1.5f,
-				name = "Focus - Quick Adjustments",
+				name = "Focus - Quickscope",
 				originalDescription = "Focus extra attack on bodyshot is increased from 30% to 45%",
 				textureVariation = 0,
 				uncapped = false,
@@ -1724,7 +1724,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 3.5f,
 				posY = 1.5f,
-				name = "Focus - Quicker Adjustments",
+				name = "Focus - Quickerscope",
 				originalDescription = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
 				textureVariation = 0,
 				uncapped = false,
@@ -1740,8 +1740,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 4.5f,
 				posY = 1.5f,
-				name = "Focus - Knock Out",
-				originalDescription = "Focus Slow is prolongued by additional 20 seconds",
+				name = "Focus - Cripple",
+				originalDescription = "Focus Slow lasts additional 20 seconds",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1779,7 +1779,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_frenzyAtkSpeed.valueAdditive += 0.04f,
+				apply = () => ModdedPlayer.Stats.spell_frenzyAtkSpeed.valueAdditive += 0.05f,
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 72 },
@@ -1789,7 +1789,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -0.75f,
 				name = "Frenzy - Haste",
-				originalDescription = "Every stack of frenzy increases attack speed by 4%",
+				originalDescription = "Every stack of frenzy increases attack speed by 5%",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1853,8 +1853,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 4f,
 				posY = -0.75f,
-				name = "Stamina Recovery II",
-				originalDescription = "Every point of INTELLIGENCE further increases stamina recover by 0.5%.",
+				name = "Inner Energy II",
+				originalDescription = "Every point of intelligence further increases stamina and energy recovery by 0.5%.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -1908,17 +1908,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => StatActions.AddMagicFind(0.15f),
+				apply = () => StatActions.AddMagicFind(0.1f),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 109 },
 				levelReq = 15,
-				cost = 2,
+				cost = 1,
 				scale = 1f,
 				posX = -1.25f,
 				posY = -1.85f,
 				name = "Luck Enchantment II",
-				originalDescription = "Increases magic find by additional 15%. Magic find increases the quantity of items dropped.",
+				originalDescription = "Increases magic find by additional 10%. Magic find increases the quantity of items dropped.",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -2052,7 +2052,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.Stats.allDamageTaken.valueMultiplicative *= 1.1f; ModdedPlayer.Stats.allDamage.valueMultiplicative *= 1.1f; },
+				apply = () => { ModdedPlayer.Stats.allDamageTaken.Multiply(1.12f); ModdedPlayer.Stats.allDamage.Add(0.12f); },
 
 				category = PerkCategory.Defense,
 				texture = null,
@@ -2063,15 +2063,15 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 1.5f,
 				name = "Glass Cannon",
-				originalDescription = "Increases all damage taken and increases all damage dealt by 10%",
+				originalDescription = "Increases all damage taken and increases all damage dealt by 12%",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
 				{
-					float f = 1.1f;
+					float f = 1.12f;
 					for (int i = 1; i < x; i++)
-						f *= 1.1f;
-					return "\nTotal from this perk: " + (f - 1).ToString("P") + "increase to damage taken and dealt";
+						f *= 1.12f;
+					return "\nTotal from this perk: Damage taken: " + (f - 1).ToString("P") + "\nDamage dealt: "+(0.12f*x).ToString("P") ;
 				},
 			};
 			new Perk()
@@ -2105,7 +2105,7 @@ namespace ChampionsOfForest.Player
 				posX = 3f,
 				posY = 0.75f,
 				name = "Momentum transfer",
-				originalDescription = "Upon landing gain shot movement speed buff",
+				originalDescription = "Upon landing on the ground gain short burst of movement speed",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -2173,7 +2173,7 @@ namespace ChampionsOfForest.Player
 				posX = 0.5f,
 				posY = -1.5f,
 				name = "Gold Medalist",
-				originalDescription = "Greatly increases spear throw skill. Spear has increased headshot chance to 40%. Headshots trigger randomly.",
+				originalDescription = "Greatly increases spear throw skill. Spear has increased critical hit chance to 40%. Critical shots trigger randomly upon hitting any body part and deal headshot damage.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -2190,7 +2190,7 @@ namespace ChampionsOfForest.Player
 				posX = 0f,
 				posY = -2.25f,
 				name = "Spear gamble",
-				originalDescription = "Spear has increased headshot chance to 50%",
+				originalDescription = "Spear has increased critical hit chance to 50%",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -2293,7 +2293,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 1.5f,
 				name = "Bunny hopping",
-				originalDescription = "Increases the speed and duration of the buff",
+				originalDescription = "Increases the speed and duration of the burst",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -2325,7 +2325,7 @@ namespace ChampionsOfForest.Player
 				posX = 8f,
 				posY = -0.75f,
 				name = "Curse of Strengthening",
-				originalDescription = "Decreases attack speed by 50%, but greatly increases melee damage is doubled",
+				originalDescription = "Decreases attack speed by 50%, but melee damage is doubled",
 				textureVariation = 1, //0 or 1
 				uncapped = false,
 			};
@@ -2851,7 +2851,7 @@ namespace ChampionsOfForest.Player
 				posX = 5.5f,
 				posY = 0f,
 				name = "True Aim",
-				originalDescription = "Arrow headshots which hit enemies over 60 m away and are not affected by seeking arrow hit enemies twice, and deal 4x damage",
+				originalDescription = "Arrow headshots which hit enemies over 60 feet away and are not affected by seeking arrow hit enemies twice, and deal 150% increased damage",
 				textureVariation = 0,
 				uncapped = false,
 			};

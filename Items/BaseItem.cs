@@ -33,7 +33,7 @@ namespace ChampionsOfForest
 		public string name;                 //name of item,
 		public string description;          //what is this item basically
 		public string lore;                 //some cool story to make this item have any sense, or a place for a joke
-		public string tooltip;              //what should be displayed in the tooltip of this item
+		public string uniqueStat;              //what should be displayed in the tooltip of this item
 		public int level = 1;                   //level of this item
 		public int minLevel = 1;
 		public int maxLevel = 1;
@@ -127,7 +127,7 @@ namespace ChampionsOfForest
 			this.name = name;
 			this.description = description;
 			this.lore = lore;
-			this.tooltip = tooltip;
+			this.uniqueStat = tooltip;
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();
@@ -162,7 +162,7 @@ namespace ChampionsOfForest
 			this.name = name;
 			this.description = description;
 			this.lore = lore;
-			this.tooltip = tooltip;
+			this.uniqueStat = tooltip;
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();
@@ -198,7 +198,7 @@ namespace ChampionsOfForest
 			this.name = name;
 			this.description = description;
 			this.lore = lore;
-			this.tooltip = tooltip;
+			this.uniqueStat = tooltip;
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();

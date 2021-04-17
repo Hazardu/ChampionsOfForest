@@ -12,7 +12,12 @@ namespace ChampionsOfForest.Player
 			basewalkSpeed = walkSpeed;
 			ModdedPlayer.instance.basejumpPower = jumpHeight;
 		}
-
+		protected override void HandleStartJumping()
+		{
+			ChampionsOfForest.Player.Events.Instance.OnJump.Invoke();
+			base.HandleStartJumping();
+		}
+			
 		protected override void Update()
 		{
 			jumpHeight = ModdedPlayer.instance.basejumpPower * ModdedPlayer.Stats.jumpPower;
@@ -52,6 +57,8 @@ namespace ChampionsOfForest.Player
 		{
 			base.HandleRunningStaminaAndSpeed();
 			speed *= ModdedPlayer.Stats.movementSpeed;
+			ChampionsOfForest.Player.Events.Instance.OnSprint.Invoke();
+
 		}
 
 		public override void HandleLanded()
@@ -62,6 +69,7 @@ namespace ChampionsOfForest.Player
 			this.jumpTimerStarted = false;
 			float num = 28f;
 			bool flag = false;
+			ChampionsOfForest.Player.Events.Instance.OnLand.Invoke();
 			if (ModdedPlayer.Stats.perk_bunnyHop)
 			{
 				if (ModdedPlayer.Stats.perk_bunnyHopUpgrade)

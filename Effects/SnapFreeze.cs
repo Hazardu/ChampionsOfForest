@@ -11,7 +11,7 @@ namespace ChampionsOfForest.Effects
 
 		public static void HostAction(Vector3 pos, float dist, float slowMultipier, float duration, float damage)
 		{
-			RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one, -9);
+			RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one);
 			for (int i = 0; i < hits.Length; i++)
 			{
 				if (EnemyManager.enemyByTransform.ContainsKey( hits[i].transform.root))

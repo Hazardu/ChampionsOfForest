@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat silenced;
 			public readonly BooleanPlayerStat rooted;
 			public readonly BooleanPlayerStat stunned;
-			public readonly MultiplicativeNetworkSyncedPlayerStat<float> magicFind;
+			public readonly AdditiveNetworkSyncedPlayerStat<float> magicFind;
 			public readonly AdditiveNetworkSyncedPlayerStat<float> explosionDamage;
 			public readonly AdditiveNetworkSyncedPlayerStat<float> fireTickRate;
 			public readonly AdditiveNetworkSyncedPlayerStat<float> fireDuration;
@@ -202,7 +202,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_HeadDamage;
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_SlowDuration;
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_SlowAmount;
-			public readonly AdditivePlayerStat<float> spell_seekingArrow_DamagePerDistance;
+			public readonly AdditivePlayerStat<float> projectile_DamagePerDistance;
 			public readonly AdditivePlayerStat<float> spell_seekingArrowDuration;
 			public readonly BooleanPlayerStat spell_seekingArrow;
 			//cataclysm			  
@@ -352,6 +352,7 @@ namespace ChampionsOfForest.Player
 
 				this.weaponRange = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.headShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
+				this.projectile_DamagePerDistance = new AdditivePlayerStat<float>(0.00f, addfloat, substractfloat);
 
 				this.allRecoveryMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.healthOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -391,7 +392,7 @@ namespace ChampionsOfForest.Player
 				this.rooted = new BooleanPlayerStat(false);
 				this.stunned = new BooleanPlayerStat(false);
 
-				this.magicFind = new MultiplicativeNetworkSyncedPlayerStat<float>(1.0f, multfloat, dividefloat);
+				this.magicFind = new AdditiveNetworkSyncedPlayerStat<float>(1.0f, addfloat, substractfloat, "P");
 				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat, "N1");
 				this.fireTickRate = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.fireDuration = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -486,18 +487,17 @@ namespace ChampionsOfForest.Player
 				this.spell_furySwipes = new BooleanPlayerStat(false);
 				//focus
 				this.spell_focusBonusDmg = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
-				this.spell_focusOnHS = new AdditivePlayerStat<float>(1f, addfloat, substractfloat);
-				this.spell_focusOnBS = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
+				this.spell_focusOnHS = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat);
+				this.spell_focusOnBS = new AdditivePlayerStat<float>(0.15f, addfloat, substractfloat);
 				this.spell_focusOnAtkSpeed = new AdditivePlayerStat<float>(1.3f, addfloat, substractfloat);
 				this.spell_focusOnAtkSpeedDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
 				this.spell_focusSlowAmount = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
 				this.spell_focusSlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
 				this.spell_focus = new BooleanPlayerStat(false);
 				//seeking arrow
-				this.spell_seekingArrow_HeadDamage = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
+				this.spell_seekingArrow_HeadDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat);
 				this.spell_seekingArrow_SlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
-				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
-				this.spell_seekingArrow_DamagePerDistance = new AdditivePlayerStat<float>(0.01f, addfloat, substractfloat);
+				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.9f, addfloat, substractfloat);
 				this.spell_seekingArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
 				this.spell_seekingArrow = new BooleanPlayerStat(false);
 				//cataclysm			  

@@ -33,7 +33,7 @@ namespace ChampionsOfForest
 		//Damage over time
 		public List<DoT> DamageOverTimeList;
 
-		public struct DoT
+		public class DoT
 		{
 			/// <summary>
 			/// Amount of damage dealt second
@@ -47,7 +47,8 @@ namespace ChampionsOfForest
 
 			public bool Tick()
 			{
-				return --Ticks <= 0;
+				Ticks--;
+				return Ticks > 0;
 			}
 
 			public DoT(float Damage, float duration)
@@ -75,8 +76,12 @@ namespace ChampionsOfForest
 						HealthScript.Health -= Mathf.FloorToInt(DoTTotal);
 						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
+					for (int i = 0; i < DamageOverTimeList.Count; i++)
+					{
+						if (!DamageOverTimeList[i].Tick())
+							DamageOverTimeList.RemoveAt(i);
 
-					DamageOverTimeList.RemoveAll(x => x.Tick());
+					}
 
 					GetTotalDoT();
 				}
