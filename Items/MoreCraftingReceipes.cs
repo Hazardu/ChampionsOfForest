@@ -204,7 +204,7 @@ public static class MoreCraftingReceipes
 				_min = productItemAmout
 			},
 			_productItemID = (int)productItemId,
-			_productItemType = ItemDatabase.ItemById((int)productItemId)._type,
+			_productItemType = TheForest.Items.ItemDatabase.ItemById((int)productItemId)._type,
 			_type = Receipe.Types.Craft,
 			_weaponStatUpgrades = new WeaponStatUpgrade[0]
 		};

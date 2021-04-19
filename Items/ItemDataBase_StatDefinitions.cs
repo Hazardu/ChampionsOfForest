@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDefinitions
+	public static partial class ItemDataBase
 	{
 		public enum Stat
 		{

@@ -75,7 +75,7 @@ namespace ChampionsOfForest
 			OnUnequip = onUnequip;
 			OnConsume = onConsume;
 			GetTotalStat = getValueFunc;
-			ItemDefinitions.AddStat(this);
+			ItemDataBase.AddStat(this);
 		}
 
 		public ItemStat(ItemStat s, int level = 1, int possibleStatsIdx= -1)

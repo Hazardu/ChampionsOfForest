@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDefinitions
+	public static partial class ItemDataBase
 	{
 		public static List<BaseItem> _Item_Bases;
 		public static Dictionary<int, BaseItem> ItemBases;
@@ -124,12 +124,12 @@ namespace ChampionsOfForest
 
 		public static ItemStat StatByID(int id)
 		{
-			return ItemDefinitions.Stats[id];
+			return ItemDataBase.Stats[id];
 		}
 
 		public static BaseItem ItemBaseByName(string name)
 		{
-			return ItemDefinitions.ItemBases.Values.Where(x => x.name == name).First();
+			return ItemDataBase.ItemBases.Values.Where(x => x.name == name).First();
 		}
 
 		public static void AddPercentage(ref float variable1, float f)

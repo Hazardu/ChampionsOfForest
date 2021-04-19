@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Player
 			{
 				yield return null;
 				yield return null;
-				Network.NetworkManager.SendItemDrop(ItemDefinitions.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
 			}
 		}
 

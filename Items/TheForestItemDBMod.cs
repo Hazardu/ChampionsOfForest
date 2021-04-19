@@ -2,7 +2,7 @@
 
 namespace ChampionsOfForest.Items
 {
-	public class TheForestItemDBMod : ItemDatabase
+	public class TheForestItemDBMod : TheForest.Items.ItemDatabase
 	{
 		public override void OnEnable()
 		{

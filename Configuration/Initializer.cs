@@ -36,7 +36,7 @@ namespace ChampionsOfForest
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("Playerobj");
 					go.AddComponent<ModReferences>();
-					ItemDefinitions.Initialize();
+					ItemDataBase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
 					ExpEvents.Initialize();
@@ -78,7 +78,7 @@ namespace ChampionsOfForest
 
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
-					ItemDefinitions.Initialize();
+					ItemDataBase.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;

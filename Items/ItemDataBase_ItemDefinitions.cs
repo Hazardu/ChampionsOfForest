@@ -2,11 +2,11 @@
 using ChampionsOfForest.Items.Sets;
 using ChampionsOfForest.Player;
 
-using static ChampionsOfForest.ItemDefinitions.Stat;
+using static ChampionsOfForest.ItemDataBase.Stat;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDefinitions
+	public static partial class ItemDataBase
 	{
 		public static void PopulateItems()
 		{

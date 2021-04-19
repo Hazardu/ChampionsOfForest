@@ -36,7 +36,7 @@ namespace ChampionsOfForest.Fun
 
 		public static void CotfItem(int id, int level)
 		{
-			Item item = new Item(ItemDefinitions.ItemBases[id], 1, 0, false)
+			Item item = new Item(ItemDataBase.ItemBases[id], 1, 0, false)
 			{
 				level = level
 			};
@@ -109,7 +109,7 @@ namespace ChampionsOfForest.Fun
 		private void _cotflistitems(string param)
 		{
 			string s = "";
-			foreach (var item in ItemDefinitions.ItemBases)
+			foreach (var item in ItemDataBase.ItemBases)
 			{
 				s += string.Concat(new object[]
 				{
@@ -127,7 +127,7 @@ namespace ChampionsOfForest.Fun
 		private void _cotfliststats(string param)
 		{
 			string s = "";
-			foreach (var item in ItemDefinitions.Stats)
+			foreach (var item in ItemDataBase.Stats)
 			{
 				s += string.Concat(new object[]
 				{
@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Fun
 
 		private void _cotfspawnitembyname(string param)
 		{
-			var matches = ItemDefinitions.ItemBases.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.ID).ToArray();
+			var matches = ItemDataBase.ItemBases.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.ID).ToArray();
 			if (matches.Length > 0)
 			{
 				CotfCheats.CotfItem(matches[0], ModdedPlayer.instance.level);

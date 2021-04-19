@@ -31,7 +31,7 @@ namespace ChampionsOfForest
 			groupedStats = new Dictionary<int, float>(grouped.Count);
 			foreach (var group in grouped)
 			{
-				groupedStats.Add(group.Key, ItemDefinitions.StatByID(group.Key).EvaluateTotalIncrease(group.Value));
+				groupedStats.Add(group.Key, ItemDataBase.StatByID(group.Key).EvaluateTotalIncrease(group.Value));
 			}
 		}
 
@@ -329,7 +329,7 @@ namespace ChampionsOfForest
 					socketAmount = Random.Range(1, socketAmount + 1);
 					for (int j = 0; j < socketAmount; j++)
 					{
-						Stats.Add(new ItemStat(ItemDefinitions.StatByID(3000)));
+						Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
 					}
 				}
 			}
