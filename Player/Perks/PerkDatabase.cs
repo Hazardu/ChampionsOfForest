@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.allRecoveryMult.valueMultiplicative *= 1.05f,
+				apply = () => ModdedPlayer.Stats.allRecoveryMult.Add(0.75f),
 
 				category = PerkCategory.Support,
 				texture = null,
@@ -131,7 +131,7 @@ namespace ChampionsOfForest.Player
 				posX = -1.5f,
 				posY = 0,
 				name = "More Healing",
-				originalDescription = "Blood becomes denser and binds more oxygen, is less vunerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 5%",
+				originalDescription = "Blood becomes denser and binds more oxygen, is less vunerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 7.5%",
 				updateDescription = x =>
 				{
 					float f = 1.05f;
@@ -240,7 +240,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.rangedFlatDmg.valueAdditive += 5,
+				apply = () => ModdedPlayer.Stats.rangedFlatDmg.valueAdditive += 8,
 				category = PerkCategory.RangedOffense,
 				texture = null,
 				unlockPath = new int[] { 2 },
@@ -249,13 +249,13 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 2f,
 				posY = -0.75f,
-				name = "Damage",
-				originalDescription = "Shoulder muscules grow.\nIncreases projectile damage by 5",
+				name = "Projectile Damage",
+				originalDescription = "Shoulder muscules grow.\nIncreases projectile damage by 8",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
 				{
-					return "\nTotal from this perk: " + x * 5;
+					return "\nTotal from this perk: " + x * 8;
 				},
 			};
 			new Perk()
@@ -269,8 +269,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 2f,
 				posY = 0.75f,
-				name = "Size",
-				originalDescription = "Increased overall physical strength allows for precise shoots from hand held weapons with bigger ammunition.\nIncreases projectile size by 5%",
+				name = "Large caliber",
+				originalDescription = "Bigger is better.\nIncreases projectile size by 5%",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
@@ -496,7 +496,7 @@ namespace ChampionsOfForest.Player
 				cost = 1,
 				scale = 1,
 				posX = 4f,
-				posY = -0.75f,
+				posY = -2.25f,
 				name = "Reusability III",
 				originalDescription = "+13% chance to not consume ammo while firing.",
 				textureVariation = 0,
@@ -791,7 +791,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.expGain.valueMultiplicative *= 1.1f,
+				apply = () => ModdedPlayer.Stats.expGain.Add(0.1f),
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 40 },
@@ -989,17 +989,17 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive += 0.5f,
+				apply = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.valueAdditive += 0.4f,
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 25 },
 				levelReq = 45,
 				cost = 1,
 				scale = 1,
-				posX = 5f,
-				posY = -0.75f,
-				name = "Infinity",
-				originalDescription = "Gives 50% chance to not consume ammo when firing a projectile",
+				posX = 4.5f,
+				posY = -3f,
+				name = "Endless Quiver",
+				originalDescription = "Gives 40% chance to not consume ammo when firing a projectile",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1622,12 +1622,12 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.25f),
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 13 },
+				unlockPath = new int[] { 93 },
 				levelReq = 30,
 				cost = 1,
 				scale = 1,
-				posX = 1f,
-				posY = 2.25f,
+				posX = -2f,
+				posY = -3.75f,
 				name = "Seeking Arrow - Head Hunting",
 				originalDescription = "Seeking arrow headshot pennalty is decreased from -50% to -25%",
 				textureVariation = 0,
@@ -1638,12 +1638,12 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.projectile_DamagePerDistance.valueAdditive += 0.01f,
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 92 },
+				unlockPath = new int[] { 67 },
 				levelReq = 40,
 				cost = 1,
 				scale = 1,
-				posX = 2f,
-				posY = 2.25f,
+				posX = -1f,
+				posY = -3.75f,
 				name = "Sniper",
 				originalDescription = "Projectiles deal additional 1% damage for every meter they travelled. ",
 				textureVariation = 0,
@@ -1654,12 +1654,12 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.valueAdditive += 3,
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 93 },
+				unlockPath = new int[] { 92 },
 				levelReq = 41,
 				cost = 1,
 				scale = 1,
-				posX = 3f,
-				posY = 2.25f,
+				posX = -3f,
+				posY = -3.75f,
 				name = "Seeking Arrow - Crippling precision",
 				originalDescription = "Seeking arrow slow duration is increased by 3 additional seconds",
 				textureVariation = 0,
@@ -1674,8 +1674,8 @@ namespace ChampionsOfForest.Player
 				levelReq = 42,
 				cost = 1,
 				scale = 1,
-				posX = 4f,
-				posY = 2.25f,
+				posX = -4f,
+				posY = -3.75f,
 				name = "Seeking Arrow - Movement Imparing Arrows",
 				originalDescription = "Seeking arrow slow amount is increased from 10% to 30%",
 				textureVariation = 0,
@@ -1686,11 +1686,11 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive += 0.3f,
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 13, 14 },
+				unlockPath = new int[] { 217,13 },
 				levelReq = 14,
 				cost = 1,
 				scale = 1,
-				posX = 1.5f,
+				posX = 2.5f,
 				posY = 1.5f,
 				name = "Focus - Perfection",
 				originalDescription = "Focus damage bonus on headshot is increased from 50% to 80%",
@@ -1702,11 +1702,11 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_focusOnAtkSpeed.valueAdditive += 0.15f,
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 96, 13 },
+				unlockPath = new int[] { 96 },
 				levelReq = 15,
 				cost = 1,
 				scale = 1,
-				posX = 2.5f,
+				posX = 3.5f,
 				posY = 1.5f,
 				name = "Focus - Quickscope",
 				originalDescription = "Focus extra attack on bodyshot is increased from 30% to 45%",
@@ -1722,7 +1722,7 @@ namespace ChampionsOfForest.Player
 				levelReq = 25,
 				cost = 1,
 				scale = 1,
-				posX = 3.5f,
+				posX = 4.5f,
 				posY = 1.5f,
 				name = "Focus - Quickerscope",
 				originalDescription = "Focus extra attack speed on bodyshot is increased from 45% to 60%",
@@ -1738,7 +1738,7 @@ namespace ChampionsOfForest.Player
 				levelReq = 35,
 				cost = 2,
 				scale = 1,
-				posX = 4.5f,
+				posX = 5.5f,
 				posY = 1.5f,
 				name = "Focus - Cripple",
 				originalDescription = "Focus Slow lasts additional 20 seconds",
@@ -2843,15 +2843,15 @@ namespace ChampionsOfForest.Player
 			{
 				apply = () => ModdedPlayer.Stats.perk_trueAim.value = true,
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 54 },
+				unlockPath = new int[] { 218 },
 				unlockRequirement = new int[] { 67 },
 				levelReq = 70,
 				cost = 1,
 				scale = 1,
-				posX = 5.5f,
-				posY = 0f,
+				posX = 0f,
+				posY = 2.25f,
 				name = "True Aim",
-				originalDescription = "Arrow headshots which hit enemies over 60 feet away and are not affected by seeking arrow hit enemies twice, and deal 150% increased damage",
+				originalDescription = "Arrow headshots which hit enemies over 60 feet away and are not affected by seeking arrow hit enemies twice, and deal 50% increased damage",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3110,8 +3110,8 @@ namespace ChampionsOfForest.Player
 				levelReq = 45,
 				cost = 1,
 				scale = 1,
-				posX = 5f,
-				posY = 2.25f,
+				posX = -5f,
+				posY = -3.75f,
 				name = "Seeking Arrow - Improved Memory",
 				originalDescription = "Seeking arrow target stays for 20 seconds longer before disappearing",
 				textureVariation = 0,
@@ -3328,7 +3328,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.expGain.valueMultiplicative *= 1.1f,
+				apply = () => ModdedPlayer.Stats.expGain.Add(0.15f),
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 42 },
@@ -3338,7 +3338,7 @@ namespace ChampionsOfForest.Player
 				posX = -5.5f,
 				posY = 0f,
 				name = "Insight II",
-				originalDescription = "All experience gained increased by 10%",
+				originalDescription = "All experience gained increased by 15%",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3613,7 +3613,7 @@ namespace ChampionsOfForest.Player
 				levelReq = 60,
 				cost = 1,
 				scale = 1,
-				posX = 0.5f,
+				posX = 0.5f, 
 				posY = -1.5f,
 				name = "Steroid",
 				originalDescription = "Increases melee damage by 25%",
@@ -3637,7 +3637,56 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = false,
 			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.rangedIncreasedDmg.Add(0.06f),
+				category = PerkCategory.RangedOffense,
+				texture = null,
+				unlockPath = new int[] { 2 },
+				levelReq = 16,
+				cost = 1,
+				scale = 1,
+				posX = 1.5f,
+				posY = 1.5f,
+				name = "Target practise",
+				originalDescription = "Increases ranged damage by 6%",
+				textureVariation = 0, //0 or 1
+				uncapped = false,
 
+			};
+			new Perk()
+			{
+				apply = () => ModdedPlayer.Stats.critChance.Add(0.08f),
+				category = PerkCategory.RangedOffense,
+				texture = null,
+				unlockPath = new int[] { 217 },
+				levelReq = 36,
+				cost = 1,
+				scale = 1,
+				posX = 1f,
+				posY = 2.25f,
+				name = "Bullseye",
+				originalDescription = "Increases crit chance by 8%",
+				textureVariation = 0, //0 or 1
+				uncapped = false,
+				
+			};
+			new Perk()
+			{
+				apply = () => Events.Instance.OnDodge.AddListener(()=> TheForest.Utils.LocalPlayer.Stats.Health += ModdedPlayer.Stats.TotalMaxHealth*0.05f),
+
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 36 },
+				levelReq = 60,
+				cost = 1,
+				scale = 1,
+				posX = 6f,
+				posY = 2.25f,
+				name = "Improved Dodges",
+				originalDescription = "Heal for 5% of max health when you dodge",
+				textureVariation = 0,
+				uncapped = false,
+			};
 			foreach (var item in perks)
 			{
 				item.Description = item.originalDescription;

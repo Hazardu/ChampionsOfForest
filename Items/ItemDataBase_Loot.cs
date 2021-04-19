@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public static partial class ItemDefinitions
 	{
 		public static Item GetRandomItem(float Worth)
 		{

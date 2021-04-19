@@ -378,7 +378,7 @@ namespace ChampionsOfForest.Player
 			}
 			Multishot.Fired();
 			ChampionsOfForest.Player.Events.Instance.OnAttackRanged.Invoke();
-			this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
+			this.StartCoroutine(XCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
 
 			_weaponChargeStartTime = 0f;
 			float duration = (!noconsume) ? cache._reloadDuration : cache._dryFireReloadDuration;

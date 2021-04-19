@@ -58,7 +58,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> weaponRange;
 			public readonly MultiplicativePlayerStat<float> headShotDamage;
 
-			public readonly MultiplicativePlayerStat<float> allRecoveryMult;
+			public readonly MultiOperationPlayerStat<float> allRecoveryMult;
 			public readonly AdditivePlayerStat<float> healthOnHit;
 			public readonly AdditivePlayerStat<float> staminaOnHit;
 			public readonly AdditivePlayerStat<float> energyOnHit;
@@ -86,7 +86,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> spellCost;
 			public readonly MultiplicativePlayerStat<float> attackStaminaCost;
 			public readonly AdditivePlayerStat<float> block;
-			public readonly MultiplicativePlayerStat<float> expGain;
+			public readonly AdditivePlayerStat<float> expGain;
 			public readonly AdditivePlayerStat<float> maxMassacreTime;
 			public readonly AdditivePlayerStat<float> timeBonusPerKill;
 			public readonly AdditivePlayerStat<int> MaxLogs;
@@ -354,7 +354,7 @@ namespace ChampionsOfForest.Player
 				this.headShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
 				this.projectile_DamagePerDistance = new AdditivePlayerStat<float>(0.00f, addfloat, substractfloat);
 
-				this.allRecoveryMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.allRecoveryMult = new MultiOperationPlayerStat<float>(1,1, addfloat, substractfloat, multfloat, dividefloat, "P");
 				this.healthOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.staminaOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.energyOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -382,7 +382,7 @@ namespace ChampionsOfForest.Player
 				this.spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.block = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.expGain = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.expGain = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P");
 				this.maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P");
 				this.timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P");
 				this.MaxLogs = new AdditivePlayerStat<int>(2, addint, substractint);

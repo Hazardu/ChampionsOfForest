@@ -1,18 +1,19 @@
-﻿using ChampionsOfForest.Items.Sets;
+﻿using ChampionsOfForest.Items;
+using ChampionsOfForest.Items.Sets;
 using ChampionsOfForest.Player;
 
-using static ChampionsOfForest.ItemDataBase.Stat;
+using static ChampionsOfForest.ItemDefinitions.Stat;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public static partial class ItemDefinitions
 	{
 		public static void PopulateItems()
 		{
 			new BaseItem(new int[][]
 			{
 				new int[] { 34 },
-				new int[] {43,0,39,59,67  },
+				new int[] {43,0,39,59,67 },
 			})
 			{
 				name = "Broken Flip-Flops",
@@ -46,12 +47,12 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {34 },
 				new int[] {34,40,41 },
 				new int[] {43,3,2 },
-				new int[] {43,65,67  },
-		   })
+				new int[] {43,65,67 },
+		  })
 			{
 				name = "Damaged Leather Boots",
 				description = "A pair of leather boots. They look good and have only some scratches.",
@@ -65,12 +66,12 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {34 },
 				new int[] {3,2 },
 				new int[] {43,3,2,1,4 },
-				new int[] {43,65,67  },
-		   })
+				new int[] {43,65,67 },
+		  })
 			{
 				name = "Sturdy Leather Boots",
 				description = "A pair of leather boots. They are in a very good condition.",
@@ -84,12 +85,12 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-		   {
-			   new int[] {34 },
+		  {
+			  new int[] {34 },
 				new int[] {34,39,41,11,57 },
 				new int[] {-1},
 				new int[] {16,7,8 },
-				new int[] {43,65,67  },
+				new int[] {43,65,67 },
 			})
 			{
 				name = "Damaged Army Boots",
@@ -104,13 +105,13 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {34 },
 				new int[] {34,3,2,11 },
 				new int[] {-1},
 				new int[] {16,7,8 },
-				new int[] {43,65,67  },
-		   })
+				new int[] {43,65,67 },
+		  })
 			{
 				name = "Army Boots",
 				description = "Sturdy, hard, resistant boots.",
@@ -124,15 +125,15 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-		   {
-			   new int[] {25,22 },
-			   new int[] {11,1,3,17 },
-			   new int[] {22,1,3,17 },
-			   new int[] {28,1,65 },
-			   new int[] {-1 },
-			   new int[] {5,6,16,31,7,8,9,10 },
-			   new int[] {5,6,16,31,7,8,9,10 },
-		   })
+		  {
+			  new int[] {25,22 },
+			  new int[] {11,1,3,17 },
+			  new int[] {22,1,3,17 },
+			  new int[] {28,1,65 },
+			  new int[] {-1 },
+			  new int[] {5,6,16,31,7,8,9,10 },
+			  new int[] {5,6,16,31,7,8,9,10 },
+		  })
 			{
 				name = "Armsy Skin Footwear",
 				description = "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin.",
@@ -146,11 +147,11 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(85),
 			}.DropSettings_OnlyArmsy();
 			new BaseItem(new int[][]
-	  {
+	 {
 				new int[] {42,0 },
-				new int[] {40,41,26,25,67  },
+				new int[] {40,41,26,25,67 },
 				new int[] {43,65,0 },
-	  })
+	 })
 			{
 				name = "Finger Warmer",
 				description = "A little glove to keep your fingers warm and cozy.",
@@ -203,7 +204,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {1,2,4,6,8,9},
 				new int[] {1,11,65},
 				new int[] {21,22,23},
@@ -224,10 +225,10 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-	   {
+	  {
 				new int[] {43,0 },
 				new int[] {43,39,40,41,42 },
-	   })
+	  })
 			{
 				name = "Worn Shorts",
 				description = "Some protection for legs.",
@@ -241,11 +242,11 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {1000,1001,1002},
 				new int[] {1000,1001,1002,1003,1004,0,0,0,0},
 				new int[] {8,9,0,0,0,0 },
-		   })
+		  })
 			{
 				name = "Cargo Shorts",
 				description = "No protection at all but they allow to carry more items.",
@@ -277,13 +278,13 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {1,2,3,4,5,6,65},
 				new int[] {43,16,0,41,3,2,1 },
 				new int[] {6,7,8,9,10,16,17,31, },
 				new int[] {39,40,41,42,43,44,0,0,0,0,0,0,1003,1004},
-		   })
+		  })
 			{
 				name = "Leather Jacket",
 				description = "Offers little protection",
@@ -297,12 +298,12 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5,3,1 },
 				new int[] {5 },
 				new int[] {16},
 				new int[] {7,11 },
-		   })
+		  })
 			{
 				name = "Boar Skin Armor",
 				description = "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies.",
@@ -316,14 +317,14 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {5,3,4,2,1 },
 				new int[] {14,0,0,0 },
 				new int[] {6,8,9},
 				new int[] {6,8,9},
 				new int[] {12,13,0,65,66 },
-		   })
+		  })
 			{
 				name = "Crocodile Skin Armor",
 				Rarity = 2,
@@ -335,7 +336,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			BaseItem baseItem1 = new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {16 },
 				new int[] {18,17,16},
@@ -343,7 +344,7 @@ namespace ChampionsOfForest
 				new int[] {65,0},
 				new int[] {12,13,1,2,3,4},
 				new int[] {25,22,0},
-		   })
+		  })
 			{
 				name = "Plate armour",
 				Rarity = 4,
@@ -356,7 +357,7 @@ namespace ChampionsOfForest
 			};
 			baseItem1.PossibleStats[1][0].Multipier = 2.5f;
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {65 },
 				new int[] {16},
@@ -365,7 +366,7 @@ namespace ChampionsOfForest
 				new int[] {6,8,9},
 				new int[] {45,43,39,42},
 				new int[] {7,10,11,17,18,31,66},
-		   })
+		  })
 			{
 				name = "Bear Skin Armor",
 				Rarity = 3,
@@ -377,7 +378,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {12,13},
 				new int[] {13,23,26},
@@ -386,7 +387,7 @@ namespace ChampionsOfForest
 				new int[] {15,14},
 				new int[] {16,23,4,5,6,66},
 				new int[] {16,23,4,5,6,0,0,0,0},
-		   })
+		  })
 			{
 				name = "Archer's Gear",
 				Rarity = 5,
@@ -398,7 +399,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {5 },
 				new int[] {23,26,2 },
 				new int[] {23,26 },
@@ -410,7 +411,7 @@ namespace ChampionsOfForest
 				new int[] {16,23,4,5,6},
 				new int[] {45,46,66},
 				new int[] {27,48},
-		   })
+		  })
 			{
 				name = "Hazard's Gear",
 				Rarity = 6,
@@ -422,7 +423,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {47 },
 				new int[] {4,29 },
 				new int[] {4,29 },
@@ -434,7 +435,7 @@ namespace ChampionsOfForest
 				new int[] {4,17,6,44,38,21,24,8,9},
 				new int[] {4,17,6,44,38,21,24,8,9},
 				new int[] {4,17,6,44,38,21,24,8,9},
-		   })
+		  })
 			{
 				name = "Mysterious robe",
 				description = "Magic flows through the entirety of this object. It's made out of unknown material",
@@ -471,14 +472,14 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {25 },
 				new int[] {25 ,62,63,64},
 				new int[] {6,49},
 				new int[] {22,0,25,1,2,3,4},
 				new int[] {1,2,3,4},
 				new int[] {39,40,41,42,44,8,18,65 },
-		  })
+		 })
 			{
 				name = "Longsword",
 				description = "Sharp and long",
@@ -493,7 +494,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {25 },
 				new int[] {6,49},
 				new int[] {22,0,25,1,2,3,4},
@@ -502,7 +503,7 @@ namespace ChampionsOfForest
 				new int[] {5,6,45,46,16,8},
 				new int[] {39,40,41,42,44,8 },
 				new int[] {39,40,41,42,44,8,62,63,64 },
-		  })
+		 })
 			{
 				name = "Full Metal Sword",
 				description = "It's sooo big...",
@@ -517,7 +518,7 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {25,1,3 },
 				new int[] {25,22,1,3 },
 				new int[] {49 },
@@ -526,7 +527,7 @@ namespace ChampionsOfForest
 				new int[] {14,31,49 },
 				new int[] {14,18,49 },
 				new int[] {38,36,1,3,4,5,6,16 ,62,63,64},
-		  })
+		 })
 			{
 				name = "The Leech",
 				description = "Hey where did my health g- oh it's back...",
@@ -552,7 +553,7 @@ namespace ChampionsOfForest
 				new int[] {2,23,26,20,16,15,60},
 				new int[] {52,66,60,0,0},
 				new int[] {66},
-				  })
+				 })
 			{
 				name = "Smokey's Sacred Quiver",
 				description = "SmokeyTheBear died because he never used this item.",
@@ -625,10 +626,10 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {5,6,7,8,0,0,0},
 				new int[] {43},
-				   })
+				  })
 			{
 				name = "Broken Leather Shoulder Armor",
 				Rarity = 0,
@@ -680,11 +681,11 @@ namespace ChampionsOfForest
 				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(40); ModdedPlayer.Stats.spell_blinkDamage.Substract(60); },
 			};
 			new BaseItem(new int[][]
-					  {
+					 {
 				new int[] {39,49,5,6,7,8,0,0,0},
 				new int[] {43,0},
 				new int[] {43},
-					  })
+					 })
 			{
 				name = "MAGA Cap",
 				description = "Wearing this item channels the power of D.Trump to you",
@@ -725,9 +726,9 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {39,40,41,42,43,12,13},
-				   })
+				  })
 			{
 				name = "Broken Loop",
 				Rarity = 0,
@@ -772,10 +773,10 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
-					  {
+					 {
 				new int[] {39,40,41,42,43},
 				new int[] {-1},
-					  })
+					 })
 			{
 				name = "Scarf",
 				Rarity = 1,
@@ -802,11 +803,11 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {39,40,41,42,43},
 				new int[] {43},
 				new int[] {16},
-		   })
+		  })
 			{
 				name = "Worn Bracer",
 				Rarity = 1,
@@ -818,12 +819,12 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {39,40,41,42,43},
 				new int[] {16},
 				new int[] {-1},
 				new int[] {5,6,7,8,9,10},
-		   })
+		  })
 			{
 				name = "Leather Bracer",
 				Rarity = 2,
@@ -835,9 +836,9 @@ namespace ChampionsOfForest
 				icon = Res.ResourceLoader.GetTexture(94),
 			};
 			new BaseItem(new int[][]
-					  {
+					 {
 				new int[] {32},
-					  })
+					 })
 			{
 				name = "Greater Mutated Heart",
 				uniqueStat = "Can be consumed by right clicking it",
@@ -917,11 +918,11 @@ namespace ChampionsOfForest
 				name = "Moon Boots",
 				description = "A pair of boots from the moon.",
 				lore = "It is said that the wearer will not take fall damage while wearing these boots and will jump like on the moon, I wouldn't trust it tough.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85), //icon ids, dont worry about that
 			};
@@ -938,11 +939,11 @@ namespace ChampionsOfForest
 				name = "Golden Ring of Strength",
 				description = "A Ring of ancient times.",
 				lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -959,11 +960,11 @@ namespace ChampionsOfForest
 				name = "Golden Ring of Vitality",
 				description = "A Ring of ancient times.",
 				lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -981,11 +982,11 @@ namespace ChampionsOfForest
 				name = "Golden Ring of Agility",
 				description = "A Ring of ancient times.",
 				lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -1002,168 +1003,168 @@ namespace ChampionsOfForest
 				name = "Golden Ring of Intelligence",
 				description = "A Ring of ancient times.",
 				lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			//Silver Rings---------------------------------------------------------------------------
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {1},
 				new int[] {22,25,12,13},
 				new int[] {35,50,53},
 				new int[] {20,0,0,0}
-			  })
+			 })
 			{
 				name = "Silver Ring of Strength",
 				description = "A Ring of ancient times.",
 				lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {3},
 				new int[] {7,10,31,5, },
 				new int[] {11,17,0},
 				new int[] {14,16,45},
-			  })
+			 })
 			{
 				name = "Silver Ring of Vitality",
 				description = "A Ring of ancient times.",
 				lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 8,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {2},
 				new int[] {12,13,51,8,9, },
 				new int[] {15,18,34,36,0},
 				new int[] {23,48,54,26,6,57,0,0,0 }
-			  })
+			 })
 			{
 				name = "Silver Ring of Agility",
 				description = "A Ring of ancient times.",
 				lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {4},
 				new int[] { 12, 13, 21, 24,12, 13,21,24,0},
 				new int[] {19,47,49,6},
 				new int[] { 57,37,38,0},
-			  })
+			 })
 			{
 				name = "Silver Ring of Intelligence",
 				description = "A Ring of ancient times.",
 				lore = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			//Steel Rings-------------------------------------------------------------------
 			new BaseItem(new int[][]
-			  {
-				  new int[] {1},
-				  new int[] {12,13,65},
-				  new int[] {22,25, 57,35,50,53,20},
-			  })
+			 {
+				 new int[] {1},
+				 new int[] {12,13,65},
+				 new int[] {22,25, 57,35,50,53,20},
+			 })
 			{
 				name = "Steel Ring of Strength",
 				description = "A Ring of ancient times.",
 				lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 6,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {3},
 				new int[] {7,10,31,5,65},
 				new int[] {14,16, 45,11,17,0},
-			  })
+			 })
 			{
 				name = "Steel Ring of Vitality",
 				description = "A Ring of ancient times.",
 				lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 6,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {2},
 				new int[] {8,9, 12,13,51,57},
 				new int[] {23,54,26,59,18,34},
-			  })
+			 })
 			{
 				name = "Steel Ring of Agility",
 				description = "A Ring of ancient times.",
 				lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 10,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {4},
 				new int[] {12,13,21,24,6},
 				new int[] {19,47,49,57,37,38,21,24},
-			  })
+			 })
 			{
 				name = "Steel Ring of Intelligence",
 				description = "A Ring of ancient times.",
 				lore = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 6,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -1171,7 +1172,7 @@ namespace ChampionsOfForest
 			//One Ring to rule them all----------------------------------------------------------
 
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {1,3,2,4},
 				new int[] {12,13},
 				new int[] {22,25,30,},
@@ -1187,17 +1188,17 @@ namespace ChampionsOfForest
 				new int[] {19,47,49,57,6},
 				new int[] {29,37,38,57},
 				new int[] {65},
-			  })
+			 })
 			{
 				name = "The One Ring To Rule Them All",
 				description = "An Ancient magical Ring of great power.",
 				lore = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?",
 				uniqueStat= "Attracts unwanted attention.",
-				Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 7,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 20,
 				maxLevel = 30,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -1216,11 +1217,11 @@ namespace ChampionsOfForest
 				name = "Golden Locket of Strength",
 				description = "A Locket of ancient times.",
 				lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 3,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 15,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1237,11 +1238,11 @@ namespace ChampionsOfForest
 				name = "Golden Locket of Vitality",
 				description = "A Locket of ancient times.",
 				lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 3,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 15,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1258,11 +1259,11 @@ namespace ChampionsOfForest
 				name = "Golden Locket of Agility",
 				description = "A Locket of ancient times.",
 				lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 3,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 15,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1279,11 +1280,11 @@ namespace ChampionsOfForest
 				name = "Golden Locket of Intelligence",
 				description = "A Locket of ancient times.",
 				lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 3,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 15,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1302,11 +1303,11 @@ namespace ChampionsOfForest
 				name = "Silver Locket of Strength",
 				description = "A Locket of ancient times.",
 				lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1323,11 +1324,11 @@ namespace ChampionsOfForest
 				name = "Silver Locket of Vitality",
 				description = "A Locket of ancient times.",
 				lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 20,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1344,11 +1345,11 @@ namespace ChampionsOfForest
 				name = "Silver Locket of Agility",
 				description = "A Locket of ancient times.",
 				lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 8,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1365,11 +1366,11 @@ namespace ChampionsOfForest
 				name = "Silver Locket of Intelligence",
 				description = "A Locket of ancient times.",
 				lore = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 2,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 2,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 5,
 				maxLevel = 8,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1389,11 +1390,11 @@ namespace ChampionsOfForest
 				name = "Emerald Pendant of Strength",
 				description = "A Pendant of ancient times.",
 				lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 12,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1411,11 +1412,11 @@ namespace ChampionsOfForest
 				name = "Emerald Pendant of Vitality",
 				description = "A Pendant of ancient times.",
 				lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 12,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1434,11 +1435,11 @@ namespace ChampionsOfForest
 				name = "Emerald Pendant of Agility",
 				description = "A Pendant of ancient times.",
 				lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 12,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1457,11 +1458,11 @@ namespace ChampionsOfForest
 				name = "Emerald Pendant of Intelligence",
 				description = "A Pendant of ancient times.",
 				lore = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 5,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 5,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 12,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1477,16 +1478,16 @@ namespace ChampionsOfForest
 			new int[] {65,30},
 			new int[] {-1},
 			new int[] {-1},
-		   })
+		  })
 			{
 				name = "Diamond Pendant of Strength",
 				description = "A Pendant of ancient times.",
 				lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 12,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1506,11 +1507,11 @@ namespace ChampionsOfForest
 				name = "Diamond Pendant of Vitality",
 				description = "A Pendant of ancient times.",
 				lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 12,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1530,11 +1531,11 @@ namespace ChampionsOfForest
 				name = "Diamond Pendant of Agility",
 				description = "A Pendant of ancient times.",
 				lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 12,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1555,11 +1556,11 @@ namespace ChampionsOfForest
 				name = "Diamond Pendant of Intelligence",
 				description = "A Pendant of ancient times.",
 				lore = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 12,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1581,11 +1582,11 @@ namespace ChampionsOfForest
 				name = "Armsy Finger Necklace",
 				description = "A Necklace decorated with armsy fingertips.",
 				lore = "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 5,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 
@@ -1609,11 +1610,11 @@ namespace ChampionsOfForest
 				name = "Virginia Heart Pendant",
 				description = "A Pendant of a petrified Virginia heart.",
 				lore = "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 5,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1637,11 +1638,11 @@ namespace ChampionsOfForest
 				name = "Cowman Toe Necklace",
 				description = "A Necklace decorated with cowman toes.",
 				lore = "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 20,
 				maxLevel = 40,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
@@ -1667,11 +1668,11 @@ namespace ChampionsOfForest
 				description = "A Pendant of a shrunken babyhead.",
 				lore = "A pedant of great power. Obtainable only from babies or crafting",
 				uniqueStat = "decrease a random cooldown by 1 second whenever you hit something with melee or ranged attack.",
-				Rarity = 7,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 7,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 30,
 				maxLevel = 40,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
@@ -1698,11 +1699,11 @@ namespace ChampionsOfForest
 				name = "Megan's Locket",
 				description = "The Locket Megan wore.",
 				lore = "Megan wore this Locket, it has a picture of her mom in it.",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 4,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			}.DropSettings_OnlyMegan();
@@ -2421,7 +2422,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			//Item 4/5
 			BaseItem mask = new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {18},
 				new int[] {22,23,21},
 				new int[] {11},
@@ -2430,7 +2431,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,31,36,37,38,43,44,45,46,47,49,50,53,54,55,57},
 				new int[] {24,25,26,0,0,0},
 				new int[] {29,30,48},
-			  })
+			 })
 			{
 				name = "Mask of Madness",
 				Rarity = 5,
@@ -2617,14 +2618,14 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 					new int[] {2005},
 					new int[] {-1},
 					new int[] {-1},
 					new int[] {42,43},
 					new int[] {44,0,49,},
 					new int[] {21,24,0,0,0,0},
-		   })
+		  })
 			{
 				name = "Ice Scroll",
 				description = "A spell surrounded by flying shards of ice, contains tramendous power of cold.",
@@ -2638,14 +2639,14 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 					new int[] {2006},
 					new int[] {57,1,2,3,4},
 					new int[] {34,45,46,15,1,2,3,4,57,11,14,7,10,59},
 					new int[] {8,1,2,3,4,9,5,6},
 					new int[] {1000,1001,1002},
 					new int[] {1000,1001,1002, 1003, 1004, 0,0,0,0,0,0,0},
-		   })
+		  })
 			{
 				name = "Motorboat Modification Blueprints",
 				description = "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts.",
@@ -2718,7 +2719,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 2.5f;
 			new BaseItem(new int[][]
-					   {
+					  {
 				new int[]{26,22},
 				new int[]{63},
 				new int[]{1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,20,34,35,36,37,38,44,45,46,47,49,53,54,55,},
@@ -2726,7 +2727,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[]{19,56},
 				new int[] {26},
 				new int[] {53,22,25,12,13,1,2,3,4,39,40,41,42,43},
-					   })
+					  })
 			{
 				name = "Axe of Misfortune",
 				description = "Misfortunate are the ones on the recieving end. They will bleed a lot",
@@ -2754,16 +2755,16 @@ new int[] {0,0,0,0,62,63,64},
 				name = "Golden Ring",
 				description = "A Ring of ancient times.",
 				lore = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 4,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 4,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 4,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {1,2,3,4},
 				new int[] {-1},
 				new int[] {-1},
@@ -2771,23 +2772,23 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-		   })
+		  })
 			{
 				name = "Golden Locket",
 				description = "A Locket of ancient times.",
 				lore = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.",
-				Rarity = 3,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 3,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 1,
 				maxLevel = 4,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
-		   {
-			   new int[]{0,39}
-		   })
+		  {
+			  new int[]{0,39}
+		  })
 			{
 				name = "Dull Axe",
 				Rarity = 0,
@@ -2812,7 +2813,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {2,23,26,20,16,15,60},
 				new int[] {52,66,60,0,0},
 				new int[] {-1},
-				  })
+				 })
 			{
 				name = "Precise Adjustments",
 				uniqueStat = "Focus attack speed buff duration is increased by <color=gold>16</color> seconds",
@@ -2827,7 +2828,7 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.spell_focusOnAtkSpeedDuration.Substract(16),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {25 },
 				new int[] {22,1,18,},
 				new int[] {1,2,3,4,57,},
@@ -2840,7 +2841,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {15,14,45,7,35,10},
 				new int[] {62,63,64, },
 				new int[] {53,61 },
-		   })
+		  })
 			{
 				name = "Rage",
 				uniqueStat = "Increases maximum stacks of frenzy by <color=gold>10</color>",
@@ -2862,10 +2863,10 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {1,2,3,4,57,},
 				new int[]{18},
 				new int[] {25 },
-				new int[] {62,63,64,  },
-				new int[] {53,  },
-				new int[] {49,14,  },
-				new int[] {35,36,15,12,  },
+				new int[] {62,63,64, },
+				new int[] {53, },
+				new int[] {49,14, },
+				new int[] {35,36,15,12, },
 				new int[] {27,28,30},
 				new int[]{18,62,63,64},
 				new int[] {65},
@@ -2889,7 +2890,7 @@ new int[] {0,0,0,0,62,63,64},
 			jaggedRipper.PossibleStats[1][0].Multipier = 2;
 
 			new BaseItem(new int[][]
-					  {
+					 {
 						new int[] {25 },
 						new int[] {22,},
 						new int[] {1,2,3,4,57,},
@@ -2902,7 +2903,7 @@ new int[] {0,0,0,0,62,63,64},
 						new int[] {15,14,45,7,35,10},
 						new int[] {62,63,64, },
 						new int[] {53,61 },
-					  })
+					 })
 			{
 				name = "Bloodthirster",
 				lore = "Drenched in blood of many unfortunate foes.",
@@ -2958,7 +2959,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 			{
-			  new int[] {11},
+			 new int[] {11},
 				new int[] {65},
 				new int[] {16,17},
 				new int[] {1,11,45},
@@ -2987,7 +2988,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 	 {
-			  new int[] {1},
+			 new int[] {1},
 				new int[] {12,3,16,45,46},
 				new int[] {13,4,62,64},
 				new int[] {22},
@@ -3018,8 +3019,8 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 			{
-			  new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-			  new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 				new int[] {13,4,62,64},
 				new int[] {26,2,34,57,55},
 				new int[] {26,23},
@@ -3045,15 +3046,15 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.i_SoraBracers.value = false,
 			};
 			new BaseItem(new int[][]
-		   {
-			  new int[] {18},
+		  {
+			 new int[] {18},
 				new int[] {60,0},
 				new int[] {2,40},
 				new int[] {12,13,2,40,16,66},
 				new int[] {39,40,41,42,43,0,0},
 				new int[] {23,26},
 				new int[] {-1,0},
-		   })
+		  })
 			{
 				name = "Ancient Greatbow",
 				description = "A massive and slow bow, deals extra damage",
@@ -3069,7 +3070,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {18},
+			 new int[] {18},
 				new int[] {61},
 				new int[] {2,0,0,0},
 				new int[] {12,13,2,40,16},
@@ -3098,7 +3099,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {18},
+			 new int[] {18},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
@@ -3130,7 +3131,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 			{
-			  new int[] {18},
+			 new int[] {18},
 
 				new int[] {2,40,0},
 			})
@@ -3149,8 +3150,8 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
-			  new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
+			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 				new int[] {13,4,62,64},
 				new int[] {26,2,34,57,55},
 				new int[] {26,23},
@@ -3178,13 +3179,13 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.i_HazardCrown.value = false,
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {39,40,41,42,43,4},
 				new int[] {4,6,24,21,16,3,42,43,49},
 				new int[] {0,6,24,21,16,3,47,49,38,17,10,11,9,8,7,6},
 				new int[] {37,4},
 				new int[] {43,16,17,37,47 },
-				   })
+				  })
 			{
 				name = "Novice Magic Caster's Bracers",
 				Rarity = 4,
@@ -3196,13 +3197,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,0,0,0},
 				new int[] {43,16,2 },
-				   })
+				  })
 			{
 				name = "Ranger's Bracers",
 				Rarity = 4,
@@ -3214,13 +3215,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
 				new int[] {2,12,13,22,25,40,43,54},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,1,17,18,16},
 				new int[] {43,1,65 },
-				   })
+				  })
 			{
 				name = "Swordsman's Bracers",
 				Rarity = 4,
@@ -3232,7 +3233,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {3,5,6,7,8,9,10,11,14,15,16},
 				new int[] {7,16,18,0,0},
 				new int[] {39,40,41,42,43,31,16},
@@ -3240,7 +3241,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-				   })
+				  })
 			{
 				name = "Healer's Bracers",
 				Rarity = 5,
@@ -3270,13 +3271,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,68},
 				new int[] {43,2 },
-				   })
+				  })
 			{
 				name = "Ranger's Gloves",
 				Rarity = 4,
@@ -3288,13 +3289,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {5,6,7,8,9,10,16,17,26},
 				new int[] {37,18,7,0},
 				new int[] {43,1,65 },
-				   })
+				  })
 			{
 				name = "Swordsman's Gloves",
 				Rarity = 4,
@@ -3306,7 +3307,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {3,5,6,7,8,9,10,11,14,15,16},
 				new int[] {7,16,18,0,0},
 				new int[] {39,40,41,42,43,31,16},
@@ -3314,7 +3315,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-				   })
+				  })
 			{
 				name = "Healer's Gloves",
 				Rarity = 5,
@@ -3326,7 +3327,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {-1},
 				new int[] {-1},
@@ -3335,7 +3336,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-				   })
+				  })
 			{
 				name = "Fate Gloves",
 				Rarity = 6,
@@ -3347,7 +3348,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {34},
 				new int[] {-1},
@@ -3356,7 +3357,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-				   })
+				  })
 			{
 				name = "Fate Boots",
 				Rarity = 6,
@@ -3368,7 +3369,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 			new BaseItem(new int[][]
-				   {
+				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {34},
 				new int[] {-1},
@@ -3379,7 +3380,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-				   })
+				  })
 			{
 				name = "Greed",
 				uniqueStat = "Automatically casts wide reach every second",
@@ -3418,13 +3419,13 @@ new int[] {0,0,0,0,62,63,64},
 			titaniumleggins.PossibleStats[0][0].Multipier = 3;
 			titaniumleggins.PossibleStats[1][0].Multipier = 1.5f;
 			new BaseItem(new int[][]
-	  {
+	 {
 				new int[] {42,39,40,41,43,0,0 },
 				new int[] {16,24,25,26,5,6,7,8,9,10,11,12,13,14,15,17,18,55,60,61,62,63,64,0,0,0 },
 				new int[] {16,24,25,26,5,6,7,8,9,10,11,12,13,14,15,17,18,55,60,61,62,63,64 },
 				new int[] {43,0,0,0,16 },
 				new int[] {65,0},
-	  })
+	 })
 			{
 				name = "Iron Gauntlet",
 				Rarity = 2,
@@ -3437,7 +3438,7 @@ new int[] {0,0,0,0,62,63,64},
 			};
 
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {4,3,6},
 				new int[] {21,24,16 },
 				new int[] {29,4 },
@@ -3449,7 +3450,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1 },
 				new int[] {-1 },
 				new int[] {-1 },
-		  })
+		 })
 			{
 				name = "Magefist",
 				description = "Gloves that amplify magic",
@@ -3465,7 +3466,7 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueMultiplicative /= 2f; ModdedPlayer.Stats.spellCost.valueMultiplicative /= 2f; }
 			};
 			new BaseItem(new int[][]
-			   {
+			  {
 				new int[] {34 },
 				new int[] {34,5,1,2,4,3,2,11 },
 				new int[] {16,3,2,1,4 },
@@ -3473,7 +3474,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {16, },
 				new int[] {-1 },
 				new int[] {43 },
-			   })
+			  })
 			{
 				name = "Armored Boots",
 				description = "Heavily armored, resistant to damage boots.",
@@ -3510,7 +3511,7 @@ new int[] {0,0,0,0,62,63,64},
 			}.PossibleStats[0][0].Multipier = 2;
 
 			new BaseItem(new int[][]
-		   {
+		  {
 					new int[] {4},
 					new int[] {6,4,3,44},
 					new int[] {21,24},
@@ -3519,7 +3520,7 @@ new int[] {0,0,0,0,62,63,64},
 					new int[] {-1},
 					new int[] {-1},
 					new int[] {47,4,5,6,7,61,17,0,0,0,0,2,56,57,49,64},
-		   })
+		  })
 			{
 				name = "Forbidden Scroll",
 				description = "Too powerful to be kept.",
@@ -3533,7 +3534,7 @@ new int[] {0,0,0,0,62,63,64},
 			};
 
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {16},
 				new int[] {1,2,3,4},
 				new int[] {17},
@@ -3541,7 +3542,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {16,18,11,34},
 				new int[] {37,34},
 				new int[] {-1},
-		  })
+		 })
 			{
 				name = "Doom Pauldrons",
 				description = "Despite the cool name, they are completely normal pair of shoulder armor.",
@@ -3554,7 +3555,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 			new BaseItem(new int[][]
-		  {
+		 {
 				new int[] {16},
 				new int[] {1,2,3,4,57,53,54,55},
 				new int[] {17,18,11,15},
@@ -3565,7 +3566,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-		  })
+		 })
 			{
 				name = "Wind armor",
 				description = "Run fast like the wind",
@@ -3653,7 +3654,7 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => ModdedPlayer.Stats.i_sparkOfLightAfterDark.value = false
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {21,22,23,24,25,26,1,2,4},
 				new int[] {12,13,11,47},
 				new int[] {62,63,64,1000,1001,1002,1003,1004},
@@ -3664,7 +3665,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-		   })
+		  })
 			{
 				name = "Purgatory",
 				description = "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer",
@@ -3683,7 +3684,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {18},
+			 new int[] {18},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
@@ -3715,7 +3716,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new int[][]
 		{
-			  new int[] {31},
+			 new int[] {31},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
@@ -3768,7 +3769,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {48 },
 				new int[] {23,26,2 },
 				new int[] {23,26 },
@@ -3782,7 +3783,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {45,46},
 				new int[] {27,49},
 				new int[] {-1},
-			  })
+			 })
 			{
 				name = "Moon Cuirass",
 				description = "A piece of armor designed for an archer. ",
@@ -3798,7 +3799,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			new BaseItem(new int[][]
-			  {
+			 {
 				new int[] {65 },
 				new int[] {1 },
 				new int[] {3},
@@ -3813,7 +3814,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
-			  })
+			 })
 			{
 				name = "Thornmail",
 				description = "Spiked death on the outside, really comfy on the inside",
@@ -3846,13 +3847,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
 			new BaseItem(new int[][]
-					   {
+					  {
 				new int[] {1 },
 				new int[] {25,0 },
 				new int[] {25 ,62,63,64},
 				new int[] {6,49},
 				new int[] {39,40,41,42,44,8,18,65 },
-					   })
+					  })
 			{
 				name = "Giant Polearm",
 				description = "Used by the Sir Kruber",
@@ -3870,11 +3871,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Crude Feather",
-				description = "If equipped on a weapon, increases ranged damage by 10%\n" +
-				"If equipped on boots, increases movement speed by 6.5%\n" +
-				"If equipped on a helmet, increases critical hit chance by 7.5%\n" +
-				"If equipped on an amulet, increases ranged armor piercing by 50\n" +
-				"If equipped in other slots, increases agility by 15",
+				description = 
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount			(3,BaseItem.ItemType.Weapon,		1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount			(3,BaseItem.ItemType.Boot,			1).ToString("P") +"\n" +
+				"If equipped on a helmet, increases critical hit chance by "+ StatActions.GetSocketedStatAmount		(3,BaseItem.ItemType.Helmet,		1).ToString("P")+ "\n" +
+				"If equipped on accessories, increases ranged armor piercing by "+ StatActions.GetSocketedStatAmount(3,BaseItem.ItemType.Amulet,		1).ToString("N")+ "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount				(3,BaseItem.ItemType.ChestArmor,	1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -3888,11 +3890,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Soft Feather",
-				description = "If equipped on a weapon, increases ranged damage by 20%\n" +
-				"If equipped on boots, increases movement speed by 12.5%\n" +
-				"If equipped on a helmet, increases critical hit chance by 12.5%\n" +
-				"If equipped on an amulet, increases ranged armor piercing by 100\n" +
-				"If equipped in other slots, increases agility by 30",
+				description =
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -3906,11 +3909,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Ornate Feather",
-				description = "If equipped on a weapon, increases ranged damage by 35%\n" +
-					"If equipped on boots, increases movement speed by 18%\n" +
-					"If equipped on a helmet, increases critical hit chance by 20%\n" +
-					"If equipped on an amulet, increases ranged armor piercing by 200\n" +
-					"If equipped in other slots, increases agility by 60",
+				description =
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -3925,11 +3929,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Wonderful Feather",
-				description = "If equipped on a weapon, increases ranged damage by 50%\n" +
-				   "If equipped on boots, increases movement speed by 24%\n" +
-				   "If equipped on a helmet, increases critical hit chance by 25%\n" +
-				   "If equipped on an amulet, increases ranged armor piercing by 350\n" +
-				   "If equipped in other slots, increases agility by 120",
+				description =
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -3943,11 +3948,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "White Crow's Feather",
-				description = "If equipped on a weapon, increases ranged damage by 70%\n" +
-				"If equipped on boots, increases movement speed by 30%\n" +
-				"If equipped on a helmet, increases critical hit chance by 30%\n" +
-				"If equipped on an amulet, increases ranged armor piercing by 600\n" +
-				"If equipped in other slots, increases agility by 250",
+				description =
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -3964,11 +3970,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Reef Shark",
-				description = "If equipped on a weapon, increases melee damage by 10%\n" +
-				"If equipped on boots, increases damage reduction by 6.5%\n" +
-				"If equipped on a helmet, increases attack speed by 7.5%\n" +
-				"If equipped on an amulet, increases melee armor piercing by 50\n" +
-				"If equipped in other slots, increases strength by 15",
+				description =
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -3982,11 +3989,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Tiger Shark Tooth",
-				description = "If equipped on a weapon, increases melee damage by 20%\n" +
-				"If equipped on boots, increases damage reduction by 12.5%\n" +
-				"If equipped on a helmet, increases attack speed by 12.5%\n" +
-				"If equipped on an amulet, increases melee armor piercing by 100\n" +
-				"If equipped in other slots, increases strength by 30",
+				description =
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -4000,11 +4008,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Whale Shark Tooth",
-				description = "If equipped on a weapon, increases melee damage by 35%\n" +
-					"If equipped on boots, increases damage reduction by 18%\n" +
-					"If equipped on a helmet, increases attack speed by 20%\n" +
-					"If equipped on an amulet, increases melee armor piercing by 200\n" +
-					"If equipped in other slots, increases strength by 60",
+				description =
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -4019,11 +4028,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Great White Shark Tooth",
-				description = "If equipped on a weapon, increases melee damage by 50%\n" +
-				   "If equipped on boots, increases damage reduction by 24%\n" +
-				   "If equipped on a helmet, increases attack speed by 25%\n" +
-				   "If equipped on an amulet, increases melee armor piercing by 350\n" +
-				   "If equipped in other slots, increases strength by 120",
+				description =
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -4037,11 +4047,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Megalodon's Tooth",
-				description = "If equipped on a weapon, increases melee damage by 70%\n" +
-				"If equipped on boots, increases damage reduction by 30%\n" +
-				"If equipped on a helmet, increases attack speed by 30%\n" +
-				"If equipped on an amulet, increases melee armor piercing by 600\n" +
-				"If equipped in other slots, increases strength by 250",
+				description =
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -4058,11 +4069,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Uncut Sapphire",
-				description = "If equipped on a weapon, increases magic damage by 10%\n" +
-			"If equipped on boots, decreases spell cost by 6.5%\n" +
-			"If equipped on a helmet, decreases spell cooldown by 7.5%\n" +
-			"If equipped on an amulet, increases energy on hit by 1\n" +
-			"If equipped in other slots, increases intelligence by 15",
+				description =
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -4076,11 +4088,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Clear Sapphire",
-				description = "If equipped on a weapon, increases magic damage by 20%\n" +
-				"If equipped on boots, decreases spell cost by 12.5%\n" +
-				"If equipped on a helmet, decreases spell cooldown by 12.5%\n" +
-				"If equipped on an amulet, increases energy on hit by 2\n" +
-				"If equipped in other slots, increases intelligence by 30",
+				description =
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -4094,11 +4107,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Shiny Sapphire",
-				description = "If equipped on a weapon, increases magic damage by 35%\n" +
-					"If equipped on boots, decreases spell cost by 18%\n" +
-					"If equipped on a helmet, decreases spell cooldown by 20%\n" +
-					"If equipped on an amulet, increases energy on hit by 4\n" +
-					"If equipped in other slots, increases intelligence by 60",
+				description =
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -4113,11 +4127,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Enchanted Sapphire",
-				description = "If equipped on a weapon, increases magic damage by 50%\n" +
-				   "If equipped on boots, decreases spell cost by 24%\n" +
-				   "If equipped on a helmet, decreases spell cooldown by 25%\n" +
-				   "If equipped on an amulet, increases energy on hit by 7\n" +
-				   "If equipped in other slots, increases intelligence by 120",
+				description =
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -4131,11 +4146,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Celestial Sapphire",
-				description = "If equipped on a weapon, increases magic damage by 70%\n" +
-				"If equipped on boots, decreases spell cost by 30%\n" +
-				"If equipped on a helmet, decreases spell cooldown by 30%\n" +
-				"If equipped on an amulet, increases energy on hit by 12\n" +
-				"If equipped in other slots, increases intelligence by 250",
+				description =
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -4151,11 +4167,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Uncut Moonstone",
-				description = "If equipped on a weapon, increases all healing by 10%\n" +
-	 "If equipped on boots, increases magic find by 6.5%\n" +
-	 "If equipped on a helmet, increases experience recieved by 7.5%\n" +
-	 "If equipped on an amulet, increases life per second by 2\n" +
-	 "If equipped in other slots, increases vitality by 15",
+				description =
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -4169,11 +4186,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Clear Moonstone",
-				description = "If equipped on a weapon, increases all healing by 20%\n" +
-				"If equipped on boots, increases magic find by 12.5%\n" +
-				"If equipped on a helmet, increases experience recieved by 12.5%\n" +
-				"If equipped on an amulet, increases life per second by 4\n" +
-				"If equipped in other slots, increases vitality by 30",
+				description =
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -4187,11 +4205,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Shiny Moonstone",
-				description = "If equipped on a weapon, increases all healing by 35%\n" +
-					"If equipped on boots, increases magic find by 18%\n" +
-					"If equipped on a helmet, increases experience recieved by 20%\n" +
-					"If equipped on an amulet, increases life per second by 8\n" +
-					"If equipped in other slots, increases vitality by 60",
+				description =
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -4206,11 +4225,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Enchanted Moonstone",
-				description = "If equipped on a weapon, increases all healing by 50%\n" +
-				   "If equipped on boots, increases magic find by 24%\n" +
-				   "If equipped on a helmet, increases experience recieved by 25%\n" +
-				   "If equipped on an amulet, increases life per second by 14\n" +
-				   "If equipped in other slots, increases vitality by 120",
+				description =
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -4224,11 +4244,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Celestial Moonstone",
-				description = "If equipped on a weapon, increases all healing by 70%\n" +
-				"If equipped on boots, increases magic find by 30%\n" +
-				"If equipped on a helmet, increases experience recieved by 30%\n" +
-				"If equipped on an amulet, increases life per second by 24\n" +
-				"If equipped in other slots, increases vitality by 250",
+				description =
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -4245,11 +4266,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Lead Ore",
-				description = "If equipped on a weapon, increases weapon range by 10%\n" +
-  "If equipped on boots, increases resistance to magic by 6.5%\n" +
-  "If equipped on a helmet, increases maximum health by 7.5%\n" +
-  "If equipped on an amulet, increases thorns by 150\n" +
-  "If equipped in other slots, increases armor by 15",
+				description =
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -4263,11 +4285,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Vanadium Ore",
-				description = "If equipped on a weapon, increases weapon range by 20%\n" +
-				"If equipped on boots, increases resistance to magic by 12.5%\n" +
-				"If equipped on a helmet, increases maximum health by 12.5%\n" +
-				"If equipped on an amulet, increases thorns by 300\n" +
-				"If equipped in other slots, increases armor by 30",
+				description =
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -4281,11 +4304,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Titanium Ore",
-				description = "If equipped on a weapon, increases weapon range by 35%\n" +
-					"If equipped on boots, increases resistance to magic by 18%\n" +
-					"If equipped on a helmet, increases maximum health by 20%\n" +
-					"If equipped on an amulet, increases thorns by 600\n" +
-					"If equipped in other slots, increases armor by 60",
+				description =
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -4300,11 +4324,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Chromium Ore",
-				description = "If equipped on a weapon, increases weapon range by 50%\n" +
-				   "If equipped on boots, increases resistance to magic by 24%\n" +
-				   "If equipped on a helmet, increases maximum health by 25%\n" +
-				   "If equipped on an amulet, increases thorns by 1100\n" +
-				   "If equipped in other slots, increases armor by 120",
+				description =
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -4318,11 +4343,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Tungsten Ore",
-				description = "If equipped on a weapon, increases weapon range by 70%\n" +
-				"If equipped on boots, increases resistance to magic by 30%\n" +
-				"If equipped on a helmet, increases maximum health by 30%\n" +
-				"If equipped on an amulet, increases thorns by 1800\n" +
-				"If equipped in other slots, increases armor by 250",
+				description =
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -4388,7 +4414,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 			new BaseItem(new int[][]
-		   {
+		  {
 				new int[] {1000},
 				new int[] {1001},
 				new int[] {1002},
@@ -4398,7 +4424,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1 },
 				new int[] {-1 },
 				new int[] {-1 },
-		   })
+		  })
 			{
 				name = "Cargo Shorts MK2",
 				description = "Deepest pockets out there",
@@ -4470,11 +4496,11 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 			new BaseItem(new int[][]
-					  {
+					 {
 				new int[] {39,0},
 				new int[] {43,0},
 				new int[] {67},
-					  })
+					 })
 			{
 				name = "Eyepatch",
 				description = "A wise man once said:",
@@ -4911,11 +4937,11 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = "Ring of Fortune",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -4934,11 +4960,11 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = "Mana Ring",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -4955,11 +4981,11 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = "Mana Ring",
-				Rarity = 6,         //range 0-7, 0 is most common, 7 is ultra rare
+				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
 				CanConsume = false,
-				StackSize = 1,     //stacking in inventory like in mc, one means single item
+				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
@@ -5242,6 +5268,35 @@ new int[] {0,0,0,0,62,63,64},
 				onUnequip = () => AkagiSet.Unequip(),
 			};
 
+			new BaseItem(new Stat[][]
+		{
+				new[] { INTELLIGENCE,NONE },
+				new[] { ARMOR },
+				new[] { CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new[] { SPELLDMGFROMINT },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { ARMOR, SPELLDAMAGEINCREASE, BASESPELLDAMAGE, RESISTANCETOMAGIC},
+				new[] { INTELLIGENCE, MAXIMUMLIFE,LIFEPERSECOND },
+				new[] { SPELLDAMAGEINCREASE,BASESPELLDAMAGE, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, SPELLCOSTTOSTAMINA, PERCENTMAXIMUMENERGY, LIFEREGENERATION,RESISTANCETOMAGIC },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI,MAXHEALTHFROMVIT },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+		})
+			{
+				name = "Lama Mega's Blood Bag",
+				description = "",
+				uniqueStat = "Melee hits cause enemies to bleed for 100% of your health as damage for 10 seconds",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () => Events.Instance.OnHitMelee.AddListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
+				onUnequip = () => Events.Instance.OnHitMelee.RemoveListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
+			};
 		}
 	}
 }

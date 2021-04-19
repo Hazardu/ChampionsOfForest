@@ -24,7 +24,6 @@ namespace ChampionsOfForest
 			try
 			{
 				ModSettings.Version = ModAPI.Mods.LoadedMods["ChampionsOfForest"].Version;
-
 				if (SteamDSConfig.isDedicated)
 				{
 					ModAPI.Log.Write("isDedicated true");
@@ -37,7 +36,7 @@ namespace ChampionsOfForest
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("Playerobj");
 					go.AddComponent<ModReferences>();
-					ItemDataBase.Initialize();
+					ItemDefinitions.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
 					ExpEvents.Initialize();
@@ -54,7 +53,9 @@ namespace ChampionsOfForest
 				else
 				{
 					Res.ResourceLoader.InMainMenu = false;
-					NetworkPlayerStats.Reset();
+					NetworkPlayerStats.Reset();		
+					Events.ClearEvents();
+
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");
 					var moddedPlayer = go.AddComponent<ModdedPlayer>();
@@ -68,7 +69,7 @@ namespace ChampionsOfForest
 					go.AddComponent<AsyncHit>();
 					go.AddComponent<GlobalSFX>();
 					go.AddComponent<TheFartCreator>();
-					go.AddComponent<RCoroutines>();
+					go.AddComponent<XCoroutines>();
 					go.AddComponent<ActiveSpellManager>();
 					new GameObject("MainMenuObj").AddComponent<MainMenu>();
 
@@ -77,7 +78,7 @@ namespace ChampionsOfForest
 
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
-					ItemDataBase.Initialize();
+					ItemDefinitions.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;

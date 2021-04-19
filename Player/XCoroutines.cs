@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
-	public class RCoroutines : MonoBehaviour
+	public class XCoroutines : MonoBehaviour
 	{
-		public static RCoroutines i;
+		public static XCoroutines i;
 
 		private void Start()
 		{
@@ -22,13 +22,13 @@ namespace ChampionsOfForest.Player
 			i.StartCoroutine(routine);
 		}
 
-		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, XBArrowDamageMod dmgScript, int frame_delays )
+		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, System.Action dmgScript, int frame_delays )
 		{
 			for (int i = 0; i < frame_delays; i++)
 			{
 				yield return null;
 			}
-			dmgScript.NewHitAi(target, false, headshot);
+			dmgScript.Invoke();
 			ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
 			ModdedPlayer.instance.OnHit();
 			ModdedPlayer.instance.OnHit_Ranged(target);
@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Player
 			{
 				yield return null;
 				yield return null;
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
+				Network.NetworkManager.SendItemDrop(ItemDefinitions.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
 			}
 		}
 

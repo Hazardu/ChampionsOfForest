@@ -15,7 +15,7 @@ namespace ChampionsOfForest
 			ChampionsOfForest.Player.Events.Instance.OnAttackRanged.Invoke();
 			ChampionsOfForest.Player.Events.Instance.OnAttackRangedCrossbow.Invoke();
 
-			StartCoroutine(RCoroutines.i.AsyncCrossbowFire(_ammoId, _ammoSpawnPosGo, _boltProjectile, this));
+			StartCoroutine(XCoroutines.i.AsyncCrossbowFire(_ammoId, _ammoSpawnPosGo, _boltProjectile, this));
 		}
 
 		public void PublicEnablePickupTrigger(GameObject go)

@@ -236,6 +236,7 @@
     <Compile Include="Items\ItemDataBase_StatDefinitions.cs" />
     <Compile Include="Items\Sets\ItemSets.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
+    <Compile Include="Items\UniqueItemFunctions.cs" />
     <Compile Include="Player\Crafting\CraftingIngredient.cs" />
     <Compile Include="Player\Crafting\CraftingInterface.cs" />
     <Compile Include="Player\Crafting\Empowering.cs" />
@@ -282,7 +283,7 @@
     <Compile Include="Player\Pings\Ping.cs" />
     <Compile Include="Player\Overrides\PlayerRespawnMod.cs" />
     <Compile Include="Player\PlayerUtils.cs" />
-    <Compile Include="Player\RCoroutines.cs" />
+    <Compile Include="Player\XCoroutines.cs" />
     <Compile Include="Player\Spells\ActiveSpellManager.cs" />
     <Compile Include="Player\Spells\ForceGrab.cs" />
     <Compile Include="Res\Buildings.cs" />

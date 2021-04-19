@@ -291,7 +291,7 @@ namespace ChampionsOfForest.Player
 					int extraHitCount = 0;
 					if (dist >= 3600f)
 					{
-						OutputDmg *= 2.5f;
+						OutputDmg *= 1.5f;
 						extraHitCount = 1;
 						if (ModdedPlayer.Stats.perk_trueAimUpgrade && dist >= 14400f)
 						{
@@ -301,7 +301,7 @@ namespace ChampionsOfForest.Player
 					}
 					for (int i = 0; i < extraHitCount; i++)
 					{
-						RCoroutines.i.StartCoroutine(RCoroutines.i.ProjectileMultihit(target, OutputDmg, headDamage, this, i));
+						XCoroutines.i.StartCoroutine(XCoroutines.i.ProjectileMultihit(target, OutputDmg, headDamage, ()=> this.NewHitAi(target,false,headDamage), i));
 					}
 				}
 			
@@ -431,6 +431,20 @@ namespace ChampionsOfForest.Player
 						else if (ModSettings.FriendlyFire)
 						{
 							ChampionsOfForest.Player.Events.Instance.OnFriendlyFire.Invoke();
+
+							{
+								//checking if headshot
+								var head = target.root.Find("head");
+								if (head == null)
+									Debug.Log("Player has no head");
+								else
+								{
+									
+									if ((transform.position-head.position).sqrMagnitude < 0.4f)
+									headDamage = true;
+								}
+							}
+
 
 							float dmgUnclamped = this.OutputDmg;
 							float dist = Vector3.Distance(target.position, startposition)/3.28f;
@@ -600,6 +614,9 @@ namespace ChampionsOfForest.Player
 			dmgUnclamped = this.OutputDmg;
 			ModAPI.Console.Write("dmgUnclamped: " + dmgUnclamped);
 			if (ModdedPlayer.Stats.spell_seekingArrow)
+			{
+				dmgUnclamped *= 0.9f;
+			}
 			{
 				float dist = Vector3.Distance(target.position, startposition);
 				dmgUnclamped *= 1 + dist * ModdedPlayer.Stats.projectile_DamagePerDistance;

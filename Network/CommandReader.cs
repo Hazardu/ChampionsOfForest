@@ -277,7 +277,7 @@ namespace ChampionsOfForest.Network
 
 							case 5:
 								{
-									var baseItem = ItemDataBase.ItemBases[r.ReadInt32()];
+									var baseItem = ItemDefinitions.ItemBases[r.ReadInt32()];
 									Item item = new Item(baseItem, 1, 0, false);   //reading first value, id
 									ulong id = r.ReadUInt64();
 									int itemLvl = r.ReadInt32();
@@ -286,7 +286,7 @@ namespace ChampionsOfForest.Network
 									Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 									while (r.BaseStream.Position != r.BaseStream.Length)
 									{
-										ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
+										ItemStat stat = new ItemStat(ItemDefinitions.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
 										{
 											Amount = r.ReadSingle()
 										};
@@ -650,7 +650,7 @@ namespace ChampionsOfForest.Network
 									if (ModReferences.ThisPlayerID == playerID)
 									{
 										//creating the item.
-										Item item = new Item(ItemDataBase.ItemBases[r.ReadInt32()], r.ReadInt32(), 0, false)
+										Item item = new Item(ItemDefinitions.ItemBases[r.ReadInt32()], r.ReadInt32(), 0, false)
 										{
 											level = r.ReadInt32()
 										};
@@ -660,7 +660,7 @@ namespace ChampionsOfForest.Network
 										{
 											int statId = r.ReadInt32();
 											int statPoolIdx = r.ReadInt32();
-											ItemStat stat = new ItemStat(ItemDataBase.Stats[statId], 1, statPoolIdx)
+											ItemStat stat = new ItemStat(ItemDefinitions.Stats[statId], 1, statPoolIdx)
 											{
 												Amount = r.ReadSingle()
 											};

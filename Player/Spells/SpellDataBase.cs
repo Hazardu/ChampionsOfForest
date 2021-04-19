@@ -140,7 +140,7 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}
 			};
-			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, projectiles deal 50% less headshot damage and bodyshots slow enemies by 10% for 4 seconds.")
+			new Spell(19, 135, 27, 40, 10, "Seeking Arrow", () => "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by 10%, projectiles deal 50% less headshot damage and bodyshots slow enemies by 10% for 4 seconds.")
 			{
 				active = SpellActions.SeekingArrow_Active,
 			};

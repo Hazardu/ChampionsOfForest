@@ -86,7 +86,7 @@ namespace ChampionsOfForest
 						int AMO = buf.ReadInt32();
 						int StatCount = buf.ReadInt32();
 
-						Item LoadedItem = new Item(ItemDataBase.ItemBases[ID], AMO, 0, false)
+						Item LoadedItem = new Item(ItemDefinitions.ItemBases[ID], AMO, 0, false)
 						{
 							level = LVL
 						};
@@ -97,7 +97,7 @@ namespace ChampionsOfForest
 							int statgroupID = buf.ReadInt32();
 							float statAMO = buf.ReadSingle();
 
-							ItemStat stat = new ItemStat(ItemDataBase.Stats[statID],1,statgroupID)
+							ItemStat stat = new ItemStat(ItemDefinitions.Stats[statID],1,statgroupID)
 							{
 								Amount = statAMO
 							};

@@ -967,7 +967,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (level == 15 || level == 30 || level == 40)
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
+				var item = new Item(ItemDefinitions.ItemBaseByName("Heart of Purity"));
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -976,7 +976,7 @@ namespace ChampionsOfForest.Player
 			}
 			else if (level == 50 || level == 65 || level == 75)
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Greater Mutated Heart"));
+				var item = new Item(ItemDefinitions.ItemBaseByName("Greater Mutated Heart"));
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -1203,6 +1203,7 @@ namespace ChampionsOfForest.Player
 
 		public static void ResetAllStats()
 		{
+			Events.ClearEvents();
 			foreach (var item in instance.ExtraCarryingCapactity)
 			{
 				item.Value.Remove();

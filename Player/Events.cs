@@ -71,10 +71,10 @@ namespace ChampionsOfForest.Player
 		{
 			public float damage;
 			public object hitTarget;
-			public XBArrowDamageMod hitSource;
+			public object hitSource;
 			public bool randomTrigger;
 
-			public HeadshotParams(float damage, object hitTarget, XBArrowDamageMod hitSource, bool randomTrigger)
+			public HeadshotParams(float damage, object hitTarget, object hitSource, bool randomTrigger)
 			{
 				this.damage = damage;
 				this.hitTarget = hitTarget;
@@ -122,7 +122,7 @@ namespace ChampionsOfForest.Player
 		public UnityEvent OnExtingishSelf = new UnityEvent();
 		public UnityEvent OnExplodeSelf = new UnityEvent();
 
-		public void ClearEvents()
+		public static void ClearEvents()
 		{
 			Instance = new Events();
 		}
