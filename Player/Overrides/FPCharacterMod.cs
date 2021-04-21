@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Player
 		}
 		protected override void HandleStartJumping()
 		{
-			ChampionsOfForest.Player.Events.Instance.OnJump.Invoke();
+			ChampionsOfForest.Player.COTFEvents.Instance.OnJump.Invoke();
 			base.HandleStartJumping();
 		}
 			
@@ -57,7 +57,7 @@ namespace ChampionsOfForest.Player
 		{
 			base.HandleRunningStaminaAndSpeed();
 			speed *= ModdedPlayer.Stats.movementSpeed;
-			ChampionsOfForest.Player.Events.Instance.OnSprint.Invoke();
+			ChampionsOfForest.Player.COTFEvents.Instance.OnSprint.Invoke();
 
 		}
 
@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Player
 			this.jumpTimerStarted = false;
 			float num = 28f;
 			bool flag = false;
-			ChampionsOfForest.Player.Events.Instance.OnLand.Invoke();
+			ChampionsOfForest.Player.COTFEvents.Instance.OnLand.Invoke();
 			if (ModdedPlayer.Stats.perk_bunnyHop)
 			{
 				if (ModdedPlayer.Stats.perk_bunnyHopUpgrade)

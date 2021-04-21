@@ -54,7 +54,7 @@ namespace ChampionsOfForest.Player
 		[ModAPI.Attributes.Priority(1000)]
 		protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
 		{
-			Player.Events.Instance.OnWeaponEquip.Invoke();
+			Player.COTFEvents.Instance.OnWeaponEquip.Invoke();
 			ChampionsOfForest.Player.Spells.ActiveSpellManager.instance.OnWeaponEquipped();
 			if (!ModSettings.IsDedicated)
 			{
@@ -377,8 +377,8 @@ namespace ChampionsOfForest.Player
 				AddItem(231);
 			}
 			Multishot.Fired();
-			ChampionsOfForest.Player.Events.Instance.OnAttackRanged.Invoke();
-			this.StartCoroutine(XCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
+			ChampionsOfForest.Player.COTFEvents.Instance.OnAttackRanged.Invoke();
+			this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
 
 			_weaponChargeStartTime = 0f;
 			float duration = (!noconsume) ? cache._reloadDuration : cache._dryFireReloadDuration;

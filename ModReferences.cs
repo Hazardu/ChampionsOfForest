@@ -56,7 +56,7 @@ namespace ChampionsOfForest
 
 		public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
 		{
-			instance.StartCoroutine(Player.XCoroutines.i.AsyncSendRandomItemDrops(count, type, bounty, position));
+			instance.StartCoroutine(Player.RCoroutines.i.AsyncSendRandomItemDrops(count, type, bounty, position));
 		}
 
 		private IEnumerator InitPlayerID()

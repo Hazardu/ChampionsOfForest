@@ -194,9 +194,9 @@ namespace ChampionsOfForest.Player.Spells
 							if (onHitEffectProcs < 6)
 							{
 								{
-									var hitContext = new Events.HitOtherParams(dmg, crit != 1, entity, this);
-									ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
-									ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+									var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, entity, this);
+									ChampionsOfForest.Player.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+									ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 								}
 								ModdedPlayer.instance.OnHit();
 								onHitEffectProcs++;
@@ -239,9 +239,9 @@ namespace ChampionsOfForest.Player.Spells
 							
 						}
 						{
-							var hitContext = new Events.HitOtherParams(dmg, crit != 1, prog, this);
-							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+							var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, prog, this);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 						}
 						if (ModdedPlayer.Stats.spell_snowstormPullEnemiesIn)
 						{
@@ -397,9 +397,9 @@ namespace ChampionsOfForest.Player.Spells
 					if (entity != null)
 					{
 						{
-							var hitContext = new Events.HitOtherParams(dmgOutput,crit!=1, entity, this);
-							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+							var hitContext = new COTFEvents.HitOtherParams(dmgOutput,crit!=1, entity, this);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 						}
 						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 						phe.Target = entity;
@@ -436,9 +436,9 @@ namespace ChampionsOfForest.Player.Spells
 					{
 						var progression = EnemyManager.enemyByTransform[other.transform.root];
 						{
-							var hitContext = new Events.HitOtherParams(dmgOutput, crit != 1, progression, this);
-							ChampionsOfForest.Player.Events.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(hitContext);
+							var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, progression, this);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+							ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 						}
 						progression.HitMagic(dmgOutput);
 						if (crit > 1)

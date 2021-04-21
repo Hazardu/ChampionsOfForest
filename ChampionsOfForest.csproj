@@ -244,7 +244,7 @@
     <Compile Include="Player\Crafting\Reforging.cs" />
     <Compile Include="Player\Crafting\Rerolling.cs" />
     <Compile Include="Player\Crafting\IndividualRerolling.cs" />
-    <Compile Include="Player\Events.cs" />
+    <Compile Include="Player\COTFEvents.cs" />
     <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
     <Compile Include="Player\Main Menu\MainMenu_HUD.cs" />
@@ -283,7 +283,7 @@
     <Compile Include="Player\Pings\Ping.cs" />
     <Compile Include="Player\Overrides\PlayerRespawnMod.cs" />
     <Compile Include="Player\PlayerUtils.cs" />
-    <Compile Include="Player\XCoroutines.cs" />
+    <Compile Include="Player\RCoroutines.cs" />
     <Compile Include="Player\Spells\ActiveSpellManager.cs" />
     <Compile Include="Player\Spells\ForceGrab.cs" />
     <Compile Include="Res\Buildings.cs" />

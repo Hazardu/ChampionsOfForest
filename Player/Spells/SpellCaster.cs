@@ -140,7 +140,7 @@ namespace ChampionsOfForest.Player
 												LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 											LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-											ChampionsOfForest.Player.Events.Instance.OnAnySpellCast.Invoke();
+											ChampionsOfForest.Player.COTFEvents.Instance.OnAnySpellCast.Invoke();
 											InfinityCooldownReduction();
 											Ready[i] = false;
 											MaxCooldown(i);
@@ -164,7 +164,7 @@ namespace ChampionsOfForest.Player
 												LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 											LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-											ChampionsOfForest.Player.Events.Instance.OnChanneledSpellCast.Invoke();
+											ChampionsOfForest.Player.COTFEvents.Instance.OnChanneledSpellCast.Invoke();
 
 
 											infos[i].spell.active();
@@ -189,7 +189,7 @@ namespace ChampionsOfForest.Player
 										LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 									LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-									ChampionsOfForest.Player.Events.Instance.OnAnySpellCast.Invoke();
+									ChampionsOfForest.Player.COTFEvents.Instance.OnAnySpellCast.Invoke();
 
 									InfinityCooldownReduction();
 									Ready[i] = false;

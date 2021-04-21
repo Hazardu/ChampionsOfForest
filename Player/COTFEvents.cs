@@ -8,9 +8,9 @@ using UnityEngine.Events;
 
 namespace ChampionsOfForest.Player
 {
-	public class Events
+	public class COTFEvents
 	{
-		public static Events Instance;
+		public static COTFEvents Instance;
 		[System.Serializable]
 		public class GotHitByEnemyParams
 		{
@@ -124,7 +124,27 @@ namespace ChampionsOfForest.Player
 
 		public static void ClearEvents()
 		{
-			Instance = new Events();
+			if(Instance==null)
+				Instance = new COTFEvents();
+			try
+			{
+			var i = Instance.GetType();
+			var fields = i.GetFields();
+			foreach (var item in fields)
+			{
+				var field = item.GetValue(Instance);
+					if (field is UnityEvent)
+					{
+						ModAPI.Console.Write("Reset " + item.Name);
+						(field as UnityEvent).RemoveAllListeners();
+					}
+			}
+
+			}
+			catch (Exception e)
+			{
+				ModAPI.Log.Write("Exception while reseting events " + e.Message);
+			}
 		}
 	}
 }

@@ -3673,7 +3673,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => Events.Instance.OnDodge.AddListener(()=> TheForest.Utils.LocalPlayer.Stats.Health += ModdedPlayer.Stats.TotalMaxHealth*0.05f),
+				apply = () => COTFEvents.Instance.OnDodge.AddListener(()=> TheForest.Utils.LocalPlayer.Stats.Health += ModdedPlayer.Stats.TotalMaxHealth*0.05f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 36 },

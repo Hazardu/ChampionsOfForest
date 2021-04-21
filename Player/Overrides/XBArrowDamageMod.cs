@@ -91,10 +91,10 @@ namespace ChampionsOfForest.Player
 
 		public static Material bloodInfusedMaterial;
 
-		protected override void OnTriggerEnter(Collider other)
-		{
-			base.OnTriggerEnter(other);
-		}
+		//protected override void OnTriggerEnter(Collider other)
+		//{
+		//	base.OnTriggerEnter(other);
+		//}
 		
 		private void Update()
 		{
@@ -299,9 +299,12 @@ namespace ChampionsOfForest.Player
 							extraHitCount += 2;
 						}
 					}
+					UnityEngine.Events.UnityAction action = new UnityEngine.Events.UnityAction(() => this.NewHitAi(target, false, headDamage));
+					//async hit with a frame of delay between invocations
+					//RCoroutines.i.StartCoroutine(RCoroutines.i.ProjectileMultihit(target, OutputDmg, headDamage, action, extraHitCount));
 					for (int i = 0; i < extraHitCount; i++)
 					{
-						XCoroutines.i.StartCoroutine(XCoroutines.i.ProjectileMultihit(target, OutputDmg, headDamage, ()=> this.NewHitAi(target,false,headDamage), i));
+						this.NewHitAi(target, false, headDamage);
 					}
 				}
 			
@@ -430,7 +433,7 @@ namespace ChampionsOfForest.Player
 						}
 						else if (ModSettings.FriendlyFire)
 						{
-							ChampionsOfForest.Player.Events.Instance.OnFriendlyFire.Invoke();
+							ChampionsOfForest.Player.COTFEvents.Instance.OnFriendlyFire.Invoke();
 
 							{
 								//checking if headshot
@@ -469,7 +472,7 @@ namespace ChampionsOfForest.Player
 								{
 									dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 								}
-								ChampionsOfForest.Player.Events.Instance.OnHeadshot.Invoke(new Events.HeadshotParams(dmgUnclamped,target,this,!headDamage));
+								ChampionsOfForest.Player.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped,target,this,!headDamage));
 								headDamage = true;
 
 							}
@@ -608,7 +611,11 @@ namespace ChampionsOfForest.Player
 				}
 			}
 		}
-		public float dmgUnclamped;
+		private float dmgUnclamped;
+		private void ChangeHitDamage(float multipier)
+		{
+			dmgUnclamped *= multipier;
+		}
 		public void NewHitAi(Transform target, bool hitDelay, bool headDamage)
 		{
 			dmgUnclamped = this.OutputDmg;
@@ -653,7 +660,7 @@ namespace ChampionsOfForest.Player
 				{
 					dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 				}
-				ChampionsOfForest.Player.Events.Instance.OnHeadshot.Invoke(new Events.HeadshotParams(dmgUnclamped, target, this, !headDamage));
+				ChampionsOfForest.Player.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped, target, this, !headDamage));
 				headDamage = true;
 			}
 			else
@@ -661,9 +668,9 @@ namespace ChampionsOfForest.Player
 				dmgUnclamped *= SpellActions.FocusOnBodyShot();
 			}
 			{
-				var eventContext = new Events.HitOtherParams(dmgUnclamped, crit, target, this);
-				ChampionsOfForest.Player.Events.Instance.OnHitEnemy.Invoke(eventContext);
-				ChampionsOfForest.Player.Events.Instance.OnHitRanged.Invoke(eventContext);
+				var eventContext = new COTFEvents.HitOtherParams(dmgUnclamped, crit, target, this);
+				ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+				ChampionsOfForest.Player.COTFEvents.Instance.OnHitRanged.Invoke(eventContext);
 			}
 
 			if (target)
@@ -779,7 +786,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy.Hit = DamageMath.GetSendableDamage( dmgUnclamped);
 						if ((GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites) || (ignite && Random.value < 0.5f))
 						{
-							ChampionsOfForest.Player.Events.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy.Burn = true;
 						}
 						playerHitEnemy.getAttackerType += 1000000;
@@ -802,7 +809,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy2.getAttackerType = 4;
 						if ((ignite && Random.value < 0.5f) || (GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites))
 						{
-							ChampionsOfForest.Player.Events.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy2.Burn = true;
 
 						}

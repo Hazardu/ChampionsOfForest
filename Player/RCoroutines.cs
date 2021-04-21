@@ -5,12 +5,13 @@ using TheForest.Items.World;
 using TheForest.Utils;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ChampionsOfForest.Player
 {
-	public class XCoroutines : MonoBehaviour
+	public class RCoroutines : MonoBehaviour
 	{
-		public static XCoroutines i;
+		public static RCoroutines i;
 
 		private void Start()
 		{
@@ -22,16 +23,16 @@ namespace ChampionsOfForest.Player
 			i.StartCoroutine(routine);
 		}
 
-		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, System.Action dmgScript, int frame_delays )
+		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, UnityAction dmgScript, int invcationCount )
 		{
-			for (int i = 0; i < frame_delays; i++)
+			for (int i = 0; i < invcationCount; i++)
 			{
 				yield return null;
+				dmgScript.Invoke();
+				ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
+				ModdedPlayer.instance.OnHit();
+				ModdedPlayer.instance.OnHit_Ranged(target);
 			}
-			dmgScript.Invoke();
-			ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
-			ModdedPlayer.instance.OnHit();
-			ModdedPlayer.instance.OnHit_Ranged(target);
 		}
 
 		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)

@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 		public override void fireProjectile()
 		{
 			int repeats = ModdedPlayer.RangedRepetitions();
-			ChampionsOfForest.Player.Events.Instance.OnAttackRanged.Invoke();
+			ChampionsOfForest.Player.COTFEvents.Instance.OnAttackRanged.Invoke();
 
 			for (int i = 0; i < repeats; i++)
 			{

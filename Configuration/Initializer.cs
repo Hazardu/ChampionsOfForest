@@ -54,7 +54,7 @@ namespace ChampionsOfForest
 				{
 					Res.ResourceLoader.InMainMenu = false;
 					NetworkPlayerStats.Reset();		
-					Events.ClearEvents();
+					COTFEvents.ClearEvents();
 
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");
@@ -69,7 +69,7 @@ namespace ChampionsOfForest
 					go.AddComponent<AsyncHit>();
 					go.AddComponent<GlobalSFX>();
 					go.AddComponent<TheFartCreator>();
-					go.AddComponent<XCoroutines>();
+					go.AddComponent<RCoroutines>();
 					go.AddComponent<ActiveSpellManager>();
 					new GameObject("MainMenuObj").AddComponent<MainMenu>();
 

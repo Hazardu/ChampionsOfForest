@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Items
 {
 	public static class UniqueItemFunctions
 	{
-		public static void EnemyBleedForPlayerHP(Player.Events.HitOtherParams param)
+		public static void EnemyBleedForPlayerHP(Player.COTFEvents.HitOtherParams param)
 		{
 			if (param is null)
 				return;
