@@ -196,8 +196,8 @@ namespace ChampionsOfForest.Player
 			{
 				{
 					var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg!= 1, other, this);
-					ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-					ChampionsOfForest.Player.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
+					ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+					ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
 
 				}
 				ModdedPlayer.instance.OnHit();
@@ -220,7 +220,7 @@ namespace ChampionsOfForest.Player
 						phe.getCombo = 3;
 						phe.Burn = (fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn;
 						if (phe.Burn)
-							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteMelee.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteMelee.Invoke();
 						phe.explosion = fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw;
 						phe.Send();
 
@@ -381,7 +381,7 @@ namespace ChampionsOfForest.Player
 
 						if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn)
 						{
-							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteMelee.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteMelee.Invoke();
 							progression.HealthScript.Burn();
 						}
 

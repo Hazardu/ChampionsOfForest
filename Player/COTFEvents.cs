@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ChampionsOfForest.Player
+namespace ChampionsOfForest
 {
 	public class COTFEvents
 	{

@@ -743,14 +743,14 @@ namespace ChampionsOfForest
 		public override void Hit(int damage, bool ignoreArmor, DamageType type)
 		{
 			var hitEventContext = new COTFEvents.GotHitParams(damage, ignoreArmor);
-			ChampionsOfForest.Player.COTFEvents.Instance.OnGetHit.Invoke(hitEventContext);
+			ChampionsOfForest.COTFEvents.Instance.OnGetHit.Invoke(hitEventContext);
 			if (type == DamageType.Physical)
 			{
-				ChampionsOfForest.Player.COTFEvents.Instance.OnGetHitPhysical.Invoke(hitEventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnGetHitPhysical.Invoke(hitEventContext);
 
 				if (UnityEngine.Random.value > ModdedPlayer.Stats.getHitChance)
 				{
-					ChampionsOfForest.Player.COTFEvents.Instance.OnDodge.Invoke();
+					ChampionsOfForest.COTFEvents.Instance.OnDodge.Invoke();
 					if (ModdedPlayer.Stats.i_isWindArmor)
 					{
 						//grant buffs;
@@ -765,7 +765,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				ChampionsOfForest.Player.COTFEvents.Instance.OnGetHitNonPhysical.Invoke(hitEventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnGetHitNonPhysical.Invoke(hitEventContext);
 			}
 			float f = damage * ModdedPlayer.Stats.allDamageTaken;
 			if (!ignoreArmor)
@@ -873,22 +873,22 @@ namespace ChampionsOfForest
 		}
 		public override void Burn()
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnIgniteSelf.Invoke();
 			base.Burn();
 		}
 		protected override void StopBurning()
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnExtingishSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnExtingishSelf.Invoke();
 			base.StopBurning();
 		}
 		protected override void Explosion(float getDist)
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnExplodeSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnExplodeSelf.Invoke();
 			base.Explosion(getDist);
 		}
 		protected override void HitFire()
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnGetHitByBurning.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnGetHitByBurning.Invoke();
 
 			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f + 3) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
 			if (TheForest.Utils.LocalPlayer.AnimControl.skinningAnimal)
@@ -905,7 +905,7 @@ namespace ChampionsOfForest
 				return;
 			}
 			if (this.Health <= 0f && !this.Dead)
-				ChampionsOfForest.Player.COTFEvents.Instance.OnTakeLethalDamage.Invoke();
+				ChampionsOfForest.COTFEvents.Instance.OnTakeLethalDamage.Invoke();
 			if (this.Health <= 0f && !this.Dead)
 			{
 
@@ -924,7 +924,7 @@ namespace ChampionsOfForest
 
 				if (TheForest.Utils.LocalPlayer.AnimControl.swimming)
 				{	
-					ChampionsOfForest.Player.COTFEvents.Instance.OnDeath.Invoke();
+					ChampionsOfForest.COTFEvents.Instance.OnDeath.Invoke();
 					switch (ModSettings.dropsOnDeath)
 					{
 						case ModSettings.DropsOnDeathMode.All:
@@ -953,7 +953,7 @@ namespace ChampionsOfForest
 		}
 		protected override void FallDownDead()
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnDowned.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnDowned.Invoke();
 			base.FallDownDead();
 		}
 	}

@@ -18,22 +18,17 @@ namespace ChampionsOfForest.Player
 			i = this;
 		}
 
-		public static void InvokeCoroutine(in IEnumerator routine)
-		{
-			i.StartCoroutine(routine);
-		}
-
-		public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, UnityAction dmgScript, int invcationCount )
-		{
-			for (int i = 0; i < invcationCount; i++)
-			{
-				yield return null;
-				dmgScript.Invoke();
-				ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
-				ModdedPlayer.instance.OnHit();
-				ModdedPlayer.instance.OnHit_Ranged(target);
-			}
-		}
+		//public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, UnityAction dmgScript, int invcationCount )
+		//{
+		//	for (int i = 0; i < invcationCount; i++)
+		//	{
+		//		yield return null;
+		//		dmgScript.Invoke();
+		//		ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
+		//		ModdedPlayer.instance.OnHit();
+		//		ModdedPlayer.instance.OnHit_Ranged(target);
+		//	}
+		//}
 
 		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, Vector3 position)
 		{

@@ -658,7 +658,7 @@ namespace ChampionsOfForest.Player
 			{
 				RootDuration = duration;
 			}
-			ChampionsOfForest.Player.COTFEvents.Instance.OnStun.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnStun.Invoke();
 
 		}
 
@@ -675,13 +675,13 @@ namespace ChampionsOfForest.Player
 			{
 				StunDuration = duration;
 			}
-			ChampionsOfForest.Player.COTFEvents.Instance.OnStun.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnStun.Invoke();
 
 		}
 
 		public void AddKillExperience(long Amount)
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnKill.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnKill.Invoke();
 
 			MassacreKills++;
 			CountMassacre();
@@ -698,7 +698,7 @@ namespace ChampionsOfForest.Player
 
 		public void AddFinalExperience(long Amount)
 		{
-			ChampionsOfForest.Player.COTFEvents.Instance.OnGainExp.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnGainExp.Invoke();
 
 			ExpCurrent += Convert.ToInt64(Amount * stats.expGain);
 			int i = 0;
@@ -712,7 +712,7 @@ namespace ChampionsOfForest.Player
 
 			if (i > 0)
 			{
-				ChampionsOfForest.Player.COTFEvents.Instance.OnGainLevel.Invoke();
+				ChampionsOfForest.COTFEvents.Instance.OnGainLevel.Invoke();
 
 				SendLevelMessage();
 

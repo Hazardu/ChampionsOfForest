@@ -16,11 +16,12 @@ namespace ChampionsOfForest.Player
 	public class XBArrowDamageMod : ArrowDamage
 	{
 		private float OutputDmg = 0;
+		private float dmgUnclamped;
 		private bool ignite;
 		private int pierceCount = 0;
 		private bool crit;
-		public Vector3 startposition;
 		private Transform lastPierced;
+		public Vector3 startposition;
 		protected override void Start()
 		{
 			base.Start();
@@ -299,7 +300,7 @@ namespace ChampionsOfForest.Player
 							extraHitCount += 2;
 						}
 					}
-					UnityEngine.Events.UnityAction action = new UnityEngine.Events.UnityAction(() => this.NewHitAi(target, false, headDamage));
+					//UnityEngine.Events.UnityAction action = new UnityEngine.Events.UnityAction(() => this.NewHitAi(target, false, headDamage));
 					//async hit with a frame of delay between invocations
 					//RCoroutines.i.StartCoroutine(RCoroutines.i.ProjectileMultihit(target, OutputDmg, headDamage, action, extraHitCount));
 					for (int i = 0; i < extraHitCount; i++)
@@ -433,7 +434,7 @@ namespace ChampionsOfForest.Player
 						}
 						else if (ModSettings.FriendlyFire)
 						{
-							ChampionsOfForest.Player.COTFEvents.Instance.OnFriendlyFire.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnFriendlyFire.Invoke();
 
 							{
 								//checking if headshot
@@ -472,7 +473,7 @@ namespace ChampionsOfForest.Player
 								{
 									dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 								}
-								ChampionsOfForest.Player.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped,target,this,!headDamage));
+								ChampionsOfForest.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped,target,this,!headDamage));
 								headDamage = true;
 
 							}
@@ -611,11 +612,6 @@ namespace ChampionsOfForest.Player
 				}
 			}
 		}
-		private float dmgUnclamped;
-		private void ChangeHitDamage(float multipier)
-		{
-			dmgUnclamped *= multipier;
-		}
 		public void NewHitAi(Transform target, bool hitDelay, bool headDamage)
 		{
 			dmgUnclamped = this.OutputDmg;
@@ -660,7 +656,7 @@ namespace ChampionsOfForest.Player
 				{
 					dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 				}
-				ChampionsOfForest.Player.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped, target, this, !headDamage));
+				ChampionsOfForest.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped, target, this, !headDamage));
 				headDamage = true;
 			}
 			else
@@ -669,8 +665,8 @@ namespace ChampionsOfForest.Player
 			}
 			{
 				var eventContext = new COTFEvents.HitOtherParams(dmgUnclamped, crit, target, this);
-				ChampionsOfForest.Player.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-				ChampionsOfForest.Player.COTFEvents.Instance.OnHitRanged.Invoke(eventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnHitRanged.Invoke(eventContext);
 			}
 
 			if (target)
@@ -786,7 +782,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy.Hit = DamageMath.GetSendableDamage( dmgUnclamped);
 						if ((GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites) || (ignite && Random.value < 0.5f))
 						{
-							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy.Burn = true;
 						}
 						playerHitEnemy.getAttackerType += 1000000;
@@ -809,7 +805,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy2.getAttackerType = 4;
 						if ((ignite && Random.value < 0.5f) || (GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites))
 						{
-							ChampionsOfForest.Player.COTFEvents.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy2.Burn = true;
 
 						}
@@ -918,6 +914,10 @@ afterdamage:
 			{
 				FMODCommon.PlayOneshotNetworked(this.hitAiEvent, base.transform, FMODCommon.NetworkRole.Any);
 			}
+		}
+		public void ModifyHitDamage(float multipier)
+		{
+			dmgUnclamped *= multipier;
 		}
 	}
 }
