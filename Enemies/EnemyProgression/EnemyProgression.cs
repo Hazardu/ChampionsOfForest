@@ -56,7 +56,7 @@ namespace ChampionsOfForest
 		public long bounty;
 
 		public float Steadfast = 100;
-		private float SteadfastCap = 100000;
+		private float steadfastCap = 100000;
 		public bool setupComplete = false;
 		public bool CCimmune = false;
 		private bool DualLifeSpend = false;
@@ -407,7 +407,7 @@ namespace ChampionsOfForest
 				{
 					itemCount += 3;
 				}
-				itemCount += (int)ModSettings.difficulty/2;
+				itemCount += (int)Mathf.Clamp(Level / 50, 1, 10);
 				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
 				ModAPI.Console.Write("Dropping " + itemCount + " items");
 				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
@@ -555,64 +555,12 @@ namespace ChampionsOfForest
 				{
 					SetAbilityCooldown(0, 1);
 					Vector3 dir = transform.position;
-					float dmg = 60;
+					float dmg = 60 * Mathf.Clamp( Level*Level / 200,1,20000);;
 					float slow = 0.2f;
 					float boost = 1.4f;
 					float duration = 20;
-					float radius = 3;
+					float radius = 7;
 
-					switch (ModSettings.difficulty)
-					{
-						case ModSettings.Difficulty.Veteran:
-							dmg = 100;
-							radius = 8f;
-							break;
-
-						case ModSettings.Difficulty.Elite:
-							dmg = 250;
-							radius = 8.4f;
-							break;
-
-						case ModSettings.Difficulty.Master:
-							dmg = 600;
-							radius = 8.7f;
-							break;
-
-						case ModSettings.Difficulty.Challenge1:
-							dmg = 1400;
-							radius = 9f;
-							break;
-
-						case ModSettings.Difficulty.Challenge2:
-							dmg = 3000;
-							radius = 9.2f;
-							break;
-
-						case ModSettings.Difficulty.Challenge3:
-							dmg = 6000;
-							radius = 9.4f;
-							break;
-
-						case ModSettings.Difficulty.Challenge4:
-							dmg = 12000;
-							radius = 9.7f;
-							break;
-
-						case ModSettings.Difficulty.Challenge5:
-							dmg = 19000;
-							radius = 10;
-							break;
-
-						case ModSettings.Difficulty.Challenge6:
-							dmg = 40000;
-							radius = 14;
-							break;
-
-						case ModSettings.Difficulty.Hell:
-							dmg = 50000;
-							radius = 17;
-							break;
-					}
 
 					float Healing = dmg / 5;
 					dmg *= 2;
@@ -648,7 +596,7 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(0.5f, 1.5f);
 						transform.root.position = closestPlayer.transform.position + transform.forward * -2.5f;
-						blinkCD = Mathf.Max(Random.Range(14, 33) - (int)ModSettings.difficulty, 6);
+						blinkCD = Random.Range(2, 30);
 						Effects.Sound_Effects.GlobalSFX.Play(5);
 						return;
 					}
@@ -680,49 +628,8 @@ namespace ChampionsOfForest
 				{
 					SetAbilityCooldown(0.0f, 0.5f);
 
-					float duration = 3;
-					switch (ModSettings.difficulty)
-					{
-						case ModSettings.Difficulty.Easy:
-							duration = 3;
-							break;
-
-						case ModSettings.Difficulty.Veteran:
-							duration = 3.4f;
-							break;
-
-						case ModSettings.Difficulty.Elite:
-							duration = 3.8f;
-							break;
-
-						case ModSettings.Difficulty.Master:
-							duration = 4;
-							break;
-
-						case ModSettings.Difficulty.Challenge1:
-							duration = 4.3f;
-							break;
-
-						case ModSettings.Difficulty.Challenge2:
-							duration = 4.6f;
-							break;
-
-						case ModSettings.Difficulty.Challenge3:
-							duration = 5;
-							break;
-
-						case ModSettings.Difficulty.Challenge4:
-							duration = 5.5f;
-							break;
-
-						case ModSettings.Difficulty.Challenge5:
-							duration = 7f;
-							break;
-
-						default:
-							duration = 8f;
-							break;
-					}
+					float duration = Mathf.Clamp( Level / 20f,3f,10f);
+					
 
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
@@ -774,56 +681,10 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(0.0f, 1f);
 
-						float dmg = 60;
-						float radius = 10;
-						switch (ModSettings.difficulty)
-						{
-							case ModSettings.Difficulty.Veteran:
-								dmg = 100;
-								radius = 11;
-								break;
-
-							case ModSettings.Difficulty.Elite:
-								dmg = 450;
-								radius = 12;
-								break;
-
-							case ModSettings.Difficulty.Master:
-								dmg = 1000;
-								radius = 13;
-								break;
-
-							case ModSettings.Difficulty.Challenge1:
-								dmg = 3500;
-								radius = 14;
-								break;
-
-							case ModSettings.Difficulty.Challenge2:
-								dmg = 10000;
-								radius = 15;
-								break;
-
-							case ModSettings.Difficulty.Challenge3:
-								dmg = 20000;
-								radius = 16;
-								break;
-
-							case ModSettings.Difficulty.Challenge4:
-								dmg = 43000;
-								radius = 17;
-								break;
-
-							case ModSettings.Difficulty.Challenge5:
-								dmg = 100000;
-								radius = 18;
-								break;
-
-							case ModSettings.Difficulty.Challenge6:
-							case ModSettings.Difficulty.Hell:
-								dmg = 150000;
-								radius = 19;
-								break;
-						}
+						float dmg = 60 * Mathf.Pow(Level, 2f);
+						
+						float radius = 10 + Mathf.Clamp(Level / 20, 1, 10);
+						
 						radius -= 1;
 						if (BoltNetwork.isRunning)
 						{
@@ -858,56 +719,10 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(0.0f, 1f);
 
-						float dmg = 60;
-						float radius = 10;
-						switch (ModSettings.difficulty)
-						{
-							case ModSettings.Difficulty.Veteran:
-								dmg = 100;
-								radius = 11;
-								break;
+						float dmg = 60 * Mathf.Pow(Level, 2f);
 
-							case ModSettings.Difficulty.Elite:
-								dmg = 450;
-								radius = 12;
-								break;
+						float radius = 10 + Mathf.Clamp(Level / 20, 1, 10);
 
-							case ModSettings.Difficulty.Master:
-								dmg = 1000;
-								radius = 13;
-								break;
-
-							case ModSettings.Difficulty.Challenge1:
-								dmg = 3500;
-								radius = 14;
-								break;
-
-							case ModSettings.Difficulty.Challenge2:
-								dmg = 10000;
-								radius = 15;
-								break;
-
-							case ModSettings.Difficulty.Challenge3:
-								dmg = 20000;
-								radius = 16;
-								break;
-
-							case ModSettings.Difficulty.Challenge4:
-								dmg = 43000;
-								radius = 17;
-								break;
-
-							case ModSettings.Difficulty.Challenge5:
-								dmg = 100000;
-								radius = 18;
-								break;
-
-							case ModSettings.Difficulty.Challenge6:
-							case ModSettings.Difficulty.Hell:
-								dmg = 150000;
-								radius = 19;
-								break;
-						}
 						radius -= 1;
 						dmg /= 1.5f;
 						if (BoltNetwork.isRunning)
@@ -974,9 +789,9 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(1.0f, 2f);
 
-						float damage = Mathf.Pow(Level, 1.7f)* (int)ModSettings.difficulty* 1.3f;
+						float damage = Mathf.Pow(Level, 2f)* 10;
 						float duration = 7.5f;
-						float radius = 21 + 3 * (int)ModSettings.difficulty;
+						float radius = 21 + 3 * Level/14;
 						float pullforce = 35;
 						if (BoltNetwork.isRunning)
 						{
@@ -1021,7 +836,7 @@ namespace ChampionsOfForest
 		{
 			if (abilities.Contains(Abilities.FireAura))
 			{
-				float aurDmg = (5 * Level + 1) * ((int)ModSettings.difficulty + 1.3f);
+				float aurDmg = (5 * Level + 1) * (Mathf.Max(2,Level/50) + 1.3f);
 				FireAura.Cast(gameObject, aurDmg);
 				if (BoltNetwork.isRunning)
 				{

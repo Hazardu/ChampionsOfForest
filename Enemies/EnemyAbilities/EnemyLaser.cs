@@ -30,7 +30,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				particleSystem.Emit(new ParticleSystem.EmitParams() { position = transform.forward * Mathf.Sin(f) * 2.5f + transform.right * Mathf.Cos(f) * 2.5f }, 10);
 
-				yield return new WaitForSeconds(0.1f);
+				yield return new WaitForSeconds(0.2f);
 				f += Mathf.PI * 0.2f;
 			}
 			rotSpeed = 10;
@@ -75,43 +75,43 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			switch (ModSettings.difficulty)
 			{
 				case ModSettings.Difficulty.Veteran:
-					dmg = Random.Range(55, 75);
+					dmg = Random.Range(85, 105);
 					break;
 
 				case ModSettings.Difficulty.Elite:
-					dmg = Random.Range(121, 134);
+					dmg = Random.Range(221, 234);
 					break;
 
 				case ModSettings.Difficulty.Master:
-					dmg = Random.Range(150, 170);
+					dmg = Random.Range(444, 470);
 					break;
 
 				case ModSettings.Difficulty.Challenge1:
-					dmg = 324;
+					dmg = 4124;
 					break;
 
 				case ModSettings.Difficulty.Challenge2:
-					dmg = 653;
+					dmg = 15653;
 					break;
 
 				case ModSettings.Difficulty.Challenge3:
-					dmg = 2346;
+					dmg = 72346;
 					break;
 
 				case ModSettings.Difficulty.Challenge4:
-					dmg = 5932;
+					dmg = 85932;
 					break;
 
 				case ModSettings.Difficulty.Challenge5:
-					dmg = 14636;
+					dmg = 124636;
 					break;
 
 				case ModSettings.Difficulty.Challenge6:
-					dmg = 40000;
+					dmg = 164636;
 					break;
 
 				case ModSettings.Difficulty.Hell:
-					dmg = 60000;
+					dmg = 224636;
 					break;
 			}
 			go.AddComponent<EnemyLaserBeam>().Initialize(dmg);

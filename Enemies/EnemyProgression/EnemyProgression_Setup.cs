@@ -308,10 +308,10 @@ namespace ChampionsOfForest
 
 			AssignBounty();
 
-			SteadfastCap = Mathf.Max(Steadfast * 0.01f * maxHealth, 1f);
-			if (SteadfastCap < 1) // Making sure the enemy can be killed
+			steadfastCap = Mathf.Max(Steadfast * 0.01f * maxHealth, 1f);
+			if (steadfastCap < 1) // Making sure the enemy can be killed
 			{
-				SteadfastCap = 1;
+				steadfastCap = 1;
 			}
 
 			CreationTime = Time.time;

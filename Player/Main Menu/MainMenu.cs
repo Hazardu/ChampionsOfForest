@@ -253,7 +253,7 @@ namespace ChampionsOfForest
 								//unequip if equipped
 								if (SelectedItem < -1)
 								{
-									for (int i = 0; i < Inventory.Instance.SlotCount; i++)
+									for (int i = 0; i < Inventory.SlotCount; i++)
 									{
 										if (Inventory.Instance.ItemSlots[i] == null)
 										{

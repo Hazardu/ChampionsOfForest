@@ -193,7 +193,7 @@
     <Compile Include="Effects\Berserker.cs" />
     <Compile Include="Effects\BlackFlame.cs" />
     <Compile Include="Effects\Cataclysm.cs" />
-    <Compile Include="Effects\DarkBeam.cs" />
+    <Compile Include="Effects\Flare.cs" />
     <Compile Include="Effects\SeekingArrow.cs" />
     <Compile Include="Effects\Gold.cs" />
     <Compile Include="Effects\MagicArrow.cs" />

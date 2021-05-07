@@ -53,9 +53,10 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			}
 			else if (other.transform.root == LocalPlayer.Transform.root)
 			{
-				LocalPlayer.Stats.Hit((int)(Damage * (1 - ModdedPlayer.Stats.magicDamageTaken)), false, PlayerStats.DamageType.Physical);
-				Player.BuffDB.AddBuff(21, 69, Damage/2, 60);
-				other.SendMessage("Burn", Damage, SendMessageOptions.DontRequireReceiver);
+				LocalPlayer.Stats.Hit((int)(Damage), false, PlayerStats.DamageType.Fire);
+				ModdedPlayer.instance.Stun(3f);
+				Player.BuffDB.AddBuff(21, 69, Damage/3, 60);
+				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
 			}
 			else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
 			{

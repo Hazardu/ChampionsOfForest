@@ -136,7 +136,16 @@ namespace ChampionsOfForest
 					if (field is UnityEvent)
 					{
 						ModAPI.Console.Write("Reset " + item.Name);
-						(field as UnityEvent).RemoveAllListeners();
+						var fieldUE = (field as UnityEvent);
+						fieldUE.RemoveAllListeners();
+						try
+						{
+							fieldUE.AddListener(new UnityAction(() => Debug.Log("Event triggered: " + item.Name)));
+						}
+						catch (Exception e)
+						{
+							ModAPI.Console.Write("Exception while adding default event " + e.Message);
+						}
 					}
 			}
 

@@ -12,8 +12,9 @@ namespace ChampionsOfForest.Player
 {
 	public class Inventory : MonoBehaviour
 	{
-		public static int Height = 15;
-		public static int Width = 8;
+		public const int Height = 15;
+		public const int Width = 8;
+		public const int SlotCount = Height * Width;
 
 		public enum EquippableSlots
 		{
@@ -34,7 +35,6 @@ namespace ChampionsOfForest.Player
 			private set;
 		}
 
-		public int SlotCount;
 
 		public Dictionary<int, Item> ItemSlots = new Dictionary<int, Item>();
 
@@ -48,7 +48,6 @@ namespace ChampionsOfForest.Player
 
 		private void Start()
 		{
-			SlotCount = Height * Width;
 			ItemSlots.Clear();
 			for (int y = 0; y < Height; y++)
 			{
@@ -98,6 +97,10 @@ namespace ChampionsOfForest.Player
 					}
 				}
 			}
+		}
+		public void RemoveItemAtPosition(int key)
+		{
+			ItemSlots[key] = null;
 		}
 		public bool DropItemOnPosition(int key, Vector3 pos)
 		{

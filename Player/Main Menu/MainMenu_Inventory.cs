@@ -16,6 +16,32 @@ namespace ChampionsOfForest
 		private int SelectedItem;
 		public int DraggedItemIndex;
 
+		//item context menu appears when right clicking on any item and will have a handful of options depending on item properties
+		struct ItemContextMenu
+		{
+			public enum AvaibleContextMenuButtons
+			{
+				none = 0, consume = 0b1, splitStack = 0b10, drop = 0b100
+			}
+			public Rect r;
+			public Item i;
+			public int itemIndex;
+			public AvaibleContextMenuButtons buttons;
+			public int buttonCount;
+			public ItemContextMenu(Rect r, int itemIndex)
+			{
+				this.r = r;
+				this.itemIndex = itemIndex;
+				this.i = Inventory.Instance.ItemSlots[itemIndex];
+				buttons = AvaibleContextMenuButtons.drop |
+					(i.CanConsume ? AvaibleContextMenuButtons.consume : AvaibleContextMenuButtons.none) |
+					(i.Amount > 1 ? AvaibleContextMenuButtons.splitStack : AvaibleContextMenuButtons.none);
+				buttonCount = buttons == (AvaibleContextMenuButtons)0b111 ? 3 :
+							(buttons != (AvaibleContextMenuButtons)0b100 ? 2 : 1);
+			}
+		}
+		ItemContextMenu? itemContextMenu = null;
+
 		public bool isDragging;
 		private bool consumedsomething;
 		private bool drawTotal;
@@ -108,12 +134,21 @@ namespace ChampionsOfForest
 			catch (Exception exception)
 			{
 				ModAPI.Log.Write(exception.ToString());
-				DraggedItem = null;
-				DraggedItemIndex = -1;
-				isDragging = false;
+				CancelDragging();
 			}
-
-			if (SelectedItem != -1)
+			if (itemContextMenu != null)
+			{
+				try
+				{
+					DrawInvContextMenu();
+				}
+				catch (Exception exc)
+				{
+					ModAPI.Log.Write(exc.ToString());
+					CloseItemContextMenu();
+				}
+			}
+			else if (SelectedItem != -1)
 			{
 				if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
 				{
@@ -147,10 +182,7 @@ namespace ChampionsOfForest
 					}
 					Inventory.Instance.DropItem(DraggedItemIndex);
 					CustomCrafting.ClearIndex(DraggedItemIndex);
-
-					DraggedItem = null;
-					DraggedItemIndex = -1;
-					isDragging = false;
+					CancelDragging();
 				}
 			}
 		}
@@ -301,7 +333,7 @@ namespace ChampionsOfForest
 			GUIStyle ItemNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(35 * screenScale), fontStyle = FontStyle.Bold, font = mainFont };
 			float y = 70 + pos.y;
 			Rect[] StatRects = new Rect[item.Stats.Count];
-			GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(18 * screenScale), font = mainFont,richText = true };
+			GUIStyle StatNameStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = Mathf.RoundToInt(18 * screenScale), font = mainFont, richText = true };
 			GUIStyle StatValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = Mathf.RoundToInt(18 * screenScale), fontStyle = FontStyle.Bold, font = mainFont, richText = true };
 
 			for (int i = 0; i < StatRects.Length; i++)
@@ -309,11 +341,10 @@ namespace ChampionsOfForest
 				StatRects[i] = new Rect(pos.x, y, width, 20 * screenScale);
 				y += 22 * screenScale;
 			}
-			y += 2 * screenScale;
-			var uniqueStatGuiContext = new GUIContent(string.IsNullOrEmpty(item.uniqueStat) ? "" : "<color=gold>★</color>" + item.uniqueStat);
+			var uniqueStatGuiContext = new GUIContent(string.IsNullOrEmpty(item.uniqueStat) ? "" : "<color=gold>★</color><b>" + item.uniqueStat+"</b>");
 			Rect uniqueStatHeaderRect = new Rect(pos.x, y, width, StatValueStyle.fontSize);
-			Rect uniqueStatRect = new Rect(pos.x, y+ uniqueStatHeaderRect.height, width, StatNameStyle.CalcHeight(uniqueStatGuiContext, width));
-			if (string.IsNullOrEmpty(item.uniqueStat))
+			Rect uniqueStatRect = new Rect(pos.x, y + uniqueStatHeaderRect.height, width, StatNameStyle.CalcHeight(uniqueStatGuiContext, width));
+			if (!string.IsNullOrEmpty(item.uniqueStat))
 			{
 				y += uniqueStatHeaderRect.height + uniqueStatRect.height;
 			}
@@ -539,6 +570,114 @@ namespace ChampionsOfForest
 
 		private float hoveredOverID = -1;
 		private float DraggedItemAlpha = 0;
+		private void CancelDragging()
+		{
+			DraggedItem = null;
+			DraggedItemIndex = -1;
+			isDragging = false;
+		}
+		private void DragItem(in Rect r, in Rect itemRect, int index)
+		{
+			if (r.Contains(mousePos))
+			{
+				bool canPlace = index > -1 || DraggedItem.CanPlaceInSlot(in index);
+
+				if (DraggedItemIndex < 0)	//check if the item is equipped
+					if (DraggedItem.destinationSlotID != Inventory.Instance.ItemSlots[index].destinationSlotID)
+						canPlace = false;
+
+				if (CustomCrafting.isIngredient(index))
+					canPlace = false;
+
+				//Drawing
+				if (canPlace || index > -1)
+				{
+					if (hoveredOverID == index)
+					{
+						DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 3.5f, 0, 0.3f);
+						GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
+						GUI.DrawTexture(itemRect, DraggedItem.icon);
+						GUI.color = new Color(1, 1, 1, 1);
+					}
+					else
+					{
+						DraggedItemAlpha = 0;
+						hoveredOverID = index;
+					}
+				}
+
+
+				//Drop on another spot
+				if (UnityEngine.Input.GetMouseButtonUp(0))
+				{
+					SelectedItem = index;
+					Effects.Sound_Effects.GlobalSFX.Play(1);
+					if (Inventory.Instance.ItemSlots[index].CombineItems(DraggedItem))	//putting a material into a socket
+					{
+						Inventory.Instance.ItemSlots[DraggedItemIndex].Amount--;
+						if (Inventory.Instance.ItemSlots[DraggedItemIndex].Amount <= 0)
+							Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
+						
+						CancelDragging();
+						return;
+					}
+					if (index < -1)	//equip item on the character
+					{
+						if (canPlace)
+						{
+							Inventory.SwapItems(index, DraggedItemIndex);	//unequip the previous item
+							CancelDragging();
+						}
+						else
+						{
+							Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;	//fill an empty slot
+							CancelDragging();
+						}
+					}
+					else
+					{
+						if (DraggedItem.ID != Inventory.Instance.ItemSlots[index].ID
+						 || DraggedItem.Amount == DraggedItem.StackSize
+						 || Inventory.Instance.ItemSlots[index].Amount == Inventory.Instance.ItemSlots[index].StackSize
+						 || (Inventory.Instance.ItemSlots[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
+						{
+							if (canPlace)
+							{
+								//replace items
+								Inventory.SwapItems(index, DraggedItemIndex);
+								CancelDragging();
+
+							}
+						}
+						else if (DraggedItemIndex != index)
+						{
+							//stack items
+							int i = DraggedItem.Amount + Inventory.Instance.ItemSlots[index].Amount - DraggedItem.StackSize;
+							if (i > 0)  //too much to stack completely and there is an excess
+							{
+								Inventory.Instance.ItemSlots[index].Amount = Inventory.Instance.ItemSlots[index].StackSize;
+								Inventory.Instance.ItemSlots[DraggedItemIndex].Amount = i;
+								CancelDragging();
+
+							}
+							else //enough to stack completely
+							{
+								Inventory.Instance.ItemSlots[index].Amount += DraggedItem.Amount;
+								Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
+								CustomCrafting.ClearIndex(DraggedItemIndex);
+								CancelDragging();
+
+							}
+						}
+						else
+						{
+							CancelDragging();
+						}
+					}
+				}
+			}
+		}
+
 
 		private void DrawInvSlot(Rect r, int index)
 		{
@@ -574,146 +713,26 @@ namespace ChampionsOfForest
 					else
 						GUI.color = new Color(1, 1, 1, 1);
 
+					//item icon
 					GUI.DrawTexture(itemRect, Inventory.Instance.ItemSlots[index].icon);
+
+					//item count in the corner
 					if (Inventory.Instance.ItemSlots[index].StackSize > 1)
 					{
 						GUI.color = Color.white;
-
 						GUI.Label(r, Inventory.Instance.ItemSlots[index].Amount.ToString("N0"), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerLeft, fontSize = Mathf.RoundToInt(15 * screenScale), font = mainFont, fontStyle = FontStyle.Bold });
 					}
 
 					if (isDragging)
 					{
-						if (r.Contains(mousePos))
-						{
-							bool canPlace = DraggedItem.CanPlaceInSlot(in index);
-							if (index > -1)
-							{
-								canPlace = true;
-							}
-							if (DraggedItemIndex < 0)
-							{
-								if (DraggedItem.type != Inventory.Instance.ItemSlots[index].type)
-								{
-									if (DraggedItemIndex == -13)
-									{
-										if (Inventory.Instance.ItemSlots[index].type != BaseItem.ItemType.Shield || Inventory.Instance.ItemSlots[index].type != BaseItem.ItemType.Quiver || Inventory.Instance.ItemSlots[index].type != BaseItem.ItemType.SpellScroll)
-										{
-											canPlace = false;
-										}
-									}
-									else
-									{
-										canPlace = false;
-									}
-								}
-							}
-
-							// Prevent Inventory Item Dupe
-							if (CustomCrafting.isIngredient(index))
-								canPlace = false;
-
-							if (canPlace || index > -1)
-							{
-								if (hoveredOverID == index)
-								{
-									DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 2.5f, 0, 0.3f);
-									GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
-									GUI.DrawTexture(itemRect, DraggedItem.icon);
-									GUI.color = new Color(1, 1, 1, 1);
-								}
-								else
-								{
-									DraggedItemAlpha = 0;
-									hoveredOverID = index;
-								}
-							}
-							if (UnityEngine.Input.GetMouseButtonUp(0))
-							{
-								SelectedItem = index;
-								Effects.Sound_Effects.GlobalSFX.Play(1);
-								if (Inventory.Instance.ItemSlots[index].CombineItems(DraggedItem))
-								{
-									Inventory.Instance.ItemSlots[DraggedItemIndex].Amount--;
-									if (Inventory.Instance.ItemSlots[DraggedItemIndex].Amount <= 0)
-									{
-										Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
-									}
-									DraggedItem = null;
-									DraggedItemIndex = -1;
-									return;
-								}
-								if (index < -1)
-								{
-									if (canPlace)
-									{
-										Inventory.SwapItems(index, DraggedItemIndex);
-
-										DraggedItem = null;
-										DraggedItemIndex = -1;
-										isDragging = false;
-									}
-									else
-									{
-										Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
-										DraggedItem = null;
-										DraggedItemIndex = -1;
-									}
-								}
-								else
-								{
-									if (DraggedItem.ID != Inventory.Instance.ItemSlots[index].ID
-									 || DraggedItem.Amount == DraggedItem.StackSize
-									 || Inventory.Instance.ItemSlots[index].Amount == Inventory.Instance.ItemSlots[index].StackSize
-									 || (Inventory.Instance.ItemSlots[index].StackSize <= 1 && DraggedItem.StackSize <= 1))
-									{
-										if (canPlace)
-										{
-											//replace items
-											Inventory.SwapItems(index, DraggedItemIndex);
-											DraggedItem = null;
-											DraggedItemIndex = -1;
-											isDragging = false;
-										}
-									}
-									else if (DraggedItemIndex != index)
-									{
-										//stack items
-										int i = DraggedItem.Amount + Inventory.Instance.ItemSlots[index].Amount - DraggedItem.StackSize;
-										if (i > 0)  //too much to stack completely
-										{
-											Inventory.Instance.ItemSlots[index].Amount = Inventory.Instance.ItemSlots[index].StackSize;
-											Inventory.Instance.ItemSlots[DraggedItemIndex].Amount = i;
-											DraggedItem = null;
-											DraggedItemIndex = -1;
-											isDragging = false;
-										}
-										else //enough to stack completely
-										{
-											Inventory.Instance.ItemSlots[index].Amount += DraggedItem.Amount;
-											Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
-
-											CustomCrafting.ClearIndex(DraggedItemIndex);
-											DraggedItem = null;
-											DraggedItemIndex = -1;
-											isDragging = false;
-										}
-									}
-									else
-									{
-										DraggedItem = null;
-										DraggedItemIndex = -1;
-										isDragging = false;
-									}
-								}
-							}
-						}
+						DragItem(in r, in itemRect, index);
 					}
-					else
+					else if (!itemContextMenu.HasValue && r.Contains(mousePos))
 					{
-						if (r.Contains(mousePos))
+						//left click on an item
+						if (UnityEngine.Input.GetMouseButtonDown(0))
 						{
-							if (UnityEngine.Input.GetMouseButtonDown(0) && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
+							if (!UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
 							{
 								Effects.Sound_Effects.GlobalSFX.Play(0);
 
@@ -721,33 +740,24 @@ namespace ChampionsOfForest
 								DraggedItem = Inventory.Instance.ItemSlots[index];
 								DraggedItemIndex = index;
 							}
-							else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1 && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
-							{
-								Effects.Sound_Effects.GlobalSFX.Play(0);
-
-								if (!consumedsomething)
-								{
-									consumedsomething = true;
-									if (Inventory.Instance.ItemSlots[index].OnConsume())
-									{
-										Inventory.Instance.ItemSlots[index].Amount--;
-										if (Inventory.Instance.ItemSlots[index].Amount <= 0)
-										{
-											Inventory.Instance.ItemSlots[index] = null;
-										}
-									}
-								}
-							}
+						}
+						//right click on an item to bring up context menu
+						else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1 && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
+						{
+							Effects.Sound_Effects.GlobalSFX.Play(0);
+							itemContextMenu = new ItemContextMenu(r, index);
 						}
 					}
+
 				}
 			}
-			else
+			else // the slot which the mouse is hovering over is empty
 			{
 				if (isDragging)
 				{
 					if (r.Contains(mousePos))
 					{
+						//draw a ghost of the item over the empty slot
 						if (hoveredOverID == index)
 						{
 							Rect itemRect = new Rect(r);
@@ -757,52 +767,53 @@ namespace ChampionsOfForest
 							itemRect.x += f / 2;
 							itemRect.y += f / 2;
 
-							DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 2.5f, 0, 0.3f);
+							DraggedItemAlpha = Mathf.Clamp(DraggedItemAlpha + Time.unscaledDeltaTime / 3f, 0, 0.3f);
 							GUI.color = new Color(1, 1, 1, DraggedItemAlpha);
 							GUI.DrawTexture(itemRect, DraggedItem.icon);
+							GUI.color = new Color(1, 1, 1, 1);
 						}
 						else
 						{
 							DraggedItemAlpha = 0;
 							hoveredOverID = index;
 						}
-					}
-					GUI.color = new Color(1, 1, 1, 1);
-					if (r.Contains(mousePos) && UnityEngine.Input.GetMouseButtonUp(0))
-					{
-						isDragging = false;
-						if (index < -1)
+
+
+
+						if (UnityEngine.Input.GetMouseButtonUp(0))	//drop item
 						{
-							bool canPlace = DraggedItem.CanPlaceInSlot(in index);
-							if (canPlace)
+							if (index < -1)
+							{
+								bool canPlace = DraggedItem.CanPlaceInSlot(in index);
+								if (canPlace)
+								{
+									Inventory.Instance.ItemSlots[index] = DraggedItem;
+									Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
+									CustomCrafting.UpdateIndex(DraggedItemIndex, index);
+									Effects.Sound_Effects.GlobalSFX.Play(1);
+									CancelDragging();
+								}
+								else
+								{
+									Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
+									Inventory.Instance.RemoveItemAtPosition(index);
+									CancelDragging();
+
+								}
+							}
+							else if (DraggedItemIndex != index)
 							{
 								Inventory.Instance.ItemSlots[index] = DraggedItem;
-								Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
+								Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
 								CustomCrafting.UpdateIndex(DraggedItemIndex, index);
-								DraggedItem = null;
-								DraggedItemIndex = -1;
+								CancelDragging();
 								Effects.Sound_Effects.GlobalSFX.Play(1);
 							}
-							else
-							{
-								Inventory.Instance.ItemSlots[index] = null;
-								Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
-								DraggedItem = null;
-								DraggedItemIndex = -1;
-							}
-						}
-						else if (DraggedItemIndex != index)
-						{
-							Inventory.Instance.ItemSlots[index] = DraggedItem;
-							Inventory.Instance.ItemSlots[DraggedItemIndex] = null;
-							CustomCrafting.UpdateIndex(DraggedItemIndex, index);
-							DraggedItem = null;
-							DraggedItemIndex = -1;
-							Effects.Sound_Effects.GlobalSFX.Play(1);
 						}
 					}
 				}
 			}
+			//draw the slot frame
 			GUI.color = frameColor;
 			GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[13]);
 			GUI.color = Color.white;
@@ -819,7 +830,114 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+		bool DrawInvContextMenuBtn(float x, float y, float h, float w, in string text)
+		{
+			return (GUI.Button(new Rect(x, y, w, h), text, new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(30f * screenScale) }));
+		}
+		private void CloseItemContextMenu()
+		{
+			itemContextMenu = null;
+		}
+		private void DrawInvContextMenu()
+		{
+			if (itemContextMenu.HasValue)
+			{
+				float buttonHeight = 35 * screenScale;
+				float y = Mathf.Max(0, itemContextMenu.Value.r.yMax - itemContextMenu.Value.buttonCount * buttonHeight);
+				float x = itemContextMenu.Value.r.xMax;
+				float h = itemContextMenu.Value.buttonCount * buttonHeight;
+				float w = 250f * screenScale;
+				Rect r = new Rect(x, y, w, h);
+				if (!(r.Contains(mousePos) || itemContextMenu.Value.r.Contains(mousePos)))
+				{
+					CloseItemContextMenu();
+					return;
+				}
 
+				GUI.DrawTexture(r, blackSquareTex);
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.consume) == ItemContextMenu.AvaibleContextMenuButtons.consume)
+				{
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Consume"))
+					{
+						if (!consumedsomething)
+						{
+							consumedsomething = true;
+							if (itemContextMenu.Value.i.OnConsume())
+							{
+								itemContextMenu.Value.i.Amount--;
+								if (itemContextMenu.Value.i.Amount <= 0)
+								{
+									Inventory.Instance.ItemSlots[itemContextMenu.Value.itemIndex] = null;
+								}
+							}
+							CloseItemContextMenu();
+							return;
+						}
+					}
+					y += buttonHeight;
+				}
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.splitStack) == ItemContextMenu.AvaibleContextMenuButtons.splitStack)
+				{
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Split Stack"))
+					{
+
+						if (!consumedsomething)
+						{
+							consumedsomething = true;
+
+							int emptySlot = -1;
+							for (int i = 0; i < Inventory.SlotCount; i++)
+							{
+								if (Inventory.Instance.ItemSlots[i] == null)
+								{
+									emptySlot = i;
+									break;
+								}
+							}
+							if (emptySlot != -1)
+							{
+								int amount = itemContextMenu.Value.i.Amount / 2;
+								var itemClone = new Item(itemContextMenu.Value.i, amount, 0, false);
+								itemClone.level = itemContextMenu.Value.i.level;
+								if (itemContextMenu.Value.i.Stats != null)
+									itemClone.Stats = new System.Collections.Generic.List<ItemStat>(itemContextMenu.Value.i.Stats);
+
+								itemContextMenu.Value.i.Amount -= amount;
+
+								Inventory.Instance.ItemSlots[emptySlot] = itemClone;
+
+							}
+
+							CloseItemContextMenu();
+							return;
+						}
+					}
+					y += buttonHeight;
+
+				}
+
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.drop) == ItemContextMenu.AvaibleContextMenuButtons.drop)
+				{
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Drop"))
+					{
+
+						if (!consumedsomething)
+						{
+							consumedsomething = true;
+							if (itemContextMenu.Value.i.Equipped)
+							{
+								itemContextMenu.Value.i.OnUnequip();
+								itemContextMenu.Value.i.Equipped = false;
+							}
+							Inventory.Instance.DropItem(itemContextMenu.Value.itemIndex);
+							CustomCrafting.ClearIndex(itemContextMenu.Value.itemIndex);
+							CloseItemContextMenu();
+							return;
+						}
+					}
+				}
+			}
+		}
 		private void DrawInvSlot(Rect r, int index, string title)
 		{
 			Rect TitleR = new Rect(r.x, r.y - 35 * screenScale, r.width, 35 * screenScale);
@@ -837,19 +955,19 @@ namespace ChampionsOfForest
 			float y = Screen.height / 2 - 200 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Melee Damage", TitleStyle);
 			y += 25 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerMeleeDamageRating().ToString("N0"),ValueStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerMeleeDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Ranged Damage", TitleStyle);
 			y += 25 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerRangedDamageRating().ToString("N0"),ValueStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerRangedDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Magic Damage", TitleStyle);
 			y += 25 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerSpellDamageRating().ToString("N0"),ValueStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerSpellDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Toughness", TitleStyle);
 			y += 25 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"),ValueStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"), ValueStyle);
 		}
 
 		#endregion InventoryMethods

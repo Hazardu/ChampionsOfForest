@@ -316,8 +316,15 @@ namespace ChampionsOfForest
 			DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 
 			//waiting for buffs and perks to apply
-			yield return new WaitForSeconds(4.5f);
+			yield return new WaitForSeconds(5f);
 
+			
+			ModdedPlayer.ResetAllStats();
+			//bringing health back to correct amount
+			yield return null;
+			LocalPlayer.Stats.Health = ModdedPlayer.Stats.TotalMaxHealth * HealthPercentage;
+			//waiting for buffs and perks to apply
+			yield return new WaitForSeconds(6f);
 			//fixing missing items
 			foreach (KeyValuePair<int, int> item in ExtraCarriedItems)
 			{
@@ -328,12 +335,6 @@ namespace ChampionsOfForest
 					LocalPlayer.Inventory.AddItem(item.Key, toAdd);
 				}
 			}
-
-			yield return new WaitForSeconds(2f);
-			ModdedPlayer.ResetAllStats();
-			//bringing health back to correct amount
-			yield return null;
-			LocalPlayer.Stats.Health = ModdedPlayer.Stats.TotalMaxHealth * HealthPercentage;
 		}
 
 		public static void EmergencySave()

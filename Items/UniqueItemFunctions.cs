@@ -12,7 +12,10 @@ namespace ChampionsOfForest.Items
 		public static void EnemyBleedForPlayerHP(COTFEvents.HitOtherParams param)
 		{
 			if (param is null)
+			{
+				UnityEngine.Debug.Log("Params are null in EnemyBleedForPlayerHP(...)");
 				return;
+			}
 			if (param.hitTarget is BoltEntity)
 			{
 				var entity = param.hitTarget as BoltEntity;
@@ -34,6 +37,8 @@ namespace ChampionsOfForest.Items
 			{
 				var prog = param.hitTarget as EnemyProgression;
 				prog.DoDoT(ModdedPlayer.Stats.maxHealth, 10f);
+				UnityEngine.Debug.Log("event triggered");
+
 			}
 		}
 	}

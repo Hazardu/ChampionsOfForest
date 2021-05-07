@@ -21,7 +21,6 @@ namespace ChampionsOfForest.Player
 				{
 					var cw = PlayerInventoryMod.customWeapons[equippedWeapon.weaponModel];
 					dmg = cw.damage;
-					atkSpeed = cw.swingspeed;
 				}
 			}
 			float dps = dmg + ModdedPlayer.Stats.meleeFlatDmg;

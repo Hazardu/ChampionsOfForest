@@ -83,7 +83,7 @@ namespace ChampionsOfForest.Enemies
 		}
 
 		private EnemyProgression EnemyProg;
-
+		private int hitDamage = 0;
 		[ModAPI.Attributes.Priority(100)]
 		protected override void OnTriggerEnter(Collider other)
 		{
@@ -273,6 +273,7 @@ namespace ChampionsOfForest.Enemies
 												num *= 5;
 											}
 										}
+										hitDamage = num;
 										if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
 										{
 											BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
@@ -300,7 +301,7 @@ namespace ChampionsOfForest.Enemies
 								}
 								else
 								{
-									if (other.transform.root == LocalPlayer.Transform.root)
+									if (other.transform.root == LocalPlayer.Transform.root && EnemyManager.enemyByTransform.ContainsKey(this.rootTr))
 									{
 										if (EnemyProg == null)
 										{
@@ -312,6 +313,7 @@ namespace ChampionsOfForest.Enemies
 										{
 											bo = other.transform.root.GetComponentInChildren<BoltEntity>();
 										}
+										hitDamage = num;
 
 										//POISON ATTACKS
 										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
@@ -393,7 +395,7 @@ namespace ChampionsOfForest.Enemies
 						other.transform.SendMessageUpwards("getCombo", Random.Range(1, 4), SendMessageOptions.DontRequireReceiver);
 						other.transform.SendMessage("getAttackerType", attackerType, SendMessageOptions.DontRequireReceiver);
 						other.transform.SendMessage("getAttacker", rootTr.gameObject, SendMessageOptions.DontRequireReceiver);
-						other.transform.SendMessageUpwards("Hit", 6, SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessageUpwards("Hit",hitDamage, SendMessageOptions.DontRequireReceiver);
 						FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
 					}
 				}

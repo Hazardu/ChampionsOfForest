@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Bolt;
+
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Player;
+
 using TheForest.Utils;
+
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -130,7 +134,7 @@ namespace ChampionsOfForest
 				}
 			}
 
-				damage = damage * dmgTakenIncrease;
+			damage = damage * dmgTakenIncrease;
 			if (pure)
 			{
 				return Mathf.Abs(damage);
@@ -145,7 +149,7 @@ namespace ChampionsOfForest
 			float dmg = damage * (1 - reduction);
 			if (Steadfast != 100)
 			{
-				dmg = Mathf.Min(dmg, SteadfastCap);
+				dmg = Mathf.Min(dmg, steadfastCap);
 			}
 
 			return Mathf.Abs(dmg);
@@ -165,7 +169,8 @@ namespace ChampionsOfForest
 			damage -= 1f;
 			DealDamage(dmg);
 			if (abilities.Contains(Abilities.Juggernaut))
-				if(HealthScript.Health >10) return;
+				if (HealthScript.Health > 10)
+					return;
 			HealthScript.HitReal(1);
 		}
 		public int ClampDamage(bool pure, int damage)
@@ -232,19 +237,23 @@ namespace ChampionsOfForest
 					return 0;
 				}
 			}
-
-				damage = Mathf.CeilToInt(damage * dmgTakenIncrease);
+			float dmgF = damage * dmgTakenIncrease;
+			damage =  Mathf.CeilToInt(Mathf.Min(dmgF,int.MaxValue));
 			if (pure)
 			{
-				if (damage > SteadfastCap)
+				if (damage > steadfastCap)
 				{
 					if (Steadfast == 100)
 					{
 						return damage;
 					}
 
-					int dmgpure = Mathf.Min(damage, (int)SteadfastCap);
-					return dmgpure;
+					if (damage > steadfastCap)
+					{
+						if (steadfastCap >= int.MaxValue)
+							return int.MaxValue;
+						return (int)steadfastCap;
+					}
 				}
 				return damage;
 			}
@@ -253,7 +262,7 @@ namespace ChampionsOfForest
 			int dmg = Mathf.CeilToInt(damage * (1 - reduction));
 			if (Steadfast != 100)
 			{
-				dmg = Mathf.Min(dmg, (int)SteadfastCap);
+				dmg = Mathf.Min(dmg, (int)steadfastCap);
 			}
 
 			return dmg;

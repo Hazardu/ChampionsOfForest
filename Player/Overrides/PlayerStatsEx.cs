@@ -500,6 +500,10 @@ namespace ChampionsOfForest
 				{
 					Health = 0f;
 				}
+				if (float.IsNaN(Health))
+				{
+					Health = 0;
+				}
 				if (Health > ModdedPlayer.Stats.TotalMaxHealth)
 				{
 					Health = ModdedPlayer.Stats.TotalMaxHealth;
@@ -914,7 +918,7 @@ namespace ChampionsOfForest
 					Health = ModdedPlayer.Stats.TotalMaxHealth;
 					BuffDB.AddBuff(20, 61, 0, 600);
 					BuffDB.AddBuff(6, 82, 1, 10);
-					BuffDB.AddBuff(26, 83, 0.2f, 10);	//80% damage reduction
+					BuffDB.AddBuff(26, 83, 0.1f, 10);	//90% damage reduction
 					BuffDB.AddBuff(25, 99, 35, 10);		//+35 hp/s
 					BuffDB.AddBuff(11, 100, 10, 10);		//+10 ep/s
 					return;
