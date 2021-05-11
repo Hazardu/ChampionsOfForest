@@ -5,6 +5,8 @@ using System.Text;
 
 using ChampionsOfForest.Player;
 
+using TheForest.Utils;
+
 namespace ChampionsOfForest.Items
 {
 	public static class UniqueItemFunctions
@@ -16,9 +18,9 @@ namespace ChampionsOfForest.Items
 				UnityEngine.Debug.Log("Params are null in EnemyBleedForPlayerHP(...)");
 				return;
 			}
-			if (param.hitTarget is BoltEntity)
+			if (GameSetup.IsMpClient)
 			{
-				var entity = param.hitTarget as BoltEntity;
+				var entity = (BoltEntity)param.hitTarget;
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 				{
 					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -26,20 +28,32 @@ namespace ChampionsOfForest.Items
 						w.Write(32);
 						w.Write(entity.networkId.PackedValue);
 						w.Write(ModdedPlayer.Stats.TotalMaxHealth);
-						w.Write(10f);
+						w.Write(15f);
 						w.Close();
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 					answerStream.Close();
 				}
 			}
-			else if (param.hitTarget is EnemyProgression)
+			else
 			{
-				var prog = param.hitTarget as EnemyProgression;
-				prog.DoDoT(ModdedPlayer.Stats.maxHealth, 10f);
-				UnityEngine.Debug.Log("event triggered");
+				EnemyProgression prog = param.hitTarget as EnemyProgression;
+				prog.DoDoT(ModdedPlayer.Stats.maxHealth, 15f);
 
 			}
+		}
+
+		public static void Gain1EnergyOnHit(COTFEvents.HitOtherParams param)
+		{
+			float stamGain = param.isCrit ? 2 : 1;
+			stamGain *= ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier;
+			LocalPlayer.Stats.Stamina += stamGain;
+		}
+		public static void Gain10EnergyOnHit(COTFEvents.HitOtherParams param)
+		{
+			float stamGain = param.isCrit ? 20 : 10;
+			stamGain *= ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier;
+			LocalPlayer.Stats.Stamina += stamGain;
 		}
 	}
 }

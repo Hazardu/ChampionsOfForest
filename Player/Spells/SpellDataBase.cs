@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player
 				active = SpellActions.CastBallLightning,
 			};
 			new Spell(iD: 17, TextureID: 134, levelrequirement: 17, energyCost: 25, baseCooldown: 25, name: "Bash",
-				() => $"Passive: Every attack slows enemies for {ModdedPlayer.Stats.spell_bashDuration} seconds, and increases their damage taken by {ModdedPlayer.Stats.spell_bashExtraDamage}\nActive: Melee damage is increased for {ModdedPlayer.Stats.spell_bashDuration} seconds by {(ModdedPlayer.Stats.spell_bashExtraDamage-1):P}")
+				() => $"Passive: Every attack slows enemies for {ModdedPlayer.Stats.spell_bashDuration} seconds, and increases their damage taken by {ModdedPlayer.Stats.spell_bashDamageDebuffAmount}\nActive: Melee damage is increased for {ModdedPlayer.Stats.spell_bashDuration} seconds by {(ModdedPlayer.Stats.spell_bashDamageDebuffAmount-1):P}")
 			{
 				passive = SpellActions.BashPassiveEnabled,
 				active = SpellActions.BashActive
@@ -177,13 +177,13 @@ namespace ChampionsOfForest.Player
 				aim = Taunt.Aim,
 				aimEnd = Taunt.AimEnd
 			};
-			new Spell(26, 117, 6, 45, 20, "Firebolt", () => $"Puts your weapon away and instead allows you to wield fireballs. Each attack consumes stamina. Once you equip another weapon, you can no longer cast fireballs until you use this spell again\nAttack speed affects fire rate\nAttack damage: {ModdedPlayer.Stats.spell_fireboltDamageScaling:P}")
+			new Spell(26, 201, 6, 45, 20, "Firebolt", () => $"Puts your weapon away and instead allows you to wield fireballs. Each attack consumes stamina. Once you equip another weapon, you can no longer cast fireballs until you use this spell again\nAttack speed affects fire rate\nAttack damage: {ModdedPlayer.Stats.spell_fireboltDamageScaling:P}")
 			{
-				active = () => Spells.ActiveSpellManager.instance.PrepareForFiring(Spells.FireboltSpell.Instance),
+				active = () => Spells.ActiveSpellManager.Instance.PrepareForFiring(Spells.FireboltSpell.Instance),
 			};
-			new Spell(27, 117, 9, 120, 20, "Snow Storm", () => $"Puts your weapon away and instead allows you to summon a blizzard around you. Hold left mouse button to channel. After 10 seconds spell reaches maximum power - damage and radius is at it's peak\nAttacks twice per second, frost seeps into enemy armor reducing it by a fraction of damage dealt")
+			new Spell(27, 200, 9, 120, 20, "Snow Storm", () => $"Puts your weapon away and instead allows you to summon a blizzard around you. Hold left mouse button to channel. After 10 seconds spell reaches maximum power - damage and radius is at it's peak\nAttacks twice per second, frost seeps into enemy armor reducing it by a fraction of damage dealt")
 			{
-				active = () => Spells.ActiveSpellManager.instance.PrepareForFiring(Spells.BlizzardSpell.Instance),
+				active = () => Spells.ActiveSpellManager.Instance.PrepareForFiring(Spells.BlizzardSpell.Instance),
 			};
 			//new Spell(24, 165, 1, 1, 2, "Corpse Explosion", "")
 			//{

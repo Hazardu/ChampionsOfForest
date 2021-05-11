@@ -1,4 +1,6 @@
-﻿using ChampionsOfForest.Items;
+﻿using System.Linq;
+
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Items.Sets;
 using ChampionsOfForest.Player;
 
@@ -669,7 +671,7 @@ namespace ChampionsOfForest
 		 })
 			{
 				name = "Phase Pauldrons",
-				uniqueStat = "The distance of teleport is increased by <color=gold>40</color> meters, and teleport now hits everything that you teleported through",
+				uniqueStat = "The distance of blink is increased by <color=gold>40</color> meters, and blink now hits everything that you teleported through",
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 9,
@@ -776,6 +778,7 @@ namespace ChampionsOfForest
 					 {
 				new int[] {39,40,41,42,43},
 				new int[] {-1},
+				new int[] {-1},
 					 })
 			{
 				name = "Scarf",
@@ -842,7 +845,7 @@ namespace ChampionsOfForest
 			{
 				name = "Greater Mutated Heart",
 				uniqueStat = "Can be consumed by right clicking it",
-				Rarity = 6,
+				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
 				CanConsume = true,
@@ -1188,12 +1191,14 @@ namespace ChampionsOfForest
 				new int[] {19,47,49,57,6},
 				new int[] {29,37,38,57},
 				new int[] {65},
+				new int[] {-1},
+				new int[] {-1},
 			 })
 			{
 				name = "The One Ring To Rule Them All",
 				description = "An Ancient magical Ring of great power.",
 				lore = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?",
-				uniqueStat= "Attracts unwanted attention.",
+				uniqueStat= "Attracts unwanted attention of an unknown entity.",
 				Rarity = 7,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 20,
 				maxLevel = 30,
@@ -1658,6 +1663,7 @@ namespace ChampionsOfForest
 			new int[] {-1},
 			new int[] {-1},
 			new int[] {-1},
+			new int[] {-1},
 			new int[] {12,13,21,24,6},
 			new int[] {19,47,49,6},
 			new int[] {29,37,38},
@@ -1823,7 +1829,7 @@ namespace ChampionsOfForest
 					new int[] {2,3,4,5,6,7,8,11,12,16,18,37},
 			})
 			{
-				name = "Magic Quiver",
+				name = "Spellbound Quiver",
 				Rarity = 3,
 				minLevel = 6,
 				maxLevel = 11,
@@ -2220,7 +2226,7 @@ new int[] {39,40,41,42,43},
 				StackSize = 100,
 				type = BaseItem.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
-				onConsume = ModdedPlayer.Respec
+				onEquip = ModdedPlayer.Respec
 			};
 
 			new BaseItem(new int[][]
@@ -3095,7 +3101,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = false,
-			}.PossibleStats[0][0].Multipier = -0.7f;
+			}.PossibleStats[0][0].Multipier = -1.7f;
 
 			new BaseItem(new int[][]
 		{
@@ -3127,7 +3133,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Add(20),
 				onUnequip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Substract(20),
-			}.PossibleStats[0][0].Multipier = -0.7f;
+			}.PossibleStats[0][0].Multipier = -1.7f;
 
 			new BaseItem(new int[][]
 			{
@@ -3712,18 +3718,18 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_EruptionBow.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_EruptionBow.value = false,
-			}.PossibleStats[0][0].Multipier = -0.6f;
+			}.PossibleStats[0][0].Multipier = -1.6f;
 
 			new BaseItem(new int[][]
 		{
-			 new int[] {31},
+			 new int[] {18},
 				new int[] {61,48},
 				new int[] {2,3,5},
 				new int[] {12,13,2,40,16},
 				new int[] {39,40,41,42,43,0,0},
 				new int[] {23,26},
 				new int[] {23,26},
-				new int[] {-1},
+				new int[] {31},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
@@ -3744,7 +3750,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_ArchangelBow.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_ArchangelBow.value = false,
-			}.PossibleStats[0][0].Multipier = 2f;
+			}.PossibleStats[0][0].Multipier = -2f;
 			new BaseItem(new int[][]
 			{
 				new int[] {1,4 },
@@ -4267,11 +4273,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Lead Ore",
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -4286,11 +4292,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Vanadium Ore",
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 4,
 				minLevel = 20,
@@ -4305,11 +4311,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Titanium Ore",
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 5,
 				minLevel = 20,
@@ -4325,11 +4331,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Chromium Ore",
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 6,
 				minLevel = 20,
@@ -4344,11 +4350,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Tungsten Ore",
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 7,
 				minLevel = 20,
@@ -4365,11 +4371,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {MELEEDMGFROMSTR},
 				new [] {STRENGTH},
-				new [] {BASEMELEEDAMAGE},
-				new [] {MELEEARMORPIERCING},
+				new [] {BASEMELEEDAMAGE,MELEEDAMAGEINCREASE},
+				new [] {MELEEARMORPIERCING,ARMORPIERCING,ALLATTRIBUTES},
 				new [] {ATTACKCOSTREDUCTION,ATTACKSPEED},
 				new [] {ATTACKSPEED},
-				new [] {ALLATTRIBUTES,MELEEWEAPONRANGE},
+				new [] {ALLATTRIBUTES,MELEEWEAPONRANGE,VITALITY,MAXIMUMLIFE},
 				new [] {ENERGYONHIT,VITALITY,LIFEONHIT }
 			})
 			{
@@ -4542,7 +4548,8 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
 				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
 				new [] {CRITICALHITCHANCE},
-				new [] {STRENGTH},
+				new [] {ARMOR},
+				new [] {ALL},
 				new [] {ALL},
 
 			})
@@ -4580,7 +4587,7 @@ new int[] {0,0,0,0,62,63,64},
 					type = BaseItem.ItemType.ChestArmor,
 					icon = Res.ResourceLoader.GetTexture(96),
 				};
-				SomeItem.PossibleStats[0][0].Multipier = 1.5f;
+				SomeItem.PossibleStats[0][0].Multipier = 2;
 			}
 			{
 				var demoVestItem = new BaseItem(new Stat[][]
@@ -4605,7 +4612,7 @@ new int[] {0,0,0,0,62,63,64},
 					type = BaseItem.ItemType.ChestArmor,
 					icon = Res.ResourceLoader.GetTexture(96),
 				};
-				demoVestItem.PossibleStats[0][0].Multipier = 4;
+				demoVestItem.PossibleStats[0][0].Multipier = 7;
 
 			}
 			new BaseItem(new Stat[][]
@@ -4633,12 +4640,12 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {ALLATTRIBUTES},
+				new [] {MAXIMUMLIFE, VITALITY,STRENGTH,INTELLIGENCE},
 				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
 				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
 				new [] {ARMORPIERCING},
-				new [] {STRENGTH},
+				new [] {ALL},
 				new [] {ARMOR},
 
 			})
@@ -4657,11 +4664,13 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new Stat[][]
 			{
 				new [] {ATTACKSPEED },
-				new [] {RANGEDDAMAGEINCREASE,PROJECTILESIZE,PROJECTILESPEED},
+				new [] {RANGEDDAMAGEINCREASE,},
 				new [] {BASERANGEDDAMAGE},
-				new [] {AGILITY},
+				new [] {PROJECTILESIZE},
+				new [] {PROJECTILESPEED},
+				new [] {AGILITY,NONE},
 				new [] {RANGEDARMORPIERCING, ARMORPIERCING},
-				new [] {ARMOR},
+				new [] {ALL},
 			})
 			{
 				name = "Hand-held Ballista",
@@ -4674,7 +4683,7 @@ new int[] {0,0,0,0,62,63,64},
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 
-			}.PossibleStats[2][0].Multipier = 2f;
+			}.PossibleStats[2][0].Multipier = -2f;
 
 			new BaseItem(new Stat[][]
 			{
@@ -5286,7 +5295,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Lama Mega's Blood Bag",
 				description = "",
-				uniqueStat = "Melee hits cause enemies to bleed for 100% of your health as damage for 10 seconds",
+				uniqueStat = "Melee hits cause enemies to bleed for 100% of your health as damage for 15 seconds",
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5297,6 +5306,1272 @@ new int[] {0,0,0,0,62,63,64},
 				onEquip = () => COTFEvents.Instance.OnHitMelee.AddListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 				onUnequip = () => COTFEvents.Instance.OnHitMelee.RemoveListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 			};
+			new BaseItem(new int[][]{ })
+			{
+				name = "Socket Drill",
+				description = "A convienient one use tool",
+				lore = "What's a drill doing here in a place full of primitive tribes?",
+				uniqueStat = "Adds one socket to an item, unless the item can't have any more sockets.",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(190),
+				onConsume = x =>
+				{
+					int socketMax = StatActions.GetMaxSocketAmountOnItem(in x.type);
+					int socketCurrent = x.Stats.Where(y => y.StatID >= 3000).Count();
+					if (socketCurrent < socketMax)
+					{
+						x.Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
+						return true;
+					}
+					return false;
+				}
+			};
+			new BaseItem(new Stat[][]
+			{
+				new[] { MOVEMENTSPEED},
+				new[] { INTELLIGENCE,STRENGTH,AGILITY },
+				new[] { ALLATTRIBUTES,VITALITY },
+				new[] { ARMOR },
+				new[] { NONE,JUMPPOWER},
+			})
+			{
+				name = "Moonwalkers",
+				description = "",
+				lore = "Cha cha real smooth.",
+				uniqueStat = "Inverts movement",
+				Rarity = 3,
+				minLevel = 16,
+				maxLevel = 18,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+				onEquip = () => ModdedPlayer.Stats.movementSpeed.Multiply(-1.2f),
+				onUnequip = () => ModdedPlayer.Stats.movementSpeed.Divide(-1.2f)
+			}.PossibleStats[0][0].Multipier=3;
+
+			new BaseItem(new Stat[][]
+			{
+				new[] { JUMPPOWER},
+				new[] { LESSERAGILITY},
+				new[] { LESSERARMOR},
+				new[] { PROJECTILESIZE,PROJECTILESIZE,ALLATTRIBUTES,LIFEREGENERATION,LIFEPERSECOND,LESSERVITALITY,AGILITY},
+				new[] { RANGEDARMORPIERCING,RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,ATTACKSPEED},
+			})
+			{
+				name = "Rabbit Ears Hairband",
+				description = "Cute",
+				lore = "",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new[] { JUMPPOWER},
+				new[] { AGILITY},
+				new[] { ARMOR},
+				new[] { PROJECTILESIZE,PROJECTILESIZE,ALLATTRIBUTES,LIFEREGENERATION,LIFEPERSECOND,VITALITY,INTELLIGENCE,AGILITY},
+				new[] { RANGEDARMORPIERCING,RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,ATTACKSPEED},
+			})
+			{
+				name = "Bunny Ears Hairband",
+				description = "Cute",
+				lore = "",
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new int[][]
+			{
+				new int[] {11},
+				new int[] {16},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000},
+				new int[] {3000,0},
+				new int[] {3000,0},
+				new int[] {3000,0},
+				new int[] {3000,0},
+				new int[] {3000,0},
+
+			})
+			{
+				name = "Iron plate full of holes",
+				description = "",
+				lore = "The integrity of this item is questionable",
+				Rarity = 3,
+				minLevel = 50,
+				maxLevel = 60,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,DAMAGEREDUCTION},
+				new [] {ALLATTRIBUTES,AGILITY,STRENGTH,INTELLIGENCE,VITALITY},
+
+			})
+			{
+				name = "Small Tribal Necklace",
+				uniqueStat = "Increases maximum stacks of frenzy by 2",
+				Rarity = 4,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(2),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(2),
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL},
+				new [] {ALL},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,DAMAGEREDUCTION},
+				new [] {ALLATTRIBUTES,AGILITY,STRENGTH,INTELLIGENCE,VITALITY},
+
+		})
+			{
+				name = "Tribal Necklace",
+				uniqueStat = "Increases maximum stacks of frenzy by 3",
+				Rarity = 4,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(3),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(3),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,DAMAGEREDUCTION},
+				new [] {ALLATTRIBUTES,AGILITY,STRENGTH,INTELLIGENCE,VITALITY},
+
+			})
+			{
+				name = "Warlord Necklace",
+				uniqueStat = "Increases maximum stacks of frenzy by 4",
+				Rarity = 5,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(4),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(4),
+			};
+			new BaseItem(new Stat[][]
+		 {
+				new [] {ALL},
+				new [] {ALL},
+				new [] {MOVEMENTSPEED,COOLDOWNREDUCTION},
+				new [] {JUMPPOWER,ATTACKSPEED,MOVEMENTSPEED,ENERGYPERSECOND},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE,CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new [] {ALLATTRIBUTES,AGILITY,STRENGTH,INTELLIGENCE,VITALITY},
+		 })
+			{
+				name = "Travel Band",
+				uniqueStat = "The distance of blink is increased by <color=gold>20</color> feet",
+				Rarity = 5,
+				minLevel = 5,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90),
+				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(20); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(20);},
+			};
+
+			new BaseItem(new Stat[][]
+	 { 
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {COOLDOWNREDUCTION,NONE},
+	 })
+			{
+				name = "Destroyed Void Shard",
+				description = "Only a fraction of its previous might remains",
+				lore = "A pedant of great power. Obtainable only from babies or crafting",
+				uniqueStat = "Decrease the cooldown of one ability by 1 second whenever you hit something with melee or ranged attack.",
+				Rarity = 6,     
+				minLevel = 80,
+				maxLevel = 90,
+				CanConsume = false,
+				StackSize = 1,  
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(101),
+				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
+				onUnequip = () => ModdedPlayer.Stats.i_infinityLoop.value = false,
+			};
+			new BaseItem(new int[][]
+			{
+				new int[] {25 },
+				new int[] {18 },
+				new int[] {2004 },
+				new int[] {1,3,62,63,64},
+				new int[] {53,16},
+				new int[] {25 ,22,1,12,13,5,6},
+			})
+			{
+				name = "Famine Hammer",
+				description = "It's slow but with enough strength i can make it a very deadly tool",
+				uniqueStat = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 30%",
+				Rarity = 4,
+				minLevel = 30,
+				maxLevel = 35,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Hammer,
+				icon = Res.ResourceLoader.GetTexture(109),
+				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.3f),
+				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.3f),
+			};
+
+			new BaseItem(new int[][]
+			{
+				new int[] {25 },
+				new int[] {18 },
+				new int[] {-1 },
+				new int[] {2004 },
+				new int[] {1,3,62,63,64},
+				new int[] {53,16},
+				new int[] {25 ,22,1,12,13,5,6},
+			})
+			{
+				name = "Curse Hammer",
+				description = "Omnious Weapon",
+				uniqueStat = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 40%",
+				Rarity = 5,
+				minLevel = 30,
+				maxLevel = 35,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Hammer,
+				icon = Res.ResourceLoader.GetTexture(109),
+				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.4f),
+				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.4f),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {ALL},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
+				new [] {STRENGTH},
+				new [] {BASEMELEEDAMAGE},
+				new [] {ATTACKCOSTREDUCTION,ATTACKSPEED,LIFEONHIT,ENERGYONHIT,NONE,NONE,NONE},
+				new [] {ALLATTRIBUTES,VITALITY,MELEEDAMAGEINCREASE,MELEEARMORPIERCING},
+			})
+			{
+				name = "Smasher",
+				description = "It's slow but with enough strength i can make it a very deadly tool",
+				uniqueStat = "Smash damage is increased tripled",
+				Rarity = 5,
+				minLevel = 30,
+				maxLevel = 35,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Hammer,
+				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply(3f);},
+				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(3f);},
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {LIFEONHIT},
+				new [] {ENERGYONHIT},
+				new [] {STAMINAREGENERATION,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+			})
+			{
+				name = "Vampiric Band",
+				uniqueStat = "Gain 1 stamina on ranged and melee hit or double that amount on critical hits",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90),
+				onEquip = () => COTFEvents.Instance.OnHitEnemy.AddListener(UniqueItemFunctions.Gain1EnergyOnHit),
+				onUnequip = () => COTFEvents.Instance.OnHitEnemy.RemoveListener(UniqueItemFunctions.Gain1EnergyOnHit),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {LIFEONHIT},
+				new [] {CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new [] {MELEEDAMAGEINCREASE,RANGEDDAMAGEINCREASE,SPELLDAMAGEINCREASE},
+				new [] {ENERGYONHIT},
+				new [] {STAMINAREGENERATION,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+			})
+			{
+				name = "Vampire Ring",
+				uniqueStat = "Gain 10 stamina on ranged and melee hit or double that amount on critical hits",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Ring,
+				icon = Res.ResourceLoader.GetTexture(90),
+				onEquip = () => COTFEvents.Instance.OnHitEnemy.AddListener(UniqueItemFunctions.Gain10EnergyOnHit),
+				onUnequip = () => COTFEvents.Instance.OnHitEnemy.RemoveListener(UniqueItemFunctions.Gain10EnergyOnHit),
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
+				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION,INTELLIGENCE,AGILITY,STRENGTH,ALLATTRIBUTES},
+				new [] {COOLDOWNREDUCTION,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,INTELLIGENCE,DAMAGEREDUCTION},
+		})
+			{
+				name = "Tricksters Scarf",
+				description = "",
+				uniqueStat = "Magic arrow shoots 1 additional arrow.",
+				Rarity = 4,
+				minLevel = 20,
+				maxLevel = 22,
+				CanConsume = false,
+				StackSize = 1,
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(1),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(1),
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100)
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
+				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
+				new [] {VITALITY,LIFEPERSECOND,LIFEREGENERATION,INTELLIGENCE,AGILITY,STRENGTH,ALLATTRIBUTES},
+				new [] {COOLDOWNREDUCTION,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,INTELLIGENCE,DAMAGEREDUCTION},
+				new [] {INTELLIGENCE},
+				new [] {ALL},
+
+		})
+			{
+				name = "Magus' Necktie",
+				description = "",
+				uniqueStat = "Magic arrow shoots 2 additional arrows.",
+				Rarity = 5,
+				minLevel = 50,
+				maxLevel = 52,
+				CanConsume = false,
+				StackSize = 1,
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(2),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(2),
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100)
+			};
+			new BaseItem(new int[][]
+			{
+					new int[] {23,26},
+					new int[] {34,18,17,16,15,14,60,61,55,},
+					new int[] {16,19,23,31,54,51,52,66,57},
+					new int[] {2,3,4,5,6,7,8,9,10},
+			})
+			{
+				name = "Discounted Knockoff Magic Quiver",
+				uniqueStat = "There's a 15% increased chance to not consume ammo when firing a projectile.",
+				Rarity = 3,
+				minLevel = 2,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Quiver,
+				icon = Res.ResourceLoader.GetTexture(98),
+				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.15f),
+				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.15f),
+			};
+			new BaseItem(new int[][]
+			{
+					new int[] {23,26},
+					new int[] {34,18,17,16,15,14,60,61,55,},
+					new int[] {16,19,23,31,54,51,52,66,57},
+					new int[] {2,48,0,0},
+					new int[] {2,3,4,5,6,7,8,9,10},
+					new int[] {2,1,5,6,0},
+			})
+			{
+				name = "Magic Quiver",
+				uniqueStat = "There's a 20% increased chance to not consume ammo when firing a projectile.",
+				Rarity = 4,
+				minLevel = 2,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Quiver,
+				icon = Res.ResourceLoader.GetTexture(98),
+				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.2f),
+				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.2f),
+			};
+			new BaseItem(new int[][]
+			{
+					new int[] {23,26},
+					new int[] {23},
+					new int[] {34,18,17,16,15,14,60,61,55,},
+					new int[] {16,19,23,31,54,51,52,66,57},
+					new int[] {2,48},
+					new int[] {2,3,4,5,6,7,8,9,10},
+					new int[] {2,1,5,6},
+			})
+			{
+				name = "Improved Magic Quiver",
+				uniqueStat = "There's a 25% increased chance to not consume ammo when firing a projectile.",
+				Rarity = 5,
+				minLevel = 2,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Quiver,
+				icon = Res.ResourceLoader.GetTexture(98),
+				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.25f),
+				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.25f),
+			};
+			new BaseItem(new int[][]
+			{
+					new int[] {23,26},
+					new int[] {23},
+					new int[] {34,18,17,16,15,14,60,61,55,},
+					new int[] {16,19,23,31,54,51,52,66,57},
+					new int[] {2,16,14},
+					new int[] {2,3,4,5,6,7,8,9,10},
+					new int[] {48},
+					new int[] {-1},
+			})
+			{
+				name = "Factory Quiver",
+				uniqueStat = "There's a 40% increased chance to not consume ammo when firing a projectile.",
+				Rarity = 6,
+				minLevel = 12,
+				maxLevel = 20,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Quiver,
+				icon = Res.ResourceLoader.GetTexture(98),
+				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.4f),
+				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.4f),
+			};
+
+			new BaseItem(new int[][] { })
+			{
+				name = "Enzyme STR/34",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(193),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.Where(y =>		y.StatID == (int)VITALITY || y.StatID == (int)INTELLIGENCE || y.StatID == (int)AGILITY
+													 || y.StatID == (int)LESSERVITALITY|| y.StatID == (int)LESSERINTELLIGENCE|| y.StatID == (int)LESSERAGILITY
+													 || y.StatID == (int)BASERANGEDDAMAGE || y.StatID == (int)BASESPELLDAMAGE
+													 || y.StatID == (int)RANGEDDAMAGEINCREASE || y.StatID == (int)SPELLDAMAGEINCREASE).ToArray();
+
+					int c = stats.Count();
+				
+
+					if (c == 0) return false;
+					int i = UnityEngine.Random.Range(0, c);
+					ItemStat stat = stats[i];
+					int index = x.Stats.IndexOf(stat);
+
+					ItemStat newStat;
+					Stat statID = (Stat)stat.StatID;
+					switch (statID)
+					{
+						case VITALITY:
+						case INTELLIGENCE:
+						case AGILITY:
+							newStat = new ItemStat(StatByID((int)STRENGTH));
+							break;
+						case LESSERVITALITY:
+						case LESSERINTELLIGENCE:
+						case LESSERAGILITY:
+							newStat = new ItemStat(StatByID((int)LESSERSTRENGTH));
+							break;
+						case BASERANGEDDAMAGE:
+						case BASESPELLDAMAGE:
+							newStat = new ItemStat(StatByID((int)BASEMELEEDAMAGE));
+							break;
+						case RANGEDDAMAGEINCREASE:
+						case SPELLDAMAGEINCREASE:
+							newStat = new ItemStat(StatByID((int)MELEEDAMAGEINCREASE));
+							break;
+						default:
+							return false;
+					}
+					newStat.Amount = stat.Amount;
+					newStat.possibleStatsIndex = stat.possibleStatsIndex;
+					x.Stats[index] = newStat;
+					return true;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Enzyme INT/33",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(191),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)AGILITY
+													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERAGILITY
+													 || y.StatID == (int)BASERANGEDDAMAGE || y.StatID == (int)BASEMELEEDAMAGE
+													 || y.StatID == (int)RANGEDDAMAGEINCREASE || y.StatID == (int)MELEEDAMAGEINCREASE).ToArray();
+
+					int c = stats.Count();
+
+
+					if (c == 0)
+						return false;
+					int i = UnityEngine.Random.Range(0, c);
+					ItemStat stat = stats[i];
+					int index = x.Stats.IndexOf(stat);
+
+					ItemStat newStat;
+					Stat statID = (Stat)stat.StatID;
+					switch (statID)
+					{
+						case VITALITY:
+						case STRENGTH:
+						case AGILITY:
+							newStat = new ItemStat(StatByID((int)INTELLIGENCE));
+							break;
+						case LESSERVITALITY:
+						case LESSERSTRENGTH:
+						case LESSERAGILITY:
+							newStat = new ItemStat(StatByID((int)LESSERINTELLIGENCE));
+							break;
+						case BASERANGEDDAMAGE:
+						case BASEMELEEDAMAGE:
+							newStat = new ItemStat(StatByID((int)BASESPELLDAMAGE));
+							break;
+						case RANGEDDAMAGEINCREASE:
+						case MELEEDAMAGEINCREASE:
+							newStat = new ItemStat(StatByID((int)SPELLDAMAGEINCREASE));
+							break;
+						default:
+							return false;
+					}
+					newStat.Amount = stat.Amount;
+					newStat.possibleStatsIndex = stat.possibleStatsIndex;
+					x.Stats[index] = newStat;
+					return true;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Enzyme AGI/39",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(192),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)INTELLIGENCE
+													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERINTELLIGENCE
+													 || y.StatID == (int)BASESPELLDAMAGE || y.StatID == (int)BASEMELEEDAMAGE
+													 || y.StatID == (int)SPELLDAMAGEINCREASE || y.StatID == (int)MELEEDAMAGEINCREASE).ToArray();
+
+					int c = stats.Count();
+
+
+					if (c == 0)
+						return false;
+					int i = UnityEngine.Random.Range(0, c);
+					ItemStat stat = stats[i];
+					int index = x.Stats.IndexOf(stat);
+
+					ItemStat newStat;
+					Stat statID = (Stat)stat.StatID;
+					switch (statID)
+					{
+						case VITALITY:
+						case INTELLIGENCE:
+						case STRENGTH:
+							newStat = new ItemStat(StatByID((int)AGILITY));
+							break;
+						case LESSERVITALITY:
+						case LESSERINTELLIGENCE:
+						case LESSERSTRENGTH:
+							newStat = new ItemStat(StatByID((int)LESSERAGILITY));
+							break;
+						case BASEMELEEDAMAGE:
+						case BASESPELLDAMAGE:
+							newStat = new ItemStat(StatByID((int)BASERANGEDDAMAGE));
+							break;
+						case MELEEDAMAGEINCREASE:
+						case SPELLDAMAGEINCREASE:
+							newStat = new ItemStat(StatByID((int)RANGEDDAMAGEINCREASE));
+							break;
+						default:
+							return false;
+					}
+					newStat.Amount = stat.Amount;
+					newStat.possibleStatsIndex = stat.possibleStatsIndex;
+					x.Stats[index] = newStat;
+					return true;
+				}
+			};
+
+			new BaseItem(new int[][] { })
+			{
+				name = "Enzyme VIT/449",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(199),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)INTELLIGENCE
+													 || y.StatID == (int)LESSERAGILITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERINTELLIGENCE).ToArray();
+
+					int c = stats.Count();
+
+
+					if (c == 0)
+						return false;
+					int i = UnityEngine.Random.Range(0, c);
+					ItemStat stat = stats[i];
+					int index = x.Stats.IndexOf(stat);
+
+					ItemStat newStat;
+					Stat statID = (Stat)stat.StatID;
+					switch (statID)
+					{
+						case AGILITY:
+						case INTELLIGENCE:
+						case STRENGTH:
+							newStat = new ItemStat(StatByID((int)VITALITY));
+							break;
+						case LESSERAGILITY:
+						case LESSERINTELLIGENCE:
+						case LESSERSTRENGTH:
+							newStat = new ItemStat(StatByID((int)LESSERVITALITY));
+							break;
+						default:
+							return false;
+					}
+					newStat.Amount = stat.Amount;
+					newStat.possibleStatsIndex = stat.possibleStatsIndex;
+					x.Stats[index] = newStat;
+					return true;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Stomach Acid",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Removes all stats with negative values from an item",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(198),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.RemoveAll(y => y.Amount < 0);
+					if (stats > 0)
+						return true;
+					return false;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Elite Stomach Acid",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Changes negative stat values into positive values on an item",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(198),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+
+					var stats = x.Stats.Where(y => y.Amount < 0).ToList();
+					if (stats.Count > 0)
+					{
+						for (int i = 0; i < stats.Count; i++)
+						{
+							stats[i].Amount *= -1;
+						}
+						return true;
+					}
+					return false;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Crimson Solution",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(196),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+					var itemType = x.type;
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount>1 )
+						return false;
+					if (Player.Inventory.Instance.ItemSlots.ContainsValue(x))
+					{
+						for (int slotIndex = 0; slotIndex < Inventory.SlotCount; slotIndex++)
+						{
+							if (Player.Inventory.Instance.ItemSlots[slotIndex] == x)
+							{
+								var options = ItemDataBase.ItemBases.Where(y =>y.Value.Rarity==7 && y.Value.type == itemType && (itemType!= BaseItem.ItemType.Weapon || y.Value.weaponModel==x.weaponModel)).Select(y => y.Key).ToList();
+								if (options.Count == 0)
+								{
+									ModAPI.Log.Write("No tier 7 items for type: " + itemType);
+									return false;
+								}
+								var random = options[UnityEngine.Random.Range(0, options.Count)];
+								Item item = new Item(ItemDataBase.ItemBases[random], 1, 0, false)
+								{
+									level = x.level
+								};
+								item.RollStats();
+								Inventory.Instance.ItemSlots[slotIndex] = item;
+								return true;
+							}
+						}
+					}
+					return false;
+				}
+			};
+
+			new BaseItem(new int[][] { })
+			{
+				name = "Weak Armor Hardening Mixture",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Adds Armor Stat to a piece of equipment if the item does not already have it",
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(197),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+					var itemType = x.type;
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+						return false;
+					if(!x.Stats.Any(y=> y.StatID == (int)ARMOR || y.StatID == (int)LESSERARMOR))
+					{
+						ItemStat stat = new ItemStat(StatByID((int)ARMOR), x.level);
+						x.Stats.Add(stat);
+						return true;
+					}
+					return false;
+				}
+			};
+
+			new BaseItem(new int[][] { })
+			{
+				name = "Upgraded Armor Hardening Mixture",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Adds Damage Reduction Stat to a piece of equipment if the item does not already have it",
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(197),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+					var itemType = x.type;
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+						return false;
+					if (!x.Stats.Any(y => y.StatID == (int)DAMAGEREDUCTION))
+					{
+						ItemStat stat = new ItemStat(StatByID((int)DAMAGEREDUCTION), x.level);
+						x.Stats.Add(stat);
+						return true;
+					}
+					return false;
+				}
+			};
+
+			new BaseItem(new int[][] { })
+			{
+				name = "Chaos Water",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Rerolls all stats on an item of rarity no higher than orange",
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(195),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+					var itemType = x.type;
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1 || x.Rarity>5)
+						return false;
+					if (x.Stats.Count>1)
+					{
+						x.RollStats();
+						return true;
+					}
+					return false;
+				}
+			};
+			new BaseItem(new int[][] { })
+			{
+				name = "Upgraded Chaos Water",
+				description = "A substance which results in surprising changes to gear",
+				uniqueStat = "Rerolls all stats on an item of any rarity",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 100,
+				type = BaseItem.ItemType.Material,
+				icon = Res.ResourceLoader.GetTexture(194),
+				onConsume = x =>
+				{
+					if (x.Equipped)
+						return false;
+					var itemType = x.type;
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+						return false;
+					if (x.Stats.Count > 1)
+					{
+						x.RollStats();
+						return true;
+					}
+					return false;
+				}
+			};
+			new BaseItem(new Stat[][]
+			 {
+				new [] {SPELLCOSTREDUCTION,MELEEDAMAGEINCREASE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION},
+				new [] {AGILITY,LESSERAGILITY},
+				new [] {MELEEARMORPIERCING,RANGEDARMORPIERCING,ARMORPIERCING,ARMOR},
+				new [] {RANGEDDAMAGEINCREASE,RANGEDDMGFROMAGI,BASERANGEDDAMAGE,CRITICALHITCHANCE,CRITICALHITDAMAGE,ALLATTRIBUTES},
+				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,MAXIMUMLIFE,MAXIMUMENERGY},
+				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,LIFEONHIT,ENERGYONHIT,ENERGYPERSECOND,ALLHEALINGPERCENT},
+				new [] {RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,AGILITY},
+				new [] {ALL},
+			 })
+			{
+				name = "Gun Blade",
+				uniqueStat = "Increases pistol damage by <color=red>50%</color>",
+				Rarity = 6,
+				minLevel = 35,
+				maxLevel = 36,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Axe,
+				icon = Res.ResourceLoader.GetTexture(138),
+				onEquip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(1.5f),
+				onUnequip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Divide(1.5f),
+			}.PossibleStats[0][0].Multipier = -1f;
+
+			new BaseItem(new Stat[][]
+			 {
+				new [] {SPELLCOSTREDUCTION,BASESPELLDAMAGE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION},
+				new [] {ATTACKSPEED,PROJECTILESIZE,PROJECTILESPEED},
+				new [] {AGILITY,LESSERAGILITY},
+				new [] {HEADSHOTDAMAGE},
+				new [] {MELEEARMORPIERCING,RANGEDARMORPIERCING,ARMORPIERCING,ARMOR,RESISTANCETOMAGIC,MAGICFIND},
+				new [] {RANGEDDAMAGEINCREASE,RANGEDDMGFROMAGI,BASERANGEDDAMAGE,CRITICALHITCHANCE,CRITICALHITDAMAGE,ALLATTRIBUTES,MAXENERGYFROMAGI},
+				new [] {RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,AGILITY,VITALITY,INTELLIGENCE,CRITICALHITCHANCE,CRITICALHITDAMAGE},
+				new [] {RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,AGILITY,VITALITY,INTELLIGENCE,HEADSHOTDAMAGE},
+				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,MAXIMUMLIFE,MAXIMUMENERGY},
+				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,LIFEONHIT,ENERGYONHIT,ENERGYPERSECOND,ALLHEALINGPERCENT},
+				new [] {ALL},
+				new [] {ALL},
+			 })
+			{
+				name = "Sharpshooter's Axe",
+				uniqueStat = "Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>200%</color>",
+				Rarity = 7,
+				minLevel = 35,
+				maxLevel = 36,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Axe,
+				icon = Res.ResourceLoader.GetTexture(138),
+				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(3f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
+				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(3f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
+			};
+			new BaseItem(new Stat[][]
+		 {
+				new [] {ARMORPIERCING,MELEEARMORPIERCING,NONE},
+				new [] {BLOCK,NONE},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,RESISTANCETOMAGIC,DODGECHANCE},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,VITALITY,STRENGTH,ALLATTRIBUTES},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,VITALITY,STRENGTH,ALLATTRIBUTES,THORNS},
+				new [] {THORNS,MELEEDAMAGEINCREASE,VITALITY,STRENGTH},
+				new [] {STRENGTH,ARMOR,MELEEARMORPIERCING},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR,BASEMELEEDAMAGE},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,MELEEWEAPONRANGE},
+		 })
+			{
+				name = "Shield Blade",
+				description = "So large can be used as a shield",
+				lore = "A normal human cannot lift this weapon.",
+				Rarity = 6,
+				minLevel = 50,
+				maxLevel = 52,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				icon = Res.ResourceLoader.GetTexture(88),
+			};
+			new BaseItem(new Stat[][]
+		 {
+				new [] {ARMORPIERCING,MELEEARMORPIERCING},
+				new [] {BLOCK,NONE},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,RESISTANCETOMAGIC,DODGECHANCE},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,VITALITY,STRENGTH,ALLATTRIBUTES},
+				new [] {ARMOR,MAXIMUMLIFE,MAXHEALTHFROMVIT,DAMAGEREDUCTION,VITALITY,STRENGTH,ALLATTRIBUTES,THORNS},
+				new [] {THORNS,MELEEDAMAGEINCREASE,VITALITY,STRENGTH},
+				new [] {STRENGTH,ARMOR,MELEEARMORPIERCING},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR,BASEMELEEDAMAGE},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,MELEEWEAPONRANGE},
+				new [] {ALL},
+		 })
+			{
+				name = "Blunt Blade for Bashing Skulls",
+				description = "So large can be used as a shield",
+				lore = "A normal human cannot lift this weapon.",
+				uniqueStat = "Bash damage debuff on enemies is increased by 200%",
+				Rarity = 7,
+				minLevel = 50,
+				maxLevel = 52,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				icon = Res.ResourceLoader.GetTexture(88),
+				onEquip = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.Add(2.00f),
+				onUnequip = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.Substract(2.00f),
+			};
+
+			new BaseItem(new Stat[][]
+		 {
+				new[] { ARMORPIERCING, MELEEARMORPIERCING },
+				new[] { BLOCK,STRENGTH},
+				new[] { ARMOR, MAXIMUMLIFE, MAXHEALTHFROMVIT, DAMAGEREDUCTION, RESISTANCETOMAGIC, DODGECHANCE },
+				new[] { ARMOR, MAXIMUMLIFE , DAMAGEREDUCTION, VITALITY, STRENGTH, ALLATTRIBUTES },
+				new[] { ARMOR, MAXIMUMLIFE, DAMAGEREDUCTION, VITALITY, STRENGTH, ALLATTRIBUTES, THORNS },
+				new[] { THORNS, MELEEDAMAGEINCREASE, VITALITY, STRENGTH },
+				new[] { STRENGTH, ARMOR, MELEEARMORPIERCING },
+				new[] { MELEEDAMAGEINCREASE, MELEEDMGFROMSTR, BASEMELEEDAMAGE },
+				new[] { MELEEDAMAGEINCREASE, ATTACKSPEED, BASEMELEEDAMAGE, MELEEWEAPONRANGE },
+				new[] { ALL },
+				new[] { ALL },
+				new[] { ALL },
+		 })
+			{
+				name = "Madman's Legacy",
+				uniqueStat = "Frenzy damage per stack is increased by 50%",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.5f),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.5f),
+			};
+			new BaseItem(new Stat[][]
+		 {
+				new[] { ARMOR,BASEMELEEDAMAGE },
+				new[] { BLOCK},
+				new[] { ARMOR, MAXIMUMLIFE,MAXIMUMENERGY,STAMINAREGENERATION, DAMAGEREDUCTION, RESISTANCETOMAGIC, DODGECHANCE },
+				new[] { ARMOR, MAXIMUMLIFE, MAXIMUMENERGY, DAMAGEREDUCTION, VITALITY, STRENGTH, ALLATTRIBUTES,CHANCEONHITTOBLEED,CHANCEONHITTOSLOW,CHANCEONHITTOWEAKEN },
+				new[] { ARMOR, MAXIMUMLIFE, MAXHEALTHFROMVIT, DAMAGEREDUCTION, VITALITY, STRENGTH, ALLATTRIBUTES, THORNS },
+				new[] { THORNS, MELEEDAMAGEINCREASE, VITALITY, STRENGTH },
+				new[] { MELEEDAMAGEINCREASE, ATTACKSPEED, BASEMELEEDAMAGE, MELEEWEAPONRANGE,PERCENTMAXIMUMLIFE,PERCENTMAXIMUMENERGY,ALLHEALINGPERCENT },
+		 })
+			{
+				name = "Buckler",
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 2,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {FIREDAMAGE},
+				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] {RESISTANCETOMAGIC,MAGICFIND,MOVEMENTSPEED,ARMOR},
+			})
+			{
+				name = "Pyromancy Mask",
+				uniqueStat = "Ignited enemies burn for 200% extended perioid of time.",
+				Rarity = 5,
+				minLevel = 2,
+				maxLevel = 6,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+				onEquip = () => ModdedPlayer.Stats.fireDuration.Add(2f),
+				onUnequip = () => ModdedPlayer.Stats.fireDuration.Substract(2f),
+			}.PossibleStats[0][0].Multipier=2;
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {FIREDAMAGE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI},
+				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT},
+				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] {RESISTANCETOMAGIC,MAGICFIND,MOVEMENTSPEED,ARMOR},
+			})
+			{
+				name = "Ember Mask",
+				uniqueStat = "Ignited enemies burn for 300% extended perioid of time and fire ticks thrice as fast.",
+				Rarity = 7,
+				minLevel = 2,
+				maxLevel = 6,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+				onEquip = () => { ModdedPlayer.Stats.fireDuration.Add(3f); ModdedPlayer.Stats.fireTickRate.Add(3f); },
+				onUnequip = () => { ModdedPlayer.Stats.fireDuration.Substract(3f); ModdedPlayer.Stats.fireTickRate.Substract(3f); },
+			}.PossibleStats[0][0].Multipier = 5;
+
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {FIREDAMAGE},
+				new [] {ARMOR,DODGECHANCE},
+				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI},
+				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION,PROJECTILESPEED,PROJECTILESIZE},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] {RESISTANCETOMAGIC,MAGICFIND,MOVEMENTSPEED,ARMOR},
+			})
+			{
+				name = "Flame Pauldrons",
+				description = "",
+				uniqueStat = "Firebolt costs 30 additional energy to cast and its damage scaling is increased by 250%",
+				Rarity = 7,
+				minLevel = 5,
+				maxLevel = 8,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+				onEquip = () => { ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(30);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(2.5f);
+				},
+				onUnequip = () => { ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(30);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(2.5f);
+				},
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {SPELLDMGFROMINT},
+				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT},
+				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION,COOLDOWNREDUCTION,SPELLCOSTTOSTAMINA},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {RESISTANCETOMAGIC,ENERGYONHIT,ENERGYPERSECOND,STAMINAREGENERATION,STAMINAPERSECOND},
+			})
+			{
+				name = "Ancient Scroll",
+				description = "",
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 1,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.SpellScroll,
+				icon = Res.ResourceLoader.GetTexture(110),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {SPELLDMGFROMINT},
+				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT},
+				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION,COOLDOWNREDUCTION,SPELLCOSTTOSTAMINA},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {RESISTANCETOMAGIC,ENERGYONHIT,ENERGYPERSECOND,STAMINAREGENERATION,STAMINAPERSECOND},
+			})
+			{
+				name = "Guide on Tearing Spacetime",
+				uniqueStat = "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink",
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 1,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.SpellScroll,
+				icon = Res.ResourceLoader.GetTexture(110),
+				onEquip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value=true,
+				onUnequip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value = false,
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {MELEEDAMAGEINCREASE},
+				new [] {ATTACKSPEED},
+				new [] {MELEEDMGFROMSTR},
+				new [] {STRENGTH},
+				new [] {BLOCK,ARMOR,DAMAGEREDUCTION},
+				new [] {BASEMELEEDAMAGE,NONE},
+				new [] {BASEMELEEDAMAGE,MELEEDAMAGEINCREASE,STRENGTH},
+				new [] {MELEEARMORPIERCING,ARMORPIERCING,ALLATTRIBUTES},
+				new [] {ATTACKCOSTREDUCTION,ATTACKSPEED},
+				new [] {ALLATTRIBUTES,MELEEWEAPONRANGE,VITALITY,MAXIMUMLIFE},
+				new [] {ENERGYONHIT,VITALITY,LIFEONHIT }
+		})
+			{
+				name = "300th Spear",
+				description = "Kasper named this item, his fault",
+				Rarity = 6,
+				minLevel = 30,
+				maxLevel = 34,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.Polearm,
+				icon = Res.ResourceLoader.GetTexture(181),
+			}.PossibleStats[0][0].Multipier=3;
 		}
 	}
 }

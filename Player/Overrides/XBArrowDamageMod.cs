@@ -16,7 +16,8 @@ namespace ChampionsOfForest.Player
 	public class XBArrowDamageMod : ArrowDamage
 	{
 		private float OutputDmg = 0;
-		private float dmgUnclamped;
+		private float dmgUnclamped = 1;
+		private float damageMult = 0;
 		private bool ignite;
 		private int pierceCount = 0;
 		private bool crit;
@@ -29,6 +30,11 @@ namespace ChampionsOfForest.Player
 			
 			//flat damage part
 			OutputDmg = damage + ModdedPlayer.Stats.rangedFlatDmg;
+			if (ModdedPlayer.Stats.spell_seekingArrow)
+			{
+				OutputDmg += ModdedPlayer.Stats.spell_seekingArrow_DamageBonus.Value;
+			}
+			
 			if (GreatBow.isEnabled)
 			{
 				OutputDmg += 140;
@@ -81,13 +87,11 @@ namespace ChampionsOfForest.Player
 			{
 				OutputDmg = OutputDmg * ModdedPlayer.Stats.perk_bowDamageMult;
 			}
-			if (ModdedPlayer.Stats.spell_seekingArrow)
-			{
-				startposition = transform.position;
-			}
+			startposition = transform.position;
 			OutputDmg *= ModdedPlayer.Stats.RangedDamageMult;
+			if(damageMult != 0f)
+			OutputDmg *= damageMult;
 			ignite = BlackFlame.IsOn;
-			//removing this line crashes the game when firing a ranged weapon
 		}
 
 		public static Material bloodInfusedMaterial;
@@ -247,9 +251,7 @@ namespace ChampionsOfForest.Player
 							EventRegistry.Achievements.Publish(TfEvent.Achievements.BirdArrowKill, null);
 						}
 						arrowStickToTarget.CreatureType(isanimal, isbird, isfish);
-						if (SpellActions.SeekingArrow_ChangeTargetOnHit)
-							startposition = transform.position;
-
+					
 						if (BoltNetwork.isRunning)
 						{
 							if (at && at._boltEntity && at._boltEntity.isAttached && at._boltEntity.isOwner)
@@ -877,7 +879,7 @@ namespace ChampionsOfForest.Player
 									componentInChildren2.getAttacker(closestPlayerFromPos);
 								}
 
-								targetEnemyHealth.Hit((int)Mathf.Min((float)int.MaxValue,dmgUnclamped));
+								targetEnemyHealth.Hit((int)Mathf.Min(int.MaxValue,dmgUnclamped));
 								
 							if ((ignite && Random.value < 0.5f) || GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites)
 								targetEnemyHealth.Burn();
@@ -918,6 +920,10 @@ afterdamage:
 		public void ModifyHitDamage(float multipier)
 		{
 			dmgUnclamped *= multipier;
+		}
+		public void ModifyStartingDamage(float multipier)
+		{
+			damageMult = multipier;
 		}
 	}
 }

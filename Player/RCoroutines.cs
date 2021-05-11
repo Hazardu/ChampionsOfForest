@@ -36,7 +36,7 @@ namespace ChampionsOfForest.Player
 			{
 				yield return null;
 				yield return null;
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4)+ Random.Range(-1,1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
+				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type), position + Vector3.up * (2f + i / 4) + Random.Range(-1, 1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right);
 			}
 		}
 
@@ -48,14 +48,14 @@ namespace ChampionsOfForest.Player
 			Vector3 positionOriginal = _ammoSpawnPosGo.transform.position;
 			Quaternion rotation = _ammoSpawnPosGo.transform.rotation;
 			Vector3 forceUp = Vector3.zero;
+			bool noconsume = false;
+			if (ModdedPlayer.Stats.perk_projectileNoConsumeChance > 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
+			{
+				noconsume = true;
+			}
 			for (int i = 0; i < repeats; i++)
 			{
-				bool noconsume = false;
-				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
-				{
-					noconsume = true;
-				}
-				if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoId, 1, false, true))
+				if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoId, 1, true, true))
 				{
 					Vector3 position = positionOriginal;
 					if (i > 0)
@@ -68,7 +68,11 @@ namespace ChampionsOfForest.Player
 					gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 					gameObject.layer = 19;
 					Physics.IgnoreLayerCollision(19, 19, true);
-
+					if (i > 0)
+					{
+						float dmgPen = Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i);
+						gameObject.SendMessage("ModifyStartingDamage", dmgPen, SendMessageOptions.DontRequireReceiver);
+					}
 					Rigidbody component = gameObject.GetComponent<Rigidbody>();
 					component.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 					if (BoltNetwork.isRunning)
@@ -106,7 +110,7 @@ namespace ChampionsOfForest.Player
 						{
 							ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
 							{
-								EmissionColor = new Color(0.6f, 0, 0),
+								EmissionColor = new Color(0.6f, 0.1f, 0),
 								renderMode = BuilderCore.BuildingData.RenderMode.Fade,
 								MainColor = Color.red,
 								Metalic = 1f,
@@ -117,11 +121,14 @@ namespace ChampionsOfForest.Player
 						var trail = gameObject.AddComponent<TrailRenderer>();
 						trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
 						trail.material = ModReferences.bloodInfusedMaterial;
-						trail.widthMultiplier = 0.85f;
-						trail.time = 2.5f;
-						trail.autodestruct = false;
+						trail.widthMultiplier = 0.55f;
+						trail.time = 1.25f;
 					}
 					component.AddForce(force);
+				}
+				else
+				{
+					break;
 				}
 				if (i % 2 == 1)
 					yield return null;
@@ -151,52 +158,57 @@ namespace ChampionsOfForest.Player
 						pos += 0.5f * right * (((i - 1) % 3) - 1);
 					}
 
-					GameObject gameObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation);
+					GameObject projectileObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation);
 
-					gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
+					projectileObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
+					
 
 					try
 					{
-						gameObject.transform.GetChild(0).gameObject.layer = 19;
+						projectileObject.transform.GetChild(0).gameObject.layer = 19;
 					}
 					catch (System.Exception)
 					{
 						throw;
 					}
-					gameObject.layer = 19;
+					projectileObject.layer = 19;
 					Physics.IgnoreLayerCollision(19, 19, true);
 					if (noconsume)
-						GameObject.Destroy(gameObject, 60f);
+						GameObject.Destroy(projectileObject, 40f);
 					else
 					{
 						if (i >= 4)
-							GameObject.Destroy(gameObject, 50);         //if spamming arrows, delete 4th and further after really show timespan
+							GameObject.Destroy(projectileObject, 40);         //if spamming arrows, delete 4th and further after really short time
 					}
-					if ((bool)gameObject.GetComponent<Rigidbody>())
+					if ((bool)projectileObject.GetComponent<Rigidbody>())
 					{
 						if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
 						{
-							gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+							projectileObject.GetComponent<Rigidbody>().AddForce(projectileObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
 						}
 						else
 						{
 							float num = Time.time - _weaponChargeStartTime;
 							if (ForestVR.Enabled)
 							{
-								gameObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange);
+								projectileObject.GetComponent<Rigidbody>().AddForce(inventoryItemView2._held.transform.up * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange);
 							}
 							else
 							{
 								Vector3 proj_force = forceUp * ModdedPlayer.Stats.projectileSpeed * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
-								var proj_rb = gameObject.GetComponent<Rigidbody>();
+								var proj_rb = projectileObject.GetComponent<Rigidbody>();
 								proj_rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-
+								var col = projectileObject.GetComponent<CapsuleCollider>();
+								if (col)
+									col.height *= ModdedPlayer.Stats.projectileSpeed;
+								else
+									Debug.LogError("No capsule collider on projectile");
 								if (GreatBow.isEnabled)
 								{
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;
 								}
-								if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage> 0)
+								if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
 								{
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;
@@ -204,28 +216,38 @@ namespace ChampionsOfForest.Player
 									{
 										ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
 										{
-											EmissionColor = new Color(0.6f, 0, 0),
+											EmissionColor = new Color(0.6f, 0.1f, 0),
 											renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
 											MainColor = Color.red,
 											Metalic = 1f,
 											Smoothness = 0.9f,
 										});
 									}
-									var trail = gameObject.AddComponent<TrailRenderer>();
+									var trail = projectileObject.AddComponent<TrailRenderer>();
 									trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
 									trail.material = ModReferences.bloodInfusedMaterial;
-									trail.widthMultiplier = 0.85f;
-									trail.time = 2.5f;
+									trail.widthMultiplier = 0.45f;
+									trail.time = 1.25f;
 									trail.autodestruct = false;
+								}
+								if (i > 0)
+								{
+									float dmgPen = 1;
+									for (int k = 0; k < i; k++)
+									{
+										dmgPen *= ModdedPlayer.Stats.perk_multishotDamagePennalty.Value;
+									}
+									//using XBArrowDamageMod as a typename here results in erros with modapi
+									projectileObject.SendMessage("ModifyStartingDamage", dmgPen, SendMessageOptions.DontRequireReceiver);
 								}
 								proj_rb.AddForce(proj_force);
 							}
 							if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))
 							{
-								gameObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
+								projectileObject.SendMessage("setCraftedBowDamage", SendMessageOptions.DontRequireReceiver);
 							}
 						}
-						inventoryItemView._held.SendMessage("OnAmmoFired", gameObject, SendMessageOptions.DontRequireReceiver);
+						inventoryItemView._held.SendMessage("OnAmmoFired", projectileObject, SendMessageOptions.DontRequireReceiver);
 					}
 					if (itemCache._attackReleaseSFX != 0)
 					{

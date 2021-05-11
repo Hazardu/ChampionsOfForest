@@ -49,7 +49,17 @@ namespace ChampionsOfForest
 			//if other is a socketable item
 			if (other.type == ItemType.Material)
 			{
-				if (this.Stats.Any(x => x.StatID == 3000))
+				if (other.onConsume != null)
+				{
+					if (Equipped)
+							OnUnequip();
+					
+					bool returnval = other.onConsume.Invoke(this);
+					OnEquip();
+
+					return returnval;
+				}
+				else if (this.Stats.Any(x => x.StatID == 3000))
 				{
 					if (Equipped)
 					{
@@ -370,7 +380,7 @@ namespace ChampionsOfForest
 		{
 			if (CanConsume && ModdedPlayer.instance.level >= level)
 			{
-				onConsume?.Invoke();
+				onEquip?.Invoke();
 				foreach (ItemStat item in Stats)
 				{
 					if (item.Amount != 0)

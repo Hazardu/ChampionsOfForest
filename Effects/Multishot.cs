@@ -37,15 +37,24 @@ namespace ChampionsOfForest.Effects
 			var c = go.AddComponent<Multishot>();
 			c.root = root;
 			go.transform.position = hand.position;
-			go.transform.localScale = Vector3.one * 0.6f;
 			child.transform.parent = go.transform;
-			child.transform.localPosition = Vector3.forward;
+			child.transform.localPosition = Vector3.forward*3;
 			c.child1 = child.transform;
-			c.child2 = Instantiate(child, go.transform.position + Vector3.forward * 1.5f, Quaternion.identity, go.transform).transform;
-			c.child3 = Instantiate(child, go.transform.position + Vector3.forward * 2, Quaternion.identity, go.transform).transform;
+			c.child2 = Instantiate(child, child.transform.position, Quaternion.identity, go.transform).transform;
+			c.child3 = Instantiate(child, child.transform.position, Quaternion.identity, go.transform).transform;
+			c.child2.localPosition += Vector3.forward;
+			c.child3.localPosition += Vector3.forward;
 			c.child2.localScale *= 2;
 			c.child3.localScale *= 4;
 
+			GameObject leftclone = Instantiate(go, go.transform.position + Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
+			GameObject rightclone = Instantiate(go, go.transform.position - Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
+			leftclone.transform.localScale *= 0.5f;
+			rightclone.transform.localScale *= 0.5f;
+			go.transform.localScale /= 3.5f;
+			c.child1.localScale *= 0.4f;
+			c.child2.localScale *= 0.4f;
+			c.child3.localScale *= 0.4f;
 			return go;
 		}
 
@@ -68,6 +77,15 @@ namespace ChampionsOfForest.Effects
 				opacity += Time.deltaTime * regainOpacityRate;
 				mat.SetColor("_TintColor", new Color(0.0f, 0.3f * opacity, 0.2f * opacity, 0.05f * opacity));
 			}
+			else if (opacity > maxOpacity)
+			{
+				opacity -= Time.deltaTime * regainOpacityRate;
+				mat.SetColor("_TintColor", new Color(0.0f, 0.3f * opacity, 0.2f * opacity, 0.05f * opacity));
+			}
+		}
+		private void OnEnable()
+		{
+			opacity = 1.2f;
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player.Spells
 		{
 			get
 			{
-				if (instance == null || instance.fx== null)
+				if (instance == null || instance.fx == null)
 					instance = new BlizzardSpell();
 				return instance;
 			}
@@ -50,7 +50,7 @@ namespace ChampionsOfForest.Player.Spells
 		BlizzardSpellEffect fx;
 		bool Cast()
 		{
-			float cost = (85f) * (fx.radius/10) * ModdedPlayer.Stats.spellCost * Time.deltaTime;
+			float cost = (85f) * (fx.radius / 10) * ModdedPlayer.Stats.spellCost * Time.deltaTime;
 			float costS = cost * ModdedPlayer.Stats.SpellCostToStamina;
 			float costE = (cost - costS);
 			if (fx.gameObject.activeSelf)
@@ -96,12 +96,12 @@ namespace ChampionsOfForest.Player.Spells
 			//p.transform.Rotate(Vector3.right * 120);
 			Renderer r = p.GetComponent<Renderer>();
 			r.material = ChampionsOfForest.Enemies.EnemyAbilities.SnowAura.ParticleMaterial;
-			
+
 			s = p.shape;
 			s.shapeType = ParticleSystemShapeType.Sphere;
-			
+
 			s.radius = radius;
-			
+
 			e = p.emission;
 			e.rateOverTime = 350;
 			var main = p.main;
@@ -137,7 +137,7 @@ namespace ChampionsOfForest.Player.Spells
 		}
 		void Update()
 		{
-			if (!(ActiveSpellManager.instance.readyToCastSpell && UnityEngine.Input.GetMouseButton(0)))
+			if (!(ActiveSpellManager.Instance.readyToCastSpell && UnityEngine.Input.GetMouseButton(0)))
 			{
 				gameObject.SetActive(false);
 			}
@@ -149,7 +149,7 @@ namespace ChampionsOfForest.Player.Spells
 			s.radius = radius;
 			e.rateOverTime = 30 * radius;
 			src.pitch = 1 + radius / 12;
-			src.volume =0.1f + radius / 12;
+			src.volume = 0.1f + radius / 12;
 			transform.position = LocalPlayer.Transform.position;
 			transform.Rotate(Vector3.up * radius * 50);
 		}
@@ -168,9 +168,9 @@ namespace ChampionsOfForest.Player.Spells
 		}
 		IEnumerator DealDamage()
 		{
-			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg/3f;
+			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg / 3f;
 			dmg *= ModdedPlayer.Stats.SpellDamageMult;
-				float crit = ModdedPlayer.Stats.RandomCritDamage;
+			float crit = ModdedPlayer.Stats.RandomCritDamage;
 			dmg *= crit;
 			dmg *= radius / 3.33333f;
 			dmg *= ModdedPlayer.Stats.spell_snowstormDamageMult;
@@ -225,10 +225,10 @@ namespace ChampionsOfForest.Player.Spells
 					if (EnemyManager.enemyByTransform.ContainsKey(hits[i].transform.root))
 					{
 						EnemyProgression prog = EnemyManager.enemyByTransform[hits[i].transform.root];
-						
+
 						if (prog == null)
 							continue;
-						
+
 						prog.HitMagic(dmg);
 						prog.Slow(144, 0.2f, 0.85f);
 						prog.ReduceArmor(Mathf.CeilToInt(dmg / 100f));
@@ -236,7 +236,7 @@ namespace ChampionsOfForest.Player.Spells
 						{
 							ModdedPlayer.instance.OnHit();
 							onHitEffectProcs++;
-							
+
 						}
 						{
 							var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, prog, this);
@@ -259,8 +259,46 @@ namespace ChampionsOfForest.Player.Spells
 	}
 
 
+
 	public class FireboltSpell : ActiveSpellData
 	{
+		class FireboltSpellAsyncCaster : MonoBehaviour
+		{
+			public void Cast(int count)
+			{
+				StartCoroutine(CastAsync(count));
+			}
+			public IEnumerator CastAsync(int count)
+			{
+				Vector3 pos = instance.cam.position + instance.offset;
+				Vector3 right = instance.cam.transform.right;
+				for (int i = 0; i < count; i++)
+				{
+
+					var posOffset = pos;
+					if (i > 0)
+						posOffset += 0.5f * right * (((i - 1) % 3) - 1);
+					float damage = ModdedPlayer.Stats.SpellDamageMult * (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 20 + ModdedPlayer.instance.FurySwipesDmg);
+					if (i > 0)
+					{
+						damage *= Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i);
+					}
+					var o = instance.pool[instance.poolPos];
+					o.dmg = damage;
+					o.speedf = 70 * ModdedPlayer.Stats.projectileSpeed;
+					o.speed = o.speedf * instance.cam.forward;
+					o.transform.localScale = Vector3.one * 0.1f * ModdedPlayer.Stats.projectileSize;
+					o.transform.position = posOffset;
+					o.transform.rotation = Quaternion.LookRotation(instance.cam.forward);
+					o.gameObject.SetActive(true);
+					instance.poolPos++;
+					if (instance.poolPos >= poolSize)
+						instance.poolPos = 0;
+					yield return null;
+
+				}
+			}
+		}
 		static FireboltSpell instance;
 		public static FireboltSpell Instance
 		{
@@ -277,12 +315,13 @@ namespace ChampionsOfForest.Player.Spells
 			}
 		}
 
-		private Transform cam;
-		private Vector3 offset;
-		FireboltProjectile[] pool;
-		const int poolSize = 40;
+		internal Transform cam;
+		internal Vector3 offset;
+		internal FireboltProjectile[] pool;
+		const int poolSize = 100;
 		int poolPos;
 		static Material mat;
+		FireboltSpellAsyncCaster asyncCaster;
 		void ResetCam()
 		{
 			cam = Camera.main.transform;
@@ -305,9 +344,10 @@ namespace ChampionsOfForest.Player.Spells
 				});
 			}
 			var o = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			o.AddComponent<Rigidbody>().useGravity = false;
 			var c = o.GetComponent<SphereCollider>();
 			c.isTrigger = true;
-			c.radius = 3;
+			c.radius = 4;
 			var r = o.GetComponent<MeshRenderer>();
 			r.material = mat;
 			r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -326,35 +366,49 @@ namespace ChampionsOfForest.Player.Spells
 				pool[i].gameObject.SetActive(false);
 			}
 
-
+			asyncCaster = new GameObject().AddComponent<FireboltSpellAsyncCaster>();
 
 
 
 		}
 		public bool Cast()
 		{
-			float cost = ModdedPlayer.Stats.spell_fireboltEnergyCost * ModdedPlayer.Stats.spellCost;
-			float costS = cost * ModdedPlayer.Stats.SpellCostToStamina;
-			float costE = cost - costS;
-			if (LocalPlayer.Stats.Energy > costE && LocalPlayer.Stats.Stamina > costS)
+			int repeats = ModdedPlayer.RangedRepetitions();
+			bool b = false;
+			Vector3 pos = cam.position + offset;
+			Vector3 right = cam.transform.right;
+			float costTotal = 0;
+			for (int i = 0; i < repeats; i++)
 			{
-				float damage = ModdedPlayer.Stats.SpellDamageMult * (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 20+ ModdedPlayer.instance.FurySwipesDmg);
+				float cost = costTotal + ModdedPlayer.Stats.spell_fireboltEnergyCost * ModdedPlayer.Stats.spellCost * (i > 0 ? Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i) : 1);
+				float costS = cost * ModdedPlayer.Stats.SpellCostToStamina;
+				if (LocalPlayer.Stats.Stamina > costS)
+				{
+					float costE = cost - costS;
+					if (LocalPlayer.Stats.Energy > costE)                    //good to go
+						costTotal = cost;
+					else
+					{
+						repeats = i;
+						break;
+					}
+				}
+				else
+				{
+					repeats = i;
+					break;
+				}
+			}
+			if (repeats >= 1)
+			{
 
-				var o = pool[poolPos];
-
-				o.dmg = damage;
-				o.speed = cam.forward * 60 * ModdedPlayer.Stats.projectileSpeed;
-				o.transform.localScale = Vector3.one * 0.1f * ModdedPlayer.Stats.projectileSize;
-				o.transform.position = cam.position + offset;
-				o.gameObject.SetActive(true);
+				float costS = costTotal * ModdedPlayer.Stats.SpellCostToStamina;
+				float costE = costTotal - costS;
 
 				LocalPlayer.Stats.Energy -= costE;
 				LocalPlayer.Stats.Stamina -= costS;
 
-
-				poolPos++;
-				if (poolPos >= poolSize)
-					poolPos = 0;
+				asyncCaster.Cast(repeats);
 				return true;
 			}
 			return false;
@@ -367,6 +421,7 @@ namespace ChampionsOfForest.Player.Spells
 	public class FireboltProjectile : MonoBehaviour
 	{
 		public Vector3 speed;
+		public float speedf;
 		public float dmg;
 		public float dieTimestamp;
 		public int pierceCount;
@@ -378,92 +433,129 @@ namespace ChampionsOfForest.Player.Spells
 
 		void Update()
 		{
-			transform.position += Time.deltaTime * speed;
 			if (Time.time > dieTimestamp)
 				gameObject.SetActive(false);
+			if (ModdedPlayer.Stats.spell_seekingArrow)
+			{
+				if (Time.time - ModdedPlayer.Stats.spell_seekingArrowDuration > SpellActions.SeekingArrow_TimeStamp)
+				{
+					ModdedPlayer.Stats.spell_seekingArrow.value = false;
+				}
+			}
+			transform.position += Time.deltaTime * speed;
+
+			if (ModdedPlayer.Stats.spell_seekingArrow)
+			{
+				if ((transform.position - SpellActions.SeekingArrow_Target.position).sqrMagnitude > 3)
+				{
+					Vector3 targetvel = SpellActions.SeekingArrow_Target.position - transform.position;
+					targetvel.Normalize();
+					targetvel *= speedf;
+					speed = Vector3.RotateTowards(speed, targetvel, Time.fixedDeltaTime * 2f * ModdedPlayer.Stats.projectileSpeed, 0.2f);
+				}
+			}
 		}
 
 		void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag("enemyCollide") || other.CompareTag("enemyRoot"))
+			try
 			{
-				var crit = ModdedPlayer.Stats.RandomCritDamage;
-				var dmgOutput = dmg *crit;
-			
-				ModdedPlayer.instance.OnHit();
-				if (GameSetup.IsMpClient)
+
+
+				if (other.CompareTag("enemyCollide") || other.CompareTag("enemyRoot"))
 				{
-					var entity = other.GetComponentInParent<BoltEntity>();
-					if (entity != null)
+					if (SpellActions.SeekingArrow_ChangeTargetOnHit)
 					{
-						{
-							var hitContext = new COTFEvents.HitOtherParams(dmgOutput,crit!=1, entity, this);
-							ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
-						}
-						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
-						phe.Target = entity;
-						phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
-						phe.Hit = DamageMath.GetSendableDamage(dmgOutput);
-						if (crit > 1)
-						{
-							int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-							float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
-							fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-							fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
-							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-							{
-								using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-								{
-									w.Write(27);
-									w.Write(entity.networkId.PackedValue);
-									w.Write(fireDmg);
-									w.Write(15);
-									w.Write(myID);
-									w.Close();
-								}
-								AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
-								answerStream.Close();
-							}
-							phe.Burn = true;
-						}
-						phe.Send();
+						SpellActions.SetSeekingArrowTarget(other.transform);
 					}
-				}
-				else        //is singleplayer or host
-				{
-					if (EnemyManager.enemyByTransform.ContainsKey(other.transform.root))
+
+					var crit = ModdedPlayer.Stats.RandomCritDamage;
+					var dmgOutput = dmg * crit;
+
+					ModdedPlayer.instance.OnHit();
+					if (GameSetup.IsMpClient)
 					{
-						var progression = EnemyManager.enemyByTransform[other.transform.root];
+						var entity = other.GetComponentInParent<BoltEntity>();
+						if (entity != null)
 						{
-							var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, progression, this);
-							ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
-						}
-						progression.HitMagic(dmgOutput);
-						if (crit > 1)
-						{
-							if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 							{
-								//int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+								var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, entity, this);
+								ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+								ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+							}
+							var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
+							phe.Target = entity;
+							phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
+							phe.Hit = DamageMath.GetSendableDamage(dmgOutput);
+							if (crit > 1)
+							{
+								int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 								float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
 								fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 								fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
-								progression.FireDebuff(3000, fireDmg, 14);
-
+								using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+								{
+									using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+									{
+										w.Write(27);
+										w.Write(entity.networkId.PackedValue);
+										w.Write(fireDmg);
+										w.Write(15);
+										w.Write(myID);
+										w.Close();
+									}
+									AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+									answerStream.Close();
+								}
+								phe.Burn = true;
 							}
-							progression.HealthScript.Burn();
+							phe.Send();
 						}
 					}
+					else        //is singleplayer or host
+					{
+						if (EnemyManager.enemyByTransform.ContainsKey(other.transform.root))
+						{
+							var progression = EnemyManager.enemyByTransform[other.transform.root];
+							{
+								var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, progression, this);
+								ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+								ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+							}
+							progression.HitMagic(dmgOutput);
+							if (crit > 1)
+							{
+								if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
+								{
+									//int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+									float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+									fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+									fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
+									progression.FireDebuff(3000, fireDmg, 14);
+
+								}
+								progression.HealthScript.Burn();
+							}
+						}
+						else
+						{
+							Debug.LogWarning("Enemy not found");
+						}
+					}
+					if (UnityEngine.Random.value < ModdedPlayer.Stats.projectilePierceChance - pierceCount)
+					{
+						pierceCount++;
+					}
+					else
+					{
+						dieTimestamp = 0;
+					}
 				}
-				if (UnityEngine.Random.value < ModdedPlayer.Stats.projectilePierceChance - pierceCount)
-				{
-					pierceCount++;
-				}
-				else
-				{
-					dieTimestamp = 0;
-				}
+			}
+			catch (Exception exc)
+			{
+
+				Debug.LogWarning(exc.ToString());
 			}
 		}
 	}
@@ -471,11 +563,10 @@ namespace ChampionsOfForest.Player.Spells
 	public class ActiveSpellManager : MonoBehaviour
 	{
 
-		public static ActiveSpellManager instance;
-
+		public static ActiveSpellManager Instance;
 		void Start()
 		{
-			instance = this;
+			Instance = this;
 
 		}
 

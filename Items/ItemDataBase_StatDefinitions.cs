@@ -267,7 +267,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.065f, 0.08f, 0.5f, "Projectile pierce chance", scAdd, 6, () => ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += -f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
-			new ItemStat(i, 0.06f, 0.08f, 1f, "Explosive damage", scAdd, 6, () => ModdedPlayer.Stats.explosionDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.explosionDamage.Add( f), f => ModdedPlayer.Stats.projectilePierceChance.Substract(f)) { RoundingCount = 1 };
+			new ItemStat(i, 0.06f, 0.08f, 1f, "Explosive damage", scAdd, 6, () => ModdedPlayer.Stats.explosionDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.explosionDamage.Add( f), f => ModdedPlayer.Stats.projectilePierceChance.Substract(f)) { RoundingCount = 1, DisplayAsPercent = true };
 			i++;
 			new ItemStat(i, 0.03f, 0.04f, 0.6f, "Thrown spear damage", scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;
@@ -331,6 +331,8 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 1f, 1.25f, 0, "Raft Speed", scAdd, 4, () => ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Add(f), f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
+
+			//Sockets
 			i = 3000;
 			new ItemStat(i++, 1, 3.5f, 0, "Empty Socket", scAdd, 0, null, null, null) { Multipier = 0 };
 			new ItemStat(i++, 0,0,1, "Socket: Crit Chance", scAdd, 0,null, f=> ModdedPlayer.Stats.critChance.Add(f), f => ModdedPlayer.Stats.critChance.Substract(f)) 
@@ -366,8 +368,8 @@ namespace ChampionsOfForest
 			new ItemStat(i++, 0,0,1, "Socket: Maximum Health ", scMultPlusOne, 0,null, f => ModdedPlayer.Stats.maxHealthMult.valueMultiplicative *= 1 + f, f => ModdedPlayer.Stats.maxHealthMult.valueMultiplicative /= 1 + f, null) { DisplayAsPercent = true, RoundingCount = 1 };
 			new ItemStat(i++, 0,0,1, "Socket: Armor ", scAdd, 0,null, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0, Multipier = 2f };
 			new ItemStat(i++, 0,0,1, "Socket: Resistance To Magic", scOneMinusMult, 0,null, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 };
-			new ItemStat(i++, 0,0,1, "Socket: Crit Damage", scMultPlusOne, 0,null, f => ModdedPlayer.Stats.weaponRange.Multiply(1+f), f => ModdedPlayer.Stats.weaponRange.Divide(1+f), null) { DisplayAsPercent = true, RoundingCount = 1, Multipier = 4f };
-			new ItemStat(i++, 0,0,1, "Socket: Thorns", scAdd, 0,null, f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, null) { RoundingCount = 0, Multipier = 4f };
+			new ItemStat(i++, 0,0,1, "Socket: Crit Damage", scMultPlusOne, 0,null, f => ModdedPlayer.Stats.critDamage.Add(f), f => ModdedPlayer.Stats.critDamage.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 1, Multipier = 5f };
+			new ItemStat(i++, 0,0,1, "Socket: Thorns", scAdd, 0,null, f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, null) { RoundingCount = 0, Multipier = 5f };
 		}
 	}
 }

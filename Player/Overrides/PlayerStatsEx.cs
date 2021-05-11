@@ -561,7 +561,7 @@ namespace ChampionsOfForest
 				else
 				{
 					Stamina = Energy;
-					Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value	 * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
+					Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 				}
 				if (CheckingBlood && TheForest.Utils.Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
 				{

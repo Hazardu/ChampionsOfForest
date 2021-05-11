@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ChampionsOfForest
@@ -59,7 +60,6 @@ namespace ChampionsOfForest
 			//LogInfo();
 		}
 
-#if Debugging_Enabled
 		/// <summary>
 		/// Prints a pretty summary to a log file
 		/// </summary>
@@ -93,7 +93,8 @@ namespace ChampionsOfForest
 			for (int i = 0; i < array.Length; i++)
 			{
 				BaseItem.ItemType t = (BaseItem.ItemType)array.GetValue(i);
-				BaseItem[] items = _Item_Bases.Where(a => a._itemType == t).ToArray();
+				
+				BaseItem[] items = _Item_Bases.Where(a => a.type == t).ToArray();
 
 				s += "\n • Item type: [" + t.ToString() + "] = " + items.Length;
 				for (int b = 0; b < 8; b++)
@@ -108,9 +109,50 @@ namespace ChampionsOfForest
 				}
 				s += "\n";
 			}
+
 			ModAPI.Log.Write(s);
+
+
+			var f = File.CreateText("items.csv");
+			f.WriteLine("ITEMS;" + ItemBases.Count);
+			for (int i = 0; i <=(int)BaseItem.ItemType.SpellScroll; i++)
+			{
+				BaseItem.ItemType t = (BaseItem.ItemType)i;
+				var itemsByType = _Item_Bases.Where(a => a.type== t);
+				f.WriteLine(t+";" + itemsByType.Count());
+
+				if (t == BaseItem.ItemType.Weapon)
+				{
+					for (int j = 1; j <= (int)BaseItem.WeaponModelType.Greatbow; j++)
+					{
+						var weapons = itemsByType.Where(a => a.weaponModel == (BaseItem.WeaponModelType)j).OrderBy(a => a.ID + a.Rarity * 100000);
+						f.WriteLine(((BaseItem.WeaponModelType)j) + ";" + weapons.Count());
+						f.WriteLine("ID;RARITY;NAME;UNIQUE STAT;MIN LEVEL; MIN STATS QUANTITY;MAX STATS QUANTITY");
+						foreach (var weapon in weapons)
+						{
+							f.WriteLine(weapon.ID + ";" + weapon.Rarity + ";" + weapon.name + ";" + weapon.uniqueStat + " ;" + weapon.minLevel + ";" + weapon.PossibleStats.Where(y => !y.Contains(null)).Count() + ";" + weapon.PossibleStats.Count);
+
+						}
+						f.WriteLine(" ");
+
+					}
+				}
+				else
+				{
+					itemsByType = itemsByType.OrderBy(a => a.ID + a.Rarity * 100000);
+					f.WriteLine("ID;RARITY;NAME;UNIQUE STAT;MIN LEVEL; MIN STATS QUANTITY;MAX STATS QUANTITY");
+					foreach (var item in itemsByType)
+					{
+						f.WriteLine(item.ID + ";" + item.Rarity + ";" + item.name + ";" + item.uniqueStat + " ;" + item.minLevel + ";" + item.PossibleStats.Where(y => !y.Contains(null)).Count() + ";" + item.PossibleStats.Count);
+
+					}
+					f.WriteLine(" ");
+				}
+			}
+
+
+			f.Close();
 		}
-#endif
 
 		public static void AddItem(BaseItem item)
 		{

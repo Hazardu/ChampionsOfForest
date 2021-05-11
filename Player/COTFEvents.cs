@@ -135,19 +135,34 @@ namespace ChampionsOfForest
 				var field = item.GetValue(Instance);
 					if (field is UnityEvent)
 					{
-						ModAPI.Console.Write("Reset " + item.Name);
 						var fieldUE = (field as UnityEvent);
 						fieldUE.RemoveAllListeners();
-						try
-						{
-							fieldUE.AddListener(new UnityAction(() => Debug.Log("Event triggered: " + item.Name)));
-						}
-						catch (Exception e)
-						{
-							ModAPI.Console.Write("Exception while adding default event " + e.Message);
-						}
+						//fieldUE.AddListener(new UnityAction(() => Debug.Log("Event triggered: " + item.Name)));
+						
 					}
-			}
+					else if (field is HitOtherEvent)
+					{
+						var fieldUE = (field as HitOtherEvent);
+						fieldUE.RemoveAllListeners();
+						//fieldUE.AddListener(new UnityAction<HitOtherParams>((x) => Debug.Log("Event triggered: " + item.Name)));
+
+					}else if (field is GotHitEvent)
+					{
+						var fieldUE = (field as GotHitEvent);
+						fieldUE.RemoveAllListeners();
+						//fieldUE.AddListener(new UnityAction<GotHitParams>((x) => Debug.Log("Event triggered: " + item.Name)));
+					}else if (field is GotHitByEnemyEvent)
+					{
+						var fieldUE = (field as GotHitByEnemyEvent);
+						fieldUE.RemoveAllListeners();
+						//fieldUE.AddListener(new UnityAction<GotHitByEnemyParams>((x) => Debug.Log("Event triggered: " + item.Name)));
+					}else if (field is HeadshotEvent)
+					{
+						var fieldUE = (field as HeadshotEvent);
+						fieldUE.RemoveAllListeners();
+						//fieldUE.AddListener(new UnityAction<HeadshotParams>((x) => Debug.Log("Event triggered: " + item.Name)));
+					}
+				}
 
 			}
 			catch (Exception e)

@@ -180,7 +180,7 @@ namespace ChampionsOfForest.Network
 
 										BallLightning.Create(pos, speed, dmg, id);
 									}
-									else if (spellid == 11)
+									else if (spellid == 11)	//cataclysm
 									{
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										float radius = r.ReadSingle();

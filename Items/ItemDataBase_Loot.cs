@@ -120,7 +120,7 @@ namespace ChampionsOfForest
 			Item item = new Item(ItemBases[itemIdPool[randomID]], 1, 0);
 
 			item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel + 2));
-			if (item.ID == 42 || item.ID == 103)
+			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
 				item.level = 1;
 			item.RollStats();
 			return item;

@@ -194,21 +194,20 @@ namespace ChampionsOfForest.Player
 
 			if (other.CompareTag("enemyCollide") || other.CompareTag("enemyRoot"))
 			{
-				{
-					var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg!= 1, other, this);
-					ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-					ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
-
-				}
+				
 				ModdedPlayer.instance.OnHit();
 				ModdedPlayer.instance.OnHit_Melee(other.transform);
 
 				if (GameSetup.IsMpClient)
 				{
-					var entity = other.GetComponentInParent<BoltEntity>();
+					BoltEntity entity = other.GetComponentInParent<BoltEntity>();
 					if (entity != null)
 					{
-
+						{
+							var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg != 1, entity, this);
+							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
+						}
 						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 						phe.Target = entity;
 						phe.getAttackerType = 4 + DamageMath.CONVERTEDFLOATattackerType;
@@ -334,6 +333,14 @@ namespace ChampionsOfForest.Player
 					if (EnemyManager.enemyByTransform.ContainsKey(other.transform.root) )
 					{
 						var progression = EnemyManager.enemyByTransform[other.transform.root];
+						{
+							var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg != 1, progression, this);
+							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
+						}
+
+
+
 						progression.HitPhysical(outputdmg);
 
 						progression.HealthScript.getCombo(3);

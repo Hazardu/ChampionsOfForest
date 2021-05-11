@@ -175,13 +175,7 @@ namespace ChampionsOfForest
 
 				if (UnityEngine.Input.GetMouseButtonUp(0))
 				{
-					if (DraggedItem.Equipped)
-					{
-						DraggedItem.OnUnequip();
-						Inventory.Instance.ItemSlots[DraggedItemIndex].Equipped = false;
-					}
-					Inventory.Instance.DropItem(DraggedItemIndex);
-					CustomCrafting.ClearIndex(DraggedItemIndex);
+					DropItem(DraggedItemIndex, DraggedItem);
 					CancelDragging();
 				}
 			}
@@ -341,9 +335,9 @@ namespace ChampionsOfForest
 				StatRects[i] = new Rect(pos.x, y, width, 20 * screenScale);
 				y += 22 * screenScale;
 			}
-			var uniqueStatGuiContext = new GUIContent(string.IsNullOrEmpty(item.uniqueStat) ? "" : "<color=gold>★</color><b>" + item.uniqueStat+"</b>");
+			var uniqueStatGuiContext = new GUIContent(string.IsNullOrEmpty(item.uniqueStat) ? "" : "<b>" + item.uniqueStat+"</b>");
 			Rect uniqueStatHeaderRect = new Rect(pos.x, y, width, StatValueStyle.fontSize);
-			Rect uniqueStatRect = new Rect(pos.x, y + uniqueStatHeaderRect.height, width, StatNameStyle.CalcHeight(uniqueStatGuiContext, width));
+			Rect uniqueStatRect = new Rect(pos.x+18f*screenScale, y + uniqueStatHeaderRect.height, width-18f* screenScale, StatNameStyle.CalcHeight(uniqueStatGuiContext, width));
 			if (!string.IsNullOrEmpty(item.uniqueStat))
 			{
 				y += uniqueStatHeaderRect.height + uniqueStatRect.height;
@@ -559,13 +553,15 @@ namespace ChampionsOfForest
 				GUI.color = Color.red;
 				GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
 			}
+			if (!string.IsNullOrEmpty(item.uniqueStat))
+			{
+				GUI.color = new Color(0.251f, 0.992f, 0.078f);
+				GUI.Label(new Rect(uniqueStatRect.x-18f* screenScale, uniqueStatRect.y,18f* screenScale, uniqueStatHeaderRect.height), "★", StatNameStyle);
+				GUI.Label(uniqueStatRect, uniqueStatGuiContext, StatNameStyle);
+			}
 			GUI.color = Color.white;
 			GUI.Label(DescrRect, item.description, DescriptionStyle);
 			GUI.Label(LoreRect, item.lore, LoreStyle);
-			if (!string.IsNullOrEmpty(item.uniqueStat))
-			{
-				GUI.Label(uniqueStatRect, uniqueStatGuiContext, StatNameStyle);
-			}
 		}
 
 		private float hoveredOverID = -1;
@@ -747,6 +743,11 @@ namespace ChampionsOfForest
 							Effects.Sound_Effects.GlobalSFX.Play(0);
 							itemContextMenu = new ItemContextMenu(r, index);
 						}
+						else if (UnityEngine.Input.GetKey(KeyCode.Space) && index >-1)
+						{
+							DropItem(index, Inventory.Instance.ItemSlots[index]);
+
+						}
 					}
 
 				}
@@ -832,7 +833,7 @@ namespace ChampionsOfForest
 		}
 		bool DrawInvContextMenuBtn(float x, float y, float h, float w, in string text)
 		{
-			return (GUI.Button(new Rect(x, y, w, h), text, new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(30f * screenScale) }));
+			return (GUI.Button(new Rect(x, y, w, h), text, new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(22f * screenScale) }));
 		}
 		private void CloseItemContextMenu()
 		{
@@ -842,11 +843,11 @@ namespace ChampionsOfForest
 		{
 			if (itemContextMenu.HasValue)
 			{
-				float buttonHeight = 35 * screenScale;
+				float buttonHeight = 37 * screenScale;
 				float y = Mathf.Max(0, itemContextMenu.Value.r.yMax - itemContextMenu.Value.buttonCount * buttonHeight);
 				float x = itemContextMenu.Value.r.xMax;
 				float h = itemContextMenu.Value.buttonCount * buttonHeight;
-				float w = 250f * screenScale;
+				float w = 200f * screenScale;
 				Rect r = new Rect(x, y, w, h);
 				if (!(r.Contains(mousePos) || itemContextMenu.Value.r.Contains(mousePos)))
 				{
@@ -924,19 +925,23 @@ namespace ChampionsOfForest
 						if (!consumedsomething)
 						{
 							consumedsomething = true;
-							if (itemContextMenu.Value.i.Equipped)
-							{
-								itemContextMenu.Value.i.OnUnequip();
-								itemContextMenu.Value.i.Equipped = false;
-							}
-							Inventory.Instance.DropItem(itemContextMenu.Value.itemIndex);
-							CustomCrafting.ClearIndex(itemContextMenu.Value.itemIndex);
+							DropItem(itemContextMenu.Value.itemIndex, itemContextMenu.Value.i);
 							CloseItemContextMenu();
 							return;
 						}
 					}
 				}
 			}
+		}
+		void DropItem(int itemIndex, Item i)
+		{
+			if (i.Equipped)
+			{
+				i.OnUnequip();
+				i.Equipped = false;
+			}
+			Inventory.Instance.DropItem(itemIndex);
+			CustomCrafting.ClearIndex(itemIndex);
 		}
 		private void DrawInvSlot(Rect r, int index, string title)
 		{
@@ -968,8 +973,41 @@ namespace ChampionsOfForest
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Toughness", TitleStyle);
 			y += 25 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"), ValueStyle);
-		}
 
+			DrawInventoryHints();
+		}
+		private void DrawInventoryHints()
+		{
+			Rect rect;
+			{
+				float f = 20 * screenScale;
+				rect= new Rect(Screen.width - f, Screen.height - f, f, f);
+			}
+			GUI.DrawTexture(rect, blackSquareTex);
+			GUI.Label(rect, "?");
+			if (rect.Contains(mousePos))
+			{
+				Rect rect2;
+				{
+					float f = 500 * screenScale;
+					rect2 = new Rect(Screen.width - f, 0, f, Screen.height);
+				}
+				GUI.DrawTexture(rect2, blackSquareTex);
+
+				string labelText = "Quick guide\n\n" +
+					"Key shortcuts: \n\n" +
+					"[Right Mouse Button] - show options with an item\n" +
+					"[Left Shift] while inspecting item - compares with equipped\n" +
+					"[Left Alt] while inspecting item - shows total stats\n" +
+					"[Left Mouse Button] + [Left Shift] - equip item\n" +
+					"[Left Mouse Button] + [Left Control] - use item in crafting or add as ingredient\n\n" +
+					"Dragging and dropping a socketable material over an item with a socket puts the material in the socket.";
+
+
+				GUI.Label(rect2, labelText, new GUIStyle(GUI.skin.label) { richText = true, fontSize = Mathf.RoundToInt(20 * screenScale), alignment = TextAnchor.UpperCenter, font = mainFont });
+			}
+
+		}
 		#endregion InventoryMethods
 	}
 }

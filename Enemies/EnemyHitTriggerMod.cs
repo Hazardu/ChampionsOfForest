@@ -395,7 +395,7 @@ namespace ChampionsOfForest.Enemies
 						other.transform.SendMessageUpwards("getCombo", Random.Range(1, 4), SendMessageOptions.DontRequireReceiver);
 						other.transform.SendMessage("getAttackerType", attackerType, SendMessageOptions.DontRequireReceiver);
 						other.transform.SendMessage("getAttacker", rootTr.gameObject, SendMessageOptions.DontRequireReceiver);
-						other.transform.SendMessageUpwards("Hit",hitDamage, SendMessageOptions.DontRequireReceiver);
+						other.transform.SendMessageUpwards("HitPhysical",Random.Range(30f,50f) * Mathf.Pow(ModdedPlayer.Stats.explosionDamage,1.25f), SendMessageOptions.DontRequireReceiver);
 						FMODCommon.PlayOneshotNetworked(weaponHitEvent, base.transform, FMODCommon.NetworkRole.Server);
 					}
 				}

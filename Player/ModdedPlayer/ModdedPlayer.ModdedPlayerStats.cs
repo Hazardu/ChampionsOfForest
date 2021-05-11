@@ -108,6 +108,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_blinkRange;
 			public readonly AdditivePlayerStat<float> spell_blinkDamageScaling;
 			public readonly AdditivePlayerStat<float> spell_blinkDamage;
+			public readonly BooleanPlayerStat spell_blinkDoExplosion;
 			//parry
 			public readonly BooleanPlayerStat spell_parry;
 			public readonly AdditivePlayerStat<float> spell_parryDamage;
@@ -173,7 +174,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_ballLightning_DamageScaling;
 			public readonly BooleanPlayerStat spell_ballLightning_Crit;
 			//bash
-			public readonly AdditivePlayerStat<float> spell_bashExtraDamage;
+			public readonly AdditivePlayerStat<float> spell_bashDamageDebuffAmount;
 			public readonly AdditivePlayerStat<float> spell_bashDamageBuff;
 			public readonly AdditivePlayerStat<float> spell_bashSlowAmount;
 			public readonly AdditivePlayerStat<float> spell_bashLifesteal;
@@ -200,6 +201,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_focus;
 			//seeking arrow
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_HeadDamage;
+			public readonly AdditivePlayerStat<float> spell_seekingArrow_DamageBonus;
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_SlowDuration;
 			public readonly AdditivePlayerStat<float> spell_seekingArrow_SlowAmount;
 			public readonly AdditivePlayerStat<float> projectile_DamagePerDistance;
@@ -253,6 +255,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> perk_crossbowDamageMult;
 			public readonly MultiplicativePlayerStat<float> perk_bowDamageMult;
 			public readonly AdditivePlayerStat<int> perk_multishotProjectileCount;
+			public readonly MultiplicativePlayerStat<float> perk_multishotDamagePennalty;
 			public readonly BooleanPlayerStat perk_nearDeathExperienceTriggered;
 			public readonly BooleanPlayerStat perk_nearDeathExperienceUnlocked;
 			public readonly BooleanPlayerStat perk_craftingReroll;
@@ -404,6 +407,7 @@ namespace ChampionsOfForest.Player
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
 				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_blinkDoExplosion = new BooleanPlayerStat(false);
 				//parry
 				this.spell_parry = new BooleanPlayerStat(false);
 				this.spell_parryDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
@@ -469,7 +473,7 @@ namespace ChampionsOfForest.Player
 				this.spell_ballLightning_DamageScaling = new AdditivePlayerStat<float>(26.66f, addfloat, substractfloat, "P");
 				this.spell_ballLightning_Crit = new BooleanPlayerStat(false);
 				//bash
-				this.spell_bashExtraDamage = new AdditivePlayerStat<float>(1.30f, addfloat, substractfloat, "P");
+				this.spell_bashDamageDebuffAmount = new AdditivePlayerStat<float>(1.30f, addfloat, substractfloat, "P");
 				this.spell_bashDamageBuff = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.spell_bashSlowAmount = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat);
 				this.spell_bashLifesteal = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -496,6 +500,7 @@ namespace ChampionsOfForest.Player
 				this.spell_focus = new BooleanPlayerStat(false);
 				//seeking arrow
 				this.spell_seekingArrow_HeadDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat);
+				this.spell_seekingArrow_DamageBonus = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.spell_seekingArrow_SlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
 				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.9f, addfloat, substractfloat);
 				this.spell_seekingArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
@@ -547,6 +552,7 @@ namespace ChampionsOfForest.Player
 				this.perk_crossbowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.perk_bowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.perk_multishotProjectileCount = new AdditivePlayerStat<int>(1, addint, substractint);
+				this.perk_multishotDamagePennalty = new MultiplicativePlayerStat<float>(0.75f, addfloat, substractfloat);
 				this.perk_nearDeathExperienceTriggered = new BooleanPlayerStat(false);
 				this.perk_nearDeathExperienceUnlocked = new BooleanPlayerStat(false);
 				this.perk_craftingReroll = new BooleanPlayerStat(false);

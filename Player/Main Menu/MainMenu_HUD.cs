@@ -336,228 +336,239 @@ namespace ChampionsOfForest
 
 			if (LocalPlayer.FpCharacter.crouching)
 			{
-				bool scanning = false;
-				RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
-				int enemyHit = -1;
-				for (int i = 0; i < hits.Length; i++)
+				try
 				{
-					if (hits[i].transform.CompareTag("enemyCollide"))
+
+
+					bool scanning = false;
+					RaycastHit[] hits = Physics.BoxCastAll(Camera.main.transform.position, Vector3.one * 2.5f, Camera.main.transform.forward, Camera.main.transform.rotation, 500);
+					int enemyHit = -1;
+					for (int i = 0; i < hits.Length; i++)
 					{
-						enemyHit = i;
-						break;
+						if (hits[i].transform.CompareTag("enemyCollide"))
+						{
+							enemyHit = i;
+							break;
+						}
 					}
-				}
-				if (enemyHit != -1)
-				{
-					ScanTime += Time.unscaledDeltaTime * 1.75f;
-					if (hits[enemyHit].transform.root == scannedTransform)
+					if (enemyHit != -1)
 					{
-						if (BoltNetwork.isRunning && scannedEntity != null)
+						ScanTime += Time.unscaledDeltaTime * 1.75f;
+						if (hits[enemyHit].transform.root == scannedTransform)
 						{
-							cp = EnemyManager.GetCP(scannedEntity);
-						}
-						else
-						{
-							cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
-						}
-						if (cp != null && cp.Level > 0)
-						{
-							scanning = true;
-
-							GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
+							if (BoltNetwork.isRunning && scannedEntity != null)
 							{
-								font = mainFont,
-								fontSize = Mathf.RoundToInt(28 * screenScale),
-								alignment = TextAnchor.MiddleRight,
-								wordWrap = false,
-								clipping = TextClipping.Overflow,
-								richText = true,
-							};
-
-							Vector2 origin = wholeScreenRect.center;
-							origin.y -= 400 * screenScale;
-							origin.x += 370 * screenScale;
-							float y = 0;
-							DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * screenScale, 66 * screenScale), infoStyle);
-							y += screenScale * 60;
-							DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-							y += screenScale * 60;
-							if (ScanTime > 1.5f)
+								cp = EnemyManager.GetCP(scannedEntity);
+							}
+							else
 							{
-								DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+								cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
+							}
+							if (cp != null && cp.Level > 0)
+							{
+								scanning = true;
+
+								GUIStyle infoStyle = new GUIStyle(GUI.skin.label)
+								{
+									font = mainFont,
+									fontSize = Mathf.RoundToInt(28 * screenScale),
+									alignment = TextAnchor.MiddleRight,
+									wordWrap = false,
+									clipping = TextClipping.Overflow,
+									richText = true,
+								};
+
+								Vector2 origin = wholeScreenRect.center;
+								origin.y -= 400 * screenScale;
+								origin.x += 370 * screenScale;
+								float y = 0;
+								DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * screenScale, 66 * screenScale), infoStyle);
 								y += screenScale * 60;
-							}
-							if (ScanTime > 3f)
-							{
-								DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-								y += screenScale * 40;
-								if (cp.ArmorReduction > 0)
+								DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+								y += screenScale * 60;
+								if (ScanTime > 1.5f)
 								{
-									DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-									y += screenScale * 40;
+									DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									y += screenScale * 60;
 								}
-								y += screenScale * 20;
-							}
-							if (ScanTime > 4.5f)
-							{
-								DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-								y += screenScale * 85;
-							}
-							if (ScanTime > 6f)
-							{
-								if (cp.Affixes.Length > 0)
+								if (ScanTime > 3f)
 								{
-									DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
-									y += screenScale * 50;
-
-									Array arr = Enum.GetValues(typeof(EnemyProgression.Abilities));
-									foreach (int i in cp.Affixes)
+									DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									y += screenScale * 40;
+									if (cp.ArmorReduction > 0)
 									{
-										EnemyProgression.Abilities ability = (EnemyProgression.Abilities)arr.GetValue(i);
-										switch (ability)
-										{
-											case EnemyProgression.Abilities.Poisonous:
-												DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Steadfast:
-												DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.BossSteadfast:
-												DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.EliteSteadfast:
-												DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-											//case EnemyProgression.Abilities.Molten:
-											//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-											//    break;
-											case EnemyProgression.Abilities.FreezingAura:
-												DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.FireAura:
-												DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Rooting:
-												DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.BlackHole:
-												DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Trapper:
-												DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Juggernaut:
-												DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Huge:
-												DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Tiny:
-												DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.ExtraDamage:
-												DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.ExtraHealth:
-												DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Basher:
-												DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Blink:
-												DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-											//case EnemyProgression.Abilities.Thunder:
-											//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-											//    break;
-											case EnemyProgression.Abilities.RainEmpowerement:
-												DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Shielding:
-												DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Meteor:
-												DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Flare:
-												DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Undead:
-												DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-
-											case EnemyProgression.Abilities.Laser:
-												DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-											//case EnemyProgression.Abilities.Avenger:
-											//    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-											//    break;
-											//case EnemyProgression.Abilities.Sacrifice:
-											//    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
-											//    break;
-											default:
-												DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-												break;
-										}
+										DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+										y += screenScale * 40;
+									}
+									y += screenScale * 20;
+								}
+								if (ScanTime > 4.5f)
+								{
+									DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									y += screenScale * 85;
+								}
+								if (ScanTime > 6f)
+								{
+									if (cp.Affixes.Length > 0)
+									{
+										DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
 										y += screenScale * 50;
+
+										Array arr = Enum.GetValues(typeof(EnemyProgression.Abilities));
+										foreach (int i in cp.Affixes)
+										{
+											EnemyProgression.Abilities ability = (EnemyProgression.Abilities)arr.GetValue(i);
+											switch (ability)
+											{
+												case EnemyProgression.Abilities.Poisonous:
+													DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Steadfast:
+													DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.BossSteadfast:
+													DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.EliteSteadfast:
+													DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+												//case EnemyProgression.Abilities.Molten:
+												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+												//    break;
+												case EnemyProgression.Abilities.FreezingAura:
+													DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.FireAura:
+													DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Rooting:
+													DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.BlackHole:
+													DrawScannedEnemyLabel("Gravity manipulation", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Trapper:
+													DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Juggernaut:
+													DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Huge:
+													DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Tiny:
+													DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.ExtraDamage:
+													DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.ExtraHealth:
+													DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Basher:
+													DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Blink:
+													DrawScannedEnemyLabel("Warping", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+												//case EnemyProgression.Abilities.Thunder:
+												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+												//    break;
+												case EnemyProgression.Abilities.RainEmpowerement:
+													DrawScannedEnemyLabel("Rain empowerment", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Shielding:
+													DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Meteor:
+													DrawScannedEnemyLabel("Meteor Rain", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Flare:
+													DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Undead:
+													DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+
+												case EnemyProgression.Abilities.Laser:
+													DrawScannedEnemyLabel("Plasma cannon", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+												//case EnemyProgression.Abilities.Avenger:
+												//    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+												//    break;
+												//case EnemyProgression.Abilities.Sacrifice:
+												//    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 65 * rr), infoStyle);
+												//    break;
+												default:
+													DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+													break;
+											}
+											y += screenScale * 50;
+										}
 									}
 								}
 							}
 						}
+						else
+						{
+							cp = null;
+
+							scannedTransform = hits[enemyHit].transform.root;
+							scannedEntity = scannedTransform.GetComponentInChildren<BoltEntity>();
+							if (scannedEntity == null)
+							{
+								scannedEntity = scannedTransform.GetComponent<BoltEntity>();
+							}
+							ScanTime = 0;
+						}
+
+					}
+
+
+					if (scanning)
+					{
+						Rect scanRect = new Rect(0, 0, 60 * screenScale, 60 * screenScale)
+						{
+							center = wholeScreenRect.center
+						};
+						ScanRotation += Time.deltaTime * 45;
+						Matrix4x4 matrix4X4 = GUI.matrix;
+						GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
+						GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
+
+						GUI.matrix = matrix4X4;
 					}
 					else
 					{
-						cp = null;
-
-						scannedTransform = hits[enemyHit].transform.root;
-						scannedEntity = scannedTransform.GetComponentInChildren<BoltEntity>();
-						if (scannedEntity == null)
+						Rect scanRect = new Rect(0, 0, 20 * screenScale, 20 * screenScale)
 						{
-							scannedEntity = scannedTransform.GetComponent<BoltEntity>();
-						}
-						ScanTime = 0;
+							center = wholeScreenRect.center
+						};
+						//ScanRotation += Time.deltaTime * 45;
+						GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 					}
 				}
-
-				if (scanning)
+				catch
 				{
-					Rect scanRect = new Rect(0, 0, 60 * screenScale, 60 * screenScale)
-					{
-						center = wholeScreenRect.center
-					};
-					ScanRotation += Time.deltaTime * 45;
-					Matrix4x4 matrix4X4 = GUI.matrix;
-					GUIUtility.RotateAroundPivot(ScanRotation, scanRect.center);
-					GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 
-					GUI.matrix = matrix4X4;
-				}
-				else
-				{
-					Rect scanRect = new Rect(0, 0, 20 * screenScale, 20 * screenScale)
-					{
-						center = wholeScreenRect.center
-					};
-					//ScanRotation += Time.deltaTime * 45;
-					GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 				}
 			}
 			else

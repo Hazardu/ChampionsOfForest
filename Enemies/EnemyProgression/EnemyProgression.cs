@@ -362,7 +362,7 @@ namespace ChampionsOfForest
 						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 						{
 							w.Write(10);
-							w.Write(Convert.ToInt64(bounty / (Mathf.Max(1, 0.7f + ModReferences.Players.Count * 0.3f))));
+							w.Write(Convert.ToInt64(bounty / (Mathf.Max(1, 0.3f + ModReferences.Players.Count * 0.7f))));
 							w.Close();
 						}
 						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);

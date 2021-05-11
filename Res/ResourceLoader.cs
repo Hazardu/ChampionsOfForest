@@ -910,14 +910,24 @@ namespace ChampionsOfForest.Res
 			new Resource(175, "Polearm.obj");
 			new Resource(181, "itemPolearm.png");
 			new Resource(182, "FartSpell.png");
-
 			new Resource(184, "ItemOre.png");
 			new Resource(185, "ItemFeather.png");
 			new Resource(186, "ItemSharkTooth.png");
 			new Resource(187, "ItemSapphire.png");
 			new Resource(188, "ItemMoonstone.png");
 			new Resource(189, "SpellTaunt.png");
-
+			new Resource(190, "ItemSocketDrill.png");
+			new Resource(191, "BottleBlue.png");
+			new Resource(192, "BottleGreen.png");
+			new Resource(193, "BottleOrange.png");
+			new Resource(194, "BottleOrange2.png");
+			new Resource(195, "BottleYellow.png");
+			new Resource(196, "BottleCrimson.png");
+			new Resource(197, "BottleGray.png");
+			new Resource(198, "BottleAcid.png");
+			new Resource(199, "BottlePurple.png");
+			new Resource(200, "SpellSnowstorm.png");
+			new Resource(201, "SpellFirebolt.png");
 			//Sound files
 			new Resource(1000, "thundersound.wav");
 			new Resource(1001, "Levelup.wav");

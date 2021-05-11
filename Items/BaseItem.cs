@@ -15,7 +15,7 @@ namespace ChampionsOfForest
 
 		public delegate void OnItemUnequip();
 
-		public delegate void OnItemConsume();
+		public delegate bool OnItemConsume(Item other);
 
 		public List<List<ItemStat>> PossibleStats;
 		public int Rarity = 0;                  //rarity to display in different color
@@ -24,7 +24,7 @@ namespace ChampionsOfForest
 		public bool CanConsume = false;             //can you eat this bad boy?
 		public ItemType type = ItemType.Weapon;          //determines on which inv slot can this item be placed in
 
-		public enum WeaponModelType { None, GreatSword, LongSword, Chargeblade, Hammer, Lance, Flail, Polearm, Gauntlet, Staff, Dagger, Axe, Greatbow };
+		public enum WeaponModelType { None, GreatSword, LongSword, Hammer, Polearm, Axe, Greatbow };
 
 		public WeaponModelType weaponModel = WeaponModelType.None;
 		public OnItemEquip onEquip;

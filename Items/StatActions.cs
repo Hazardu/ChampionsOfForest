@@ -509,8 +509,8 @@ namespace ChampionsOfForest.Items
 					statid = 4;
 					break;
 			}
-			statid = 5 * (subtypeOffset - 1) + 3001 + statid;
-			return value * ItemDataBase.StatByID(statid).Multipier;
+			int stat = 5 * (subtypeOffset - 1) + 3001 + statid;
+			return value * ItemDataBase.StatByID(stat).Multipier;
 		}
 		public static float GetSocketStatAmount_Amulet(in int rarity)
 		{

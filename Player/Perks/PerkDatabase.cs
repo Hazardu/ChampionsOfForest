@@ -3,6 +3,8 @@
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Items;
 
+using TheForest.Utils;
+
 using UnityEngine;
 
 using static ChampionsOfForest.Player.Perk;
@@ -839,7 +841,9 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => { ModdedPlayer.instance.AddGeneratedResource(33, 10);
+				apply = () =>
+				{
+					ModdedPlayer.instance.AddGeneratedResource(33, 10);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromBoar, true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromDeer, true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ClothFromRabbit, true);
@@ -1619,7 +1623,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.25f),
+				apply = () => ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.Add(0.5f),
 
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 93 },
@@ -1629,7 +1633,7 @@ namespace ChampionsOfForest.Player
 				posX = -2f,
 				posY = -3.75f,
 				name = "Seeking Arrow - Head Hunting",
-				originalDescription = "Seeking arrow headshot pennalty is decreased from -50% to -25%",
+				originalDescription = "Seeking arrow headshot pennalty is removed",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1686,7 +1690,7 @@ namespace ChampionsOfForest.Player
 				apply = () => ModdedPlayer.Stats.spell_focusOnHS.valueAdditive += 0.3f,
 
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 217,13 },
+				unlockPath = new int[] { 217, 13 },
 				levelReq = 14,
 				cost = 1,
 				scale = 1,
@@ -2071,7 +2075,7 @@ namespace ChampionsOfForest.Player
 					float f = 1.12f;
 					for (int i = 1; i < x; i++)
 						f *= 1.12f;
-					return "\nTotal from this perk: Damage taken: " + (f - 1).ToString("P") + "\nDamage dealt: "+(0.12f*x).ToString("P") ;
+					return "\nTotal from this perk: Damage taken: " + (f - 1).ToString("P") + "\nDamage dealt: " + (0.12f * x).ToString("P");
 				},
 			};
 			new Perk()
@@ -2476,7 +2480,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_bashExtraDamage.valueAdditive += 0.3f,
+				apply = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.valueAdditive += 0.3f,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 214 },
 				levelReq = 45,
@@ -2491,7 +2495,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.spell_bashExtraDamage.valueAdditive += 0.4f,
+				apply = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.valueAdditive += 0.4f,
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 144 },
 				levelReq = 50,
@@ -2587,21 +2591,38 @@ namespace ChampionsOfForest.Player
 					return "\nTotal from this perk:\nCrit damage after bashing - " + (f - 1).ToString("P");
 				},
 			};
-			new Perk()
-			{
-				apply = () => ModdedPlayer.Stats.MaxLogs.Add(1),
-				category = PerkCategory.Utility,
-				unlockPath = new int[] { 61 },
-				levelReq = 20,
-				cost = 1,
-				scale = 1,
-				posX = -11f,
-				posY = -0.75f,
-				name = "More Carried Logs",
-				originalDescription = "Increases the base amount of logs that a player can carry on their shoulder. The additional carried logs are invisible. Buggy in multiplayer",
-				textureVariation = 0,
-				uncapped = true,
-			};
+			if (!GameSetup.IsMultiplayer)
+				new Perk()
+				{
+					apply = () => ModdedPlayer.Stats.MaxLogs.Add(1),
+					category = PerkCategory.Utility,
+					unlockPath = new int[] { 61 },
+					levelReq = 20,
+					cost = 1,
+					scale = 1,
+					posX = -11f,
+					posY = -0.75f,
+					name = "More Carried Logs",
+					originalDescription = "Increases the base amount of logs that a player can carry on their shoulder. The additional carried logs are invisible. ",
+					textureVariation = 0,
+					uncapped = true,
+				};
+			else
+				new Perk()
+				{
+					apply = () => ModdedPlayer.Stats.magicFind.Add(0.15f),
+					category = PerkCategory.Utility,
+					unlockPath = new int[] { 110 },
+					levelReq = 25,
+					cost = 1,
+					scale = 1f,
+					posX = -0.75f,
+					posY = -2.6f,
+					name = "Looting",
+					originalDescription = "Increases magic find by 15%",
+					textureVariation = 0,
+					uncapped = false,
+				};
 			new Perk()
 			{
 				apply = () => ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed.value = true,
@@ -3134,7 +3155,8 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => {
+				apply = () =>
+				{
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.PlaneAxe, true);
 					MoreCraftingReceipes.AddReceipes();
 				},
@@ -3183,7 +3205,8 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => {
+				apply = () =>
+				{
 					ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(1.3f);
 					ModdedPlayer.Stats.headShotDamage.Multiply(1.3f);
 					ModdedPlayer.Stats.critDamage.Add(1f);
@@ -3539,9 +3562,11 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => {
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 55f; 
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.1f; },
+				apply = () =>
+				{
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 55f;
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.1f;
+				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
 				levelReq = 10,
@@ -3557,9 +3582,11 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => {
+				apply = () =>
+				{
 					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive;
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.25f; },
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.25f;
+				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 211 },
 				levelReq = 17,
@@ -3613,7 +3640,7 @@ namespace ChampionsOfForest.Player
 				levelReq = 60,
 				cost = 1,
 				scale = 1,
-				posX = 0.5f, 
+				posX = 0.5f,
 				posY = -1.5f,
 				name = "Steroid",
 				originalDescription = "Increases melee damage by 25%",
@@ -3622,8 +3649,9 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => {
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive /= 4f;
+				apply = () =>
+				{
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(10);
 				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 212 },
@@ -3633,7 +3661,7 @@ namespace ChampionsOfForest.Player
 				posX = 5f,
 				posY = 2.25f,
 				name = "Firebolt cost reduction",
-				originalDescription = "Firebolt cost is reduced by 75%\n",
+				originalDescription = "Firebolt cost is reduced from 15 to 5\n",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3669,11 +3697,11 @@ namespace ChampionsOfForest.Player
 				originalDescription = "Increases crit chance by 8%",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
-				
+
 			};
 			new Perk()
 			{
-				apply = () => COTFEvents.Instance.OnDodge.AddListener(()=> TheForest.Utils.LocalPlayer.Stats.Health += ModdedPlayer.Stats.TotalMaxHealth*0.05f),
+				apply = () => COTFEvents.Instance.OnDodge.AddListener(() => TheForest.Utils.LocalPlayer.Stats.Health += ModdedPlayer.Stats.TotalMaxHealth * 0.05f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 36 },

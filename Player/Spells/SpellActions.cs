@@ -93,7 +93,45 @@ namespace ChampionsOfForest.Player
 					}
 				}
 			}
+			if (ModdedPlayer.Stats.spell_blinkDoExplosion)
+			{
+				ChampionsOfForest.Effects.Sound_Effects.GlobalSFX.Play(1005);
+				var raycastHitExplosion = Physics.OverlapSphere(blinkPoint, (blinkPoint - t.position).magnitude / 4f);
+				float dmg = ModdedPlayer.Stats.spell_blinkDamage + LocalPlayer.Rigidbody.velocity.magnitude * ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_blinkDamageScaling/7f;
+				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.RandomCritDamage;
+				foreach (var hitCollider in raycastHitExplosion)
+				{
+					if (hitCollider.transform.CompareTag("enemyCollide"))
+					{
+						if (GameSetup.IsMpClient)
+						{
+							BoltEntity enemyEntity = hitCollider.transform.GetComponentInParent<BoltEntity>();
+							if (enemyEntity == null)
+								enemyEntity = hitCollider.transform.gameObject.GetComponent<BoltEntity>();
 
+							if (enemyEntity != null)
+							{
+								PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
+								playerHitEnemy.hitFallDown = true;
+								playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
+								playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
+								playerHitEnemy.Send();
+							}
+						}
+						else
+						{
+							if (EnemyManager.enemyByTransform.ContainsKey(hitCollider.transform.root))
+							{
+								EnemyManager.enemyByTransform[hitCollider.transform.root].HitMagic(dmg);
+							}
+							else
+							{
+								hitCollider.transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
+							}
+						}
+					}
+				}
+			}
 			BlinkTowards(blinkPoint);
 		}
 
@@ -703,7 +741,7 @@ portal_postPickingPos:
 		}
 		public static void BashActive()
 		{
-			BuffDB.AddBuff(13, 101, ModdedPlayer.Stats.spell_bashExtraDamage, ModdedPlayer.Stats.spell_bashDuration);
+			BuffDB.AddBuff(13, 101, ModdedPlayer.Stats.spell_bashDamageDebuffAmount, ModdedPlayer.Stats.spell_bashDuration);
 		}
 
 		public static void Bash(EnemyProgression ep, float dmg)
@@ -712,7 +750,7 @@ portal_postPickingPos:
 			{
 				int id = 43;
 				ep.Slow(id, ModdedPlayer.Stats.spell_bashSlowAmount, ModdedPlayer.Stats.spell_bashDuration);
-				ep.DmgTakenDebuff(id, ModdedPlayer.Stats.spell_bashExtraDamage, ModdedPlayer.Stats.spell_bashDuration);
+				ep.DmgTakenDebuff(id, ModdedPlayer.Stats.spell_bashDamageDebuffAmount, ModdedPlayer.Stats.spell_bashDuration);
 				if (ModdedPlayer.Stats.spell_bashBleedChance > 0 && UnityEngine.Random.value < ModdedPlayer.Stats.spell_bashBleedChance)
 					ep.DoDoT((int)(dmg * ModdedPlayer.Stats.spell_bashBleedDmg), ModdedPlayer.Stats.spell_bashDuration);
 				if (ModdedPlayer.Stats.spell_bashLifesteal > 0)
@@ -752,7 +790,7 @@ portal_postPickingPos:
 						w.Write(ModdedPlayer.Stats.spell_bashDuration);
 						w.Write(id);
 						w.Write(ModdedPlayer.Stats.spell_bashSlowAmount);
-						w.Write(ModdedPlayer.Stats.spell_bashExtraDamage);
+						w.Write(ModdedPlayer.Stats.spell_bashDamageDebuffAmount);
 						w.Write(((int)(dmg * ModdedPlayer.Stats.spell_bashBleedDmg)));
 						w.Write(ModdedPlayer.Stats.spell_bashBleedChance);
 						w.Close();

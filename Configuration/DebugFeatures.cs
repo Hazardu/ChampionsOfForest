@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ChampionsOfForest.Player;
+
+using UnityEngine;
 
 namespace ChampionsOfForest
 {

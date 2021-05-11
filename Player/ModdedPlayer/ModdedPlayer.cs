@@ -839,10 +839,10 @@ namespace ChampionsOfForest.Player
 			{
 				if (hit == FurySwipesLastHit)
 				{
-					FurySwipesDmg += 1;
-					Stats.rangedFlatDmg.valueAdditive += 1;
-					Stats.spellFlatDmg.valueAdditive += 1;
-					Stats.meleeFlatDmg.valueAdditive += 1;
+					FurySwipesDmg += 5;
+					Stats.rangedFlatDmg.valueAdditive += 5;
+					Stats.spellFlatDmg.valueAdditive += 5;
+					Stats.meleeFlatDmg.valueAdditive += 5;
 					BuffDB.AddBuff(27, 98, 1, 60);
 
 				}
@@ -870,11 +870,11 @@ namespace ChampionsOfForest.Player
 			{
 				if (hit == FurySwipesLastHit)
 				{
-					FurySwipesDmg += 6;
-					Stats.rangedFlatDmg.valueAdditive += 6;
-					Stats.spellFlatDmg.valueAdditive +=6;
-					Stats.meleeFlatDmg.valueAdditive += 6;
-					BuffDB.AddBuff(27, 98, 6, 60);
+					FurySwipesDmg += 30;
+					Stats.rangedFlatDmg.valueAdditive += 30;
+					Stats.spellFlatDmg.valueAdditive +=30;
+					Stats.meleeFlatDmg.valueAdditive += 30;
+					BuffDB.AddBuff(27, 98, 30, 60);
 
 				}
 				else

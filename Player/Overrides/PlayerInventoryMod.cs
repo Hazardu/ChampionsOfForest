@@ -55,7 +55,7 @@ namespace ChampionsOfForest.Player
 		protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
 		{
 			COTFEvents.Instance.OnWeaponEquip.Invoke();
-			ChampionsOfForest.Player.Spells.ActiveSpellManager.instance.OnWeaponEquipped();
+			ChampionsOfForest.Player.Spells.ActiveSpellManager.Instance.OnWeaponEquipped();
 			if (!ModSettings.IsDedicated)
 			{
 				if (GreatBow.instance != null)

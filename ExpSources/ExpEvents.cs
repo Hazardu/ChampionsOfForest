@@ -16,7 +16,7 @@ namespace ChampionsOfForest.ExpSources
 
 		public static void OnTreeCut(object o)
 		{
-			int xp = 30;
+			long xp = 30;
 			if (GameSetup.IsMultiplayer)
 			{
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
