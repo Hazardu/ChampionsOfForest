@@ -63,6 +63,7 @@ namespace ChampionsOfForest.Player.Crafting
 							{
 								ItemStat newStat = new ItemStat(options[random], CraftingHandler.changedItem.i.level);
 								newStat.Amount *= CraftingHandler.changedItem.i.GetRarityMultiplier();
+								newStat.possibleStatsIndex = stat.possibleStatsIndex;
 								if (newStat.ValueCap != 0)
 								{
 									newStat.Amount = Mathf.Min(newStat.Amount, newStat.ValueCap);

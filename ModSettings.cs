@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+
+using TheForest.Utils;
 
 namespace ChampionsOfForest
 {
@@ -41,5 +44,28 @@ namespace ChampionsOfForest
 		public static float EnemyArmorMultiplier = 1;
 		public static float EnemySpeedMultiplier = 1;
 		public static bool AllowElites = true;
+
+
+
+		public static void BroadCastSettingsToClients()
+		{
+			if (GameSetup.IsMpServer)
+			{
+				using (MemoryStream answerStream = new MemoryStream())
+				{
+					using (BinaryWriter w = new BinaryWriter(answerStream))
+					{
+						w.Write(2);
+						w.Write((int)ModSettings.difficulty);
+						w.Write(ModSettings.FriendlyFire);
+						w.Write((int)ModSettings.dropsOnDeath);
+						w.Write(ModSettings.killOnDowned);
+						w.Close();
+					}
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+					answerStream.Close();
+				}
+			}
+		}
 	}
 }

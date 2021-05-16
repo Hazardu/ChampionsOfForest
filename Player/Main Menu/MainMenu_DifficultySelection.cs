@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using TheForest.Utils;
 
@@ -189,6 +190,8 @@ namespace ChampionsOfForest
 							LocalPlayer.FpCharacter.MovementLocked = false;
 							Cheats.GodMode = false;
 							MainMenu.Instance.ClearDiffSelectionObjects();
+							ModSettings.BroadCastSettingsToClients();
+
 							return;
 						}
 						Rect name = new Rect(r);

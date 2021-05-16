@@ -235,6 +235,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> spell_snowstormHitDelay;
 			public readonly BooleanPlayerStat spell_snowstormPullEnemiesIn;
 
+			public readonly AdditivePlayerStat<float> spell_berserkDuration;
 
 
 			//perks
@@ -303,6 +304,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat i_sparkOfLightAfterDark;
 			public readonly BooleanPlayerStat i_infinityLoop;
 			public readonly AdditivePlayerStat<int> i_setcount_AkagisSet;
+			public readonly AdditivePlayerStat<int> i_setcount_BerserkSet;
 
 			public ModdedPlayerStats()
 			{
@@ -533,6 +535,8 @@ namespace ChampionsOfForest.Player
 				this.spell_snowstormHitDelay = new MultiplicativePlayerStat<float>(0.5f, multfloat, dividefloat);
 				this.spell_snowstormPullEnemiesIn = new BooleanPlayerStat(false);
 
+				this.spell_berserkDuration = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
+
 
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
@@ -600,6 +604,7 @@ namespace ChampionsOfForest.Player
 				this.i_sparkOfLightAfterDark = new BooleanPlayerStat(false);
 				this.i_infinityLoop = new BooleanPlayerStat(false);
 				this.i_setcount_AkagisSet = new AdditivePlayerStat<int>(0,addint,substractint);
+				this.i_setcount_BerserkSet = new AdditivePlayerStat<int>(0,addint,substractint);
 
 				ModAPI.Log.Write("Initialized player stats");
 			}

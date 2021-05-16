@@ -479,7 +479,7 @@ namespace ChampionsOfForest
 			HUDStatStyle = new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.LowerRight, wordWrap = false, clipping = TextClipping.Overflow, };
 			menuBtnStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(40 * screenScale), wordWrap = false, fontStyle = FontStyle.BoldAndItalic, onHover = new GUIStyleState() { textColor = new Color(1, 0.5f, 0.35f) } };
 			chgDiffLabelStyle = new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(20f * screenScale), alignment = TextAnchor.MiddleLeft };
-			chgDiffBtnStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(20f * screenScale), alignment = TextAnchor.MiddleLeft, font = mainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } };
+			chgDiffBtnStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(18f * screenScale), alignment = TextAnchor.MiddleCenter, font = mainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } };
 			craftBtnStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(30 * screenScale), fontStyle = FontStyle.Normal, font = mainFont };
 			craftHeaderStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
 		}
@@ -600,38 +600,19 @@ namespace ChampionsOfForest
 						//raise difficulty
 						difficultyCooldown = 10 * 60;
 						ModSettings.difficulty++;
-						using (MemoryStream answerStream = new MemoryStream())
-						{
-							using (BinaryWriter w = new BinaryWriter(answerStream))
-							{
-								w.Write(2);
-								w.Write((int)ModSettings.difficulty);
-								w.Write(ModSettings.FriendlyFire);
-								w.Write((int)ModSettings.dropsOnDeath);
-								w.Close();
-							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-							answerStream.Close();
-						}
+						ModSettings.BroadCastSettingsToClients();
 					}
 					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), "Lower Difficulty", chgDiffBtnStyle))
 					{
 						//lower difficulty
 						difficultyCooldown = 10 * 60;
 						ModSettings.difficulty--;
-						using (MemoryStream answerStream = new MemoryStream())
+						ModSettings.BroadCastSettingsToClients();
+					}
+					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), "Change Options", chgDiffBtnStyle))
 						{
-							using (BinaryWriter w = new BinaryWriter(answerStream))
-							{
-								w.Write(2);
-								w.Write((int)ModSettings.difficulty);
-								w.Write(ModSettings.FriendlyFire);
-								w.Write((int)ModSettings.dropsOnDeath);
-								w.Close();
-							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-							answerStream.Close();
-						}
+						ModSettings.DifficultyChoosen = false;
+						difficultyCooldown = 10 * 60;
 					}
 				}
 

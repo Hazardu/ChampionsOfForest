@@ -7,10 +7,32 @@ using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 
+using UnityEngine;
+
 namespace ChampionsOfForest.Items
 {
 	public static class UniqueItemFunctions
 	{
+		private static float ResistDeathTimeStamp;
+		public static void ResistDeath()
+		{
+			if (ResistDeathTimeStamp < Time.time)
+			{
+				if (ResistDeathTimeStamp + 60 <= Time.time)
+				{
+					ResistDeathTimeStamp = Time.time;
+					LocalPlayer.Stats.Health = ModdedPlayer.Stats.TotalMaxHealth;
+					BuffDB.AddBuff(6, 82, 1, 5);
+					BuffDB.AddBuff(26, 108, 0.02f, 5);   //98% damage reduction
+					BuffDB.AddBuff(25, 99, 35, 5);     //+35 hp/s
+				}
+
+			}
+			else
+			{
+				ResistDeathTimeStamp = 0;
+			}
+		}
 		public static void EnemyBleedForPlayerHP(COTFEvents.HitOtherParams param)
 		{
 			if (param is null)

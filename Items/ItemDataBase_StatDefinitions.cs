@@ -97,6 +97,8 @@ namespace ChampionsOfForest
 			STUNONHIT,
 			SNAPFREEZEDURATION,
 			RAFTSPEED,
+
+			EMPTYSOCKET = 3000,
 		}
 
 		public static void PopulateStats()

@@ -10,6 +10,15 @@ namespace ChampionsOfForest.Player
 	{
 		public static Dictionary<int, Buff> activeBuffs = new Dictionary<int, Buff>();
 		public static Dictionary<int, Buff> BuffsByID = new Dictionary<int, Buff>();
+		public static bool ForceEndBuff(int source)
+		{
+			if (activeBuffs.TryGetValue(source, out Buff b))
+			{
+				b.ForceEndBuff(source);
+				return true;
+			}
+			return false;
+		}
 
 		public static bool AddBuff(int id, int source, float amount, float duration)
 		{
@@ -157,6 +166,7 @@ namespace ChampionsOfForest.Player
 				};
 				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f - 1), f => ModdedPlayer.Stats.critChance.Add(f - 1)) { DisplayAsPercent = true };
 
+
 			}
 			catch (System.Exception ex)
 			{
@@ -301,3 +311,6 @@ namespace ChampionsOfForest.Player
 //103 - parry active
 //104 - true aim crit chance
 //105 parry attack speed
+//106 berserk set 4pc buff
+//107 berserk set 5pc buff
+//108 resist death dmg reduction

@@ -39,7 +39,7 @@ namespace ChampionsOfForest
 			float w = Worth;
 			w *= ModdedPlayer.Stats.magicFind.Value;
 
-			int rarity = GetRarity(w);
+			int rarity = GetRarity(w,ModSettings.difficulty);
 
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
@@ -75,7 +75,7 @@ namespace ChampionsOfForest
 			return ItemBases[i].minLevel <= level;
 		}
 
-		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType)
+		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType,ModSettings.Difficulty difficulty)
 		{
 			int averageLevel = 1;
 			int highestLevel = 1;
@@ -101,7 +101,7 @@ namespace ChampionsOfForest
 			float w = Worth / (averageLevel);
 			w *= ModdedPlayer.Stats.magicFind.Value;
 
-			int rarity = GetRarity(w);
+			int rarity = GetRarity(w,difficulty);
 
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
@@ -126,41 +126,42 @@ namespace ChampionsOfForest
 			return item;
 		}
 
-		public static int GetRarity(float w)
+		public static int GetRarity(float w, ModSettings.Difficulty difficulty)
 		{
+			int dif = (int)difficulty;
 			int rarity = 0;
 			float mf = ModdedPlayer.Stats.magicFind.Value - 1;
 			mf /= 2f;
-			if ((w > 20 && Random.value < 0.70f + 0.5 * mf) || ((int)ModSettings.difficulty > 5 && w > 2000) || Random.value < ((int)ModSettings.difficulty * 0.075))
+			if ((w > 20 && Random.value < 0.70f + 0.45 * mf + dif * 0.075) || (dif> 5 && w > 2000))
 			{
 				rarity = 1;
 
-				if (w > 80 && (Random.value < 0.50f + 0.4 * mf || w > 2200 && (int)ModSettings.difficulty > 6))
+				if (w > 80 && (Random.value < 0.50f + 0.4 * mf + dif * 0.07 || w > 2200 && dif> 6))
 				{
 					rarity = 2;
-					if (w > 180 && (Random.value < 0.50f + 0.3 * mf || Random.value < (0.065f * (int)ModSettings.difficulty)) || w > 4000 && (int)ModSettings.difficulty > 7)
+					if (w > 180 && (Random.value < 0.50f + 0.35 * mf + 0.05f * dif) || w > 4000 && dif> 7)
 					{
-						if (ModSettings.difficulty > 0)
+						if (dif > 0)
 						{
 							rarity = 3;
-							if (w > 230 && (Random.value < 0.5f + 0.2 * mf || Random.value < (0.04f * (int)ModSettings.difficulty) || (int)ModSettings.difficulty > 8))
+							if (w > 360 && (Random.value < 0.5f + 0.22 * mf + 0.034f * dif) || dif> 8)
 							{
-								if ((int)ModSettings.difficulty > 1)
+								if (dif> 1)
 								{
 									rarity = 4;
-									if (w > 300 && (Random.value < 0.3f + 0.08 * mf || Random.value < (0.02f * (int)ModSettings.difficulty)))
+									if (w > 720 && (Random.value < 0.26f + 0.085 * mf +0.02f * dif))
 									{
-										if ((int)ModSettings.difficulty > 2)
+										if (dif> 2)
 										{
 											rarity = 5;
-											if (w > 400 && (Random.value < 0.2f + 0.03 * mf || Random.value < (0.002f * (int)ModSettings.difficulty)))
+											if (w > 1440 && (Random.value < 0.18f + 0.033 * mf + (0.003f * dif)))
 											{
-												if ((int)ModSettings.difficulty > 3)
+												if (dif> 3)
 												{
 													rarity = 6;
-													if (w > 500 && (Random.value < 0.04f + 0.02 * mf || Random.value < (0.0015f * (int)ModSettings.difficulty)))
+													if (w > 5000 && (Random.value < 0.04f + 0.025 * mf))
 													{
-														if ((int)ModSettings.difficulty > 4)
+														if (dif> 4)
 														{
 															rarity = 7;
 														}

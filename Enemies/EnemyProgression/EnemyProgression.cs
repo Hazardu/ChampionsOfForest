@@ -91,7 +91,7 @@ namespace ChampionsOfForest
 		public Avenger avengerability;
 		private float timeOfDeath;
 		private Color normalColor;
-
+		private ModSettings.Difficulty setupDifficulty;
 		public enum Abilities
 		{
 			Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm
@@ -362,7 +362,7 @@ namespace ChampionsOfForest
 						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 						{
 							w.Write(10);
-							w.Write(Convert.ToInt64(bounty / (Mathf.Max(1, 0.3f + ModReferences.Players.Count * 0.7f))));
+							w.Write(Convert.ToInt64(bounty / (Mathf.Max(1, ModReferences.Players.Count))));
 							w.Close();
 						}
 						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
@@ -390,7 +390,7 @@ namespace ChampionsOfForest
 
 			if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ModdedPlayer.Stats.magicFind.Value || AIScript.creepy_boss || abilities.Count > 0)
 			{
-				int itemCount = Random.Range(1, 3);
+				int itemCount = Random.Range(2, 4);
 				if (AIScript.creepy_boss)
 				{
 					itemCount += 25;
@@ -407,10 +407,10 @@ namespace ChampionsOfForest
 				{
 					itemCount += 3;
 				}
-				itemCount += (int)Mathf.Clamp(Level / 50, 1, 10);
+				itemCount += (int)Mathf.Clamp(Level / 40, 1, 8);
 				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
 				ModAPI.Console.Write("Dropping " + itemCount + " items");
-				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, transform.position);
+				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty,setupDifficulty, transform.position);
 
 				if (enemyType == Enemy.Megan)
 				{

@@ -47,4 +47,32 @@ namespace ChampionsOfForest.Items.Sets
 			ModdedPlayer.Stats.spell_snowstormDamageMult.Substract(0.5f);
 		}
 	}
+	public static class BerserkSet
+	{
+		public static void Equip()
+		{
+			ModdedPlayer.Stats.i_setcount_BerserkSet.Add(1);
+			ModdedPlayer.Stats.weaponRange.Multiply(0.3f);
+			ModdedPlayer.Stats.attackStaminaCost.Multiply(0.5f);
+			switch (ModdedPlayer.Stats.i_setcount_BerserkSet.Value)
+			{
+				case 3:
+					ModdedPlayer.Stats.spell_berserkDuration.Add(15);
+					break;
+			}
+		}
+		public static void Unequip()
+		{
+			switch (ModdedPlayer.Stats.i_setcount_BerserkSet.Value)
+			{
+				case 3:
+					ModdedPlayer.Stats.spell_berserkDuration.Substract(15);
+					break;
+			}
+			ModdedPlayer.Stats.weaponRange.Divide(0.3f);
+			ModdedPlayer.Stats.attackStaminaCost.Divide(0.5f);
+			ModdedPlayer.Stats.i_setcount_BerserkSet.Substract(1);
+
+		}
+	}
 }

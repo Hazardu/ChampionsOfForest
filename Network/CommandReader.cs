@@ -41,22 +41,9 @@ namespace ChampionsOfForest.Network
 
 							case 1:
 								{
-									if (GameSetup.IsMpServer && ModSettings.DifficultyChoosen)
+									if ( ModSettings.DifficultyChoosen)
 									{
-										using (MemoryStream answerStream = new MemoryStream())
-										{
-											using (BinaryWriter w = new BinaryWriter(answerStream))
-											{
-												w.Write(2);
-												w.Write((int)ModSettings.difficulty);
-												w.Write(ModSettings.FriendlyFire);
-												w.Write((int)ModSettings.dropsOnDeath);
-												w.Write(ModSettings.killOnDowned);
-												w.Close();
-											}
-											Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-											answerStream.Close();
-										}
+										ModSettings.BroadCastSettingsToClients();
 									}
 
 									break;
@@ -71,8 +58,7 @@ namespace ChampionsOfForest.Network
 									ModSettings.FriendlyFire = r.ReadBoolean();
 									ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)r.ReadInt32();
 									ModSettings.killOnDowned = r.ReadBoolean();
-									Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
-									ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(index);
+									ModSettings.difficulty = (ModSettings.Difficulty)index;
 									if (!ModSettings.DifficultyChoosen)
 									{
 										LocalPlayer.FpCharacter.UnLockView();

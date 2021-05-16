@@ -523,6 +523,7 @@ namespace ChampionsOfForest
 		 {
 				new int[] {25,1,3 },
 				new int[] {25,22,1,3 },
+				new int[] {25,22,0,0,0,0 },
 				new int[] {49 },
 				new int[] {14 },
 				new int[] {14,1 },
@@ -1198,7 +1199,7 @@ namespace ChampionsOfForest
 				name = "The One Ring To Rule Them All",
 				description = "An Ancient magical Ring of great power.",
 				lore = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?",
-				uniqueStat= "Attracts unwanted attention of an unknown entity.",
+				uniqueStat = "Attracts unwanted attention of an unknown entity.",
 				Rarity = 7,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 20,
 				maxLevel = 30,
@@ -3877,12 +3878,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new int[][] { })
 			{
 				name = "Crude Feather",
-				description = 
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount			(3,BaseItem.ItemType.Weapon,		1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount			(3,BaseItem.ItemType.Boot,			1).ToString("P") +"\n" +
-				"If equipped on a helmet, increases critical hit chance by "+ StatActions.GetSocketedStatAmount		(3,BaseItem.ItemType.Helmet,		1).ToString("P")+ "\n" +
-				"If equipped on accessories, increases ranged armor piercing by "+ StatActions.GetSocketedStatAmount(3,BaseItem.ItemType.Amulet,		1).ToString("N")+ "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount				(3,BaseItem.ItemType.ChestArmor,	1).ToString("N"),
+				description =
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
 				uniqueStat = "Materials can be put inside empty sockets to add stats to items",
 				Rarity = 3,
 				minLevel = 20,
@@ -4544,11 +4545,12 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new Stat[][]
 			{
 				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
-				new [] {ARMOR},
+				new [] {MAXIMUMLIFE, VITALITY,PERCENTMAXIMUMLIFE},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE,BASEMELEEDAMAGE},
+				new [] {MELEEDAMAGEINCREASE,BASEMELEEDAMAGE},
+				new [] {ATTACKSPEED, CRITICALHITDAMAGE,CRITICALHITCHANCE},
+				new [] {MAXENERGYFROMAGI,PERCENTMAXIMUMENERGY,ENERGYONHIT,LIFEONHIT,LIFEPERSECOND,LIFEREGENERATION,STAMINAPERSECOND,STAMINAREGENERATION},
+				new [] {ARMOR,THORNS,DAMAGEREDUCTION,PERCENTMAXIMUMLIFE},
 				new [] {ALL},
 				new [] {ALL},
 
@@ -4569,16 +4571,15 @@ new int[] {0,0,0,0,62,63,64},
 				var SomeItem = new BaseItem(new Stat[][]
 					{
 				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
-				new [] {STRENGTH, NONE},
+				new [] {MAXIMUMLIFE, VITALITY,MAXHEALTHFROMVIT,PERCENTMAXIMUMLIFE},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE,BASEMELEEDAMAGE,ATTACKSPEED},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE,CRITICALHITCHANCE},
+				new [] {ALL},
+				new [] {STRENGTH, THORNS},
 				})
 				{
-					name = "Torso Of Strength",
-					description = "Enchanted with the power of strength as strong as power swing. It's purpose? Hit harder, daddy.",
-					lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+					name = "Torso of Strength",
+
 					Rarity = 4,
 					minLevel = 1,
 					maxLevel = 3,
@@ -4596,6 +4597,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {AGILITY,INTELLIGENCE, ALLATTRIBUTES},
 				new [] {MAXIMUMLIFE, VITALITY, LIFEONHIT},
 				new [] {ALLHEALINGPERCENT},
+				new [] {ALL},
 				new [] {MELEEWEAPONRANGE,ENERGYONHIT,ARMORPIERCING, DODGECHANCE},
 				new [] {MOVEMENTSPEED,BLOCK,MAGICFIND},
 
@@ -4617,19 +4619,18 @@ new int[] {0,0,0,0,62,63,64},
 			}
 			new BaseItem(new Stat[][]
 			{
-				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {STRENGTH,ALLATTRIBUTES,BASEMELEEDAMAGE},
+				new [] {MAXIMUMLIFE, VITALITY,DAMAGEREDUCTION,MELEEWEAPONRANGE},
 				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
 				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
-				new [] {STRENGTH},
+				new [] {ALL},
+				new [] {STRENGTH,THORNS,BASEMELEEDAMAGE,CRITICALHITCHANCE,ATTACKSPEED,MELEEWEAPONRANGE},
 				new [] {ARMOR},
 
 			})
 			{
 				name = "Brawler's Gloves",
-				description = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.",
-				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4640,13 +4641,13 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {ALLATTRIBUTES},
+				new [] {ALLATTRIBUTES,STRENGTH,AGILITY,INTELLIGENCE},
 				new [] {MAXIMUMLIFE, VITALITY,STRENGTH,INTELLIGENCE},
-				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE,RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,RANGEDARMORPIERCING},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE,CRITICALHITCHANCE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION},
 				new [] {ARMORPIERCING},
 				new [] {ALL},
-				new [] {ARMOR},
+				new [] {ARMOR,DAMAGEREDUCTION,RESISTANCETOMAGIC,VITALITY,LESSERVITALITY},
 
 			})
 			{
@@ -4663,13 +4664,14 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new Stat[][]
 			{
-				new [] {ATTACKSPEED },
-				new [] {RANGEDDAMAGEINCREASE,},
+				new [] {ATTACKSPEED},
+				new [] {RANGEDDAMAGEINCREASE,RANGEDDMGFROMAGI},
 				new [] {BASERANGEDDAMAGE},
-				new [] {PROJECTILESIZE},
-				new [] {PROJECTILESPEED},
+				new [] {BASERANGEDDAMAGE,NONE},
+				new [] {PROJECTILESIZE,LESSERAGILITY,AGILITY},
+				new [] {PROJECTILESPEED,CRITICALHITCHANCE,CRITICALHITDAMAGE},
 				new [] {AGILITY,NONE},
-				new [] {RANGEDARMORPIERCING, ARMORPIERCING},
+				new [] {RANGEDARMORPIERCING, ARMORPIERCING,ENERGYONHIT},
 				new [] {ALL},
 			})
 			{
@@ -4683,19 +4685,18 @@ new int[] {0,0,0,0,62,63,64},
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 
-			}.PossibleStats[2][0].Multipier = -2f;
+			}.PossibleStats[0][0].Multipier = -2f;
 
 			new BaseItem(new Stat[][]
 			{
-				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
+				new [] {STRENGTH,LESSERSTRENGTH},
+				new [] {MAXIMUMLIFE, VITALITY,MELEEDMGFROMSTR,ARMOR},
 				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
 
 			})
 			{
-				name = "The God's Scarf",
-				description = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.",
-				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				name = "Kuldars's Scarf",
+				lore = "Strength comes from the power of will",
 				Rarity = 2,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4706,18 +4707,16 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {STRENGTH},
-				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
+				new [] {MAXIMUMLIFE, VITALITY,MELEEDAMAGEINCREASE,BASEMELEEDAMAGE},
+				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,ARMOR},
+				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE,CRITICALHITCHANCE},
 				new [] {ALL},
-				new [] {STRENGTH},
+				new [] {STRENGTH,LESSERSTRENGTH},
 
 			})
 			{
-				name = "The Devil's Scarf",
-				description = "Enchanted with the power of the devil's armor. It's purpose? Hit harder, daddy.",
-				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				name = "Sword Devil's Scarf",
 				Rarity = 4,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4736,9 +4735,7 @@ new int[] {0,0,0,0,62,63,64},
 
 			})
 			{
-				name = "The Peasant's Scarf",
-				description = "Enchanted with the power of the peasant's armor. It's purpose? Become the true peasant",
-				lore = "Strength comes from the power of will, the stronger the will the stronger you are",
+				name = "Peasant's Scarf",
 				Rarity = 3,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4749,19 +4746,22 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {AGILITY},
-				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
 				new [] {ALL},
 				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE,NONE},
 
 			})
 			{
-				name = "The Grenade Choker",
-				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
-				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				name = "Bombastinc Choker",
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4769,17 +4769,21 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
-			};
+			}.PossibleStats[0][0].Multipier = 7f;
 			new BaseItem(new Stat[][]
 			{
-				new [] {VITALITY},
-				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {ARMOR},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
+				new [] {STRENGTH,VITALITY,AGILITY,ALLATTRIBUTES,INTELLIGENCE},
+				new [] {MAXENERGYFROMAGI,MELEEDMGFROMSTR,SPELLDMGFROMINT,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] { CRITICALHITCHANCE, CRITICALHITDAMAGE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE,NONE},
+				new [] {EXPLOSIONDAMAGE,NONE},
 
 			})
 			{
@@ -4798,15 +4802,19 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ARMOR},
 				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE},
+				new [] {CRITICALHITCHANCE, CRITICALHITDAMAGE,ATTACKSPEED,BASESPELLDAMAGE,STAMINAPERSECOND},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
 				new [] {ALLATTRIBUTES},
+				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
 
 			})
 			{
-				name = "Green Blood Bracers",
+				name = "Volatile Bracers",
 				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
 				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
 				Rarity = 6,
@@ -4821,17 +4829,21 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ARMOR},
 				new [] {MAXIMUMLIFE, VITALITY},
-				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {CRITICALHITCHANCE,CRITICALHITDAMAGE},
-				new [] {COOLDOWNREDUCTION},
+				new [] {CRITICALHITCHANCE, CRITICALHITDAMAGE,ATTACKSPEED,BASESPELLDAMAGE,STAMINAPERSECOND},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {EMPTYSOCKET},
+				new [] {EMPTYSOCKET},
+				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
 
 			})
 			{
-				name = "The Green Blood Helmet",
-				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
-				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				name = "Volatile Helmet",
+
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4842,19 +4854,22 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {AGILITY},
-				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
-				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {MAXIMUMLIFE, VITALITY,ARMOR,PERCENTMAXIMUMLIFE,PERCENTMAXIMUMENERGY,MAXHEALTHFROMVIT,THORNS,RESISTANCETOMAGIC},
+				new [] {JUMPPOWER},
 				new [] {MOVEMENTSPEED},
-				new [] {AGILITY},
+				new [] {EMPTYSOCKET},
+				new [] {EMPTYSOCKET},
+				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
 
 			})
 			{
 				name = "Gunpowder filled socks",
-				description = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master",
-				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4865,18 +4880,20 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {AGILITY},
-				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
-				new [] {RANGEDARMORPIERCING, RANGEDDAMAGEINCREASE},
-				new [] {SPELLCOSTREDUCTION, CRITICALHITDAMAGE},
-				new [] {MOVEMENTSPEED, AGILITY,MAXIMUMENERGY},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {MAXIMUMLIFE, VITALITY,ARMOR,PERCENTMAXIMUMLIFE,PERCENTMAXIMUMENERGY,MAXHEALTHFROMVIT,THORNS,RESISTANCETOMAGIC},
+				new [] {EMPTYSOCKET},
+				new [] {EMPTYSOCKET},
+				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
 
 			})
 			{
-				name = "Gunpowder Panties",
-				description = "Enchanted with the power of the explosive sacks. It's purpose? Become the true explosion master",
-				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
+				name = "Red Skirt",
 				Rarity = 5,
 				minLevel = 1,
 				maxLevel = 3,
@@ -4887,19 +4904,17 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {STRENGTH},
+				new [] {ALL},
 				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
-				new [] {MELEEARMORPIERCING, MELEEDAMAGEINCREASE},
-				new [] {BASEMELEEDAMAGE,ARMOR, CRITICALHITDAMAGE},
-				new [] {MOVEMENTSPEED,STRENGTH,MAXIMUMENERGY},
+				new [] {MELEEARMORPIERCING, RANGEDARMORPIERCING},
+				new [] {ARMOR, ALLATTRIBUTES,VITALITY,LESSERVITALITY},
+				new [] {EXTRACARRIEDSTICKS,EXTRACARRIEDROCKS,EXTRACARRIEDROPES},
 				new [] {EXPLOSIONDAMAGE},
-
+				new [] {EXPLOSIONDAMAGE},
 			})
 			{
 				name = "Gunpowder Boxers",
-				description = "Enchanted with the power of the explosive sacks. It's purpose? Become the true explosion master",
-				lore = "Strength comes from the power of will, the stronger the will the stronger the explosion",
-				Rarity = 5,
+				Rarity = 4,
 				minLevel = 1,
 				maxLevel = 3,
 				CanConsume = false,
@@ -4916,6 +4931,8 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
+				new [] {EXPLOSIONDAMAGE,NONE},
+				new [] {EXPLOSIONDAMAGE,NONE},
 				new [] {ARMOR},
 				new [] {PERCENTMAXIMUMLIFE},
 
@@ -4934,9 +4951,10 @@ new int[] {0,0,0,0,62,63,64},
 			new BaseItem(new Stat[][]
 			{
 				new [] {CRITICALHITCHANCE},
-				new [] {MAGICFIND},
+				new [] {MAGICFIND,NONE,EXPGAIN},
 				new [] {RANGEDDAMAGEINCREASE,MELEEDAMAGEINCREASE},
 				new [] {STRENGTH,AGILITY},
+				new [] {ALL},
 				new [] {CHANCEONHITTOBLEED},
 				new [] {CHANCEONHITTOSLOW},
 				new [] {CHANCEONHITTOWEAKEN},
@@ -4979,17 +4997,19 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
-				new [] {SPELLDAMAGEINCREASE},
-				new [] {INTELLIGENCE},
-				new [] {COOLDOWNREDUCTION},
-				new [] {ALLATTRIBUTES, INTELLIGENCE,SPELLDAMAGEINCREASE},
-				new [] {SPELLDMGFROMINT,MAXENERGYFROMAGI},
-				new [] {BASESPELLDAMAGE},
-				new [] {PERCENTMAXIMUMENERGY,ENERGYONHIT,ENERGYPERSECOND},
-				new [] {FIREDAMAGE,SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA},
+				new [] {MELEEDMGFROMSTR,ALLATTRIBUTES,STAMINAPERSECOND,STAMINAREGENERATION,DODGECHANCE},
+				new [] {STRENGTH,LESSERSTRENGTH,VITALITY,ARMOR},
+				new [] {MELEEWEAPONRANGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE},
+				new [] {VITALITY},
+				new [] {MAXHEALTHFROMVIT,MAXENERGYFROMAGI},
+				new [] {LIFEPERSECOND},
+				new [] {LIFEONHIT},
+				new [] {ENERGYONHIT,ENERGYPERSECOND,INTELLIGENCE,AGILITY},
+				new [] {MAXIMUMLIFE},
+				new [] {PERCENTMAXIMUMLIFE,CRITICALHITCHANCE},
 			})
 			{
-				name = "Mana Ring",
+				name = "Life Ring",
 				Rarity = 6,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 10,
 				maxLevel = 14,
@@ -5003,7 +5023,7 @@ new int[] {0,0,0,0,62,63,64},
 			new [] {STRENGTH},
 			new [] {MOVEMENTSPEED,DODGECHANCE,DAMAGEREDUCTION},
 			new [] {VITALITY,MAXHEALTHFROMVIT,MAXIMUMLIFE,PERCENTMAXIMUMLIFE,ARMOR},
-			new [] {INTELLIGENCE,MAXENERGYFROMAGI,PERCENTMAXIMUMENERGY,MAXIMUMENERGY},
+			new [] {INTELLIGENCE,MAXENERGYFROMAGI,PERCENTMAXIMUMENERGY,MAXIMUMENERGY,BASEMELEEDAMAGE,MELEEDAMAGEINCREASE,ARMOR,DAMAGEREDUCTION},
 			new [] {MELEEARMORPIERCING,MELEEDAMAGEINCREASE},
 			new [] {ARMOR,ATTACKSPEED,STRENGTH},
 			new [] {BASEMELEEDAMAGE},
@@ -5306,7 +5326,7 @@ new int[] {0,0,0,0,62,63,64},
 				onEquip = () => COTFEvents.Instance.OnHitMelee.AddListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 				onUnequip = () => COTFEvents.Instance.OnHitMelee.RemoveListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 			};
-			new BaseItem(new int[][]{ })
+			new BaseItem(new int[][] { })
 			{
 				name = "Socket Drill",
 				description = "A convienient one use tool",
@@ -5353,7 +5373,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(85),
 				onEquip = () => ModdedPlayer.Stats.movementSpeed.Multiply(-1.2f),
 				onUnequip = () => ModdedPlayer.Stats.movementSpeed.Divide(-1.2f)
-			}.PossibleStats[0][0].Multipier=3;
+			}.PossibleStats[0][0].Multipier = 3;
 
 			new BaseItem(new Stat[][]
 			{
@@ -5525,11 +5545,11 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(20); },
-				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(20);},
+				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(20); },
 			};
 
 			new BaseItem(new Stat[][]
-	 { 
+	 {
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
@@ -5541,11 +5561,11 @@ new int[] {0,0,0,0,62,63,64},
 				description = "Only a fraction of its previous might remains",
 				lore = "A pedant of great power. Obtainable only from babies or crafting",
 				uniqueStat = "Decrease the cooldown of one ability by 1 second whenever you hit something with melee or ranged attack.",
-				Rarity = 6,     
+				Rarity = 6,
 				minLevel = 80,
 				maxLevel = 90,
 				CanConsume = false,
-				StackSize = 1,  
+				StackSize = 1,
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
@@ -5622,8 +5642,9 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Hammer,
-				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply(3f);},
-				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(3f);},
+				icon = Res.ResourceLoader.GetTexture(109),
+				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply(3f); },
+				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(3f); },
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -5821,15 +5842,16 @@ new int[] {0,0,0,0,62,63,64},
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y =>		y.StatID == (int)VITALITY || y.StatID == (int)INTELLIGENCE || y.StatID == (int)AGILITY
-													 || y.StatID == (int)LESSERVITALITY|| y.StatID == (int)LESSERINTELLIGENCE|| y.StatID == (int)LESSERAGILITY
+					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)INTELLIGENCE || y.StatID == (int)AGILITY
+													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERINTELLIGENCE || y.StatID == (int)LESSERAGILITY
 													 || y.StatID == (int)BASERANGEDDAMAGE || y.StatID == (int)BASESPELLDAMAGE
 													 || y.StatID == (int)RANGEDDAMAGEINCREASE || y.StatID == (int)SPELLDAMAGEINCREASE).ToArray();
 
 					int c = stats.Count();
-				
 
-					if (c == 0) return false;
+
+					if (c == 0)
+						return false;
 					int i = UnityEngine.Random.Range(0, c);
 					ItemStat stat = stats[i];
 					int index = x.Stats.IndexOf(stat);
@@ -6111,7 +6133,7 @@ new int[] {0,0,0,0,62,63,64},
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount>1 )
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
 						return false;
 					if (Player.Inventory.Instance.ItemSlots.ContainsValue(x))
 					{
@@ -6119,7 +6141,7 @@ new int[] {0,0,0,0,62,63,64},
 						{
 							if (Player.Inventory.Instance.ItemSlots[slotIndex] == x)
 							{
-								var options = ItemDataBase.ItemBases.Where(y =>y.Value.Rarity==7 && y.Value.type == itemType && (itemType!= BaseItem.ItemType.Weapon || y.Value.weaponModel==x.weaponModel)).Select(y => y.Key).ToList();
+								var options = ItemDataBase.ItemBases.Where(y => y.Value.Rarity == 7 && y.Value.type == itemType && (itemType != BaseItem.ItemType.Weapon || y.Value.weaponModel == x.weaponModel)).Select(y => y.Key).ToList();
 								if (options.Count == 0)
 								{
 									ModAPI.Log.Write("No tier 7 items for type: " + itemType);
@@ -6159,7 +6181,7 @@ new int[] {0,0,0,0,62,63,64},
 					var itemType = x.type;
 					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
 						return false;
-					if(!x.Stats.Any(y=> y.StatID == (int)ARMOR || y.StatID == (int)LESSERARMOR))
+					if (!x.Stats.Any(y => y.StatID == (int)ARMOR || y.StatID == (int)LESSERARMOR))
 					{
 						ItemStat stat = new ItemStat(StatByID((int)ARMOR), x.level);
 						x.Stats.Add(stat);
@@ -6215,9 +6237,9 @@ new int[] {0,0,0,0,62,63,64},
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1 || x.Rarity>5)
+					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1 || x.Rarity > 5)
 						return false;
-					if (x.Stats.Count>1)
+					if (x.Stats.Count > 1)
 					{
 						x.RollStats();
 						return true;
@@ -6432,7 +6454,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => ModdedPlayer.Stats.fireDuration.Add(2f),
 				onUnequip = () => ModdedPlayer.Stats.fireDuration.Substract(2f),
-			}.PossibleStats[0][0].Multipier=2;
+			}.PossibleStats[0][0].Multipier = 2;
 
 			new BaseItem(new Stat[][]
 			{
@@ -6489,10 +6511,14 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
-				onEquip = () => { ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(30);
+				onEquip = () =>
+				{
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(30);
 					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(2.5f);
 				},
-				onUnequip = () => { ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(30);
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(30);
 					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(2.5f);
 				},
 			};
@@ -6543,7 +6569,7 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
-				onEquip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value=true,
+				onEquip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value = false,
 			};
 			new BaseItem(new Stat[][]
@@ -6562,7 +6588,6 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = "300th Spear",
-				description = "Kasper named this item, his fault",
 				Rarity = 6,
 				minLevel = 30,
 				maxLevel = 34,
@@ -6571,7 +6596,1125 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
-			}.PossibleStats[0][0].Multipier=3;
+			}.PossibleStats[0][0].Multipier = 3;
+
+
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED,ATTACKSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+			})
+			{
+				name = "Stone Pauldrons",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Shoulder Pads",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Shoulder Pads",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Battle scarred Shoulder Pads",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Shoulder Pads",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			};
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {MOVEMENTSPEED,ATTACKSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Stone Shield",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Shield",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL,ARMOR},
+				})
+			{
+				name = "Steel Tower Shield",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Guardian",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Shield",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Shield,
+				icon = Res.ResourceLoader.GetTexture(99),
+			};
+		
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {MOVEMENTSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Light Boot",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			}.PossibleStats[0][0].Multipier = 1.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL,NONE},
+				})
+			{
+				name = "Iron Boots",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL,ARMOR},
+				})
+			{
+				name = "Steel Boots",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Threads",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED},
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Boots",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+
+
+
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Wraps",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Gauntlet",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Gauntlet",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Titanium Gauntlet",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.6f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Gauntlet",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+
+
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Leather Tasset",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Tasset",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Tasset",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Black Steel Leggins",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Leggins",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Leather Vest",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Breastplate",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Breastplate",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Silver Armor",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Breastplate",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+			
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Cloth Band",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Wristguard",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Wristguard",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Baron Wristguards",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Wristguards",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+
+
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL},
+				new [] {ALL,NONE},
+		})
+			{
+				name = "Horned Helmet",
+				uniqueStat = "All damage increased by 3%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
+				Rarity = 2,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			}.PossibleStats[0][0].Multipier = -0.3f;
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				})
+			{
+				name = "Iron Helmet",
+				uniqueStat = "All damage increased by 4%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
+				Rarity = 3,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Steel Helmet",
+				uniqueStat = "All damage increased by 5%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
+				Rarity = 4,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Armored Hood",
+				uniqueStat = "All damage increased by 6%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
+				Rarity = 5,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				})
+			{
+				name = "Mystery Helmet",
+				uniqueStat = "All damage increased by 10%",
+				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
+				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
+				Rarity = 6,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {CRITICALHITCHANCE,CRITICALHITDAMAGE,},
+				new [] {MELEEDAMAGEINCREASE,NONE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+				})
+			{
+				name = "Yorium's Gaze",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () => BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Helmet,
+				icon = Res.ResourceLoader.GetTexture(91),
+			};
+			new BaseItem(new Stat[][]
+		{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MAXIMUMLIFE},
+				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
+			})
+			{
+				name = "Yorium's Ruthlessness",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () => BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ChestArmor,
+				icon = Res.ResourceLoader.GetTexture(96),
+			};
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MAXIMUMLIFE},
+				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+
+			})
+			{
+				name = "Yorium's Burden",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () => BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.ShoulderArmor,
+				icon = Res.ResourceLoader.GetTexture(95),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MAXIMUMLIFE},
+				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+
+			})
+			{
+				name = "Yorium's Resolve",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () => BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {MOVEMENTSPEED},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MAXIMUMLIFE},
+				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+			})
+			{
+				name = "Atomic Augmentation",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () =>BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Boot,
+				icon = Res.ResourceLoader.GetTexture(85),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,MELEEWEAPONRANGE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MELEEDAMAGEINCREASE,ATTACKSPEED,BASEMELEEDAMAGE,STRENGTH},
+				new [] {MAXIMUMLIFE},
+				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+				new [] {EMPTYSOCKET,NONE},
+
+			})
+			{
+				name = "Yorium's Assault",
+				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
+				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
+				onEquip = () => BerserkSet.Equip(),
+				onUnequip = () => BerserkSet.Unequip(),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Glove,
+				icon = Res.ResourceLoader.GetTexture(86),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL,EXPGAIN,MAGICFIND},
+				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {MELEEDAMAGEINCREASE,BASEMELEEDAMAGE,STRENGTH},
+				new [] {RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,AGILITY},
+				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE,INTELLIGENCE},
+				new [] {ALL},
+				new [] {MAXIMUMLIFE},
+				new [] {MAXIMUMLIFE,PERCENTMAXIMUMLIFE,MAXIMUMENERGY,PERCENTMAXIMUMENERGY},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY,ALLATTRIBUTES,ATTACKSPEED,ATTACKCOSTREDUCTION,SPELLCOSTREDUCTION,COOLDOWNREDUCTION},
+				new [] {ALL},
+				new [] {ALL,NONE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES,NONE},
+
+			})
+			{
+				name = "Undying Promise",
+				uniqueStat = "Resist lethal damage on a 1 minute cooldown",
+				onEquip = () => COTFEvents.Instance.OnTakeLethalDamage.AddListener(UniqueItemFunctions.ResistDeath),
+				onUnequip = () => COTFEvents.Instance.OnTakeLethalDamage.RemoveListener(UniqueItemFunctions.ResistDeath),
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+			};
 		}
 	}
 }
