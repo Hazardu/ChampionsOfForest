@@ -427,7 +427,7 @@ namespace ChampionsOfForest.Player
 					LocalPlayer.Stats.Hit(10, true, PlayerStats.DamageType.Drowning);
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				//ModAPI.Log.Write("Poisoning player error" + e.ToString());
 			}

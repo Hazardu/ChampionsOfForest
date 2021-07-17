@@ -54,17 +54,14 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 				case ModSettings.Difficulty.Challenge1:
 					Damage = 10000;
-
 					break;
 
 				case ModSettings.Difficulty.Challenge2:
 					Damage = 20000;
-
 					break;
 
 				case ModSettings.Difficulty.Challenge3:
 					Damage = 40000;
-
 					break;
 
 				case ModSettings.Difficulty.Challenge4:
@@ -86,13 +83,14 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			int x = random.Next(16, 33);
 			for (int i = 0; i < x; i++)
 			{
+				yield return null;
 				GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				go.transform.localScale *= 5.5f;
 				Light l = go.AddComponent<Light>();
 				l.intensity = 1.3f;
 				l.range = 40;
 				l.color = Color.red;
-				go.GetComponent<Renderer>().material= meteorMaterial;
+				go.GetComponent<Renderer>().material = meteorMaterial;
 				go.transform.position = position + Vector3.forward * random.Next(-6, 6) * 2.5f + Vector3.right * random.Next(-6, 6) * 2.5f + Vector3.up * 80 + Vector3.forward * -40;
 				yield return null;
 				go.GetComponent<SphereCollider>().isTrigger = true;

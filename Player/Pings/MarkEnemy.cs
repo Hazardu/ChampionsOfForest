@@ -75,7 +75,7 @@ namespace ChampionsOfForest
 				}
 
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				Timestamp = 0;
 			}

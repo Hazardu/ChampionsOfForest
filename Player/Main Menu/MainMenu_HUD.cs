@@ -91,7 +91,7 @@ namespace ChampionsOfForest
 		public class HitMarker
 		{
 			public Color color;
-			public const float StartLifetime = 60; //5
+			public const float StartLifetime = 5; //5
 			public float dmg;
 			public string txt;
 			public Vector3 worldPosition;

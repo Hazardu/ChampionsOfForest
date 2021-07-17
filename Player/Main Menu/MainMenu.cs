@@ -12,6 +12,8 @@ using TheForest.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Input = UnityEngine.Input;
+using Random = UnityEngine.Random;
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest

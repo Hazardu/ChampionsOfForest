@@ -374,7 +374,6 @@ namespace ChampionsOfForest.Player.Spells
 		public bool Cast()
 		{
 			int repeats = ModdedPlayer.RangedRepetitions();
-			bool b = false;
 			Vector3 pos = cam.position + offset;
 			Vector3 right = cam.transform.right;
 			float costTotal = 0;

@@ -159,7 +159,6 @@ namespace ChampionsOfForest
 								}
 							}
 							goto aftercolorsetup;
-							break;
 
 						case BaseItem.ItemType.Helmet:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[48];

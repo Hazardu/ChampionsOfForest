@@ -275,35 +275,27 @@ namespace ChampionsOfForest
 			{
 				case 0:
 					return 0.5f;
-					break;
 
 				case 1:
 					return 0.7f;
-					break;
 
 				case 2:
 					return 1f;
-					break;
 
 				case 3:
 					return 1.4f;
-					break;
 
 				case 4:
 					return 2.3f;
-					break;
 
 				case 5:
 					return 3.4f;
-					break;
 
 				case 6:
 					return 4.5f;
-					break;
 
 				case 7:
 					return 5.6f;
-					break;
 			}
 			return 1;
 		}
