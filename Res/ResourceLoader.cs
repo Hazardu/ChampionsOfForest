@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -93,7 +94,7 @@ namespace ChampionsOfForest.Res
 		private bool IgnoreErrors;
 		private bool ShowMOTD = true;
 		private bool MissingMods = false;
-
+		private DateTime buildDate;
 		private void Start()
 		{
 			if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore") || !ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
@@ -130,6 +131,7 @@ namespace ChampionsOfForest.Res
 			StartCoroutine(FileVerification());
 			StartCoroutine(VersionCheck());
 			StartCoroutine(DownloadMotd());
+			buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 		}
 
 		private int DownloadCount;
@@ -708,8 +710,8 @@ namespace ChampionsOfForest.Res
 						break;
 
 					case VersionCheckStatus.NewerThanOnline:
-						GUI.color = Color.yellow;
-						GUILayout.Label("Preview version", versionStyle);
+						GUI.color = Color.yellow;				
+						GUILayout.Label($"Preview version ({ ModSettings.Version }) | ({buildDate})", versionStyle);
 						break;
 				}
 				GUI.color = Color.white;
