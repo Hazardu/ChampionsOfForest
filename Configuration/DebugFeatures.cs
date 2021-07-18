@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 		{
 
 			Transform t = Camera.main.transform;
-			Physics.Raycast(t.position, t.forward, out var raycastHit, 99999, (int)-1876636983);
+			Physics.Raycast(t.position, t.forward, out var raycastHit);
 			if (raycastHit.transform!=null)
 			{
 					return raycastHit.transform.position;
@@ -78,7 +78,7 @@ namespace ChampionsOfForest
 			if (Physics.Raycast(Camera.main.transform.position + (Vector3.forward * 2), Camera.main.transform.forward, out var raycastInfo, 1000, ~0))
 			{
 				LayerMask layermasks = GetCollisionMaskOf(raycastInfo.transform.gameObject);
-				GUI.Label(new Rect(10, 30, 500, 30), $"Tag = {raycastInfo.transform.gameObject.tag} Name = {raycastInfo.transform.gameObject.name} LayerMask = {layermasks.value.ToString("X")}");
+				GUI.Label(new Rect(10, 30, 500, 30), $"Tag = {raycastInfo.transform.gameObject.tag} Name = {raycastInfo.transform.gameObject.name} LayerMask = {layermasks.value.ToString("X")} Layer = {raycastInfo.transform.gameObject.layer}" );
 			}
 
 			GUI.Label(new Rect(10, 10, 500, 30), $"Player position X = {LocalPlayer.Transform.position.x} Y = {LocalPlayer.Transform.position.y} Z = {LocalPlayer.Transform.position.z}");

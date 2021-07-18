@@ -1,5 +1,6 @@
 ﻿using Bolt;
 
+using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Player;
 
 using TheForest.Utils;
@@ -13,7 +14,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
 	public class Meteor : MonoBehaviour
 	{
-		private AudioSource src;
+
+		public MeteorSoundEmitter soundEmitter;
+		
 
 		public static void CreateEnemy(Vector3 position, int seed)
 		{
@@ -27,21 +30,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
 		}
 
-		private static AudioClip hitSound, InitSound;
 
 		private void Start()
 		{
-			if (hitSound == null)
-			{
-				hitSound = Res.ResourceLoader.instance.LoadedAudio[1005];
-				InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
-			}
-			src = gameObject.AddComponent<AudioSource>();
-			src.spatialBlend = 1f;
-			src.clip = InitSound;
-			src.rolloffMode = AudioRolloffMode.Linear;
-			src.maxDistance = 100;
-			src.Play();
+			
+			soundEmitter.PlaySpawnSound();
 			Destroy(gameObject, 4);
 		}
 
@@ -51,8 +44,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			
 			if (distance < 100)
 			{
-				src.clip = hitSound;
-				src.Play();
+				soundEmitter.PlayExplosionSound();
 				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(30 / distance,0.5f));
 			}
 			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") ||
@@ -68,7 +60,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				ModdedPlayer.instance.Stun(3f);
 				Player.BuffDB.AddBuff(21, 69, Damage/3, 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-
+			
 			}
 			else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
 			{

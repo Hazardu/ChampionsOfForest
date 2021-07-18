@@ -205,6 +205,7 @@
     <Compile Include="Effects\RealisticBlackHoleEffect.cs" />
     <Compile Include="Effects\SnapFreeze.cs" />
     <Compile Include="Effects\Sound Effects\GlobalSFX.cs" />
+    <Compile Include="Effects\Sound Effects\MeteorSoundEmitter.cs" />
     <Compile Include="Effects\SpellAimLine.cs" />
     <Compile Include="Effects\Taunt.cs" />
     <Compile Include="Effects\TheFart.cs" />
