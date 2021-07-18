@@ -8,20 +8,40 @@ namespace ChampionsOfForest
 {
 	public class ClinetEnemyProgression
 	{
-		public static float LifeTime = 5;
+		public struct DynamicClientEnemyProgression
+		{
+			public float Health;
+			public int Armor;
+			public int ArmorReduction;
+
+			public DynamicClientEnemyProgression(float health, int armor, int armorReduction)
+			{
+				Health = health;
+				Armor = armor;
+				ArmorReduction = armorReduction;
+			}
+		}
+		DynamicClientEnemyProgression dynCEP;
+		public const float LifeTime = 50;
+		public const float DynamicLifeTime = 0.5f;
 		public BoltEntity Entity;
 		public ulong Packed;
 		public string EnemyName;
 		public int Level;
-		public float Health;
 		public float MaxHealth;
 		public long ExpBounty;
-		public int Armor;
-		public int ArmorReduction;
 		public float Steadfast;
 		public int[] Affixes;
 		public float creationTime;
+		public float dynamicCreationTime;
+		public float Health => dynCEP.Health;
+		public float Armor => dynCEP.Armor;
+		public float ArmorReduction => dynCEP.ArmorReduction;
 
+		/// <summary>
+		/// host/singleplayer constructor
+		/// </summary>
+		/// <param name="tr"></param>
 		public ClinetEnemyProgression(Transform tr)
 		{
 			creationTime = Time.time;
@@ -33,12 +53,10 @@ namespace ChampionsOfForest
 			if (p != null)
 			{
 				EnemyName = p.enemyName;
-				Level = p.Level;
-				Health = p.extraHealth + p.HealthScript.Health;
+				dynCEP = new DynamicClientEnemyProgression(p.extraHealth + p.HealthScript.Health, p.armor, p.armorReduction);
+				Level = p.level;
 				MaxHealth = p.maxHealth;
 				ExpBounty = p.bounty;
-				Armor = p.Armor;
-				ArmorReduction = p.ArmorReduction;
 				Steadfast = p.Steadfast;
 				Affixes = new int[p.abilities.Count];
 				for (int i = 0; i < p.abilities.Count; i++)
@@ -47,72 +65,70 @@ namespace ChampionsOfForest
 				}
 			}
 		}
-
-		public ClinetEnemyProgression()
+		public void RequestDynamicUpdate()
 		{
-		}
-
-		public ClinetEnemyProgression(BoltEntity e)
-		{
-			creationTime = Time.time;
-			Entity = e;
-			Packed = e.networkId.PackedValue;
-			if (GameSetup.IsMpClient)
+			if (GameSetup.IsMpClient && DynamicOutdated)
 			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(6);
-						w.Write(Packed);
-						w.Close();
-					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
-					answerStream.Close();
-				}
-			}
-			else
-			{
-				Debug.Log("Enemy in dictionary + " + Packed + " contains: " + EnemyManager.hostDictionary.ContainsKey(Packed));
-				EnemyProgression p = EnemyManager.hostDictionary[Packed];
-				EnemyName = p.enemyName;
-				Level = p.Level;
-				Health = p.extraHealth + p.HealthScript.Health;
-				MaxHealth = p.maxHealth;
-				ExpBounty = p.bounty;
-				Armor = p.Armor;
-				ArmorReduction = p.ArmorReduction;
-				Steadfast = p.Steadfast;
-				Affixes = new int[p.abilities.Count];
-				for (int i = 0; i < p.abilities.Count; i++)
-				{
-					Affixes[i] = (int)p.abilities[i];
-				}
-			}
-			if (!EnemyManager.clinetProgressions.ContainsKey(e))
-			{
-				EnemyManager.clinetProgressions.Add(e, this);
+				Network.Commands.Command_UpdateDynamicCP.Send(Network.NetworkManager.Target.OnlyServer, new Network.Commands.UpdateCProgressionCommandParam() { packed = Entity.networkId.Packed });
+				dynamicCreationTime = Time.time;
 			}
 		}
-
-		public ClinetEnemyProgression(BoltEntity entity, string enemyName, int level, float health, float maxHealth, long expBounty, int armor, int armorReduction, float Steadfast, int[] affixes) : this(entity)
+		public bool DynamicOutdated => dynamicCreationTime + DynamicLifeTime < Time.time;
+		public void UpdateDynamic(float hp, int ar, int arred)
 		{
-			Entity = entity;
-			EnemyName = enemyName;
-			Packed = entity.networkId.PackedValue;
-			Level = level;
-			Health = health;
-			MaxHealth = maxHealth;
-			ExpBounty = expBounty;
-			Armor = armor;
-			ArmorReduction = armorReduction;
-			this.Steadfast = Steadfast;
-			Affixes = affixes;
-			creationTime = Time.time;
+			dynCEP = new DynamicClientEnemyProgression(hp,ar,arred);
+			dynamicCreationTime = Time.time;
+
+		}
+		public ClinetEnemyProgression(BoltEntity entity)
+		{
 			if (!EnemyManager.clinetProgressions.ContainsKey(entity))
 			{
 				EnemyManager.clinetProgressions.Add(entity, this);
 			}
+		}
+
+		//if (GameSetup.IsMpClient)
+		//{
+		//	using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+		//	{
+		//		using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+		//		{
+		//			w.Write(6);
+		//			w.Write(Packed);
+		//			w.Close();
+		//		}
+		//		ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+		//		answerStream.Close();
+		//	}
+		//}
+
+		//}
+		//public static ClinetEnemyProgression Update(BoltEntity entity, float hp, int ar, int arred)
+		//{
+		//	if (EnemyManager.clinetProgressions.ContainsKey(entity))
+		//	{
+		//		var cp = EnemyManager.clinetProgressions[entity];
+		//		cp.dynCEP = new DynamicClientEnemyProgression(hp,ar,arred)
+		//		return cp;
+		//	}
+		//	return null;
+		//}
+		public void Update(BoltEntity entity, string enemyName, int level, float health, float maxHealth, long expBounty, int armor, int armorReduction, float Steadfast, int[] affixes)
+		{
+			Entity = entity;
+			EnemyName = enemyName;
+			if(entity != null)
+			Packed = entity.networkId.PackedValue;
+			Level = level;
+			dynCEP = new DynamicClientEnemyProgression(health, armor, armorReduction);
+			MaxHealth = maxHealth;
+			ExpBounty = expBounty;
+			this.Steadfast = Steadfast;
+			Affixes = affixes;
+			creationTime = Time.time;
+			dynamicCreationTime = Time.time;
+
 		}
 	}
 }

@@ -17,9 +17,10 @@ namespace ChampionsOfForest
 		}
 
 		private static Transform _camera;
-		public float Timestamp;
+		public float timestamp;
 		public string player;
-
+		protected const float MAXRANGE_SQUARED = 1000 * 1000;   //1k feet squared
+		protected const float DURATION = 180;     // 3 min
 		public enum PingType
 		{
 			Enemy, Location, Item

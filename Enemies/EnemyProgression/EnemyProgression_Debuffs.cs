@@ -245,7 +245,7 @@ namespace ChampionsOfForest
 
 		public void ReduceArmor(int amount)
 		{
-			ArmorReduction += amount;
+			armorReduction += amount;
 		}
 
 
@@ -260,13 +260,13 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				EnemyManager.hostDictionary[target.networkId.PackedValue].ArmorReduction += amount;
+				EnemyManager.hostDictionary[target.networkId.PackedValue].armorReduction += amount;
 			}
 		}
 
 		public static void ReduceArmor(EnemyProgression target, int amount)
 		{
-			target.ArmorReduction += amount;
+			target.armorReduction += amount;
 		}
 
 		public void Taunt(GameObject player, in float duration, in float slowAmount)

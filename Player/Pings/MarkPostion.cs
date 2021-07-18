@@ -8,17 +8,16 @@ namespace ChampionsOfForest
 	{
 		public MarkPostion(Vector3 pos)
 		{
-			Timestamp = Time.time + Duration;
+			timestamp = Time.time + DURATION;
 			pingType = PingType.Location;
 			this.position = pos;
 		}
 
 		public Vector3 position;
-		private const float Duration = 60;     // 1 min
 
 		public bool Outdated()
 		{
-			return Timestamp < Time.time;
+			return timestamp < Time.time;
 		}
 
 		public void Draw()

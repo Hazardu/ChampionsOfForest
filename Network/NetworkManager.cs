@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 
 using Bolt;
 
@@ -8,6 +10,30 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Network
 {
+	public class CommandInitializer
+	{
+		public static void Init()
+		{
+			CommandReader.curr_cmd_index = 100;
+			CommandReader.commandsObjects_dict.Clear();
+			var types = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "ChampionsOfForest.Network.Commands");
+			foreach (var t in types)
+			{
+				ModAPI.Log.Write("Initialized " + t);
+				t.GetMethod("Initalize")?.Invoke(null, new object[0] );
+			}
+		}
+		private static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
+		{
+			return
+			  assembly.GetTypes()
+					  .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal) && t.IsClass)
+					  .ToArray();
+		}
+	}
+
+
+
 	public class NetworkManager : MonoBehaviour
 	{
 		public enum Target
@@ -235,7 +261,7 @@ namespace ChampionsOfForest.Network
 		}
 		public static void HitEnemyMagic()
 		{
-			
+
 		}
 		public static void SendHitmarker(Vector3 pos, float amount, Color c)
 		{

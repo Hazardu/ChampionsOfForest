@@ -91,7 +91,7 @@ namespace ChampionsOfForest
 
 		public void ReduceAr(int value)
 		{
-			progression.ArmorReduction += value;
+			progression.armorReduction += value;
 			return;
 		}
 
@@ -140,7 +140,7 @@ namespace ChampionsOfForest
 
 					base.HitReal(i);
 				}
-				progression.ArmorReduction += i;
+				progression.armorReduction += i;
 			}
 		}
 

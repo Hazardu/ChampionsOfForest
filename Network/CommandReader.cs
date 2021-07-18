@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Enemies;
@@ -14,11 +15,74 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Network
 {
+	public class COTFCommand<ParamT> where ParamT : struct
+	{
+		static byte[] GetBytes(ParamT p)
+		{
+			int size = Marshal.SizeOf(p);
+			byte[] arr = new byte[size];
+
+			IntPtr ptr = Marshal.AllocHGlobal(size);
+			Marshal.StructureToPtr(p, ptr, true);
+			Marshal.Copy(ptr, arr, 0, size);
+			Marshal.FreeHGlobal(ptr);
+			return arr;
+		}
+		static ParamT GetParam(BinaryReader reader)
+		{
+			int size = Marshal.SizeOf(default(ParamT));
+			IntPtr ptr = Marshal.AllocHGlobal(size);
+			byte[] arr = reader.ReadBytes(size);
+			Marshal.Copy(arr, 0, ptr, size);
+			var param = (ParamT)Marshal.PtrToStructure(ptr, typeof(ParamT));
+			Marshal.FreeHGlobal(ptr);
+			return param;
+		}
+
+		public int commandIndex;
+		public static COTFCommand<ParamT> instance;
+
+		protected virtual void OnSendDataWrite(BinaryWriter w)
+		{
+
+		}
+
+		protected virtual void OnReceived(ParamT param, BinaryReader r)
+		{
+
+		}
+
+
+		public static void Send(NetworkManager.Target target, ParamT param)
+		{
+			using (MemoryStream answerStream = new MemoryStream())
+			{
+				using (BinaryWriter w = new BinaryWriter(answerStream))
+				{
+					w.Write(instance.commandIndex);
+					w.Write(GetBytes(param));
+					instance.OnSendDataWrite(w);
+					w.Close();
+				}
+				Network.NetworkManager.SendLine(answerStream.ToArray(), target);
+				answerStream.Close();
+			}
+		}
+
+		public static void Received(BinaryReader r)
+		{
+			var p = GetParam(r);
+			instance.OnReceived(p, r);
+			r.Close();
+		}
+
+	}
+
 	public class CommandReader
 	{
-		private delegate void Command(BinaryReader r);
-
-		//private static readonly Dictionary<int, Command> commands = new Dictionary<int, Command>();
+		public delegate void CommandReceived(BinaryReader r);
+		public static Dictionary<int, CommandReceived> commandsObjects_dict = new Dictionary<int, CommandReceived>();
+		public static int curr_cmd_index = 100;
 
 		public static void OnCommand(byte[] bytes)
 		{
@@ -29,6 +93,11 @@ namespace ChampionsOfForest.Network
 					int cmdIndex = r.ReadInt32();
 					try
 					{
+
+						if (commandsObjects_dict.TryGetValue(cmdIndex, out var t))
+						{
+							t(r);
+						}
 
 						switch (cmdIndex)
 						{
@@ -41,7 +110,7 @@ namespace ChampionsOfForest.Network
 
 							case 1:
 								{
-									if ( ModSettings.DifficultyChoosen)
+									if (ModSettings.DifficultyChoosen)
 									{
 										ModSettings.BroadCastSettingsToClients();
 									}
@@ -166,7 +235,7 @@ namespace ChampionsOfForest.Network
 
 										BallLightning.Create(pos, speed, dmg, id);
 									}
-									else if (spellid == 11)	//cataclysm
+									else if (spellid == 11) //cataclysm
 									{
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										float radius = r.ReadSingle();
@@ -297,12 +366,12 @@ namespace ChampionsOfForest.Network
 													w.Write(7);
 													w.Write(packed);
 													w.Write(ep.enemyName);
-													w.Write(ep.Level);
+													w.Write(ep.level);
 													w.Write(ep.extraHealth + ep.HealthScript.Health);
 													w.Write(ep.maxHealth);
 													w.Write(ep.bounty);
-													w.Write(ep.Armor);
-													w.Write(ep.ArmorReduction);
+													w.Write(ep.armor);
+													w.Write(ep.armorReduction);
 													w.Write(ep.Steadfast);
 													w.Write(ep.abilities.Count);
 													foreach (EnemyProgression.Abilities item in ep.abilities)
@@ -335,49 +404,33 @@ namespace ChampionsOfForest.Network
 									if (GameSetup.IsMpClient)
 									{
 										ulong packed = r.ReadUInt64();
-										if (!EnemyManager.allboltEntities.ContainsKey(packed))
-										{
-											EnemyManager.GetAllEntities();
-										}
-										if (EnemyManager.allboltEntities.ContainsKey(packed))
-										{
-											BoltEntity entity = EnemyManager.allboltEntities[packed];
-											string name = r.ReadString();
-											int level = r.ReadInt32();
-											float health = r.ReadSingle();
-											float maxhealth = r.ReadSingle();
-											long bounty = r.ReadInt64();
-											int armor = r.ReadInt32();
-											int armorReduction = r.ReadInt32();
-											float steadfast = r.ReadSingle();
-											int length = r.ReadInt32();
-											int[] affixes = new int[length];
-											for (int i = 0; i < length; i++)
-											{
-												affixes[i] = r.ReadInt32();
-											}
-											if (EnemyManager.clinetProgressions.ContainsKey(entity))
-											{
-												ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
-												cp.creationTime = Time.time;
-												cp.Entity = entity;
-												cp.Level = level;
-												cp.Health = health;
-												cp.MaxHealth = maxhealth;
-												cp.Armor = armor;
-												cp.ArmorReduction = armorReduction;
-												cp.EnemyName = name;
-												cp.ExpBounty = bounty;
-												cp.Steadfast = steadfast;
-												cp.Affixes = affixes;
-											}
-											else
-											{
-												new ClinetEnemyProgression(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
-											}
-										}
-									}
 
+										BoltEntity entity = BoltNetwork.FindEntity(new Bolt.NetworkId(packed));
+										string name = r.ReadString();
+										int level = r.ReadInt32();
+										float health = r.ReadSingle();
+										float maxhealth = r.ReadSingle();
+										long bounty = r.ReadInt64();
+										int armor = r.ReadInt32();
+										int armorReduction = r.ReadInt32();
+										float steadfast = r.ReadSingle();
+										int length = r.ReadInt32();
+										int[] affixes = new int[length];
+										for (int i = 0; i < length; i++)
+										{
+											affixes[i] = r.ReadInt32();
+										}
+										if (EnemyManager.clinetProgressions.ContainsKey(entity))
+										{
+											ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+											cp.Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+										}
+										else
+										{
+											new ClinetEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+										}
+
+									}
 									break;
 								}
 
@@ -388,17 +441,14 @@ namespace ChampionsOfForest.Network
 									{
 										ulong packed = r.ReadUInt64();
 										SnowAura sa = new GameObject("Snow").AddComponent<SnowAura>();
-										if (!EnemyManager.allboltEntities.ContainsKey(packed))
-										{
-											EnemyManager.GetAllEntities();
-										}
-										sa.followTarget = EnemyManager.allboltEntities[packed].transform;
+									
+										sa.followTarget = BoltNetwork.FindEntity(new Bolt.NetworkId(packed)).transform;
 									}
 									else if (id == 2) //fire aura
 									{
 										ulong packed = r.ReadUInt64();
 										float dmg = r.ReadSingle();
-										GameObject go = EnemyManager.allboltEntities[packed].gameObject;
+										GameObject go = BoltNetwork.FindEntity(new Bolt.NetworkId(packed)).gameObject;
 										FireAura.Cast(go, dmg);
 									}
 
@@ -825,28 +875,26 @@ namespace ChampionsOfForest.Network
 									{
 										case MarkObject.PingType.Enemy:
 											ulong EnemyID = r.ReadUInt64();
-											if (!EnemyManager.allboltEntities.ContainsKey(EnemyID))
-												EnemyManager.GetAllEntities();
-											if (EnemyManager.allboltEntities.ContainsKey(EnemyID))
+
+											bool isElite = r.ReadBoolean();
+											string name = r.ReadString();
+											BoltEntity entity = BoltNetwork.FindEntity(new Bolt.NetworkId(EnemyID));
+											Transform tr = entity.transform;
+											if (PlayerID == ModReferences.ThisPlayerID)
 											{
-												bool isElite = r.ReadBoolean();
-												string name = r.ReadString();
-												Transform tr = EnemyManager.allboltEntities[EnemyID].transform;
-												if (PlayerID == ModReferences.ThisPlayerID)
+												MainMenu.Instance.localPlayerPing = new MarkEnemy(tr, name, isElite, entity);
+											}
+											else
+											{
+												if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
 												{
-													MainMenu.Instance.localPlayerPing = new MarkEnemy(tr, name, isElite);
+													MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkEnemy(tr, name, isElite, entity);
 												}
 												else
 												{
-													if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
-													{
-														MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkEnemy(tr, name, isElite);
-													}
-													else
-													{
-														MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkEnemy(tr, name, isElite));
-													}
+													MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkEnemy(tr, name, isElite, entity));
 												}
+
 											}
 											break;
 

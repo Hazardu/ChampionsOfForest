@@ -184,7 +184,6 @@ namespace ChampionsOfForest
 				if (GameSetup.IsMultiplayer)
 					otherPlayerPings = new Dictionary<string, MarkObject>();
 
-				StartCoroutine(ProgressionRefresh());
 			}
 			catch (Exception ex)
 			{
@@ -426,47 +425,6 @@ namespace ChampionsOfForest
 			if (ModAPI.Input.GetButtonDown("MenuToggle"))
 			{
 				MenuKeyPressAction();
-			}
-		}
-
-		//its a bad idea to put this i main menu
-		private IEnumerator ProgressionRefresh()
-		{
-			while (true)
-			{
-				if (GameSetup.IsMultiplayer)
-				{
-					foreach (KeyValuePair<BoltEntity, ClinetEnemyProgression> item in EnemyManager.clinetProgressions)
-					{
-						if (Time.time > item.Value.creationTime + ClinetEnemyProgression.LifeTime)
-						{
-							EnemyManager.clinetProgressions.Remove(item.Key);
-							break;
-						}
-					}
-				}
-				yield return null;
-				if (GameSetup.IsSinglePlayer)
-				{
-					foreach (KeyValuePair<Transform, ClinetEnemyProgression> item in EnemyManager.spProgression)
-					{
-						if (Time.time > item.Value.creationTime + ClinetEnemyProgression.LifeTime)
-						{
-							EnemyManager.spProgression.Remove(item.Key);
-							break;
-						}
-					}
-				}
-				yield return null;
-				foreach (KeyValuePair<ulong, EnemyProgression> item in EnemyManager.hostDictionary)
-				{
-					if (item.Value.extraHealth + item.Value.HealthScript.Health < 1)
-					{
-						EnemyManager.hostDictionary.Remove(item.Key);
-						break;
-					}
-				}
-				yield return null;
 			}
 		}
 
