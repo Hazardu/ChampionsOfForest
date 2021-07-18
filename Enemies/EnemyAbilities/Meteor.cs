@@ -1,9 +1,13 @@
-﻿using ChampionsOfForest.Player;
+﻿using Bolt;
+
+using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 using TheForest.World;
 
 using UnityEngine;
+
+using Math = System.Math;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
@@ -33,20 +37,27 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
 			}
 			src = gameObject.AddComponent<AudioSource>();
+			src.spatialBlend = 1f;
 			src.clip = InitSound;
-			src.rolloffMode = AudioRolloffMode.Logarithmic;
-			src.maxDistance = 60;
+			src.rolloffMode = AudioRolloffMode.Linear;
+			src.maxDistance = 50;
 			src.Play();
-			Destroy(gameObject, 7);
+			Destroy(gameObject, 4);
 		}
 
 		private void OnTriggerEnter(Collider other)
 		{
-			src.clip = hitSound;
-			src.Play();
-			LocalPlayer.HitReactions.enableFootShake(1, 0.5f);
-
-			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") || other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") || other.CompareTag("suitCase") || other.CompareTag("SmallTree"))
+			float distance = Vector3.Distance(LocalPlayer.Transform.position,this.transform.position);
+			
+			if (distance < 100)
+			{
+				src.clip = hitSound;
+				src.Play();
+				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(30 / distance,0.5f));
+			}
+			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") ||
+			    other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") ||
+			    other.CompareTag("suitCase") || other.CompareTag("SmallTree"))
 			{
 				other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
 				other.SendMessage("Explosion", 0.1f, SendMessageOptions.DontRequireReceiver);
@@ -57,6 +68,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				ModdedPlayer.instance.Stun(3f);
 				Player.BuffDB.AddBuff(21, 69, Damage/3, 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
+
 			}
 			else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
 			{

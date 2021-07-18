@@ -12,6 +12,8 @@ using TheForest.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Input = UnityEngine.Input;
+using Random = UnityEngine.Random;
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
@@ -52,7 +54,7 @@ namespace ChampionsOfForest
 		private GUIStyle menuBtnStyle;                  //style of font for main menu button
 		private GUIStyle chgDiffLabelStyle;
 		private GUIStyle chgDiffBtnStyle;
-		private const float screenTransisionSpeed = 2;      //speed of transion between menus
+		private const float screenTransisionSpeed = 13;      //speed of transion between menus
 		public Font mainFont;                           //main font for the mod
 		public Font secondaryFont;                      //secondary font
 

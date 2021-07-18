@@ -91,7 +91,7 @@ namespace ChampionsOfForest
 		public class HitMarker
 		{
 			public Color color;
-			public const float StartLifetime = 5;
+			public const float StartLifetime = 5; //5
 			public float dmg;
 			public string txt;
 			public Vector3 worldPosition;
@@ -162,8 +162,14 @@ namespace ChampionsOfForest
 					{
 						center = pos
 					};
-
+					//do not draw labels behind you!
+					if (pos.z < 0f)
+					{
+						continue;
+					}
 					GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
+					
+					
 				}
 			}
 			GUI.color = Color.white;

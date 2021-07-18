@@ -1,4 +1,6 @@
-﻿using ChampionsOfForest.Effects.Sound_Effects;
+﻿using System;
+
+using ChampionsOfForest.Effects.Sound_Effects;
 
 using TheForest.Utils;
 
@@ -69,37 +71,80 @@ namespace ChampionsOfForest
 				constantViewTime += Time.deltaTime;
 				Vector3 pos = mainCam.WorldToScreenPoint(transform.position);
 				pos.y = Screen.height - pos.y;
-
+				if (pos.z < 0f)
+				{
+					return;
+				}
 				Rect r = new Rect(0, 0, 400 * MainMenu.Instance.screenScale, 200 * MainMenu.Instance.screenScale)
 				{
 					center = pos
 				};
 				label = item.name;
+				label += " \n Level " + item.level;
 				if (constantViewTime > 0.5f && amount > 1)
 				{
 					label += " \n x" + amount;
 				}
 				if (constantViewTime > 1f)
 				{
-					label += " \n Level " + item.level;
 					if (lifetime < 61)
 					{
-						label += " \n Deleting in " + lifetime.ToString();
+
+						label += " \n Deleting in " + lifetime.ToString("0.#");
 					}
 				}
 
+				GUI.color = new Color(MainMenu.RarityColors[item.Rarity].r, MainMenu.RarityColors[item.Rarity].g, MainMenu.RarityColors[item.Rarity].b, DisplayTime);
+
 				GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.mainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.screenScale) };
-				float height = style.CalcHeight(new GUIContent(label), r.width);
+				float titleHeight = style.CalcHeight(new GUIContent(label), r.width);
 				style.margin = new RectOffset(10, 10, 10, 10);
+
+				GUI.Label(r, label, style);
+				DisplayTime -= Time.deltaTime;
+				//Item stats
+				GUIStyle statStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, font = MainMenu.Instance.secondaryFont, fontSize = Mathf.RoundToInt(20 * MainMenu.Instance.screenScale) };
+				statStyle.margin = new RectOffset(10, 10, 10, 10);
+				
+
+				float lineheight = statStyle.CalcHeight(new GUIContent(" "), r.width);
 				Rect bg = new Rect(r)
 				{
-					height = height
+					height = titleHeight + (lineheight * item.Stats.Count + 1 )
 				};
-				GUI.color = new Color(MainMenu.RarityColors[item.Rarity].r, MainMenu.RarityColors[item.Rarity].g, MainMenu.RarityColors[item.Rarity].b, DisplayTime);
 				GUI.Box(bg, string.Empty);
-				GUI.Label(r, label, style);
+				for (int i = 0; i < item.Stats.Count; i++)
+				{
+					ItemStat stat = item.Stats[i];
+					double amount = stat.Amount;
+					if (stat.DisplayAsPercent)
+					{
+						amount *= 100;
+					}
+
+					amount = Math.Round(amount, stat.RoundingCount);
+					string statslabel = $" {stat.Name}";
+					string statsvalue;
+
+					if (stat.DisplayAsPercent)
+					{
+						statsvalue = amount.ToString("N" + stat.RoundingCount) + "% ";
+					}
+					else
+					{
+						statsvalue = amount.ToString("N" + stat.RoundingCount) + " ";
+					}
+					GUI.color = MainMenu.RarityColors[stat.Rarity];
+					//Name
+					statStyle.alignment = TextAnchor.UpperLeft;
+
+					GUI.Label(new Rect(r.x, r.y + titleHeight + (i * lineheight), r.width, r.height), statslabel, statStyle);
+					//Value
+					statStyle.alignment = TextAnchor.UpperRight;
+					GUI.Label(new Rect(r.x, r.y + titleHeight + (i * lineheight), r.width, r.height), statsvalue, statStyle);
+
+				}
 				GUI.color = new Color(1, 1, 1, 1);
-				DisplayTime -= Time.deltaTime;
 			}
 			else
 			{
