@@ -117,28 +117,38 @@ namespace ChampionsOfForest
 				int perkCount = buf.ReadInt32();
 				for (int i = 0; i < perkCount; i++)
 				{
-					int ID = buf.ReadInt32();
+					int id = buf.ReadInt32();
 					bool isBought = buf.ReadBoolean();
-					int ApplyCount = buf.ReadInt32();
-					PerkDatabase.perks[ID].isBought = isBought;
-					if (isBought)
+					int applyCount = buf.ReadInt32();
+					PerkDatabase.perks[id].isBought = isBought;
+					try
 					{
-						PerkDatabase.perks[ID].boughtTimes = ApplyCount;
-						if (ApplyCount == 0)
+						if (isBought)
 						{
-							PerkDatabase.perks[ID].isApplied = true;
-							PerkDatabase.perks[ID].apply();
-						}
-						else
-						{
-							for (int a = 0; a < ApplyCount; a++)
+							PerkDatabase.perks[id].boughtTimes = applyCount;
+							if (applyCount == 0)
 							{
-								PerkDatabase.perks[ID].apply();
+								PerkDatabase.perks[id].isApplied = true;
+								PerkDatabase.perks[id].apply();
 							}
-							PerkDatabase.perks[ID].isApplied = true;
+							else
+							{
+								for (int a = 0; a < applyCount; a++)
+								{
+									PerkDatabase.perks[id].apply();
+								}
+								PerkDatabase.perks[id].isApplied = true;
+							}
+							PerkDatabase.perks[id].OnBuy();
 						}
-						PerkDatabase.perks[ID].OnBuy();
 					}
+					catch (System.Exception ex)
+					{
+						ModAPI.Log.Write($"Loading perks exception: id = {id}, isBought = {isBought}, applycount ={applyCount}\n" + ex.ToString());
+						
+					}
+					
+					
 				}
 
 				//loading bought spells
