@@ -52,7 +52,7 @@ namespace ChampionsOfForest.Items.Sets
 		public static void Equip()
 		{
 			ModdedPlayer.Stats.i_setcount_BerserkSet.Add(1);
-			ModdedPlayer.Stats.weaponRange.Multiply(0.3f);
+			ModdedPlayer.Stats.weaponRange.Multiply(1.3f);
 			ModdedPlayer.Stats.attackStaminaCost.Multiply(0.5f);
 			switch (ModdedPlayer.Stats.i_setcount_BerserkSet.Value)
 			{
@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Items.Sets
 					ModdedPlayer.Stats.spell_berserkDuration.Substract(15);
 					break;
 			}
-			ModdedPlayer.Stats.weaponRange.Divide(0.3f);
+			ModdedPlayer.Stats.weaponRange.Divide(1.3f);
 			ModdedPlayer.Stats.attackStaminaCost.Divide(0.5f);
 			ModdedPlayer.Stats.i_setcount_BerserkSet.Substract(1);
 
