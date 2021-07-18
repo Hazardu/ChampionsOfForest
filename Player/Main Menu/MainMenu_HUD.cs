@@ -392,12 +392,12 @@ namespace ChampionsOfForest
 								y += screenScale * 60;
 								DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 								y += screenScale * 60;
-								if (ScanTime > 1.5f)
+								if (ScanTime > 1f)
 								{
 									DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									y += screenScale * 60;
 								}
-								if (ScanTime > 3f)
+								if (ScanTime > 1.8f)
 								{
 									DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									y += screenScale * 40;
@@ -408,12 +408,12 @@ namespace ChampionsOfForest
 									}
 									y += screenScale * 20;
 								}
-								if (ScanTime > 4.5f)
+								if (ScanTime > 2.4f)
 								{
 									DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									y += screenScale * 85;
 								}
-								if (ScanTime > 6f)
+								if (ScanTime > 2.8f)
 								{
 									if (cp.Affixes.Length > 0)
 									{
@@ -755,7 +755,7 @@ namespace ChampionsOfForest
 												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 												answerStream.Close();
 											}
-											localPlayerPing = new MarkEnemy(scannedTransform, cp.EnemyName, cp.Affixes.Length > 0);
+											localPlayerPing = new MarkEnemy(scannedTransform, cp.EnemyName, cp.Affixes.Length > 0, scannedEntity);
 										}
 									}
 								}

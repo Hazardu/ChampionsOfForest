@@ -140,7 +140,7 @@ namespace ChampionsOfForest
 				return Mathf.Abs(damage);
 			}
 
-			float reduction = ModReferences.DamageReduction(Armor - ArmorReduction);
+			float reduction = ModReferences.DamageReduction(armor - armorReduction);
 			if (magic)
 			{
 				reduction /= 1.5f;
@@ -258,7 +258,7 @@ namespace ChampionsOfForest
 				return damage;
 			}
 
-			float reduction = ModReferences.DamageReduction(Mathf.Clamp(Armor - ArmorReduction, 0, int.MaxValue));
+			float reduction = ModReferences.DamageReduction(Mathf.Clamp(armor - armorReduction, 0, int.MaxValue));
 			int dmg = Mathf.CeilToInt(damage * (1 - reduction));
 			if (Steadfast != 100)
 			{

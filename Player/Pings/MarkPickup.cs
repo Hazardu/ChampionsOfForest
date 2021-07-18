@@ -6,33 +6,31 @@ namespace ChampionsOfForest
 {
 	public class MarkPickup : MarkObject
 	{
-		public MarkPickup(Transform t, string name, int rarity)
+		public MarkPickup(Transform t, string pingName, int rarity)
 		{
-			Timestamp = Time.time + Duration;
+			timestamp = Time.time + DURATION;
 			pingType = PingType.Item;
 			transform = t;
-			Name = name;
-			Rarity = rarity;
+			name = pingName;
+			this.rarity = rarity;
 		}
 
 		public Transform transform;
-		private string Name;
-		private int Rarity;
-		private const float MaxRange = 1000 * 1000;   //1 kilometer
-		private const float Duration = 60;     // 1 min
+		private readonly string name;
+		private readonly int rarity;
 
 		public bool Outdated()
 		{
-			return Timestamp < Time.time;
+			return timestamp < Time.time;
 		}
 
 		public void Draw()
 		{
-			Vector3 heading = transform.position - LocalPlayer.Transform.position;
-			float sqrMag = (heading).sqrMagnitude;
-			if (sqrMag <= MaxRange)
+			Vector3 dir = transform.position - LocalPlayer.Transform.position;
+			float sqrMag = dir.sqrMagnitude;
+			if (sqrMag <= MAXRANGE_SQUARED)
 			{
-				if (Vector3.Dot(Cam.transform.forward, heading) > 0)
+				if (Vector3.Dot(Cam.transform.forward, dir) > 0)
 				{
 					float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
 					Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
@@ -46,8 +44,8 @@ namespace ChampionsOfForest
 					};
 					r.y -= size * 2.4f;
 
-					GUI.color = MainMenu.RarityColors[Rarity];
-					GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
+					GUI.color = MainMenu.RarityColors[rarity];
+					GUI.Label(r, name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
 					GUI.color = Color.white;
 					r.y += size + 10;
 					GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));

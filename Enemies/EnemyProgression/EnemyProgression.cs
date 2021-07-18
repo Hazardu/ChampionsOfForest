@@ -40,9 +40,9 @@ namespace ChampionsOfForest
 
 		public string enemyName;
 
-		public int Level;
-		public int Armor;
-		public int ArmorReduction;
+		public int level;
+		public int armor;
+		public int armorReduction;
 		public float extraHealth;
 		public float maxHealth;
 		private int baseHealth = 0;
@@ -315,7 +315,7 @@ namespace ChampionsOfForest
 								continue;
 							}
 
-							item.ArmorReduction = 0;
+							item.armorReduction = 0;
 							item.BaseAnimSpeed *= 1.25f;
 							item.BaseDamageMult *= 2f;
 
@@ -345,7 +345,7 @@ namespace ChampionsOfForest
 								}
 								else
 								{
-									item.Value.ArmorReduction = 0;
+									item.Value.armorReduction = 0;
 									item.Value.BaseAnimSpeed *= 1.25f;
 									item.Value.BaseDamageMult *= 2f;
 									item.Value.extraHealth = item.Value.maxHealth;
@@ -407,7 +407,7 @@ namespace ChampionsOfForest
 				{
 					itemCount += 3;
 				}
-				itemCount += (int)Mathf.Clamp(Level / 40, 1, 8);
+				itemCount += (int)Mathf.Clamp(level / 40, 1, 8);
 				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
 				ModAPI.Console.Write("Dropping " + itemCount + " items");
 				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty,setupDifficulty, transform.position);
@@ -477,7 +477,7 @@ namespace ChampionsOfForest
 			{
 				if (TheForest.Utils.Scene.WeatherSystem.Raining)
 				{
-					Armor = prerainArmor * 5;
+					armor = prerainArmor * 5;
 					DamageMult = prerainDmg * 5;
 					transform.localScale *= 1.5f;
 
@@ -485,11 +485,11 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					Armor = prerainArmor;
+					armor = prerainArmor;
 					DamageMult = prerainDmg;
 				}
 			}
-			ArmorReduction = Mathf.Min(ArmorReduction, Armor);
+			armorReduction = Mathf.Min(armorReduction, armor);
 			if (abilities.Contains(Abilities.Huge))
 			{
 				gameObject.transform.localScale *= 2f;
@@ -555,7 +555,7 @@ namespace ChampionsOfForest
 				{
 					SetAbilityCooldown(0, 1);
 					Vector3 dir = transform.position;
-					float dmg = 60 * Mathf.Clamp( Level*Level / 200,1,20000);;
+					float dmg = 60 * Mathf.Clamp( level*level / 200,1,20000);;
 					float slow = 0.2f;
 					float boost = 1.4f;
 					float duration = 20;
@@ -628,7 +628,7 @@ namespace ChampionsOfForest
 				{
 					SetAbilityCooldown(0.0f, 0.5f);
 
-					float duration = Mathf.Clamp( Level / 20f,3f,10f);
+					float duration = Mathf.Clamp( level / 20f,3f,10f);
 					
 
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -681,9 +681,9 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(0.0f, 1f);
 
-						float dmg = 60 * Mathf.Pow(Level, 2f);
+						float dmg = 60 * Mathf.Pow(level, 2f);
 						
-						float radius = 10 + Mathf.Clamp(Level / 20, 1, 10);
+						float radius = 10 + Mathf.Clamp(level / 20, 1, 10);
 						
 						radius -= 1;
 						if (BoltNetwork.isRunning)
@@ -719,9 +719,9 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(0.0f, 1f);
 
-						float dmg = 60 * Mathf.Pow(Level, 2f);
+						float dmg = 60 * Mathf.Pow(level, 2f);
 
-						float radius = 10 + Mathf.Clamp(Level / 20, 1, 10);
+						float radius = 10 + Mathf.Clamp(level / 20, 1, 10);
 
 						radius -= 1;
 						dmg /= 1.5f;
@@ -789,9 +789,9 @@ namespace ChampionsOfForest
 					{
 						SetAbilityCooldown(1.0f, 2f);
 
-						float damage = Mathf.Pow(Level, 2f)* 10;
+						float damage = Mathf.Pow(level, 2f)* 10;
 						float duration = 7.5f;
-						float radius = 21 + 3 * Level/14;
+						float radius = 21 + 3 * level/14;
 						float pullforce = 35;
 						if (BoltNetwork.isRunning)
 						{
@@ -836,7 +836,7 @@ namespace ChampionsOfForest
 		{
 			if (abilities.Contains(Abilities.FireAura))
 			{
-				float aurDmg = (5 * Level + 1) * (Mathf.Max(2,Level/50) + 1.3f);
+				float aurDmg = (5 * level + 1) * (Mathf.Max(2,level/50) + 1.3f);
 				FireAura.Cast(gameObject, aurDmg);
 				if (BoltNetwork.isRunning)
 				{

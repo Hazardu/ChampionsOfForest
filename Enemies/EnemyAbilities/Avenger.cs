@@ -20,7 +20,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 					transform.localScale += Vector3.one * 0.1f;
 					progression.BaseDamageMult *= 1.25f;
 					progression.BaseAnimSpeed *= 1.05f;
-					progression.ArmorReduction = 0;
+					progression.armorReduction = 0;
 					LocalPlayer.Sfx.PlayWokenByEnemies();
 					Stacks++;
 				}

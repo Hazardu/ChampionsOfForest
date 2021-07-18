@@ -75,7 +75,7 @@ namespace ChampionsOfForest
 
 
 					// go.AddComponent<Crafting>();
-
+					Network.CommandInitializer.Init();
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
 					ItemDataBase.Initialize();
@@ -90,6 +90,7 @@ namespace ChampionsOfForest
 					BallLightning.InitPrefab();
 					ResourceInitializer.SetupMeshesFromOtherAssets();
 					Cataclysm.AssignPrefabs();
+					MarkEnemy.AssignTextures();
 				}
 			}
 			catch (Exception ex)
