@@ -3,6 +3,7 @@
 using TheForest.Utils;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 using Input = UnityEngine.Input;
 
@@ -11,8 +12,37 @@ namespace ChampionsOfForest
 	//implement additional UI elements
 	public partial class MainMenu : MonoBehaviour
 	{
-#if Debugging_Enabled
 
+#if Debugging_Enabled
+		Vector3? GetEyePosition()
+		{
+
+			Transform t = Camera.main.transform;
+			Physics.Raycast(t.position, t.forward, out var raycastHit, 99999, (int)-1876636983);
+			if (raycastHit.transform!=null)
+			{
+					return raycastHit.transform.position;
+			}
+
+			return null;
+		}
+		void CastMeteor(Vector3 position)
+		{
+			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+			{
+				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+				{
+					w.Write(17);
+					w.Write(position.x);
+					w.Write(position.y);
+					w.Write(position.z);
+					w.Write(Random.Range(-100000, 100000));
+					w.Close();
+				}
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+				answerStream.Close();
+			}
+		}
 		public static Vector3 _DEBUG_WEAPON_POSITION_OFFSET, _DEBUG_WEAPON_ROTATION_OFFSET;
 		string posX= "0.0", posY= "0.0", posZ= "0.0";
 		string rotX= "0.0", rotY= "0.0", rotZ= "0.0";
@@ -20,15 +50,47 @@ namespace ChampionsOfForest
 		private Vector3 rulerEnd = Vector3.zero;
 		private int rulerHue = 1;
 		private GameObject rulerObj;
+
+		public static LayerMask GetCollisionMaskOf(GameObject go)
+		{
+			int myLayer = go.layer;
+			int layerMask = 0;
+			for (int i = 0; i < 32; i++)
+			{
+				if (!Physics.GetIgnoreLayerCollision(myLayer, i))
+				{
+					layerMask = layerMask | 1 << i;
+				}
+			}
+			return layerMask;
+		}
 		partial void DrawDebug()
 		{
+			if (Input.GetKeyDown(KeyCode.F1))
+			{
+				Vector3? eyepos = GetEyePosition();
+				if (eyepos.HasValue)
+				{
+					CastMeteor(new Vector3(eyepos.Value.x, eyepos.Value.y + 100, eyepos.Value.z));
+				}
+			}
+			GUI.Label(new Rect(10, 10, 500, 30), $"Player position X = {LocalPlayer.Transform.position.x} Y = {LocalPlayer.Transform.position.y} Z = {LocalPlayer.Transform.position.z}");
+			if (Physics.Raycast(Camera.main.transform.position + (Vector3.forward * 2), Camera.main.transform.forward, out var raycastInfo, 1000, ~0))
+			{
+				LayerMask layermasks = GetCollisionMaskOf(raycastInfo.transform.gameObject);
+				GUI.Label(new Rect(10, 30, 500, 30), $"Tag = {raycastInfo.transform.gameObject.tag} Name = {raycastInfo.transform.gameObject.name} LayerMask = {layermasks.value.ToString("X")}");
+			}
+
+			GUI.Label(new Rect(10, 10, 500, 30), $"Player position X = {LocalPlayer.Transform.position.x} Y = {LocalPlayer.Transform.position.y} Z = {LocalPlayer.Transform.position.z}");
+
+			//Ruler
+
 			if (rulerObj == null)
 			{
 				rulerObj = new GameObject();
 				rulerObj.AddComponent<LineRenderer>();
 			}
-			GUI.Label(new Rect(10, 10, 500, 30), $"Player position X = {LocalPlayer.Transform.position.x} Y = {LocalPlayer.Transform.position.y} Z = {LocalPlayer.Transform.position.z}");
-			//Ruler
+			
 			if (Input.GetKeyDown(KeyCode.F7))
 			{
 				rulerStart = LocalPlayer.Transform.position;
@@ -42,6 +104,7 @@ namespace ChampionsOfForest
 				rulerStart = Vector3.zero;
 				rulerEnd = Vector3.zero;
 			}
+		
 			if (rulerStart != Vector3.zero && rulerEnd != Vector3.zero)
 			{
 				rulerHue++;
