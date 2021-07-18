@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 		public int Damage;
 
-		private void FixedUpdate()
+		private void Update()
 		{
 			transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
 		}
@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				src.clip = hitSound;
 				src.Play();
-				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(8 / distance,0.5f));
+				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(30 / distance,0.5f));
 			}
 			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") ||
 			    other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") ||
@@ -61,8 +61,6 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
 				other.SendMessage("Explosion", 0.1f, SendMessageOptions.DontRequireReceiver);
-				Destroy(this);
-
 			}
 			else if (other.transform.root == LocalPlayer.Transform.root)
 			{
@@ -70,15 +68,12 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				ModdedPlayer.instance.Stun(3f);
 				Player.BuffDB.AddBuff(21, 69, Damage/3, 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
-				Destroy(this);
 
 			}
 			else if (other.CompareTag("BreakableWood") || other.CompareTag("BreakableRock") || other.CompareTag("BreakableRock") || other.CompareTag("structure"))
 			{
 				other.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
 				other.SendMessage("LocalizedHit", new LocalizedHitData(transform.position, Damage), SendMessageOptions.DontRequireReceiver);
-				Destroy(this);
-
 			}
 		}
 	}
