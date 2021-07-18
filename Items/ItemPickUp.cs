@@ -47,6 +47,7 @@ namespace ChampionsOfForest
 			lifetime = 600;
 			src = gameObject.AddComponent<AudioSource>();
 			src.spatialBlend = 1f;
+			src.maxDistance = 50f;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1004];
 			src.Play();
 		}

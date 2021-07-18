@@ -24,7 +24,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 			instance = this;
 		}
 
-		public static void Play(int id, ulong delay = 0, float pitch = 1)
+		public static void Play(int id, ulong delay = 0, float pitch = 1 )
 		{
 			if (id > -1 && id < instance.audioSources.Length)
 			{

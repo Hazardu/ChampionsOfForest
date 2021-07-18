@@ -64,8 +64,8 @@ namespace ChampionsOfForest
 			source.clip = Res.ResourceLoader.instance.LoadedAudio[1000];
 			source.volume = 16;
 			source.spatialBlend = 1f;
-			source.rolloffMode = AudioRolloffMode.Logarithmic;
-			source.maxDistance = 100;
+			source.rolloffMode = AudioRolloffMode.Linear;
+			source.maxDistance = 150f;
 			source.Play();
 			RealisticBlackHoleEffect.Add(transform);
 			if (particleMaterial == null)
@@ -244,6 +244,8 @@ namespace ChampionsOfForest
 
 				blackholeSound = go.AddComponent<AudioSource>();
 				blackholeSound.spatialBlend = 1f;
+				blackholeSound.spatialBlend = 1f;
+				blackholeSound.maxDistance = 100f;
 				blackholeSound.clip = Res.ResourceLoader.instance.LoadedAudio[1016];
 				blackholeSound.maxDistance *= 2;
 				blackholeSound.loop = false;
