@@ -113,6 +113,7 @@ namespace ChampionsOfForest.Effects
 			var src = new GameObject().AddComponent<AudioSource>();
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1017];
 			src.transform.position = pos;
+			src.spatialBlend = 1f;
 			src.loop = false;
 			src.Play();
 		}

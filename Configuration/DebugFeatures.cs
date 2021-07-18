@@ -7,7 +7,7 @@ namespace ChampionsOfForest
 	//implement additional UI elements
 	public partial class MainMenu : MonoBehaviour
 	{
-#if Debugging_Enabled
+#if DEBUG
 
 		public static Vector3 _DEBUG_WEAPON_POSITION_OFFSET, _DEBUG_WEAPON_ROTATION_OFFSET;
 		string posX= "0.0", posY= "0.0", posZ= "0.0";

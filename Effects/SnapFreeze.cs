@@ -156,6 +156,7 @@ namespace ChampionsOfForest.Effects
 			light.intensity = 2f;
 			StartCoroutine(Fade(light));
 			var src = gameObject.AddComponent<AudioSource>();
+			src.spatialBlend = 1f;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1014];
 			src.pitch = UnityEngine.Random.Range(0.7f, 1.2f);
 			src.Play();

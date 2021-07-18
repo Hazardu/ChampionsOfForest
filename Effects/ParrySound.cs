@@ -13,6 +13,7 @@ namespace ChampionsOfForest.Effects
 			source.clip = Res.ResourceLoader.instance.LoadedAudio[139];
 			source.loop = false;
 			source.playOnAwake = false;
+			source.spatialBlend = 1f;
 			source.pitch = 0.75f;
 		}
 

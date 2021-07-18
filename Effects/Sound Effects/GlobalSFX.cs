@@ -15,7 +15,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 			{
 				var source = new GameObject().AddComponent<AudioSource>();
 				source.clip = Res.ResourceLoader.instance.LoadedAudio[ids[i]];
-				source.spatialBlend = 0;
+				source.spatialBlend = 1f;
 				source.rolloffMode = AudioRolloffMode.Linear;
 				source.maxDistance = 1999999;
 				audioSources[i] = source;

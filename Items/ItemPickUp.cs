@@ -46,6 +46,7 @@ namespace ChampionsOfForest
 			Invoke("UnlockPhysics", 1f);
 			lifetime = 600;
 			src = gameObject.AddComponent<AudioSource>();
+			src.spatialBlend = 1f;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1004];
 			src.Play();
 		}

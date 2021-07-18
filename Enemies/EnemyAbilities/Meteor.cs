@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			src.spatialBlend = 1f;
 			src.clip = InitSound;
 			src.rolloffMode = AudioRolloffMode.Linear;
-			src.maxDistance = 50;
+			src.maxDistance = 100;
 			src.Play();
 			Destroy(gameObject, 4);
 		}
