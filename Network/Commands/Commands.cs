@@ -1,10 +1,11 @@
 ﻿using System.IO;
+
 using TheForest.Utils;
 
 namespace ChampionsOfForest.Network.Commands
 {
 
-	public struct UpdateCProgressionCommandParam 
+	public struct UpdateCProgressionCommandParam
 	{
 		public ulong packed;
 		public float health;
@@ -31,18 +32,18 @@ namespace ChampionsOfForest.Network.Commands
 					ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
 					cp.UpdateDynamic(param.health, param.armor, param.armor_reduction);
 				}
-				else
+			}
+			else
+			{
+				if (EnemyManager.hostDictionary.TryGetValue(param.packed, out var enemy))
 				{
-					if (EnemyManager.hostDictionary.TryGetValue(param.packed, out var enemy))
+					Send(NetworkManager.Target.Clients, new UpdateCProgressionCommandParam()
 					{
-						Send(NetworkManager.Target.Clients, new UpdateCProgressionCommandParam()
-						{
-							health = enemy.extraHealth + enemy.HealthScript.Health,
-							armor = enemy.armor,
-							armor_reduction = enemy.armorReduction,
-							packed = param.packed
-						});
-					}
+						health = enemy.extraHealth + enemy.HealthScript.Health,
+						armor = enemy.armor,
+						armor_reduction = enemy.armorReduction,
+						packed = param.packed
+					});
 				}
 			}
 		}
