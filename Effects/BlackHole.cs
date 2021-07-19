@@ -63,8 +63,9 @@ namespace ChampionsOfForest
 			AudioSource source = gameObject.AddComponent<AudioSource>();
 			source.clip = Res.ResourceLoader.instance.LoadedAudio[1000];
 			source.volume = 16;
-			source.rolloffMode = AudioRolloffMode.Logarithmic;
-			source.maxDistance = 100;
+			source.spatialBlend = 1f;
+			source.rolloffMode = AudioRolloffMode.Linear;
+			source.maxDistance = 150f;
 			source.Play();
 			RealisticBlackHoleEffect.Add(transform);
 			if (particleMaterial == null)
@@ -101,8 +102,7 @@ namespace ChampionsOfForest
 				col.isTrigger = true;
 			}
 			scale = 0;
-			particleGO = new GameObject("BlackHoleParticles");
-			particleGO.transform.position = transform.position;
+			particleGO = new GameObject("BlackHoleParticles") { transform = { position = transform.position } };
 			particleGO.transform.SetParent(transform);
 			sys = particleGO.AddComponent<ParticleSystem>();
 			ParticleSystem.ShapeModule shape = sys.shape;
@@ -242,7 +242,9 @@ namespace ChampionsOfForest
 				GameObject go = new GameObject();
 
 				blackholeSound = go.AddComponent<AudioSource>();
-
+				blackholeSound.spatialBlend = 1f;
+				blackholeSound.spatialBlend = 1f;
+				blackholeSound.maxDistance = 100f;
 				blackholeSound.clip = Res.ResourceLoader.instance.LoadedAudio[1016];
 				blackholeSound.maxDistance *= 2;
 				blackholeSound.loop = false;
@@ -257,7 +259,7 @@ namespace ChampionsOfForest
 						if (casterID == ModReferences.ThisPlayerID)
 						{
 							//local Player Callback
-							Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+							SpellActions.CastBallLightning(transform.position, Vector3.down);
 						}
 						else
 						{
@@ -281,7 +283,7 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+					SpellActions.CastBallLightning(transform.position, Vector3.down);
 				}
 			}
 		}

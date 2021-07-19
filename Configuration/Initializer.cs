@@ -43,16 +43,16 @@ namespace ChampionsOfForest
 					return;
 				}
 
-				ModSettings.DifficultyChoosen = false;
+				ModSettings.DifficultyChosen = false;
 				if (SceneManager.GetActiveScene().name == "TitleScene")
 				{
-					new GameObject("Resource Manager").AddComponent<Res.ResourceLoader>();
-					Res.ResourceLoader.InMainMenu = true;
-					Effects.MainMenuVisual.Create();
+					new GameObject("Resource Manager").AddComponent<ResourceLoader>();
+					ResourceLoader.InMainMenu = true;
+					MainMenuVisual.Create();
 				}
 				else
 				{
-					Res.ResourceLoader.InMainMenu = false;
+					ResourceLoader.InMainMenu = false;
 					NetworkPlayerStats.Reset();		
 					COTFEvents.ClearEvents();
 
@@ -63,7 +63,7 @@ namespace ChampionsOfForest
 					go.AddComponent<Inventory>();
 					go.AddComponent<ModReferences>();
 					go.AddComponent<SpellCaster>();
-					go.AddComponent<ClinetItemPicker>();
+					go.AddComponent<ClientItemPicker>();
 					go.AddComponent<MeteorSpawner>();
 					go.AddComponent<BlackFlame>();
 					go.AddComponent<AsyncHit>();
@@ -82,7 +82,7 @@ namespace ChampionsOfForest
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
-					Res.Buildings.InitBuildings();
+					Buildings.InitBuildings();
 					PerkDatabase.FillPerkList();
 					ExpEvents.Initialize();
 					Portal.InitializePortals();

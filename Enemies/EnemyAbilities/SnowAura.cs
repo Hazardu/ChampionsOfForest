@@ -61,6 +61,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			src = gameObject.AddComponent<AudioSource>();
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1015];
 			src.loop = true;
+			src.spatialBlend = 1f;
 			src.volume = 0.0f;
 			src.Play();
 			StartCoroutine(Lifetime());

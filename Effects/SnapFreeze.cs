@@ -98,14 +98,14 @@ namespace ChampionsOfForest.Effects
 		{
 			if (hitParticleSystem == null)
 			{
-				HitparticlesystemAssign();
+				HitParticleSystemAssign();
 			}
 
 			hitParticleSystem.transform.position = pos;
 			hitParticleSystem.Emit(1);
 		}
 
-		private static void HitparticlesystemAssign()
+		private static void HitParticleSystemAssign()
 		{
 			ParticleSystem ps = new GameObject().AddComponent<ParticleSystem>();
 			hitParticleSystem = ps;
@@ -156,6 +156,8 @@ namespace ChampionsOfForest.Effects
 			light.intensity = 2f;
 			StartCoroutine(Fade(light));
 			var src = gameObject.AddComponent<AudioSource>();
+			src.maxDistance = 100f;
+			src.spatialBlend = 1f;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1014];
 			src.pitch = UnityEngine.Random.Range(0.7f, 1.2f);
 			src.Play();

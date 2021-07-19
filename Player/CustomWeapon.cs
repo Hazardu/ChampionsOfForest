@@ -137,10 +137,10 @@ namespace ChampionsOfForest.Player
 		{
 			try
 			{
-				obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
+				obj = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParent);
 
 				GameObject trailObject = new GameObject();
-				trailObject.transform.SetParent(PlayerInventoryMod.originalParrent, false);
+				trailObject.transform.SetParent(PlayerInventoryMod.originalParent, false);
 				trailObject.transform.position = obj.transform.position;
 				obj.transform.localRotation = PlayerInventoryMod.originalRotation;
 				obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
@@ -194,7 +194,7 @@ namespace ChampionsOfForest.Player
 			try
 			{
 				GameObject trailObject = new GameObject();
-				trailObject.transform.SetParent(PlayerInventoryMod.originalParrent, false);
+				trailObject.transform.SetParent(PlayerInventoryMod.originalParent, false);
 				trailObject.transform.position = obj.transform.position;
 				obj.transform.localRotation = PlayerInventoryMod.originalRotation;
 				obj.transform.localPosition = PlayerInventoryMod.OriginalOffset;
@@ -249,7 +249,7 @@ namespace ChampionsOfForest.Player
 				Debug.LogWarning("NO ORIGINAL OBJ TO DUPLICATE");
 				return null;
 			}
-			var otherObject = (GameObject)Object.Instantiate(obj);  //Instantiate - create copy of an object
+			GameObject otherObject = Object.Instantiate(obj);  //Instantiate - create copy of an object
 			otherObject.transform.localRotation = PlayerInventoryMod.originalRotation;
 			otherObject.transform.localPosition = PlayerInventoryMod.OriginalOffset;
 			otherObject.transform.Rotate(rotation, Space.Self);

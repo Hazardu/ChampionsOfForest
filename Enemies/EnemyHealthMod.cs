@@ -92,7 +92,6 @@ namespace ChampionsOfForest
 		public void ReduceAr(int value)
 		{
 			progression.armorReduction += value;
-			return;
 		}
 
 		//Reduced damage
@@ -115,11 +114,11 @@ namespace ChampionsOfForest
 				this.setSkinDamage(UnityEngine.Random.Range(0, 3));
 				this.targetSwitcher.attackerType = 4;
 				int num = this.douseMult - 1;
-				int i = 0;
 				if (num < 1)
 				{
 					num = 1;
 				}
+				int i;
 				if (this.ai.creepy_boss)
 				{
 					i = Mathf.CeilToInt(2 * num * TheForest.Utils.Settings.GameSettings.Ai.fireDamageCreepyRatio * (1 + progression.FireDmgAmp));
@@ -227,7 +226,7 @@ namespace ChampionsOfForest
 
 						if (this.Health < 1)
 						{
-							UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+							Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
 							progression.OnDie();
 							this.typeSetup.removeFromSpawnAndExplode();
 							return;
@@ -239,7 +238,7 @@ namespace ChampionsOfForest
 						HitReal(800);
 						if (this.Health < 1)
 						{
-							UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+							Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
 							progression.OnDie();
 							this.typeSetup.removeFromSpawnAndExplode();
 						}
@@ -295,7 +294,7 @@ namespace ChampionsOfForest
 							this.familyFunctions.cancelRescueEvent();
 						}
 
-						UnityEngine.Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
+						Object.Instantiate<GameObject>(this.RagDollExploded, base.transform.position, base.transform.rotation);
 						progression.OnDie();
 						this.typeSetup.removeFromSpawnAndExplode();
 					}
@@ -344,7 +343,7 @@ namespace ChampionsOfForest
 			//    base.DieTrap(type);
 			//    return;
 			//}
-			//Since the trap doesnt one shot cannibals, it will deal pure damage to them
+			//Since the trap doesn't one shot cannibals, it will deal pure damage to them
 			HitReal(400);
 			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, 100, new Color(0.7f, 0.7f, 0.4f, 0.5f));
 

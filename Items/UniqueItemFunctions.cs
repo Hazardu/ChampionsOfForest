@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using ChampionsOfForest.Player;
-
+﻿using ChampionsOfForest.Player;
 using TheForest.Utils;
-
 using UnityEngine;
 
 namespace ChampionsOfForest.Items
@@ -37,7 +30,7 @@ namespace ChampionsOfForest.Items
 		{
 			if (param is null)
 			{
-				UnityEngine.Debug.Log("Params are null in EnemyBleedForPlayerHP(...)");
+				Debug.Log("Params are null in EnemyBleedForPlayerHP(...)");
 				return;
 			}
 			if (GameSetup.IsMpClient)

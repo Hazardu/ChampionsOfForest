@@ -44,11 +44,11 @@ namespace ChampionsOfForest
 			hpTex.Apply();
 
 		}
-		private void DrawHealthbar(ref Rect pos)
+		private void DrawHealthBar(ref Rect pos)
 		{
-			ClinetEnemyProgression cp = entity != null ? EnemyManager.GetCP(entity) : EnemyManager.GetCP(transform);
+			ClientEnemyProgression cp = entity != null ? EnemyManager.GetCP(entity) : EnemyManager.GetCP(transform);
 			float percentageHP = Mathf.Clamp01(cp.Health / cp.MaxHealth);
-			float percentageAR = Mathf.Clamp01(1.0f-((float)cp.ArmorReduction/cp.Armor));
+			float percentageAR = Mathf.Clamp01(1.0f-(cp.ArmorReduction/cp.Armor));
 			Rect bg = new Rect(pos.x, pos.y, pos.width, 15f * MainMenu.Instance.screenScale);
 			Rect ar = new Rect(bg); 
 			ar.width *= percentageAR;
@@ -94,7 +94,7 @@ namespace ChampionsOfForest
 							GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), fontStyle = FontStyle.Bold, font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
 							GUI.color = Color.white;
 							r.y += size;
-							DrawHealthbar(ref r);
+							DrawHealthBar(ref r);
 							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(171));
 						}
 						else
@@ -103,7 +103,7 @@ namespace ChampionsOfForest
 							GUI.Label(r, Name, new GUIStyle(GUI.skin.label) { fontSize = ((int)size), font = MainMenu.Instance.mainFont, alignment = TextAnchor.UpperCenter, wordWrap = false, clipping = TextClipping.Overflow });
 							GUI.color = Color.white;
 							r.y += size + 5;
-							DrawHealthbar(ref r);
+							DrawHealthBar(ref r);
 							GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
 						}
 					}

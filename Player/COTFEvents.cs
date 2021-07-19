@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace ChampionsOfForest
@@ -11,7 +6,7 @@ namespace ChampionsOfForest
 	public class COTFEvents
 	{
 		public static COTFEvents Instance;
-		[System.Serializable]
+		[Serializable]
 		public class GotHitByEnemyParams
 		{
 			public float damage;
@@ -25,11 +20,11 @@ namespace ChampionsOfForest
 				this.hitBy = hitBy;
 			}
 		}
-		[System.Serializable]
+		[Serializable]
 		public class GotHitByEnemyEvent : UnityEvent<GotHitByEnemyParams>
 		{
 		}
-		[System.Serializable]
+		[Serializable]
 		public class GotHitParams
 		{
 			public float damage;
@@ -41,12 +36,12 @@ namespace ChampionsOfForest
 				this.ignoreArmor = ignoreArmor;
 			}
 		}
-		[System.Serializable]
+		[Serializable]
 		public class GotHitEvent : UnityEvent<GotHitParams>
 		{
 		}
 
-		[System.Serializable]
+		[Serializable]
 		public class HitOtherParams
 		{
 			public float damage;
@@ -62,11 +57,11 @@ namespace ChampionsOfForest
 				this.hitSource = hitSource;
 			}
 		}
-		[System.Serializable]
+		[Serializable]
 		public class HitOtherEvent : UnityEvent<HitOtherParams>
 		{
 		}
-		[System.Serializable]
+		[Serializable]
 		public class HeadshotParams
 		{
 			public float damage;
@@ -82,7 +77,7 @@ namespace ChampionsOfForest
 				this.randomTrigger = randomTrigger;
 			}
 		}
-		[System.Serializable]
+		[Serializable]
 		public class HeadshotEvent : UnityEvent<HeadshotParams>
 		{
 		}
@@ -128,11 +123,11 @@ namespace ChampionsOfForest
 				Instance = new COTFEvents();
 			try
 			{
-			var i = Instance.GetType();
-			var fields = i.GetFields();
-			foreach (var item in fields)
-			{
-				var field = item.GetValue(Instance);
+				var i = Instance.GetType();
+				var fields = i.GetFields();
+				foreach (var item in fields)
+				{
+					var field = item.GetValue(Instance);
 					if (field is UnityEvent)
 					{
 						var fieldUE = (field as UnityEvent);
@@ -167,7 +162,7 @@ namespace ChampionsOfForest
 			}
 			catch (Exception e)
 			{
-				ModAPI.Log.Write("Exception while reseting events " + e.Message);
+				ModAPI.Log.Write("Exception while resetting events " + e.Message);
 			}
 		}
 	}

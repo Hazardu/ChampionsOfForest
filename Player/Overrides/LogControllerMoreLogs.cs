@@ -96,7 +96,7 @@ namespace ChampionsOfForest.Player
 					}
 					else
 					{
-						UnityEngine.Object.Instantiate<GameObject>(this._logPrefab, logPosition, playerRotation);
+						Instantiate(this._logPrefab, logPosition, playerRotation);
 					}
 					FMODCommon.PlayOneshotNetworked("event:/player/foley/log_drop_exert", heldLog, FMODCommon.NetworkRole.Any);
 				}
@@ -124,23 +124,18 @@ namespace ChampionsOfForest.Player
 			}
 			if (drop)
 			{
-				bool flag = false;
-				if (this._logs == 1)
-				{
-					flag = true;
-				}
+				bool flag = this._logs == 1;
 				Transform transform = this._logsHeld[Mathf.Min(this._logs, 1)].transform;
 				Vector3 vector = transform.position + transform.forward * -2f;
-				Quaternion quaternion = TheForest.Utils.LocalPlayer.Transform.rotation;
+				Quaternion quaternion = LocalPlayer.Transform.rotation;
 				quaternion *= Quaternion.AngleAxis(90f, Vector3.up);
-				if (TheForest.Utils.LocalPlayer.FpCharacter.PushingSled)
+				if (LocalPlayer.FpCharacter.PushingSled)
 				{
 					vector += transform.forward * -1.25f + transform.right * -2f;
 				}
 				Vector3 origin = vector;
 				origin.y += 3f;
-				RaycastHit raycastHit;
-				if (Physics.Raycast(origin, Vector3.down, out raycastHit, 5f, this._layerMask))
+				if (Physics.Raycast(origin, Vector3.down, out RaycastHit raycastHit, 5f, this._layerMask))
 				{
 					vector.y = raycastHit.point.y + 2.2f;
 				}
@@ -164,9 +159,9 @@ namespace ChampionsOfForest.Player
 				}
 				else
 				{
-					UnityEngine.Object.Instantiate<GameObject>(this._logPrefab, vector, quaternion);
+					Instantiate(this._logPrefab, vector, quaternion);
 				}
-				global::FMODCommon.PlayOneshotNetworked("event:/player/foley/log_drop_exert", transform, global::FMODCommon.NetworkRole.Any);
+				FMODCommon.PlayOneshotNetworked("event:/player/foley/log_drop_exert", transform, FMODCommon.NetworkRole.Any);
 			}
 			this.UpdateLogCount();
 			return true;

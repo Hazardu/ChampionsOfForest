@@ -30,7 +30,7 @@ namespace ChampionsOfForest
 				Vector3 pos = Camera.main.WorldToScreenPoint(position);
 				pos.y = Screen.height - pos.y;
 				float size = Mathf.Clamp(700 / distance, 16, 50);
-				size *= ChampionsOfForest.MainMenu.Instance.screenScale;
+				size *= MainMenu.Instance.screenScale;
 
 				Rect r = new Rect(0, 0, 3.35f * size, size)
 				{

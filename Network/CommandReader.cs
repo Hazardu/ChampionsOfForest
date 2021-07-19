@@ -64,7 +64,7 @@ namespace ChampionsOfForest.Network
 					instance.OnSendDataWrite(w);
 					w.Close();
 				}
-				Network.NetworkManager.SendLine(answerStream.ToArray(), target);
+				NetworkManager.SendLine(answerStream.ToArray(), target);
 				answerStream.Close();
 			}
 		}
@@ -104,13 +104,13 @@ namespace ChampionsOfForest.Network
 							case -1:    //Network stat has been updated by another player
 								{
 									var nID = r.ReadInt32();
-									NetworkPlayerStats.syncedStats[nID].RecievedOtherPlayerChange(r);
+									NetworkPlayerStats.syncedStats[nID].ReceivedOtherPlayerChange(r);
 									break;
 								}
 
 							case 1:
 								{
-									if (ModSettings.DifficultyChoosen)
+									if (ModSettings.DifficultyChosen)
 									{
 										ModSettings.BroadCastSettingsToClients();
 									}
@@ -128,14 +128,14 @@ namespace ChampionsOfForest.Network
 									ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)r.ReadInt32();
 									ModSettings.killOnDowned = r.ReadBoolean();
 									ModSettings.difficulty = (ModSettings.Difficulty)index;
-									if (!ModSettings.DifficultyChoosen)
+									if (!ModSettings.DifficultyChosen)
 									{
 										LocalPlayer.FpCharacter.UnLockView();
 										LocalPlayer.FpCharacter.MovementLocked = false;
 										Cheats.GodMode = false;
 										MainMenu.Instance.ClearDiffSelectionObjects();
 									}
-									ModSettings.DifficultyChoosen = true;
+									ModSettings.DifficultyChosen = true;
 									break;
 								}
 
@@ -249,9 +249,9 @@ namespace ChampionsOfForest.Network
 									{
 										//a request from a client to a host to spawn a ball lightning. The host assigns the id of
 										//a ball lightning to not create overlapping ids
-										using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+										using (MemoryStream answerStream = new MemoryStream())
 										{
-											using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+											using (BinaryWriter w = new BinaryWriter(answerStream))
 											{
 												w.Write(3);
 												w.Write(10);
@@ -262,11 +262,11 @@ namespace ChampionsOfForest.Network
 												w.Write(r.ReadSingle());
 												w.Write(r.ReadSingle());
 												w.Write(r.ReadSingle());
-												w.Write((uint)(BallLightning.lastID + 1));
+												w.Write((BallLightning.lastID + 1));
 												w.Close();
 												BallLightning.lastID++;
 											}
-											ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+											NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
 											answerStream.Close();
 										}
 									}
@@ -299,10 +299,10 @@ namespace ChampionsOfForest.Network
 										bool grounded = r.ReadBoolean();
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										Vector3 dir = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-										Effects.TheFartCreator.CreateEffect(pos, dir, !grounded);
+										TheFartCreator.CreateEffect(pos, dir, !grounded);
 										if (GameSetup.IsMpServer)
 										{
-											Effects.TheFartCreator.DealDamageAsHost(pos, dir, r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+											TheFartCreator.DealDamageAsHost(pos, dir, r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										}
 									}
 									else if (spellid == 15) //taunt
@@ -381,7 +381,7 @@ namespace ChampionsOfForest.Network
 
 													w.Close();
 												}
-												Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
 												answerStream.Close();
 											}
 										}
@@ -422,12 +422,12 @@ namespace ChampionsOfForest.Network
 										}
 										if (EnemyManager.clinetProgressions.ContainsKey(entity))
 										{
-											ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+											ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
 											cp.Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 										}
 										else
 										{
-											new ClinetEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+											new ClientEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 										}
 
 									}
@@ -570,7 +570,7 @@ namespace ChampionsOfForest.Network
 											w.Write(ModReferences.ThisPlayerID);
 											w.Write(ModdedPlayer.instance.level);
 										}
-										Network.NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+										NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 									}
 
 									break;
@@ -672,7 +672,7 @@ namespace ChampionsOfForest.Network
 												w.Write(itemID);
 												w.Close();
 											}
-											Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
+											NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
 											answerStream.Close();
 										}
 									}
@@ -703,7 +703,7 @@ namespace ChampionsOfForest.Network
 											item.Stats.Add(stat);
 										}
 
-										Player.Inventory.Instance.AddItem(item, item.Amount);
+										Inventory.Instance.AddItem(item, item.Amount);
 									}
 
 									break;

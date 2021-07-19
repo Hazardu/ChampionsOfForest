@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Effects
 				{
 					var bundle = Res.ResourceLoader.GetAssetBundle(2005);
 					prefabStanding = (GameObject)bundle.LoadAssetWithSubAssets("assets/roaringfx.prefab")[0];
-					prefabJumping = (GameObject)bundle.LoadAssetWithSubAssets("assets/roaring jump.prefab").Where(x => x.name == "roaring jump").First();
+					prefabJumping = (GameObject)bundle.LoadAssetWithSubAssets("assets/roaring jump.prefab").First(x => x.name == "roaring jump");
 					ModAPI.Log.Write("prefabJumping = " + prefabJumping.name);
 					var renderers = prefabStanding.GetComponentsInChildren<Renderer>();
 					foreach (var item in renderers)
@@ -113,6 +113,7 @@ namespace ChampionsOfForest.Effects
 			var src = new GameObject().AddComponent<AudioSource>();
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[1017];
 			src.transform.position = pos;
+			src.spatialBlend = 1f;
 			src.loop = false;
 			src.Play();
 		}

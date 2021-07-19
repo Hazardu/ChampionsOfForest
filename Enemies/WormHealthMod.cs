@@ -33,10 +33,10 @@ namespace ChampionsOfForest.Enemies
 
 		protected override void Update()
 		{
-			this.activeWormWalkers.RemoveAll((GameObject o) => o == null);
-			this.activeWormTrees.RemoveAll((GameObject o) => o == null);
-			this.activeWormSingle.RemoveAll((GameObject o) => o == null);
-			this.activeWormAngels.RemoveAll((GameObject o) => o == null);
+			this.activeWormWalkers.RemoveAll(o => o == null);
+			this.activeWormTrees.RemoveAll(o => o == null);
+			this.activeWormSingle.RemoveAll(o => o == null);
+			this.activeWormAngels.RemoveAll(o => o == null);
 			if (this.activeWormWalkers.Count > 0 || this.activeWormAngels.Count > 0 || this.activeWormTrees.Count > 0)
 			{
 				this.anyFormSpawned = true;
@@ -110,13 +110,13 @@ namespace ChampionsOfForest.Enemies
 					{
 						ModdedPlayer.instance.AddKillExperience(Exp);
 					}
-					int itemCount = UnityEngine.Random.Range(15, 26);
+					int itemCount = Random.Range(15, 26);
 					for (int i = 0; i < itemCount; i++)
 					{
 						Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
 					}
 				}
-				UnityEngine.Object.Destroy(base.gameObject);
+				Destroy(base.gameObject);
 			}
 		}
 	}
@@ -141,7 +141,7 @@ namespace ChampionsOfForest.Enemies
 				{
 					num2++;
 				}
-				if (!this.wormDamageSetup || !collider.GetComponent<global::wormHitReceiver>())
+				if (!this.wormDamageSetup || !collider.GetComponent<wormHitReceiver>())
 				{
 					
 					if (collider.transform.root == LocalPlayer.Transform.root)
@@ -215,7 +215,7 @@ namespace ChampionsOfForest.Enemies
 						else if (collider.CompareTag("structure"))
 						{
 							float distance = Vector3.Distance(base.transform.position, collider.transform.position);
-							collider.gameObject.SendMessage("OnExplode", new global::Explode.Data
+							collider.gameObject.SendMessage("OnExplode", new Data
 							{
 								distance = distance,
 								explode = this
@@ -242,7 +242,7 @@ namespace ChampionsOfForest.Enemies
 							collider.gameObject.SendMessage("lookAtExplosion", base.transform.position, SendMessageOptions.DontRequireReceiver);
 							if (num5 < this.radius)
 							{
-								collider.gameObject.SendMessage("OnExplode", new global::Explode.Data
+								collider.gameObject.SendMessage("OnExplode", new Data
 								{
 									distance = num5,
 									explode = this
@@ -258,7 +258,7 @@ namespace ChampionsOfForest.Enemies
 							if (!collider.gameObject.CompareTag("Tree"))
 							{
 								float num6 = 10000f;
-								if (collider.GetComponent<global::logChecker>())
+								if (collider.GetComponent<logChecker>())
 								{
 									num6 *= 5.5f;
 								}
@@ -283,10 +283,10 @@ namespace ChampionsOfForest.Enemies
 			{
 				TheForest.Tools.EventRegistry.Achievements.Publish(TheForest.Tools.TfEvent.Achievements.TreeDynamited, num2);
 			}
-			if (TheForest.Utils.LocalPlayer.GameObject)
+			if (LocalPlayer.GameObject)
 			{
-				float num7 = Vector3.Distance(TheForest.Utils.LocalPlayer.Transform.position, base.transform.position);
-				TheForest.Utils.LocalPlayer.GameObject.SendMessage("enableExplodeShake", num7, SendMessageOptions.DontRequireReceiver);
+				float num7 = Vector3.Distance(LocalPlayer.Transform.position, base.transform.position);
+				LocalPlayer.GameObject.SendMessage("enableExplodeShake", num7, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}

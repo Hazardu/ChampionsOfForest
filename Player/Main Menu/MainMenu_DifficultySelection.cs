@@ -93,9 +93,9 @@ namespace ChampionsOfForest
 			{
 				if (requestResendTime <= 0)
 				{
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+					using (MemoryStream answerStream = new MemoryStream())
 					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+						using (BinaryWriter w = new BinaryWriter(answerStream))
 						{
 							w.Write(1);
 							w.Close();
@@ -134,11 +134,11 @@ namespace ChampionsOfForest
 				screenScale = mm.screenScale;
 			}
 
-			private bool initialziedStyles;
+			private bool initializedStyles;
 
 			private void InitStyles()
 			{
-				initialziedStyles = true;
+				initializedStyles = true;
 				ButtonStyle = new GUIStyle(GUI.skin.button);
 				DiffNameStyle = new GUIStyle(GUI.skin.label)
 				{
@@ -183,13 +183,13 @@ namespace ChampionsOfForest
 						r.x += i * r.width;
 						if (GUI.Button(r, "", ButtonStyle))
 						{
-							ModSettings.DifficultyChoosen = true;
+							ModSettings.DifficultyChosen = true;
 							Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
 							ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(ii);
 							LocalPlayer.FpCharacter.UnLockView();
 							LocalPlayer.FpCharacter.MovementLocked = false;
 							Cheats.GodMode = false;
-							MainMenu.Instance.ClearDiffSelectionObjects();
+							Instance.ClearDiffSelectionObjects();
 							ModSettings.BroadCastSettingsToClients();
 
 							return;
@@ -348,7 +348,7 @@ namespace ChampionsOfForest
 
 			internal void Draw()
 			{
-				if (!initialziedStyles)
+				if (!initializedStyles)
 					InitStyles();
 				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackSquareTex);
 				if (GUI.Button(new Rect(Screen.width - 50 * screenScale, Screen.height - 50 * screenScale, 50 * screenScale, 50 * screenScale), "☆"))

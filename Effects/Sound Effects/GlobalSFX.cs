@@ -15,7 +15,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 			{
 				var source = new GameObject().AddComponent<AudioSource>();
 				source.clip = Res.ResourceLoader.instance.LoadedAudio[ids[i]];
-				source.spatialBlend = 0;
+				source.spatialBlend = 1f;
 				source.rolloffMode = AudioRolloffMode.Linear;
 				source.maxDistance = 1999999;
 				audioSources[i] = source;
@@ -24,7 +24,7 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 			instance = this;
 		}
 
-		public static void Play(int id, ulong delay = 0, float pitch = 1)
+		public static void Play(int id, ulong delay = 0, float pitch = 1 )
 		{
 			if (id > -1 && id < instance.audioSources.Length)
 			{

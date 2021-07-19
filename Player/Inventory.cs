@@ -22,10 +22,11 @@ namespace ChampionsOfForest.Player
 		}
 		public static Item GetEquippedItemAtSlot(EquippableSlots slot)
 		{
-			if (Instance.ItemSlots.ContainsKey((int)slot)){
-			var i = Instance.ItemSlots[(int)slot];
-			if (i != null && i.Equipped)
-				return i;
+			if (Instance.ItemSlots.ContainsKey((int)slot))
+			{
+				var i = Instance.ItemSlots[(int)slot];
+				if (i != null && i.Equipped)
+					return i;
 			}
 			return null;
 		}
@@ -112,7 +113,7 @@ namespace ChampionsOfForest.Player
 				i.Amount = 1;
 				for (int ind = 0; ind < amount; ind++)
 				{
-					Network.NetworkManager.SendItemDrop(i, pos, 1);
+					Network.NetworkManager.SendItemDrop(i, pos);
 
 				}
 
@@ -134,14 +135,7 @@ namespace ChampionsOfForest.Player
 			{
 				Item i = ItemSlots[key];
 
-				if (amount == 0)
-				{
-					amount = i.Amount;
-				}
-				else
-				{
-					amount = Mathf.Min(amount, i.Amount);
-				}
+				amount = amount == 0 ? i.Amount : Mathf.Min(amount, i.Amount);
 				Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up * 1.5f + LocalPlayer.Transform.forward * 3, amount);
 				ItemSlots[key].Amount -= amount;
 				if (ItemSlots[key].Amount <= 0)

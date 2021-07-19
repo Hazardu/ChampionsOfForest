@@ -41,7 +41,7 @@ namespace ChampionsOfForest.Fun
 				level = level
 			};
 			item.RollStats();
-			ChampionsOfForest.Player.Inventory.Instance.AddItem(item);
+			Inventory.Instance.AddItem(item);
 		}
 
 		public static bool Cheat_noCooldowns;
@@ -169,7 +169,6 @@ namespace ChampionsOfForest.Fun
 				return;
 			}
 			Debug.LogWarning("Wrong command usage \t cotfspawnitembyname [itemname]");
-			return;
 		}
         private void _cotflogitemdatabase(string param)
         {

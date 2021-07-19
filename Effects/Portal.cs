@@ -1,12 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
-using Bolt;
-
-using ManagedSteam.CallbackStructures;
-
 using TheForest.Utils;
-
 using UnityEngine;
 
 namespace ChampionsOfForest.Effects
@@ -30,8 +24,7 @@ namespace ChampionsOfForest.Effects
 				Light light = p1.AddComponent<Light>();
 				light.type = LightType.Point;
 				light.range = 30;
-				Material mat = new Material(Shader.Find("Unlit/Texture"));
-				mat.color = Color.blue;
+				Material mat = new Material(Shader.Find("Unlit/Texture")) { color = Color.blue };
 				p1.GetComponent<MeshFilter>().mesh = Res.ResourceLoader.instance.LoadedMeshes[112];
 
 				MeshRenderer MR = p1.GetComponent<MeshRenderer>();
@@ -45,7 +38,7 @@ namespace ChampionsOfForest.Effects
 			pcomponent.otherPortal = portal2;
 			portal2.otherPortal = pcomponent;
 
-			portals = new Portal[]
+			portals = new[]
 			{
 			   pcomponent,portal2
 			};
@@ -70,14 +63,7 @@ namespace ChampionsOfForest.Effects
 			portals[portalID].Cave = leadsToCaves;
 			portals[portalID].Endgame = leadsToEndgame;
 			portals[portalID].Enable();
-			if (portalID == 1)
-			{
-				portalID = 0;
-			}
-			else
-			{
-				portalID = 1;
-			}
+			portalID = portalID == 1 ? 0 : 1;
 		}
 		public static void SyncBothPortals()
 		{
@@ -99,7 +85,7 @@ namespace ChampionsOfForest.Effects
 						w.Write(portals[i].Endgame);
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(stream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+					Network.NetworkManager.SendLine(stream.ToArray(), Network.NetworkManager.Target.Others);
 				}
 			}
 		}
@@ -120,7 +106,7 @@ namespace ChampionsOfForest.Effects
 					w.Write(inEndgame);
 					w.Close();
 				}
-				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 				answerStream.Close();
 			}
 		}
@@ -201,7 +187,7 @@ namespace ChampionsOfForest.Effects
 
 		private IEnumerator ScaleIn()
 		{
-			Effects.Sound_Effects.GlobalSFX.Play(1016, 0, 2);
+			Sound_Effects.GlobalSFX.Play(1016, 0, 2);
 			yield return null;
 			while (transform.localScale.x < 2.2)
 			{
@@ -267,7 +253,7 @@ namespace ChampionsOfForest.Effects
 							if (endgameLoader)
 							{
 								TheForest.World.SceneLoadTrigger component = endgameLoader.GetComponent<TheForest.World.SceneLoadTrigger>();
-								if (TheForest.Utils.LocalPlayer.ActiveAreaInfo.HasActiveEndgameArea)
+								if (LocalPlayer.ActiveAreaInfo.HasActiveEndgameArea)
 								{
 									component.SetCanLoad(true);
 									component.ForceLoad();
@@ -312,7 +298,8 @@ namespace ChampionsOfForest.Effects
 			{
 				return;
 			}
-			else if (other.attachedRigidbody != null)
+
+			if (other.attachedRigidbody != null)
 			{
 				Excludedtransforms.Remove(other.attachedRigidbody.transform);
 			}

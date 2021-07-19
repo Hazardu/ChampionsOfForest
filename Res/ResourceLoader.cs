@@ -365,7 +365,8 @@ namespace ChampionsOfForest.Res
 					{
 						if (DeleteCurrentFiles && (ModSettings.outdatedFiles.Contains(resource.ID) || ModSettings.ALLNewFiles))
 						{
-							LabelText = "File " + resource.fileName + " is mared as outdated, deleting and redownloading.";
+							//Hazard! This will never execute!!
+							LabelText = "File " + resource.fileName + " is marked as outdated, deleting and redownloading.";
 							File.Delete(Resource.path + resource.fileName);
 							toDownload.Add(resource);
 							yield return new WaitForEndOfFrame();

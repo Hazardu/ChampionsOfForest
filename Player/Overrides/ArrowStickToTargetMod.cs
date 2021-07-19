@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
@@ -11,14 +8,14 @@ namespace ChampionsOfForest.Player
 		{
 			Transform parent = arrow.parent;
 			TheForest.Items.Craft.WeaponStatUpgrade.Types types = (TheForest.Items.Craft.WeaponStatUpgrade.Types)(-1);
-			TheForest.Items.Inventory.ItemProperties properties = parent.GetComponent<global::arrowTrajectory>()._pickup.GetComponent<TheForest.Items.World.PickUp>()._properties;
+			TheForest.Items.Inventory.ItemProperties properties = parent.GetComponent<arrowTrajectory>()._pickup.GetComponent<TheForest.Items.World.PickUp>()._properties;
 			if (properties != null && properties.ActiveBonus != (TheForest.Items.Craft.WeaponStatUpgrade.Types)(-1))
 			{
 				types = properties.ActiveBonus;
 			}
 			int item = 0;
 			bool flag = false;
-			global::ArrowDamage component = arrow.GetComponent<global::ArrowDamage>();
+			ArrowDamage component = arrow.GetComponent<ArrowDamage>();
 			if (component.crossbowBoltType)
 			{
 				flag = true;
@@ -26,25 +23,25 @@ namespace ChampionsOfForest.Player
 			GameObject attached;
 			if (flag)
 			{
-				attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeBoltPickup, parent.transform.position, parent.transform.rotation);
+				attached = Instantiate(this.fakeBoltPickup, parent.transform.position, parent.transform.rotation);
 				item = 3;
 			}
 			else if (types != TheForest.Items.Craft.WeaponStatUpgrade.Types.BoneAmmo)
 			{
 				if (types != TheForest.Items.Craft.WeaponStatUpgrade.Types.ModernAmmo)
 				{
-					attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowPickup, parent.transform.position, parent.transform.rotation);
+					attached = Instantiate(this.fakeArrowPickup, parent.transform.position, parent.transform.rotation);
 					item = 0;
 				} 
 				else
 				{
-					attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowModernPickup, parent.transform.position, parent.transform.rotation);
+					attached = Instantiate(this.fakeArrowModernPickup, parent.transform.position, parent.transform.rotation);
 					item = 2;
 				}
 			}
 			else
 			{
-				attached = UnityEngine.Object.Instantiate<GameObject>(this.fakeArrowBonePickup, parent.transform.position, parent.transform.rotation);
+				attached = Instantiate(this.fakeArrowBonePickup, parent.transform.position, parent.transform.rotation);
 				item = 1;
 			}
 		
@@ -53,7 +50,7 @@ namespace ChampionsOfForest.Player
 			{
 				component2.enabled = false;
 			}
-			Transform tip = attached.GetComponent<global::fakeArrowSetup>().tip;
+			Transform tip = attached.GetComponent<fakeArrowSetup>().tip;
 			int num = this.returnNearestJointMidPoint(tip);
 			if (this.singleJointMode)
 			{
@@ -86,11 +83,7 @@ namespace ChampionsOfForest.Player
 					SpellActions.SetSeekingArrowTarget(this.stickToJoints[num]);
 				}
 			}
-			bool isHeadshot = false;
-			if (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<global::headShotObject>())
-			{
-				isHeadshot = true;
-			}
+			bool isHeadshot = this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<headShotObject>();
 			if (numStuckArrows < 20)
 			{
 
@@ -98,7 +91,7 @@ namespace ChampionsOfForest.Player
 				{
 					this.stuckArrows.Add(attached.transform, num);
 					this.stuckArrowsTypeList.Add(item);
-					global::fakeArrowSetup component3 = attached.GetComponent<global::fakeArrowSetup>();
+					fakeArrowSetup component3 = attached.GetComponent<fakeArrowSetup>();
 					if (component3 && BoltNetwork.isRunning)
 					{
 						component3.storedIndex = this.stuckArrows.Count - 1;
@@ -124,7 +117,7 @@ namespace ChampionsOfForest.Player
 			}
 			else
 			{
-					Destroy(attached, 1f);
+				Destroy(attached, 1f);
 			}
 			return isHeadshot;
 		}
@@ -139,7 +132,7 @@ namespace ChampionsOfForest.Player
 			{
 				SpellActions.SetSeekingArrowTarget(this.stickToJoints[num]);
 			}
-			return (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<global::headShotObject>());
+			return (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<headShotObject>());
 
 		}
 	}

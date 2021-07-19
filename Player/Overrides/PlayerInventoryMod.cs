@@ -21,7 +21,7 @@ namespace ChampionsOfForest.Player
 		public static Vector3 OriginalOffset;
 		public static bool SetupComplete;
 		public static GameObject originalPlaneAxeModel = null;
-		public static Transform originalParrent;
+		public static Transform originalParent;
 		public static float OriginalTreeDmg;
 		public static Mesh noMesh;
 		public static Mesh originalMesh;
@@ -42,7 +42,7 @@ namespace ChampionsOfForest.Player
 				originalPlaneAxeModel = this._itemViews[64]._heldWeaponInfo.transform.parent.GetChild(2).gameObject;
 				originalRotation = originalPlaneAxeModel.transform.localRotation;
 				OriginalOffset = originalPlaneAxeModel.transform.localPosition;
-				originalParrent = originalPlaneAxeModel.transform.parent;
+				originalParent = originalPlaneAxeModel.transform.parent;
 				OriginalTreeDmg = this._itemViews[64]._heldWeaponInfo.treeDamage;
 				originalMesh = originalPlaneAxeModel.GetComponent<MeshFilter>().mesh;
 				noMesh = new Mesh();
@@ -55,7 +55,7 @@ namespace ChampionsOfForest.Player
 		protected override bool Equip(InventoryItemView itemView, bool pickedUpFromWorld)
 		{
 			COTFEvents.Instance.OnWeaponEquip.Invoke();
-			ChampionsOfForest.Player.Spells.ActiveSpellManager.Instance.OnWeaponEquipped();
+			Spells.ActiveSpellManager.Instance.OnWeaponEquipped();
 			if (!ModSettings.IsDedicated)
 			{
 				if (GreatBow.instance != null)
@@ -78,7 +78,7 @@ namespace ChampionsOfForest.Player
 					EquippedModel = BaseItem.WeaponModelType.None;
 
 					//Send network event to display a custom weapon for other players
-					if (BoltNetwork.isRunning && PlayerInventoryMod.ToEquipWeaponType != BaseItem.WeaponModelType.None)
+					if (BoltNetwork.isRunning && ToEquipWeaponType != BaseItem.WeaponModelType.None)
 					{
 						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 						{
@@ -86,10 +86,10 @@ namespace ChampionsOfForest.Player
 							{
 								w.Write(28);
 								w.Write(ModReferences.ThisPlayerID);
-								w.Write((int)PlayerInventoryMod.ToEquipWeaponType);
+								w.Write((int)ToEquipWeaponType);
 								w.Close();
 							}
-							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 							answerStream.Close();
 						}
 					}
@@ -208,7 +208,7 @@ namespace ChampionsOfForest.Player
 			{
 				TheForest.Items.Item itemCache = inventoryItemView.ItemCache;
 				bool flag = itemCache._maxAmount < 0;
-				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>((!this.UseAltWorldPrefab) ? inventoryItemView._worldPrefab : inventoryItemView._altWorldPrefab, inventoryItemView._held.transform.position, inventoryItemView._held.transform.rotation);
+				GameObject gameObject = Instantiate((!this.UseAltWorldPrefab) ? inventoryItemView._worldPrefab : inventoryItemView._altWorldPrefab, inventoryItemView._held.transform.position, inventoryItemView._held.transform.rotation);
 				gameObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
 				Rigidbody component = gameObject.GetComponent<Rigidbody>();
 				Collider component2 = gameObject.GetComponent<Collider>();
@@ -220,7 +220,7 @@ namespace ChampionsOfForest.Player
 						BoltNetwork.Attach(gameObject);
 					}
 				}
-				Vector3 force = ((float)itemCache._projectileThrowForceRange) * ModdedPlayer.Stats.projectileSpeed* (0.016666f / Time.fixedDeltaTime) * TheForest.Utils.LocalPlayer.MainCamTr.forward;
+				Vector3 force = ((float)itemCache._projectileThrowForceRange) * ModdedPlayer.Stats.projectileSpeed* (0.016666f / Time.fixedDeltaTime) * LocalPlayer.MainCamTr.forward;
 				if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
 				{
 					gameObject.transform.localScale *= 1.5f;
@@ -249,7 +249,7 @@ namespace ChampionsOfForest.Player
 				{
 					if (component2 != null)
 					{
-						gameObject.AddComponent<global::StickyBomb>();
+						gameObject.AddComponent<StickyBomb>();
 						SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
 						sphereCollider.isTrigger = true;
 						sphereCollider.radius = 0.8f;
@@ -259,7 +259,7 @@ namespace ChampionsOfForest.Player
 						Collider componentInChildren = gameObject.GetComponentInChildren<Collider>();
 						if (componentInChildren != null)
 						{
-							componentInChildren.gameObject.AddComponent<global::StickyBomb>();
+							componentInChildren.gameObject.AddComponent<StickyBomb>();
 						}
 					}
 				}
@@ -268,7 +268,7 @@ namespace ChampionsOfForest.Player
 
 				inventoryItemView._held.SendMessage("OnProjectileThrown", gameObject, SendMessageOptions.DontRequireReceiver);
 				inventoryItemView.ActiveBonus = (TheForest.Items.Craft.WeaponStatUpgrade.Types)(-1);
-				if (!global::ForestVR.Enabled)
+				if (!ForestVR.Enabled)
 				{
 					if (itemCache._rangedStyle == TheForest.Items.Item.RangedStyle.Bell)
 					{
@@ -276,7 +276,7 @@ namespace ChampionsOfForest.Player
 					}
 					else if (itemCache._rangedStyle == TheForest.Items.Item.RangedStyle.Forward)
 					{
-						component.AddTorque((float)itemCache._projectileThrowTorqueRange * TheForest.Utils.LocalPlayer.MainCamTr.forward);
+						component.AddTorque((float)itemCache._projectileThrowTorqueRange * LocalPlayer.MainCamTr.forward);
 					}
 				}
 				if (base.transform.GetComponent<Collider>().enabled && component2 && component2.enabled)
@@ -288,13 +288,13 @@ namespace ChampionsOfForest.Player
 					this.MemorizeOverrideItem(TheForest.Items.Item.EquipmentSlot.RightHand);
 				}
 				bool equipPrevious = true;
-				if (TheForest.Utils.LocalPlayer.FpCharacter.Sitting || TheForest.Utils.LocalPlayer.AnimControl.onRope || TheForest.Utils.LocalPlayer.FpCharacter.SailingRaft)
+				if (LocalPlayer.FpCharacter.Sitting || LocalPlayer.AnimControl.onRope || LocalPlayer.FpCharacter.SailingRaft)
 				{
 					equipPrevious = false;
 				}
 				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance < Random.value)
 					this.UnequipItemAtSlot(itemCache._equipmentSlot, false, false, equipPrevious);
-				TheForest.Utils.LocalPlayer.Sfx.PlayThrow();
+				LocalPlayer.Sfx.PlayThrow();
 			}
 		}
 
@@ -366,18 +366,14 @@ namespace ChampionsOfForest.Player
 			var cache = _equipmentSlots[0].ItemCache;
 			if (EquippedModel == BaseItem.WeaponModelType.Polearm)
 				return;
-			bool noconsume = false;
-			if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
-			{
-				noconsume = true;
-			}
+			bool noconsume = ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance;
 			noconsume = noconsume || cache._maxAmount < 0 || RemoveItem(cache._ammoItemId, 1, false, true);
 			if (noconsume && cache._ammoItemId == 231)
 			{
 				AddItem(231);
 			}
 			Multishot.Fired();
-			ChampionsOfForest.COTFEvents.Instance.OnAttackRanged.Invoke();
+			COTFEvents.Instance.OnAttackRanged.Invoke();
 			this.StartCoroutine(RCoroutines.i.AsyncRangedFire(this, _weaponChargeStartTime, _equipmentSlots[0], _inventoryItemViewsCache[cache._ammoItemId][0], noconsume));
 
 			_weaponChargeStartTime = 0f;
@@ -449,7 +445,7 @@ namespace ChampionsOfForest.Player
 				   new Vector3(0, 0, -2f),
 				   1.6f, 1f, 25, 250, 0f, 0f, 500, true, 6);
 
-			var Axe_PlaneAxe = GameObject.Instantiate(PlayerInventoryMod.originalPlaneAxeModel, PlayerInventoryMod.originalParrent);
+			var Axe_PlaneAxe = Instantiate(originalPlaneAxeModel, originalParent);
 			var Axe_Renderer = Axe_PlaneAxe.GetComponent<Renderer>();
 			if (Axe_Renderer != null)
 				Destroy(Axe_Renderer);
@@ -462,8 +458,8 @@ namespace ChampionsOfForest.Player
 			Vector3 AxeRotation = new Vector3(180, 180, 90);
 			Axe_PlaneAxe.transform.position += AxeOffset;
 			GameObject axeObject = Instantiate(Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab"), Axe_PlaneAxe.transform);
-			Axe_PlaneAxe.transform.localPosition = PlayerInventoryMod.OriginalOffset;
-			Axe_PlaneAxe.transform.localRotation = PlayerInventoryMod.originalRotation;
+			Axe_PlaneAxe.transform.localPosition = OriginalOffset;
+			Axe_PlaneAxe.transform.localRotation = originalRotation;
 			Axe_PlaneAxe.transform.Rotate(AxeRotation, Space.Self);
 			axeObject.transform.localScale = Vector3.one;
 			var AxeTrail = axeObject.transform.GetChild(0).GetComponent<TrailRenderer>();

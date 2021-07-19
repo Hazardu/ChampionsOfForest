@@ -24,7 +24,7 @@ namespace ChampionsOfForest.Effects
 
 		public static GameObject Create()
 		{
-			AnimationCurve sizecurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0, 5.129462f, 5.129462f), new Keyframe(0.2449522f, 1, 0, 0), new Keyframe(1, 0, -1.242162f, -1.242162f), });
+			AnimationCurve sizecurve = new AnimationCurve(new Keyframe(0, 0, 5.129462f, 5.129462f), new Keyframe(0.2449522f, 1, 0, 0), new Keyframe(1, 0, -1.242162f, -1.242162f));
 			if (mat1 == null)
 			{
 				mat1 = new Material(Shader.Find("Particles/Multiply"));
@@ -159,7 +159,7 @@ namespace ChampionsOfForest.Effects
 						w.Write(ModReferences.ThisPlayerID);
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
@@ -167,9 +167,9 @@ namespace ChampionsOfForest.Effects
 
 		private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
 
-		public static void ToggleOtherPlayer(string playerName, bool ison)
+		public static void ToggleOtherPlayer(string playerName, bool isOn)
 		{
-			//ModAPI.Console.Write("Toggling black flames for client " + playerName + ison);
+			//ModAPI.Console.Write("Toggling black flames for client " + playerName + isOn);
 			if (!ModReferences.PlayerHands.ContainsKey(playerName))
 			{
 				ModReferences.FindHands();
@@ -179,7 +179,7 @@ namespace ChampionsOfForest.Effects
 				Transform t = ModReferences.PlayerHands[playerName];
 				if (blackFlamesClients.ContainsKey(t))
 				{
-					blackFlamesClients[t].SetActive(ison);
+					blackFlamesClients[t].SetActive(isOn);
 				}
 				else
 				{
@@ -190,7 +190,7 @@ namespace ChampionsOfForest.Effects
 					go.transform.rotation = t.rotation;
 					blackFlamesClients.Add(t, go);
 
-					go.SetActive(ison);
+					go.SetActive(isOn);
 				}
 			}
 		}

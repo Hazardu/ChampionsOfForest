@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Bolt;
+
 using ChampionsOfForest.Enemies.EnemyAbilities;
-using ChampionsOfForest.Player;
-using TheForest.Utils;
+
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -60,14 +58,14 @@ namespace ChampionsOfForest
 			DamageOverTimeList = new List<DoT>();
 			abilities = new List<Abilities>();
 
-			bool isElite = (UnityEngine.Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && ModSettings.AllowElites;
+			bool isElite = (Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && ModSettings.AllowElites;
 			SetType(ref isElite);
 
 
 			//picking abilities
 			if (isElite)
 			{
-				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? UnityEngine.Random.Range(3,   7) : 2;
+				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? Random.Range(3,   7) : 2;
 				if (AIScript.creepy_boss)
 				{
 					abilityAmount = 10;
@@ -103,7 +101,7 @@ namespace ChampionsOfForest
 				while (i < abilityAmount)
 				{
 					bool canAdd = true;
-					Abilities ab = (Abilities)abilityArray.GetValue(UnityEngine.Random.Range(0, abilityArray.Length));
+					Abilities ab = (Abilities)abilityArray.GetValue(Random.Range(0, abilityArray.Length));
 					if (ab == Abilities.Steadfast || ab == Abilities.EliteSteadfast || ab == Abilities.BossSteadfast)
 					{
 						if (abilities.Contains(Abilities.Steadfast) || abilities.Contains(Abilities.EliteSteadfast) || abilities.Contains(Abilities.BossSteadfast))
@@ -158,7 +156,7 @@ namespace ChampionsOfForest
 			armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(level, 2.4f) * 0.36f + 1, Mathf.Pow(level, 2.45f) + 20) * ModSettings.EnemyArmorMultiplier);
 			armor *= dif / 2 + 1;
 			armorReduction = 0;
-			extraHealth = (HealthScript.Health * Mathf.Pow((float)level, 2.215f + (dif * 0.19f)) / 16);
+			extraHealth = (HealthScript.Health * Mathf.Pow(level, 2.215f + (dif * 0.19f)) / 16);
 			extraHealth *= dif / 2 + 1;
 			AnimSpeed = 0.94f + (float)level / 190;
 
@@ -190,7 +188,7 @@ namespace ChampionsOfForest
 
 					break;
 			}
-			extraHealth *= (float)(dif * 0.25f + 0.75f);
+			extraHealth *= dif * 0.25f + 0.75f;
 			if (dif > 3)
 				extraHealth *= 2.15f;
 			if (dif > 6)
@@ -267,7 +265,7 @@ namespace ChampionsOfForest
 							w.Write(entity.networkId.PackedValue);
 							w.Write(aurDmg);
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
 						answerStream.Close();
 					}
 				}
@@ -333,7 +331,7 @@ namespace ChampionsOfForest
 						}
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
 					answerStream.Close();
 				}
 			}

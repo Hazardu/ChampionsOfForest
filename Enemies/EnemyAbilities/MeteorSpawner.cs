@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 
+using ChampionsOfForest.Effects.Sound_Effects;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
@@ -80,21 +82,32 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 					Damage = 110000;
 					break;
 			}
+
+			Vector3 startVector = position + ( Vector3.up * 80 );
+			//Trace down to the ground
+			Vector3 soundEmitterPositon = Physics.Raycast(startVector, Vector3.down, out var raycastHit) ? raycastHit.transform.position : position;
 			int x = random.Next(16, 33);
+
+			GameObject soundEmitter = new GameObject();
+			MeteorSoundEmitter emitter = soundEmitter.AddComponent<MeteorSoundEmitter>();
+			soundEmitter.transform.position = soundEmitterPositon;
+			//emitter.PlaySpawnSound();
+			emitter.nMeteors = x;
 			for (int i = 0; i < x; i++)
 			{
-				yield return null;
 				GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				go.transform.localScale *= 5.5f;
 				Light l = go.AddComponent<Light>();
 				l.intensity = 1.3f;
 				l.range = 40;
 				l.color = Color.red;
+				yield return null;
 				go.GetComponent<Renderer>().material = meteorMaterial;
 				go.transform.position = position + Vector3.forward * random.Next(-6, 6) * 2.5f + Vector3.right * random.Next(-6, 6) * 2.5f + Vector3.up * 80 + Vector3.forward * -40;
-				yield return null;
 				go.GetComponent<SphereCollider>().isTrigger = true;
-				go.AddComponent<Meteor>().Damage = Damage;
+				Meteor metorComponent = go.AddComponent<Meteor>();
+				metorComponent.Damage = Damage;
+				metorComponent.soundEmitter = emitter;
 				yield return new WaitForSeconds((float)random.Next(10, 35) / 100f);
 			}
 		}

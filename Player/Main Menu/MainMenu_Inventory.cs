@@ -19,25 +19,25 @@ namespace ChampionsOfForest
 		//item context menu appears when right clicking on any item and will have a handful of options depending on item properties
 		struct ItemContextMenu
 		{
-			public enum AvaibleContextMenuButtons
+			public enum AvailableContextMenuButtons
 			{
 				none = 0, consume = 0b1, splitStack = 0b10, drop = 0b100
 			}
 			public Rect r;
 			public Item i;
 			public int itemIndex;
-			public AvaibleContextMenuButtons buttons;
+			public AvailableContextMenuButtons buttons;
 			public int buttonCount;
 			public ItemContextMenu(Rect r, int itemIndex)
 			{
 				this.r = r;
 				this.itemIndex = itemIndex;
 				this.i = Inventory.Instance.ItemSlots[itemIndex];
-				buttons = AvaibleContextMenuButtons.drop |
-					(i.CanConsume ? AvaibleContextMenuButtons.consume : AvaibleContextMenuButtons.none) |
-					(i.Amount > 1 ? AvaibleContextMenuButtons.splitStack : AvaibleContextMenuButtons.none);
-				buttonCount = buttons == (AvaibleContextMenuButtons)0b111 ? 3 :
-							(buttons != (AvaibleContextMenuButtons)0b100 ? 2 : 1);
+				buttons = AvailableContextMenuButtons.drop |
+					(i.CanConsume ? AvailableContextMenuButtons.consume : AvailableContextMenuButtons.none) |
+					(i.Amount > 1 ? AvailableContextMenuButtons.splitStack : AvailableContextMenuButtons.none);
+				buttonCount = buttons == (AvailableContextMenuButtons)0b111 ? 3 :
+							(buttons != (AvailableContextMenuButtons)0b100 ? 2 : 1);
 			}
 		}
 		ItemContextMenu? itemContextMenu = null;
@@ -150,7 +150,7 @@ namespace ChampionsOfForest
 			}
 			else if (SelectedItem != -1)
 			{
-				if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+				if (Input.GetKey(KeyCode.LeftShift))
 				{
 					var targetSlotID = Inventory.Instance.ItemSlots[SelectedItem].destinationSlotID;
 					if (SelectedItem > -1 && targetSlotID != -1 && Inventory.Instance.ItemSlots[targetSlotID] != null)
@@ -173,7 +173,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(r, DraggedItem.icon);
 				GUI.color = new Color(1, 1, 1, 1);
 
-				if (UnityEngine.Input.GetMouseButtonUp(0))
+				if (Input.GetMouseButtonUp(0))
 				{
 					DropItem(DraggedItemIndex, DraggedItem);
 					CancelDragging();
@@ -262,10 +262,7 @@ namespace ChampionsOfForest
 
 		public void CraftingIngredientBox(Rect r, CustomCrafting.CraftingIngredient ingredient)
 		{
-			if (ingredient.i != null)
-				GUI.color = RarityColors[ingredient.i.Rarity];
-			else
-				GUI.color = Color.white;
+			GUI.color = ingredient.i != null ? RarityColors[ingredient.i.Rarity] : Color.white;
 			GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[12]);
 
 			GUI.color = new Color(1, 1, 1, 1);
@@ -281,7 +278,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(itemRect, ingredient.i.icon);
 				if (r.Contains(mousePos))
 				{
-					if (UnityEngine.Input.GetMouseButtonDown(0) || UnityEngine.Input.GetMouseButtonDown(1))
+					if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
 					{
 						ingredient.Clear();
 						if (ingredient == CustomCrafting.instance.changedItem)
@@ -293,7 +290,7 @@ namespace ChampionsOfForest
 			{
 				if (r.Contains(mousePos))
 				{
-					if (UnityEngine.Input.GetMouseButtonUp(0))
+					if (Input.GetMouseButtonUp(0))
 					{
 						if (!(CustomCrafting.Ingredients.Any(x => x.i == DraggedItem) || CustomCrafting.instance.changedItem.i == DraggedItem) && DraggedItemIndex > -1)
 							ingredient.Assign(DraggedItemIndex, DraggedItem);
@@ -604,7 +601,7 @@ namespace ChampionsOfForest
 
 
 				//Drop on another spot
-				if (UnityEngine.Input.GetMouseButtonUp(0))
+				if (Input.GetMouseButtonUp(0))
 				{
 					SelectedItem = index;
 					Effects.Sound_Effects.GlobalSFX.Play(1);
@@ -704,10 +701,7 @@ namespace ChampionsOfForest
 						frameColor = Color.black;
 						GUI.color = Color.black;
 					}
-					if (CustomCrafting.isIngredient(index))
-						GUI.color = new Color(0, 0, 0, 0.4f);
-					else
-						GUI.color = new Color(1, 1, 1, 1);
+					GUI.color = CustomCrafting.isIngredient(index) ? new Color(0, 0, 0, 0.4f) : new Color(1, 1, 1, 1);
 
 					//item icon
 					GUI.DrawTexture(itemRect, Inventory.Instance.ItemSlots[index].icon);
@@ -726,9 +720,9 @@ namespace ChampionsOfForest
 					else if (!itemContextMenu.HasValue && r.Contains(mousePos))
 					{
 						//left click on an item
-						if (UnityEngine.Input.GetMouseButtonDown(0))
+						if (Input.GetMouseButtonDown(0))
 						{
-							if (!UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
+							if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
 							{
 								Effects.Sound_Effects.GlobalSFX.Play(0);
 
@@ -738,12 +732,12 @@ namespace ChampionsOfForest
 							}
 						}
 						//right click on an item to bring up context menu
-						else if (UnityEngine.Input.GetMouseButtonDown(1) && index > -1 && !UnityEngine.Input.GetKey(KeyCode.LeftShift) && !UnityEngine.Input.GetKey(KeyCode.LeftControl))
+						else if (Input.GetMouseButtonDown(1) && index > -1 && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
 						{
 							Effects.Sound_Effects.GlobalSFX.Play(0);
 							itemContextMenu = new ItemContextMenu(r, index);
 						}
-						else if (UnityEngine.Input.GetKey(KeyCode.Space) && index >-1)
+						else if (Input.GetKey(KeyCode.Space) && index >-1)
 						{
 							DropItem(index, Inventory.Instance.ItemSlots[index]);
 
@@ -781,7 +775,7 @@ namespace ChampionsOfForest
 
 
 
-						if (UnityEngine.Input.GetMouseButtonUp(0))	//drop item
+						if (Input.GetMouseButtonUp(0))	//drop item
 						{
 							if (index < -1)
 							{
@@ -856,7 +850,7 @@ namespace ChampionsOfForest
 				}
 
 				GUI.DrawTexture(r, blackSquareTex);
-				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.consume) == ItemContextMenu.AvaibleContextMenuButtons.consume)
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.consume) == ItemContextMenu.AvailableContextMenuButtons.consume)
 				{
 					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Consume"))
 					{
@@ -877,7 +871,7 @@ namespace ChampionsOfForest
 					}
 					y += buttonHeight;
 				}
-				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.splitStack) == ItemContextMenu.AvaibleContextMenuButtons.splitStack)
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.splitStack) == ItemContextMenu.AvailableContextMenuButtons.splitStack)
 				{
 					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Split Stack"))
 					{
@@ -917,7 +911,7 @@ namespace ChampionsOfForest
 
 				}
 
-				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvaibleContextMenuButtons.drop) == ItemContextMenu.AvaibleContextMenuButtons.drop)
+				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.drop) == ItemContextMenu.AvailableContextMenuButtons.drop)
 				{
 					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Drop"))
 					{
@@ -927,7 +921,6 @@ namespace ChampionsOfForest
 							consumedsomething = true;
 							DropItem(itemContextMenu.Value.itemIndex, itemContextMenu.Value.i);
 							CloseItemContextMenu();
-							return;
 						}
 					}
 				}

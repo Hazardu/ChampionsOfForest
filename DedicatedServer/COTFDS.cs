@@ -18,7 +18,7 @@ namespace ChampionsOfForest.DedicatedServer
 
 				ModSettings.difficulty = (ModSettings.Difficulty)(int.Parse(difficultyRegex.Match(content).Value));
 				ModSettings.FriendlyFire = difficultyRegex.Match(content).Value == "1";
-				ModSettings.DifficultyChoosen = true;
+				ModSettings.DifficultyChosen = true;
 			}
 			else
 			{
@@ -35,7 +35,7 @@ namespace ChampionsOfForest.DedicatedServer
 				};
 				Debug.Log("Champions Of The Forest for Dedicated Server created a config file at " + path);
 				File.WriteAllLines(path, DefaultConfig);
-				ModSettings.DifficultyChoosen = true;
+				ModSettings.DifficultyChosen = true;
 			}
 		}
 	}

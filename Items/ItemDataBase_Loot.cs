@@ -15,8 +15,8 @@ namespace ChampionsOfForest
 	{
 		public static Item GetRandomItem(float Worth)
 		{
-			int averageLevel = 1;
-			int highestLevel = 1;
+			int averageLevel;
+			int highestLevel;
 			if (GameSetup.IsMultiplayer)
 			{
 				ModReferences.RequestAllPlayerLevels();
@@ -55,7 +55,7 @@ namespace ChampionsOfForest
 			}
 
 			int randomID = Random.Range(0, itemIdPool.Length);
-			Item item = new Item(ItemBases[itemIdPool[randomID]], 1, 0);
+			Item item = new Item(ItemBases[itemIdPool[randomID]]);
 
 			item.level = Mathf.Max(item.minLevel, Random.Range(averageLevel - 4, averageLevel + 2));
 			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
@@ -77,8 +77,8 @@ namespace ChampionsOfForest
 
 		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType,ModSettings.Difficulty difficulty)
 		{
-			int averageLevel = 1;
-			int highestLevel = 1;
+			int averageLevel;
+			int highestLevel;
 			if (GameSetup.IsMultiplayer)
 			{
 				ModReferences.RequestAllPlayerLevels();
@@ -117,7 +117,7 @@ namespace ChampionsOfForest
 			}
 
 			int randomID = Random.Range(0, itemIdPool.Length);
-			Item item = new Item(ItemBases[itemIdPool[randomID]], 1, 0);
+			Item item = new Item(ItemBases[itemIdPool[randomID]]);
 
 			item.level = Mathf.Max(item.level, Random.Range(averageLevel - 2, averageLevel + 2));
 			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
