@@ -14,7 +14,6 @@ namespace ChampionsOfForest.Effects.Sound_Effects
 		
 		void Start()
 		{
-			ModAPI.Console.Write(AudioSettings.GetConfiguration().dspBufferSize.ToString());
 			hitSound = Res.ResourceLoader.instance.LoadedAudio[1005];
 			InitSound = Res.ResourceLoader.instance.LoadedAudio[1006];
 			SoundSource = gameObject.AddComponent<AudioSource>();
