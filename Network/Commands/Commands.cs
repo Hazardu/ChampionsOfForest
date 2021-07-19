@@ -1,5 +1,4 @@
 ﻿using System.IO;
-
 using TheForest.Utils;
 
 namespace ChampionsOfForest.Network.Commands
@@ -13,15 +12,8 @@ namespace ChampionsOfForest.Network.Commands
 	}
 	public class Command_UpdateDynamicCP : COTFCommand<UpdateCProgressionCommandParam>
 	{
-		public static void Initialize()
-		{
-			if (instance != null)
-				return;
-			instance = new Command_UpdateDynamicCP();
-			instance.commandIndex = CommandReader.curr_cmd_index++;
-			CommandReader.commandsObjects_dict.Add(instance.commandIndex, Received);
-			ModAPI.Log.Write($"command {instance.commandIndex} registered");
-		}
+		public static void Initialize() => Init(typeof(Command_UpdateDynamicCP));
+		
 		protected override void OnReceived(UpdateCProgressionCommandParam param, BinaryReader r)
 		{
 			if (GameSetup.IsMpClient)
