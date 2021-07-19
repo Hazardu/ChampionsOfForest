@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
-
 using TheForest.Utils;
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 using Input = UnityEngine.Input;
 using Random = UnityEngine.Random;
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
@@ -199,21 +194,21 @@ namespace ChampionsOfForest
 
 			if (_openedMenu == OpenedMenuMode.Stats)
 			{
-				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * UnityEngine.Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
-				if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
+				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
+				if (Input.GetKeyDown(KeyCode.RightArrow))
 				{
 					ChangePage(guidePage + 1);
 				}
-				if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
+				if (Input.GetKeyDown(KeyCode.LeftArrow))
 				{
 					ChangePage(guidePage - 1);
 
 				}
-				if (UnityEngine.Input.GetKeyDown(KeyCode.DownArrow))
+				if (Input.GetKeyDown(KeyCode.DownArrow))
 				{
 					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal - 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
 				}
-				if (UnityEngine.Input.GetKeyDown(KeyCode.UpArrow))
+				if (Input.GetKeyDown(KeyCode.UpArrow))
 				{
 					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
 				}
@@ -221,7 +216,7 @@ namespace ChampionsOfForest
 			}
 			else if (_openedMenu == OpenedMenuMode.Inventory)
 			{
-				if (UnityEngine.Input.GetKeyDown(KeyCode.LeftAlt))
+				if (Input.GetKeyDown(KeyCode.LeftAlt))
 					drawTotal =! drawTotal;
 			}
 
@@ -238,7 +233,7 @@ namespace ChampionsOfForest
 			{
 				if (_openedMenu == OpenedMenuMode.Inventory)
 				{
-					if (UnityEngine.Input.GetMouseButtonUp(1))
+					if (Input.GetMouseButtonUp(1))
 					{
 						if (consumedsomething)
 							consumedsomething = false;
@@ -247,9 +242,9 @@ namespace ChampionsOfForest
 					if (SelectedItem != -1 && Inventory.Instance.ItemSlots[SelectedItem] != null)
 					{
 						var item = Inventory.Instance.ItemSlots[SelectedItem];
-						if (UnityEngine.Input.GetMouseButtonDown(0))
+						if (Input.GetMouseButtonDown(0))
 						{
-							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+							if (Input.GetKey(KeyCode.LeftShift))
 							{
 								//unequip if equipped
 								if (SelectedItem < -1)
@@ -352,7 +347,7 @@ namespace ChampionsOfForest
 									}
 								}
 							}
-							else if (UnityEngine.Input.GetKey(KeyCode.LeftControl))
+							else if (Input.GetKey(KeyCode.LeftControl))
 							{
 								if (SelectedItem > -1 && CustomCrafting.instance.craftMode != CustomCrafting.CraftMode.None)
 								{
@@ -389,7 +384,7 @@ namespace ChampionsOfForest
 				}
 				//LocalPlayer.FpCharacter.LockView(false);
 				LevelsToGain = 0;
-				if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+				if (Input.GetKeyDown(KeyCode.Escape))
 				{
 					StartCoroutine(FadeMenuSwitch(OpenedMenuMode.Hud));
 				}
@@ -461,9 +456,9 @@ namespace ChampionsOfForest
 				GUI.skin.label.clipping = TextClipping.Overflow;
 				GUI.skin.label.richText = true;
 
-				mousePos = new Vector2(UnityEngine.Input.mousePosition.x, Screen.height - UnityEngine.Input.mousePosition.y);
+				mousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
 
-				if (!ModSettings.DifficultyChoosen)
+				if (!ModSettings.DifficultyChosen)
 				{
 					DifficultySelectionScreen();
 				}
@@ -475,7 +470,7 @@ namespace ChampionsOfForest
 					{
 						if (_openedMenu == OpenedMenuMode.Main)
 						{
-							GUI.DrawTexture(wholeScreenRect, Res.ResourceLoader.GetTexture(78));
+							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 
 							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
 
@@ -483,7 +478,7 @@ namespace ChampionsOfForest
 						}
 						else if (_openedMenu == OpenedMenuMode.Inventory)
 						{
-							GUI.DrawTexture(wholeScreenRect, Res.ResourceLoader.GetTexture(78));
+							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 							DrawInventory();
 
 							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
@@ -495,12 +490,12 @@ namespace ChampionsOfForest
 						}
 						else if (_openedMenu == OpenedMenuMode.Spells)
 						{
-							GUI.DrawTexture(wholeScreenRect, Res.ResourceLoader.GetTexture(78));
+							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 							DrawSpellMenu();
 						}
 						else if (_openedMenu == OpenedMenuMode.Stats)
 						{
-							GUI.DrawTexture(wholeScreenRect, Res.ResourceLoader.GetTexture(78));
+							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 							DrawGuide();
 						}
 						else if (_openedMenu == OpenedMenuMode.Perks)
@@ -570,8 +565,8 @@ namespace ChampionsOfForest
 						ModSettings.BroadCastSettingsToClients();
 					}
 					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), "Change Options", chgDiffBtnStyle))
-						{
-						ModSettings.DifficultyChoosen = false;
+					{
+						ModSettings.DifficultyChosen = false;
 						difficultyCooldown = 10 * 60;
 					}
 				}
@@ -610,13 +605,13 @@ namespace ChampionsOfForest
 			Matrix4x4 backupMatrix = GUI.matrix;
 			GUIUtility.ScaleAroundPivot(Scale, rect.center);
 			float dist = Vector2.Distance(mousePos, wholeScreenRect.center);
-			GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[1]);
+			GUI.DrawTexture(rect, ResourceLoader.instance.LoadedTextures[1]);
 
 			if (dist > mindist && dist < rect.height && rect.Contains(mousePos) && isMenuInteractable)
 			{
 				Opacity = Mathf.Clamp01(Opacity + Time.unscaledDeltaTime * opacityGainSpeed);
 
-				if (UnityEngine.Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButtonDown(0))
 				{
 					StartCoroutine(FadeMenuSwitch(mode));
 				}
@@ -628,7 +623,7 @@ namespace ChampionsOfForest
 			if (Opacity > 0)
 			{
 				GUI.color = new Color(1, 1, 1, Opacity);
-				GUI.DrawTexture(rect, Res.ResourceLoader.instance.LoadedTextures[2]);
+				GUI.DrawTexture(rect, ResourceLoader.instance.LoadedTextures[2]);
 				GUI.color = Color.white;
 			}
 			GUI.matrix = backupMatrix;

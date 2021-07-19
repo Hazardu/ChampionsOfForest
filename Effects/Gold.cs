@@ -12,8 +12,8 @@ namespace ChampionsOfForest.Effects
 {
 	public class GoldenSkin
 	{
-		public static Material originalmaterial;
-		public static Material goldmaterial;
+		public static Material originalMaterial;
+		public static Material goldMaterial;
 		public static Renderer renderer;
 
 		public static float Duration = 40;
@@ -34,7 +34,7 @@ namespace ChampionsOfForest.Effects
 						renderer = rends[i];
 				}
 				//renderer = LocalPlayer.PlayerBase.GetComponent<Renderer>();
-				originalmaterial = renderer.material;
+				originalMaterial = renderer.material;
 			}
 			if (renderer == null)
 			{
@@ -42,11 +42,11 @@ namespace ChampionsOfForest.Effects
 				return;
 			}
 			//ModAPI.Console.Write("GOLD: " + renderer.ToString());
-			if (goldmaterial == null)
+			if (goldMaterial == null)
 			{
-				goldmaterial = Core.CreateMaterial(new BuildingData() { MainColor = new Color(1, 0.74f, 0.2122f), Metalic = 1, Smoothness = 1f, EmissionColor = new Color(0.125f, 0.1f, 0.025f, 0.1f) });
+				goldMaterial = Core.CreateMaterial(new BuildingData() { MainColor = new Color(1, 0.74f, 0.2122f), Metalic = 1, Smoothness = 1f, EmissionColor = new Color(0.125f, 0.1f, 0.025f, 0.1f) });
 			}
-			renderer.material = goldmaterial;
+			renderer.material = goldMaterial;
 			//var rends = LocalPlayer.GameObject.GetComponentsInChildren<Renderer>();
 			//for (int i = 0; i < rends.Length; i++)
 			//{
@@ -61,7 +61,7 @@ namespace ChampionsOfForest.Effects
 
 		public static void Disable()
 		{
-			renderer.material = originalmaterial;
+			renderer.material = originalMaterial;
 			ModdedPlayer.Stats.stunImmunity.Substract(1);
 			ModdedPlayer.Stats.debuffResistance.Substract(1);
 

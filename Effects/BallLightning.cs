@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
-using ChampionsOfForest;
-
 using TheForest.Utils;
-
 using UnityEngine;
 
 public class BallLightning : MonoBehaviour
@@ -21,7 +17,7 @@ public class BallLightning : MonoBehaviour
 		AssetBundle bundle = ChampionsOfForest.Res.ResourceLoader.GetAssetBundle(2000);
 		if (bundle == null)
 		{
-			ModAPI.Log.Write("Couldnt load asset bundle");
+			ModAPI.Log.Write("Couldn't load asset bundle");
 			return;
 		}
 
@@ -59,9 +55,7 @@ public class BallLightning : MonoBehaviour
 			mainFX = transform.Find("mainFX").gameObject;
 		}
 		rb = GetComponent<Rigidbody>();
-		var trigger = new GameObject();
-		trigger.transform.position = transform.position;
-		trigger.transform.parent = transform;
+		var trigger = new GameObject { transform = { position = transform.position, parent = transform } };
 		var collider = trigger.AddComponent<SphereCollider>();
 		collider.radius = 3;
 		collider.isTrigger = true;
@@ -197,11 +191,6 @@ public class BallLightning : MonoBehaviour
 			collision.transform.SendMessageUpwards("Explosion", 0, SendMessageOptions.DontRequireReceiver);
 			collision.transform.SendMessage("Explosion", 0, SendMessageOptions.DontRequireReceiver);
 			Vector3 normal = collision.contacts[0].normal;
-			if (normal == null)
-			{
-				return;
-			}
-
 			Vector3 newSpeed = Vector3.Reflect(speed, normal);
 			speed = newSpeed * 1.02f;
 		}

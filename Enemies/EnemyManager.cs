@@ -14,8 +14,8 @@ namespace ChampionsOfForest
 		public static Dictionary<ulong, EnemyProgression> hostDictionary;
 		public static Dictionary<Transform, EnemyProgression> enemyByTransform;
 		public static Dictionary<ulong, ClientEnemy> clientEnemies;
-		public static Dictionary<BoltEntity, ClinetEnemyProgression> clinetProgressions;
-		public static Dictionary<Transform, ClinetEnemyProgression> spProgression;
+		public static Dictionary<BoltEntity, ClientEnemyProgression> clinetProgressions;
+		public static Dictionary<Transform, ClientEnemyProgression> spProgression;
 		private static float scanEnemyLastRequestTimestamp = 0;
 		private static readonly float scanEnemyFrequency = 0.1f;
 
@@ -23,14 +23,14 @@ namespace ChampionsOfForest
 		{
 			if (GameSetup.IsMpClient)
 			{
-				clinetProgressions = new Dictionary<BoltEntity, ClinetEnemyProgression>();
+				clinetProgressions = new Dictionary<BoltEntity, ClientEnemyProgression>();
 				clientEnemies = new Dictionary<ulong, ClientEnemy>();
 			}
 			else
 			{
 				hostDictionary = new Dictionary<ulong, EnemyProgression>();
 				enemyByTransform = new Dictionary<Transform, EnemyProgression>();
-				spProgression = new Dictionary<Transform, ClinetEnemyProgression>();
+				spProgression = new Dictionary<Transform, ClientEnemyProgression>();
 			}
 		}
 
@@ -43,12 +43,12 @@ namespace ChampionsOfForest
 		}
 
 		//Returns clinet progression for Singleplayer
-		public static ClinetEnemyProgression GetCP(Transform tr)
+		public static ClientEnemyProgression GetCP(Transform tr)
 		{
 			if (spProgression.ContainsKey(tr.root))
 			{
-				ClinetEnemyProgression cp = spProgression[tr.root];
-				if (Time.time <= cp.creationTime + ClinetEnemyProgression.LifeTime)
+				ClientEnemyProgression cp = spProgression[tr.root];
+				if (Time.time <= cp.creationTime + ClientEnemyProgression.LifeTime)
 				{
 					if (cp.DynamicOutdated)
 					{
@@ -77,7 +77,7 @@ namespace ChampionsOfForest
 
 				if (p != null)
 				{
-					ClinetEnemyProgression cpr = new ClinetEnemyProgression(tr.root);
+					ClientEnemyProgression cpr = new ClientEnemyProgression(tr.root);
 					spProgression.Add(tr.root, cpr);
 					return cpr;
 				}
@@ -107,9 +107,9 @@ namespace ChampionsOfForest
 		}
 
 		//Returns clinet progression for Multiplayer
-		public static ClinetEnemyProgression GetCP(BoltEntity e)
+		public static ClientEnemyProgression GetCP(BoltEntity e)
 		{
-			ClinetEnemyProgression cp = null;
+			ClientEnemyProgression cp = null;
 			if (!GameSetup.IsMpClient)
 			{
 				return GetCP(e.transform);
@@ -121,7 +121,7 @@ namespace ChampionsOfForest
 			if (clinetProgressions.ContainsKey(e))
 			{
 				cp = clinetProgressions[e];
-				if (Time.time <= cp.creationTime + ClinetEnemyProgression.LifeTime)
+				if (Time.time <= cp.creationTime + ClientEnemyProgression.LifeTime)
 				{
 					if (cp.DynamicOutdated)
 						cp.RequestDynamicUpdate();
@@ -138,7 +138,7 @@ namespace ChampionsOfForest
 						w.Write(e.networkId.PackedValue);
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 					answerStream.Close();
 				}
 				scanEnemyLastRequestTimestamp = Time.time;
@@ -153,12 +153,9 @@ namespace ChampionsOfForest
 			{
 				if (ep.entity != null)
 				{
-					if (ep.entity.networkId != null)
+					if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
 					{
-						if (hostDictionary.ContainsKey(ep.entity.networkId.PackedValue))
-						{
-							hostDictionary.Remove(ep.entity.networkId.PackedValue);
-						}
+						hostDictionary.Remove(ep.entity.networkId.PackedValue);
 					}
 				}
 				if (spProgression != null)

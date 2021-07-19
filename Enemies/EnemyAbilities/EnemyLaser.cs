@@ -67,8 +67,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 		private IEnumerator Shoot(int index)
 		{
-			GameObject go = new GameObject();
-			go.transform.position = transform.position + Vector3.up * 13;
+			GameObject go = new GameObject { transform = { position = transform.position + Vector3.up * 13 } };
 			go.transform.LookAt(Direction);
 			int dmg = Random.Range(30, 40);
 

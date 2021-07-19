@@ -14,7 +14,7 @@ namespace ChampionsOfForest
 		private float MFindRequestCooldown = 300;
 		public static Material bloodInfusedMaterial;
 		private static ModReferences instance;
-		public static ClinetItemPicker ItemPicker => ClinetItemPicker.Instance;
+		public static ClientItemPicker ItemPicker => ClientItemPicker.Instance;
 
 		public static List<IPlayerState> PlayerStates = new List<IPlayerState>();
 		
@@ -126,7 +126,7 @@ namespace ChampionsOfForest
 						w.Write("x");
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
 					answerStream.Close();
 				}
 			}
@@ -149,7 +149,7 @@ namespace ChampionsOfForest
 							w.Write(18);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
 						answerStream.Close();
 					}
 				}
@@ -164,7 +164,7 @@ namespace ChampionsOfForest
 							w.Write(23);
 							w.Close();
 						}
-						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 						answerStream.Close();
 					}
 					MFindRequestCooldown = 300;
@@ -192,7 +192,7 @@ namespace ChampionsOfForest
 						w.Write(18);
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Clients);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
 					answerStream.Close();
 				}
 			}
@@ -257,9 +257,9 @@ namespace ChampionsOfForest
 				yield return null;
 				if (Players.Any(x => x == null))
 				{
-				Players.Clear();
-				AllPlayerEntities.Clear();
-				PlayerStates.Clear();
+					Players.Clear();
+					AllPlayerEntities.Clear();
+					PlayerStates.Clear();
 					Players.AddRange(Scene.SceneTracker.allPlayers);
 					for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
 					{

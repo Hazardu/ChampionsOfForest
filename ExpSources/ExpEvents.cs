@@ -1,9 +1,6 @@
 ﻿using ChampionsOfForest.Player;
-
 using TheForest.Tools;
 using TheForest.Utils;
-
-using UnityEngine;
 
 namespace ChampionsOfForest.ExpSources
 {
@@ -26,7 +23,7 @@ namespace ChampionsOfForest.ExpSources
 						w.Write(11);
 						w.Write(xp);
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 				}
 			}
 			else

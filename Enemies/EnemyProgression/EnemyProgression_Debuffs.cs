@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 using Bolt;
 
-using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 
 using UnityEngine;
-
-using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
@@ -69,12 +64,12 @@ namespace ChampionsOfForest
 						float i = Mathf.Min(extraHealth, DoTTotal);
 						extraHealth -= i;
 						HealthScript.Health -= Mathf.FloorToInt(DoTTotal - i);
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
+						NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 					else
 					{
 						HealthScript.Health -= Mathf.FloorToInt(DoTTotal);
-						Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
+						NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 					for (int i = 0; i < DamageOverTimeList.Count; i++)
 					{
@@ -174,9 +169,9 @@ namespace ChampionsOfForest
 		}
 		public static void Slow(BoltEntity entity, int source, float amount, float time)
 		{
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+			using (MemoryStream answerStream = new MemoryStream())
 			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+				using (BinaryWriter w = new BinaryWriter(answerStream))
 				{
 					w.Write(22);
 					w.Write(entity.networkId.PackedValue);
@@ -185,7 +180,7 @@ namespace ChampionsOfForest
 					w.Write(source);
 					w.Close();
 				}
-				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
 				answerStream.Close();
 			}
 		}

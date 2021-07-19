@@ -15,7 +15,7 @@ namespace ChampionsOfForest.ExpSources
 					SharkKilled();
 				}
 			}
-				base.Die();
+			base.Die();
 		}
 
 		public void SharkKilled()
@@ -30,7 +30,7 @@ namespace ChampionsOfForest.ExpSources
 						w.Write(10);
 						w.Write(xp);
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 				}
 			}
 			else

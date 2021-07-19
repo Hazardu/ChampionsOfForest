@@ -10,13 +10,13 @@ namespace ChampionsOfForest.Fun
 	{
 		public override void PushRaft(MoveDirection dir)
 		{
-			if (dir == RaftPush.MoveDirection.Forward)
+			if (dir == MoveDirection.Forward)
 			{
 				this._direction = ((!this._relativeForce) ? this._raft.transform.forward : base.transform.forward);
 			}
 			else
 			{
-				if (dir != RaftPush.MoveDirection.Backward)
+				if (dir != MoveDirection.Backward)
 				{
 					return;
 				}
@@ -75,11 +75,11 @@ namespace ChampionsOfForest.Fun
 
 		protected override void Update()
 		{
-			if ((this._state == RaftPush.States.DriverStanding || this._state == RaftPush.States.Idle) && !this._doingOutOfWorld)
+			if ((this._state == States.DriverStanding || this._state == States.Idle) && !this._doingOutOfWorld)
 			{
 				this.allowDirection = false;
 			}
-			if (this._state == RaftPush.States.DriverStanding)
+			if (this._state == States.DriverStanding)
 			{
 				TheForest.Utils.LocalPlayer.AnimControl.standingOnRaft = true;
 			}
@@ -87,7 +87,7 @@ namespace ChampionsOfForest.Fun
 			{
 				TheForest.Utils.LocalPlayer.AnimControl.standingOnRaft = false;
 			}
-			bool flag = this._isGrabbed && this._state == RaftPush.States.DriverStanding;
+			bool flag = this._isGrabbed && this._state == States.DriverStanding;
 			if (flag && BoltNetwork.isRunning && base.state.GrabbedBy[this._oarId] != null)
 			{
 				flag = false;
@@ -142,7 +142,7 @@ namespace ChampionsOfForest.Fun
 						this.onRaft();
 					}
 				}
-				else if (this._state == RaftPush.States.DriverLocked)
+				else if (this._state == States.DriverLocked)
 				{
 					if (BoltNetwork.isRunning)
 					{
@@ -158,17 +158,17 @@ namespace ChampionsOfForest.Fun
 					}
 				}
 			}
-			else if (this._state == RaftPush.States.DriverLocked && !this._doingOutOfWorld)
+			else if (this._state == States.DriverLocked && !this._doingOutOfWorld)
 			{
-				RaftPush.MoveDirection moveDirection = RaftPush.MoveDirection.None;
+				MoveDirection moveDirection = MoveDirection.None;
 				float num = TheForest.Utils.Input.GetAxis("Horizontal");
 				this.axisDirection = num;
 				this.moveDirection = moveDirection;
 				if ((TheForest.Utils.Input.GetButton("Fire1") || TheForest.Utils.Input.GetButton("AltFire")))
 				{
-					if (this.CheckDistanceFromOceanCollision() || TheForest.Utils.LocalPlayer.AnimControl.doneOutOfWorldRoutine || !TheForest.Utils.LocalPlayer.Inventory.Owns(TheForest.Utils.LocalPlayer.AnimControl._timmyPhotoId, true))
+					if (this.CheckDistanceFromOceanCollision() || TheForest.Utils.LocalPlayer.AnimControl.doneOutOfWorldRoutine || !TheForest.Utils.LocalPlayer.Inventory.Owns(TheForest.Utils.LocalPlayer.AnimControl._timmyPhotoId))
 					{
-						moveDirection = ((!TheForest.Utils.Input.GetButton("Fire1")) ? RaftPush.MoveDirection.Backward : RaftPush.MoveDirection.Forward);
+						moveDirection = ((!TheForest.Utils.Input.GetButton("Fire1")) ? MoveDirection.Backward : MoveDirection.Forward);
 						this.allowDirection = true;
 						this.moveDirection = moveDirection;
 						this._driver.enablePaddleOnRaft(true);
@@ -189,14 +189,14 @@ namespace ChampionsOfForest.Fun
 					this._driver.enablePaddleOnRaft(false);
 				}
 			}
-			else if (this._state == RaftPush.States.Auto)
+			else if (this._state == States.Auto)
 			{
 				this._direction = TheForest.Utils.Scene.OceanCeto.transform.position - base.transform.position;
 				this._direction.Normalize();
 				this._raft.GetComponent<Rigidbody>().AddForce(this._direction * this._speed * 5f, ForceMode.Impulse);
 				if (this.CheckDistanceFromOceanCollision())
 				{
-					this._state = RaftPush.States.DriverLocked;
+					this._state = States.DriverLocked;
 				}
 			}
 		}

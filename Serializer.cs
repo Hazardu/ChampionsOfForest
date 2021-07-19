@@ -51,7 +51,7 @@ namespace ChampionsOfForest
 					var ver = Res.ResourceLoader.CompareVersion(version, ModSettings.RequiresNewSaveVersion);
 					if (ver == Res.ResourceLoader.Status.Newer)
 					{
-						CotfUtils.Log("last time cotf was played on this save was on version: " + version + "  \ndue to issues with this and following updates, new save will be used. Sorry for inconvienience");
+						CotfUtils.Log("last time cotf was played on this save was on version: " + version + "  \ndue to issues with this and following updates, new save will be used. Sorry for inconvenience");
 						return;
 					}
 				}
@@ -105,11 +105,11 @@ namespace ChampionsOfForest
 							LoadedItem.Stats.Add(stat);
 							LoadedItem.SortStats();
 						}
-						Player.Inventory.Instance.ItemSlots[Slot] = LoadedItem;
+						Inventory.Instance.ItemSlots[Slot] = LoadedItem;
 					}
 					else
 					{
-						Player.Inventory.Instance.ItemSlots[Slot] = null;
+						Inventory.Instance.ItemSlots[Slot] = null;
 					}
 				}
 
@@ -144,7 +144,7 @@ namespace ChampionsOfForest
 					}
 					catch (System.Exception ex)
 					{
-						ModAPI.Log.Write($"Loading perks exception: id = {id}, isBought = {isBought}, applycount ={applyCount}\n" + ex.ToString());
+						ModAPI.Log.Write($"Loading perks exception: id = {id}, isBought = {isBought}, applycount ={applyCount}\n" + ex);
 						
 					}
 					
@@ -215,9 +215,9 @@ namespace ChampionsOfForest
 			}
 
 			//saving inventory
-			buf.Write(Player.Inventory.Instance.ItemSlots.Count);
+			buf.Write(Inventory.Instance.ItemSlots.Count);
 
-			foreach (KeyValuePair<int, Item> item in Player.Inventory.Instance.ItemSlots)
+			foreach (KeyValuePair<int, Item> item in Inventory.Instance.ItemSlots)
 			{
 				buf.Write(item.Key);
 

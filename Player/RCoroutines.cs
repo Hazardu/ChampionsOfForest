@@ -1,11 +1,8 @@
 ﻿using System.Collections;
-
 using TheForest.Items.Inventory;
 using TheForest.Items.World;
 using TheForest.Utils;
-
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace ChampionsOfForest.Player
 {
@@ -48,11 +45,7 @@ namespace ChampionsOfForest.Player
 			Vector3 positionOriginal = _ammoSpawnPosGo.transform.position;
 			Quaternion rotation = _ammoSpawnPosGo.transform.rotation;
 			Vector3 forceUp = Vector3.zero;
-			bool noconsume = false;
-			if (ModdedPlayer.Stats.perk_projectileNoConsumeChance > 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
-			{
-				noconsume = true;
-			}
+			bool noconsume = ModdedPlayer.Stats.perk_projectileNoConsumeChance > 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance;
 			for (int i = 0; i < repeats; i++)
 			{
 				if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoId, 1, true, true))

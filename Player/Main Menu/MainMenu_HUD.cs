@@ -200,7 +200,7 @@ namespace ChampionsOfForest
 					BuffOffsetY -= BuffSize;
 				}
 			}
-			foreach (KeyValuePair<int, Buff> buff in BuffDB.activeBuffs)
+			foreach (KeyValuePair<int, Buff> buff in activeBuffs)
 			{
 				TimeSpan span = TimeSpan.FromSeconds(buff.Value.duration);
 				string valueText = "";
@@ -219,7 +219,7 @@ namespace ChampionsOfForest
 				{
 					valueText = valueText.TrimEnd('%').TrimEnd('0').TrimEnd(',');
 				}
-				DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffDB.BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
+				DrawBuff(BuffOffsetX, BuffOffsetY, ResourceLoader.GetTexture(BuffsByID[buff.Value._ID].IconID), valueText, (span.Minutes > 0 ? span.Minutes + ":" + span.Seconds : span.Seconds.ToString()), !buff.Value.isNegative, buff.Value.duration);
 				BuffOffsetX += BuffSize;
 				if (BuffOffsetX > MaxX)
 				{
@@ -313,10 +313,10 @@ namespace ChampionsOfForest
 			GUI.DrawTexture(XPbar, _expBarBackgroundTex, ScaleMode.ScaleToFit, true, 1500 / 150);
 			GUI.DrawTextureWithTexCoords(XPbarFill, _expBarFillTex, new Rect(0, 0, ProgressBarAmount, 1));
 			GUI.DrawTexture(XPbar, _expBarFrameTex, ScaleMode.ScaleToFit, true, 1500 / 150);
-			GUI.DrawTexture(LeftCorner, Res.ResourceLoader.GetTexture(106));
+			GUI.DrawTexture(LeftCorner, ResourceLoader.GetTexture(106));
 			guiMatrixBackup = GUI.matrix;
 			GUIUtility.ScaleAroundPivot(new Vector2(-1, 1), RightCorner.center);
-			GUI.DrawTexture(RightCorner, Res.ResourceLoader.GetTexture(106));
+			GUI.DrawTexture(RightCorner, ResourceLoader.GetTexture(106));
 			GUI.matrix = guiMatrixBackup;
 
 			if (ModdedPlayer.instance.TimeUntillMassacreReset > 0)
@@ -325,10 +325,10 @@ namespace ChampionsOfForest
 				GUI.color = new Color(0.7f, 0.4f, 0.4f, 1f);
 				if (ModdedPlayer.instance.MassacreText != "")
 				{
-					GUI.DrawTexture(CombatBarText, Res.ResourceLoader.GetTexture(142));
+					GUI.DrawTexture(CombatBarText, ResourceLoader.GetTexture(142));
 				}
 
-				GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultipier, CombatCountStyle);
+				GUI.Label(CombatBarCount, "+" + ModdedPlayer.instance.NewlyGainedExp.ToString("N0") + " EXP\tx" + ModdedPlayer.instance.MassacreMultiplier, CombatCountStyle);
 				GUI.color = new Color(1, 0f, 0f, (ModdedPlayer.instance.TimeUntillMassacreReset / ModdedPlayer.Stats.maxMassacreTime) + 0.2f);
 				string content = ModdedPlayer.instance.MassacreText;
 				if (ModdedPlayer.instance.MassacreKills > 5)
@@ -606,7 +606,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-		private ClinetEnemyProgression cp = null;
+		private ClientEnemyProgression cp = null;
 
 		private bool pingBlocked = false;
 
@@ -768,7 +768,9 @@ namespace ChampionsOfForest
 									enemy = hit.transform.root.GetComponentInChildren<EnemyProgression>();
 								}
 								if (enemy != null)
+								{
 									localPlayerPing = new MarkEnemy(enemy.transform, enemy.enemyName, enemy._rarity != EnemyProgression.EnemyRarity.Normal);
+								}
 								else
 								{
 									localPlayerPing = new MarkEnemy(enemy.transform, "Enemy", false);
@@ -915,15 +917,15 @@ namespace ChampionsOfForest
 		{
 			if (GameSetup.IsMultiplayer)
 			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+				using (MemoryStream answerStream = new MemoryStream())
 				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+					using (BinaryWriter w = new BinaryWriter(answerStream))
 					{
 						w.Write(35);
 						w.Write(ModReferences.ThisPlayerID);
 						w.Close();
 					}
-					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
+					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
 					answerStream.Close();
 				}
 			}
@@ -1000,15 +1002,15 @@ namespace ChampionsOfForest
 				switch (previewPingType)
 				{
 					case MarkObject.PingType.Enemy:
-						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(172));
+						GUI.DrawTexture(r, ResourceLoader.GetTexture(172));
 						break;
 
 					case MarkObject.PingType.Location:
-						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(173));
+						GUI.DrawTexture(r, ResourceLoader.GetTexture(173));
 						break;
 
 					case MarkObject.PingType.Item:
-						GUI.DrawTexture(r, Res.ResourceLoader.GetTexture(174));
+						GUI.DrawTexture(r, ResourceLoader.GetTexture(174));
 						break;
 
 					default:
@@ -1042,7 +1044,7 @@ namespace ChampionsOfForest
 			if (lvlUpAudio == null)
 			{
 				lvlUpAudio = new GameObject("LvlupAudio").AddComponent<AudioSource>();
-				lvlUpAudio.clip = Res.ResourceLoader.instance.LoadedAudio[1001];
+				lvlUpAudio.clip = ResourceLoader.instance.LoadedAudio[1001];
 				lvlUpAudio.rolloffMode = AudioRolloffMode.Linear;
 				lvlUpAudio.maxDistance = 1000;
 				lvlUpAudio.transform.position = LocalPlayer.Transform.position;
@@ -1057,7 +1059,7 @@ namespace ChampionsOfForest
 
 		private void DrawScannedEnemyLabel(string content, Rect r, GUIStyle style)
 		{
-			GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[25]);
+			GUI.DrawTexture(r, ResourceLoader.instance.LoadedTextures[25]);
 			Rect rOffset = new Rect(r);
 			rOffset.x -= 30;
 			GUI.Label(rOffset, content, style);

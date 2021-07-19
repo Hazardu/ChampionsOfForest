@@ -2,21 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-
 using Bolt;
-
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
-using ChampionsOfForest.Player;
-
-using Mono.Posix;
-
 using TheForest.Utils;
-
 using UnityEngine;
-
 using static ChampionsOfForest.Player.BuffDB;
-
 using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest.Player
@@ -45,7 +36,7 @@ namespace ChampionsOfForest.Player
 		public long NewlyGainedExp;
 		public int MassacreKills;
 		public string MassacreText = "";
-		public float MassacreMultipier = 1;
+		public float MassacreMultiplier = 1;
 		public float TimeUntillMassacreReset;
 
 		
@@ -256,7 +247,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (BoltNetwork.isRunning)
 				{
-					NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " has reached level " + ModdedPlayer.instance.level + "!", NetworkManager.Target.Everyone);
+					NetworkManager.SendText("II" + LocalPlayer.Entity.GetState<IPlayerState>().name + " has reached level " + instance.level + "!", NetworkManager.Target.Everyone);
 				}
 			}
 			MainMenu.Instance.LevelUpAction();
@@ -382,23 +373,23 @@ namespace ChampionsOfForest.Player
 				float dmgPerSecond = 0;
 				int poisonCount = 0;
 				lostArmor = 0;
-				int[] keys = new List<int>(BuffDB.activeBuffs.Keys).ToArray();
+				int[] keys = new List<int>(activeBuffs.Keys).ToArray();
 				for (int i = 0; i < keys.Length; i++)
 				{
-					Buff buff = BuffDB.activeBuffs[keys[i]];
+					Buff buff = activeBuffs[keys[i]];
 					if (stats.debuffImmunity > 0 && buff.isNegative && buff.DispellAmount <= 2)
 					{
-						BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
+						activeBuffs[keys[i]].ForceEndBuff(keys[i]);
 						continue;
 					}
 					else if (stats.debuffResistance > 0 && buff.isNegative && buff.DispellAmount <= 1)
 					{
-						BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
+						activeBuffs[keys[i]].ForceEndBuff(keys[i]);
 						continue;
 					}
 					else
 					{
-						BuffDB.activeBuffs[keys[i]].UpdateBuff(keys[i]);
+						activeBuffs[keys[i]].UpdateBuff(keys[i]);
 						if (buff._ID == 3)
 						{
 							poisonCount++;
@@ -419,7 +410,7 @@ namespace ChampionsOfForest.Player
 
 					if (poisonCount > 1)
 					{
-						BuffDB.AddBuff(1, 33, 0.7f, 1);
+						AddBuff(1, 33, 0.7f, 1);
 					}
 				}
 				if (LocalPlayer.Stats.Health <= 0 && !LocalPlayer.Stats.Dead)
@@ -434,7 +425,7 @@ namespace ChampionsOfForest.Player
 
 			if (LocalPlayer.Stats != null)
 			{
-				if (Stats.perk_danceOfFiregod&& Effects.BlackFlame.IsOn)
+				if (Stats.perk_danceOfFiregod&& BlackFlame.IsOn)
 				{
 					LocalPlayer.Animator.speed = 1.0f;
 					return;
@@ -482,7 +473,7 @@ namespace ChampionsOfForest.Player
 				TimeUntillMassacreReset -= Time.unscaledDeltaTime;
 				if (TimeUntillMassacreReset <= 0)
 				{
-					AddFinalExperience(Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier));
+					AddFinalExperience(Convert.ToInt64((double)NewlyGainedExp * MassacreMultiplier));
 					NewlyGainedExp = 0;
 					TimeUntillMassacreReset = 0;
 					MassacreKills = 0;
@@ -490,12 +481,12 @@ namespace ChampionsOfForest.Player
 				}
 			}
 
-			if (Effects.Multishot.IsOn)
+			if (Multishot.IsOn)
 			{
 				if (!SpellCaster.RemoveStamina(3 * Time.deltaTime) || LocalPlayer.Stats.Stamina < 7)
 				{
-					Effects.Multishot.IsOn = false;
-					Effects.Multishot.localPlayerInstance.SetActive(false);
+					Multishot.IsOn = false;
+					Multishot.localPlayerInstance.SetActive(false);
 				}
 			}
 			Berserker.Effect();
@@ -658,7 +649,7 @@ namespace ChampionsOfForest.Player
 			{
 				RootDuration = duration;
 			}
-			ChampionsOfForest.COTFEvents.Instance.OnStun.Invoke();
+			COTFEvents.Instance.OnStun.Invoke();
 
 		}
 
@@ -675,13 +666,13 @@ namespace ChampionsOfForest.Player
 			{
 				StunDuration = duration;
 			}
-			ChampionsOfForest.COTFEvents.Instance.OnStun.Invoke();
+			COTFEvents.Instance.OnStun.Invoke();
 
 		}
 
 		public void AddKillExperience(long Amount)
 		{
-			ChampionsOfForest.COTFEvents.Instance.OnKill.Invoke();
+			COTFEvents.Instance.OnKill.Invoke();
 
 			MassacreKills++;
 			CountMassacre();
@@ -698,36 +689,36 @@ namespace ChampionsOfForest.Player
 
 		public void AddFinalExperience(long Amount)
 		{
-			ChampionsOfForest.COTFEvents.Instance.OnGainExp.Invoke();
+			COTFEvents.Instance.OnGainExp.Invoke();
 
 			ExpCurrent += Convert.ToInt64(Amount * stats.expGain);
 			int i = 0;
 			while (ExpCurrent >= ExpGoal || (level > 100 && ExpCurrent < 0))
 			{
-				ModdedPlayer.instance.ExpCurrent -= ModdedPlayer.instance.ExpGoal;
-				ModdedPlayer.instance.LevelUp();
+				instance.ExpCurrent -= instance.ExpGoal;
+				instance.LevelUp();
 				MainMenu.Instance.LevelsToGain++;
 				i++;
 			}
 
 			if (i > 0)
 			{
-				ChampionsOfForest.COTFEvents.Instance.OnGainLevel.Invoke();
+				COTFEvents.Instance.OnGainLevel.Invoke();
 
 				SendLevelMessage();
 
 				if (GameSetup.IsMultiplayer)
 				{
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+					using (MemoryStream answerStream = new MemoryStream())
 					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+						using (BinaryWriter w = new BinaryWriter(answerStream))
 						{
 							w.Write(19);
 							w.Write(ModReferences.ThisPlayerID);
-							w.Write(ModdedPlayer.instance.level);
+							w.Write(instance.level);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
+						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 						answerStream.Close();
 					}
 				}
@@ -758,9 +749,9 @@ namespace ChampionsOfForest.Player
 			{
 				if (stats.chanceToBleed > 0 && Random.value < stats.chanceToBleed)
 				{
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+					using (MemoryStream answerStream = new MemoryStream())
 					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+						using (BinaryWriter w = new BinaryWriter(answerStream))
 						{
 							w.Write(32);
 							w.Write(ent.networkId.PackedValue);
@@ -768,16 +759,16 @@ namespace ChampionsOfForest.Player
 							w.Write(10);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
 				if (stats.chanceToSlow > 0 && Random.value < stats.chanceToSlow)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+					using (MemoryStream answerStream = new MemoryStream())
 					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+						using (BinaryWriter w = new BinaryWriter(answerStream))
 						{
 							w.Write(22);
 							w.Write(ent.networkId.PackedValue);
@@ -786,16 +777,16 @@ namespace ChampionsOfForest.Player
 							w.Write(id);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
 				if (stats.chanceToWeaken > 0 && Random.value < stats.chanceToWeaken)
 				{
 					int id = 62 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+					using (MemoryStream answerStream = new MemoryStream())
 					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
+						using (BinaryWriter w = new BinaryWriter(answerStream))
 						{
 							w.Write(34);
 							w.Write(ent.networkId.PackedValue);
@@ -804,7 +795,7 @@ namespace ChampionsOfForest.Player
 							w.Write(8f);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
@@ -843,7 +834,7 @@ namespace ChampionsOfForest.Player
 					Stats.rangedFlatDmg.valueAdditive += 5;
 					Stats.spellFlatDmg.valueAdditive += 5;
 					Stats.meleeFlatDmg.valueAdditive += 5;
-					BuffDB.AddBuff(27, 98, 1, 60);
+					AddBuff(27, 98, 1, 60);
 
 				}
 				else
@@ -853,8 +844,8 @@ namespace ChampionsOfForest.Player
 					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
 					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
-					if (BuffDB.activeBuffs.ContainsKey(98))
-						BuffDB.activeBuffs[98].amount = 0;
+					if (activeBuffs.ContainsKey(98))
+						activeBuffs[98].amount = 0;
 				}
 			}
 		}
@@ -874,7 +865,7 @@ namespace ChampionsOfForest.Player
 					Stats.rangedFlatDmg.valueAdditive += 30;
 					Stats.spellFlatDmg.valueAdditive +=30;
 					Stats.meleeFlatDmg.valueAdditive += 30;
-					BuffDB.AddBuff(27, 98, 30, 60);
+					AddBuff(27, 98, 30, 60);
 
 				}
 				else
@@ -884,8 +875,8 @@ namespace ChampionsOfForest.Player
 					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
 					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
-					if (BuffDB.activeBuffs.ContainsKey(98))
-						BuffDB.activeBuffs[98].amount = 0;
+					if (activeBuffs.ContainsKey(98))
+						activeBuffs[98].amount = 0;
 
 				}
 			}
@@ -901,9 +892,9 @@ namespace ChampionsOfForest.Player
 					return true;
 				}
 			}
-			catch (Exception exc)
+			catch (Exception ex)
 			{
-				ModAPI.Log.Write("Area dmg exception " + exc.ToString());
+				ModAPI.Log.Write("Area dmg exception " + ex);
 			}
 			return false;
 		}
@@ -1010,82 +1001,82 @@ namespace ChampionsOfForest.Player
 		{
 			if (KCInRange(0, 3))
 			{
-				MassacreMultipier = 1;
+				MassacreMultiplier = 1;
 				MassacreText = "";
 			}
 			else if (KCInRange(3, 4))
 			{
-				MassacreMultipier = 1.1f;
+				MassacreMultiplier = 1.1f;
 				MassacreText = "TRIPLE KILL   +10% exp";
 			}
 			else if (KCInRange(4, 5))
 			{
-				MassacreMultipier = 1.25f;
+				MassacreMultiplier = 1.25f;
 				MassacreText = "QUADRA KILL   +25% exp";
 			}
 			else if (KCInRange(5, 6))
 			{
-				MassacreMultipier = 1.5f;
+				MassacreMultiplier = 1.5f;
 				MassacreText = "PENTA KILL   +50% exp";
 			}
 			else if (KCInRange(6, 10))
 			{
-				MassacreMultipier = 1.75f;
+				MassacreMultiplier = 1.75f;
 				MassacreText = "MASSACRE   +75% exp";
 			}
 			else if (KCInRange(10, 12))
 			{
-				MassacreMultipier = 2.3f;
+				MassacreMultiplier = 2.3f;
 				MassacreText = "BIG MASSACRE   +130% exp";
 			}
 			else if (KCInRange(12, 16))
 			{
-				MassacreMultipier = 3f;
+				MassacreMultiplier = 3f;
 				MassacreText = "BIGGER MASSACRE   +200% exp";
 			}
 			else if (KCInRange(16, 20))
 			{
-				MassacreMultipier = 5f;
+				MassacreMultiplier = 5f;
 				MassacreText = "HUGE MASSACRE   +400% exp";
 			}
 			else if (KCInRange(20, 25))
 			{
-				MassacreMultipier = 8.5F;
+				MassacreMultiplier = 8.5F;
 				MassacreText = "BLOODY MASSACRE   +750% exp";
 			}
 			else if (KCInRange(25, 30))
 			{
-				MassacreMultipier = 16F;
+				MassacreMultiplier = 16F;
 				MassacreText = "WICKED SICK   +1,500% exp";
 			}
 			else if (KCInRange(30, 40))
 			{
-				MassacreMultipier = 22.5f;
+				MassacreMultiplier = 22.5f;
 				MassacreText = "UNSTOPPABLE   +2,150% exp";
 			}
 			else if (KCInRange(40, 50))
 			{
-				MassacreMultipier = 35;
+				MassacreMultiplier = 35;
 				MassacreText = "GODLIKE MASSACRE   +3,400% exp";
 			}
 			else if (KCInRange(50, 65))
 			{
-				MassacreMultipier = 50;
+				MassacreMultiplier = 50;
 				MassacreText = "BEYOND GODLIKE   +4,900% exp";
 			}
 			else if (KCInRange(65, 75))
 			{
-				MassacreMultipier = 100;
+				MassacreMultiplier = 100;
 				MassacreText = "SLAUGHTER   +9,900% exp";
 			}
 			else if (KCInRange(75, 100))
 			{
-				MassacreMultipier = 250;
+				MassacreMultiplier = 250;
 				MassacreText = "BLOODBATH   +24,900% exp";
 			}
 			else if (MassacreKills >= 100)
 			{
-				MassacreMultipier = 1000;
+				MassacreMultiplier = 1000;
 				MassacreText = "R A M P A G E    +100,000% exp";
 			}
 		}
@@ -1102,9 +1093,9 @@ namespace ChampionsOfForest.Player
 		private void FinishMassacre()
 		{
 			TimeUntillMassacreReset = 0;
-			long Amount = Convert.ToInt64((double)NewlyGainedExp * MassacreMultipier);
+			long Amount = Convert.ToInt64((double)NewlyGainedExp * MassacreMultiplier);
 			NewlyGainedExp = 0;
-			MassacreMultipier = 1;
+			MassacreMultiplier = 1;
 			AddFinalExperience(Amount);
 		}
 
@@ -1124,8 +1115,8 @@ namespace ChampionsOfForest.Player
 			MoreCraftingReceipes.Initialize();
 
 			//Multishot
-			Effects.Multishot.localPlayerInstance = Effects.Multishot.Create(LocalPlayer.Transform, ModReferences.rightHandTransform);
-			Effects.Multishot.localPlayerInstance.SetActive(false);
+			Multishot.localPlayerInstance = Multishot.Create(LocalPlayer.Transform, ModReferences.rightHandTransform);
+			Multishot.localPlayerInstance.SetActive(false);
 
 			//yield return null;
 			//do
@@ -1319,7 +1310,7 @@ namespace ChampionsOfForest.Player
 		public static int RangedRepetitions()
 		{
 			int repeats = 1;
-			if (Effects.Multishot.IsOn)
+			if (Multishot.IsOn)
 			{
 				bool b = Stats.i_SoraBracers ? SpellCaster.RemoveStamina(7*Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f)) : SpellCaster.RemoveStamina(10 * Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f));
 				if (b)
@@ -1330,8 +1321,8 @@ namespace ChampionsOfForest.Player
 				}
 				else
 				{
-					Effects.Multishot.IsOn = false;
-					Effects.Multishot.localPlayerInstance.SetActive(false);
+					Multishot.IsOn = false;
+					Multishot.localPlayerInstance.SetActive(false);
 				}
 			}
 			return repeats;

@@ -1,6 +1,5 @@
 ﻿using TheForest.Items.World;
 using TheForest.Utils;
-
 using UnityEngine;
 
 namespace ChampionsOfForest.Player
@@ -14,11 +13,7 @@ namespace ChampionsOfForest.Player
 
 			for (int i = 0; i < repeats; i++)
 			{
-				bool noconsume = false;
-				if (ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance)
-				{
-					noconsume = true;
-				}
+				bool noconsume = ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance;
 				if (noconsume || LocalPlayer.Inventory.RemoveItem(_ammoItemId, 1, false, true))
 				{
 					Vector3 position = _ammoSpawnPos.transform.position;

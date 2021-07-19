@@ -1,16 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Bolt;
-
 using ChampionsOfForest.Network;
-
 using TheForest.Utils;
-
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Spells
@@ -95,7 +87,7 @@ namespace ChampionsOfForest.Player.Spells
 			p = gameObject.AddComponent<ParticleSystem>();
 			//p.transform.Rotate(Vector3.right * 120);
 			Renderer r = p.GetComponent<Renderer>();
-			r.material = ChampionsOfForest.Enemies.EnemyAbilities.SnowAura.ParticleMaterial;
+			r.material = Enemies.EnemyAbilities.SnowAura.ParticleMaterial;
 
 			s = p.shape;
 			s.shapeType = ParticleSystemShapeType.Sphere;
@@ -197,8 +189,8 @@ namespace ChampionsOfForest.Player.Spells
 							{
 								{
 									var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, entity, this);
-									ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-									ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+									COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+									COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 								}
 								ModdedPlayer.instance.OnHit();
 								onHitEffectProcs++;
@@ -242,8 +234,8 @@ namespace ChampionsOfForest.Player.Spells
 						}
 						{
 							var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, prog, this);
-							ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+							COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+							COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 						}
 						if (ModdedPlayer.Stats.spell_snowstormPullEnemiesIn)
 						{
@@ -270,7 +262,8 @@ namespace ChampionsOfForest.Player.Spells
 			{
 				StartCoroutine(CastAsync(count));
 			}
-			public IEnumerator CastAsync(int count)
+
+			private IEnumerator CastAsync(int count)
 			{
 				Vector3 pos = instance.cam.position + instance.offset;
 				Vector3 right = instance.cam.transform.right;
@@ -481,8 +474,8 @@ namespace ChampionsOfForest.Player.Spells
 						{
 							{
 								var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, entity, this);
-								ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-								ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+								COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+								COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 							}
 							var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 							phe.Target = entity;
@@ -520,8 +513,8 @@ namespace ChampionsOfForest.Player.Spells
 							var progression = EnemyManager.enemyByTransform[other.transform.root];
 							{
 								var hitContext = new COTFEvents.HitOtherParams(dmgOutput, crit != 1, progression, this);
-								ChampionsOfForest.COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
-								ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+								COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
+								COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 							}
 							progression.HitMagic(dmgOutput);
 							if (crit > 1)

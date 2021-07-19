@@ -49,7 +49,7 @@ namespace ChampionsOfForest
 					other.gameObject.SendMessageUpwards("enableController", SendMessageOptions.DontRequireReceiver);
 					if (other.gameObject.CompareTag("enemyCollide"))
 					{
-						this.mutantSetup = other.transform.root.GetComponentInChildren<global::mutantScriptSetup>();
+						this.mutantSetup = other.transform.root.GetComponentInChildren<mutantScriptSetup>();
 						if (this.mutantSetup && !this.mutantSetup.ai.creepy && !this.mutantSetup.ai.creepy_male && !this.mutantSetup.ai.creepy_fat && !this.mutantSetup.ai.creepy_baby)
 						{
 							other.gameObject.SendMessageUpwards("setCurrentTrap", base.gameObject, SendMessageOptions.DontRequireReceiver);
@@ -66,7 +66,7 @@ namespace ChampionsOfForest
 						return;//noose traps are too strong against elites
 							   //so they no longer work on them
 
-					global::mutantHitReceiver component = other.transform.GetComponent<global::mutantHitReceiver>();
+					mutantHitReceiver component = other.transform.GetComponent<mutantHitReceiver>();
 					if (other.gameObject.CompareTag("enemyCollide"))
 					{
 						if (component)
@@ -74,13 +74,13 @@ namespace ChampionsOfForest
 							component.inNooseTrap = true;
 							component.DisableWeaponHits(2f);
 						}
-						this.mutantSetup = other.transform.root.GetComponentInChildren<global::mutantScriptSetup>();
+						this.mutantSetup = other.transform.root.GetComponentInChildren<mutantScriptSetup>();
 					}
 					this.trappedMutants.Clear();
 					this.trappedMutantMasks.Clear();
 					GameObject gameObject = other.transform.root.gameObject;
 					this.addTrappedMutant(gameObject);
-					global::mutantScriptSetup componentInChildren = other.transform.root.GetComponentInChildren<global::mutantScriptSetup>();
+					mutantScriptSetup componentInChildren = other.transform.root.GetComponentInChildren<mutantScriptSetup>();
 					if (componentInChildren && componentInChildren.ai && componentInChildren.ai.pale)
 					{
 						this.FixPalePosition(componentInChildren, true);

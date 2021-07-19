@@ -19,7 +19,7 @@ namespace ChampionsOfForest
 
 		public static Difficulty difficulty = Difficulty.Easy;
 		public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.Disabled;
-		public static bool DifficultyChoosen = false;
+		public static bool DifficultyChosen = false;
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
 		public static bool killOnDowned = false;
@@ -30,10 +30,7 @@ namespace ChampionsOfForest
 		public const bool RequiresNewSave = true;
 		public const string RequiresNewSaveVersion = "1.6.0.2";
 
-		public static readonly List<int> outdatedFiles = new List<int>()
-		{
-
-		};
+		public static readonly List<int> outdatedFiles = new List<int>();
 
 		public static float DropQuantityMultiplier = 1;
 		public static float DropChanceMultiplier = 1;

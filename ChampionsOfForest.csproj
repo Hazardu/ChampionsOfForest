@@ -290,7 +290,7 @@
     <Compile Include="Player\Spells\ForceGrab.cs" />
     <Compile Include="Res\Buildings.cs" />
     <Compile Include="Enemies\BossScriptEX.cs" />
-    <Compile Include="Enemies\ClinetEnemyProgression.cs" />
+    <Compile Include="Enemies\ClientEnemyProgression.cs" />
     <Compile Include="Enemies\EnemyAbilities\MeteorSpawner.cs" />
     <Compile Include="Enemies\EnemyHitTriggerMod.cs" />
     <Compile Include="Enemies\EnemyAbilities\EnemyLaser.cs" />

@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class ClinetItemPicker : MonoBehaviour
+	public class ClientItemPicker : MonoBehaviour
 	{
 		public static Transform cam;
 		public static float radius = 6.5f;
 
 		#region Instance
 
-		public static ClinetItemPicker Instance
+		public static ClientItemPicker Instance
 		{
 			get;
 			private set;

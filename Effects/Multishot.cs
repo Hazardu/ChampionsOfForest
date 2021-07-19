@@ -47,10 +47,10 @@ namespace ChampionsOfForest.Effects
 			c.child2.localScale *= 2;
 			c.child3.localScale *= 4;
 
-			GameObject leftclone = Instantiate(go, go.transform.position + Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
-			GameObject rightclone = Instantiate(go, go.transform.position - Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
-			leftclone.transform.localScale *= 0.5f;
-			rightclone.transform.localScale *= 0.5f;
+			GameObject leftClone = Instantiate(go, go.transform.position + Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
+			GameObject rightClone = Instantiate(go, go.transform.position - Vector3.right * 0.6f*4, Quaternion.identity, go.transform);
+			leftClone.transform.localScale *= 0.5f;
+			rightClone.transform.localScale *= 0.5f;
 			go.transform.localScale /= 3.5f;
 			c.child1.localScale *= 0.4f;
 			c.child2.localScale *= 0.4f;

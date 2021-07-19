@@ -18,8 +18,8 @@ namespace ChampionsOfForest.Network
 		{
 			//this needed to be changed.
 			//the command would send damage using hitReal - pure damage.
-			//this made clinets attack ignore armor and deal too much dmg
-			if (!this.ValidateSender(ev, global::SenderTypes.Any))
+			//this made clients attack ignore armor and deal too much dmg
+			if (!this.ValidateSender(ev, SenderTypes.Any))
 			{
 				return;
 			}
@@ -33,9 +33,9 @@ namespace ChampionsOfForest.Network
 			}
 			try
 			{
-				if (global::EnemyHealth.CurrentAttacker == null)
+				if (EnemyHealth.CurrentAttacker == null)
 				{
-					global::EnemyHealth.CurrentAttacker = ev.Target;
+					EnemyHealth.CurrentAttacker = ev.Target;
 				}
 				var packed = ev.Target.networkId.PackedValue;
 				if (EnemyManager.hostDictionary.ContainsKey(packed))
@@ -93,14 +93,14 @@ namespace ChampionsOfForest.Network
 				}
 
 				//Fuck all of this spaghetti below
-				global::lb_Bird component = ev.Target.GetComponent<global::lb_Bird>();
-				global::Fish componentInChildren = ev.Target.GetComponentInChildren<global::Fish>();
+				lb_Bird component = ev.Target.GetComponent<lb_Bird>();
+				Fish componentInChildren = ev.Target.GetComponentInChildren<Fish>();
 				Transform transform;
 				if (componentInChildren)
 				{
 					transform = componentInChildren.transform;
 				}
-				else if (ev.Target.GetComponent<global::animalHealth>())
+				else if (ev.Target.GetComponent<animalHealth>())
 				{
 					transform = ev.Target.transform;
 				}
@@ -110,22 +110,15 @@ namespace ChampionsOfForest.Network
 				}
 				else
 				{
-					global::EnemyHealth componentInChildren2 = ev.Target.GetComponentInChildren<global::EnemyHealth>();
-					if (componentInChildren2)
-					{
-						transform = componentInChildren2.transform;
-					}
-					else
-					{
-						transform = ev.Target.transform.GetChild(0);
-					}
+					EnemyHealth componentInChildren2 = ev.Target.GetComponentInChildren<EnemyHealth>();
+					transform = componentInChildren2 ? componentInChildren2.transform : ev.Target.transform.GetChild(0);
 				}
 				if (ev.getAttacker == 10 && ev.Weapon)
 				{
-					global::ArrowDamage componentInChildren3 = ev.Weapon.GetComponentInChildren<global::ArrowDamage>();
+					ArrowDamage componentInChildren3 = ev.Weapon.GetComponentInChildren<ArrowDamage>();
 					if (componentInChildren3.Live)
 					{
-						global::arrowStickToTarget componentInChildren4 = transform.GetComponentInChildren<global::arrowStickToTarget>();
+						arrowStickToTarget componentInChildren4 = transform.GetComponentInChildren<arrowStickToTarget>();
 						Transform target = transform;
 						if (componentInChildren4)
 						{
@@ -149,7 +142,7 @@ namespace ChampionsOfForest.Network
 				float dmg = ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
 				if (ev.hitFallDown)
 				{
-					global::mutantHitReceiver componentInChildren5 = transform.GetComponentInChildren<global::mutantHitReceiver>();
+					mutantHitReceiver componentInChildren5 = transform.GetComponentInChildren<mutantHitReceiver>();
 					if (componentInChildren5)
 					{
 						componentInChildren5.sendHitFallDown(dmg);
@@ -185,7 +178,7 @@ namespace ChampionsOfForest.Network
 			}
 			finally
 			{
-				global::EnemyHealth.CurrentAttacker = null;
+				EnemyHealth.CurrentAttacker = null;
 			}
 		}
 
@@ -196,7 +189,7 @@ namespace ChampionsOfForest.Network
 			//but with commands sent directly there is no need. This adds unnecessary latency.
 			//additionally all events like experience after a kill would be proc twice for clients.
 
-			if (!this.ValidateSender(evnt, global::SenderTypes.Any))
+			if (!this.ValidateSender(evnt))
 			{
 				return;
 			}
@@ -269,7 +262,7 @@ namespace ChampionsOfForest.Network
 
 	public class BoltConnectionEx : BoltConnection
 	{
-		public BoltConnectionEx(UdpKit.UdpConnection c) : base(c)
+		public BoltConnectionEx(UdpConnection c) : base(c)
 		{
 		}
 

@@ -10,7 +10,7 @@ namespace ChampionsOfForest.Player
 		}
 		void ValueChanged();
 		void WriteToCommand(BinaryWriter writer);
-		void RecievedOtherPlayerChange(BinaryReader reader);
+		void ReceivedOtherPlayerChange(BinaryReader reader);
 		void PlayerDisconnected();
 
 	}

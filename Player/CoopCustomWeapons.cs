@@ -97,8 +97,8 @@ namespace ChampionsOfForest.Player
 			//longsword
 			AddWeapon(BaseItem.WeaponModelType.LongSword,
 				51,
-				BuilderCore.Core.CreateMaterial(
-					new BuilderCore.BuildingData()
+				Core.CreateMaterial(
+					new BuildingData()
 					{
 						MainTexture = Res.ResourceLoader.instance.LoadedTextures[60],
 						Metalic = 0.86f,
@@ -113,8 +113,8 @@ namespace ChampionsOfForest.Player
 			//great sword
 			AddWeapon(BaseItem.WeaponModelType.GreatSword,
 				52,
-				BuilderCore.Core.CreateMaterial(
-					new BuilderCore.BuildingData()
+				Core.CreateMaterial(
+					new BuildingData()
 					{
 						OcclusionStrenght = 0.75f,
 						Smoothness = 0.6f,
@@ -134,8 +134,8 @@ namespace ChampionsOfForest.Player
 			//hammer
 			AddWeapon(BaseItem.WeaponModelType.Hammer,
 					 108,
-					 BuilderCore.Core.CreateMaterial(
-						 new BuilderCore.BuildingData()
+					 Core.CreateMaterial(
+						 new BuildingData()
 						 {
 							 Metalic = 0.86f,
 							 Smoothness = 0.66f,
@@ -194,7 +194,7 @@ namespace ChampionsOfForest.Player
 			}
 			catch (System.Exception e)
 			{
-				ModAPI.Console.Write("adding weapon error\n" + e.ToString());
+				ModAPI.Console.Write("adding weapon error\n" + e);
 			}
 		}
 
@@ -222,7 +222,7 @@ namespace ChampionsOfForest.Player
 			}
 			catch (System.Exception e)
 			{
-				ModAPI.Console.Write("adding weapon error\n" + e.ToString());
+				ModAPI.Console.Write("adding weapon error\n" + e);
 			}
 		}
 
@@ -233,7 +233,7 @@ namespace ChampionsOfForest.Player
 			{
 				int i = pair.Key;
 				pair.Value.SetActive(true);
-				GameObject clone = GameObject.Instantiate(pair.Value, handTransform);
+				GameObject clone = Instantiate(pair.Value, handTransform);
 				dict.Add(pair.Key, clone);
 				clone.SetActive(false);
 				pair.Value.SetActive(false);

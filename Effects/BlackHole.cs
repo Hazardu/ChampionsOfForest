@@ -102,8 +102,7 @@ namespace ChampionsOfForest
 				col.isTrigger = true;
 			}
 			scale = 0;
-			particleGO = new GameObject("BlackHoleParticles");
-			particleGO.transform.position = transform.position;
+			particleGO = new GameObject("BlackHoleParticles") { transform = { position = transform.position } };
 			particleGO.transform.SetParent(transform);
 			sys = particleGO.AddComponent<ParticleSystem>();
 			ParticleSystem.ShapeModule shape = sys.shape;
@@ -260,7 +259,7 @@ namespace ChampionsOfForest
 						if (casterID == ModReferences.ThisPlayerID)
 						{
 							//local Player Callback
-							Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+							SpellActions.CastBallLightning(transform.position, Vector3.down);
 						}
 						else
 						{
@@ -284,7 +283,7 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					Player.SpellActions.CastBallLightning(transform.position, Vector3.down);
+					SpellActions.CastBallLightning(transform.position, Vector3.down);
 				}
 			}
 		}

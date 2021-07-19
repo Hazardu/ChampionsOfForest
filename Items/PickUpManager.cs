@@ -15,7 +15,7 @@ namespace ChampionsOfForest
 		private static GameObject chestPrefab;
 
 		/// <summary>
-		/// spawns a pickup for the clinet.
+		/// spawns a pickup for the client.
 		/// </summary>
 		public static void SpawnPickUp(Item item, Vector3 pos, int amount, ulong id)
 		{
@@ -169,48 +169,40 @@ namespace ChampionsOfForest
 
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[44];
 							spawn.transform.localScale *= 1.1f;
-
 							break;
 
 						case BaseItem.ItemType.Pants:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[50];
 							spawn.transform.localScale *= 1.75f;
-
 							break;
 
 						case BaseItem.ItemType.ChestArmor:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[42];
 							spawn.transform.localScale *= 1.5f;
-
 							break;
 
 						case BaseItem.ItemType.ShoulderArmor:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[53];
 							spawn.transform.localScale *= 1.65f;
-
 							break;
 
 						case BaseItem.ItemType.Glove:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[41];
 							spawn.transform.localScale *= 2.22f;
-
 							break;
 
 						case BaseItem.ItemType.Bracer:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[45];
-
 							break;
 
 						case BaseItem.ItemType.Amulet:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[40];
 							spawn.transform.localScale *= 0.85f;
-
 							break;
 
 						case BaseItem.ItemType.Ring:
 							filter.mesh = Res.ResourceLoader.instance.LoadedMeshes[43];
 							spawn.transform.localScale *= 0.85f;
-
 							break;
 
 						default:
@@ -239,7 +231,7 @@ namespace ChampionsOfForest
 						}
 					}
 
-				aftercolorsetup:
+					aftercolorsetup:
 					var bounds = filter.mesh.bounds;
 					col.size = bounds.size;
 					col.center = bounds.center;

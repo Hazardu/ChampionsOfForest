@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
+﻿using System.IO;
 using TheForest.Utils;
 
 namespace ChampionsOfForest.Network.Commands
@@ -17,17 +12,14 @@ namespace ChampionsOfForest.Network.Commands
 	}
 	public class Command_UpdateDynamicCP : COTFCommand<UpdateCProgressionCommandParam>
 	{
-		public static void Initalize()
+		public static void Initialize()
 		{
 			if (instance != null)
 				return;
-			else
-			{
-				instance = new Command_UpdateDynamicCP();
-				instance.commandIndex = CommandReader.curr_cmd_index++;
-				CommandReader.commandsObjects_dict.Add(instance.commandIndex, Received);
-				ModAPI.Log.Write($"command {instance.commandIndex} registered");
-			}
+			instance = new Command_UpdateDynamicCP();
+			instance.commandIndex = CommandReader.curr_cmd_index++;
+			CommandReader.commandsObjects_dict.Add(instance.commandIndex, Received);
+			ModAPI.Log.Write($"command {instance.commandIndex} registered");
 		}
 		protected override void OnReceived(UpdateCProgressionCommandParam param, BinaryReader r)
 		{
@@ -36,7 +28,7 @@ namespace ChampionsOfForest.Network.Commands
 				var entity = BoltNetwork.FindEntity(new Bolt.NetworkId(param.packed));
 				if (EnemyManager.clinetProgressions.ContainsKey(entity))
 				{
-					ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+					ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
 					cp.UpdateDynamic(param.health, param.armor, param.armor_reduction);
 				}
 				else

@@ -45,7 +45,6 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						int lvl = CraftingHandler.changedItem.i.level;
 						var v = ItemDataBase.ItemBases.Where(x => x.Value.ID != CraftingHandler.changedItem.i.ID && x.Value.Rarity == CraftingHandler.changedItem.i.Rarity).Select(x => x.Value).ToArray();
-						;
 						var ib = v[UnityEngine.Random.Range(0, v.Length)];
 
 						var newItem = new Item(ib, 1, 0, false)
@@ -118,7 +117,7 @@ namespace ChampionsOfForest.Player.Crafting
 					}
 					catch (Exception e)
 					{
-						Debug.LogWarning("reroll stats button ex " + e.ToString());
+						Debug.LogWarning("reroll stats button ex " + e);
 					}
 				}
 				float baseX = x + ((w - 240 * screenScale) / 2);

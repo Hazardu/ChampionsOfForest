@@ -12,7 +12,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		public float Radius;
 		private float Lifetime;
 		private readonly float rotSpeed = 30f;
-		private bool coughtPlayer = false;
+		private bool caughtPlayer = false;
 		private Transform playerTransform;
 		public static GameObject Prefab;
 		private static Material mat;
@@ -55,25 +55,25 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		{
 			transform.Rotate((transform.forward + transform.up + Vector3.right) * rotSpeed * Time.deltaTime);
 			Lifetime += Time.deltaTime;
-			if (coughtPlayer && ModdedPlayer.Stats.stunImmunity == 0 && playerTransform != null)
+			if (caughtPlayer && ModdedPlayer.Stats.stunImmunity == 0 && playerTransform != null)
 			{
 				var mag = (playerTransform.position - transform.position).sqrMagnitude;
 				if (mag > Radius * Radius)
 				{
 					playerTransform.position = Vector3.MoveTowards(playerTransform.position, transform.position, mag / 2 * Time.deltaTime);
-					Player.BuffDB.AddBuff(5, 71, 0.6f, 5);
-					Player.BuffDB.AddBuff(10, 72, 0.6f, 5);
+					BuffDB.AddBuff(5, 71, 0.6f, 5);
+					BuffDB.AddBuff(10, 72, 0.6f, 5);
 				}
 			}
 			else
 			{
-				coughtPlayer = false;
+				caughtPlayer = false;
 			}
 			if (Lifetime < Duration)
 			{
 				if ((LocalPlayer.Transform.root.position - transform.position).sqrMagnitude < Radius * Radius - 2)
 				{
-					coughtPlayer = true;
+					caughtPlayer = true;
 					playerTransform = LocalPlayer.Transform.root;
 				}
 			}

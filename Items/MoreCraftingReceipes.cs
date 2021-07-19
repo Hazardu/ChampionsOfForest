@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using ChampionsOfForest;
-
-using TheForest.Items;
 using TheForest.Items.Craft;
 using TheForest.Utils;
 
@@ -69,7 +65,7 @@ public static class MoreCraftingReceipes
 			_NextReceipeId = IdStartIndex;
 			try
 			{
-				Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.Where(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).FirstOrDefault().CopyReceipe();
+				Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.FirstOrDefault(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).CopyReceipe();
 				poisonArrowsCopy._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
 				poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 15);
 				poisonArrowsCopy._name = "Modern Arrows";
@@ -204,7 +200,7 @@ public static class MoreCraftingReceipes
 				_min = productItemAmout
 			},
 			_productItemID = (int)productItemId,
-			_productItemType = TheForest.Items.ItemDatabase.ItemById((int)productItemId)._type,
+			_productItemType = ItemDatabase.ItemById((int)productItemId)._type,
 			_type = Receipe.Types.Craft,
 			_weaponStatUpgrades = new WeaponStatUpgrade[0]
 		};
