@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ChampionsOfForest;
+
+using TheForest.Items;
 using TheForest.Items.Craft;
 using TheForest.Utils;
 
@@ -76,28 +78,28 @@ public static class MoreCraftingReceipes
 
 				ModAPI.Log.Write("Exception copying receipe " + e);
 			}
-			CreateReceipe(FLINTLOCKAMMO, 3,
+			CreateRecipe(FLINTLOCKAMMO, 3,
 				CreateReceipeIngredient(COINS, 15),
 				CreateReceipeIngredient(SMALLROCK, 3),
 				CreateReceipeIngredient(ROCK, 1))._name = "Flintlock ammo";
 
-			CreateReceipe(CROSSBOWAMMO, 1,
+			CreateRecipe(CROSSBOWAMMO, 1,
 				CreateReceipeIngredient(ROCK, 1),
 				CreateReceipeIngredient(STICK, 1))._name = "Crossbow bolts";
 
-			CreateReceipe(CLOTH, 10,
+			CreateRecipe(CLOTH, 10,
 				CreateReceipeIngredient(DEERSKIN, 1))._name = "Cloth";
 
-			CreateReceipe(CLOTH, 8,
+			CreateRecipe(CLOTH, 8,
 				CreateReceipeIngredient(RABBITSKIN, 1))._name = "Cloth";
 
-			CreateReceipe(CLOTH, 8,
+			CreateRecipe(CLOTH, 8,
 				CreateReceipeIngredient(RACOONSKIN, 1))._name = "Cloth";
 
-			CreateReceipe(CLOTH, 10,
+			CreateRecipe(CLOTH, 10,
 				CreateReceipeIngredient(BOARSKIN, 1))._name = "Cloth";
 
-			CreateReceipe(AXEPLANE, 1,
+			CreateRecipe(AXEPLANE, 1,
 				CreateReceipeIngredient(AXECRAFTED, 1),
 				CreateReceipeIngredient(ROPE, 1),
 				CreateReceipeIngredient(STICK, 2),
@@ -188,7 +190,7 @@ public static class MoreCraftingReceipes
 			_weaponStatUpgrades = r._weaponStatUpgrades
 		};
 	}
-	public static Receipe CreateReceipe(VanillaItemIDs productItemId, int productItemAmout, params ReceipeIngredient[] receipeIngredients)
+	public static Receipe CreateRecipe(VanillaItemIDs productItemId, int productItemAmout, params ReceipeIngredient[] receipeIngredients)
 	{
 		var r = new Receipe
 		{
