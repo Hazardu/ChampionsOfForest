@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 0,
 				name = "Stronger Hits",
-				originalDescription = "Gene allows muscules to quickly change their structure to a more efficient one.\nEvery point of STRENGHT increases MEELE DAMAGE by 1%.",
+				originalDescription = "Gene allows muscles to quickly change their structure to a more efficient one.\nEvery point of STRENGTH increases MEELE DAMAGE by 1%.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -65,7 +65,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 0,
 				name = "Stronger Projectiles",
-				originalDescription = "Neural connections between muscules and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 1%.",
+				originalDescription = "Neural connections between muscles and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 1%.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -82,7 +82,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 0,
 				name = "Inner Energy",
-				originalDescription = "Heart's muscules become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by 1%.",
+				originalDescription = "Heart's muscles become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by 1%.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -116,7 +116,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 0,
 				name = "More Health",
-				originalDescription = "Skin and bones become more resisitant to injuries.\nEvery point of VITALITY increases max health by 1.75",
+				originalDescription = "Skin and bones become more resistant to injuries.\nEvery point of VITALITY increases max health by 1.75",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -133,7 +133,7 @@ namespace ChampionsOfForest.Player
 				posX = -1.5f,
 				posY = 0,
 				name = "More Healing",
-				originalDescription = "Blood becomes denser and binds more oxygen, is less vunerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 7.5%",
+				originalDescription = "Blood becomes denser and binds more oxygen, is less vulnerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 7.5%",
 				updateDescription = x =>
 				{
 					float f = 1.05f;
@@ -252,7 +252,7 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -0.75f,
 				name = "Projectile Damage",
-				originalDescription = "Shoulder muscules grow.\nIncreases projectile damage by 8",
+				originalDescription = "Shoulder muscles grow.\nIncreases projectile damage by 8",
 				textureVariation = 0, //0 or 1
 				uncapped = true,
 				updateDescription = x =>
@@ -314,7 +314,7 @@ namespace ChampionsOfForest.Player
 				posX = 2.5f,
 				posY = 0f,
 				name = "Transmutation",
-				originalDescription = "The costs of casting spells become easier to quicly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.",
+				originalDescription = "The costs of casting spells become easier to quickly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
 			};
@@ -573,7 +573,7 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -0.75f,
 				name = "Bonus Health",
-				originalDescription = "Increases health by 25. This is further multipied by maximum health percent.",
+				originalDescription = "Increases health by 25. This is further multiplied by maximum health percent.",
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
@@ -593,7 +593,7 @@ namespace ChampionsOfForest.Player
 				posX = -2.5f,
 				posY = 0f,
 				name = "Health Regen",
-				originalDescription = "Increases health per second regeneration by 0.25 HP/second. This is further multipied by health regen percent and all healing percent.",
+				originalDescription = "Increases health per second regeneration by 0.25 HP/second. This is further multiplied by health regeneration percent and all healing percent.",
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
@@ -1130,8 +1130,8 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -11.5f,
 				posY = 0,
-				name = "More Misceleanous Items",
-				originalDescription = "Increases carry amount of pots, turtle shells, watches, circuit boards, air carnisters and flares by 5",
+				name = "More Miscellaneous Items",
+				originalDescription = "Increases carry amount of pots, turtle shells, watches, circuit boards, air canisters and flares by 5",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1308,11 +1308,11 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
-				 {
-					 float f1 = 0.15f * x;
-					 float f2 = Mathf.Pow(1.2f, x);
-					 return $"Total increase to spell damage: {f1:P}\nspell cost: {f2 - 1f:P1}";
-				 }
+				{
+					float f1 = 0.15f * x;
+					float f2 = Mathf.Pow(1.2f, x);
+					return $"Total increase to spell damage: {f1:P}\nspell cost: {f2 - 1f:P1}";
+				}
 			};
 			new Perk()
 			{
@@ -1423,7 +1423,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 2.5f,
 				posY = 1.5f,
-				name = "Overhelming Odds",
+				name = "Overwhelming Odds",
 				originalDescription = "Increases Critical chance by 10%.",
 				textureVariation = 0,
 				uncapped = false,
@@ -1457,7 +1457,7 @@ namespace ChampionsOfForest.Player
 				posY = -1.5f,
 				name = "Multishot Empower",
 				originalDescription = "Increases the projectile count of multishot by 2, also increases the spells cost. Multishot does not apply to spears.",
-				updateDescription = x => string.Format("\nMultishot cost now: {0}\nCost after upgrading: {1}", (10 * Mathf.Pow(2 * x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")),
+				updateDescription = x => $"\nMultishot cost now: {(10 * Mathf.Pow(2 * x, 1.75f)).ToString("N")}\nCost after upgrading: {(10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")}",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1617,7 +1617,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = -1.5f,
 				name = "Near Death Experience",
-				originalDescription = "Upon recieving fatal damage, instead of dieing restore your health to 100% and gain 5 seconds of immunity to debuffs. This may occur once every 10 minutes",
+				originalDescription = "Upon receiving fatal damage, instead of dieing restore your health to 100% and gain 5 seconds of immunity to debuffs. This may occur once every 10 minutes",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1633,7 +1633,7 @@ namespace ChampionsOfForest.Player
 				posX = -2f,
 				posY = -3.75f,
 				name = "Seeking Arrow - Head Hunting",
-				originalDescription = "Seeking arrow headshot pennalty is removed",
+				originalDescription = "Seeking arrow headshot penalty is removed",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1680,7 +1680,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = -4f,
 				posY = -3.75f,
-				name = "Seeking Arrow - Movement Imparing Arrows",
+				name = "Seeking Arrow - Movement Impairing Arrows",
 				originalDescription = "Seeking arrow slow amount is increased from 10% to 30%",
 				textureVariation = 0,
 				uncapped = false,
@@ -1825,7 +1825,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 1.5f,
 				name = "Shield - Endurance",
-				originalDescription = "Shield doesnt decay for 1 minute longer.",
+				originalDescription = "Shield doesn't decay for 1 minute longer.",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1985,7 +1985,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 1.5f,
 				posY = -1.5f,
-				name = "Enchanced vitality",
+				name = "Enhanced vitality",
 				originalDescription = "Increases max health by 10%",
 				textureVariation = 0,
 				uncapped = false,
@@ -2001,7 +2001,7 @@ namespace ChampionsOfForest.Player
 				scale = 1,
 				posX = 1.5f,
 				posY = -1.5f,
-				name = "Enchanced energy",
+				name = "Enhanced energy",
 				originalDescription = "Increases max energy by 10%",
 				textureVariation = 0,
 				uncapped = false,
@@ -2018,7 +2018,7 @@ namespace ChampionsOfForest.Player
 				posX = -0.75f,
 				posY = 1.1f,
 				name = "Rerolling",
-				originalDescription = "Opens Crafting Menu in inventory. Allows you to reroll item's properites by placing 2 items of the same rarity as ingredients.",
+				originalDescription = "Opens Crafting Menu in inventory. Allows you to reroll item's properties by placing 2 items of the same rarity as ingredients.",
 				textureVariation = 1,
 				uncapped = false,
 			};
@@ -2094,7 +2094,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = "Projectile size increases projectile's damage.",
 				textureVariation = 0, //0 or 1
 				uncapped = false,
-				updateDescription = _ => "Every 1% of increased projectile size increses ranged damage by 2%"
+				updateDescription = _ => "Every 1% of increased projectile size increases ranged damage by 2%"
 			};
 			new Perk()
 			{
@@ -2473,7 +2473,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = 0.75f,
 				name = "Counter Strike",
-				originalDescription = "When parrying, gain attack dmg for the next attack. Bonus melee damage is equial to damage of parry. This effect can stack, lasts 20 seconds, and is consumed upon performing a melee attack.",
+				originalDescription = "When parrying, gain attack dmg for the next attack. Bonus melee damage is equal to damage of parry. This effect can stack, lasts 20 seconds, and is consumed upon performing a melee attack.",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -2520,7 +2520,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -0.75f,
 				name = "Dance of the Firegod",
-				originalDescription = "When black flame is on, your melee damage is increased, based on how fast youre going. However the spell cost is increased by 10 times. Activating black flame disables berserk stamina refilling, and when black flame is put out, berserk spell returns to normal",
+				originalDescription = "When black flame is on, your melee damage is increased, based on how fast you're going. However the spell cost is increased by 10 times. Activating black flame disables berserk stamina refilling, and when black flame is put out, berserk spell returns to normal",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -2793,7 +2793,7 @@ namespace ChampionsOfForest.Player
 				posX = 3f,
 				posY = 0.75f,
 				name = "Thorny Skin",
-				originalDescription = "Every point of strength increases thorns by 1.2\nThorns scale with melee damage multipier stats",
+				originalDescription = "Every point of strength increases thorns by 1.2\nThorns scale with melee damage multiplier stats",
 				textureVariation = 0,
 				uncapped = false,
 			};

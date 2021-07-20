@@ -63,7 +63,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = SpellActions.CastFlare,
 			};
-			new Spell(iD: 5, TextureID: 118, levelrequirement: 8, energyCost: 50, name: "Sustain Shield", () => $"Channeling this spell consumes energy but grants you a protective, absorbing shield, similiar to additional health. The shield's power increases every second untill reaching max value. The shield persists for {ModdedPlayer.Stats.spell_shieldPersistanceLifetime} seconds after channeling stops, and after that it rapidly disperses.")
+			new Spell(iD: 5, TextureID: 118, levelrequirement: 8, energyCost: 50, name: "Sustain Shield", () => $"Channeling this spell consumes energy but grants you a protective, absorbing shield, similar to additional health. The shield's power increases every second until reaching max value. The shield persists for {ModdedPlayer.Stats.spell_shieldPersistanceLifetime} seconds after channeling stops, and after that it rapidly disperses.")
 			{
 				active = SpellActions.CastSustainShieldActive,
 				passive = SpellActions.CastSustainShielPassive,
@@ -103,7 +103,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = GoldenSkin.Cast,
 			};
-			new Spell(iD: 13, TextureID: 132, levelrequirement: 7, energyCost: 40, baseCooldown: 16, name: "Purge", () => "Everyone in your surroudings gets cleansed of their negative debuffs. Negates poison.")
+			new Spell(iD: 13, TextureID: 132, levelrequirement: 7, energyCost: 40, baseCooldown: 16, name: "Purge", () => "Everyone in your surroundings gets cleansed of their negative debuffs. Negates poison.")
 			{
 				active = SpellActions.CastPurge,
 			};
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = SpellActions.CastSnapFreeze,
 			};
-			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, hovewer, you take increased damage.")
+			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, however, you take increased damage.")
 			{
 				active = Berserker.Cast,
 			};
@@ -170,7 +170,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = () => SpellActions.RipAFatOne(),
 			};
-			new Spell(25, 189, 9, 40, 45, "Taunt", () => "Makes enemies hyper agressive and forces them to attack you. Taunted enemies move twice attack twice as fast and take 50% increased damage")
+			new Spell(25, 189, 9, 40, 45, "Taunt", () => "Makes enemies hyper aggressive and forces them to attack you. Taunted enemies move twice attack twice as fast and take 50% increased damage")
 			{
 				active = Taunt.OnSpellUsed,
 				CastOnRelease = true,
