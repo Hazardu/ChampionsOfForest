@@ -1,8 +1,12 @@
 ﻿using System.Reflection;
 
 using ChampionsOfForest.Player;
+
 using TheForest.Utils;
+
 using UnityEngine;
+using UnityEngine.UI;
+
 using Input = UnityEngine.Input;
 
 namespace ChampionsOfForest
@@ -42,7 +46,7 @@ namespace ChampionsOfForest
 					w.Write(Random.Range(-100000, 100000));
 					w.Close();
 				}
-				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}

@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Player
 			}
 			if (ModdedPlayer.Stats.spell_blinkDoExplosion)
 			{
-				Effects.Sound_Effects.GlobalSFX.Play(1005);
+				ChampionsOfForest.Effects.Sound_Effects.GlobalSFX.Play(1005);
 				var raycastHitExplosion = Physics.OverlapSphere(blinkPoint, (blinkPoint - t.position).magnitude / 4f);
 				float dmg = ModdedPlayer.Stats.spell_blinkDamage + LocalPlayer.Rigidbody.velocity.magnitude * ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_blinkDamageScaling/7f;
 				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.RandomCritDamage;
@@ -178,7 +178,7 @@ namespace ChampionsOfForest.Player
 					w.Write(ModdedPlayer.Stats.spell_healingDomeDuration);
 					w.Close();
 				}
-				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -233,7 +233,7 @@ namespace ChampionsOfForest.Player
 					w.Write(radius);
 					w.Close();
 				}
-				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -313,7 +313,7 @@ namespace ChampionsOfForest.Player
 					w.Write(ModdedPlayer.Stats.i_sparkOfLightAfterDark ? ModReferences.ThisPlayerID : "");
 					w.Close();
 				}
-				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 			//        return;
@@ -361,7 +361,7 @@ namespace ChampionsOfForest.Player
 			ShieldCastTime = Time.time;
 		}
 
-		public static void CastSustainShieldPassive(bool on)
+		public static void CastSustainShielPassive(bool on)
 		{
 			if (!on)
 			{
@@ -413,7 +413,7 @@ namespace ChampionsOfForest.Player
 						w.Write(WarCryArmor);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
@@ -475,7 +475,7 @@ portal_postPickingPos:
 				if (Portal.BothPortalsActive)
 					Portal.SyncBothPortals();
 				else
-					Portal.SyncTransform(pos, ModdedPlayer.Stats.spell_portalDuration, id, LocalPlayer.IsInCaves, LocalPlayer.IsInEndgame);
+				Portal.SyncTransform(pos, ModdedPlayer.Stats.spell_portalDuration, id, LocalPlayer.IsInCaves, LocalPlayer.IsInEndgame);
 			}
 		}
 
@@ -529,7 +529,7 @@ portal_postPickingPos:
 							w.Write(ModdedPlayer.Stats.spell_magicArrowDmgDebuff);
 							w.Close();
 						}
-						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 						answerStream.Close();
 					}
 				}
@@ -556,7 +556,7 @@ portal_postPickingPos:
 						w.Write(ModdedPlayer.Stats.spell_magicArrowDmgDebuff);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
@@ -615,7 +615,7 @@ portal_postPickingPos:
 						w.Write(ModdedPlayer.Stats.spell_purgeDamageBonus);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
@@ -653,13 +653,13 @@ portal_postPickingPos:
 						w.Write(dmg);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 					answerStream.Close();
 				}
 			}
 			if (!GameSetup.IsMpClient)
 			{
-				SnapFreeze.CreateEffect(pos, ModdedPlayer.Stats.spell_snapFreezeDist);
+				Effects.SnapFreeze.CreateEffect(pos, ModdedPlayer.Stats.spell_snapFreezeDist);
 				SnapFreeze.HostAction(pos, ModdedPlayer.Stats.spell_snapFreezeDist, ModdedPlayer.Stats.spell_snapFloatAmount, ModdedPlayer.Stats.spell_snapFreezeDuration, dmg);
 			}
 		}
@@ -694,7 +694,7 @@ portal_postPickingPos:
 						w.Write(dmg);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 					answerStream.Close();
 				}
 			}
@@ -713,10 +713,10 @@ portal_postPickingPos:
 						w.Write(speed.y);
 						w.Write(speed.z);
 						w.Write(dmg);
-						w.Write(BallLightning.lastID + 1);
+						w.Write((uint)(BallLightning.lastID + 1));
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 					answerStream.Close();
 				}
 				BallLightning.lastID++;
@@ -795,7 +795,7 @@ portal_postPickingPos:
 						w.Write(ModdedPlayer.Stats.spell_bashBleedChance);
 						w.Close();
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 					answerStream.Close();
 				}
 			}
@@ -901,11 +901,11 @@ portal_postPickingPos:
 		public static void SetSeekingArrowTarget(Transform bone)
 		{
 			ModdedPlayer.Stats.spell_seekingArrow.value = true;
-			SeekingArrow_Target.gameObject.SetActive(true);
-			SeekingArrow_Target.transform.parent = bone;
-			SeekingArrow_Target.transform.position = bone.position;
-			SeekingArrow_TimeStamp = Time.time;
-			SeekingArrow_ChangeTargetOnHit = false;
+			SpellActions.SeekingArrow_Target.gameObject.SetActive(true);
+			SpellActions.SeekingArrow_Target.transform.parent = bone;
+			SpellActions.SeekingArrow_Target.transform.position = bone.position;
+			SpellActions.SeekingArrow_TimeStamp = Time.time;
+			SpellActions.SeekingArrow_ChangeTargetOnHit = false;
 		}
 
 		#endregion SeekingArrow
@@ -980,7 +980,7 @@ portal_postPickingPos:
 								w.Write(dmg);
 								w.Close();
 							}
-							NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 							answerStream.Close();
 						}
 					}
@@ -997,7 +997,7 @@ portal_postPickingPos:
 								var prog = EnemyManager.enemyByTransform[hits[i].transform.root];
 								prog.HitMagic(dmg);
 								if (ModdedPlayer.Stats.spell_parryIgnites)
-									prog.HealthScript.Burn();
+								prog.HealthScript.Burn();
 							}
 						}
 					}
@@ -1040,7 +1040,7 @@ portal_postPickingPos:
 					w.Write(false);
 					w.Close();
 				}
-				NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -1066,7 +1066,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
 			Effects.Sound_Effects.GlobalSFX.Play(4);
-			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
+			Network.NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
 		}
 
 		#endregion Blood Infused Arrow
@@ -1125,7 +1125,7 @@ portal_postPickingPos:
 				}
 				if (!GameSetup.IsMpClient)
 				{
-					TheFartCreator.DealDamageAsHost(origin, back, fartRadius / 2, dmg, fartKnockback / 2, fartSlow, fartDebuffDuration / 2);
+					Effects.TheFartCreator.DealDamageAsHost(origin, back, fartRadius / 2, dmg, fartKnockback / 2, fartSlow, fartDebuffDuration / 2);
 				}
 				SpellCaster.instance.infos.First(x => x.spell.ID == 24).Cooldown /= 3;
 			}

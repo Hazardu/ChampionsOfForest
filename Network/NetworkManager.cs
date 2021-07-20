@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Network
 		{
 			if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
 			{
-				ReceiveLine(bytearray);
+				RecieveLine(bytearray);
 			}
 			else
 			{
@@ -113,7 +113,7 @@ namespace ChampionsOfForest.Network
 		{
 			if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
 			{
-				ReceiveLine(bytearray);
+				RecieveLine(bytearray);
 			}
 			else
 			{
@@ -149,10 +149,10 @@ namespace ChampionsOfForest.Network
 		}
 
 		/// <summary>
-		/// Called on receiving a message
+		/// Called on recieving a message
 		/// </summary>
 		/// <param name="s"></param>
-		public static void ReceiveLine(byte[] array)
+		public static void RecieveLine(byte[] array)
 		{
 			try
 			{
@@ -202,7 +202,7 @@ namespace ChampionsOfForest.Network
 					}
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -226,7 +226,7 @@ namespace ChampionsOfForest.Network
 					}
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -251,7 +251,7 @@ namespace ChampionsOfForest.Network
 					w.Write(c.a);
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -269,7 +269,7 @@ namespace ChampionsOfForest.Network
 					w.Write(pos.z);
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -296,7 +296,7 @@ namespace ChampionsOfForest.Network
 					w.Write(duration);
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -304,7 +304,7 @@ namespace ChampionsOfForest.Network
 		/// <summary>
 		/// Send buff to a player with a name
 		/// </summary>
-		/// <param name="id">Name identifier of the other player</param>
+		/// <param name="id">Name identificator of the other player</param>
 		public static void SendBuff(string id, int buffId, int sourceId, float amount, float duration)
 		{
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -320,7 +320,7 @@ namespace ChampionsOfForest.Network
 					w.Write(duration);
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}
@@ -341,7 +341,7 @@ namespace ChampionsOfForest.Network
 					w.Write(duration);
 					w.Close();
 				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
+				ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 				answerStream.Close();
 			}
 		}

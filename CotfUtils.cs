@@ -58,7 +58,7 @@ namespace ChampionsOfForest
 				repetitions = 1;
 				return;
 			}
-			repetitions = Mathf.FloorToInt(damage / (int.MaxValue / 5f)) + 1;
+			repetitions = Mathf.FloorToInt(damage / ((float)int.MaxValue / 5f)) + 1;
 			outdamage = Mathf.RoundToInt(damage / repetitions);
 		}
 

@@ -177,11 +177,18 @@ namespace ChampionsOfForest
 						}
 
 						GUI.Label(LevelReq, "Level " + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
-						GUI.color = ModdedPlayer.instance.MutationPoints < p.cost ? Color.red : Color.white;
+						if (ModdedPlayer.instance.MutationPoints < p.cost)
+						{
+							GUI.color = Color.red;
+						}
+						else
+						{
+							GUI.color = Color.white;
+						}
 
 						GUI.Label(Cost, "Cost in mutation points: " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = Color.white;
-						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
+						if (UnityEngine.Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
 						{
 							_timeToBuyPerk += Time.unscaledDeltaTime;
 							Buying = true;
@@ -255,7 +262,7 @@ namespace ChampionsOfForest
 				topButton.width += _perkCategorySizes[i];
 				topButton.height += _perkCategorySizes[i] / 2;
 				offset += topButton.width;
-				string content;
+				string content = string.Empty;
 				switch ((Perk.PerkCategory)menus.GetValue(i))
 				{
 					case Perk.PerkCategory.MeleeOffense:

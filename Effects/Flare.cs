@@ -57,7 +57,14 @@ namespace ChampionsOfForest
 				light.spotAngle = Mathf.Atan(Radius / 12) * 90;
 				light.intensity = 0;   //going towards 30
 				light.range = 20;
-				light.color = fromEnemy ? new Color(1, 0.0f, 0) : new Color(1f, 0.5f, 0);
+				if (fromEnemy)
+				{
+					light.color = new Color(1, 0.0f, 0);
+				}
+				else
+				{
+					light.color = new Color(1f, 0.5f, 0);
+				}
 				light.shadows = LightShadows.None;
 
 				DarkBeam comp = parent.AddComponent<DarkBeam>();
@@ -110,7 +117,14 @@ namespace ChampionsOfForest
 
 				main.maxParticles = 100000;
 				main.simulationSpace = ParticleSystemSimulationSpace.Local;
-				main.startColor = fromEnemy ? new Color(1, 0.08f, 0, 1) : new Color(0.76f, 0.0f, 1, 1);
+				if (fromEnemy)
+				{
+					main.startColor = new Color(1, 0.08f, 0, 1);
+				}
+				else
+				{
+					main.startColor = new Color(0.76f, 0.0f, 1, 1);
+				}
 				shape.shapeType = ParticleSystemShapeType.ConeVolume;
 				shape.angle = 0;
 				shape.radius = Radius;
@@ -228,15 +242,15 @@ namespace ChampionsOfForest
 					if (fromEnemy)
 					{
 						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
-						BuffDB.AddBuff(1, 5, Slow, 20);
+						Player.BuffDB.AddBuff(1, 5, Slow, 20);
 						LocalPlayer.Stats.Burn();
 					}
 					else
 					{
 						LocalPlayer.Stats.Health += Healing * Time.deltaTime;
 						LocalPlayer.Stats.HealthTarget += Healing * 1.5f * Time.deltaTime;
-						BuffDB.AddBuff(5, 6, Boost, 30);
-						BuffDB.AddBuff(26, 94, 0.5f, 10);
+						Player.BuffDB.AddBuff(5, 6, Boost, 30);
+						Player.BuffDB.AddBuff(26, 94, 0.5f, 10);
 					}
 				}
 			}

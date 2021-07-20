@@ -98,14 +98,14 @@ namespace ChampionsOfForest.Effects
 		{
 			if (hitParticleSystem == null)
 			{
-				HitParticleSystemAssign();
+				HitparticlesystemAssign();
 			}
 
 			hitParticleSystem.transform.position = pos;
 			hitParticleSystem.Emit(1);
 		}
 
-		private static void HitParticleSystemAssign()
+		private static void HitparticlesystemAssign()
 		{
 			ParticleSystem ps = new GameObject().AddComponent<ParticleSystem>();
 			hitParticleSystem = ps;

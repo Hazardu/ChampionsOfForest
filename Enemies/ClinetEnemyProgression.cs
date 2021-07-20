@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class ClientEnemyProgression
+	public class ClinetEnemyProgression
 	{
 		public struct DynamicClientEnemyProgression
 		{
@@ -42,7 +42,7 @@ namespace ChampionsOfForest
 		/// host/singleplayer constructor
 		/// </summary>
 		/// <param name="tr"></param>
-		public ClientEnemyProgression(Transform tr)
+		public ClinetEnemyProgression(Transform tr)
 		{
 			creationTime = Time.time;
 			EnemyProgression p = tr.GetComponent<EnemyProgression>();
@@ -80,7 +80,7 @@ namespace ChampionsOfForest
 			dynamicCreationTime = Time.time;
 
 		}
-		public ClientEnemyProgression(BoltEntity entity)
+		public ClinetEnemyProgression(BoltEntity entity)
 		{
 			if (!EnemyManager.clinetProgressions.ContainsKey(entity))
 			{
@@ -104,7 +104,7 @@ namespace ChampionsOfForest
 		//}
 
 		//}
-		//public static ClientEnemyProgression Update(BoltEntity entity, float hp, int ar, int arred)
+		//public static ClinetEnemyProgression Update(BoltEntity entity, float hp, int ar, int arred)
 		//{
 		//	if (EnemyManager.clinetProgressions.ContainsKey(entity))
 		//	{
@@ -119,7 +119,7 @@ namespace ChampionsOfForest
 			Entity = entity;
 			EnemyName = enemyName;
 			if(entity != null)
-				Packed = entity.networkId.PackedValue;
+			Packed = entity.networkId.PackedValue;
 			Level = level;
 			dynCEP = new DynamicClientEnemyProgression(health, armor, armorReduction);
 			MaxHealth = maxHealth;

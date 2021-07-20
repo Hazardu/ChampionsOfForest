@@ -47,10 +47,10 @@ namespace ChampionsOfForest.Player.Crafting
 						}
 						else
 						{
-							stat.Amount =stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-							if (stat.ValueCap!=0)
-								stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
-							stat.Amount *= stat.Multipier;
+						stat.Amount =stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
+						if (stat.ValueCap!=0)
+						stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
+						stat.Amount *= stat.Multipier;
 						}
 						Effects.Sound_Effects.GlobalSFX.Play(3);
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
@@ -67,7 +67,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 			public void DrawUI(in float x, in float w, in float screenScale, in GUIStyle[] styles)
 			{
-				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Item to enhance a stat", styles[3]);
+				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Item to enchance a stat", styles[3]);
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
@@ -134,7 +134,7 @@ namespace ChampionsOfForest.Player.Crafting
 					}
 					catch (Exception e)
 					{
-						Debug.LogWarning("reroll stats button ex " + e);
+						Debug.LogWarning("reroll stats button ex " + e.ToString());
 					}
 				}
 				float baseX = x + ((w - 200 * screenScale) / 2);

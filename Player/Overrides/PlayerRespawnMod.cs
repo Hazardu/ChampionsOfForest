@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player
 			ModdedPlayer.instance.ExpCurrent = 0;
 			ModdedPlayer.instance.NewlyGainedExp = 0;
 			ModdedPlayer.instance.MassacreKills = 0;
-			ModdedPlayer.instance.MassacreMultiplier = 1;
+			ModdedPlayer.instance.MassacreMultipier = 1;
 			ModdedPlayer.instance.TimeUntillMassacreReset = 0;
 			ModdedPlayer.instance.AfterRespawn();
 			BlackFlame.instance.Start();
@@ -45,7 +45,7 @@ namespace ChampionsOfForest.Player
 						w.Write(ModReferences.ThisPlayerID);
 						w.Write(ModdedPlayer.instance.level);
 					}
-					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+					Network.NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 				}
 			}
 		}

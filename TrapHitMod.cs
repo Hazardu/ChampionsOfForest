@@ -6,7 +6,7 @@ namespace ChampionsOfForest
 	{
 		protected override void registerTrapHit(Collider other)
 		{
-			if (other.GetComponent<creepyHitReactions>() && !this.disable && this.trigger.largeSpike)
+			if (other.GetComponent<global::creepyHitReactions>() && !this.disable && this.trigger.largeSpike)
 			{
 				this.sendCreepyDamageFromRoot(other);
 				if (!this.disable)
@@ -19,12 +19,12 @@ namespace ChampionsOfForest
 			{
 				if (other.gameObject.CompareTag("enemyCollide"))
 				{
-					mutantHitReceiver component = other.transform.GetComponent<mutantHitReceiver>();
+					global::mutantHitReceiver component = other.transform.GetComponent<global::mutantHitReceiver>();
 					if (component && component.inNooseTrap)
 					{
 						return;
 					}
-					explodeDummy component2 = other.GetComponent<explodeDummy>();
+					global::explodeDummy component2 = other.GetComponent<global::explodeDummy>();
 					if (component2)
 					{
 						return;

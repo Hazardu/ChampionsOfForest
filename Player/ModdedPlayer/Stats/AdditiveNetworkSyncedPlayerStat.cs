@@ -106,7 +106,7 @@ namespace ChampionsOfForest.Player
 			writer.Write(ModReferences.ThisPlayerID);
 			writer.Write(bytes);
 		}
-		public void ReceivedOtherPlayerChange(BinaryReader reader)
+		public void RecievedOtherPlayerChange(BinaryReader reader)
 		{
 			string playerName = reader.ReadString();
 			var size = Marshal.SizeOf(typeof(T));

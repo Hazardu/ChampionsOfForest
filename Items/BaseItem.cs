@@ -80,6 +80,7 @@ namespace ChampionsOfForest
 				PossibleStats.Add(list);
 			}
 			ID = ItemDataBase._Item_Bases.Count;
+			;
 			ItemDataBase._Item_Bases.Add(this);
 		}
 
@@ -119,6 +120,7 @@ namespace ChampionsOfForest
 			PossibleStats = possibleStats;
 			Rarity = rarity;
 			ID = ItemDataBase._Item_Bases.Count;
+			;
 			this.StackSize = StackSize;
 			type = itemType;
 			PickUpAll = pickupAll;
@@ -141,7 +143,14 @@ namespace ChampionsOfForest
 				List<ItemStat> list = new List<ItemStat>();
 				foreach (int b in a)
 				{
-					list.Add(b == 0 ? null : ItemDataBase.Stats[b]);
+					if (b == 0)
+					{
+						list.Add(null);
+					}
+					else
+					{
+						list.Add(ItemDataBase.Stats[b]);
+					}
 				}
 				PossibleStats.Add(list);
 			}
@@ -169,7 +178,14 @@ namespace ChampionsOfForest
 				List<ItemStat> list = new List<ItemStat>();
 				foreach (int b in a)
 				{
-					list.Add(b == 0 ? null : ItemDataBase.Stats[b]);
+					if (b == 0)
+					{
+						list.Add(null);
+					}
+					else
+					{
+						list.Add(ItemDataBase.Stats[b]);
+					}
 				}
 				PossibleStats.Add(list);
 			}

@@ -1,8 +1,17 @@
 ﻿using Bolt;
+
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
+
+using ModAPI;
+
+using TheForest.Audio;
+using TheForest.Buildings.World;
 using TheForest.Utils;
+using TheForest.World;
+
 using UnityEngine;
+
 using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest.Player
@@ -58,17 +67,46 @@ namespace ChampionsOfForest.Player
 		{
 			if ((bool)mainTriggerScript)
 			{
-				mainTriggerScript.stick = stick;
-				mainTriggerScript.axe = axe;
-				mainTriggerScript.rock = rock;
-				mainTriggerScript.fireStick = fireStick;
-				mainTriggerScript.spear = spear;
-				mainTriggerScript.chainSaw = chainSaw;
-				mainTriggerScript.machete = machete;
-				mainTriggerScript.repairTool = repairTool;
-				mainTriggerScript.weaponDamage = WeaponDamage;
-				mainTriggerScript.smashDamage = smashDamage;
-				mainTriggerScript.smallAxe = smallAxe;
+				if (stick)
+				{
+					mainTriggerScript.stick = true;
+				}
+				else
+				{
+					mainTriggerScript.stick = false;
+				}
+				if (axe)
+				{
+					mainTriggerScript.axe = true;
+				}
+				else
+				{
+					mainTriggerScript.axe = false;
+				}
+				if (rock)
+				{
+					mainTriggerScript.rock = true;
+				}
+				else
+				{
+					mainTriggerScript.rock = false;
+				}
+				if (fireStick)
+				{
+					mainTriggerScript.fireStick = true;
+				}
+				else
+				{
+					mainTriggerScript.fireStick = false;
+				}
+				if (spear)
+				{
+					mainTriggerScript.spear = true;
+				}
+				else
+				{
+					mainTriggerScript.spear = false;
+				}
 				if (shell)
 				{
 					mainTriggerScript.spear = true;
@@ -77,6 +115,26 @@ namespace ChampionsOfForest.Player
 				{
 					mainTriggerScript.shell = false;
 				}
+				if (chainSaw)
+				{
+					mainTriggerScript.chainSaw = true;
+				}
+				else
+				{
+					mainTriggerScript.chainSaw = false;
+				}
+				if (machete)
+				{
+					mainTriggerScript.machete = true;
+				}
+				else
+				{
+					mainTriggerScript.machete = false;
+				}
+				mainTriggerScript.repairTool = repairTool;
+				mainTriggerScript.weaponDamage = WeaponDamage;
+				mainTriggerScript.smashDamage = smashDamage;
+				mainTriggerScript.smallAxe = smallAxe;
 				if (weaponRange == 0f)
 				{
 					mainTriggerScript.hitTriggerRange.transform.localScale = new Vector3(1f, 1f, 1f * ModdedPlayer.Stats.weaponRange);
@@ -128,7 +186,7 @@ namespace ChampionsOfForest.Player
 			if (animControl.smashBool)
 				outputdmg *= ModdedPlayer.Stats.smashDamage;
 
-			if (ModdedPlayer.Stats.perk_danceOfFiregod && BlackFlame.IsOn)
+			if (ModdedPlayer.Stats.perk_danceOfFiregod && Effects.BlackFlame.IsOn)
 				outputdmg *= 1 + LocalPlayer.Rigidbody.velocity.magnitude;
 			if (outputdmg < 0)
 				outputdmg = -outputdmg;
@@ -147,8 +205,8 @@ namespace ChampionsOfForest.Player
 					{
 						{
 							var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg != 1, entity, this);
-							COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-							COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
 						}
 						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 						phe.Target = entity;
@@ -159,9 +217,9 @@ namespace ChampionsOfForest.Player
 						phe.getAttackDirection = animator.GetInteger("hitDirection");
 						phe.takeDamage = 1;
 						phe.getCombo = 3;
-						phe.Burn = (fireStick && Random.value > 0.8f) || AlwaysIgnite || BlackFlame.IsOn;
+						phe.Burn = (fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn;
 						if (phe.Burn)
-							COTFEvents.Instance.OnIgniteMelee.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteMelee.Invoke();
 						phe.explosion = fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw;
 						phe.Send();
 
@@ -183,12 +241,12 @@ namespace ChampionsOfForest.Player
 									w.Write(1f);
 									w.Close();
 								}
-								NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
+								Network.NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
 
 								stream.Close();
 							}
 						}
-						if (BlackFlame.IsOn)
+						if (Effects.BlackFlame.IsOn)
 						{
 							using (System.IO.MemoryStream stream = new System.IO.MemoryStream())
 							{
@@ -196,12 +254,12 @@ namespace ChampionsOfForest.Player
 								{
 									w.Write(27);
 									w.Write(packed);
-									w.Write(BlackFlame.FireDamageBonus);
+									w.Write(Effects.BlackFlame.FireDamageBonus);
 									w.Write(20f);
 									w.Write(1);
 									w.Close();
 								}
-								NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
+								Network.NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
 
 								stream.Close();
 							}
@@ -277,8 +335,8 @@ namespace ChampionsOfForest.Player
 						var progression = EnemyManager.enemyByTransform[other.transform.root];
 						{
 							var eventContext = new COTFEvents.HitOtherParams(outputdmg, critDmg != 1, progression, this);
-							COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-							COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+							ChampionsOfForest.COTFEvents.Instance.OnHitMelee.Invoke(eventContext);
 						}
 
 
@@ -305,9 +363,9 @@ namespace ChampionsOfForest.Player
 							progression.AddKnockbackByDistance(dir, 1);
 						}
 
-						if (BlackFlame.IsOn)
+						if (Effects.BlackFlame.IsOn)
 						{
-							progression.FireDebuff(40, BlackFlame.FireDamageBonus, 20);
+							progression.FireDebuff(40, Effects.BlackFlame.FireDamageBonus, 20);
 							if (BlackFlame.GiveAfterburn && Random.value < 0.1f)
 								progression.DmgTakenDebuff(120, 1.15f, 25);
 
@@ -328,9 +386,9 @@ namespace ChampionsOfForest.Player
 						SpellActions.Bash(progression, outputdmg);
 
 
-						if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || BlackFlame.IsOn)
+						if ((fireStick && Random.value > 0.8f) || AlwaysIgnite || Effects.BlackFlame.IsOn)
 						{
-							COTFEvents.Instance.OnIgniteMelee.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteMelee.Invoke();
 							progression.HealthScript.Burn();
 						}
 
@@ -345,7 +403,7 @@ namespace ChampionsOfForest.Player
 				{
 					BoltEntity component3 = other.GetComponent<BoltEntity>();
 					BoltEntity component4 = base.GetComponent<BoltEntity>();
-					if (!ReferenceEquals(component3, component4) && lastPlayerHit + 0.2f < Time.time)
+					if (!object.ReferenceEquals(component3, component4) && lastPlayerHit + 0.2f < Time.time)
 					{
 						other.transform.root.SendMessage("getClientHitDirection", animator.GetInteger("hitDirection"), SendMessageOptions.DontRequireReceiver);
 						other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
@@ -374,7 +432,8 @@ namespace ChampionsOfForest.Player
 		{
 			if (COTFHit(other))
 				return;
-			base.OnTriggerEnter(other);
+			else
+				base.OnTriggerEnter(other);
 		}
 	}
 }

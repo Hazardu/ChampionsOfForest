@@ -1,4 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using Bolt;
+
+using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Player;
+
+using TheForest.Utils;
+
+using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
@@ -145,6 +158,7 @@ namespace ChampionsOfForest
 		{
 			float dmg = ClampDamage(true, damage, false);
 			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg, new Color(1, 1f, 1f, 1f));
+			damage -= 1f;
 			DealDamage(dmg);
 			HealthScript.HitReal(1);
 		}
@@ -152,6 +166,7 @@ namespace ChampionsOfForest
 		{
 			float dmg = ClampDamage(false, damage, false);
 			Network.NetworkManager.SendHitmarker(transform.position + Vector3.up, dmg, new Color(1, 0.4f, 0, 1f));
+			damage -= 1f;
 			DealDamage(dmg);
 			if (abilities.Contains(Abilities.Juggernaut))
 				if (HealthScript.Health > 10)

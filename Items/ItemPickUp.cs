@@ -185,7 +185,7 @@ namespace ChampionsOfForest
 						w.Write(ID);
 						w.Close();
 					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 					answerStream.Close();
 				}
 				PickUpManager.RemovePickup(ID);
@@ -195,7 +195,7 @@ namespace ChampionsOfForest
 
 		public bool PickUp()
 		{
-			COTFEvents.Instance.OnLootPickup.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnLootPickup.Invoke();
 
 			if (item.PickUpAll)
 			{
@@ -211,7 +211,7 @@ namespace ChampionsOfForest
 								w.Write(ID);
 								w.Close();
 							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 							answerStream.Close();
 						}
 						PickUpManager.RemovePickup(ID);
@@ -231,7 +231,7 @@ namespace ChampionsOfForest
 							w.Write(ModReferences.ThisPlayerID);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}
@@ -253,7 +253,7 @@ namespace ChampionsOfForest
 									w.Write(ID);
 									w.Close();
 								}
-								Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+								ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Everyone);
 								answerStream.Close();
 							}
 							PickUpManager.RemovePickup(ID);
@@ -274,7 +274,7 @@ namespace ChampionsOfForest
 							w.Write(ModReferences.ThisPlayerID);
 							w.Close();
 						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+						ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 						answerStream.Close();
 					}
 				}

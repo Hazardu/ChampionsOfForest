@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Crafting
@@ -153,7 +157,7 @@ namespace ChampionsOfForest.Player.Crafting
 					}
 					catch (Exception e)
 					{
-						Debug.LogWarning("reroll stats button ex " + e);
+						Debug.LogWarning("reroll stats button ex " + e.ToString());
 					}
 				}
 				float baseX = x + ((w - 250 * screenScale) / 2);

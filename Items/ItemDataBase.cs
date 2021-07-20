@@ -130,7 +130,7 @@ namespace ChampionsOfForest
 						f.WriteLine("ID;RARITY;NAME;UNIQUE STAT;MIN LEVEL; MIN STATS QUANTITY;MAX STATS QUANTITY");
 						foreach (var weapon in weapons)
 						{
-							f.WriteLine(weapon.ID + ";" + weapon.Rarity + ";" + weapon.name + ";" + weapon.uniqueStat + " ;" + weapon.minLevel + ";" + weapon.PossibleStats.Count(y => !y.Contains(null)) + ";" + weapon.PossibleStats.Count);
+							f.WriteLine(weapon.ID + ";" + weapon.Rarity + ";" + weapon.name + ";" + weapon.uniqueStat + " ;" + weapon.minLevel + ";" + weapon.PossibleStats.Where(y => !y.Contains(null)).Count() + ";" + weapon.PossibleStats.Count);
 
 						}
 						f.WriteLine(" ");
@@ -143,7 +143,7 @@ namespace ChampionsOfForest
 					f.WriteLine("ID;RARITY;NAME;UNIQUE STAT;MIN LEVEL; MIN STATS QUANTITY;MAX STATS QUANTITY");
 					foreach (var item in itemsByType)
 					{
-						f.WriteLine(item.ID + ";" + item.Rarity + ";" + item.name + ";" + item.uniqueStat + " ;" + item.minLevel + ";" + item.PossibleStats.Count(y => !y.Contains(null)) + ";" + item.PossibleStats.Count);
+						f.WriteLine(item.ID + ";" + item.Rarity + ";" + item.name + ";" + item.uniqueStat + " ;" + item.minLevel + ";" + item.PossibleStats.Where(y => !y.Contains(null)).Count() + ";" + item.PossibleStats.Count);
 
 					}
 					f.WriteLine(" ");
@@ -171,7 +171,7 @@ namespace ChampionsOfForest
 
 		public static BaseItem ItemBaseByName(string name)
 		{
-			return ItemBases.Values.First(x => x.name == name);
+			return ItemDataBase.ItemBases.Values.Where(x => x.name == name).First();
 		}
 
 		public static void AddPercentage(ref float variable1, float f)

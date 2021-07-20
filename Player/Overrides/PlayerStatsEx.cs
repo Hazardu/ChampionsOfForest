@@ -1,6 +1,9 @@
 ﻿using System;
+
 using ChampionsOfForest.Player;
+
 using FMOD.Studio;
+
 using TheForest.Items.Inventory;
 using TheForest.Tools;
 using TheForest.Utils;
@@ -31,7 +34,7 @@ namespace ChampionsOfForest
 			{
 				if (!(Scene.Atmosphere == null) && !SteamDSConfig.isDedicatedServer)
 				{
-					float num = Convert.ToSingle(LocalPlayer.Stats.DaySurvived + Scene.Atmosphere.DeltaTimeOfDay);
+					float num = Convert.ToSingle(LocalPlayer.Stats.DaySurvived + TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay);
 					if (Mathf.FloorToInt(num) != Mathf.FloorToInt(LocalPlayer.Stats.DaySurvived))
 					{
 						LocalPlayer.Stats.DaySurvived = num;
@@ -217,7 +220,7 @@ namespace ChampionsOfForest
 				Hud.HealthBarTarget.fillAmount = HealthTargetResult;
 				Hud.EnergyBar.fillAmount = EnergyResult;
 				float num6 = (Fullness - 0.2f) / 0.8f;
-				Scene.HudGui.Stomach.fillAmount = Mathf.Lerp(0.21f, 0.81f, num6);
+				TheForest.Utils.Scene.HudGui.Stomach.fillAmount = Mathf.Lerp(0.21f, 0.81f, num6);
 				if (num6 < 0.5)
 				{
 					Hud.StomachOutline.SetActive(true);
@@ -234,9 +237,9 @@ namespace ChampionsOfForest
 					}
 					Hud.StomachOutline.SetActive(false);
 				}
-				if (!Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
+				if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Fullness > StarvationSettings.SleepingFullnessThreshold)
 				{
-					Fullness -= Convert.ToSingle(Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.4f * ModdedPlayer.Stats.perk_hungerRate);
+					Fullness -= Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay * 1.6500000238418579 * 0.4f * ModdedPlayer.Stats.perk_hungerRate);
 				}
 				if (!Cheats.NoSurvival)
 				{
@@ -246,17 +249,17 @@ namespace ChampionsOfForest
 						{
 							Fullness = 0.19f;
 						}
-						if (DaySurvived >= StarvationSettings.StartDay && !Dead && !Scene.Atmosphere.Sleeping && LocalPlayer.Inventory.enabled)
+						if (DaySurvived >= StarvationSettings.StartDay && !Dead && !TheForest.Utils.Scene.Atmosphere.Sleeping && LocalPlayer.Inventory.enabled)
 						{
-							if (!Scene.HudGui.StomachStarvation.gameObject.activeSelf)
+							if (!TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.activeSelf)
 							{
 								if (Starvation == 0f)
 								{
 									StarvationCurrentDuration = StarvationSettings.Duration;
 								}
-								Scene.HudGui.StomachStarvation.gameObject.SetActive(true);
+								TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.SetActive(true);
 							}
-							Starvation += Convert.ToSingle(Scene.Atmosphere.DeltaTimeOfDay / StarvationCurrentDuration);
+							Starvation += Convert.ToSingle(TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / StarvationCurrentDuration);
 							if (Starvation >= 1f)
 							{
 								if (!StarvationSettings.TakingDamage)
@@ -265,32 +268,32 @@ namespace ChampionsOfForest
 									LocalPlayer.Tuts.ShowStarvationTut();
 								}
 								Hit(StarvationSettings.Damage, true, DamageType.Physical);
-								Scene.HudGui.StomachStarvationTween.ResetToBeginning();
-								Scene.HudGui.StomachStarvationTween.PlayForward();
+								TheForest.Utils.Scene.HudGui.StomachStarvationTween.ResetToBeginning();
+								TheForest.Utils.Scene.HudGui.StomachStarvationTween.PlayForward();
 								Starvation = 0f;
 								StarvationCurrentDuration *= StarvationSettings.DurationDecay;
 							}
-							Scene.HudGui.StomachStarvation.fillAmount = Mathf.Lerp(0.21f, 0.81f, Starvation);
+							TheForest.Utils.Scene.HudGui.StomachStarvation.fillAmount = Mathf.Lerp(0.21f, 0.81f, Starvation);
 						}
 					}
-					else if (Starvation > 0f || Scene.HudGui.StomachStarvation.gameObject.activeSelf)
+					else if (Starvation > 0f || TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.activeSelf)
 					{
 						Starvation = 0f;
 						StarvationCurrentDuration = StarvationSettings.Duration;
 						StarvationSettings.TakingDamage = false;
 						LocalPlayer.Tuts.StarvationTutOff();
-						Scene.HudGui.StomachStarvation.gameObject.SetActive(false);
+						TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.SetActive(false);
 					}
 				}
 				else
 				{
 					Fullness = 1f;
-					if (Starvation > 0f || Scene.HudGui.StomachStarvation.gameObject.activeSelf)
+					if (Starvation > 0f || TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.activeSelf)
 					{
 						Starvation = 0f;
 						StarvationCurrentDuration = StarvationSettings.Duration;
 						StarvationSettings.TakingDamage = false;
-						Scene.HudGui.StomachStarvation.gameObject.SetActive(false);
+						TheForest.Utils.Scene.HudGui.StomachStarvation.gameObject.SetActive(false);
 					}
 				}
 				if (Fullness > 1f)
@@ -303,9 +306,9 @@ namespace ChampionsOfForest
 					{
 						if (Thirst >= 1f)
 						{
-							if (!Scene.HudGui.ThirstDamageTimer.gameObject.activeSelf)
+							if (!TheForest.Utils.Scene.HudGui.ThirstDamageTimer.gameObject.activeSelf)
 							{
-								Scene.HudGui.ThirstDamageTimer.gameObject.SetActive(true);
+								TheForest.Utils.Scene.HudGui.ThirstDamageTimer.gameObject.SetActive(true);
 							}
 							if (ThirstCurrentDuration <= 0f)
 							{
@@ -317,13 +320,13 @@ namespace ChampionsOfForest
 								}
 								Hit(Mathf.CeilToInt(ModdedPlayer.Stats.TotalMaxHealth * 0.2f * GameSettings.Survival.ThirstDamageRatio), true, DamageType.Physical);
 								BleedBehavior.BloodAmount += 0.6f;
-								Scene.HudGui.ThirstDamageTimerTween.ResetToBeginning();
-								Scene.HudGui.ThirstDamageTimerTween.PlayForward();
+								TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.ResetToBeginning();
+								TheForest.Utils.Scene.HudGui.ThirstDamageTimerTween.PlayForward();
 							}
 							else
 							{
 								ThirstCurrentDuration -= Time.deltaTime;
-								Scene.HudGui.ThirstDamageTimer.fillAmount = 1f - ThirstCurrentDuration / ThirstSettings.DamageDelay;
+								TheForest.Utils.Scene.HudGui.ThirstDamageTimer.fillAmount = 1f - ThirstCurrentDuration / ThirstSettings.DamageDelay;
 							}
 						}
 						else if (Thirst < 0f)
@@ -332,44 +335,44 @@ namespace ChampionsOfForest
 						}
 						else
 						{
-							if (!Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
+							if (!TheForest.Utils.Scene.Atmosphere.Sleeping || Thirst < ThirstSettings.SleepingThirstThreshold)
 							{
-								Thirst += Convert.ToSingle((Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.Stats.perk_thirstRate * 0.4f);
+								Thirst += Convert.ToSingle((TheForest.Utils.Scene.Atmosphere.DeltaTimeOfDay / ThirstSettings.Duration) * 1.1f * GameSettings.Survival.ThirstRatio * ModdedPlayer.Stats.perk_thirstRate * 0.4f);
 							}
 							if (Thirst > ThirstSettings.TutorialThreshold)
 							{
 								//LocalPlayer.Tuts.ShowThirstyTut();
-								Scene.HudGui.ThirstOutline.SetActive(true);
+								TheForest.Utils.Scene.HudGui.ThirstOutline.SetActive(true);
 							}
 							else
 							{
 								LocalPlayer.Tuts.HideThirstyTut();
-								Scene.HudGui.ThirstOutline.SetActive(false);
+								TheForest.Utils.Scene.HudGui.ThirstOutline.SetActive(false);
 							}
 							if (ThirstSettings.TakingDamage)
 							{
 								ThirstSettings.TakingDamage = false;
 								LocalPlayer.Tuts.ThirstTutOff();
 							}
-							if (Scene.HudGui.ThirstDamageTimer.gameObject.activeSelf)
+							if (TheForest.Utils.Scene.HudGui.ThirstDamageTimer.gameObject.activeSelf)
 							{
-								Scene.HudGui.ThirstDamageTimer.gameObject.SetActive(false);
+								TheForest.Utils.Scene.HudGui.ThirstDamageTimer.gameObject.SetActive(false);
 							}
 						}
-						Scene.HudGui.Hydration.fillAmount = 1f - Thirst;
+						TheForest.Utils.Scene.HudGui.Hydration.fillAmount = 1f - Thirst;
 					}
 				}
-				else if (Scene.HudGui.Hydration.fillAmount != 1f)
+				else if (TheForest.Utils.Scene.HudGui.Hydration.fillAmount != 1f)
 				{
-					Scene.HudGui.Hydration.fillAmount = 1f;
+					TheForest.Utils.Scene.HudGui.Hydration.fillAmount = 1f;
 				}
 				bool flag = false;
 				bool flag2 = false;
 				if (LocalPlayer.WaterViz.ScreenCoverage > AirBreathing.ScreenCoverageThreshold && !Dead)
 				{
-					if (!Scene.HudGui.AirReserve.gameObject.activeSelf)
+					if (!TheForest.Utils.Scene.HudGui.AirReserve.gameObject.activeSelf)
 					{
-						Scene.HudGui.AirReserve.gameObject.SetActive(true);
+						TheForest.Utils.Scene.HudGui.AirReserve.gameObject.SetActive(true);
 					}
 					if (!AirBreathing.UseRebreather && AirBreathing.RebreatherIsEquipped && AirBreathing.CurrentRebreatherAir > 0f)
 					{
@@ -379,7 +382,7 @@ namespace ChampionsOfForest
 					{
 						flag = true;
 						AirBreathing.CurrentRebreatherAir -= Time.deltaTime;
-						Scene.HudGui.AirReserve.fillAmount = AirBreathing.CurrentRebreatherAir / AirBreathing.MaxRebreatherAirCapacity;
+						TheForest.Utils.Scene.HudGui.AirReserve.fillAmount = AirBreathing.CurrentRebreatherAir / AirBreathing.MaxRebreatherAirCapacity;
 						if (AirBreathing.CurrentRebreatherAir < 0f)
 						{
 							AirBreathing.CurrentLungAir = 0f;
@@ -387,14 +390,14 @@ namespace ChampionsOfForest
 						}
 						else if (AirBreathing.CurrentRebreatherAir < AirBreathing.OutOfAirWarningThreshold)
 						{
-							if (!Scene.HudGui.AirReserveOutline.activeSelf)
+							if (!TheForest.Utils.Scene.HudGui.AirReserveOutline.activeSelf)
 							{
-								Scene.HudGui.AirReserveOutline.SetActive(true);
+								TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(true);
 							}
 						}
-						else if (Scene.HudGui.AirReserveOutline.activeSelf)
+						else if (TheForest.Utils.Scene.HudGui.AirReserveOutline.activeSelf)
 						{
-							Scene.HudGui.AirReserveOutline.SetActive(false);
+							TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(false);
 						}
 					}
 					else
@@ -417,10 +420,10 @@ namespace ChampionsOfForest
 						if (AirBreathing.CurrentLungAir > AirBreathing.CurrentLungAirTimer.Elapsed.TotalSeconds * Skills.LungBreathingRatio)
 						{
 							Skills.TotalLungBreathingDuration += Time.deltaTime;
-							Scene.HudGui.AirReserve.fillAmount = Mathf.Lerp(Scene.HudGui.AirReserve.fillAmount, AirBreathing.CurrentAirPercent, Mathf.Clamp01((Time.time - Time.fixedTime) / Time.fixedDeltaTime));
-							if (!Scene.HudGui.AirReserveOutline.activeSelf)
+							TheForest.Utils.Scene.HudGui.AirReserve.fillAmount = Mathf.Lerp(TheForest.Utils.Scene.HudGui.AirReserve.fillAmount, AirBreathing.CurrentAirPercent, Mathf.Clamp01((Time.time - Time.fixedTime) / Time.fixedDeltaTime));
+							if (!TheForest.Utils.Scene.HudGui.AirReserveOutline.activeSelf)
 							{
-								Scene.HudGui.AirReserveOutline.SetActive(true);
+								TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(true);
 							}
 						}
 						else if (!Cheats.NoSurvival)
@@ -437,21 +440,21 @@ namespace ChampionsOfForest
 							{
 								AirBreathing.DamageCounter = 0f;
 								DeadTimes++;
-								Scene.HudGui.AirReserve.gameObject.SetActive(false);
-								Scene.HudGui.AirReserveOutline.SetActive(false);
+								TheForest.Utils.Scene.HudGui.AirReserve.gameObject.SetActive(false);
+								TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(false);
 							}
-							else if (!Scene.HudGui.AirReserveOutline.activeSelf)
+							else if (!TheForest.Utils.Scene.HudGui.AirReserveOutline.activeSelf)
 							{
-								Scene.HudGui.AirReserveOutline.SetActive(true);
+								TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(true);
 							}
 						}
 					}
 				}
-				else if (AirBreathing.CurrentLungAir < AirBreathing.MaxLungAirCapacityFinal || Scene.HudGui.AirReserve.gameObject.activeSelf)
+				else if (AirBreathing.CurrentLungAir < AirBreathing.MaxLungAirCapacityFinal || TheForest.Utils.Scene.HudGui.AirReserve.gameObject.activeSelf)
 				{
 					if (GaspForAirEvent.Length > 0 && FMOD_StudioSystem.instance && !Dead)
 					{
-						FMOD_StudioSystem.instance.PlayOneShot(GaspForAirEvent, base.transform.position, delegate (EventInstance instance)
+						FMOD_StudioSystem.instance.PlayOneShot(GaspForAirEvent, base.transform.position, delegate (FMOD.Studio.EventInstance instance)
 						{
 							float value = 85f;
 							if (!AirBreathing.UseRebreather)
@@ -466,8 +469,8 @@ namespace ChampionsOfForest
 					AirBreathing.CurrentLungAirTimer.Stop();
 					AirBreathing.CurrentLungAirTimer.Reset();
 					AirBreathing.CurrentLungAir = AirBreathing.MaxLungAirCapacityFinal;
-					Scene.HudGui.AirReserve.gameObject.SetActive(false);
-					Scene.HudGui.AirReserveOutline.SetActive(false);
+					TheForest.Utils.Scene.HudGui.AirReserve.gameObject.SetActive(false);
+					TheForest.Utils.Scene.HudGui.AirReserveOutline.SetActive(false);
 				}
 				if (flag)
 				{
@@ -509,11 +512,11 @@ namespace ChampionsOfForest
 				{
 					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.Stats.TotalMaxHealth * 0.0025f + ModdedPlayer.Stats.healthRecoveryPerSecond) * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
 
-					Scene.HudGui.HealthBarTarget.enabled = true;
+					TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = true;
 				}
 				else
 				{
-					Scene.HudGui.HealthBarTarget.enabled = false;
+					TheForest.Utils.Scene.HudGui.HealthBarTarget.enabled = false;
 				}
 				if (Health < 20f)
 				{
@@ -560,7 +563,7 @@ namespace ChampionsOfForest
 					Stamina = Energy;
 					Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 				}
-				if (CheckingBlood && Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
+				if (CheckingBlood && TheForest.Utils.Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
 				{
 					StopBloodCheck();
 				}
@@ -593,7 +596,7 @@ namespace ChampionsOfForest
 							FrostScript.coverage = 0.491f;
 						}
 					}
-					else if (!Cheats.NoSurvival && Scene.Clock.ElapsedGameTime >= FrostDamageSettings.StartDay && LocalPlayer.Inventory.CurrentView != PlayerInventory.PlayerViews.Book && LocalPlayer.Inventory.CurrentView != PlayerInventory.PlayerViews.Inventory && !LocalPlayer.AnimControl.doShellRideMode)
+					else if (!Cheats.NoSurvival && TheForest.Utils.Scene.Clock.ElapsedGameTime >= FrostDamageSettings.StartDay && LocalPlayer.Inventory.CurrentView != PlayerInventory.PlayerViews.Book && LocalPlayer.Inventory.CurrentView != PlayerInventory.PlayerViews.Inventory && !LocalPlayer.AnimControl.doShellRideMode)
 					{
 						if (!LocalPlayer.FpCharacter.jumping && (!LocalPlayer.AnimControl.onRope || !LocalPlayer.AnimControl.VerticalMovement) && !IsLit && LocalPlayer.Rigidbody.velocity.sqrMagnitude < 0.3f && !Dead)
 						{
@@ -744,14 +747,14 @@ namespace ChampionsOfForest
 		public override void Hit(int damage, bool ignoreArmor, DamageType type)
 		{
 			var hitEventContext = new COTFEvents.GotHitParams(damage, ignoreArmor);
-			COTFEvents.Instance.OnGetHit.Invoke(hitEventContext);
+			ChampionsOfForest.COTFEvents.Instance.OnGetHit.Invoke(hitEventContext);
 			if (type == DamageType.Physical)
 			{
-				COTFEvents.Instance.OnGetHitPhysical.Invoke(hitEventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnGetHitPhysical.Invoke(hitEventContext);
 
 				if (UnityEngine.Random.value > ModdedPlayer.Stats.getHitChance)
 				{
-					COTFEvents.Instance.OnDodge.Invoke();
+					ChampionsOfForest.COTFEvents.Instance.OnDodge.Invoke();
 					if (ModdedPlayer.Stats.i_isWindArmor)
 					{
 						//grant buffs;
@@ -766,7 +769,7 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				COTFEvents.Instance.OnGetHitNonPhysical.Invoke(hitEventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnGetHitNonPhysical.Invoke(hitEventContext);
 			}
 			float f = damage * ModdedPlayer.Stats.allDamageTaken;
 			if (!ignoreArmor)
@@ -864,49 +867,49 @@ namespace ChampionsOfForest
 
 		public override void PoisonMe()
 		{
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.02f + 2f) * GameSettings.Survival.PoisonDamageRatio), true, DamageType.Poison);
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.02f + 2f) * TheForest.Utils.Settings.GameSettings.Survival.PoisonDamageRatio), true, global::PlayerStats.DamageType.Poison);
 		}
 
 		public override void HitWaterDelayed(int damage)
 		{
 			base.HitWaterDelayed(damage);
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f * damage) * GameSettings.Survival.PolutedWaterDamageRatio), true, DamageType.Poison);
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f * damage) * TheForest.Utils.Settings.GameSettings.Survival.PolutedWaterDamageRatio), true, global::PlayerStats.DamageType.Poison);
 		}
 		public override void Burn()
 		{
-			COTFEvents.Instance.OnIgniteSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnIgniteSelf.Invoke();
 			base.Burn();
 		}
 		protected override void StopBurning()
 		{
-			COTFEvents.Instance.OnExtingishSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnExtingishSelf.Invoke();
 			base.StopBurning();
 		}
 		protected override void Explosion(float getDist)
 		{
-			COTFEvents.Instance.OnExplodeSelf.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnExplodeSelf.Invoke();
 			base.Explosion(getDist);
 		}
 		protected override void HitFire()
 		{
-			COTFEvents.Instance.OnGetHitByBurning.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnGetHitByBurning.Invoke();
 
-			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f + 3) * this.Flammable * GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
-			if (LocalPlayer.AnimControl.skinningAnimal)
+			this.Hit(Mathf.CeilToInt((ModdedPlayer.Stats.TotalMaxHealth * 0.01f + 3) * this.Flammable * TheForest.Utils.Settings.GameSettings.Survival.FireDamageRatio), false, DamageType.Fire);
+			if (TheForest.Utils.LocalPlayer.AnimControl.skinningAnimal)
 			{
-				LocalPlayer.SpecialActions.SendMessage("forceSkinningReset");
+				TheForest.Utils.LocalPlayer.SpecialActions.SendMessage("forceSkinningReset");
 			}
-			LocalPlayer.Animator.SetBool("skinAnimal", false);
+			TheForest.Utils.LocalPlayer.Animator.SetBool("skinAnimal", false);
 		}
 
 		protected override void CheckDeath()
 		{
-			if (Cheats.GodMode)
+			if (global::Cheats.GodMode)
 			{
 				return;
 			}
 			if (this.Health <= 0f && !this.Dead)
-				COTFEvents.Instance.OnTakeLethalDamage.Invoke();
+				ChampionsOfForest.COTFEvents.Instance.OnTakeLethalDamage.Invoke();
 			if (this.Health <= 0f && !this.Dead)
 			{
 
@@ -923,9 +926,9 @@ namespace ChampionsOfForest
 
 			
 
-				if (LocalPlayer.AnimControl.swimming)
+				if (TheForest.Utils.LocalPlayer.AnimControl.swimming)
 				{	
-					COTFEvents.Instance.OnDeath.Invoke();
+					ChampionsOfForest.COTFEvents.Instance.OnDeath.Invoke();
 					switch (ModSettings.dropsOnDeath)
 					{
 						case ModSettings.DropsOnDeathMode.All:
@@ -954,7 +957,7 @@ namespace ChampionsOfForest
 		}
 		protected override void FallDownDead()
 		{
-			COTFEvents.Instance.OnDowned.Invoke();
+			ChampionsOfForest.COTFEvents.Instance.OnDowned.Invoke();
 			base.FallDownDead();
 		}
 	}

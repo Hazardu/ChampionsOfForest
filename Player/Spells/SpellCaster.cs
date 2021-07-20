@@ -107,9 +107,9 @@ namespace ChampionsOfForest.Player
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex)
 			{
-				ModAPI.Log.Write("Error1 \t" + ex);
+				ModAPI.Log.Write("Error1 \t" + ex.ToString());
 			}
 			try
 			{
@@ -140,7 +140,7 @@ namespace ChampionsOfForest.Player
 												LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 											LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-											COTFEvents.Instance.OnAnySpellCast.Invoke();
+											ChampionsOfForest.COTFEvents.Instance.OnAnySpellCast.Invoke();
 											InfinityCooldownReduction();
 											Ready[i] = false;
 											MaxCooldown(i);
@@ -164,7 +164,8 @@ namespace ChampionsOfForest.Player
 												LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 											LocalPlayer.Stats.Stamina -= Time.deltaTime * infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-											COTFEvents.Instance.OnChanneledSpellCast.Invoke();
+											ChampionsOfForest.COTFEvents.Instance.OnChanneledSpellCast.Invoke();
+
 
 											infos[i].spell.active();
 											infos[i].spell.ChanneledTime += Time.deltaTime;
@@ -188,7 +189,7 @@ namespace ChampionsOfForest.Player
 										LocalPlayer.Stats.Stamina = LocalPlayer.Stats.Energy;
 									LocalPlayer.Stats.Stamina -= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost;
 
-									COTFEvents.Instance.OnAnySpellCast.Invoke();
+									ChampionsOfForest.COTFEvents.Instance.OnAnySpellCast.Invoke();
 
 									InfinityCooldownReduction();
 									Ready[i] = false;
@@ -205,7 +206,7 @@ namespace ChampionsOfForest.Player
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (System.Exception ex)
 			{
 				Debug.Log(ex.ToString());
 				ModAPI.Log.Write(ex.ToString());

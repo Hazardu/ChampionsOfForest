@@ -928,7 +928,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Boot,
-				icon = Res.ResourceLoader.GetTexture(85), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(85), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
 			{
@@ -949,7 +949,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
 			{
@@ -970,7 +970,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -992,7 +992,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
 			{
@@ -1013,7 +1013,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			//Silver Rings---------------------------------------------------------------------------
 			new BaseItem(new int[][]
@@ -1033,7 +1033,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1053,7 +1053,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1073,7 +1073,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1093,7 +1093,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			//Steel Rings-------------------------------------------------------------------
@@ -1113,7 +1113,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1132,7 +1132,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1151,7 +1151,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1170,7 +1170,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			//One Ring to rule them all----------------------------------------------------------
@@ -1206,7 +1206,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			//Golden Lockets---------------------------------------------------------------------
@@ -1229,7 +1229,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1250,7 +1250,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1271,7 +1271,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1292,7 +1292,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			//Silver Lockets---------------------------------------------------------------------------
@@ -1315,7 +1315,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1336,7 +1336,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1357,7 +1357,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1378,7 +1378,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			// Emerald Pendant-----------------------------------------------------------
@@ -1402,7 +1402,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1424,7 +1424,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1447,7 +1447,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1470,7 +1470,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			// Diamond Pendant-----------------------------------------------------------
@@ -1495,7 +1495,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1519,7 +1519,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1543,7 +1543,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new int[][]
@@ -1568,7 +1568,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 
 			//Rare Amulets -----------------------------------------------------------------------------------------
@@ -1594,7 +1594,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 
 			};
 			armsyFingerNecklace.DropSettings_OnlyArmsy();
@@ -1622,7 +1622,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 			virginiaHeartPedant.DropSettings_OnlyVags();
 			virginiaHeartPedant.PossibleStats[0][0].Multipier = 2;
@@ -1650,7 +1650,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 			cowmanToeNecklace.DropSettings_OnlyCow();
 			cowmanToeNecklace.PossibleStats[0][0].Multipier = 3;
@@ -1681,7 +1681,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_infinityLoop.value = false,
 			}.DropSettings_OnlyBaby();
@@ -1712,7 +1712,7 @@ namespace ChampionsOfForest
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			}.DropSettings_OnlyMegan();
 
 			BaseItem RelicHammer = new BaseItem(new int[][]
@@ -2490,7 +2490,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = "Wormhole Stabilizators",
 				description = "High-tech gear",
-				lore = "Hazard remember to put some fucking lore in here, don't leave it like this!",
+				lore = "Hazard remember to put some fucking lore in here, dont leave it like this!",
 				uniqueStat = "Increases the duration of a portal by <color=gold>570</color> seconds",
 				Rarity = 7,
 				minLevel = 4,
@@ -2768,7 +2768,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
 		  {
@@ -2790,7 +2790,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Amulet,
-				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(101), //icon ids, dont worry about that
 			};
 			new BaseItem(new int[][]
 		  {
@@ -4970,7 +4970,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -4993,7 +4993,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -5016,7 +5016,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -5065,7 +5065,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,
 				type = BaseItem.ItemType.Ring,
-				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
+				icon = Res.ResourceLoader.GetTexture(90), //icon ids, dont worry about that
 			};
 
 			new BaseItem(new Stat[][]
@@ -5342,7 +5342,7 @@ new int[] {0,0,0,0,62,63,64},
 				onConsume = x =>
 				{
 					int socketMax = StatActions.GetMaxSocketAmountOnItem(in x.type);
-					int socketCurrent = x.Stats.Count(y => y.StatID >= 3000);
+					int socketCurrent = x.Stats.Where(y => y.StatID >= 3000).Count();
 					if (socketCurrent < socketMax)
 					{
 						x.Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));

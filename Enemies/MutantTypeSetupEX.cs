@@ -1,4 +1,9 @@
-﻿namespace ChampionsOfForest.Enemies
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ChampionsOfForest.Enemies
 {
 	public class MutantTypeSetupEX : mutantTypeSetup
 	{

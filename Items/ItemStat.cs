@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using ChampionsOfForest.Player;
+
 using UnityEngine;
 
 namespace ChampionsOfForest

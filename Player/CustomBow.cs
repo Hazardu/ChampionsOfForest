@@ -77,7 +77,7 @@ namespace ChampionsOfForest
 						w.Write((int)BaseItem.WeaponModelType.Greatbow);
 						w.Close();
 					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
@@ -98,7 +98,7 @@ namespace ChampionsOfForest
 						w.Write((int)BaseItem.WeaponModelType.None);
 						w.Close();
 					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}

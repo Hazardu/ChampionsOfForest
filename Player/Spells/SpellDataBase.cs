@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Player
 				spellDictionary = new Dictionary<int, Spell>();
 				FillSpells();
 				List<int> SortedSpellIDsTemp = new List<int>(spellDictionary.Keys);
-				SortedSpellIDsTemp.Sort((x, y) => spellDictionary[x].LevelRequirement.CompareTo(spellDictionary[y].LevelRequirement));
+				SortedSpellIDsTemp.Sort((x, y) => spellDictionary[x].Levelrequirement.CompareTo(spellDictionary[y].Levelrequirement));
 				SortedSpellIDs = SortedSpellIDsTemp.ToArray();
 				// ModAPI.Log.Write("SETUP: SPELL DB");
 			}
@@ -39,87 +39,87 @@ namespace ChampionsOfForest.Player
 
 		public static void FillSpells()
 		{
-			Spell bh = new Spell(iD: 1, TextureID: 119, levelRequirement: 20, energyCost: 100, baseCooldown: 120, name: "Black Hole", () => $"Creates a black hole that pulls enemies in and damages over {ModdedPlayer.Stats.spell_blackhole_duration} seconds.\nScaling: {ModdedPlayer.Stats.spell_blackhole_damageScaling} spell damage")
+			Spell bh = new Spell(iD: 1, TextureID: 119, levelrequirement: 20, energyCost: 100, baseCooldown: 120, name: "Black Hole", () => $"Creates a black hole that pulls enemies in and damages over {ModdedPlayer.Stats.spell_blackhole_duration} seconds.\nScaling: {ModdedPlayer.Stats.spell_blackhole_damageScaling} spell damage")
 			{
 				active = SpellActions.CreatePlayerBlackHole,
 				CastOnRelease = true,
 				aim = SpellActions.BlackHoleAim,
 				aimEnd = SpellActions.BlackHoleAimEnd
 			};
-			Spell healingDome = new Spell(iD: 2, TextureID: 122, levelRequirement: 6, energyCost: 80, baseCooldown: 70, name: "Healing Dome", () => $"Creates a sphere of vaporized aloe that heals all allies inside.")
+			Spell healingDome = new Spell(iD: 2, TextureID: 122, levelrequirement: 6, energyCost: 80, baseCooldown: 70, name: "Healing Dome", () => $"Creates a sphere of vaporized aloe that heals all allies inside.")
 			{
 				active = SpellActions.CreateHealingDome,
 				CastOnRelease = true,
 				aim = SpellActions.HealingDomeAim,
 				aimEnd = SpellActions.HealingDomeAimEnd
 			};
-			new Spell(iD: 3, TextureID: 121, levelRequirement: 3, energyCost: 25, baseCooldown: 14, name: "Blink", () => $"instantaneous short distance teleportation. Upgrades allow dealing damage to enemies that you pass through.\nScaling: {ModdedPlayer.Stats.spell_blinkDamageScaling}")
+			new Spell(iD: 3, TextureID: 121, levelrequirement: 3, energyCost: 25, baseCooldown: 14, name: "Blink", () => $"instantaneous short distance teleportation. Upgrades allow dealing damage to enemies that you pass through.\nScaling: {ModdedPlayer.Stats.spell_blinkDamageScaling}")
 			{
 				active = SpellActions.DoBlink,
 				CastOnRelease = true,
 				aim = SpellActions.DoBlinkAim,
 			};
-			new Spell(iD: 4, TextureID: 120, levelRequirement: 10, energyCost: 100, baseCooldown: 55, name: "Sun Flare", () => $"Intense light focuses onto a single spot. Heals allies, reduces all damage taken by 50% and gives movement speed. Slows down and damages enemies")
+			new Spell(iD: 4, TextureID: 120, levelrequirement: 10, energyCost: 100, baseCooldown: 55, name: "Sun Flare", () => $"Intense light focuses onto a single spot. Heals allies, reduces all damage taken by 50% and gives movement speed. Slows down and damages enemies")
 			{
 				active = SpellActions.CastFlare,
 			};
-			new Spell(iD: 5, TextureID: 118, levelRequirement: 8, energyCost: 50, name: "Sustain Shield", () => $"Channeling this spell consumes energy but grants you a protective, absorbing shield, similiar to additional health. The shield's power increases every second untill reaching max value. The shield persists for {ModdedPlayer.Stats.spell_shieldPersistanceLifetime} seconds after channeling stops, and after that it rapidly disperses.")
+			new Spell(iD: 5, TextureID: 118, levelrequirement: 8, energyCost: 50, name: "Sustain Shield", () => $"Channeling this spell consumes energy but grants you a protective, absorbing shield, similiar to additional health. The shield's power increases every second untill reaching max value. The shield persists for {ModdedPlayer.Stats.spell_shieldPersistanceLifetime} seconds after channeling stops, and after that it rapidly disperses.")
 			{
 				active = SpellActions.CastSustainShieldActive,
-				passive = SpellActions.CastSustainShieldPassive,
+				passive = SpellActions.CastSustainShielPassive,
 				usePassiveOnUpdate = true,
 			};
-			new Spell(iD: 6, TextureID: 117, levelRequirement: 2, energyCost: 10, baseCooldown: 0.4f, name: "Wide Reach", () => "Picks up all items, including equipment, in a small radius around you.")
+			new Spell(iD: 6, TextureID: 117, levelrequirement: 2, energyCost: 10, baseCooldown: 0.4f, name: "Wide Reach", () => "Picks up all items, including equipment, in a small radius around you.")
 			{
 				active = AutoPickupItems.DoPickup,
 				CastOnRelease = false,
 			};
-			new Spell(iD: 7, TextureID: 115, levelRequirement: 21, energyCost: 25, baseCooldown: 2.5f, name: "Black Flame", () => $"Ignites your melee weapon or your ranged projectile with a dark flame that burns enemies for a large amount of damage. Scaling: {ModdedPlayer.Stats.spell_blackFlameDamageScaling} spell damage")
+			new Spell(iD: 7, TextureID: 115, levelrequirement: 21, energyCost: 25, baseCooldown: 2.5f, name: "Black Flame", () => $"Ignites your melee weapon or your ranged projectile with a dark flame that burns enemies for a large amount of damage. Scaling: {ModdedPlayer.Stats.spell_blackFlameDamageScaling} spell damage")
 			{
 				active = BlackFlame.Toggle,
 			};
-			new Spell(iD: 8, TextureID: 123, levelRequirement: 14, energyCost: 85, baseCooldown: 180, name: "War Cry", () => "Empowers you and nearby allies for 2 minutes.")
+			new Spell(iD: 8, TextureID: 123, levelrequirement: 14, energyCost: 85, baseCooldown: 180, name: "War Cry", () => "Empowers you and nearby allies for 2 minutes.")
 			{
 				active = SpellActions.CastWarCry,
 			};
-			new Spell(iD: 9, TextureID: 114, levelRequirement: 12, energyCost: 90, baseCooldown: 60, name: "Portal", () => "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
+			new Spell(iD: 9, TextureID: 114, levelrequirement: 12, energyCost: 90, baseCooldown: 60, name: "Portal", () => "Creates a wormhole, that links 2 locations. Allows the player and items to pass through.")
 			{
 				CastOnRelease= true,
 				aim= SpellActions.DoPortalAim,
 				active = SpellActions.CastPortal,
 			};
-			new Spell(iD: 10, TextureID: 125, levelRequirement: 27, energyCost: 100, baseCooldown: 20, name: "Magic Arrow", () => $"A large spectral arrow is shot where you're looking at. The arrow pierces everything, slows any enemies hit and deals big damage. Scaling: {ModdedPlayer.Stats.spell_magicArrowDamageScaling} spell damage")
+			new Spell(iD: 10, TextureID: 125, levelrequirement: 27, energyCost: 100, baseCooldown: 20, name: "Magic Arrow", () => $"A large spectral arrow is shot where you're looking at. The arrow pierces everything, slows any enemies hit and deals big damage. Scaling: {ModdedPlayer.Stats.spell_magicArrowDamageScaling} spell damage")
 			{
 				active = SpellActions.CastMagicArrow,
 				CastOnRelease = true,
 				aim = SpellActions.MagicArrowAim,
 				aimEnd = SpellActions.MagicArrowAimEnd
 			};
-			new Spell(iD: 11, TextureID: 127, levelRequirement: 40, energyCost: 30, baseCooldown: 12, name: "Multishot Enchantment", () => "Enchants your ranged weapons with a magic formation of copying. Every shot causes multiple projectiles to be created with a downside of heavy energy toll. Energy is consumed upon firing and depends on the amount of projectiles fired")
+			new Spell(iD: 11, TextureID: 127, levelrequirement: 40, energyCost: 30, baseCooldown: 12, name: "Multishot Enchantment", () => "Enchants your ranged weapons with a magic formation of copying. Every shot causes multipe projectiles to be created with a downside of heavy energy toll. Energy is consumed upon firing and depends on the amount of projectiles fired")
 			{
 				active = SpellActions.ToggleMultishot,
 			};
-			new Spell(iD: 12, TextureID: 133, levelRequirement: 35, energyCost: 65, baseCooldown: 160, name: "Golden Skin", () => "For 40 seconds you turn into solid gold, turning completely immune to stuns and your attacks are 20% faster")
+			new Spell(iD: 12, TextureID: 133, levelrequirement: 35, energyCost: 65, baseCooldown: 160, name: "Golden Skin", () => "For 40 seconds you turn into solid gold, turning completely immune to stuns and your attacks are 20% faster")
 			{
 				active = GoldenSkin.Cast,
 			};
-			new Spell(iD: 13, TextureID: 132, levelRequirement: 7, energyCost: 40, baseCooldown: 16, name: "Purge", () => "Everyone in your surroundings gets cleansed of their negative debuffs. Negates poison.")
+			new Spell(iD: 13, TextureID: 132, levelrequirement: 7, energyCost: 40, baseCooldown: 16, name: "Purge", () => "Everyone in your surroudings gets cleansed of their negative debuffs. Negates poison.")
 			{
 				active = SpellActions.CastPurge,
 			};
-			new Spell(iD: 14, TextureID: 128, levelRequirement: 20, energyCost: 220, baseCooldown: 40, name: "Snap Freeze", () => $"Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them.\nScaling{ModdedPlayer.Stats.spell_snapDamageScaling} spell damage")
+			new Spell(iD: 14, TextureID: 128, levelrequirement: 20, energyCost: 220, baseCooldown: 40, name: "Snap Freeze", () => $"Enemies around you get slowed for 12 seconds by 90% you deal magic damage to them.\nScaling{ModdedPlayer.Stats.spell_snapDamageScaling} spell damage")
 			{
 				active = SpellActions.CastSnapFreeze,
 			};
-			new Spell(iD: 15, TextureID: 131, levelRequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, however, you take increased damage.")
+			new Spell(iD: 15, TextureID: 131, levelrequirement: 25, energyCost: 10, baseCooldown: 200, name: "Berserk", () => "For short amount of time, gain increased damage dealt, attack speed and movement speed and have unlimited stamina, hovewer, you take increased damage.")
 			{
 				active = Berserker.Cast,
 			};
-			new Spell(iD: 16, TextureID: 130, levelRequirement: 44, energyCost: 350, baseCooldown: 100, name: "Ball Lightning", () => $"A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 320% spell damage.\nScaling: {ModdedPlayer.Stats.spell_ballLightning_DamageScaling} spell damage")
+			new Spell(iD: 16, TextureID: 130, levelrequirement: 44, energyCost: 350, baseCooldown: 100, name: "Ball Lightning", () => $"A slow moving, bouncing ball of lightning travels forward, dealing damage to hit enemies, and upon contact or when it lasts too long, it explodes. Scales with 320% spell damage.\nScaling: {ModdedPlayer.Stats.spell_ballLightning_DamageScaling} spell damage")
 			{
 				active = SpellActions.CastBallLightning,
 			};
-			new Spell(iD: 17, TextureID: 134, levelRequirement: 17, energyCost: 25, baseCooldown: 25, name: "Bash",
+			new Spell(iD: 17, TextureID: 134, levelrequirement: 17, energyCost: 25, baseCooldown: 25, name: "Bash",
 				() => $"Passive: Every attack slows enemies for {ModdedPlayer.Stats.spell_bashDuration} seconds, and increases their damage taken by {ModdedPlayer.Stats.spell_bashDamageDebuffAmount}\nActive: Melee damage is increased for {ModdedPlayer.Stats.spell_bashDuration} seconds by {(ModdedPlayer.Stats.spell_bashDamageDebuffAmount-1):P}")
 			{
 				passive = SpellActions.BashPassiveEnabled,
@@ -170,7 +170,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = () => SpellActions.RipAFatOne(),
 			};
-			new Spell(25, 189, 9, 40, 45, "Taunt", () => "Makes enemies hyper aggressive and forces them to attack you. Taunted enemies move twice attack twice as fast and take 50% increased damage")
+			new Spell(25, 189, 9, 40, 45, "Taunt", () => "Makes enemies hyper agressive and forces them to attack you. Taunted enemies move twice attack twice as fast and take 50% increased damage")
 			{
 				active = Taunt.OnSpellUsed,
 				CastOnRelease = true,
