@@ -10,7 +10,6 @@ namespace ChampionsOfForest
 	//implement additional UI elements
 	public partial class MainMenu : MonoBehaviour
 	{
-
 #if Debugging_Enabled
 		void DebugStuff(Vector3 pos)
 		{
@@ -54,20 +53,6 @@ namespace ChampionsOfForest
 		private Vector3 rulerEnd = Vector3.zero;
 		private int rulerHue = 1;
 		private GameObject rulerObj;
-
-		public static LayerMask GetCollisionMaskOf(GameObject go)
-		{
-			int myLayer = go.layer;
-			int layerMask = 0;
-			for (int i = 0; i < 32; i++)
-			{
-				if (!Physics.GetIgnoreLayerCollision(myLayer, i))
-				{
-					layerMask = layerMask | 1 << i;
-				}
-			}
-			return layerMask;
-		}
 		partial void DrawDebug()
 		{
 			if (Input.GetKeyDown(KeyCode.F5))
@@ -101,7 +86,6 @@ namespace ChampionsOfForest
 				rulerObj = new GameObject();
 				rulerObj.AddComponent<LineRenderer>();
 			}
-			
 			if (Input.GetKeyDown(KeyCode.F7))
 			{
 				rulerStart = LocalPlayer.Transform.position;
@@ -115,7 +99,6 @@ namespace ChampionsOfForest
 				rulerStart = Vector3.zero;
 				rulerEnd = Vector3.zero;
 			}
-		
 			if (rulerStart != Vector3.zero && rulerEnd != Vector3.zero)
 			{
 				rulerHue++;
