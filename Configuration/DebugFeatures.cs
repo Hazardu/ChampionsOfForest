@@ -1,4 +1,6 @@
-﻿using ChampionsOfForest.Player;
+﻿using System.Reflection;
+
+using ChampionsOfForest.Player;
 using TheForest.Utils;
 using UnityEngine;
 using Input = UnityEngine.Input;
@@ -10,7 +12,13 @@ namespace ChampionsOfForest
 	{
 
 #if Debugging_Enabled
-		Vector3? GetEyePosition()
+		void DebugStuff(Vector3 pos)
+		{
+			//Spawn worm
+			//
+			
+		}
+	Vector3? GetEyePosition()
 		{
 
 			Transform t = Camera.main.transform;
@@ -62,6 +70,15 @@ namespace ChampionsOfForest
 		}
 		partial void DrawDebug()
 		{
+			if (Input.GetKeyDown(KeyCode.F5))
+			{
+				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("instantMutantSpawner"), GetEyePosition().Value, Quaternion.identity);
+				gameObject.GetComponent<spawnMutants>().amount_female = 1;
+			}
+			if (Input.GetKeyDown(KeyCode.F3))
+			{
+				Instantiate<GameObject>(Scene.MutantControler.wormSpawnerPrefab, GetEyePosition().Value, Quaternion.identity);
+			}
 			if (Input.GetKeyDown(KeyCode.F1))
 			{
 				Vector3? eyepos = GetEyePosition();
