@@ -957,22 +957,52 @@ namespace ChampionsOfForest
 
 			GUIStyle TitleStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
 			GUIStyle ValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };
-			float y = Screen.height / 2 - 200 * screenScale;
+
+			float y = Screen.height / 3 - 200 * screenScale;
+
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Melee Damage", TitleStyle);
-			y += 25 * screenScale;
+			y += 20 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerMeleeDamageRating().ToString("N0"), ValueStyle);
-			y += 75 * screenScale;
+			y += 50 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Ranged Damage", TitleStyle);
-			y += 25 * screenScale;
+			y += 20 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerRangedDamageRating().ToString("N0"), ValueStyle);
-			y += 75 * screenScale;
+			y += 50 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Magic Damage", TitleStyle);
-			y += 25 * screenScale;
+			y += 20 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerSpellDamageRating().ToString("N0"), ValueStyle);
-			y += 75 * screenScale;
+			y += 50 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Toughness", TitleStyle);
-			y += 25 * screenScale;
+			y += 20 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Maximum Life", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.TotalMaxHealth.ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Maximum Energy", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.TotalMaxEnergy.ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Armor", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.TotalArmor.ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Agility", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.agility.GetAmount().ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Intelligence", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.intelligence.GetAmount().ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Strength", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.strength.GetAmount().ToString("N0"), ValueStyle);
+			y += 50 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Vitality", TitleStyle);
+			y += 20 * screenScale;
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), ModdedPlayer.Stats.vitality.GetAmount().ToString("N0"), ValueStyle);
 
 			DrawInventoryHints();
 		}

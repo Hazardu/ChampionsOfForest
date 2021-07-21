@@ -18,7 +18,18 @@ namespace ChampionsOfForest.Player
 
 		public enum EquippableSlots
 		{
-			Offhand=-13, MainHand,RingL,RingR,Bracer,Amulet,Gloves,Shoulders,Boots,Legs,Chest,Helmet
+			Offhand = -13,
+			MainHand,
+			RingL,
+			RingR,
+			Bracer,
+			Amulet,
+			Gloves,
+			Shoulders,
+			Boots,
+			Legs,
+			Chest,
+			Helmet
 		}
 		public static Item GetEquippedItemAtSlot(EquippableSlots slot)
 		{
@@ -56,18 +67,18 @@ namespace ChampionsOfForest.Player
 					ItemSlots.Add(x + y * Width, null);
 				}
 			}
-			ItemSlots.Add(-2, null);  //helmet
-			ItemSlots.Add(-3, null);  //chest
-			ItemSlots.Add(-4, null);  //legs
-			ItemSlots.Add(-5, null);  //boots
-			ItemSlots.Add(-6, null);  //shoulders
-			ItemSlots.Add(-7, null);  //gloves
-			ItemSlots.Add(-8, null);  //tallisman/amulet
-			ItemSlots.Add(-9, null);  //bracer
-			ItemSlots.Add(-10, null); //ring R
-			ItemSlots.Add(-11, null); //ring L
-			ItemSlots.Add(-12, null); //mainHand
-			ItemSlots.Add(-13, null); //offhand
+			ItemSlots.Add((int)EquippableSlots.Helmet, null);  //helmet
+			ItemSlots.Add((int)EquippableSlots.Chest, null);  //chest
+			ItemSlots.Add((int)EquippableSlots.Legs, null);  //legs
+			ItemSlots.Add((int)EquippableSlots.Boots, null);  //boots
+			ItemSlots.Add((int)EquippableSlots.Shoulders, null);  //shoulders
+			ItemSlots.Add((int)EquippableSlots.Gloves, null);  //gloves
+			ItemSlots.Add((int)EquippableSlots.Amulet, null);  //tallisman/amulet
+			ItemSlots.Add((int)EquippableSlots.Bracer, null);  //bracer
+			ItemSlots.Add((int)EquippableSlots.RingR, null); //ring R
+			ItemSlots.Add((int)EquippableSlots.RingL, null); //ring L
+			ItemSlots.Add((int)EquippableSlots.MainHand, null); //mainHand
+			ItemSlots.Add((int)EquippableSlots.Offhand, null); //offhand
 		}
 
 		private void Update()
