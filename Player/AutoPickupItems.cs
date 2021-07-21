@@ -1,5 +1,8 @@
-﻿using TheForest.Items.World;
+﻿using LibNoise.Unity.Operator;
+
+using TheForest.Items.World;
 using TheForest.Utils;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player
@@ -89,7 +92,7 @@ namespace ChampionsOfForest.Player
 					if (customPickup != null)
 					{
 						if(customPickup.item.Rarity>= minRarity)
-							customPickup.PickUp();
+						customPickup.PickUp();
 					}
 				}
 			}

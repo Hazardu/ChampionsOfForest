@@ -41,13 +41,13 @@ namespace ChampionsOfForest.Network
 								case -1:    //Network stat has been updated by another player
 									{
 										var nID = r.ReadInt32();
-										NetworkPlayerStats.syncedStats[nID].ReceivedOtherPlayerChange(r);
+										NetworkPlayerStats.syncedStats[nID].RecievedOtherPlayerChange(r);
 										break;
 									}
 
 								case 1:
 									{
-										if (ModSettings.DifficultyChosen)
+										if (ModSettings.DifficultyChoosen)
 										{
 											ModSettings.BroadCastSettingsToClients();
 										}
@@ -65,14 +65,14 @@ namespace ChampionsOfForest.Network
 										ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)r.ReadInt32();
 										ModSettings.killOnDowned = r.ReadBoolean();
 										ModSettings.difficulty = (ModSettings.Difficulty)index;
-										if (!ModSettings.DifficultyChosen)
+										if (!ModSettings.DifficultyChoosen)
 										{
 											LocalPlayer.FpCharacter.UnLockView();
 											LocalPlayer.FpCharacter.MovementLocked = false;
 											Cheats.GodMode = false;
 											MainMenu.Instance.ClearDiffSelectionObjects();
 										}
-										ModSettings.DifficultyChosen = true;
+										ModSettings.DifficultyChoosen = true;
 										break;
 									}
 
@@ -359,12 +359,12 @@ namespace ChampionsOfForest.Network
 											}
 											if (EnemyManager.clinetProgressions.ContainsKey(entity))
 											{
-												ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+												ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
 												cp.Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 											else
 											{
-												new ClientEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+												new ClinetEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 
 										}

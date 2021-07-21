@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 using ChampionsOfForest.Player;
+
 using UnityEngine;
+
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 
 namespace ChampionsOfForest
@@ -96,7 +100,7 @@ namespace ChampionsOfForest
 			height *= screenScale;
 			if (BookPositionY < Screen.height && BookPositionY > -height * screenScale)
 			{
-				Texture2D tex = ResourceLoader.GetTexture(iconID);
+				Texture2D tex = Res.ResourceLoader.GetTexture(iconID);
 				Rect rect = new Rect(0, 0, height * tex.width / tex.height, height)
 				{
 					center = new Vector2(Screen.width * centerPosition, height / 2 + BookPositionY)
@@ -213,13 +217,13 @@ namespace ChampionsOfForest
 				Stat("Experience goal", ModdedPlayer.instance.ExpGoal.ToString(), "Next level: " + (ModdedPlayer.instance.level + 1) + " you will need to get this amount of experience:\t " + ModdedPlayer.instance.GetGoalExp(ModdedPlayer.instance.level + 1));
 				Stat("Progress amount: ", (((float)ModdedPlayer.instance.ExpCurrent / ModdedPlayer.instance.ExpGoal).ToString("P")));
 				Label("\tLevel is the estimation of my power. I must become stronger to survive." +
-					"\nHigher level allow me to equip better equipment. " +
+					"\nHigher level allow me to equip better equipement. " +
 					"\nLeveling up gives me the ability to develop usefull abilities. (Currently you have " + ModdedPlayer.instance.MutationPoints + " mutation points), which you can spend on unlocking spells or perks. ");
 				Space(50);
 				Label("\nSources of experience" +
 					"\n-Mutants - Enemies give the most experience, it's possible to chain kills to get more exp, and the reward is exp reward is based on bounty." +
 					"\n-Animals - Experience gained does not increase with difficulty. Good way of gaining experience. Rarer animals like crocodiles and racoons give more experience compared to common like rabbits and lizards" +
-					"\n-Tall bushes - Give minimum amount of experience." +
+					"\n-Tall bushes - Give minium amount of experience." +
 					"\n-Trees - A bit more than bushes." +
 					"\n-Effigies - It's possible to gain experience and low rarity items by breaking effigies scattered across the map." +
 					"\n-Rare consumable - Gives a large amount of experience, it's rarity is orange\n");
@@ -229,7 +233,7 @@ namespace ChampionsOfForest
 				Header("Information - Items");
 				Label($"\tEquipement can be obtained by killing enemies and breaking effigies. Normal enemies can drop a few items on death, if the odds are in your favor. The chance to get any items from a normal enemy is {0.1f* ModdedPlayer.Stats.magicFind.Value* ModSettings.DropChanceMultiplier:P}. The amount of items obtained from normal enemies increases with more players in a lobby.\n" +
 				 "Elite enemies always drop items in large amounts.\n" +
-				 "\tItems can be equipped by dragging and dropping them onto a right equipment slot or shift+left click. The item will grant it's stats only if you meets item's level requirement. The best tier of items is only obtainable on high difficulties.");
+				 "\tItems can be equipped by dragging and dropping them onto a right equipement slot or shift+left click. The item will grant it's stats only if you meets item's level requirement. The best tier of items is only obtainable on high difficulties.");
 				Label("By unlocking a perk in the survival category, it's possible to change the stats on your existing items, and reforge unused items into something useful. Reforged item will have the same level as item put into the main crafting slot.");
 				Label("In the inventory, you can compare an item with your equipped item by holding down left shift.");
 				Label("By holding down left shift and clicking on an item, it will be equipped. This server the same purpose as dragging and dropping an item.");
@@ -247,12 +251,12 @@ namespace ChampionsOfForest
 				Space(100);
 
 				Header("Information - Mutations and Abilities");
-				Label("\tUpon leveling up, the player will receive a upgrade point. Then it's up to the player to use it to unlock a mutation, that will serve as a permanent perk, or to spend two upgrade points to unlock a ability.\n" +
-					"Abilities are in majority of the cases more powerful than perks, as they cost more and the number of active abilities is limited to 6.\n" +
+				Label("\tUpon leveling up, the player will recieve a upgrade point. Then it's up to the player to use it to unlock a mutation, that will serve as a permanent perk, or to spend two upgrade points to unlock a ability.\n" +
+					"Abilities are in majority of the cases more powerful than perks, as they cost more and the number of active abilities is limitied to 6.\n" +
 					"Some perks can be bought multiple times for increased effects.\n" +
 					"\n" +
 					"Refunding - it is possible to refund all points, to do so, heart of purity needs to be consumed. This item is of yellow rarity, and thus unobtainable on easy and veteran difficulties. Heart of purity will be granted to a player upon reaching level 15, 30 and 40" +
-					"More points - to gain a point without leveling, a rare item of green rarity needs to be consumed. It permanently adds a upgrade point, and it persists even after refunding. Items to grant additional upgrade points are granted to player to upon reaching level 50, 65 and 75. To obtain them in different means, you need to play on challenge difficulties or higher");
+					"More points - to gain a point without leveling, a rare item of green rarity needs to be consumed. It permamently adds a upgrade point, and it persists even after refunding. Items to grant additional upgrade points are granted to player to upon reaching level 50, 65 and 75. To obtain them in different means, you need to play on challenge difficulties or higher");
 				Space(100);
 
 				Header("Information - Enemies");
@@ -270,22 +274,22 @@ namespace ChampionsOfForest
 				Label("- Steadfast - This defensive ability causes enemy to reduce all damage exceeding a percent of their maximum health. To deal with this kind of ability, damage over time and fast attacks are recommended. This ability counters nuke instances of damage.");
 				Label("- Blizzard - A temporary aura around an enemy, that slows anyone in it's area of effect. Affects movement speed and attack speed. Best way to deal with this is to avoid getting within it's range. Crowd controll from ranged attacks and running seems like the best option.");
 				Label("- Radiance - A permanent aura around an enemy. It deals damage anyone around. The only way of dealing with this is to never get close to the enemy.");
-				Label("- Chains - Roots anyone in a big radius around the elite. The duration this root increases with difficulty. Several abilities that provide resistance to crowd control clear the effects of this ability.");
+				Label("- Chains - Roots anyone in a big radius around the elite. The duration this root increases with difficulty. Several abilities that provide resistance to crowd controll clear the effects of this ability.");
 				Label("- Black hole - A very strong ability. The spell has a fixed cooldown, and the enemy will attempt to cast it as soon as a player gets within his range effective.");
-				Label("- Trap sphere - Long lasting sphere that forces you to stay inside it until it's effects wears off");
-				Label("- Juggernaut - The enemy is completely immune to crowd control and bleeding.\n");
+				Label("- Trap sphere - Long lasting sphere that forces you to stay inside it untill it's effects wears off");
+				Label("- Juggernaut - The enemy is completely immune to crowd controll and bleeding.\n");
 				Label("- Gargantuan - Describes an enemy that is bigger, faster, stronger and has more health.");
 				Label("- Tiny - An enemy has decreased size. It's harder to hit it with ranged attacks and most of the melee weapons can only attack the enemy with slow smashes.");
-				Label("- Extra tough - enemy has a lot more health");
+				Label("- Extra tough - enemy has a lot more healt");
 				Label("- Extra deadly - enemy has a lot more damage");
 				Label("- Basher - the enemy stuns on hit. Best way to fight it is to not get hit or parry it's attacks.");
-				Label("- Warping - An ability allowing to teleport. Strong against glass cannon builds, running away and ranged attacks. Weak against melee strikes and a lot of durability.");
-				Label("- Rain Empowerment - If it rains, the enemy gains in strength, speed, armor and size.");
+				Label("- Warping - An ability allowing to teleport. Strong against glass cannon builds, running away and ranged attacks. Weak agnist melee strikes and a lot of durability.");
+				Label("- Rain Empowerment - If it rains, the enemy gains in strenght, speed, armor and size.");
 				Label("- Meteors - Periodically spawns a rain of powerful meteors. They are rather easy to spot and they move at a slow medium speed.");
 				Label("- Flare - Slows and damages me if you stand inside. Heals and makes enemies faster.");
 				Label("- Undead - An enemy upon dieing restores portion of it's health, gets stronger and bigger.");
 				Label("- Plasma cannon - Creates a turret that fires a laser beam that damages players and buildings.");
-				Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is advised to retreat and wait for the poison stop damaging you.");
+				Label("- Poisonous - Enemies gain a attack modifier, that applies a stacking debuff, which deals damage over time. Once hit, it is adviced to retreat and wait for the poison stop damaging you.");
 				Label("- Cataclysm - Enemy uses the cataclysm spell to slow you down and damage you.");
 
 				Header("Changes");
@@ -320,12 +324,12 @@ namespace ChampionsOfForest
 					"Base health: " + ModdedPlayer.ModdedPlayerStats.baseHealth +
 					"\nBonus health: " + ModdedPlayer.Stats.maxHealth.GetFormattedAmount() +
 					"\nHealth from vitality: " + ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount() +
-					"\nHealth multiplier: " + ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount());
+					"\nHealth multipier: " + ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount());
 				Stat("Max energy", ModdedPlayer.Stats.TotalMaxEnergy.ToString(), "Total energy pool.\n" +
 					"Base energy: " + ModdedPlayer.ModdedPlayerStats.baseEnergy +
 					"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy.GetFormattedAmount() +
 					"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount() +
-					"\nEnergy multiplier: " + ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount());
+					"\nEnergy multipier: " + ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount());
 				Stat("Armor", ModdedPlayer.Stats.armor.GetFormattedAmount(), $"Armor provides physical damage reduction.\nPhysical damage reduction from {ModdedPlayer.Stats.armor.GetFormattedAmount()} armor is equal to {1-ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value):P}");
 				Stat("Magic resistance", (1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"), "Magic damage reduction. Decreases damage from enemy abilities.");
 				Stat("Dodge Chance", (1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"), "A chance to avoid entire instance of damage. Works only for physical damage sources. This means dodge is ineffective against fire, poison, cold, various spells. Meteor rain ability deals physical damage and can be dodged");
@@ -340,7 +344,7 @@ namespace ChampionsOfForest
 				Space(10);
 
 
-				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString() + "", "Stamina regeneration is temporarily paused after sprinting");
+				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString() + "", "Stamina regen is temporairly paused after sprinting");
 				Stat("Stamina per second", ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() *  ModdedPlayer.Stats.staminaPerSecRate.GetAmount() + "", "Stamina per second: " + ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() + "\nStamina regen bonus: " + ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount());
 
 				Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy per second: " + ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() + "\nStamina and energy regen multipier: " + ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier);
@@ -365,7 +369,7 @@ namespace ChampionsOfForest
 				Header("Melee");
 				Space(10);
 
-				Stat("Melee damage", ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), "Melee damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				Stat("Melee damage", ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), "Melee damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
 				   "Bonus from strength: " + ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount()*100 + "%\n" +
 				   "Increase to melee damage: " + (ModdedPlayer.Stats.meleeIncreasedDmg-1).ToString("P") + "\n" +
 				   "Increase to all damage: " + (ModdedPlayer.Stats.allDamage- 1).ToString("P"));
@@ -386,7 +390,7 @@ namespace ChampionsOfForest
 				Stat("Additional ranged weapon damage", ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");
 				Stat("Projectile speed", ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), "Faster projectiles fly further and fall slower");
 				Stat("Projectile size", ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");
-				Stat("Headshot damage", ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), "Damage multiplier on headshot");
+				Stat("Headshot damage", ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), "Damage multipier on headshot");
 				Stat("Projectile pierce chance", ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), "Chance for a projectile to pierce a bone of an enemy and fly right through to hit objects behind the enemy. Increasing this value beyond 100% will make your projectiles always pierce on first enemy contact, and any further hits will also have a chance to pierce.");
 				Stat("No consume chance", ModdedPlayer.Stats.perk_projectileNoConsumeChance.GetFormattedAmount());
 				Stat("Spear headshot chance", ModdedPlayer.Stats.perk_thrownSpearCritChance.GetFormattedAmount());
@@ -405,14 +409,14 @@ namespace ChampionsOfForest
 					Stat("Shooting an enemy creates magic arrows", "");
 
 				Stat("Multishot Projectiles", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()) : ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()).ToString("N"));
-				Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f)).ToString(), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");
+				Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f)).ToString(), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10"); ;
 		
 				Space(20);
 				Image(110, 70);
 				Header("Magic");
 				Space(10);
 
-				Stat("Spell damage", ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), "Spell damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
+				Stat("Spell damage", ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), "Spell damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\n" +
 				"Bonus from intelligence: " + (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P") + "\n" +
 				"Increase to spell damage: " + (ModdedPlayer.Stats.spellIncreasedDmg-1).ToString("P") + "\n" +
 				"Increase to all damage: " + (ModdedPlayer.Stats.allDamage - 1).ToString("P"));
@@ -437,11 +441,11 @@ namespace ChampionsOfForest
 				Header("Survivor stats");
 				Space(10);
 
-				Stat("Movement speed", ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), "Multiplier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " feet per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount() + " feet/second");
-				Stat("Jump power", ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), "Multiplier of base jump power. Increases height of your jumps");
+				Stat("Movement speed", ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), "Multipier of base movement speed. Base walking speed is equal to " + FPCharacterMod.basewalkSpeed + " feet per second, with bonuses it's " + FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount() + " feet/second");
+				Stat("Jump power", ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), "Multipier of base jump power. Increases height of your jumps");
 				Stat("Hunger rate", (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), "How much slower is the rate of consuming food compared to normal.");
 				Stat("Thirst rate", (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), "How much slower is the rate of consuming water compared to normal.");
-				Stat("Experience gain", ModdedPlayer.Stats.expGain.GetFormattedAmount(), "Multiplier of any experience gained");
+				Stat("Experience gain", ModdedPlayer.Stats.expGain.GetFormattedAmount(), "Multipier of any experience gained");
 				Stat("Massacre duration", ModdedPlayer.Stats.maxMassacreTime.GetAmount() + " s", "How long massacres can last");
 				Stat("Time on kill", ModdedPlayer.Stats.timeBonusPerKill.GetAmount() + " s", "Amount of time that is added to massacre for every kill");
 				if (ModdedPlayer.Stats.perk_turboRaftOwners.GetAmount() > 0)

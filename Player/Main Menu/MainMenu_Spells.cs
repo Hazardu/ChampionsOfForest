@@ -27,7 +27,7 @@ namespace ChampionsOfForest
 			if (displayedSpellInfo == null)
 			{
 				//scrolling the list
-				spellOffset += Input.GetAxis("Mouse ScrollWheel") * 160;
+				spellOffset += UnityEngine.Input.GetAxis("Mouse ScrollWheel") * 160;
 				spellOffset = Mathf.Clamp(spellOffset, -(100 * screenScale * (SpellDataBase.spellDictionary.Count + 4)), 0);
 			}
 			else
@@ -42,7 +42,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[27]);
 
 				//go back btn
-				if (Input.GetMouseButtonDown(1))
+				if (UnityEngine.Input.GetMouseButtonDown(1))
 				{
 					displayedSpellInfo = null;
 					Effects.Sound_Effects.GlobalSFX.Play(1);
@@ -76,7 +76,7 @@ namespace ChampionsOfForest
 					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy:  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
 					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
 					: "") +
-					"\nRequired level:  <b>" + displayedSpellInfo.LevelRequirement + "</b></color></size>",
+					"\nRequired level:  <b>" + displayedSpellInfo.Levelrequirement + "</b></color></size>",
 					new GUIStyle(GUI.skin.label)
 					{
 						font = mainFont,
@@ -154,7 +154,7 @@ namespace ChampionsOfForest
 				{
 					//buy button
 					Rect UnlockRect = new Rect(bg.x + 150 * screenScale, 870 * screenScale, bg.width - 300 * screenScale, 100 * screenScale);
-					if (displayedSpellInfo.LevelRequirement <= ModdedPlayer.instance.level)
+					if (displayedSpellInfo.Levelrequirement <= ModdedPlayer.instance.level)
 					{
 						if (ModdedPlayer.instance.MutationPoints >= 2)
 						{
@@ -195,7 +195,7 @@ namespace ChampionsOfForest
 			GUI.DrawTexture(bg, Res.ResourceLoader.instance.LoadedTextures[28]);
 			Rect nameRect = new Rect(30 * screenScale + bg.x, y, bg.width / 2, 100 * screenScale);
 			bool locked = false;
-			if (s.LevelRequirement > ModdedPlayer.instance.level)
+			if (s.Levelrequirement > ModdedPlayer.instance.level)
 			{
 				locked = true;
 				GUI.color = Color.black;
@@ -209,7 +209,7 @@ namespace ChampionsOfForest
 					if (displayedSpellInfo == null)
 					{
 						style.fontStyle = FontStyle.Bold;
-						if (Input.GetMouseButtonDown(0))
+						if (UnityEngine.Input.GetMouseButtonDown(0))
 						{
 							Effects.Sound_Effects.GlobalSFX.Play(0);
 
@@ -219,7 +219,7 @@ namespace ChampionsOfForest
 				}
 			}
 			if (locked)
-				GUI.Label(nameRect, "Unlocked at level " + s.LevelRequirement, style);
+				GUI.Label(nameRect, "Unlocked at level " + s.Levelrequirement, style);
 			else
 				GUI.Label(nameRect, s.Name, style);
 			Rect iconRect = new Rect(bg.xMax - 140 * screenScale, y + 15 * screenScale, 70 * screenScale, 70 * screenScale);

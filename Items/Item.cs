@@ -80,62 +80,62 @@ namespace ChampionsOfForest
 			switch (slotIndex)
 			{
 				case -2:
-					if (this.type == ItemType.Helmet)
+					if (this.type == BaseItem.ItemType.Helmet)
 						return true;
 					break;
 
 				case -3:
-					if (this.type == ItemType.ChestArmor)
+					if (this.type == BaseItem.ItemType.ChestArmor)
 						return true;
 					break;
 
 				case -4:
-					if (this.type == ItemType.Pants)
+					if (this.type == BaseItem.ItemType.Pants)
 						return true;
 					break;
 
 				case -5:
-					if (this.type == ItemType.Boot)
+					if (this.type == BaseItem.ItemType.Boot)
 						return true;
 					break;
 
 				case -6:
-					if (this.type == ItemType.ShoulderArmor)
+					if (this.type == BaseItem.ItemType.ShoulderArmor)
 						return true;
 					break;
 
 				case -7:
-					if (this.type == ItemType.Glove)
+					if (this.type == BaseItem.ItemType.Glove)
 						return true;
 					break;
 
 				case -8:
-					if (this.type == ItemType.Amulet)
+					if (this.type == BaseItem.ItemType.Amulet)
 						return true;
 					break;
 
 				case -9:
-					if (this.type == ItemType.Bracer)
+					if (this.type == BaseItem.ItemType.Bracer)
 						return true;
 					break;
 
 				case -10:
-					if (this.type == ItemType.Ring)
+					if (this.type == BaseItem.ItemType.Ring)
 						return true;
 					break;
 
 				case -11:
-					if (this.type == ItemType.Ring)
+					if (this.type == BaseItem.ItemType.Ring)
 						return true;
 					break;
 
 				case -12:
-					if (this.type == ItemType.Weapon)
+					if (this.type == BaseItem.ItemType.Weapon)
 						return true;
 					break;
 
 				case -13:
-					if (this.type == ItemType.Quiver || this.type == ItemType.SpellScroll || this.type == ItemType.Shield)
+					if (this.type == BaseItem.ItemType.Quiver || this.type == BaseItem.ItemType.SpellScroll || this.type == BaseItem.ItemType.Shield)
 						return true;
 					break;
 			}
@@ -213,11 +213,11 @@ namespace ChampionsOfForest
 			base.maxLevel = b.maxLevel;
 			if (increasedLevel != -1)
 			{
-				base.level = Random.Range(minLevel, maxLevel + 1) + increasedLevel;
+				base.level = UnityEngine.Random.Range(minLevel, maxLevel + 1) + increasedLevel;
 			}
 			else
 			{
-				int averageLevel;
+				int averageLevel = 1;
 				if (GameSetup.IsMultiplayer)
 				{
 					int sum = ModReferences.PlayerLevels.Values.Sum();
@@ -308,7 +308,7 @@ namespace ChampionsOfForest
 			int i = 0;
 			foreach (List<ItemStat> PS in PossibleStats)
 			{
-				int random = Random.Range(0, PS.Count);
+				int random = UnityEngine.Random.Range(0, PS.Count);
 				if (PS[random] != null)
 				{
 					ItemStat stat = new ItemStat(PS[random], level);

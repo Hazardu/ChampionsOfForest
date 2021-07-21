@@ -48,7 +48,7 @@ namespace ChampionsOfForest.Player
 							if (LocalPlayer.Stats.BatteryCharge < 3f && Time.time > _animCoolDown && !_skipNoBatteryRoutine)
 							{
 								LocalPlayer.Animator.SetBool("noBattery", true);
-								_animCoolDown = Time.time + Random.Range(30, 60);
+								_animCoolDown = Time.time + (float)Random.Range(30, 60);
 								base.Invoke("resetBatteryBool", 1.5f);
 							}
 							if (LocalPlayer.Stats.BatteryCharge <= 0f)

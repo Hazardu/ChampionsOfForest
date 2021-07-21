@@ -1308,11 +1308,11 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				uncapped = true,
 				updateDescription = x =>
-				 {
-					 float f1 = 0.15f * x;
-					 float f2 = Mathf.Pow(1.2f, x);
-					 return $"Total increase to spell damage: {f1:P}\nspell cost: {f2 - 1f:P1}";
-				 }
+				{
+					float f1 = 0.15f * x;
+					float f2 = Mathf.Pow(1.2f, x);
+					return $"Total increase to spell damage: {f1:P}\nspell cost: {f2 - 1f:P1}";
+				}
 			};
 			new Perk()
 			{
@@ -1457,7 +1457,7 @@ namespace ChampionsOfForest.Player
 				posY = -1.5f,
 				name = "Multishot Empower",
 				originalDescription = "Increases the projectile count of multishot by 2, also increases the spells cost. Multishot does not apply to spears.",
-				updateDescription = x =>$"\nMultishot cost now: {(10 * Mathf.Pow(2 * x, 1.75f)).ToString("N")}\nCost after upgrading: {(10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")}",
+				updateDescription = x => $"\nMultishot cost now: {(10 * Mathf.Pow(2 * x, 1.75f)).ToString("N")}\nCost after upgrading: {(10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")}",
 				textureVariation = 0,
 				uncapped = true,
 			};

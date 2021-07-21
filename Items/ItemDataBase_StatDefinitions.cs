@@ -265,6 +265,7 @@ namespace ChampionsOfForest
 			new ItemStat(i, 0.008f, 0.01f, 0.5f, "Chance on hit to weaken", scAdd, 3, () => ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), f => ModdedPlayer.Stats.chanceToWeaken.valueAdditive += f, f => ModdedPlayer.Stats.chanceToWeaken.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 };
 			i++;
 			new ItemStat(i, 1.1f, 1.3f, 1.23f, "Thorns", scAdd, 4, () => ModdedPlayer.Stats.thorns.GetFormattedAmount(), f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, f => ModdedPlayer.Stats.thorns.valueAdditive += f);
+			;
 			i++;
 			new ItemStat(i, 0.065f, 0.08f, 0.5f, "Projectile pierce chance", scAdd, 6, () => ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += -f, f => ModdedPlayer.Stats.projectilePierceChance.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 };
 			i++;

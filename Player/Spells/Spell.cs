@@ -6,7 +6,7 @@ namespace ChampionsOfForest.Player
 	{
 		public int ID;
 		public Texture2D icon;
-		public int LevelRequirement;
+		public int Levelrequirement;
 		public float EnergyCost;
 		public float Cooldown;
 		public float BaseCooldown;
@@ -53,10 +53,10 @@ namespace ChampionsOfForest.Player
 		{
 		}
 
-		public Spell(int iD, int TextureID, int levelRequirement, float energyCost, float baseCooldown, string name, DescriptionDelegate description)
+		public Spell(int iD, int TextureID, int levelrequirement, float energyCost, float baseCooldown, string name, DescriptionDelegate description)
 		{
 			ID = iD;
-			LevelRequirement = levelRequirement;
+			Levelrequirement = levelrequirement;
 			EnergyCost = energyCost;
 			Cooldown = baseCooldown;
 			BaseCooldown = baseCooldown;
@@ -72,10 +72,10 @@ namespace ChampionsOfForest.Player
 		/// <summary>
 		/// Creates a channeled type of spell
 		/// </summary>
-		public Spell(int iD, int TextureID, int levelRequirement, float energyCost, string name, DescriptionDelegate description)
+		public Spell(int iD, int TextureID, int levelrequirement, float energyCost, string name, DescriptionDelegate description)
 		{
 			ID = iD;
-			LevelRequirement = levelRequirement;
+			Levelrequirement = levelrequirement;
 			EnergyCost = energyCost;
 			Channeled = true;
 			Cooldown = 1;

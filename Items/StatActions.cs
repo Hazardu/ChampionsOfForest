@@ -1,4 +1,7 @@
 ﻿using ChampionsOfForest.Player;
+
+using TheForest.Utils;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Items

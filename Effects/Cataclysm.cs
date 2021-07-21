@@ -37,7 +37,6 @@ namespace ChampionsOfForest.Effects
 
 		public static void Create(Vector3 position, float radius, float damage, float duration, TornadoType tornadoType, bool isFromEnemy)
 		{
-			//Hazard, radius passed to this method is never used because it is overwritten!
 			try
 			{
 				GameObject go = tornadoType == TornadoType.Fire ? GameObject.Instantiate(fireprefab) : GameObject.Instantiate(arcanaprefab);

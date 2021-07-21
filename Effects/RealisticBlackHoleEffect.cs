@@ -27,7 +27,8 @@ namespace ChampionsOfForest.Effects
 			{
 				if (_material == null)
 				{
-					_material = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
+					_material = new Material(shader);
+					_material.hideFlags = HideFlags.HideAndDontSave;
 				}
 				return _material;
 			}

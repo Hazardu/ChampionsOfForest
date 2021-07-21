@@ -85,7 +85,17 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 			Vector3 startVector = position + ( Vector3.up * 80 );
 			//Trace down to the ground
-			Vector3 soundEmitterPositon = Physics.Raycast(startVector, Vector3.down, out var raycastHit) ? raycastHit.transform.position : position;
+			Vector3 soundEmitterPositon = Vector3.zero;
+
+			if (Physics.Raycast(startVector, Vector3.down, out var raycastHit))
+			{
+				soundEmitterPositon = raycastHit.transform.position;
+			}
+			else
+			{
+				soundEmitterPositon = position;
+			}
+
 			int x = random.Next(16, 33);
 
 			GameObject soundEmitter = new GameObject();

@@ -1,8 +1,13 @@
-﻿using ChampionsOfForest.Effects.Sound_Effects;
+﻿using Bolt;
+
+using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Player;
+
 using TheForest.Utils;
 using TheForest.World;
+
 using UnityEngine;
+
 using Math = System.Math;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
@@ -51,9 +56,9 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			}
 			else if (other.transform.root == LocalPlayer.Transform.root)
 			{
-				LocalPlayer.Stats.Hit(Damage, false, PlayerStats.DamageType.Fire);
+				LocalPlayer.Stats.Hit((int)(Damage), false, PlayerStats.DamageType.Fire);
 				ModdedPlayer.instance.Stun(3f);
-				BuffDB.AddBuff(21, 69, Damage/3, 60);
+				Player.BuffDB.AddBuff(21, 69, Damage/3, 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
 			
 			}

@@ -110,7 +110,7 @@ namespace ChampionsOfForest.Player.Crafting
 					}
 					catch (Exception e)
 					{
-						Debug.LogWarning("reroll stats button ex " + e);
+						Debug.LogWarning("reroll stats button ex " + e.ToString());
 					}
 				}
 				float baseX = x + ((w - 240 * screenScale) / 2);

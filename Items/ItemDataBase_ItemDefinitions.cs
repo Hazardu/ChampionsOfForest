@@ -6821,7 +6821,7 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-		
+
 
 			new BaseItem(new Stat[][]
 		{
@@ -7272,7 +7272,7 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			
+
 			new BaseItem(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -7642,7 +7642,7 @@ new int[] {0,0,0,0,62,63,64},
 				uniqueStat = "SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.",
 				description = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.",
 				onEquip = () => BerserkSet.Equip(),
-				onUnequip = () =>BerserkSet.Unequip(),
+				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,

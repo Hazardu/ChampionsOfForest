@@ -82,7 +82,7 @@ namespace ChampionsOfForest.Effects
 						}
 						w.Close();
 					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
+					ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 				if (GameSetup.IsMpServer)
@@ -134,16 +134,16 @@ namespace ChampionsOfForest.Effects
 				{
 					try
 					{
-						if ((enemy.Key.position - pos).sqrMagnitude <= sqrRad)
+					if ((enemy.Key.position - pos).sqrMagnitude <= sqrRad)
+					{
+						if (pullIn)
 						{
-							if (pullIn)
-							{
 								enemy.Value.AddKnockbackByDistance(pos - enemy.Key.position, Vector3.Distance(pos, enemy.Key.transform.position) / 1.4f);
 							}
 							enemy.Value.Taunt(player, duration,slow);
-							Debug.Log("Taunted " + enemy.Value.enemyName);
+						Debug.Log("Taunted " + enemy.Value.enemyName);
 
-						}
+					}
 					}
 					catch (System.Exception e)
 					{

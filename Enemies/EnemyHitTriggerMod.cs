@@ -56,7 +56,7 @@ namespace ChampionsOfForest.Enemies
 				}
 				else
 				{
-					if (ModSettings.DifficultyChosen)
+					if (ModSettings.DifficultyChoosen)
 					{
 						if (!EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
 						{
@@ -71,7 +71,7 @@ namespace ChampionsOfForest.Enemies
 										w.Write(entity.networkId.PackedValue);
 										w.Close();
 									}
-									Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+									ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 									answerStream.Close();
 								}
 							}
@@ -104,7 +104,7 @@ namespace ChampionsOfForest.Enemies
 								w.Write(entity.networkId.PackedValue);
 								w.Close();
 							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+							ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 							answerStream.Close();
 						}
 					}
@@ -268,7 +268,7 @@ namespace ChampionsOfForest.Enemies
 										num = Mathf.RoundToInt(num * x.damagemult);
 										if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
 										{
-											if (Scene.WeatherSystem.Raining)
+											if (TheForest.Utils.Scene.WeatherSystem.Raining)
 											{
 												num *= 5;
 											}
@@ -308,7 +308,6 @@ namespace ChampionsOfForest.Enemies
 											EnemyProg = EnemyManager.enemyByTransform[this.rootTr];
 										}
 										num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
-										//bo is never used here?
 										BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
 										if (bo == null)
 										{
@@ -386,7 +385,7 @@ namespace ChampionsOfForest.Enemies
 				}
 
 				return;
-				IL_092f:
+			IL_092f:
 				if (other.gameObject.CompareTag("enemyCollide") && mainTrigger && bodyCollider && !enemyAtStructure)
 				{
 					setupAttackerType();
@@ -428,9 +427,13 @@ namespace ChampionsOfForest.Enemies
 					return;
 				}
 				getStructureStrength component4 = other.gameObject.GetComponent<getStructureStrength>();
-				bool flag2 = component4 == null;
+				bool flag2 = false;
+				if (component4 == null)
+				{
+					flag2 = true;
+				}
 				enemyAtStructure = true;
-				int num2;
+				int num2 = 0;
 				if (!creepy_male && !creepy && !creepy_fat && !creepy_baby)
 				{
 					if (!flag2)
@@ -442,7 +445,7 @@ namespace ChampionsOfForest.Enemies
 				}
 				num2 = ((!creepy_baby) ? Mathf.FloorToInt(30f * GameSettings.Ai.creepyStructureDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.creepyStructureDamageRatio));
 				goto IL_0d63;
-				IL_0d63:
+			IL_0d63:
 				if (setup && setup.health.poisoned)
 				{
 					num2 /= 2;

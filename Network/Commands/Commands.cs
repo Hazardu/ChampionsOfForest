@@ -1,4 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
 using TheForest.Utils;
 
 namespace ChampionsOfForest.Network.Commands
@@ -21,7 +26,7 @@ namespace ChampionsOfForest.Network.Commands
 				var entity = BoltNetwork.FindEntity(new Bolt.NetworkId(param.packed));
 				if (EnemyManager.clinetProgressions.ContainsKey(entity))
 				{
-					ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+					ClinetEnemyProgression cp = EnemyManager.clinetProgressions[entity];
 					cp.UpdateDynamic(param.health, param.armor, param.armor_reduction);
 				}
 			}

@@ -1,6 +1,10 @@
-﻿using Bolt;
+﻿using System.Collections.Generic;
+
+using Bolt;
+
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Network;
+
 using TheForest.Buildings.Creation;
 using TheForest.Tools;
 using TheForest.Utils;
@@ -86,7 +90,7 @@ namespace ChampionsOfForest.Player
 			startposition = transform.position;
 			OutputDmg *= ModdedPlayer.Stats.RangedDamageMult;
 			if(damageMult != 0f)
-				OutputDmg *= damageMult;
+			OutputDmg *= damageMult;
 			ignite = BlackFlame.IsOn;
 		}
 
@@ -345,7 +349,7 @@ namespace ChampionsOfForest.Player
 									w.Write(1);
 									w.Close();
 								}
-								NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+								ChampionsOfForest.Network.NetworkManager.SendLine(answerStream.ToArray(), ChampionsOfForest.Network.NetworkManager.Target.OnlyServer);
 								answerStream.Close();
 							}
 						}
@@ -370,13 +374,13 @@ namespace ChampionsOfForest.Player
 					}
 					else
 					{
-						if (BoltNetwork.isClient)
+					if (BoltNetwork.isClient)
+					{
+						if (be != null)
 						{
-							if (be != null)
-							{
-								EnemyProgression.ReduceArmor(be, ModdedPlayer.Stats.TotalRangedArmorPiercing );
-							}
+							EnemyProgression.ReduceArmor(be, ModdedPlayer.Stats.TotalRangedArmorPiercing );
 						}
+					}
 						else if (EnemyManager.enemyByTransform.ContainsKey(target.root))
 						{
 							var prog = EnemyManager.enemyByTransform[target.root];
@@ -424,7 +428,7 @@ namespace ChampionsOfForest.Player
 									w.Write(ModdedPlayer.Stats.TotalMaxHealth * 0.2f);
 									w.Close();
 								}
-								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 								answerStream.Close();
 							}
 							BuffDB.AddBuff(25, 91, lifePerSecond, 10);
@@ -432,7 +436,7 @@ namespace ChampionsOfForest.Player
 						}
 						else if (ModSettings.FriendlyFire)
 						{
-							COTFEvents.Instance.OnFriendlyFire.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnFriendlyFire.Invoke();
 
 							{
 								//checking if headshot
@@ -443,7 +447,7 @@ namespace ChampionsOfForest.Player
 								{
 									
 									if ((transform.position-head.position).sqrMagnitude < 0.4f)
-										headDamage = true;
+									headDamage = true;
 								}
 							}
 
@@ -471,7 +475,7 @@ namespace ChampionsOfForest.Player
 								{
 									dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 								}
-								COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped,target,this,!headDamage));
+								ChampionsOfForest.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped,target,this,!headDamage));
 								headDamage = true;
 
 							}
@@ -654,7 +658,7 @@ namespace ChampionsOfForest.Player
 				{
 					dmgUnclamped *= ModdedPlayer.Stats.spell_seekingArrow_HeadDamage;
 				}
-				COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped, target, this, !headDamage));
+				ChampionsOfForest.COTFEvents.Instance.OnHeadshot.Invoke(new COTFEvents.HeadshotParams(dmgUnclamped, target, this, !headDamage));
 				headDamage = true;
 			}
 			else
@@ -663,8 +667,8 @@ namespace ChampionsOfForest.Player
 			}
 			{
 				var eventContext = new COTFEvents.HitOtherParams(dmgUnclamped, crit, target, this);
-				COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
-				COTFEvents.Instance.OnHitRanged.Invoke(eventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnHitEnemy.Invoke(eventContext);
+				ChampionsOfForest.COTFEvents.Instance.OnHitRanged.Invoke(eventContext);
 			}
 
 			if (target)
@@ -689,7 +693,7 @@ namespace ChampionsOfForest.Player
 							{
 								w.Write(27);
 								w.Write(entity.networkId.PackedValue);
-								w.Write(BlackFlame.FireDamageBonus);
+								w.Write(Effects.BlackFlame.FireDamageBonus);
 								w.Write(20f);
 								w.Write(2200);
 								w.Close();
@@ -714,7 +718,7 @@ namespace ChampionsOfForest.Player
 									w.Write(90);
 									w.Close();
 								}
-								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 								answerStream.Close();
 							}
 							//Network.NetworkManager.SendLine(s, Network.NetworkManager.Target.OnlyServer);
@@ -734,7 +738,7 @@ namespace ChampionsOfForest.Player
 								w.Write(91);
 								w.Close();
 							}
-							AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
+							AsyncHit.SendCommandDelayed(2, answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
 							answerStream.Close();
 						}
 					}
@@ -780,7 +784,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy.Hit = DamageMath.GetSendableDamage( dmgUnclamped);
 						if ((GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites) || (ignite && Random.value < 0.5f))
 						{
-							COTFEvents.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy.Burn = true;
 						}
 						playerHitEnemy.getAttackerType += 1000000;
@@ -803,7 +807,7 @@ namespace ChampionsOfForest.Player
 						playerHitEnemy2.getAttackerType = 4;
 						if ((ignite && Random.value < 0.5f) || (GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites))
 						{
-							COTFEvents.Instance.OnIgniteRanged.Invoke();
+							ChampionsOfForest.COTFEvents.Instance.OnIgniteRanged.Invoke();
 							playerHitEnemy2.Burn = true;
 
 						}
@@ -825,11 +829,14 @@ namespace ChampionsOfForest.Player
 							{
 								if ((ignite && Random.value < 0.5f) || GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites)
 									ep.HealthScript.Burn();
-								ep.FireDebuff(2200, BlackFlame.FireDamageBonus, 20);
+								ep.FireDebuff(2200, Effects.BlackFlame.FireDamageBonus, 20);
 								if (BlackFlame.GiveAfterburn && Random.value < 0.1f)
 								{
-									int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-									ep.DmgTakenDebuff(id, 1.15f, 25);
+									if (ep != null)
+									{
+										int id = 120 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
+										ep.DmgTakenDebuff(id, 1.15f, 25);
+									}
 								}
 							}
 							ModdedPlayer.instance.OnHitEffectsHost(ep, dmgUnclamped);
@@ -903,7 +910,7 @@ namespace ChampionsOfForest.Player
 					}
 				}
 			}
-			afterdamage:
+afterdamage:
 			
 			if (ModdedPlayer.Stats.perk_projectileNoConsumeChance > 0.35f)
 			{
