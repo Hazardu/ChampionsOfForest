@@ -958,7 +958,7 @@ namespace ChampionsOfForest
 			GUIStyle TitleStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
 			GUIStyle ValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };
 
-			float y = Screen.height / 3 - 200 * screenScale;
+			float y = Screen.height / 2 - 385 * screenScale;
 
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Melee Damage", TitleStyle);
 			y += 20 * screenScale;
