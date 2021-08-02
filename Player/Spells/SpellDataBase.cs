@@ -59,7 +59,7 @@ namespace ChampionsOfForest.Player
 				CastOnRelease = true,
 				aim = SpellActions.DoBlinkAim,
 			};
-			new Spell(iD: 4, TextureID: 120, levelRequirement: 10, energyCost: 100, baseCooldown: 55, name: "Sun Flare", () => $"Intense light focuses onto a single spot. Heals allies, reduces all damage taken by 50% and gives movement speed. Slows down and damages enemies")
+			new Spell(iD: 4, TextureID: 120, levelRequirement: 10, energyCost: 100, baseCooldown: 70, name: "Sun Flare", () => $"Intense light focuses onto a single spot. Heals allies, reduces all damage taken by 50% and gives movement speed. Slows down and damages enemies")
 			{
 				active = SpellActions.CastFlare,
 			};

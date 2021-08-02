@@ -48,7 +48,7 @@ namespace ChampionsOfForest.Player
 			}
 
 
-			RaycastHit[] hit = Physics.SphereCastAll(LocalPlayer.Transform.position, radius, Vector3.one, radius + 1);
+			RaycastHit[] hit = Physics.SphereCastAll(LocalPlayer.Transform.position, radius, Vector3.one, radius);
 			for (int i = 0; i < hit.Length; i++)
 			{
 				PickUp pu = hit[i].transform.GetComponent<PickUp>();

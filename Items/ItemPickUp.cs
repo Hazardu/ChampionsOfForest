@@ -211,7 +211,7 @@ namespace ChampionsOfForest
 								w.Write(ID);
 								w.Close();
 							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
+							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 							answerStream.Close();
 						}
 						PickUpManager.RemovePickup(ID);

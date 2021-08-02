@@ -328,7 +328,6 @@ namespace ChampionsOfForest
 			//waiting for buffs and perks to apply
 			yield return new WaitForSeconds(5f);
 
-			
 			ModdedPlayer.ResetAllStats();
 			//bringing health back to correct amount
 			yield return null;
@@ -347,7 +346,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-		public static void EmergencySave()
+		public static void EmergencySave() //previousely, clients would disconnect for no reason. Now obsolete
 		{
 			if (GameSetup.IsMpClient)
 			{
@@ -379,29 +378,17 @@ namespace ChampionsOfForest
 			CreateInstance();
 			Instance.StartCoroutine(Instance.DoLoadCoroutine());
 		}
-
 		public static string Path()
 		{
 			if (GameSetup.IsMultiplayer)
 			{
 				if (GameSetup.IsMpClient)
-				{
 					return "Mods/Champions of the Forest/Multiplayer/" + PlayerSpawn.GetClientSaveFileName();
-				}
 				else if (GameSetup.IsMpServer)
-				{
-					if (GameSetup.Slot.ToString() == "0")
-					{
-						return string.Empty;
-					}
-
-					return "Mods/Champions of the Forest/Multiplayer/" + GameSetup.Slot.ToString();
-				}
+					return GameSetup.Slot.ToString() == "0" ? string.Empty : "Mods/Champions of the Forest/Multiplayer/" + GameSetup.Slot.ToString();
 			}
 			if (GameSetup.Slot.ToString() == "0")
-			{
 				return string.Empty;
-			}
 
 			return "Mods/Champions of the Forest/Singleplayer/" + GameSetup.Slot.ToString();
 		}
