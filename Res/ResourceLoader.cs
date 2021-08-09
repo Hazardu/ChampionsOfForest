@@ -98,7 +98,7 @@ namespace ChampionsOfForest.Res
 		private DateTime buildDate;
 		private void Start()
 		{
-			if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore") || !ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
+			if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore"))
 			{
 				MissingMods = true;
 				return;
@@ -519,21 +519,8 @@ namespace ChampionsOfForest.Res
 				GUI.DrawTexture(BGR, Texture2D.whiteTexture);
 				GUI.color = Color.red;
 
-				string s = "Champions of the forest will NOT work without ";
-				if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore") && !ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
-				{
-					s += "BuilderCore and BuilderMenu";
-				}
-				else if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderCore"))
-				{
-					s += "BuilderCore";
-				}
-				else
-				{
-					s += "BuilderMenu";
-				}
-				s += "\nPlease, install them to use Champions of The Forest.";
-
+				string s = "Champions of the forest will NOT work without BuilderCore mod. Please install it to use Champions of The Forest";
+			
 				GUI.Label(new Rect(0, 30 * rr, Screen.width, 200 * rr), s, new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.UpperCenter });
 				GUI.color = Color.white;
 
@@ -542,13 +529,6 @@ namespace ChampionsOfForest.Res
 					if (GUI.Button(new Rect(760 * rr, 200 * rr, 700 * rr, 100 * rr), "BuilderCore Page", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
 					{
 						Application.OpenURL("https://modapi.survivetheforest.net/mod/82/buildercore");
-					}
-				}
-				if (!ModAPI.Mods.LoadedMods.ContainsKey("BuilderMenu"))
-				{
-					if (GUI.Button(new Rect(760 * rr, 400 * rr, 700 * rr, 100 * rr), "BuilderMenu Page", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
-					{
-						Application.OpenURL("https://modapi.survivetheforest.net/mod/83/builder-menu");
 					}
 				}
 				if (GUI.Button(new Rect(760 * rr, 800 * rr, 700 * rr, 100 * rr), "Exit The Forest", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
