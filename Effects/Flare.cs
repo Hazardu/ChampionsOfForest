@@ -64,12 +64,12 @@ namespace ChampionsOfForest
 				comp.light = light;
 				comp.system = ps;
 				comp.fromEnemy = fromEnemy;
-				comp.Damage = Damage;
-				comp.Healing = Healing;
-				comp.Boost = Boost;
-				comp.Slow = Slow;
-				comp.Duration = duration;
-				comp.Radius = Radius;
+				comp.damageAmount = Damage;
+				comp.healAmount = Healing;
+				comp.boostAmount = Boost;
+				comp.slowAmount = Slow;
+				comp.duration = duration;
+				comp.effectRadius = Radius;
 			}
 			catch (System.Exception e)
 			{
@@ -80,14 +80,14 @@ namespace ChampionsOfForest
 		public Light light;
 		public ParticleSystem system;
 		public bool fromEnemy;
-		public float Healing;
-		public float Damage;
-		public float Slow;
-		public float Boost;
-		public float Duration;
-		public float Radius;
+		public float healAmount;
+		public float damageAmount;
+		public float slowAmount;
+		public float boostAmount;
+		public float duration;
+		public float effectRadius;
 
-		private bool EffectReady;
+		private bool effectReady;
 
 		private void Start()
 		{
@@ -113,7 +113,7 @@ namespace ChampionsOfForest
 				main.startColor = fromEnemy ? new Color(1, 0.08f, 0, 1) : new Color(0.76f, 0.0f, 1, 1);
 				shape.shapeType = ParticleSystemShapeType.ConeVolume;
 				shape.angle = 0;
-				shape.radius = Radius;
+				shape.radius = effectRadius;
 				shape.length = 1;
 				shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
 				shape.alignToDirection = true;
@@ -130,7 +130,7 @@ namespace ChampionsOfForest
 				emission.rateOverTime = 180;
 				emission.rateOverTimeMultiplier = 180;
 
-				EffectReady = false;
+				effectReady = false;
 				StartCoroutine(AnimatedBeamCoroutine());
 			}
 			catch (System.Exception e)
@@ -151,7 +151,7 @@ namespace ChampionsOfForest
 
 			StartCoroutine(DoEnemyCheck());
 			system.Play();
-			EffectReady = true;
+			effectReady = true;
 		}
 
 		private IEnumerator LightIn()
@@ -178,9 +178,9 @@ namespace ChampionsOfForest
 		{
 			yield return null;
 			yield return null;
-			while (EffectReady)
+			while (effectReady)
 			{
-				RaycastHit[] hits = Physics.SphereCastAll(transform.position, Radius, Vector3.one);
+				RaycastHit[] hits = Physics.SphereCastAll(transform.position, effectRadius, Vector3.one);
 				foreach (RaycastHit hit in hits)
 				{
 					if (hit.transform.CompareTag("enemyCollide"))
@@ -191,13 +191,13 @@ namespace ChampionsOfForest
 
 							if (fromEnemy)
 							{
-								ep.HealthScript.Health = (int)Mathf.Clamp(ep.HealthScript.Health + Healing / 2, 0, ep.maxHealth);
-								ep.Slow(6, Boost, 25);
+								ep.HealthScript.Health = (int)Mathf.Clamp(ep.HealthScript.Health + healAmount / 2, 0, ep.maxHealth);
+								ep.Slow(6, boostAmount, 25);
 							}
 							else
 							{
-								ep.HitMagic(Damage);
-								ep.Slow(6, Slow, 10);
+								ep.HitMagic(damageAmount);
+								ep.Slow(6, slowAmount, 10);
 							}
 						}
 					}
@@ -215,27 +215,27 @@ namespace ChampionsOfForest
 				gameObject.layer = DesiredLayer;
 			}
 
-			if (EffectReady)
+			if (effectReady)
 			{
 				lifetime += Time.deltaTime;
-				if (Duration < lifetime)
+				if (duration < lifetime)
 				{
 					Pause();
 				}
 
-				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < Radius * Radius)
+				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < effectRadius * effectRadius)
 				{
 					if (fromEnemy)
 					{
-						LocalPlayer.Stats.HealthChange(-Damage * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
-						BuffDB.AddBuff(1, 5, Slow, 20);
+						LocalPlayer.Stats.HealthChange(-damageAmount * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
+						BuffDB.AddBuff(1, 5, slowAmount, 20);
 						LocalPlayer.Stats.Burn();
 					}
 					else
 					{
-						LocalPlayer.Stats.Health += Healing * Time.deltaTime;
-						LocalPlayer.Stats.HealthTarget += Healing * 1.5f * Time.deltaTime;
-						BuffDB.AddBuff(5, 6, Boost, 30);
+						LocalPlayer.Stats.Health += healAmount * Time.deltaTime;
+						LocalPlayer.Stats.HealthTarget += healAmount * 1.5f * Time.deltaTime;
+						BuffDB.AddBuff(5, 6, boostAmount, 30);
 						BuffDB.AddBuff(26, 94, 0.5f, 10);
 					}
 				}
@@ -246,7 +246,7 @@ namespace ChampionsOfForest
 		{
 			StartCoroutine(LightOut());
 			system.Stop();
-			EffectReady = false;
+			effectReady = false;
 			Destroy(gameObject, 2);
 		}
 	}

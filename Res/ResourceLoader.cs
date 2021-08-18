@@ -520,7 +520,7 @@ namespace ChampionsOfForest.Res
 				GUI.color = Color.red;
 
 				string s = "Champions of the forest will NOT work without BuilderCore mod. Please install it to use Champions of The Forest";
-			
+
 				GUI.Label(new Rect(0, 30 * rr, Screen.width, 200 * rr), s, new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.UpperCenter });
 				GUI.color = Color.white;
 
@@ -671,7 +671,7 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.UpToDate:
 						GUI.color = Color.green;
-						GUILayout.Label("COTF up to date. "+((!string.IsNullOrEmpty(Likes)&& !string.IsNullOrEmpty(Downloads)) ? $"Thanks for {Likes:N} likes and {Downloads:N} downloads!":""), versionStyle);
+						GUILayout.Label("COTF up to date. " + ((!string.IsNullOrEmpty(Likes) && !string.IsNullOrEmpty(Downloads)) ? $"Thanks for {Likes:N} likes and {Downloads:N} downloads!" : ""), versionStyle);
 
 						break;
 
@@ -692,7 +692,7 @@ namespace ChampionsOfForest.Res
 						break;
 
 					case VersionCheckStatus.NewerThanOnline:
-						GUI.color = Color.yellow;				
+						GUI.color = Color.yellow;
 						GUILayout.Label($"Preview version ({ ModSettings.Version }) | ({buildDate})", versionStyle);
 						break;
 				}
@@ -931,6 +931,45 @@ namespace ChampionsOfForest.Res
 			new Resource(1015, "Blizzard.wav");
 			new Resource(1016, "BlackholeDisappearing.wav");
 			new Resource(1017, "Roaring Cheeks spell sfx.wav");
+
+			new Resource(1051, "flip.wav");
+			new Resource(1052, "flipanvl.wav");
+			new Resource(1053, "flipaxe.wav");
+			new Resource(1054, "flipblst.wav");
+			new Resource(1055, "flipbody.wav");
+			new Resource(1056, "flipbook.wav");
+			new Resource(1057, "flipbow.wav");
+			new Resource(1058, "flipcap.wav");
+			new Resource(1059, "flipharm.wav");
+			new Resource(1060, "fliplarm.wav");
+			new Resource(1061, "flipmag.wav");
+			new Resource(1062, "flipmag1.wav");
+			new Resource(1063, "flippot.wav");
+			new Resource(1064, "flipring.wav");
+			new Resource(1065, "fliprock.wav");
+			new Resource(1066, "flipsarc.wav");
+			new Resource(1067, "flipscrl.wav");
+			new Resource(1068, "flipshld.wav");
+			new Resource(1068, "flipsign.wav");
+			new Resource(1069, "flip1.wav");
+			new Resource(1070, "invanvl.wav");
+			new Resource(1071, "invaxe.wav");
+			new Resource(1072, "invblst.wav");
+			new Resource(1073, "invbody.wav");
+			new Resource(1074, "invbook.wav");
+			new Resource(1075, "invbow.wav");
+			new Resource(1076, "invcap.wav");
+			new Resource(1077, "invgrab.wav");
+			new Resource(1078, "invharm.wav");
+			new Resource(1079, "invlarm.wav");
+			new Resource(1080, "invpot.wav");
+			new Resource(1081, "invring.wav");
+			new Resource(1082, "invrock.wav");
+			new Resource(1083, "invscrol.wav");
+			new Resource(1084, "invshiel.wav");
+			new Resource(1085, "invsign.wav");
+			new Resource(1086, "invstaf.wav");
+			new Resource(1087, "invsword.wav");
 
 			//Asset Bundles
 			new Resource(2000, "balllightning", Resource.ResourceType.AssetBundle);

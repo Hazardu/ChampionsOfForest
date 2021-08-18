@@ -187,7 +187,7 @@ namespace ChampionsOfForest.Effects
 
 		private IEnumerator ScaleIn()
 		{
-			Sound_Effects.GlobalSFX.Play(1016, 0, 2);
+			Sound_Effects.GlobalSFX.Play(Sound_Effects.GlobalSFX.SFX.BlackholeDisappearing, 0, 2);
 			yield return null;
 			while (transform.localScale.x < 2.2)
 			{

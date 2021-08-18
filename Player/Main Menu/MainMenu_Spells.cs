@@ -45,7 +45,7 @@ namespace ChampionsOfForest
 				if (Input.GetMouseButtonDown(1))
 				{
 					displayedSpellInfo = null;
-					Effects.Sound_Effects.GlobalSFX.Play(1);
+					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 
 					return;
 				}
@@ -56,7 +56,7 @@ namespace ChampionsOfForest
 				if (GUI.Button(new Rect(Screen.width - 170 * screenScale, 25 * screenScale, 150 * screenScale, 50 * screenScale), "GO BACK TO SPELLS\n(Right Mouse Button)", new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15) }))
 				{
 					displayedSpellInfo = null;
-					Effects.Sound_Effects.GlobalSFX.Play(1);
+					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 					return;
 				}
 
@@ -103,7 +103,7 @@ namespace ChampionsOfForest
 								if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
 								{
 									//Clears the spot
-									Effects.Sound_Effects.GlobalSFX.Play(1);
+									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 
 									SpellCaster.instance.SetSpell(i);
 								}
@@ -122,7 +122,7 @@ namespace ChampionsOfForest
 										}
 
 										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
-										Effects.Sound_Effects.GlobalSFX.Play(0);
+										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 									}
 								}
 								else
@@ -134,7 +134,7 @@ namespace ChampionsOfForest
 										{
 											SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
 										}
-										Effects.Sound_Effects.GlobalSFX.Play(0);
+										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
 									}
 								}
@@ -165,7 +165,7 @@ namespace ChampionsOfForest
 							{
 								displayedSpellInfo.Bought = true;
 								ModdedPlayer.instance.MutationPoints -= 2;
-								Effects.Sound_Effects.GlobalSFX.Play(6);
+								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.SpellUnlock);
 							}
 						}
 						else
@@ -211,7 +211,7 @@ namespace ChampionsOfForest
 						style.fontStyle = FontStyle.Bold;
 						if (Input.GetMouseButtonDown(0))
 						{
-							Effects.Sound_Effects.GlobalSFX.Play(0);
+							Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 
 							displayedSpellInfo = SpellDataBase.spellDictionary[s.ID];
 						}

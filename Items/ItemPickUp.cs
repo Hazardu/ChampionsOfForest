@@ -161,7 +161,7 @@ namespace ChampionsOfForest
 
 		public void OnDestroy()
 		{
-			GlobalSFX.Play(7);
+			GlobalSFX.Play(GlobalSFX.SFX.Pickup);
 		}
 
 		private void Update()

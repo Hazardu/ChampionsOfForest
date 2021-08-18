@@ -9,7 +9,7 @@ namespace ChampionsOfForest.Effects
 	{
 		public static ParticleSystem hitParticleSystem;
 
-		public static void HostAction(Vector3 pos, float dist, float slowMultipier, float duration, float damage)
+		public static void HostAction(in Vector3 pos, float dist, float slowMultipier, float duration, float damage)
 		{
 			RaycastHit[] hits = Physics.SphereCastAll(pos, dist, Vector3.one);
 			for (int i = 0; i < hits.Length; i++)
@@ -26,7 +26,7 @@ namespace ChampionsOfForest.Effects
 			}
 		}
 
-		public static void CreateEffect(Vector3 pos, float dist)
+		public static void CreateEffect(in Vector3 pos, float dist)
 		{
 			try
 			{

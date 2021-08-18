@@ -41,7 +41,7 @@ namespace ChampionsOfForest.Player.Crafting
 					if (validRecipe)
 					{
 						CraftingHandler.changedItem.i.RollStats();
-						Effects.Sound_Effects.GlobalSFX.Play(3);
+						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 						{

@@ -27,7 +27,9 @@ namespace ChampionsOfForest.Effects
 
 		public static MagicArrow CreateEffect(Vector3 pos, Vector3 dir, bool debuff, float duration)
 		{
-			GameObject go = new GameObject("__MagicArrow__") { transform = { position = pos, rotation = Quaternion.LookRotation(dir) } };
+			GameObject go = new GameObject("__MagicArrow__");
+			go.transform.position = pos;
+			go.transform.rotation = Quaternion.LookRotation(dir);
 			go.AddComponent<Rigidbody>().isKinematic = true;
 			if (!ModSettings.IsDedicated)
 			{

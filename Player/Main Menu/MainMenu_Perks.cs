@@ -151,7 +151,7 @@ namespace ChampionsOfForest
 				Hovered = true;
 				r.center = SelectedPerk_center;
 				if (_perkDetailAlpha == 0)
-					Effects.Sound_Effects.GlobalSFX.Play(0);
+					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 
 				_perkDetailAlpha += Time.unscaledDeltaTime;
 				if (_perkDetailAlpha >= 0.7f)
@@ -214,7 +214,7 @@ namespace ChampionsOfForest
 								PerkDatabase.perks[SelectedPerk_ID].apply();
 								PerkDatabase.perks[SelectedPerk_ID].isApplied = true;
 								Buying = false;
-								Effects.Sound_Effects.GlobalSFX.Play(3);
+								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Unlock);
 							}
 						}
 					}

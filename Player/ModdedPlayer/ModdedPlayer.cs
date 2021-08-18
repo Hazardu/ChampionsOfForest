@@ -1286,7 +1286,7 @@ namespace ChampionsOfForest.Player
 			LocalPlayer.Stats.HealthTarget = 1;
 			LocalPlayer.Stats.Energy = 1;
 			UnAssignAllStats();
-			Effects.Sound_Effects.GlobalSFX.Play(2);
+			Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 
 			instance.MutationPoints = instance.level + instance.PermanentBonusPerkPoints;
 			foreach (int i in SpellDataBase.spellDictionary.Keys)

@@ -295,7 +295,7 @@ namespace ChampionsOfForest
 					}
 					if (abilities.Contains(Abilities.Sacrifice))
 					{
-						Effects.Sound_Effects.GlobalSFX.Play(1013, 2000);
+						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Sacrifice, 2000);
 						foreach (EnemyProgression item in EnemyManager.hostDictionary.Values)
 						{
 							if (!(item != null && item != this && item.gameObject != null && item.gameObject.activeSelf))
@@ -586,7 +586,7 @@ namespace ChampionsOfForest
 						SetAbilityCooldown(0.5f, 1.5f);
 						transform.root.position = closestPlayer.transform.position + transform.forward * -2.5f;
 						blinkCD = Random.Range(2, 30);
-						Effects.Sound_Effects.GlobalSFX.Play(5);
+						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Warp);
 						return;
 					}
 				}

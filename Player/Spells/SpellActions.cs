@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Player
 			}
 			if (ModdedPlayer.Stats.spell_blinkDoExplosion)
 			{
-				Effects.Sound_Effects.GlobalSFX.Play(1005);
+				Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Boom);
 				var raycastHitExplosion = Physics.OverlapSphere(blinkPoint, (blinkPoint - t.position).magnitude / 4f);
 				float dmg = ModdedPlayer.Stats.spell_blinkDamage + LocalPlayer.Rigidbody.velocity.magnitude * ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_blinkDamageScaling/7f;
 				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.RandomCritDamage;
@@ -141,7 +141,7 @@ namespace ChampionsOfForest.Player
 			LocalPlayer.Transform.position = point + Vector3.up;
 			vel.y /= 6;
 			LocalPlayer.Rigidbody.velocity = vel * 1.5f;
-			Effects.Sound_Effects.GlobalSFX.Play(5);
+			Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Warp);
 			BuffDB.AddBuff(4, 97, 1, 0.1f);
 		}
 
@@ -1065,7 +1065,7 @@ portal_postPickingPos:
 			}
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
-			Effects.Sound_Effects.GlobalSFX.Play(4);
+			Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.BloodInfusedArrow);
 			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
 		}
 

@@ -54,7 +54,7 @@ namespace ChampionsOfForest.Player.Crafting
 						newItem.RollStats();
 						Inventory.Instance.ItemSlots[CraftingHandler.changedItem.pos] = newItem;
 						CraftingHandler.changedItem.i = newItem;
-						Effects.Sound_Effects.GlobalSFX.Play(3);
+						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 						{

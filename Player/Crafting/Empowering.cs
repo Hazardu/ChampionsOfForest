@@ -50,7 +50,7 @@ namespace ChampionsOfForest.Player.Crafting
 								stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
 							stat.Amount *= stat.Multipier;
 						}
-						Effects.Sound_Effects.GlobalSFX.Play(3);
+						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 						{
