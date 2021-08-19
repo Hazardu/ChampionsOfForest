@@ -15,8 +15,10 @@ namespace ChampionsOfForest
 			return reg_exp.Replace(value, "a");
 		}
 
-		public static void Log(string s)
+		public static void Log(string s, bool logFile = false)
 		{
+			if (logFile)
+				ModAPI.Log.Write(s);
 			ModAPI.Console.Write(s);
 			Debug.Log(s);
 		}

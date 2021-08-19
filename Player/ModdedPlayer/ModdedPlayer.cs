@@ -956,7 +956,7 @@ namespace ChampionsOfForest.Player
 
 		public void GiveSpecialItems()
 		{
-			if (level == 15 || level == 30 || level == 40)
+			if ((level % 10) == 0 && level > 1)
 			{
 				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
 				item.level = 1;
@@ -965,7 +965,7 @@ namespace ChampionsOfForest.Player
 					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2);
 				}
 			}
-			else if (level == 50 || level == 65 || level == 75)
+			else if (level >= 10 && level % 20 == 5 )
 			{
 				var item = new Item(ItemDataBase.ItemBaseByName("Greater Mutated Heart"));
 				item.level = 1;

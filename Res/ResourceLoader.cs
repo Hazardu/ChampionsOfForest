@@ -342,21 +342,21 @@ namespace ChampionsOfForest.Res
 			{
 				bool DeleteCurrentFiles = false;
 
-				//if (ModSettings.RequiresNewFiles)
-				//{
-				//    if (File.Exists(Resource.path + "VERSION.txt"))
-				//    {
-				//        string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
-				//        if (CompareVersion(versiontext) == Status.Outdated)
-				//        {
-				//            DeleteCurrentFiles = true;
-				//        }
-				//    }
-				//    else
-				//    {
-				//        DeleteCurrentFiles = true;
-				//    }
-				//}
+				if (ModSettings.RequiresNewFiles)
+				{
+					if (File.Exists(Resource.path + "VERSION.txt"))
+					{
+						string versiontext = File.ReadAllText(Resource.path + "VERSION.txt");
+						if (CompareVersion(versiontext) == Status.Outdated)
+						{
+							DeleteCurrentFiles = true;
+						}
+					}
+					else
+					{
+						DeleteCurrentFiles = true;
+					}
+				}
 
 				File.WriteAllText(Resource.path + "VERSION.txt", ModSettings.Version);
 				foreach (Resource resource in unloadedResources.Values)
@@ -365,20 +365,20 @@ namespace ChampionsOfForest.Res
 					{
 						if (DeleteCurrentFiles && (ModSettings.outdatedFiles.Contains(resource.ID) || ModSettings.ALLNewFiles))
 						{
-							//Hazard! This will never execute!!
-							LabelText = "File " + resource.fileName + " is marked as outdated, deleting and redownloading.";
+							LabelText += "File " + resource.fileName + " is marked as outdated, deleting and redownloading.\n";
 							File.Delete(Resource.path + resource.fileName);
 							toDownload.Add(resource);
-							yield return new WaitForEndOfFrame();
 						}
+						LabelText += "File " + resource.fileName + " is ok\n";
+
 					}
 					else
 					{
-						LabelText = "File " + resource.fileName + " is missing, downloading.";
+						LabelText += "File " + resource.fileName + " is missing, downloading.\n";
 						toDownload.Add(resource);
-						yield return new WaitForEndOfFrame();
 					}
 					CheckedFileNumber++;
+					yield return null;
 				}
 			}
 
@@ -388,10 +388,11 @@ namespace ChampionsOfForest.Res
 
 			foreach (Resource resource in toDownload)
 			{
-				LabelText = "Downloading " + resource.fileName;
+				LabelText += "Downloading " + resource.fileName + "\n";
 
 				WWW www = new WWW(Resource.url + resource.fileName);
 				download = www;
+
 				yield return www;
 				if (string.IsNullOrEmpty(www.error) && www.isDone)
 				{
@@ -410,7 +411,7 @@ namespace ChampionsOfForest.Res
 			yield return null;
 			foreach (Resource resource in unloadedResources.Values)
 			{
-				LabelText = "Loading " + resource.fileName;
+				LabelText += "Loading " + resource.fileName  + "\n";
 
 				switch (resource.type)
 				{
@@ -586,6 +587,7 @@ namespace ChampionsOfForest.Res
 						GUI.Label(prog1, DownloadedFileNumber + "/" + DownloadCount, skin);
 						if (download != null)
 						{
+							
 							Rect downloadRectBG = new Rect(prog1);
 							downloadRectBG.y += 100 * rr;
 							Rect downloadRect = new Rect(downloadRectBG);
@@ -595,7 +597,7 @@ namespace ChampionsOfForest.Res
 							GUI.color = Color.cyan;
 							GUI.DrawTexture(downloadRect, Texture2D.whiteTexture);
 							GUI.color = Color.black;
-							GUI.Label(prog1, download.progress * 100 + "%\tDownloaded " + (float)download.bytesDownloaded / 1000 + " KB", skin);
+							GUI.Label(prog1, download.progress * 100 + "%", skin);
 						}
 						GUI.color = Color.white;
 						break;
@@ -620,10 +622,13 @@ namespace ChampionsOfForest.Res
 				GUI.color = Color.white;
 				GUIStyle style = new GUIStyle(GUI.skin.label)
 				{
-					fontSize = (int)(25 * rr),
-					alignment = TextAnchor.LowerLeft,
+					fontSize = (int)(12 * rr),
+					alignment = TextAnchor.LowerRight,
 				};
+				GUI.color = Color.gray;
 				GUI.Label(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height), LabelText, style);
+				GUI.color = Color.white;
+
 			}
 			else
 			{
@@ -730,7 +735,7 @@ namespace ChampionsOfForest.Res
 		{
 			if (!Directory.Exists(Resource.path))
 			{
-				LabelText = LabelText + " \n NO DIRECTORY FOUND, DOWNLOADING \n Please wait... ";
+				LabelText += LabelText + " \n NO DIRECTORY FOUND, DOWNLOADING \n Please wait... ";
 				Directory.CreateDirectory(Resource.path);
 				foreach (Resource resource in unloadedResources.Values)
 				{
@@ -932,6 +937,7 @@ namespace ChampionsOfForest.Res
 			new Resource(1016, "BlackholeDisappearing.wav");
 			new Resource(1017, "Roaring Cheeks spell sfx.wav");
 
+			new Resource(1050, "flip1.wav");
 			new Resource(1051, "flip.wav");
 			new Resource(1052, "flipanvl.wav");
 			new Resource(1053, "flipaxe.wav");
@@ -950,8 +956,7 @@ namespace ChampionsOfForest.Res
 			new Resource(1066, "flipsarc.wav");
 			new Resource(1067, "flipscrl.wav");
 			new Resource(1068, "flipshld.wav");
-			new Resource(1068, "flipsign.wav");
-			new Resource(1069, "flip1.wav");
+			new Resource(1069, "flipsign.wav");
 			new Resource(1070, "invanvl.wav");
 			new Resource(1071, "invaxe.wav");
 			new Resource(1072, "invblst.wav");

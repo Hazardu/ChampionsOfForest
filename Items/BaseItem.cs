@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using ChampionsOfForest.Effects.Sound_Effects;
+
 using UnityEngine;
 
 namespace ChampionsOfForest
@@ -234,6 +236,66 @@ namespace ChampionsOfForest
 		{
 			lootTable =
 				EnemyProgression.Enemy.NormalMale | EnemyProgression.Enemy.NormalLeaderMale | EnemyProgression.Enemy.NormalFemale | EnemyProgression.Enemy.NormalSkinnyMale | EnemyProgression.Enemy.NormalSkinnyFemale | EnemyProgression.Enemy.PaleMale | EnemyProgression.Enemy.PaleSkinnyMale | EnemyProgression.Enemy.PaleSkinnedMale | EnemyProgression.Enemy.PaleSkinnedSkinnyMale | EnemyProgression.Enemy.PaintedMale | EnemyProgression.Enemy.PaintedLeaderMale | EnemyProgression.Enemy.PaintedFemale | EnemyProgression.Enemy.Fireman;
+		}
+
+		public GlobalSFX.SFX GetInvSound()
+		{
+			switch (type)
+			{
+				case ItemType.Shield:
+					return GlobalSFX.SFX.Invshiel;
+				case ItemType.Quiver:
+					return GlobalSFX.SFX.Invlarm;
+				case ItemType.Weapon:
+					switch (weaponModel)
+					{							
+						case WeaponModelType.GreatSword:
+							return GlobalSFX.SFX.Invharm;
+						case WeaponModelType.LongSword:
+							return GlobalSFX.SFX.Invsword;
+						case WeaponModelType.Hammer:
+							return GlobalSFX.SFX.Invanvl;
+						case WeaponModelType.Polearm:
+							return GlobalSFX.SFX.Invstaf;
+						case WeaponModelType.Axe:
+							return GlobalSFX.SFX.Invaxe;
+						case WeaponModelType.Greatbow:
+							return GlobalSFX.SFX.Invbow;
+						default:
+							return GlobalSFX.SFX.Invharm;
+					}
+				case ItemType.Other:
+					return GlobalSFX.SFX.Invbody;
+				case ItemType.Material:
+					return GlobalSFX.SFX.Invrock;
+				case ItemType.Helmet:
+					return GlobalSFX.SFX.Invcap;
+				case ItemType.Boot:
+					return GlobalSFX.SFX.Invgrab;	//change
+				case ItemType.Pants:
+					return GlobalSFX.SFX.Invblst;	//change
+				case ItemType.ChestArmor:
+					return GlobalSFX.SFX.Invsign;	
+				case ItemType.ShoulderArmor:
+					return GlobalSFX.SFX.Invharm;	//change
+				case ItemType.Glove:
+					return GlobalSFX.SFX.Invlarm;	//change
+				case ItemType.Bracer:
+					return GlobalSFX.SFX.Invbook;	//change
+				case ItemType.Amulet:
+					return GlobalSFX.SFX.Invring;
+				case ItemType.Ring:
+					return GlobalSFX.SFX.Invring;
+				case ItemType.SpellScroll:
+					return GlobalSFX.SFX.Invscrol;
+				default:
+					return GlobalSFX.SFX.ClickDown;
+			}
+		}
+
+		public float GetInvSoundPitch()
+		{
+			return 1.15f - (float)Rarity / 15f;
 		}
 	}
 }

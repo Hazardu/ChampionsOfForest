@@ -604,7 +604,7 @@ namespace ChampionsOfForest
 				if (Input.GetMouseButtonUp(0))
 				{
 					SelectedItem = index;
-					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+					Effects.Sound_Effects.GlobalSFX.Play(DraggedItem.GetInvSound(), 0, DraggedItem.GetInvSoundPitch());
 					if (Inventory.Instance.ItemSlots[index].CombineItems(DraggedItem))	//putting a material into a socket
 					{
 						Inventory.Instance.ItemSlots[DraggedItemIndex].Amount--;
@@ -724,11 +724,10 @@ namespace ChampionsOfForest
 						{
 							if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
 							{
-								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
-
 								isDragging = true;
 								DraggedItem = Inventory.Instance.ItemSlots[index];
 								DraggedItemIndex = index;
+								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
 							}
 						}
 						//right click on an item to bring up context menu
@@ -785,13 +784,14 @@ namespace ChampionsOfForest
 									Inventory.Instance.ItemSlots[index] = DraggedItem;
 									Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
 									CustomCrafting.UpdateIndex(DraggedItemIndex, index);
-									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+									Effects.Sound_Effects.GlobalSFX.Play(DraggedItem.GetInvSound(), 0, DraggedItem.GetInvSoundPitch());
 									CancelDragging();
 								}
 								else
 								{
 									Inventory.Instance.ItemSlots[DraggedItemIndex] = DraggedItem;
 									Inventory.Instance.RemoveItemAtPosition(index);
+									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 									CancelDragging();
 
 								}
@@ -801,8 +801,8 @@ namespace ChampionsOfForest
 								Inventory.Instance.ItemSlots[index] = DraggedItem;
 								Inventory.Instance.RemoveItemAtPosition(DraggedItemIndex);
 								CustomCrafting.UpdateIndex(DraggedItemIndex, index);
+								Effects.Sound_Effects.GlobalSFX.Play(DraggedItem.GetInvSound(), 0, DraggedItem.GetInvSoundPitch());
 								CancelDragging();
-								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 							}
 						}
 					}

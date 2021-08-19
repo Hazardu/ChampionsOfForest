@@ -48,6 +48,11 @@ namespace ChampionsOfForest
 			if (spProgression.ContainsKey(tr.root))
 			{
 				ClientEnemyProgression cp = spProgression[tr.root];
+				if (cp.Health <= 0)
+				{
+					spProgression.Remove(tr.root);
+					return null;
+				}
 				if (Time.time <= cp.creationTime + ClientEnemyProgression.LifeTime)
 				{
 					if (cp.DynamicOutdated)

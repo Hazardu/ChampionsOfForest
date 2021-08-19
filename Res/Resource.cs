@@ -41,8 +41,14 @@
 			{
 				type = ResourceType.Audio;
 			}
-			// ResourceLoader.instance.unloadedResources.Add( this);
-			ResourceLoader.instance.unloadedResources.Add(id, this);
+			try
+			{
+				ResourceLoader.instance.unloadedResources.Add(id, this);
+			}
+			catch (System.Exception ex)
+			{
+				CotfUtils.Log($"ERROR WHILE ADDING RESOURCE: {fileName}\n" + ex.ToString());
+			}
 		}
 
 		public Resource(int id, string FileName, ResourceType t)
