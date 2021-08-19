@@ -172,7 +172,7 @@ namespace ChampionsOfForest.Network
 		/// <param name="item">A reference to the item object. Things like level and stats will be read off it</param>
 		/// <param name="pos">Where to spawn the item at</param>
 		/// <param name="amount">How many of this item should be spawned</param>
-		public static void SendItemDrop(Item item, Vector3 pos, int amount = 1)
+		public static void SendItemDrop(Item item, Vector3 pos, ItemPickUp.DropSource dropSource, int amount = 1)
 		{
 			if (item == null)
 				return;
@@ -200,6 +200,7 @@ namespace ChampionsOfForest.Network
 						w.Write(stat.possibleStatsIndex);
 						w.Write(stat.Amount);
 					}
+					w.Write((int)dropSource);
 					w.Close();
 				}
 				SendLine(answerStream.ToArray(), Target.Everyone);

@@ -962,7 +962,7 @@ namespace ChampionsOfForest.Player
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
-					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2);
+					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.PlayerDeath);
 				}
 			}
 			else if (level >= 10 && level % 20 == 5 )
@@ -971,7 +971,7 @@ namespace ChampionsOfForest.Player
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
-					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2);
+					NetworkManager.SendItemDrop(item, LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.PlayerDeath);
 				}
 			}
 		}

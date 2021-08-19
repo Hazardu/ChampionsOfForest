@@ -293,6 +293,13 @@ namespace ChampionsOfForest
 			}
 		}
 
+		public int GetDropSoundID()
+		{
+			int ID = ((int)GetInvSound()) + 1052;
+			return ID < 1070 ? ID : Random.Range(1050, 1052);
+		}
+
+
 		public float GetInvSoundPitch()
 		{
 			return 1.15f - (float)Rarity / 15f;

@@ -17,7 +17,7 @@ namespace ChampionsOfForest
 		/// <summary>
 		/// spawns a pickup for the client.
 		/// </summary>
-		public static void SpawnPickUp(Item item, Vector3 pos, int amount, ulong id)
+		public static void SpawnPickUp(Item item, Vector3 pos, int amount, ulong id, ItemPickUp.DropSource dropSource)
 		{
 			try
 			{
@@ -238,7 +238,7 @@ namespace ChampionsOfForest
 				}
 
 				ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
-
+				pickup.lifetime = (int)dropSource;
 				pickup.item = item;
 				pickup.amount = amount;
 				pickup.ID = id;

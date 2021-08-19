@@ -16,7 +16,7 @@ namespace ChampionsOfForest.ExpSources
 				ModdedPlayer.instance.AddFinalExperience(expAmount);
 				if (!GameSetup.IsMpClient && Random.value < 0.5f)
 				{
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(170*ModdedPlayer.Stats.magicFind.Value, EnemyProgression.Enemy.NormalSkinnyMale,ModSettings.difficulty), transform.position + Vector3.up * (1.75f));
+					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(170*ModdedPlayer.Stats.magicFind.Value, EnemyProgression.Enemy.NormalSkinnyMale,ModSettings.difficulty), transform.position + Vector3.up * (1.75f), ItemPickUp.DropSource.Effigy);
 				}
 				if (ModdedPlayer.Stats.perk_doubleStickHarvesting)
 				{

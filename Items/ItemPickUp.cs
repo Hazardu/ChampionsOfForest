@@ -6,6 +6,8 @@ using TheForest.Utils;
 
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 namespace ChampionsOfForest
 {
 	public class ItemPickUp : MonoBehaviour
@@ -13,15 +15,21 @@ namespace ChampionsOfForest
 		public ulong ID;
 		public int amount;
 		public Item item;
+		public float lifetime = 900;	//in seconds
 
 		private string label;
 		private Rigidbody rb;
-		private float DisplayTime;
+		private float displayTime;
 		private static Camera mainCam;
 		private float constantViewTime;
-		private float lifetime = 600;
-
 		private AudioSource src;
+		public enum DropSource
+		{
+			EnemyOnDeath = 120,
+			PlayerInventory = 60,
+			PlayerDeath = 900,
+			Effigy = 30,
+		}
 
 		private void Start()
 		{
@@ -40,26 +48,28 @@ namespace ChampionsOfForest
 			if (ModSettings.IsDedicated)
 				return;
 			rb = GetComponent<Rigidbody>();
-			rb.drag = 2.25f;
-			rb.angularDrag = 0.1f;
+			rb.drag = 2.1f;
+			rb.angularDrag = 0.01f;
 			rb.isKinematic = true;
 			Invoke("UnlockPhysics", 1f);
-			lifetime = 600;
 			src = gameObject.AddComponent<AudioSource>();
 			src.spatialBlend = 1f;
-			src.maxDistance = 50f;
-			src.clip = Res.ResourceLoader.instance.LoadedAudio[1004];
+			src.maxDistance = 150f;
+			src.volume *= 2;
+			src.clip = Res.ResourceLoader.instance.LoadedAudio[item.GetDropSoundID()];
 			src.Play();
 		}
 
 		public void EnableDisplay()
 		{
-			DisplayTime = 1;
+			displayTime = 1.5f;
 		}
 
 		public void UnlockPhysics()
 		{
 			rb.isKinematic = false;
+			Vector3 randomRot = new Vector3(Random.value, 0, Random.value) * 60;
+			rb.AddTorque(randomRot, ForceMode.VelocityChange);
 		}
 
 		private void OnGUI()
@@ -68,7 +78,7 @@ namespace ChampionsOfForest
 			{
 				mainCam = Camera.main;
 			}
-			if (DisplayTime > 0)
+			if (displayTime > 0)
 			{
 				constantViewTime += Time.deltaTime;
 				Vector3 pos = mainCam.WorldToScreenPoint(transform.position);
@@ -91,21 +101,19 @@ namespace ChampionsOfForest
 				{
 					if (lifetime < 61)
 					{
-
-						label += " \n Deleting in " + lifetime.ToString("0.#");
+						GUI.DrawTexture(new Rect(r.x, r.y, r.width * lifetime / 60f, 14 * MainMenu.Instance.screenScale), Texture2D.whiteTexture);
 					}
 				}
 
-				GUI.color = new Color(MainMenu.RarityColors[item.Rarity].r, MainMenu.RarityColors[item.Rarity].g, MainMenu.RarityColors[item.Rarity].b, DisplayTime);
+				GUI.color = new Color(MainMenu.RarityColors[item.Rarity].r, MainMenu.RarityColors[item.Rarity].g, MainMenu.RarityColors[item.Rarity].b, displayTime);
 
 				GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.mainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.screenScale) };
 				float titleHeight = style.CalcHeight(new GUIContent(label), r.width);
 				style.margin = new RectOffset(10, 10, 10, 10);
 
 				GUI.Label(r, label, style);
-				DisplayTime -= Time.deltaTime;
 				//Item stats
-				GUIStyle statStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, font = MainMenu.Instance.secondaryFont, fontSize = Mathf.RoundToInt(20 * MainMenu.Instance.screenScale) };
+				GUIStyle statStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperLeft, font = MainMenu.Instance.secondaryFont, fontSize = Mathf.RoundToInt(16 * MainMenu.Instance.screenScale) };
 				statStyle.margin = new RectOffset(10, 10, 10, 10);
 				
 
@@ -171,10 +179,10 @@ namespace ChampionsOfForest
 				PickUpManager.RemovePickup(ID);
 				Destroy(gameObject);
 			}
+			if (displayTime > 0)
+				displayTime -= Time.deltaTime;
 			if (lifetime > 0)
-			{
 				lifetime -= Time.deltaTime;
-			}
 			else
 			{
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())

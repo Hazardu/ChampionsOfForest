@@ -284,7 +284,7 @@ namespace ChampionsOfForest.Network
 											};
 											item.Stats.Add(stat);
 										}
-										PickUpManager.SpawnPickUp(item, pos, amount, id);
+										PickUpManager.SpawnPickUp(item, pos, amount, id, (ItemPickUp.DropSource)r.ReadInt32());
 										break;
 									}
 

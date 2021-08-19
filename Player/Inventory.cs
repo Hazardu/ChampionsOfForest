@@ -113,7 +113,7 @@ namespace ChampionsOfForest.Player
 				i.Amount = 1;
 				for (int ind = 0; ind < amount; ind++)
 				{
-					Network.NetworkManager.SendItemDrop(i, pos);
+					Network.NetworkManager.SendItemDrop(i, pos, ItemPickUp.DropSource.PlayerDeath);
 
 				}
 
@@ -136,7 +136,7 @@ namespace ChampionsOfForest.Player
 				Item i = ItemSlots[key];
 
 				amount = amount == 0 ? i.Amount : Mathf.Min(amount, i.Amount);
-				Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up * 1.5f + LocalPlayer.Transform.forward * 3, amount);
+				Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up * 1.5f + LocalPlayer.Transform.forward * 3, ItemPickUp.DropSource.PlayerInventory , amount);
 				ItemSlots[key].Amount -= amount;
 				if (ItemSlots[key].Amount <= 0)
 				{

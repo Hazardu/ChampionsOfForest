@@ -113,7 +113,7 @@ namespace ChampionsOfForest.Enemies
 					int itemCount = Random.Range(15, 26);
 					for (int i = 0; i < itemCount; i++)
 					{
-						Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2);
+						Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(Exp), LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.EnemyOnDeath);
 					}
 				}
 				Destroy(base.gameObject);

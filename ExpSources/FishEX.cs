@@ -20,7 +20,7 @@ namespace ChampionsOfForest.ExpSources
 
 		public void SharkKilled()
 		{
-			int xp = 3000;
+			int xp = 1500;
 			if (GameSetup.IsMultiplayer)
 			{
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -28,7 +28,7 @@ namespace ChampionsOfForest.ExpSources
 					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 					{
 						w.Write(10);
-						w.Write(xp);
+						w.Write((long)xp);
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
 				}
@@ -39,9 +39,9 @@ namespace ChampionsOfForest.ExpSources
 			}
 			if (!GameSetup.IsMpClient)
 			{
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270), LocalPlayer.Transform.position + Vector3.up * 6f);
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270), LocalPlayer.Transform.position + Vector3.up * 6f);
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(370), LocalPlayer.Transform.position + Vector3.up * 6f);
+					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(310), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(370), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
 			}
 		}
 	}
