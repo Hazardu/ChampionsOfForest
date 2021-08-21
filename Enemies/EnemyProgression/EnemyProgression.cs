@@ -404,7 +404,7 @@ namespace ChampionsOfForest
 				if (enemyType == Enemy.Megan)
 				{
 					//Drop megan only amulet
-					Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3);
+					Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3, ItemPickUp.DropSource.EnemyOnDeath);
 				}
 			}
 
