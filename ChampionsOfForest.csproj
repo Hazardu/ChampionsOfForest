@@ -348,7 +348,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call del "$(SolutionDir)../../../mods/TheForest/Champions*.mod"
+    <PostBuildEvent>call del "../../../mods/TheForest/Champions*.mod"
 powershell start-process "../../../../ModAPI.exe"</PostBuildEvent>
   </PropertyGroup>
 </Project>

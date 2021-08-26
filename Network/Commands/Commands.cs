@@ -7,7 +7,7 @@ namespace ChampionsOfForest.Network.Commands
 	public struct UpdateCProgressionCommandParam
 	{
 		public ulong packed;
-		public float health;
+		public float health, damage;
 		public int armor, armor_reduction;
 	}
 	public class Command_UpdateDynamicCP : COTFCommand<UpdateCProgressionCommandParam>
@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Network.Commands
 				if (EnemyManager.clinetProgressions.ContainsKey(entity))
 				{
 					ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
-					cp.UpdateDynamic(param.health, param.armor, param.armor_reduction);
+					cp.UpdateDynamic(param.health, param.armor, param.armor_reduction, param.damage);
 				}
 			}
 			else
@@ -31,7 +31,8 @@ namespace ChampionsOfForest.Network.Commands
 				{
 					Send(NetworkManager.Target.Clients, new UpdateCProgressionCommandParam()
 					{
-						health = enemy.extraHealth + enemy.HealthScript.Health,
+						health = enemy.HP,
+						damage = enemy.DamageTotal,
 						armor = enemy.armor,
 						armor_reduction = enemy.armorReduction,
 						packed = param.packed

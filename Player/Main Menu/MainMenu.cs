@@ -506,13 +506,13 @@ namespace ChampionsOfForest
 					}
 					catch (Exception ex)
 					{
-						ModAPI.Log.Write(ex.ToString());
+						//ModAPI.Log.Write(ex.ToString());
 					}
 				}
 			}
 			catch (Exception e)
 			{
-				ModAPI.Log.Write(e.ToString());
+				//ModAPI.Log.Write(e.ToString());
 			}
 		}
 

@@ -69,42 +69,38 @@ public static class MoreCraftingReceipes
 			{
 				Receipe poisonArrowsCopy = ReceipeDatabase._instance._receipes.FirstOrDefault(x => x._productItemID == 83 && x._ingredients.Any(y => y._itemID == 112)).CopyReceipe();
 				poisonArrowsCopy._weaponStatUpgrades[0]._type = WeaponStatUpgrade.Types.ModernAmmo;
-				poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 15);
+				poisonArrowsCopy._ingredients[1] = CreateReceipeIngredient(COINS, 5);
 				poisonArrowsCopy._name = "Modern Arrows";
 				customReceipeList.Add(new COTFCustomReceipe(poisonArrowsCopy));
 			}
 			catch (Exception e)
 			{
-
 				ModAPI.Log.Write("Exception copying receipe " + e);
 			}
-			CreateRecipe(FLINTLOCKAMMO, 3,
+			CreateRecipe(FLINTLOCKAMMO, 10,
 				CreateReceipeIngredient(COINS, 15),
-				CreateReceipeIngredient(SMALLROCK, 3),
 				CreateReceipeIngredient(ROCK, 1))._name = "Flintlock ammo";
 
-			CreateRecipe(CROSSBOWAMMO, 1,
-				CreateReceipeIngredient(ROCK, 1),
-				CreateReceipeIngredient(STICK, 1))._name = "Crossbow bolts";
+			CreateRecipe(CROSSBOWAMMO, 9,
+				CreateReceipeIngredient(ROCK, 3),
+				CreateReceipeIngredient(STICK, 3))._name = "Crossbow bolts";
 
-			CreateRecipe(CLOTH, 10,
-				CreateReceipeIngredient(DEERSKIN, 1))._name = "Cloth";
+			CreateRecipe(CLOTH, 30,
+				CreateReceipeIngredient(DEERSKIN, 3))._name = "Cloth";
 
-			CreateRecipe(CLOTH, 8,
-				CreateReceipeIngredient(RABBITSKIN, 1))._name = "Cloth";
+			CreateRecipe(CLOTH, 50,
+				CreateReceipeIngredient(RABBITSKIN, 5))._name = "Cloth";
 
-			CreateRecipe(CLOTH, 8,
-				CreateReceipeIngredient(RACOONSKIN, 1))._name = "Cloth";
+			CreateRecipe(CLOTH, 20,
+				CreateReceipeIngredient(RACOONSKIN, 2))._name = "Cloth";
 
-			CreateRecipe(CLOTH, 10,
-				CreateReceipeIngredient(BOARSKIN, 1))._name = "Cloth";
+			CreateRecipe(CLOTH, 40,
+				CreateReceipeIngredient(BOARSKIN,4))._name = "Cloth";
 
 			CreateRecipe(AXEPLANE, 1,
 				CreateReceipeIngredient(AXECRAFTED, 1),
 				CreateReceipeIngredient(ROPE, 1),
-				CreateReceipeIngredient(STICK, 2),
-				CreateReceipeIngredient(CLOTH, 25),
-				CreateReceipeIngredient(RABBITSKIN, 1)
+				CreateReceipeIngredient(STICK, 2)
 				)._name = "Plane Axe";
 
 		}
@@ -195,6 +191,7 @@ public static class MoreCraftingReceipes
 		var r = new Receipe
 		{
 			_id = NextReceipeId,
+			_hidden = false,
 			_ingredients = receipeIngredients,
 			_productItemAmount = new RandomRange
 			{

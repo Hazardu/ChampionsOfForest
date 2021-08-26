@@ -194,13 +194,13 @@ namespace ChampionsOfForest.Network
 					w.Write(pos.x);
 					w.Write(pos.y);
 					w.Write(pos.z);
+					w.Write((int)dropSource);
 					foreach (ItemStat stat in item.Stats)
 					{
 						w.Write(stat.StatID);
 						w.Write(stat.possibleStatsIndex);
 						w.Write(stat.Amount);
 					}
-					w.Write((int)dropSource);
 					w.Close();
 				}
 				SendLine(answerStream.ToArray(), Target.Everyone);

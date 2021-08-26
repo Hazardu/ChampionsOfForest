@@ -59,8 +59,8 @@ namespace ChampionsOfForest
 					{
 						Debug.Log("Outdated dynamic CP");
 						var e = tr.GetComponentInParent<EnemyProgression>();
-						if(e)
-							cp.UpdateDynamic(e.extraHealth + e.HealthScript.Health, e.armor, e.armorReduction);
+						if (e)
+							cp.UpdateDynamic(e.HP, e.armor, e.armorReduction, e.DamageTotal);
 					}
 				}
 				else
@@ -68,7 +68,7 @@ namespace ChampionsOfForest
 					Debug.Log("Outdated static CP");
 					var e = tr.GetComponentInParent<EnemyProgression>();
 					if (e)
-						cp.Update(null,e.enemyName,e.level, e.extraHealth + e.HealthScript.Health, e.maxHealth, e.bounty, e.armor, e.armorReduction,e.Steadfast,e.abilities.Count>0 ? e.abilities.Select(x=> (int)x).ToArray(): new int[0] );
+						cp.Update(null, e.enemyName, e.level, e.HP, e.DamageTotal, e.maxHealth, e.bounty, e.armor, e.armorReduction, e.Steadfast, e.abilities.Count > 0 ? e.abilities.Select(x => (int)x).ToArray() : new int[0]);
 				}
 				return cp;
 			}

@@ -326,7 +326,7 @@ namespace ChampionsOfForest
 					"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy.GetFormattedAmount() +
 					"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount() +
 					"\nEnergy multiplier: " + ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount());
-				Stat("Armor", ModdedPlayer.Stats.armor.GetFormattedAmount(), $"Armor provides physical damage reduction.\nPhysical damage reduction from {ModdedPlayer.Stats.armor.GetFormattedAmount()} armor is equal to {1-ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value):P}");
+				Stat("Armor", ModdedPlayer.Stats.armor.GetFormattedAmount(), $"Armor provides physical damage reduction.\nPhysical damage reduction from {ModdedPlayer.Stats.armor.GetFormattedAmount()} armor is equal to {ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value):P}");
 				Stat("Magic resistance", (1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"), "Magic damage reduction. Decreases damage from enemy abilities.");
 				Stat("Dodge Chance", (1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"), "A chance to avoid entire instance of damage. Works only for physical damage sources. This means dodge is ineffective against fire, poison, cold, various spells. Meteor rain ability deals physical damage and can be dodged");
 				Stat("Damage taken reduction", (1f - ModdedPlayer.Stats.allDamageTaken.GetAmount()).ToString("P"));

@@ -150,15 +150,14 @@ namespace ChampionsOfForest
 			setupDifficulty = ModSettings.difficulty;
 			//Assigning rest of stats
 			int dif = (int)setupDifficulty;
-			DamageMult = Mathf.Pow(level, 3.2f) / 100f + 0.4f;
-			DamageMult *= dif * 2f + 1;
-
+			DamageMult = level < 67 ? ((31f-0.286f*(level-20f))*(level-5f)+3.5f)*(level-1f)+11 : Mathf.Pow(level-60, 2.61f) * 600;
+			HealthScript.Health = int.MaxValue;
 			armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(level, 2.4f) * 0.36f + 1, Mathf.Pow(level, 2.45f) + 20) * ModSettings.EnemyArmorMultiplier);
 			armor *= dif / 2 + 1;
 			armorReduction = 0;
-			extraHealth = (HealthScript.Health * Mathf.Pow(level, 2.215f + (dif * 0.19f)) / 16);
-			extraHealth *= dif / 2 + 1;
-			AnimSpeed = 0.94f + (float)level / 190;
+			extraHealth = (Mathf.Pow(HealthScript.Health,0.3f)+ 20) * Mathf.Pow(level, 2.225f);
+			extraHealth *= level / 50 + 1;
+			AnimSpeed = 0.94f + (float)level / 175;
 
 			extraHealth *= ModSettings.EnemyHealthMultiplier;
 			DamageMult *= ModSettings.EnemyDamageMultiplier;
@@ -172,62 +171,74 @@ namespace ChampionsOfForest
 			switch (_rarity)
 			{
 				case EnemyRarity.Elite:
-					extraHealth *= 2;
-
-					break;
-
-				case EnemyRarity.Miniboss:
 					extraHealth *= 5;
 
 					break;
 
-				case EnemyRarity.Boss:
+				case EnemyRarity.Miniboss:
 					extraHealth *= 10;
+
+					break;
+
+				case EnemyRarity.Boss:
+					extraHealth *= 20;
 					if (!abilities.Contains(Abilities.Tiny))
 						gameObject.transform.localScale *= 1.1f;
 
 					break;
 			}
-			extraHealth *= dif * 0.25f + 0.75f;
-			if (dif > 3)
+			if (level > 25)
 				extraHealth *= 2.15f;
-			if (dif > 6)
+			if (level > 50)
+				extraHealth *= 2f;
+			if (level >100)
 				extraHealth *= 3.4f;
+			if (level >200)
+				extraHealth *= 2.5f;
+
 			//Applying some abilities
 			if (abilities.Contains(Abilities.Huge))
 			{
-				armor *= 2;
-				gameObject.transform.localScale *= 2;
-				extraHealth *= 2;
-				DamageMult *= 2;
-				AnimSpeed /= 1.6f;
+				armor *= 3;
+				extraHealth *= 2.5f;
+				DamageMult *= 2.5f;
+				AnimSpeed /= 1.5f;
+				BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
+
 			}
 			else if (abilities.Contains(Abilities.Tiny))
 			{
-				gameObject.transform.localScale *= 0.35f;
 				AnimSpeed *= 1.1f;
 				DamageMult *= 1.2f;
-				BroadcastMessage("SetTriggerScaleForTiny", SendMessageOptions.DontRequireReceiver);
+				BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);
+			}
+			else
+			{
+				BroadcastMessage("SetTriggerScale", 1.6f, SendMessageOptions.DontRequireReceiver);
+
 			}
 			if (abilities.Contains(Abilities.Steadfast))
 			{
-				Steadfast = 5;
+				Steadfast = 6;
+				armor *= 2;
 			}
 			if (abilities.Contains(Abilities.EliteSteadfast))
 			{
-				Steadfast = 2f;
+				Steadfast = 4f;
+				armor *= 2;
 			}
 			if (abilities.Contains(Abilities.BossSteadfast))
 			{
-				Steadfast = 0.25f;
+				Steadfast = 1f;
+				armor *= 2;
 			}
 			if (abilities.Contains(Abilities.ExtraHealth))
 			{
-				extraHealth *= 3;
+				extraHealth *= 4;
 			}
 			if (abilities.Contains(Abilities.ExtraDamage))
 			{
-				DamageMult *= 4f;
+				DamageMult *= 5f;
 			}
 			if (abilities.Contains(Abilities.RainEmpowerement))
 			{
@@ -252,7 +263,7 @@ namespace ChampionsOfForest
 			}
 			if (abilities.Contains(Abilities.FireAura))
 			{
-				float aurDmg = (5 * level + 1) * ((int)ModSettings.difficulty + 1.3f);
+				float aurDmg = DamageMult/20;
 				FireAura.Cast(gameObject, aurDmg);
 				if (BoltNetwork.isRunning)
 				{
@@ -284,24 +295,22 @@ namespace ChampionsOfForest
 			try
 			{
 				maxHealth = extraHealth;
-				HealthScript.maxHealthFloat = extraHealth;
+				HealthScript.maxHealthFloat = maxHealth;
+				HealthScript.Health = int.MaxValue;
+				ClampHealth();
 				armor = Mathf.Min(armor, int.MaxValue - 5);
 				if (armor < 0)
 					armor = int.MaxValue;
-				//Setting other health variables
-				HealthScript.maxHealth = Mathf.RoundToInt(Mathf.Min(extraHealth, int.MaxValue - 5));
-				HealthScript.Health = Mathf.RoundToInt(Mathf.Min(extraHealth, int.MaxValue - 5));
-				extraHealth -= HealthScript.Health;
-				DebuffDmgMult = DamageMult;
+				DebuffDmgMult = 1;
 				DualLifeSpend = false;
 				setupComplete = true;
 				OnDieCalled = false;
 				BaseDamageMult = DamageMult;
 				BaseAnimSpeed = AnimSpeed;
+				knockbackSpeed = 0;
 			}
 			catch (Exception e)
 			{
-				ModAPI.Log.Write(e.ToString());
 				CotfUtils.Log(e.Message);
 			}
 
@@ -318,22 +327,8 @@ namespace ChampionsOfForest
 			if (BoltNetwork.isRunning)
 			{
 				ulong id = entity.networkId.PackedValue;
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(30);
-						w.Write(id);
-						w.Write(BaseDamageMult);
-						foreach (Abilities ability in abilities)
-						{
-							w.Write((int)ability);
-						}
-						w.Close();
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-					answerStream.Close();
-				}
+				color = normalColor;
+				SyncAppearance(id);
 			}
 		}
 
@@ -585,42 +580,42 @@ namespace ChampionsOfForest
 					break;
 
 				case ModSettings.Difficulty.Master:
-					level = Random.Range(25, 40);
+					level = Random.Range(30, 40);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge1:
-					level = Random.Range(50, 66);
+					level = Random.Range(60, 70);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge2:
-					level = Random.Range(86, 96);
+					level = Random.Range(89, 92);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge3:
-					level = Random.Range(100, 110);
+					level = Random.Range(100, 101);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge4:
-					level = Random.Range(120, 140);
+					level = Random.Range(130, 133);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge5:
-					level = Random.Range(200, 250);
+					level = Random.Range(160, 165);
 
 					break;
 
 				case ModSettings.Difficulty.Challenge6:
-					level = Random.Range(340, 350);
+					level = 200;
 
 					break;
 
 				case ModSettings.Difficulty.Hell:
-					level = Random.Range(380, 390);
+					level = 300;
 
 					break;
 			}

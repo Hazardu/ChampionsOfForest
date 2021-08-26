@@ -10,15 +10,16 @@ namespace ChampionsOfForest
 	{
 		public struct DynamicClientEnemyProgression
 		{
-			public float Health;
+			public float Health, Damage;
 			public int Armor;
 			public int ArmorReduction;
 
-			public DynamicClientEnemyProgression(float health, int armor, int armorReduction)
+			public DynamicClientEnemyProgression(float health, int armor, int armorReduction, float damage)
 			{
 				Health = health;
 				Armor = armor;
 				ArmorReduction = armorReduction;
+				Damage = damage;
 			}
 		}
 		DynamicClientEnemyProgression dynCEP;
@@ -37,6 +38,8 @@ namespace ChampionsOfForest
 		public float Health => dynCEP.Health;
 		public float Armor => dynCEP.Armor;
 		public float ArmorReduction => dynCEP.ArmorReduction;
+		public float Damage => dynCEP.Damage;
+
 
 		/// <summary>
 		/// host/singleplayer constructor
@@ -53,7 +56,7 @@ namespace ChampionsOfForest
 			if (p != null)
 			{
 				EnemyName = p.enemyName;
-				dynCEP = new DynamicClientEnemyProgression(p.extraHealth + p.HealthScript.Health, p.armor, p.armorReduction);
+				dynCEP = new DynamicClientEnemyProgression(p.extraHealth + p.HealthScript.Health, p.armor, p.armorReduction, p.DamageTotal);
 				Level = p.level;
 				MaxHealth = p.maxHealth;
 				ExpBounty = p.bounty;
@@ -74,9 +77,9 @@ namespace ChampionsOfForest
 			}
 		}
 		public bool DynamicOutdated => dynamicCreationTime + DynamicLifeTime < Time.time;
-		public void UpdateDynamic(float hp, int ar, int arred)
+		public void UpdateDynamic(float hp, int ar, int arred, float damage)
 		{
-			dynCEP = new DynamicClientEnemyProgression(hp,ar,arred);
+			dynCEP = new DynamicClientEnemyProgression(hp,ar,arred, damage);
 			dynamicCreationTime = Time.time;
 
 		}
@@ -114,14 +117,14 @@ namespace ChampionsOfForest
 		//	}
 		//	return null;
 		//}
-		public void Update(BoltEntity entity, string enemyName, int level, float health, float maxHealth, long expBounty, int armor, int armorReduction, float Steadfast, int[] affixes)
+		public void Update(BoltEntity entity, string enemyName, int level, float health, float damage, float maxHealth, long expBounty, int armor, int armorReduction, float Steadfast, int[] affixes)
 		{
 			Entity = entity;
 			EnemyName = enemyName;
 			if(entity != null)
 				Packed = entity.networkId.PackedValue;
 			Level = level;
-			dynCEP = new DynamicClientEnemyProgression(health, armor, armorReduction);
+			dynCEP = new DynamicClientEnemyProgression(health, armor, armorReduction, damage);
 			MaxHealth = maxHealth;
 			ExpBounty = expBounty;
 			this.Steadfast = Steadfast;

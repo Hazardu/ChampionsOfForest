@@ -20,22 +20,27 @@ namespace ChampionsOfForest.Enemies
 		private Vector3 originalScale = Vector3.zero;
 		private BoltEntity entity;
 		private float LastReqTime;
-
+		//bool headAssigned;
 		private void OnEnable()
 		{
 			if (originalScale != Vector3.zero)
 			{
 				transform.localScale = originalScale;
 			}
+			//if(ai.creepy)
+			//CotfUtils.Log(ModReferences.RecursiveTransformList(transform.root), true);
 		}
+		//private void AssignHeadObject(string name, float size)
+		//{
 
-		public void SetTriggerScaleForTiny()
+		//}
+		public void SetTriggerScale(float size)
 		{
-			if (originalScale == Vector3.zero)
+			if (originalScale == Vector3.zero || transform.localScale != originalScale)
 			{
 				originalScale = transform.localScale;
 			}
-			transform.localScale = originalScale * 5;
+			transform.localScale = originalScale * size;
 		}
 
 		protected override void Update()
@@ -83,32 +88,12 @@ namespace ChampionsOfForest.Enemies
 		}
 
 		private EnemyProgression EnemyProg;
-		private int hitDamage = 0;
-		[ModAPI.Attributes.Priority(100)]
+		private float hitDamage = 0;
+		[ModAPI.Attributes.Priority(200)]
 		protected override void OnTriggerEnter(Collider other)
 		{
 			try
 			{
-				if (GameSetup.IsMpClient)
-				{
-					if (entity == null && !EnemyManager.clientEnemies.ContainsKey(entity.networkId.PackedValue))
-						return;
-					else if (EnemyManager.clientEnemies[entity.networkId.PackedValue].Outdated)
-					{
-						LastReqTime = Time.time;
-						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-						{
-							using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-							{
-								w.Write(29);
-								w.Write(entity.networkId.PackedValue);
-								w.Close();
-							}
-							Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
-							answerStream.Close();
-						}
-					}
-				}
 
 				currState = animator.GetCurrentAnimatorStateInfo(0);
 				nextState = animator.GetNextAnimatorStateInfo(0);
@@ -186,49 +171,49 @@ namespace ChampionsOfForest.Enemies
 								events.parryBool = false;
 							}
 							other.transform.root.SendMessage("getHitDirection", rootTr.position, SendMessageOptions.DontRequireReceiver);
-							int num = 0;
+							float num = 0;
 							if (maleSkinny || femaleSkinny)
 							{
 								if (pale)
 								{
-									num = ((!skinned) ? Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio) : Mathf.FloorToInt(10f * GameSettings.Ai.skinnyDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
+									num = ((!skinned) ? Mathf.Floor(10f * GameSettings.Ai.skinnyDamageRatio) : Mathf.Floor(10f * GameSettings.Ai.skinnyDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
 								}
 								else
 								{
-									num = Mathf.FloorToInt(13f * GameSettings.Ai.skinnyDamageRatio);
+									num = Mathf.Floor(13f * GameSettings.Ai.skinnyDamageRatio);
 									if (maleSkinny && props.regularStick.activeSelf && events.leftHandWeapon)
 									{
-										num = Mathf.FloorToInt(num * 1.35f);
+										num = Mathf.Floor(num * 1.35f);
 									}
 								}
 							}
 							else if (male && pale)
 							{
-								num = ((!skinned) ? Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio) : Mathf.FloorToInt(22f * GameSettings.Ai.largePaleDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
+								num = ((!skinned) ? Mathf.Floor(22f * GameSettings.Ai.largePaleDamageRatio) : Mathf.Floor(22f * GameSettings.Ai.largePaleDamageRatio * GameSettings.Ai.skinMaskDamageRatio));
 							}
 							else if (male && !firemanMain)
 							{
-								num = ((!painted) ? Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio) : Mathf.FloorToInt(20f * GameSettings.Ai.regularMaleDamageRatio * GameSettings.Ai.paintedDamageRatio));
+								num = ((!painted) ? Mathf.Floor(20f * GameSettings.Ai.regularMaleDamageRatio) : Mathf.Floor(20f * GameSettings.Ai.regularMaleDamageRatio * GameSettings.Ai.paintedDamageRatio));
 							}
 							else if (female)
 							{
-								num = Mathf.FloorToInt(17f * GameSettings.Ai.regularFemaleDamageRatio);
+								num = Mathf.Floor(17f * GameSettings.Ai.regularFemaleDamageRatio);
 							}
 							else if (creepy)
 							{
-								num = ((!pale) ? Mathf.FloorToInt(28f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(35f * GameSettings.Ai.creepyDamageRatio));
+								num = ((!pale) ? Mathf.Floor(28f * GameSettings.Ai.creepyDamageRatio) : Mathf.Floor(35f * GameSettings.Ai.creepyDamageRatio));
 							}
 							else if (creepy_male)
 							{
-								num = ((!pale) ? Mathf.FloorToInt(60f * GameSettings.Ai.creepyDamageRatio) : Mathf.FloorToInt(120f * GameSettings.Ai.creepyDamageRatio));
+								num = ((!pale) ? Mathf.Floor(60f * GameSettings.Ai.creepyDamageRatio) : Mathf.Floor(120f * GameSettings.Ai.creepyDamageRatio));
 							}
 							else if (creepy_baby)
 							{
-								num = Mathf.FloorToInt(26f * GameSettings.Ai.creepyBabyDamageRatio);
+								num = Mathf.Floor(26f * GameSettings.Ai.creepyBabyDamageRatio);
 							}
 							else if (firemanMain)
 							{
-								num = Mathf.FloorToInt(12f * GameSettings.Ai.regularMaleDamageRatio);
+								num = Mathf.Floor(12f * GameSettings.Ai.regularMaleDamageRatio);
 								if (events && !enemyAtStructure && !events.noFireAttack)
 								{
 									if (BoltNetwork.isRunning && netPrefab)
@@ -254,7 +239,7 @@ namespace ChampionsOfForest.Enemies
 							}
 							if (setup && setup.health.poisoned)
 							{
-								num = Mathf.FloorToInt(num / 1.6f);
+								num = Mathf.Floor(num / 2);
 							}
 
 							//COTF additional code
@@ -265,7 +250,7 @@ namespace ChampionsOfForest.Enemies
 									if (other.transform.root == LocalPlayer.Transform.root)
 									{
 										var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
-										num = Mathf.RoundToInt(num * x.damagemult);
+										num = x.damagemult + num-20f;
 										if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
 										{
 											if (Scene.WeatherSystem.Raining)
@@ -290,10 +275,8 @@ namespace ChampionsOfForest.Enemies
 													
 											PlayerHitEnemy playerHitEnemy =		PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 											playerHitEnemy.Target = entity;
-
 											//this integer make the attack not stagger the enemy
 											playerHitEnemy.getAttackerType = 2000000;
-
 											playerHitEnemy.Hit = DamageMath.GetSendableDamage(ModdedPlayer.Stats.TotalThornsDamage);
 											playerHitEnemy.Send();
 										}
@@ -307,14 +290,10 @@ namespace ChampionsOfForest.Enemies
 										{
 											EnemyProg = EnemyManager.enemyByTransform[this.rootTr];
 										}
-										num = Mathf.RoundToInt(num * EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult);
-										//bo is never used here?
-										BoltEntity bo = other.transform.root.GetComponent<BoltEntity>();
-										if (bo == null)
-										{
-											bo = other.transform.root.GetComponentInChildren<BoltEntity>();
-										}
+										num = EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult + num - 20f;
+										
 										hitDamage = num;
+										CotfUtils.Log($"Damage dealt to player: d{hitDamage}  amp{EnemyProg.DamageAmp}  lv{EnemyProg.level}  php{hitDamage*100 / ModdedPlayer.Stats.TotalMaxHealth}%", true);
 
 										//POISON ATTACKS
 										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
@@ -342,7 +321,6 @@ namespace ChampionsOfForest.Enemies
 							{
 								ModAPI.Log.Write(ex.ToString());
 							}
-
 							PlayerStats component2 = other.transform.root.GetComponent<PlayerStats>();
 							if (male || female || creepy_male || creepy_fat || creepy || creepy_baby)
 							{
@@ -355,7 +333,7 @@ namespace ChampionsOfForest.Enemies
 								if (BoltNetwork.isClient && netPrefab && !(bool)component3)
 								{
 									other.transform.root.SendMessage("setCurrentAttacker", this, SendMessageOptions.DontRequireReceiver);
-									other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
+									other.transform.root.SendMessage("hitFromEnemy", Mathf.RoundToInt(num), SendMessageOptions.DontRequireReceiver);
 									other.transform.root.SendMessage("StartPrediction", SendMessageOptions.DontRequireReceiver);
 								}
 								else if (BoltNetwork.isServer)
@@ -363,19 +341,19 @@ namespace ChampionsOfForest.Enemies
 									if (!(bool)component3)
 									{
 										other.transform.root.SendMessage("setCurrentAttacker", this, SendMessageOptions.DontRequireReceiver);
-										other.transform.root.SendMessage("hitFromEnemy", num, SendMessageOptions.DontRequireReceiver);
+										other.transform.root.SendMessage("hitFromEnemy", Mathf.RoundToInt(num), SendMessageOptions.DontRequireReceiver);
 									}
 								}
 								else if (!BoltNetwork.isRunning && component2)
 								{
 									component2.setCurrentAttacker(this);
-									component2.hitFromEnemy(num);
+									component2.hitFromEnemy(Mathf.RoundToInt(num));
 								}
 							}
 							else if (!netPrefab && component2)
 							{
 								component2.setCurrentAttacker(this);
-								component2.hitFromEnemy(num);
+								component2.hitFromEnemy(Mathf.RoundToInt(num));
 							}
 
 							goto IL_092f;

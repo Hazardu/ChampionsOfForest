@@ -52,16 +52,19 @@ namespace ChampionsOfForest.Network
 					if (ev.getAttackerType == DamageMath.SILENTattackerType)
 					{
 						//ghost hit
-
 						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
 						enemy.HitPhysicalSilent(damage);
 					}
 					else if (ev.getAttackerType == DamageMath.SILENTattackerTypeMagic)
 					{
 						//ghost hit
-
 						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
 						enemy.HitMagic(damage);
+					}
+					else if (ev.getAttackerType == DamageMath.PURE)
+					{
+						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
+						enemy.HitPure(damage);
 					}
 					else
 					{
@@ -81,7 +84,7 @@ namespace ChampionsOfForest.Network
 							enemy.HealthScript.takeDamage(ev.takeDamage);
 							enemy.HealthScript.setSkinDamage(1);
 							enemy.HitPhysical(damage);
-							
+
 						}
 						else
 						{

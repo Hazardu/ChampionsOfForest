@@ -858,7 +858,7 @@ namespace ChampionsOfForest.Player
 				posX = -2.5f,
 				posY = 0,
 				name = "Alternative cloth sources",
-				originalDescription = "Increases daily generation of cloth by 10. Allows turning animal fur skin into cloth by crafting.",
+				originalDescription = "Increases daily generation of cloth by 10. Allows turning animal fur skin into cloth by crafting. Place multiple of the same fur on the mat to craft.",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -1147,7 +1147,7 @@ namespace ChampionsOfForest.Player
 				posX = -12.5f,
 				posY = 0,
 				name = "More Ammo",
-				originalDescription = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50. Allows you to craft flint lock ammo, crossbow bolts, and modern arrows	 ",
+				originalDescription = "Increases carry amount of weak and upgraded spears and molotovs by 5, small rocks by 50. Allows you to craft flint lock ammo (15 coins + 1 rock), crossbow bolts (3 rocks + 3 sticks), and modern arrows (arrows + coins)",
 				textureVariation = 0,
 				uncapped = true,
 			};
@@ -1229,7 +1229,7 @@ namespace ChampionsOfForest.Player
 				posX = -4f,
 				posY = 0.75f,
 				name = "Sanctuary",
-				originalDescription = "Healing dome provides immunity to stuns anr root effects",
+				originalDescription = "Healing dome provides immunity to stun and root effects",
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3168,7 +3168,7 @@ namespace ChampionsOfForest.Player
 				posX = -3f,
 				posY = 0.75f,
 				name = "Craftable Plane Axe",
-				originalDescription = "Allows you to craft a plane axe from the crafted axe",
+				originalDescription = "Allows you to craft a plane axe.\nThe receipe is: 1 crafted axe, 1 rope, 2 sticks",
 				textureVariation = 0,
 				uncapped = false,
 			};

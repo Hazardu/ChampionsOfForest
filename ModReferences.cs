@@ -205,7 +205,7 @@ namespace ChampionsOfForest
 			float a = armor;
 			float b = (armor + 500f);
 
-			return Mathf.Clamp01(a/b);
+			return Mathf.Pow(Mathf.Clamp01(a/b),2f);
 		}
 
 		//invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself
@@ -295,6 +295,15 @@ namespace ChampionsOfForest
 				}
 				return null;
 			}
+		}
+		public static string RecursiveTransformList(Transform tr, string s = "", int indents = 0)
+		{
+			s += new System.String('\t', indents) + tr.name + "\n";
+			foreach (Transform item in tr)
+			{
+				s = RecursiveTransformList(item, s, indents + 1);
+			}
+			return s;
 		}
 
 		public static void RecursiveComponentList(GameObject go)

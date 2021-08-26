@@ -6,18 +6,15 @@ namespace ChampionsOfForest.Enemies
 {
 	public class ClientEnemy
 	{
-		private ulong id;
 		public List<EnemyProgression.Abilities> abilities;
 		public float damagemult;
-		public float TimeStamp;
-		public bool Outdated => TimeStamp + 5 < Time.time;
+		public float scale;
 
-		public ClientEnemy(ulong id, float damage, List<EnemyProgression.Abilities> abilities)
+		public ClientEnemy(ulong id, float damage, float scale, Color color, List<EnemyProgression.Abilities> abilities)
 		{
 			this.damagemult = damage;
 			this.abilities = abilities;
-			this.id = id;
-			TimeStamp = Time.time;
+			this.scale = scale;
 			if (!EnemyManager.clientEnemies.ContainsKey(id))
 			{
 				EnemyManager.clientEnemies.Add(id, this);
@@ -25,8 +22,19 @@ namespace ChampionsOfForest.Enemies
 			else
 			{
 				EnemyManager.clientEnemies.Remove(id);
-
 				EnemyManager.clientEnemies.Add(id, this);
+			}
+			var entity = BoltNetwork.FindEntity(new Bolt.NetworkId(id));
+			if (entity!=null)
+			{
+				entity.transform.localScale = Vector3.one * scale;
+				entity.GetComponentInChildren<MeshRenderer>().material.color = color;
+				if (abilities.Contains(EnemyProgression.Abilities.Huge))
+					entity.BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
+				else if (abilities.Contains(EnemyProgression.Abilities.Tiny))
+					entity.BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);
+				else
+					entity.BroadcastMessage("SetTriggerScale", 1.6f, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}

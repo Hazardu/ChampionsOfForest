@@ -782,7 +782,7 @@ namespace ChampionsOfForest
 			}
 			if (ModdedPlayer.Stats.i_KingQruiesSword)
 				BuffDB.AddBuff(22, 80, f, 1);
-
+			CotfUtils.Log("Tanked damage: " + f,true);
 			base.Hit(damage, ignoreArmor, type);
 		}
 

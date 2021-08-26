@@ -276,6 +276,7 @@ namespace ChampionsOfForest.Network
 										item.level = itemLvl;
 										int amount = r.ReadInt32();
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
+										int dropSource = r.ReadInt32();
 										while (r.BaseStream.Position != r.BaseStream.Length)
 										{
 											ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
@@ -284,7 +285,7 @@ namespace ChampionsOfForest.Network
 											};
 											item.Stats.Add(stat);
 										}
-										PickUpManager.SpawnPickUp(item, pos, amount, id, (ItemPickUp.DropSource)r.ReadInt32());
+										PickUpManager.SpawnPickUp(item, pos, amount, id, (ItemPickUp.DropSource)dropSource);
 										break;
 									}
 
@@ -305,6 +306,7 @@ namespace ChampionsOfForest.Network
 														w.Write(ep.enemyName);
 														w.Write(ep.level);
 														w.Write(ep.extraHealth + ep.HealthScript.Health);
+														w.Write(ep.DamageTotal);
 														w.Write(ep.maxHealth);
 														w.Write(ep.bounty);
 														w.Write(ep.armor);
@@ -346,6 +348,7 @@ namespace ChampionsOfForest.Network
 											string name = r.ReadString();
 											int level = r.ReadInt32();
 											float health = r.ReadSingle();
+											float damage = r.ReadSingle();
 											float maxhealth = r.ReadSingle();
 											long bounty = r.ReadInt64();
 											int armor = r.ReadInt32();
@@ -360,11 +363,11 @@ namespace ChampionsOfForest.Network
 											if (EnemyManager.clinetProgressions.ContainsKey(entity))
 											{
 												ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
-												cp.Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+												cp.Update(entity, name, level, health, damage, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 											else
 											{
-												new ClientEnemyProgression(entity).Update(entity, name, level, health, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+												new ClientEnemyProgression(entity).Update(entity, name, level, health, damage, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 
 										}
@@ -685,7 +688,7 @@ namespace ChampionsOfForest.Network
 										break;
 									}
 
-								case 29:
+								case 29: //request for sync enemy abilities, visuals, appearance
 									{
 										if (GameSetup.IsMpServer)
 										{
@@ -693,38 +696,25 @@ namespace ChampionsOfForest.Network
 											if (EnemyManager.hostDictionary.ContainsKey(id))
 											{
 												EnemyProgression p = EnemyManager.hostDictionary[id];
-												using (MemoryStream answerStream = new MemoryStream())
-												{
-													using (BinaryWriter w = new BinaryWriter(answerStream))
-													{
-														w.Write(30);
-														w.Write(id);
-														w.Write(p.BaseDamageMult);
-														foreach (EnemyProgression.Abilities ability in p.abilities)
-														{
-															w.Write((int)ability);
-														}
-														w.Close();
-													}
-													NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
-													answerStream.Close();
-												}
+												p.SyncAppearance(id);
 											}
 										}
 
 										break;
 									}
 
-								case 30:
+								case 30: //sync enemy abilities, visuals, appearance
 									{
 										ulong id = r.ReadUInt64();
 										float dmg = r.ReadSingle();
+										float scale = r.ReadSingle();
+										Color c = new Color(r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										List<EnemyProgression.Abilities> abilities = new List<EnemyProgression.Abilities>();
 										while (r.BaseStream.Position != r.BaseStream.Length)
 										{
 											abilities.Add((EnemyProgression.Abilities)r.ReadInt32());
 										}
-										new ClientEnemy(id, dmg, abilities);
+										new ClientEnemy(id, dmg, scale, c, abilities);
 										break;
 									}
 

@@ -55,9 +55,9 @@ namespace ChampionsOfForest
 			src = gameObject.AddComponent<AudioSource>();
 			src.spatialBlend = 1f;
 			src.maxDistance = 150f;
-			src.volume *= 2;
+			src.volume = 3;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[item.GetDropSoundID()];
-			src.Play();
+			src.Play(100UL);
 		}
 
 		public void EnableDisplay()
@@ -68,8 +68,10 @@ namespace ChampionsOfForest
 		public void UnlockPhysics()
 		{
 			rb.isKinematic = false;
-			Vector3 randomRot = new Vector3(Random.value, 0, Random.value) * 60;
-			rb.AddTorque(randomRot, ForceMode.VelocityChange);
+
+			Vector3 randomv3 = new Vector3(Random.value, 0, Random.value);
+			rb.AddTorque(randomv3 * 100, ForceMode.VelocityChange);
+			rb.AddForce(randomv3 * 2, ForceMode.VelocityChange);
 		}
 
 		private void OnGUI()
