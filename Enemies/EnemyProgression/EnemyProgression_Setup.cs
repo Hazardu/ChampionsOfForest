@@ -151,13 +151,14 @@ namespace ChampionsOfForest
 			//Assigning rest of stats
 			int dif = (int)setupDifficulty;
 			DamageMult = level < 67 ? ((31f-0.286f*(level-20f))*(level-5f)+3.5f)*(level-1f)+11 : Mathf.Pow(level-60, 2.61f) * 600;
-			HealthScript.Health = int.MaxValue;
 			armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(level, 2.4f) * 0.36f + 1, Mathf.Pow(level, 2.45f) + 20) * ModSettings.EnemyArmorMultiplier);
 			armor *= dif / 2 + 1;
 			armorReduction = 0;
-			extraHealth = (Mathf.Pow(HealthScript.Health,0.3f)+ 20) * Mathf.Pow(level, 2.225f);
-			extraHealth *= level / 50 + 1;
-			AnimSpeed = 0.94f + (float)level / 175;
+			extraHealth = (Mathf.Sqrt(HealthScript.Health)+ 40) * Mathf.Pow(level, 2.22f)/6f;
+			extraHealth *= (level / 50) + 0.4f;
+
+			AnimSpeed = 0.93f + (float)level / 175;
+			HealthScript.Health = int.MaxValue;
 
 			extraHealth *= ModSettings.EnemyHealthMultiplier;
 			DamageMult *= ModSettings.EnemyDamageMultiplier;
@@ -195,7 +196,8 @@ namespace ChampionsOfForest
 				extraHealth *= 3.4f;
 			if (level >200)
 				extraHealth *= 2.5f;
-
+			if (level > 300)
+				extraHealth *= 3.2f;
 			//Applying some abilities
 			if (abilities.Contains(Abilities.Huge))
 			{
@@ -296,7 +298,8 @@ namespace ChampionsOfForest
 			{
 				maxHealth = extraHealth;
 				HealthScript.maxHealthFloat = maxHealth;
-				HealthScript.Health = int.MaxValue;
+				HealthScript.Health =(int) Mathf.Min(maxHealth, int.MaxValue);
+				extraHealth = Mathf.Max(0,maxHealth - HealthScript.Health);
 				ClampHealth();
 				armor = Mathf.Min(armor, int.MaxValue - 5);
 				if (armor < 0)
@@ -305,7 +308,7 @@ namespace ChampionsOfForest
 				DualLifeSpend = false;
 				setupComplete = true;
 				OnDieCalled = false;
-				BaseDamageMult = DamageMult;
+				BaseDamageMult = Mathf.Abs(DamageMult);
 				BaseAnimSpeed = AnimSpeed;
 				knockbackSpeed = 0;
 			}
@@ -566,16 +569,16 @@ namespace ChampionsOfForest
 			switch (ModSettings.difficulty)
 			{
 				case ModSettings.Difficulty.Easy:
-					level = Random.Range(1, 6);
+					level = Random.Range(1, 4);
 					break;
 
 				case ModSettings.Difficulty.Veteran:
-					level = Random.Range(5, 10);
+					level = Random.Range(10, 14);
 
 					break;
 
 				case ModSettings.Difficulty.Elite:
-					level = Random.Range(12, 20);
+					level = Random.Range(20, 25);
 
 					break;
 
@@ -585,7 +588,7 @@ namespace ChampionsOfForest
 					break;
 
 				case ModSettings.Difficulty.Challenge1:
-					level = Random.Range(60, 70);
+					level = Random.Range(50, 60);
 
 					break;
 
@@ -624,7 +627,7 @@ namespace ChampionsOfForest
 
 		private void AssignBounty()
 		{
-			double b = Random.Range(maxHealth * 0.35f, maxHealth * 0.45f) * Mathf.Sqrt(level) + armor;
+			double b = Random.Range(maxHealth * 0.35f, maxHealth * 0.45f) * Mathf.Sqrt(level) + armor*2;
 			if (abilities.Count > 1)
 			{
 				b *= abilities.Count;
