@@ -29,7 +29,7 @@ namespace ChampionsOfForest.Enemies
 			{
 				entity.transform.localScale = Vector3.one * scale;
 				entity.GetComponentInChildren<MeshRenderer>().material.color = color;
-				if (abilities.Contains(EnemyProgression.Abilities.Huge))
+				if (abilities.Contains(EnemyProgression.Abilities.Gargantuan))
 					entity.BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
 				else if (abilities.Contains(EnemyProgression.Abilities.Tiny))
 					entity.BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);

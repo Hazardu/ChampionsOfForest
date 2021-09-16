@@ -251,7 +251,7 @@ namespace ChampionsOfForest.Enemies
 									{
 										var x = EnemyManager.clientEnemies[entity.networkId.PackedValue];
 										num = x.damagemult + num-20f;
-										if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerement))
+										if (x.abilities.Contains(EnemyProgression.Abilities.RainEmpowerment))
 										{
 											if (Scene.WeatherSystem.Raining)
 											{

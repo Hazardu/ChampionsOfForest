@@ -109,13 +109,13 @@ namespace ChampionsOfForest
 							canAdd = false;
 						}
 					}
-					else if (ab == Abilities.Tiny || ab == Abilities.Huge)
+					else if (ab == Abilities.Tiny || ab == Abilities.Gargantuan)
 					{
 						if (AIScript.creepy_boss && ab == Abilities.Tiny)
 						{
 							canAdd = false;
 						}
-						else if (abilities.Contains(Abilities.Huge) || abilities.Contains(Abilities.Tiny))
+						else if (abilities.Contains(Abilities.Gargantuan) || abilities.Contains(Abilities.Tiny))
 						{
 							canAdd = false;
 						}
@@ -199,7 +199,7 @@ namespace ChampionsOfForest
 			if (level > 300)
 				extraHealth *= 3.2f;
 			//Applying some abilities
-			if (abilities.Contains(Abilities.Huge))
+			if (abilities.Contains(Abilities.Gargantuan))
 			{
 				armor *= 3;
 				extraHealth *= 2.5f;
@@ -242,7 +242,7 @@ namespace ChampionsOfForest
 			{
 				DamageMult *= 5f;
 			}
-			if (abilities.Contains(Abilities.RainEmpowerement))
+			if (abilities.Contains(Abilities.RainEmpowerment))
 			{
 				prerainDmg = DamageMult;
 				prerainArmor = armor;
@@ -263,7 +263,7 @@ namespace ChampionsOfForest
 			{
 				Destroy(avengerability);
 			}
-			if (abilities.Contains(Abilities.FireAura))
+			if (abilities.Contains(Abilities.Radiance))
 			{
 				float aurDmg = DamageMult/20;
 				FireAura.Cast(gameObject, aurDmg);

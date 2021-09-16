@@ -94,7 +94,7 @@ namespace ChampionsOfForest
 		private ModSettings.Difficulty setupDifficulty;
 		public enum Abilities
 		{
-			Steadfast, BossSteadfast, EliteSteadfast, FreezingAura, FireAura, Rooting, BlackHole, Trapper, Juggernaut, Huge, Tiny, ExtraDamage, ExtraHealth, Basher, Blink, RainEmpowerement, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm
+			Steadfast, BossSteadfast, EliteSteadfast, Blizzard, Radiance, Chains, BlackHole, Trapper, Juggernaut, Gargantuan, Tiny, ExtraDamage, ExtraHealth, Basher, Warp, RainEmpowerment, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm
 		}
 
 		public enum Enemy
@@ -435,7 +435,7 @@ namespace ChampionsOfForest
 			{
 				sc += 0.1f * avengerability.Stacks;
 			}
-			if (abilities.Contains(Abilities.RainEmpowerement))
+			if (abilities.Contains(Abilities.RainEmpowerment))
 			{
 				if (Scene.WeatherSystem.Raining)
 				{
@@ -452,7 +452,7 @@ namespace ChampionsOfForest
 				}
 			}
 			armorReduction = Mathf.Min(armorReduction, armor);
-			if (abilities.Contains(Abilities.Huge))
+			if (abilities.Contains(Abilities.Gargantuan))
 			{
 				sc *= 2f;
 			}
@@ -632,7 +632,7 @@ namespace ChampionsOfForest
 					return;
 				}
 
-				if (abilities.Contains(Abilities.Blink))
+				if (abilities.Contains(Abilities.Warp))
 				{
 					if (blinkCD <= 0)
 					{
@@ -666,7 +666,7 @@ namespace ChampionsOfForest
 					}
 					return;
 				}
-				if (abilities.Contains(Abilities.Rooting) && chainsCD <= 0)
+				if (abilities.Contains(Abilities.Chains) && chainsCD <= 0)
 				{
 					SetAbilityCooldown(0.0f, 0.5f);
 
@@ -795,7 +795,7 @@ namespace ChampionsOfForest
 					}
 				}
 
-				if (abilities.Contains(Abilities.FreezingAura))
+				if (abilities.Contains(Abilities.Blizzard))
 				{
 
 					if (freezeauraCD <= 0)
@@ -875,7 +875,7 @@ namespace ChampionsOfForest
 		}
 		private void SendFireAura()
 		{
-			if (abilities.Contains(Abilities.FireAura))
+			if (abilities.Contains(Abilities.Radiance))
 			{
 				float aurDmg = (5 * level + 1) * (Mathf.Max(2, level / 50) + 1.3f);
 				FireAura.Cast(gameObject, aurDmg);
