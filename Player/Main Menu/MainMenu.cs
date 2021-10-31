@@ -22,21 +22,21 @@ namespace ChampionsOfForest
 		}
 
 		//Difficulty Settings
-		public static readonly string[] DiffSel_Names = new string[] { "Easy", "Veteran", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", "Challenge VI", "Hell", };
+		public static readonly string[] DiffSel_Names = new string[] { Translations.MainMenu_1/*og:Easy*/, Translations.MainMenu_2/*og:Veteran*/, Translations.MainMenu_3/*og:Elite*/, Translations.MainMenu_4/*og:Master*/, Translations.MainMenu_5/*og:Challenge I*/, Translations.MainMenu_6/*og:Challenge II*/, Translations.MainMenu_7/*og:Challenge III*/, Translations.MainMenu_8/*og:Challenge IV*/, Translations.MainMenu_9/*og:Challenge V*/, Translations.MainMenu_10/*og:Challenge VI*/, Translations.MainMenu_11/*og:Hell*/, };
 
 		public static readonly string[] DiffSel_Descriptions = new string[]
 		{
-			"Easiest difficulty, recommended for new games.",
-			"Much harder than normal difficulty, tougher enemies. \nUnlocks higher tier loot. Recommended level 15+",
-			"Tougher enemies and more experience. For those who can kill elites at previous difficulty.",
-			"Unlocks higher tier of items. For strong players only. Enemies are much tougher ",
-			"Challenge I unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Challenge II unlocks 7th tier of items - legendary gear. \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Challenge III\nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Challenge IV\nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Challenge V  \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Challenge VI  \nWith every challenge difficulty enemies are stronger, and their bounties are higher",
-			"Hell  \nHarder than Challenge VI, every enemy is an elite. Made to bully Alex Armsy.",
+			Translations.MainMenu_12/*og:Easiest difficulty, recommended for new games.*/,
+			Translations.MainMenu_13/*og:Much harder than normal difficulty, tougher enemies. \nUnlocks higher tier loot. Recommended level 15+*/,
+			Translations.MainMenu_14/*og:Tougher enemies and more experience. For those who can kill elites at previous difficulty.*/,
+			Translations.MainMenu_15/*og:Unlocks higher tier of items. For strong players only. Enemies are much tougher */,
+			Translations.MainMenu_16/*og:Challenge I unlocks 6th tier of items. \nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_17/*og:Challenge II unlocks 7th tier of items - legendary gear. \nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_18/*og:Challenge III\nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_19/*og:Challenge IV\nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_20/*og:Challenge V  \nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_21/*og:Challenge VI  \nWith every challenge difficulty enemies are stronger, and their bounties are higher*/,
+			Translations.MainMenu_22/*og:Hell  \nHarder than Challenge VI, every enemy is an elite. Made to bully Alex Armsy.*/,
 		};
 
 		//main menu variables
@@ -117,7 +117,7 @@ namespace ChampionsOfForest
 			try
 			{
 				var sceneName = SceneManager.GetActiveScene().name;
-				if (sceneName == "TitleScene" || sceneName == "TitleSceneLoader")
+				if (sceneName == Translations.MainMenu_23/*og:TitleScene*/ || sceneName == Translations.MainMenu_24/*og:TitleSceneLoader*/)
 				{
 					Destroy(gameObject);
 					return;
@@ -149,12 +149,12 @@ namespace ChampionsOfForest
 				HUDShieldLabelRect = new Rect(Screen.width - 500 * screenScale, Screen.height - 180 * screenScale, 500 * screenScale, 100 * screenScale);
 
 				//The main font as of now is Gabriola
-				mainFont = Font.CreateDynamicFontFromOSFont("Bahnschrift", Mathf.RoundToInt(24 * screenScale));
+				mainFont = Font.CreateDynamicFontFromOSFont(Translations.MainMenu_25/*og:Bahnschrift*/, Mathf.RoundToInt(24 * screenScale));
 				if (mainFont == null)
 				{
-					mainFont = Font.CreateDynamicFontFromOSFont("Arial", Mathf.RoundToInt(24 * screenScale));
+					mainFont = Font.CreateDynamicFontFromOSFont(Translations.MainMenu_26/*og:Arial*/, Mathf.RoundToInt(24 * screenScale));
 				}
-				secondaryFont = Font.CreateDynamicFontFromOSFont("Old English Text MT", 35);
+				secondaryFont = Font.CreateDynamicFontFromOSFont(Translations.MainMenu_27/*og:Old English Text MT*/, 35);
 				if (!secondaryFont)
 					secondaryFont = mainFont;
 				//Getting textures using ResourceLoader
@@ -182,7 +182,7 @@ namespace ChampionsOfForest
 			}
 			catch (Exception ex)
 			{
-				ModAPI.Log.Write("ERROR: Failure in start of Main Menu: " + ex.ToString());
+				ModAPI.Log.Write(Translations.MainMenu_28/*og:ERROR: Failure in start of Main Menu: */ + ex.ToString());
 			}
 		}
 		float BookScrollAmountGoal = 0;
@@ -194,7 +194,7 @@ namespace ChampionsOfForest
 
 			if (_openedMenu == OpenedMenuMode.Stats)
 			{
-				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
+				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * Input.GetAxis(Translations.MainMenu_29/*og:Mouse ScrollWheel*/), -Screen.height * 10 * screenScale, 0);
 				if (Input.GetKeyDown(KeyCode.RightArrow))
 				{
 					ChangePage(guidePage + 1);
@@ -226,7 +226,7 @@ namespace ChampionsOfForest
 			}
 			catch (Exception exc)
 			{
-				ModAPI.Console.Write("ERROR with ping update\n" + exc.ToString());
+				ModAPI.Console.Write(Translations.MainMenu_30/*og:ERROR with ping update\n*/ + exc.ToString());
 			}
 
 			if (_openedMenu != OpenedMenuMode.Hud)
@@ -417,7 +417,7 @@ namespace ChampionsOfForest
 				ProgressBarAmount = Mathf.Clamp01(ProgressBarAmount);
 			}
 			isCrouching = LocalPlayer.FpCharacter.crouching;
-			if (ModAPI.Input.GetButtonDown("MenuToggle"))
+			if (ModAPI.Input.GetButtonDown(Translations.MainMenu_31/*og:MenuToggle*/))
 			{
 				MenuKeyPressAction();
 			}
@@ -472,7 +472,7 @@ namespace ChampionsOfForest
 						{
 							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 
-							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Main");
+							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), Translations.MainMenu_32/*og:Main*/);
 
 							DrawMain();
 						}
@@ -481,7 +481,7 @@ namespace ChampionsOfForest
 							GUI.DrawTexture(wholeScreenRect, ResourceLoader.GetTexture(78));
 							DrawInventory();
 
-							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), "Inventory");
+							//GUI.Label(new Rect(wholeScreen.center, Vector2.one * 500), Translations.MainMenu_33/*og:Inventory*/);
 						}
 						else if (_openedMenu == OpenedMenuMode.Hud)
 						{
@@ -546,25 +546,25 @@ namespace ChampionsOfForest
 					center = center
 				};
 
-				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), "Difficulty: " + DiffSel_Names[(int)ModSettings.difficulty], chgDiffLabelStyle);
+				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_34/*og:Difficulty: */ + DiffSel_Names[(int)ModSettings.difficulty], chgDiffLabelStyle);
 				//drawing difficulty raise lower buttons
 				if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
 				{
-					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), "Raise Difficulty", chgDiffBtnStyle))
+					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_35/*og:Raise Difficulty*/, chgDiffBtnStyle))
 					{
 						//raise difficulty
 						difficultyCooldown = 10 * 60;
 						ModSettings.difficulty++;
 						ModSettings.BroadCastSettingsToClients();
 					}
-					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), "Lower Difficulty", chgDiffBtnStyle))
+					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_36/*og:Lower Difficulty*/, chgDiffBtnStyle))
 					{
 						//lower difficulty
 						difficultyCooldown = 10 * 60;
 						ModSettings.difficulty--;
 						ModSettings.BroadCastSettingsToClients();
 					}
-					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), "Change Options", chgDiffBtnStyle))
+					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_37/*og:Change Options*/, chgDiffBtnStyle))
 					{
 						ModSettings.DifficultyChosen = false;
 						difficultyCooldown = 10 * 60;
@@ -577,16 +577,16 @@ namespace ChampionsOfForest
 				Rect r4 = new Rect(r1);
 				float minDist = 500f / 1500f;
 				minDist *= r1.width;
-				MenuButton(minDist, ref r1, OpenedMenuMode.Inventory, "Inventory", new Vector2(1, -1), ref buttonHighlightOpacity[0], -50 * screenScale, -50 * screenScale);
+				MenuButton(minDist, ref r1, OpenedMenuMode.Inventory, Translations.MainMenu_33/*og:Inventory*/, new Vector2(1, -1), ref buttonHighlightOpacity[0], -50 * screenScale, -50 * screenScale);
 				r2.position = center - r1.size;
-				MenuButton(minDist, ref r2, OpenedMenuMode.Spells, "Abilities", new Vector2(-1, 1), ref buttonHighlightOpacity[1], 50 * screenScale, 50 * screenScale);
+				MenuButton(minDist, ref r2, OpenedMenuMode.Spells, Translations.MainMenu_38/*og:Abilities*/, new Vector2(-1, 1), ref buttonHighlightOpacity[1], 50 * screenScale, 50 * screenScale);
 				r3.position = center - new Vector2(0, r1.width);
-				MenuButton(minDist, ref r3, OpenedMenuMode.Stats, "Guide & Stats", Vector2.one, ref buttonHighlightOpacity[2], -50 * screenScale, 50 * screenScale);
+				MenuButton(minDist, ref r3, OpenedMenuMode.Stats, Translations.MainMenu_39/*og:Guide & Stats*/, Vector2.one, ref buttonHighlightOpacity[2], -50 * screenScale, 50 * screenScale);
 				r4.position = center - new Vector2(r1.width, 0);
-				MenuButton(minDist, ref r4, OpenedMenuMode.Perks, "Mutations", -Vector2.one, ref buttonHighlightOpacity[3], 50 * screenScale, -50 * screenScale);
-				GUI.Label(MiddleR, "Level \n" + ModdedPlayer.instance.level.ToString(), menuBtnStyle);
+				MenuButton(minDist, ref r4, OpenedMenuMode.Perks, Translations.MainMenu_40/*og:Mutations*/, -Vector2.one, ref buttonHighlightOpacity[3], 50 * screenScale, -50 * screenScale);
+				GUI.Label(MiddleR, Translations.MainMenu_41/*og:Level \n*/ + ModdedPlayer.instance.level.ToString(), menuBtnStyle);
 
-				if (GUI.Button(new Rect(Screen.width - 120 * screenScale, 40 * screenScale, 120 * screenScale, 40 * screenScale), HideHud ? "[ NO HUD ]" : "[ HUD ]", chgDiffLabelStyle))
+				if (GUI.Button(new Rect(Screen.width - 120 * screenScale, 40 * screenScale, 120 * screenScale, 40 * screenScale), HideHud ? Translations.MainMenu_42/*og:[ NO HUD ]*/ : Translations.MainMenu_43/*og:[ HUD ]*/, chgDiffLabelStyle))
 				{
 					HideHud = !HideHud;
 				}

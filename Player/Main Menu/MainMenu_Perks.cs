@@ -168,7 +168,7 @@ namespace ChampionsOfForest
 
 					if (!p.isBought || p.uncapped)
 					{
-						desctext = "Press to buy\n" + p.Description;
+						desctext = Translations.MainMenu_Perks_1/*og:Press to buy\n*/ + p.Description;
 						Rect LevelReq = new Rect(r.x - 440 * screenScale, r.y, 400 * screenScale, r.height);
 						Rect Cost = new Rect(r.xMax + 40 * screenScale, r.y, 400 * screenScale, r.height);
 						if (p.levelReq > ModdedPlayer.instance.level)
@@ -176,10 +176,10 @@ namespace ChampionsOfForest
 							GUI.color = Color.red;
 						}
 
-						GUI.Label(LevelReq, "Level " + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+						GUI.Label(LevelReq, Translations.MainMenu_Inventory_34/*og:Level */ + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = ModdedPlayer.instance.MutationPoints < p.cost ? Color.red : Color.white;
 
-						GUI.Label(Cost, "Cost in mutation points: " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+						GUI.Label(Cost, Translations.MainMenu_Perks_2/*og:Cost in mutation points: */ + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = Color.white;
 						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
 						{
@@ -259,27 +259,27 @@ namespace ChampionsOfForest
 				switch ((Perk.PerkCategory)menus.GetValue(i))
 				{
 					case Perk.PerkCategory.MeleeOffense:
-						content = "Melee";
+						content = Translations.MainMenu_Guide_169/*og:Melee*/;
 						break;
 
 					case Perk.PerkCategory.RangedOffense:
-						content = "Ranged";
+						content = Translations.MainMenu_Guide_180/*og:Ranged*/;
 						break;
 
 					case Perk.PerkCategory.MagicOffense:
-						content = "Magic";
+						content = Translations.MainMenu_Guide_209/*og:Magic*/;
 						break;
 
 					case Perk.PerkCategory.Defense:
-						content = "Defensive";
+						content = Translations.MainMenu_Perks_3/*og:Defensive*/;
 						break;
 
 					case Perk.PerkCategory.Support:
-						content = "Support";
+						content = Translations.MainMenu_Perks_4/*og:Support*/;
 						break;
 
 					case Perk.PerkCategory.Utility:
-						content = "Survival";
+						content = Translations.MainMenu_Perks_5/*og:Survival*/;
 						break;
 
 					default:

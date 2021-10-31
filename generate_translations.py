@@ -20,15 +20,15 @@ files = [
     "Player\Main Menu\MainMenu_Inventory.cs",
     "Player\Main Menu\MainMenu_Perks.cs",
     "Player\Main Menu\MainMenu_Spells.cs",
-    "Player\Crafting\Empowering.cs",
-    "Player\Crafting\IndividualRerolling.cs",
-    "Player\Crafting\Polishing.cs",
-    "Player\Crafting\Reforging.cs",
-    "Player\Crafting\Rerolling.cs",
-    "Player\Perks\PerkDatabase.cs",
-    "Player\Spells\SpellDataBase.cs",
-    "Items\ItemDataBase_StatDefinitions.cs",
-    "Items\ItemDataBase_ItemDefinitions.cs",
+    # "Player\Crafting\Empowering.cs",
+    # "Player\Crafting\IndividualRerolling.cs",
+    # "Player\Crafting\Polishing.cs",
+    # "Player\Crafting\Reforging.cs",
+    # "Player\Crafting\Rerolling.cs",
+    # "Player\Perks\PerkDatabase.cs",
+    # "Player\Spells\SpellDataBase.cs",
+    # "Items\ItemDataBase_StatDefinitions.cs",
+    # "Items\ItemDataBase_ItemDefinitions.cs",
 ]
 
 file_variable_cnt = {}
@@ -95,11 +95,11 @@ for file in files:
                 if txt[match.start()-1] == "$":
                     print("Error: found $ before string in " + filename+ ". replacing")
                     s1 = re.sub("{", "\" + (",s)
-                    formatting = re.match(":(\w\d*)}",s1)
+                    formatting = re.search(r":(\w\d?)}",s1)
                     if formatting:
-                        s1 = "(" + s1[:formatting.start()]+").ToString(\"" + formatting.group(0) + "\") + \"" + s[formatting.end():]
+                        s1 =  s1[:formatting.start()] + ').ToString("' + formatting.group(1) + '") + \"' + s1[formatting.end():]
                     s1 = re.sub("}", ") + \"",s1)
-                    txt = txt[:match.start()-2] + s1 +  txt[match.end():]
+                    txt = txt[:match.start()-1] + s1 +  txt[match.end():]
         
         # find new variables and append translations.cs with them
         strings = pattern2.findall(txt)

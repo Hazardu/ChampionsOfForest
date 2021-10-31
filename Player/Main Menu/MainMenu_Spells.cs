@@ -27,7 +27,7 @@ namespace ChampionsOfForest
 			if (displayedSpellInfo == null)
 			{
 				//scrolling the list
-				spellOffset += Input.GetAxis("Mouse ScrollWheel") * 160;
+				spellOffset += Input.GetAxis(Translations.MainMenu_29/*og:Mouse ScrollWheel*/) * 160;
 				spellOffset = Mathf.Clamp(spellOffset, -(100 * screenScale * (SpellDataBase.spellDictionary.Count + 4)), 0);
 			}
 			else
@@ -53,7 +53,7 @@ namespace ChampionsOfForest
 				//drawing pretty info
 				Rect SpellIcon = new Rect(Screen.width / 2 - 100 * screenScale, 25 * screenScale, 200 * screenScale, 200 * screenScale);
 				GUI.DrawTexture(SpellIcon, displayedSpellInfo.icon);
-				if (GUI.Button(new Rect(Screen.width - 170 * screenScale, 25 * screenScale, 150 * screenScale, 50 * screenScale), "GO BACK TO SPELLS\n(Right Mouse Button)", new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15) }))
+				if (GUI.Button(new Rect(Screen.width - 170 * screenScale, 25 * screenScale, 150 * screenScale, 50 * screenScale), Translations.MainMenu_Spells_1/*og:GO BACK TO SPELLS\n(Right Mouse Button)*/, new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15) }))
 				{
 					displayedSpellInfo = null;
 					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
@@ -73,10 +73,10 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * screenScale, 325 * screenScale, 300 * screenScale, 35 * screenScale), Res.ResourceLoader.instance.LoadedTextures[30]);
 
 				GUI.Label(new Rect(bg.x+25 * screenScale, 370 * screenScale,bg.width-50 * screenScale, 500 * screenScale),
-					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy:  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
-					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
+					displayedSpellInfo.GetDescription() + Translations.MainMenu_Spells_2/*og:\n<size=28><color=lightblue>*/ + (displayedSpellInfo.EnergyCost > 0 ? Translations.MainMenu_Spells_3/*og:\nEnergy:  <b>*/ + displayedSpellInfo.EnergyCost+ Translations.MainMenu_Inventory_14/*og:</b>*/ : "") + (displayedSpellInfo.BaseCooldown> 0 ?
+					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? Translations.MainMenu_Spells_4/*og:\nCooldown:  <b>*/ + displayedSpellInfo.Cooldown+ Translations.MainMenu_Spells_5/*og: s</b>*/ : Translations.MainMenu_Spells_6/*og:\nBase Cooldown:  <b>*/ + displayedSpellInfo.BaseCooldown + Translations.MainMenu_Spells_7/*og: s</b>\nReduced Cooldown:  <b>*/ + displayedSpellInfo.Cooldown + Translations.MainMenu_Spells_5/*og: s</b>*/)
 					: "") +
-					"\nRequired level:  <b>" + displayedSpellInfo.LevelRequirement + "</b></color></size>",
+					Translations.MainMenu_Spells_8/*og:\nRequired level:  <b>*/ + displayedSpellInfo.LevelRequirement + Translations.MainMenu_Spells_9/*og:</b></color></size>*/,
 					new GUIStyle(GUI.skin.label)
 					{
 						font = mainFont,
@@ -140,7 +140,7 @@ namespace ChampionsOfForest
 								}
 							}
 							GUI.color = new Color(0.7f, 0.7f, 0.7f);
-							GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+							GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString(Translations.MainMenu_HUD_6/*og:spell*/ + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
 							GUI.color = Color.white;
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[6]);
 						}
@@ -161,7 +161,7 @@ namespace ChampionsOfForest
 							GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 							btnStyle.onActive.textColor = Color.blue;
 							btnStyle.onNormal.textColor = Color.gray;
-							if (GUI.Button(UnlockRect, "Unlock", btnStyle))
+							if (GUI.Button(UnlockRect, Translations.MainMenu_Spells_10/*og:Unlock*/, btnStyle))
 							{
 								displayedSpellInfo.Bought = true;
 								ModdedPlayer.instance.MutationPoints -= 2;
@@ -172,7 +172,7 @@ namespace ChampionsOfForest
 						{
 							GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(31 * screenScale), fontStyle = FontStyle.Bold };
 							GUI.color = Color.gray;
-							GUI.Label(UnlockRect, "Requires 2 mutation points", morePointsStyle);
+							GUI.Label(UnlockRect, Translations.MainMenu_Spells_11/*og:Requires 2 mutation points*/, morePointsStyle);
 							GUI.color= Color.white;
 						}
 					}
@@ -181,7 +181,7 @@ namespace ChampionsOfForest
 						GUIStyle moreLevelsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 						moreLevelsStyle.onNormal.textColor = Color.gray;
 						moreLevelsStyle.onActive.textColor = Color.white;
-						GUI.Label(UnlockRect, "Level too low", moreLevelsStyle);
+						GUI.Label(UnlockRect, Translations.MainMenu_Spells_12/*og:Level too low*/, moreLevelsStyle);
 					}
 				}
 				GUI.color = Color.white;
@@ -219,7 +219,7 @@ namespace ChampionsOfForest
 				}
 			}
 			if (locked)
-				GUI.Label(nameRect, "Unlocked at level " + s.LevelRequirement, style);
+				GUI.Label(nameRect, Translations.MainMenu_Spells_13/*og:Unlocked at level */ + s.LevelRequirement, style);
 			else
 				GUI.Label(nameRect, s.Name, style);
 			Rect iconRect = new Rect(bg.xMax - 140 * screenScale, y + 15 * screenScale, 70 * screenScale, 70 * screenScale);
