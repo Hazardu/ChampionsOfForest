@@ -49,6 +49,8 @@ namespace ChampionsOfForest
 					new GameObject("Resource Manager").AddComponent<ResourceLoader>();
 					ResourceLoader.InMainMenu = true;
 					MainMenuVisual.Create();
+					ModSettings.LoadSettings();
+
 				}
 				else
 				{

@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 
 			private float requestResendTime;
 			private float timeStamp;
-			private const float timeToQuit = 5f;
+			private const float timeToQuit = 15f;
 
 			private GUIStyle labelStyle;
 
@@ -69,12 +69,12 @@ namespace ChampionsOfForest
 						r.y -= 300 * screenScale;
 
 					GUI.color = Color.white;
-					GUI.Label(r, "Please wait for the host to choose a difficulty", labelStyle);
+					GUI.Label(r, "Please wait for the host to choose a COTF difficulty", labelStyle);	//tr
 
 					GUI.color = new Color(c, c, c, c);
 					GUI.Label(new Rect(0, Screen.height / 2f, Screen.width, screenScale * 150),
-						"The server may not have Champions of The Forest Mod installed, playing on vanilla servers is impossible.\nDo you want to leave?", labelStyle);
-					if (GUI.Button(new Rect(Screen.width / 2 - 120 * screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), "Click to disconnect"))
+						"The server may not have Champions of The Forest Mod installed or the host is taking a long time. Playing on vanilla servers is impossible.\nDo you want to leave?", labelStyle);	//tr
+					if (GUI.Button(new Rect(Screen.width / 2 - 120 * screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), "Leave lobby"))
 					{
 						SceneManager.LoadScene("TitleScene");
 					}
@@ -83,7 +83,7 @@ namespace ChampionsOfForest
 				{
 					GUI.color = Color.white;
 					GUI.DrawTexture(r, blackSquareTex);
-					GUI.Label(r, "Please wait for the host to choose a difficulty", labelStyle);
+					GUI.Label(r, "Please wait for the host to choose a COTF difficulty", labelStyle);	//tr
 				}
 
 				ResendRequest();
@@ -191,7 +191,7 @@ namespace ChampionsOfForest
 							Cheats.GodMode = false;
 							Instance.ClearDiffSelectionObjects();
 							ModSettings.BroadCastSettingsToClients();
-
+							ModSettings.SaveSettings();
 							return;
 						}
 						Rect name = new Rect(r);
@@ -214,12 +214,12 @@ namespace ChampionsOfForest
 					}
 				}
 
-				GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Select difficulty", DiffNameStyle);
-				if (GUI.Button(new Rect(0, Screen.height / 2 - 100 * screenScale, 200 * screenScale, 200 * screenScale), "Prev\nPage", DiffNameStyle))
+				GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Select Difficulty", DiffNameStyle);	//tr
+				if (GUI.Button(new Rect(0, Screen.height / 2 - 100 * screenScale, 200 * screenScale, 200 * screenScale), "<", DiffNameStyle))
 				{
 					page = Mathf.Clamp(page - 1, 0, 2);
 				}
-				if (GUI.Button(new Rect(Screen.width - 200 * screenScale, Screen.height / 2 - 100 * screenScale, 200 * screenScale, 200 * screenScale), "Next\nPage", DiffNameStyle))
+				if (GUI.Button(new Rect(Screen.width - 200 * screenScale, Screen.height / 2 - 100 * screenScale, 200 * screenScale, 200 * screenScale), ">", DiffNameStyle))
 				{
 					page = Mathf.Clamp(page + 1, 0, 2);
 				}
@@ -231,22 +231,32 @@ namespace ChampionsOfForest
 				if (ModSettings.FriendlyFire)
 				{
 					GUI.color = Color.red;
-
-					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale), "Friendly Fire enabled", OptionsButton))
+					Rect r = new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale);
+					if (GUI.Button(r, "Friendly Fire enabled", OptionsButton))	//tr
 					{
 						ModSettings.FriendlyFire = !ModSettings.FriendlyFire;
+					}
+					else if (r.Contains(Instance.mousePos))
+					{
+						GUI.Box(new Rect(r.x, r.yMax, 300f, 100f), "You will be able to hit other players with melee attacks and projectiles for full damage values.");	//tr
 					}
 				}
 				else
 				{
+					Rect r = new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale);
+
 					GUI.color = Color.gray;
-					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 120 * screenScale, 600 * screenScale, 50 * screenScale), "Friendly Fire disabled", new GUIStyle(GUI.skin.button)
+					if (GUI.Button(r, "Friendly Fire disabled", new GUIStyle(GUI.skin.button)	//tr
 					{
 						font = mainFont,
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
 						ModSettings.FriendlyFire = !ModSettings.FriendlyFire;
+					}
+					else if (r.Contains(Instance.mousePos))
+					{
+						GUI.Box(new Rect(r.x, r.yMax, 300f, 100f), "Your melee and ranged attacks will not damage other players.");	//tr
 					}
 				}
 
@@ -254,8 +264,8 @@ namespace ChampionsOfForest
 				if (ModSettings.killOnDowned)
 				{
 					GUI.color = Color.red;
-
-					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale), "Players instantly die on getting downed", new GUIStyle(GUI.skin.button)
+					var r = new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale);
+					if (GUI.Button(r, "Instant death", new GUIStyle(GUI.skin.button)	//tr
 					{
 						font = mainFont,
 						fontSize = Mathf.FloorToInt(20 * screenScale)
@@ -263,17 +273,26 @@ namespace ChampionsOfForest
 					{
 						ModSettings.killOnDowned = !ModSettings.killOnDowned;
 					}
+					else if (r.Contains(Instance.mousePos))
+					{
+						GUI.Box(new Rect(r.x, r.yMax, 300f, 100f), "Instead of being downed, players instantly die");	//tr
+					}
 				}
 				else
 				{
 					GUI.color = Color.gray;
-					if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale), "Players bleed out normally", new GUIStyle(GUI.skin.button)
+					var r = new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale);
+					if (GUI.Button(r, "Players bleed out normally", new GUIStyle(GUI.skin.button)	//tr
 					{
 						font = mainFont,
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
 						ModSettings.killOnDowned = !ModSettings.killOnDowned;
+					}
+					else if (r.Contains(Instance.mousePos))
+					{
+						GUI.Box(new Rect(r.x, r.yMax, 300f, 100f), "Players slowly bleed out after being downed");	//tr
 					}
 				}
 
@@ -299,7 +318,7 @@ namespace ChampionsOfForest
 					default:
 						break;
 				}
-				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 70 * screenScale, 600 * screenScale, 50 * screenScale), "Item drops on death: " + ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)
+				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 70 * screenScale, 600 * screenScale, 50 * screenScale), "Item drops on death: " + ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)	//tr
 				{
 					font = mainFont,
 					fontSize = Mathf.FloorToInt(20 * screenScale)
@@ -311,18 +330,18 @@ namespace ChampionsOfForest
 				}
 
 				float y = 300;
-				DrawCheatOption(ref ModSettings.DropQuantityMultiplier, "Item Drop Quantity", ref y);
-				DrawCheatOption(ref ModSettings.DropChanceMultiplier, "Item Drop Chance", ref y);
-				DrawCheatOption(ref ModSettings.ExpMultiplier, "Enemy Bounty", ref y);
-				DrawCheatOption(ref ModSettings.EnemyLevelIncrease, "Enemy Level Increase", ref y);
-				DrawCheatOption(ref ModSettings.EnemyDamageMultiplier, "Enemy Damage", ref y);
-				DrawCheatOption(ref ModSettings.EnemyHealthMultiplier, "Enemy Health", ref y);
-				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier, "Enemy Armor", ref y);
-				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, "Enemy Speed", ref y);
-				DrawCheatOption(ref ModSettings.AllowElites, "Allow elite enemies", ref y);
+				DrawCheatOption(ref ModSettings.DropQuantityMultiplier, "Item Drop Quantity", ref y);  //tr
+				DrawCheatOption(ref ModSettings.DropChanceMultiplier, "Item Drop Chance", ref y);	   //tr
+				DrawCheatOption(ref ModSettings.ExpMultiplier, "Enemy Bounty", ref y);				   //tr
+				DrawCheatOption(ref ModSettings.EnemyLevelIncrease, "Enemy Level Increase", ref y);	   //tr
+				DrawCheatOption(ref ModSettings.EnemyDamageMultiplier, "Enemy Damage", ref y);		   //tr
+				DrawCheatOption(ref ModSettings.EnemyHealthMultiplier, "Enemy Health", ref y);		   //tr
+				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier, "Enemy Armor", ref y);		   //tr
+				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, "Enemy Speed", ref y);		   //tr
+				DrawCheatOption(ref ModSettings.AllowElites, "Allow elite enemies", ref y);			   //tr
 			}
 
-			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.1f, float max = 10.0f)
+			private void DrawCheatOption(ref float value, in string text, ref float y, float min = 0.01f, float max = 50.0f)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max);
@@ -332,11 +351,11 @@ namespace ChampionsOfForest
 				private void DrawCheatOption(ref bool value, in string text, ref float y, float min = 0.1f, float max = 10.0f)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
-				value = GUI.Toggle(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value,value?"Yes":"No");
+				value = GUI.Toggle(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value,value?"Yes":"No");	//tr
 				y += 40;
 			}
 
-			private void DrawCheatOption(ref int value, in string text, ref float y, int min = 0, int max = 100)
+			private void DrawCheatOption(ref int value, in string text, ref float y, int min = 0, int max = 300)
 			{
 				GUI.Label(new Rect(50 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), text, CheatLabel);
 				value = Mathf.RoundToInt(GUI.HorizontalSlider(new Rect(500 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), value, min, max));
@@ -351,7 +370,7 @@ namespace ChampionsOfForest
 				if (!initializedStyles)
 					InitStyles();
 				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackSquareTex);
-				if (GUI.Button(new Rect(Screen.width - 50 * screenScale, Screen.height - 50 * screenScale, 50 * screenScale, 50 * screenScale), "☆"))
+				if (GUI.Button(new Rect(Screen.width - 50 * screenScale, Screen.height - 50 * screenScale, 50 * screenScale, 50 * screenScale), "More options"))	//tr
 				{
 					showSettings = !showSettings;
 				}

@@ -64,5 +64,50 @@ namespace ChampionsOfForest
 				}
 			}
 		}
+
+		const string PATH = "Mods/Champions of the Forest/Settings.save";
+		public static void SaveSettings()
+		{
+			using (MemoryStream stream = new MemoryStream())
+			{
+				using (BinaryWriter buf = new BinaryWriter(stream))
+				{
+					buf.Write(FriendlyFire);
+					buf.Write(killOnDowned);
+					buf.Write(DropQuantityMultiplier);
+					buf.Write(DropChanceMultiplier);
+					buf.Write(ExpMultiplier);
+					buf.Write(EnemyLevelIncrease);
+					buf.Write(EnemyDamageMultiplier);
+					buf.Write(EnemyHealthMultiplier);
+					buf.Write(EnemyArmorMultiplier);
+					buf.Write(EnemySpeedMultiplier);
+					buf.Write(AllowElites);
+
+					File.WriteAllBytes(PATH, stream.ToArray());
+				}
+			}
+		}
+		public static void LoadSettings()
+		{
+			if (File.Exists(PATH))
+				using (FileStream stream = new FileStream(PATH, FileMode.Open))
+				{
+					using (BinaryReader buf = new BinaryReader(stream))
+					{
+						FriendlyFire = buf.ReadBoolean();
+						killOnDowned = buf.ReadBoolean();
+						DropQuantityMultiplier = buf.ReadSingle();
+						DropChanceMultiplier = buf.ReadSingle();
+						ExpMultiplier = buf.ReadSingle();
+						EnemyLevelIncrease = buf.ReadInt32();
+						EnemyDamageMultiplier = buf.ReadSingle();
+						EnemyHealthMultiplier = buf.ReadSingle();
+						EnemyArmorMultiplier = buf.ReadSingle();
+						EnemySpeedMultiplier = buf.ReadSingle();
+						AllowElites = buf.ReadBoolean();
+					}
+				}
+		}
 	}
 }
