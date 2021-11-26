@@ -83,6 +83,7 @@ namespace ChampionsOfForest
 					buf.Write(EnemyArmorMultiplier);
 					buf.Write(EnemySpeedMultiplier);
 					buf.Write(AllowElites);
+					buf.Write((int)dropsOnDeath);
 
 					File.WriteAllBytes(PATH, stream.ToArray());
 				}
@@ -106,6 +107,8 @@ namespace ChampionsOfForest
 						EnemyArmorMultiplier = buf.ReadSingle();
 						EnemySpeedMultiplier = buf.ReadSingle();
 						AllowElites = buf.ReadBoolean();
+						dropsOnDeath = (DropsOnDeathMode) buf.ReadInt32();
+
 					}
 				}
 		}

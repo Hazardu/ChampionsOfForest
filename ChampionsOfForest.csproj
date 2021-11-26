@@ -38,6 +38,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BaseModLib">
@@ -75,6 +76,9 @@
     <Reference Include="BuilderMenu, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Programs\SteamLibrary\steamapps\common\The Forest\TheForest_Data\Managed\BuilderMenu.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SteamworksManaged">
       <HintPath>../../../modlib/TheForest/TheForest_data/Managed/SteamworksManaged.dll</HintPath>
@@ -343,6 +347,8 @@
     <Compile Include="Res\ResourceInitializer.cs" />
     <Compile Include="Res\ResourceLoader.cs" />
     <Compile Include="Serializer.cs" />
+    <Compile Include="TranslationManager.cs" />
+    <Compile Include="Translations.cs" />
     <Compile Include="TrapHitMod.cs" />
     <Compile Include="TrapTriggerMod.cs" />
   </ItemGroup>

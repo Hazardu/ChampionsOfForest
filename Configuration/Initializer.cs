@@ -42,7 +42,7 @@ namespace ChampionsOfForest
 					ExpEvents.Initialize();
 					return;
 				}
-
+				new Localization.Translations();
 				ModSettings.DifficultyChosen = false;
 				if (SceneManager.GetActiveScene().name == "TitleScene")
 				{

@@ -100,6 +100,10 @@ namespace ChampionsOfForest.Fun
 		{
 			CotfCheats.AddPoints(int.Parse(param));
 		}
+		private void _cotfgetjson(string param)
+		{
+			Localization.Translations.GetJson();
+		}
 
 		private void _cotfresetpoints(string param)
 		{
