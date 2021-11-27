@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Player
 		public static float OriginalTreeDmg;
 		public static Mesh noMesh;
 		public static Mesh originalMesh;
-		public static TheForest.Items.Item.AnimatorVariables[] originalAnimVars;
+		//public static TheForest.Items.Item.AnimatorVariables[] originalAnimVars;
 		public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
 		public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
 		public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;

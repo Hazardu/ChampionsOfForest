@@ -327,41 +327,55 @@ namespace ChampionsOfForest
 				
 				Stat("Intelligence",	//tr
 					ModdedPlayer.Stats.intelligence.GetFormattedAmount(),
-					string.Format("Increases spell damage by {0} for every point of intelligence for a total of {1}. \n Increases stamina regen by {2} for every point of intelligence for a total of {3:P1}.", //tr
-						ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount(), ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount(), ModdedPlayer.Stats.energyRecoveryFromInt.GetFormattedAmount(), (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.energyRecoveryFromInt.GetAmount())) );
+					string.Format("Increases spell damage by {0} for every point of intelligence for a total of {1}. \n Increases stamina regen by {2} for every point of intelligence for a total of {3}.", //tr
+						ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount(), ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount(), ModdedPlayer.Stats.energyRecoveryFromInt.GetFormattedAmount(), (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.energyRecoveryFromInt.GetAmount()).ToString("P1")));
 
 
 				Space(60);
 				Image(99, 70);
-				Header("Defense");	//tr
+				Header("Defense"); //tr
 				Space(10);
-				Stat("Max health", //tr
+				Stat("Health", //tr
 					ModdedPlayer.Stats.TotalMaxHealth.ToString(),
-					string.Format("Total health pool.\nAll players start with base health pool of {0}.\nHealth points from vitality: {1} \nAdditional health points: {2}\nHealth increase bonuses: {3:P1}",//tr
+					string.Format("Total health pool.\nAll players start with base health pool of {0}.\nHealth points from vitality: {1} \nAdditional health points: {2}\nHealth increase bonuses: {3}",//tr
 					ModdedPlayer.ModdedPlayerStats.baseHealth,  ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount(),ModdedPlayer.Stats.maxHealth.GetFormattedAmount(), ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount()));
 
+				Stat("Energy", //tr
+					ModdedPlayer.Stats.TotalMaxEnergy.ToString(),
+					string.Format("Total energy pool.\nAll players start with base energy pool of {0}\n Energy from agility: {1}\nEnergy multiplier: {2}", //tr
+					ModdedPlayer.ModdedPlayerStats.baseEnergy, ModdedPlayer.Stats.maxEnergy.GetFormattedAmount(), ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount(), ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount()));
 
-				Stat("Max energy", ModdedPlayer.Stats.TotalMaxEnergy.ToString(), "Total energy pool.\n" +
-					"Base energy: " + ModdedPlayer.ModdedPlayerStats.baseEnergy +
-					"\nBonus energy: " + ModdedPlayer.Stats.maxEnergy.GetFormattedAmount() +
-					"\nEnergy from agility: " + ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount() +
-					"\nEnergy multiplier: " + ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount());
-				Stat("Armor", ModdedPlayer.Stats.armor.GetFormattedAmount(), $"Armor provides physical damage reduction.\nPhysical damage reduction from {ModdedPlayer.Stats.armor.GetFormattedAmount()} armor is equal to {ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value):P}");
-				Stat("Magic resistance", (1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"), "Magic damage reduction. Decreases damage from enemy abilities.");
-				Stat("Dodge Chance", (1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"), "A chance to avoid entire instance of damage. Works only for physical damage sources. This means dodge is ineffective against fire, poison, cold, various spells. Meteor rain ability deals physical damage and can be dodged");
-				Stat("Damage taken reduction", (1f - ModdedPlayer.Stats.allDamageTaken.GetAmount()).ToString("P"));
-				Stat("Block", ModdedPlayer.Stats.block.GetFormattedAmount());
-				Stat("Temporary health", ModdedPlayer.instance.DamageAbsorbAmount.ToString(), "One way to obtain temporary health is to use sustain shield ability");
-				Stat("Fire resistance", (1 - ModdedPlayer.Stats.fireDamageTaken.GetAmount()).ToString("P"));
-				Stat("Thorns", ModdedPlayer.Stats.TotalThornsDamage.ToString(), $"Thorns inflict damage to attacking enemies. Thorns from gear and mutations {ModdedPlayer.Stats.thorns.GetFormattedAmount()}. Thorns from attributes {(ModdedPlayer.Stats.thornsPerStrenght.GetAmount() * ModdedPlayer.Stats.strength.GetAmount() + ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.thornsPerVit.GetAmount())}.\nThorns damage is applied to attackers even when you are blocking");
+				Stat("Armor", //tr
+					ModdedPlayer.Stats.armor.GetFormattedAmount(),
+					string.Format("Armor provides physical damage reduction.\nPhysical damage reduction from armor is equal to {0}", //tr
+					ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value).ToString("P2")));
+				Stat("Magic Resistance", //tr
+					(1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"),
+					"Magic damage reduction. Decreases damage from enemy abilities.");	//tr
+				Stat("Dodge Chance", //tr
+					(1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"),
+					"A chance to avoid entire instance of physical damage. Dodge is ineffective against fire, poison, cold and majority of spells.\nMeteor rain ability deals physical damage and can be dodged, but the ignition from it cannot.");	//tr
+				Stat("Damage Reduction", //tr
+					(1f - ModdedPlayer.Stats.allDamageTaken.GetAmount()).ToString("P"), 
+					"Reduces damage taken from all sources"); //tr
+				Stat("Damage Block", ModdedPlayer.Stats.block.GetFormattedAmount(), "Every instance of physical damage is reduced by the block amount. Block is applied after damage reduction modifiers."); //tr
+				Stat("Shield", ModdedPlayer.instance.DamageAbsorbAmount.ToString(), "Additional health that will disappear after a time period. This temporary health can be obtained with sustain shield ability and some items"); //tr
+				Stat("Fire Resistance", //tr
+					(1 - ModdedPlayer.Stats.fireDamageTaken.GetAmount()).ToString("P"), "Reduced damage from ignition, radiance and a number of other fire-attribute spells."); //tr
+				Stat("Thorns Damage", //tr
+					ModdedPlayer.Stats.TotalThornsDamage.ToString(), 
+				string.Format("Thorns inflict damage to attacking enemies. Thorns from gear and mutations {0}. Thorns from attributes {1}.\nThorns damage is applied to attackers even when you are blocking", //tr
+					ModdedPlayer.Stats.thorns.GetFormattedAmount(),ModdedPlayer.Stats.thornsPerStrenght.GetAmount() * ModdedPlayer.Stats.strength.GetAmount() + ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.thornsPerVit.GetAmount()));
 
 				Space(60);
-				Header("Recovery");
+				Header("Recovery"); //tr
 				Space(10);
 
 
-				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString() + "", "Stamina regeneration is temporarily paused after sprinting");
-				Stat("Stamina per second", ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.staminaPerSecRate.GetAmount() + "", "Stamina per second: " + ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() + "\nStamina regen bonus: " + ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount());
+				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString(), "Stamina regeneration is temporarily paused after sprinting"); //tr
+				Stat("Stamina per second", (ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.staminaPerSecRate.GetAmount()).ToString("N2"), 
+					string.Format("Flat stamina regeneration bonus: {0} per second. Increase to stamina regeneration: {1}", //tr
+					ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount()));
 
 				Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy per second: " + ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() + "\nStamina and energy regen multipier: " + ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier);
 				Stat("Energy on hit", ModdedPlayer.Stats.energyOnHit.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", "Energy on hit from items and perks: " + ModdedPlayer.Stats.energyOnHit.GetAmount());
