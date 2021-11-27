@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 
 using BuilderCore;
 
+using ChampionsOfForest.Localization;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Res
@@ -132,6 +134,7 @@ namespace ChampionsOfForest.Res
 			StartCoroutine(FileVerification());
 			StartCoroutine(VersionCheck());
 			StartCoroutine(DownloadMotd());
+			StartCoroutine(Translations.Load(PlayerPreferences.Language));
 			buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 		}
 
@@ -183,7 +186,7 @@ namespace ChampionsOfForest.Res
 				checkStatus = VersionCheckStatus.Fail;
 			}
 		}
-
+		
 		private IEnumerator DownloadMotd()
 		{
 			///WWW motdWebsite = new WWW("https://textuploader.com/1avou/raw");
@@ -728,6 +731,24 @@ namespace ChampionsOfForest.Res
 						GUILayout.EndArea();
 					}
 				}
+
+
+				//language selection
+				if (Translations.processingLanguage)
+				{
+					GUI.Label(new Rect(0, 0, 500, 100), "Changing COTF language...");
+
+				}
+				else
+				{
+					if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), "Update COTF Language"))
+					{
+						StartCoroutine(Translations.Load(PlayerPreferences.Language));
+						Translations.Parse();
+					}
+				}
+				
+				
 			}
 		}
 

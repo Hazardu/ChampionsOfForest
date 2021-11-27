@@ -22,21 +22,33 @@ namespace ChampionsOfForest
 		}
 
 		//Difficulty Settings
-		public static readonly string[] DiffSel_Names = new string[] { "Easy", "Veteran", "Elite", "Master", "Challenge I", "Challenge II", "Challenge III", "Challenge IV", "Challenge V", "Challenge VI", "Hell", };  //tr
+		public static readonly Func<string>[] DiffSel_Names = new Func<string>[] { 
+			() =>"Easy",			//tr
+			() =>"Veteran", 		//tr
+			() =>"Elite", 			//tr
+			() =>"Master", 			//tr
+			() =>"Challenge I", 	//tr
+			() =>"Challenge II", 	//tr
+			() =>"Challenge III", 	//tr
+			() =>"Challenge IV", 	//tr
+			() =>"Challenge V", 	//tr
+			() =>"Challenge VI",	//tr
+			() =>"Hell"				//tr
+		}; 
 
-		public static readonly string[] DiffSel_Descriptions = new string[]
+		public static readonly Func<string>[] DiffSel_Descriptions = new Func<string>[]
 		{
-			"Recommended for level 1 players.\nColor represents highest tier of obtainable loot.",											//tr
-			"Enemies hit harder and have more health. Unlocks higher tier loot. Recommended level 15+",										//tr
-			"Even tougher enemies. Elites with higher quantity of abilities may appear. Consumables that reset all points start appearing.",//tr
-			"Unlocks higher tier of items. Enemies are much tougher. Elites with flashier abilities may appear.",							//tr
-			"Challenge I With every challenge difficulty enemies get stronger, and their bounties get higher.",								//tr
-			"Challenge II and above unlock red tier of items - rare, legendary gear with special, unique properties.",						//tr
-			"Challenge III\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
-			"Challenge IV\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
-			"Challenge V\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
-			"Challenge VI\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
-			"Challenge VII eqivalent. All enemies are elites.",																				//tr
+			() => "Recommended for level 1 players.\nColor represents highest tier of obtainable loot.",											//tr
+			() => "Enemies hit harder and have more health. Unlocks higher tier loot. Recommended level 15+",										//tr
+			() => "Even tougher enemies. Elites with higher quantity of abilities may appear. Consumables that reset all points start appearing.",//tr
+			() => "Unlocks higher tier of items. Enemies are much tougher. Elites with flashier abilities may appear.",							//tr
+			() => "Challenge I With every challenge difficulty enemies get stronger, and their bounties get higher.",								//tr
+			() => "Challenge II and above unlock red tier of items - rare, legendary gear with special, unique properties.",						//tr
+			() => "Challenge III\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
+			() => "Challenge IV\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
+			() => "Challenge V\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
+			() => "Challenge VI\nWith every challenge difficulty enemies get stronger, and their bounties get higher.",							//tr
+			() => "Challenge VII eqivalent. All enemies are elites.",																				//tr
 		};
 
 		//main menu variables

@@ -32,7 +32,7 @@ files = [
 
 file_variable_cnt = {}
 ignore = ['"P"', '"P0"', '"N"', '"N0"', '"\\n"', '""']
-var_pre = '        private string '
+var_pre = '        public string '
 var_pre_len = len(var_pre) + 1
 variables = {}
 vargroups = {}
@@ -74,7 +74,6 @@ for k,v in vargroups.items():
     for var in v:
         privvarName = "_"+ k + "_" + str(var[0])
         out.write('        public static string ' + k + "_" + str(var[0]) + " => instance."+ privvarName +";\n")
-        out.write('        public string ' + k + "__" + str(var[0]) + " {get => instance."+ privvarName +"; set {instance."+ privvarName + " = value;} }\n")
         out.write(var_pre + privvarName + " = "+ var[1] +";\n")
     out.write("\n")
 changec = 0
@@ -118,7 +117,6 @@ for file in files:
                             n += 1
 
                             out.write('        public static string ' + varname + " => instance._"+ varname +";\n")
-                            out.write('        public string ' + k + "__" + str(n) + " {get => instance._"+ varname +"; set {instance._"+ varname + " = value;} }\n")
                             out.write(var_pre + "_" + varname + " = "+ s +";\n\n")
                             variables[s] = varname
                             changec += 1
@@ -143,14 +141,13 @@ for file in files:
 out.write((
 "\n\n"
 "   }\n"
-"}\n\n\n/* json:\n\n"
+"}\n\n\n/* for translation cpy paste:\n\n"
 ))
 
-out.write('{\n')
 for k,v in vargroups.items():
     v.sort(key=lambda tup: tup[0])
     for var in v:
-        out.write('\t"' +k+ "_" + str(var[0]) +'": '+ var[1] +",\n" )
-out.write('}\n\n\n*/')
+        out.write(k+ "_" + str(var[0]) +':: '+ var[1] +"\n" )
+out.write('\n\n\n*/')
 out.close()
 print("Translations generated")

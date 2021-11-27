@@ -372,7 +372,7 @@ namespace ChampionsOfForest
 				if (!initializedStyles)
 					InitStyles();
 				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackSquareTex);
-				if (GUI.Button(new Rect(Screen.width - 50 * screenScale, Screen.height - 50 * screenScale, 50 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_24/*og:More options*/))	//tr
+				if (GUI.Button(new Rect(Screen.width - 300 * screenScale, Screen.height - 50 * screenScale, 300 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_24/*og:More options*/))	//tr
 				{
 					showSettings = !showSettings;
 				}
