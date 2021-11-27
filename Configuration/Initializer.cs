@@ -58,7 +58,7 @@ namespace ChampionsOfForest
 					ResourceLoader.InMainMenu = false;
 					NetworkPlayerStats.Reset();		
 					COTFEvents.ClearEvents();
-					Translations.Parse(PlayerPreferences.Language);
+					Translations.LoadNoDl(PlayerPreferences.Language);
 
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");

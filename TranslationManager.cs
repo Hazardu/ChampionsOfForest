@@ -26,39 +26,44 @@ namespace ChampionsOfForest.Localization
 			{ "Polskie","Polish" },
 			{ "Français","French" },
 			{ "Deutsch","German" },
-			{ "Deutsch","German" },
 		};
-			
+
 		private const string REPO = "https://raw.githubusercontent.com/Hazardu/ChampionsOfForest/master/Locales/";
 		private const string PATH = "Mods/Champions of the Forest/Localization/";
 		private string language = "English";
 		private static string getPath(in string localizationID) => PATH + localizationID + ".txt";
-		public static IEnumerator Load(string localizationID)
-		{
-			return instance.Load(localizationID)
-		}
-		private IEnumerator Load(string localizationID)
+
+		public static void LoadNoDl(string localizationID)
 		{
 			Debug.Log("localizationID: '" + localizationID);
+			var langName = localizationID;
+			if (localizationLang.ContainsKey(localizationID))
+				langName = localizationLang[localizationID];
+			string path = getPath(langName);
+			if (Parse(path))
+				instance.language = localizationID;
+		}
+		public static IEnumerator Load(string localizationID)
+		{
 
-			processingLanguage = true;
-			//if (availableLocalizations.Contains(localizationID))
-			//{
-				string path = getPath(localizationID);
-				if (!Directory.Exists(PATH))
-					Directory.CreateDirectory(PATH);
-				//if (!File.Exists(path))
-				{
-				Debug.Log("Downloading: '" + REPO + localizationID + ".txt");
+			Debug.Log("localizationID: '" + localizationID);
+			var langName = localizationID;
+			if (localizationLang.ContainsKey(localizationID))
+				langName = localizationLang[localizationID];
+			string path = getPath(langName);
 
-				WWW dl = new WWW(REPO + localizationID + ".txt");
-					yield return dl;
-					if (dl.bytesDownloaded > 0)
-						File.WriteAllText(path, dl.text);
-					dl.Dispose();
-				}
+			if (!Directory.Exists(PATH))
+				Directory.CreateDirectory(PATH);
 
-				yield return null;
+			{	//download part
+				Debug.Log("Downloading: '" + REPO + langName + ".txt");
+				WWW dl = new WWW(REPO + langName + ".txt");
+				yield return dl;
+				if (dl.bytesDownloaded > 0)
+					File.WriteAllText(path, dl.text);
+				dl.Dispose();
+			}
+			yield return null;
 
 			if (Parse(path))
 				instance.language = localizationID;
@@ -67,12 +72,6 @@ namespace ChampionsOfForest.Localization
 				//falling back to eng
 				new Translations();
 			}
-			//}
-			//else
-			//{
-			//	//Debug.Log("localizationID: '" + localizationID + "' not found ");
-			//	//new Translations();
-			//}
 			processingLanguage = false;
 
 		}
@@ -81,11 +80,11 @@ namespace ChampionsOfForest.Localization
 		{
 			ModAPI.Log.Write(JsonUtility.ToJson(instance));
 		}
-		public static bool Parse(in string path)
+		private static bool Parse(in string path)
 		{
 			if (!File.Exists(path))
 				return false;
-				Debug.Log("Parsing: '" + path);
+			Debug.Log("Parsing: '" + path);
 
 			var v = File.ReadAllLines(path);
 			if (v != null)
@@ -98,11 +97,11 @@ namespace ChampionsOfForest.Localization
 					{
 						try
 						{
-							string entry = split[1].Trim().Replace("\"", "");
+							string entry = split[1].Trim().Trim('\"').Replace("\\n", "\n").Replace("\\t", "\t");
 
 							var f = t.GetField("_" + split[0]);
-								f.SetValue(instance, entry);
-							Debug.Log("entry "+ split[0]+":   " + f.GetValue(instance));
+							f.SetValue(instance, entry);
+							Debug.Log("entry " + split[0] + ":   " + f.GetValue(instance));
 						}
 						catch (Exception e)
 						{

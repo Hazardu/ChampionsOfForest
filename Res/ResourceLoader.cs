@@ -744,7 +744,7 @@ namespace ChampionsOfForest.Res
 					if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), "Update COTF Language"))
 					{
 						StartCoroutine(Translations.Load(PlayerPreferences.Language));
-						Translations.Parse();
+						Translations.LoadNoDl(PlayerPreferences.Language);
 					}
 				}
 				
