@@ -1,4 +1,7 @@
 ﻿using System;
+
+using ChampionsOfForest.Localization;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Crafting
@@ -87,7 +90,7 @@ namespace ChampionsOfForest.Player.Crafting
 			{
 
 
-				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Stat to change", styles[3]); //tr
+				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), Translations.IndividualRerolling_1/*og:Stat to change*/, styles[3]); //tr
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
@@ -137,7 +140,7 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						if (validRecipe)
 						{
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? "Empty socket" : "Reroll stat", styles[2])) //tr
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*og:Empty socket*/ : Translations.IndividualRerolling_2/*og:Reroll stat*/, styles[2])) //tr
 							{
 								Craft();
 							}
@@ -146,7 +149,7 @@ namespace ChampionsOfForest.Player.Crafting
 						else
 						{
 							GUI.color = Color.gray;
-							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), "Select a Stat", styles[2]); //tr
+							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), Translations.IndividualRerolling_4/*og:Select a Stat*/, styles[2]); //tr
 							GUI.color = Color.white;
 							ypos += 50 * screenScale;
 						}
@@ -177,12 +180,12 @@ namespace ChampionsOfForest.Player.Crafting
 							var options = CraftingHandler.changedItem.i.PossibleStats[stat.possibleStatsIndex];
 							if (options.Count == 1)
 							{
-								GUI.Label(new Rect(x, ypos, w, Screen.height - x), "This stat cannot be changed", new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true }); //tr
+								GUI.Label(new Rect(x, ypos, w, Screen.height - x), Translations.IndividualRerolling_5/*og:This stat cannot be changed*/, new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true }); //tr
 
 							}
 							else
 							{
-								string optionsStr = "Possible stats:\n"; //tr
+								string optionsStr = Translations.IndividualRerolling_6/*og:Possible stats:\n*/; //tr
 								foreach (var stat1 in options)
 								{
 									optionsStr += stat1.Name + '\t';
@@ -192,7 +195,7 @@ namespace ChampionsOfForest.Player.Crafting
 						}
 						else
 						{
-							GUI.Label(new Rect(x, ypos, w, Screen.height - x), "This stat cannot be changed", new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true }); //tr
+							GUI.Label(new Rect(x, ypos, w, Screen.height - x), Translations.IndividualRerolling_5/*og:This stat cannot be changed*/, new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true }); //tr
 						}
 
 					}

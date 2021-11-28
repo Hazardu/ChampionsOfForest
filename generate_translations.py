@@ -33,7 +33,7 @@ files = [
 
 file_variable_cnt = {}
 ignore = ['"P"', '"P0"', '"N"', '"N0"', '"\\n"', '""']
-var_pre = '        public string '
+var_pre = '\t\tpublic string '
 var_pre_len = len(var_pre) + 1
 variables = {}
 vargroups = {}
@@ -62,24 +62,27 @@ if os.path.exists(outputfilepath):
 
 out = open(outputfilepath,'w+', encoding="utf-8")
 out.write((
+"//Generated with a python script\n"
 "namespace ChampionsOfForest.Localization\n"
 "{\n"
-"	public partial class Translations\n"
-"	{\n"
+"\tpublic partial class Translations\n"
+"\t{\n"
 "\n"
 "\n"
 ))
 for k,v in vargroups.items():
     v.sort(key=lambda tup: tup[0])
-    out.write("        //" + k + "\n")
+    out.write("\t\t//" + k + "\n")
     for var in v:
         privvarName = "_"+ k + "_" + str(var[0])
-        out.write('        public static string ' + k + "_" + str(var[0]) + " => instance."+ privvarName +";\n")
+        out.write('\t\tpublic static string ' + k + "_" + str(var[0]) + " => instance."+ privvarName +";\n")
         out.write(var_pre + privvarName + " = "+ var[1] +";\n")
+        print("Moved old: "+ privvarName + " = "+ var[1])
     out.write("\n")
 changec = 0
 pattern2 = re.compile(r'"[^"]*"')
 pattern3 = re.compile(r'//tr')
+
 
 for file in files:
     try:
@@ -119,7 +122,7 @@ for file in files:
                             print("Found translateable string in " + line)
                             varname = filename + "_" + str(n)
 
-                            out.write('        public static string ' + varname + " => instance._"+ varname +";\n")
+                            out.write('\t\tpublic static string ' + varname + " => instance._"+ varname +";\n")
                             out.write(var_pre + "_" + varname + " = "+ s +";\n\n")
                             variables[s] = varname
                             if filename in vargroups.keys():
@@ -148,7 +151,7 @@ for file in files:
 
 out.write((
 "\n\n"
-"   }\n"
+"\t}\n"
 "}\n\n\n/* for translation cpy paste:\n\n"
 ))
 

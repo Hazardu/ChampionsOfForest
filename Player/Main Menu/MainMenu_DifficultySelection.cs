@@ -76,7 +76,7 @@ namespace ChampionsOfForest
 					GUI.color = new Color(c, c, c, c);
 					GUI.Label(new Rect(0, Screen.height / 2f, Screen.width, screenScale * 150),
 						Translations.MainMenu_DifficultySelection_2/*og:The server may not have Champions of The Forest Mod installed or the host is taking a long time. Playing on vanilla servers is impossible.\nDo you want to leave?*/, labelStyle);	//tr
-					if (GUI.Button(new Rect(Screen.width / 2 - 120 * screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), "Leave lobby"))
+					if (GUI.Button(new Rect(Screen.width / 2 - 120 * screenScale, Screen.height / 2f + screenScale * 240, 400 * screenScale, screenScale * 60), Translations.MainMenu_DifficultySelection_25/*og:Leave lobby*/)) //tr
 					{
 						SceneManager.LoadScene("TitleScene");
 					}
