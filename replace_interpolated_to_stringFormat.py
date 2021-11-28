@@ -10,7 +10,7 @@ path = os.path.dirname(__file__)
 files = [
     # "Player\Main Menu\MainMenu_DifficultySelection.cs",
     # "Player\Main Menu\MainMenu.cs",
-    "Player\Main Menu\MainMenu_Guide.cs",
+    # "Player\Main Menu\MainMenu_Guide.cs",
     # "Player\Main Menu\MainMenu_HUD.cs",
     # "Player\Main Menu\MainMenu_Inventory.cs",
     # "Player\Main Menu\MainMenu_Perks.cs",
@@ -25,6 +25,7 @@ files = [
     # "Items\ItemDataBase_StatDefinitions.cs",
     # "Items\ItemDataBase_ItemDefinitions.cs",
     # "Items\Item.cs",
+    "Res\ResourceLoader.cs",
 ]
 
 ignore = ['"P"', '"P0"', '"N"', '"N0"', '"\\n"', '""']

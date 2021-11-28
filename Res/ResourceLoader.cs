@@ -186,7 +186,7 @@ namespace ChampionsOfForest.Res
 				checkStatus = VersionCheckStatus.Fail;
 			}
 		}
-		
+
 		private IEnumerator DownloadMotd()
 		{
 			///WWW motdWebsite = new WWW("https://textuploader.com/1avou/raw");
@@ -414,7 +414,7 @@ namespace ChampionsOfForest.Res
 			yield return null;
 			foreach (Resource resource in unloadedResources.Values)
 			{
-				LabelText += "Loading " + resource.fileName  + "\n";
+				LabelText += "Loading " + resource.fileName + "\n";
 
 				switch (resource.type)
 				{
@@ -523,7 +523,7 @@ namespace ChampionsOfForest.Res
 				GUI.DrawTexture(BGR, Texture2D.whiteTexture);
 				GUI.color = Color.red;
 
-				string s = "Champions of the forest will NOT work without BuilderCore mod. Please install it to use Champions of The Forest";
+				string s = "Champions of the forest will NOT work without BuilderCore mod. Please install it to use Champions of The Forest"; //tr
 
 				GUI.Label(new Rect(0, 30 * rr, Screen.width, 200 * rr), s, new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.UpperCenter });
 				GUI.color = Color.white;
@@ -535,7 +535,7 @@ namespace ChampionsOfForest.Res
 						Application.OpenURL("https://modapi.survivetheforest.net/mod/82/buildercore");
 					}
 				}
-				if (GUI.Button(new Rect(760 * rr, 800 * rr, 700 * rr, 100 * rr), "Exit The Forest", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter }))
+				if (GUI.Button(new Rect(760 * rr, 800 * rr, 700 * rr, 100 * rr), "Quit Game", new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold, fontSize = (int)(50 * rr), alignment = TextAnchor.MiddleCenter })) //tr
 				{
 					Application.Quit();
 				}
@@ -555,7 +555,7 @@ namespace ChampionsOfForest.Res
 				GUI.DrawTexture(BGR, Texture2D.whiteTexture);
 				GUI.color = Color.white;
 
-				GUI.Label(new Rect(0, 30 * rr, Screen.width, 60 * rr), "Please wait while Champions of the Forest is loading.", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic, fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter });
+				GUI.Label(new Rect(0, 30 * rr, Screen.width, 60 * rr), "Please wait while Champions of the Forest is loading.", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic, fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter }); //tr
 				GUIStyle skin = new GUIStyle(GUI.skin.label)
 				{
 					fontStyle = FontStyle.Bold,
@@ -565,7 +565,7 @@ namespace ChampionsOfForest.Res
 				switch (loadingState)
 				{
 					case LoadingState.CheckingFiles:
-						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (1 of 3)\nChecking for existing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (1 of 3)\nChecking for existing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter }); //tr
 						Rect pgBar = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
 						Rect prog = new Rect(pgBar);
 						pgBar.width *= (float)CheckedFileNumber / unloadedResources.Count;
@@ -578,7 +578,7 @@ namespace ChampionsOfForest.Res
 						break;
 
 					case LoadingState.Downloading:
-						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (2 of 3)\nDownloading missing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (2 of 3)\nDownloading missing files.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter }); //tr
 						Rect pgBar1 = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
 						Rect prog1 = new Rect(pgBar1);
 						pgBar1.width *= (float)DownloadedFileNumber / DownloadCount;
@@ -590,7 +590,7 @@ namespace ChampionsOfForest.Res
 						GUI.Label(prog1, DownloadedFileNumber + "/" + DownloadCount, skin);
 						if (download != null)
 						{
-							
+
 							Rect downloadRectBG = new Rect(prog1);
 							downloadRectBG.y += 100 * rr;
 							Rect downloadRect = new Rect(downloadRectBG);
@@ -606,7 +606,7 @@ namespace ChampionsOfForest.Res
 						break;
 
 					case LoadingState.Loading:
-						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (3 of 3)\nLoading assets.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Step (3 of 3)\nLoading assets.", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter }); //tr
 						Rect pgBar2 = new Rect(Screen.width / 2 - 300 * rr, 600 * rr, 600 * rr, 50 * rr);
 						Rect prog2 = new Rect(pgBar2);
 						pgBar2.width *= (float)LoadedFileNumber / unloadedResources.Count;
@@ -619,7 +619,7 @@ namespace ChampionsOfForest.Res
 						break;
 
 					case LoadingState.Done:
-						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Done!\n Enjoy", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter });
+						GUI.Label(new Rect(0, 100 * rr, Screen.width, 300 * rr), "Done!\n Enjoy", new GUIStyle(GUI.skin.label) { fontSize = (int)(55 * rr), alignment = TextAnchor.UpperCenter }); //tr
 						break;
 				}
 				GUI.color = Color.white;
@@ -642,12 +642,12 @@ namespace ChampionsOfForest.Res
 					Rect BGR = new Rect(0, 0, Screen.width, Screen.height);
 					GUI.DrawTexture(BGR, Texture2D.whiteTexture);
 					GUI.color = Color.white;
-					string text = "OH NO!\nThere were errors with loading resources for COTF!\n\nUnable to load those assets:\n";
+					string text = "OH NO!\nThere were errors with loading resources for COTF!\n\nUnable to load those assets:\n"; //tr
 					foreach (Resource item in FailedLoadResources)
 					{
 						text += item.fileName + ",\t";
 					}
-					text += "\n\nWhat would you like to do now?";
+					text += "\n\nWhat would you like to do now?"; //tr
 					GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = (int)(30 * rr), alignment = TextAnchor.UpperCenter, wordWrap = true };
 					Rect labelRect = new Rect(0, 100 * rr, Screen.width, style.CalcHeight(new GUIContent(text), Screen.width));
 					GUI.Label(labelRect, text, style);
@@ -656,12 +656,12 @@ namespace ChampionsOfForest.Res
 					Rect bt1 = new Rect(Screen.width - 300 * rr, y, 300 * rr, 100 * rr);
 					Rect bt2 = new Rect(Screen.width - 600 * rr, y, 300 * rr, 100 * rr);
 					GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { fontSize = (int)(30 * rr), wordWrap = true, fontStyle = FontStyle.BoldAndItalic };
-					if (GUI.Button(bt1, "IGNORE ERRORS", btnStyle))
+					if (GUI.Button(bt1, "IGNORE ERRORS", btnStyle)) //tr
 					{
 						IgnoreErrors = true;
 						FailedLoadResources = null;
 					}
-					if (GUI.Button(bt2, "ATTEMPT REDOWNLOAD", btnStyle))
+					if (GUI.Button(bt2, "ATTEMPT REDOWNLOAD", btnStyle)) //tr
 					{
 						AttemptRedownload();
 					}
@@ -674,12 +674,12 @@ namespace ChampionsOfForest.Res
 				{
 					case VersionCheckStatus.Unchecked:
 						GUI.color = Color.gray;
-						GUILayout.Label("Checking for updated version...", versionStyle);
+						GUILayout.Label("Checking for updated version...", versionStyle); //tr
 						break;
 
 					case VersionCheckStatus.UpToDate:
 						GUI.color = Color.green;
-						GUILayout.Label("COTF up to date. " + ((!string.IsNullOrEmpty(Likes) && !string.IsNullOrEmpty(Downloads)) ? $"Thanks for {Likes:N} likes and {Downloads:N} downloads!" : ""), versionStyle);
+						GUILayout.Label("COTF up to date. " + ((!string.IsNullOrEmpty(Likes) && !string.IsNullOrEmpty(Downloads)) ? string.Format("Thanks for {0} likes and {1} downloads!", Likes:N, Downloads:N) : ""), versionStyle); //tr
 
 						break;
 
@@ -687,7 +687,7 @@ namespace ChampionsOfForest.Res
 						GUI.color = Color.red;
 						versionStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.UpperRight, fontSize = 34, richText = true };
 
-						if (GUILayout.Button("<b>Champions of The Forest is outdated!</b> \n Installed " + ModSettings.Version + ";  Newest " + OnlineVersion, versionStyle))
+						if (GUILayout.Button(string.Format("<b>Champions of The Forest is outdated!</b> \n Installed {0};  Newest {1}", ModSettings.Version, OnlineVersion), versionStyle)) //tr
 						{
 							Application.OpenURL(@"https://modapi.survivetheforest.net/mod/101/champions-of-the-forest/");
 						}
@@ -696,12 +696,12 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.Fail:
 						GUI.color = Color.gray;
-						GUILayout.Label("Failed to get update info", versionStyle);
+						GUILayout.Label("Failed to get update info", versionStyle); //tr
 						break;
 
 					case VersionCheckStatus.NewerThanOnline:
 						GUI.color = Color.yellow;
-						GUILayout.Label($"Preview version ({ ModSettings.Version }) | ({buildDate})", versionStyle);
+						GUILayout.Label(string.Format("Preview version ({0}) | ({1})",  ModSettings.Version , buildDate), versionStyle); //tr
 						break;
 				}
 				GUI.color = Color.white;
@@ -713,7 +713,7 @@ namespace ChampionsOfForest.Res
 					GUIStyle motdstyle = new GUIStyle(GUI.skin.box) { fontSize = 22, fontStyle = FontStyle.Normal, alignment = TextAnchor.UpperCenter, wordWrap = true, richText = true };
 
 					Rect r1 = new Rect(new Rect(Screen.width * 2 / 3, 120, Screen.width / 3, 50));
-					if (GUI.Button(r1, "◄NEWS►", title))
+					if (GUI.Button(r1, "◄" + "NEWS" + "►", title)) //tr
 					{
 						ShowMOTD = !ShowMOTD;
 					}
@@ -736,19 +736,19 @@ namespace ChampionsOfForest.Res
 				//language selection
 				if (Translations.processingLanguage)
 				{
-					GUI.Label(new Rect(0, 0, 500, 100), "Changing COTF language...");
+					GUI.Label(new Rect(0, 0, 500, 100), "Changing COTF language..."); //tr
 
 				}
 				else
 				{
-					if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), "Update COTF Language"))
+					if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 50, 200, 50), "Update COTF Language")) //tr
 					{
 						StartCoroutine(Translations.Load(PlayerPreferences.Language));
 						Translations.LoadNoDl(PlayerPreferences.Language);
 					}
 				}
-				
-				
+
+
 			}
 		}
 
