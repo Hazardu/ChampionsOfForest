@@ -405,7 +405,7 @@ namespace ChampionsOfForest.Player
 
 				//blink
 				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
-				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
+				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat, "P");
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
 				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
