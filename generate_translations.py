@@ -13,7 +13,7 @@ outputfilepath = "Translations.cs"
 files = [
     "Player\Main Menu\MainMenu_DifficultySelection.cs",
     # "Player\Main Menu\MainMenu.cs",
-    # "Player\Main Menu\MainMenu_Guide.cs",
+    "Player\Main Menu\MainMenu_Guide.cs",
     # "Player\Main Menu\MainMenu_HUD.cs",
     "Player\Main Menu\MainMenu_Inventory.cs",
     # "Player\Main Menu\MainMenu_Perks.cs",
@@ -81,10 +81,11 @@ pattern2 = re.compile(r'"[^"]*"')
 pattern3 = re.compile(r'//tr')
 
 for file in files:
-    # try:
+    try:
         p = os.path.join(path, file)
         f = open(p, "r", encoding="utf-8")
         filename = os.path.basename(p).split('.')[0]
+        print (file)
         n = file_variable_cnt[filename] + 1 if filename in file_variable_cnt.keys() else 1
         out.write("        //" + file + "\n")
         txt = f.readlines()
@@ -109,16 +110,22 @@ for file in files:
         for idx, line in enumerate(txt):
             if pattern3.search(line):
                 strings = reversed(list(pattern2.finditer(line)))
+                
                 for match in strings:
                     s = match.group()
                     if s not in ignore and len(s) > 3:
                         if s not in variables.keys():
+                            print("Found translateable string in " + line)
                             varname = filename + "_" + str(n)
-                            n += 1
 
                             out.write('        public static string ' + varname + " => instance._"+ varname +";\n")
                             out.write(var_pre + "_" + varname + " = "+ s +";\n\n")
                             variables[s] = varname
+                            if filename in vargroups.keys():
+                                vargroups[filename].append((n,s))
+                            else:
+                                vargroups[filename] = [(n,s)]
+                            n += 1
                             changec += 1
 
         # replace all const string occurences in the files
@@ -135,8 +142,8 @@ for file in files:
         f.writelines(txt)
         f.close()
     
-    # except Exception as e:
-    #     print()
+    except Exception as e:
+        print(str(e))
 
 out.write((
 "\n\n"
@@ -147,6 +154,7 @@ out.write((
 for k,v in vargroups.items():
     v.sort(key=lambda tup: tup[0])
     for var in v:
+        print(k+ "_" + str(var[0]) +':: '+ var[1])
         out.write(k+ "_" + str(var[0]) +':: '+ var[1] +"\n" )
 out.write('\n\n\n*/')
 out.close()

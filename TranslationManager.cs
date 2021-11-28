@@ -67,11 +67,6 @@ namespace ChampionsOfForest.Localization
 
 			if (Parse(path))
 				instance.language = localizationID;
-			else
-			{
-				//falling back to eng
-				new Translations();
-			}
 			processingLanguage = false;
 
 		}
@@ -113,6 +108,7 @@ namespace ChampionsOfForest.Localization
 				ModAPI.Console.Write(path);
 				return true;
 			}
+			instance = new Translations();
 
 			return false;
 		}

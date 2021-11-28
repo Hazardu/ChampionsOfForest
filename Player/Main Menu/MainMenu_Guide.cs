@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
 using UnityEngine;
@@ -183,7 +184,7 @@ namespace ChampionsOfForest
 		public int guidePage;
 		private void DrawGuide()
 		{
-			GUI.Label(new Rect(0, 0, 300, 100), "Page" + ": " + guidePage); //tr
+			GUI.Label(new Rect(0, 0, 300, 100), Translations.MainMenu_Guide_2/*og:Page*/ + Translations.MainMenu_Guide_1/*og:: */ + guidePage); //tr
 			int a = 0;
 
 			Bookmarks.Clear();
@@ -306,183 +307,183 @@ namespace ChampionsOfForest
 			{
 
 
-				Header("Attributes"); //tr
+				Header(Translations.MainMenu_Guide_3/*og:Attributes*/); //tr
 
-				Stat("Strength", //tr
+				Stat(Translations.MainMenu_Guide_4/*og:Strength*/, //tr
 					ModdedPlayer.Stats.strength.GetFormattedAmount(),
-					string.Format("Increases melee damage by {0} for every 1 point of strength for a total of {1:P1}", //tr
+					string.Format(Translations.MainMenu_Guide_5/*og:Increases melee damage by {0} for every 1 point of strength for a total of {1:P1}*/, //tr
 						ModdedPlayer.Stats.meleeDmgFromStr.GetFormattedAmount(),
 						ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount()));
 
-				Stat("Agility", //tr
+				Stat(Translations.MainMenu_Guide_6/*og:Agility*/, //tr
 					ModdedPlayer.Stats.agility.GetFormattedAmount(),
-					string.Format("Increases ranged damage by {0} for every point of agility for a total of {1:P1}. \nIncreases maximum energy by {2} for every point of agility", //tr
+					string.Format(Translations.MainMenu_Guide_7/*og:Increases ranged damage by {0} for every point of agility for a total of {1:P1}. \nIncreases maximum energy by {2} for every point of agility*/, //tr
 						ModdedPlayer.Stats.rangedDmgFromAgi.GetFormattedAmount(), ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount(), ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount()));
 
-				Stat("Vitality", //tr
+				Stat(Translations.MainMenu_Guide_8/*og:Vitality*/, //tr
 					ModdedPlayer.Stats.vitality.GetFormattedAmount(),
-					string.Format("Increases health by {0} for every  point of vitality for a total of {1}", //tr
+					string.Format(Translations.MainMenu_Guide_9/*og:Increases health by {0} for every  point of vitality for a total of {1}*/, //tr
 					ModdedPlayer.Stats.maxHealthFromVit.GetFormattedAmount(), ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.maxHealthFromVit.GetAmount()));
 
-				Stat("Intelligence",    //tr
+				Stat(Translations.MainMenu_Guide_10/*og:Intelligence*/,    //tr
 					ModdedPlayer.Stats.intelligence.GetFormattedAmount(),
-					string.Format("Increases spell damage by {0} for every point of intelligence for a total of {1}. \n Increases stamina regen by {2} for every point of intelligence for a total of {3}.", //tr
+					string.Format(Translations.MainMenu_Guide_11/*og:Increases spell damage by {0} for every point of intelligence for a total of {1}. \n Increases stamina regen by {2} for every point of intelligence for a total of {3}.*/, //tr
 						ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount(), ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount(), ModdedPlayer.Stats.energyRecoveryFromInt.GetFormattedAmount(), (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.energyRecoveryFromInt.GetAmount()).ToString("P1")));
 
 
 				Space(60);
 				Image(99, 70);
-				Header("Defense"); //tr
+				Header(Translations.MainMenu_Guide_12/*og:Defense*/); //tr
 				Space(10);
-				Stat("Health", //tr
+				Stat(Translations.MainMenu_Guide_13/*og:Health*/, //tr
 					ModdedPlayer.Stats.TotalMaxHealth.ToString(),
-					string.Format("Total health pool.\nAll players start with base health pool of {0}.\nHealth points from vitality: {1} \nAdditional health points: {2}\nHealth increase bonuses: {3}",//tr
+					string.Format(Translations.MainMenu_Guide_14/*og:Total health pool.\nAll players start with base health pool of {0}.\nHealth points from vitality: {1} \nAdditional health points: {2}\nHealth increase bonuses: {3}*/,//tr
 					ModdedPlayer.ModdedPlayerStats.baseHealth, ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount(), ModdedPlayer.Stats.maxHealth.GetFormattedAmount(), ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount()));
 
-				Stat("Energy", //tr
+				Stat(Translations.MainMenu_Guide_15/*og:Energy*/, //tr
 					ModdedPlayer.Stats.TotalMaxEnergy.ToString(),
-					string.Format("Total energy pool.\nAll players start with base energy pool of {0}\n Energy from agility: {1}\nEnergy multiplier: {2}", //tr
+					string.Format(Translations.MainMenu_Guide_16/*og:Total energy pool.\nAll players start with base energy pool of {0}\n Energy from agility: {1}\nEnergy multiplier: {2}*/, //tr
 					ModdedPlayer.ModdedPlayerStats.baseEnergy, ModdedPlayer.Stats.maxEnergy.GetFormattedAmount(), ModdedPlayer.Stats.maxEnergyFromAgi.GetAmount() * ModdedPlayer.Stats.agility.GetAmount(), ModdedPlayer.Stats.maxEnergyMult.GetFormattedAmount()));
 
-				Stat("Armor", //tr
+				Stat(Translations.MainMenu_Guide_17/*og:Armor*/, //tr
 					ModdedPlayer.Stats.armor.GetFormattedAmount(),
-					string.Format("Armor provides physical damage reduction.\nPhysical damage reduction from armor is equal to {0}", //tr
+					string.Format(Translations.MainMenu_Guide_18/*og:Armor provides physical damage reduction.\nPhysical damage reduction from armor is equal to {0}*/, //tr
 					ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value).ToString("P2")));
-				Stat("Magic Resistance", //tr
+				Stat(Translations.MainMenu_Guide_19/*og:Magic Resistance*/, //tr
 					(1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"),
-					"Magic damage reduction. Decreases damage from enemy abilities.");  //tr
-				Stat("Dodge Chance", //tr
+					Translations.MainMenu_Guide_20/*og:Magic damage reduction. Decreases damage from enemy abilities.*/);  //tr
+				Stat(Translations.MainMenu_Guide_21/*og:Dodge Chance*/, //tr
 					(1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"),
-					"A chance to avoid entire instance of physical damage. Dodge is ineffective against fire, poison, cold and majority of spells.\nMeteor rain ability deals physical damage and can be dodged, but the ignition from it cannot.");    //tr
-				Stat("Damage Reduction", //tr
+					Translations.MainMenu_Guide_22/*og:A chance to avoid entire instance of physical damage. Dodge is ineffective against fire, poison, cold and majority of spells.\nMeteor rain ability deals physical damage and can be dodged, but the ignition from it cannot.*/);    //tr
+				Stat(Translations.MainMenu_Guide_23/*og:Damage Reduction*/, //tr
 					(1f - ModdedPlayer.Stats.allDamageTaken.GetAmount()).ToString("P"),
-					"Reduces damage taken from all sources"); //tr
-				Stat("Damage Block", ModdedPlayer.Stats.block.GetFormattedAmount(), "Every instance of physical damage is reduced by the block amount. Block is applied after damage reduction modifiers."); //tr
-				Stat("Shield", ModdedPlayer.instance.DamageAbsorbAmount.ToString(), "Additional health that will disappear after a time period. This temporary health can be obtained with sustain shield ability and some items"); //tr
-				Stat("Fire Resistance", //tr
-					(1 - ModdedPlayer.Stats.fireDamageTaken.GetAmount()).ToString("P"), "Reduced damage from ignition, radiance and a number of other fire-attribute spells."); //tr
-				Stat("Thorns Damage", //tr
+					Translations.MainMenu_Guide_24/*og:Reduces damage taken from all sources*/); //tr
+				Stat(Translations.MainMenu_Guide_26/*og:Damage Block*/, ModdedPlayer.Stats.block.GetFormattedAmount(), Translations.MainMenu_Guide_25/*og:Every instance of physical damage is reduced by the block amount. Block is applied after damage reduction modifiers.*/); //tr
+				Stat(Translations.Item_1/*og:Shield*/, ModdedPlayer.instance.DamageAbsorbAmount.ToString(), Translations.MainMenu_Guide_27/*og:Additional health that will disappear after a time period. This temporary health can be obtained with sustain shield ability and some items*/); //tr
+				Stat(Translations.MainMenu_Guide_28/*og:Fire Resistance*/, //tr
+					(1 - ModdedPlayer.Stats.fireDamageTaken.GetAmount()).ToString("P"), Translations.MainMenu_Guide_29/*og:Reduced damage from ignition, radiance and a number of other fire-attribute spells.*/); //tr
+				Stat(Translations.MainMenu_Guide_30/*og:Thorns Damage*/, //tr
 					ModdedPlayer.Stats.TotalThornsDamage.ToString(),
-				string.Format("Thorns inflict damage to attacking enemies. Thorns from gear and mutations {0}. Thorns from attributes {1}.\nThorns damage is applied to attackers even when you are blocking", //tr
+				string.Format(Translations.MainMenu_Guide_31/*og:Thorns inflict damage to attacking enemies. Thorns from gear and mutations {0}. Thorns from attributes {1}.\nThorns damage is applied to attackers even when you are blocking*/, //tr
 					ModdedPlayer.Stats.thorns.GetFormattedAmount(), ModdedPlayer.Stats.thornsPerStrenght.GetAmount() * ModdedPlayer.Stats.strength.GetAmount() + ModdedPlayer.Stats.vitality.GetAmount() * ModdedPlayer.Stats.thornsPerVit.GetAmount()));
 
 				Space(60);
-				Header("Recovery"); //tr
+				Header(Translations.MainMenu_Guide_32/*og:Recovery*/); //tr
 				Space(10);
 
 
-				Stat("Total Stamina recovery per second", ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString(), "Stamina regeneration is temporarily paused after sprinting"); //tr
+				Stat(Translations.MainMenu_Guide_34/*og:Total Stamina recovery per second*/, ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString(), Translations.MainMenu_Guide_34/*og:Stamina regeneration is temporarily paused after sprinting*/); //tr
 				Stat("Stamina per second", (ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.staminaPerSecRate.GetAmount()).ToString("N2"),
-					string.Format("Flat stamina regeneration bonus: {0} per second. Increase to stamina regeneration: {1}", //tr
+					string.Format(Translations.MainMenu_Guide_35/*og:Flat stamina regeneration bonus: {0} per second. Increase to stamina regeneration: {1}*/, //tr
 					ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount()));
 
-				Stat("Energy per second", ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", string.Format("Energy per second: {0}\nStamina and energy regen multipier: {1}", ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier)); //tr
-				Stat("Energy on hit", ModdedPlayer.Stats.energyOnHit.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", string.Format("Energy on hit from items and perks: {0}", ModdedPlayer.Stats.energyOnHit.GetAmount()));//tr
-				Stat("Health per second", ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount() * (ModdedPlayer.Stats.healthPerSecRate.GetAmount()) * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", string.Format("Health per second: {0}\nStamina regen bonus: {1}\nAll Recovery Amplification: {2}", ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount(), ModdedPlayer.Stats.healthPerSecRate.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));//tr
-				Stat("Health on hit", ModdedPlayer.Stats.healthOnHit.GetAmount() * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", string.Format("Health on hit: {0}\nHealth regen bonus: {1}\nAll Healing Amplification: {2}", ModdedPlayer.Stats.healthOnHit.GetAmount(), ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));//tr
+				Stat(Translations.MainMenu_Guide_37/*og:Energy per second*/, ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", string.Format(Translations.MainMenu_Guide_37/*og:Energy per second: {0}\nStamina and energy regen multipier: {1}*/, ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier)); //tr
+				Stat(Translations.MainMenu_Guide_39/*og:Energy on hit*/, ModdedPlayer.Stats.energyOnHit.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", string.Format(Translations.MainMenu_Guide_39/*og:Energy on hit from items and perks: {0}*/, ModdedPlayer.Stats.energyOnHit.GetAmount()));//tr
+				Stat(Translations.MainMenu_Guide_41/*og:Health per second*/, ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount() * (ModdedPlayer.Stats.healthPerSecRate.GetAmount()) * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", string.Format(Translations.MainMenu_Guide_41/*og:Health per second: {0}\nStamina regen bonus: {1}\nAll Recovery Amplification: {2}*/, ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount(), ModdedPlayer.Stats.healthPerSecRate.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));//tr
+				Stat(Translations.MainMenu_Guide_43/*og:Health on hit*/, ModdedPlayer.Stats.healthOnHit.GetAmount() * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", string.Format(Translations.MainMenu_Guide_43/*og:Health on hit: {0}\nHealth regen bonus: {1}\nAll Healing Amplification: {2}*/, ModdedPlayer.Stats.healthOnHit.GetAmount(), ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));//tr
 
 				Space(60);
-				Header("Attack");//tr
+				Header(Translations.MainMenu_Guide_44/*og:Attack*/);//tr
 				Space(10);
-				Stat("All damage", ModdedPlayer.Stats.allDamage.GetFormattedAmount());//tr
-				Stat("Critical hit damage", ModdedPlayer.Stats.critDamage.GetFormattedAmount());//tr
-				Stat("Critical hit chance", ModdedPlayer.Stats.critChance.GetFormattedAmount());//tr
-				Stat("Attack speed", ModdedPlayer.Stats.attackSpeed.GetFormattedAmount(), "Increases the speed of player actions - weapon swinging, reloading guns and drawing bows");//tr
-				Stat("Fire damage", ModdedPlayer.Stats.fireDamage.GetFormattedAmount(), "Increases fire damage");//tr
-				Stat("Bleed chance", ModdedPlayer.Stats.chanceToBleed.GetFormattedAmount(), "Bleeding enemies take 5% of damage dealt per second for 10 seconds");//tr
-				Stat("Weaken chance", ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), "Weakened enemies take 20% increased damage from all players.");//tr
-				Stat("Slow chance", ModdedPlayer.Stats.chanceToSlow.GetFormattedAmount(), "Slowed enemies move and attack 50% slower");//tr
+				Stat(Translations.MainMenu_Guide_45/*og:All damage*/, ModdedPlayer.Stats.allDamage.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_46/*og:Critical hit damage*/, ModdedPlayer.Stats.critDamage.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_47/*og:Critical hit chance*/, ModdedPlayer.Stats.critChance.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_49/*og:Attack speed*/, ModdedPlayer.Stats.attackSpeed.GetFormattedAmount(), Translations.MainMenu_Guide_49/*og:Increases the speed of player actions - weapon swinging, reloading guns and drawing bows*/);//tr
+				Stat(Translations.MainMenu_Guide_51/*og:Fire damage*/, ModdedPlayer.Stats.fireDamage.GetFormattedAmount(), Translations.MainMenu_Guide_51/*og:Increases fire damage*/);//tr
+				Stat(Translations.MainMenu_Guide_53/*og:Bleed chance*/, ModdedPlayer.Stats.chanceToBleed.GetFormattedAmount(), Translations.MainMenu_Guide_53/*og:Bleeding enemies take 5% of damage dealt per second for 10 seconds*/);//tr
+				Stat(Translations.MainMenu_Guide_55/*og:Weaken chance*/, ModdedPlayer.Stats.chanceToWeaken.GetFormattedAmount(), Translations.MainMenu_Guide_55/*og:Weakened enemies take 20% increased damage from all players.*/);//tr
+				Stat(Translations.MainMenu_Guide_57/*og:Slow chance*/, ModdedPlayer.Stats.chanceToSlow.GetFormattedAmount(), Translations.MainMenu_Guide_57/*og:Slowed enemies move and attack 50% slower*/);//tr
 
 				Space(20);
 				Image(89, 70);
-				Header("Melee");//tr
+				Header(Translations.MainMenu_Guide_58/*og:Melee*/);//tr
 				Space(10);
 
-				Stat("Melee damage", ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), string.Format("Melee damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from strength: {0}%\nIncrease to melee damage: {1}\nIncrease to all damage: {2}", ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount() * 100, (ModdedPlayer.Stats.meleeIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
-				Stat("Additional melee weapon damage", ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), "Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above");//tr
-				Stat("Melee range", ModdedPlayer.Stats.weaponRange.GetFormattedAmount());//tr
-				Stat("Heavy attack damage", ModdedPlayer.Stats.heavyAttackDmg.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_60/*og:Melee damage*/, ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), string.Format(Translations.MainMenu_Guide_60/*og:Melee damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from strength: {0}%\nIncrease to melee damage: {1}\nIncrease to all damage: {2}*/, ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount() * 100, (ModdedPlayer.Stats.meleeIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
+				Stat(Translations.MainMenu_Guide_62/*og:Additional melee weapon damage*/, ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_62/*og:Melee damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to weapon damage and multiplied by the stat above*/);//tr
+				Stat(Translations.MainMenu_Guide_63/*og:Melee range*/, ModdedPlayer.Stats.weaponRange.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_64/*og:Heavy attack damage*/, ModdedPlayer.Stats.heavyAttackDmg.GetFormattedAmount());//tr
 
 				Space(20);
 				Image(98, 70);
-				Header("Ranged");//tr
+				Header(Translations.MainMenu_Guide_65/*og:Ranged*/);//tr
 				Space(10);
 
-				Stat("Ranged damage", ModdedPlayer.Stats.RangedDamageMult.ToString("P"), string.Format("Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from agility: {0}\nIncrease to ranged damage: {1}\nFrom size matters perk: {2}\nIncrease to all damage: {3}", (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P"), (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount() - 1).ToString("P"), (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? (ModdedPlayer.Stats.projectileSize.GetAmount() - 1) * 2 : 0f).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
-				Stat("Additional ranged weapon damage", ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), "Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above");//tr
-				Stat("Projectile speed", ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), "Faster projectiles fly further and fall slower");//tr
-				Stat("Projectile size", ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.");//tr
-				Stat("Headshot damage", ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), "Damage multiplier on headshot");//tr
-				Stat("Projectile pierce chance", ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), "Chance for a projectile to pierce a bone of an enemy and fly right through to hit objects behind the enemy. Increasing this value beyond 100% will make your projectiles always pierce on first enemy contact, and any further hits will also have a chance to pierce.");//tr
-				Stat("No consume chance", ModdedPlayer.Stats.perk_projectileNoConsumeChance.GetFormattedAmount());//tr
-				Stat("Spear headshot chance", ModdedPlayer.Stats.perk_thrownSpearCritChance.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_67/*og:Ranged damage*/, ModdedPlayer.Stats.RangedDamageMult.ToString("P"), string.Format(Translations.MainMenu_Guide_67/*og:Ranged damage multipier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from agility: {0}\nIncrease to ranged damage: {1}\nFrom size matters perk: {2}\nIncrease to all damage: {3}*/, (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P"), (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount() - 1).ToString("P"), (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? (ModdedPlayer.Stats.projectileSize.GetAmount() - 1) * 2 : 0f).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
+				Stat(Translations.MainMenu_Guide_69/*og:Additional ranged weapon damage*/, ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_69/*og:Ranged damage bonus can be increased by perks and inventory items (mainly this stat occurs on weapons). This is added to projectile damage and multiplied by the stat above*/);//tr
+				Stat(Translations.MainMenu_Guide_71/*og:Projectile speed*/, ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), Translations.MainMenu_Guide_71/*og:Faster projectiles fly further and fall slower*/);//tr
+				Stat(Translations.MainMenu_Guide_73/*og:Projectile size*/, ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), Translations.MainMenu_Guide_73/*og:Bigger projectiles allow to land headshots easier. Most projectiles still can hit only 1 target.*/);//tr
+				Stat(Translations.MainMenu_Guide_75/*og:Headshot damage*/, ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), Translations.MainMenu_Guide_75/*og:Damage multiplier on headshot*/);//tr
+				Stat(Translations.MainMenu_Guide_77/*og:Projectile pierce chance*/, ModdedPlayer.Stats.projectilePierceChance.GetFormattedAmount(), Translations.MainMenu_Guide_77/*og:Chance for a projectile to pierce a bone of an enemy and fly right through to hit objects behind the enemy. Increasing this value beyond 100% will make your projectiles always pierce on first enemy contact, and any further hits will also have a chance to pierce.*/);//tr
+				Stat(Translations.MainMenu_Guide_78/*og:No consume chance*/, ModdedPlayer.Stats.perk_projectileNoConsumeChance.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_79/*og:Spear headshot chance*/, ModdedPlayer.Stats.perk_thrownSpearCritChance.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.perk_thrownSpearhellChance.GetAmount() > 0)
-					Stat("Double spear chance", ModdedPlayer.Stats.perk_thrownSpearhellChance.GetFormattedAmount());//tr
+					Stat(Translations.MainMenu_Guide_80/*og:Double spear chance*/, ModdedPlayer.Stats.perk_thrownSpearhellChance.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetAmount() != 1)
-					Stat("Spear damage", ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount());//tr
-				Stat("Bullet headshot chance", ModdedPlayer.Stats.perk_bulletCritChance.GetFormattedAmount());//tr
+					Stat(Translations.MainMenu_Guide_81/*og:Spear damage*/, ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount());//tr
+				Stat(Translations.MainMenu_Guide_82/*og:Bullet headshot chance*/, ModdedPlayer.Stats.perk_bulletCritChance.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.perk_bulletDamageMult.GetAmount() != 1)
-					Stat("Bullet damage", ModdedPlayer.Stats.perk_bulletDamageMult.GetFormattedAmount());//tr
+					Stat(Translations.MainMenu_Guide_83/*og:Bullet damage*/, ModdedPlayer.Stats.perk_bulletDamageMult.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.perk_crossbowDamageMult.GetAmount() != 1)
-					Stat("Crossbow damage", ModdedPlayer.Stats.perk_crossbowDamageMult.GetFormattedAmount());//tr
+					Stat(Translations.MainMenu_Guide_84/*og:Crossbow damage*/, ModdedPlayer.Stats.perk_crossbowDamageMult.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.perk_bowDamageMult.GetAmount() != 1)
-					Stat("Bow damage", ModdedPlayer.Stats.perk_bowDamageMult.GetFormattedAmount());//tr
+					Stat(Translations.MainMenu_Guide_85/*og:Bow damage*/, ModdedPlayer.Stats.perk_bowDamageMult.GetFormattedAmount());//tr
 				if (ModdedPlayer.Stats.i_CrossfireQuiver.GetAmount())
-					Stat("Shooting an enemy creates magic arrows pointed at them. There is a short cooldown on this ability", "");//tr
+					Stat(Translations.MainMenu_Guide_86/*og:Shooting an enemy creates magic arrows pointed at them. There is a short cooldown on this ability*/, "");//tr
 
-				Stat("Multishot Projectiles", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()) : ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()).ToString("N"));//tr
-				Stat("Multishot Cost", (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f)).ToString(), "Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10");//tr
+				Stat(Translations.MainMenu_Guide_87/*og:Multishot Projectiles*/, (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? (4 + ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()) : ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount()).ToString("N"));//tr
+				Stat(Translations.MainMenu_Guide_89/*og:Multishot Cost*/, (ModdedPlayer.Stats.i_SoraBracers.GetAmount() ? 1f * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f) : 10 * Mathf.Pow(ModdedPlayer.Stats.perk_multishotProjectileCount.GetAmount(), 1.75f)).ToString(), Translations.MainMenu_Guide_89/*og:Formula for multishot cost in energy is (Multishot Projectiles ^ 1.75) * 10*/);//tr
 
 				Space(20);
 				Image(110, 70);
-				Header("Magic");//tr
+				Header(Translations.MainMenu_Guide_90/*og:Magic*/);//tr
 				Space(10);
 
-				Stat("Spell Damage", ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), string.Format("Spell damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from intelligence: {0}\nIncrease to spell damage: {1}\nIncrease to all damage: {2}", (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P"), (ModdedPlayer.Stats.spellIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
-				Stat("Additional Spell Damage", ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), "Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.");//tr
-				Stat("Spell Cost Reduction", (1 - ModdedPlayer.Stats.spellCost.GetAmount()).ToString("P"), "Reduced amount of energy needed to cast spells. Energy is the dark blue bar on the hud. Energy is drained over time and requires food or rest to regain in.");//tr
-				Stat("Spell Cost redirected to stamina", ModdedPlayer.Stats.SpellCostToStamina.ToString("P"), "Stamina is the resource which quickly regenerates");//tr
-				Stat("Cooldown Reduction", (1 - ModdedPlayer.Stats.cooldown.GetAmount()).ToString("P"));//tr
+				Stat(Translations.MainMenu_Guide_92/*og:Spell Damage*/, ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), string.Format(Translations.MainMenu_Guide_92/*og:Spell damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from intelligence: {0}\nIncrease to spell damage: {1}\nIncrease to all damage: {2}*/, (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P"), (ModdedPlayer.Stats.spellIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));//tr
+				Stat(Translations.MainMenu_Guide_94/*og:Additional Spell Damage*/, ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_94/*og:Spell damage bonus can be increased by perks and inventory items. This is added to spell damage and multiplied by the stat above. Often spells take a fraction of this stat and add it to spell's damage.*/);//tr
+				Stat(Translations.MainMenu_Guide_96/*og:Spell Cost Reduction*/, (1 - ModdedPlayer.Stats.spellCost.GetAmount()).ToString("P"), Translations.MainMenu_Guide_96/*og:Reduced amount of energy needed to cast spells. Energy is the dark blue bar on the hud. Energy is drained over time and requires food or rest to regain in.*/);//tr
+				Stat(Translations.MainMenu_Guide_98/*og:Spell Cost redirected to stamina*/, ModdedPlayer.Stats.SpellCostToStamina.ToString("P"), Translations.MainMenu_Guide_98/*og:Stamina is the resource which quickly regenerates*/);//tr
+				Stat(Translations.MainMenu_Guide_99/*og:Cooldown Reduction*/, (1 - ModdedPlayer.Stats.cooldown.GetAmount()).ToString("P"));//tr
 
 				Space(20);
 				GUI.color = Color.red;
 				Image(96, 70);
 				GUI.color = Color.white;
-				Header("Armor reduction");//tr
+				Header(Translations.MainMenu_Guide_100/*og:Armor reduction*/);//tr
 				Space(10);
-				Stat("Melee", ModdedPlayer.Stats.meleeArmorPiercing.GetAmount() + "", string.Format("Total melee armor reduction: {0}", ModdedPlayer.Stats.TotalMeleeArmorPiercing.ToString()));//tr
-				Stat("Ranged", ModdedPlayer.Stats.rangedArmorPiercing.GetAmount() + "", string.Format("Total ranged armor reduction: {0}", ModdedPlayer.Stats.TotalRangedArmorPiercing.ToString()));//tr
-				Stat("Thorns", ModdedPlayer.Stats.thornsArmorPiercing.GetAmount() + "", string.Format("Total thorns armor reduction: {0}", ModdedPlayer.Stats.TotalThornsArmorPiercing.ToString()));//tr
-				Stat("Any source", ModdedPlayer.Stats.allArmorPiercing.GetAmount() + "", "Decreases armor of enemies hit by either of the sources");//tr
+				Stat(Translations.MainMenu_Guide_58/*og:Melee*/, ModdedPlayer.Stats.meleeArmorPiercing.GetAmount() + "", string.Format(Translations.MainMenu_Guide_102/*og:Total melee armor reduction: {0}*/, ModdedPlayer.Stats.TotalMeleeArmorPiercing.ToString()));//tr
+				Stat(Translations.MainMenu_Guide_65/*og:Ranged*/, ModdedPlayer.Stats.rangedArmorPiercing.GetAmount() + "", string.Format(Translations.MainMenu_Guide_103/*og:Total ranged armor reduction: {0}*/, ModdedPlayer.Stats.TotalRangedArmorPiercing.ToString()));//tr
+				Stat(Translations.MainMenu_Guide_104/*og:Thorns*/, ModdedPlayer.Stats.thornsArmorPiercing.GetAmount() + "", string.Format(Translations.MainMenu_Guide_104/*og:Total thorns armor reduction: {0}*/, ModdedPlayer.Stats.TotalThornsArmorPiercing.ToString()));//tr
+				Stat(Translations.MainMenu_Guide_106/*og:Any source*/, ModdedPlayer.Stats.allArmorPiercing.GetAmount() + "", Translations.MainMenu_Guide_106/*og:Decreases armor of enemies hit by either of the sources*/);//tr
 			}
 			else if (guidePage == a++)
 			{
-				Header("Survivor stats");//tr
+				Header(Translations.MainMenu_Guide_107/*og:Survivor stats*/);//tr
 				Space(10);
 
-				Stat("Movement Speed", ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), string.Format("Multiplier of base movement speed. Base walking speed is equal to {0} feet per second, with bonuses it's {1} feet/second", FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount()));//tr
-				Stat("Jump Power", ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), "Multiplier of base jump power. Increases height of your jumps");//tr
-				Stat("Hunger Rate", (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), "How much slower is the rate of consuming food compared to normal.");//tr
-				Stat("Thirst Rate", (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), "How much slower is the rate of consuming water compared to normal.");//tr
-				Stat("Experience Rate", ModdedPlayer.Stats.expGain.GetFormattedAmount(), "Multiplier of any experience gained");//tr
-				Stat("Massacre Duration", ModdedPlayer.Stats.maxMassacreTime.GetAmount() + " s", "How long massacres can last");//tr
-				Stat("Massacre Time On Kill", ModdedPlayer.Stats.timeBonusPerKill.GetAmount() + " s", "Amount of time that is added to massacre for every kill");//tr
+				Stat(Translations.MainMenu_Guide_109/*og:Movement Speed*/, ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), string.Format(Translations.MainMenu_Guide_109/*og:Multiplier of base movement speed. Base walking speed is equal to {0} feet per second, with bonuses it's {1} feet/second*/, FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount()));//tr
+				Stat(Translations.MainMenu_Guide_111/*og:Jump Power*/, ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), Translations.MainMenu_Guide_111/*og:Multiplier of base jump power. Increases height of your jumps*/);//tr
+				Stat(Translations.MainMenu_Guide_113/*og:Hunger Rate*/, (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), Translations.MainMenu_Guide_113/*og:How much slower is the rate of consuming food compared to normal.*/);//tr
+				Stat(Translations.MainMenu_Guide_115/*og:Thirst Rate*/, (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), Translations.MainMenu_Guide_115/*og:How much slower is the rate of consuming water compared to normal.*/);//tr
+				Stat(Translations.MainMenu_Guide_117/*og:Experience Rate*/, ModdedPlayer.Stats.expGain.GetFormattedAmount(), Translations.MainMenu_Guide_117/*og:Multiplier of any experience gained*/);//tr
+				Stat(Translations.MainMenu_Guide_120/*og:Massacre Duration*/, ModdedPlayer.Stats.maxMassacreTime.GetAmount() + Translations.MainMenu_Guide_120/*og: s*/, "How long massacres can last");//tr
+				Stat(Translations.MainMenu_Guide_122/*og:Massacre Time On Kill*/, ModdedPlayer.Stats.timeBonusPerKill.GetAmount() + Translations.MainMenu_Guide_120/*og: s*/, "Amount of time that is added to massacre for every kill");//tr
 				if (ModdedPlayer.Stats.perk_turboRaftOwners.GetAmount() > 0)
-					Stat("Turbo Raft Speed", ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), "Speed multiplier of rafts. Other player's items and perks also affect this value");//tr
-				Stat("Magic Find", ModdedPlayer.Stats.magicFind.Value.ToString("P"), "Affects rarity of items looted from monsters, as well as the chance to get items from non-elite enemies. Increases globally, and this value is affected by every player. ");//tr
+					Stat(Translations.MainMenu_Guide_124/*og:Turbo Raft Speed*/, ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), Translations.MainMenu_Guide_124/*og:Speed multiplier of rafts. Other player's items and perks also affect this value*/);//tr
+				Stat(Translations.MainMenu_Guide_126/*og:Magic Find*/, ModdedPlayer.Stats.magicFind.Value.ToString("P"), Translations.MainMenu_Guide_126/*og:Affects rarity of items looted from monsters, as well as the chance to get items from non-elite enemies. Increases globally, and this value is affected by every player. */);//tr
 				foreach (var mfStat in ModdedPlayer.Stats.magicFind.OtherPlayerValues)
 				{
-					Stat(mfStat.Key + "'s Magic Find", mfStat.Value.ToString("P"), "Magic of another player. Other players' magic find contribute to the quality of everyone's loot");//tr
+					Stat(mfStat.Key + Translations.MainMenu_Guide_128/*og:'s Magic Find*/, mfStat.Value.ToString("P"), Translations.MainMenu_Guide_128/*og:Magic of another player. Other players' magic find contribute to the quality of everyone's loot*/);//tr
 				}
 
 				Space(40);
 				Image(90, 70);
-				Header("Inventory Stats");//tr
+				Header(Translations.MainMenu_Guide_129/*og:Inventory Stats*/);//tr
 				Space(10);
 				foreach (KeyValuePair<int, ModdedPlayer.ExtraItemCapacity> pair in ModdedPlayer.instance.ExtraCarryingCapactity)
 				{
 					string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Value.ID, (pair.Value.Amount > 1), false);
-					Stat(item_name, "+" + pair.Value.Amount, string.Format("Amount of additional items of type '{0}' you are allowed to carry.", item_name));//tr
+					Stat(item_name, "+" + pair.Value.Amount, string.Format(Translations.MainMenu_Guide_130/*og:Amount of additional items of type '{0}' you are allowed to carry.*/, item_name));//tr
 				}
 				Space(10);
 				if (ModdedPlayer.instance.GeneratedResources.Count > 0)
@@ -490,7 +491,7 @@ namespace ChampionsOfForest
 				foreach (var pair in ModdedPlayer.instance.GeneratedResources)
 				{
 					string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);
-					Stat(item_name, pair.ToString(), string.Format("Amount of additional items of type'{0}' you generate daily.", item_name));//tr
+					Stat(item_name, pair.ToString(), string.Format(Translations.MainMenu_Guide_131/*og:Amount of additional items of type'{0}' you generate daily.*/, item_name));//tr
 				}
 			}
 			else if (guidePage == a++)
@@ -498,7 +499,7 @@ namespace ChampionsOfForest
 				if (BookPositionY < Screen.height && BookPositionY > -140 * screenScale)
 				{
 					Rect labelRect = new Rect(GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease), 85 * screenScale);
-					if (GUI.Button(labelRect, "Recalculate Stats", new GUIStyle(GUI.skin.button)//tr
+					if (GUI.Button(labelRect, Translations.MainMenu_Guide_132/*og:Recalculate Stats*/, new GUIStyle(GUI.skin.button)//tr
 					{
 						font = mainFont,
 						fontSize = Mathf.RoundToInt(70 * screenScale),
