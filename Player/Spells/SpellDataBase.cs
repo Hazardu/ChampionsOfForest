@@ -178,7 +178,7 @@ namespace ChampionsOfForest.Player
 				aim = Taunt.Aim,
 				aimEnd = Taunt.AimEnd
 			};
-			new Spell(26, 201, 6, 45, 20, Translations.SpellDataBase_50/*og:Firebolt*/, () => string.Format("Puts your weapon away and instead allows you to wield fireballs. Each attack consumes stamina. Once you equip another weapon, you can no longer cast fireballs until you use this spell again\nAttack speed affects fire rate\nAttack damage: {0}", ModdedPlayer.Stats.spell_fireboltDamageScaling.GetFormattedAmount()))//tr
+			new Spell(26, 201, 6, 45, 20, Translations.SpellDataBase_50/*og:Firebolt*/, () => string.Format("Puts your weapon away and instead allows you to wield fireballs. Each attack consumes energy. Once you equip another weapon, you can no longer cast fireballs until you use this spell again\nAttack speed affects fire rate\nAttack damage: {0}", ModdedPlayer.Stats.spell_fireboltDamageScaling.GetFormattedAmount()))//tr
 			{
 				active = () => Spells.ActiveSpellManager.Instance.PrepareForFiring(Spells.FireboltSpell.Instance),
 			};

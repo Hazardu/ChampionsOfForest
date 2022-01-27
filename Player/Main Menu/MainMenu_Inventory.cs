@@ -186,6 +186,7 @@ namespace ChampionsOfForest
 		private GUIStyle statValueStyle;
 		private GUIStyle craftBtnStyle;
 		private GUIStyle craftHeaderStyle;
+		private GUIStyle hintStyle;
 		private GUIStyle statMinMaxValueStyle;
 
 		private void DrawCrafting(float x)
@@ -885,7 +886,7 @@ namespace ChampionsOfForest
 		private void DrawCharacterSummary()
 		{
 			Rect statsRect = new Rect(Screen.width - 300 * screenScale, 0, 300 * screenScale, Screen.height);
-			GUI.Box(statsRect, "Summary", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });
+			GUI.Box(statsRect, "Summary", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) }); //tr
 
 			GUIStyle TitleStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
 			GUIStyle ValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };

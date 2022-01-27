@@ -326,11 +326,19 @@ namespace ChampionsOfForest.Player
 					switch (Inventory.Instance.ItemSlots[-12].weaponModel)
 					{
 						case BaseItem.WeaponModelType.Polearm:
+							if (LocalPlayer.Inventory.AmountOf(56) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(56);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							LocalPlayer.Inventory.Equip(56, false);
 							break;
 
 						case BaseItem.WeaponModelType.Greatbow:
+							if (LocalPlayer.Inventory.AmountOf(79) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(79);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							if (CustomBowBase.baseBow == null)
 							{
@@ -360,6 +368,10 @@ namespace ChampionsOfForest.Player
 							break;
 
 						default:
+							if (LocalPlayer.Inventory.AmountOf(80) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(80);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							LocalPlayer.Inventory.Equip(80, false);
 							break;
@@ -1207,6 +1219,7 @@ namespace ChampionsOfForest.Player
 			{
 				stat.Reset();
 			}
+			Multishot.IsOn = false;
 			SpellActions.ShieldCastTime = 0;
 			SpellActions.SeekingArrow_ChangeTargetOnHit = false;
 			SpellActions.SeekingArrow_TimeStamp = 0;

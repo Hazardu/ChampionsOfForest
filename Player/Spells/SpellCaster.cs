@@ -67,11 +67,15 @@ namespace ChampionsOfForest.Player
 			{
 				infos = new SpellInfo[SpellCount];
 				Ready = new bool[SpellCount];
+				var buttons = ModAPI.Mods.LoadedMods["ChampionsOfForest"].Buttons;
+					
 				for (int i = 0; i < SpellCount; i++)
 				{
 					infos[i] = new SpellInfo()
 					{
-						spell = null
+						spell = null,
+						key = ModAPI.Input.KeyMapping[buttons["spell" + (i + 1)]],
+
 					};
 				}
 				SetMaxCooldowns();
@@ -124,10 +128,9 @@ namespace ChampionsOfForest.Player
 								infos[i].spell.passive(true);
 						}
 
-						string btnname = "spell" + (i + 1).ToString();
 						if ((infos[i].spell.active != null))
 						{
-							if (ModAPI.Input.GetButton(btnname))
+							if (UnityEngine.Input.GetKey(infos[i].key))
 							{
 								if (!infos[i].spell.Channeled)
 								{
@@ -178,7 +181,7 @@ namespace ChampionsOfForest.Player
 									}
 								}
 							}
-							if (infos[i].spell.CastOnRelease && ModAPI.Input.GetButtonUp(btnname))
+							if (infos[i].spell.CastOnRelease && UnityEngine.Input.GetKeyUp(infos[i].key))
 							{
 								infos[i].spell.aimEnd?.Invoke();
 								if (Ready[i] && !ModdedPlayer.Stats.silenced && LocalPlayer.Stats.Energy >= infos[i].spell.EnergyCost * (1 - ModdedPlayer.Stats.SpellCostToStamina) * ModdedPlayer.Stats.spellCost && LocalPlayer.Stats.Stamina >= infos[i].spell.EnergyCost * ModdedPlayer.Stats.SpellCostToStamina * ModdedPlayer.Stats.spellCost && infos[i].spell.CanCast)
@@ -233,6 +236,7 @@ namespace ChampionsOfForest.Player
 		{
 			public Spell spell;
 			public float Cooldown;
+			public KeyCode key;
 		}
 
 		#region InfinityPerk

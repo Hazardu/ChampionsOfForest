@@ -2638,6 +2638,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_242/*og:Ice Scroll*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_243/*og:A spell surrounded by flying shards of ice, contains tramendous power of cold.*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_244/*og:Created at the top of the mountain.*/, //tr
+				uniqueStat = "Snap freeze damage is increased and the slow duration is increased by 1 second", //tr
 				Rarity = 4,
 				minLevel = 30,
 				maxLevel = 40,
@@ -2645,7 +2646,9 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
-			};
+				onEquip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Add(10f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(1); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Substract(10f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(1); }
+	};
 			new BaseItem(new int[][]
 		  {
 					new int[] {2006},
@@ -3880,11 +3883,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_346/*og:Crude Feather*/, //tr
 				description =
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
-				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
-				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" + //tr
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -3899,11 +3902,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_348/*og:Soft Feather*/, //tr
 				description =
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
-				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
-				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -3918,11 +3921,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_349/*og:Ornate Feather*/, //tr
 				description =
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
-				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
-				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -3938,11 +3941,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_350/*og:Wonderful Feather*/, //tr
 				description =
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
-				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
-				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 1).ToString("N"),                        //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -3957,11 +3960,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_351/*og:White Crow's Feather*/, //tr
 				description =
-				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +
-				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +
-				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +
-				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" +
-				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 1).ToString("N"),
+				"If equipped on a weapon, increases ranged damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				"If equipped on boots, increases movement speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
+				"If equipped on a helmet, increases critical hit chance by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				"If equipped on accessories, increases ranged armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases agility by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -3979,11 +3982,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_352/*og:Reef Shark*/, //tr
 				description =
-				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
-				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
-				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
-				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
-				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -3998,11 +4001,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_353/*og:Tiger Shark Tooth*/, //tr
 				description =
-				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
-				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
-				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
-				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
-				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4017,11 +4020,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_354/*og:Whale Shark Tooth*/, //tr
 				description =
-				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
-				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
-				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
-				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
-				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4037,11 +4040,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_355/*og:Great White Shark Tooth*/, //tr
 				description =
-				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
-				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
-				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
-				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
-				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4056,11 +4059,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_356/*og:Megalodon's Tooth*/, //tr
 				description =
-				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +
-				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +
-				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +
-				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" +
-				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 2).ToString("N"),
+				"If equipped on a weapon, increases melee damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				"If equipped on boots, decreases damage taken by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
+				"If equipped on a helmet, increases cattack speed by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				"If equipped on accessories, increases melee armor piercing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases strength by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4078,11 +4081,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_357/*og:Uncut Sapphire*/, //tr
 				description =
-				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
-				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
-				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
-				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
-				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4097,11 +4100,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_358/*og:Clear Sapphire*/, //tr
 				description =
-				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
-				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
-				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
-				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
-				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4116,11 +4119,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_359/*og:Shiny Sapphire*/, //tr
 				description =
-				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
-				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
-				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
-				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
-				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4136,11 +4139,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_360/*og:Enchanted Sapphire*/, //tr
 				description =
-				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
-				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
-				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
-				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
-				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4155,11 +4158,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_361/*og:Celestial Sapphire*/, //tr
 				description =
-				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +
-				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +
-				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +
-				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" +
-				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 3).ToString("N"),
+				"If equipped on a weapon, increases magic damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				"If equipped on boots, decreases spell cost by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
+				"If equipped on a helmet, decreases spell cooldown by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				"If equipped on accessories, increases energy on hit by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases intelligence by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4176,11 +4179,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_362/*og:Uncut Moonstone*/, //tr
 				description =
-				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4195,11 +4198,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_363/*og:Clear Moonstone*/, //tr
 				description =
-				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4214,11 +4217,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_364/*og:Shiny Moonstone*/, //tr
 				description =
-				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4234,11 +4237,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_365/*og:Enchanted Moonstone*/, //tr
 				description =
-				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4253,11 +4256,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_366/*og:Celestial Moonstone*/, //tr
 				description =
-				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +
-				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +
-				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +
-				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" +
-				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"),
+				"If equipped on a weapon, increases all healing by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				"If equipped on boots, increases magic find by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				"If equipped on a helmet, increases experience gained by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				"If equipped on accessories, increases life per second by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				"If equipped in other slots, increases vitality by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4275,11 +4278,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_367/*og:Lead Ore*/, //tr
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4294,11 +4297,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_368/*og:Vanadium Ore*/, //tr
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4313,11 +4316,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_369/*og:Titanium Ore*/, //tr
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4333,11 +4336,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_370/*og:Chromium Ore*/, //tr
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4352,11 +4355,11 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_371/*og:Tungsten Ore*/, //tr
 				description =
-				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" +
-				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" +
-				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +
-				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +
-				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 5).ToString("N"),
+				"If equipped on a weapon, increases crit damage by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				"If equipped on boots, increases resistance to magic by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				"If equipped on a helmet, increases health by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
+				"If equipped on accessories, increases thorns by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				"If equipped in other slots, increases armor by " + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -6277,13 +6280,14 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			 {
-				new [] {SPELLCOSTREDUCTION,MELEEDAMAGEINCREASE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION},
+				new [] {SPELLCOSTREDUCTION,MELEEDAMAGEINCREASE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION, RANGEDDMGFROMAGI, ATTACKSPEED},
 				new [] {AGILITY,LESSERAGILITY},
 				new [] {MELEEARMORPIERCING,RANGEDARMORPIERCING,ARMORPIERCING,ARMOR},
 				new [] {RANGEDDAMAGEINCREASE,RANGEDDMGFROMAGI,BASERANGEDDAMAGE,CRITICALHITCHANCE,CRITICALHITDAMAGE,ALLATTRIBUTES},
 				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,MAXIMUMLIFE,MAXIMUMENERGY},
 				new [] {INTELLIGENCE,STRENGTH,AGILITY,VITALITY,ALLATTRIBUTES,LIFEONHIT,ENERGYONHIT,ENERGYPERSECOND,ALLHEALINGPERCENT},
 				new [] {RANGEDDAMAGEINCREASE,BASERANGEDDAMAGE,AGILITY},
+				new [] {ALL},
 				new [] {ALL},
 			 })
 			{
@@ -6318,7 +6322,7 @@ new int[] {0,0,0,0,62,63,64},
 			 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_507/*og:Sharpshooter's Axe*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_508/*og:Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>200%</color>*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_508/*og:Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>400%</color>*/, //tr
 				Rarity = 7,
 				minLevel = 35,
 				maxLevel = 36,
@@ -6327,8 +6331,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
-				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(3f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
-				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(3f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
+				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(4f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
+				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(4f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
 			};
 			new BaseItem(new Stat[][]
 		 {
@@ -6537,7 +6541,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_523/*og:Ancient Scroll*/, //tr
-				description = "", //tr
+				uniqueStat = "Firebolt deals increased damage", //tr
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 1,
@@ -6545,6 +6549,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
+				onEquip = () => ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(3),
+				onUnequip = () => ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(3),
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -6554,7 +6560,9 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {STRENGTH,INTELLIGENCE,AGILITY,SPELLCOSTREDUCTION,COOLDOWNREDUCTION,SPELLCOSTTOSTAMINA},
 				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
 				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
-				new [] {SPELLDAMAGEINCREASE,BASESPELLDAMAGE, INTELLIGENCE ,ALLATTRIBUTES},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
@@ -6575,10 +6583,10 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 		{
+				new [] {STRENGTH},
 				new [] {MELEEDAMAGEINCREASE},
 				new [] {ATTACKSPEED},
 				new [] {MELEEDMGFROMSTR},
-				new [] {STRENGTH},
 				new [] {BLOCK,ARMOR,DAMAGEREDUCTION},
 				new [] {BASEMELEEDAMAGE,NONE},
 				new [] {BASEMELEEDAMAGE,MELEEDAMAGEINCREASE,STRENGTH},
@@ -6597,7 +6605,7 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
-			}.PossibleStats[0][0].Multipier = 3;
+			}.PossibleStats[0][0].Multipier = 6;
 
 
 
@@ -6718,6 +6726,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {BLOCK},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_537/*og:Stone Shield*/, //tr
@@ -6737,7 +6746,9 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
+				new [] {BLOCK},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_538/*og:Iron Shield*/, //tr
@@ -6757,8 +6768,10 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL,ARMOR},
+				new [] {BLOCK},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_539/*og:Steel Tower Shield*/, //tr
@@ -6775,13 +6788,16 @@ new int[] {0,0,0,0,62,63,64},
 			};
 			new BaseItem(new Stat[][]
 			{
+
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
+				new [] {BLOCK},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_540/*og:Guardian*/, //tr
@@ -6799,8 +6815,10 @@ new int[] {0,0,0,0,62,63,64},
 
 			new BaseItem(new Stat[][]
 			{
+				new [] {BLOCK},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -6821,7 +6839,7 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-			};
+			}.PossibleStats[0][0].Multipier = 2f;
 		
 
 			new BaseItem(new Stat[][]
@@ -7059,6 +7077,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_551/*og:Leather Tasset*/, //tr
@@ -7077,6 +7096,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				})
@@ -7098,6 +7118,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				})
@@ -7118,6 +7139,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7142,6 +7164,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7229,6 +7252,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ALL},
@@ -7252,6 +7276,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7390,6 +7415,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_218/*og:Horned Helmet*/, //tr
@@ -7408,6 +7434,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				})
@@ -7429,6 +7456,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				})
@@ -7449,6 +7477,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7473,6 +7502,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7506,6 +7536,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ARMOR,DAMAGEREDUCTION},
 				new [] {EMPTYSOCKET,NONE},
@@ -7536,6 +7567,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
@@ -7565,6 +7597,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7599,6 +7632,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
@@ -7632,6 +7666,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
 				new [] {ALL,NONE},
+				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
 				new [] {ARMOR,DAMAGEREDUCTION,ALLATTRIBUTES},
@@ -7662,6 +7697,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {MELEEDAMAGEINCREASE,MAXIMUMLIFE,PERCENTMAXIMUMLIFE},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,ATTACKSPEED,ATTACKCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},
@@ -7697,6 +7733,7 @@ new int[] {0,0,0,0,62,63,64},
 				new [] {MAXIMUMLIFE,PERCENTMAXIMUMLIFE,MAXIMUMENERGY,PERCENTMAXIMUMENERGY},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY,ALLATTRIBUTES,ATTACKSPEED,ATTACKCOSTREDUCTION,SPELLCOSTREDUCTION,COOLDOWNREDUCTION},
 				new [] {ALL},
+				new [] {ALL,NONE},
 				new [] {ALL,NONE},
 				new [] {ALL},
 				new [] {ALL},

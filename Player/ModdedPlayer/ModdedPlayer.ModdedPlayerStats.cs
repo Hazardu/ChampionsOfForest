@@ -56,7 +56,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiOperationPlayerStat<float> heavyAttackDmg;
 
 			public readonly MultiplicativePlayerStat<float> weaponRange;
-			public readonly MultiplicativePlayerStat<float> headShotDamage;
+			public readonly AdditivePlayerStat<float> headShotDamage;
 
 			public readonly MultiOperationPlayerStat<float> allRecoveryMult;
 			public readonly AdditivePlayerStat<float> healthOnHit;
@@ -305,6 +305,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat i_infinityLoop;
 			public readonly AdditivePlayerStat<int> i_setcount_AkagisSet;
 			public readonly AdditivePlayerStat<int> i_setcount_BerserkSet;
+			public readonly BooleanPlayerStat perk_blockNonPhysical;
 
 			public ModdedPlayerStats()
 			{
@@ -356,7 +357,7 @@ namespace ChampionsOfForest.Player
 				this.heavyAttackDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 
 				this.weaponRange = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.headShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
+				this.headShotDamage = new AdditivePlayerStat<float>(6, addfloat, substractfloat, "P");
 				this.projectile_DamagePerDistance = new AdditivePlayerStat<float>(0.00f, addfloat, substractfloat);
 
 				this.allRecoveryMult = new MultiOperationPlayerStat<float>(1,1, addfloat, substractfloat, multfloat, dividefloat, "P");
@@ -386,7 +387,7 @@ namespace ChampionsOfForest.Player
 				this.spellCostEnergyCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.block = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+				this.block = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "N");
 				this.expGain = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P");
 				this.maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P");
 				this.timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P");
@@ -542,7 +543,7 @@ namespace ChampionsOfForest.Player
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
 				this.perk_parryCounterStrikeDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.perk_turboRaftOwners = new AdditiveNetworkSyncedPlayerStat<int>(0, addint, substractint);
-				this.perk_RaftSpeedMultipier = new AdditiveNetworkSyncedPlayerStat<float>(1, addfloat, dividefloat, "P");
+				this.perk_RaftSpeedMultipier = new AdditiveNetworkSyncedPlayerStat<float>(0, addfloat, dividefloat, "P");
 				this.perk_thirstRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.perk_hungerRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
 				this.perk_projectileNoConsumeChance = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P");
@@ -605,6 +606,7 @@ namespace ChampionsOfForest.Player
 				this.i_infinityLoop = new BooleanPlayerStat(false);
 				this.i_setcount_AkagisSet = new AdditivePlayerStat<int>(0,addint,substractint);
 				this.i_setcount_BerserkSet = new AdditivePlayerStat<int>(0,addint,substractint);
+				this.perk_blockNonPhysical = new BooleanPlayerStat(false);
 
 				ModAPI.Log.Write("Initialized player stats");
 			}

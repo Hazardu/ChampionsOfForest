@@ -175,6 +175,8 @@ namespace ChampionsOfForest
 			}
 			GUI.color = Color.white;
 
+
+			//buffs 
 			float BuffOffsetX = 0;
 			float BuffOffsetY = 1080 - BuffSize;
 			const float MaxX = 540;
@@ -229,6 +231,8 @@ namespace ChampionsOfForest
 				}
 			}
 
+
+
 			GUI.color = Color.blue;
 			GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.Stats.TotalMaxEnergy).ToString("N0"), HUDStatStyle);
 			GUI.color = new Color(0.8f, 0.0f, 0.0f);
@@ -240,6 +244,9 @@ namespace ChampionsOfForest
 				GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
 			}
 			GUI.color = Color.white;
+
+
+			//spells
 
 			float SquareSize = 45 * screenScale;
 			for (int i = 0; i < SpellCaster.SpellCount; i++)
@@ -269,7 +276,7 @@ namespace ChampionsOfForest
 					}
 					GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
 
-					GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+					GUI.Label(r, SpellCaster.instance.infos[i].key.ToString(), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
 					GUI.color = Color.white;
 					if (!SpellCaster.instance.infos[i].spell.Bought)
 					{

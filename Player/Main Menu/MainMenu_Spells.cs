@@ -69,17 +69,17 @@ namespace ChampionsOfForest
 						fontSize = Mathf.RoundToInt(screenScale * 50),
 						fontStyle = FontStyle.Normal,
 						alignment = TextAnchor.MiddleCenter,
-						
+
 					});
 				GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * screenScale, 325 * screenScale, 300 * screenScale, 35 * screenScale), Res.ResourceLoader.instance.LoadedTextures[30]);
 
-				GUI.Label(new Rect(bg.x+25 * screenScale, 370 * screenScale,bg.width-50 * screenScale, 500 * screenScale),
-					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ?	"\n" + 
+				GUI.Label(new Rect(bg.x + 25 * screenScale, 370 * screenScale, bg.width - 50 * screenScale, 500 * screenScale),
+					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\n" +
 					Translations.MainMenu_Spells_2/*og:Energy:*/ //tr
-					+ "  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
-					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\n" + 
+					+ "  <b>" + displayedSpellInfo.EnergyCost + "</b>" : "") + (displayedSpellInfo.BaseCooldown > 0 ?
+					(displayedSpellInfo.Cooldown == displayedSpellInfo.BaseCooldown ? "\n" +
 					Translations.MainMenu_Spells_3/*og:Cooldown*/ +  //tr
-					":  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\n" + 
+					":  <b>" + displayedSpellInfo.Cooldown + " s</b>" : "\n" +
 					Translations.MainMenu_Spells_4/*og:Base Cooldown*/ + //tr
 					":  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\n" +
 					Translations.MainMenu_Spells_5/*og:Reduced Cooldown*/ //tr
@@ -105,52 +105,58 @@ namespace ChampionsOfForest
 							Rect btn = new Rect(bg.x + 25f * screenScale + i * 100 * screenScale, 900 * screenScale, 100 * screenScale, 100 * screenScale);
 
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[5]);
-
-							if (displayedSpellInfo.EquippedSlot == i)
+							if (Input.GetKey(KeyCode.LeftShift) || changingSpellKey)
 							{
-								GUI.DrawTexture(btn, displayedSpellInfo.icon);
-								if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
+								//enters key change instead of assigning spell to a slot
+								if (GUI.Button(btn, changingSpellKey ? "Press\nany key" : "Change\nkey", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 29), alignment = TextAnchor.MiddleCenter }))
 								{
-									//Clears the spot
-									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
-
-									SpellCaster.instance.SetSpell(i);
+									ToggleChangeKey(i);
+									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 								}
 							}
 							else
 							{
-								if (SpellCaster.instance.infos[i].spell != null)
+								if (displayedSpellInfo.EquippedSlot == i)
 								{
-									GUI.DrawTexture(btn, SpellCaster.instance.infos[i].spell.icon);
-									if (GUI.Button(btn, SpellCaster.instance.infos[i].spell.Name, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), alignment = TextAnchor.MiddleCenter }))
+									GUI.DrawTexture(btn, displayedSpellInfo.icon);
+									if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
 									{
-										//Replaces spell
-										if (displayedSpellInfo.IsEquipped)
-										{
-											SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
-										}
 
-										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
-										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+										//Clears the spot
+										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
+
+										SpellCaster.instance.SetSpell(i);
 									}
 								}
 								else
 								{
-									if (GUI.Button(btn, "", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 34), alignment = TextAnchor.MiddleCenter }))
+									if (SpellCaster.instance.infos[i].spell != null)
+									{
+										GUI.DrawTexture(btn, SpellCaster.instance.infos[i].spell.icon);
+										if (GUI.Button(btn, SpellCaster.instance.infos[i].spell.Name, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), alignment = TextAnchor.MiddleCenter }))
+										{
+											//Replaces spell
+											if (displayedSpellInfo.IsEquipped)
+												SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
+
+											SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+											Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+										}
+									}
+									else if (GUI.Button(btn, "", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 34), alignment = TextAnchor.MiddleCenter }))
 									{
 										//Assigns spell onto empty slot
 										if (displayedSpellInfo.IsEquipped)
-										{
 											SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
-										}
 										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+
 									}
 								}
+								GUI.color = new Color(0.7f, 0.7f, 0.7f);
+								GUI.Label(btn, SpellCaster.instance.infos[i].key.ToString(), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+								GUI.color = Color.white;
 							}
-							GUI.color = new Color(0.7f, 0.7f, 0.7f);
-							GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
-							GUI.color = Color.white;
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[6]);
 						}
 						catch (Exception ex)
@@ -170,7 +176,7 @@ namespace ChampionsOfForest
 							GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 							btnStyle.onActive.textColor = Color.blue;
 							btnStyle.onNormal.textColor = Color.gray;
-							if (GUI.Button(UnlockRect, Translations.MainMenu_Spells_6/*og:Unlock*/, btnStyle))	//tr
+							if (GUI.Button(UnlockRect, Translations.MainMenu_Spells_6/*og:Unlock*/, btnStyle))  //tr
 							{
 								displayedSpellInfo.Bought = true;
 								ModdedPlayer.instance.MutationPoints -= 2;
@@ -182,7 +188,7 @@ namespace ChampionsOfForest
 							GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(31 * screenScale), fontStyle = FontStyle.Bold };
 							GUI.color = Color.gray;
 							GUI.Label(UnlockRect, Translations.MainMenu_Spells_7/*og:Costs 2 mutation points*/, morePointsStyle);  //tr
-							GUI.color= Color.white;
+							GUI.color = Color.white;
 						}
 					}
 					else
@@ -196,6 +202,29 @@ namespace ChampionsOfForest
 				GUI.color = Color.white;
 			}
 		}
+
+		private bool changingSpellKey;
+		private int changingSpellIdx;
+		private void ToggleChangeKey(int i)
+		{
+			changingSpellKey = !changingSpellKey;
+			changingSpellIdx = i;
+		}
+		private void ChangeKeyUpdate()
+		{
+			if (!changingSpellKey)
+				return;
+			var e = Event.current;
+			if (e.isKey && e.keyCode != KeyCode.None )
+			{
+				SpellCaster.instance.infos[changingSpellIdx].key= e.keyCode;
+				changingSpellKey = false;
+				e.Use();
+				Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+
+			}
+		}
+
 
 		private void DrawSpell(ref float y, Spell s, GUIStyle style)
 		{

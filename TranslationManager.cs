@@ -26,6 +26,7 @@ namespace ChampionsOfForest.Localization
 			{ "Polskie","Polish" },
 			{ "Français","French" },
 			{ "Deutsch","German" },
+			{ "русский","Russian" },
 		};
 
 		private const string REPO = "https://raw.githubusercontent.com/Hazardu/ChampionsOfForest/master/Locales/";
@@ -82,8 +83,9 @@ namespace ChampionsOfForest.Localization
 			Debug.Log("Parsing: '" + path);
 
 			var v = File.ReadAllLines(path);
-			if (v != null)
+			if (v != null || v.Length <2)
 			{
+				int errors = 0;
 				foreach (var line in v)
 				{
 					var split = line.Split(new string[] { ":: " }, StringSplitOptions.RemoveEmptyEntries);
@@ -93,22 +95,22 @@ namespace ChampionsOfForest.Localization
 						try
 						{
 							string entry = split[1].Trim().Trim('\"').Replace("\\n", "\n").Replace("\\t", "\t");
-
-							var f = t.GetField("_" + split[0]);
-							f.SetValue(instance, entry);
-							Debug.Log("entry " + split[0] + ":   " + f.GetValue(instance));
+							t.GetField("_" + split[0]).SetValue(instance, entry);
+							Debug.Log("loaded translation variable value");
 						}
 						catch (Exception e)
 						{
-
-							ModAPI.Log.Write(e.ToString());
+							Debug.LogError("failure loading translation value: "+ split[0]);
+							errors++;
+							ModAPI.Console.Write(e.ToString());
 						}
 					}
 				}
-				ModAPI.Console.Write(path);
+				ModAPI.Console.Write("loaded " + path + " with error count: "+ errors);
 				return true;
 			}
 			instance = new Translations();
+			ModAPI.Console.Write("Could not load file");
 
 			return false;
 		}

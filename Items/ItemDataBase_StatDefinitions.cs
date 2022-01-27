@@ -235,7 +235,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.02f, 0.03f, 0.7f, Translations.MainMenu_Guide_39/*og:Energy on hit*/, scAdd, 4, () => ModdedPlayer.Stats.energyOnHit.GetFormattedAmount(), f => ModdedPlayer.Stats.energyOnHit.valueAdditive += f, f => ModdedPlayer.Stats.energyOnHit.valueAdditive += -f, f => ModdedPlayer.Stats.energyOnHit.valueAdditive += f) { RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.0175f, 0.02f, 0.5f, Translations.PerkDatabase_387/*og:Block*/, scAdd, 1, () => ModdedPlayer.Stats.block.GetFormattedAmount(), f => ModdedPlayer.Stats.block.valueAdditive += f, f => ModdedPlayer.Stats.block.valueAdditive += -f, f => ModdedPlayer.Stats.block.valueAdditive += f) { ValueCap=0.5f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.85f, 1f, 0.9f, Translations.PerkDatabase_387/*og:Block*/, scAdd, 1, () => ModdedPlayer.Stats.block.GetFormattedAmount(), f => ModdedPlayer.Stats.block.valueAdditive += f, f => ModdedPlayer.Stats.block.valueAdditive += -f, f => ModdedPlayer.Stats.block.valueAdditive += f); //tr
 			i++;
 			new ItemStat(i, 0.03f, 0.04f, 0.5f, Translations.MainMenu_Guide_71/*og:Projectile speed*/, scAdd, 4, () => ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += f, f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += -f, f => ModdedPlayer.Stats.projectileSpeed.valueAdditive += f) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
@@ -257,7 +257,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.008f, 0.01f, 0.4f, Translations.MainMenu_Guide_111/*og:Jump Power*/, scAdd, 4,()=> ModdedPlayer.Stats.jumpPower.GetFormattedAmount() ,StatActions.AddJump, StatActions.RemoveJump, StatActions.AddJump) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.052f, 0.068f, 0.45f, Translations.ItemDataBase_StatDefinitions_35/*og:Headshot Damage*/, scMultPlusOne, 4, () => ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.headShotDamage.valueMultiplicative *= 1+f, f => ModdedPlayer.Stats.headShotDamage.valueMultiplicative/= 1+f, null) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
+			new ItemStat(i, 0.052f, 0.18f, 0.45f, Translations.ItemDataBase_StatDefinitions_35/*og:Headshot Damage*/, scMultPlusOne, 4, () => ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.headShotDamage.Add(f), f => ModdedPlayer.Stats.headShotDamage.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
 			new ItemStat(i, 0.011f, 0.016f, 0.4f, Translations.ItemDataBase_StatDefinitions_36/*og:Fire Damage*/, scAdd, 4, () => ModdedPlayer.Stats.fireDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.fireDamage.valueAdditive += f, f => ModdedPlayer.Stats.fireDamage.valueAdditive -= f, null) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
@@ -273,7 +273,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.06f, 0.08f, 1f, Translations.ItemDataBase_StatDefinitions_40/*og:Explosive damage*/, scAdd, 6, () => ModdedPlayer.Stats.explosionDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.explosionDamage.Add( f), f => ModdedPlayer.Stats.projectilePierceChance.Substract(f)) { RoundingCount = 1, DisplayAsPercent = true }; //tr
 			i++;
-			new ItemStat(i, 0.03f, 0.04f, 0.6f, Translations.ItemDataBase_StatDefinitions_41/*og:Thrown spear damage*/, scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.03f, 0.06f, 0.62f, Translations.ItemDataBase_StatDefinitions_41/*og:Thrown spear damage*/, scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
 
 			//Extra carry items

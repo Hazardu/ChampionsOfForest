@@ -255,6 +255,7 @@
     <Compile Include="Player\COTFEvents.cs" />
     <Compile Include="Player\Main Menu\MainMenu_DifficultySelection.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Guide.cs" />
+    <Compile Include="Player\Main Menu\MainMenu_Hints.cs" />
     <Compile Include="Player\Main Menu\MainMenu_HUD.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Inventory.cs" />
     <Compile Include="Player\Main Menu\MainMenu_Perks.cs" />

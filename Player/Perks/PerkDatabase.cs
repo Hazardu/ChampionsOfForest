@@ -3175,7 +3175,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.headShotDamage.Multiply(2f),
+				apply = () => ModdedPlayer.Stats.headShotDamage.Add(4f),
 				category = PerkCategory.RangedOffense,
 				unlockPath = new int[] { 66 },
 				levelReq = 38,
@@ -3209,7 +3209,7 @@ namespace ChampionsOfForest.Player
 				apply = () =>
 				{
 					ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(1.3f);
-					ModdedPlayer.Stats.headShotDamage.Multiply(1.3f);
+					ModdedPlayer.Stats.headShotDamage.Add(3);
 					ModdedPlayer.Stats.critDamage.Add(1f);
 				},
 				category = PerkCategory.RangedOffense,
@@ -3221,7 +3221,7 @@ namespace ChampionsOfForest.Player
 				posX = -0.5f,
 				posY = -4.5f,
 				name = Translations.PerkDatabase_383/*og:Ranged Mastery*/,//tr
-				originalDescription = Translations.PerkDatabase_384/*og:Ranged damage and headshot damage are increased by 30%. Critical hit damage is increased by 100%*/,//tr
+				originalDescription = Translations.PerkDatabase_384/*og:Ranged damage increased by 30%, headshot damage increased by 300%, critical hit damage increased by 100%*/,//tr
 				textureVariation = 0,
 				uncapped = false,
 			};
@@ -3242,7 +3242,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				apply = () => ModdedPlayer.Stats.block.Add(0.2f),
+				apply = () => ModdedPlayer.Stats.block.Add(20f),
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 29, 35 },
 				levelReq = 45,
@@ -3251,7 +3251,7 @@ namespace ChampionsOfForest.Player
 				posX = 2.5f,
 				posY = -1.5f,
 				name = Translations.PerkDatabase_387/*og:Block*/,//tr
-				originalDescription = Translations.PerkDatabase_388/*og:Increases block by 20%. Block makes you take less damage while getting hit and blocking with a weapon.*/,//tr
+				originalDescription = Translations.PerkDatabase_388,//tr
 				textureVariation = 0,
 				uncapped = false,
 			};

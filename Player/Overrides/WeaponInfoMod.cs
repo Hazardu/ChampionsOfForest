@@ -30,13 +30,13 @@ namespace ChampionsOfForest.Player
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.Stats.attackStaminaCost;
 					setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
+					LocalPlayer.Stats.blockDamagePercent = /*ModdedPlayer.Stats.block **/ blockDamagePercent;
 				}
 				else
 				{
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
+					LocalPlayer.Stats.blockDamagePercent = /*ModdedPlayer.Stats.block **/ blockDamagePercent;
 				}
 				//float ats = ModdedPlayer.instance.AttackSpeed;
 				//if (GreatBow.isEnabled) ats /= 10f;

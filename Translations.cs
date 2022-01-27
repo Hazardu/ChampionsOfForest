@@ -1802,7 +1802,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_383 = "Ranged Mastery";
 
 		public static string PerkDatabase_384 => instance._PerkDatabase_384;
-		public string _PerkDatabase_384 = "Ranged damage and headshot damage are increased by 30%. Critical hit damage is increased by 100%";
+		public string _PerkDatabase_384 = "Ranged damage increased by 30%, headshot damage increased by 300%, critical hit damage increased by 100%";
 
 		public static string PerkDatabase_385 => instance._PerkDatabase_385;
 		public string _PerkDatabase_385 = "Harvester";
@@ -1814,7 +1814,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_387 = "Block";
 
 		public static string PerkDatabase_388 => instance._PerkDatabase_388;
-		public string _PerkDatabase_388 = "Increases block by 20%. Block makes you take less damage while getting hit and blocking with a weapon.";
+		public string _PerkDatabase_388 = "Increases block by 20. Block negates part of damage taken and takes effect post damage reduction from armor and stats.";
 
 		public static string PerkDatabase_389 => instance._PerkDatabase_389;
 		public string _PerkDatabase_389 = "Thorny Skin II";

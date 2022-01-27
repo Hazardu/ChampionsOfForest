@@ -192,7 +192,7 @@ namespace ChampionsOfForest
 
 				if (GameSetup.IsMultiplayer)
 					otherPlayerPings = new Dictionary<string, MarkObject>();
-
+				GetNextHint();
 			}
 			catch (Exception ex)
 			{
@@ -231,7 +231,11 @@ namespace ChampionsOfForest
 			else if (_openedMenu == OpenedMenuMode.Inventory)
 			{
 				if (Input.GetKeyDown(KeyCode.LeftAlt))
-					drawTotal =! drawTotal;
+					drawTotal = !drawTotal;
+			}
+			else if (_openedMenu == OpenedMenuMode.Spells)
+			{
+				ChangeKeyUpdate();
 			}
 
 			try
@@ -451,6 +455,7 @@ namespace ChampionsOfForest
 			chgDiffBtnStyle = new GUIStyle(GUI.skin.button) { fontSize = Mathf.RoundToInt(18f * screenScale), alignment = TextAnchor.MiddleCenter, font = mainFont, hover = new GUIStyleState() { textColor = new Color(0.6f, 0, 0) } };
 			craftBtnStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(30 * screenScale), fontStyle = FontStyle.Normal, font = mainFont };
 			craftHeaderStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
+			hintStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont,fontStyle = FontStyle.Italic };
 		}
 
 		partial void DrawDebug();
@@ -499,6 +504,8 @@ namespace ChampionsOfForest
 						}
 						else if (_openedMenu == OpenedMenuMode.Hud)
 						{
+							if (LocalPlayer.IsInPauseMenu)
+								DrawHints();
 							InventoryScrollAmount = 0;
 							DrawHUD();
 						}
@@ -560,7 +567,7 @@ namespace ChampionsOfForest
 					center = center
 				};
 
-				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*og:Difficulty: */ + DiffSel_Names[(int)ModSettings.difficulty], chgDiffLabelStyle);    //tr
+				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*og:Difficulty: */ + DiffSel_Names[(int)ModSettings.difficulty](), chgDiffLabelStyle);    //tr
 																																									  //drawing difficulty raise lower buttons
 				if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
 				{

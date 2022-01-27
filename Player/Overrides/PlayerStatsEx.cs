@@ -1,6 +1,9 @@
 ﻿using System;
+
 using ChampionsOfForest.Player;
+
 using FMOD.Studio;
+
 using TheForest.Items.Inventory;
 using TheForest.Tools;
 using TheForest.Utils;
@@ -63,7 +66,7 @@ namespace ChampionsOfForest
 					}
 					if (Sitted)
 					{
-						Energy += 0.02f * ModdedPlayer.Stats.TotalMaxEnergy * Time.deltaTime + ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier* 6 * Time.deltaTime;
+						Energy += 0.02f * ModdedPlayer.Stats.TotalMaxEnergy * Time.deltaTime + ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * 6 * Time.deltaTime;
 					}
 					if (!Clock.Dark && IsCold && !LocalPlayer.IsInCaves && !IsInNorthColdArea())
 					{
@@ -771,18 +774,26 @@ namespace ChampionsOfForest
 			float f = damage * ModdedPlayer.Stats.allDamageTaken;
 			if (!ignoreArmor)
 			{
-				f *= 1 - ModReferences.DamageReduction( Mathf.Max(0,ModdedPlayer.Stats.armor-(int)ModdedPlayer.instance.lostArmor));
+				f *= 1 - ModReferences.DamageReduction(Mathf.Max(0, ModdedPlayer.Stats.armor - (int)ModdedPlayer.instance.lostArmor));
 			}
 			if (type == DamageType.Fire)
 			{
 				f *= 0.01f * ModdedPlayer.Stats.TotalMaxHealth;
 				f *= UnityEngine.Random.Range(0.9f, 1.4f);
-				//f *= 1-ModdedPlayer.Stats.magicDamageTaken;
 				f *= ModdedPlayer.Stats.fireDamageTaken;
+
+			}
+			if (type == DamageType.Physical)
+			{
+				f = Mathf.Max(0, f - ModdedPlayer.Stats.block);
+			}
+			else if (ModdedPlayer.Stats.perk_blockNonPhysical)
+			{
+				f = Mathf.Max(0, f - ModdedPlayer.Stats.block);
 			}
 			if (ModdedPlayer.Stats.i_KingQruiesSword)
 				BuffDB.AddBuff(22, 80, f, 1);
-			CotfUtils.Log("Tanked damage: " + f,true);
+			CotfUtils.Log("Tanked damage: " + f, true);
 			base.Hit(damage, ignoreArmor, type);
 		}
 
@@ -915,16 +926,16 @@ namespace ChampionsOfForest
 					Health = ModdedPlayer.Stats.TotalMaxHealth;
 					BuffDB.AddBuff(20, 61, 0, 600);
 					BuffDB.AddBuff(6, 82, 1, 10);
-					BuffDB.AddBuff(26, 83, 0.1f, 10);	//90% damage reduction
-					BuffDB.AddBuff(25, 99, 35, 10);		//+35 hp/s
-					BuffDB.AddBuff(11, 100, 10, 10);		//+10 ep/s
+					BuffDB.AddBuff(26, 83, 0.1f, 10);   //90% damage reduction
+					BuffDB.AddBuff(25, 99, 35, 10);     //+35 hp/s
+					BuffDB.AddBuff(11, 100, 10, 10);        //+10 ep/s
 					return;
 				}
 
-			
+
 
 				if (LocalPlayer.AnimControl.swimming)
-				{	
+				{
 					COTFEvents.Instance.OnDeath.Invoke();
 					switch (ModSettings.dropsOnDeath)
 					{
