@@ -44,7 +44,7 @@ if os.path.exists(outputfilepath):
         if line.startswith(var_pre + "_"):
             split_var = line[var_pre_len:].split("=")
             v = split_var[0].rstrip()
-            k = split_var[1].strip().rstrip()[:-1]
+            k = "=".join(split_var[1:]).strip().rstrip()[:-1]
             m = pattern1.search(v)
             fname = v[:(m.start()-1)]
             intval = int(v[m.start():])
