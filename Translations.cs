@@ -2332,7 +2332,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_264 = "Drenched in blood of many unfortunate foes.";
 		public static string ItemDataBase_ItemDefinitions_265 => instance._ItemDataBase_ItemDefinitions_265;
 		public string _ItemDataBase_ItemDefinitions_265 = "Bash lifesteals <color=gold>2%</color> of damage dealt into energy and health";
-
 		public static string ItemDataBase_ItemDefinitions_266 => instance._ItemDataBase_ItemDefinitions_266;
 		public string _ItemDataBase_ItemDefinitions_266 = "Frost Giant";
 		public static string ItemDataBase_ItemDefinitions_267 => instance._ItemDataBase_ItemDefinitions_267;
@@ -2353,7 +2352,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_274 = "Look, a porcupine! -Sora";
 		public static string ItemDataBase_ItemDefinitions_275 => instance._ItemDataBase_ItemDefinitions_275;
 		public string _ItemDataBase_ItemDefinitions_275 = "Multishot drains <color=gold>20%</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot";
-
 		public static string ItemDataBase_ItemDefinitions_276 => instance._ItemDataBase_ItemDefinitions_276;
 		public string _ItemDataBase_ItemDefinitions_276 = "Ancient Greatbow";
 		public static string ItemDataBase_ItemDefinitions_277 => instance._ItemDataBase_ItemDefinitions_277;
@@ -2368,7 +2366,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_281 = "A massive and slow bow";
 		public static string ItemDataBase_ItemDefinitions_282 => instance._ItemDataBase_ItemDefinitions_282;
 		public string _ItemDataBase_ItemDefinitions_282 = "Blood infused arrow now deals additional <color=gold>20</color> points of damage per health consumed";
-
 		public static string ItemDataBase_ItemDefinitions_283 => instance._ItemDataBase_ItemDefinitions_283;
 		public string _ItemDataBase_ItemDefinitions_283 = "Greatbow";
 		public static string ItemDataBase_ItemDefinitions_284 => instance._ItemDataBase_ItemDefinitions_284;
@@ -2377,7 +2374,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_285 = "Worn by Hazard.";
 		public static string ItemDataBase_ItemDefinitions_286 => instance._ItemDataBase_ItemDefinitions_286;
 		public string _ItemDataBase_ItemDefinitions_286 = "A single cast of blood infused arrow affects <color=gold>4</color> more projectiles";
-
 		public static string ItemDataBase_ItemDefinitions_287 => instance._ItemDataBase_ItemDefinitions_287;
 		public string _ItemDataBase_ItemDefinitions_287 = "Novice Magic Caster's Bracers";
 		public static string ItemDataBase_ItemDefinitions_288 => instance._ItemDataBase_ItemDefinitions_288;
@@ -2774,12 +2770,10 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_483 = "A substance which results in surprising changes to gear";
 		public static string ItemDataBase_ItemDefinitions_484 => instance._ItemDataBase_ItemDefinitions_484;
 		public string _ItemDataBase_ItemDefinitions_484 = "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>";
-
 		public static string ItemDataBase_ItemDefinitions_485 => instance._ItemDataBase_ItemDefinitions_485;
 		public string _ItemDataBase_ItemDefinitions_485 = "Enzyme INT/33";
 		public static string ItemDataBase_ItemDefinitions_486 => instance._ItemDataBase_ItemDefinitions_486;
 		public string _ItemDataBase_ItemDefinitions_486 = "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>";
-
 		public static string ItemDataBase_ItemDefinitions_487 => instance._ItemDataBase_ItemDefinitions_487;
 		public string _ItemDataBase_ItemDefinitions_487 = "Enzyme AGI/39";
 		public static string ItemDataBase_ItemDefinitions_488 => instance._ItemDataBase_ItemDefinitions_488;
@@ -2800,7 +2794,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_495 = "Crimson Solution";
 		public static string ItemDataBase_ItemDefinitions_496 => instance._ItemDataBase_ItemDefinitions_496;
 		public string _ItemDataBase_ItemDefinitions_496 = "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity";
-
 		public static string ItemDataBase_ItemDefinitions_497 => instance._ItemDataBase_ItemDefinitions_497;
 		public string _ItemDataBase_ItemDefinitions_497 = "Weak Armor Hardening Mixture";
 		public static string ItemDataBase_ItemDefinitions_498 => instance._ItemDataBase_ItemDefinitions_498;
@@ -2821,12 +2814,10 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_505 = "Gun Blade";
 		public static string ItemDataBase_ItemDefinitions_506 => instance._ItemDataBase_ItemDefinitions_506;
 		public string _ItemDataBase_ItemDefinitions_506 = "Increases pistol damage by <color=red>50%</color>";
-
 		public static string ItemDataBase_ItemDefinitions_507 => instance._ItemDataBase_ItemDefinitions_507;
 		public string _ItemDataBase_ItemDefinitions_507 = "Sharpshooter's Axe";
 		public static string ItemDataBase_ItemDefinitions_508 => instance._ItemDataBase_ItemDefinitions_508;
 		public string _ItemDataBase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>200%</color>";
-
 		public static string ItemDataBase_ItemDefinitions_509 => instance._ItemDataBase_ItemDefinitions_509;
 		public string _ItemDataBase_ItemDefinitions_509 = "Shield Blade";
 		public static string ItemDataBase_ItemDefinitions_510 => instance._ItemDataBase_ItemDefinitions_510;
@@ -2969,8 +2960,6 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_578 = "Undying Promise";
 		public static string ItemDataBase_ItemDefinitions_579 => instance._ItemDataBase_ItemDefinitions_579;
 		public string _ItemDataBase_ItemDefinitions_579 = "Resist lethal damage on a 1 minute cooldown";
-		public static string ItemDataBase_ItemDefinitions_580 => instance._ItemDataBase_ItemDefinitions_580;
-		public string _ItemDataBase_ItemDefinitions_580 = "clever\";
 		public static string ItemDataBase_ItemDefinitions_581 => instance._ItemDataBase_ItemDefinitions_581;
 		public string _ItemDataBase_ItemDefinitions_581 = "Snap freeze damage is increased and the slow duration is increased by 1 second";
 		public static string ItemDataBase_ItemDefinitions_582 => instance._ItemDataBase_ItemDefinitions_582;
@@ -4021,13 +4010,13 @@ ItemDataBase_ItemDefinitions_66:: "Hey where did my health g- oh it's back..."
 ItemDataBase_ItemDefinitions_67:: "Smokey's Sacred Quiver"
 ItemDataBase_ItemDefinitions_68:: "SmokeyTheBear died because he never used this item."
 ItemDataBase_ItemDefinitions_69:: "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants."
-ItemDataBase_ItemDefinitions_70:: "Crossbows operate at <colo
+ItemDataBase_ItemDefinitions_70:: "Crossbows operate at <color=gold>250%</color> speed"
 ItemDataBase_ItemDefinitions_71:: "Broken shield"
 ItemDataBase_ItemDefinitions_72:: "Tower Shield"
 ItemDataBase_ItemDefinitions_73:: "Broken Leather Shoulder Armor"
 ItemDataBase_ItemDefinitions_74:: "Leather Shoulder Armor"
 ItemDataBase_ItemDefinitions_75:: "Phase Pauldrons"
-ItemDataBase_ItemDefinitions_76:: "The distance of blink is increased by <colo
+ItemDataBase_ItemDefinitions_76:: "The distance of blink is increased by <color=gold>40</color> meters, and blink now hits everything that you teleported through"
 ItemDataBase_ItemDefinitions_77:: "MAGA Cap"
 ItemDataBase_ItemDefinitions_78:: "Wearing this item channels the power of D.Trump to you"
 ItemDataBase_ItemDefinitions_79:: "... or does it?"
@@ -4130,13 +4119,13 @@ ItemDataBase_ItemDefinitions_175:: "Rough Hide Leggins"
 ItemDataBase_ItemDefinitions_176:: "Plate Leggins"
 ItemDataBase_ItemDefinitions_177:: "Sage's Robes"
 ItemDataBase_ItemDefinitions_178:: "Hammer Jammers"
-ItemDataBase_ItemDefinitions_179:: "Damage of your smash attack is increased by <colo
+ItemDataBase_ItemDefinitions_179:: "Damage of your smash attack is increased by <color=gold>450%</color>, hammer stun duration is doubled"
 ItemDataBase_ItemDefinitions_180:: "Pirate Pants"
 ItemDataBase_ItemDefinitions_181:: "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection."
 ItemDataBase_ItemDefinitions_182:: "Hexed Pants of Mr M."
 ItemDataBase_ItemDefinitions_183:: "They look like yoga pants but for a man the size of a wardrobe"
 ItemDataBase_ItemDefinitions_184:: "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise."
-ItemDataBase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <colo
+ItemDataBase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <color=gold>40%</color>. While standing still for longer than a second, you loose 1% of max health per second."
 ItemDataBase_ItemDefinitions_186:: "Leather Mantle"
 ItemDataBase_ItemDefinitions_187:: "A piece of cloth to give protection from "
 ItemDataBase_ItemDefinitions_188:: "Shoulder Guards"
@@ -4149,7 +4138,7 @@ ItemDataBase_ItemDefinitions_194:: "Those pauldrons empower wearer's combat skil
 ItemDataBase_ItemDefinitions_195:: "Assassins Pauldrons"
 ItemDataBase_ItemDefinitions_196:: "Death Pact"
 ItemDataBase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
-ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <colo
+ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>7%</color> of max health. For every percent of missing health you gain 5% damage amplification. This damage cannot kill you."
 ItemDataBase_ItemDefinitions_199:: "Maximale Qualitöt"
 ItemDataBase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
 ItemDataBase_ItemDefinitions_201:: "Heart of Purity"
@@ -4167,7 +4156,7 @@ ItemDataBase_ItemDefinitions_212:: "A shield made of bones, held together by thi
 ItemDataBase_ItemDefinitions_213:: "Dull Longsword"
 ItemDataBase_ItemDefinitions_214:: "It's round on the edges"
 ItemDataBase_ItemDefinitions_215:: "Iron Horn"
-ItemDataBase_ItemDefinitions_216:: "When using Warcry, you and all allies recieve armor bonus equal to <colo
+ItemDataBase_ItemDefinitions_216:: "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor"
 ItemDataBase_ItemDefinitions_217:: "The Great Iron Horn"
 ItemDataBase_ItemDefinitions_218:: "Horned Helmet"
 ItemDataBase_ItemDefinitions_219:: "A viking helmet"
@@ -4177,12 +4166,12 @@ ItemDataBase_ItemDefinitions_222:: "Old Scroll"
 ItemDataBase_ItemDefinitions_223:: "Wormhole Stabilizators"
 ItemDataBase_ItemDefinitions_224:: "High-tech gear"
 ItemDataBase_ItemDefinitions_225:: "Hazard remember to put some fucking lore in here, don't leave it like this!"
-ItemDataBase_ItemDefinitions_226:: "Increases the duration of a portal by <colo
+ItemDataBase_ItemDefinitions_226:: "Increases the duration of a portal by <color=gold>570</color> seconds"
 ItemDataBase_ItemDefinitions_227:: "Cripplers"
-ItemDataBase_ItemDefinitions_228:: "Increases the duration of a magic arrow's negative effect by <colo
+ItemDataBase_ItemDefinitions_228:: "Increases the duration of a magic arrow's negative effect by <color=gold>10</color> seconds"
 ItemDataBase_ItemDefinitions_229:: "Crossfire"
 ItemDataBase_ItemDefinitions_230:: "Infused with powerful magic. This item is a dangerous tool of destruction."
-ItemDataBase_ItemDefinitions_231:: "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <colo
+ItemDataBase_ItemDefinitions_231:: "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <color=gold2</color> seconds, but can be interval can be shortened with cooldown reduction."
 ItemDataBase_ItemDefinitions_232:: "Scroll of Recovery"
 ItemDataBase_ItemDefinitions_233:: "Recovers health and stamina"
 ItemDataBase_ItemDefinitions_234:: "Tiara"
@@ -4192,7 +4181,7 @@ ItemDataBase_ItemDefinitions_237:: "Shiny"
 ItemDataBase_ItemDefinitions_238:: "Chastity belt"
 ItemDataBase_ItemDefinitions_239:: "Dodge those fukbois"
 ItemDataBase_ItemDefinitions_240:: "This belt will stop those cheeky cannibals and armsies from getting into your pants"
-ItemDataBase_ItemDefinitions_241:: " <colo
+ItemDataBase_ItemDefinitions_241:: " <color=gold>100%</color> damage reduction while sleeping"
 ItemDataBase_ItemDefinitions_242:: "Ice Scroll"
 ItemDataBase_ItemDefinitions_243:: "A spell surrounded by flying shards of ice, contains tramendous power of cold."
 ItemDataBase_ItemDefinitions_244:: "Created at the top of the mountain."
@@ -4208,15 +4197,15 @@ ItemDataBase_ItemDefinitions_253:: "Golden Ring"
 ItemDataBase_ItemDefinitions_254:: "Golden Locket"
 ItemDataBase_ItemDefinitions_255:: "Dull Axe"
 ItemDataBase_ItemDefinitions_256:: "Precise Adjustments"
-ItemDataBase_ItemDefinitions_257:: "Focus attack speed buff duration is increased by <colo
+ItemDataBase_ItemDefinitions_257:: "Focus attack speed buff duration is increased by <color=gold>16</color> seconds"
 ItemDataBase_ItemDefinitions_258:: "Rage"
-ItemDataBase_ItemDefinitions_259:: "Increases maximum stacks of frenzy by <colo
+ItemDataBase_ItemDefinitions_259:: "Increases maximum stacks of frenzy by <color=gold>10</color>"
 ItemDataBase_ItemDefinitions_260:: "Swords go brrrrrrttt"
 ItemDataBase_ItemDefinitions_261:: "Jagged Edge"
-ItemDataBase_ItemDefinitions_262:: "Bash has <colo
+ItemDataBase_ItemDefinitions_262:: "Bash has <color=gold>30%</color> a chance to make enemies to bleed for <color=gold>30%</color> of damage dealt per second for duration of slow"
 ItemDataBase_ItemDefinitions_263:: "Bloodthirster"
 ItemDataBase_ItemDefinitions_264:: "Drenched in blood of many unfortunate foes."
-ItemDataBase_ItemDefinitions_265:: "Bash lifesteals <colo
+ItemDataBase_ItemDefinitions_265:: "Bash lifesteals <color=gold>2%</color> of damage dealt into energy and health"
 ItemDataBase_ItemDefinitions_266:: "Frost Giant"
 ItemDataBase_ItemDefinitions_267:: "Melee hits freeze enemies"
 ItemDataBase_ItemDefinitions_268:: "Alexander's Shield"
@@ -4226,18 +4215,18 @@ ItemDataBase_ItemDefinitions_271:: "A mighty sword seeking for it's owner"
 ItemDataBase_ItemDefinitions_272:: "Gain additional melee damage equal to the last instance of physical damage taken."
 ItemDataBase_ItemDefinitions_273:: "Grip of Sora"
 ItemDataBase_ItemDefinitions_274:: "Look, a porcupine! -Sora"
-ItemDataBase_ItemDefinitions_275:: "Multishot drains <colo
+ItemDataBase_ItemDefinitions_275:: "Multishot drains <color=gold>20%</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot"
 ItemDataBase_ItemDefinitions_276:: "Ancient Greatbow"
 ItemDataBase_ItemDefinitions_277:: "A massive and slow bow, deals extra damage"
 ItemDataBase_ItemDefinitions_278:: "Phoenix's Death"
 ItemDataBase_ItemDefinitions_279:: "Ignites enemies on hit"
 ItemDataBase_ItemDefinitions_280:: "Soulstring"
 ItemDataBase_ItemDefinitions_281:: "A massive and slow bow"
-ItemDataBase_ItemDefinitions_282:: "Blood infused arrow now deals additional <colo
+ItemDataBase_ItemDefinitions_282:: "Blood infused arrow now deals additional <color=gold>20</color> points of damage per health consumed"
 ItemDataBase_ItemDefinitions_283:: "Greatbow"
 ItemDataBase_ItemDefinitions_284:: "Withered Crown"
 ItemDataBase_ItemDefinitions_285:: "Worn by Hazard."
-ItemDataBase_ItemDefinitions_286:: "A single cast of blood infused arrow affects <colo
+ItemDataBase_ItemDefinitions_286:: "A single cast of blood infused arrow affects <color=gold>4</color> more projectiles"
 ItemDataBase_ItemDefinitions_287:: "Novice Magic Caster's Bracers"
 ItemDataBase_ItemDefinitions_288:: "Ranger's Bracers"
 ItemDataBase_ItemDefinitions_289:: "Swordsman's Bracers"
@@ -4255,7 +4244,7 @@ ItemDataBase_ItemDefinitions_300:: "Heavily armored leg protection. Suffers from
 ItemDataBase_ItemDefinitions_301:: "Iron Gauntlet"
 ItemDataBase_ItemDefinitions_302:: "Magefist"
 ItemDataBase_ItemDefinitions_303:: "Gloves that amplify magic"
-ItemDataBase_ItemDefinitions_304:: "Spells deal <colo
+ItemDataBase_ItemDefinitions_304:: "Spells deal <color=gold>double</color> damage but have double the energy cost"
 ItemDataBase_ItemDefinitions_305:: "Armored Boots"
 ItemDataBase_ItemDefinitions_306:: "Heavily armored, resistant to damage boots."
 ItemDataBase_ItemDefinitions_307:: "Broken Protector"
@@ -4406,7 +4395,7 @@ ItemDataBase_ItemDefinitions_451:: "Increases maximum stacks of frenzy by 3"
 ItemDataBase_ItemDefinitions_452:: "Warlord Necklace"
 ItemDataBase_ItemDefinitions_453:: "Increases maximum stacks of frenzy by 4"
 ItemDataBase_ItemDefinitions_454:: "Travel Band"
-ItemDataBase_ItemDefinitions_455:: "The distance of blink is increased by <colo
+ItemDataBase_ItemDefinitions_455:: "The distance of blink is increased by <color=gold>20</color> feet"
 ItemDataBase_ItemDefinitions_456:: "Destroyed Void Shard"
 ItemDataBase_ItemDefinitions_457:: "Only a fraction of its previous might remains"
 ItemDataBase_ItemDefinitions_458:: "Decrease the cooldown of one ability by 1 second whenever you hit something with melee or ranged attack."
@@ -4435,19 +4424,19 @@ ItemDataBase_ItemDefinitions_480:: "Factory Quiver"
 ItemDataBase_ItemDefinitions_481:: "There's a 40% increased chance to not consume ammo when firing a projectile."
 ItemDataBase_ItemDefinitions_482:: "Enzyme STR/34"
 ItemDataBase_ItemDefinitions_483:: "A substance which results in surprising changes to gear"
-ItemDataBase_ItemDefinitions_484:: "Changes Vitality, Agility or Intelligence stat on an item to <colo
+ItemDataBase_ItemDefinitions_484:: "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>"
 ItemDataBase_ItemDefinitions_485:: "Enzyme INT/33"
-ItemDataBase_ItemDefinitions_486:: "Changes Vitality, Agility or Strength stat on an item to <colo
+ItemDataBase_ItemDefinitions_486:: "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>"
 ItemDataBase_ItemDefinitions_487:: "Enzyme AGI/39"
-ItemDataBase_ItemDefinitions_488:: "Changes Vitality, Intelligence or Strength stat on an item to <colo
+ItemDataBase_ItemDefinitions_488:: "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>"
 ItemDataBase_ItemDefinitions_489:: "Enzyme VIT/449"
-ItemDataBase_ItemDefinitions_490:: "Changes Agility, Intelligence or Strength stat on an item to <colo
+ItemDataBase_ItemDefinitions_490:: "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>"
 ItemDataBase_ItemDefinitions_491:: "Stomach Acid"
 ItemDataBase_ItemDefinitions_492:: "Removes all stats with negative values from an item"
 ItemDataBase_ItemDefinitions_493:: "Elite Stomach Acid"
 ItemDataBase_ItemDefinitions_494:: "Changes negative stat values into positive values on an item"
 ItemDataBase_ItemDefinitions_495:: "Crimson Solution"
-ItemDataBase_ItemDefinitions_496:: "Upgrades item of any rarity to one of the same type but of <colo
+ItemDataBase_ItemDefinitions_496:: "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity"
 ItemDataBase_ItemDefinitions_497:: "Weak Armor Hardening Mixture"
 ItemDataBase_ItemDefinitions_498:: "Adds Armor Stat to a piece of equipment if the item does not already have it"
 ItemDataBase_ItemDefinitions_499:: "Upgraded Armor Hardening Mixture"
@@ -4457,9 +4446,9 @@ ItemDataBase_ItemDefinitions_502:: "Rerolls all stats on an item of rarity no hi
 ItemDataBase_ItemDefinitions_503:: "Upgraded Chaos Water"
 ItemDataBase_ItemDefinitions_504:: "Rerolls all stats on an item of any rarity"
 ItemDataBase_ItemDefinitions_505:: "Gun Blade"
-ItemDataBase_ItemDefinitions_506:: "Increases pistol damage by <colo
+ItemDataBase_ItemDefinitions_506:: "Increases pistol damage by <color=red>50%</color>"
 ItemDataBase_ItemDefinitions_507:: "Sharpshooter's Axe"
-ItemDataBase_ItemDefinitions_508:: "Increases pistol headshot chance by <colo
+ItemDataBase_ItemDefinitions_508:: "Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>200%</color>"
 ItemDataBase_ItemDefinitions_509:: "Shield Blade"
 ItemDataBase_ItemDefinitions_510:: "So large can be used as a shield"
 ItemDataBase_ItemDefinitions_511:: "A normal human cannot lift this weapon."
@@ -4531,7 +4520,6 @@ ItemDataBase_ItemDefinitions_576:: "Atomic Augmentation"
 ItemDataBase_ItemDefinitions_577:: "Yorium's Assault"
 ItemDataBase_ItemDefinitions_578:: "Undying Promise"
 ItemDataBase_ItemDefinitions_579:: "Resist lethal damage on a 1 minute cooldown"
-ItemDataBase_ItemDefinitions_580:: "clever\"
 ItemDataBase_ItemDefinitions_581:: "Snap freeze damage is increased and the slow duration is increased by 1 second"
 ItemDataBase_ItemDefinitions_582:: "If equipped on a weapon, increases ranged damage by "
 ItemDataBase_ItemDefinitions_583:: "If equipped on boots, increases movement speed by "
