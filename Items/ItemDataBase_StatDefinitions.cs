@@ -201,7 +201,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 1f / 4f, 1f / 4f, 0f, Translations.ItemDataBase_StatDefinitions_23/*og:PERMANENT PERK POINTS*/, scAdd, 6,()=> ModdedPlayer.instance.MutationPoints.ToString(), null, null, StatActions.PERMANENT_perkPointIncrease); //tr
 			i++;
-			new ItemStat(i, 100f, 100f, 3.5f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ " / " + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
+			new ItemStat(i, 100f, 100f, 3.5f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ Translations.ItemDataBase_StatDefinitions_24/*og: / */ + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
 			i++;
 			new ItemStat(i, 0.01f, 0.02f, 0.4f, Translations.MainMenu_Guide_109/*og:Movement Speed*/, scAdd, 6, () => ModdedPlayer.Stats.movementSpeed.GetFormattedAmount(), StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.3f }; //tr
 			i++;
@@ -284,7 +284,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 6f, 8f, 0f, Translations.ItemDataBase_StatDefinitions_44/*og:Extra Carried Ropes*/, scAdd, 4, () => LocalPlayer.Inventory.GetMaxAmountOf(43).ToString(), f => ModdedPlayer.instance.AddExtraItemCapacity(54, Mathf.RoundToInt(f)), f => ModdedPlayer.instance.AddExtraItemCapacity(43, -Mathf.RoundToInt(f)), null); //tr
 			i++;
-			new ItemStat(i, 9f, 15f, 0f, Translations.ItemDataBase_StatDefinitions_47/*og:Extra Carried Drinks*/, scAdd, 4, () => "Booze: " + LocalPlayer.Inventory.GetMaxAmountOf((int)MoreCraftingReceipes.VanillaItemIDs.BOOZE).ToString() + " Soda: " + LocalPlayer.Inventory.GetMaxAmountOf((int)MoreCraftingReceipes.VanillaItemIDs.SODA), f =>  //tr
+			new ItemStat(i, 9f, 15f, 0f, Translations.ItemDataBase_StatDefinitions_47/*og:Extra Carried Drinks*/, scAdd, 4, () => Translations.ItemDataBase_StatDefinitions_46/*og:Booze: */ + LocalPlayer.Inventory.GetMaxAmountOf((int)MoreCraftingReceipes.VanillaItemIDs.BOOZE).ToString() + Translations.ItemDataBase_StatDefinitions_45/*og: Soda: */ + LocalPlayer.Inventory.GetMaxAmountOf((int)MoreCraftingReceipes.VanillaItemIDs.SODA), f =>  //tr
 			{
 				ModdedPlayer.instance.AddExtraItemCapacity((int)MoreCraftingReceipes.VanillaItemIDs.BOOZE, Mathf.RoundToInt(f));
 				ModdedPlayer.instance.AddExtraItemCapacity((int)MoreCraftingReceipes.VanillaItemIDs.SODA, Mathf.RoundToInt(f));

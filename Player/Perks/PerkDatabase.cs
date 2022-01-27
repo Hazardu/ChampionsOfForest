@@ -185,7 +185,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_19/*og:Recovers 0.5 more stamina per second. Stamina is used for sprinting and swinging weapons.*/,//tr
 				textureVariation = 0, //0 or 1
 				uncapped = true,
-				updateDescription = x => Translations.PerkDatabase_21/*og:Total: */ + (0.5f * x).ToString("N1") //tr
+				updateDescription = x => Translations.PerkDatabase_21/*og:Total: */ + (0.5f * x).ToString(Translations.PerkDatabase_20/*og:N1*/) //tr
 			};
 			new Perk()
 			{
@@ -599,7 +599,7 @@ namespace ChampionsOfForest.Player
 				uncapped = true,
 				updateDescription = x =>
 				{
-					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + (0.25f * x).ToString("N2"); //tr
+					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + (0.25f * x).ToString(Translations.PerkDatabase_62/*og:N2*/); //tr
 				},
 			};
 			new Perk()
@@ -1290,7 +1290,7 @@ namespace ChampionsOfForest.Player
 					float f1 = 1.4f;
 					for (int i = 1; i < x; i++)
 						f1 *= 1.4f;
-					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + "\nDamage - " + (f - 1).ToString("P") + "\nStamina Cost - " + (f1 - 1).ToString("P"); //tr
+					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + Translations.PerkDatabase_144/*og:\nDamage - */ + (f - 1).ToString("P") + Translations.PerkDatabase_143/*og:\nStamina Cost - */ + (f1 - 1).ToString("P"); //tr
 				},
 			};
 			new Perk()
@@ -1312,7 +1312,7 @@ namespace ChampionsOfForest.Player
 				 {
 					 float f1 = 0.15f * x;
 					 float f2 = Mathf.Pow(1.2f, x);
-					 return string.Format(Translations.PerkDatabase_148/*og:Total increase to spell damage: {0}\nspell cost increase: {1}*/, f1.ToString("P1"), (f2 - 1f).ToString("P1")); //tr
+					 return string.Format(Translations.PerkDatabase_148/*og:Total increase to spell damage: {0}\nspell cost increase: {1}*/, f1.ToString(Translations.PerkDatabase_147/*og:P1*/), (f2 - 1f).ToString(Translations.PerkDatabase_147/*og:P1*/)); //tr
 				 }
 			};
 			new Perk()
@@ -2076,7 +2076,7 @@ namespace ChampionsOfForest.Player
 					float f = 1.12f;
 					for (int i = 1; i < x; i++)
 						f *= 1.12f;
-					return Translations.PerkDatabase_240/*og:\nTotal from this perk: Damage taken: */ + (f - 1).ToString("P") + "\nDamage dealt: " + (0.12f * x).ToString("P");//tr
+					return Translations.PerkDatabase_240/*og:\nTotal from this perk: Damage taken: */ + (f - 1).ToString("P") + Translations.PerkDatabase_239/*og:\nDamage dealt: */ + (0.12f * x).ToString("P");//tr
 				},
 			};
 			new Perk()

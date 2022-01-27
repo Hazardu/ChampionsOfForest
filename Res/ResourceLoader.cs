@@ -368,16 +368,16 @@ namespace ChampionsOfForest.Res
 					{
 						if (DeleteCurrentFiles && (ModSettings.outdatedFiles.Contains(resource.ID) || ModSettings.ALLNewFiles))
 						{
-							LabelText += "File " + resource.fileName + " is marked as outdated, deleting and redownloading.\n";//tr
+							LabelText += Translations.ResourceLoader_22/*og:File */ + resource.fileName + Translations.ResourceLoader_21/*og: is marked as outdated, deleting and redownloading.\n*/;//tr
 							File.Delete(Resource.path + resource.fileName);
 							toDownload.Add(resource);
 						}
-						LabelText += "File " + resource.fileName + " is ok\n";//tr
+						LabelText += Translations.ResourceLoader_22/*og:File */ + resource.fileName + Translations.ResourceLoader_23/*og: is ok\n*/;//tr
 
 					}
 					else
 					{
-						LabelText += "File " + resource.fileName + " is missing, downloading.\n";//tr
+						LabelText += Translations.ResourceLoader_22/*og:File */ + resource.fileName + Translations.ResourceLoader_24/*og: is missing, downloading.\n*/;//tr
 						toDownload.Add(resource);
 					}
 					CheckedFileNumber++;
@@ -391,7 +391,7 @@ namespace ChampionsOfForest.Res
 
 			foreach (Resource resource in toDownload)
 			{
-				LabelText += "Downloading " + resource.fileName + "\n"; //tr
+				LabelText += Translations.ResourceLoader_25/*og:Downloading */ + resource.fileName + "\n"; //tr
 
 				WWW www = new WWW(Resource.url + resource.fileName);
 				download = www;
@@ -403,7 +403,7 @@ namespace ChampionsOfForest.Res
 				}
 				else
 				{
-					ModAPI.Log.Write(resource.fileName + " - Error with downloading a file " + www.error);//tr
+					ModAPI.Log.Write(resource.fileName + Translations.ResourceLoader_26/*og: - Error with downloading a file */ + www.error);//tr
 				}
 				download.Dispose();
 				DownloadedFileNumber++;
@@ -414,7 +414,7 @@ namespace ChampionsOfForest.Res
 			yield return null;
 			foreach (Resource resource in unloadedResources.Values)
 			{
-				LabelText += "Loading " + resource.fileName + "\n";//tr
+				LabelText += Translations.ResourceLoader_27/*og:Loading */ + resource.fileName + "\n";//tr
 
 				switch (resource.type)
 				{
