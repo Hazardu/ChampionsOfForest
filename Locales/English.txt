@@ -1,3 +1,4 @@
+
 MainMenu_DifficultySelection_1:: "Please wait for the host to choose a COTF difficulty"
 MainMenu_DifficultySelection_2:: "The server may not have Champions of The Forest Mod installed or the host is taking a long time. Playing on vanilla servers is impossible.\nDo you want to leave?"
 MainMenu_DifficultySelection_3:: "Select Difficulty"
