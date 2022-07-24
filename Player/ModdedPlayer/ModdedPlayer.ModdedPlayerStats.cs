@@ -34,8 +34,8 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> critChance;
 			public readonly AdditivePlayerStat<float> critDamage;
 
-			public readonly AdditivePlayerStat<float> rangedFlatDmg;
-			public readonly AdditivePlayerStat<float> meleeFlatDmg;
+			public readonly MultiOperationPlayerStat<float> rangedFlatDmg;
+			public readonly MultiOperationPlayerStat<float> meleeFlatDmg;
 			public readonly AdditivePlayerStat<float> spellFlatDmg;
 			public readonly MultiOperationPlayerStat<float> rangedIncreasedDmg;
 			public readonly MultiOperationPlayerStat<float> meleeIncreasedDmg;
@@ -219,7 +219,8 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_bia_HealthTaken;
 			public readonly AdditivePlayerStat<float> spell_bia_AccumulatedDamage;
 			public readonly BooleanPlayerStat spell_bia_TripleDmg;
-			public readonly BooleanPlayerStat spell_bia_Weaken;
+			public readonly BooleanPlayerStat spell_bia_Stun;
+			public readonly BooleanPlayerStat spell_bia_Crit;
 			//roaring cheeks
 			public readonly AdditivePlayerStat<float> spell_fartRadius;
 			public readonly AdditivePlayerStat<float> spell_fartKnockback;
@@ -335,8 +336,8 @@ namespace ChampionsOfForest.Player
 				this.critChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P");
 				this.critDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P");
 
-				this.rangedFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-				this.meleeFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
+				this.rangedFlatDmg = new MultiOperationPlayerStat<float>(0.0f, 1.0f, addfloat, substractfloat, multfloat, dividefloat);
+				this.meleeFlatDmg = new MultiOperationPlayerStat<float>(0.0f,1.0f, addfloat, substractfloat, multfloat, dividefloat);
 				this.spellFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.rangedIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
 				this.meleeIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
@@ -467,7 +468,7 @@ namespace ChampionsOfForest.Player
 				this.spell_purgeHeal = new BooleanPlayerStat(false);
 				this.spell_purgeDamageBonus = new BooleanPlayerStat(false);
 				//snap freeze
-				this.spell_snapFreezeDist = new AdditivePlayerStat<float>(20, addfloat, substractfloat);
+				this.spell_snapFreezeDist = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
 				this.spell_snapFloatAmount = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
 				this.spell_snapDamageScaling = new AdditivePlayerStat<float>(3.5f, addfloat, substractfloat, "P");
 				this.spell_snapFreezeDuration = new AdditivePlayerStat<float>(7f, addfloat, substractfloat);
@@ -515,12 +516,13 @@ namespace ChampionsOfForest.Player
 				this.spell_cataclysmRadius = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_cataclysmArcane = new BooleanPlayerStat(false);
 				//blood infused arrow
-				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(1.15f, addfloat, substractfloat);
-				this.spell_bia_HealthDmMult = new AdditivePlayerStat<float>(3f, addfloat, substractfloat);
+				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat);
+				this.spell_bia_HealthDmMult = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_bia_HealthTaken = new AdditivePlayerStat<float>(0.65f, addfloat, substractfloat);
 				this.spell_bia_AccumulatedDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.spell_bia_TripleDmg = new BooleanPlayerStat(false);
-				this.spell_bia_Weaken = new BooleanPlayerStat(false);
+				this.spell_bia_Stun = new BooleanPlayerStat(false);
+				this.spell_bia_Crit = new BooleanPlayerStat(false);
 				//roaring cheeks
 				this.spell_fartRadius = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartKnockback = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);

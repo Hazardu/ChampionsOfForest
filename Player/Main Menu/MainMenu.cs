@@ -40,8 +40,8 @@ namespace ChampionsOfForest
 
 		public static readonly Func<string>[] DiffSel_Descriptions = new Func<string>[]
 		{
-			() => Translations.MainMenu_12/*og:Recommended for level 1 players.\nColor represents highest tier of obtainable loot.*/,											//tr
-			() => Translations.MainMenu_13/*og:Enemies hit harder and have more health. Unlocks higher tier loot. Recommended level 15+*/,										//tr
+			() => Translations.MainMenu_12("1-15")/*og:Recommended for level 1 players.\nColor represents highest tier of obtainable loot.*/,											//tr
+			() => Translations.MainMenu_13(15)/*og:Enemies hit harder and have more health. Unlocks higher tier loot. Recommended level 15+*/,										//tr
 			() => Translations.MainMenu_14/*og:Even tougher enemies. Elites with higher quantity of abilities may appear. Consumables that reset all points start appearing.*/,//tr
 			() => Translations.MainMenu_15/*og:Unlocks higher tier of items. Enemies are much tougher. Elites with flashier abilities may appear.*/,							//tr
 			() => Translations.MainMenu_16/*og:Challenge I With every challenge difficulty enemies get stronger, and their bounties get higher.*/,								//tr

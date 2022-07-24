@@ -187,7 +187,7 @@ namespace ChampionsOfForest
 						{
 							GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(31 * screenScale), fontStyle = FontStyle.Bold };
 							GUI.color = Color.gray;
-							GUI.Label(UnlockRect, Translations.MainMenu_Spells_7/*og:Costs 2 mutation points*/, morePointsStyle);  //tr
+							GUI.Label(UnlockRect, Translations.MainMenu_Spells_7(2)/*og:Costs 2 mutation points*/, morePointsStyle);  //tr
 							GUI.color = Color.white;
 						}
 					}

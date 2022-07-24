@@ -679,7 +679,7 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.UpToDate:
 						GUI.color = Color.green;
-						GUILayout.Label(Translations.ResourceLoader_14/*og:COTF up to date. */ + ((!string.IsNullOrEmpty(Likes) && !string.IsNullOrEmpty(Downloads)) ? string.Format(Translations.ResourceLoader_13/*og:Thanks for {0} likes and {1} downloads!*/, Likes, Downloads) : ""), versionStyle); //tr
+						GUILayout.Label(Translations.ResourceLoader_14/*og:COTF up to date. */ + ((!string.IsNullOrEmpty(Likes) && !string.IsNullOrEmpty(Downloads)) ? Translations.ResourceLoader_13/*og:Thanks for {0} likes and {1} downloads!*/( Likes, Downloads) : ""), versionStyle); //tr
 
 						break;
 
@@ -687,7 +687,7 @@ namespace ChampionsOfForest.Res
 						GUI.color = Color.red;
 						versionStyle = new GUIStyle(GUI.skin.button) { alignment = TextAnchor.UpperRight, fontSize = 34, richText = true };
 
-						if (GUILayout.Button(string.Format(Translations.ResourceLoader_15/*og:<b>Champions of The Forest is outdated!</b> \n Installed {0};  Newest {1}*/, ModSettings.Version, OnlineVersion), versionStyle)) //tr
+						if (GUILayout.Button(Translations.ResourceLoader_15/*og:<b>Champions of The Forest is outdated!</b> \n Installed {0};  Newest {1}*/(ModSettings.Version, OnlineVersion), versionStyle)) //tr
 						{
 							Application.OpenURL(@"https://modapi.survivetheforest.net/mod/101/champions-of-the-forest/");
 						}
@@ -701,7 +701,7 @@ namespace ChampionsOfForest.Res
 
 					case VersionCheckStatus.NewerThanOnline:
 						GUI.color = Color.yellow;
-						GUILayout.Label(string.Format(Translations.ResourceLoader_17/*og:Preview version ({0}) | ({1})*/,  ModSettings.Version , buildDate), versionStyle); //tr
+						GUILayout.Label(Translations.ResourceLoader_17(/*og:Preview version ({0}) | ({1})*/ ModSettings.Version , buildDate), versionStyle); //tr
 						break;
 				}
 				GUI.color = Color.white;

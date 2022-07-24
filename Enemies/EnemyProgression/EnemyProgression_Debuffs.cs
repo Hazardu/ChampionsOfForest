@@ -267,7 +267,7 @@ namespace ChampionsOfForest
 		public void Taunt(GameObject player, in float duration, in float slowAmount)
 		{
 			Slow(143, slowAmount, duration);
-			DmgTakenDebuff(143, 1.5f, duration);
+			DmgTakenDebuff(143, 1.75f, duration);
 			setup.ai?.resetCombatParams();
 
 			this.setup.pmCombat.enabled = true;

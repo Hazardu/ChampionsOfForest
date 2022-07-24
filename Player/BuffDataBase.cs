@@ -166,6 +166,8 @@ namespace ChampionsOfForest.Player
 				};
 				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f - 1), f => ModdedPlayer.Stats.critChance.Add(f - 1)) { DisplayAsPercent = true };
 
+				new Buff(29, 151, "Dodge Chance", false, false, 0, f => ModdedPlayer.Stats.getHitChance.Divide(f), f => ModdedPlayer.Stats.getHitChance.Multiply(f)) { DisplayAsPercent = true };
+
 
 			}
 			catch (System.Exception ex)

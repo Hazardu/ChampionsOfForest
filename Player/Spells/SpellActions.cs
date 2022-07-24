@@ -160,7 +160,7 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			float radius = 10f;
-			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * 3 + 13.5f + ModdedPlayer.Stats.spellFlatDmg / 20) * ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.allRecoveryMult;
+			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * ModdedPlayer.Stats.healthRecoveryPerSecond * 2 + 23.5f)*ModdedPlayer.Stats.allRecoveryMult;
 
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
@@ -760,7 +760,7 @@ portal_postPickingPos:
 				}
 				if (ModdedPlayer.Stats.spell_bashDamageBuff > 0)
 				{
-					BuffDB.AddBuff(24, 89, ModdedPlayer.Stats.spell_bashDamageBuff * 0.15f, 2);
+					BuffDB.AddBuff(24, 89, ModdedPlayer.Stats.spell_bashDamageBuff * 0.25f, 2);
 				}
 			}
 		}
@@ -779,7 +779,7 @@ portal_postPickingPos:
 
 				if (ModdedPlayer.Stats.spell_bashDamageBuff > 0)
 				{
-					BuffDB.AddBuff(24, 89, ModdedPlayer.Stats.spell_bashDamageBuff, 2);
+					BuffDB.AddBuff(24, 89, ModdedPlayer.Stats.spell_bashDamageBuff * 0.25f, 2);
 				}
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 				{
@@ -1061,7 +1061,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.spell_bia_TripleDmg)
 			{
 				ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive *= 3;
-				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 30, 10);
+				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 100, 10);
 			}
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
@@ -1074,7 +1074,7 @@ portal_postPickingPos:
 		#region
 
 		public static float fartRadius = 30;
-		public static float fartKnockback = 3, fartSlow = 0.8f, fartDebuffDuration = 30f, fartBaseDmg = 20f;
+		public static float fartKnockback = 4, fartSlow = 0.8f, fartDebuffDuration = 50f, fartBaseDmg = 200f;
 
 		public static void FartEffect(float radius, float knockback, float damage, float slow, float duration)
 		{

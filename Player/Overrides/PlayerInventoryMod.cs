@@ -313,7 +313,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (ModdedPlayer.Stats.i_DeathPact_Enabled.value)
 				{
-					LocalPlayer.Stats.Health -= ModdedPlayer.Stats.TotalMaxHealth * 0.07f;
+					LocalPlayer.Stats.Health -= ModdedPlayer.Stats.TotalMaxHealth * 0.06f;
 					LocalPlayer.Stats.Health = Mathf.Max(1, LocalPlayer.Stats.Health);
 				}
 			}

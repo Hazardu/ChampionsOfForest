@@ -562,7 +562,7 @@ namespace ChampionsOfForest
 				name = Translations.ItemDataBase_ItemDefinitions_67/*og:Smokey's Sacred Quiver*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_68/*og:SmokeyTheBear died because he never used this item.*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_69/*og:Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_70/*og:Crossbows operate at <color=gold>250%</color> speed*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_70("250%", "500%")/*og:Crossbows operate at <color=gold>250%</color> speed and deal 400% increased damage*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 8,
@@ -570,8 +570,9 @@ namespace ChampionsOfForest
 				StackSize = 1,
 				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
-				onEquip = () => ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = true,
-				onUnequip = () => ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = false,
+				onEquip = () => { ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = true; ModdedPlayer.Stats.perk_crossbowDamageMult.Multiply(5); },
+				onUnequip = () =>{ ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = false;
+			ModdedPlayer.Stats.perk_crossbowDamageMult.Divide(5); },
 			};
 			new BaseItem(new int[][]
 		 {
@@ -1675,7 +1676,7 @@ namespace ChampionsOfForest
 				name = Translations.ItemDataBase_ItemDefinitions_152/*og:Pendant of Perpetual Rebirth*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_153/*og:A Pendant of a shrunken babyhead.*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_154/*og:A pedant of great power. Obtainable only from babies or crafting*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_155/*og:decrease a random cooldown by 1 second whenever you hit something with melee or ranged attack.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_155(1)/*og:decrease a random cooldown by 1 second whenever you hit something with melee or ranged attack.*/, //tr
 				Rarity = 7,     //range 0-7, 0 is most common, 7 is ultra rare
 				minLevel = 30,
 				maxLevel = 40,
@@ -1984,7 +1985,7 @@ namespace ChampionsOfForest
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_178/*og:Hammer Jammers*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_179/*og:Damage of your smash attack is increased by <color=gold>450%</color>, hammer stun duration is doubled*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_179("450%")/*og:Damage of your smash attack is increased by <color=gold>450%</color>, hammer stun duration is doubled*/, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 28,
@@ -2037,7 +2038,7 @@ namespace ChampionsOfForest
 				name = Translations.ItemDataBase_ItemDefinitions_182/*og:Hexed Pants of Mr M.*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_183/*og:They look like yoga pants but for a man the size of a wardrobe*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_184/*og:Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_185/*og:While moving, energy regeneration and damage is increased by <color=gold>40%</color>. While standing still for longer than a second, you loose 1% of max health per second.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_185("60%","1%")/*og:While moving, energy regeneration and damage is increased by <color=gold>40%</color>. While standing still for longer than a second, you loose 1% of max health per second.*/, //tr
 				Rarity = 7,
 				minLevel = 14,
 				maxLevel = 15,
@@ -2178,7 +2179,7 @@ new int[] {39,40,41,42,43},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_196/*og:Death Pact*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_197/*og:Find the greatest strength on the border of life and death.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_198/*og:Every attack you make decreases your health by <color=gold>7%</color> of max health. For every percent of missing health you gain 5% damage amplification. This damage cannot kill you.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_198("6%", "5%")/*og:Every attack you make decreases your health by <color=gold>7%</color> of max health. For every percent of missing health you gain 5% damage amplification. This damage cannot kill you.*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 8,
@@ -2347,7 +2348,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_215/*og:Iron Horn*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216("10%")/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
 				Rarity = 4,
 				minLevel = 1,
 				maxLevel = 2,
@@ -2376,7 +2377,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_217/*og:The Great Iron Horn*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216("10%")/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 2,
@@ -2492,7 +2493,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_223/*og:Wormhole Stabilizators*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_224/*og:High-tech gear*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_225/*og:Hazard remember to put some fucking lore in here, don't leave it like this!*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_226/*og:Increases the duration of a portal by <color=gold>570</color> seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_226("570")/*og:Increases the duration of a portal by <color=gold>570</color> seconds*/, //tr
 				Rarity = 7,
 				minLevel = 4,
 				maxLevel = 6,
@@ -2519,7 +2520,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_227/*og:Cripplers*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_228/*og:Increases the duration of a magic arrow's negative effect by <color=gold>10</color> seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_228(15)/*og:Increases the duration of a magic arrow's negative effect by <color=gold>10</color> seconds*/, //tr
 				Rarity = 7,
 				minLevel = 3,
 				maxLevel = 6,
@@ -2527,8 +2528,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
-				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Add(10),
-				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Substract(10),
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Add(15),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Substract(15),
 			};
 
 			new BaseItem(new int[][]
@@ -2616,7 +2617,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_238/*og:Chastity belt*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_239/*og:Dodge those fukbois*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_240/*og:This belt will stop those cheeky cannibals and armsies from getting into your pants*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_241/*og: <color=gold>100%</color> damage reduction while sleeping*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_241("99%")/*og: <color=gold>100%</color> damage reduction while sleeping*/, //tr
 				Rarity = 2,
 				minLevel = 1,
 				maxLevel = 2,
@@ -2638,7 +2639,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_242/*og:Ice Scroll*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_243/*og:A spell surrounded by flying shards of ice, contains tramendous power of cold.*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_244/*og:Created at the top of the mountain.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_581/*og:Snap freeze damage is increased and the slow duration is increased by 1 second*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_581("250", 2)/*og:Snap freeze damage is increased and the slow duration is increased by 1 second*/, //tr
 				Rarity = 4,
 				minLevel = 30,
 				maxLevel = 40,
@@ -2646,9 +2647,9 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
-				onEquip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Add(10f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(1); },
-				onUnequip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Substract(10f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(1); }
-	};
+				onEquip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Add(250f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(2); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Substract(250f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(2); }
+			};
 			new BaseItem(new int[][]
 		  {
 					new int[] {2006},
@@ -2827,7 +2828,7 @@ new int[] {0,0,0,0,62,63,64},
 				 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_256/*og:Precise Adjustments*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_257/*og:Focus attack speed buff duration is increased by <color=gold>16</color> seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_257(15)/*og:Focus attack speed buff duration is increased by <color=gold>16</color> seconds*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 8,
@@ -2855,7 +2856,7 @@ new int[] {0,0,0,0,62,63,64},
 		  })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_258/*og:Rage*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_259/*og:Increases maximum stacks of frenzy by <color=gold>10</color>*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_259(15)/*og:Increases maximum stacks of frenzy by <color=gold>10</color>*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_260/*og:Swords go brrrrrrttt*/, //tr
 				Rarity = 7,
 				minLevel = 6,
@@ -2865,8 +2866,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
-				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(10),
-				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(10),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(15),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(15),
 			}.PossibleStats[0][0].Multipier = 3;
 
 			BaseItem jaggedRipper = new BaseItem(new int[][]
@@ -2886,7 +2887,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_261/*og:Jagged Edge*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_262/*og:Bash has <color=gold>30%</color> a chance to make enemies to bleed for <color=gold>30%</color> of damage dealt per second for duration of slow*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_262("30%", "30%")/*og:Bash has <color=gold>30%</color> a chance to make enemies to bleed for <color=gold>30%</color> of damage dealt per second for duration of slow*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 5,
@@ -2918,7 +2919,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_263/*og:Bloodthirster*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_264/*og:Drenched in blood of many unfortunate foes.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_265/*og:Bash lifesteals <color=gold>2%</color> of damage dealt into energy and health*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_265("2%")/*og:Bash lifesteals <color=gold>2%</color> of damage dealt into energy and health*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 5,
@@ -3045,7 +3046,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_273/*og:Grip of Sora*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_274/*og:Look, a porcupine! -Sora*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_275/*og:Multishot drains <color=gold>20%</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_275("20%", "+4")/*og:Multishot drains <color=gold>20%</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot*/, //tr
 				Rarity = 7,
 				minLevel = 10,
 				maxLevel = 12,
@@ -3127,7 +3128,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_280/*og:Soulstring*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_281/*og:A massive and slow bow*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_282/*og:Blood infused arrow now deals additional <color=gold>20</color> points of damage per health consumed*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_282(100)/*og:Blood infused arrow now deals additional <color=gold>20</color> points of damage per health consumed*/, //tr
 				Rarity = 7,
 				minLevel = 10,
 				maxLevel = 12,
@@ -3136,8 +3137,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
-				onEquip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Add(20),
-				onUnequip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Substract(20),
+				onEquip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Add(100),
+				onUnequip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Substract(100),
 			}.PossibleStats[0][0].Multipier = -1.7f;
 
 			new BaseItem(new int[][]
@@ -3178,7 +3179,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_284/*og:Withered Crown*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_285/*og:Worn by Hazard.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_286/*og:A single cast of blood infused arrow affects <color=gold>4</color> more projectiles*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_286("4")/*og:A single cast of blood infused arrow affects <color=gold>4</color> more projectiles*/, //tr
 				Rarity = 7,
 				minLevel = 10,
 				maxLevel = 12,
@@ -3581,7 +3582,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_313/*og:Wind armor*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_314/*og:Run fast like the wind*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_315/*og:Upon dodging an attack, gain 20% movement speed, 35% damage, 2000 armor, and heal for 5% of your maximum health*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_315("20%", "35%", "2000", "5%")/*og:Upon dodging an attack, gain 20% movement speed, 35% damage, 2000 armor, and heal for 5% of your maximum health*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 9,
@@ -3653,7 +3654,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_320/*og:The Spark of Light in The Darkness*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_321/*og:Magic Scroll of great quality*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_322/*og:Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_323/*og:If a black hole hits 5 or more enemies during it's lifetime, a ball lightning is summoned after it ends.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_323("5")/*og:If a black hole hits 5 or more enemies during it's lifetime, a ball lightning is summoned after it ends.*/, //tr
 				Rarity = 7,
 				minLevel = 15,
 				maxLevel = 20,
@@ -3681,7 +3682,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_324/*og:Purgatory*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_325/*og:Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_326/*og:Ring made of Netherrite*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_327/*og:Purge increases all of your damage based on missing health. Up to 300%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_327("300%")/*og:Purge increases all of your damage based on missing health. Up to 300%*/, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 26,
@@ -3744,7 +3745,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_331/*og:Archangel*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_332/*og:Spread the goodness*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_333/*og:Shooting another player causes them to be greatly empowered for 30 seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_333("30")/*og:Shooting another player causes them to be greatly empowered for 30 seconds*/, //tr
 				Rarity = 7,
 				minLevel = 10,
 				maxLevel = 12,
@@ -3798,7 +3799,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_336/*og:Moon Cuirass*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_337/*og:A piece of armor designed for an archer. */, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_338/*og:Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than 120 feet deals five-fold damage, and hits the enemy two extra times*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_338("120")/*og:Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than 120 feet deals five-fold damage, and hits the enemy two extra times*/, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 22,
@@ -3903,8 +3904,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_348/*og:Soft Feather*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
 				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -3922,8 +3923,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_349/*og:Ornate Feather*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
 				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -3942,8 +3943,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_350/*og:Wonderful Feather*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
 				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 1).ToString("N"),                        //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -3961,8 +3962,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_351/*og:White Crow's Feather*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +				 //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +		 //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
 				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -3983,8 +3984,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_352/*og:Reef Shark*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
 				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4002,8 +4003,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_353/*og:Tiger Shark Tooth*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
 				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4021,8 +4022,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_354/*og:Whale Shark Tooth*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
 				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4041,8 +4042,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_355/*og:Great White Shark Tooth*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
 				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4060,8 +4061,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_356/*og:Megalodon's Tooth*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +				    //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +		    //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
 				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4082,8 +4083,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_357/*og:Uncut Sapphire*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
 				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4101,8 +4102,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_358/*og:Clear Sapphire*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
 				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4120,8 +4121,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_359/*og:Shiny Sapphire*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
 				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4140,8 +4141,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_360/*og:Enchanted Sapphire*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
 				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4159,8 +4160,8 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_361/*og:Celestial Sapphire*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +			 //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +	 //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
 				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
@@ -4180,7 +4181,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_362/*og:Uncut Moonstone*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
 				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
 				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
@@ -4199,7 +4200,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_363/*og:Clear Moonstone*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
 				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
 				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
@@ -4218,7 +4219,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_364/*og:Shiny Moonstone*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
 				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
 				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
@@ -4238,7 +4239,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_365/*og:Enchanted Moonstone*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
 				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
 				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
@@ -4257,7 +4258,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_366/*og:Celestial Moonstone*/, //tr
 				description =
 				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +			   //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
 				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
 				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
@@ -4280,8 +4281,8 @@ new int[] {0,0,0,0,62,63,64},
 				description =
 				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
@@ -4299,8 +4300,8 @@ new int[] {0,0,0,0,62,63,64},
 				description =
 				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
@@ -4318,8 +4319,8 @@ new int[] {0,0,0,0,62,63,64},
 				description =
 				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
@@ -4338,8 +4339,8 @@ new int[] {0,0,0,0,62,63,64},
 				description =
 				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
@@ -4357,8 +4358,8 @@ new int[] {0,0,0,0,62,63,64},
 				description =
 				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
 				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +		   //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +	   //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
@@ -4413,14 +4414,14 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_374/*og:Fists of Nails*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_375/*og:Swiss sheese makers*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_376/*og:Gain 5 thorns per vitality*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_376("900%")/*og:Gain 5 thorns per vitality*/, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => ModdedPlayer.Stats.thornsPerVit.Add(5),
-				onUnequip = () => ModdedPlayer.Stats.thornsPerVit.Substract(5),
+				onEquip = () => ModdedPlayer.Stats.thornsPerVit.Add(9),
+				onUnequip = () => ModdedPlayer.Stats.thornsPerVit.Substract(9),
 				type = BaseItem.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
@@ -4466,14 +4467,14 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_380/*og:Aezyn*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_381/*og:Enchanted with magic as strong as power swing. It's purpose? Hit harder.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_382/*og:Magic arrow damage scaling is increased by 666%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_382("1666%")/*og:Magic arrow damage scaling is increased by 666%*/, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Add(6.66f),
-				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(6.66f),
+				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Add(16.66f),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(16.66f),
 				type = BaseItem.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
@@ -4502,7 +4503,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(3),
-				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(3),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(3),
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
@@ -5166,7 +5167,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_423/*og:Anger*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_424/*og:Downscaled version of Greatsword Rage, made to be wielded by flimsy wizards*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_425/*og:Increases maximum stacks of frenzy by 10*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_425(15)/*og:Increases maximum stacks of frenzy by 10*/, //tr
 				Rarity = 7,
 				minLevel = 6,
 				maxLevel = 9,
@@ -5175,8 +5176,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(88),
-				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(10),
-				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(10),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(15),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(15),
 			}.PossibleStats[0][0].Multipier = 1.5f;
 
 
@@ -5197,9 +5198,9 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_426/*og:Yuki-Onna Strides*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_428/*og:Boots looted off a snow demon*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429/*og:Increses snowstorm damage by 50%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5228,8 +5229,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_430/*og:Yuki-Onna Greaves*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429/*og:Increses snowstorm damage by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5258,8 +5259,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_431/*og:Yuki-Onna Kimono*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429/*og:Increses snowstorm damage by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5288,8 +5289,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_432/*og:Yuki-Onna's Headdress*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_433/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50% and damage is increased by 300%*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429/*og:Increses snowstorm damage by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50% and damage is increased by 300%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5319,7 +5320,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_434/*og:Lama Mega's Blood Bag*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_435/*og:Melee hits cause enemies to bleed for 100% of your health as damage for 15 seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_435("15 000%")/*og:Melee hits cause enemies to bleed for 100% of your health as damage for 15 seconds*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5473,7 +5474,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_448/*og:Small Tribal Necklace*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_449/*og:Increases maximum stacks of frenzy by 2*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_449(2)/*og:Increases maximum stacks of frenzy by 2*/, //tr
 				Rarity = 4,
 				minLevel = 6,
 				maxLevel = 9,
@@ -5495,7 +5496,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_450/*og:Tribal Necklace*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_451/*og:Increases maximum stacks of frenzy by 3*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_451(3)/*og:Increases maximum stacks of frenzy by 3*/, //tr
 				Rarity = 4,
 				minLevel = 6,
 				maxLevel = 9,
@@ -5518,7 +5519,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_452/*og:Warlord Necklace*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_453/*og:Increases maximum stacks of frenzy by 4*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_453(4)/*og:Increases maximum stacks of frenzy by 4*/, //tr
 				Rarity = 5,
 				minLevel = 6,
 				maxLevel = 9,
@@ -5540,7 +5541,7 @@ new int[] {0,0,0,0,62,63,64},
 		 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_454/*og:Travel Band*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_455/*og:The distance of blink is increased by <color=gold>20</color> feet*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_455(25)/*og:The distance of blink is increased by <color=gold>20</color> feet*/, //tr
 				Rarity = 5,
 				minLevel = 5,
 				maxLevel = 9,
@@ -5548,8 +5549,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
-				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(20); },
-				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(20); },
+				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(25); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(25); },
 			};
 
 			new BaseItem(new Stat[][]
@@ -5564,7 +5565,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_456/*og:Destroyed Void Shard*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_457/*og:Only a fraction of its previous might remains*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_154/*og:A pedant of great power. Obtainable only from babies or crafting*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_458/*og:Decrease the cooldown of one ability by 1 second whenever you hit something with melee or ranged attack.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_458(1)/*og:Decrease the cooldown of one ability by 1 second whenever you hit something with melee or ranged attack.*/, //tr
 				Rarity = 6,
 				minLevel = 80,
 				maxLevel = 90,
@@ -5587,7 +5588,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_459/*og:Famine Hammer*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_163/*og:It's slow but with enough strength i can make it a very deadly tool*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_460/*og:Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 30%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_460("30%")/*og:Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 30%*/, //tr
 				Rarity = 4,
 				minLevel = 30,
 				maxLevel = 35,
@@ -5613,7 +5614,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_461/*og:Curse Hammer*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_462/*og:Omnious Weapon*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_463/*og:Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 40%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_463("45%")/*og:Chance to weaken enemies, causing them to take more damage from all attacks, is increased by 40%*/, //tr
 				Rarity = 5,
 				minLevel = 30,
 				maxLevel = 35,
@@ -5622,8 +5623,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
-				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.4f),
-				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.4f),
+				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.45f),
+				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.45f),
 			};
 			new BaseItem(new Stat[][]
 			{
@@ -5659,7 +5660,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_466/*og:Vampiric Band*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_467/*og:Gain 1 stamina on ranged and melee hit or double that amount on critical hits*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_467(1)/*og:Gain 1 stamina on ranged and melee hit or double that amount on critical hits*/, //tr
 				Rarity = 3,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5683,7 +5684,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_468/*og:Vampire Ring*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_469/*og:Gain 10 stamina on ranged and melee hit or double that amount on critical hits*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_469(10)/*og:Gain 10 stamina on ranged and melee hit or double that amount on critical hits*/, //tr
 				Rarity = 6,
 				minLevel = 1,
 				maxLevel = 3,
@@ -5704,7 +5705,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_470/*og:Tricksters Scarf*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_471/*og:Magic arrow shoots 1 additional arrow.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_471(1)/*og:Magic arrow shoots 1 additional arrow.*/, //tr
 				Rarity = 4,
 				minLevel = 20,
 				maxLevel = 22,
@@ -5728,7 +5729,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_472/*og:Magus' Necktie*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_473/*og:Magic arrow shoots 2 additional arrows.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_473(2)/*og:Magic arrow shoots 2 additional arrows.*/, //tr
 				Rarity = 5,
 				minLevel = 50,
 				maxLevel = 52,
@@ -5748,7 +5749,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_474/*og:Discounted Knockoff Magic Quiver*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_475/*og:There's a 15% increased chance to not consume ammo when firing a projectile.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_475("15%")/*og:There's a 15% increased chance to not consume ammo when firing a projectile.*/, //tr
 				Rarity = 3,
 				minLevel = 2,
 				maxLevel = 3,
@@ -5770,7 +5771,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_476/*og:Magic Quiver*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_477/*og:There's a 20% increased chance to not consume ammo when firing a projectile.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_477("20%")/*og:There's a 20% increased chance to not consume ammo when firing a projectile.*/, //tr
 				Rarity = 4,
 				minLevel = 2,
 				maxLevel = 3,
@@ -5793,7 +5794,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_478/*og:Improved Magic Quiver*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_479/*og:There's a 25% increased chance to not consume ammo when firing a projectile.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_479("25%")/*og:There's a 25% increased chance to not consume ammo when firing a projectile.*/, //tr
 				Rarity = 5,
 				minLevel = 2,
 				maxLevel = 3,
@@ -5817,7 +5818,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_480/*og:Factory Quiver*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_481/*og:There's a 40% increased chance to not consume ammo when firing a projectile.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_481("40%")/*og:There's a 40% increased chance to not consume ammo when firing a projectile.*/, //tr
 				Rarity = 6,
 				minLevel = 12,
 				maxLevel = 20,
@@ -6292,7 +6293,7 @@ new int[] {0,0,0,0,62,63,64},
 			 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_505/*og:Gun Blade*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_506/*og:Increases pistol damage by <color=red>50%</color>*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_506("150%")/*og:Increases pistol damage by <color=gold>150%</color>*/, //tr
 				Rarity = 6,
 				minLevel = 35,
 				maxLevel = 36,
@@ -6301,8 +6302,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
-				onEquip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(1.5f),
-				onUnequip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Divide(1.5f),
+				onEquip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(2.5f),
+				onUnequip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Divide(2.5f),
 			}.PossibleStats[0][0].Multipier = -1f;
 
 			new BaseItem(new Stat[][]
@@ -6322,7 +6323,7 @@ new int[] {0,0,0,0,62,63,64},
 			 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_507/*og:Sharpshooter's Axe*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_508/*og:Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>400%</color>*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_508("50%", "600%")/*og:Increases pistol headshot chance by <color=red>50%</color> and pistol damage by <color=red>600%</color>*/, //tr
 				Rarity = 7,
 				minLevel = 35,
 				maxLevel = 36,
@@ -6331,8 +6332,8 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Weapon,
 				weaponModel = BaseItem.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
-				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(4f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
-				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(4f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
+				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(6f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
+				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(6f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
 			};
 			new BaseItem(new Stat[][]
 		 {
@@ -6376,7 +6377,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_512/*og:Blunt Blade for Bashing Skulls*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_510/*og:So large can be used as a shield*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_511/*og:A normal human cannot lift this weapon.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_513/*og:Bash damage debuff on enemies is increased by 200%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_513("200%")/*og:Bash damage debuff on enemies is increased by 200%*/, //tr
 				Rarity = 7,
 				minLevel = 50,
 				maxLevel = 52,
@@ -6406,7 +6407,7 @@ new int[] {0,0,0,0,62,63,64},
 		 })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_514/*og:Madman's Legacy*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_515/*og:Frenzy damage per stack is increased by 50%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_515("69%")/*og:Frenzy damage per stack is increased by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 2,
@@ -6414,8 +6415,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
-				onEquip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.5f),
-				onUnequip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.5f),
+				onEquip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.69f),
+				onUnequip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.69f),
 			};
 			new BaseItem(new Stat[][]
 		 {
@@ -6449,7 +6450,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_517/*og:Pyromancy Mask*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_518/*og:Ignited enemies burn for 200% extended perioid of time.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_518("200%")/*og:Ignited enemies burn for 200% extended perioid of time.*/, //tr
 				Rarity = 5,
 				minLevel = 2,
 				maxLevel = 6,
@@ -6477,7 +6478,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_519/*og:Ember Mask*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_520/*og:Ignited enemies burn for 300% extended perioid of time and fire ticks thrice as fast.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_520("700%")/*og:Ignited enemies burn for 300% extended perioid of time and fire ticks thrice as fast.*/, //tr
 				Rarity = 7,
 				minLevel = 2,
 				maxLevel = 6,
@@ -6485,8 +6486,8 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
-				onEquip = () => { ModdedPlayer.Stats.fireDuration.Add(3f); ModdedPlayer.Stats.fireTickRate.Add(3f); },
-				onUnequip = () => { ModdedPlayer.Stats.fireDuration.Substract(3f); ModdedPlayer.Stats.fireTickRate.Substract(3f); },
+				onEquip = () => { ModdedPlayer.Stats.fireDuration.Add(7f); ModdedPlayer.Stats.fireTickRate.Add(3f); },
+				onUnequip = () => { ModdedPlayer.Stats.fireDuration.Substract(7f); ModdedPlayer.Stats.fireTickRate.Substract(3f); },
 			}.PossibleStats[0][0].Multipier = 5;
 
 
@@ -6508,7 +6509,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_521/*og:Flame Pauldrons*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_522/*og:Firebolt costs 30 additional energy to cast and its damage scaling is increased by 250%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_522(10, "350%")/*og:Firebolt costs 30 additional energy to cast and its damage scaling is increased by 250%*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 8,
@@ -6518,13 +6519,13 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () =>
 				{
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(30);
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(2.5f);
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(10);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(3.5f);
 				},
 				onUnequip = () =>
 				{
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(30);
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(2.5f);
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(10);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(3.5f);
 				},
 			};
 			new BaseItem(new Stat[][]
@@ -6618,7 +6619,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_527/*og:Stone Pauldrons*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -6638,7 +6639,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_529/*og:Iron Shoulder Pads*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -6659,7 +6660,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_531/*og:Steel Shoulder Pads*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -6682,7 +6683,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_533/*og:Battle scarred Shoulder Pads*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -6708,7 +6709,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_535/*og:Mystery Shoulder Pads*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -6730,7 +6731,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_537/*og:Stone Shield*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -6752,7 +6753,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_538/*og:Iron Shield*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -6775,7 +6776,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_539/*og:Steel Tower Shield*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -6801,7 +6802,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_540/*og:Guardian*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -6829,7 +6830,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_541/*og:Mystery Shield*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -6840,7 +6841,7 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			}.PossibleStats[0][0].Multipier = 2f;
-		
+
 
 			new BaseItem(new Stat[][]
 		{
@@ -6851,7 +6852,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_542/*og:Light Boot*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -6872,7 +6873,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_543/*og:Iron Boots*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -6894,7 +6895,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_544/*og:Steel Boots*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -6918,7 +6919,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_545/*og:Threads*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -6945,7 +6946,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_546/*og:Mystery Boots*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -6968,7 +6969,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_547/*og:Wraps*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -6988,7 +6989,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_301/*og:Iron Gauntlet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -7009,7 +7010,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_548/*og:Steel Gauntlet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -7032,7 +7033,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_549/*og:Titanium Gauntlet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -7058,7 +7059,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_550/*og:Mystery Gauntlet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -7081,7 +7082,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_551/*og:Leather Tasset*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -7102,7 +7103,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_552/*og:Iron Tasset*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -7124,7 +7125,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_553/*og:Steel Tasset*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -7148,7 +7149,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_554/*og:Black Steel Leggins*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -7175,7 +7176,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_555/*og:Mystery Leggins*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -7195,7 +7196,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_556/*og:Leather Vest*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -7215,7 +7216,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_557/*og:Iron Breastplate*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -7236,7 +7237,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_558/*og:Steel Breastplate*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -7260,7 +7261,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_559/*og:Silver Armor*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -7287,7 +7288,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_560/*og:Mystery Breastplate*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -7298,7 +7299,7 @@ new int[] {0,0,0,0,62,63,64},
 				type = BaseItem.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			
+
 			new BaseItem(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -7307,7 +7308,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_561/*og:Cloth Band*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -7327,7 +7328,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_562/*og:Iron Wristguard*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -7348,7 +7349,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_563/*og:Steel Wristguard*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -7371,7 +7372,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_564/*og:Baron Wristguards*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -7397,7 +7398,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_565/*og:Mystery Wristguards*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -7419,7 +7420,7 @@ new int[] {0,0,0,0,62,63,64},
 		})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_218/*og:Horned Helmet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528/*og:All damage increased by 3%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_528("3%")/*og:All damage increased by 3%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.03f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.03f),
 				Rarity = 2,
@@ -7440,7 +7441,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_566/*og:Iron Helmet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530/*og:All damage increased by 4%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_530("4%")/*og:All damage increased by 4%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.04f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.04f),
 				Rarity = 3,
@@ -7462,7 +7463,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_567/*og:Steel Helmet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532/*og:All damage increased by 5%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_532("5%")/*og:All damage increased by 5%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.05f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.05f),
 				Rarity = 4,
@@ -7486,7 +7487,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_568/*og:Armored Hood*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534/*og:All damage increased by 6%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_534("6%")/*og:All damage increased by 6%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.06f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.06f),
 				Rarity = 5,
@@ -7513,7 +7514,7 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_569/*og:Mystery Helmet*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536/*og:All damage increased by 10%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_536("10%")/*og:All damage increased by 10%*/, //tr
 				onEquip = () => ModdedPlayer.Stats.allDamage.Add(0.1f),
 				onUnequip = () => ModdedPlayer.Stats.allDamage.Substract(0.1f),
 				Rarity = 6,
@@ -7544,8 +7545,8 @@ new int[] {0,0,0,0,62,63,64},
 				})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_570/*og:Yorium's Gaze*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15,"35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7574,8 +7575,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_573/*og:Yorium's Ruthlessness*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7609,8 +7610,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_574/*og:Yorium's Burden*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7643,8 +7644,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_575/*og:Yorium's Resolve*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7675,10 +7676,10 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_576/*og:Atomic Augmentation*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
-				onUnequip = () =>BerserkSet.Unequip(),
+				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -7709,8 +7710,8 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_577/*og:Yorium's Assault*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7742,7 +7743,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_578/*og:Undying Promise*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_579/*og:Resist lethal damage on a 1 minute cooldown*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_579(1)/*og:Resist lethal damage on a 1 minute cooldown*/, //tr
 				onEquip = () => COTFEvents.Instance.OnTakeLethalDamage.AddListener(UniqueItemFunctions.ResistDeath),
 				onUnequip = () => COTFEvents.Instance.OnTakeLethalDamage.RemoveListener(UniqueItemFunctions.ResistDeath),
 				Rarity = 7,

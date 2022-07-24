@@ -924,7 +924,7 @@ namespace ChampionsOfForest
 				if (ModdedPlayer.Stats.perk_nearDeathExperienceUnlocked && !ModdedPlayer.Stats.perk_nearDeathExperienceTriggered)
 				{
 					Health = ModdedPlayer.Stats.TotalMaxHealth;
-					BuffDB.AddBuff(20, 61, 0, 600);
+					BuffDB.AddBuff(20, 61, 0, 300);
 					BuffDB.AddBuff(6, 82, 1, 10);
 					BuffDB.AddBuff(26, 83, 0.1f, 10);   //90% damage reduction
 					BuffDB.AddBuff(25, 99, 35, 10);     //+35 hp/s
