@@ -244,15 +244,15 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Guide_50 = "Increases fire damage";
 		public static string MainMenu_Guide_51 => instance._MainMenu_Guide_51;
 		public string _MainMenu_Guide_51 = "Fire damage";
-		public static string MainMenu_Guide_52 => instance._MainMenu_Guide_52;
+		public static string MainMenu_Guide_52(params object[] objects) => string.Format(instance._MainMenu_Guide_52, objects);
 		public string _MainMenu_Guide_52 = "Bleeding enemies take {0} of damage dealt per second for {1} seconds";
 		public static string MainMenu_Guide_53 => instance._MainMenu_Guide_53;
 		public string _MainMenu_Guide_53 = "Bleed chance";
-		public static string MainMenu_Guide_54 => instance._MainMenu_Guide_54;
+		public static string MainMenu_Guide_54(params object[] objects) => string.Format(instance._MainMenu_Guide_54, objects);
 		public string _MainMenu_Guide_54 = "Weakened enemies take {0} increased damage from all players.";
 		public static string MainMenu_Guide_55 => instance._MainMenu_Guide_55;
 		public string _MainMenu_Guide_55 = "Weaken chance";
-		public static string MainMenu_Guide_56 => instance._MainMenu_Guide_56;
+		public static string MainMenu_Guide_56(params object[] objects) => string.Format(instance._MainMenu_Guide_56, objects);
 		public string _MainMenu_Guide_56 = "Slowed enemies move and attack {0} slower";
 		public static string MainMenu_Guide_57 => instance._MainMenu_Guide_57;
 		public string _MainMenu_Guide_57 = "Slow chance";
@@ -284,7 +284,7 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Guide_70 = "Faster projectiles fly further and fall slower";
 		public static string MainMenu_Guide_71 => instance._MainMenu_Guide_71;
 		public string _MainMenu_Guide_71 = "Projectile speed";
-		public static string MainMenu_Guide_72 => instance._MainMenu_Guide_72;
+		public static string MainMenu_Guide_72(params object[] objects) => string.Format(instance._MainMenu_Guide_72, objects);
 		public string _MainMenu_Guide_72 = "Bigger projectiles allow to land headshots easier. Most projectiles still can hit only {0} target.";
 		public static string MainMenu_Guide_73 => instance._MainMenu_Guide_73;
 		public string _MainMenu_Guide_73 = "Projectile size";
@@ -292,7 +292,7 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Guide_74 = "Damage multiplier on headshot";
 		public static string MainMenu_Guide_75 => instance._MainMenu_Guide_75;
 		public string _MainMenu_Guide_75 = "Headshot damage";
-		public static string MainMenu_Guide_76 => instance._MainMenu_Guide_76;
+		public static string MainMenu_Guide_76(params object[] objects) => string.Format(instance._MainMenu_Guide_76, objects);
 		public string _MainMenu_Guide_76 = "Chance for a projectile to pierce a bone of an enemy and fly right through to hit objects behind the enemy. Increasing this value beyond {0} will make your projectiles always pierce on first enemy contact, and any further hits will also have a chance to pierce.";
 		public static string MainMenu_Guide_77 => instance._MainMenu_Guide_77;
 		public string _MainMenu_Guide_77 = "Projectile pierce chance";
@@ -316,7 +316,7 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Guide_86 = "Shooting an enemy creates magic arrows pointed at them. There is a short cooldown on this ability";
 		public static string MainMenu_Guide_87 => instance._MainMenu_Guide_87;
 		public string _MainMenu_Guide_87 = "Multishot Projectiles";
-		public static string MainMenu_Guide_88 => instance._MainMenu_Guide_88;
+		public static string MainMenu_Guide_88(params object[] objects) => string.Format(instance._MainMenu_Guide_88, objects);
 		public string _MainMenu_Guide_88 = "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}) * {1}";
 		public static string MainMenu_Guide_89 => instance._MainMenu_Guide_89;
 		public string _MainMenu_Guide_89 = "Multishot Cost";
@@ -430,9 +430,9 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_10 = "Challenge VI";
 		public static string MainMenu_11 => instance._MainMenu_11;
 		public string _MainMenu_11 = "Hell";
-		public static string MainMenu_12 => instance._MainMenu_12;
+		public static string MainMenu_12(params object[] objects) => string.Format(instance._MainMenu_12, objects);
 		public string _MainMenu_12 = "Recommended for level {0} players.\nColor represents highest tier of obtainable loot.";
-		public static string MainMenu_13 => instance._MainMenu_13;
+		public static string MainMenu_13(params object[] objects) => string.Format(instance._MainMenu_13, objects);
 		public string _MainMenu_13 = "Enemies hit harder and have more health. Unlocks higher tier loot. Recommended level {0}+";
 		public static string MainMenu_14 => instance._MainMenu_14;
 		public string _MainMenu_14 = "Even tougher enemies. Elites with higher quantity of abilities may appear. Consumables that reset all points start appearing.";
@@ -548,7 +548,7 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Spells_5 = "Reduced Cooldown";
 		public static string MainMenu_Spells_6 => instance._MainMenu_Spells_6;
 		public string _MainMenu_Spells_6 = "Unlock";
-		public static string MainMenu_Spells_7 => instance._MainMenu_Spells_7;
+		public static string MainMenu_Spells_7(params object[] objects) => string.Format(instance._MainMenu_Spells_7, objects);
 		public string _MainMenu_Spells_7 = "Costs {0} mutation points";
 		public static string MainMenu_Spells_8 => instance._MainMenu_Spells_8;
 		public string _MainMenu_Spells_8 = "Level too low";
@@ -594,11 +594,11 @@ namespace ChampionsOfForest.Localization
 		public string _ResourceLoader_2 = "Quit Game";
 		public static string ResourceLoader_3 => instance._ResourceLoader_3;
 		public string _ResourceLoader_3 = "Please wait while Champions of the Forest is loading.";
-		public static string ResourceLoader_4 => instance._ResourceLoader_4;
+		public static string ResourceLoader_4(params object[] objects) => string.Format(instance._ResourceLoader_4, objects);
 		public string _ResourceLoader_4 = "Step (1 of {0})\nChecking for existing files.";
-		public static string ResourceLoader_5 => instance._ResourceLoader_5;
+		public static string ResourceLoader_5(params object[] objects) => string.Format(instance._ResourceLoader_5, objects);
 		public string _ResourceLoader_5 = "Step (2 of {0})\nDownloading missing files.";
-		public static string ResourceLoader_6 => instance._ResourceLoader_6;
+		public static string ResourceLoader_6(params object[] objects) => string.Format(instance._ResourceLoader_6, objects);
 		public string _ResourceLoader_6 = "Step (3 of {0})\nLoading assets.";
 		public static string ResourceLoader_7 => instance._ResourceLoader_7;
 		public string _ResourceLoader_7 = "Done!\n Enjoy";
@@ -934,7 +934,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_150 = "Magic arrow causes hit enemies to take {0} more damage for the duration of the slow.";
 		public static string PerkDatabase_151 => instance._PerkDatabase_151;
 		public string _PerkDatabase_151 = "Disabler";
-		public static string PerkDatabase_152 => instance._PerkDatabase_152;
+		public static string PerkDatabase_152(params object[] objects) => string.Format(instance._PerkDatabase_152, objects);
 		public string _PerkDatabase_152 = "Magic arrow's negative effects last additional {0} seconds";
 		public static string PerkDatabase_153 => instance._PerkDatabase_153;
 		public string _PerkDatabase_153 = "Magic Binding";
@@ -1094,11 +1094,11 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_230 = "Increases max energy by {0}";
 		public static string PerkDatabase_231 => instance._PerkDatabase_231;
 		public string _PerkDatabase_231 = "Rerolling";
-		public static string PerkDatabase_232 => instance._PerkDatabase_232;
+		public static string PerkDatabase_232(params object[] objects) => string.Format(instance._PerkDatabase_232, objects);
 		public string _PerkDatabase_232 = "Opens Crafting Menu in inventory. Allows you to reroll item's properties by placing {0} items of the same rarity as ingredients.";
 		public static string PerkDatabase_233 => instance._PerkDatabase_233;
 		public string _PerkDatabase_233 = "Reforging";
-		public static string PerkDatabase_234 => instance._PerkDatabase_234;
+		public static string PerkDatabase_234(params object[] objects) => string.Format(instance._PerkDatabase_234, objects);
 		public string _PerkDatabase_234 = "Adds a tab to crafting menu. Allows you to reforge an item into any other item of the same tier by placing {0} items of the same or higher rarity as ingredients.";
 		public static string PerkDatabase_235 => instance._PerkDatabase_235;
 		public string _PerkDatabase_235 = "Light The Way";
@@ -1182,7 +1182,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_274 = "Melee Mastery";
 		public static string PerkDatabase_275(params object[] objects) => string.Format(instance._PerkDatabase_275, objects);
 		public string _PerkDatabase_275 = "Increases melee weapon damage and attack speed by {0}";
-		public static string PerkDatabase_276 => instance._PerkDatabase_276;
+		public static string PerkDatabase_276(params object[] objects) => string.Format(instance._PerkDatabase_276, objects);
 		public string _PerkDatabase_276 = "Makes you unable to damage enemies with melee weapons, causing all of them to deal {0} damage, but at the same time, you deal double ranged damage";
 		public static string PerkDatabase_277 => instance._PerkDatabase_277;
 		public string _PerkDatabase_277 = "Curse of Crippling";
@@ -1308,7 +1308,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_337 = "Blizzard slow effect greatly reduced";
 		public static string PerkDatabase_338 => instance._PerkDatabase_338;
 		public string _PerkDatabase_338 = "True Aim";
-		public static string PerkDatabase_339 => instance._PerkDatabase_339;
+		public static string PerkDatabase_339(params object[] objects) => string.Format(instance._PerkDatabase_339, objects);
 		public string _PerkDatabase_339 = "Arrow headshots which hit enemies over {0} feet away and are not affected by seeking arrow hit enemies twice, and deal {1} increased damage";
 		public static string PerkDatabase_340 => instance._PerkDatabase_340;
 		public string _PerkDatabase_340 = "Spikes";
@@ -1372,11 +1372,11 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_369 = "Increases armor by {0}, reduces damage taken by {1}";
 		public static string PerkDatabase_370 => instance._PerkDatabase_370;
 		public string _PerkDatabase_370 = "Autocast Shield";
-		public static string PerkDatabase_371 => instance._PerkDatabase_371;
+		public static string PerkDatabase_371(params object[] objects) => string.Format(instance._PerkDatabase_371, objects);
 		public string _PerkDatabase_371 = "When your energy and stamina is above {0} of max, and you have Energy Shield spell equipped, the spell is automatically cast";
 		public static string PerkDatabase_372 => instance._PerkDatabase_372;
 		public string _PerkDatabase_372 = "Seeking Arrow - Improved Memory";
-		public static string PerkDatabase_373 => instance._PerkDatabase_373;
+		public static string PerkDatabase_373(params object[] objects) => string.Format(instance._PerkDatabase_373, objects);
 		public string _PerkDatabase_373 = "Seeking arrow target stays for {0} seconds longer before disappearing";
 		public static string PerkDatabase_374 => instance._PerkDatabase_374;
 		public string _PerkDatabase_374 = "Storm of the century";
@@ -1384,7 +1384,7 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_375 = "Ball Lightning damage scaling is increased by {0}";
 		public static string PerkDatabase_376 => instance._PerkDatabase_376;
 		public string _PerkDatabase_376 = "Craftable Plane Axe";
-		public static string PerkDatabase_377 => instance._PerkDatabase_377;
+		public static string PerkDatabase_377(params object[] objects) => string.Format(instance._PerkDatabase_377, objects);
 		public string _PerkDatabase_377 = "Allows you to craft a plane axe.\nThe receipe is: {0} crafted axe, {1} rope, {2} sticks";
 		public static string PerkDatabase_378 => instance._PerkDatabase_378;
 		public string _PerkDatabase_378 = "Hawk's eye";
@@ -1544,7 +1544,7 @@ namespace ChampionsOfForest.Localization
 		public string _SpellDataBase_12 = "Sets your soul ablaze with dark flames, that ignites blades and projectiles, burning your foes for {0} spell damage.";
 		public static string SpellDataBase_13 => instance._SpellDataBase_13;
 		public string _SpellDataBase_13 = "Black Flame";
-		public static string SpellDataBase_14 => instance._SpellDataBase_14;
+		public static string SpellDataBase_14(params object[] objects) => string.Format(instance._SpellDataBase_14, objects);
 		public string _SpellDataBase_14 = "Release a powerful shout, empowering you and nearby allies for {0} minutes. Increases attack and movement speed.";
 		public static string SpellDataBase_15 => instance._SpellDataBase_15;
 		public string _SpellDataBase_15 = "War Cry";
@@ -1606,7 +1606,7 @@ namespace ChampionsOfForest.Localization
 		public string _SpellDataBase_43 = "Sacrifice your own health to empower your next projectile. Drains your health and adds lost health as damage to the next projectile.";
 		public static string SpellDataBase_44 => instance._SpellDataBase_44;
 		public string _SpellDataBase_44 = "Blood Infusion";
-		public static string SpellDataBase_45 => instance._SpellDataBase_45;
+		public static string SpellDataBase_45(params object[] objects) => string.Format(instance._SpellDataBase_45, objects);
 		public string _SpellDataBase_45 = "Release a powerful gust of toxic gas that poisons and knocks enemies back, or cast it mid air to perform a secondary jump, the damage and area of effect will be lower but {0} of the cooldown will be refunded";
 		public static string SpellDataBase_46 => instance._SpellDataBase_46;
 		public string _SpellDataBase_46 = "Roaring Cheeks";
@@ -1866,7 +1866,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_38 = "Passenger's Jacket";
 		public static string ItemDataBase_ItemDefinitions_39 => instance._ItemDataBase_ItemDefinitions_39;
 		public string _ItemDataBase_ItemDefinitions_39 = "It's a little torn. ";
-		public static string ItemDataBase_ItemDefinitions_40 => instance._ItemDataBase_ItemDefinitions_40;
+		public static string ItemDataBase_ItemDefinitions_40(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_40, objects);
 		public string _ItemDataBase_ItemDefinitions_40 = "This jacket was worn by Preston A. the {0}th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead.";
 		public static string ItemDataBase_ItemDefinitions_41 => instance._ItemDataBase_ItemDefinitions_41;
 		public string _ItemDataBase_ItemDefinitions_41 = "Leather Jacket";
@@ -1926,7 +1926,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_68 = "SmokeyTheBear died because he never used this item.";
 		public static string ItemDataBase_ItemDefinitions_69 => instance._ItemDataBase_ItemDefinitions_69;
 		public string _ItemDataBase_ItemDefinitions_69 = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.";
-		public static string ItemDataBase_ItemDefinitions_70 => instance._ItemDataBase_ItemDefinitions_70;
+		public static string ItemDataBase_ItemDefinitions_70(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_70, objects);
 		public string _ItemDataBase_ItemDefinitions_70 = "Crossbows operate at <color=gold>{0}</color> speed";
 		public static string ItemDataBase_ItemDefinitions_71 => instance._ItemDataBase_ItemDefinitions_71;
 		public string _ItemDataBase_ItemDefinitions_71 = "Broken shield";
@@ -1960,7 +1960,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_85 = "Toxic Ring";
 		public static string ItemDataBase_ItemDefinitions_86 => instance._ItemDataBase_ItemDefinitions_86;
 		public string _ItemDataBase_ItemDefinitions_86 = " comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
-		public static string ItemDataBase_ItemDefinitions_87 => instance._ItemDataBase_ItemDefinitions_87;
+		public static string ItemDataBase_ItemDefinitions_87(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_87, objects);
 		public string _ItemDataBase_ItemDefinitions_87 = "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over {0} confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
 		public static string ItemDataBase_ItemDefinitions_88 => instance._ItemDataBase_ItemDefinitions_88;
 		public string _ItemDataBase_ItemDefinitions_88 = "Scarf";
@@ -2144,7 +2144,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_177 = "Sage's Robes";
 		public static string ItemDataBase_ItemDefinitions_178 => instance._ItemDataBase_ItemDefinitions_178;
 		public string _ItemDataBase_ItemDefinitions_178 = "Hammer Jammers";
-		public static string ItemDataBase_ItemDefinitions_179 => instance._ItemDataBase_ItemDefinitions_179;
+		public static string ItemDataBase_ItemDefinitions_179(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_179, objects);
 		public string _ItemDataBase_ItemDefinitions_179 = "Damage of your smash attack is increased by <color=gold>{0}</color>, hammer stun duration is doubled";
 		public static string ItemDataBase_ItemDefinitions_180 => instance._ItemDataBase_ItemDefinitions_180;
 		public string _ItemDataBase_ItemDefinitions_180 = "Pirate Pants";
@@ -2156,7 +2156,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_183 = "They look like yoga pants but for a man the size of a wardrobe";
 		public static string ItemDataBase_ItemDefinitions_184 => instance._ItemDataBase_ItemDefinitions_184;
 		public string _ItemDataBase_ItemDefinitions_184 = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.";
-		public static string ItemDataBase_ItemDefinitions_185 => instance._ItemDataBase_ItemDefinitions_185;
+		public static string ItemDataBase_ItemDefinitions_185(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_185, objects);
 		public string _ItemDataBase_ItemDefinitions_185 = "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second.";
 		public static string ItemDataBase_ItemDefinitions_186 => instance._ItemDataBase_ItemDefinitions_186;
 		public string _ItemDataBase_ItemDefinitions_186 = "Leather Mantle";
@@ -2182,7 +2182,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_196 = "Death Pact";
 		public static string ItemDataBase_ItemDefinitions_197 => instance._ItemDataBase_ItemDefinitions_197;
 		public string _ItemDataBase_ItemDefinitions_197 = "Find the greatest strength on the border of life and death.";
-		public static string ItemDataBase_ItemDefinitions_198 => instance._ItemDataBase_ItemDefinitions_198;
+		public static string ItemDataBase_ItemDefinitions_198(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_198, objects);
 		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
 		public static string ItemDataBase_ItemDefinitions_199 => instance._ItemDataBase_ItemDefinitions_199;
 		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualit�t";
@@ -2218,7 +2218,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_214 = "It's round on the edges";
 		public static string ItemDataBase_ItemDefinitions_215 => instance._ItemDataBase_ItemDefinitions_215;
 		public string _ItemDataBase_ItemDefinitions_215 = "Iron Horn";
-		public static string ItemDataBase_ItemDefinitions_216 => instance._ItemDataBase_ItemDefinitions_216;
+		public static string ItemDataBase_ItemDefinitions_216(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_216, objects);
 		public string _ItemDataBase_ItemDefinitions_216 = "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>{0}</color> of your armor";
 		public static string ItemDataBase_ItemDefinitions_217 => instance._ItemDataBase_ItemDefinitions_217;
 		public string _ItemDataBase_ItemDefinitions_217 = "The Great Iron Horn";
@@ -2268,7 +2268,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_239 = "Dodge those fukbois";
 		public static string ItemDataBase_ItemDefinitions_240 => instance._ItemDataBase_ItemDefinitions_240;
 		public string _ItemDataBase_ItemDefinitions_240 = "This belt will stop those cheeky cannibals and armsies from getting into your pants";
-		public static string ItemDataBase_ItemDefinitions_241 => instance._ItemDataBase_ItemDefinitions_241;
+		public static string ItemDataBase_ItemDefinitions_241(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_241, objects);
 		public string _ItemDataBase_ItemDefinitions_241 = " <color=gold>{0}</color> damage reduction while sleeping";
 		public static string ItemDataBase_ItemDefinitions_242 => instance._ItemDataBase_ItemDefinitions_242;
 		public string _ItemDataBase_ItemDefinitions_242 = "Ice Scroll";
@@ -2310,13 +2310,13 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_260 = "Swords go brrrrrrttt";
 		public static string ItemDataBase_ItemDefinitions_261 => instance._ItemDataBase_ItemDefinitions_261;
 		public string _ItemDataBase_ItemDefinitions_261 = "Jagged Edge";
-		public static string ItemDataBase_ItemDefinitions_262 => instance._ItemDataBase_ItemDefinitions_262;
+		public static string ItemDataBase_ItemDefinitions_262(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_262, objects);
 		public string _ItemDataBase_ItemDefinitions_262 = "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow";
 		public static string ItemDataBase_ItemDefinitions_263 => instance._ItemDataBase_ItemDefinitions_263;
 		public string _ItemDataBase_ItemDefinitions_263 = "Bloodthirster";
 		public static string ItemDataBase_ItemDefinitions_264 => instance._ItemDataBase_ItemDefinitions_264;
 		public string _ItemDataBase_ItemDefinitions_264 = "Drenched in blood of many unfortunate foes.";
-		public static string ItemDataBase_ItemDefinitions_265 => instance._ItemDataBase_ItemDefinitions_265;
+		public static string ItemDataBase_ItemDefinitions_265(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_265, objects);
 		public string _ItemDataBase_ItemDefinitions_265 = "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health";
 		public static string ItemDataBase_ItemDefinitions_266 => instance._ItemDataBase_ItemDefinitions_266;
 		public string _ItemDataBase_ItemDefinitions_266 = "Frost Giant";
@@ -2336,7 +2336,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_273 = "Grip of Sora";
 		public static string ItemDataBase_ItemDefinitions_274 => instance._ItemDataBase_ItemDefinitions_274;
 		public string _ItemDataBase_ItemDefinitions_274 = "Look, a porcupine! -Sora";
-		public static string ItemDataBase_ItemDefinitions_275 => instance._ItemDataBase_ItemDefinitions_275;
+		public static string ItemDataBase_ItemDefinitions_275(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_275, objects);
 		public string _ItemDataBase_ItemDefinitions_275 = "Multishot drains <color=gold>{0}</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot";
 		public static string ItemDataBase_ItemDefinitions_276 => instance._ItemDataBase_ItemDefinitions_276;
 		public string _ItemDataBase_ItemDefinitions_276 = "Ancient Greatbow";
@@ -2416,7 +2416,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_313 = "Wind armor";
 		public static string ItemDataBase_ItemDefinitions_314 => instance._ItemDataBase_ItemDefinitions_314;
 		public string _ItemDataBase_ItemDefinitions_314 = "Run fast like the wind";
-		public static string ItemDataBase_ItemDefinitions_315 => instance._ItemDataBase_ItemDefinitions_315;
+		public static string ItemDataBase_ItemDefinitions_315(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_315, objects);
 		public string _ItemDataBase_ItemDefinitions_315 = "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health";
 		public static string ItemDataBase_ItemDefinitions_316 => instance._ItemDataBase_ItemDefinitions_316;
 		public string _ItemDataBase_ItemDefinitions_316 = "Crusader Helmet";
@@ -2432,7 +2432,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_321 = "Magic Scroll of great quality";
 		public static string ItemDataBase_ItemDefinitions_322 => instance._ItemDataBase_ItemDefinitions_322;
 		public string _ItemDataBase_ItemDefinitions_322 = "Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll.";
-		public static string ItemDataBase_ItemDefinitions_323 => instance._ItemDataBase_ItemDefinitions_323;
+		public static string ItemDataBase_ItemDefinitions_323(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_323, objects);
 		public string _ItemDataBase_ItemDefinitions_323 = "If a black hole hits {0} or more enemies during it's lifetime, a ball lightning is summoned after it ends.";
 		public static string ItemDataBase_ItemDefinitions_324 => instance._ItemDataBase_ItemDefinitions_324;
 		public string _ItemDataBase_ItemDefinitions_324 = "Purgatory";
@@ -2440,7 +2440,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_325 = "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer";
 		public static string ItemDataBase_ItemDefinitions_326 => instance._ItemDataBase_ItemDefinitions_326;
 		public string _ItemDataBase_ItemDefinitions_326 = "Ring made of Netherrite";
-		public static string ItemDataBase_ItemDefinitions_327 => instance._ItemDataBase_ItemDefinitions_327;
+		public static string ItemDataBase_ItemDefinitions_327(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_327, objects);
 		public string _ItemDataBase_ItemDefinitions_327 = "Purge increases all of your damage based on missing health. Up to {0}";
 		public static string ItemDataBase_ItemDefinitions_328 => instance._ItemDataBase_ItemDefinitions_328;
 		public string _ItemDataBase_ItemDefinitions_328 = "Eruption";
@@ -2452,7 +2452,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_331 = "Archangel";
 		public static string ItemDataBase_ItemDefinitions_332 => instance._ItemDataBase_ItemDefinitions_332;
 		public string _ItemDataBase_ItemDefinitions_332 = "Spread the goodness";
-		public static string ItemDataBase_ItemDefinitions_333 => instance._ItemDataBase_ItemDefinitions_333;
+		public static string ItemDataBase_ItemDefinitions_333(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_333, objects);
 		public string _ItemDataBase_ItemDefinitions_333 = "Shooting another player causes them to be greatly empowered for {0} seconds";
 		public static string ItemDataBase_ItemDefinitions_334 => instance._ItemDataBase_ItemDefinitions_334;
 		public string _ItemDataBase_ItemDefinitions_334 = "The Executioner";
@@ -2462,7 +2462,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_336 = "Moon Cuirass";
 		public static string ItemDataBase_ItemDefinitions_337 => instance._ItemDataBase_ItemDefinitions_337;
 		public string _ItemDataBase_ItemDefinitions_337 = "A piece of armor designed for an archer. ";
-		public static string ItemDataBase_ItemDefinitions_338 => instance._ItemDataBase_ItemDefinitions_338;
+		public static string ItemDataBase_ItemDefinitions_338(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_338, objects);
 		public string _ItemDataBase_ItemDefinitions_338 = "Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than {0} feet deals five-fold damage, and hits the enemy two extra times";
 		public static string ItemDataBase_ItemDefinitions_339 => instance._ItemDataBase_ItemDefinitions_339;
 		public string _ItemDataBase_ItemDefinitions_339 = "Thornmail";
@@ -2538,7 +2538,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_374 = "Fists of Nails";
 		public static string ItemDataBase_ItemDefinitions_375 => instance._ItemDataBase_ItemDefinitions_375;
 		public string _ItemDataBase_ItemDefinitions_375 = "Swiss sheese makers";
-		public static string ItemDataBase_ItemDefinitions_376 => instance._ItemDataBase_ItemDefinitions_376;
+		public static string ItemDataBase_ItemDefinitions_376(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_376, objects);
 		public string _ItemDataBase_ItemDefinitions_376 = "Gain {0} thorns per vitality";
 		public static string ItemDataBase_ItemDefinitions_377 => instance._ItemDataBase_ItemDefinitions_377;
 		public string _ItemDataBase_ItemDefinitions_377 = "Cargo Shorts MK2";
@@ -2656,7 +2656,7 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_433 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}";
 		public static string ItemDataBase_ItemDefinitions_434 => instance._ItemDataBase_ItemDefinitions_434;
 		public string _ItemDataBase_ItemDefinitions_434 = "Lama Mega's Blood Bag";
-		public static string ItemDataBase_ItemDefinitions_435 => instance._ItemDataBase_ItemDefinitions_435;
+		public static string ItemDataBase_ItemDefinitions_435(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_435, objects);
 		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for {0} of your health as damage for {1} seconds";
 		public static string ItemDataBase_ItemDefinitions_436 => instance._ItemDataBase_ItemDefinitions_436;
 		public string _ItemDataBase_ItemDefinitions_436 = "Socket Drill";
@@ -2720,35 +2720,35 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_465 = "Smash damage is increased tripled";
 		public static string ItemDataBase_ItemDefinitions_466 => instance._ItemDataBase_ItemDefinitions_466;
 		public string _ItemDataBase_ItemDefinitions_466 = "Vampiric Band";
-		public static string ItemDataBase_ItemDefinitions_467 => instance._ItemDataBase_ItemDefinitions_467;
+		public static string ItemDataBase_ItemDefinitions_467(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_467, objects);
 		public string _ItemDataBase_ItemDefinitions_467 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
 		public static string ItemDataBase_ItemDefinitions_468 => instance._ItemDataBase_ItemDefinitions_468;
 		public string _ItemDataBase_ItemDefinitions_468 = "Vampire Ring";
-		public static string ItemDataBase_ItemDefinitions_469 => instance._ItemDataBase_ItemDefinitions_469;
+		public static string ItemDataBase_ItemDefinitions_469(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_469, objects);
 		public string _ItemDataBase_ItemDefinitions_469 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
 		public static string ItemDataBase_ItemDefinitions_470 => instance._ItemDataBase_ItemDefinitions_470;
 		public string _ItemDataBase_ItemDefinitions_470 = "Tricksters Scarf";
-		public static string ItemDataBase_ItemDefinitions_471 => instance._ItemDataBase_ItemDefinitions_471;
+		public static string ItemDataBase_ItemDefinitions_471(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_471, objects);
 		public string _ItemDataBase_ItemDefinitions_471 = "Magic arrow shoots {0} additional arrow.";
 		public static string ItemDataBase_ItemDefinitions_472 => instance._ItemDataBase_ItemDefinitions_472;
 		public string _ItemDataBase_ItemDefinitions_472 = "Magus' Necktie";
-		public static string ItemDataBase_ItemDefinitions_473 => instance._ItemDataBase_ItemDefinitions_473;
+		public static string ItemDataBase_ItemDefinitions_473(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_473, objects);
 		public string _ItemDataBase_ItemDefinitions_473 = "Magic arrow shoots {0} additional arrows.";
 		public static string ItemDataBase_ItemDefinitions_474 => instance._ItemDataBase_ItemDefinitions_474;
 		public string _ItemDataBase_ItemDefinitions_474 = "Discounted Knockoff Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_475 => instance._ItemDataBase_ItemDefinitions_475;
+		public static string ItemDataBase_ItemDefinitions_475(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_475, objects);
 		public string _ItemDataBase_ItemDefinitions_475 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
 		public static string ItemDataBase_ItemDefinitions_476 => instance._ItemDataBase_ItemDefinitions_476;
 		public string _ItemDataBase_ItemDefinitions_476 = "Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_477 => instance._ItemDataBase_ItemDefinitions_477;
+		public static string ItemDataBase_ItemDefinitions_477(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_477, objects);
 		public string _ItemDataBase_ItemDefinitions_477 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
 		public static string ItemDataBase_ItemDefinitions_478 => instance._ItemDataBase_ItemDefinitions_478;
 		public string _ItemDataBase_ItemDefinitions_478 = "Improved Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_479 => instance._ItemDataBase_ItemDefinitions_479;
+		public static string ItemDataBase_ItemDefinitions_479(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_479, objects);
 		public string _ItemDataBase_ItemDefinitions_479 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
 		public static string ItemDataBase_ItemDefinitions_480 => instance._ItemDataBase_ItemDefinitions_480;
 		public string _ItemDataBase_ItemDefinitions_480 = "Factory Quiver";
-		public static string ItemDataBase_ItemDefinitions_481 => instance._ItemDataBase_ItemDefinitions_481;
+		public static string ItemDataBase_ItemDefinitions_481(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_481, objects);
 		public string _ItemDataBase_ItemDefinitions_481 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
 		public static string ItemDataBase_ItemDefinitions_482 => instance._ItemDataBase_ItemDefinitions_482;
 		public string _ItemDataBase_ItemDefinitions_482 = "Enzyme STR/34";
@@ -2798,11 +2798,11 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_504 = "Rerolls all stats on an item of any rarity";
 		public static string ItemDataBase_ItemDefinitions_505 => instance._ItemDataBase_ItemDefinitions_505;
 		public string _ItemDataBase_ItemDefinitions_505 = "Gun Blade";
-		public static string ItemDataBase_ItemDefinitions_506 => instance._ItemDataBase_ItemDefinitions_506;
+		public static string ItemDataBase_ItemDefinitions_506(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_506, objects);
 		public string _ItemDataBase_ItemDefinitions_506 = "Increases pistol damage by <color=red>{0}</color>";
 		public static string ItemDataBase_ItemDefinitions_507 => instance._ItemDataBase_ItemDefinitions_507;
 		public string _ItemDataBase_ItemDefinitions_507 = "Sharpshooter's Axe";
-		public static string ItemDataBase_ItemDefinitions_508 => instance._ItemDataBase_ItemDefinitions_508;
+		public static string ItemDataBase_ItemDefinitions_508(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_508, objects);
 		public string _ItemDataBase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=red>{0}</color> and pistol damage by <color=red>{1}</color>";
 		public static string ItemDataBase_ItemDefinitions_509 => instance._ItemDataBase_ItemDefinitions_509;
 		public string _ItemDataBase_ItemDefinitions_509 = "Shield Blade";
@@ -2812,25 +2812,25 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_511 = "A normal human cannot lift this weapon.";
 		public static string ItemDataBase_ItemDefinitions_512 => instance._ItemDataBase_ItemDefinitions_512;
 		public string _ItemDataBase_ItemDefinitions_512 = "Blunt Blade for Bashing Skulls";
-		public static string ItemDataBase_ItemDefinitions_513 => instance._ItemDataBase_ItemDefinitions_513;
+		public static string ItemDataBase_ItemDefinitions_513(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_513, objects);
 		public string _ItemDataBase_ItemDefinitions_513 = "Bash damage debuff on enemies is increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_514 => instance._ItemDataBase_ItemDefinitions_514;
 		public string _ItemDataBase_ItemDefinitions_514 = "Madman's Legacy";
-		public static string ItemDataBase_ItemDefinitions_515 => instance._ItemDataBase_ItemDefinitions_515;
+		public static string ItemDataBase_ItemDefinitions_515(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_515, objects);
 		public string _ItemDataBase_ItemDefinitions_515 = "Frenzy damage per stack is increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_516 => instance._ItemDataBase_ItemDefinitions_516;
 		public string _ItemDataBase_ItemDefinitions_516 = "Buckler";
 		public static string ItemDataBase_ItemDefinitions_517 => instance._ItemDataBase_ItemDefinitions_517;
 		public string _ItemDataBase_ItemDefinitions_517 = "Pyromancy Mask";
-		public static string ItemDataBase_ItemDefinitions_518 => instance._ItemDataBase_ItemDefinitions_518;
+		public static string ItemDataBase_ItemDefinitions_518(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_518, objects);
 		public string _ItemDataBase_ItemDefinitions_518 = "Ignited enemies burn for {0} extended perioid of time.";
 		public static string ItemDataBase_ItemDefinitions_519 => instance._ItemDataBase_ItemDefinitions_519;
 		public string _ItemDataBase_ItemDefinitions_519 = "Ember Mask";
-		public static string ItemDataBase_ItemDefinitions_520 => instance._ItemDataBase_ItemDefinitions_520;
+		public static string ItemDataBase_ItemDefinitions_520(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_520, objects);
 		public string _ItemDataBase_ItemDefinitions_520 = "Ignited enemies burn for {0} extended perioid of time and fire ticks thrice as fast.";
 		public static string ItemDataBase_ItemDefinitions_521 => instance._ItemDataBase_ItemDefinitions_521;
 		public string _ItemDataBase_ItemDefinitions_521 = "Flame Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_522 => instance._ItemDataBase_ItemDefinitions_522;
+		public static string ItemDataBase_ItemDefinitions_522(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_522, objects);
 		public string _ItemDataBase_ItemDefinitions_522 = "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}";
 		public static string ItemDataBase_ItemDefinitions_523 => instance._ItemDataBase_ItemDefinitions_523;
 		public string _ItemDataBase_ItemDefinitions_523 = "Ancient Scroll";
@@ -2842,23 +2842,23 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_526 = "300th Spear";
 		public static string ItemDataBase_ItemDefinitions_527 => instance._ItemDataBase_ItemDefinitions_527;
 		public string _ItemDataBase_ItemDefinitions_527 = "Stone Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_528 => instance._ItemDataBase_ItemDefinitions_528;
+		public static string ItemDataBase_ItemDefinitions_528(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_528, objects);
 		public string _ItemDataBase_ItemDefinitions_528 = "All damage increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_529 => instance._ItemDataBase_ItemDefinitions_529;
 		public string _ItemDataBase_ItemDefinitions_529 = "Iron Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_530 => instance._ItemDataBase_ItemDefinitions_530;
+		public static string ItemDataBase_ItemDefinitions_530(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_530, objects);
 		public string _ItemDataBase_ItemDefinitions_530 = "All damage increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_531 => instance._ItemDataBase_ItemDefinitions_531;
 		public string _ItemDataBase_ItemDefinitions_531 = "Steel Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_532 => instance._ItemDataBase_ItemDefinitions_532;
+		public static string ItemDataBase_ItemDefinitions_532(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_532, objects);
 		public string _ItemDataBase_ItemDefinitions_532 = "All damage increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_533 => instance._ItemDataBase_ItemDefinitions_533;
 		public string _ItemDataBase_ItemDefinitions_533 = "Battle scarred Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_534 => instance._ItemDataBase_ItemDefinitions_534;
+		public static string ItemDataBase_ItemDefinitions_534(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_534, objects);
 		public string _ItemDataBase_ItemDefinitions_534 = "All damage increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_535 => instance._ItemDataBase_ItemDefinitions_535;
 		public string _ItemDataBase_ItemDefinitions_535 = "Mystery Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_536 => instance._ItemDataBase_ItemDefinitions_536;
+		public static string ItemDataBase_ItemDefinitions_536(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_536, objects);
 		public string _ItemDataBase_ItemDefinitions_536 = "All damage increased by {0}";
 		public static string ItemDataBase_ItemDefinitions_537 => instance._ItemDataBase_ItemDefinitions_537;
 		public string _ItemDataBase_ItemDefinitions_537 = "Stone Shield";
@@ -2928,9 +2928,9 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_569 = "Mystery Helmet";
 		public static string ItemDataBase_ItemDefinitions_570 => instance._ItemDataBase_ItemDefinitions_570;
 		public string _ItemDataBase_ItemDefinitions_570 = "Yorium's Gaze";
-		public static string ItemDataBase_ItemDefinitions_571 => instance._ItemDataBase_ItemDefinitions_571;
+		public static string ItemDataBase_ItemDefinitions_571(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_571, objects);
 		public string _ItemDataBase_ItemDefinitions_571 = "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved.";
-		public static string ItemDataBase_ItemDefinitions_572 => instance._ItemDataBase_ItemDefinitions_572;
+		public static string ItemDataBase_ItemDefinitions_572(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_572, objects);
 		public string _ItemDataBase_ItemDefinitions_572 = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration.";
 		public static string ItemDataBase_ItemDefinitions_573 => instance._ItemDataBase_ItemDefinitions_573;
 		public string _ItemDataBase_ItemDefinitions_573 = "Yorium's Ruthlessness";
@@ -2944,9 +2944,9 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_577 = "Yorium's Assault";
 		public static string ItemDataBase_ItemDefinitions_578 => instance._ItemDataBase_ItemDefinitions_578;
 		public string _ItemDataBase_ItemDefinitions_578 = "Undying Promise";
-		public static string ItemDataBase_ItemDefinitions_579 => instance._ItemDataBase_ItemDefinitions_579;
+		public static string ItemDataBase_ItemDefinitions_579(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_579, objects);
 		public string _ItemDataBase_ItemDefinitions_579 = "Resist lethal damage on a {0} minute cooldown";
-		public static string ItemDataBase_ItemDefinitions_581 => instance._ItemDataBase_ItemDefinitions_581;
+		public static string ItemDataBase_ItemDefinitions_581(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_581, objects);
 		public string _ItemDataBase_ItemDefinitions_581 = "Snap freeze damage is increased and the slow duration is increased by {0} second";
 		public static string ItemDataBase_ItemDefinitions_582 => instance._ItemDataBase_ItemDefinitions_582;
 		public string _ItemDataBase_ItemDefinitions_582 = "If equipped on a weapon, increases ranged damage by ";
@@ -3001,41 +3001,41 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_607 => instance._ItemDataBase_ItemDefinitions_607;
 		public string _ItemDataBase_ItemDefinitions_607 = "Firebolt deals increased damage";
 
-		//Player\Main Menu\MainMenu_DifficultySelection.cs
+        //Player\Main Menu\MainMenu_DifficultySelection.cs
 
-		//Player\Main Menu\MainMenu.cs
+        //Player\Main Menu\MainMenu.cs
 
-		//Player\Main Menu\MainMenu_Guide.cs
+        //Player\Main Menu\MainMenu_Guide.cs
 
-		//Player\Main Menu\MainMenu_HUD.cs
+        //Player\Main Menu\MainMenu_HUD.cs
 
-		//Player\Main Menu\MainMenu_Inventory.cs
+        //Player\Main Menu\MainMenu_Inventory.cs
 
-		//Player\Main Menu\MainMenu_Perks.cs
+        //Player\Main Menu\MainMenu_Perks.cs
 
-		//Player\Main Menu\MainMenu_Spells.cs
+        //Player\Main Menu\MainMenu_Spells.cs
 
-		//Player\Crafting\Empowering.cs
+        //Player\Crafting\Empowering.cs
 
-		//Player\Crafting\IndividualRerolling.cs
+        //Player\Crafting\IndividualRerolling.cs
 
-		//Player\Crafting\Polishing.cs
+        //Player\Crafting\Polishing.cs
 
-		//Player\Crafting\Reforging.cs
+        //Player\Crafting\Reforging.cs
 
-		//Player\Crafting\Rerolling.cs
+        //Player\Crafting\Rerolling.cs
 
-		//Player\Perks\PerkDatabase.cs
+        //Player\Perks\PerkDatabase.cs
 
-		//Player\Spells\SpellDataBase.cs
+        //Player\Spells\SpellDataBase.cs
 
-		//Items\ItemDataBase_StatDefinitions.cs
+        //Items\ItemDataBase_StatDefinitions.cs
 
-		//Items\ItemDataBase_ItemDefinitions.cs
+        //Items\ItemDataBase_ItemDefinitions.cs
 
-		//Items\Item.cs
+        //Items\Item.cs
 
-		//Res\ResourceLoader.cs
+        //Res\ResourceLoader.cs
 
 
 
@@ -3197,7 +3197,7 @@ MainMenu_Guide_84:: "Crossbow damage"
 MainMenu_Guide_85:: "Bow damage"
 MainMenu_Guide_86:: "Shooting an enemy creates magic arrows pointed at them. There is a short cooldown on this ability"
 MainMenu_Guide_87:: "Multishot Projectiles"
-MainMenu_Guide_88:: "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}.75) * {1}"
+MainMenu_Guide_88:: "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}) * {1}"
 MainMenu_Guide_89:: "Multishot Cost"
 MainMenu_Guide_90:: "Magic"
 MainMenu_Guide_91:: "Spell damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from intelligence: {0}\nIncrease to spell damage: {1}\nIncrease to all damage: {2}"
@@ -3471,7 +3471,7 @@ PerkDatabase_122:: "Increases carry amount of sticks by {0}, rocks by {1} and ro
 PerkDatabase_123:: "More Miscellaneous Items"
 PerkDatabase_124:: "Increases carry amount of pots, turtle shells, watches, circuit boards, air canisters and flares by {0}"
 PerkDatabase_125:: "More Ammo"
-PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + {1} rock), crossbow bolts (3 rocks + {2} sticks), and modern arrows (arrows + coins)"
+PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo ([2] coins + {3} rock), crossbow bolts ([4] rocks + {5} sticks), and modern arrows (arrows + coins)"
 PerkDatabase_127:: "Spear Specialization"
 PerkDatabase_128:: "Thrown spears deal {0} more damage"
 PerkDatabase_129:: "Pistol Specialization"
