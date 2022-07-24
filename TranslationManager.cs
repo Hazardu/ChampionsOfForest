@@ -72,10 +72,10 @@ namespace ChampionsOfForest.Localization
 
 		}
 		public static bool processingLanguage = false;
-		public static void GetJson()
-		{
-			ModAPI.Log.Write(JsonUtility.ToJson(instance));
-		}
+		//public static void GetJson()
+		//{
+		//	ModAPI.Log.Write(JsonUtility.ToJson(instance));
+		//}
 		private static bool Parse(in string path)
 		{
 			if (!File.Exists(path))
@@ -117,6 +117,7 @@ namespace ChampionsOfForest.Localization
 
 	}
 
+	//class to alter language
 	public class MenuOptionsMod : MenuOptions
 	{
 		protected override void OnLanguageChange()

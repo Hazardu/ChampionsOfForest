@@ -647,41 +647,39 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_1 => instance._PerkDatabase_1;
 		public string _PerkDatabase_1 = "Stronger Hits";
 		public static string PerkDatabase_2 => instance._PerkDatabase_2;
-		public string _PerkDatabase_2 = "Gene allows muscles to quickly change their structure to a more efficient one.\nEvery point of STRENGTH increases MEELE DAMAGE by 1%.";
+		public string _PerkDatabase_2 = "Gene allows muscles to quickly change their structure to a more efficient one.\nEvery point of STRENGTH increases MELEE DAMAGE by {0}";
 		public static string PerkDatabase_3 => instance._PerkDatabase_3;
 		public string _PerkDatabase_3 = "Stronger Spells";
 		public static string PerkDatabase_4 => instance._PerkDatabase_4;
-		public string _PerkDatabase_4 = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 1%.";
+		public string _PerkDatabase_4 = "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by ";
 		public static string PerkDatabase_5 => instance._PerkDatabase_5;
 		public string _PerkDatabase_5 = "Stronger Projectiles";
 		public static string PerkDatabase_6 => instance._PerkDatabase_6;
-		public string _PerkDatabase_6 = "Neural connections between muscles and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 1%.";
+		public string _PerkDatabase_6 = "Neural connections between muscles and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by ";
 		public static string PerkDatabase_7 => instance._PerkDatabase_7;
 		public string _PerkDatabase_7 = "Inner Energy";
 		public static string PerkDatabase_8 => instance._PerkDatabase_8;
-		public string _PerkDatabase_8 = "Heart's muscles become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by 1%.";
+		public string _PerkDatabase_8 = "Heart's muscles become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by ";
 		public static string PerkDatabase_9 => instance._PerkDatabase_9;
 		public string _PerkDatabase_9 = "More Stamina";
 		public static string PerkDatabase_10 => instance._PerkDatabase_10;
 		public string _PerkDatabase_10 = "Hemoglobin is replaced with an alternative substance capable of carrying more oxygen.\nEvery point of AGILITY increases max stamina by 0.5";
-		public static string PerkDatabase_11 => instance._PerkDatabase_11;
-		public string _PerkDatabase_11 = "More Health";
 		public static string PerkDatabase_12 => instance._PerkDatabase_12;
-		public string _PerkDatabase_12 = "Skin and bones become more resistant to injuries.\nEvery point of VITALITY increases max health by 1.75";
+		public string _PerkDatabase_12 = "Skin and bones become more resistant to injuries.\nEvery point of VITALITY increases max health by ";
 		public static string PerkDatabase_13 => instance._PerkDatabase_13;
 		public string _PerkDatabase_13 = "More Healing";
 		public static string PerkDatabase_14 => instance._PerkDatabase_14;
-		public string _PerkDatabase_14 = "Blood becomes denser and binds more oxygen, is less vulnerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 7.5%";
+		public string _PerkDatabase_14 = "Blood becomes denser and binds more oxygen, is less vulnerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by ";
 		public static string PerkDatabase_15 => instance._PerkDatabase_15;
 		public string _PerkDatabase_15 = "\nTotal from this perk: ";
 		public static string PerkDatabase_16 => instance._PerkDatabase_16;
 		public string _PerkDatabase_16 = "Metabolism";
 		public static string PerkDatabase_17 => instance._PerkDatabase_17;
-		public string _PerkDatabase_17 = "Additional microorganisms are now present in the digestive system. Sweating is decreased\nDecreases hunger and thirst rate by 10%.";
+		public string _PerkDatabase_17 = "Additional microorganisms are now present in the digestive system. Sweating is decreased\nDecreases hunger and thirst rate by ";
 		public static string PerkDatabase_18 => instance._PerkDatabase_18;
 		public string _PerkDatabase_18 = "Breath under control";
 		public static string PerkDatabase_19 => instance._PerkDatabase_19;
-		public string _PerkDatabase_19 = "Recovers 0.5 more stamina per second. Stamina is used for sprinting and swinging weapons.";
+		public string _PerkDatabase_19 = "Recovers {0} more stamina per second. Stamina is used for sprinting and swinging weapons.";
 		public static string PerkDatabase_20 => instance._PerkDatabase_20;
 		public string _PerkDatabase_20 = "N1";
 		public static string PerkDatabase_21 => instance._PerkDatabase_21;
@@ -689,19 +687,19 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_22 => instance._PerkDatabase_22;
 		public string _PerkDatabase_22 = "Grip Strength";
 		public static string PerkDatabase_23 => instance._PerkDatabase_23;
-		public string _PerkDatabase_23 = "Grip strength increases.\nIncreases melee damage by 5";
+		public string _PerkDatabase_23 = "Grip strength increases.\nIncreases melee damage by ";
 		public static string PerkDatabase_24 => instance._PerkDatabase_24;
 		public string _PerkDatabase_24 = "Arm Strength";
 		public static string PerkDatabase_25 => instance._PerkDatabase_25;
-		public string _PerkDatabase_25 = "Biceps slightly increases in size.\nIncreases melee damage by 10%";
+		public string _PerkDatabase_25 = "Biceps slightly increases in size.\nIncreases melee damage by ";
 		public static string PerkDatabase_26 => instance._PerkDatabase_26;
 		public string _PerkDatabase_26 = "Body Strength";
 		public static string PerkDatabase_27 => instance._PerkDatabase_27;
-		public string _PerkDatabase_27 = "All flexors gain in size.\nIncreases strength by 15";
+		public string _PerkDatabase_27 = "All flexors gain in size.\nIncreases strength by ";
 		public static string PerkDatabase_28 => instance._PerkDatabase_28;
 		public string _PerkDatabase_28 = "Projectile Damage";
 		public static string PerkDatabase_29 => instance._PerkDatabase_29;
-		public string _PerkDatabase_29 = "Shoulder muscles grow.\nIncreases projectile damage by 8";
+		public string _PerkDatabase_29 = "Shoulder muscles grow.\nIncreases projectile damage by ";
 		public static string PerkDatabase_30 => instance._PerkDatabase_30;
 		public string _PerkDatabase_30 = "Large caliber";
 		public static string PerkDatabase_31 => instance._PerkDatabase_31;
@@ -713,21 +711,21 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_34 => instance._PerkDatabase_34;
 		public string _PerkDatabase_34 = "Transmutation";
 		public static string PerkDatabase_35 => instance._PerkDatabase_35;
-		public string _PerkDatabase_35 = "The costs of casting spells become easier to quickly recover from.\n10% of the spell cost is now taxed from stamina instead of energy.";
+		public string _PerkDatabase_35 = "Spells become easier to  recover from.\n15% of the spell cost is now taxed from stamina instead of energy.";
 		public static string PerkDatabase_36 => instance._PerkDatabase_36;
 		public string _PerkDatabase_36 = "Resource Cost Reduction";
 		public static string PerkDatabase_37 => instance._PerkDatabase_37;
-		public string _PerkDatabase_37 = "In order to preserve energy, spell costs are reduced by 4%";
+		public string _PerkDatabase_37 = "In order to preserve energy, spell costs are reduced by ";
 		public static string PerkDatabase_38 => instance._PerkDatabase_38;
-		public string _PerkDatabase_38 = "Undestructable";
+		public string _PerkDatabase_38 = "Indestructable";
 		public static string PerkDatabase_39 => instance._PerkDatabase_39;
-		public string _PerkDatabase_39 = "Decreases all damage taken and decreases all damage dealt by 30%";
+		public string _PerkDatabase_39 = "Decreases all damage taken and decreases all damage dealt by 30%. Thorns damage is increased by 69%";
 		public static string PerkDatabase_40 => instance._PerkDatabase_40;
-		public string _PerkDatabase_40 = "Cool Down Reduction";
+		public string _PerkDatabase_40 = "Cooldown Reduction";
 		public static string PerkDatabase_41 => instance._PerkDatabase_41;
-		public string _PerkDatabase_41 = " Reduces spell cooldown by 5%";
+		public string _PerkDatabase_41 = " Reduces spell cooldown by ";
 		public static string PerkDatabase_42 => instance._PerkDatabase_42;
-		public string _PerkDatabase_42 = "Greater Cool Down Reduction";
+		public string _PerkDatabase_42 = "Greater Cooldown Reduction";
 		public static string PerkDatabase_43 => instance._PerkDatabase_43;
 		public string _PerkDatabase_43 = " Reduces spell cooldown by 7,5%";
 		public static string PerkDatabase_44 => instance._PerkDatabase_44;
@@ -735,9 +733,9 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_45 => instance._PerkDatabase_45;
 		public string _PerkDatabase_45 = "+5 to every strength, agility, vitality and intelligence";
 		public static string PerkDatabase_46 => instance._PerkDatabase_46;
-		public string _PerkDatabase_46 = "+15 to every strength, agility, vitality and intelligence";
+		public string _PerkDatabase_46 = "to every strength, agility, vitality and intelligence";
 		public static string PerkDatabase_47 => instance._PerkDatabase_47;
-		public string _PerkDatabase_47 = "+4% to attack speed ";
+		public string _PerkDatabase_47 = "to attack speed ";
 		public static string PerkDatabase_48 => instance._PerkDatabase_48;
 		public string _PerkDatabase_48 = "Reusability I";
 		public static string PerkDatabase_49 => instance._PerkDatabase_49;
@@ -753,15 +751,15 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_54 => instance._PerkDatabase_54;
 		public string _PerkDatabase_54 = "Jump";
 		public static string PerkDatabase_55 => instance._PerkDatabase_55;
-		public string _PerkDatabase_55 = "Increases jump height by 6%";
+		public string _PerkDatabase_55 = "Increases jump height by ";
 		public static string PerkDatabase_56 => instance._PerkDatabase_56;
 		public string _PerkDatabase_56 = "Light foot";
 		public static string PerkDatabase_57 => instance._PerkDatabase_57;
-		public string _PerkDatabase_57 = "Increases movement speed by 3.5%";
+		public string _PerkDatabase_57 = "Increases movement speed by";
 		public static string PerkDatabase_58 => instance._PerkDatabase_58;
 		public string _PerkDatabase_58 = "Bonus Health";
 		public static string PerkDatabase_59 => instance._PerkDatabase_59;
-		public string _PerkDatabase_59 = "Increases health by 25. This is further multiplied by maximum health percent.";
+		public string _PerkDatabase_59 = "Increases health by";
 		public static string PerkDatabase_60 => instance._PerkDatabase_60;
 		public string _PerkDatabase_60 = "Health Regen";
 		public static string PerkDatabase_61 => instance._PerkDatabase_61;
@@ -771,27 +769,27 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_63 => instance._PerkDatabase_63;
 		public string _PerkDatabase_63 = "Bonus Armor";
 		public static string PerkDatabase_64 => instance._PerkDatabase_64;
-		public string _PerkDatabase_64 = "Increases armor by 40.";
+		public string _PerkDatabase_64 = "Increases armor by";
 		public static string PerkDatabase_65 => instance._PerkDatabase_65;
 		public string _PerkDatabase_65 = "Durability";
 		public static string PerkDatabase_66 => instance._PerkDatabase_66;
-		public string _PerkDatabase_66 = "Decreases all damage taken by 10%.";
+		public string _PerkDatabase_66 = "Decreases all damage taken by";
 		public static string PerkDatabase_67 => instance._PerkDatabase_67;
 		public string _PerkDatabase_67 = "Durability II";
 		public static string PerkDatabase_68 => instance._PerkDatabase_68;
-		public string _PerkDatabase_68 = "Further decreases all damage taken by 10%.";
+		public string _PerkDatabase_68 = "Further decreases all damage taken by";
 		public static string PerkDatabase_69 => instance._PerkDatabase_69;
 		public string _PerkDatabase_69 = "Durability III";
 		public static string PerkDatabase_70 => instance._PerkDatabase_70;
-		public string _PerkDatabase_70 = "Decreases magic damage taken by 7%";
+		public string _PerkDatabase_70 = "Decreases magic damage taken by";
 		public static string PerkDatabase_71 => instance._PerkDatabase_71;
 		public string _PerkDatabase_71 = "Dodge";
 		public static string PerkDatabase_72 => instance._PerkDatabase_72;
-		public string _PerkDatabase_72 = "Increases dodge chance by 25%";
+		public string _PerkDatabase_72 = "Increases dodge chance by {0}";
 		public static string PerkDatabase_73 => instance._PerkDatabase_73;
 		public string _PerkDatabase_73 = "Armor Penetration";
 		public static string PerkDatabase_74 => instance._PerkDatabase_74;
-		public string _PerkDatabase_74 = "Increases armor penetration from all sources by 3";
+		public string _PerkDatabase_74 = "Increases armor penetration from all sources by";
 		public static string PerkDatabase_75 => instance._PerkDatabase_75;
 		public string _PerkDatabase_75 = "Armor Piercing Edge";
 		public static string PerkDatabase_76 => instance._PerkDatabase_76;
@@ -799,7 +797,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_77 => instance._PerkDatabase_77;
 		public string _PerkDatabase_77 = "Anti armor projectiles";
 		public static string PerkDatabase_78 => instance._PerkDatabase_78;
-		public string _PerkDatabase_78 = "Increases armor penetration from ranged weapons by 5";
+		public string _PerkDatabase_78 = "Increases armor penetration from ranged weapons by";
 		public static string PerkDatabase_79 => instance._PerkDatabase_79;
 		public string _PerkDatabase_79 = "More Health Regen";
 		public static string PerkDatabase_80 => instance._PerkDatabase_80;
@@ -835,19 +833,19 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_95 => instance._PerkDatabase_95;
 		public string _PerkDatabase_95 = "Demolition Expert";
 		public static string PerkDatabase_96 => instance._PerkDatabase_96;
-		public string _PerkDatabase_96 = "Increases daily generation of dynamite by 2. If it exceeds your max amount of bombs carried, excess will be lost.";
+		public string _PerkDatabase_96 = "Increases daily generation of dynamite by 5. If it exceeds your max amount of bombs carried, excess will be lost.";
 		public static string PerkDatabase_97 => instance._PerkDatabase_97;
 		public string _PerkDatabase_97 = "Meds";
 		public static string PerkDatabase_98 => instance._PerkDatabase_98;
-		public string _PerkDatabase_98 = "Increases daily generation of meds by 1. If it exceeds your max amount of bombs carried, excess will be lost.";
+		public string _PerkDatabase_98 = "Increases daily generation of meds by 3. If it exceeds your max amount of bombs carried, excess will be lost.";
 		public static string PerkDatabase_99 => instance._PerkDatabase_99;
 		public string _PerkDatabase_99 = "Fuel";
 		public static string PerkDatabase_100 => instance._PerkDatabase_100;
-		public string _PerkDatabase_100 = "Increases daily generation of fuel cans by 1. If it exceeds your max amount of bombs carried, excess will be lost.";
+		public string _PerkDatabase_100 = "Increases daily generation of fuel cans by 3. If it exceeds your max amount of bombs carried, excess will be lost.";
 		public static string PerkDatabase_101 => instance._PerkDatabase_101;
 		public string _PerkDatabase_101 = "Booze";
 		public static string PerkDatabase_102 => instance._PerkDatabase_102;
-		public string _PerkDatabase_102 = "Increases daily generation of booze by 2. If it exceeds your max amount of bombs carried, excess will be lost.";
+		public string _PerkDatabase_102 = "Increases daily generation of booze by 5. If it exceeds your max amount of bombs carried, excess will be lost.";
 		public static string PerkDatabase_103 => instance._PerkDatabase_103;
 		public string _PerkDatabase_103 = "More Booze";
 		public static string PerkDatabase_104 => instance._PerkDatabase_104;
@@ -3040,6 +3038,24 @@ namespace ChampionsOfForest.Localization
         //Player\Crafting\Rerolling.cs
 
         //Player\Perks\PerkDatabase.cs
+		public static string PerkDatabase_443 => instance._PerkDatabase_443;
+		public string _PerkDatabase_443 = " 10%";
+
+		public static string PerkDatabase_444 => instance._PerkDatabase_444;
+		public string _PerkDatabase_444 = "+5 ";
+
+		public static string PerkDatabase_445 => instance._PerkDatabase_445;
+		public string _PerkDatabase_445 = "+20 ";
+
+		public static string PerkDatabase_446 => instance._PerkDatabase_446;
+		public string _PerkDatabase_446 = "+5% ";
+
+		public static string PerkDatabase_447 => instance._PerkDatabase_447;
+		public string _PerkDatabase_447 = " 15%";
+
+		public static string PerkDatabase_448 => instance._PerkDatabase_448;
+		public string _PerkDatabase_448 = " 20%";
+
 
         //Player\Spells\SpellDataBase.cs
 
@@ -3366,52 +3382,51 @@ ResourceLoader_25:: "Downloading "
 ResourceLoader_26:: " - Error with downloading a file "
 ResourceLoader_27:: "Loading "
 PerkDatabase_1:: "Stronger Hits"
-PerkDatabase_2:: "Gene allows muscles to quickly change their structure to a more efficient one.\nEvery point of STRENGTH increases MEELE DAMAGE by 1%."
+PerkDatabase_2:: "Gene allows muscles to quickly change their structure to a more efficient one.\nEvery point of STRENGTH increases MELEE DAMAGE by {0}"
 PerkDatabase_3:: "Stronger Spells"
-PerkDatabase_4:: "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by 1%."
+PerkDatabase_4:: "Gene changes the composition of axon sheath that greatly increases brain's power.\nEvery point of INTELLIGENCE increases SPELL DAMAGE by "
 PerkDatabase_5:: "Stronger Projectiles"
-PerkDatabase_6:: "Neural connections between muscles and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by 1%."
+PerkDatabase_6:: "Neural connections between muscles and the brain are now a lot more sensitive. Your movements become a lot more precise.\nEvery point of AGILITY increases RANGED DAMAGE by "
 PerkDatabase_7:: "Inner Energy"
-PerkDatabase_8:: "Heart's muscles become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by 1%."
+PerkDatabase_8:: "Heart's muscles become even more resistant to exhaustion.\nEvery point of intelligence increases stamina and energy recovery rate by "
 PerkDatabase_9:: "More Stamina"
 PerkDatabase_10:: "Hemoglobin is replaced with an alternative substance capable of carrying more oxygen.\nEvery point of AGILITY increases max stamina by 0.5"
-PerkDatabase_11:: "More Health"
-PerkDatabase_12:: "Skin and bones become more resistant to injuries.\nEvery point of VITALITY increases max health by 1.75"
+PerkDatabase_12:: "Skin and bones become more resistant to injuries.\nEvery point of VITALITY increases max health by "
 PerkDatabase_13:: "More Healing"
-PerkDatabase_14:: "Blood becomes denser and binds more oxygen, is less vulnerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by 7.5%"
+PerkDatabase_14:: "Blood becomes denser and binds more oxygen, is less vulnerable to bleeding and wounds are healed faster. Stamina and energy recover faster.\nIncreases all healing and recovery by "
 PerkDatabase_15:: "\nTotal from this perk: "
 PerkDatabase_16:: "Metabolism"
-PerkDatabase_17:: "Additional microorganisms are now present in the digestive system. Sweating is decreased\nDecreases hunger and thirst rate by 10%."
+PerkDatabase_17:: "Additional microorganisms are now present in the digestive system. Sweating is decreased\nDecreases hunger and thirst rate by "
 PerkDatabase_18:: "Breath under control"
-PerkDatabase_19:: "Recovers 0.5 more stamina per second. Stamina is used for sprinting and swinging weapons."
+PerkDatabase_19:: "Recovers {0} more stamina per second. Stamina is used for sprinting and swinging weapons."
 PerkDatabase_20:: "N1"
 PerkDatabase_21:: "Total: "
 PerkDatabase_22:: "Grip Strength"
-PerkDatabase_23:: "Grip strength increases.\nIncreases melee damage by 5"
+PerkDatabase_23:: "Grip strength increases.\nIncreases melee damage by "
 PerkDatabase_24:: "Arm Strength"
-PerkDatabase_25:: "Biceps slightly increases in size.\nIncreases melee damage by 10%"
+PerkDatabase_25:: "Biceps slightly increases in size.\nIncreases melee damage by "
 PerkDatabase_26:: "Body Strength"
-PerkDatabase_27:: "All flexors gain in size.\nIncreases strength by 15"
+PerkDatabase_27:: "All flexors gain in size.\nIncreases strength by "
 PerkDatabase_28:: "Projectile Damage"
-PerkDatabase_29:: "Shoulder muscles grow.\nIncreases projectile damage by 8"
+PerkDatabase_29:: "Shoulder muscles grow.\nIncreases projectile damage by "
 PerkDatabase_30:: "Large caliber"
 PerkDatabase_31:: "Bigger is better.\nIncreases projectile size by 5%"
 PerkDatabase_32:: "Speed"
 PerkDatabase_33:: "Increased overall physical strength allows for stronger drawing of ranged weaponry.\nIncreases projectile speed by 5%"
 PerkDatabase_34:: "Transmutation"
-PerkDatabase_35:: "The costs of casting spells become easier to quickly recover from.\n10% of the spell cost is now taxed from stamina instead of energy."
+PerkDatabase_35:: "Spells become easier to  recover from.\n15% of the spell cost is now taxed from stamina instead of energy."
 PerkDatabase_36:: "Resource Cost Reduction"
-PerkDatabase_37:: "In order to preserve energy, spell costs are reduced by 4%"
-PerkDatabase_38:: "Undestructable"
-PerkDatabase_39:: "Decreases all damage taken and decreases all damage dealt by 30%"
-PerkDatabase_40:: "Cool Down Reduction"
-PerkDatabase_41:: " Reduces spell cooldown by 5%"
-PerkDatabase_42:: "Greater Cool Down Reduction"
+PerkDatabase_37:: "In order to preserve energy, spell costs are reduced by "
+PerkDatabase_38:: "Indestructable"
+PerkDatabase_39:: "Decreases all damage taken and decreases all damage dealt by 30%. Thorns damage is increased by 69%"
+PerkDatabase_40:: "Cooldown Reduction"
+PerkDatabase_41:: " Reduces spell cooldown by "
+PerkDatabase_42:: "Greater Cooldown Reduction"
 PerkDatabase_43:: " Reduces spell cooldown by 7,5%"
 PerkDatabase_44:: "All attributes"
 PerkDatabase_45:: "+5 to every strength, agility, vitality and intelligence"
-PerkDatabase_46:: "+15 to every strength, agility, vitality and intelligence"
-PerkDatabase_47:: "+4% to attack speed "
+PerkDatabase_46:: "to every strength, agility, vitality and intelligence"
+PerkDatabase_47:: "to attack speed "
 PerkDatabase_48:: "Reusability I"
 PerkDatabase_49:: "+3% chance to not consume ammo while firing."
 PerkDatabase_50:: "Reusability II"
@@ -3419,30 +3434,30 @@ PerkDatabase_51:: "+13% chance to not consume ammo while firing."
 PerkDatabase_52:: "Reusability III"
 PerkDatabase_53:: "+10 to strength, agility, vitality and intelligence"
 PerkDatabase_54:: "Jump"
-PerkDatabase_55:: "Increases jump height by 6%"
+PerkDatabase_55:: "Increases jump height by "
 PerkDatabase_56:: "Light foot"
-PerkDatabase_57:: "Increases movement speed by 3.5%"
+PerkDatabase_57:: "Increases movement speed by"
 PerkDatabase_58:: "Bonus Health"
-PerkDatabase_59:: "Increases health by 25. This is further multiplied by maximum health percent."
+PerkDatabase_59:: "Increases health by"
 PerkDatabase_60:: "Health Regen"
 PerkDatabase_61:: "Increases health per second regeneration by 0.25 HP/second. This is further multiplied by health regeneration percent and all healing percent."
 PerkDatabase_62:: "N2"
 PerkDatabase_63:: "Bonus Armor"
-PerkDatabase_64:: "Increases armor by 40."
+PerkDatabase_64:: "Increases armor by"
 PerkDatabase_65:: "Durability"
-PerkDatabase_66:: "Decreases all damage taken by 10%."
+PerkDatabase_66:: "Decreases all damage taken by"
 PerkDatabase_67:: "Durability II"
-PerkDatabase_68:: "Further decreases all damage taken by 10%."
+PerkDatabase_68:: "Further decreases all damage taken by"
 PerkDatabase_69:: "Durability III"
-PerkDatabase_70:: "Decreases magic damage taken by 7%"
+PerkDatabase_70:: "Decreases magic damage taken by"
 PerkDatabase_71:: "Dodge"
-PerkDatabase_72:: "Increases dodge chance by 25%"
+PerkDatabase_72:: "Increases dodge chance by {0}"
 PerkDatabase_73:: "Armor Penetration"
-PerkDatabase_74:: "Increases armor penetration from all sources by 3"
+PerkDatabase_74:: "Increases armor penetration from all sources by"
 PerkDatabase_75:: "Armor Piercing Edge"
 PerkDatabase_76:: "Increases armor penetration from melee weapons by 12"
 PerkDatabase_77:: "Anti armor projectiles"
-PerkDatabase_78:: "Increases armor penetration from ranged weapons by 5"
+PerkDatabase_78:: "Increases armor penetration from ranged weapons by"
 PerkDatabase_79:: "More Health Regen"
 PerkDatabase_80:: "Passive health regeneration is increased by 10%"
 PerkDatabase_81:: "Energy generation"
@@ -3460,13 +3475,13 @@ PerkDatabase_92:: "Increases daily generation of bombs by 2. If it exceeds your 
 PerkDatabase_93:: "Pockets for explosives"
 PerkDatabase_94:: "Increases max amount of carried bombs and dynamite by 30"
 PerkDatabase_95:: "Demolition Expert"
-PerkDatabase_96:: "Increases daily generation of dynamite by 2. If it exceeds your max amount of bombs carried, excess will be lost."
+PerkDatabase_96:: "Increases daily generation of dynamite by 5. If it exceeds your max amount of bombs carried, excess will be lost."
 PerkDatabase_97:: "Meds"
-PerkDatabase_98:: "Increases daily generation of meds by 1. If it exceeds your max amount of bombs carried, excess will be lost."
+PerkDatabase_98:: "Increases daily generation of meds by 3. If it exceeds your max amount of bombs carried, excess will be lost."
 PerkDatabase_99:: "Fuel"
-PerkDatabase_100:: "Increases daily generation of fuel cans by 1. If it exceeds your max amount of bombs carried, excess will be lost."
+PerkDatabase_100:: "Increases daily generation of fuel cans by 3. If it exceeds your max amount of bombs carried, excess will be lost."
 PerkDatabase_101:: "Booze"
-PerkDatabase_102:: "Increases daily generation of booze by 2. If it exceeds your max amount of bombs carried, excess will be lost."
+PerkDatabase_102:: "Increases daily generation of booze by 5. If it exceeds your max amount of bombs carried, excess will be lost."
 PerkDatabase_103:: "More Booze"
 PerkDatabase_104:: "Increases max amount of carried booze by 25"
 PerkDatabase_105:: "More Meds"
@@ -3807,6 +3822,12 @@ PerkDatabase_439:: "Bullseye"
 PerkDatabase_440:: "Increases crit chance by 8%"
 PerkDatabase_441:: "Improved Dodges"
 PerkDatabase_442:: "Heal for 5% of max health when you dodge"
+PerkDatabase_443:: " 10%"
+PerkDatabase_444:: "+5 "
+PerkDatabase_445:: "+20 "
+PerkDatabase_446:: "+5% "
+PerkDatabase_447:: " 15%"
+PerkDatabase_448:: " 20%"
 SpellDataBase_1:: "Creates a black hole that pulls enemies in and damages over {0} seconds.\nScaling: {1} spell damage"
 SpellDataBase_2:: "Creates a sphere of vaporized aloe that heals all allies inside."
 SpellDataBase_3:: "Healing Dome"

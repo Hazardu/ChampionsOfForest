@@ -159,7 +159,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.003f, 0.005f, 0.5f, Translations.ItemDataBase_StatDefinitions_9/*og:Dodge chance*/, scOneMinusMult, 4, () => (1-ModdedPlayer.Stats.getHitChance).ToString("P"), StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.35f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
-			new ItemStat(i, 4f, 7f, 1.12f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 3, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
+			new ItemStat(i, 4f, 8f, 1.22f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 3, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
 			i++;
 			new ItemStat(i, 0.004f, 0.006f, 0.5f, Translations.ItemDataBase_StatDefinitions_10/*og:Resistance to magic*/, scOneMinusMult, 5, () => (1 - ModdedPlayer.Stats.magicDamageTaken).ToString("P"), StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.35f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;

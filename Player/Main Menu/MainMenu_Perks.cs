@@ -167,7 +167,7 @@ namespace ChampionsOfForest
 
 					string desctext = p.Description;
 
-					if (!p.isBought || p.uncapped)
+					if (!p.isBought || p.stackable)
 					{
 						desctext = Translations.MainMenu_Perks_1/*og:Hold to buy*/ + "\n" + p.Description; //tr
 						Rect LevelReq = new Rect(r.x - 440 * screenScale, r.y, 400 * screenScale, r.height);
@@ -192,7 +192,7 @@ namespace ChampionsOfForest
 							r.height *= _timeToBuyPerk / 2;
 
 							GUI.color = SelectedPerk_Color;
-							if (p.uncapped && p.isBought)
+							if (p.stackable && p.isBought)
 							{
 								Color c = GUI.color;
 								c.a = 0.5f;
@@ -205,7 +205,7 @@ namespace ChampionsOfForest
 							GUI.color = Color.white;
 							if (_timeToBuyPerk >= 2)
 							{
-								if (PerkDatabase.perks[SelectedPerk_ID].uncapped)
+								if (PerkDatabase.perks[SelectedPerk_ID].stackable)
 								{
 									PerkDatabase.perks[SelectedPerk_ID].boughtTimes++;
 								}
@@ -213,7 +213,7 @@ namespace ChampionsOfForest
 								PerkDatabase.perks[SelectedPerk_ID].OnBuy();
 
 								ModdedPlayer.instance.MutationPoints -= p.cost;
-								PerkDatabase.perks[SelectedPerk_ID].apply();
+								PerkDatabase.perks[SelectedPerk_ID].onApply();
 								PerkDatabase.perks[SelectedPerk_ID].isApplied = true;
 								Buying = false;
 								Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Unlock);
@@ -375,7 +375,7 @@ namespace ChampionsOfForest
 			{
 				GUI.color = color;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81 + 1));
-				if (p.uncapped)
+				if (p.stackable)
 				{
 					GUI.color = Color.black;
 					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });

@@ -1277,16 +1277,16 @@ namespace ChampionsOfForest.Player
 
 				if (PerkDatabase.perks[i].isBought)
 				{
-					if (PerkDatabase.perks[i].uncapped)
+					if (PerkDatabase.perks[i].stackable)
 					{
 						for (int j = 0; j < PerkDatabase.perks[i].boughtTimes; j++)
 						{
-							PerkDatabase.perks[i].apply();
+							PerkDatabase.perks[i].onApply();
 
 						}
 					}
 					else
-						PerkDatabase.perks[i].apply();
+						PerkDatabase.perks[i].onApply();
 					PerkDatabase.perks[i].OnBuy();
 				}
 			}
