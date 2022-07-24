@@ -151,7 +151,7 @@ namespace ChampionsOfForest.Localization
 		public static string MainMenu_Guide_4 => instance._MainMenu_Guide_4;
 		public string _MainMenu_Guide_4 = "Strength";
 		public static string MainMenu_Guide_5(params object[] objects) => string.Format(instance._MainMenu_Guide_5, objects);
-		public string _MainMenu_Guide_5 = "Increases melee damage by {0} for every {0} point of strength for a total of {1:P1}";
+		public string _MainMenu_Guide_5 = "Increases melee damage by {0} for every {1} point of strength for a total of {1:P1}";
 		public static string MainMenu_Guide_6 => instance._MainMenu_Guide_6;
 		public string _MainMenu_Guide_6 = "Agility";
 		public static string MainMenu_Guide_7(params object[] objects) => string.Format(instance._MainMenu_Guide_7, objects);
@@ -245,7 +245,7 @@ namespace ChampionsOfForest.Localization
 		public static string MainMenu_Guide_51 => instance._MainMenu_Guide_51;
 		public string _MainMenu_Guide_51 = "Fire damage";
 		public static string MainMenu_Guide_52 => instance._MainMenu_Guide_52;
-		public string _MainMenu_Guide_52 = "Bleeding enemies take {0} of damage dealt per second for {0} seconds";
+		public string _MainMenu_Guide_52 = "Bleeding enemies take {0} of damage dealt per second for {1} seconds";
 		public static string MainMenu_Guide_53 => instance._MainMenu_Guide_53;
 		public string _MainMenu_Guide_53 = "Bleed chance";
 		public static string MainMenu_Guide_54 => instance._MainMenu_Guide_54;
@@ -317,7 +317,7 @@ namespace ChampionsOfForest.Localization
 		public static string MainMenu_Guide_87 => instance._MainMenu_Guide_87;
 		public string _MainMenu_Guide_87 = "Multishot Projectiles";
 		public static string MainMenu_Guide_88 => instance._MainMenu_Guide_88;
-		public string _MainMenu_Guide_88 = "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}.75) * {0}";
+		public string _MainMenu_Guide_88 = "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}) * {1}";
 		public static string MainMenu_Guide_89 => instance._MainMenu_Guide_89;
 		public string _MainMenu_Guide_89 = "Multishot Cost";
 		public static string MainMenu_Guide_90 => instance._MainMenu_Guide_90;
@@ -885,7 +885,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_125 => instance._PerkDatabase_125;
 		public string _PerkDatabase_125 = "More Ammo";
 		public static string PerkDatabase_126(params object[] objects) => string.Format(instance._PerkDatabase_126, objects);
-		public string _PerkDatabase_126 = "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + {0} rock), crossbow bolts (3 rocks + {0} sticks), and modern arrows (arrows + coins)";
+		public string _PerkDatabase_126 = "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo ([2] coins + {3} rock), crossbow bolts ([4] rocks + {5} sticks), and modern arrows (arrows + coins)";
 		public static string PerkDatabase_127 => instance._PerkDatabase_127;
 		public string _PerkDatabase_127 = "Spear Specialization";
 		public static string PerkDatabase_128(params object[] objects) => string.Format(instance._PerkDatabase_128, objects);
@@ -917,7 +917,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_141 => instance._PerkDatabase_141;
 		public string _PerkDatabase_141 = "Power Swing";
 		public static string PerkDatabase_142(params object[] objects) => string.Format(instance._PerkDatabase_142, objects);
-		public string _PerkDatabase_142 = "Melee attacks use {0} more stamina and deal {0} more damage";
+		public string _PerkDatabase_142 = "Melee attacks use {0} more stamina and deal {1} more damage";
 		public static string PerkDatabase_143 => instance._PerkDatabase_143;
 		public string _PerkDatabase_143 = "\nStamina Cost - ";
 		public static string PerkDatabase_144 => instance._PerkDatabase_144;
@@ -1177,7 +1177,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_272 => instance._PerkDatabase_272;
 		public string _PerkDatabase_272 = "Curse of Binding";
 		public static string PerkDatabase_273(params object[] objects) => string.Format(instance._PerkDatabase_273, objects);
-		public string _PerkDatabase_273 = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal {0} damage, but at the same time, you deal {0} increased melee damage";
+		public string _PerkDatabase_273 = "Makes you unable to damage enemies with ranged weapons, causing all of them to deal {0} damage, but at the same time, you deal {1} increased melee damage";
 		public static string PerkDatabase_274 => instance._PerkDatabase_274;
 		public string _PerkDatabase_274 = "Melee Mastery";
 		public static string PerkDatabase_275(params object[] objects) => string.Format(instance._PerkDatabase_275, objects);
@@ -1293,7 +1293,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_330 => instance._PerkDatabase_330;
 		public string _PerkDatabase_330 = "Iron Maiden";
 		public static string PerkDatabase_331(params object[] objects) => string.Format(instance._PerkDatabase_331, objects);
-		public string _PerkDatabase_331 = "Increases armor by {0}, and increases thorns damage by {0}";
+		public string _PerkDatabase_331 = "Increases armor by {0}, and increases thorns damage by {1}";
 		public static string PerkDatabase_332 => instance._PerkDatabase_332;
 		public string _PerkDatabase_332 = "Anti-Magic Training";
 		public static string PerkDatabase_333(params object[] objects) => string.Format(instance._PerkDatabase_333, objects);
@@ -1309,7 +1309,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_338 => instance._PerkDatabase_338;
 		public string _PerkDatabase_338 = "True Aim";
 		public static string PerkDatabase_339 => instance._PerkDatabase_339;
-		public string _PerkDatabase_339 = "Arrow headshots which hit enemies over {0} feet away and are not affected by seeking arrow hit enemies twice, and deal {0} increased damage";
+		public string _PerkDatabase_339 = "Arrow headshots which hit enemies over {0} feet away and are not affected by seeking arrow hit enemies twice, and deal {1} increased damage";
 		public static string PerkDatabase_340 => instance._PerkDatabase_340;
 		public string _PerkDatabase_340 = "Spikes";
 		public static string PerkDatabase_341(params object[] objects) => string.Format(instance._PerkDatabase_341, objects);
@@ -1369,7 +1369,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_368 => instance._PerkDatabase_368;
 		public string _PerkDatabase_368 = "Heavy metal";
 		public static string PerkDatabase_369(params object[] objects) => string.Format(instance._PerkDatabase_369, objects);
-		public string _PerkDatabase_369 = "Increases armor by {0}, reduces damage taken by {0}";
+		public string _PerkDatabase_369 = "Increases armor by {0}, reduces damage taken by {1}";
 		public static string PerkDatabase_370 => instance._PerkDatabase_370;
 		public string _PerkDatabase_370 = "Autocast Shield";
 		public static string PerkDatabase_371 => instance._PerkDatabase_371;
@@ -1385,7 +1385,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_376 => instance._PerkDatabase_376;
 		public string _PerkDatabase_376 = "Craftable Plane Axe";
 		public static string PerkDatabase_377 => instance._PerkDatabase_377;
-		public string _PerkDatabase_377 = "Allows you to craft a plane axe.\nThe receipe is: {0} crafted axe, {0} rope, {0} sticks";
+		public string _PerkDatabase_377 = "Allows you to craft a plane axe.\nThe receipe is: {0} crafted axe, {1} rope, {2} sticks";
 		public static string PerkDatabase_378 => instance._PerkDatabase_378;
 		public string _PerkDatabase_378 = "Hawk's eye";
 		public static string PerkDatabase_379 => instance._PerkDatabase_379;
@@ -1561,7 +1561,7 @@ namespace ChampionsOfForest.Localization
 		public static string SpellDataBase_21 => instance._SpellDataBase_21;
 		public string _SpellDataBase_21 = "Multishot Enchantment";
 		public static string SpellDataBase_22(params object[] objects) => string.Format(instance._SpellDataBase_22, objects);
-		public string _SpellDataBase_22 = "For {0} seconds you turn into solid gold, turning completely immune to stuns and increasing attack speed by {0}";
+		public string _SpellDataBase_22 = "For {0} seconds you turn into solid gold, turning completely immune to stuns and increasing attack speed by {1}";
 		public static string SpellDataBase_23 => instance._SpellDataBase_23;
 		public string _SpellDataBase_23 = "Golden Skin";
 		public static string SpellDataBase_24 => instance._SpellDataBase_24;
@@ -1583,11 +1583,11 @@ namespace ChampionsOfForest.Localization
 		public static string SpellDataBase_32(params object[] objects) => string.Format(instance._SpellDataBase_32, objects);
 		public string _SpellDataBase_32 = "Passive: Every attack slows enemies for {0} seconds, and increases their damage taken by {1}\nActive: Melee damage is increased for {2} seconds by {3}";
 		public static string SpellDataBase_33(params object[] objects) => string.Format(instance._SpellDataBase_33, objects);
-		public string _SpellDataBase_33 = "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {0} seconds.";
+		public string _SpellDataBase_33 = "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {1} seconds.";
 		public static string SpellDataBase_34 => instance._SpellDataBase_34;
 		public string _SpellDataBase_34 = "Frenzy";
 		public static string SpellDataBase_35(params object[] objects) => string.Format(instance._SpellDataBase_35, objects);
-		public string _SpellDataBase_35 = "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by {0}, projectiles deal {0} less headshot damage and bodyshots slow enemies by {0} for {0} seconds.";
+		public string _SpellDataBase_35 = "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by {0}, projectiles deal {1} less headshot damage and bodyshots slow enemies by {2} for {3} seconds.";
 		public static string SpellDataBase_36 => instance._SpellDataBase_36;
 		public string _SpellDataBase_36 = "Seeking Arrow";
 		public static string SpellDataBase_37(params object[] objects) => string.Format(instance._SpellDataBase_37, objects);
@@ -1595,7 +1595,7 @@ namespace ChampionsOfForest.Localization
 		public static string SpellDataBase_38 => instance._SpellDataBase_38;
 		public string _SpellDataBase_38 = "Focus";
 		public static string SpellDataBase_39(params object[] objects) => string.Format(instance._SpellDataBase_39, objects);
-		public string _SpellDataBase_39 = "Passive: Blocking an attack just as you are about to get hit parries an enemy, dealing {0} magic damage to enemies around you. Parrying rewards you energy, health, and stun immunity for {0} seconds after parrying.\nActive: Gain {0} dodge chance for {0} seconds";
+		public string _SpellDataBase_39 = "Passive: Blocking an attack just as you are about to get hit parries an enemy, dealing {0} magic damage to enemies around you. Parrying rewards you energy, health, and stun immunity for {1} seconds after parrying.\nActive: Gain {2} dodge chance for {3} seconds";
 		public static string SpellDataBase_40 => instance._SpellDataBase_40;
 		public string _SpellDataBase_40 = "Parry";
 		public static string SpellDataBase_41(params object[] objects) => string.Format(instance._SpellDataBase_41, objects);
@@ -2157,7 +2157,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_184 => instance._ItemDataBase_ItemDefinitions_184;
 		public string _ItemDataBase_ItemDefinitions_184 = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.";
 		public static string ItemDataBase_ItemDefinitions_185 => instance._ItemDataBase_ItemDefinitions_185;
-		public string _ItemDataBase_ItemDefinitions_185 = "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {0} of max health per second.";
+		public string _ItemDataBase_ItemDefinitions_185 = "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second.";
 		public static string ItemDataBase_ItemDefinitions_186 => instance._ItemDataBase_ItemDefinitions_186;
 		public string _ItemDataBase_ItemDefinitions_186 = "Leather Mantle";
 		public static string ItemDataBase_ItemDefinitions_187 => instance._ItemDataBase_ItemDefinitions_187;
@@ -2183,9 +2183,9 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_197 => instance._ItemDataBase_ItemDefinitions_197;
 		public string _ItemDataBase_ItemDefinitions_197 = "Find the greatest strength on the border of life and death.";
 		public static string ItemDataBase_ItemDefinitions_198 => instance._ItemDataBase_ItemDefinitions_198;
-		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {0} damage amplification. This damage cannot kill you.";
+		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
 		public static string ItemDataBase_ItemDefinitions_199 => instance._ItemDataBase_ItemDefinitions_199;
-		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualitöt";
+		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualit�t";
 		public static string ItemDataBase_ItemDefinitions_200 => instance._ItemDataBase_ItemDefinitions_200;
 		public string _ItemDataBase_ItemDefinitions_200 = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.";
 		public static string ItemDataBase_ItemDefinitions_201 => instance._ItemDataBase_ItemDefinitions_201;
@@ -2311,7 +2311,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_261 => instance._ItemDataBase_ItemDefinitions_261;
 		public string _ItemDataBase_ItemDefinitions_261 = "Jagged Edge";
 		public static string ItemDataBase_ItemDefinitions_262 => instance._ItemDataBase_ItemDefinitions_262;
-		public string _ItemDataBase_ItemDefinitions_262 = "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{0}</color> of damage dealt per second for duration of slow";
+		public string _ItemDataBase_ItemDefinitions_262 = "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow";
 		public static string ItemDataBase_ItemDefinitions_263 => instance._ItemDataBase_ItemDefinitions_263;
 		public string _ItemDataBase_ItemDefinitions_263 = "Bloodthirster";
 		public static string ItemDataBase_ItemDefinitions_264 => instance._ItemDataBase_ItemDefinitions_264;
@@ -2417,7 +2417,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_314 => instance._ItemDataBase_ItemDefinitions_314;
 		public string _ItemDataBase_ItemDefinitions_314 = "Run fast like the wind";
 		public static string ItemDataBase_ItemDefinitions_315 => instance._ItemDataBase_ItemDefinitions_315;
-		public string _ItemDataBase_ItemDefinitions_315 = "Upon dodging an attack, gain {0} movement speed, {0} damage, {0} armor, and heal for {0} of your maximum health";
+		public string _ItemDataBase_ItemDefinitions_315 = "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health";
 		public static string ItemDataBase_ItemDefinitions_316 => instance._ItemDataBase_ItemDefinitions_316;
 		public string _ItemDataBase_ItemDefinitions_316 = "Crusader Helmet";
 		public static string ItemDataBase_ItemDefinitions_317 => instance._ItemDataBase_ItemDefinitions_317;
@@ -2653,11 +2653,11 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_432 => instance._ItemDataBase_ItemDefinitions_432;
 		public string _ItemDataBase_ItemDefinitions_432 = "Yuki-Onna's Headdress";
 		public static string ItemDataBase_ItemDefinitions_433(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_433, objects);
-		public string _ItemDataBase_ItemDefinitions_433 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {0}";
+		public string _ItemDataBase_ItemDefinitions_433 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}";
 		public static string ItemDataBase_ItemDefinitions_434 => instance._ItemDataBase_ItemDefinitions_434;
 		public string _ItemDataBase_ItemDefinitions_434 = "Lama Mega's Blood Bag";
 		public static string ItemDataBase_ItemDefinitions_435 => instance._ItemDataBase_ItemDefinitions_435;
-		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for {0} of your health as damage for {0} seconds";
+		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for {0} of your health as damage for {1} seconds";
 		public static string ItemDataBase_ItemDefinitions_436 => instance._ItemDataBase_ItemDefinitions_436;
 		public string _ItemDataBase_ItemDefinitions_436 = "Socket Drill";
 		public static string ItemDataBase_ItemDefinitions_437 => instance._ItemDataBase_ItemDefinitions_437;
@@ -2803,7 +2803,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_507 => instance._ItemDataBase_ItemDefinitions_507;
 		public string _ItemDataBase_ItemDefinitions_507 = "Sharpshooter's Axe";
 		public static string ItemDataBase_ItemDefinitions_508 => instance._ItemDataBase_ItemDefinitions_508;
-		public string _ItemDataBase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=red>{0}</color> and pistol damage by <color=red>{0}</color>";
+		public string _ItemDataBase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=red>{0}</color> and pistol damage by <color=red>{1}</color>";
 		public static string ItemDataBase_ItemDefinitions_509 => instance._ItemDataBase_ItemDefinitions_509;
 		public string _ItemDataBase_ItemDefinitions_509 = "Shield Blade";
 		public static string ItemDataBase_ItemDefinitions_510 => instance._ItemDataBase_ItemDefinitions_510;
@@ -2831,7 +2831,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_521 => instance._ItemDataBase_ItemDefinitions_521;
 		public string _ItemDataBase_ItemDefinitions_521 = "Flame Pauldrons";
 		public static string ItemDataBase_ItemDefinitions_522 => instance._ItemDataBase_ItemDefinitions_522;
-		public string _ItemDataBase_ItemDefinitions_522 = "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {0}";
+		public string _ItemDataBase_ItemDefinitions_522 = "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}";
 		public static string ItemDataBase_ItemDefinitions_523 => instance._ItemDataBase_ItemDefinitions_523;
 		public string _ItemDataBase_ItemDefinitions_523 = "Ancient Scroll";
 		public static string ItemDataBase_ItemDefinitions_524 => instance._ItemDataBase_ItemDefinitions_524;
@@ -2931,7 +2931,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_571 => instance._ItemDataBase_ItemDefinitions_571;
 		public string _ItemDataBase_ItemDefinitions_571 = "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved.";
 		public static string ItemDataBase_ItemDefinitions_572 => instance._ItemDataBase_ItemDefinitions_572;
-		public string _ItemDataBase_ItemDefinitions_572 = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {0}.\n5 Pieces - For the first {0} seconds of Berserk attack speed increases by {0} per second, and lasts till the end of the spell's duration.";
+		public string _ItemDataBase_ItemDefinitions_572 = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration.";
 		public static string ItemDataBase_ItemDefinitions_573 => instance._ItemDataBase_ItemDefinitions_573;
 		public string _ItemDataBase_ItemDefinitions_573 = "Yorium's Ruthlessness";
 		public static string ItemDataBase_ItemDefinitions_574 => instance._ItemDataBase_ItemDefinitions_574;
@@ -3001,41 +3001,41 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_607 => instance._ItemDataBase_ItemDefinitions_607;
 		public string _ItemDataBase_ItemDefinitions_607 = "Firebolt deals increased damage";
 
-        //Player\Main Menu\MainMenu_DifficultySelection.cs
+		//Player\Main Menu\MainMenu_DifficultySelection.cs
 
-        //Player\Main Menu\MainMenu.cs
+		//Player\Main Menu\MainMenu.cs
 
-        //Player\Main Menu\MainMenu_Guide.cs
+		//Player\Main Menu\MainMenu_Guide.cs
 
-        //Player\Main Menu\MainMenu_HUD.cs
+		//Player\Main Menu\MainMenu_HUD.cs
 
-        //Player\Main Menu\MainMenu_Inventory.cs
+		//Player\Main Menu\MainMenu_Inventory.cs
 
-        //Player\Main Menu\MainMenu_Perks.cs
+		//Player\Main Menu\MainMenu_Perks.cs
 
-        //Player\Main Menu\MainMenu_Spells.cs
+		//Player\Main Menu\MainMenu_Spells.cs
 
-        //Player\Crafting\Empowering.cs
+		//Player\Crafting\Empowering.cs
 
-        //Player\Crafting\IndividualRerolling.cs
+		//Player\Crafting\IndividualRerolling.cs
 
-        //Player\Crafting\Polishing.cs
+		//Player\Crafting\Polishing.cs
 
-        //Player\Crafting\Reforging.cs
+		//Player\Crafting\Reforging.cs
 
-        //Player\Crafting\Rerolling.cs
+		//Player\Crafting\Rerolling.cs
 
-        //Player\Perks\PerkDatabase.cs
+		//Player\Perks\PerkDatabase.cs
 
-        //Player\Spells\SpellDataBase.cs
+		//Player\Spells\SpellDataBase.cs
 
-        //Items\ItemDataBase_StatDefinitions.cs
+		//Items\ItemDataBase_StatDefinitions.cs
 
-        //Items\ItemDataBase_ItemDefinitions.cs
+		//Items\ItemDataBase_ItemDefinitions.cs
 
-        //Items\Item.cs
+		//Items\Item.cs
 
-        //Res\ResourceLoader.cs
+		//Res\ResourceLoader.cs
 
 
 
@@ -3114,7 +3114,7 @@ MainMenu_Guide_1:: ": "
 MainMenu_Guide_2:: "Page"
 MainMenu_Guide_3:: "Attributes"
 MainMenu_Guide_4:: "Strength"
-MainMenu_Guide_5:: "Increases melee damage by {0} for every {0} point of strength for a total of {1:P1}"
+MainMenu_Guide_5:: "Increases melee damage by {0} for every {1} point of strength for a total of {1:P1}"
 MainMenu_Guide_6:: "Agility"
 MainMenu_Guide_7:: "Increases ranged damage by {0} for every point of agility for a total of {1:P1}. \nIncreases maximum energy by {2} for every point of agility"
 MainMenu_Guide_8:: "Vitality"
@@ -3161,7 +3161,7 @@ MainMenu_Guide_48:: "Increases the speed of player actions - weapon swinging, re
 MainMenu_Guide_49:: "Attack speed"
 MainMenu_Guide_50:: "Increases fire damage"
 MainMenu_Guide_51:: "Fire damage"
-MainMenu_Guide_52:: "Bleeding enemies take {0} of damage dealt per second for {0} seconds"
+MainMenu_Guide_52:: "Bleeding enemies take {0} of damage dealt per second for {1} seconds"
 MainMenu_Guide_53:: "Bleed chance"
 MainMenu_Guide_54:: "Weakened enemies take {0} increased damage from all players."
 MainMenu_Guide_55:: "Weaken chance"
@@ -3197,7 +3197,7 @@ MainMenu_Guide_84:: "Crossbow damage"
 MainMenu_Guide_85:: "Bow damage"
 MainMenu_Guide_86:: "Shooting an enemy creates magic arrows pointed at them. There is a short cooldown on this ability"
 MainMenu_Guide_87:: "Multishot Projectiles"
-MainMenu_Guide_88:: "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}.75) * {0}"
+MainMenu_Guide_88:: "Formula for multishot cost in energy is (Multishot Projectiles ^ {0}.75) * {1}"
 MainMenu_Guide_89:: "Multishot Cost"
 MainMenu_Guide_90:: "Magic"
 MainMenu_Guide_91:: "Spell damage multiplier can be increased by perks, inventory items, spells, passive abilities, and attributes.\nBonus from intelligence: {0}\nIncrease to spell damage: {1}\nIncrease to all damage: {2}"
@@ -3471,7 +3471,7 @@ PerkDatabase_122:: "Increases carry amount of sticks by {0}, rocks by {1} and ro
 PerkDatabase_123:: "More Miscellaneous Items"
 PerkDatabase_124:: "Increases carry amount of pots, turtle shells, watches, circuit boards, air canisters and flares by {0}"
 PerkDatabase_125:: "More Ammo"
-PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + {0} rock), crossbow bolts (3 rocks + {0} sticks), and modern arrows (arrows + coins)"
+PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + {1} rock), crossbow bolts (3 rocks + {2} sticks), and modern arrows (arrows + coins)"
 PerkDatabase_127:: "Spear Specialization"
 PerkDatabase_128:: "Thrown spears deal {0} more damage"
 PerkDatabase_129:: "Pistol Specialization"
@@ -3487,7 +3487,7 @@ PerkDatabase_138:: "While black flame is on, all damage is increased by {0}"
 PerkDatabase_139:: "Empowered War Cry"
 PerkDatabase_140:: "Warcry additionally increases all damage dealt"
 PerkDatabase_141:: "Power Swing"
-PerkDatabase_142:: "Melee attacks use {0} more stamina and deal {0} more damage"
+PerkDatabase_142:: "Melee attacks use {0} more stamina and deal {1} more damage"
 PerkDatabase_143:: "\nStamina Cost - "
 PerkDatabase_144:: "\nDamage - "
 PerkDatabase_145:: "Overcharge"
@@ -3617,7 +3617,7 @@ PerkDatabase_269:: "Increases attack speed by {0}, but decreases melee damage by
 PerkDatabase_270:: "Curse of Strengthening"
 PerkDatabase_271:: "Decreases attack speed by {0}, but melee damage is doubled"
 PerkDatabase_272:: "Curse of Binding"
-PerkDatabase_273:: "Makes you unable to damage enemies with ranged weapons, causing all of them to deal {0} damage, but at the same time, you deal {0} increased melee damage"
+PerkDatabase_273:: "Makes you unable to damage enemies with ranged weapons, causing all of them to deal {0} damage, but at the same time, you deal {1} increased melee damage"
 PerkDatabase_274:: "Melee Mastery"
 PerkDatabase_275:: "Increases melee weapon damage and attack speed by {0}"
 PerkDatabase_276:: "Makes you unable to damage enemies with melee weapons, causing all of them to deal {0} damage, but at the same time, you deal double ranged damage"
@@ -3675,7 +3675,7 @@ PerkDatabase_327:: "Increases the radius of Parry by {0} yards, allows you to pa
 PerkDatabase_328:: "Thorny Skin"
 PerkDatabase_329:: "Every point of strength increases thorns by {0}\nThorns scale with melee damage multiplier stats"
 PerkDatabase_330:: "Iron Maiden"
-PerkDatabase_331:: "Increases armor by {0}, and increases thorns damage by {0}"
+PerkDatabase_331:: "Increases armor by {0}, and increases thorns damage by {1}"
 PerkDatabase_332:: "Anti-Magic Training"
 PerkDatabase_333:: "Decreases magic damage taken by {0}"
 PerkDatabase_334:: "Dense Matter"
@@ -3683,7 +3683,7 @@ PerkDatabase_335:: "Black holes cannot suck you in"
 PerkDatabase_336:: "Warmth"
 PerkDatabase_337:: "Blizzard slow effect greatly reduced"
 PerkDatabase_338:: "True Aim"
-PerkDatabase_339:: "Arrow headshots which hit enemies over {0} feet away and are not affected by seeking arrow hit enemies twice, and deal {0} increased damage"
+PerkDatabase_339:: "Arrow headshots which hit enemies over {0} feet away and are not affected by seeking arrow hit enemies twice, and deal {1} increased damage"
 PerkDatabase_340:: "Spikes"
 PerkDatabase_341:: "Adds {0} thorns"
 PerkDatabase_342:: "Storm Season"
@@ -3713,7 +3713,7 @@ PerkDatabase_365:: "Adds a tab to crafting menu. Allows you to change the level 
 PerkDatabase_366:: "Luck Enchantment III"
 PerkDatabase_367:: "Increases magic find by additional {0}. Magic find increases the quantity of items dropped."
 PerkDatabase_368:: "Heavy metal"
-PerkDatabase_369:: "Increases armor by {0}, reduces damage taken by {0}"
+PerkDatabase_369:: "Increases armor by {0}, reduces damage taken by {1}"
 PerkDatabase_370:: "Autocast Shield"
 PerkDatabase_371:: "When your energy and stamina is above {0} of max, and you have Energy Shield spell equipped, the spell is automatically cast"
 PerkDatabase_372:: "Seeking Arrow - Improved Memory"
@@ -3721,7 +3721,7 @@ PerkDatabase_373:: "Seeking arrow target stays for {0} seconds longer before dis
 PerkDatabase_374:: "Storm of the century"
 PerkDatabase_375:: "Ball Lightning damage scaling is increased by {0}"
 PerkDatabase_376:: "Craftable Plane Axe"
-PerkDatabase_377:: "Allows you to craft a plane axe.\nThe receipe is: {0} crafted axe, {0} rope, {0} sticks"
+PerkDatabase_377:: "Allows you to craft a plane axe.\nThe receipe is: {0} crafted axe, {1} rope, {2} sticks"
 PerkDatabase_378:: "Hawk's eye"
 PerkDatabase_379:: "Headshot damage is greatly increased"
 PerkDatabase_380:: "Explosion Damage Up"
@@ -3808,7 +3808,7 @@ SpellDataBase_18:: "A large spectral arrow is shot forwards. The arrow pierces e
 SpellDataBase_19:: "Magic Arrow"
 SpellDataBase_20:: "Enchants your ranged weapons with a magic formation. Every shot causes multiple projectiles to be created with a downside of massive energy toll. Energy is consumed upon firing and depends on the amount of projectiles fired. Extra projectiles suffer a damage pennalty"
 SpellDataBase_21:: "Multishot Enchantment"
-SpellDataBase_22:: "For {0} seconds you turn into solid gold, turning completely immune to stuns and increasing attack speed by {0}"
+SpellDataBase_22:: "For {0} seconds you turn into solid gold, turning completely immune to stuns and increasing attack speed by {1}"
 SpellDataBase_23:: "Golden Skin"
 SpellDataBase_24:: "Everyone in your surroundings gets cleansed of their negative debuffs. Negates poison."
 SpellDataBase_25:: "Purge"
@@ -3819,13 +3819,13 @@ SpellDataBase_29:: "Berserk"
 SpellDataBase_30:: "Launch an unstable, explosive, bouncing ball of lightning that deals {0} spell damage to enemies it touches or ones that are caught in its radius. Can be hit to detonate early."
 SpellDataBase_31:: "Ball Lightning"
 SpellDataBase_32:: "Passive: Every attack slows enemies for {0} seconds, and increases their damage taken by {1}\nActive: Melee damage is increased for {2} seconds by {3}"
-SpellDataBase_33:: "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {0} seconds."
+SpellDataBase_33:: "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {1} seconds."
 SpellDataBase_34:: "Frenzy"
-SpellDataBase_35:: "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by {0}, projectiles deal {0} less headshot damage and bodyshots slow enemies by {0} for {0} seconds."
+SpellDataBase_35:: "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by {0}, projectiles deal {1} less headshot damage and bodyshots slow enemies by {2} for {3} seconds."
 SpellDataBase_36:: "Seeking Arrow"
 SpellDataBase_37:: "Passive: When landing a headshot, next projectile will deal {0} more damage and slow the enemy by {1}. When landing a body shot, next projectile will deal only {2} more damage, but attack speed is increased.\nActive: Gain {3} critical hit chance for {4} seconds"
 SpellDataBase_38:: "Focus"
-SpellDataBase_39:: "Passive: Blocking an attack just as you are about to get hit parries an enemy, dealing {0} magic damage to enemies around you. Parrying rewards you energy, health, and stun immunity for {0} seconds after parrying.\nActive: Gain {0} dodge chance for {0} seconds"
+SpellDataBase_39:: "Passive: Blocking an attack just as you are about to get hit parries an enemy, dealing {0} magic damage to enemies around you. Parrying rewards you energy, health, and stun immunity for {1} seconds after parrying.\nActive: Gain {2} dodge chance for {3} seconds"
 SpellDataBase_40:: "Parry"
 SpellDataBase_41:: "Creates a huge fire tornado burns enemies for {0} magic damage. Affected enemies are slowed"
 SpellDataBase_42:: "Cataclysm"
@@ -4104,7 +4104,7 @@ ItemDataBase_ItemDefinitions_181:: "Those pants are ligh and comfortable. They o
 ItemDataBase_ItemDefinitions_182:: "Hexed Pants of Mr M."
 ItemDataBase_ItemDefinitions_183:: "They look like yoga pants but for a man the size of a wardrobe"
 ItemDataBase_ItemDefinitions_184:: "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise."
-ItemDataBase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {0} of max health per second."
+ItemDataBase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second."
 ItemDataBase_ItemDefinitions_186:: "Leather Mantle"
 ItemDataBase_ItemDefinitions_187:: "A piece of cloth to give protection from "
 ItemDataBase_ItemDefinitions_188:: "Shoulder Guards"
@@ -4117,8 +4117,8 @@ ItemDataBase_ItemDefinitions_194:: "Those pauldrons empower wearer's combat skil
 ItemDataBase_ItemDefinitions_195:: "Assassins Pauldrons"
 ItemDataBase_ItemDefinitions_196:: "Death Pact"
 ItemDataBase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
-ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {0} damage amplification. This damage cannot kill you."
-ItemDataBase_ItemDefinitions_199:: "Maximale Qualitöt"
+ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you."
+ItemDataBase_ItemDefinitions_199:: "Maximale Qualit�t"
 ItemDataBase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
 ItemDataBase_ItemDefinitions_201:: "Heart of Purity"
 ItemDataBase_ItemDefinitions_202:: "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points"
@@ -4181,7 +4181,7 @@ ItemDataBase_ItemDefinitions_258:: "Rage"
 ItemDataBase_ItemDefinitions_259:: "Increases maximum stacks of frenzy by <color=gold>10</color>"
 ItemDataBase_ItemDefinitions_260:: "Swords go brrrrrrttt"
 ItemDataBase_ItemDefinitions_261:: "Jagged Edge"
-ItemDataBase_ItemDefinitions_262:: "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{0}</color> of damage dealt per second for duration of slow"
+ItemDataBase_ItemDefinitions_262:: "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow"
 ItemDataBase_ItemDefinitions_263:: "Bloodthirster"
 ItemDataBase_ItemDefinitions_264:: "Drenched in blood of many unfortunate foes."
 ItemDataBase_ItemDefinitions_265:: "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health"
@@ -4234,7 +4234,7 @@ ItemDataBase_ItemDefinitions_311:: "Doom Pauldrons"
 ItemDataBase_ItemDefinitions_312:: "Despite the cool name, they are completely normal pair of shoulder armor."
 ItemDataBase_ItemDefinitions_313:: "Wind armor"
 ItemDataBase_ItemDefinitions_314:: "Run fast like the wind"
-ItemDataBase_ItemDefinitions_315:: "Upon dodging an attack, gain {0} movement speed, {0} damage, {0} armor, and heal for {0} of your maximum health"
+ItemDataBase_ItemDefinitions_315:: "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health"
 ItemDataBase_ItemDefinitions_316:: "Crusader Helmet"
 ItemDataBase_ItemDefinitions_317:: "You're talking mad shit for someone within crusading distance"
 ItemDataBase_ItemDefinitions_318:: "Hood"
@@ -4352,9 +4352,9 @@ ItemDataBase_ItemDefinitions_429:: "Increses snowstorm damage by {0}"
 ItemDataBase_ItemDefinitions_430:: "Yuki-Onna Greaves"
 ItemDataBase_ItemDefinitions_431:: "Yuki-Onna Kimono"
 ItemDataBase_ItemDefinitions_432:: "Yuki-Onna's Headdress"
-ItemDataBase_ItemDefinitions_433:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {0}"
+ItemDataBase_ItemDefinitions_433:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}"
 ItemDataBase_ItemDefinitions_434:: "Lama Mega's Blood Bag"
-ItemDataBase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for {0} of your health as damage for {0} seconds"
+ItemDataBase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for {0} of your health as damage for {1} seconds"
 ItemDataBase_ItemDefinitions_436:: "Socket Drill"
 ItemDataBase_ItemDefinitions_437:: "A convienient one use tool"
 ItemDataBase_ItemDefinitions_438:: "What's a drill doing here in a place full of primitive tribes?"
@@ -4427,7 +4427,7 @@ ItemDataBase_ItemDefinitions_504:: "Rerolls all stats on an item of any rarity"
 ItemDataBase_ItemDefinitions_505:: "Gun Blade"
 ItemDataBase_ItemDefinitions_506:: "Increases pistol damage by <color=red>{0}</color>"
 ItemDataBase_ItemDefinitions_507:: "Sharpshooter's Axe"
-ItemDataBase_ItemDefinitions_508:: "Increases pistol headshot chance by <color=red>{0}</color> and pistol damage by <color=red>{0}</color>"
+ItemDataBase_ItemDefinitions_508:: "Increases pistol headshot chance by <color=red>{0}</color> and pistol damage by <color=red>{1}</color>"
 ItemDataBase_ItemDefinitions_509:: "Shield Blade"
 ItemDataBase_ItemDefinitions_510:: "So large can be used as a shield"
 ItemDataBase_ItemDefinitions_511:: "A normal human cannot lift this weapon."
@@ -4441,7 +4441,7 @@ ItemDataBase_ItemDefinitions_518:: "Ignited enemies burn for {0} extended perioi
 ItemDataBase_ItemDefinitions_519:: "Ember Mask"
 ItemDataBase_ItemDefinitions_520:: "Ignited enemies burn for {0} extended perioid of time and fire ticks thrice as fast."
 ItemDataBase_ItemDefinitions_521:: "Flame Pauldrons"
-ItemDataBase_ItemDefinitions_522:: "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {0}"
+ItemDataBase_ItemDefinitions_522:: "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}"
 ItemDataBase_ItemDefinitions_523:: "Ancient Scroll"
 ItemDataBase_ItemDefinitions_524:: "Guide on Tearing Spacetime"
 ItemDataBase_ItemDefinitions_525:: "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink"
@@ -4491,7 +4491,7 @@ ItemDataBase_ItemDefinitions_568:: "Armored Hood"
 ItemDataBase_ItemDefinitions_569:: "Mystery Helmet"
 ItemDataBase_ItemDefinitions_570:: "Yorium's Gaze"
 ItemDataBase_ItemDefinitions_571:: "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved."
-ItemDataBase_ItemDefinitions_572:: "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {0}.\n5 Pieces - For the first {0} seconds of Berserk attack speed increases by {0} per second, and lasts till the end of the spell's duration."
+ItemDataBase_ItemDefinitions_572:: "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration."
 ItemDataBase_ItemDefinitions_573:: "Yorium's Ruthlessness"
 ItemDataBase_ItemDefinitions_574:: "Yorium's Burden"
 ItemDataBase_ItemDefinitions_575:: "Yorium's Resolve"
