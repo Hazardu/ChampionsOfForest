@@ -62,7 +62,13 @@ if os.path.exists(OUTPUT_FILEPATH):
             else:
                 variables_by_file_groups[file_name] = [(v_num,k)]
             
-            variables_by_str[k] = v 
+            if k in variables_by_str.keys():
+                variables_by_str[k].append(v)
+                print("duplicates found: " + k)
+            else:
+                variables_by_str[k] = [v] 
+
+            
     output_file.close()
 
 out = open(OUTPUT_FILEPATH,'w+', encoding="utf-8")
@@ -77,12 +83,12 @@ out.write((
 ))
 
 
-pattern_format_param = re.compile(r'\{\d+\}')
+pattern_format_param = re.compile(r'\{.+\}')
 for k,v in variables_by_file_groups.items():
     v.sort(key=lambda tup: tup[0])
     out.write("\t\t//" + k + "\n")
     for var in v:
-        has_format_params = pattern_format_param.match(var[1]) is not None
+        has_format_params = pattern_format_param.search(var[1]) is not None
 
         privvarName = "_"+ k + "_" + str(var[0])
         if has_format_params:
@@ -97,106 +103,120 @@ pattern_string = re.compile(r'"[^"]*"') #find c# strings
 pattern_translation_tag = re.compile(r'//tr') #find c# comment that says //tr
 pattern_translation_usage = re.compile(r'Translations\.(\w+)(\d)+(\(.+\)(/\*)?)?') #find in c# script if Translation.anything_123 was used
 pattern_translation_usage_comment = re.compile(r'/\*.+\*/') # find comment after usage in c#
-used_varnames=[]
 
 for file in FILES:
-    try:
-        p = os.path.join(path, file)
-        f = open(p, "r", encoding="utf-8")
-        filename = os.path.basename(p).split('.')[0]
-        print (file)
-        n = file_variable_cnt[filename] + 1 if filename in file_variable_cnt.keys() else 1
-        out.write("        //" + file + "\n")
-        txt = f.readlines()
-        f.close()
-        #replace all formattable strings with concat
-        for idx, line in enumerate(txt):
-            if pattern_translation_tag.search(line):
-                strings = reversed(list(pattern_string.finditer(line)))
-                for v_num_match in strings:
-                    s = v_num_match.group()
-                    if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
-                        if line[v_num_match.start()-1] == "$":
-                            print("Error: found $ before string in " + filename+ ". replacing")
-                            s1 = re.sub("{", "\" + (",s)
-                            formatting = re.search(r":(\w\d?)}",s1)
-                            if formatting:
-                                s1 =  s1[:formatting.start()] + ').ToString("' + formatting.group(1) + '") + \"' + s1[formatting.end():]
-                            s1 = re.sub("}", ") + \"",s1)
-                            txt[idx] = line[:v_num_match.start()-1] + s1 +  line[v_num_match.end():]
-            
-        # find new variables and append translations.cs with them
-        for idx, line in enumerate(txt):
-            if pattern_translation_tag.search(line):
-                strings = reversed(list(pattern_string.finditer(line)))
-                
-                for v_num_match in strings:
-                    s = v_num_match.group()
-                    if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
-                        if s not in variables_by_str.keys():
-                            print("Found translateable string in " + line)
-                            varname = filename + "_" + str(n)
-                            has_format_params = pattern_format_param.match(var[1]) is not None
 
-                            out.write('\t\tpublic static string ' + varname + " => instance._"+ varname +";\n")
-                            out.write(CS_VARIABLE_PREFIX + "_" + varname + " = "+ s +";\n\n")
-                            variables_by_str[s] = varname
-                            if filename in variables_by_file_groups.keys():
-                                variables_by_file_groups[filename].append((n,s))
-                            else:
-                                variables_by_file_groups[filename] = [(n,s)]
-                            n += 1
-                            changec += 1
-
-        # replace all const string occurences in the files
-        for idx, line in enumerate(txt):
-            if pattern_translation_tag.search(line):
-                strings = reversed(list(pattern_string.finditer(line)))
-                for v_num_match in strings:
-                    s= v_num_match.group()
-                    if s not in IGNORED_ELEMENTS and len(s) > 3:
-                        if s in variables_by_str.keys():
-                            txt[idx] = line[:v_num_match.start()] + "Translations." + variables_by_str[s] + '' + line[v_num_match.end():] 
+    p = os.path.join(path, file)
+    f = open(p, "r", encoding="utf-8")
+    filename = os.path.basename(p).split('.')[0]
+    n = file_variable_cnt[filename] + 1 if filename in file_variable_cnt.keys() else 1
+    out.write("        //" + file + "\n")
+    txt = f.readlines()
+    f.close()
+    #replace all formattable strings with concat
+    for idx, line in enumerate(txt):
+        if pattern_translation_tag.search(line):
+            strings = reversed(list(pattern_string.finditer(line)))
+            for v_num_match in strings:
+                s = v_num_match.group()
+                if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
+                    if line[v_num_match.start()-1] == "$":
+                        print("Error: found $ before string in " + filename+ ". replacing")
+                        s1 = re.sub("{", "\" + (",s)
+                        formatting = re.search(r":(\w\d?)}",s1)
+                        if formatting:
+                            s1 =  s1[:formatting.start()] + ').ToString("' + formatting.group(1) + '") + \"' + s1[formatting.end():]
+                        s1 = re.sub("}", ") + \"",s1)
+                        txt[idx] = line[:v_num_match.start()-1] + s1 +  line[v_num_match.end():]
         
+    # find new variables and append translations.cs with them
+    for idx, line in enumerate(txt):
+        if pattern_translation_tag.search(line):
+            strings = reversed(list(pattern_string.finditer(line)))
+            
+            for v_num_match in strings:
+                s = v_num_match.group()
+                if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
+                    if s not in variables_by_str.keys():
+                        print("Found translateable string in " + line)
+                        varname = filename + "_" + str(n)
+                        has_format_params = pattern_format_param.match(var[1]) is not None
 
-        # add a comment after every usage of Translation 
-        for idx, line in enumerate(txt):
-            if pattern_translation_usage.search(line) is not None:
-                strings = reversed(list(pattern_translation_usage.finditer(line)))
-                for v_num_match in strings:
-                    s= v_num_match.group()
-                    varname=  re.search(r'(?<=Translations\.)\w+\d+', s).group()
-                    used_varnames.append(varname)
-                    keys = [k for k, v in variables_by_str.items() if v == varname]
-                    if len(keys) > 0:
-                        comment_end = pattern_translation_usage_comment.search(line).end()
-                        txt[idx] = line[:v_num_match.end()] + "/* " + keys[0] + " */" +line[comment_end:] 
-                    else:
-                        print("cant update text in line \n"+ line + f"\nvarname={varname}, s={s}, k={keys}")
+                        out.write('\t\tpublic static string ' + varname + " => instance._"+ varname +";\n")
+                        out.write(CS_VARIABLE_PREFIX + "_" + varname + " = "+ s +";\n\n")
+                        variables_by_str[s] =[ varname]
+                        if filename in variables_by_file_groups.keys():
+                            variables_by_file_groups[filename].append((n,s))
+                        else:
+                            variables_by_file_groups[filename] = [(n,s)]
+                        n += 1
+                        changec += 1
 
-     
-        out.write("\n")
-        f = open(p,"w",encoding="utf-8")
-        f.writelines(txt)
-        f.close()
+    # replace all const string occurences in the files
+    for idx, line in enumerate(txt):
+        if pattern_translation_tag.search(line):
+            strings = reversed(list(pattern_string.finditer(line)))
+            for v_num_match in strings:
+                s= v_num_match.group()
+                if s not in IGNORED_ELEMENTS and len(s) > 3:
+                    if s in variables_by_str.keys():
+                        txt[idx] = line[:v_num_match.start()] + "Translations." + variables_by_str[s][0] + '' + line[v_num_match.end():] 
     
-    except Exception as e:
-        print(str(e))
+
+    # # add a comment after every usage of Translation 
+    # for idx, line in enumerate(txt):
+    #     if pattern_translation_usage.search(line) is not None:
+    #         strings = reversed(list(pattern_translation_usage.finditer(line)))
+    #         for s_match in strings:
+    #             try:
+    #                 s= s_match.group()
+    #                 varname=  re.search(r'(?<=Translations\.)\w+\d+', s).group()
+                    
+    #                 v_num_match = pattern_digits.search(varname)
+    #                 v_num = int(varname[v_num_match.start():])
+    #                 file_name = varname[:(v_num_match.start()-1)]
+
+    #                 group = variables_by_file_groups[file_name]
+    #                 i = 1
+    #                 x = group[v_num-i]
+
+    #                 while(x[0] > v_num):
+    #                     i = i + 1
+    #                     x = group[v_num-i]
+    #                 while(x[0] < v_num):
+    #                     i = i - 1
+    #                     x = group[v_num-i]
+                    
+    #                 key = x[1]
+    #                 if key is not None:
+    #                     comment = pattern_translation_usage_comment.search(line[s_match.end():])
+    #                     if comment is not None:
+    #                         txt[idx] = line[:s_match.end()] + "/* " + key + " */" +line[comment.end():] 
+    #                 else:
+    #                     x= varname.strip('"') in variables_by_str.values()
+    #                     print("cant update text in line \n"+ line + f"\nvarname={varname}, s={s}, k={key}")
+    #             except:
+    #                 pass
+    
+    out.write("\n")
+    f = open(p,"w",encoding="utf-8")
+    f.writelines(txt)
+    f.close()
+
+
 
 out.write((
 "\n\n"
 "\t}\n"
 "}\n\n\n/* for translation cpy paste:\n\n"
 ))
-for varname in variables_by_str.values():
-    if varname not in used_varnames:
-        print(varname + " is never used")
 
 for k,v in variables_by_file_groups.items():
     v.sort(key=lambda tup: tup[0])
     for var in v:
         print(k+ "_" + str(var[0]) +':: '+ var[1])
         out.write(k+ "_" + str(var[0]) +':: '+ var[1] +"\n" )
+
 out.write('\n\n\n*/')
 out.close()
 print("Translations generated")
