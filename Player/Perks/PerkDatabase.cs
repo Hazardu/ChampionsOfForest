@@ -181,7 +181,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = string.Format(Translations.PerkDatabase_19, 0.5)/*og:Recovers 0.5 more stamina per second. Stamina is used for sprinting and swinging weapons.*/,//tr
 				textureVariation = 0, //0 or 1
 				stackable = true,
-				updateDescription = x => Translations.PerkDatabase_21/*og:Total: */ + (0.5f * x).ToString(Translations.PerkDatabase_20/*og:N1*/) //tr
+				updateDescription = x => Translations.PerkDatabase_21/*og:Total: */ + (0.5f * x).ToString("N1") //tr
 			};
 			new Perk()
 			{
@@ -422,7 +422,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 0f,
 				name = Translations.PerkDatabase_44/*og:All attributes*/,//tr
-				originalDescription = "+20 "+Translations.PerkDatabase_46/*og:+20 to every strength, agility, vitality and intelligence*/,//tr
+				originalDescription = "+20 "+Translations.PerkDatabase_45/*og:+20 to every strength, agility, vitality and intelligence*/,//tr
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -481,7 +481,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = -1.5f,
 				name = Translations.PerkDatabase_50/*og:Reusability II*/,//tr
-				originalDescription = Translations.PerkDatabase_51/*og:+13% chance to not consume ammo while firing.*/,//tr
+				originalDescription = Translations.PerkDatabase_49/*og:+13% chance to not consume ammo while firing.*/,//tr
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -497,7 +497,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -2.25f,
 				name = Translations.PerkDatabase_52/*og:Reusability III*/,//tr
-				originalDescription = Translations.PerkDatabase_51/*og:+13% chance to not consume ammo while firing.*/,//tr
+				originalDescription = Translations.PerkDatabase_49/*og:+13% chance to not consume ammo while firing.*/,//tr
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -514,7 +514,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = 0.75f,
 				name = Translations.PerkDatabase_44/*og:All attributes*/,//tr
-				originalDescription = Translations.PerkDatabase_53/*og:+10 to strength, agility, vitality and intelligence*/,//tr
+				originalDescription = Translations.PerkDatabase_45/*og:+10 to strength, agility, vitality and intelligence*/,//tr
 				textureVariation = 0,
 				stackable = true,
 			};
@@ -595,7 +595,7 @@ namespace ChampionsOfForest.Player
 				stackable = true,
 				updateDescription = x =>
 				{
-					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + (0.25f * x).ToString(Translations.PerkDatabase_62/*og:N2*/); //tr
+					return Translations.PerkDatabase_15/*og:\nTotal from this perk: */ + (0.25f * x).ToString("N2"); //tr
 				},
 			};
 			new Perk()

@@ -97,6 +97,8 @@ pattern_string = re.compile(r'"[^"]*"') #find c# strings
 pattern_translation_tag = re.compile(r'//tr') #find c# comment that says //tr
 pattern_translation_usage = re.compile(r'Translations\.(\w+)(\d)+(\(.+\)(/\*)?)?') #find in c# script if Translation.anything_123 was used
 pattern_translation_usage_comment = re.compile(r'/\*.+\*/') # find comment after usage in c#
+used_varnames=[]
+
 for file in FILES:
     try:
         p = os.path.join(path, file)
@@ -113,7 +115,7 @@ for file in FILES:
                 strings = reversed(list(pattern_string.finditer(line)))
                 for v_num_match in strings:
                     s = v_num_match.group()
-                    if s not in IGNORED_ELEMENTS and len(s) > 3:
+                    if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
                         if line[v_num_match.start()-1] == "$":
                             print("Error: found $ before string in " + filename+ ". replacing")
                             s1 = re.sub("{", "\" + (",s)
@@ -130,7 +132,7 @@ for file in FILES:
                 
                 for v_num_match in strings:
                     s = v_num_match.group()
-                    if s not in IGNORED_ELEMENTS and len(re.sub(r'\d+', '', s)) > 3:
+                    if s not in IGNORED_ELEMENTS and len(re.sub(r'[\d% \*\.]+', '', s)) > 3:
                         if s not in variables_by_str.keys():
                             print("Found translateable string in " + line)
                             varname = filename + "_" + str(n)
@@ -156,7 +158,6 @@ for file in FILES:
                         if s in variables_by_str.keys():
                             txt[idx] = line[:v_num_match.start()] + "Translations." + variables_by_str[s] + '' + line[v_num_match.end():] 
         
-        used_varnames=[]
 
         # add a comment after every usage of Translation 
         for idx, line in enumerate(txt):
@@ -164,19 +165,16 @@ for file in FILES:
                 strings = reversed(list(pattern_translation_usage.finditer(line)))
                 for v_num_match in strings:
                     s= v_num_match.group()
-                    varname=  re.search(r'(?<=Translations\.)\w+\d+', s)
+                    varname=  re.search(r'(?<=Translations\.)\w+\d+', s).group()
                     used_varnames.append(varname)
                     keys = [k for k, v in variables_by_str.items() if v == varname]
                     if len(keys) > 0:
                         comment_end = pattern_translation_usage_comment.search(line).end()
                         txt[idx] = line[:v_num_match.end()] + "/* " + keys[0] + " */" +line[comment_end:] 
                     else:
-                        print("cant update text in line \n"+ line)
+                        print("cant update text in line \n"+ line + f"\nvarname={varname}, s={s}, k={keys}")
 
-        for varname in variables_by_str.values():
-            if varname not in used_varnames:
-                print(varname + " is never used")
-
+     
         out.write("\n")
         f = open(p,"w",encoding="utf-8")
         f.writelines(txt)
@@ -190,6 +188,9 @@ out.write((
 "\t}\n"
 "}\n\n\n/* for translation cpy paste:\n\n"
 ))
+for varname in variables_by_str.values():
+    if varname not in used_varnames:
+        print(varname + " is never used")
 
 for k,v in variables_by_file_groups.items():
     v.sort(key=lambda tup: tup[0])
