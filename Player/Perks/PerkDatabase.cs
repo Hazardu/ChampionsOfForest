@@ -1137,7 +1137,12 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5); ModdedPlayer.instance.AddExtraItemCapacity(82, 50); },
+				onApply = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5); ModdedPlayer.instance.AddExtraItemCapacity(82, 50);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.FlintlockAmmo, true);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.CrossbowAmmo, true);
+					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ModernArrows, true);
+					MoreCraftingReceipes.AddReceipes();
+				},
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 45 },
@@ -1294,17 +1299,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive += 0.25f; ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1.4f; },
+				onApply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive += 0.2f; ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1.5f; },
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 15, 55 },
 				levelReq = 15,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 3f,
 				posY = -0.75f,
 				name = Translations.PerkDatabase_145,
-				originalDescription = Translations.PerkDatabase_146("25%", "40%"),
+				originalDescription = Translations.PerkDatabase_146("20%", "50%"),
 				textureVariation = 0,
 				stackable = true,
 				updateDescription = x =>

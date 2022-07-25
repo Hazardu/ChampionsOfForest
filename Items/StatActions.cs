@@ -526,7 +526,7 @@ namespace ChampionsOfForest.Items
 					return 500f ;
 
 				case 7:
-					return 1000f ;
+					return 3000f ;
 
 				default:
 					return 20f ;
@@ -550,7 +550,7 @@ namespace ChampionsOfForest.Items
 					return 1.70f;
 
 				case 7:
-					return 2.5f;
+					return 3.5f;
 
 				default:
 					return 1.05f;
@@ -613,16 +613,16 @@ namespace ChampionsOfForest.Items
 					return 25f;
 
 				case 4:
-					return 45f;
+					return 60f;
 
 				case 5:
-					return 90f;
+					return 200f;
 
 				case 6:
-					return 300f;
+					return 500f;
 
 				case 7:
-					return 700f;
+					return 1500f;
 
 				default:
 					return 10f;

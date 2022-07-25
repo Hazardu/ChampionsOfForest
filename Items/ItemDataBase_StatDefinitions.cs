@@ -128,16 +128,16 @@ namespace ChampionsOfForest
 			});
 
 			int i = 1;
-			new ItemStat(i, 1.5f, 2.5f, 0.83f, Translations.MainMenu_Guide_4/*og:Strength*/, scAdd, 4, //tr
+			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_4/*og:Strength*/, scAdd, 4, //tr
 				()=>ModdedPlayer.Stats.strength.GetFormattedAmount(), StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength);
 			i++;
-			new ItemStat(i, 1.5f, 2.5f, 0.83f, Translations.MainMenu_Guide_6/*og:Agility*/, scAdd, 4, () => ModdedPlayer.Stats.agility.GetFormattedAmount(), StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); //tr
+			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_6/*og:Agility*/, scAdd, 4, () => ModdedPlayer.Stats.agility.GetFormattedAmount(), StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); //tr
 			i++;
-			new ItemStat(i, 1.5f, 2.5f, 0.83f, Translations.MainMenu_Guide_8/*og:Vitality*/, scAdd, 4, () => ModdedPlayer.Stats.vitality.GetFormattedAmount(), StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); //tr
+			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_8/*og:Vitality*/, scAdd, 4, () => ModdedPlayer.Stats.vitality.GetFormattedAmount(), StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); //tr
 			i++;
-			new ItemStat(i, 1.5f, 2.5f, 0.83f, Translations.MainMenu_Guide_10/*og:Intelligence*/, scAdd, 4, () => ModdedPlayer.Stats.intelligence.GetFormattedAmount(), StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); //tr
+			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_10/*og:Intelligence*/, scAdd, 4, () => ModdedPlayer.Stats.intelligence.GetFormattedAmount(), StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); //tr
 			i++;
-			new ItemStat(i, 3.5f, 4.5f, 1.2f, Translations.ItemDataBase_StatDefinitions_1/*og:Maximum Life*/, scAdd, 3, () => ModdedPlayer.Stats.maxHealth.GetFormattedAmount(), StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); //tr
+			new ItemStat(i, 3.5f, 4.5f, 1.25f, Translations.ItemDataBase_StatDefinitions_1/*og:Maximum Life*/, scAdd, 3, () => ModdedPlayer.Stats.maxHealth.GetFormattedAmount(), StatActions.AddHealth, StatActions.RemoveHealth, StatActions.AddHealth); //tr
 			i++;
 			new ItemStat(i, 1f, 1.25f, 1.2f, Translations.ItemDataBase_StatDefinitions_2/*og:Maximum Energy*/, scAdd, 3, () => ModdedPlayer.Stats.maxEnergy.GetFormattedAmount(), StatActions.AddEnergy, StatActions.RemoveEnergy, StatActions.AddEnergy); //tr
 			i++;
@@ -151,17 +151,17 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.003f, 0.007f, 0.5f, Translations.MainMenu_Guide_23/*og:Damage Reduction*/, scOneMinusMult, 4, () => (1-ModdedPlayer.Stats.allDamageTaken).ToString("P"), StatActions.AddDamageReduction, StatActions.RemoveDamageReduction, StatActions.AddDamageReduction) { ValueCap = 0.4f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
-			new ItemStat(i, 0.008f, 0.016f, 0.25f, Translations.ItemDataBase_StatDefinitions_7/*og:Critical Hit Chance*/, scAdd, 6, () => ModdedPlayer.Stats.critChance.GetFormattedAmount(), StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 0.2f }; //tr
+			new ItemStat(i, 0.008f, 0.014f, 0.25f, Translations.ItemDataBase_StatDefinitions_7/*og:Critical Hit Chance*/, scAdd, 6, () => ModdedPlayer.Stats.critChance.GetFormattedAmount(), StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 0.25f }; //tr
 			i++;
-			new ItemStat(i, 0.0028f, 0.0035f, 1.25f, "Critical Hit Damage", scAdd, 6, () => ModdedPlayer.Stats.critDamage.GetFormattedAmount(), StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 3f };
+			new ItemStat(i, 0.0028f, 0.0039f, 1.25f, Translations.MainMenu_Guide_46, scAdd, 6, () => ModdedPlayer.Stats.critDamage.GetFormattedAmount(), StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 10f };//tr
 			i++;
 			new ItemStat(i, 0.07f, 0.1f, 1f, Translations.ItemDataBase_StatDefinitions_8/*og:Life on hit*/, scAdd, 4, () => ModdedPlayer.Stats.healthOnHit.GetFormattedAmount(), StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); //tr
 			i++;
-			new ItemStat(i, 0.003f, 0.005f, 0.5f, Translations.ItemDataBase_StatDefinitions_9/*og:Dodge chance*/, scOneMinusMult, 4, () => (1-ModdedPlayer.Stats.getHitChance).ToString("P"), StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.35f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.003f, 0.006f, 0.48f, Translations.ItemDataBase_StatDefinitions_9/*og:Dodge chance*/, scOneMinusMult, 4, () => (1-ModdedPlayer.Stats.getHitChance).ToString("P"), StatActions.AddDodgeChance, StatActions.RemoveDodgeChance, StatActions.AddDodgeChance) { ValueCap = 0.35f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
-			new ItemStat(i, 4f, 8f, 1.22f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 3, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
+			new ItemStat(i, 4f, 8f, 1.37f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 3, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
 			i++;
-			new ItemStat(i, 0.004f, 0.006f, 0.5f, Translations.ItemDataBase_StatDefinitions_10/*og:Resistance to magic*/, scOneMinusMult, 5, () => (1 - ModdedPlayer.Stats.magicDamageTaken).ToString("P"), StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.35f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.004f, 0.006f, 0.5f, Translations.ItemDataBase_StatDefinitions_10/*og:Resistance to magic*/, scOneMinusMult, 5, () => (1 - ModdedPlayer.Stats.magicDamageTaken).ToString("P"), StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, StatActions.AddMagicResistance) { ValueCap = 0.5f, DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
 			new ItemStat(i, 0.006f, 0.009f, 0.4f, Translations.MainMenu_Guide_49/*og:Attack speed*/, scAdd, 6, () => ModdedPlayer.Stats.attackSpeed.GetFormattedAmount(), StatActions.AddAttackSpeed, StatActions.RemoveAttackSpeed, StatActions.AddAttackSpeed) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
@@ -172,56 +172,56 @@ namespace ChampionsOfForest
 				RoundingCount = 1
 			};
 			i++;
-			new ItemStat(i, 0.014f, 0.017f, 0.45f, Translations.ItemDataBase_StatDefinitions_12/*og:Spell Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.spellIncreasedDmg.GetFormattedAmount(), StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier)  //tr
+			new ItemStat(i, 0.014f, 0.02f, 0.45f, Translations.ItemDataBase_StatDefinitions_12/*og:Spell Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.spellIncreasedDmg.GetFormattedAmount(), StatActions.AddSpellDamageAmplifier, StatActions.RemoveSpellDamageAmplifier, StatActions.AddSpellDamageAmplifier)  //tr
 			{ 
 				DisplayAsPercent = true,
 				RoundingCount = 1,
-				ValueCap = 1f 
+				ValueCap = 2f 
 			};
 			i++;
-			new ItemStat(i, 0.014f, 0.017f, 0.45f, Translations.ItemDataBase_StatDefinitions_13/*og:Melee Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.meleeIncreasedDmg.GetFormattedAmount(), StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1, ValueCap =1f }; //tr
+			new ItemStat(i, 0.014f, 0.019f, 0.45f, Translations.ItemDataBase_StatDefinitions_13/*og:Melee Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.meleeIncreasedDmg.GetFormattedAmount(), StatActions.AddMeleeDamageAmplifier, StatActions.RemoveMeleeDamageAmplifier, StatActions.AddMeleeDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1, ValueCap =2f }; //tr
 			i++;
-			new ItemStat(i, 0.014f, 0.017f, 0.45f, Translations.ItemDataBase_StatDefinitions_14/*og:Ranged Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.rangedIncreasedDmg.GetFormattedAmount(), StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 1f }; //tr
+			new ItemStat(i, 0.014f, 0.017f, 0.45f, Translations.ItemDataBase_StatDefinitions_14/*og:Ranged Damage Increase*/, scAdd, 5, () => ModdedPlayer.Stats.rangedIncreasedDmg.GetFormattedAmount(), StatActions.AddRangedDamageAmplifier, StatActions.RemoveRangedDamageAmplifier, StatActions.AddRangedDamageAmplifier) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 2f }; //tr
 			i++;
-			new ItemStat(i, 0.9f, 1.2f, 1.2f, Translations.ItemDataBase_StatDefinitions_15/*og:Base Spell Damage*/, scAdd, 4, () => ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), StatActions.AddspellFlatDmg, StatActions.RemovespellFlatDmg, StatActions.AddspellFlatDmg); //tr
+			new ItemStat(i, 0.9f, 1.35f, 1.2f, Translations.ItemDataBase_StatDefinitions_15/*og:Base Spell Damage*/, scAdd, 4, () => ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), StatActions.AddspellFlatDmg, StatActions.RemovespellFlatDmg, StatActions.AddspellFlatDmg); //tr
 			i++;
-			new ItemStat(i, 0.8f, 1f, 1.2f, Translations.ItemDataBase_StatDefinitions_16/*og:Base Melee Damage*/, scAdd, 4, () => ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); //tr
+			new ItemStat(i, 0.8f, 1.2f, 1.2f, Translations.ItemDataBase_StatDefinitions_16/*og:Base Melee Damage*/, scAdd, 4, () => ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), StatActions.AddMeleeDamageBonus, StatActions.RemoveMeleeDamageBonus, StatActions.AddMeleeDamageBonus); //tr
 			i++;
-			new ItemStat(i, 0.8f, 1f, 1.2f, Translations.ItemDataBase_StatDefinitions_17/*og:Base Ranged Damage*/, scAdd, 4,() => ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); //tr
+			new ItemStat(i, 0.8f, 1.2f, 1.2f, Translations.ItemDataBase_StatDefinitions_17/*og:Base Ranged Damage*/, scAdd, 4,() => ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), StatActions.AddRangedDamageBonus, StatActions.RemoveRangedDamageBonus, StatActions.AddRangedDamageBonus); //tr
 			i++;
-			new ItemStat(i, 0.011f, 0.015f, 0f, Translations.ItemDataBase_StatDefinitions_18/*og:Energy Per Agility*/, scAdd, 7, () => ModdedPlayer.Stats.maxEnergyFromAgi.GetFormattedAmount(), StatActions.AddmaxEnergyFromAgi, StatActions.RemovemaxEnergyFromAgi, StatActions.AddmaxEnergyFromAgi) { DisplayAsPercent = false, RoundingCount = 2 }; //tr
+			new ItemStat(i, 0.011f, 0.019f, 0f, Translations.ItemDataBase_StatDefinitions_18/*og:Energy Per Agility*/, scAdd, 7, () => ModdedPlayer.Stats.maxEnergyFromAgi.GetFormattedAmount(), StatActions.AddmaxEnergyFromAgi, StatActions.RemovemaxEnergyFromAgi, StatActions.AddmaxEnergyFromAgi) { DisplayAsPercent = false, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.07f, 0.1f, 0f, Translations.ItemDataBase_StatDefinitions_19/*og:Health Per Vitality*/, scAdd, 7, () => ModdedPlayer.Stats.maxHealthFromVit.GetFormattedAmount(), StatActions.AddmaxHealthFromVit, StatActions.RemovemaxHealthFromVit, StatActions.AddmaxHealthFromVit) { DisplayAsPercent = false, RoundingCount = 2 }; //tr
+			new ItemStat(i, 0.07f, 0.15f, 0f, Translations.ItemDataBase_StatDefinitions_19/*og:Health Per Vitality*/, scAdd, 7, () => ModdedPlayer.Stats.maxHealthFromVit.GetFormattedAmount(), StatActions.AddmaxHealthFromVit, StatActions.RemovemaxHealthFromVit, StatActions.AddmaxHealthFromVit) { DisplayAsPercent = false, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.0013f, 0.0023f, 0f, Translations.ItemDataBase_StatDefinitions_20/*og:Spell Damage Per Int*/, scAdd, 7, () => ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount(), StatActions.AddspellDmgFromInt, StatActions.RemovespellDmgFromInt, StatActions.AddspellDmgFromInt) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
+			new ItemStat(i, 0.0013f, 0.0026f, 0f, Translations.ItemDataBase_StatDefinitions_20/*og:Spell Damage Per Int*/, scAdd, 7, () => ModdedPlayer.Stats.spellDmgFromInt.GetFormattedAmount(), StatActions.AddspellDmgFromInt, StatActions.RemovespellDmgFromInt, StatActions.AddspellDmgFromInt) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.0013f, 0.0023f, 0f, Translations.ItemDataBase_StatDefinitions_21/*og:Melee Damage Per Strength*/, scAdd,7, () => ModdedPlayer.Stats.meleeDmgFromStr.GetFormattedAmount(), StatActions.AddmeleeDmgFromStr, StatActions.RemovemeleeDmgFromStr, StatActions.AddmeleeDmgFromStr) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
+			new ItemStat(i, 0.0013f, 0.0026f, 0f, Translations.ItemDataBase_StatDefinitions_21/*og:Melee Damage Per Strength*/, scAdd,7, () => ModdedPlayer.Stats.meleeDmgFromStr.GetFormattedAmount(), StatActions.AddmeleeDmgFromStr, StatActions.RemovemeleeDmgFromStr, StatActions.AddmeleeDmgFromStr) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.0015f, 0.003f, 0.6f, Translations.ItemDataBase_StatDefinitions_22/*og:All Recovery*/, scMultPlusOne, 6, () => ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.0015f, 0.004f, 0.6f, Translations.ItemDataBase_StatDefinitions_22/*og:All Recovery*/, scMultPlusOne, 6, () => ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), StatActions.AddHealingMultipier, StatActions.RemoveHealingMultipier, StatActions.AddHealingMultipier) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
 			new ItemStat(i, 1f / 4f, 1f / 4f, 0f, Translations.ItemDataBase_StatDefinitions_23/*og:PERMANENT PERK POINTS*/, scAdd, 6,()=> ModdedPlayer.instance.MutationPoints.ToString(), null, null, StatActions.PERMANENT_perkPointIncrease); //tr
 			i++;
-			new ItemStat(i, 100f, 100f, 3.5f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ Translations.ItemDataBase_StatDefinitions_24/*og: / */ + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
+			new ItemStat(i, 100f, 200f, 4.5f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ Translations.ItemDataBase_StatDefinitions_24/*og: / */ + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
 			i++;
-			new ItemStat(i, 0.01f, 0.02f, 0.4f, Translations.MainMenu_Guide_109/*og:Movement Speed*/, scAdd, 6, () => ModdedPlayer.Stats.movementSpeed.GetFormattedAmount(), StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.3f }; //tr
+			new ItemStat(i, 0.009f, 0.017f, 0.4f, Translations.MainMenu_Guide_109/*og:Movement Speed*/, scAdd, 6, () => ModdedPlayer.Stats.movementSpeed.GetFormattedAmount(), StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.5f }; //tr
 			i++;
-			new ItemStat(i, 0.008f, 0.01f, 0.5f, Translations.ItemDataBase_StatDefinitions_26/*og:Weapon Size*/, scMultPlusOne, 4, () => ModdedPlayer.Stats.weaponRange.GetFormattedAmount(), f => ModdedPlayer.Stats.weaponRange.Multiply(1 + f), f => ModdedPlayer.Stats.weaponRange.Divide(1 + f), null) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.4f }; //tr
+			new ItemStat(i, 0.01f, 0.04f, 0.5f, Translations.ItemDataBase_StatDefinitions_26/*og:Weapon Size*/, scMultPlusOne, 4, () => ModdedPlayer.Stats.weaponRange.GetFormattedAmount(), f => ModdedPlayer.Stats.weaponRange.Multiply(1 + f), f => ModdedPlayer.Stats.weaponRange.Divide(1 + f), null) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.4f }; //tr
 			i++;
-			new ItemStat(i, 0.01f, 0.015f, 0.4f, Translations.ItemDataBase_StatDefinitions_27/*og:Attack Cost Reduction*/, scOneMinusMult, 3, () => (ModdedPlayer.Stats.attackStaminaCost-1).ToString("P"), f => ModdedPlayer.Stats.attackStaminaCost.Multiply(1 - f), f => ModdedPlayer.Stats.attackStaminaCost.Divide(1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.6f }; //tr
+			new ItemStat(i, 0.01f, 0.03f, 0.4f, Translations.ItemDataBase_StatDefinitions_27/*og:Attack Cost Reduction*/, scOneMinusMult, 3, () => (ModdedPlayer.Stats.attackStaminaCost-1).ToString("P"), f => ModdedPlayer.Stats.attackStaminaCost.Multiply(1 - f), f => ModdedPlayer.Stats.attackStaminaCost.Divide(1 - f)) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.75f }; //tr
 			i++;
-			new ItemStat(i, 0.004f, 0.006f, 0.4f, Translations.MainMenu_Guide_96/*og:Spell Cost Reduction*/, scOneMinusMult, 6, () => (1 - ModdedPlayer.Stats.spellCost).ToString("P"), f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative*= 1 - f) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.4f }; //tr
+			new ItemStat(i, 0.004f, 0.006f, 0.4f, Translations.MainMenu_Guide_96/*og:Spell Cost Reduction*/, scOneMinusMult, 6, () => (1 - ModdedPlayer.Stats.spellCost).ToString("P"), f => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative /= 1 - f, f => ModdedPlayer.Stats.spellCost.valueMultiplicative*= 1 - f) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.5f }; //tr
 			i++;
 			new ItemStat(i, 0.0075f, 0.01f, 0.4f, Translations.ItemDataBase_StatDefinitions_28/*og:Spell Cost to Stamina*/, scOneMinusMult, 5, () => (ModdedPlayer.Stats.SpellCostToStamina).ToString("P"), f => ModdedPlayer.Stats.spellCostEnergyCost.Multiply(1-f), f => ModdedPlayer.Stats.spellCostEnergyCost.Divide(1 - f)) { ValueCap = 0.55f, DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
-			new ItemStat(i, 0.6f, 0.8f, 0.85f, Translations.MainMenu_Guide_4/*og:Strength*/, scAdd, 2, () => ModdedPlayer.Stats.strength.GetFormattedAmount(), StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength); //tr
+			new ItemStat(i, 0.6f, 1f, 0.85f, Translations.MainMenu_Guide_4/*og:Strength*/, scAdd, 2, () => ModdedPlayer.Stats.strength.GetFormattedAmount(), StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength); //tr
 			i++;
-			new ItemStat(i, 0.6f, 0.8f, 0.85f, Translations.MainMenu_Guide_6/*og:Agility*/, scAdd, 2, () => ModdedPlayer.Stats.agility.GetFormattedAmount(), StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); //tr
+			new ItemStat(i, 0.6f, 1f, 0.85f, Translations.MainMenu_Guide_6/*og:Agility*/, scAdd, 2, () => ModdedPlayer.Stats.agility.GetFormattedAmount(), StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); //tr
 			i++;
-			new ItemStat(i, 0.6f, 0.8f, 0.85f, Translations.MainMenu_Guide_8/*og:Vitality*/, scAdd, 2, () => ModdedPlayer.Stats.vitality.GetFormattedAmount(), StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); //tr
+			new ItemStat(i, 0.6f, 1f, 0.85f, Translations.MainMenu_Guide_8/*og:Vitality*/, scAdd, 2, () => ModdedPlayer.Stats.vitality.GetFormattedAmount(), StatActions.AddVitality, StatActions.RemoveVitality, StatActions.AddVitality); //tr
 			i++;
-			new ItemStat(i, 0.6f, 0.8f, 0.85f, Translations.MainMenu_Guide_10/*og:Intelligence*/, scAdd, 2, () => ModdedPlayer.Stats.intelligence.GetFormattedAmount(), StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); //tr
+			new ItemStat(i, 0.6f, 1f, 0.85f, Translations.MainMenu_Guide_10/*og:Intelligence*/, scAdd, 2, () => ModdedPlayer.Stats.intelligence.GetFormattedAmount(), StatActions.AddIntelligence, StatActions.RemoveIntelligence, StatActions.AddIntelligence); //tr
 			i++;
-			new ItemStat(i, 1f, 1.1f, 1.12f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 2, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
+			new ItemStat(i, 1f, 1.5f, 1.32f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 2, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
 			i++;
 			new ItemStat(i, 0.003f, 0.005f, 0.8f, Translations.ItemDataBase_StatDefinitions_29/*og:Energy Per Second*/, scAdd, 5, () => ModdedPlayer.Stats.energyRecoveryperSecond.GetFormattedAmount(), StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 3 }; //tr
 			i++;
@@ -273,7 +273,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.06f, 0.08f, 1f, Translations.ItemDataBase_StatDefinitions_40/*og:Explosive damage*/, scAdd, 6, () => ModdedPlayer.Stats.explosionDamage.GetFormattedAmount(), f => ModdedPlayer.Stats.explosionDamage.Add( f), f => ModdedPlayer.Stats.projectilePierceChance.Substract(f)) { RoundingCount = 1, DisplayAsPercent = true }; //tr
 			i++;
-			new ItemStat(i, 0.03f, 0.06f, 0.62f, Translations.ItemDataBase_StatDefinitions_41/*og:Thrown spear damage*/, scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
+			new ItemStat(i, 0.03f, 0.1f, 0.62f, Translations.ItemDataBase_StatDefinitions_41/*og:Thrown spear damage*/, scAdd, 6, () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Multiply(1+ f), f => ModdedPlayer.Stats.perk_thrownSpearDamageMult.Divide(1+f)) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;
 
 			//Extra carry items
@@ -332,7 +332,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 1, 1, 0, Translations.ItemDataBase_StatDefinitions_53/*og:Stun on hit*/, scAdd, 1, () =>"", f => ModdedPlayer.Stats.i_HammerStun.value = true, f => ModdedPlayer.Stats.i_HammerStun.value = false, null); //tr
 			i++;
-			new ItemStat(i, 3, 3.5f, 0, Translations.ItemDataBase_StatDefinitions_54/*og:Snap Freeze Duration*/, scAdd, 3, () => ModdedPlayer.Stats.spell_snapFreezeDuration.GetFormattedAmount(), f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive += f, f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive -= f, null); //tr
+			new ItemStat(i, 3, 4f, 0, Translations.ItemDataBase_StatDefinitions_54/*og:Snap Freeze Duration*/, scAdd, 3, () => ModdedPlayer.Stats.spell_snapFreezeDuration.GetFormattedAmount(), f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive += f, f => ModdedPlayer.Stats.spell_snapFreezeDuration.valueAdditive -= f, null); //tr
 			i++;
 			new ItemStat(i, 1f, 1.25f, 0, Translations.ItemDataBase_StatDefinitions_55/*og:Raft Speed*/, scAdd, 4, () => ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Add(f), f => ModdedPlayer.Stats.perk_RaftSpeedMultipier.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 2 }; //tr
 			i++;
@@ -371,7 +371,7 @@ namespace ChampionsOfForest
 
 			//3021
 			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_77/*og:Socket: Maximum Health */, scMultPlusOne, 0,null, f => ModdedPlayer.Stats.maxHealthMult.valueMultiplicative *= 1 + f, f => ModdedPlayer.Stats.maxHealthMult.valueMultiplicative /= 1 + f, null) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
-			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_78/*og:Socket: Armor */, scAdd, 0,null, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0, Multipier = 2f }; //tr
+			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_78/*og:Socket: Armor */, scAdd, 0,null, StatActions.AddArmor, StatActions.RemoveArmor, null) { RoundingCount = 0, Multipier = 10f }; //tr
 			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_79/*og:Socket: Resistance To Magic*/, scOneMinusMult, 0,null, StatActions.AddMagicResistance, StatActions.RemoveMagicResistance, null) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_80/*og:Socket: Crit Damage*/, scMultPlusOne, 0,null, f => ModdedPlayer.Stats.critDamage.Add(f), f => ModdedPlayer.Stats.critDamage.Substract(f), null) { DisplayAsPercent = true, RoundingCount = 1, Multipier = 5f }; //tr
 			new ItemStat(i++, 0,0,1, Translations.ItemDataBase_StatDefinitions_81/*og:Socket: Thorns*/, scAdd, 0,null, f => ModdedPlayer.Stats.thorns.valueAdditive += f, f => ModdedPlayer.Stats.thorns.valueAdditive -= f, null) { RoundingCount = 0, Multipier = 5f }; //tr

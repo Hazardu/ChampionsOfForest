@@ -885,7 +885,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_125 => instance._PerkDatabase_125;
 		public string _PerkDatabase_125 = "More Ammo";
 		public static string PerkDatabase_126(params object[] objects) => string.Format(instance._PerkDatabase_126, objects);
-		public string _PerkDatabase_126 = "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo ([2] coins + {3} rock), crossbow bolts ([4] rocks + {5} sticks), and modern arrows (arrows + coins)";
+		public string _PerkDatabase_126 = "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + 1 rock), crossbow bolts (3 rocks + 3 sticks), and modern arrows (arrows + coins)";
 		public static string PerkDatabase_127 => instance._PerkDatabase_127;
 		public string _PerkDatabase_127 = "Spear Specialization";
 		public static string PerkDatabase_128(params object[] objects) => string.Format(instance._PerkDatabase_128, objects);
@@ -3479,7 +3479,7 @@ PerkDatabase_122:: "Increases carry amount of sticks by {0}, rocks by {1} and ro
 PerkDatabase_123:: "More Miscellaneous Items"
 PerkDatabase_124:: "Increases carry amount of pots, turtle shells, watches, circuit boards, air canisters and flares by {0}"
 PerkDatabase_125:: "More Ammo"
-PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo ([2] coins + {3} rock), crossbow bolts ([4] rocks + {5} sticks), and modern arrows (arrows + coins)"
+PerkDatabase_126:: "Increases carry amount of weak and upgraded spears and molotovs by {0}, small rocks by {1}. Allows you to craft flint lock ammo (15 coins + 1 rock), crossbow bolts (3 rocks + 3 sticks), and modern arrows (arrows + coins)"
 PerkDatabase_127:: "Spear Specialization"
 PerkDatabase_128:: "Thrown spears deal {0} more damage"
 PerkDatabase_129:: "Pistol Specialization"

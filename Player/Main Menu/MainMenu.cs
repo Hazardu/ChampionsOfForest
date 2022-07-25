@@ -208,7 +208,7 @@ namespace ChampionsOfForest
 
 			if (_openedMenu == OpenedMenuMode.Stats)
 			{
-				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 500 * screenScale * Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
+				BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 1000 * screenScale * Input.GetAxis("Mouse ScrollWheel"), -Screen.height * 10 * screenScale, 0);
 				if (Input.GetKeyDown(KeyCode.RightArrow))
 				{
 					ChangePage(guidePage + 1);
@@ -220,13 +220,13 @@ namespace ChampionsOfForest
 				}
 				if (Input.GetKeyDown(KeyCode.DownArrow))
 				{
-					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal - 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
+					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal - 1500f * screenScale, -Screen.height * 10 * screenScale, 0);
 				}
 				if (Input.GetKeyDown(KeyCode.UpArrow))
 				{
-					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 1000f * screenScale, -Screen.height * 10 * screenScale, 0);
+					BookScrollAmountGoal = Mathf.Clamp(BookScrollAmountGoal + 1500f * screenScale, -Screen.height * 10 * screenScale, 0);
 				}
-				BookScrollAmount = Vector3.Slerp(new Vector3(BookScrollAmount, 0, 0), new Vector3(BookScrollAmountGoal, 0, 0), Time.deltaTime * 30f * screenScale).x;
+				BookScrollAmount = Vector3.Slerp(new Vector3(BookScrollAmount, 0, 0), new Vector3(BookScrollAmountGoal, 0, 0), Time.deltaTime * 20f * screenScale).x;
 			}
 			else if (_openedMenu == OpenedMenuMode.Inventory)
 			{
