@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Player
 
 		public static void FillSpells()
 		{
-			Spell bh = new Spell(iD: 1, TextureID: 119, levelRequirement: 20, energyCost: 100, baseCooldown: 120, name: Translations.MainMenu_HUD_11/*og:Black Hole*/, () => string.Format(Translations.SpellDataBase_1( ModdedPlayer.Stats.spell_blackhole_duration, ModdedPlayer.Stats.spell_blackhole_damageScaling)))//tr
+			Spell bh = new Spell(iD: 1, TextureID: 119, levelRequirement: 20, energyCost: 100, baseCooldown: 120, name: Translations.MainMenu_HUD_11/*og:Black Hole*/, () => string.Format(Translations.SpellDataBase_1(ModdedPlayer.Stats.spell_blackhole_duration, ModdedPlayer.Stats.spell_blackhole_damageScaling)))//tr
 			{
 				active = SpellActions.CreatePlayerBlackHole,
 				CastOnRelease = true,
@@ -54,7 +54,7 @@ namespace ChampionsOfForest.Player
 				aim = SpellActions.HealingDomeAim,
 				aimEnd = SpellActions.HealingDomeAimEnd
 			};
-			new Spell(iD: 3, TextureID: 121, levelRequirement: 3, energyCost: 25, baseCooldown: 14, name: Translations.SpellDataBase_5/*og:Blink*/, () => Translations.SpellDataBase_4( ModdedPlayer.Stats.spell_blinkDamageScaling.ToString()))//tr
+			new Spell(iD: 3, TextureID: 121, levelRequirement: 3, energyCost: 25, baseCooldown: 14, name: Translations.SpellDataBase_5/*og:Blink*/, () => Translations.SpellDataBase_4(ModdedPlayer.Stats.spell_blinkRange.ToString(), ModdedPlayer.Stats.spell_blinkDamageScaling.ToString()))//tr
 			{
 				active = SpellActions.DoBlink,
 				CastOnRelease = true,
@@ -75,7 +75,7 @@ namespace ChampionsOfForest.Player
 				active = AutoPickupItems.DoPickup,
 				CastOnRelease = false,
 			};
-			new Spell(iD: 7, TextureID: 115, levelRequirement: 21, energyCost: 25, baseCooldown: 2.5f, name: Translations.SpellDataBase_13/*og:Black Flame*/, () =>Translations.SpellDataBase_12( ModdedPlayer.Stats.spell_blackFlameDamageScaling.ToString()))//tr
+			new Spell(iD: 7, TextureID: 115, levelRequirement: 21, energyCost: 25, baseCooldown: 2.5f, name: Translations.SpellDataBase_13/*og:Black Flame*/, () => Translations.SpellDataBase_12(ModdedPlayer.Stats.spell_blackFlameDamageScaling.ToString()))//tr
 			{
 				active = BlackFlame.Toggle,
 			};
@@ -85,11 +85,11 @@ namespace ChampionsOfForest.Player
 			};
 			new Spell(iD: 9, TextureID: 114, levelRequirement: 12, energyCost: 90, baseCooldown: 60, name: Translations.SpellDataBase_17/*og:Portal*/, () => Translations.SpellDataBase_16/*og:Creates a wormhole, that links 2 locations. Allows the player and items to pass through.*/)//tr
 			{
-				CastOnRelease= true,
-				aim= SpellActions.DoPortalAim,
+				CastOnRelease = true,
+				aim = SpellActions.DoPortalAim,
 				active = SpellActions.CastPortal,
 			};
-			new Spell(iD: 10, TextureID: 125, levelRequirement: 27, energyCost: 100, baseCooldown: 20, name: Translations.SpellDataBase_19/*og:Magic Arrow*/, () =>Translations.SpellDataBase_18( ModdedPlayer.Stats.spell_magicArrowDamageScaling.ToString()))//tr
+			new Spell(iD: 10, TextureID: 125, levelRequirement: 27, energyCost: 100, baseCooldown: 20, name: Translations.SpellDataBase_19/*og:Magic Arrow*/, () => Translations.SpellDataBase_18(ModdedPlayer.Stats.spell_magicArrowDamageScaling.ToString()))//tr
 			{
 				active = SpellActions.CastMagicArrow,
 				CastOnRelease = true,
@@ -100,7 +100,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = SpellActions.ToggleMultishot,
 			};
-			new Spell(iD: 12, TextureID: 133, levelRequirement: 35, energyCost: 65, baseCooldown: 160, name: Translations.SpellDataBase_23/*og:Golden Skin*/, () => Translations.SpellDataBase_22(GoldenSkin.Duration))//tr
+			new Spell(iD: 12, TextureID: 133, levelRequirement: 35, energyCost: 65, baseCooldown: 160, name: Translations.SpellDataBase_23/*og:Golden Skin*/, () => Translations.SpellDataBase_22(GoldenSkin.Duration, "20%"))//tr
 			{
 				active = GoldenSkin.Cast,
 			};
@@ -108,7 +108,7 @@ namespace ChampionsOfForest.Player
 			{
 				active = SpellActions.CastPurge,
 			};
-			new Spell(iD: 14, TextureID: 128, levelRequirement: 20, energyCost: 220, baseCooldown: 40, name: Translations.SpellDataBase_27/*og:Snap Freeze*/, () =>Translations.SpellDataBase_26( ModdedPlayer.Stats.spell_snapDamageScaling.ToString(), ""))//tr
+			new Spell(iD: 14, TextureID: 128, levelRequirement: 20, energyCost: 220, baseCooldown: 40, name: Translations.SpellDataBase_27/*og:Snap Freeze*/, () => Translations.SpellDataBase_26(ModdedPlayer.Stats.spell_snapDamageScaling.ToString(), ModdedPlayer.Stats.spell_snapFreezeDuration.ToString()))//tr
 			{
 				active = SpellActions.CastSnapFreeze,
 			};
@@ -116,23 +116,30 @@ namespace ChampionsOfForest.Player
 			{
 				active = Berserker.Cast,
 			};
-			new Spell(iD: 16, TextureID: 130, levelRequirement: 44, energyCost: 350, baseCooldown: 100, name: Translations.SpellDataBase_31/*og:Ball Lightning*/, () => Translations.SpellDataBase_30( ModdedPlayer.Stats.spell_ballLightning_DamageScaling.ToString()))//tr
+			new Spell(iD: 16, TextureID: 130, levelRequirement: 44, energyCost: 350, baseCooldown: 100, name: Translations.SpellDataBase_31/*og:Ball Lightning*/, () => Translations.SpellDataBase_30(ModdedPlayer.Stats.spell_ballLightning_DamageScaling.ToString()))//tr
 			{
 				active = SpellActions.CastBallLightning,
 			};
 			new Spell(iD: 17, TextureID: 134, levelRequirement: 17, energyCost: 25, baseCooldown: 25, name: "Bash",
-				() => Translations.SpellDataBase_32(ModdedPlayer.Stats.spell_bashDuration, ModdedPlayer.Stats.spell_bashDamageDebuffAmount.ToString(), ModdedPlayer.Stats.spell_bashDuration, (ModdedPlayer.Stats.spell_bashDamageDebuffAmount-1).ToString("P")))//tr
+				() => Translations.SpellDataBase_32(ModdedPlayer.Stats.spell_bashDuration, ModdedPlayer.Stats.spell_bashDamageDebuffAmount.ToString(), ModdedPlayer.Stats.spell_bashDuration, (ModdedPlayer.Stats.spell_bashDamageDebuffAmount - 1).ToString("P")))//tr
 			{
 				passive = SpellActions.BashPassiveEnabled,
 				active = SpellActions.BashActive
 			};
-			new Spell(18, 136, 1, 0, 60, Translations.SpellDataBase_34/*og:Frenzy*/, () =>Translations.SpellDataBase_33( ModdedPlayer.Stats.spell_frenzyDmg.ToString(), ModdedPlayer.Stats.spell_frenzyMaxStacks))//tr
+			new Spell(18, 136, 1, 0, 60, Translations.SpellDataBase_34/*og:Frenzy*/, () => Translations.SpellDataBase_33(ModdedPlayer.Stats.spell_frenzyDmg.ToString(), ModdedPlayer.Stats.spell_frenzyMaxStacks, "5%", 10))//tr
 			{
 				passive = x => ModdedPlayer.Stats.spell_frenzy.value = x,
 				active = () =>
 				{
 					float f = ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive;
-					LocalPlayer.Stats.Energy += ModdedPlayer.Stats.TotalMaxEnergy * f * 0.05f;
+					float energy = ModdedPlayer.Stats.TotalMaxEnergy * f * 0.05f * 0.1f;
+					BuffDB.AddBuff(BuffDB.BUFF.ENERGY_LEAK, 109, -energy, 10f);
+					if (ModdedPlayer.Stats.spell_frenzy_active_critChance.Value != 0.0f)
+					{
+						float damage = f * ModdedPlayer.Stats.spell_frenzy_active_critChance.Value;
+						BuffDB.AddBuff(BuffDB.BUFF.CRIT_CHANCE, 109, 1.0f + damage, 10f);
+
+					}
 					ModdedPlayer.Stats.attackSpeed.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyAtkSpeed;
 					ModdedPlayer.Stats.allDamage.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyDmg;
 					if (ModdedPlayer.Stats.spell_frenzyMS)
@@ -141,7 +148,7 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}
 			};
-			new Spell(19, 135, 27, 40, 10, Translations.SpellDataBase_36/*og:Seeking Arrow*/, () => Translations.SpellDataBase_35("10%",ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.ToString(),ModdedPlayer.Stats.spell_seekingArrow_SlowAmount.ToString(), ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.ToString())/*og:Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by 10%, projectiles deal 50% less headshot damage and bodyshots slow enemies by 10% for 4 seconds.*/)//tr
+			new Spell(19, 135, 27, 40, 10, Translations.SpellDataBase_36/*og:Seeking Arrow*/, () => Translations.SpellDataBase_35("10%", ModdedPlayer.Stats.spell_seekingArrow_HeadDamage.ToString(), ModdedPlayer.Stats.spell_seekingArrow_SlowAmount.ToString(), ModdedPlayer.Stats.spell_seekingArrow_SlowDuration.ToString())/*og:Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by 10%, projectiles deal 50% less headshot damage and bodyshots slow enemies by 10% for 4 seconds.*/)//tr
 			{
 				active = SpellActions.SeekingArrow_Active,
 			};
@@ -150,13 +157,13 @@ namespace ChampionsOfForest.Player
 				passive = x => ModdedPlayer.Stats.spell_focus.value = x,
 				active = () => BuffDB.AddBuff(28, 102, 1.25f, 5f)
 			};
-			new Spell(21, 140, 8, 35, 60, Translations.SpellDataBase_40/*og:Parry*/, () => Translations.SpellDataBase_39(ModdedPlayer.Stats.spell_parryDamage, ModdedPlayer.Stats.spell_parryBuffDuration,"50%", 10)/*og:Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 50% damage reduction for 10 seconds*/)//tr
+			new Spell(21, 140, 8, 35, 60, Translations.SpellDataBase_40/*og:Parry*/, () => Translations.SpellDataBase_39(ModdedPlayer.Stats.spell_parryDamageScaling.ToString(), ModdedPlayer.Stats.spell_parryBuffDuration, "50%", 10)/*og:Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 50% damage reduction for 10 seconds*/)//tr
 			{
 				passive = x => ModdedPlayer.Stats.spell_parry.value = x,
 				active = () => BuffDB.AddBuff(29, 103, 0.5f, 10f)
 
 			};
-			new Spell(22, 141, 50, 500, 300, Translations.SpellDataBase_42/*og:Cataclysm*/, () => Translations.SpellDataBase_41( ModdedPlayer.Stats.spell_cataclysmDamageScaling.ToString()))//tr
+			new Spell(22, 141, 50, 500, 300, Translations.SpellDataBase_42/*og:Cataclysm*/, () => Translations.SpellDataBase_41(ModdedPlayer.Stats.spell_cataclysmDamageScaling.ToString()))//tr
 			{
 				active = () => SpellActions.CastCataclysm(),
 				CastOnRelease = true,
@@ -178,7 +185,7 @@ namespace ChampionsOfForest.Player
 				aim = Taunt.Aim,
 				aimEnd = Taunt.AimEnd
 			};
-			new Spell(26, 201, 6, 45, 20, Translations.SpellDataBase_50/*og:Firebolt*/, () => Translations.SpellDataBase_49 (ModdedPlayer.Stats.spell_fireboltDamageScaling.GetFormattedAmount()))//tr
+			new Spell(26, 201, 6, 45, 20, Translations.SpellDataBase_50/*og:Firebolt*/, () => Translations.SpellDataBase_49(ModdedPlayer.Stats.spell_fireboltDamageScaling.GetFormattedAmount()))//tr
 			{
 				active = () => Spells.ActiveSpellManager.Instance.PrepareForFiring(Spells.FireboltSpell.Instance),
 			};

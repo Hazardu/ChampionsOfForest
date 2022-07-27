@@ -1591,7 +1591,7 @@ namespace ChampionsOfForest.Localization
 		public static string SpellDataBase_32(params object[] objects) => string.Format(instance._SpellDataBase_32, objects);
 		public string _SpellDataBase_32 = "Passive: Every attack slows enemies for {0} seconds, and increases their damage taken by {1}\nActive: Melee damage is increased for {2} seconds by {3}";
 		public static string SpellDataBase_33(params object[] objects) => string.Format(instance._SpellDataBase_33, objects);
-		public string _SpellDataBase_33 = "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {1} seconds.";
+		public string _SpellDataBase_33 = "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {3} seconds.";
 		public static string SpellDataBase_34 => instance._SpellDataBase_34;
 		public string _SpellDataBase_34 = "Frenzy";
 		public static string SpellDataBase_35(params object[] objects) => string.Format(instance._SpellDataBase_35, objects);

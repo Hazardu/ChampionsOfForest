@@ -9,20 +9,28 @@ namespace ChampionsOfForest.Effects
 	{
 		public static ParticleSystem hitParticleSystem;
 
-		public static void HostAction(in Vector3 pos, float dist, float slowMultipier, float duration, float damage)
+		public static void HostAction(Vector3 pos, float dist, float slowMultipier, float duration, float damage)
 		{
-			RaycastHit[] hits = Physics.SphereCastAll(pos, dist +3, Vector3.one);
+			RaycastHit[] hits = Physics.SphereCastAll(pos, dist + 2, Vector3.one, 100000f);
 			for (int i = 0; i < hits.Length; i++)
 			{
-				if (EnemyManager.enemyByTransform.ContainsKey( hits[i].transform.root))
+				EnemyProgression prog = null;
+				if (EnemyManager.enemyByTransform.ContainsKey(hits[i].transform.root))
 				{
-					EnemyProgression prog = EnemyManager.enemyByTransform[hits[i].transform.root];
-					if (prog == null)
-						continue;
-					prog.HitMagic(damage);
-					prog.Slow(20, slowMultipier, duration);
-					prog.Slow(21, 0, 0.65f);
+					prog = EnemyManager.enemyByTransform[hits[i].transform.root];
 				}
+				else if (hits[i].transform.CompareTag("enemyCollide"))
+				{
+					prog = hits[i].transform.root.GetComponent<EnemyProgression>();
+				}
+				if (prog == null)
+				{
+					hits[i].transform.root.SendMessage("HitMagic", damage, SendMessageOptions.DontRequireReceiver);
+					continue;
+				}
+				prog.HitMagic(damage);
+				prog.Slow(20, slowMultipier, duration);
+				prog.Slow(21, 0, 0.65f);
 			}
 		}
 
@@ -102,7 +110,7 @@ namespace ChampionsOfForest.Effects
 			}
 
 			hitParticleSystem.transform.position = pos;
-			hitParticleSystem.Emit(1);
+			hitParticleSystem.Emit(10);
 		}
 
 		private static void HitParticleSystemAssign()

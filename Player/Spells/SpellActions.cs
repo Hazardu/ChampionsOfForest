@@ -941,8 +941,8 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.spell_parry)
 			{
 				BuffDB.AddBuff(6, 61, 1, ModdedPlayer.Stats.spell_parryBuffDuration);
-				float dmg = ModdedPlayer.Stats.spell_parryDamage + ModdedPlayer.Stats.spellFlatDmg + ModdedPlayer.Stats.meleeFlatDmg;
-				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier *1.1f;
+				float dmg = ModdedPlayer.Stats.spell_parryDamage + ModdedPlayer.Stats.spellFlatDmg;
+				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier *ModdedPlayer.Stats.spell_parryDamageScaling;
 
 				float heal = ModdedPlayer.Stats.spell_parryHeal + ModdedPlayer.Stats.spellFlatDmg / 6 + ModdedPlayer.Stats.healthRecoveryPerSecond + ModdedPlayer.Stats.healthOnHit * 3;
 				heal *= ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate);
@@ -1100,7 +1100,7 @@ portal_postPickingPos:
 				back.y -= 1.5f;
 				back.Normalize();
 				LocalPlayer.Rigidbody.AddForce(-back * 5, ForceMode.VelocityChange);
-				float dmg = (ModdedPlayer.Stats.spellFlatDmg + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier / 5;
+				float dmg = (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fartDamageScaling + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 				if (GameSetup.IsMultiplayer)
 				{
 					System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();

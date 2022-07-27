@@ -16,7 +16,10 @@ namespace ChampionsOfForest
 		{
 			All, Equipped, Disabled, NonEquipped
 		}
-
+		public enum LootLevelPolicy
+		{
+			HighestPlayerLevel, AverageLevel, LowestLevel, ClosestPlayer, HostLevel
+		}
 		public static Difficulty difficulty = Difficulty.Easy;
 		public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.Disabled;
 		public static bool DifficultyChosen = false;
@@ -41,7 +44,21 @@ namespace ChampionsOfForest
 		public static float EnemyArmorMultiplier = 1;
 		public static float EnemySpeedMultiplier = 1;
 		public static bool AllowElites = true;
+		public static LootLevelPolicy lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
 
+		public static void Reset()
+		{
+			DropQuantityMultiplier = 1;
+			DropChanceMultiplier = 1;
+			ExpMultiplier = 1;
+			EnemyLevelIncrease = 0;
+			EnemyDamageMultiplier = 1;
+			EnemyHealthMultiplier = 1;
+			EnemyArmorMultiplier = 1;
+			EnemySpeedMultiplier = 1;
+			AllowElites = true;
+			lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
+		}
 
 
 		public static void BroadCastSettingsToClients()
@@ -107,7 +124,7 @@ namespace ChampionsOfForest
 						EnemyArmorMultiplier = buf.ReadSingle();
 						EnemySpeedMultiplier = buf.ReadSingle();
 						AllowElites = buf.ReadBoolean();
-						dropsOnDeath = (DropsOnDeathMode) buf.ReadInt32();
+						dropsOnDeath = (DropsOnDeathMode)buf.ReadInt32();
 
 					}
 				}

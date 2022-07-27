@@ -24,7 +24,7 @@ namespace ChampionsOfForest
 		}
 		DynamicClientEnemyProgression dynCEP;
 		public const float LifeTime = 50;
-		public const float DynamicLifeTime = 0.5f;
+		public const float DynamicLifeTime = 0.75f;
 		public BoltEntity Entity;
 		public ulong Packed;
 		public string EnemyName;

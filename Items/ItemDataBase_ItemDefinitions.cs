@@ -571,8 +571,11 @@ namespace ChampionsOfForest
 				type = BaseItem.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => { ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = true; ModdedPlayer.Stats.perk_crossbowDamageMult.Multiply(5); },
-				onUnequip = () =>{ ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = false;
-			ModdedPlayer.Stats.perk_crossbowDamageMult.Divide(5); },
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = false;
+					ModdedPlayer.Stats.perk_crossbowDamageMult.Divide(5);
+				},
 			};
 			new BaseItem(new int[][]
 		 {
@@ -2038,7 +2041,7 @@ namespace ChampionsOfForest
 				name = Translations.ItemDataBase_ItemDefinitions_182/*og:Hexed Pants of Mr M.*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_183/*og:They look like yoga pants but for a man the size of a wardrobe*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_184/*og:Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_185("60%","1%")/*og:While moving, energy regeneration and damage is increased by <color=gold>40%</color>. While standing still for longer than a second, you loose 1% of max health per second.*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_185("60%", "1%")/*og:While moving, energy regeneration and damage is increased by <color=gold>40%</color>. While standing still for longer than a second, you loose 1% of max health per second.*/, //tr
 				Rarity = 7,
 				minLevel = 14,
 				maxLevel = 15,
@@ -5198,7 +5201,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_426/*og:Yuki-Onna Strides*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%","300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_428/*og:Boots looted off a snow demon*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
@@ -5229,7 +5232,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_430/*og:Yuki-Onna Greaves*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%", "300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
@@ -5259,7 +5262,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_431/*og:Yuki-Onna Kimono*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_427("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%", "300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
@@ -5289,7 +5292,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_432/*og:Yuki-Onna's Headdress*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_433("50%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50% and damage is increased by 300%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%", "300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50% and damage is increased by 300%*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
 				minLevel = 1,
@@ -5320,7 +5323,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_434/*og:Lama Mega's Blood Bag*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_435("15 000%")/*og:Melee hits cause enemies to bleed for 100% of your health as damage for 15 seconds*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_435("15 000%", 15)/*og:Melee hits cause enemies to bleed for 100% of your health as damage for 15 seconds*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,
@@ -7546,7 +7549,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_570/*og:Yorium's Gaze*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_571("30%")/*og:SET PIECE. Melee weapon range is increased by 30%, attack cost in stamina is halved.*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_572(15,"35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_572(15, "35%", 15, "30%")/*og:Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by 15 seconds\n4 Pieces - Each second of berserk being in effect increases damage by 35%.\n5 Pieces - For the first 15 seconds of Berserk attack speed increases by 30% per second, and lasts till the end of the spell's duration.*/, //tr
 				onEquip = () => BerserkSet.Equip(),
 				onUnequip = () => BerserkSet.Unequip(),
 				Rarity = 7,
@@ -7753,6 +7756,37 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {CRITICALHITDAMAGE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY },
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ARMOR,DAMAGEREDUCTION },
+				new [] {MAXIMUMLIFE},
+
+			})
+			{
+				name = "Devil Dancers", //tr
+				uniqueStat = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active.", //tr
+				Rarity = 7,
+				minLevel = 20,
+				maxLevel = 28,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Pants,
+				icon = Res.ResourceLoader.GetTexture(87),
+				onEquip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Add(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
+				onUnequip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Substract(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
 			};
 		}
 	}

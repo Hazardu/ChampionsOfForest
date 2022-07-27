@@ -57,7 +57,7 @@ namespace ChampionsOfForest
 		{
 			if (BookPositionY < Screen.height && BookPositionY > -70 * screenScale)
 			{
-				Rect labelRect = new Rect(100 * screenScale + GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease) - 200 * screenScale, statStyle.fontSize);
+				Rect labelRect = new Rect(250 * screenScale + GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease) - 500 * screenScale, statStyle.fontSize);
 				GUI.Label(labelRect, statName, statStyle);
 				GUI.Label(labelRect, amount, statStyleAmount);
 				BookPositionY += statStyle.fontSize;
@@ -451,25 +451,25 @@ namespace ChampionsOfForest
 				GUI.color = Color.white;
 				Header(Translations.MainMenu_Guide_100);
 				Space(10);
-				Stat(Translations.MainMenu_Guide_58, ModdedPlayer.Stats.meleeArmorPiercing.GetAmount() + "", Translations.MainMenu_Guide_102( ModdedPlayer.Stats.TotalMeleeArmorPiercing.ToString()));
-				Stat(Translations.MainMenu_Guide_65, ModdedPlayer.Stats.rangedArmorPiercing.GetAmount() + "", Translations.MainMenu_Guide_103( ModdedPlayer.Stats.TotalRangedArmorPiercing.ToString()));
-				Stat(Translations.MainMenu_Guide_104, ModdedPlayer.Stats.thornsArmorPiercing.GetAmount() + "", Translations.MainMenu_Guide_103( ModdedPlayer.Stats.TotalThornsArmorPiercing.ToString()));
-				Stat(Translations.MainMenu_Guide_106, ModdedPlayer.Stats.allArmorPiercing.GetAmount() + "", Translations.MainMenu_Guide_106);
+				Stat(Translations.MainMenu_Guide_58, ModdedPlayer.Stats.meleeArmorPiercing.ToString(), Translations.MainMenu_Guide_102( ModdedPlayer.Stats.TotalMeleeArmorPiercing.ToString()));
+				Stat(Translations.MainMenu_Guide_65, ModdedPlayer.Stats.rangedArmorPiercing.ToString(), Translations.MainMenu_Guide_103( ModdedPlayer.Stats.TotalRangedArmorPiercing.ToString()));
+				Stat(Translations.MainMenu_Guide_104, ModdedPlayer.Stats.thornsArmorPiercing.ToString(), Translations.MainMenu_Guide_103( ModdedPlayer.Stats.TotalThornsArmorPiercing.ToString()));
+				Stat(Translations.MainMenu_Guide_106, ModdedPlayer.Stats.allArmorPiercing.ToString(), Translations.MainMenu_Guide_106);
 			}
 			else if (guidePage == a++)
 			{
 				Header(Translations.MainMenu_Guide_107);
 				Space(10);
 
-				Stat(Translations.MainMenu_Guide_109, ModdedPlayer.Stats.movementSpeed.GetAmount().ToString(), Translations.MainMenu_Guide_108(FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed.GetAmount()));
-				Stat(Translations.MainMenu_Guide_111, ModdedPlayer.Stats.jumpPower.GetAmount().ToString(), Translations.MainMenu_Guide_111);
+				Stat(Translations.MainMenu_Guide_109, ModdedPlayer.Stats.movementSpeed.ToString(), Translations.MainMenu_Guide_108(FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed));
+				Stat(Translations.MainMenu_Guide_111, ModdedPlayer.Stats.jumpPower.ToString(), Translations.MainMenu_Guide_111);
 				Stat(Translations.MainMenu_Guide_113, (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), Translations.MainMenu_Guide_113);
 				Stat(Translations.MainMenu_Guide_115, (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), Translations.MainMenu_Guide_115);
-				Stat(Translations.MainMenu_Guide_117, ModdedPlayer.Stats.expGain.GetFormattedAmount(), Translations.MainMenu_Guide_117);
-				Stat(Translations.MainMenu_Guide_120, ModdedPlayer.Stats.maxMassacreTime.GetAmount() + Translations.MainMenu_Guide_120, Translations.MainMenu_Guide_118);
-				Stat(Translations.MainMenu_Guide_122, ModdedPlayer.Stats.timeBonusPerKill.GetAmount() + Translations.MainMenu_Guide_120, Translations.MainMenu_Guide_121);
+				Stat(Translations.MainMenu_Guide_117, ModdedPlayer.Stats.expGain.ToString(), Translations.MainMenu_Guide_117);
+				Stat(Translations.MainMenu_Guide_120, ModdedPlayer.Stats.maxMassacreTime.ToString() + "s", Translations.MainMenu_Guide_118);
+				Stat(Translations.MainMenu_Guide_122, ModdedPlayer.Stats.timeBonusPerKill.ToString() +"s", Translations.MainMenu_Guide_121);
 				if (ModdedPlayer.Stats.perk_turboRaftOwners.GetAmount() > 0)
-					Stat(Translations.MainMenu_Guide_124, ModdedPlayer.Stats.perk_RaftSpeedMultipier.GetFormattedAmount(), Translations.MainMenu_Guide_124);
+					Stat(Translations.MainMenu_Guide_124, ModdedPlayer.Stats.perk_RaftSpeedMultipier.ToString(), Translations.MainMenu_Guide_124);
 				Stat(Translations.MainMenu_Guide_126, ModdedPlayer.Stats.magicFind.Value.ToString("P"), Translations.MainMenu_Guide_126);
 				foreach (var mfStat in ModdedPlayer.Stats.magicFind.OtherPlayerValues)
 				{

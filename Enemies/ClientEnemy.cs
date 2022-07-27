@@ -28,7 +28,14 @@ namespace ChampionsOfForest.Enemies
 			if (entity!=null)
 			{
 				entity.transform.localScale = Vector3.one * scale;
-				entity.GetComponentInChildren<MeshRenderer>().material.color = color;
+				try
+				{
+					entity.GetComponentInChildren<MeshRenderer>().material.color = color;
+				}
+				catch (System.Exception ex)
+				{
+					ModAPI.Log.Write("exception: renderer is null");
+				}
 				if (abilities.Contains(EnemyProgression.Abilities.Gargantuan))
 					entity.BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
 				else if (abilities.Contains(EnemyProgression.Abilities.Tiny))

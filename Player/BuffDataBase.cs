@@ -8,6 +8,40 @@ namespace ChampionsOfForest.Player
 {
 	public static class BuffDB
 	{
+		public enum BUFF
+		{
+			MOV_SPEED_REDUCTION = 1,
+			ATK_SPEED_REDUCTION,
+			POISON,
+			ROOT_IMMUNITY,
+			MOV_SPEED_INCREASED,
+			STUN_IMMUNITY,
+			DEBUFF_IMMUNITY,
+			DEBUFF_RESISTANCE,
+			DAMAGE_INCREASED,
+			DAMAGE_DECREASED,
+			STAMINA_REGEN,
+			ITEM_DEATH_PACT,
+			MELEE_DAMAGE_INCREASED,
+			ATTACK_SPEED_INCREASED,
+				ARMOR,
+				SKILL_GOLDEN_SKIN,
+				SKILL_BERSERK,
+				ENERGY_LEAK,
+				SKILL_FRENZY,
+				SKILL_PREVENT_DEATH_COOLDOWN,
+				ARMOR_LOSS,
+				MELEE_FLAT_DAMAGE_INCREASE,
+				SKILL_PARRY_STACK,
+				CRIT_DAMAGE,
+				HEALTH_REGEN,
+				TOUGHNESS,
+				SKILL_FRENZY_FURY_SWIPES,
+				CRIT_CHANCE,
+				DODGE_CHANCE
+		}
+
+
 		public static Dictionary<int, Buff> activeBuffs = new Dictionary<int, Buff>();
 		public static Dictionary<int, Buff> BuffsByID = new Dictionary<int, Buff>();
 		public static bool ForceEndBuff(int source)
@@ -19,7 +53,10 @@ namespace ChampionsOfForest.Player
 			}
 			return false;
 		}
-
+		public static bool AddBuff(BUFF id, int source, float amount, float duration)
+		{
+			return AddBuff((int)id, source, amount, duration);
+		}
 		public static bool AddBuff(int id, int source, float amount, float duration)
 		{
 			try
@@ -111,7 +148,7 @@ namespace ChampionsOfForest.Player
 
 				new Buff(10, 152, "Decreased Damage", true, false, 2, f => ModdedPlayer.Stats.allDamage.valueMultiplicative /= f, f => ModdedPlayer.Stats.allDamage.valueMultiplicative *= f);
 
-				new Buff(11, 160, "Energy Regen Amp", false, false, 0, f => ModdedPlayer.Stats.staminaPerSecRate.valueAdditive-= f, f => ModdedPlayer.Stats.staminaPerSecRate.Add(f));
+				new Buff(11, 160, "Stamina regen", false, false, 0, f => ModdedPlayer.Stats.staminaPerSecRate.Substract(f), f => ModdedPlayer.Stats.staminaPerSecRate.Add(f));
 
 				new Buff(12, 153, "Death Pact Damage", false, false) { OnAddOverrideAmount = true };
 				new Buff(13, 151, "Increased Melee Damage", false, false, 0, f => ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative /= f, f => ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *= f);
@@ -148,7 +185,7 @@ namespace ChampionsOfForest.Player
 
 				new Buff(21, 147, "Armor Corruption", true, true, 1, null,null) { DisplayAsPercent = false };
 
-				new Buff(22, 151, "Increased Damage", false, false, 0, f => ModdedPlayer.Stats.meleeFlatDmg.Substract(f), f => ModdedPlayer.Stats.meleeFlatDmg.Add(f)) { DisplayAsPercent = false };
+				new Buff(22, 151, "Increased Flat Melee Damage", false, false, 0, f => ModdedPlayer.Stats.meleeFlatDmg.Substract(f), f => ModdedPlayer.Stats.meleeFlatDmg.Add(f)) { DisplayAsPercent = false };
 				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.Stats.perk_parryCounterStrikeDamage.valueAdditive = 0) { DisplayAsPercent = false };
 				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.Stats.critDamage.Substract(f), f => ModdedPlayer.Stats.critDamage.Add(f) );
 				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(- f), f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(f)) { DisplayAsPercent = false };
@@ -316,3 +353,4 @@ namespace ChampionsOfForest.Player
 //106 berserk set 4pc buff
 //107 berserk set 5pc buff
 //108 resist death dmg reduction
+//109 frenzy energy regen

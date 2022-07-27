@@ -1315,8 +1315,8 @@ namespace ChampionsOfForest.Player
 				updateDescription = x =>
 				 {
 					 float f1 = 0.25f * x;
-					 float f2 = Mathf.Pow(1.4f, x);
-					 return Translations.PerkDatabase_148(f1,f2-1.0f);
+					 float f2 = Mathf.Pow(1.4f, x) - 1.0f;
+					 return Translations.PerkDatabase_148(f1.ToString("P2"),f2.ToString("P2"));
 				 }
 			};
 			new Perk()
@@ -2900,7 +2900,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_340,
-				originalDescription = Translations.PerkDatabase_341(),
+				originalDescription = Translations.PerkDatabase_341(30),
 				textureVariation = 0,
 				stackable = true,
 			};
@@ -3552,7 +3552,7 @@ namespace ChampionsOfForest.Player
 				posX = 4.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_421,
-				originalDescription = Translations.PerkDatabase_422("200%"),
+				originalDescription = Translations.PerkDatabase_422("200%",5),
 				textureVariation = 0,
 				stackable = false,
 			};
