@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using ChampionsOfForest.Localization;
 
 #if !PERK_VIEW_TOOL

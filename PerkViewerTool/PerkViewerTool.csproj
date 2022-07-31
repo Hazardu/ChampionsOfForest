@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;PERK_VIEW_TOOL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;PERK_VIEW_TOOL</DefineConstants>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy SourceFiles="$(ProjectDir)../Player/Perks/PerkDatabase.cs" DestinationFiles="$(ProjectDir)PerkDatabase.cs" />
+    <Copy SourceFiles="$(ProjectDir)../Translations.cs" DestinationFiles="$(ProjectDir)Translations.cs" />
+  </Target>
+
+</Project>

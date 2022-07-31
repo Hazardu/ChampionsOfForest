@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ChampionsOfForest.Player
+﻿namespace ChampionsOfForest.Player
 {
 	public class Perk
 	{
@@ -29,8 +27,6 @@ namespace ChampionsOfForest.Player
 			get; internal set;
 		}
 
-		public Texture2D texture;
-
 		public bool stackable = false;
 		public int boughtTimes;
 
@@ -38,7 +34,7 @@ namespace ChampionsOfForest.Player
 		public float scale = 1;
 		public float posX;
 		public float posY;
-
+		public object texture;
 		public enum PerkCategory
 		{
 			MeleeOffense, RangedOffense, MagicOffense, Defense, Support, Utility
@@ -49,35 +45,13 @@ namespace ChampionsOfForest.Player
 		}
 		public PerkCategory category;
 
-	
+
 		public Perk()
 		{
 			isApplied = false;
 
 			id = PerkDatabase.perks.Count;
 			PerkDatabase.perks.Add(this);
-		}
-
-		public void OnBuy()
-		{
-			try
-			{
-				if (updateDescription != null)
-				{
-					if (stackable)
-						Description = originalDescription + ' ' + updateDescription(boughtTimes);
-					else
-						Description = originalDescription + ' ' + updateDescription(1);
-				}
-				else
-				{
-					Description = originalDescription;
-				}
-			}
-			catch (System.Exception e)
-			{
-				ModAPI.Log.Write(e.ToString());
-			}
 		}
 	}
 }
