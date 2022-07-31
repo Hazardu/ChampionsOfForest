@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Enemies.EnemyAbilities
 {
-	public class SnowAura : MonoBehaviour
+	public class Blizzard : MonoBehaviour
 	{
 		private readonly float _radius = 20;
 		private readonly float _duration = 15;

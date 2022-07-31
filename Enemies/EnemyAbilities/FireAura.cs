@@ -16,7 +16,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				aura = go.AddComponent<FireAura>();
 			}
 			aura.damage = dmg;
-			aura.isOn = true;
+			aura.Enable();
 		}
 
 		private bool isOn = false;
@@ -34,14 +34,26 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		}
 		private void OnDisable()
 		{
-			isOn = false;
+			Disable();
+		}
+		void OnEnable()
+		{
+			if (light != null)
+				Disable();
 		}
 
-		public void TurnOn()
+		public void Enable()
 		{
 			isOn = true;
-			this.enabled = true;
 			light.enabled = true;
+			this.enabled = true;
+		}
+		public void Disable()
+		{
+			isOn = false;
+
+			light.enabled = false;
+			this.enabled = false;
 		}
 
 		private void Update()
@@ -61,8 +73,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			}
 			else
 			{
-				this.enabled = false;
-				light.enabled = false;
+				Disable();
 			}
 		}
 	}

@@ -426,7 +426,7 @@ namespace ChampionsOfForest.Player
 									w.Write(39);
 									w.Write(be.GetState<IPlayerState>().name);
 									w.Write(lifePerSecond);
-									w.Write(ModdedPlayer.Stats.TotalMaxHealth * 0.2f);
+									w.Write(ModdedPlayer.Stats.TotalMaxHealth);
 									w.Close();
 								}
 								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);

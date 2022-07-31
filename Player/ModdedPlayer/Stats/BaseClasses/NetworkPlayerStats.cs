@@ -22,7 +22,7 @@ namespace ChampionsOfForest.Player
 			{
 				using (BinaryWriter w = new BinaryWriter(answerStream))
 				{
-					w.Write(-1);
+					w.Write(0);
 					syncedStats[nID].WriteToCommand(w);
 					w.Close();
 				}

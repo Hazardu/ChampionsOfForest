@@ -10,11 +10,11 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Effects
 {
-	public class TheFartCreator : MonoBehaviour
+	public class FartSpell : MonoBehaviour
 	{
 		private static GameObject prefabStanding;
 		private static GameObject prefabJumping;
-		private static TheFartCreator instance;
+		private static FartSpell instance;
 
 		private void Start()
 		{
@@ -60,9 +60,9 @@ namespace ChampionsOfForest.Effects
 			}
 		}
 
-		public static void DealDamageAsHost(Vector3 pos, Vector3 dir, float radius, float dmg, float knockback, float slowAmount, float duration)
+		public static void DealDamageAsHost(Vector3 pos, Vector3 dir, float radius, float dmg, float knockback, float slowAmount, float duration, ulong playerID)
 		{
-			instance.StartCoroutine(instance.AsyncHitEnemies(pos, dir, radius, dmg, knockback, slowAmount, duration));
+			instance.StartCoroutine(instance.AsyncHitEnemies(pos, dir, radius, dmg, knockback, slowAmount, duration, playerID));
 		}
 
 		private IEnumerator FartWarmupAsync(float radius, float dmg, float knockback, float slowAmount, float duration)
@@ -101,7 +101,7 @@ namespace ChampionsOfForest.Effects
 			yield return null;
 			if (!GameSetup.IsMpClient)
 			{
-				Effects.TheFartCreator.DealDamageAsHost(origin, back, radius, dmg, knockback, slowAmount, duration);
+				Effects.FartSpell.DealDamageAsHost(origin, back, radius, dmg, knockback, slowAmount, duration);
 			}
 			else
 			{

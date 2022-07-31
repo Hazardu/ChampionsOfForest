@@ -10,18 +10,18 @@ namespace ChampionsOfForest.Effects
 	{
 		public static Material particleMaterial;
 
-		public static void Cast(Vector3 pos, float radius, float speed, float damage, bool GiveDamage, bool GiveArmor, int ArmorAmount, bool giveDmgRed)
+		public static void Cast(Vector3 pos, float buffRadius, float speedBuff, float damageBuff, int armorBuff, float toughnessBuff, ulong casterID)
 		{
 			if (ModSettings.IsDedicated)
 			{
 				return;
 			}
-			if ((LocalPlayer.Transform.position - pos).sqrMagnitude < radius * radius)
+			if ((LocalPlayer.Transform.position - pos).sqrMagnitude < buffRadius * buffRadius)
 			{
-				GiveEffect(speed, damage, GiveDamage, GiveArmor, ArmorAmount, giveDmgRed);
+				GiveEffect(speedBuff, damageBuff, giveDamageBuff, GiveArmor, armorBuff, giveDmgRed);
 			}
 
-			SpawnEffect(pos, radius);
+			SpawnEffect(pos, buffRadius);
 		}
 
 		public static void GiveEffect(float speed, float damage, bool giveEffect2, bool giveEffect3, int ArmorAmount, bool giveDmgRed )

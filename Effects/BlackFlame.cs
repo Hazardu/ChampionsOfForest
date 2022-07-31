@@ -169,7 +169,7 @@ namespace ChampionsOfForest.Effects
 
 		private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
 
-		public static void ToggleOtherPlayer(string playerName, bool isOn)
+		public static void ToggleOtherPlayer(ulong playerName, bool isOn)
 		{
 			//ModAPI.Console.Write("Toggling black flames for client " + playerName + isOn);
 			if (!ModReferences.PlayerHands.ContainsKey(playerName))

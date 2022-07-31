@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Effects
 {
-	public class HealingDome : MonoBehaviour
+	public class Sanctuary : MonoBehaviour
 	{
 		public static Material material;
 
@@ -15,13 +15,14 @@ namespace ChampionsOfForest.Effects
 		public bool giveCCImmunity;
 		public bool regenEnergy;
 		float cooldownReduction, resourceReduction, damageDealtMult, damageTakenMult;
-		public static void CreateHealingDome(Vector3 pos, float radius, float healing,
+		public static void Create(Vector3 pos, float radius, float healing,
 			bool grantImmunity, bool regensenergy,
 			float cooldownReduction,
 			float resourceReduction,
 			float damageDealtMult, 
 			float damageTakenMult,
-			float duration)
+			float duration,
+			ulong casterID)
 		{
 			if (material == null)
 			{
@@ -36,7 +37,7 @@ namespace ChampionsOfForest.Effects
 			go.AddComponent<MeshRenderer>().material = material;
 			go.transform.localScale = Vector3.one * radius;
 			go.transform.position = pos;
-			HealingDome d = go.AddComponent<HealingDome>();
+			Sanctuary d = go.AddComponent<Sanctuary>();
 			d.radius = radius;
 			d.healing = healing;
 			d.giveCCImmunity = grantImmunity;
@@ -91,7 +92,7 @@ namespace ChampionsOfForest.Effects
 				}
 				if (regenEnergy)
 				{
-					LocalPlayer.Stats.Energy += healing * Time.deltaTime / 10;
+					LocalPlayer.Stats.Energy += healing * Time.deltaTime / 4f;
 				}
 			}
 		}

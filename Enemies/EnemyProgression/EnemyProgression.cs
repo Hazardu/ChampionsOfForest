@@ -819,7 +819,7 @@ namespace ChampionsOfForest
 						}
 						else
 						{
-							SnowAura sa = new GameObject("Snow").AddComponent<SnowAura>();
+							Blizzard sa = new GameObject("Snow").AddComponent<Blizzard>();
 							sa.followTarget = transform.root;
 						}
 						freezeauraCD = Random.Range(60, 100);

@@ -39,7 +39,7 @@ namespace ChampionsOfForest
 					go.AddComponent<ModReferences>();
 					ItemDataBase.Initialize();
 					EnemyManager.Initialize();
-					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
+					Network.NetworkManager.instance.onGetMessage += Network.Commands.OnCommand;
 					ExpEvents.Initialize();
 					return;
 				}
@@ -73,7 +73,7 @@ namespace ChampionsOfForest
 					go.AddComponent<BlackFlame>();
 					go.AddComponent<AsyncHit>();
 					go.AddComponent<GlobalSFX>();
-					go.AddComponent<TheFartCreator>();
+					go.AddComponent<FartSpell>();
 					go.AddComponent<RCoroutines>();
 					go.AddComponent<ActiveSpellManager>();
 					new GameObject("MainMenuObj").AddComponent<MainMenu>();
@@ -86,7 +86,7 @@ namespace ChampionsOfForest
 					ItemDataBase.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
-					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
+					Network.NetworkManager.instance.onGetMessage += Network.Commands.OnCommand;
 					Buildings.InitBuildings();
 					PerkDatabase.FillPerkList();
 					ExpEvents.Initialize();

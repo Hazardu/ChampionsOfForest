@@ -1114,7 +1114,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-		public Dictionary<string, MarkObject> otherPlayerPings;
+		public Dictionary<ulong, MarkObject> otherPlayerPings;
 		public MarkObject localPlayerPing;
 
 		private const float lvlUpDuration = 3;

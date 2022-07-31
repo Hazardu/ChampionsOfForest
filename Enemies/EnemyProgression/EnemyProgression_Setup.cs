@@ -14,6 +14,7 @@ namespace ChampionsOfForest
 		{
 			try
 			{
+				gameObject.GetComponent<FireAura>()?.Disable();
 				if (BoltNetwork.isRunning)
 				{
 					if (entity == null)

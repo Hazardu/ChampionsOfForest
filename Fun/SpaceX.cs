@@ -200,5 +200,12 @@ namespace ChampionsOfForest.Fun
 				}
 			}
 		}
+		protected override void onRaft()
+		{
+			transform.rotation = Quaternion.RotateTowards(transform.rotation,
+				Camera.main.transform.rotation, Time.deltaTime * ModdedPlayer.Stats.perk_RaftSpeedMultipier * 30f);
+			transform.Rotate(Vector3.RotateTowards(transform.up, Vector3.up, Time.deltaTime * Mathf.PI * 0.15f, Time.deltaTime * 0.15f));
+			base.onRaft();
+		}
 	}
 }

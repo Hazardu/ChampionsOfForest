@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class DarkBeam : MonoBehaviour
+	public class SunFlare : MonoBehaviour
 	{
 		public static int DesiredLayer;
 
@@ -27,7 +27,7 @@ namespace ChampionsOfForest
 		/// <summary>
 		/// creates a beam of energy.
 		/// </summary>
-		public static void Create(Vector3 position, bool fromEnemy, float Damage, float Healing, float Slow, float Boost, float duration = 10f, float Radius = 3.5f)
+		public static void Create(Vector3 position, bool fromEnemy, float Damage, float Healing, float Slow, float Boost, float duration, float Radius, ulong casterID)
 		{
 			try
 			{
@@ -57,10 +57,10 @@ namespace ChampionsOfForest
 				light.spotAngle = Mathf.Atan(Radius / 12) * 90;
 				light.intensity = 0;   //going towards 30
 				light.range = 20;
-				light.color = fromEnemy ? new Color(1, 0.0f, 0) : new Color(1f, 0.5f, 0);
+				light.color = fromEnemy ? new Color(1, 0.0f, 0) : new Color(1f, 0.7f, 0.4f);
 				light.shadows = LightShadows.None;
 
-				DarkBeam comp = parent.AddComponent<DarkBeam>();
+				SunFlare comp = parent.AddComponent<SunFlare>();
 				comp.light = light;
 				comp.system = ps;
 				comp.fromEnemy = fromEnemy;

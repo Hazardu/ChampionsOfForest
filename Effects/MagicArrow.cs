@@ -12,7 +12,7 @@ namespace ChampionsOfForest.Effects
 	{
 		private static Material material;
 
-		public static void Create(Vector3 pos, Vector3 dir, float Damage, string CasterID, float debuffDuration, bool doubleSlow, bool dmgdebuff)
+		public static void Create(Vector3 pos, Vector3 dir, float Damage, ulong CasterID, float debuffDuration, bool doubleSlow, bool dmgdebuff)
 		{
 			MagicArrow a = CreateEffect(pos, dir, dmgdebuff, debuffDuration);
 			BoxCollider col = a.gameObject.AddComponent<BoxCollider>();

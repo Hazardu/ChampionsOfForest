@@ -26,6 +26,7 @@ namespace ChampionsOfForest
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
 		public static bool killOnDowned = false;
+		public static bool friendlyFireMagic = false;
 
 		public static string Version;
 		public const bool RequiresNewFiles = false;
@@ -43,6 +44,7 @@ namespace ChampionsOfForest
 		public static float EnemyHealthMultiplier = 1;
 		public static float EnemyArmorMultiplier = 1;
 		public static float EnemySpeedMultiplier = 1;
+		public static float FriendlyFireDamage = 1;
 		public static bool AllowElites = true;
 		public static LootLevelPolicy lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
 
@@ -56,8 +58,8 @@ namespace ChampionsOfForest
 			EnemyHealthMultiplier = 1;
 			EnemyArmorMultiplier = 1;
 			EnemySpeedMultiplier = 1;
+			FriendlyFireDamage = 1;
 			AllowElites = true;
-			lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
 		}
 
 

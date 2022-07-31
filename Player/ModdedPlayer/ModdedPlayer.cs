@@ -19,6 +19,8 @@ namespace ChampionsOfForest.Player
 		private ModdedPlayerStats stats;
 		public static ModdedPlayerStats Stats => instance.stats;
 		public static ModdedPlayer instance = null;
+		public static ulong PlayerID => LocalPlayer.Entity.networkId.PackedValue;
+
 
 
 
@@ -265,8 +267,23 @@ namespace ChampionsOfForest.Player
 						s += "- " + item.Value.Id + " [" + item.Value.Version + "]\n";
 					}
 					NetworkManager.SendText(s, NetworkManager.Target.Everyone);
+
+					SendModdedClientUpdate();
 				}
 			}
+		}
+
+		public void SendModdedClientUpdate()
+		{
+			CommandStream cmd = new CommandStream(Commands.CommandType.PLAYER_STATS_INFO_RECEIVE);
+			cmd.Writer.Write(ModdedPlayer.PlayerID);
+			cmd.Writer.Write(ModdedPlayer.instance.level);
+			cmd.Writer.Write(ModdedPlayer.instance.ExpCurrent);
+			cmd.Writer.Write(LocalPlayer.Stats.Health);
+			cmd.Writer.Write(ModdedPlayer.Stats.TotalMaxHealth);
+			cmd.Writer.Write(LocalPlayer.Stats.Energy);
+			cmd.Writer.Write(ModdedPlayer.Stats.TotalMaxEnergy);
+			cmd.Send(NetworkManager.Target.Others);
 		}
 
 		public void SendLeaveMessage(string Player)

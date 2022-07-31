@@ -87,7 +87,7 @@ namespace ChampionsOfForest.Player.Spells
 			p = gameObject.AddComponent<ParticleSystem>();
 			//p.transform.Rotate(Vector3.right * 120);
 			Renderer r = p.GetComponent<Renderer>();
-			r.material = Enemies.EnemyAbilities.SnowAura.ParticleMaterial;
+			r.material = Enemies.EnemyAbilities.Blizzard.ParticleMaterial;
 
 			s = p.shape;
 			s.shapeType = ParticleSystemShapeType.Sphere;

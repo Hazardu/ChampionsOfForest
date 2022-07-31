@@ -8,7 +8,7 @@ namespace ChampionsOfForest.Player
 		{
 			this._playerState = this._entity.GetState<IPlayerState>();
 			this._overlay._name.text = _playerState.name + $" [Lv{level}]";
-
+			this._overlay._name.color = ModSettings.FriendlyFire ? UnityEngine.Color.red : UnityEngine.Color.green;
 		}
 	}
 }

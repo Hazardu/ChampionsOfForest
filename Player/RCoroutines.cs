@@ -8,7 +8,7 @@ namespace ChampionsOfForest.Player
 {
 	public class RCoroutines : MonoBehaviour
 	{
-		public static RCoroutines i;
+		private static RCoroutines i;
 
 		private void Start()
 		{

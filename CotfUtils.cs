@@ -41,34 +41,4 @@ namespace ChampionsOfForest
 		}
 	}
 
-	public static class DamageMath
-	{
-		public const int SILENTattackerType = 2000000;
-		public const int SILENTattackerTypeMagic = 2000001;
-		public const int CONVERTEDFLOATattackerType = 1000000;
-		public const int PURE = 3000001;
-
-
-		/// <summary>
-		/// Takes a float input damage and returns a integer that is smaller than int.maxvalue and amount of times it has to be sent.
-		/// </summary>
-		
-		public static void ReduceDamageToSendOverNet(float damage, out int outdamage, out int repetitions)
-		{
-			if (damage < int.MaxValue / 5)
-			{
-				outdamage = Mathf.FloorToInt(damage);
-				repetitions = 1;
-				return;
-			}
-			repetitions = Mathf.FloorToInt(damage / (int.MaxValue / 5f)) + 1;
-			outdamage = Mathf.RoundToInt(damage / repetitions);
-		}
-
-		public static int GetSendableDamage(float damage)
-		{
-			return BitConverter.ToInt32(BitConverter.GetBytes(damage), 0);
-
-		}
-	}
 }

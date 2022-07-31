@@ -16,17 +16,17 @@ namespace ChampionsOfForest
 {
 	public class BlackHole : MonoBehaviour
 	{
-		public static void CreateBlackHole(Vector3 pos, bool fromEnemy, float damage, float duration = 3, float radius = 20, float pullforce = 12, string SparkOfLightAfterDarkness_PlayerID = null)
+		public static void Create(Vector3 pos, bool fromNPC, float damage, float duration, float radius, float pullforce, ulong casterID)
 		{
 			GameObject go = Core.Instantiate(401, pos);
 			BlackHole b = go.AddComponent<BlackHole>();
 			b.damage = damage;
-			b.FromEnemy = fromEnemy;
+			b.FromEnemy = fromNPC;
 			b.duration = duration;
 			b.radius = radius;
 			b.pullForce = pullforce;
 
-			if (fromEnemy)
+			if (fromNPC)
 			{
 				go.GetComponent<Light>().color = Color.red;
 			}
@@ -48,7 +48,7 @@ namespace ChampionsOfForest
 		public const float rotationSpeed = 20f;
 		private float scale;
 		public SphereCollider col;
-		private Dictionary<Transform, EnemyProgression> CoughtEnemies;
+		private Dictionary<Transform, EnemyProgression> caughtEnemies;
 		public static Material particleMaterial;
 		private ParticleSystem sys;
 		private float lifetime;
@@ -86,7 +86,7 @@ namespace ChampionsOfForest
 			Destroy(gameObject, duration);
 			if (!FromEnemy && !GameSetup.IsMpClient)
 			{
-				CoughtEnemies = new Dictionary<Transform, EnemyProgression>();
+				caughtEnemies = new Dictionary<Transform, EnemyProgression>();
 			}
 			if (GameSetup.IsMpClient)
 			{
@@ -158,12 +158,12 @@ namespace ChampionsOfForest
 				{
 					if (hit.transform.tag == "enemyCollide")
 					{
-						if (!CoughtEnemies.ContainsKey(hit.transform.root))
+						if (!caughtEnemies.ContainsKey(hit.transform.root))
 						{
 							var prog = hit.transform.root.GetComponentInChildren<EnemyProgression>();
 							if (prog != null)
 							{
-								CoughtEnemies.Add(hit.transform.root, prog);
+								caughtEnemies.Add(hit.transform.root, prog);
 							}
 						}
 					}
@@ -184,7 +184,7 @@ namespace ChampionsOfForest
 			}
 			else if (!GameSetup.IsMpClient)
 			{
-				foreach (var t in CoughtEnemies)
+				foreach (var t in caughtEnemies)
 				{
 					if (!t.Value.CCimmune)
 					{
@@ -217,7 +217,7 @@ namespace ChampionsOfForest
 
 		private IEnumerator HitEnemies()
 		{
-			foreach (var t in CoughtEnemies)
+			foreach (var t in caughtEnemies)
 			{
 				if (t.Value != null)
 				{
@@ -250,7 +250,7 @@ namespace ChampionsOfForest
 				blackholeSound.loop = false;
 			}
 			blackholeSound.Play();
-			if (doSparkOfLight && CoughtEnemies.Count >= 5)
+			if (doSparkOfLight && caughtEnemies.Count >= 5)
 			{
 				if (BoltNetwork.isRunning)
 				{
@@ -259,7 +259,7 @@ namespace ChampionsOfForest
 						if (casterID == ModReferences.ThisPlayerID)
 						{
 							//local Player Callback
-							SpellActions.CastBallLightning(transform.position, Vector3.down);
+							SpellActions.CastBallLightningVisual(transform.position, Vector3.down);
 						}
 						else
 						{
@@ -283,7 +283,7 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					SpellActions.CastBallLightning(transform.position, Vector3.down);
+					SpellActions.CastBallLightningVisual(transform.position, Vector3.down);
 				}
 			}
 		}

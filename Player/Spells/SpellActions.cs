@@ -345,7 +345,7 @@ namespace ChampionsOfForest.Player
 
 		public static void CallbackSparkOfLightAfterDarkness(Vector3 pos)
 		{
-			CastBallLightning(pos, Vector3.down);
+			CastBallLightningVisual(pos, Vector3.down);
 		}
 
 		
@@ -669,7 +669,7 @@ portal_postPickingPos:
 
 		
 
-		public static void CastBallLightning(Vector3 pos, Vector3 speed)
+		public static void CastBallLightningVisual(Vector3 pos, Vector3 speed)
 		{
 			float dmg = ModdedPlayer.Stats.spell_ballLightning_Damage + (ModdedPlayer.Stats.spell_ballLightning_DamageScaling * ModdedPlayer.Stats.spellFlatDmg);
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
@@ -731,7 +731,7 @@ portal_postPickingPos:
 			Vector3 pos = LocalPlayer.Transform.position + LocalPlayer.Transform.forward;
 			Vector3 speed = Camera.main.transform.forward * 2;
 
-			CastBallLightning(pos, speed);
+			CastBallLightningVisual(pos, speed);
 		}
 
 		#region Bash
@@ -965,30 +965,27 @@ portal_postPickingPos:
 					BuffDB.AddBuff(14, 105, ModdedPlayer.Stats.spell_parryAttackSpeed.Value, 5);
 
 				}
-				if (GameSetup.IsMpClient)
+				
+				if (BoltNetwork.isRunning)
 				{
-					if (BoltNetwork.isRunning)
+					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
-						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
+						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 						{
-							using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-							{
-								w.Write(3);
-								w.Write(13);
-								w.Write(parryPos.x);
-								w.Write(parryPos.y);
-								w.Write(parryPos.z);
-								w.Write(ModdedPlayer.Stats.spell_parryRadius);
-								w.Write(ModdedPlayer.Stats.spell_parryIgnites);
-								w.Write(dmg);
-								w.Close();
-							}
-							NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.OnlyServer);
-							answerStream.Close();
+							w.Write(3);
+							w.Write(13);
+							w.Write(parryPos.x);
+							w.Write(parryPos.y);
+							w.Write(parryPos.z);
+							w.Write(ModdedPlayer.Stats.spell_parryRadius);
+							w.Write(ModdedPlayer.Stats.spell_parryIgnites);
+							w.Write(dmg);
+							w.Close();
 						}
+						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
+						answerStream.Close();
 					}
 				}
-				else
 				{
 					var hits = Physics.SphereCastAll(parryPos, ModdedPlayer.Stats.spell_parryRadius, Vector3.one);
 					for (int i = 0; i < hits.Length; i++)
@@ -1128,7 +1125,7 @@ portal_postPickingPos:
 				}
 				if (!GameSetup.IsMpClient)
 				{
-					TheFartCreator.DealDamageAsHost(origin, back, fartRadius / 2, dmg, fartKnockback / 2, fartSlow, fartDebuffDuration / 2);
+					FartSpell.DealDamageAsHost(origin, back, fartRadius / 2, dmg, fartKnockback / 2, fartSlow, fartDebuffDuration / 2);
 				}
 				SpellCaster.instance.infos.First(x => x.spell.ID == 24).Cooldown /= 3;
 			}
@@ -1136,7 +1133,7 @@ portal_postPickingPos:
 			{
 				float dmg = (ModdedPlayer.Stats.spellFlatDmg + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 				BuffDB.AddBuff(1, 96, 0.4f, 7.175f);
-				TheFartCreator.FartWarmup(fartRadius, dmg, fartKnockback, fartSlow, fartDebuffDuration);
+				FartSpell.FartWarmup(fartRadius, dmg, fartKnockback, fartSlow, fartDebuffDuration);
 			}
 		}
 
