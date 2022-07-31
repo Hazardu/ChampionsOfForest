@@ -152,9 +152,9 @@ namespace ChampionsOfForest
 			//{
 			if (progression.extraHealth > 0)
 			{
-				int i = (int)Mathf.Min(progression.extraHealth, (float)damage);
+				double i = System.Math.Min(progression.extraHealth, (double)damage);
 				progression.extraHealth -= i;
-				damage -= i;
+				damage -= (int)i;
 			}
 			//}
 			hitBlock = false;
@@ -406,7 +406,7 @@ namespace ChampionsOfForest
 				{
 					num = UnityEngine.Random.Range(7f, 14f);
 				}
-				num *= 1 + ModdedPlayer.Stats.fireDuration;
+				num *= 1 + ModdedPlayer.Stats.fireDuration.GetAmount();
 				if (this.Fire != null && this.Fire.Length > 0)
 				{
 					foreach (GameObject gameObject in this.Fire)
@@ -442,7 +442,7 @@ namespace ChampionsOfForest
 				}
 				if (!base.IsInvoking("HitFire"))
 				{
-					base.InvokeRepeating("HitFire", 1f / (1 + ModdedPlayer.Stats.fireTickRate), 1f/(1+ModdedPlayer.Stats.fireTickRate));
+					base.InvokeRepeating("HitFire", 1f / (1.0f + ModdedPlayer.Stats.fireTickRate.GetAmount()), 1f/(1+ModdedPlayer.Stats.fireTickRate.GetAmount()));
 				}
 				if (!base.IsInvoking("disableBurn"))
 				{

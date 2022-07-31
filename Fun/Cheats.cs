@@ -101,6 +101,18 @@ namespace ChampionsOfForest.Fun
 			CotfCheats.AddPoints(int.Parse(param));
 		}
 
+		private void _cotfprintlang(string param)
+		{
+			Debug.Log(PlayerPreferences.Language);
+		}
+		private void _cotflang(string param)
+		{
+			Localization.Translations.Load(param);
+		}
+		private void _cotflangf(string param)
+		{
+			Localization.Translations.LoadNoDl("Mods/Champions of the Forest/Localization/"+ param + ".txt");
+		}
 		private void _cotfresetpoints(string param)
 		{
 			CotfCheats.Respec();

@@ -25,7 +25,7 @@ namespace ChampionsOfForest.Player
 		public static float OriginalTreeDmg;
 		public static Mesh noMesh;
 		public static Mesh originalMesh;
-		public static TheForest.Items.Item.AnimatorVariables[] originalAnimVars;
+		//public static TheForest.Items.Item.AnimatorVariables[] originalAnimVars;
 		public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
 		public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
 		public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
@@ -313,7 +313,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (ModdedPlayer.Stats.i_DeathPact_Enabled.value)
 				{
-					LocalPlayer.Stats.Health -= ModdedPlayer.Stats.TotalMaxHealth * 0.07f;
+					LocalPlayer.Stats.Health -= ModdedPlayer.Stats.TotalMaxHealth * 0.06f;
 					LocalPlayer.Stats.Health = Mathf.Max(1, LocalPlayer.Stats.Health);
 				}
 			}

@@ -326,11 +326,19 @@ namespace ChampionsOfForest.Player
 					switch (Inventory.Instance.ItemSlots[-12].weaponModel)
 					{
 						case BaseItem.WeaponModelType.Polearm:
+							if (LocalPlayer.Inventory.AmountOf(56) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(56);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							LocalPlayer.Inventory.Equip(56, false);
 							break;
 
 						case BaseItem.WeaponModelType.Greatbow:
+							if (LocalPlayer.Inventory.AmountOf(79) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(79);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							if (CustomBowBase.baseBow == null)
 							{
@@ -360,6 +368,10 @@ namespace ChampionsOfForest.Player
 							break;
 
 						default:
+							if (LocalPlayer.Inventory.AmountOf(80) <= 0)
+							{
+								LocalPlayer.Inventory.AddItem(80);
+							}
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							LocalPlayer.Inventory.Equip(80, false);
 							break;
@@ -425,9 +437,9 @@ namespace ChampionsOfForest.Player
 
 			if (LocalPlayer.Stats != null)
 			{
-				if (Stats.perk_danceOfFiregod&& BlackFlame.IsOn)
+				if (Stats.perk_danceOfFiregodAtkCap&& BlackFlame.IsOn)
 				{
-					LocalPlayer.Animator.speed = 1.0f;
+					LocalPlayer.Animator.speed = 2.0f;
 					return;
 				}
 				float ats = stats.attackSpeed;
@@ -568,8 +580,8 @@ namespace ChampionsOfForest.Player
 					_HexedPantsOfMrM_StandTime = Mathf.Clamp(_HexedPantsOfMrM_StandTime + Time.deltaTime, -1.1f, 1.1f);
 					if (_HexedPantsOfMrM_StandTime >= 1)
 					{
-						AddBuff(9, 41, 1.4f, 1f);
-						AddBuff(11, 42, 1.4f, 1f);
+						AddBuff(9, 41, 1.6f, 1f);
+						AddBuff(11, 42, 1.6f, 1f);
 					}
 				}
 			}
@@ -577,7 +589,7 @@ namespace ChampionsOfForest.Player
 			{
 				Stats.allDamage.Divide(_DeathPact_Amount);
 
-				_DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / Stats.TotalMaxHealth)) * 100) * 0.03f;
+				_DeathPact_Amount = 1 + Mathf.RoundToInt((1 - (LocalPlayer.Stats.Health / Stats.TotalMaxHealth)) * 100) * 0.05f;
 				AddBuff(12, 43, _DeathPact_Amount, 1f);
 
 				Stats.allDamage.Multiply(_DeathPact_Amount);
@@ -830,11 +842,11 @@ namespace ChampionsOfForest.Player
 			{
 				if (hit == FurySwipesLastHit)
 				{
-					FurySwipesDmg += 5;
-					Stats.rangedFlatDmg.valueAdditive += 5;
-					Stats.spellFlatDmg.valueAdditive += 5;
-					Stats.meleeFlatDmg.valueAdditive += 5;
-					AddBuff(27, 98, 1, 60);
+					FurySwipesDmg += 10;
+					Stats.rangedFlatDmg.valueAdditive += 10;
+					Stats.spellFlatDmg.valueAdditive += 10;
+					Stats.meleeFlatDmg.valueAdditive += 10;
+					AddBuff(27, 98, 10, 60);
 
 				}
 				else
@@ -861,11 +873,11 @@ namespace ChampionsOfForest.Player
 			{
 				if (hit == FurySwipesLastHit)
 				{
-					FurySwipesDmg += 30;
-					Stats.rangedFlatDmg.valueAdditive += 30;
-					Stats.spellFlatDmg.valueAdditive +=30;
-					Stats.meleeFlatDmg.valueAdditive += 30;
-					AddBuff(27, 98, 30, 60);
+					FurySwipesDmg += 100;
+					Stats.rangedFlatDmg.valueAdditive += 100;
+					Stats.spellFlatDmg.valueAdditive +=100;
+					Stats.meleeFlatDmg.valueAdditive += 100;
+					AddBuff(27, 98, 100, 60);
 
 				}
 				else
@@ -1207,6 +1219,7 @@ namespace ChampionsOfForest.Player
 			{
 				stat.Reset();
 			}
+			Multishot.IsOn = false;
 			SpellActions.ShieldCastTime = 0;
 			SpellActions.SeekingArrow_ChangeTargetOnHit = false;
 			SpellActions.SeekingArrow_TimeStamp = 0;
@@ -1264,16 +1277,16 @@ namespace ChampionsOfForest.Player
 
 				if (PerkDatabase.perks[i].isBought)
 				{
-					if (PerkDatabase.perks[i].uncapped)
+					if (PerkDatabase.perks[i].stackable)
 					{
 						for (int j = 0; j < PerkDatabase.perks[i].boughtTimes; j++)
 						{
-							PerkDatabase.perks[i].apply();
+							PerkDatabase.perks[i].onApply();
 
 						}
 					}
 					else
-						PerkDatabase.perks[i].apply();
+						PerkDatabase.perks[i].onApply();
 					PerkDatabase.perks[i].OnBuy();
 				}
 			}

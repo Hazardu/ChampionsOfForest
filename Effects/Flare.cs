@@ -191,8 +191,8 @@ namespace ChampionsOfForest
 
 							if (fromEnemy)
 							{
-								ep.HealthScript.Health = (int)Mathf.Clamp(ep.HealthScript.Health + healAmount / 2, 0, ep.maxHealth);
 								ep.Slow(6, boostAmount, 25);
+								ep.DmgTakenDebuff(6, 0.5f, 15);
 							}
 							else
 							{

@@ -61,9 +61,9 @@ namespace ChampionsOfForest
 				{
 					if (extraHealth > 0)
 					{
-						float i = Mathf.Min(extraHealth, DoTTotal);
+						double i = System.Math.Min(extraHealth, (double)DoTTotal);
 						extraHealth -= i;
-						HealthScript.Health -= Mathf.FloorToInt(DoTTotal - i);
+						HealthScript.Health -= Mathf.FloorToInt((float)(DoTTotal - i));
 						NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 					else
@@ -267,7 +267,7 @@ namespace ChampionsOfForest
 		public void Taunt(GameObject player, in float duration, in float slowAmount)
 		{
 			Slow(143, slowAmount, duration);
-			DmgTakenDebuff(143, 1.5f, duration);
+			DmgTakenDebuff(143, 1.75f, duration);
 			setup.ai?.resetCombatParams();
 
 			this.setup.pmCombat.enabled = true;

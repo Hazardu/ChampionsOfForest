@@ -296,5 +296,9 @@ namespace ChampionsOfForest.Player
 			CustomCrafting.UpdateIndex(a, b);
 			CustomCrafting.UpdateIndex(b, a);
 		}
+
+		public bool IsEmpty => !ItemSlots.Any(x => x.Value != null);
+		public bool IsNaked => !ItemSlots.Any(x => x.Key < 0 && x.Value != null);
+		
 	}
 }

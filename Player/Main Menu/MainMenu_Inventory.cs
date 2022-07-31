@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
 
@@ -55,7 +56,7 @@ namespace ChampionsOfForest
 		private void DrawInventory()
 		{
 			Rect SlotsRect = new Rect(0, 0, Inventory.Width * slotDim.x, Screen.height);
-			GUI.Box(SlotsRect, "Inventory", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });
+			GUI.Box(SlotsRect, Translations.MainMenu_Inventory_1/*og:Inventory*/, new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });      //tr
 			SelectedItem = -1;
 
 			try
@@ -72,7 +73,7 @@ namespace ChampionsOfForest
 
 				//PlayerSlots
 				Rect eq = new Rect(SlotsRect.xMax + 30 * screenScale, 0, 420 * screenScale, Screen.height);
-				GUI.Box(eq, "Equipment", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });
+				GUI.Box(eq, Translations.MainMenu_Inventory_2/*og:Equipment*/, new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });     //tr
 				Rect head = new Rect(Vector2.zero, slotDim * 2)
 				{
 					center = eq.center
@@ -112,18 +113,18 @@ namespace ChampionsOfForest
 				Rect offhand = new Rect(ringR);
 				offhand.y += offhand.height * 1.5f + 50 * screenScale;
 
-				DrawInvSlot(head, -2, "Head");
-				DrawInvSlot(chest, -3, "Torso");
-				DrawInvSlot(pants, -4, "Legs");
-				DrawInvSlot(boots, -5, "Feet");
-				DrawInvSlot(shoulders, -6, "Shoulders");
-				DrawInvSlot(gloves, -7, "Hands");
-				DrawInvSlot(tallisman, -8, "Neck");
-				DrawInvSlot(bracer, -9, "Wrists");
-				DrawInvSlot(ringR, -10, "Finger");
-				DrawInvSlot(ringL, -11, "Finger");
-				DrawInvSlot(weapon, -12, "Main hand");
-				DrawInvSlot(offhand, -13, "Offhand");
+				DrawInvSlot(head, -2, Translations.MainMenu_Inventory_3/*og:Head*/);				  //tr
+				DrawInvSlot(chest, -3, Translations.MainMenu_Inventory_4/*og:Torso*/);		   	  //tr
+				DrawInvSlot(pants, -4, Translations.MainMenu_Inventory_5/*og:Legs*/);			   	  //tr
+				DrawInvSlot(boots, -5, Translations.MainMenu_Inventory_6/*og:Feet*/);			   	  //tr
+				DrawInvSlot(shoulders, -6, Translations.MainMenu_Inventory_7/*og:Shoulders*/);   	  //tr
+				DrawInvSlot(gloves, -7, Translations.MainMenu_Inventory_8/*og:Hands*/);		   	  //tr
+				DrawInvSlot(tallisman, -8, Translations.MainMenu_Inventory_9/*og:Neck*/);		   	  //tr
+				DrawInvSlot(bracer, -9, Translations.MainMenu_Inventory_10/*og:Wrists*/);		   	  //tr
+				DrawInvSlot(ringR, -10, Translations.MainMenu_Inventory_11/*og:Finger*/);		   	  //tr
+				DrawInvSlot(ringL, -11, Translations.MainMenu_Inventory_11/*og:Finger*/);		   	  //tr
+				DrawInvSlot(weapon, -12, Translations.MainMenu_Inventory_12/*og:Main hand*/);	   	  //tr
+				DrawInvSlot(offhand, -13, Translations.MainMenu_Inventory_13/*og:Offhand*/);         //tr
 
 				if (ModdedPlayer.Stats.perk_craftingReroll)
 				{
@@ -185,6 +186,7 @@ namespace ChampionsOfForest
 		private GUIStyle statValueStyle;
 		private GUIStyle craftBtnStyle;
 		private GUIStyle craftHeaderStyle;
+		private GUIStyle hintStyle;
 		private GUIStyle statMinMaxValueStyle;
 
 		private void DrawCrafting(float x)
@@ -413,7 +415,7 @@ namespace ChampionsOfForest
 					GUI.color = new Color(1, 1, 1, 0.8f);
 					GUI.DrawTexture(totalBG, blackSquareTex);
 					GUI.color = Color.gray;
-					GUI.Label(new Rect(totalBG.x, totalBG.y, totalBG.width, 30 * screenScale), "Total", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });
+					GUI.Label(new Rect(totalBG.x, totalBG.y, totalBG.width, 30 * screenScale), Translations.MainMenu_Inventory_14/*og:Total*/, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });   //tr
 					for (int i = 0; i < count; i++)
 					{
 						if (item.Stats[i].GetTotalStat != null)
@@ -446,7 +448,7 @@ namespace ChampionsOfForest
 					GUI.color = new Color(1, 1, 1, 0.8f);
 					GUI.DrawTexture(compareBG, blackSquareTex);
 					GUI.color = Color.gray;
-					GUI.Label(new Rect(compareBG.x, compareBG.y, compareBG.width, 30 * screenScale), "Compare", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });
+					GUI.Label(new Rect(compareBG.x, compareBG.y, compareBG.width, 30 * screenScale), Translations.MainMenu_Inventory_15/*og:Compare*/, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, font = mainFont });   //tr
 					int count = item.Stats.Count;
 					for (int i = 0; i < count; i++)
 					{
@@ -478,77 +480,15 @@ namespace ChampionsOfForest
 				}
 			}
 			GUI.color = Color.white;
-			switch (item.type)
-			{
-				case BaseItem.ItemType.Shield:
-					GUI.Label(LevelAndTypeRect, "Shield", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Quiver:
-					GUI.Label(LevelAndTypeRect, "Quiver", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Weapon:
-					GUI.Label(LevelAndTypeRect, "Weapon", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Other:
-					GUI.Label(LevelAndTypeRect, "Other", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Material:
-					GUI.Label(LevelAndTypeRect, "Material", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Helmet:
-					GUI.Label(LevelAndTypeRect, "Helmet", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Boot:
-					GUI.Label(LevelAndTypeRect, "Boots", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Pants:
-					GUI.Label(LevelAndTypeRect, "Pants", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.ChestArmor:
-					GUI.Label(LevelAndTypeRect, "Chest armor", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.ShoulderArmor:
-					GUI.Label(LevelAndTypeRect, "Shoulder armor", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Glove:
-					GUI.Label(LevelAndTypeRect, "Gloves", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Bracer:
-					GUI.Label(LevelAndTypeRect, "Bracers", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Amulet:
-					GUI.Label(LevelAndTypeRect, "Amulet", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.Ring:
-					GUI.Label(LevelAndTypeRect, "Ring", TypeStyle);
-					break;
-
-				case BaseItem.ItemType.SpellScroll:
-					GUI.Label(LevelAndTypeRect, "Scroll", TypeStyle);
-					break;
-			}
+			GUI.Label(LevelAndTypeRect, item.TypeName(), TypeStyle);
 			if (item.level <= ModdedPlayer.instance.level)
 			{
-				//GUI.color = Color.white;
-				GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
+				GUI.Label(LevelAndTypeRect, Translations.MainMenu_Inventory_16/*og:Level*/ + " " + item.level, LevelStyle);	//tr
 			}
 			else
 			{
 				GUI.color = Color.red;
-				GUI.Label(LevelAndTypeRect, "Level " + item.level, LevelStyle);
+				GUI.Label(LevelAndTypeRect, Translations.MainMenu_Inventory_16/*og:Level*/+ " " + item.level, LevelStyle);	//tr
 			}
 			if (!string.IsNullOrEmpty(item.uniqueStat))
 			{
@@ -852,7 +792,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(r, blackSquareTex);
 				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.consume) == ItemContextMenu.AvailableContextMenuButtons.consume)
 				{
-					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Consume"))
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, Translations.MainMenu_Inventory_17/*og:Consume*/))	//tr
 					{
 						if (!consumedsomething)
 						{
@@ -873,7 +813,7 @@ namespace ChampionsOfForest
 				}
 				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.splitStack) == ItemContextMenu.AvailableContextMenuButtons.splitStack)
 				{
-					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Split Stack"))
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, Translations.MainMenu_Inventory_18/*og:Split Stack*/))	//tr
 					{
 
 						if (!consumedsomething)
@@ -913,7 +853,7 @@ namespace ChampionsOfForest
 
 				if ((itemContextMenu.Value.buttons & ItemContextMenu.AvailableContextMenuButtons.drop) == ItemContextMenu.AvailableContextMenuButtons.drop)
 				{
-					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, "Drop"))
+					if (DrawInvContextMenuBtn(x, y, buttonHeight, w, Translations.MainMenu_Inventory_19/*og:Drop*/))	//tr
 					{
 
 						if (!consumedsomething)
@@ -946,24 +886,24 @@ namespace ChampionsOfForest
 		private void DrawCharacterSummary()
 		{
 			Rect statsRect = new Rect(Screen.width - 300 * screenScale, 0, 300 * screenScale, Screen.height);
-			GUI.Box(statsRect, "Summary", new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) });
+			GUI.Box(statsRect, Translations.MainMenu_Inventory_25/*og:Summary*/, new GUIStyle(GUI.skin.box) { font = secondaryFont, fontSize = Mathf.RoundToInt(65 * screenScale) }); //tr
 
 			GUIStyle TitleStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(24 * screenScale), font = mainFont };
 			GUIStyle ValueStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, fontSize = Mathf.RoundToInt(20 * screenScale), font = mainFont };
 			float y = Screen.height / 2 - 200 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Melee Damage", TitleStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), Translations.MainMenu_Inventory_20/*og:Melee Damage*/, TitleStyle);	//tr
 			y += 25 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerMeleeDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Ranged Damage", TitleStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), Translations.MainMenu_Inventory_21/*og:Ranged Damage*/, TitleStyle);	//tr
 			y += 25 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerRangedDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Magic Damage", TitleStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), Translations.MainMenu_Inventory_22/*og:Magic Damage*/, TitleStyle);	//tr
 			y += 25 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerSpellDamageRating().ToString("N0"), ValueStyle);
 			y += 75 * screenScale;
-			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), "Toughness", TitleStyle);
+			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), Translations.MainMenu_Inventory_23/*og:Toughness*/, TitleStyle);	//tr
 			y += 25 * screenScale;
 			GUI.Label(new Rect(statsRect.x, y, 300 * screenScale, 25 * screenScale), PlayerUtils.GetPlayerToughnessRating().ToString("N0"), ValueStyle);
 
@@ -987,14 +927,7 @@ namespace ChampionsOfForest
 				}
 				GUI.DrawTexture(rect2, blackSquareTex);
 
-				string labelText = "Quick guide\n\n" +
-					"Key shortcuts: \n\n" +
-					"[Right Mouse Button] - show options with an item\n" +
-					"[Left Shift] while inspecting item - compares with equipped\n" +
-					"[Left Alt] while inspecting item - shows total stats\n" +
-					"[Left Mouse Button] + [Left Shift] - equip item\n" +
-					"[Left Mouse Button] + [Left Control] - use item in crafting or add as ingredient\n\n" +
-					"Dragging and dropping a socketable material over an item with a socket puts the material in the socket.";
+				string labelText = Translations.MainMenu_Inventory_24/*og:Quick guide\n\nKey shortcuts: \n\n[Right Mouse Button] - show options with an item\n[Left Shift] while inspecting item - compares with equipped\n[Left Alt] while inspecting item - shows total stats\n [Left Mouse Button] + [Left Shift] - equip item\n [Left Mouse Button] + [Left Control] - use item in crafting or add as ingredient\n\n Dragging and dropping a socketable material over an item with a socket puts the material in the socket.*/;	   //tr
 
 
 				GUI.Label(rect2, labelText, new GUIStyle(GUI.skin.label) { richText = true, fontSize = Mathf.RoundToInt(20 * screenScale), alignment = TextAnchor.UpperCenter, font = mainFont });

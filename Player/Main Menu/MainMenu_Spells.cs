@@ -1,5 +1,6 @@
 ﻿using System;
 
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace ChampionsOfForest
 				//drawing pretty info
 				Rect SpellIcon = new Rect(Screen.width / 2 - 100 * screenScale, 25 * screenScale, 200 * screenScale, 200 * screenScale);
 				GUI.DrawTexture(SpellIcon, displayedSpellInfo.icon);
-				if (GUI.Button(new Rect(Screen.width - 170 * screenScale, 25 * screenScale, 150 * screenScale, 50 * screenScale), "GO BACK TO SPELLS\n(Right Mouse Button)", new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15) }))
+				if (GUI.Button(new Rect(Screen.width - 170 * screenScale, 25 * screenScale, 150 * screenScale, 50 * screenScale), Translations.MainMenu_Spells_1/*og:Close\n(Right Mouse Button)*/, new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15) })) //tr
 				{
 					displayedSpellInfo = null;
 					Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
@@ -68,13 +69,21 @@ namespace ChampionsOfForest
 						fontSize = Mathf.RoundToInt(screenScale * 50),
 						fontStyle = FontStyle.Normal,
 						alignment = TextAnchor.MiddleCenter,
-						
+
 					});
 				GUI.DrawTexture(new Rect(Screen.width / 2 - 150 * screenScale, 325 * screenScale, 300 * screenScale, 35 * screenScale), Res.ResourceLoader.instance.LoadedTextures[30]);
 
-				GUI.Label(new Rect(bg.x+25 * screenScale, 370 * screenScale,bg.width-50 * screenScale, 500 * screenScale),
-					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\nEnergy:  <b>" + displayedSpellInfo.EnergyCost+ "</b>" : "") + (displayedSpellInfo.BaseCooldown> 0 ?
-					(displayedSpellInfo.Cooldown== displayedSpellInfo.BaseCooldown? "\nCooldown:  <b>" + displayedSpellInfo.Cooldown+ " s</b>" : "\nBase Cooldown:  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\nReduced Cooldown:  <b>" + displayedSpellInfo.Cooldown + " s</b>")
+				GUI.Label(new Rect(bg.x + 25 * screenScale, 370 * screenScale, bg.width - 50 * screenScale, 500 * screenScale),
+					displayedSpellInfo.GetDescription() + "\n<size=28><color=lightblue>" + (displayedSpellInfo.EnergyCost > 0 ? "\n" +
+					Translations.MainMenu_Spells_2/*og:Energy:*/ //tr
+					+ "  <b>" + displayedSpellInfo.EnergyCost + "</b>" : "") + (displayedSpellInfo.BaseCooldown > 0 ?
+					(displayedSpellInfo.Cooldown == displayedSpellInfo.BaseCooldown ? "\n" +
+					Translations.MainMenu_Spells_3/*og:Cooldown*/ +  //tr
+					":  <b>" + displayedSpellInfo.Cooldown + " s</b>" : "\n" +
+					Translations.MainMenu_Spells_4/*og:Base Cooldown*/ + //tr
+					":  <b>" + displayedSpellInfo.BaseCooldown + " s</b>\n" +
+					Translations.MainMenu_Spells_5/*og:Reduced Cooldown*/ //tr
+					+ ":  <b>" + displayedSpellInfo.Cooldown + " s</b>")
 					: "") +
 					"\nRequired level:  <b>" + displayedSpellInfo.LevelRequirement + "</b></color></size>",
 					new GUIStyle(GUI.skin.label)
@@ -96,52 +105,58 @@ namespace ChampionsOfForest
 							Rect btn = new Rect(bg.x + 25f * screenScale + i * 100 * screenScale, 900 * screenScale, 100 * screenScale, 100 * screenScale);
 
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[5]);
-
-							if (displayedSpellInfo.EquippedSlot == i)
+							if (Input.GetKey(KeyCode.LeftShift) || changingSpellKey)
 							{
-								GUI.DrawTexture(btn, displayedSpellInfo.icon);
-								if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
+								//enters key change instead of assigning spell to a slot
+								if (GUI.Button(btn, changingSpellKey ? "Press\nany key" : "Change\nkey", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 29), alignment = TextAnchor.MiddleCenter }))
 								{
-									//Clears the spot
-									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
-
-									SpellCaster.instance.SetSpell(i);
+									ToggleChangeKey(i);
+									Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 								}
 							}
 							else
 							{
-								if (SpellCaster.instance.infos[i].spell != null)
+								if (displayedSpellInfo.EquippedSlot == i)
 								{
-									GUI.DrawTexture(btn, SpellCaster.instance.infos[i].spell.icon);
-									if (GUI.Button(btn, SpellCaster.instance.infos[i].spell.Name, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), alignment = TextAnchor.MiddleCenter }))
+									GUI.DrawTexture(btn, displayedSpellInfo.icon);
+									if (GUI.Button(btn, "•", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }))
 									{
-										//Replaces spell
-										if (displayedSpellInfo.IsEquipped)
-										{
-											SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
-										}
 
-										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
-										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+										//Clears the spot
+										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickUp);
+
+										SpellCaster.instance.SetSpell(i);
 									}
 								}
 								else
 								{
-									if (GUI.Button(btn, "", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 34), alignment = TextAnchor.MiddleCenter }))
+									if (SpellCaster.instance.infos[i].spell != null)
+									{
+										GUI.DrawTexture(btn, SpellCaster.instance.infos[i].spell.icon);
+										if (GUI.Button(btn, SpellCaster.instance.infos[i].spell.Name, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 17), alignment = TextAnchor.MiddleCenter }))
+										{
+											//Replaces spell
+											if (displayedSpellInfo.IsEquipped)
+												SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
+
+											SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+											Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+										}
+									}
+									else if (GUI.Button(btn, "", new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 34), alignment = TextAnchor.MiddleCenter }))
 									{
 										//Assigns spell onto empty slot
 										if (displayedSpellInfo.IsEquipped)
-										{
 											SpellCaster.instance.SetSpell(displayedSpellInfo.EquippedSlot);
-										}
 										Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
 										SpellCaster.instance.SetSpell(i, displayedSpellInfo);
+
 									}
 								}
+								GUI.color = new Color(0.7f, 0.7f, 0.7f);
+								GUI.Label(btn, SpellCaster.instance.infos[i].key.ToString(), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
+								GUI.color = Color.white;
 							}
-							GUI.color = new Color(0.7f, 0.7f, 0.7f);
-							GUI.Label(btn, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 45), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter });
-							GUI.color = Color.white;
 							GUI.DrawTexture(btn, Res.ResourceLoader.instance.LoadedTextures[6]);
 						}
 						catch (Exception ex)
@@ -161,7 +176,7 @@ namespace ChampionsOfForest
 							GUIStyle btnStyle = new GUIStyle(GUI.skin.button) { font = mainFont, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 							btnStyle.onActive.textColor = Color.blue;
 							btnStyle.onNormal.textColor = Color.gray;
-							if (GUI.Button(UnlockRect, "Unlock", btnStyle))
+							if (GUI.Button(UnlockRect, Translations.MainMenu_Spells_6/*og:Unlock*/, btnStyle))  //tr
 							{
 								displayedSpellInfo.Bought = true;
 								ModdedPlayer.instance.MutationPoints -= 2;
@@ -172,8 +187,8 @@ namespace ChampionsOfForest
 						{
 							GUIStyle morePointsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(31 * screenScale), fontStyle = FontStyle.Bold };
 							GUI.color = Color.gray;
-							GUI.Label(UnlockRect, "Requires 2 mutation points", morePointsStyle);
-							GUI.color= Color.white;
+							GUI.Label(UnlockRect, Translations.MainMenu_Spells_7(2)/*og:Costs 2 mutation points*/, morePointsStyle);  //tr
+							GUI.color = Color.white;
 						}
 					}
 					else
@@ -181,12 +196,35 @@ namespace ChampionsOfForest
 						GUIStyle moreLevelsStyle = new GUIStyle(GUI.skin.label) { font = mainFont, alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(41 * screenScale), fontStyle = FontStyle.Bold };
 						moreLevelsStyle.onNormal.textColor = Color.gray;
 						moreLevelsStyle.onActive.textColor = Color.white;
-						GUI.Label(UnlockRect, "Level too low", moreLevelsStyle);
+						GUI.Label(UnlockRect, Translations.MainMenu_Spells_8/*og:Level too low*/, moreLevelsStyle);    //tr
 					}
 				}
 				GUI.color = Color.white;
 			}
 		}
+
+		private bool changingSpellKey;
+		private int changingSpellIdx;
+		private void ToggleChangeKey(int i)
+		{
+			changingSpellKey = !changingSpellKey;
+			changingSpellIdx = i;
+		}
+		private void ChangeKeyUpdate()
+		{
+			if (!changingSpellKey)
+				return;
+			var e = Event.current;
+			if (e.isKey && e.keyCode != KeyCode.None )
+			{
+				SpellCaster.instance.infos[changingSpellIdx].key= e.keyCode;
+				changingSpellKey = false;
+				e.Use();
+				Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.ClickDown);
+
+			}
+		}
+
 
 		private void DrawSpell(ref float y, Spell s, GUIStyle style)
 		{
@@ -219,7 +257,7 @@ namespace ChampionsOfForest
 				}
 			}
 			if (locked)
-				GUI.Label(nameRect, "Unlocked at level " + s.LevelRequirement, style);
+				GUI.Label(nameRect, Translations.MainMenu_Spells_9/*og:Unlocked at level */ + s.LevelRequirement, style);  //tr
 			else
 				GUI.Label(nameRect, s.Name, style);
 			Rect iconRect = new Rect(bg.xMax - 140 * screenScale, y + 15 * screenScale, 70 * screenScale, 70 * screenScale);

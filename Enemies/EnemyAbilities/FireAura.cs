@@ -21,7 +21,17 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 		private bool isOn = false;
 		private float damage;
+		Light light;
+		void Start()
+		{
+			light = gameObject.AddComponent<Light>();
+			light.color = new Color(0.96f,0.62f,0.0f);
+			light.range = 7f;
+			light.intensity = 1.5f;
+			light.shadows = LightShadows.Soft;
+			light.type = LightType.Point;
 
+		}
 		private void OnDisable()
 		{
 			isOn = false;
@@ -30,6 +40,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		public void TurnOn()
 		{
 			isOn = true;
+			this.enabled = true;
+			light.enabled = true;
 		}
 
 		private void Update()
@@ -38,7 +50,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 49)
 				{
-					float dmgPerTick =  Time.deltaTime * damage * ModdedPlayer.Stats.allDamageTaken * ModdedPlayer.Stats.magicDamageTaken * ModReferences.DamageReduction((int)ModdedPlayer.Stats.TotalArmor);
+					float dmgPerTick = Time.deltaTime * damage * ModdedPlayer.Stats.allDamageTaken * ModdedPlayer.Stats.magicDamageTaken * ModReferences.DamageReduction((int)ModdedPlayer.Stats.TotalArmor);
 
 					if (LocalPlayer.Stats.Health - 1 > dmgPerTick)
 						LocalPlayer.Stats.Health -= dmgPerTick;
@@ -46,6 +58,11 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 					BuffDB.AddBuff(10, 72, 0.7f, 5);
 					BuffDB.AddBuff(21, 73, Time.deltaTime * damage / 30, 15);
 				}
+			}
+			else
+			{
+				this.enabled = false;
+				light.enabled = false;
 			}
 		}
 	}

@@ -16,7 +16,10 @@ namespace ChampionsOfForest
 		{
 			All, Equipped, Disabled, NonEquipped
 		}
-
+		public enum LootLevelPolicy
+		{
+			HighestPlayerLevel, AverageLevel, LowestLevel, ClosestPlayer, HostLevel
+		}
 		public static Difficulty difficulty = Difficulty.Easy;
 		public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.Disabled;
 		public static bool DifficultyChosen = false;
@@ -41,7 +44,21 @@ namespace ChampionsOfForest
 		public static float EnemyArmorMultiplier = 1;
 		public static float EnemySpeedMultiplier = 1;
 		public static bool AllowElites = true;
+		public static LootLevelPolicy lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
 
+		public static void Reset()
+		{
+			DropQuantityMultiplier = 1;
+			DropChanceMultiplier = 1;
+			ExpMultiplier = 1;
+			EnemyLevelIncrease = 0;
+			EnemyDamageMultiplier = 1;
+			EnemyHealthMultiplier = 1;
+			EnemyArmorMultiplier = 1;
+			EnemySpeedMultiplier = 1;
+			AllowElites = true;
+			lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
+		}
 
 
 		public static void BroadCastSettingsToClients()
@@ -63,6 +80,54 @@ namespace ChampionsOfForest
 					answerStream.Close();
 				}
 			}
+		}
+
+		const string PATH = "Mods/Champions of the Forest/Settings.save";
+		public static void SaveSettings()
+		{
+			using (MemoryStream stream = new MemoryStream())
+			{
+				using (BinaryWriter buf = new BinaryWriter(stream))
+				{
+					buf.Write(FriendlyFire);
+					buf.Write(killOnDowned);
+					buf.Write(DropQuantityMultiplier);
+					buf.Write(DropChanceMultiplier);
+					buf.Write(ExpMultiplier);
+					buf.Write(EnemyLevelIncrease);
+					buf.Write(EnemyDamageMultiplier);
+					buf.Write(EnemyHealthMultiplier);
+					buf.Write(EnemyArmorMultiplier);
+					buf.Write(EnemySpeedMultiplier);
+					buf.Write(AllowElites);
+					buf.Write((int)dropsOnDeath);
+
+					File.WriteAllBytes(PATH, stream.ToArray());
+				}
+			}
+		}
+		public static void LoadSettings()
+		{
+			if (File.Exists(PATH))
+				using (FileStream stream = new FileStream(PATH, FileMode.Open))
+				{
+					using (BinaryReader buf = new BinaryReader(stream))
+					{
+						FriendlyFire = buf.ReadBoolean();
+						killOnDowned = buf.ReadBoolean();
+						DropQuantityMultiplier = buf.ReadSingle();
+						DropChanceMultiplier = buf.ReadSingle();
+						ExpMultiplier = buf.ReadSingle();
+						EnemyLevelIncrease = buf.ReadInt32();
+						EnemyDamageMultiplier = buf.ReadSingle();
+						EnemyHealthMultiplier = buf.ReadSingle();
+						EnemyArmorMultiplier = buf.ReadSingle();
+						EnemySpeedMultiplier = buf.ReadSingle();
+						AllowElites = buf.ReadBoolean();
+						dropsOnDeath = (DropsOnDeathMode)buf.ReadInt32();
+
+					}
+				}
 		}
 	}
 }

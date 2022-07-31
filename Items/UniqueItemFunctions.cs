@@ -42,7 +42,7 @@ namespace ChampionsOfForest.Items
 					{
 						w.Write(32);
 						w.Write(entity.networkId.PackedValue);
-						w.Write(ModdedPlayer.Stats.TotalMaxHealth);
+						w.Write(ModdedPlayer.Stats.TotalMaxHealth*150f);
 						w.Write(15f);
 						w.Close();
 					}
@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Items
 			else
 			{
 				EnemyProgression prog = param.hitTarget as EnemyProgression;
-				prog.DoDoT(ModdedPlayer.Stats.maxHealth, 15f);
+				prog.DoDoT(ModdedPlayer.Stats.maxHealth*150f, 15f);
 
 			}
 		}

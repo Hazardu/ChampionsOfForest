@@ -1,5 +1,7 @@
 ﻿using System;
 
+using ChampionsOfForest.Localization;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Crafting
@@ -43,12 +45,12 @@ namespace ChampionsOfForest.Player.Crafting
 						var stat = CraftingHandler.changedItem.i.Stats[selectedStat];
 						if (stat.StatID > 3000)
 						{
-							CraftingHandler.changedItem.i.Stats[selectedStat] = new ItemStat(ItemDataBase.Stats[3000]);	//set to empty socket
+							CraftingHandler.changedItem.i.Stats[selectedStat] = new ItemStat(ItemDataBase.Stats[3000]); //set to empty socket
 						}
 						else
 						{
-							stat.Amount =stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-							if (stat.ValueCap!=0)
+							stat.Amount = stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
+							if (stat.ValueCap != 0)
 								stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
 							stat.Amount *= stat.Multipier;
 						}
@@ -67,7 +69,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 			public void DrawUI(in float x, in float w, in float screenScale, in GUIStyle[] styles)
 			{
-				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Item to enhance a stat", styles[3]);
+				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), Translations.Polishing_1/*og:Item to enhance a stat*/, styles[3]); //tr
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
@@ -89,7 +91,7 @@ namespace ChampionsOfForest.Player.Crafting
 							GUI.color = MainMenu.RarityColors[stat.Rarity];
 							if (selectedStat == ind)
 							{
-								GUI.Label(statRect, "• " + stat.Name+ " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
+								GUI.Label(statRect, "• " + stat.Name + " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
 							}
 							else
 							{
@@ -117,8 +119,8 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						if (validRecipe)
 						{
-							
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID>3000?"Empty socket": "Reroll stat value", styles[2]))
+
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*og:Empty socket*/ : Translations.Polishing_2/*og:Reroll stat value*/, styles[2])) //tr
 							{
 								Craft();
 							}
@@ -127,7 +129,7 @@ namespace ChampionsOfForest.Player.Crafting
 						else
 						{
 							GUI.color = Color.gray;
-							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), "Select a Stat", styles[2]);
+							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), Translations.IndividualRerolling_4/*og:Select a Stat*/, styles[2]); //tr
 							GUI.color = Color.white;
 							ypos += 50 * screenScale;
 						}

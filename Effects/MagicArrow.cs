@@ -64,7 +64,7 @@ namespace ChampionsOfForest.Effects
 		public bool GiveDoubleSlow;
 
 		private bool setupComplete = false;
-		private const float speed = 60;
+		private const float speed = 65;
 
 		public IEnumerator Animate()
 		{
@@ -111,7 +111,7 @@ namespace ChampionsOfForest.Effects
 						var prog = EnemyManager.enemyByTransform[other.transform.root];
 							prog.HitMagic(Damage);
 						
-						float slowAmount = 0.45f;
+						float slowAmount = 0.40f;
 						if (GiveDoubleSlow)
 						{
 							slowAmount *= 2;
@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Effects
 						prog.Slow(41, 1 - slowAmount, DebuffDuration);
 						if (GiveDmgDebuff)
 						{
-							prog.DmgTakenDebuff(41, 1.4f, DebuffDuration);
+							prog.DmgTakenDebuff(41, 1.5f, DebuffDuration);
 						}
 					}
 					else

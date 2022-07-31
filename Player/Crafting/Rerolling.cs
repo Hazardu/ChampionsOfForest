@@ -1,5 +1,7 @@
 ﻿using System;
 
+using ChampionsOfForest.Localization;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Crafting
@@ -57,7 +59,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 			public void DrawUI(in float x, in float w, in float screenScale, in GUIStyle[] styles)
 			{
-				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), "Item to reroll", styles[3]);
+				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), Translations.Rerolling_1/*og:Item to reroll*/, styles[3]); //tr
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
@@ -93,7 +95,7 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						if (validRecipe)
 						{
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), "Reroll item stats", styles[2]))
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), Translations.Rerolling_2/*og:Reroll item stats*/, styles[2])) //tr
 							{
 								Craft();
 							}

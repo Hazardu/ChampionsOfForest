@@ -30,13 +30,13 @@ namespace ChampionsOfForest.Player
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * ModdedPlayer.Stats.attackStaminaCost;
 					setup.pmStamina.FsmVariables.GetFsmFloat("tiredSpeed").Value = animTiredSpeed * cw.tiredswingspeed;
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
+					LocalPlayer.Stats.blockDamagePercent = /*ModdedPlayer.Stats.block **/ blockDamagePercent;
 				}
 				else
 				{
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
 					setup.pmStamina.FsmVariables.GetFsmFloat("staminaDrain").Value = staminaDrain * -1f * (ModdedPlayer.Stats.attackStaminaCost);
-					LocalPlayer.Stats.blockDamagePercent = ModdedPlayer.Stats.block * blockDamagePercent;
+					LocalPlayer.Stats.blockDamagePercent = /*ModdedPlayer.Stats.block **/ blockDamagePercent;
 				}
 				//float ats = ModdedPlayer.instance.AttackSpeed;
 				//if (GreatBow.isEnabled) ats /= 10f;
@@ -129,7 +129,7 @@ namespace ChampionsOfForest.Player
 				outputdmg *= ModdedPlayer.Stats.smashDamage;
 
 			if (ModdedPlayer.Stats.perk_danceOfFiregod && BlackFlame.IsOn)
-				outputdmg *= 1 + LocalPlayer.Rigidbody.velocity.magnitude;
+				outputdmg *= 1 + LocalPlayer.Rigidbody.velocity.magnitude*1.1f;
 			if (outputdmg < 0)
 				outputdmg = -outputdmg;
 			//----------------HIT DAMAGE
@@ -205,7 +205,7 @@ namespace ChampionsOfForest.Player
 
 								stream.Close();
 							}
-							if (BlackFlame.GiveAfterburn && Random.value < 0.1f)
+							if (BlackFlame.GiveAfterburn && Random.value <= BlackFlame.afterburn_chance)
 							{
 								int id = 121 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
 								using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -215,8 +215,8 @@ namespace ChampionsOfForest.Player
 										w.Write(34);
 										w.Write(packed);
 										w.Write(id);
-										w.Write(1.15f);
-										w.Write(25f);
+										w.Write(BlackFlame.afterburn_debuff_amount);
+										w.Write(BlackFlame.afterburn_duration);
 										w.Close();
 									}
 									AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
@@ -308,8 +308,8 @@ namespace ChampionsOfForest.Player
 						if (BlackFlame.IsOn)
 						{
 							progression.FireDebuff(40, BlackFlame.FireDamageBonus, 20);
-							if (BlackFlame.GiveAfterburn && Random.value < 0.1f)
-								progression.DmgTakenDebuff(120, 1.15f, 25);
+							if (BlackFlame.GiveAfterburn && Random.value <=BlackFlame.afterburn_chance)
+								progression.DmgTakenDebuff(120, BlackFlame.afterburn_debuff_amount, BlackFlame.afterburn_duration);
 
 						}
 						if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)

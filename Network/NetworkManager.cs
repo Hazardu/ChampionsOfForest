@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Bolt;
 using TheForest.Utils;
 using UnityEngine;
@@ -31,6 +33,29 @@ namespace ChampionsOfForest.Network
 				Destroy(this);
 			}
 		}
+
+		private Dictionary<Type, int> registeredCommandIndexes;
+		private List<Action<object>> registeredCommandCallbacks;
+		public void RegisterCommand<T>(Action<T> onReceivedCallback)
+		{
+			if (registeredCommandIndexes.ContainsKey(typeof(T)))
+			{
+				ModAPI.Log.Write("Command already added: " + typeof(T));
+				return;
+			}
+			else
+			{
+				int index = registeredCommandCallbacks.Count;
+				registeredCommandIndexes.Add(typeof(T), index);
+				registeredCommandCallbacks.Add(x => onReceivedCallback.Invoke((T)x));
+			}
+
+
+		}
+
+
+
+
 
 		/// <summary>
 		/// Sends a string to all players on the server

@@ -27,15 +27,15 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> fireDamage;
 			public readonly MultiOperationPlayerStat<float> healthPerSecRate;
 			public readonly MultiOperationPlayerStat<float> staminaPerSecRate;
-			public readonly MultiplicativePlayerStat<float> cooldown;
+			public readonly MultiplicativePlayerStat<float> cooldown, cooldownRate;
 			public readonly MultiOperationPlayerStat<float> allDamage;
 			public readonly MultiOperationPlayerStat<float> attackSpeed;
 			public readonly MultiOperationPlayerStat<float> movementSpeed;
 			public readonly AdditivePlayerStat<float> critChance;
 			public readonly AdditivePlayerStat<float> critDamage;
 
-			public readonly AdditivePlayerStat<float> rangedFlatDmg;
-			public readonly AdditivePlayerStat<float> meleeFlatDmg;
+			public readonly MultiOperationPlayerStat<float> rangedFlatDmg;
+			public readonly MultiOperationPlayerStat<float> meleeFlatDmg;
 			public readonly AdditivePlayerStat<float> spellFlatDmg;
 			public readonly MultiOperationPlayerStat<float> rangedIncreasedDmg;
 			public readonly MultiOperationPlayerStat<float> meleeIncreasedDmg;
@@ -56,7 +56,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiOperationPlayerStat<float> heavyAttackDmg;
 
 			public readonly MultiplicativePlayerStat<float> weaponRange;
-			public readonly MultiplicativePlayerStat<float> headShotDamage;
+			public readonly AdditivePlayerStat<float> headShotDamage;
 
 			public readonly MultiOperationPlayerStat<float> allRecoveryMult;
 			public readonly AdditivePlayerStat<float> healthOnHit;
@@ -112,6 +112,7 @@ namespace ChampionsOfForest.Player
 			//parry
 			public readonly BooleanPlayerStat spell_parry;
 			public readonly AdditivePlayerStat<float> spell_parryDamage;
+			public readonly AdditivePlayerStat<float> spell_parryDamageScaling;
 			public readonly AdditivePlayerStat<float> spell_parryAttackSpeed;
 			public readonly AdditivePlayerStat<float> spell_parryRadius;
 			public readonly AdditivePlayerStat<float> spell_parryBuffDuration;
@@ -125,6 +126,10 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_healingDomeGivesImmunity;
 			public readonly BooleanPlayerStat spell_healingDomeRegEnergy;
 			public readonly AdditivePlayerStat<float> spell_healingDomeDuration;
+			public readonly AdditivePlayerStat<float> spell_healingDomeCooldownRate;
+			public readonly AdditivePlayerStat<float> spell_healingDomeSpellCostReduction;
+			public readonly AdditivePlayerStat<float> spell_healingDomeDamageIncrease;
+			public readonly AdditivePlayerStat<float> spell_healingDomeDamageResistance;
 			//flare 	
 			public readonly AdditivePlayerStat<float> spell_flareDamage;
 			public readonly AdditivePlayerStat<float> spell_flareDamageScaling;
@@ -150,7 +155,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_warCryAtkSpeed;
 			public readonly AdditivePlayerStat<float> spell_warCryDamage;
 			public readonly BooleanPlayerStat spell_warCryGiveDamage;
-			public readonly BooleanPlayerStat spell_warCryGiveArmor;
+			public readonly BooleanPlayerStat spell_warCryGiveArmor, spell_warCryGiveDamageResistance;
 			//magic arrow
 			public readonly BooleanPlayerStat spell_magicArrowDmgDebuff;
 			public readonly BooleanPlayerStat spell_magicArrowCrit;
@@ -187,6 +192,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<int> spell_frenzyStacks;
 			public readonly AdditivePlayerStat<float> spell_frenzyAtkSpeed;
 			public readonly AdditivePlayerStat<float> spell_frenzyDmg;
+			public readonly AdditivePlayerStat<float> spell_frenzy_active_critChance;
 			public readonly BooleanPlayerStat spell_frenzy;
 			public readonly BooleanPlayerStat spell_frenzyMS;
 			public readonly BooleanPlayerStat spell_furySwipes;
@@ -219,13 +225,15 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_bia_HealthTaken;
 			public readonly AdditivePlayerStat<float> spell_bia_AccumulatedDamage;
 			public readonly BooleanPlayerStat spell_bia_TripleDmg;
-			public readonly BooleanPlayerStat spell_bia_Weaken;
+			public readonly BooleanPlayerStat spell_bia_Stun;
+			public readonly BooleanPlayerStat spell_bia_Crit;
 			//roaring cheeks
 			public readonly AdditivePlayerStat<float> spell_fartRadius;
 			public readonly AdditivePlayerStat<float> spell_fartKnockback;
 			public readonly AdditivePlayerStat<float> spell_fartSlow;
 			public readonly AdditivePlayerStat<float> spell_fartDebuffDuration;
 			public readonly AdditivePlayerStat<float> spell_fartBaseDmg;
+			public readonly AdditivePlayerStat<float> spell_fartDamageScaling;
 			//taunt
 			public readonly MultiplicativePlayerStat<float> spell_taunt_speedChange;
 			public readonly BooleanPlayerStat spell_taunt_pullEnemiesIn;
@@ -236,6 +244,10 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_snowstormPullEnemiesIn;
 
 			public readonly AdditivePlayerStat<float> spell_berserkDuration;
+			public readonly AdditivePlayerStat<float> spell_berserkDamage;
+			public readonly AdditivePlayerStat<float> spell_berserkMovementSpeed;
+			public readonly AdditivePlayerStat<float> spell_berserkAttackSpeed;
+			public readonly AdditivePlayerStat<float> spell_berserkMaxHP;
 
 
 			//perks
@@ -305,6 +317,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat i_infinityLoop;
 			public readonly AdditivePlayerStat<int> i_setcount_AkagisSet;
 			public readonly AdditivePlayerStat<int> i_setcount_BerserkSet;
+			public readonly BooleanPlayerStat perk_blockNonPhysical;
 
 			public ModdedPlayerStats()
 			{
@@ -314,52 +327,53 @@ namespace ChampionsOfForest.Player
 				this.intelligence = new AdditivePlayerStat<int>(1, addint, substractint);
 				this.agility = new AdditivePlayerStat<int>(1, addint, substractint);
 				this.vitality = new AdditivePlayerStat<int>(1, addint, substractint);
-				this.maxEnergyMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.maxEnergyMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.maxEnergy = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.maxHealthMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.maxHealthMult = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.maxHealth = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.meleeDmgFromStr = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.spellDmgFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.rangedDmgFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.energyRecoveryFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+				this.meleeDmgFromStr = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.spellDmgFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.rangedDmgFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.energyRecoveryFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P2");
 				this.maxEnergyFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.maxHealthFromVit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-				this.fireDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.healthPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.staminaPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.cooldown = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.allDamage = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.attackSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.fireDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.healthPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.staminaPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.cooldown = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P1");
+				this.cooldownRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P1");
+				this.allDamage = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.attackSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.movementSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P1");
-				this.critChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P");
-				this.critDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P");
+				this.critChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P1");
+				this.critDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P0");
 
-				this.rangedFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-				this.meleeFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
+				this.rangedFlatDmg = new MultiOperationPlayerStat<float>(0.0f, 1.0f, addfloat, substractfloat, multfloat, dividefloat);
+				this.meleeFlatDmg = new MultiOperationPlayerStat<float>(0.0f,1.0f, addfloat, substractfloat, multfloat, dividefloat);
 				this.spellFlatDmg = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-				this.rangedIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.meleeIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.spellIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.rangedIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.meleeIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.spellIncreasedDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.meleeArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
 				this.rangedArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.thornsArmorPiercing = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
+				this.thornsArmorPiercing = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.allArmorPiercing = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.chanceToSlow = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.chanceToBleed = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.chanceToWeaken = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.areaDamageChance = new AdditivePlayerStat<float>(0.10f, addfloat, substractfloat, "P");
+				this.chanceToSlow = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.chanceToBleed = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.chanceToWeaken = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.areaDamageChance = new AdditivePlayerStat<float>(0.10f, addfloat, substractfloat, "P0");
 				this.areaDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
-				this.areaDamageRadius = new AdditivePlayerStat<float>(4.0f, addfloat, substractfloat, "P");
-				this.projectileSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.projectileSize = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.projectilePierceChance = new MultiOperationPlayerStat<float>(0, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
-				this.heavyAttackDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.areaDamageRadius = new AdditivePlayerStat<float>(4.0f, addfloat, substractfloat, "P0");
+				this.projectileSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.projectileSize = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.projectilePierceChance = new MultiOperationPlayerStat<float>(0, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
+				this.heavyAttackDmg = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 
-				this.weaponRange = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.headShotDamage = new MultiplicativePlayerStat<float>(6, multfloat, dividefloat, "P");
+				this.weaponRange = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.headShotDamage = new AdditivePlayerStat<float>(6, addfloat, substractfloat, "P0");
 				this.projectile_DamagePerDistance = new AdditivePlayerStat<float>(0.00f, addfloat, substractfloat);
 
-				this.allRecoveryMult = new MultiOperationPlayerStat<float>(1,1, addfloat, substractfloat, multfloat, dividefloat, "P");
+				this.allRecoveryMult = new MultiOperationPlayerStat<float>(1,1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.healthOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.staminaOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.energyOnHit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -367,12 +381,12 @@ namespace ChampionsOfForest.Player
 				this.staminaRecoveryperSecond = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.energyRecoveryperSecond = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 
-				this.allDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.magicDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.fireDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.getHitChance = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.allDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.magicDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.fireDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.getHitChance = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.armor = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.thornsDmgMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.thornsDmgMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.thorns = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.thornsPerStrenght = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.thornsPerVit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
@@ -382,14 +396,14 @@ namespace ChampionsOfForest.Player
 				this.debuffResistance = new AdditivePlayerStat<int>(0, addint, substractint);
 
 
-				this.jumpPower = new AdditivePlayerStat<float>(1.0f, addfloat, substractfloat, "P");
-				this.spellCostEnergyCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.block = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.expGain = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P");
-				this.maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P");
-				this.timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P");
+				this.jumpPower = new AdditivePlayerStat<float>(1.0f, addfloat, substractfloat, "P0");
+				this.spellCostEnergyCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.spellCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.attackStaminaCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.block = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "N");
+				this.expGain = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P0");
+				this.maxMassacreTime = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat, "P0");
+				this.timeBonusPerKill = new AdditivePlayerStat<float>(7.5f, addfloat, substractfloat, "P0");
 				this.MaxLogs = new AdditivePlayerStat<int>(2, addint, substractint);
 
 
@@ -397,22 +411,23 @@ namespace ChampionsOfForest.Player
 				this.rooted = new BooleanPlayerStat(false);
 				this.stunned = new BooleanPlayerStat(false);
 
-				this.magicFind = new AdditiveNetworkSyncedPlayerStat<float>(1.0f, addfloat, substractfloat, "P");
+				this.magicFind = new AdditiveNetworkSyncedPlayerStat<float>(1.0f, addfloat, substractfloat, "P0");
 				this.explosionDamage = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat, "N1");
 				this.fireTickRate = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.fireDuration = new AdditiveNetworkSyncedPlayerStat<float>(0.0f, addfloat, substractfloat);
 				//spells
 
 				//blink
-				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
-				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
+				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(10.0f, addfloat, substractfloat);
+				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P0");
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
-				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P");
+				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P0");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				this.spell_blinkDoExplosion = new BooleanPlayerStat(false);
 				//parry
 				this.spell_parry = new BooleanPlayerStat(false);
 				this.spell_parryDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
+				this.spell_parryDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P0");
 				this.spell_parryAttackSpeed = new AdditivePlayerStat<float>(1, addfloat, substractfloat);
 				this.spell_parryRadius = new AdditivePlayerStat<float>(3.5f, addfloat, substractfloat);
 				this.spell_parryBuffDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
@@ -426,135 +441,146 @@ namespace ChampionsOfForest.Player
 				this.spell_healingDomeGivesImmunity = new BooleanPlayerStat(false);
 				this.spell_healingDomeRegEnergy = new BooleanPlayerStat(false);
 				this.spell_healingDomeDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
+				this.spell_healingDomeCooldownRate= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_healingDomeSpellCostReduction= new AdditivePlayerStat<float>(1, addfloat, substractfloat);
+				this.spell_healingDomeDamageIncrease= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_healingDomeDamageResistance= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				//flare 	
 				this.spell_flareDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
-				this.spell_flareDamageScaling = new AdditivePlayerStat<float>(1.65f, addfloat, substractfloat);
-				this.spell_flareSlow = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat);
+				this.spell_flareDamageScaling = new AdditivePlayerStat<float>(1.5f, addfloat, substractfloat, "P0");
+				this.spell_flareSlow = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat, "P0");
 				this.spell_flareBoost = new AdditivePlayerStat<float>(1.35f, addfloat, substractfloat);
 				this.spell_flareHeal = new AdditivePlayerStat<float>(11, addfloat, substractfloat);
 				this.spell_flareRadius = new AdditivePlayerStat<float>(8.5f, addfloat, substractfloat);
 				this.spell_flareDuration = new AdditivePlayerStat<float>(20, addfloat, substractfloat);
 				//black hole 
 				this.spell_blackhole_damage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
-				this.spell_blackhole_damageScaling = new AdditivePlayerStat<float>(2.25f, addfloat, substractfloat, "P");
+				this.spell_blackhole_damageScaling = new AdditivePlayerStat<float>(3.25f, addfloat, substractfloat, "P0");
 				this.spell_blackhole_duration = new AdditivePlayerStat<float>(9, addfloat, substractfloat);
 				this.spell_blackhole_radius = new AdditivePlayerStat<float>(15, addfloat, substractfloat);
 				this.spell_blackhole_pullforce = new AdditivePlayerStat<float>(25, addfloat, substractfloat);
 				//sustain shield
-				this.spell_shieldPerSecond = new AdditivePlayerStat<float>(4, addfloat, substractfloat);
-				this.spell_shieldMax = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
+				this.spell_shieldPerSecond = new AdditivePlayerStat<float>(3, addfloat, substractfloat);
+				this.spell_shieldMax = new AdditivePlayerStat<float>(15, addfloat, substractfloat);
 				this.spell_shieldPersistanceLifetime = new AdditivePlayerStat<float>(20, addfloat, substractfloat);
 				//portal
 				this.spell_portalDuration = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
 				//warcry
 				this.spell_warCryRadius = new AdditivePlayerStat<float>(50, addfloat, substractfloat);
-				this.spell_warCryAtkSpeed = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat);
-				this.spell_warCryDamage = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat);
+				this.spell_warCryAtkSpeed = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat, "P0");
+				this.spell_warCryDamage = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat, "P0");
 				this.spell_warCryGiveDamage = new BooleanPlayerStat(false);
 				this.spell_warCryGiveArmor = new BooleanPlayerStat(false);
+				this.spell_warCryGiveDamageResistance = new BooleanPlayerStat(false);
 				//magic arrow
 				this.spell_magicArrowDmgDebuff = new BooleanPlayerStat(false);
 				this.spell_magicArrowCrit = new BooleanPlayerStat(false);
 				this.spell_magicArrowDoubleSlow = new BooleanPlayerStat(false);
 				this.spell_magicArrowVolleyCount = new AdditivePlayerStat<int>(0, addint, substractint);
 				this.spell_magicArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
-				this.spell_magicArrowDamageScaling = new AdditivePlayerStat<float>(5f, addfloat, substractfloat, "P");
+				this.spell_magicArrowDamageScaling = new AdditivePlayerStat<float>(4.2f, addfloat, substractfloat, "P0");
 				//purge
-				this.spell_blackFlameDamageScaling = new AdditivePlayerStat<float>(1 / 2.5f, addfloat, substractfloat, "P");
+				this.spell_blackFlameDamageScaling = new AdditivePlayerStat<float>(1 / 2.5f, addfloat, substractfloat, "P0");
 
 				this.spell_purgeRadius = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
 				this.spell_purgeHeal = new BooleanPlayerStat(false);
 				this.spell_purgeDamageBonus = new BooleanPlayerStat(false);
 				//snap freeze
-				this.spell_snapFreezeDist = new AdditivePlayerStat<float>(20, addfloat, substractfloat);
-				this.spell_snapFloatAmount = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat);
-				this.spell_snapDamageScaling = new AdditivePlayerStat<float>(3.5f, addfloat, substractfloat, "P");
+				this.spell_snapFreezeDist = new AdditivePlayerStat<float>(12, addfloat, substractfloat);
+				this.spell_snapFloatAmount = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat, "P0");
+				this.spell_snapDamageScaling = new AdditivePlayerStat<float>(6.5f, addfloat, substractfloat, "P0");
 				this.spell_snapFreezeDuration = new AdditivePlayerStat<float>(7f, addfloat, substractfloat);
 				//ball lightning
-				this.spell_ballLightning_Damage = new AdditivePlayerStat<float>(720f, addfloat, substractfloat);
-				this.spell_ballLightning_DamageScaling = new AdditivePlayerStat<float>(26.66f, addfloat, substractfloat, "P");
+				this.spell_ballLightning_Damage = new AdditivePlayerStat<float>(1220f, addfloat, substractfloat);
+				this.spell_ballLightning_DamageScaling = new AdditivePlayerStat<float>(75.00f, addfloat, substractfloat, "P0");
 				this.spell_ballLightning_Crit = new BooleanPlayerStat(false);
 				//bash
-				this.spell_bashDamageDebuffAmount = new AdditivePlayerStat<float>(1.30f, addfloat, substractfloat, "P");
-				this.spell_bashDamageBuff = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
-				this.spell_bashSlowAmount = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat);
-				this.spell_bashLifesteal = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
+				this.spell_bashDamageDebuffAmount = new AdditivePlayerStat<float>(1.30f, addfloat, substractfloat, "P0");
+				this.spell_bashDamageBuff = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P0");
+				this.spell_bashSlowAmount = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat, "P0");
+				this.spell_bashLifesteal = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.spell_bashEnabled = new BooleanPlayerStat(false);
-				this.spell_bashBleedChance = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
-				this.spell_bashBleedDmg = new AdditivePlayerStat<float>(0.3f, addfloat, substractfloat);
+				this.spell_bashBleedChance = new AdditivePlayerStat<float>(0, addfloat, substractfloat, "P0");
+				this.spell_bashBleedDmg = new AdditivePlayerStat<float>(0.3f, addfloat, substractfloat, "P0");
 				this.spell_bashDuration = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
 				//frenzy
 				this.spell_frenzyMaxStacks = new AdditivePlayerStat<int>(5, addint, substractint);
 				this.spell_frenzyStacks = new AdditivePlayerStat<int>(0, addint, substractint);
-				this.spell_frenzyAtkSpeed = new AdditivePlayerStat<float>(0.02f, addfloat, substractfloat);
-				this.spell_frenzyDmg = new AdditivePlayerStat<float>(0.075f, addfloat, substractfloat, "P");
+				this.spell_frenzyAtkSpeed = new AdditivePlayerStat<float>(0.02f, addfloat, substractfloat, "P0");
+				this.spell_frenzyDmg = new AdditivePlayerStat<float>(0.075f, addfloat, substractfloat, "P0");
+				this.spell_frenzy_active_critChance = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.spell_frenzy = new BooleanPlayerStat(false);
 				this.spell_frenzyMS = new BooleanPlayerStat(false);
 				this.spell_furySwipes = new BooleanPlayerStat(false);
 				//focus
-				this.spell_focusBonusDmg = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
-				this.spell_focusOnHS = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat);
-				this.spell_focusOnBS = new AdditivePlayerStat<float>(0.15f, addfloat, substractfloat);
-				this.spell_focusOnAtkSpeed = new AdditivePlayerStat<float>(1.3f, addfloat, substractfloat);
+				this.spell_focusBonusDmg = new AdditivePlayerStat<float>(0, addfloat, substractfloat, "P0");
+				this.spell_focusOnHS = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P0");
+				this.spell_focusOnBS = new AdditivePlayerStat<float>(0.15f, addfloat, substractfloat, "P0");
+				this.spell_focusOnAtkSpeed = new AdditivePlayerStat<float>(1.3f, addfloat, substractfloat, "P0");
 				this.spell_focusOnAtkSpeedDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
-				this.spell_focusSlowAmount = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
+				this.spell_focusSlowAmount = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat,"P0");
 				this.spell_focusSlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
 				this.spell_focus = new BooleanPlayerStat(false);
 				//seeking arrow
-				this.spell_seekingArrow_HeadDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat);
-				this.spell_seekingArrow_DamageBonus = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
+				this.spell_seekingArrow_HeadDamage = new AdditivePlayerStat<float>(0.5f, addfloat, substractfloat, "P0");
+				this.spell_seekingArrow_DamageBonus = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P0");
 				this.spell_seekingArrow_SlowDuration = new AdditivePlayerStat<float>(4f, addfloat, substractfloat);
-				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.9f, addfloat, substractfloat);
+				this.spell_seekingArrow_SlowAmount = new AdditivePlayerStat<float>(0.9f, addfloat, substractfloat, "P0");
 				this.spell_seekingArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
 				this.spell_seekingArrow = new BooleanPlayerStat(false);
 				//cataclysm			  
-				this.spell_cataclysmDamage = new AdditivePlayerStat<float>(24f, addfloat, substractfloat);
-				this.spell_cataclysmDamageScaling = new AdditivePlayerStat<float>(3f, addfloat, substractfloat, "P");
+				this.spell_cataclysmDamage = new AdditivePlayerStat<float>(40f, addfloat, substractfloat, "P0");
+				this.spell_cataclysmDamageScaling = new AdditivePlayerStat<float>(25f, addfloat, substractfloat, "P0");
 				this.spell_cataclysmDuration = new AdditivePlayerStat<float>(12f, addfloat, substractfloat);
 				this.spell_cataclysmRadius = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_cataclysmArcane = new BooleanPlayerStat(false);
 				//blood infused arrow
-				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(1.15f, addfloat, substractfloat);
-				this.spell_bia_HealthDmMult = new AdditivePlayerStat<float>(3f, addfloat, substractfloat);
-				this.spell_bia_HealthTaken = new AdditivePlayerStat<float>(0.65f, addfloat, substractfloat);
+				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat, "P0");
+				this.spell_bia_HealthDmMult = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
+				this.spell_bia_HealthTaken = new AdditivePlayerStat<float>(0.65f, addfloat, substractfloat, "P0");
 				this.spell_bia_AccumulatedDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.spell_bia_TripleDmg = new BooleanPlayerStat(false);
-				this.spell_bia_Weaken = new BooleanPlayerStat(false);
+				this.spell_bia_Stun = new BooleanPlayerStat(false);
+				this.spell_bia_Crit = new BooleanPlayerStat(false);
 				//roaring cheeks
 				this.spell_fartRadius = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartKnockback = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
-				this.spell_fartSlow = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
-				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
-				this.spell_fartBaseDmg = new AdditivePlayerStat<float>(20f, addfloat, substractfloat);
+				this.spell_fartSlow = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat, "P0");
+				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(25f, addfloat, substractfloat);
+				this.spell_fartBaseDmg = new AdditivePlayerStat<float>(50f, addfloat, substractfloat);
+				this.spell_fartDamageScaling = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				//taunt
-				this.spell_taunt_speedChange = new MultiplicativePlayerStat<float>(2, multfloat, dividefloat, "P");
+				this.spell_taunt_speedChange = new MultiplicativePlayerStat<float>(2, multfloat, dividefloat, "P0");
 				this.spell_taunt_pullEnemiesIn = new BooleanPlayerStat(false);
 
 				this.spell_snowstormMaxCharge = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
-				this.spell_snowstormDamageMult = new AdditivePlayerStat<float>(1, addfloat, substractfloat);
+				this.spell_snowstormDamageMult = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P0");
 				this.spell_snowstormHitDelay = new MultiplicativePlayerStat<float>(0.5f, multfloat, dividefloat);
 				this.spell_snowstormPullEnemiesIn = new BooleanPlayerStat(false);
 
 				this.spell_berserkDuration = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
-
+				this.spell_berserkDamage = new AdditivePlayerStat<float>(1.3f, addfloat, substractfloat);
+				this.spell_berserkMovementSpeed = new AdditivePlayerStat<float>(1.35f, addfloat, substractfloat);
+				this.spell_berserkAttackSpeed = new AdditivePlayerStat<float>(1.25f, addfloat, substractfloat);
+				this.spell_berserkMaxHP = new AdditivePlayerStat<float>(1f, addfloat, substractfloat);
 
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
 				this.perk_parryCounterStrikeDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.perk_turboRaftOwners = new AdditiveNetworkSyncedPlayerStat<int>(0, addint, substractint);
-				this.perk_RaftSpeedMultipier = new AdditiveNetworkSyncedPlayerStat<float>(1, addfloat, dividefloat, "P");
-				this.perk_thirstRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.perk_hungerRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.perk_projectileNoConsumeChance = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P");
-				this.perk_thrownSpearDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.perk_RaftSpeedMultipier = new AdditiveNetworkSyncedPlayerStat<float>(0, addfloat, dividefloat, "P0");
+				this.perk_thirstRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.perk_hungerRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.perk_projectileNoConsumeChance = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P0");
+				this.perk_thrownSpearDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_thrownSpearExtraArmorReduction = new BooleanPlayerStat(false);
 
-				this.perk_thrownSpearCritChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P");
-				this.perk_thrownSpearhellChance = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P");
-				this.perk_bulletCritChance = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat, "P");
-				this.perk_bulletDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.perk_crossbowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
-				this.perk_bowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.perk_thrownSpearCritChance = new AdditivePlayerStat<float>(0.05f, addfloat, substractfloat, "P0");
+				this.perk_thrownSpearhellChance = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.perk_bulletCritChance = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat, "P0");
+				this.perk_bulletDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.perk_crossbowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.perk_bowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_multishotProjectileCount = new AdditivePlayerStat<int>(1, addint, substractint);
 				this.perk_multishotDamagePennalty = new MultiplicativePlayerStat<float>(0.75f, addfloat, substractfloat);
 				this.perk_nearDeathExperienceTriggered = new BooleanPlayerStat(false);
@@ -574,8 +600,8 @@ namespace ChampionsOfForest.Player
 				this.perk_projectileDamageIncreasedBySize = new BooleanPlayerStat(false);
 				this.perk_projectileDamageIncreasedBySpeed = new BooleanPlayerStat(false);
 				this.perk_infinityMagic = new BooleanPlayerStat(false);
-				this.perk_flashlightIntensity = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P");
-				this.perk_flashlightBatteryDrain = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P");
+				this.perk_flashlightIntensity = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P0");
+				this.perk_flashlightBatteryDrain = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P0");
 				this.perk_bunnyHop = new BooleanPlayerStat(false);
 				this.perk_bunnyHopUpgrade = new BooleanPlayerStat(false);
 				this.perk_danceOfFiregod = new BooleanPlayerStat(false);
@@ -591,8 +617,8 @@ namespace ChampionsOfForest.Player
 				this.i_HazardCrownBonus = new AdditivePlayerStat<int>(0, addint, substractint);
 				this.i_HammerStun = new BooleanPlayerStat(false);
 				this.i_HammerStunDuration = new MultiplicativePlayerStat<float>(0.4f, multfloat, dividefloat);
-				this.i_HammerStunAmount = new MultiplicativePlayerStat<float>(0.25f, multfloat, dividefloat, "P");
-				this.smashDamage = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P");
+				this.i_HammerStunAmount = new MultiplicativePlayerStat<float>(0.25f, multfloat, dividefloat, "P0");
+				this.smashDamage = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.i_HexedPantsOfMrM_Enabled = new BooleanPlayerStat(false);
 				this.i_DeathPact_Enabled = new BooleanPlayerStat(false);
 				this.i_EruptionBow = new BooleanPlayerStat(false);
@@ -605,6 +631,7 @@ namespace ChampionsOfForest.Player
 				this.i_infinityLoop = new BooleanPlayerStat(false);
 				this.i_setcount_AkagisSet = new AdditivePlayerStat<int>(0,addint,substractint);
 				this.i_setcount_BerserkSet = new AdditivePlayerStat<int>(0,addint,substractint);
+				this.perk_blockNonPhysical = new BooleanPlayerStat(false);
 
 				ModAPI.Log.Write("Initialized player stats");
 			}
@@ -642,8 +669,8 @@ namespace ChampionsOfForest.Player
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
 			public float TotalArmor => armor.Value - instance.lostArmor;
 			public float TotalStaminaRecoveryAmount => (baseStaminaRecovery + staminaRecoveryperSecond) * TotalStaminaRecoveryMultiplier;
-			public float TotalStaminaRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaRecoveryperSecond;
-			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult;
+			public float TotalStaminaRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaPerSecRate;
+			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaPerSecRate;
 
 
 			public float MeleeDamageMult => allDamage.Value * meleeIncreasedDmg.Value * (1 + (strength * meleeDmgFromStr));

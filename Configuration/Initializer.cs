@@ -4,6 +4,7 @@ using ChampionsOfForest.Effects;
 using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
 using ChampionsOfForest.Player.Spells;
@@ -42,24 +43,28 @@ namespace ChampionsOfForest
 					ExpEvents.Initialize();
 					return;
 				}
-
+				new Localization.Translations();
 				ModSettings.DifficultyChosen = false;
 				if (SceneManager.GetActiveScene().name == "TitleScene")
 				{
 					new GameObject("Resource Manager").AddComponent<ResourceLoader>();
 					ResourceLoader.InMainMenu = true;
 					MainMenuVisual.Create();
+					ModSettings.LoadSettings();
+
 				}
 				else
 				{
 					ResourceLoader.InMainMenu = false;
 					NetworkPlayerStats.Reset();		
 					COTFEvents.ClearEvents();
+					Translations.LoadNoDl(PlayerPreferences.Language);
 
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("__COTFPlayerobj__");
 					var moddedPlayer = go.AddComponent<ModdedPlayer>();
 					moddedPlayer.SetStats();
+
 					go.AddComponent<Inventory>();
 					go.AddComponent<ModReferences>();
 					go.AddComponent<SpellCaster>();

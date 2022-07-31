@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using ChampionsOfForest.Enemies;
+using ChampionsOfForest.Network;
 
 using TheForest.Utils;
 
@@ -59,16 +61,33 @@ namespace ChampionsOfForest
 					{
 						Debug.Log("Outdated dynamic CP");
 						var e = tr.GetComponentInParent<EnemyProgression>();
-						if (e)
-							cp.UpdateDynamic(e.HP, e.armor, e.armorReduction, e.DamageTotal);
+						cp.UpdateDynamic((float)e.HP, e.armor,
+						e.armorReduction, e.DamageTotal);
+						if (GameSetup.IsMultiplayer)
+						{
+						using (MemoryStream answerStream = new MemoryStream())
+						{
+							using (BinaryWriter w = new BinaryWriter(answerStream))
+							{
+								w.Write(44);
+								w.Write(e.entity.networkId.PackedValue);
+								w.Write((float)e.HP);
+								w.Write(e.armor);
+								w.Write(e.armorReduction);
+								w.Write(e.DamageAmp);
+								w.Close();
+							}
+							NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
+							answerStream.Close();
+						}
+						}
 					}
 				}
 				else
 				{
 					Debug.Log("Outdated static CP");
 					var e = tr.GetComponentInParent<EnemyProgression>();
-					if (e)
-						cp.Update(null, e.enemyName, e.level, e.HP, e.DamageTotal, e.maxHealth, e.bounty, e.armor, e.armorReduction, e.Steadfast, e.abilities.Count > 0 ? e.abilities.Select(x => (int)x).ToArray() : new int[0]);
+					cp.Update(null, e.enemyName, e.level, (float)e.HP, e.DamageTotal, (float)e.maxHealth, e.bounty, e.armor, e.armorReduction, e.Steadfast, e.abilities.Count > 0 ? e.abilities.Select(x => (int)x).ToArray() : new int[0]);
 				}
 				return cp;
 			}
@@ -126,12 +145,12 @@ namespace ChampionsOfForest
 			if (clinetProgressions.ContainsKey(e))
 			{
 				cp = clinetProgressions[e];
-				if (Time.time <= cp.creationTime + ClientEnemyProgression.LifeTime)
+				if (Time.time <= cp.creationTime + ClientEnemyProgression.LifeTime + 0.1f)
 				{
 					if (cp.DynamicOutdated)
 						cp.RequestDynamicUpdate();
-					return cp;
 				}
+				return cp;
 			}
 			if (Time.time > scanEnemyLastRequestTimestamp + scanEnemyFrequency)
 			{

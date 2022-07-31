@@ -42,10 +42,10 @@ namespace ChampionsOfForest
 		public int level;
 		public int armor;
 		public int armorReduction;
-		public float extraHealth;
-		public float maxHealth;
+		public double extraHealth;
+		public double maxHealth;
 		private int baseHealth = 0;
-		public float HP => extraHealth + HealthScript.Health;
+		public double HP => (float) extraHealth + HealthScript.Health;
 		public float DamageMult;
 		public float BaseDamageMult;
 		public float DamageAmp => DamageMult;
@@ -139,12 +139,12 @@ namespace ChampionsOfForest
 		{
 			if (HP > maxHealth)
 			{
-				float diff = HP - maxHealth;
+				double diff = HP - maxHealth;
 				if (extraHealth > 0)
 				{
-					float i = Mathf.Min(extraHealth, diff);
-					extraHealth -= i;
-					diff -= i;
+					double min = Math.Min(extraHealth, diff);
+					extraHealth -= min;
+					diff -= min;
 				}
 				HealthScript.Health -= (int)diff;
 			}
@@ -252,12 +252,12 @@ namespace ChampionsOfForest
 			}
 			if (extraHealth > 0)
 			{
-				if (HealthScript.Health < int.MaxValue / 10)
+				if (HealthScript.Health < int.MaxValue / 4)
 				{
-					float f = int.MaxValue / 2 - HealthScript.Health;
-					f = Mathf.Min(f, extraHealth);
-					HealthScript.Health += (int)f;
-					extraHealth -= f;
+					double d = int.MaxValue / 2 - HealthScript.Health;
+					d = Math.Min(d, extraHealth);
+					HealthScript.Health += (int)d;
+					extraHealth -= d;
 				}
 			}
 			UpdateDoT();
@@ -289,10 +289,11 @@ namespace ChampionsOfForest
 					{
 						DualLifeSpend = true;
 						extraHealth = maxHealth / 2;
-						HealthScript.MySkin.material.color = Color.magenta;
+						HealthScript.MySkin.material.color = Color.green;
 						prerainDmg *= 2;
 
 						HealthScript.releaseFromTrap();
+						OnDieCalled = false;
 						return false;
 					}
 				}
@@ -327,10 +328,11 @@ namespace ChampionsOfForest
 							}
 
 							item.armorReduction = 0;
-							item.BaseAnimSpeed *= 1.25f;
+							item.armor = Mathf.RoundToInt(item.armor* 1.5f);
+							item.BaseAnimSpeed *= 1.30f;
 							item.BaseDamageMult *= 2f;
-
-							item.extraHealth = item.maxHealth;
+							item.extraHealth = (item.maxHealth * 1.15);
+							
 						}
 					}
 				}
@@ -410,17 +412,17 @@ namespace ChampionsOfForest
 				}
 				else if (abilities.Count >= 3)
 				{
-					itemCount += Random.Range(1, 4);
+					itemCount += Random.Range(2, 5);
 				}
 				if (_rarity == EnemyRarity.Boss)
 				{
 					itemCount += 7;
 				}
-				if (_rarity == EnemyRarity.Miniboss)
+				else if (_rarity == EnemyRarity.Miniboss)
 				{
 					itemCount += 3;
 				}
-				itemCount += Mathf.Clamp(level / 40, 1, 8);
+				itemCount += Mathf.Clamp(level / 50, 1, 8);
 				itemCount = Mathf.RoundToInt(itemCount * ModSettings.DropQuantityMultiplier);
 				ModReferences.SendRandomItemDrops(itemCount, enemyType, bounty, setupDifficulty, transform.position);
 			}

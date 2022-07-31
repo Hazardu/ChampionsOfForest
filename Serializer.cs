@@ -129,13 +129,13 @@ namespace ChampionsOfForest
 							if (applyCount == 0)
 							{
 								PerkDatabase.perks[id].isApplied = true;
-								PerkDatabase.perks[id].apply();
+								PerkDatabase.perks[id].onApply();
 							}
 							else
 							{
 								for (int a = 0; a < applyCount; a++)
 								{
-									PerkDatabase.perks[id].apply();
+									PerkDatabase.perks[id].onApply();
 								}
 								PerkDatabase.perks[id].isApplied = true;
 							}

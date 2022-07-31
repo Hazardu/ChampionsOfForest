@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Network;
 using ChampionsOfForest.Player;
 
@@ -127,6 +128,21 @@ namespace ChampionsOfForest
 
 		#region HUDMethods
 
+		private float SmoothSlideIn(float timeAppearStart)
+		{
+			const float appearanceTime = 0.8f;
+			float tEnd = appearanceTime + timeAppearStart;
+			if (ScanTime > tEnd)
+				return 0f;
+			float t = (ScanTime - appearanceTime) / appearanceTime;
+			t = 1.0f - t;
+			if (t < 0)
+				return 0f;
+			t = t * t * t*t;
+
+			return t * -250f * screenScale;
+		}
+
 		private void DrawHUD()
 		{
 			if (HideHud)
@@ -174,6 +190,8 @@ namespace ChampionsOfForest
 			}
 			GUI.color = Color.white;
 
+
+			//buffs 
 			float BuffOffsetX = 0;
 			float BuffOffsetY = 1080 - BuffSize;
 			const float MaxX = 540;
@@ -228,6 +246,8 @@ namespace ChampionsOfForest
 				}
 			}
 
+
+
 			GUI.color = Color.blue;
 			GUI.Label(HUDenergyLabelRect, Mathf.Floor(LocalPlayer.Stats.Stamina).ToString("N0") + "/" + Mathf.Floor(ModdedPlayer.Stats.TotalMaxEnergy).ToString("N0"), HUDStatStyle);
 			GUI.color = new Color(0.8f, 0.0f, 0.0f);
@@ -239,6 +259,9 @@ namespace ChampionsOfForest
 				GUI.Label(HUDShieldLabelRect, Mathf.Floor(ModdedPlayer.instance.DamageAbsorbAmount).ToString("N0"), HUDStatStyle);
 			}
 			GUI.color = Color.white;
+
+
+			//spells
 
 			float SquareSize = 45 * screenScale;
 			for (int i = 0; i < SpellCaster.SpellCount; i++)
@@ -268,7 +291,7 @@ namespace ChampionsOfForest
 					}
 					GUI.DrawTexture(r, SpellCaster.instance.infos[i].spell.icon);
 
-					GUI.Label(r, ModAPI.Input.GetKeyBindingAsString("spell" + (i + 1).ToString()), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
+					GUI.Label(r, SpellCaster.instance.infos[i].key.ToString(), new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.RoundToInt(screenScale * 15), fontStyle = FontStyle.Normal, alignment = TextAnchor.MiddleCenter });
 					GUI.color = Color.white;
 					if (!SpellCaster.instance.infos[i].spell.Bought)
 					{
@@ -333,7 +356,7 @@ namespace ChampionsOfForest
 				string content = ModdedPlayer.instance.MassacreText;
 				if (ModdedPlayer.instance.MassacreKills > 5)
 				{
-					content += "\t" + ModdedPlayer.instance.MassacreKills + " kills";
+					content += Translations.MainMenu_HUD_2/*og:\t*/ + ModdedPlayer.instance.MassacreKills + Translations.MainMenu_HUD_1/*og: kills*/; //tr
 				}
 
 				GUI.Label(CombatBarText, content, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.FloorToInt(45 * screenScale), alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, richText = true, wordWrap = false });
@@ -359,7 +382,7 @@ namespace ChampionsOfForest
 					}
 					if (enemyHit != -1)
 					{
-						ScanTime += Time.unscaledDeltaTime * 1.75f;
+						ScanTime += Time.unscaledDeltaTime * 1.5f;
 						if (hits[enemyHit].transform.root == scannedTransform)
 						{
 							if (BoltNetwork.isRunning && scannedEntity != null)
@@ -370,7 +393,7 @@ namespace ChampionsOfForest
 							{
 								cp = EnemyManager.GetCP(hits[enemyHit].transform.root);
 							}
-							if (cp != null && cp.Level > 0)
+							if (cp != null)
 							{
 								scanning = true;
 
@@ -383,156 +406,219 @@ namespace ChampionsOfForest
 									clipping = TextClipping.Overflow,
 									richText = true,
 								};
+								GUIStyle smallinfoStyle = new GUIStyle(GUI.skin.label)
+								{
+									font = mainFont,
+									fontSize = Mathf.RoundToInt(15 * screenScale),
+									alignment = TextAnchor.MiddleLeft,
+									wordWrap = false,
+									clipping = TextClipping.Overflow,
+									richText = true,
+									fontStyle = FontStyle.Italic
+								};
+
 
 								Vector2 origin = wholeScreenRect.center;
 								origin.y -= 400 * screenScale;
-								origin.x -= 450 * screenScale;
+								origin.x = 200 * screenScale;
 								float y = 0;
-								DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x, origin.y + y, 250 * screenScale, 66 * screenScale), infoStyle);
+								var slide = SmoothSlideIn(0.7f);
+								DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 66 * screenScale), infoStyle);
 								y += screenScale * 60;
-								DrawScannedEnemyLabel("Level: " + cp.Level, new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+								DrawScannedEnemyLabel(Translations.MainMenu_Inventory_16/*og:Level*/+ Translations.MainMenu_Guide_1/*og:: */ + cp.Level, new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
 								y += screenScale * 60;
-								if (ScanTime > 1f)
+								if (ScanTime > 0.8f)
 								{
-									DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									slide = SmoothSlideIn(1f);
+									DrawScannedEnemyLabel(cp.Health.ToString("N0") + "/" + cp.MaxHealth.ToString("N0") + "♥", new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									y += screenScale * 60;
 								}
-								if (ScanTime > 1.8f)
+								if (ScanTime > 1.6f)
 								{
-									DrawScannedEnemyLabel("Armor: " + cp.Armor.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
-									y += screenScale * 40;
+									slide = SmoothSlideIn(1.8f);
+									DrawScannedEnemyLabel(Translations.MainMenu_Guide_17/*og:Armor*/ + Translations.MainMenu_Guide_1/*og:: */ + cp.Armor.ToString("N0"), new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
 									if (cp.ArmorReduction > 0)
 									{
-										DrawScannedEnemyLabel("Armor reduction: -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 										y += screenScale * 40;
+										DrawScannedEnemyLabel(Translations.MainMenu_Guide_100/*og:Armor reduction*/ + //tr
+											": -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									}
-									y += screenScale * 20;
-								}
-								if (ScanTime > 2.4f)
-								{
-									DrawScannedEnemyLabel("Damage: " + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									else if (cp.Armor > 10 && ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
+									{
+										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
+										GUI.Label(rOffset, "Armored enemies take reduced damage.", smallinfoStyle);
+										rOffset.y += screenScale * 18;
+										GUI.Label(rOffset, "Use fire to melt enemy armor.", smallinfoStyle);
+									}
 									y += screenScale * 60;
-									DrawScannedEnemyLabel("Bounty: " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+								}
+								if (ScanTime > 2.2f)
+								{
+									slide = SmoothSlideIn(2.4f);
+									DrawScannedEnemyLabel("Damage" + ": " + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									y += screenScale * 60;
+									DrawScannedEnemyLabel("Bounty" + ": " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									if (ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
+									{
+										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
+										rOffset.x -= 10;
+										GUI.Label(rOffset, "Bounty is the experience reward for killing an enemy.", smallinfoStyle);
+									}
 									y += screenScale * 85;
 								}
-								if (ScanTime > 2.8f)
+								if (ScanTime > 3.0f)
 								{
 									if (cp.Affixes.Length > 0)
 									{
-										DrawScannedEnemyLabel("☠️ ELITE ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
-										y += screenScale * 40;
-										infoStyle.fontSize -= 2;
+										DrawScannedEnemyLabel("☠️ " +
+											Translations.MainMenu_HUD_3/*og:ELITE*/ //tr
+											+ " ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
+										y += screenScale * 30;
+										infoStyle.fontSize -= 4;
 										Array arr = Enum.GetValues(typeof(EnemyProgression.Abilities));
+										float fdelay = 0;
 										foreach (int i in cp.Affixes)
 										{
+											slide = SmoothSlideIn(3.2f + fdelay);
+											fdelay += 0.1f;
+											Rect rName = new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 55 * screenScale);
+											Rect rDesc = new Rect((origin.x + slide + 255 * screenScale), origin.y + y + 24 * screenScale, 250 * screenScale, 65 * screenScale);
 											EnemyProgression.Abilities ability = (EnemyProgression.Abilities)arr.GetValue(i);
 											switch (ability)
 											{
 												case EnemyProgression.Abilities.Poisonous:
-													DrawScannedEnemyLabel("Poisonous", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_4/*og:Poisonous*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Applies damage over time on hit.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Steadfast:
-													DrawScannedEnemyLabel("Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_5/*og:Steadfast*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Reduced damage taken.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.BossSteadfast:
-													DrawScannedEnemyLabel("Boss Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_6/*og:Boss Steadfast*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Massively reduced damage taken.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.EliteSteadfast:
-													DrawScannedEnemyLabel("Elite Steadfast", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_7/*og:Elite Steadfast*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Greatly educed damage taken.", smallinfoStyle);
 													break;
 												//case EnemyProgression.Abilities.Molten:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.Blizzard:
-													DrawScannedEnemyLabel("Blizzard", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_8/*og:Blizzard*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Aura that slows.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Radiance:
-													DrawScannedEnemyLabel("Radiance", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_9/*og:Radiance*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Deals damage if you get too close.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Chains:
-													DrawScannedEnemyLabel("Chains", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_10/*og:Chains*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Periodically locks you in place.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.BlackHole:
-													DrawScannedEnemyLabel("Black Hole", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_11/*og:Black Hole*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Creates a deadly black hole.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Trapper:
-													DrawScannedEnemyLabel("Trapper", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_12/*og:Trapper*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Locks you inside a trap if you get in melee range.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Juggernaut:
-													DrawScannedEnemyLabel("Juggernaut", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_13/*og:Juggernaut*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Immune to crowd controll.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Gargantuan:
-													DrawScannedEnemyLabel("Gargantuan", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_14/*og:Gargantuan*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Health and damage worthy of its size", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Tiny:
-													DrawScannedEnemyLabel("Tiny", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_15/*og:Tiny*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Tiny but deadly ambusher.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.ExtraDamage:
-													DrawScannedEnemyLabel("Extra deadly", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_16/*og:Extra deadly*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Increased damage", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.ExtraHealth:
-													DrawScannedEnemyLabel("Extra tough", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_17/*og:Extra tough*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Massively increased health.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Basher:
-													DrawScannedEnemyLabel("Basher", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_18/*og:Basher*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Stuns on hit.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Warp:
-													DrawScannedEnemyLabel("Warp", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_19/*og:Warp*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Teleports behind you when you least expect it.", smallinfoStyle);
 													break;
 												//case EnemyProgression.Abilities.Thunder:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.RainEmpowerment:
-													DrawScannedEnemyLabel("Rain Empowerment", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_20/*og:Rain Empowerment*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Extremely powerful during rainy weather.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Shielding:
-													DrawScannedEnemyLabel("Shielding", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_21/*og:Shielding*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Periodically negates damage.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Meteor:
-													DrawScannedEnemyLabel("Meteor", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_22/*og:Meteor*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Let it rain...", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Flare:
-													DrawScannedEnemyLabel("Flare", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_23/*og:Flare*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Casts sun flare spell.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Undead:
-													DrawScannedEnemyLabel("Undead", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_24/*og:Undead*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Revives after dying once.", smallinfoStyle);
 													break;
 
 												case EnemyProgression.Abilities.Laser:
-													DrawScannedEnemyLabel("Laser tower", new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_25/*og:Laser tower*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Creates rotating death rays.", smallinfoStyle);
 													break;
-												//case EnemyProgression.Abilities.Avenger:
-												//    DrawScannedEnemyLabel("Avenger", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
-												//    break;
-												//case EnemyProgression.Abilities.Sacrifice:
-												//    DrawScannedEnemyLabel("Sacrifice", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
-												//    break;
+												case EnemyProgression.Abilities.Avenger:
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_26/*og:Avenger*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Gets stronger the more enemies around it die. Kill first.", smallinfoStyle);
+													break;
+												case EnemyProgression.Abilities.Sacrifice:
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_27/*og:Sacrifice*/, rName, infoStyle); //tr
+													GUI.Label(rDesc, "Upon death, all nearby enemies are healed and empowered. Kill last", smallinfoStyle);
+													break;
 												default:
-													DrawScannedEnemyLabel(ability.ToString(), new Rect(origin.x, origin.y + y, 250 * screenScale, 55 * screenScale), infoStyle);
+													DrawScannedEnemyLabel(ability.ToString(), rName, infoStyle);
 													break;
 											}
 											y += screenScale * 40;
 										}
 									}
 								}
+							}
+							else
+							{
+								Debug.Log("Scanned enemy does not have CP");
 							}
 						}
 						else
@@ -574,9 +660,9 @@ namespace ChampionsOfForest
 						GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 					}
 				}
-				catch
+				catch (Exception ex)	
 				{
-
+					Debug.LogWarning(ex.ToString());
 				}
 			}
 			else
@@ -775,7 +861,7 @@ namespace ChampionsOfForest
 								}
 								else
 								{
-									localPlayerPing = new MarkEnemy(enemy.transform, "Enemy", false);
+									localPlayerPing = new MarkEnemy(enemy.transform, Translations.MainMenu_HUD_28/*og:Enemy*/, false);//tr
 								}
 							}
 						}

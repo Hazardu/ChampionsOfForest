@@ -15,7 +15,7 @@ namespace ChampionsOfForest.Player
 
 		public delegate void OnApply();
 
-		public OnApply apply;
+		public OnApply onApply;
 
 		public delegate string OnPucharseDescriptionUpdate(int level);
 
@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Player
 
 		public Texture2D texture;
 
-		public bool uncapped = false;
+		public bool stackable = false;
 		public int boughtTimes;
 
 		public int textureVariation = 0;
@@ -56,11 +56,11 @@ namespace ChampionsOfForest.Player
 			unlockPath = inheritIDs;
 			this.category = category;
 			scale = size;
-			uncapped = false;
+			stackable = false;
 			posX = x;
 			posY = y;
 			levelReq = levelRequirement;
-			apply = applyMethods;
+			onApply = applyMethods;
 			id = PerkDatabase.perks.Count;
 			isApplied = false;
 			PerkDatabase.perks.Add(this);
@@ -83,9 +83,9 @@ namespace ChampionsOfForest.Player
 			posY = y;
 			this.category = category;
 			scale = size;
-			uncapped = false;
+			stackable = false;
 			levelReq = levelRequirement;
-			apply = applyMethods;
+			onApply = applyMethods;
 			id = PerkDatabase.perks.Count;
 			isApplied = false;
 			PerkDatabase.perks.Add(this);
@@ -97,7 +97,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (updateDescription != null)
 				{
-					if (uncapped)
+					if (stackable)
 						Description = originalDescription + ' ' + updateDescription(boughtTimes);
 					else
 						Description = originalDescription + ' ' + updateDescription(1);
