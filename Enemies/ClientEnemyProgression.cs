@@ -1,5 +1,7 @@
 ﻿//Stores info about enemy stats, shared between players in coop
 
+using System.IO;
+
 using TheForest.Utils;
 
 using UnityEngine;
@@ -56,9 +58,9 @@ namespace ChampionsOfForest
 			if (p != null)
 			{
 				EnemyName = p.enemyName;
-				dynCEP = new DynamicClientEnemyProgression(p.extraHealth + p.HealthScript.Health, p.armor, p.armorReduction, p.DamageTotal);
+				dynCEP = new DynamicClientEnemyProgression((float)p.HP, p.armor, p.armorReduction, p.DamageTotal);
 				Level = p.level;
-				MaxHealth = p.maxHealth;
+				MaxHealth = (float)p.maxHealth;
 				ExpBounty = p.bounty;
 				Steadfast = p.Steadfast;
 				Affixes = new int[p.abilities.Count];
@@ -70,16 +72,25 @@ namespace ChampionsOfForest
 		}
 		public void RequestDynamicUpdate()
 		{
-			if (GameSetup.IsMpClient && DynamicOutdated)
+			using (MemoryStream answerStream = new MemoryStream())
 			{
-				Network.Commands.Command_UpdateDynamicCP.Send(Network.NetworkManager.Target.OnlyServer, new Network.Commands.UpdateCProgressionCommandParam() { packed = Entity.networkId.Packed });
-				dynamicCreationTime = Time.time;
+				using (BinaryWriter w = new BinaryWriter(answerStream))
+				{
+					w.Write(44);
+					w.Write(Entity.networkId.PackedValue);
+					w.Close();
+				}
+				Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.OnlyServer);
+				answerStream.Close();
 			}
+			dynamicCreationTime = Time.time;
+			Debug.Log("CP Request sent");
 		}
 		public bool DynamicOutdated => dynamicCreationTime + DynamicLifeTime < Time.time;
 		public void UpdateDynamic(float hp, int ar, int arred, float damage)
 		{
-			dynCEP = new DynamicClientEnemyProgression(hp,ar,arred, damage);
+			Debug.Log("Updating dcp");
+			dynCEP = new DynamicClientEnemyProgression(hp, ar, arred, damage);
 			dynamicCreationTime = Time.time;
 
 		}
@@ -121,7 +132,7 @@ namespace ChampionsOfForest
 		{
 			Entity = entity;
 			EnemyName = enemyName;
-			if(entity != null)
+			if (entity != null)
 				Packed = entity.networkId.PackedValue;
 			Level = level;
 			dynCEP = new DynamicClientEnemyProgression(health, armor, armorReduction, damage);

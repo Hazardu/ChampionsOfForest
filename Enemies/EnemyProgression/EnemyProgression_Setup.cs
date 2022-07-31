@@ -150,14 +150,23 @@ namespace ChampionsOfForest
 			setupDifficulty = ModSettings.difficulty;
 			//Assigning rest of stats
 			int dif = (int)setupDifficulty;
-			DamageMult = level < 67 ? ((31f-0.286f*(level-20f))*(level-5f)+3.5f)*(level-1f)+11 : Mathf.Pow(level-60, 2.61f) * 600;
-			armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(level, 2.4f) * 0.36f + 1, Mathf.Pow(level, 2.45f) + 20) * ModSettings.EnemyArmorMultiplier);
+			DamageMult = level < 65 ? 
+				(Mathf.Pow(2.7182818284f,level/6) + level) //e^(x/6) + x
+				: Mathf.Pow(level-60, 2.60f) * 600;
+			armor = Mathf.FloorToInt(Random.Range(Mathf.Pow(level, 2.43f) * 0.3333f + 1, Mathf.Pow(level, 2.43f) * 0.66666f + 20) * ModSettings.EnemyArmorMultiplier);
 			armor *= dif / 2 + 1;
 			armorReduction = 0;
-			extraHealth = (Mathf.Sqrt(HealthScript.Health)+ 40) * Mathf.Pow(level, 2.22f)/6f;
-			extraHealth *= (level / 50) + 0.4f;
 
-			AnimSpeed = 0.93f + (float)level / 175;
+			//Set HP;
+			{
+				double hp = Math.Sqrt(HealthScript.Health) + 45.0;
+				hp *= Math.Pow(level, 2.38);
+				hp *= 0.2;
+				hp *= Math.Pow(2.0, ((double)level - 50.0) / 32.0);
+				extraHealth = hp;
+			}
+
+			AnimSpeed = 0.94f + (float)level / 170;
 			HealthScript.Health = int.MaxValue;
 
 			extraHealth *= ModSettings.EnemyHealthMultiplier;
@@ -171,33 +180,29 @@ namespace ChampionsOfForest
 			//Extra health for boss type enemies
 			switch (_rarity)
 			{
-				case EnemyRarity.Elite:
-					extraHealth *= 5;
-
+				case EnemyRarity.Boss:
+					extraHealth *= 2;
+					if (!abilities.Contains(Abilities.Tiny))
+						gameObject.transform.localScale *= 1.2f;
 					break;
 
 				case EnemyRarity.Miniboss:
 					extraHealth *= 10;
-
+					if (!abilities.Contains(Abilities.Tiny))
+						gameObject.transform.localScale *= 1.15f;
 					break;
 
-				case EnemyRarity.Boss:
-					extraHealth *= 20;
+				case EnemyRarity.Elite:
+					extraHealth *= 5;
 					if (!abilities.Contains(Abilities.Tiny))
 						gameObject.transform.localScale *= 1.1f;
-
 					break;
+				default:
+					break;
+
 			}
-			if (level > 25)
-				extraHealth *= 2.15f;
-			if (level > 50)
-				extraHealth *= 2f;
-			if (level >100)
-				extraHealth *= 3.4f;
-			if (level >200)
-				extraHealth *= 2.5f;
-			if (level > 300)
-				extraHealth *= 3.2f;
+
+			
 			//Applying some abilities
 			if (abilities.Contains(Abilities.Gargantuan))
 			{
@@ -297,9 +302,9 @@ namespace ChampionsOfForest
 			try
 			{
 				maxHealth = extraHealth;
-				HealthScript.maxHealthFloat = maxHealth;
-				HealthScript.Health =(int) Mathf.Min(maxHealth, int.MaxValue);
-				extraHealth = Mathf.Max(0,maxHealth - HealthScript.Health);
+				HealthScript.maxHealthFloat = (float)maxHealth;
+				HealthScript.Health =(int) Mathf.Min(HealthScript.maxHealthFloat, int.MaxValue);
+				extraHealth = Math.Max(0,maxHealth - HealthScript.Health);
 				ClampHealth();
 				armor = Mathf.Min(armor, int.MaxValue - 5);
 				if (armor < 0)
@@ -317,9 +322,19 @@ namespace ChampionsOfForest
 				CotfUtils.Log(e.Message);
 			}
 
-			AssignBounty();
+			{
+				double b = Math.Pow(maxHealth, 0.8) * 0.8* Math.Pow(level, 0.25) + 100.0;
+				if (abilities.Count > 1)
+				{
+					b *= abilities.Count;
+				}
+				b *= Math.Max(1.0, (double)level / 20.0);
+				b *= ModSettings.ExpMultiplier;
+				bounty = Convert.ToInt64(b);
+			}
 
-			steadfastCap = Mathf.Max(Steadfast * 0.01f * maxHealth, 1f);
+
+			steadfastCap = (float)Math.Max(Steadfast * 0.01 * maxHealth, 1.0);
 			if (steadfastCap < 1) // Making sure the enemy can be killed
 			{
 				steadfastCap = 1;
@@ -345,13 +360,13 @@ namespace ChampionsOfForest
 					"Hailey", "Eva", "Emilia", "Quinn", "Piper", "Kaylee",
 					"Isla", "Katherine", "Jaiden", "Maria", "Taylor Swift", "Natalia",
 					"Annabelle", "Alexandra", "Athena", "Andrea", "Jasmine", "Lyla", "Margaret", "Alyssa",
-					 "Alexis","Sophie Francis","Albedo","Hazardina","Kaspita",
+					 "Alexis","Sophie Francis","Albedo","Hazardina","Kaspita", "Ruby",
 					//my pet names
 					"Lara", "Misty"
 		};
 		public static string[] mNames = new string[]
 				  {
-				  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyBear","NightOwl","PuffedRice","PhoenixDeath","Danny Parker","Kaspito","Chefen","Lauren","DrowsyCob","Ali chipmunk","Malкae","R3iGN","Torsin","Иio","The Strange Man","MiikaHD","NÜT","Azpect","Chad","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Unlike Pluto","Sora","Kuldar","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Sebastian","David","John Deere","Isaac","Adolf Hitler","Joseph Stalin","Eraized","Punny", "Aezyn", "Infernal", "PorkyBunBuns","Edgar","Twomad", "Seth Everman"
+				  "Farket","Hazard","Moritz","Souldrinker","Olivier Broadbent","Subscribe to Pewds","Kutie","Axt","Fionera","Cleetus","Hellsing","Metamoth","Teledorktronics","SmokeyBear","NightOwl","PuffedRice","PhoenixDeath","Danny Parker","Kaspito","Chefen","Lauren","DrowsyCob","Ali chipmunk","Malкae","R3iGN","Torsin","Иio","The Strange Man","MiikaHD","NÜT","Azpect","Chad","Cheddar","MaddVladd","Wren","Ross Draws","Sam Gorski","Niko Pueringer","Freddy Wong","PewDiePie","Salad Ass","Unlike Pluto","Sora","Kuldar","Fon","Sigmar","Mohammed","Cyde","MaximumAsp79","Sebastian","David","John Deere","Isaac","Adolf Hitler","Joseph Stalin","Eraized","Punny", "Aezyn", "Infernal", "PorkyBunBuns","Edgar","Twomad", "Seth Everman", "Pols", "Tristam", "Siewca", "Bowser", "Choppa", "RatsForLife", "Falun", "Orichalcos", "Dirty Dan", "Lunsrea"
 				  };
 
 		private void RollName(bool isElite)
@@ -431,21 +446,11 @@ namespace ChampionsOfForest
 			string prefix = "";
 			if (AIScript.female || AIScript.creepy || AIScript.femaleSkinny)    //is female
 			{
-				//prefix = "♀ ";
 				names.AddRange(fNames);
 			}
 			else                                                 // is male
 			{
-				//prefix = "♂ ";
 				names.AddRange(mNames);
-			}
-			if (AIScript.creepy_male)
-			{
-				names.Add("Alex Armsy");
-			}
-			if (AIScript.maleSkinny)
-			{
-				names.Add("Zebulon");
 			}
 			enemyName = prefix + names[Random.Range(0, names.Count)];
 		}
@@ -533,6 +538,7 @@ namespace ChampionsOfForest
 				enemyType = Enemy.PaleSkinnedMale;
 			}
 		}
+		
 
 		private void SetLevel()
 		{
@@ -625,70 +631,7 @@ namespace ChampionsOfForest
 			level = Mathf.CeilToInt(level + extraLevels + ModSettings.EnemyLevelIncrease);
 		}
 
-		private void AssignBounty()
-		{
-			double b = Random.Range(maxHealth * 0.35f, maxHealth * 0.45f) * Mathf.Sqrt(level) + armor*2;
-			if (abilities.Count > 1)
-			{
-				b *= abilities.Count;
-			}
-			switch (ModSettings.difficulty)
-			{
-				case ModSettings.Difficulty.Easy:
-					b = b * 1.3f;
-					break;
-				case ModSettings.Difficulty.Veteran:
-					b = b * 1.5;
-					break;
-
-				case ModSettings.Difficulty.Elite:
-					b = b * 1.7;
-
-					break;
-
-				case ModSettings.Difficulty.Master:
-					b = b * 2.2;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge1:
-					b = b * 3;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge2:
-					b = b * 4;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge3:
-					b = b * 5.25f;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge4:
-					b = b * 6.8;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge5:
-					b = b * 10;
-
-					break;
-
-				case ModSettings.Difficulty.Challenge6:
-					b = b * 15;
-
-					break;
-
-				case ModSettings.Difficulty.Hell:
-					b = b * 15;
-
-					break;
-			}
-			b *= ModSettings.ExpMultiplier;
-			bounty = Convert.ToInt64(b);
-		}
+	
 
 	}
 }

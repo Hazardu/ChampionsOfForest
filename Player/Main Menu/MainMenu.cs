@@ -188,7 +188,7 @@ namespace ChampionsOfForest
 
 				//host difficulty raise/lower cooldown
 				if (GameSetup.IsMpServer || GameSetup.IsSinglePlayer)
-					difficultyCooldown = 5 * 60; //once every 5 minutes
+					difficultyCooldown = 30; //once every 30s
 
 				if (GameSetup.IsMultiplayer)
 					otherPlayerPings = new Dictionary<string, MarkObject>();
@@ -574,21 +574,21 @@ namespace ChampionsOfForest
 					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*og:Raise Difficulty*/, chgDiffBtnStyle))	  //tr
 					{
 						//raise difficulty
-						difficultyCooldown = 10 * 60;
+						difficultyCooldown = 30;
 						ModSettings.difficulty++;
 						ModSettings.BroadCastSettingsToClients();
 					}
 					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*og:Lower Difficulty*/, chgDiffBtnStyle))     //tr
 					{
 						//lower difficulty
-						difficultyCooldown = 10 * 60;
+						difficultyCooldown = 30;
 						ModSettings.difficulty--;
 						ModSettings.BroadCastSettingsToClients();
 					}
 					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_26/*og:Change Options*/, chgDiffBtnStyle))    //tr
 					{
 						ModSettings.DifficultyChosen = false;
-						difficultyCooldown = 10 * 60;
+						difficultyCooldown = 30;
 					}
 				}
 

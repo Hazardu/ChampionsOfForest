@@ -58,7 +58,7 @@ namespace ChampionsOfForest.Player
 					infos[i].spell.passive(true);
 				}
 			}
-			SetMaxCooldowns();
+			MaxCooldown(i);
 		}
 
 		private void Start()
@@ -96,7 +96,7 @@ namespace ChampionsOfForest.Player
 					{
 						if (infos[i].spell != null)
 						{
-							infos[i].Cooldown -= Time.deltaTime / ModdedPlayer.Stats.cooldown;
+							infos[i].Cooldown -= Time.deltaTime * ModdedPlayer.Stats.cooldownRate / ModdedPlayer.Stats.cooldown;
 							if (infos[i].Cooldown <= 0 || CotfCheats.Cheat_noCooldowns)
 							{
 								infos[i].Cooldown = 0;

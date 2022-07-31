@@ -56,6 +56,8 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_DifficultySelection_24 = "More options";
 		public static string MainMenu_DifficultySelection_25 => instance._MainMenu_DifficultySelection_25;
 		public string _MainMenu_DifficultySelection_25 = "Leave lobby";
+		public static string MainMenu_DifficultySelection_26 => instance._MainMenu_DifficultySelection_26;
+		public string _MainMenu_DifficultySelection_26 = "Loot level assignment policy: ";
 
 		//MainMenu_Inventory
 		public static string MainMenu_Inventory_1 => instance._MainMenu_Inventory_1;
@@ -903,7 +905,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_134(params object[] objects) => string.Format(instance._PerkDatabase_134, objects);
 		public string _PerkDatabase_134 = "Arrows deal {0} more damage";
 		public static string PerkDatabase_135 => instance._PerkDatabase_135;
-		public string _PerkDatabase_135 = "Sanctuary";
+		public string _PerkDatabase_135 = "Temple of Protection";
 		public static string PerkDatabase_136 => instance._PerkDatabase_136;
 		public string _PerkDatabase_136 = "Healing dome provides immunity to stun and root effects";
 		public static string PerkDatabase_137 => instance._PerkDatabase_137;
@@ -1083,7 +1085,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_225 => instance._PerkDatabase_225;
 		public string _PerkDatabase_225 = "Energy Field";
 		public static string PerkDatabase_226 => instance._PerkDatabase_226;
-		public string _PerkDatabase_226 = "Healing dome rapidly regenerates energy";
+		public string _PerkDatabase_226 = "Sanctuary rapidly regenerates energy";
 		public static string PerkDatabase_227 => instance._PerkDatabase_227;
 		public string _PerkDatabase_227 = "Enhanced vitality";
 		public static string PerkDatabase_228(params object[] objects) => string.Format(instance._PerkDatabase_228, objects);
@@ -1343,11 +1345,11 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_356 => instance._PerkDatabase_356;
 		public string _PerkDatabase_356 = "Safe Heaven";
 		public static string PerkDatabase_357 => instance._PerkDatabase_357;
-		public string _PerkDatabase_357 = "Healing dome lasts a minute.";
+		public string _PerkDatabase_357 = "Sanctuary lasts a minute.";
 		public static string PerkDatabase_358 => instance._PerkDatabase_358;
 		public string _PerkDatabase_358 = "Time of Need";
 		public static string PerkDatabase_359(params object[] objects) => string.Format(instance._PerkDatabase_359, objects);
-		public string _PerkDatabase_359 = "The cooldown of healing dome and purge is reduced by {0}";
+		public string _PerkDatabase_359 = "The cooldown of Sanctuary and Purge is reduced by {0}";
 		public static string PerkDatabase_360 => instance._PerkDatabase_360;
 		public string _PerkDatabase_360 = "Breathing Tehniques";
 		public static string PerkDatabase_361(params object[] objects) => string.Format(instance._PerkDatabase_361, objects);
@@ -1515,7 +1517,7 @@ namespace ChampionsOfForest.Localization
 		public static string PerkDatabase_443(params object[] objects) => string.Format(instance._PerkDatabase_443, objects);
 		public string _PerkDatabase_443 = "Total chance to cast another spear: {0}\nGetting above 100% will yield no results";
 		public static string PerkDatabase_444 => instance._PerkDatabase_444;
-		public string _PerkDatabase_444 = "Blood infused always crits";
+		public string _PerkDatabase_444 = "Blood infused arrow always crits";
 		public static string PerkDatabase_445 => instance._PerkDatabase_445;
 		public string _PerkDatabase_445 = "Supersonic";
 		public static string PerkDatabase_446 => instance._PerkDatabase_446;
@@ -1524,6 +1526,20 @@ namespace ChampionsOfForest.Localization
 		public string _PerkDatabase_447 = "Deployable Shield";
 		public static string PerkDatabase_448(params object[] objects) => string.Format(instance._PerkDatabase_448, objects);
 		public string _PerkDatabase_448 = "Gain shield equal to {0} of hp upon dodging ";
+		public static string PerkDatabase_449 => instance._PerkDatabase_449;
+		public string _PerkDatabase_449 = "Critical Infusion";
+		public static string PerkDatabase_450 => instance._PerkDatabase_450;
+		public string _PerkDatabase_450 = "Pound of flesh";
+		public static string PerkDatabase_451(params object[] objects) => string.Format(instance._PerkDatabase_451, objects);
+		public string _PerkDatabase_451 = "During berserk, max health is increased by {0}";
+		public static string PerkDatabase_452 => instance._PerkDatabase_452;
+		public string _PerkDatabase_452 = "Pantheon of Champions";
+		public static string PerkDatabase_453(params object[] objects) => string.Format(instance._PerkDatabase_453, objects);
+		public string _PerkDatabase_453 = "Allies inside sanctuary deal {0} increased damage and take {1} reduced damage";
+		public static string PerkDatabase_454 => instance._PerkDatabase_454;
+		public string _PerkDatabase_454 = "Magic Tower";
+		public static string PerkDatabase_455(params object[] objects) => string.Format(instance._PerkDatabase_455, objects);
+		public string _PerkDatabase_455 = "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {1} less resources.";
 
 		//SpellDataBase
 		public static string SpellDataBase_1(params object[] objects) => string.Format(instance._SpellDataBase_1, objects);
@@ -2665,7 +2681,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_434 => instance._ItemDataBase_ItemDefinitions_434;
 		public string _ItemDataBase_ItemDefinitions_434 = "Lama Mega's Blood Bag";
 		public static string ItemDataBase_ItemDefinitions_435(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_435, objects);
-		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for <color=gold<{0}</color> of your health as damage for {1} seconds";
+		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds";
 		public static string ItemDataBase_ItemDefinitions_436 => instance._ItemDataBase_ItemDefinitions_436;
 		public string _ItemDataBase_ItemDefinitions_436 = "Socket Drill";
 		public static string ItemDataBase_ItemDefinitions_437 => instance._ItemDataBase_ItemDefinitions_437;
@@ -3008,6 +3024,26 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_606 = "If equipped in other slots, increases armor by ";
 		public static string ItemDataBase_ItemDefinitions_607 => instance._ItemDataBase_ItemDefinitions_607;
 		public string _ItemDataBase_ItemDefinitions_607 = "Firebolt deals increased damage";
+		public static string ItemDataBase_ItemDefinitions_608 => instance._ItemDataBase_ItemDefinitions_608;
+		public string _ItemDataBase_ItemDefinitions_608 = "\nWarcry gives damage resistance.";
+		public static string ItemDataBase_ItemDefinitions_609 => instance._ItemDataBase_ItemDefinitions_609;
+		public string _ItemDataBase_ItemDefinitions_609 = "Devil Dancers";
+		public static string ItemDataBase_ItemDefinitions_610 => instance._ItemDataBase_ItemDefinitions_610;
+		public string _ItemDataBase_ItemDefinitions_610 = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active.";
+		public static string ItemDataBase_ItemDefinitions_611 => instance._ItemDataBase_ItemDefinitions_611;
+		public string _ItemDataBase_ItemDefinitions_611 = "Call of the Ancients";
+		public static string ItemDataBase_ItemDefinitions_612(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_612, objects);
+		public string _ItemDataBase_ItemDefinitions_612 = "Berserk increases all damage by additional <color=gold>{0}</color>";
+		public static string ItemDataBase_ItemDefinitions_613 => instance._ItemDataBase_ItemDefinitions_613;
+		public string _ItemDataBase_ItemDefinitions_613 = "Berserker's Wrath";
+		public static string ItemDataBase_ItemDefinitions_614 => instance._ItemDataBase_ItemDefinitions_614;
+		public string _ItemDataBase_ItemDefinitions_614 = "Viking Amulet";
+		public static string ItemDataBase_ItemDefinitions_615(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_615, objects);
+		public string _ItemDataBase_ItemDefinitions_615 = "Increases attack and movement speed during berserk by <color=gold>{0}</color>";
+		public static string ItemDataBase_ItemDefinitions_616 => instance._ItemDataBase_ItemDefinitions_616;
+		public string _ItemDataBase_ItemDefinitions_616 = "Pedant of Skallagrim";
+		public static string ItemDataBase_ItemDefinitions_617 => instance._ItemDataBase_ItemDefinitions_617;
+		public string _ItemDataBase_ItemDefinitions_617 = "Wristguards of The Sanctuary Keeper";
 
         //Player\Main Menu\MainMenu_DifficultySelection.cs
 
@@ -3040,6 +3076,9 @@ namespace ChampionsOfForest.Localization
         //Items\ItemDataBase_StatDefinitions.cs
 
         //Items\ItemDataBase_ItemDefinitions.cs
+		public static string ItemDataBase_ItemDefinitions_618 => instance._ItemDataBase_ItemDefinitions_618;
+		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
+
 
         //Items\Item.cs
 
@@ -3078,6 +3117,7 @@ MainMenu_DifficultySelection_22:: "No"
 MainMenu_DifficultySelection_23:: "Yes"
 MainMenu_DifficultySelection_24:: "More options"
 MainMenu_DifficultySelection_25:: "Leave lobby"
+MainMenu_DifficultySelection_26:: "Loot level assignment policy: "
 MainMenu_Inventory_1:: "Inventory"
 MainMenu_Inventory_2:: "Equipment"
 MainMenu_Inventory_3:: "Head"
@@ -3488,7 +3528,7 @@ PerkDatabase_131:: "Crossbow Specialization"
 PerkDatabase_132:: "Bolts deal {0} more damage"
 PerkDatabase_133:: "Bow Specialization"
 PerkDatabase_134:: "Arrows deal {0} more damage"
-PerkDatabase_135:: "Sanctuary"
+PerkDatabase_135:: "Temple of Protection"
 PerkDatabase_136:: "Healing dome provides immunity to stun and root effects"
 PerkDatabase_137:: "Enchant weapon"
 PerkDatabase_138:: "While black flame is on, all damage is increased by {0}"
@@ -3794,11 +3834,18 @@ PerkDatabase_440:: "Increases crit damage by {0}"
 PerkDatabase_441:: "Improved Dodges"
 PerkDatabase_442:: "Heal for {0} of max health when you dodge"
 PerkDatabase_443:: "Total chance to cast another spear: {0}\nGetting above 100% will yield no results"
-PerkDatabase_444:: "Blood infused always crits"
+PerkDatabase_444:: "Blood infused arrow always crits"
 PerkDatabase_445:: "Supersonic"
 PerkDatabase_446:: "Double projectile speed"
 PerkDatabase_447:: "Deployable Shield"
 PerkDatabase_448:: "Gain shield equal to {0} of hp upon dodging "
+PerkDatabase_449:: "Critical Infusion"
+PerkDatabase_450:: "Pound of flesh"
+PerkDatabase_451:: "During berserk, max health is increased by {0}"
+PerkDatabase_452:: "Pantheon of Champions"
+PerkDatabase_453:: "Allies inside sanctuary deal {0} increased damage and take {0} reduced damage"
+PerkDatabase_454:: "Magic Tower"
+PerkDatabase_455:: "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {0} less resources."
 SpellDataBase_1:: "Create a large AoE black hole, that lasts {0} seconds, continously pulling enemies inside and dealing {1} spell damage per second."
 SpellDataBase_2:: "Creates a sphere of vaporized aloe that rapidly heals all allies inside."
 SpellDataBase_3:: "Sanctuary"
@@ -3831,7 +3878,7 @@ SpellDataBase_29:: "Berserk"
 SpellDataBase_30:: "Launch an unstable, explosive, bouncing ball of lightning that deals {0} spell damage to enemies it touches or ones that are caught in its radius. Can be hit to detonate early."
 SpellDataBase_31:: "Ball Lightning"
 SpellDataBase_32:: "Passive: Every attack slows enemies for {0} seconds, and increases their damage taken by {1}\nActive: Melee damage is increased for {2} seconds by {3}"
-SpellDataBase_33:: "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {1} seconds."
+SpellDataBase_33:: "Passive: Every attack enrages you, increasing damage all damage by {0}. Up to {1} stacks.\nActive: Consume all of your frenzy stacks and regenerate {2} of your max energy for every stack consumed over {3} seconds."
 SpellDataBase_34:: "Frenzy"
 SpellDataBase_35:: "Casting this spell enchants your next ranged attack, causing all of your ranged attacks to fly towards the first enemy hit by the enchanted projectile. While active, damage is decreased by {0}, projectiles deal {1} less headshot damage and bodyshots slow enemies by {2} for {3} seconds."
 SpellDataBase_36:: "Seeking Arrow"
@@ -4366,7 +4413,7 @@ ItemDataBase_ItemDefinitions_431:: "Yuki-Onna Kimono"
 ItemDataBase_ItemDefinitions_432:: "Yuki-Onna's Headdress"
 ItemDataBase_ItemDefinitions_433:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}"
 ItemDataBase_ItemDefinitions_434:: "Lama Mega's Blood Bag"
-ItemDataBase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for <color=gold<{0}</color> of your health as damage for {1} seconds"
+ItemDataBase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds"
 ItemDataBase_ItemDefinitions_436:: "Socket Drill"
 ItemDataBase_ItemDefinitions_437:: "A convienient one use tool"
 ItemDataBase_ItemDefinitions_438:: "What's a drill doing here in a place full of primitive tribes?"
@@ -4538,6 +4585,17 @@ ItemDataBase_ItemDefinitions_604:: "If equipped on a helmet, increases health by
 ItemDataBase_ItemDefinitions_605:: "If equipped on accessories, increases thorns by "
 ItemDataBase_ItemDefinitions_606:: "If equipped in other slots, increases armor by "
 ItemDataBase_ItemDefinitions_607:: "Firebolt deals increased damage"
+ItemDataBase_ItemDefinitions_608:: "\nWarcry gives damage resistance."
+ItemDataBase_ItemDefinitions_609:: "Devil Dancers"
+ItemDataBase_ItemDefinitions_610:: "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active."
+ItemDataBase_ItemDefinitions_611:: "Call of the Ancients"
+ItemDataBase_ItemDefinitions_612:: "Berserk increases all damage by additional <color=gold>{0}</color>"
+ItemDataBase_ItemDefinitions_613:: "Berserker's Wrath"
+ItemDataBase_ItemDefinitions_614:: "Viking Amulet"
+ItemDataBase_ItemDefinitions_615:: "Increases attack and movement speed during berserk by <color=gold>{0}</color>"
+ItemDataBase_ItemDefinitions_616:: "Pedant of Skallagrim"
+ItemDataBase_ItemDefinitions_617:: "Wristguards of The Sanctuary Keeper"
+ItemDataBase_ItemDefinitions_618:: "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources"
 
 
 

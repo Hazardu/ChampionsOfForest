@@ -24,21 +24,23 @@ namespace ChampionsOfForest.Player
 			ITEM_DEATH_PACT,
 			MELEE_DAMAGE_INCREASED,
 			ATTACK_SPEED_INCREASED,
-				ARMOR,
-				SKILL_GOLDEN_SKIN,
-				SKILL_BERSERK,
-				ENERGY_LEAK,
-				SKILL_FRENZY,
-				SKILL_PREVENT_DEATH_COOLDOWN,
-				ARMOR_LOSS,
-				MELEE_FLAT_DAMAGE_INCREASE,
-				SKILL_PARRY_STACK,
-				CRIT_DAMAGE,
-				HEALTH_REGEN,
-				TOUGHNESS,
-				SKILL_FRENZY_FURY_SWIPES,
-				CRIT_CHANCE,
-				DODGE_CHANCE
+			ARMOR,
+			SKILL_GOLDEN_SKIN,
+			SKILL_BERSERK,
+			ENERGY_LEAK,
+			SKILL_FRENZY,
+			SKILL_PREVENT_DEATH_COOLDOWN,
+			ARMOR_LOSS,
+			MELEE_FLAT_DAMAGE_INCREASE,
+			SKILL_PARRY_STACK,
+			CRIT_DAMAGE,
+			HEALTH_REGEN,
+			TOUGHNESS,
+			SKILL_FRENZY_FURY_SWIPES,
+			CRIT_CHANCE,
+			DODGE_CHANCE,
+			COOLDOWN_RATE,
+			RESOURCE_COST,
 		}
 
 
@@ -167,9 +169,9 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.attackSpeed.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyAtkSpeed;
 					ModdedPlayer.Stats.allDamage.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyDmg;
 					if (ModdedPlayer.Stats.spell_frenzyMS)
-						ModdedPlayer.Stats.movementSpeed.valueMultiplicative/= 1 + f * 0.05f;
+						ModdedPlayer.Stats.movementSpeed.valueMultiplicative /= 1 + f * 0.05f;
 
-					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive=0;
+					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}, f =>
 				{
 					ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1 + f * ModdedPlayer.Stats.spell_frenzyAtkSpeed;
@@ -183,13 +185,13 @@ namespace ChampionsOfForest.Player
 
 				new Buff(20, 159, "Near Death Experience", false, false, 5, f => ModdedPlayer.Stats.perk_nearDeathExperienceTriggered.value = false, f => ModdedPlayer.Stats.perk_nearDeathExperienceTriggered.value = true) { DisplayAmount = false };
 
-				new Buff(21, 147, "Armor Corruption", true, true, 1, null,null) { DisplayAsPercent = false };
+				new Buff(21, 147, "Armor Corruption", true, true, 1, null, null) { DisplayAsPercent = false };
 
 				new Buff(22, 151, "Increased Flat Melee Damage", false, false, 0, f => ModdedPlayer.Stats.meleeFlatDmg.Substract(f), f => ModdedPlayer.Stats.meleeFlatDmg.Add(f)) { DisplayAsPercent = false };
 				new Buff(23, 151, "Counter Strike", false, true, 0, f => ModdedPlayer.Stats.perk_parryCounterStrikeDamage.valueAdditive = 0) { DisplayAsPercent = false };
-				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.Stats.critDamage.Substract(f), f => ModdedPlayer.Stats.critDamage.Add(f) );
-				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(- f), f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(f)) { DisplayAsPercent = false };
-				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.Stats.allDamageTaken.Divide(1 - f), f => ModdedPlayer.Stats.allDamageTaken.Multiply( 1 - f));
+				new Buff(24, 151, "Critical Damage", false, false, 0, f => ModdedPlayer.Stats.critDamage.Substract(f), f => ModdedPlayer.Stats.critDamage.Add(f));
+				new Buff(25, 146, "Life Regeneration", false, false, 0, f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(-f), f => ModdedPlayer.Stats.healthRecoveryPerSecond.Add(f)) { DisplayAsPercent = false };
+				new Buff(26, 146, "Resistance", false, false, 0, f => ModdedPlayer.Stats.allDamageTaken.Divide(1 - f), f => ModdedPlayer.Stats.allDamageTaken.Multiply(1 - f));
 				new Buff(27, 136, "Fury Swipes", false, true, 1, f =>
 				{
 					ModdedPlayer.instance.FurySwipesLastHit = null;
@@ -204,6 +206,10 @@ namespace ChampionsOfForest.Player
 				new Buff(28, 151, "Critical Chance", false, false, 0, f => ModdedPlayer.Stats.critChance.Substract(f - 1), f => ModdedPlayer.Stats.critChance.Add(f - 1)) { DisplayAsPercent = true };
 
 				new Buff(29, 151, "Dodge Chance", false, false, 0, f => ModdedPlayer.Stats.getHitChance.Divide(f), f => ModdedPlayer.Stats.getHitChance.Multiply(f)) { DisplayAsPercent = true };
+
+				new Buff(30, 151, "Cooldown Rate", false, false, 0, f => ModdedPlayer.Stats.cooldownRate.Divide(f), f => ModdedPlayer.Stats.cooldownRate.Multiply(f)) { DisplayAsPercent = true };
+
+				new Buff(31, 151, "Resource Cost", false, false, 0, f => { ModdedPlayer.Stats.attackStaminaCost.Divide(f); ModdedPlayer.Stats.spellCost.Divide(f); }, f => { ModdedPlayer.Stats.attackStaminaCost.Multiply(f); ModdedPlayer.Stats.spellCost.Multiply(f); }) { DisplayAsPercent = true };
 
 
 			}
@@ -304,7 +310,6 @@ namespace ChampionsOfForest.Player
 //30 & 31 - absolute zero
 //32 - poison from enemy hit
 //33 - poisons slow
-//40002 & 40001 - immunity to cc healing dome
 //41 - Hexing Pants dmg amp
 //42 - Hexing Pants regen amp
 //43 - Death Pact dmg amp
@@ -354,3 +359,4 @@ namespace ChampionsOfForest.Player
 //107 berserk set 5pc buff
 //108 resist death dmg reduction
 //109 frenzy energy regen
+//40002 ... 40010 - healing dome

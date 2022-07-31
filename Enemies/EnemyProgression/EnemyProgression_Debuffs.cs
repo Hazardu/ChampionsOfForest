@@ -61,9 +61,9 @@ namespace ChampionsOfForest
 				{
 					if (extraHealth > 0)
 					{
-						float i = Mathf.Min(extraHealth, DoTTotal);
+						double i = System.Math.Min(extraHealth, (double)DoTTotal);
 						extraHealth -= i;
-						HealthScript.Health -= Mathf.FloorToInt(DoTTotal - i);
+						HealthScript.Health -= Mathf.FloorToInt((float)(DoTTotal - i));
 						NetworkManager.SendHitmarker(transform.position + Vector3.up, DoTTotal, Color.black);
 					}
 					else

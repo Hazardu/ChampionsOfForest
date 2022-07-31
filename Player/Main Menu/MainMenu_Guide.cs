@@ -371,9 +371,7 @@ namespace ChampionsOfForest
 				Header(Translations.MainMenu_Guide_32); 
 				Space(10);
 
-
-				Stat(Translations.MainMenu_Guide_34, ModdedPlayer.Stats.TotalStaminaRecoveryAmount.ToString(), Translations.MainMenu_Guide_34); 
-				Stat("Stamina per second", (ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.staminaPerSecRate.GetAmount()).ToString("N2"),
+				Stat("Stamina per second", (ModdedPlayer.Stats.TotalStaminaRecoveryAmount).ToString("N2"),
 					Translations.MainMenu_Guide_35( 
 					ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount()));
 

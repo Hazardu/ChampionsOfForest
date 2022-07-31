@@ -62,7 +62,7 @@ namespace ChampionsOfForest
 						case ModSettings.LootLevelPolicy.ClosestPlayer:
 							{
 								level = ModdedPlayer.instance.level;
-								float dist = float.PositiveInfinity;
+								float dist = Vector3.Distance(LocalPlayer.Transform.position, pos);
 								IPlayerState state = null;
 								foreach (var playerstate in ModReferences.PlayerStates)
 								{
@@ -73,7 +73,8 @@ namespace ChampionsOfForest
 										state = playerstate;
 									}
 								}
-								level = ModReferences.PlayerLevels[state.name];
+								if(state != null)
+									level = ModReferences.PlayerLevels[state.name];
 							}
 							break;
 						case ModSettings.LootLevelPolicy.HostLevel:
@@ -175,29 +176,29 @@ namespace ChampionsOfForest
 				if (w > 80 && (Random.value < 0.50f + 0.4 * mf + dif * 0.07 || w > 2200 && dif > 6))
 				{
 					rarity = 2;
-					if (w > 180 && (Random.value < 0.50f + 0.35 * mf + 0.05f * dif) || w > 4000 && dif > 7)
+					if (w > 180 && (Random.value < 0.50f + 0.35 * mf + 0.05f * dif) || w > 5000 && dif > 7 && Random.value < 0.90f)
 					{
-						if (dif > 0)
+						if (dif > 0 || Random.value < 0.05f)
 						{
 							rarity = 3;
-							if (w > 360 && (Random.value < 0.5f + 0.22 * mf + 0.034f * dif) || dif > 8)
+							if (w > 360 && (Random.value < 0.5f + 0.22 * mf + 0.034f * dif) || dif > 8 && Random.value < 0.70f)
 							{
-								if (dif > 1)
+								if (dif > 1 || Random.value < 0.02f)
 								{
 									rarity = 4;
 									if (w > 720 && (Random.value < 0.26f + 0.085 * mf + 0.02f * dif))
 									{
-										if (dif > 2)
+										if (dif > 2 || Random.value < 0.01f)
 										{
 											rarity = 5;
 											if (w > 1440 && (Random.value < 0.18f + 0.033 * mf + (0.003f * dif)))
 											{
-												if (dif > 3)
+												if (dif > 3 || Random.value < 0.05f)
 												{
 													rarity = 6;
 													if (w > 5000 && (Random.value < 0.04f + 0.025 * mf))
 													{
-														if (dif > 4)
+														if (dif > 4 || Random.value < 0.001f)
 														{
 															rarity = 7;
 														}

@@ -143,14 +143,22 @@ namespace ChampionsOfForest.Effects
 			gameObject.SetActive(false);
 			transform.localScale = Vector3.one * radius * 2;
 			AssignMaterialProperties(color);
+			var light = gameObject.AddComponent<Light>();
+			light.color = color;
+			light.range = radius/2;
+			light.intensity = 5f;
+			light.shadows = LightShadows.None;
+			light.type = LightType.Point;
 		}
 
 		private void AssignMaterialProperties(Color color)
 		{
 			var mat = new Material(shader);
-
 			mat.SetColor("_Color", color);
-			gameObject.GetComponent<Renderer>().material = mat;
+			var renderer = gameObject.GetComponent<MeshRenderer>();
+			renderer.material = mat;
+			renderer.receiveShadows = false;
+			renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		}
 
 		public void Enable()
@@ -172,7 +180,19 @@ namespace ChampionsOfForest.Effects
 		public void UpdatePosition(Vector3 position)
 		{
 			Enable();
+			var radsqr = transform.localScale.x + 0.001f;
+			radsqr *= radsqr;
+			Vector3 dist = (Camera.main.transform.position - position);
+			var sqrDist = (dist).sqrMagnitude;
+			if (sqrDist <= radsqr)
+			{
+				position -= dist.normalized *( Mathf.Sqrt(sqrDist)+ 0.001f);
+				
+			}
+
+
 			transform.position = position;
+
 		}
 
 		public void SetRadius(float radius)

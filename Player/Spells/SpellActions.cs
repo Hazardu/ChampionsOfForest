@@ -54,45 +54,43 @@ namespace ChampionsOfForest.Player
 			{
 				blinkPoint = LocalPlayer.Transform.position + t.forward * ModdedPlayer.Stats.spell_blinkRange;
 			}
-			if (ModdedPlayer.Stats.spell_blinkDamage > 0)
+			
+			RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one * 1.2f, blinkPoint - t.position, t.rotation, Vector3.Distance(blinkPoint, t.position) + 1);
+			foreach (RaycastHit hit in hits)
 			{
-				RaycastHit[] hits = Physics.BoxCastAll(t.position, Vector3.one * 1.2f, blinkPoint - t.position, t.rotation, Vector3.Distance(blinkPoint, t.position) + 1);
-				foreach (RaycastHit hit in hits)
+				if (hit.transform.CompareTag("enemyCollide"))
 				{
-					if (hit.transform.CompareTag("enemyCollide"))
+					float dmg = ModdedPlayer.Stats.spell_blinkDamage + ModdedPlayer.Stats.spellFlatDmg* ModdedPlayer.Stats.spell_blinkDamageScaling;
+					dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+					if (GameSetup.IsMpClient)
 					{
-						ModAPI.Console.Write("Hit enemy on layer " + hit.transform.gameObject.layer);
-						float dmg = ModdedPlayer.Stats.spell_blinkDamage + ModdedPlayer.Stats.spellFlatDmg* ModdedPlayer.Stats.spell_blinkDamageScaling;
-						dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-						if (GameSetup.IsMpClient)
-						{
-							BoltEntity enemyEntity = hit.transform.GetComponentInParent<BoltEntity>();
-							if (enemyEntity == null)
-								enemyEntity = hit.transform.gameObject.GetComponent<BoltEntity>();
+						BoltEntity enemyEntity = hit.transform.GetComponentInParent<BoltEntity>();
+						if (enemyEntity == null)
+							enemyEntity = hit.transform.gameObject.GetComponent<BoltEntity>();
 
-							if (enemyEntity != null)
-							{
-								PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
-								playerHitEnemy.hitFallDown = true;
-								playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
-								playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
-								playerHitEnemy.Send();
-							}
+						if (enemyEntity != null)
+						{
+							PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
+							playerHitEnemy.hitFallDown = true;
+							playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
+							playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
+							playerHitEnemy.Send();
+						}
+					}
+					else
+					{
+						if (EnemyManager.enemyByTransform.ContainsKey(hit.transform.root))
+						{
+								EnemyManager.enemyByTransform[hit.transform.root].HitMagic(dmg);
 						}
 						else
 						{
-							if (EnemyManager.enemyByTransform.ContainsKey(hit.transform.root))
-							{
-								 EnemyManager.enemyByTransform[hit.transform.root].HitMagic(dmg);
-							}
-							else
-							{
-								hit.transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
-							}
+							hit.transform.SendMessageUpwards("HitMagic", dmg, SendMessageOptions.DontRequireReceiver);
 						}
 					}
 				}
 			}
+			
 			if (ModdedPlayer.Stats.spell_blinkDoExplosion)
 			{
 				Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Boom);
@@ -159,9 +157,9 @@ namespace ChampionsOfForest.Player
 		public static void CreateHealingDome()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
-			float radius = 10f;
-			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * ModdedPlayer.Stats.healthRecoveryPerSecond * 2 + 23.5f)*ModdedPlayer.Stats.allRecoveryMult;
-
+			float radius = 14f;
+			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * ModdedPlayer.Stats.healthRecoveryPerSecond * 10 + 43.5f)*ModdedPlayer.Stats.allRecoveryMult;
+			healing += ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.SpellDamageMult * 0.1f;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -173,8 +171,12 @@ namespace ChampionsOfForest.Player
 					w.Write(pos.z);
 					w.Write(radius);
 					w.Write(healing);
-					w.Write(ModdedPlayer.Stats.spell_healingDomeGivesImmunity);
-					w.Write(ModdedPlayer.Stats.spell_healingDomeRegEnergy);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeGivesImmunity.value);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeRegEnergy.value);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeCooldownRate);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeSpellCostReduction);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeDamageIncrease);
+					w.Write(ModdedPlayer.Stats.spell_healingDomeDamageResistance);
 					w.Write(ModdedPlayer.Stats.spell_healingDomeDuration);
 					w.Close();
 				}
@@ -355,7 +357,7 @@ namespace ChampionsOfForest.Player
 		{
 			float max = ModdedPlayer.Stats.spell_shieldMax + ModdedPlayer.Stats.spellFlatDmg;
 			max *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-			float gain = ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.spellFlatDmg / 20;
+			float gain = ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.spellFlatDmg / 35;
 			gain *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Clamp(ModdedPlayer.instance.damageAbsorbAmounts[1] + Time.deltaTime * gain, 0, max);
 			ShieldCastTime = Time.time;
@@ -388,10 +390,10 @@ namespace ChampionsOfForest.Player
 		{
 			float speed = ModdedPlayer.Stats.spell_warCryAtkSpeed + (ModdedPlayer.Stats.TotalMagicDamageMultiplier - 1) / 400;
 			speed = Mathf.Min(speed, 1.75f);
-			float dmg = ModdedPlayer.Stats.spell_warCryDamage + (ModdedPlayer.Stats.TotalMagicDamageMultiplier - 1) / 400;
-			dmg = Mathf.Min(dmg, 1.75f);
+			float dmg = speed;//ModdedPlayer.Stats.spell_warCryDamage + (ModdedPlayer.Stats.TotalMagicDamageMultiplier - 1) / 400;
+			//dmg = Mathf.Min(dmg, 1.75f);
 
-			WarCry.GiveEffect(speed, dmg, ModdedPlayer.Stats.spell_warCryGiveDamage, ModdedPlayer.Stats.spell_warCryGiveArmor, WarCryArmor);
+			WarCry.GiveEffect(speed, dmg, ModdedPlayer.Stats.spell_warCryGiveDamage, ModdedPlayer.Stats.spell_warCryGiveArmor, WarCryArmor, ModdedPlayer.Stats.spell_warCryGiveDamageResistance);
 			WarCry.SpawnEffect(LocalPlayer.Transform.position, ModdedPlayer.Stats.spell_warCryRadius);
 			if (BoltNetwork.isRunning)
 			{
@@ -411,6 +413,7 @@ namespace ChampionsOfForest.Player
 						w.Write(ModdedPlayer.Stats.spell_warCryGiveDamage);
 						w.Write(ModdedPlayer.Stats.spell_warCryGiveArmor);
 						w.Write(WarCryArmor);
+						w.Write(ModdedPlayer.Stats.spell_warCryGiveDamageResistance);
 						w.Close();
 					}
 					NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
@@ -1023,7 +1026,7 @@ portal_postPickingPos:
 			Vector3 pos = LocalPlayer.Transform.position;
 			BuffDB.AddBuff(1, 66, 0.1f, 2.5f);
 			float dmg = ModdedPlayer.Stats.spell_cataclysmDamage + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_cataclysmDamageScaling;
-			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.fireDamage;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))

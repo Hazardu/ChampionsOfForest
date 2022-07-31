@@ -87,7 +87,16 @@ namespace ChampionsOfForest.Network
 										else if (spellid == 2)
 										{
 											Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-											HealingDome.CreateHealingDome(pos, r.ReadSingle(), r.ReadSingle(), r.ReadBoolean(), r.ReadBoolean(), r.ReadSingle());
+											HealingDome.CreateHealingDome(pos, 
+												r.ReadSingle(),
+												r.ReadSingle(),
+												r.ReadBoolean(),
+												r.ReadBoolean(),
+												r.ReadSingle(),
+												r.ReadSingle(),
+												r.ReadSingle(),
+												r.ReadSingle(),
+												r.ReadSingle());
 										}
 										else if (spellid == 3)
 										{
@@ -108,13 +117,10 @@ namespace ChampionsOfForest.Network
 											float dmg = r.ReadSingle();
 											bool GiveDmg = r.ReadBoolean();
 											bool GiveAr = r.ReadBoolean();
-											int ar = 0;
-											if (GiveAr)
-											{
-												ar = r.ReadInt32();
-											}
+											int ar = r.ReadInt32();
+											bool GiveDr = r.ReadBoolean();
 
-											WarCry.Cast(pos, radius, speed, dmg, GiveDmg, GiveAr, ar);
+											WarCry.Cast(pos, radius, speed, dmg, GiveDmg, GiveAr, ar, GiveDr);
 										}
 										else if (spellid == 6)
 										{
@@ -305,9 +311,9 @@ namespace ChampionsOfForest.Network
 														w.Write(packed);
 														w.Write(ep.enemyName);
 														w.Write(ep.level);
-														w.Write(ep.extraHealth + ep.HealthScript.Health);
+														w.Write((float)ep.HP);
 														w.Write(ep.DamageTotal);
-														w.Write(ep.maxHealth);
+														w.Write((float)ep.maxHealth);
 														w.Write(ep.bounty);
 														w.Write(ep.armor);
 														w.Write(ep.armorReduction);
@@ -347,9 +353,9 @@ namespace ChampionsOfForest.Network
 											BoltEntity entity = BoltNetwork.FindEntity(new Bolt.NetworkId(packed));
 											string name = r.ReadString();
 											int level = r.ReadInt32();
-											float health = r.ReadSingle();
+											double health = r.ReadSingle();
 											float damage = r.ReadSingle();
-											float maxhealth = r.ReadSingle();
+											double maxhealth = r.ReadSingle();
 											long bounty = r.ReadInt64();
 											int armor = r.ReadInt32();
 											int armorReduction = r.ReadInt32();
@@ -363,11 +369,11 @@ namespace ChampionsOfForest.Network
 											if (EnemyManager.clinetProgressions.ContainsKey(entity))
 											{
 												ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
-												cp.Update(entity, name, level, health, damage, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+												cp.Update(entity, name, level, (float)health, damage, (float)maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 											else
 											{
-												new ClientEnemyProgression(entity).Update(entity, name, level, health, damage, maxhealth, bounty, armor, armorReduction, steadfast, affixes);
+												new ClientEnemyProgression(entity).Update(entity, name, level, (float)health, damage, (float)maxhealth, bounty, armor, armorReduction, steadfast, affixes);
 											}
 
 										}
@@ -972,6 +978,50 @@ namespace ChampionsOfForest.Network
 
 										break;
 									}
+								case 44:
+									if (GameSetup.IsMpClient)
+									{
+										var entity = BoltNetwork.FindEntity(new Bolt.NetworkId(r.ReadUInt64()));
+										if (EnemyManager.clinetProgressions.ContainsKey(entity))
+										{
+											ClientEnemyProgression cp = EnemyManager.clinetProgressions[entity];
+											cp.UpdateDynamic(r.ReadSingle(), r.ReadInt32(), r.ReadInt32(), r.ReadSingle());
+											UnityEngine.Debug.Log("Received update dynamic client enemy cmd");
+										}
+										else
+										{
+											UnityEngine.Debug.LogWarning("Not fonund CP entity");
+										}
+									}
+									else
+									{
+										ulong packed = r.ReadUInt64();
+										if (EnemyManager.hostDictionary.TryGetValue(packed, out var enemy))
+										{
+											using (MemoryStream answerStream = new MemoryStream())
+											{
+												using (BinaryWriter w = new BinaryWriter(answerStream))
+												{
+													w.Write(44);
+													w.Write(packed);
+													w.Write((float)enemy.HP);
+													w.Write(enemy.armor);
+													w.Write(enemy.armorReduction);
+													w.Write(enemy.DamageAmp);
+													w.Close();
+												}
+												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
+												answerStream.Close();
+											}
+											UnityEngine.Debug.Log("CP request sent"); 
+										}
+										else
+										{
+											UnityEngine.Debug.Log("Host doesnt have enemy with that packed");
+
+										}
+									}
+									break;
 							}
 					}
 					catch (Exception e)

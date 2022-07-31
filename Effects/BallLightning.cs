@@ -153,7 +153,7 @@ public class BallLightning : MonoBehaviour
 				{
 					hit.transform.SendMessageUpwards("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
 					hit.transform.SendMessage("Hit", (int)dmg, SendMessageOptions.DontRequireReceiver);
-					if ((hit.transform.position - transform.position).sqrMagnitude < 36)
+					if ((hit.transform.position - transform.position).sqrMagnitude < 100)
 					{
 						hit.transform.SendMessageUpwards("Explosion", (int)hit.distance, SendMessageOptions.DontRequireReceiver);
 						hit.transform.SendMessage("Explosion", (int)hit.distance, SendMessageOptions.DontRequireReceiver);

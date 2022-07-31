@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> fireDamage;
 			public readonly MultiOperationPlayerStat<float> healthPerSecRate;
 			public readonly MultiOperationPlayerStat<float> staminaPerSecRate;
-			public readonly MultiplicativePlayerStat<float> cooldown;
+			public readonly MultiplicativePlayerStat<float> cooldown, cooldownRate;
 			public readonly MultiOperationPlayerStat<float> allDamage;
 			public readonly MultiOperationPlayerStat<float> attackSpeed;
 			public readonly MultiOperationPlayerStat<float> movementSpeed;
@@ -126,6 +126,10 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_healingDomeGivesImmunity;
 			public readonly BooleanPlayerStat spell_healingDomeRegEnergy;
 			public readonly AdditivePlayerStat<float> spell_healingDomeDuration;
+			public readonly AdditivePlayerStat<float> spell_healingDomeCooldownRate;
+			public readonly AdditivePlayerStat<float> spell_healingDomeSpellCostReduction;
+			public readonly AdditivePlayerStat<float> spell_healingDomeDamageIncrease;
+			public readonly AdditivePlayerStat<float> spell_healingDomeDamageResistance;
 			//flare 	
 			public readonly AdditivePlayerStat<float> spell_flareDamage;
 			public readonly AdditivePlayerStat<float> spell_flareDamageScaling;
@@ -151,7 +155,7 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_warCryAtkSpeed;
 			public readonly AdditivePlayerStat<float> spell_warCryDamage;
 			public readonly BooleanPlayerStat spell_warCryGiveDamage;
-			public readonly BooleanPlayerStat spell_warCryGiveArmor;
+			public readonly BooleanPlayerStat spell_warCryGiveArmor, spell_warCryGiveDamageResistance;
 			//magic arrow
 			public readonly BooleanPlayerStat spell_magicArrowDmgDebuff;
 			public readonly BooleanPlayerStat spell_magicArrowCrit;
@@ -240,6 +244,10 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_snowstormPullEnemiesIn;
 
 			public readonly AdditivePlayerStat<float> spell_berserkDuration;
+			public readonly AdditivePlayerStat<float> spell_berserkDamage;
+			public readonly AdditivePlayerStat<float> spell_berserkMovementSpeed;
+			public readonly AdditivePlayerStat<float> spell_berserkAttackSpeed;
+			public readonly AdditivePlayerStat<float> spell_berserkMaxHP;
 
 
 			//perks
@@ -326,13 +334,14 @@ namespace ChampionsOfForest.Player
 				this.meleeDmgFromStr = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.spellDmgFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.rangedDmgFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
-				this.energyRecoveryFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
+				this.energyRecoveryFromInt = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P2");
 				this.maxEnergyFromAgi = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.maxHealthFromVit = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat);
 				this.fireDamage = new AdditivePlayerStat<float>(0.0f, addfloat, substractfloat, "P0");
 				this.healthPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.staminaPerSecRate = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.cooldown = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P1");
+				this.cooldownRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P1");
 				this.allDamage = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.attackSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P0");
 				this.movementSpeed = new MultiOperationPlayerStat<float>(1, 1, addfloat, substractfloat, multfloat, dividefloat, "P1");
@@ -409,8 +418,8 @@ namespace ChampionsOfForest.Player
 				//spells
 
 				//blink
-				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
-				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat, "P0");
+				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(10.0f, addfloat, substractfloat);
+				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P0");
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
 				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P0");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
@@ -432,9 +441,13 @@ namespace ChampionsOfForest.Player
 				this.spell_healingDomeGivesImmunity = new BooleanPlayerStat(false);
 				this.spell_healingDomeRegEnergy = new BooleanPlayerStat(false);
 				this.spell_healingDomeDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
+				this.spell_healingDomeCooldownRate= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_healingDomeSpellCostReduction= new AdditivePlayerStat<float>(1, addfloat, substractfloat);
+				this.spell_healingDomeDamageIncrease= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_healingDomeDamageResistance= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				//flare 	
 				this.spell_flareDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
-				this.spell_flareDamageScaling = new AdditivePlayerStat<float>(1.75f, addfloat, substractfloat, "P0");
+				this.spell_flareDamageScaling = new AdditivePlayerStat<float>(1.5f, addfloat, substractfloat, "P0");
 				this.spell_flareSlow = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat, "P0");
 				this.spell_flareBoost = new AdditivePlayerStat<float>(1.35f, addfloat, substractfloat);
 				this.spell_flareHeal = new AdditivePlayerStat<float>(11, addfloat, substractfloat);
@@ -458,13 +471,14 @@ namespace ChampionsOfForest.Player
 				this.spell_warCryDamage = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat, "P0");
 				this.spell_warCryGiveDamage = new BooleanPlayerStat(false);
 				this.spell_warCryGiveArmor = new BooleanPlayerStat(false);
+				this.spell_warCryGiveDamageResistance = new BooleanPlayerStat(false);
 				//magic arrow
 				this.spell_magicArrowDmgDebuff = new BooleanPlayerStat(false);
 				this.spell_magicArrowCrit = new BooleanPlayerStat(false);
 				this.spell_magicArrowDoubleSlow = new BooleanPlayerStat(false);
 				this.spell_magicArrowVolleyCount = new AdditivePlayerStat<int>(0, addint, substractint);
 				this.spell_magicArrowDuration = new AdditivePlayerStat<float>(10f, addfloat, substractfloat);
-				this.spell_magicArrowDamageScaling = new AdditivePlayerStat<float>(5.55f, addfloat, substractfloat, "P0");
+				this.spell_magicArrowDamageScaling = new AdditivePlayerStat<float>(4.2f, addfloat, substractfloat, "P0");
 				//purge
 				this.spell_blackFlameDamageScaling = new AdditivePlayerStat<float>(1 / 2.5f, addfloat, substractfloat, "P0");
 
@@ -516,7 +530,7 @@ namespace ChampionsOfForest.Player
 				this.spell_seekingArrow = new BooleanPlayerStat(false);
 				//cataclysm			  
 				this.spell_cataclysmDamage = new AdditivePlayerStat<float>(40f, addfloat, substractfloat, "P0");
-				this.spell_cataclysmDamageScaling = new AdditivePlayerStat<float>(15f, addfloat, substractfloat, "P0");
+				this.spell_cataclysmDamageScaling = new AdditivePlayerStat<float>(25f, addfloat, substractfloat, "P0");
 				this.spell_cataclysmDuration = new AdditivePlayerStat<float>(12f, addfloat, substractfloat);
 				this.spell_cataclysmRadius = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_cataclysmArcane = new BooleanPlayerStat(false);
@@ -532,9 +546,9 @@ namespace ChampionsOfForest.Player
 				this.spell_fartRadius = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartKnockback = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
 				this.spell_fartSlow = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat, "P0");
-				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
+				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(25f, addfloat, substractfloat);
 				this.spell_fartBaseDmg = new AdditivePlayerStat<float>(50f, addfloat, substractfloat);
-				this.spell_fartDamageScaling = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat);
+				this.spell_fartDamageScaling = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				//taunt
 				this.spell_taunt_speedChange = new MultiplicativePlayerStat<float>(2, multfloat, dividefloat, "P0");
 				this.spell_taunt_pullEnemiesIn = new BooleanPlayerStat(false);
@@ -545,7 +559,10 @@ namespace ChampionsOfForest.Player
 				this.spell_snowstormPullEnemiesIn = new BooleanPlayerStat(false);
 
 				this.spell_berserkDuration = new AdditivePlayerStat<float>(30, addfloat, substractfloat);
-
+				this.spell_berserkDamage = new AdditivePlayerStat<float>(1.3f, addfloat, substractfloat);
+				this.spell_berserkMovementSpeed = new AdditivePlayerStat<float>(1.35f, addfloat, substractfloat);
+				this.spell_berserkAttackSpeed = new AdditivePlayerStat<float>(1.25f, addfloat, substractfloat);
+				this.spell_berserkMaxHP = new AdditivePlayerStat<float>(1f, addfloat, substractfloat);
 
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
@@ -652,8 +669,8 @@ namespace ChampionsOfForest.Player
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
 			public float TotalArmor => armor.Value - instance.lostArmor;
 			public float TotalStaminaRecoveryAmount => (baseStaminaRecovery + staminaRecoveryperSecond) * TotalStaminaRecoveryMultiplier;
-			public float TotalStaminaRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaRecoveryperSecond;
-			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult;
+			public float TotalStaminaRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaPerSecRate;
+			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaPerSecRate;
 
 
 			public float MeleeDamageMult => allDamage.Value * meleeIncreasedDmg.Value * (1 + (strength * meleeDmgFromStr));

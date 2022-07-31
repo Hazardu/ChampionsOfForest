@@ -25,9 +25,9 @@ namespace ChampionsOfForest
 		{
 			if (extraHealth > 0)
 			{
-				float i = Mathf.Min(extraHealth, damage);
+				double i = Math.Min(extraHealth, (double)damage);
 				extraHealth -= i;
-				damage -= i;
+				damage -=(float)i;
 			}
 			if (damage > 0)
 			{
@@ -46,9 +46,9 @@ namespace ChampionsOfForest
 
 			if (extraHealth > 0)
 			{
-				float i = Mathf.Min(extraHealth, damage);
+				double i = Math.Min(extraHealth, (double)damage);
 				extraHealth -= i;
-				damage -= i;
+				damage -= (float)i;
 			}
 			if (damage > 0)
 			{

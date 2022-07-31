@@ -20,10 +20,12 @@ namespace ChampionsOfForest.Effects
 		public static void OnEnable()
 		{
 			active = true;
-			ModdedPlayer.Stats.attackSpeed.Multiply( 1.25f);
-			ModdedPlayer.Stats.allDamage.Multiply(1.25f);
-			ModdedPlayer.Stats.movementSpeed.Multiply(  1.35f);
-			ModdedPlayer.Stats.allDamageTaken.Multiply(  5f);
+			ModdedPlayer.Stats.allDamage.Multiply(ModdedPlayer.Stats.spell_berserkDamage);
+			ModdedPlayer.Stats.attackSpeed.Multiply(ModdedPlayer.Stats.spell_berserkAttackSpeed);
+			ModdedPlayer.Stats.movementSpeed.Multiply(ModdedPlayer.Stats.spell_berserkMovementSpeed);
+			ModdedPlayer.Stats.maxHealthMult.Multiply(ModdedPlayer.Stats.spell_berserkMaxHP);
+
+			ModdedPlayer.Stats.allDamageTaken.Multiply(2f);
 			castTimestamp = Time.time;
 			setbonusAmount = 0;
 		}
@@ -31,10 +33,11 @@ namespace ChampionsOfForest.Effects
 		public static void OnDisable()
 		{
 			active = false;
-			ModdedPlayer.Stats.attackSpeed.Divide( 1.25f);
-			ModdedPlayer.Stats.allDamage.Divide( 1.25f);
-			ModdedPlayer.Stats.movementSpeed.Divide( 1.35f);
-			ModdedPlayer.Stats.allDamageTaken.Divide( 5f);
+			ModdedPlayer.Stats.allDamage.Divide(ModdedPlayer.Stats.spell_berserkDamage);
+			ModdedPlayer.Stats.attackSpeed.Divide(ModdedPlayer.Stats.spell_berserkAttackSpeed);
+			ModdedPlayer.Stats.movementSpeed.Divide(ModdedPlayer.Stats.spell_berserkMovementSpeed);
+			ModdedPlayer.Stats.maxHealthMult.Divide(ModdedPlayer.Stats.spell_berserkMaxHP);
+			ModdedPlayer.Stats.allDamageTaken.Divide( 2f);
 			if (ModdedPlayer.Stats.i_setcount_BerserkSet < 2)
 				BuffDB.AddBuff(18, 51, LocalPlayer.Stats.Energy, 15);
 		}

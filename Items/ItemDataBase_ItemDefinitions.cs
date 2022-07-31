@@ -2380,7 +2380,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_217/*og:The Great Iron Horn*/, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216("10%")/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_216("10%") + Translations.ItemDataBase_ItemDefinitions_608/*og:When using Warcry, you and all allies recieve armor bonus equal to <color=gold>10%</color> of your armor*/, //tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 2,
@@ -2388,8 +2388,16 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
-				onEquip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = true,
-				onUnequip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = false,
+				onEquip = () =>
+				{
+					ModdedPlayer.Stats.spell_warCryGiveArmor.value = true;
+					ModdedPlayer.Stats.spell_warCryGiveDamageResistance.value = true;
+				},
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.spell_warCryGiveArmor.value = false;
+					ModdedPlayer.Stats.spell_warCryGiveDamageResistance.value = true;
+				},
 			}.PossibleStats[0][0].Multipier = 5;
 
 			//Item 2/5
@@ -2853,6 +2861,7 @@ new int[] {0,0,0,0,62,63,64},
 				new int[] {-1},
 				new int[] {-1},
 				new int[] {-1},
+				new int[] {-1},
 				new int[] {15,14,45,7,35,10},
 				new int[] {62,63,64, },
 				new int[] {53,61 },
@@ -2871,7 +2880,7 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(15),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(15),
-			}.PossibleStats[0][0].Multipier = 3;
+			}.PossibleStats[0][0].Multipier = 5;
 
 			BaseItem jaggedRipper = new BaseItem(new int[][]
 			{
@@ -4327,6 +4336,7 @@ new int[] {0,0,0,0,62,63,64},
 				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
+
 				minLevel = 20,
 				maxLevel = 21,
 				CanConsume = false,
@@ -5201,7 +5211,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_426/*og:Yuki-Onna Strides*/, //tr
-				description = Translations.ItemDataBase_ItemDefinitions_433("50%","300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
+				description = Translations.ItemDataBase_ItemDefinitions_433("50%", "300%")/*og:Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by 50%*/, //tr
 				lore = Translations.ItemDataBase_ItemDefinitions_428/*og:Boots looted off a snow demon*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_429("50%")/*og:Increses snowstorm damage by 50%*/, //tr
 				Rarity = 7,
@@ -5715,7 +5725,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(1),
-				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(1),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(1),
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100)
 			};
@@ -5739,7 +5749,7 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(2),
-				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(2),
+				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(2),
 				type = BaseItem.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100)
 			};
@@ -6077,7 +6087,7 @@ new int[] {0,0,0,0,62,63,64},
 				name = Translations.ItemDataBase_ItemDefinitions_491/*og:Stomach Acid*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_492/*og:Removes all stats with negative values from an item*/, //tr
-				Rarity = 3,
+				Rarity = 4,
 				minLevel = 1,
 				maxLevel = 2,
 				CanConsume = false,
@@ -6512,7 +6522,7 @@ new int[] {0,0,0,0,62,63,64},
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_521/*og:Flame Pauldrons*/, //tr
 				description = "", //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_522(10, "350%")/*og:Firebolt costs 30 additional energy to cast and its damage scaling is increased by 250%*/, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_522(10, "750%")/*og:Firebolt costs 30 additional energy to cast and its damage scaling is increased by 250%*/, //tr
 				Rarity = 7,
 				minLevel = 5,
 				maxLevel = 8,
@@ -6523,12 +6533,12 @@ new int[] {0,0,0,0,62,63,64},
 				onEquip = () =>
 				{
 					ModdedPlayer.Stats.spell_fireboltEnergyCost.Add(10);
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(3.5f);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(7.5f);
 				},
 				onUnequip = () =>
 				{
 					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(10);
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(3.5f);
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(4.5f);
 				},
 			};
 			new BaseItem(new Stat[][]
@@ -7776,8 +7786,8 @@ new int[] {0,0,0,0,62,63,64},
 
 			})
 			{
-				name = "Devil Dancers", //tr
-				uniqueStat = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active.", //tr
+				name = Translations.ItemDataBase_ItemDefinitions_609, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_610, //tr
 				Rarity = 7,
 				minLevel = 20,
 				maxLevel = 28,
@@ -7787,6 +7797,181 @@ new int[] {0,0,0,0,62,63,64},
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Add(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
 				onUnequip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Substract(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
+			};
+
+
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
+				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY },
+				new [] {MELEEDAMAGEINCREASE, SPELLDAMAGEINCREASE },
+				new [] {ATTACKSPEED},
+				new [] {CRITICALHITCHANCE},
+				new [] {CRITICALHITDAMAGE},
+				new [] {MELEEDMGFROMSTR},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {BLOCK, NONE},
+				new [] {MAXIMUMLIFE},
+
+			})
+			{
+				name = Translations.ItemDataBase_ItemDefinitions_611, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_612("300%"), //tr
+				Rarity = 7,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				icon = Res.ResourceLoader.GetTexture(88),
+				onEquip = () => ModdedPlayer.Stats.spell_berserkDamage.Add(3f),
+				onUnequip = () => ModdedPlayer.Stats.spell_berserkDamage.Substract(3f),
+			}.PossibleStats[0][0].Multipier = 5;
+			new BaseItem(new Stat[][]
+			{
+				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
+				new [] {BASEMELEEDAMAGE, NONE},
+				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY },
+				new [] {MELEEDAMAGEINCREASE, SPELLDAMAGEINCREASE },
+				new [] {ATTACKSPEED},
+				new [] {CRITICALHITCHANCE},
+				new [] {CRITICALHITDAMAGE},
+				new [] {MELEEDMGFROMSTR},
+				new [] {STRENGTH},
+				new [] {ALL},
+				new [] {ALL},
+
+			})
+			{
+				name = Translations.ItemDataBase_ItemDefinitions_613, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_612("100%"), //tr
+				Rarity = 6,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Weapon,
+				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				icon = Res.ResourceLoader.GetTexture(88),
+				onEquip = () => ModdedPlayer.Stats.spell_berserkDamage.Add(1f),
+				onUnequip = () => ModdedPlayer.Stats.spell_berserkDamage.Substract(1f),
+			}.PossibleStats[0][0].Multipier = 2;
+
+			new BaseItem(new Stat[][]
+			{
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE, NONE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,DAMAGEREDUCTION},
+				new [] {ALLATTRIBUTES,AGILITY,STRENGTH,INTELLIGENCE,VITALITY},
+
+			})
+			{
+				name = Translations.ItemDataBase_ItemDefinitions_614, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_615("30%"), //tr
+				Rarity = 5,
+				minLevel = 6,
+				maxLevel = 9,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () =>
+				{
+					ModdedPlayer.Stats.spell_berserkAttackSpeed.Add(0.3f);
+					ModdedPlayer.Stats.spell_berserkMovementSpeed.Add(0.3f);
+				},
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.spell_berserkAttackSpeed.Substract(0.3f);
+					ModdedPlayer.Stats.spell_berserkMovementSpeed.Substract(0.3f);
+				},
+			};
+			new BaseItem(new Stat[][]
+			{
+				new [] {STRENGTH,VITALITY,AGILITY,ALLATTRIBUTES,INTELLIGENCE},
+				new [] {MAXENERGYFROMAGI,MELEEDMGFROMSTR,SPELLDMGFROMINT,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT},
+				new [] {ARMOR,DAMAGEREDUCTION},
+				new [] { CRITICALHITCHANCE, CRITICALHITDAMAGE},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {ALL},
+				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE, NONE},
+				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,DAMAGEREDUCTION},
+
+			})
+			{
+				name = Translations.ItemDataBase_ItemDefinitions_616, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_615("100%"), //tr
+				Rarity = 7,
+				minLevel = 60,
+				maxLevel = 62,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Amulet,
+				icon = Res.ResourceLoader.GetTexture(100),
+				onEquip = () =>
+				{
+					ModdedPlayer.Stats.spell_berserkAttackSpeed.Add(1f);
+					ModdedPlayer.Stats.spell_berserkMovementSpeed.Add(1f);
+				},
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.spell_berserkAttackSpeed.Substract(1f);
+					ModdedPlayer.Stats.spell_berserkMovementSpeed.Substract(1f);
+				},
+			};
+			new BaseItem(new Stat[][]
+			{
+				new[] { LIFEPERSECOND },
+				new[] { ARMOR, NONE, ALLHEALINGPERCENT },
+				new[] { ALL},
+				new[] { SPELLDMGFROMINT },
+				new[] { SPELLCOSTREDUCTION,SPELLCOSTTOSTAMINA,ARMOR,ALLATTRIBUTES},
+				new[] { BASESPELLDAMAGE, SPELLDAMAGEINCREASE, INTELLIGENCE, ALLATTRIBUTES },
+				new[] { BASESPELLDAMAGE, SPELLDAMAGEINCREASE, INTELLIGENCE, DAMAGEREDUCTION },
+				new[] { VITALITY, MAXHEALTHFROMVIT, MAXIMUMLIFE, PERCENTMAXIMUMLIFE, LIFEPERSECOND, LIFEONHIT },
+				new[] { SPELLCOSTREDUCTION, COOLDOWNREDUCTION, CRITICALHITCHANCE, CRITICALHITDAMAGE, ARMOR,MAXHEALTHFROMVIT },
+				new[] { DAMAGEREDUCTION, PERCENTMAXIMUMENERGY, LIFEREGENERATION },
+				new[] { ENERGYPERSECOND, PERCENTMAXIMUMENERGY, MAXENERGYFROMAGI },
+				new[] { INTELLIGENCE, STAMINAPERSECOND, STAMINAREGENERATION, ALLATTRIBUTES, ALLHEALINGPERCENT },
+				new[] { ENERGYONHIT, ENERGYPERSECOND, MAXIMUMLIFE, MASSACREDURATION, MAGICFIND, EXPLOSIONDAMAGE },
+			})
+			{
+				name = Translations.ItemDataBase_ItemDefinitions_617, //tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_618,//tr
+				Rarity = 7,
+				minLevel = 1,
+				maxLevel = 3,
+				CanConsume = false,
+				StackSize = 1,
+				type = BaseItem.ItemType.Bracer,
+				icon = Res.ResourceLoader.GetTexture(93),
+				onEquip = () =>
+				{
+					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Add(1.0f);
+					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Substract(0.4f);
+				},
+				onUnequip = () =>
+				{
+					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Substract(1.0f);
+					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Add(0.4f);
+				},
 			};
 		}
 	}

@@ -87,6 +87,7 @@ namespace ChampionsOfForest.Player
 				}
 			}
 			bool isHeadshot = false;
+			Debug.Log(this.stickToJoints[num].name);
 			if (this.stickToJoints.Length > 0 && this.stickToJoints[num] && this.stickToJoints[num].GetComponent<global::headShotObject>())
 			{
 				isHeadshot = true;

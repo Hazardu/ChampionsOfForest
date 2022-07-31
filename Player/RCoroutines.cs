@@ -175,9 +175,45 @@ namespace ChampionsOfForest.Player
 					}
 					if ((bool)projectileObject.GetComponent<Rigidbody>())
 					{
+						var proj_rb = projectileObject.GetComponent<Rigidbody>();
+						proj_rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+						var forceMult = 1.0f;
+						if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
+						{
+							forceMult *= 1.1f;
+							proj_rb.useGravity = false;
+							if (ModReferences.bloodInfusedMaterial == null)
+							{
+								ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+								{
+									EmissionColor = new Color(0.6f, 0.1f, 0),
+									renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
+									MainColor = Color.red,
+									Metalic = 1f,
+									Smoothness = 0.9f,
+								});
+							}
+							var trail = projectileObject.AddComponent<TrailRenderer>();
+							trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
+							trail.material = ModReferences.bloodInfusedMaterial;
+							trail.widthMultiplier = 0.45f;
+							trail.time = 1.25f;
+							trail.autodestruct = false;
+						}
+						if (i > 0)
+						{
+							float dmgPen = 1;
+							for (int k = 0; k < i; k++)
+							{
+								dmgPen *= ModdedPlayer.Stats.perk_multishotDamagePennalty.Value;
+							}
+							//using XBArrowDamageMod as a typename here results in erros with modapi
+							projectileObject.SendMessage("ModifyStartingDamage", dmgPen, SendMessageOptions.DontRequireReceiver);
+						}
 						if (itemCache.MatchRangedStyle(TheForest.Items.Item.RangedStyle.Shoot))
 						{
-							projectileObject.GetComponent<Rigidbody>().AddForce(projectileObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange), ForceMode.VelocityChange);
+							proj_rb.AddForce(projectileObject.transform.TransformDirection(Vector3.forward * (0.016666f / Time.fixedDeltaTime) * ModdedPlayer.Stats.projectileSpeed * itemCache._projectileThrowForceRange * forceMult), ForceMode.VelocityChange);
 						}
 						else
 						{
@@ -189,50 +225,23 @@ namespace ChampionsOfForest.Player
 							else
 							{
 								Vector3 proj_force = forceUp * ModdedPlayer.Stats.projectileSpeed * Mathf.Clamp01(num / itemCache._projectileMaxChargeDuration) * (0.016666f / Time.fixedDeltaTime) * itemCache._projectileThrowForceRange;
-								var proj_rb = projectileObject.GetComponent<Rigidbody>();
-								proj_rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-								var col = projectileObject.GetComponent<CapsuleCollider>();
-								if (col)
-									col.height *= ModdedPlayer.Stats.projectileSpeed;
+								var col = projectileObject.GetComponent<Collider>();
+								if (col is CapsuleCollider)
+									((CapsuleCollider)col).height *= ModdedPlayer.Stats.projectileSpeed;
+								else if (col is BoxCollider)
+								{
+									var bcol = ((BoxCollider)col);
+									bcol.size =new Vector3(bcol.size.x, bcol.size.y * ModdedPlayer.Stats.projectileSpeed, bcol.size.z );
+								}	
 								else
-									Debug.LogError("No capsule collider on projectile");
+									Debug.LogError("No collider on projectile");
 								if (GreatBow.isEnabled)
 								{
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;
 								}
-								if (ModdedPlayer.Stats.spell_bia_AccumulatedDamage > 0)
-								{
-									proj_force *= 1.1f;
-									proj_rb.useGravity = false;
-									if (ModReferences.bloodInfusedMaterial == null)
-									{
-										ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-										{
-											EmissionColor = new Color(0.6f, 0.1f, 0),
-											renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
-											MainColor = Color.red,
-											Metalic = 1f,
-											Smoothness = 0.9f,
-										});
-									}
-									var trail = projectileObject.AddComponent<TrailRenderer>();
-									trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-									trail.material = ModReferences.bloodInfusedMaterial;
-									trail.widthMultiplier = 0.45f;
-									trail.time = 1.25f;
-									trail.autodestruct = false;
-								}
-								if (i > 0)
-								{
-									float dmgPen = 1;
-									for (int k = 0; k < i; k++)
-									{
-										dmgPen *= ModdedPlayer.Stats.perk_multishotDamagePennalty.Value;
-									}
-									//using XBArrowDamageMod as a typename here results in erros with modapi
-									projectileObject.SendMessage("ModifyStartingDamage", dmgPen, SendMessageOptions.DontRequireReceiver);
-								}
+								
+							
 								proj_rb.AddForce(proj_force);
 							}
 							if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))

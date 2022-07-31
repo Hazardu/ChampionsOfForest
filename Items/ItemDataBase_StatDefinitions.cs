@@ -201,7 +201,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 1f / 4f, 1f / 4f, 0f, Translations.ItemDataBase_StatDefinitions_23/*og:PERMANENT PERK POINTS*/, scAdd, 6,()=> ModdedPlayer.instance.MutationPoints.ToString(), null, null, StatActions.PERMANENT_perkPointIncrease); //tr
 			i++;
-			new ItemStat(i, 100f, 200f, 4.5f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ Translations.ItemDataBase_StatDefinitions_24/*og: / */ + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
+			new ItemStat(i, 100f, 200f, 4.0f, Translations.ItemDataBase_StatDefinitions_25/*og:EXPERIENCE*/, scAdd, 5,()=> ModdedPlayer.instance.ExpCurrent.ToString("N")+ Translations.ItemDataBase_StatDefinitions_24/*og: / */ + ModdedPlayer.instance.ExpGoal.ToString("N"), null, null, StatActions.PERMANENT_expIncrease); //tr
 			i++;
 			new ItemStat(i, 0.009f, 0.017f, 0.4f, Translations.MainMenu_Guide_109/*og:Movement Speed*/, scAdd, 6, () => ModdedPlayer.Stats.movementSpeed.GetFormattedAmount(), StatActions.AddMoveSpeed, StatActions.RemoveMoveSpeed, StatActions.AddMoveSpeed) { DisplayAsPercent = true, RoundingCount = 2, ValueCap = 0.5f }; //tr
 			i++;
@@ -223,7 +223,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 1f, 1.5f, 1.32f, Translations.MainMenu_Guide_17/*og:Armor*/, scAdd, 2, () => ModdedPlayer.Stats.armor.GetFormattedAmount(), StatActions.AddArmor, StatActions.RemoveArmor, StatActions.AddArmor); //tr
 			i++;
-			new ItemStat(i, 0.003f, 0.005f, 0.8f, Translations.ItemDataBase_StatDefinitions_29/*og:Energy Per Second*/, scAdd, 5, () => ModdedPlayer.Stats.energyRecoveryperSecond.GetFormattedAmount(), StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 3 }; //tr
+		new ItemStat(i, 0.005f, 0.009f, 0.8f, Translations.ItemDataBase_StatDefinitions_29/*og:Energy Per Second*/, scAdd, 5, () => ModdedPlayer.Stats.energyRecoveryperSecond.GetFormattedAmount(), StatActions.AddEnergyRegen, StatActions.RemoveEnergyRegen, StatActions.AddEnergyRegen) { RoundingCount = 2 }; //tr
 			i++;
 			new ItemStat(i, 0.004f, 0.0065f, 0.5f, Translations.ItemDataBase_StatDefinitions_1/*og:Maximum Life*/, scAdd, 6, () => ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount(), f => ModdedPlayer.Stats.maxHealthMult.valueAdditive += f, f => ModdedPlayer.Stats.maxHealthMult.valueAdditive -= f) { DisplayAsPercent = true, RoundingCount = 1 }; //tr
 			i++;

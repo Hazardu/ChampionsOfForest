@@ -217,7 +217,6 @@
 <Compile Include="Items\TheForestItemDBMod.cs"  />
 <Compile Include="Items\UniqueItemFunctions.cs"  />
 <Compile Include="Network\CommandInitializer.cs"  />
-<Compile Include="Network\Commands\Commands.cs"  />
 <Compile Include="Network\COTFCommand.cs"  />
 <Compile Include="Player\Crafting\CraftingIngredient.cs"  />
 <Compile Include="Player\Crafting\CraftingInterface.cs"  />

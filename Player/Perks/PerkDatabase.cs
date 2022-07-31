@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Player
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
@@ -44,7 +44,7 @@ namespace ChampionsOfForest.Player
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
@@ -61,7 +61,7 @@ namespace ChampionsOfForest.Player
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
@@ -72,18 +72,18 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.01f,
+				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.001f,
 
 				category = PerkCategory.Utility,
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
 				name = Translations.PerkDatabase_7,
-				originalDescription = Translations.PerkDatabase_8("1%"),
+				originalDescription = Translations.PerkDatabase_8("0.1%"),
 				textureVariation = 0, //0 or 1
 				stackable = false,
 			};
@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Player
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = -1.5f,
 				posY = 0,
@@ -112,7 +112,7 @@ namespace ChampionsOfForest.Player
 				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
-				cost = 1,
+				cost = 0,
 				scale = 1,
 				posX = 1.5f,
 				posY = 0,
@@ -388,7 +388,7 @@ namespace ChampionsOfForest.Player
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 18 },
 				levelReq = 8,
-				cost = 2,
+				cost = 1,
 				scale = 1,
 				posX = 3f,
 				posY = 2.25f,
@@ -1299,23 +1299,23 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueAdditive += 0.2f; ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1.5f; },
+				onApply = () => { ModdedPlayer.Stats.spellIncreasedDmg.Multiply(1.35f); ModdedPlayer.Stats.spellCost.Multiply(1.7f); },
 
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 15, 55 },
 				levelReq = 15,
-				cost = 0,
+				cost = 1,
 				scale = 1,
 				posX = 3f,
 				posY = -0.75f,
 				name = Translations.PerkDatabase_145,
-				originalDescription = Translations.PerkDatabase_146("20%", "50%"),
+				originalDescription = Translations.PerkDatabase_146("35%", "70%"),
 				textureVariation = 0,
 				stackable = true,
 				updateDescription = x =>
 				 {
-					 float f1 = 0.25f * x;
-					 float f2 = Mathf.Pow(1.4f, x) - 1.0f;
+					 float f1 = Mathf.Pow(1.35f, x) - 1.0f;
+					 float f2 = Mathf.Pow(1.7f, x) - 1.0f;
 					 return Translations.PerkDatabase_148(f1.ToString("P2"),f2.ToString("P2"));
 				 }
 			};
@@ -1853,7 +1853,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.008f,
+				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.001f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -1864,7 +1864,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = -0.75f,
 				name = Translations.PerkDatabase_211,
-				originalDescription = Translations.PerkDatabase_212("0.8%"),
+				originalDescription = Translations.PerkDatabase_212("0.1%"),
 				textureVariation = 0, //0 or 1
 				stackable = false,
 			};
@@ -1970,7 +1970,7 @@ namespace ChampionsOfForest.Player
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 68 },
-				levelReq = 36,
+				levelReq = 15,
 				cost = 1,
 				scale = 1,
 				posX = -4.5f,
@@ -3576,7 +3576,7 @@ namespace ChampionsOfForest.Player
 				onApply = () =>
 				{
 					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 20f;
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.3f;
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.5f;
 				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 19 },
@@ -3586,7 +3586,7 @@ namespace ChampionsOfForest.Player
 				posX = 4f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_425,
-				originalDescription = Translations.PerkDatabase_426("30%", "20"),
+				originalDescription = Translations.PerkDatabase_426("50%", "20"),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3594,18 +3594,18 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () =>
 				{
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 120;
-					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.45f;
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive += 30;
+					ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive += 0.4f;
 				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 211 },
 				levelReq = 17,
 				cost = 1,
 				scale = 1,
-				posX = 5f,
+				posX = 6f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_425,
-				originalDescription = Translations.PerkDatabase_426("45%", "120"),
+				originalDescription = Translations.PerkDatabase_426("40%", "30"),
 				updateDescription = x => Translations.PerkDatabase_428(ModdedPlayer.Stats.spell_fireboltDamageScaling.valueAdditive.ToString("P"), ModdedPlayer.Stats.spell_fireboltEnergyCost.valueAdditive.ToString("N")),
 				textureVariation = 0,
 				stackable = true,
@@ -3660,17 +3660,17 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () =>
 				{
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(13);
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(8);
 				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 212 },
-				levelReq = 65,
+				levelReq = 60,
 				cost = 1,
 				scale = 1,
 				posX = 5f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_435,
-				originalDescription = Translations.PerkDatabase_436(13,15),
+				originalDescription = Translations.PerkDatabase_436(8,10),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3728,13 +3728,13 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.spell_bia_Crit.value = true,
 				category = PerkCategory.RangedOffense,
-				unlockPath = new int[] { 159 },
+				unlockPath = new int[] { 111 },
 				levelReq = 70,
 				cost = 1,
 				scale = 1,
 				posX = 2.5f,
 				posY = -4.5f,
-				name = "",
+				name = Translations.PerkDatabase_449, //tr
 				originalDescription = Translations.PerkDatabase_444,//tr
 				textureVariation = 0,
 				stackable = false,
@@ -3770,6 +3770,87 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				stackable = false,
 			};
+			new Perk()
+			{
+				onApply = () => COTFEvents.Instance.OnDodge.AddListener(() => ModdedPlayer.instance.damageAbsorbAmounts[0] += ModdedPlayer.Stats.TotalMaxHealth * 0.5f),
+
+				category = PerkCategory.Defense,
+				unlockPath = new int[] { 36 },
+				levelReq = 100,
+				cost = 1,
+				scale = 1,
+				posX = 7f,
+				posY = 2.25f,
+				name = Translations.PerkDatabase_447,//tr
+				originalDescription = Translations.PerkDatabase_448("50%"),//tr
+				textureVariation = 0,
+				stackable = false,
+			};
+			new Perk()
+			{
+				onApply = () => ModdedPlayer.Stats.spell_berserkMaxHP.Add(1),
+				category = PerkCategory.MagicOffense,
+				unlockPath = new int[] { 87 },
+				levelReq = 50,
+				cost = 1,
+				scale = 1,
+				posX = 0.0f,
+				posY = 3.75f,
+				name = Translations.PerkDatabase_450,//tr
+				originalDescription = Translations.PerkDatabase_451("100%"),//tr
+				textureVariation = 0,
+				stackable = false,
+			};
+			new Perk()
+			{
+				onApply = () => { 
+					ModdedPlayer.Stats.spell_healingDomeDamageIncrease.Add(0.2f);
+					ModdedPlayer.Stats.spell_healingDomeDamageResistance.Add(0.7f);
+				},
+
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 113 },
+				levelReq = 45,
+				cost = 1,
+				scale = 1,
+				posX = -5f,
+				posY = 2.25f,
+				name = Translations.PerkDatabase_452,//tr
+				originalDescription = Translations.PerkDatabase_453("20%","70%"),//tr
+				textureVariation = 0,
+				stackable = false,
+			};
+			new Perk()
+			{
+				onApply = () =>
+				{
+					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Add(0.25f);
+					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Add(0.30f);
+				},
+				category = PerkCategory.Support,
+				unlockPath = new int[] { 113 },
+				levelReq = 40,
+				cost = 1,
+				scale = 1,
+				posX = -4f,
+				posY = 2.25f,
+				name = Translations.PerkDatabase_454,//tr
+				originalDescription = Translations.PerkDatabase_455("25%", "30%"),//tr
+				textureVariation = 0,
+				stackable = false,
+			};
+
+
+
+
+
+
+
+
+
+
+
+
 
 			foreach (var item in perks)
 			{

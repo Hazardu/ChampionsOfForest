@@ -189,10 +189,10 @@ namespace ChampionsOfForest.Effects
 		{
 			Sound_Effects.GlobalSFX.Play(Sound_Effects.GlobalSFX.SFX.BlackholeDisappearing, 0, 2);
 			yield return null;
-			while (transform.localScale.x < 2.2)
+			while (transform.localScale.x < 2.7)
 			{
 				transform.Rotate(Vector3.up * Time.deltaTime *300);
-				transform.localScale += Vector3.one * Time.deltaTime*0.5f;
+				transform.localScale += Vector3.one * Time.deltaTime *0.85f;
 				yield return null;
 			}
 		}
@@ -273,6 +273,7 @@ namespace ChampionsOfForest.Effects
 			}
 			else if (other.attachedRigidbody != null)
 			{
+				
 				ModAPI.Console.Write("Collided with rigidbody");
 				if (Excludedtransforms.Contains(other.attachedRigidbody.transform))
 				{

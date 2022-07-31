@@ -335,7 +335,7 @@ namespace ChampionsOfForest
 
 				GUI.color = Color.white;
 
-				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 220 * screenScale, 600 * screenScale, 50 * screenScale), "Loot level assignment policy: " +  ModSettings.lootLevelPolicy, new GUIStyle(GUI.skin.button)    //tr
+				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 220 * screenScale, 600 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_26 +  ModSettings.lootLevelPolicy, new GUIStyle(GUI.skin.button)    //tr
 				{
 					font = mainFont,
 					fontSize = Mathf.FloorToInt(20 * screenScale)

@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
+	//Modapi is wack and injects classes in alphabetical order
 	public class XBArrowDamageMod : ArrowDamage
 	{
 		private float OutputDmg = 0;
