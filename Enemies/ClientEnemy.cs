@@ -41,7 +41,7 @@ namespace ChampionsOfForest.Enemies
 				else if (abilities.Contains(EnemyProgression.Abilities.Tiny))
 					entity.BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);
 				else
-					entity.BroadcastMessage("SetTriggerScale", 1.6f, SendMessageOptions.DontRequireReceiver);
+					entity.BroadcastMessage("SetTriggerScale", 1.3f, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}

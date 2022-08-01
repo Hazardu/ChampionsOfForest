@@ -671,6 +671,7 @@ namespace ChampionsOfForest.Player
 			{
 				return;
 			}
+			duration *= stats.magicDamageTaken;
 			LocalPlayer.HitReactions.enableFootShake(1, 0.6f);
 
 			Stats.stunned.value = true;

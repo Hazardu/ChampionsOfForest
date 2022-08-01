@@ -20,23 +20,15 @@ namespace ChampionsOfForest.Enemies
 		private Vector3 originalScale = Vector3.zero;
 		private BoltEntity entity;
 		private float LastReqTime;
-		//bool headAssigned;
 		private void OnEnable()
 		{
-			if (originalScale != Vector3.zero)
-			{
-				transform.localScale = originalScale;
-			}
-			//if(ai.creepy)
-			//CotfUtils.Log(ModReferences.RecursiveTransformList(transform.root), true);
+			SetTriggerScale(1.3f);
+			
 		}
-		//private void AssignHeadObject(string name, float size)
-		//{
-
-		//}
+		
 		public void SetTriggerScale(float size)
 		{
-			if (originalScale == Vector3.zero || transform.localScale != originalScale)
+			if (originalScale == Vector3.zero)
 			{
 				originalScale = transform.localScale;
 			}
