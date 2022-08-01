@@ -26,7 +26,10 @@ namespace ChampionsOfForest
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
 		public static bool killOnDowned = false;
-		public static bool randomCaveSpawns = false;
+		public static bool AllowRandomCaveSpawn = false;
+		public static bool AllowCaveRespawn = false;
+		public static int CaveMaxAdditionalEnemies = 0;
+		public static float CaveRespawnDelay = 1;
 
 		public static string Version;
 		public const bool RequiresNewFiles = false;
@@ -59,6 +62,11 @@ namespace ChampionsOfForest
 			EnemySpeedMultiplier = 1;
 			AllowElites = true;
 			lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
+			AllowRandomCaveSpawn = false;
+			AllowCaveRespawn = false;
+			CaveMaxAdditionalEnemies = 0;
+			CaveRespawnDelay = 1;
+
 		}
 
 
