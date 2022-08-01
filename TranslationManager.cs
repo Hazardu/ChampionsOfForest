@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Localization
 			{ "Türk","Turkish" },
 			{ "suomalainen","Finnish" },
 			{ "中国","Chinese" },
-			{ "简体中文","Chinese Simplified" },
+			{ "简体中文","ChineseSimplified" },
 			{ "Italiano","Italian" },
 			{ "日本語","Japanese" },
 		};

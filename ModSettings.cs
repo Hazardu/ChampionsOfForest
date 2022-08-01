@@ -26,6 +26,7 @@ namespace ChampionsOfForest
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
 		public static bool killOnDowned = false;
+		public static bool randomCaveSpawns = false;
 
 		public static string Version;
 		public const bool RequiresNewFiles = false;

@@ -30,6 +30,9 @@ FILES = [
     "Items\ItemDataBase_ItemDefinitions.cs",
     "Items\Item.cs",
     "Res\ResourceLoader.cs",
+    "Player\Main Menu\MainMenu_Hints.cs",
+    "Enemies\EnemyProgression\EnemyProgression_Setup.cs",
+    "Player\ModdedPlayer\ModdedPlayer.cs",
 ]
 
 file_variable_cnt = {}

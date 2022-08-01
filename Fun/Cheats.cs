@@ -3,6 +3,7 @@
 using ChampionsOfForest.Player;
 
 using TheForest;
+using TheForest.Utils;
 
 using UnityEngine;
 
@@ -186,5 +187,27 @@ namespace ChampionsOfForest.Fun
         {
             ItemDataBase.LogInfo();
         }
+		private void _sleep(string param)
+		{
+			LocalPlayer.Stats.GoToSleep();
+		}
+		private void _cotfrandomcavespawns(string param)
+		{
+			bool on = param == "on";
+			ModSettings.randomCaveSpawns = on;
+		}
+		private void _cotfhordemodepause(string param)
+		{
+			bool on = param == "on";
+			TheForest.Utils.Scene.MutantControler.hordeModePaused = on;
+		}
+		private void _cotfhordemode(string param )
+		{
+			bool on = param == "on";
+			TheForest.Utils.Scene.MutantControler.hordeModeActive = on;
+			TheForest.Utils.Scene.MutantControler.hordeModeAuto = on;
+			TheForest.Utils.Scene.MutantControler.hordeConstantSpawning = on;
+			TheForest.Utils.Scene.MutantControler.Invoke("doStart", 1f);
+		}
 	}
 }
