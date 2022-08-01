@@ -7,14 +7,39 @@ namespace ChampionsOfForest.Enemies
 {
 	public class SpawnMutantsMod : spawnMutants
 	{
+		SpawnMutantsMod copy;
+		int sumEnemies = 0;
+		protected override void Start()
+		{
+			if ((spawnInCave || sinkholeSpawn))
+			{
+				if (sumEnemies == 0)
+					sumEnemies = this.amount_male_skinny + this.amount_female_skinny + this.amount_skinny_pale + this.amount_male + this.amount_female + this.amount_fireman + this.amount_pale + this.amount_armsy + this.amount_vags + this.amount_baby + this.amount_fat + this.amount_girl;
+				bool ogNoEnemies = Cheats.NoEnemies;
+				Cheats.NoEnemies = true; //disable calling of Start() from the newly created object
+				copy = Instantiate(this, transform.position, transform.rotation);
+				copy.sumEnemies = sumEnemies;
+				copy.alreadySpawned = false;
+				copy.gameObject.SetActive(false);
+				Cheats.NoEnemies = ogNoEnemies;
+				if (ModSettings.AllowRandomCaveSpawn)
+				{
+					RandomizeAmounts();
+				}
+			}
+			base.Start();
+		}
 		protected override void OnDestroy()
 		{
-			if ((spawnInCave || sinkholeSpawn) && ModSettings.randomCaveSpawns)
+			if ((spawnInCave || sinkholeSpawn) && ModSettings.AllowCaveRespawn)
 			{
-				var copy = Instantiate(this, transform.position,transform.rotation);
-				copy.alreadySpawned = false;
-				copy.RandomizeAmounts();
+				copy.gameObject.SetActive(true);
+				copy.InvokeRepeating("checkSpawn", 60f * ModSettings.CaveRespawnDelay, 4f);
 				CotfUtils.Log("Destroying spawner", true);
+			}
+			else if (copy != null)
+			{
+				Destroy(copy);
 			}
 
 			base.OnDestroy();
@@ -22,7 +47,7 @@ namespace ChampionsOfForest.Enemies
 		private void RandomizeAmounts()
 		{
 			this.amount_male_skinny = this.amount_female_skinny = this.amount_skinny_pale = this.amount_male = this.amount_female = this.amount_fireman = this.amount_pale = this.amount_armsy = this.amount_vags = this.amount_baby = this.amount_fat = this.amount_girl = 0;
-			var num = UnityEngine.Random.Range(1, 10);
+			var num = UnityEngine.Random.Range(0, ModSettings.CaveMaxAdditionalEnemies) + sumEnemies;
 			for (int i = 0; i < num; i++)
 			{
 				int dist = UnityEngine.Random.Range(0, 8);
@@ -58,8 +83,8 @@ namespace ChampionsOfForest.Enemies
 		public override void updateSpawnConditions()
 		{
 			int num = this.amount_male_skinny + this.amount_female_skinny + this.amount_skinny_pale + this.amount_male + this.amount_female + this.amount_fireman + this.amount_pale + this.amount_armsy + this.amount_vags + this.amount_baby + this.amount_fat + this.amount_girl;
-			
-			if (num <= 0 && ModSettings.randomCaveSpawns && (spawnInCave || sinkholeSpawn))
+
+			if (num <= 0 && ModSettings.AllowRandomCaveSpawn && (spawnInCave || sinkholeSpawn))
 			{
 				RandomizeAmounts();
 			}

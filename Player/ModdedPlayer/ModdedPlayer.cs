@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Bolt;
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Network;
 using TheForest.Utils;
 using UnityEngine;

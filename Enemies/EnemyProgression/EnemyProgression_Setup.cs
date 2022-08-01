@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Localization;
 
 using UnityEngine;
 using Random = UnityEngine.Random;

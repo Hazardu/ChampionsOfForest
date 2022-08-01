@@ -371,7 +371,7 @@ namespace ChampionsOfForest
 				Header(Translations.MainMenu_Guide_32); 
 				Space(10);
 
-				Stat("Stamina per second", (ModdedPlayer.Stats.TotalStaminaRecoveryAmount).ToString("N2"),
+				Stat("Stamina per second", (ModdedPlayer.Stats.TotalStaminaRecoveryAmount).ToString("N2"), //tr
 					Translations.MainMenu_Guide_35( 
 					ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount()));
 
@@ -485,7 +485,7 @@ namespace ChampionsOfForest
 				}
 				Space(10);
 				if (ModdedPlayer.instance.GeneratedResources.Count > 0)
-					Header("Generated resources");
+					Header("Generated resources"); //tr
 				foreach (var pair in ModdedPlayer.instance.GeneratedResources)
 				{
 					string item_name = TheForest.Utils.Scene.HudGui.GetItemName(pair.Key, (pair.Value > 1), false);

@@ -194,7 +194,7 @@ namespace ChampionsOfForest.Fun
 		private void _cotfrandomcavespawns(string param)
 		{
 			bool on = param == "on";
-			ModSettings.randomCaveSpawns = on;
+			ModSettings.AllowRandomCaveSpawn = on;
 		}
 		private void _cotfhordemodepause(string param)
 		{
