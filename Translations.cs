@@ -1709,7 +1709,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_StatDefinitions_30 => instance._ItemDataBase_StatDefinitions_30;
 		public string _ItemDataBase_StatDefinitions_30 = "Ranged damage/agility";
 		public static string ItemDataBase_StatDefinitions_31 => instance._ItemDataBase_StatDefinitions_31;
-		public string _ItemDataBase_StatDefinitions_31 = "melee armor piercing";
+		public string _ItemDataBase_StatDefinitions_31 = "Melee armor piercing";
 		public static string ItemDataBase_StatDefinitions_32 => instance._ItemDataBase_StatDefinitions_32;
 		public string _ItemDataBase_StatDefinitions_32 = "Ranged armor piercing";
 		public static string ItemDataBase_StatDefinitions_33 => instance._ItemDataBase_StatDefinitions_33;
@@ -2209,7 +2209,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_198(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_198, objects);
 		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
 		public static string ItemDataBase_ItemDefinitions_199 => instance._ItemDataBase_ItemDefinitions_199;
-		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualit�t";
+		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualitot";
 		public static string ItemDataBase_ItemDefinitions_200 => instance._ItemDataBase_ItemDefinitions_200;
 		public string _ItemDataBase_ItemDefinitions_200 = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.";
 		public static string ItemDataBase_ItemDefinitions_201 => instance._ItemDataBase_ItemDefinitions_201;
@@ -3044,6 +3044,8 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_616 = "Pedant of Skallagrim";
 		public static string ItemDataBase_ItemDefinitions_617 => instance._ItemDataBase_ItemDefinitions_617;
 		public string _ItemDataBase_ItemDefinitions_617 = "Wristguards of The Sanctuary Keeper";
+		public static string ItemDataBase_ItemDefinitions_618(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_618, objects);
+		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
 
         //Player\Main Menu\MainMenu_DifficultySelection.cs
 
@@ -3076,9 +3078,6 @@ namespace ChampionsOfForest.Localization
         //Items\ItemDataBase_StatDefinitions.cs
 
         //Items\ItemDataBase_ItemDefinitions.cs
-		public static string ItemDataBase_ItemDefinitions_618 => instance._ItemDataBase_ItemDefinitions_618;
-		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
-
 
         //Items\Item.cs
 
@@ -3618,7 +3617,7 @@ PerkDatabase_222:: "Blood infused arrow takes {0} more health to convert it to d
 PerkDatabase_223:: "Arcane Blood"
 PerkDatabase_224:: "Blood infused arrow damage per health is increased by {0}"
 PerkDatabase_225:: "Energy Field"
-PerkDatabase_226:: "Healing dome rapidly regenerates energy"
+PerkDatabase_226:: "Sanctuary rapidly regenerates energy"
 PerkDatabase_227:: "Enhanced vitality"
 PerkDatabase_228:: "Increases max health by {0}"
 PerkDatabase_229:: "Enhanced energy"
@@ -3748,9 +3747,9 @@ PerkDatabase_353:: "Gold reduces damage taken by {0}"
 PerkDatabase_354:: "Sudden Rampage"
 PerkDatabase_355:: "Cooldown of Berserk is decreased by {0}"
 PerkDatabase_356:: "Safe Heaven"
-PerkDatabase_357:: "Healing dome lasts a minute."
+PerkDatabase_357:: "Sanctuary lasts a minute."
 PerkDatabase_358:: "Time of Need"
-PerkDatabase_359:: "The cooldown of healing dome and purge is reduced by {0}"
+PerkDatabase_359:: "The cooldown of Sanctuary and Purge is reduced by {0}"
 PerkDatabase_360:: "Breathing Tehniques"
 PerkDatabase_361:: "When black flame is on, your attack speed is fixed at {0}"
 PerkDatabase_362:: "Polishing"
@@ -3843,9 +3842,9 @@ PerkDatabase_449:: "Critical Infusion"
 PerkDatabase_450:: "Pound of flesh"
 PerkDatabase_451:: "During berserk, max health is increased by {0}"
 PerkDatabase_452:: "Pantheon of Champions"
-PerkDatabase_453:: "Allies inside sanctuary deal {0} increased damage and take {0} reduced damage"
+PerkDatabase_453:: "Allies inside sanctuary deal {0} increased damage and take {1} reduced damage"
 PerkDatabase_454:: "Magic Tower"
-PerkDatabase_455:: "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {0} less resources."
+PerkDatabase_455:: "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {1} less resources."
 SpellDataBase_1:: "Create a large AoE black hole, that lasts {0} seconds, continously pulling enemies inside and dealing {1} spell damage per second."
 SpellDataBase_2:: "Creates a sphere of vaporized aloe that rapidly heals all allies inside."
 SpellDataBase_3:: "Sanctuary"
@@ -3928,7 +3927,7 @@ ItemDataBase_StatDefinitions_27:: "Attack cost reduction"
 ItemDataBase_StatDefinitions_28:: "Spell cost to stamina"
 ItemDataBase_StatDefinitions_29:: "Energy/sec"
 ItemDataBase_StatDefinitions_30:: "Ranged damage/agility"
-ItemDataBase_StatDefinitions_31:: "melee armor piercing"
+ItemDataBase_StatDefinitions_31:: "Melee armor piercing"
 ItemDataBase_StatDefinitions_32:: "Ranged armor piercing"
 ItemDataBase_StatDefinitions_33:: "Armor piercing"
 ItemDataBase_StatDefinitions_34:: "Refund points"
@@ -4177,7 +4176,7 @@ ItemDataBase_ItemDefinitions_195:: "Assassins Pauldrons"
 ItemDataBase_ItemDefinitions_196:: "Death Pact"
 ItemDataBase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
 ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you."
-ItemDataBase_ItemDefinitions_199:: "Maximale Qualit�t"
+ItemDataBase_ItemDefinitions_199:: "Maximale Qualitot"
 ItemDataBase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
 ItemDataBase_ItemDefinitions_201:: "Heart of Purity"
 ItemDataBase_ItemDefinitions_202:: "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points"
