@@ -87,7 +87,7 @@ MainMenu_Guide_22:: "Szansa na całkowite uniknięcie obrażeń fizycznych. Unik
 MainMenu_Guide_23:: "Redukcja obrażeń"
 MainMenu_Guide_24:: "Redukuje obrażenia otrzymywane z każdego źródła"
 MainMenu_Guide_25:: "Otrzymane obrażenia są pomniejszane o wartość negacji obrażeń"
-MainMenu_Guide_26:: "Damage Block"
+MainMenu_Guide_26:: "Negacja obrażeń"
 MainMenu_Guide_27:: "Additional health that will disappear after a time period. This temporary health can be obtained with energy shield ability and some items"
 MainMenu_Guide_28:: "Fire Resistance"
 MainMenu_Guide_29:: "Reduced damage from ignition, radiance and a number of other fire-attribute spells."
