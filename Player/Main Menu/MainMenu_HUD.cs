@@ -455,9 +455,9 @@ namespace ChampionsOfForest
 								if (ScanTime > 2.2f)
 								{
 									slide = SmoothSlideIn(2.4f);
-									DrawScannedEnemyLabel(Translations.MainMenu_HUD_30 + ": " + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
+									DrawScannedEnemyLabel(Translations.MainMenu_HUD_30 + Translations.MainMenu_Guide_1 + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
 									y += screenScale * 60;
-									DrawScannedEnemyLabel(Translations.MainMenu_HUD_31 + ": " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
+									DrawScannedEnemyLabel(Translations.MainMenu_HUD_31 + Translations.MainMenu_Guide_1 + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
 									if (ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
 									{
 										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);

@@ -43,7 +43,7 @@ ModAPI.Input.GetKeyBindingAsString("EquipWeapon")),
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , Translations.MainMenu_Hints_15), //tr
 		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 25 && ModdedPlayer.Stats.TotalMeleeArmorPiercing + ModdedPlayer.Stats.TotalRangedArmorPiercing < 15 , Translations.MainMenu_Hints_16), //tr
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , Translations.MainMenu_Hints_17), //tr
-			new STuple<Func<bool>, string>(()=> true , string.Format(Translations.MainMenu_Hints_18,//tr
+			new STuple<Func<bool>, string>(()=> true ,Translations.MainMenu_Hints_18(//tr
 				ModAPI.Input.GetKeyBindingAsString("ping")) ),
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 5 , Translations.MainMenu_Hints_19), //tr
 			new STuple<Func<bool>, string>(()=> true , Translations.MainMenu_Hints_20), //tr
