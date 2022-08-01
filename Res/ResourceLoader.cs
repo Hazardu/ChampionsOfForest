@@ -189,7 +189,6 @@ namespace ChampionsOfForest.Res
 
 		private IEnumerator DownloadMotd()
 		{
-			///WWW motdWebsite = new WWW("https://textuploader.com/1avou/raw");
 			WWW motdWebsite = new WWW("https://docs.google.com/document/export?format=txt&id=1tq7scNmg0_CAzg0TfOhfq737ugaoCw3Idr-0esbKlhE&token=AC4w5Vgy9AG6mRMGIoA_NgkcxmFpPmmVUA%3A1548265532959&ouid=105695979354176851391&includes_info_params=true");
 			yield return motdWebsite;
 			if (string.IsNullOrEmpty(motdWebsite.error))
