@@ -427,7 +427,7 @@ namespace ChampionsOfForest.Res
 							Texture2D t = new Texture2D(1, 1, TextureFormat.RGBA32, false, true);
 							t.LoadImage(data);
 							t.Apply();
-							if (resource.CompressTexture)
+							if (Resource.CompressTexture)
 							{
 								t.Compress(true);
 							}
@@ -486,11 +486,13 @@ namespace ChampionsOfForest.Res
 				yield return null;
 			}
 			loadingState = LoadingState.Done;
-			toDownload.Clear();
 			Effects.MainMenuVisual.Create();
 			yield return new WaitForSeconds(1f);
 			FinishedLoading = true;
-		}
+			FailedLoadResources.Clear();
+			toDownload.Clear();
+			LabelText = null;
+	}
 
 		private void AttemptRedownload()
 		{

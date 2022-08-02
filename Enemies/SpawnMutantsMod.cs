@@ -72,7 +72,7 @@ namespace ChampionsOfForest.Enemies
 						amount_baby++;
 						break;
 					case 6:
-						amount_fat++;
+						amount_female++;
 						break;
 					case 7:
 						amount_girl++;

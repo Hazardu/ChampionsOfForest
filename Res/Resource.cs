@@ -2,9 +2,10 @@
 {
 	public class Resource
 	{
-		public string fileName;
+		public const bool CompressTexture = true;
+		public const string url = "https://modapi.survivetheforest.net/uploads/objects/7/";
+		public readonly string fileName;
 		public static string path;
-		public static string url = "https://modapi.survivetheforest.net/uploads/objects/7/";
 		public bool loaded;
 
 		public enum ResourceType
@@ -12,13 +13,9 @@
 			Texture, Mesh, Audio, Text, AssetBundle
 		}
 
-		public ResourceType type;
+		public readonly ResourceType type;
 		public int ID;
-		public bool CompressTexture = true;
 
-		public Resource()
-		{
-		}
 
 		public Resource(int id, string FileName)
 		{
@@ -41,14 +38,10 @@
 			{
 				type = ResourceType.Audio;
 			}
-			try
-			{
+
+			if (!ResourceLoader.instance.unloadedResources.ContainsKey(id))
 				ResourceLoader.instance.unloadedResources.Add(id, this);
-			}
-			catch (System.Exception ex)
-			{
-				CotfUtils.Log($"ERROR WHILE ADDING RESOURCE: {fileName}\n" + ex.ToString());
-			}
+
 		}
 
 		public Resource(int id, string FileName, ResourceType t)

@@ -129,7 +129,7 @@ namespace ChampionsOfForest
 			}
 
 			//Drawing Perks
-			Rect rect = new Rect(currentPerkOffset * zoomAmount, new Vector2(PerkWidth + 0.25f, PerkHeight + 0.25f) * 2 * zoomAmount)
+			Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth + 0.25f, PerkHeight + 0.25f) * 2 * zoomAmount)
 			{
 				center = currentPerkOffset
 			};
@@ -188,9 +188,9 @@ namespace ChampionsOfForest
 							_timeToBuyPerk += Time.unscaledDeltaTime;
 							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
 							{
-								if (p.stackable)
+								if (p.stackable )
 								{
-									if (Input.GetMouseButtonDown(0))
+									if (Input.GetMouseButtonDown(0) && !Buying)
 										_timeToBuyPerk = 2;
 								}
 								else
@@ -321,36 +321,15 @@ namespace ChampionsOfForest
 		{
 			Perk p = PerkDatabase.perks[a];
 
-			bool show = false;
-			if (p.unlockRequirement != null)
-			{
-				for (int i = 0; i < p.unlockRequirement.Length; i++)
-				{
-					if (!PerkDatabase.perks[p.unlockRequirement[i]].isBought)
-					{
-						return;
-					}
-				}
-			}
-			for (int i = 0; i < p.unlockPath.Length; i++)
-			{
-				if (p.unlockPath[i] == -1 || (PerkDatabase.perks[p.unlockPath[i]].isBought))
-				{
-					show = true;
-					break;
-				}
-			}
-			if (!show)
-			{
-				return;
-			}
+			bool unlocked = !p.Locked;
+			
+			
 
-			Vector2 center = new Vector2(PerkWidth * p.posX, PerkHeight * p.posY);
+			Vector2 center = new Vector2(PerkWidth * p.posX, PerkHeight * p.posY) * zoomAmount;
 			center += currentPerkOffset;
 			Vector2 size = new Vector2(PerkWidth, PerkHeight);
 			size *= p.scale;
 
-			center *= zoomAmount;
 			size *= zoomAmount;
 			Rect r = new Rect(Vector2.zero, size)
 			{
@@ -400,7 +379,10 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				GUI.color = Color.gray;
+				if (!unlocked)
+					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.25f);
+				else
+					GUI.color = Color.gray;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));
 				GUI.color = Color.white;
 			}
