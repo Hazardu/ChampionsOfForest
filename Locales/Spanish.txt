@@ -1503,7 +1503,7 @@ ItemDataBase_ItemDefinitions_616:: "Pedant of Skallagrim"
 ItemDataBase_ItemDefinitions_617:: "Wristguards of The Sanctuary Keeper"
 ItemDataBase_ItemDefinitions_618:: "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources"
 MainMenu_Hints_1:: "Gain experience by hunting"
-MainMenu_Hints_2:: "Experience is shared between players"
+MainMenu_Hints_2:: "Experience is shared between players"c
 MainMenu_Hints_3:: "Gain experience by killing enemies"
 MainMenu_Hints_4:: "Spend points on abilities and perks. Access upgrades by pressing "
 MainMenu_Hints_5:: "Obtain your first piece of equipment by breaking effigies"

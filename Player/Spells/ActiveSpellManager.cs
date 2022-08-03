@@ -273,7 +273,7 @@ namespace ChampionsOfForest.Player.Spells
 					var posOffset = pos;
 					if (i > 0)
 						posOffset += 0.5f * right * (((i - 1) % 3) - 1);
-					float damage = ModdedPlayer.Stats.SpellDamageMult *ModdedPlayer.Stats.fireDamage *  (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27 + ModdedPlayer.instance.FurySwipesDmg);
+					float damage = ModdedPlayer.Stats.SpellDamageMult *(1f + ModdedPlayer.Stats.fireDamage) *  (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27 + ModdedPlayer.instance.FurySwipesDmg);
 					if (i > 0)
 					{
 						damage *= Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i);

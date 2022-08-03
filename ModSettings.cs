@@ -28,7 +28,7 @@ namespace ChampionsOfForest
 		public static bool killOnDowned = false;
 		public static bool AllowRandomCaveSpawn = true;
 		public static bool AllowCaveRespawn = true;
-		public static int CaveMaxAdditionalEnemies = 1;
+		public static int CaveMaxAdditionalEnemies = 1;	
 		public static float CaveRespawnDelay = 1;
 
 		public static string Version;
