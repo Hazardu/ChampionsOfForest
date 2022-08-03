@@ -72,7 +72,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.001f,
+				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.002f,
 
 				category = PerkCategory.Utility,
 				texture = null,
@@ -83,7 +83,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 0,
 				name = Translations.PerkDatabase_7,
-				originalDescription = Translations.PerkDatabase_8("0.1%"),
+				originalDescription = Translations.PerkDatabase_8("0.2%"),
 				textureVariation = 0, //0 or 1
 				stackable = false,
 			};

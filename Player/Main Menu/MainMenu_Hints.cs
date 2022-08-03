@@ -23,43 +23,43 @@ namespace ChampionsOfForest
 
 		private static readonly STuple<Func<bool>, string>[] hints =
 		{
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 4 , "Gain experience by hunting"), //tr
-			new STuple<Func<bool>, string>(()=> ModReferences.Players.Count>1, "Experience is shared between players"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 8 , "Gain experience by killing enemies"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 8 && ModdedPlayer.instance.MutationPoints>0 , "Spend points on abilities and perks. Access upgrades by pressing "+ //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 4 , Translations.MainMenu_Hints_1), //tr
+			new STuple<Func<bool>, string>(()=> ModReferences.Players.Count>1, Translations.MainMenu_Hints_2), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 8 , Translations.MainMenu_Hints_3), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 8 && ModdedPlayer.instance.MutationPoints>0 , Translations.MainMenu_Hints_4+ //tr
 ModAPI.Input.GetKeyBindingAsString("MenuToggle")), 
-			new STuple<Func<bool>, string>(()=> Inventory.Instance.IsEmpty, "Obtain your first piece of equipment by breaking effigies"), //tr
-			new STuple<Func<bool>, string>(()=> Inventory.Instance.IsNaked, "Equip armor, weapons and trinklets to become stronger. Open inventory by pressing "+//tr
+			new STuple<Func<bool>, string>(()=> Inventory.Instance.IsEmpty, Translations.MainMenu_Hints_5), //tr
+			new STuple<Func<bool>, string>(()=> Inventory.Instance.IsNaked, Translations.MainMenu_Hints_6+//tr
 				ModAPI.Input.GetKeyBindingAsString("MenuToggle")), 
-			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 10 && !SpellCaster.instance.infos.Any(x=>x.spell!=null), "Unlock powerful abilities and upgrade them through perks"), //tr
-			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=null), "You need energy to cast spells. Eat, drink or sit to regain energy"), //tr
-			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[26]), "Firebolt ability equips an invisible weapon (placeholder effect bruh). Left click after casting to quickly send out balls of fire at enemies. Each attack consumes energy"), //tr
-			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[26]), "If you sit down with firebolt spell active, you can become a turret"), //tr
-			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[27]), "Snowstorm ability equips an invisible weapon (placeholder effect bruh). Left click after casting to channel a snowstorm around you"), //tr
-			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 30 && SpellCaster.instance.infos.Any(x=>x.spell==null), "Obtain 6 different abilities as soon as possible"), //tr
-			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 10 && PerkDatabase.perks.Any(x=>!x.isBought && x.cost==0 && x.levelReq<=ModdedPlayer.instance.level), "There are perks you can unlock for free right now!"), //tr
-			new STuple<Func<bool>, string>(()=>  Inventory.Instance.ItemSlots[-12]!=null && Inventory.Instance.ItemSlots[-12].Equipped, "Draw the weapon from your main hand equipment slot by pressing " + //tr
+			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 10 && !SpellCaster.instance.infos.Any(x=>x.spell!=null), Translations.MainMenu_Hints_7), //tr
+			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=null), Translations.MainMenu_Hints_8), //tr
+			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[26]), Translations.MainMenu_Hints_9), //tr
+			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[26]), Translations.MainMenu_Hints_10), //tr
+			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[27]), Translations.MainMenu_Hints_11), //tr
+			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 30 && SpellCaster.instance.infos.Any(x=>x.spell==null), Translations.MainMenu_Hints_12), //tr
+			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 10 && PerkDatabase.perks.Any(x=>!x.isBought && x.cost==0 && x.levelReq<=ModdedPlayer.instance.level), Translations.MainMenu_Hints_13), //tr
+			new STuple<Func<bool>, string>(()=>  Inventory.Instance.ItemSlots[-12]!=null && Inventory.Instance.ItemSlots[-12].Equipped, Translations.MainMenu_Hints_14 + //tr
 ModAPI.Input.GetKeyBindingAsString("EquipWeapon")), 
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , "Increase the difficulty whenever you think enemies become pushovers"), //tr
-		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 25 && ModdedPlayer.Stats.TotalMeleeArmorPiercing + ModdedPlayer.Stats.TotalRangedArmorPiercing < 15 , "Armored enemies are the bane of warriors and archers. Increase your Armor Piercing stat or use strong fire to melt armor"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , "Jack of all trades loses to a master of one. Focus your build on a single playstyle to maximize effectiveness"), //tr
-			new STuple<Func<bool>, string>(()=> true , string.Format("You can mark locations, items and enemies to better communicate with other players. Hold {0} to place a marker",//tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , Translations.MainMenu_Hints_15), //tr
+		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 25 && ModdedPlayer.Stats.TotalMeleeArmorPiercing + ModdedPlayer.Stats.TotalRangedArmorPiercing < 15 , Translations.MainMenu_Hints_16), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , Translations.MainMenu_Hints_17), //tr
+			new STuple<Func<bool>, string>(()=> true ,Translations.MainMenu_Hints_18(//tr
 				ModAPI.Input.GetKeyBindingAsString("ping")) ),
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 5 , "You can reset all upgrades by consuming a Heart of Purity"), //tr
-			new STuple<Func<bool>, string>(()=> true , "Do not forget about defense. Invest in resistance to stuns, abilities to get away from danger, or sufficient toughness to soak incoming damage"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , "Maximize ranged damage by aiming for the head"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , "Bullets fare better against mutants than arrows"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , "You can combine archery with magic for massive burst damage"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , "Maximize melee damage by parrying attackers"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , "You can combine melee with magic for short bursts of great damage"), //tr
-			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , "Parrying does not count as getting hit. You can parry basher and poisonous enemies"), //tr
-			new STuple<Func<bool>, string>(()=> true , "Setting enemies ablaze will make them stop attacking"), //tr
-			new STuple<Func<bool>, string>(()=> true , "You can shift click during spell selection menu to change a key binding"), //tr
-		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , "Defensive perks can negate elite abilities - Black holes cannot suck you in"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , "Defensive perks can negate elite abilities - Blizzard no longer slows you"), //tr
-			new STuple<Func<bool>, string>(()=> ModSettings.difficulty >= ModSettings.Difficulty.Elite , "There are items that change how certain spells work"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.Stats.explosionDamage.GetAmount() > 2 , "Explosive damage stat of one player affects explosions caused by all players"), //tr
-			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 60 && !PerkDatabase.perks[89].isBought, "There are powerful, hidden upgrades to be discovered"), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 5 , Translations.MainMenu_Hints_19), //tr
+			new STuple<Func<bool>, string>(()=> true , Translations.MainMenu_Hints_20), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_21), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_22), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() > PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_23), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_24), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_25), //tr
+			new STuple<Func<bool>, string>(()=> PlayerUtils.GetPlayerRangedDamageRating() < PlayerUtils.GetPlayerMeleeDamageRating() , Translations.MainMenu_Hints_26), //tr
+			new STuple<Func<bool>, string>(()=> true , Translations.MainMenu_Hints_27), //tr
+			new STuple<Func<bool>, string>(()=> true , Translations.MainMenu_Hints_28), //tr
+		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , Translations.MainMenu_Hints_29), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , Translations.MainMenu_Hints_30), //tr
+			new STuple<Func<bool>, string>(()=> ModSettings.difficulty >= ModSettings.Difficulty.Elite , Translations.MainMenu_Hints_31), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.Stats.explosionDamage.GetAmount() > 2 , Translations.MainMenu_Hints_32), //tr
+			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 60 && !PerkDatabase.perks[89].isBought, Translations.MainMenu_Hints_33), //tr
 
 		};
 		int currentHint;

@@ -20,12 +20,20 @@ namespace ChampionsOfForest.Enemies
 		private Vector3 originalScale = Vector3.zero;
 		private BoltEntity entity;
 		private float LastReqTime;
-
-		//public void SetTriggerScale(float size)
-		//{
-		//	var scale = transform.lossyScale;
-		//	transform.localScale = new Vector3(1f/scale.x, 1f/scale.y, 1f/scale.y)* size;
-		//}
+		private void OnEnable()
+		{
+			SetTriggerScale(1.3f);
+			
+		}
+		
+		public void SetTriggerScale(float size)
+		{
+			if (originalScale == Vector3.zero)
+			{
+				originalScale = transform.localScale;
+			}
+			transform.localScale = originalScale * size;
+		}
 
 		protected override void Update()
 		{

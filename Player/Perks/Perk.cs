@@ -112,5 +112,20 @@ namespace ChampionsOfForest.Player
 				ModAPI.Log.Write(e.ToString());
 			}
 		}
+
+		public bool Locked
+		{
+			get
+			{
+				for (int i = 0; i < unlockPath.Length; i++)
+				{
+					if (unlockPath[i] == -1 || (PerkDatabase.perks[unlockPath[i]].isBought))
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+		}
 	}
 }

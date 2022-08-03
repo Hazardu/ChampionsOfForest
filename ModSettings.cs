@@ -27,6 +27,10 @@ namespace ChampionsOfForest
 		public static bool IsDedicated = false;
 		public static bool killOnDowned = false;
 		public static bool friendlyFireMagic = false;
+		public static bool AllowRandomCaveSpawn = true;
+		public static bool AllowCaveRespawn = true;
+		public static int CaveMaxAdditionalEnemies = 1;	
+		public static float CaveRespawnDelay = 1;
 
 		public static string Version;
 		public const bool RequiresNewFiles = false;
@@ -60,6 +64,12 @@ namespace ChampionsOfForest
 			EnemySpeedMultiplier = 1;
 			FriendlyFireDamage = 1;
 			AllowElites = true;
+			lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
+			AllowRandomCaveSpawn = true;
+			AllowCaveRespawn = true;
+			CaveMaxAdditionalEnemies = 1;
+			CaveRespawnDelay = 1;
+
 		}
 
 
@@ -103,7 +113,11 @@ namespace ChampionsOfForest
 					buf.Write(EnemySpeedMultiplier);
 					buf.Write(AllowElites);
 					buf.Write((int)dropsOnDeath);
-
+					buf.Write((int)lootLevelPolicy);
+					buf.Write(AllowRandomCaveSpawn);
+					buf.Write(AllowCaveRespawn);
+					buf.Write(CaveMaxAdditionalEnemies);
+					buf.Write(CaveRespawnDelay);
 					File.WriteAllBytes(PATH, stream.ToArray());
 				}
 			}
@@ -111,25 +125,38 @@ namespace ChampionsOfForest
 		public static void LoadSettings()
 		{
 			if (File.Exists(PATH))
-				using (FileStream stream = new FileStream(PATH, FileMode.Open))
+				try
 				{
-					using (BinaryReader buf = new BinaryReader(stream))
+					using (FileStream stream = new FileStream(PATH, FileMode.Open))
 					{
-						FriendlyFire = buf.ReadBoolean();
-						killOnDowned = buf.ReadBoolean();
-						DropQuantityMultiplier = buf.ReadSingle();
-						DropChanceMultiplier = buf.ReadSingle();
-						ExpMultiplier = buf.ReadSingle();
-						EnemyLevelIncrease = buf.ReadInt32();
-						EnemyDamageMultiplier = buf.ReadSingle();
-						EnemyHealthMultiplier = buf.ReadSingle();
-						EnemyArmorMultiplier = buf.ReadSingle();
-						EnemySpeedMultiplier = buf.ReadSingle();
-						AllowElites = buf.ReadBoolean();
-						dropsOnDeath = (DropsOnDeathMode)buf.ReadInt32();
-
+						using (BinaryReader buf = new BinaryReader(stream))
+						{
+							FriendlyFire = buf.ReadBoolean();
+							killOnDowned = buf.ReadBoolean();
+							DropQuantityMultiplier = buf.ReadSingle();
+							DropChanceMultiplier = buf.ReadSingle();
+							ExpMultiplier = buf.ReadSingle();
+							EnemyLevelIncrease = buf.ReadInt32();
+							EnemyDamageMultiplier = buf.ReadSingle();
+							EnemyHealthMultiplier = buf.ReadSingle();
+							EnemyArmorMultiplier = buf.ReadSingle();
+							EnemySpeedMultiplier = buf.ReadSingle();
+							AllowElites = buf.ReadBoolean();
+							dropsOnDeath = (DropsOnDeathMode)buf.ReadInt32();
+							lootLevelPolicy = (LootLevelPolicy)buf.ReadInt32();
+							AllowRandomCaveSpawn = buf.ReadBoolean();
+							AllowCaveRespawn = buf.ReadBoolean();
+							CaveMaxAdditionalEnemies = buf.ReadInt32();
+							CaveRespawnDelay = buf.ReadSingle();
+						}
 					}
 				}
+				catch (System.Exception)
+				{
+
+					CotfUtils.Log("Failed loading settings");
+				}
+			
 		}
 	}
 }

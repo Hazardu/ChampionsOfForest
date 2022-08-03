@@ -356,8 +356,15 @@ namespace ChampionsOfForest
 				DrawCheatOption(ref ModSettings.EnemyArmorMultiplier, Translations.MainMenu_DifficultySelection_19/*og:Enemy Armor*/, ref y);          //tr
 				DrawCheatOption(ref ModSettings.EnemySpeedMultiplier, Translations.MainMenu_DifficultySelection_20/*og:Enemy Speed*/, ref y);          //tr
 				DrawCheatOption(ref ModSettings.AllowElites, Translations.MainMenu_DifficultySelection_21/*og:Allow elite enemies*/, ref y);               //tr
+				DrawCheatOption(ref ModSettings.AllowCaveRespawn, Translations.MainMenu_DifficultySelection_27, ref y);               //tr
+				if (ModSettings.AllowCaveRespawn)
+					DrawCheatOption(ref ModSettings.AllowRandomCaveSpawn, Translations.MainMenu_DifficultySelection_28, ref y);               //tr
+				if (ModSettings.AllowRandomCaveSpawn && ModSettings.AllowCaveRespawn)
+					DrawCheatOption(ref ModSettings.CaveMaxAdditionalEnemies, Translations.MainMenu_DifficultySelection_29, ref y);               //tr
+				if (ModSettings.AllowCaveRespawn)
+					DrawCheatOption(ref ModSettings.CaveRespawnDelay, Translations.MainMenu_DifficultySelection_30, ref y);               //tr
 
-				if (GUI.Button(new Rect(Screen.width*0.5f - 250 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), "Default"))
+				if (GUI.Button(new Rect(Screen.width*0.5f - 250 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), Translations.MainMenu_DifficultySelection_31)) //tr
 				{
 					ModSettings.Reset();
 				}

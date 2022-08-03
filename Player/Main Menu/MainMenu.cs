@@ -237,6 +237,11 @@ namespace ChampionsOfForest
 			{
 				ChangeKeyUpdate();
 			}
+			else if (_openedMenu == OpenedMenuMode.Perks)
+			{
+				zoomAmount = Mathf.Lerp(zoomAmount, zoomTarget, Time.deltaTime);
+				zoomTarget = Mathf.Clamp(zoomTarget + 0.5f*Input.GetAxis("Mouse ScrollWheel"), 0.2f, 3f);	
+			}
 
 			try
 			{

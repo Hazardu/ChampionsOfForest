@@ -36,12 +36,12 @@ namespace ChampionsOfForest.Enemies
 				{
 					ModAPI.Log.Write("exception: renderer is null");
 				}
-				//if (abilities.Contains(EnemyProgression.Abilities.Gargantuan))
-				//	entity.BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
-				//else if (abilities.Contains(EnemyProgression.Abilities.Tiny))
-				//	entity.BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);
-				//else
-				//	entity.BroadcastMessage("SetTriggerScale", 1.6f, SendMessageOptions.DontRequireReceiver);
+				if (abilities.Contains(EnemyProgression.Abilities.Gargantuan))
+					entity.BroadcastMessage("SetTriggerScale", 2.5f, SendMessageOptions.DontRequireReceiver);
+				else if (abilities.Contains(EnemyProgression.Abilities.Tiny))
+					entity.BroadcastMessage("SetTriggerScale", 5f, SendMessageOptions.DontRequireReceiver);
+				else
+					entity.BroadcastMessage("SetTriggerScale", 1.3f, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}

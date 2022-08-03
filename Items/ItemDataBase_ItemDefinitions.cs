@@ -7954,7 +7954,7 @@ new int[] {0,0,0,0,62,63,64},
 			})
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_617, //tr
-				uniqueStat = Translations.ItemDataBase_ItemDefinitions_618,//tr
+				uniqueStat = Translations.ItemDataBase_ItemDefinitions_618("100%", "40%"),//tr
 				Rarity = 7,
 				minLevel = 1,
 				maxLevel = 3,

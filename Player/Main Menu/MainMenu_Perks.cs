@@ -23,7 +23,7 @@ namespace ChampionsOfForest
 		private const float PerkHexagonSide = 60;
 		private float PerkHeight;
 		private float PerkWidth;
-
+		private float zoomAmount = 1, zoomTarget = 1;
 		private bool PerkRequirementsMet(Perk perk)
 		{
 			if (perk.unlockRequirement == null)
@@ -120,7 +120,7 @@ namespace ChampionsOfForest
 			{
 				targetPerkOffset += Vector2.right * Time.unscaledDeltaTime * 300;
 			}
-			currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.unscaledDeltaTime * 15f);
+			currentPerkOffset = Vector3.Slerp(currentPerkOffset, targetPerkOffset, Time.unscaledDeltaTime * 10f);
 
 			//filling DisplayedPerkIDs with perk ids where category is the same as the selected one
 			if (DisplayedPerkIDs == null)
@@ -129,13 +129,13 @@ namespace ChampionsOfForest
 			}
 
 			//Drawing Perks
-			Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth+0.25f, PerkHeight + 0.25f) * 2)
+			Rect rect = new Rect(currentPerkOffset, new Vector2(PerkWidth + 0.25f, PerkHeight + 0.25f) * 2 * zoomAmount)
 			{
 				center = currentPerkOffset
 			};
 			GUI.DrawTexture(rect, ResourceLoader.GetTexture(84));
 			GUI.color = Color.black;
-			GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(80 * screenScale), fontStyle = FontStyle.Bold, font = mainFont });
+			GUI.Label(rect, ModdedPlayer.instance.MutationPoints.ToString(), new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(80 * screenScale * zoomAmount), fontStyle = FontStyle.Bold, font = mainFont });
 			GUI.color = Color.white;
 
 			Hovered = false;
@@ -186,6 +186,17 @@ namespace ChampionsOfForest
 						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
 						{
 							_timeToBuyPerk += Time.unscaledDeltaTime;
+							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+							{
+								if (p.stackable )
+								{
+									if (Input.GetMouseButtonDown(0) && !Buying)
+										_timeToBuyPerk = 2;
+								}
+								else
+									_timeToBuyPerk = 2;
+
+							}
 							Buying = true;
 							Rect buyRect = new Rect(0, 1 - _timeToBuyPerk / 2, 1, _timeToBuyPerk / 2);
 							Rect buyRect2 = new Rect(r);
@@ -294,6 +305,8 @@ namespace ChampionsOfForest
 					targetPerkOffset = wholeScreenRect.center;
 					currentPerkOffset = targetPerkOffset;
 					DisplayedPerkIDs = PerkDatabase.perks.Where(p => p.category == _perkpage).Select(p => p.id).ToArray();
+					zoomAmount = 1f;
+					zoomTarget = 1f;
 				}
 			}
 		}
@@ -308,34 +321,16 @@ namespace ChampionsOfForest
 		{
 			Perk p = PerkDatabase.perks[a];
 
-			bool show = false;
-			if (p.unlockRequirement != null)
-			{
-				for (int i = 0; i < p.unlockRequirement.Length; i++)
-				{
-					if (!PerkDatabase.perks[p.unlockRequirement[i]].isBought)
-					{
-						return;
-					}
-				}
-			}
-			for (int i = 0; i < p.unlockPath.Length; i++)
-			{
-				if (p.unlockPath[i] == -1 || (PerkDatabase.perks[p.unlockPath[i]].isBought))
-				{
-					show = true;
-					break;
-				}
-			}
-			if (!show)
-			{
-				return;
-			}
+			bool unlocked = !p.Locked;
+			
+			
 
-			Vector2 center = new Vector2(PerkWidth * p.posX, PerkHeight * p.posY);
+			Vector2 center = new Vector2(PerkWidth * p.posX, PerkHeight * p.posY) * zoomAmount;
 			center += currentPerkOffset;
 			Vector2 size = new Vector2(PerkWidth, PerkHeight);
 			size *= p.scale;
+
+			size *= zoomAmount;
 			Rect r = new Rect(Vector2.zero, size)
 			{
 				center = center
@@ -378,13 +373,16 @@ namespace ChampionsOfForest
 				if (p.stackable)
 				{
 					GUI.color = Color.black;
-					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
+					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale * zoomAmount), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
 				}
 				GUI.color = Color.white;
 			}
 			else
 			{
-				GUI.color = Color.gray;
+				if (!unlocked)
+					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.25f);
+				else
+					GUI.color = Color.gray;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));
 				GUI.color = Color.white;
 			}
@@ -393,7 +391,7 @@ namespace ChampionsOfForest
 				GUI.DrawTexture(r, p.texture);
 			}
 			float distsquared = (mousePos - r.center).sqrMagnitude;
-			if (r.Contains(mousePos) && distsquared < PerkHexagonSide * PerkHexagonSide * 0.81f)
+			if (r.Contains(mousePos) && distsquared < PerkHexagonSide * PerkHexagonSide * 0.81f * zoomAmount)
 			{
 				SelectedPerk = p;
 				selectedPerk_Rect = r;

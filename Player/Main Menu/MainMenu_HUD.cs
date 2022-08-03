@@ -446,7 +446,7 @@ namespace ChampionsOfForest
 									else if (cp.Armor > 10 && ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
 									{
 										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
-										GUI.Label(rOffset, "Armored enemies take reduced damage.", smallinfoStyle);
+										GUI.Label(rOffset, Translations.MainMenu_HUD_29, smallinfoStyle);//tr
 										rOffset.y += screenScale * 18;
 										GUI.Label(rOffset, "Use fire to melt enemy armor.", smallinfoStyle);
 									}
@@ -455,14 +455,14 @@ namespace ChampionsOfForest
 								if (ScanTime > 2.2f)
 								{
 									slide = SmoothSlideIn(2.4f);
-									DrawScannedEnemyLabel("Damage" + ": " + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									DrawScannedEnemyLabel(Translations.MainMenu_HUD_30 + Translations.MainMenu_Guide_1 + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
 									y += screenScale * 60;
-									DrawScannedEnemyLabel("Bounty" + ": " + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
+									DrawScannedEnemyLabel(Translations.MainMenu_HUD_31 + Translations.MainMenu_Guide_1 + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
 									if (ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
 									{
 										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
 										rOffset.x -= 10;
-										GUI.Label(rOffset, "Bounty is the experience reward for killing an enemy.", smallinfoStyle);
+										GUI.Label(rOffset, Translations.MainMenu_HUD_32, smallinfoStyle);//tr
 									}
 									y += screenScale * 85;
 								}
@@ -488,124 +488,124 @@ namespace ChampionsOfForest
 											{
 												case EnemyProgression.Abilities.Poisonous:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_4/*og:Poisonous*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Applies damage over time on hit.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_33, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Steadfast:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_5/*og:Steadfast*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Reduced damage taken.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_34, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.BossSteadfast:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_6/*og:Boss Steadfast*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Massively reduced damage taken.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_35, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.EliteSteadfast:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_7/*og:Elite Steadfast*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Greatly educed damage taken.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_36, smallinfoStyle);//tr
 													break;
 												//case EnemyProgression.Abilities.Molten:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.Blizzard:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_8/*og:Blizzard*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Aura that slows.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_37, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Radiance:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_9/*og:Radiance*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Deals damage if you get too close.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_38, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Chains:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_10/*og:Chains*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Periodically locks you in place.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_39, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.BlackHole:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_11/*og:Black Hole*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Creates a deadly black hole.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_40, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Trapper:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_12/*og:Trapper*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Locks you inside a trap if you get in melee range.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_41, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Juggernaut:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_13/*og:Juggernaut*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Immune to crowd controll.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_42, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Gargantuan:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_14/*og:Gargantuan*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Health and damage worthy of its size", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_43, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Tiny:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_15/*og:Tiny*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Tiny but deadly ambusher.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_44, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.ExtraDamage:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_16/*og:Extra deadly*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Increased damage", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_45, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.ExtraHealth:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_17/*og:Extra tough*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Massively increased health.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_46, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Basher:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_18/*og:Basher*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Stuns on hit.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_47, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Warp:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_19/*og:Warp*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Teleports behind you when you least expect it.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_48, smallinfoStyle);//tr
 													break;
 												//case EnemyProgression.Abilities.Thunder:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.RainEmpowerment:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_20/*og:Rain Empowerment*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Extremely powerful during rainy weather.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_49, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Shielding:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_21/*og:Shielding*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Periodically negates damage.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_50, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Meteor:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_22/*og:Meteor*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Let it rain...", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_51, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Flare:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_23/*og:Flare*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Casts sun flare spell.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_52, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Undead:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_24/*og:Undead*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Revives after dying once.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_53, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Laser:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_25/*og:Laser tower*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Creates rotating death rays.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_54, smallinfoStyle);//tr
 													break;
 												case EnemyProgression.Abilities.Avenger:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_26/*og:Avenger*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Gets stronger the more enemies around it die. Kill first.", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_55, smallinfoStyle);//tr
 													break;
 												case EnemyProgression.Abilities.Sacrifice:
 													DrawScannedEnemyLabel(Translations.MainMenu_HUD_27/*og:Sacrifice*/, rName, infoStyle); //tr
-													GUI.Label(rDesc, "Upon death, all nearby enemies are healed and empowered. Kill last", smallinfoStyle);
+													GUI.Label(rDesc, Translations.MainMenu_HUD_56, smallinfoStyle);//tr
 													break;
 												default:
 													DrawScannedEnemyLabel(ability.ToString(), rName, infoStyle);

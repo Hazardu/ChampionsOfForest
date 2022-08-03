@@ -526,6 +526,62 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_HUD_27 = "Sacrifice";
 		public static string MainMenu_HUD_28 => instance._MainMenu_HUD_28;
 		public string _MainMenu_HUD_28 = "Enemy";
+		public static string MainMenu_HUD_29 => instance._MainMenu_HUD_29;
+		public string _MainMenu_HUD_29 = "Armored enemies take reduced damage.";
+		public static string MainMenu_HUD_30 => instance._MainMenu_HUD_30;
+		public string _MainMenu_HUD_30 = "Damage";
+		public static string MainMenu_HUD_31 => instance._MainMenu_HUD_31;
+		public string _MainMenu_HUD_31 = "Bounty";
+		public static string MainMenu_HUD_32 => instance._MainMenu_HUD_32;
+		public string _MainMenu_HUD_32 = "Bounty is the experience reward for killing an enemy.";
+		public static string MainMenu_HUD_33 => instance._MainMenu_HUD_33;
+		public string _MainMenu_HUD_33 = "Applies damage over time on hit.";
+		public static string MainMenu_HUD_34 => instance._MainMenu_HUD_34;
+		public string _MainMenu_HUD_34 = "Reduced damage taken.";
+		public static string MainMenu_HUD_35 => instance._MainMenu_HUD_35;
+		public string _MainMenu_HUD_35 = "Massively reduced damage taken.";
+		public static string MainMenu_HUD_36 => instance._MainMenu_HUD_36;
+		public string _MainMenu_HUD_36 = "Greatly educed damage taken.";
+		public static string MainMenu_HUD_37 => instance._MainMenu_HUD_37;
+		public string _MainMenu_HUD_37 = "Aura that slows.";
+		public static string MainMenu_HUD_38 => instance._MainMenu_HUD_38;
+		public string _MainMenu_HUD_38 = "Deals damage if you get too close.";
+		public static string MainMenu_HUD_39 => instance._MainMenu_HUD_39;
+		public string _MainMenu_HUD_39 = "Periodically locks you in place.";
+		public static string MainMenu_HUD_40 => instance._MainMenu_HUD_40;
+		public string _MainMenu_HUD_40 = "Creates a deadly black hole.";
+		public static string MainMenu_HUD_41 => instance._MainMenu_HUD_41;
+		public string _MainMenu_HUD_41 = "Locks you inside a trap if you get in melee range.";
+		public static string MainMenu_HUD_42 => instance._MainMenu_HUD_42;
+		public string _MainMenu_HUD_42 = "Immune to crowd controll.";
+		public static string MainMenu_HUD_43 => instance._MainMenu_HUD_43;
+		public string _MainMenu_HUD_43 = "Health and damage worthy of its size";
+		public static string MainMenu_HUD_44 => instance._MainMenu_HUD_44;
+		public string _MainMenu_HUD_44 = "Tiny but deadly ambusher.";
+		public static string MainMenu_HUD_45 => instance._MainMenu_HUD_45;
+		public string _MainMenu_HUD_45 = "Increased damage";
+		public static string MainMenu_HUD_46 => instance._MainMenu_HUD_46;
+		public string _MainMenu_HUD_46 = "Massively increased health.";
+		public static string MainMenu_HUD_47 => instance._MainMenu_HUD_47;
+		public string _MainMenu_HUD_47 = "Stuns on hit.";
+		public static string MainMenu_HUD_48 => instance._MainMenu_HUD_48;
+		public string _MainMenu_HUD_48 = "Teleports behind you when you least expect it.";
+		public static string MainMenu_HUD_49 => instance._MainMenu_HUD_49;
+		public string _MainMenu_HUD_49 = "Extremely powerful during rainy weather.";
+		public static string MainMenu_HUD_50 => instance._MainMenu_HUD_50;
+		public string _MainMenu_HUD_50 = "Periodically negates damage.";
+		public static string MainMenu_HUD_51 => instance._MainMenu_HUD_51;
+		public string _MainMenu_HUD_51 = "Let it rain...";
+		public static string MainMenu_HUD_52 => instance._MainMenu_HUD_52;
+		public string _MainMenu_HUD_52 = "Casts sun flare spell.";
+		public static string MainMenu_HUD_53 => instance._MainMenu_HUD_53;
+		public string _MainMenu_HUD_53 = "Revives after dying once.";
+		public static string MainMenu_HUD_54 => instance._MainMenu_HUD_54;
+		public string _MainMenu_HUD_54 = "Creates rotating death rays.";
+		public static string MainMenu_HUD_55 => instance._MainMenu_HUD_55;
+		public string _MainMenu_HUD_55 = "Gets stronger the more enemies around it die. Kill first.";
+		public static string MainMenu_HUD_56 => instance._MainMenu_HUD_56;
+		public string _MainMenu_HUD_56 = "Upon death, all nearby enemies are healed and empowered. Kill last";
 
 		//MainMenu_Perks
 		public static string MainMenu_Perks_1 => instance._MainMenu_Perks_1;
@@ -1709,7 +1765,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_StatDefinitions_30 => instance._ItemDataBase_StatDefinitions_30;
 		public string _ItemDataBase_StatDefinitions_30 = "Ranged damage/agility";
 		public static string ItemDataBase_StatDefinitions_31 => instance._ItemDataBase_StatDefinitions_31;
-		public string _ItemDataBase_StatDefinitions_31 = "melee armor piercing";
+		public string _ItemDataBase_StatDefinitions_31 = "Melee armor piercing";
 		public static string ItemDataBase_StatDefinitions_32 => instance._ItemDataBase_StatDefinitions_32;
 		public string _ItemDataBase_StatDefinitions_32 = "Ranged armor piercing";
 		public static string ItemDataBase_StatDefinitions_33 => instance._ItemDataBase_StatDefinitions_33;
@@ -2209,7 +2265,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_198(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_198, objects);
 		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
 		public static string ItemDataBase_ItemDefinitions_199 => instance._ItemDataBase_ItemDefinitions_199;
-		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualit�t";
+		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualitot";
 		public static string ItemDataBase_ItemDefinitions_200 => instance._ItemDataBase_ItemDefinitions_200;
 		public string _ItemDataBase_ItemDefinitions_200 = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.";
 		public static string ItemDataBase_ItemDefinitions_201 => instance._ItemDataBase_ItemDefinitions_201;
@@ -3044,12 +3100,173 @@ namespace ChampionsOfForest.Localization
 		public string _ItemDataBase_ItemDefinitions_616 = "Pedant of Skallagrim";
 		public static string ItemDataBase_ItemDefinitions_617 => instance._ItemDataBase_ItemDefinitions_617;
 		public string _ItemDataBase_ItemDefinitions_617 = "Wristguards of The Sanctuary Keeper";
+		public static string ItemDataBase_ItemDefinitions_618(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_618, objects);
+		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
+
+		//MainMenu_Hints
+		public static string MainMenu_Hints_1 => instance._MainMenu_Hints_1;
+		public string _MainMenu_Hints_1 = "Gain experience by hunting";
+		public static string MainMenu_Hints_2 => instance._MainMenu_Hints_2;
+		public string _MainMenu_Hints_2 = "Experience is shared between players";
+		public static string MainMenu_Hints_3 => instance._MainMenu_Hints_3;
+		public string _MainMenu_Hints_3 = "Gain experience by killing enemies";
+		public static string MainMenu_Hints_4 => instance._MainMenu_Hints_4;
+		public string _MainMenu_Hints_4 = "Spend points on abilities and perks. Access upgrades by pressing ";
+		public static string MainMenu_Hints_5 => instance._MainMenu_Hints_5;
+		public string _MainMenu_Hints_5 = "Obtain your first piece of equipment by breaking effigies";
+		public static string MainMenu_Hints_6 => instance._MainMenu_Hints_6;
+		public string _MainMenu_Hints_6 = "Equip armor, weapons and trinklets to become stronger. Open inventory by pressing ";
+		public static string MainMenu_Hints_7 => instance._MainMenu_Hints_7;
+		public string _MainMenu_Hints_7 = "Unlock powerful abilities and upgrade them through perks";
+		public static string MainMenu_Hints_8 => instance._MainMenu_Hints_8;
+		public string _MainMenu_Hints_8 = "You need energy to cast spells. Eat, drink or sit to regain energy";
+		public static string MainMenu_Hints_9 => instance._MainMenu_Hints_9;
+		public string _MainMenu_Hints_9 = "Firebolt ability equips an invisible weapon (placeholder effect bruh). Left click after casting to quickly send out balls of fire at enemies. Each attack consumes energy";
+		public static string MainMenu_Hints_10 => instance._MainMenu_Hints_10;
+		public string _MainMenu_Hints_10 = "If you sit down with firebolt spell active, you can become a turret";
+		public static string MainMenu_Hints_11 => instance._MainMenu_Hints_11;
+		public string _MainMenu_Hints_11 = "Snowstorm ability equips an invisible weapon (placeholder effect bruh). Left click after casting to channel a snowstorm around you";
+		public static string MainMenu_Hints_12 => instance._MainMenu_Hints_12;
+		public string _MainMenu_Hints_12 = "Obtain 6 different abilities as soon as possible";
+		public static string MainMenu_Hints_13 => instance._MainMenu_Hints_13;
+		public string _MainMenu_Hints_13 = "There are perks you can unlock for free right now!";
+		public static string MainMenu_Hints_14 => instance._MainMenu_Hints_14;
+		public string _MainMenu_Hints_14 = "Draw the weapon from your main hand equipment slot by pressing ";
+		public static string MainMenu_Hints_15 => instance._MainMenu_Hints_15;
+		public string _MainMenu_Hints_15 = "Increase the difficulty whenever you think enemies become pushovers";
+		public static string MainMenu_Hints_16 => instance._MainMenu_Hints_16;
+		public string _MainMenu_Hints_16 = "Armored enemies are the bane of warriors and archers. Increase your Armor Piercing stat or use strong fire to melt armor";
+		public static string MainMenu_Hints_17 => instance._MainMenu_Hints_17;
+		public string _MainMenu_Hints_17 = "Jack of all trades loses to a master of one. Focus your build on a single playstyle to maximize effectiveness";
+		public static string MainMenu_Hints_18(params object[] objects) => string.Format(instance._MainMenu_Hints_18, objects);
+		public string _MainMenu_Hints_18 = "You can mark locations, items and enemies to better communicate with other players. Hold {0} to place a marker";
+		public static string MainMenu_Hints_19 => instance._MainMenu_Hints_19;
+		public string _MainMenu_Hints_19 = "You can reset all upgrades by consuming a Heart of Purity";
+		public static string MainMenu_Hints_20 => instance._MainMenu_Hints_20;
+		public string _MainMenu_Hints_20 = "Do not forget about defense. Invest in resistance to stuns, abilities to get away from danger, or sufficient toughness to soak incoming damage";
+		public static string MainMenu_Hints_21 => instance._MainMenu_Hints_21;
+		public string _MainMenu_Hints_21 = "Maximize ranged damage by aiming for the head";
+		public static string MainMenu_Hints_22 => instance._MainMenu_Hints_22;
+		public string _MainMenu_Hints_22 = "Bullets fare better against mutants than arrows";
+		public static string MainMenu_Hints_23 => instance._MainMenu_Hints_23;
+		public string _MainMenu_Hints_23 = "You can combine archery with magic for massive burst damage";
+		public static string MainMenu_Hints_24 => instance._MainMenu_Hints_24;
+		public string _MainMenu_Hints_24 = "Maximize melee damage by parrying attackers";
+		public static string MainMenu_Hints_25 => instance._MainMenu_Hints_25;
+		public string _MainMenu_Hints_25 = "You can combine melee with magic for short bursts of great damage";
+		public static string MainMenu_Hints_26 => instance._MainMenu_Hints_26;
+		public string _MainMenu_Hints_26 = "Parrying does not count as getting hit. You can parry basher and poisonous elites";
+		public static string MainMenu_Hints_27 => instance._MainMenu_Hints_27;
+		public string _MainMenu_Hints_27 = "Setting enemies ablaze will make them stop attacking";
+		public static string MainMenu_Hints_28 => instance._MainMenu_Hints_28;
+		public string _MainMenu_Hints_28 = "You can shift click during spell selection menu to change a key binding";
+		public static string MainMenu_Hints_29 => instance._MainMenu_Hints_29;
+		public string _MainMenu_Hints_29 = "Defensive perks can negate elite abilities - Black holes cannot suck you in";
+		public static string MainMenu_Hints_30 => instance._MainMenu_Hints_30;
+		public string _MainMenu_Hints_30 = "Defensive perks can negate elite abilities - Blizzard no longer slows you";
+		public static string MainMenu_Hints_31 => instance._MainMenu_Hints_31;
+		public string _MainMenu_Hints_31 = "There are items that change how certain spells work";
+		public static string MainMenu_Hints_32 => instance._MainMenu_Hints_32;
+		public string _MainMenu_Hints_32 = "Explosive damage stat of one player affects explosions caused by all players";
+		public static string MainMenu_Hints_33 => instance._MainMenu_Hints_33;
+		public string _MainMenu_Hints_33 = "There are powerful, hidden upgrades to be discovered";
+
+		//EnemyProgression_Setup
+		public static string EnemyProgression_Setup_1 => instance._EnemyProgression_Setup_1;
+		public string _EnemyProgression_Setup_1 = "Armsy";
+		public static string EnemyProgression_Setup_2 => instance._EnemyProgression_Setup_2;
+		public string _EnemyProgression_Setup_2 = "Old Armsy";
+		public static string EnemyProgression_Setup_3 => instance._EnemyProgression_Setup_3;
+		public string _EnemyProgression_Setup_3 = "Virginia";
+		public static string EnemyProgression_Setup_4 => instance._EnemyProgression_Setup_4;
+		public string _EnemyProgression_Setup_4 = "Old Virginia";
+		public static string EnemyProgression_Setup_5 => instance._EnemyProgression_Setup_5;
+		public string _EnemyProgression_Setup_5 = "Fatman";
+		public static string EnemyProgression_Setup_6 => instance._EnemyProgression_Setup_6;
+		public string _EnemyProgression_Setup_6 = "Baby";
+		public static string EnemyProgression_Setup_7 => instance._EnemyProgression_Setup_7;
+		public string _EnemyProgression_Setup_7 = "Cannibal";
+		public static string EnemyProgression_Setup_8 => instance._EnemyProgression_Setup_8;
+		public string _EnemyProgression_Setup_8 = "Cannibal Leader";
+		public static string EnemyProgression_Setup_9 => instance._EnemyProgression_Setup_9;
+		public string _EnemyProgression_Setup_9 = "Cannibal Female";
+		public static string EnemyProgression_Setup_10 => instance._EnemyProgression_Setup_10;
+		public string _EnemyProgression_Setup_10 = "Feral Cannibal";
+		public static string EnemyProgression_Setup_11 => instance._EnemyProgression_Setup_11;
+		public string _EnemyProgression_Setup_11 = "Old Cannibal";
+		public static string EnemyProgression_Setup_12 => instance._EnemyProgression_Setup_12;
+		public string _EnemyProgression_Setup_12 = "Old Feral Cannibal";
+		public static string EnemyProgression_Setup_13 => instance._EnemyProgression_Setup_13;
+		public string _EnemyProgression_Setup_13 = "Cannibal Savage";
+		public static string EnemyProgression_Setup_14 => instance._EnemyProgression_Setup_14;
+		public string _EnemyProgression_Setup_14 = "Feral Cannibal Savage";
+		public static string EnemyProgression_Setup_15 => instance._EnemyProgression_Setup_15;
+		public string _EnemyProgression_Setup_15 = "Tribal Cannibal";
+		public static string EnemyProgression_Setup_16 => instance._EnemyProgression_Setup_16;
+		public string _EnemyProgression_Setup_16 = "Tribal Cannibal Leader";
+		public static string EnemyProgression_Setup_17 => instance._EnemyProgression_Setup_17;
+		public string _EnemyProgression_Setup_17 = "Tribal Cannibal Female";
+		public static string EnemyProgression_Setup_18 => instance._EnemyProgression_Setup_18;
+		public string _EnemyProgression_Setup_18 = "Tribal Cannibal Firethrower";
+
+		//ModdedPlayer
+		public static string ModdedPlayer_1 => instance._ModdedPlayer_1;
+		public string _ModdedPlayer_1 = "TRIPLE KILL   +10% exp";
+		public static string ModdedPlayer_2 => instance._ModdedPlayer_2;
+		public string _ModdedPlayer_2 = "QUADRA KILL   +25% exp";
+		public static string ModdedPlayer_3 => instance._ModdedPlayer_3;
+		public string _ModdedPlayer_3 = "PENTA KILL   +50% exp";
+		public static string ModdedPlayer_4 => instance._ModdedPlayer_4;
+		public string _ModdedPlayer_4 = "MASSACRE   +75% exp";
+		public static string ModdedPlayer_5 => instance._ModdedPlayer_5;
+		public string _ModdedPlayer_5 = "BIG MASSACRE   +130% exp";
+		public static string ModdedPlayer_6 => instance._ModdedPlayer_6;
+		public string _ModdedPlayer_6 = "BIGGER MASSACRE   +200% exp";
+		public static string ModdedPlayer_7 => instance._ModdedPlayer_7;
+		public string _ModdedPlayer_7 = "HUGE MASSACRE   +400% exp";
+		public static string ModdedPlayer_8 => instance._ModdedPlayer_8;
+		public string _ModdedPlayer_8 = "BLOODY MASSACRE   +750% exp";
+		public static string ModdedPlayer_9 => instance._ModdedPlayer_9;
+		public string _ModdedPlayer_9 = "WICKED SICK   +1,500% exp";
+		public static string ModdedPlayer_10 => instance._ModdedPlayer_10;
+		public string _ModdedPlayer_10 = "UNSTOPPABLE   +2,150% exp";
+		public static string ModdedPlayer_11 => instance._ModdedPlayer_11;
+		public string _ModdedPlayer_11 = "GODLIKE MASSACRE   +3,400% exp";
+		public static string ModdedPlayer_12 => instance._ModdedPlayer_12;
+		public string _ModdedPlayer_12 = "BEYOND GODLIKE   +4,900% exp";
+		public static string ModdedPlayer_13 => instance._ModdedPlayer_13;
+		public string _ModdedPlayer_13 = "SLAUGHTER   +9,900% exp";
+		public static string ModdedPlayer_14 => instance._ModdedPlayer_14;
+		public string _ModdedPlayer_14 = "BLOODBATH   +24,900% exp";
+		public static string ModdedPlayer_15 => instance._ModdedPlayer_15;
+		public string _ModdedPlayer_15 = "R A M P A G E    +100,000% exp";
 
         //Player\Main Menu\MainMenu_DifficultySelection.cs
+		public static string MainMenu_DifficultySelection_27 => instance._MainMenu_DifficultySelection_27;
+		public string _MainMenu_DifficultySelection_27 = "Respawn enemies in caves";
+
+		public static string MainMenu_DifficultySelection_28 => instance._MainMenu_DifficultySelection_28;
+		public string _MainMenu_DifficultySelection_28 = "Randomize cave spawns";
+
+		public static string MainMenu_DifficultySelection_29 => instance._MainMenu_DifficultySelection_29;
+		public string _MainMenu_DifficultySelection_29 = "Additional cave spawns";
+
+		public static string MainMenu_DifficultySelection_30 => instance._MainMenu_DifficultySelection_30;
+		public string _MainMenu_DifficultySelection_30 = "Cave respawn delay";
+
+		public static string MainMenu_DifficultySelection_31 => instance._MainMenu_DifficultySelection_31;
+		public string _MainMenu_DifficultySelection_31 = "Default";
+
 
         //Player\Main Menu\MainMenu.cs
 
         //Player\Main Menu\MainMenu_Guide.cs
+		public static string MainMenu_Guide_133 => instance._MainMenu_Guide_133;
+		public string _MainMenu_Guide_133 = "Stamina per second";
+
+		public static string MainMenu_Guide_134 => instance._MainMenu_Guide_134;
+		public string _MainMenu_Guide_134 = "Generated resources";
+
 
         //Player\Main Menu\MainMenu_HUD.cs
 
@@ -3076,13 +3293,16 @@ namespace ChampionsOfForest.Localization
         //Items\ItemDataBase_StatDefinitions.cs
 
         //Items\ItemDataBase_ItemDefinitions.cs
-		public static string ItemDataBase_ItemDefinitions_618 => instance._ItemDataBase_ItemDefinitions_618;
-		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
-
 
         //Items\Item.cs
 
         //Res\ResourceLoader.cs
+
+        //Player\Main Menu\MainMenu_Hints.cs
+
+        //Enemies\EnemyProgression\EnemyProgression_Setup.cs
+
+        //Player\ModdedPlayer\ModdedPlayer.cs
 
 
 
@@ -3118,6 +3338,11 @@ MainMenu_DifficultySelection_23:: "Yes"
 MainMenu_DifficultySelection_24:: "More options"
 MainMenu_DifficultySelection_25:: "Leave lobby"
 MainMenu_DifficultySelection_26:: "Loot level assignment policy: "
+MainMenu_DifficultySelection_27:: "Respawn enemies in caves"
+MainMenu_DifficultySelection_28:: "Randomize cave spawns"
+MainMenu_DifficultySelection_29:: "Additional cave spawns"
+MainMenu_DifficultySelection_30:: "Cave respawn delay"
+MainMenu_DifficultySelection_31:: "Default"
 MainMenu_Inventory_1:: "Inventory"
 MainMenu_Inventory_2:: "Equipment"
 MainMenu_Inventory_3:: "Head"
@@ -3290,6 +3515,8 @@ MainMenu_Guide_129:: "Inventory Stats"
 MainMenu_Guide_130:: "Amount of additional items of type '{0}' you are allowed to carry."
 MainMenu_Guide_131:: "Amount of additional items of type'{0}' you generate daily."
 MainMenu_Guide_132:: "Recalculate Stats"
+MainMenu_Guide_133:: "Stamina per second"
+MainMenu_Guide_134:: "Generated resources"
 MainMenu_1:: "Easy"
 MainMenu_2:: "Veteran"
 MainMenu_3:: "Elite"
@@ -3347,6 +3574,34 @@ MainMenu_HUD_25:: "Laser tower"
 MainMenu_HUD_26:: "Avenger"
 MainMenu_HUD_27:: "Sacrifice"
 MainMenu_HUD_28:: "Enemy"
+MainMenu_HUD_29:: "Armored enemies take reduced damage."
+MainMenu_HUD_30:: "Damage"
+MainMenu_HUD_31:: "Bounty"
+MainMenu_HUD_32:: "Bounty is the experience reward for killing an enemy."
+MainMenu_HUD_33:: "Applies damage over time on hit."
+MainMenu_HUD_34:: "Reduced damage taken."
+MainMenu_HUD_35:: "Massively reduced damage taken."
+MainMenu_HUD_36:: "Greatly educed damage taken."
+MainMenu_HUD_37:: "Aura that slows."
+MainMenu_HUD_38:: "Deals damage if you get too close."
+MainMenu_HUD_39:: "Periodically locks you in place."
+MainMenu_HUD_40:: "Creates a deadly black hole."
+MainMenu_HUD_41:: "Locks you inside a trap if you get in melee range."
+MainMenu_HUD_42:: "Immune to crowd controll."
+MainMenu_HUD_43:: "Health and damage worthy of its size"
+MainMenu_HUD_44:: "Tiny but deadly ambusher."
+MainMenu_HUD_45:: "Increased damage"
+MainMenu_HUD_46:: "Massively increased health."
+MainMenu_HUD_47:: "Stuns on hit."
+MainMenu_HUD_48:: "Teleports behind you when you least expect it."
+MainMenu_HUD_49:: "Extremely powerful during rainy weather."
+MainMenu_HUD_50:: "Periodically negates damage."
+MainMenu_HUD_51:: "Let it rain..."
+MainMenu_HUD_52:: "Casts sun flare spell."
+MainMenu_HUD_53:: "Revives after dying once."
+MainMenu_HUD_54:: "Creates rotating death rays."
+MainMenu_HUD_55:: "Gets stronger the more enemies around it die. Kill first."
+MainMenu_HUD_56:: "Upon death, all nearby enemies are healed and empowered. Kill last"
 MainMenu_Perks_1:: "Hold to buy"
 MainMenu_Perks_2:: "Cost"
 MainMenu_Perks_3:: "Support"
@@ -3618,7 +3873,7 @@ PerkDatabase_222:: "Blood infused arrow takes {0} more health to convert it to d
 PerkDatabase_223:: "Arcane Blood"
 PerkDatabase_224:: "Blood infused arrow damage per health is increased by {0}"
 PerkDatabase_225:: "Energy Field"
-PerkDatabase_226:: "Healing dome rapidly regenerates energy"
+PerkDatabase_226:: "Sanctuary rapidly regenerates energy"
 PerkDatabase_227:: "Enhanced vitality"
 PerkDatabase_228:: "Increases max health by {0}"
 PerkDatabase_229:: "Enhanced energy"
@@ -3748,9 +4003,9 @@ PerkDatabase_353:: "Gold reduces damage taken by {0}"
 PerkDatabase_354:: "Sudden Rampage"
 PerkDatabase_355:: "Cooldown of Berserk is decreased by {0}"
 PerkDatabase_356:: "Safe Heaven"
-PerkDatabase_357:: "Healing dome lasts a minute."
+PerkDatabase_357:: "Sanctuary lasts a minute."
 PerkDatabase_358:: "Time of Need"
-PerkDatabase_359:: "The cooldown of healing dome and purge is reduced by {0}"
+PerkDatabase_359:: "The cooldown of Sanctuary and Purge is reduced by {0}"
 PerkDatabase_360:: "Breathing Tehniques"
 PerkDatabase_361:: "When black flame is on, your attack speed is fixed at {0}"
 PerkDatabase_362:: "Polishing"
@@ -3843,9 +4098,9 @@ PerkDatabase_449:: "Critical Infusion"
 PerkDatabase_450:: "Pound of flesh"
 PerkDatabase_451:: "During berserk, max health is increased by {0}"
 PerkDatabase_452:: "Pantheon of Champions"
-PerkDatabase_453:: "Allies inside sanctuary deal {0} increased damage and take {0} reduced damage"
+PerkDatabase_453:: "Allies inside sanctuary deal {0} increased damage and take {1} reduced damage"
 PerkDatabase_454:: "Magic Tower"
-PerkDatabase_455:: "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {0} less resources."
+PerkDatabase_455:: "Allies inside sanctuary have increased cooldown rate by {0} and their attacks consume {1} less resources."
 SpellDataBase_1:: "Create a large AoE black hole, that lasts {0} seconds, continously pulling enemies inside and dealing {1} spell damage per second."
 SpellDataBase_2:: "Creates a sphere of vaporized aloe that rapidly heals all allies inside."
 SpellDataBase_3:: "Sanctuary"
@@ -3928,7 +4183,7 @@ ItemDataBase_StatDefinitions_27:: "Attack cost reduction"
 ItemDataBase_StatDefinitions_28:: "Spell cost to stamina"
 ItemDataBase_StatDefinitions_29:: "Energy/sec"
 ItemDataBase_StatDefinitions_30:: "Ranged damage/agility"
-ItemDataBase_StatDefinitions_31:: "melee armor piercing"
+ItemDataBase_StatDefinitions_31:: "Melee armor piercing"
 ItemDataBase_StatDefinitions_32:: "Ranged armor piercing"
 ItemDataBase_StatDefinitions_33:: "Armor piercing"
 ItemDataBase_StatDefinitions_34:: "Refund points"
@@ -4177,7 +4432,7 @@ ItemDataBase_ItemDefinitions_195:: "Assassins Pauldrons"
 ItemDataBase_ItemDefinitions_196:: "Death Pact"
 ItemDataBase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
 ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you."
-ItemDataBase_ItemDefinitions_199:: "Maximale Qualit�t"
+ItemDataBase_ItemDefinitions_199:: "Maximale Qualitot"
 ItemDataBase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
 ItemDataBase_ItemDefinitions_201:: "Heart of Purity"
 ItemDataBase_ItemDefinitions_202:: "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points"
@@ -4596,6 +4851,72 @@ ItemDataBase_ItemDefinitions_615:: "Increases attack and movement speed during b
 ItemDataBase_ItemDefinitions_616:: "Pedant of Skallagrim"
 ItemDataBase_ItemDefinitions_617:: "Wristguards of The Sanctuary Keeper"
 ItemDataBase_ItemDefinitions_618:: "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources"
+MainMenu_Hints_1:: "Gain experience by hunting"
+MainMenu_Hints_2:: "Experience is shared between players"
+MainMenu_Hints_3:: "Gain experience by killing enemies"
+MainMenu_Hints_4:: "Spend points on abilities and perks. Access upgrades by pressing "
+MainMenu_Hints_5:: "Obtain your first piece of equipment by breaking effigies"
+MainMenu_Hints_6:: "Equip armor, weapons and trinklets to become stronger. Open inventory by pressing "
+MainMenu_Hints_7:: "Unlock powerful abilities and upgrade them through perks"
+MainMenu_Hints_8:: "You need energy to cast spells. Eat, drink or sit to regain energy"
+MainMenu_Hints_9:: "Firebolt ability equips an invisible weapon (placeholder effect bruh). Left click after casting to quickly send out balls of fire at enemies. Each attack consumes energy"
+MainMenu_Hints_10:: "If you sit down with firebolt spell active, you can become a turret"
+MainMenu_Hints_11:: "Snowstorm ability equips an invisible weapon (placeholder effect bruh). Left click after casting to channel a snowstorm around you"
+MainMenu_Hints_12:: "Obtain 6 different abilities as soon as possible"
+MainMenu_Hints_13:: "There are perks you can unlock for free right now!"
+MainMenu_Hints_14:: "Draw the weapon from your main hand equipment slot by pressing "
+MainMenu_Hints_15:: "Increase the difficulty whenever you think enemies become pushovers"
+MainMenu_Hints_16:: "Armored enemies are the bane of warriors and archers. Increase your Armor Piercing stat or use strong fire to melt armor"
+MainMenu_Hints_17:: "Jack of all trades loses to a master of one. Focus your build on a single playstyle to maximize effectiveness"
+MainMenu_Hints_18:: "You can mark locations, items and enemies to better communicate with other players. Hold {0} to place a marker"
+MainMenu_Hints_19:: "You can reset all upgrades by consuming a Heart of Purity"
+MainMenu_Hints_20:: "Do not forget about defense. Invest in resistance to stuns, abilities to get away from danger, or sufficient toughness to soak incoming damage"
+MainMenu_Hints_21:: "Maximize ranged damage by aiming for the head"
+MainMenu_Hints_22:: "Bullets fare better against mutants than arrows"
+MainMenu_Hints_23:: "You can combine archery with magic for massive burst damage"
+MainMenu_Hints_24:: "Maximize melee damage by parrying attackers"
+MainMenu_Hints_25:: "You can combine melee with magic for short bursts of great damage"
+MainMenu_Hints_26:: "Parrying does not count as getting hit. You can parry basher and poisonous elites"
+MainMenu_Hints_27:: "Setting enemies ablaze will make them stop attacking"
+MainMenu_Hints_28:: "You can shift click during spell selection menu to change a key binding"
+MainMenu_Hints_29:: "Defensive perks can negate elite abilities - Black holes cannot suck you in"
+MainMenu_Hints_30:: "Defensive perks can negate elite abilities - Blizzard no longer slows you"
+MainMenu_Hints_31:: "There are items that change how certain spells work"
+MainMenu_Hints_32:: "Explosive damage stat of one player affects explosions caused by all players"
+MainMenu_Hints_33:: "There are powerful, hidden upgrades to be discovered"
+EnemyProgression_Setup_1:: "Armsy"
+EnemyProgression_Setup_2:: "Old Armsy"
+EnemyProgression_Setup_3:: "Virginia"
+EnemyProgression_Setup_4:: "Old Virginia"
+EnemyProgression_Setup_5:: "Fatman"
+EnemyProgression_Setup_6:: "Baby"
+EnemyProgression_Setup_7:: "Cannibal"
+EnemyProgression_Setup_8:: "Cannibal Leader"
+EnemyProgression_Setup_9:: "Cannibal Female"
+EnemyProgression_Setup_10:: "Feral Cannibal"
+EnemyProgression_Setup_11:: "Old Cannibal"
+EnemyProgression_Setup_12:: "Old Feral Cannibal"
+EnemyProgression_Setup_13:: "Cannibal Savage"
+EnemyProgression_Setup_14:: "Feral Cannibal Savage"
+EnemyProgression_Setup_15:: "Tribal Cannibal"
+EnemyProgression_Setup_16:: "Tribal Cannibal Leader"
+EnemyProgression_Setup_17:: "Tribal Cannibal Female"
+EnemyProgression_Setup_18:: "Tribal Cannibal Firethrower"
+ModdedPlayer_1:: "TRIPLE KILL   +10% exp"
+ModdedPlayer_2:: "QUADRA KILL   +25% exp"
+ModdedPlayer_3:: "PENTA KILL   +50% exp"
+ModdedPlayer_4:: "MASSACRE   +75% exp"
+ModdedPlayer_5:: "BIG MASSACRE   +130% exp"
+ModdedPlayer_6:: "BIGGER MASSACRE   +200% exp"
+ModdedPlayer_7:: "HUGE MASSACRE   +400% exp"
+ModdedPlayer_8:: "BLOODY MASSACRE   +750% exp"
+ModdedPlayer_9:: "WICKED SICK   +1,500% exp"
+ModdedPlayer_10:: "UNSTOPPABLE   +2,150% exp"
+ModdedPlayer_11:: "GODLIKE MASSACRE   +3,400% exp"
+ModdedPlayer_12:: "BEYOND GODLIKE   +4,900% exp"
+ModdedPlayer_13:: "SLAUGHTER   +9,900% exp"
+ModdedPlayer_14:: "BLOODBATH   +24,900% exp"
+ModdedPlayer_15:: "R A M P A G E    +100,000% exp"
 
 
 

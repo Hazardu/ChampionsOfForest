@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Bolt;
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Localization;
 using ChampionsOfForest.Network;
 using TheForest.Utils;
 using UnityEngine;
@@ -688,6 +689,7 @@ namespace ChampionsOfForest.Player
 			{
 				return;
 			}
+			duration *= stats.magicDamageTaken;
 			LocalPlayer.HitReactions.enableFootShake(1, 0.6f);
 
 			Stats.stunned.value = true;
@@ -1036,77 +1038,77 @@ namespace ChampionsOfForest.Player
 			else if (KCInRange(3, 4))
 			{
 				MassacreMultiplier = 1.1f;
-				MassacreText = "TRIPLE KILL   +10% exp";
+				MassacreText = Translations.ModdedPlayer_1;//tr
 			}
 			else if (KCInRange(4, 5))
 			{
 				MassacreMultiplier = 1.25f;
-				MassacreText = "QUADRA KILL   +25% exp";
+				MassacreText = Translations.ModdedPlayer_2;//tr
 			}
 			else if (KCInRange(5, 6))
 			{
 				MassacreMultiplier = 1.5f;
-				MassacreText = "PENTA KILL   +50% exp";
+				MassacreText = Translations.ModdedPlayer_3;//tr
 			}
 			else if (KCInRange(6, 10))
 			{
 				MassacreMultiplier = 1.75f;
-				MassacreText = "MASSACRE   +75% exp";
+				MassacreText = Translations.ModdedPlayer_4;//tr
 			}
 			else if (KCInRange(10, 12))
 			{
 				MassacreMultiplier = 2.3f;
-				MassacreText = "BIG MASSACRE   +130% exp";
+				MassacreText = Translations.ModdedPlayer_5;//tr
 			}
 			else if (KCInRange(12, 16))
 			{
 				MassacreMultiplier = 3f;
-				MassacreText = "BIGGER MASSACRE   +200% exp";
+				MassacreText = Translations.ModdedPlayer_6;//tr
 			}
 			else if (KCInRange(16, 20))
 			{
 				MassacreMultiplier = 5f;
-				MassacreText = "HUGE MASSACRE   +400% exp";
+				MassacreText = Translations.ModdedPlayer_7;//tr
 			}
 			else if (KCInRange(20, 25))
 			{
 				MassacreMultiplier = 8.5F;
-				MassacreText = "BLOODY MASSACRE   +750% exp";
+				MassacreText = Translations.ModdedPlayer_8;//tr
 			}
 			else if (KCInRange(25, 30))
 			{
 				MassacreMultiplier = 16F;
-				MassacreText = "WICKED SICK   +1,500% exp";
+				MassacreText = Translations.ModdedPlayer_9;//tr
 			}
 			else if (KCInRange(30, 40))
 			{
 				MassacreMultiplier = 22.5f;
-				MassacreText = "UNSTOPPABLE   +2,150% exp";
+				MassacreText = Translations.ModdedPlayer_10;//tr
 			}
 			else if (KCInRange(40, 50))
 			{
 				MassacreMultiplier = 35;
-				MassacreText = "GODLIKE MASSACRE   +3,400% exp";
+				MassacreText = Translations.ModdedPlayer_11;//tr
 			}
 			else if (KCInRange(50, 65))
 			{
 				MassacreMultiplier = 50;
-				MassacreText = "BEYOND GODLIKE   +4,900% exp";
+				MassacreText = Translations.ModdedPlayer_12;//tr
 			}
 			else if (KCInRange(65, 75))
 			{
 				MassacreMultiplier = 100;
-				MassacreText = "SLAUGHTER   +9,900% exp";
+				MassacreText = Translations.ModdedPlayer_13;//tr
 			}
 			else if (KCInRange(75, 100))
 			{
 				MassacreMultiplier = 250;
-				MassacreText = "BLOODBATH   +24,900% exp";
+				MassacreText = Translations.ModdedPlayer_14;//tr
 			}
 			else if (MassacreKills >= 100)
 			{
 				MassacreMultiplier = 1000;
-				MassacreText = "R A M P A G E    +100,000% exp";
+				MassacreText = Translations.ModdedPlayer_15;//tr
 			}
 		}
 

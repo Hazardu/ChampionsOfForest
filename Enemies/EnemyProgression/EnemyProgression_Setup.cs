@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using ChampionsOfForest.Enemies.EnemyAbilities;
+using ChampionsOfForest.Localization;
 
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -382,64 +383,64 @@ namespace ChampionsOfForest
 				switch (enemyType)
 				{
 					case Enemy.RegularArmsy:
-						enemyName = "Armsy";
+						enemyName = Translations.EnemyProgression_Setup_1; //tr
 						return;
 					case Enemy.PaleArmsy:
-						enemyName = "Old Armsy";
+						enemyName = Translations.EnemyProgression_Setup_2; //tr
 						return;
 					case Enemy.RegularVags:
-						enemyName = "Virginia";
+						enemyName = Translations.EnemyProgression_Setup_3; //tr
 						return;
 					case Enemy.PaleVags:
-						enemyName = "Old Virginia";
+						enemyName = Translations.EnemyProgression_Setup_4; //tr
 						return;
 					case Enemy.Cowman:
-						enemyName = "Fatman";
+						enemyName = Translations.EnemyProgression_Setup_5; //tr
 						return;
 					case Enemy.Baby:
-						enemyName = "Baby";
+						enemyName = Translations.EnemyProgression_Setup_6; //tr
 						return;
 					case Enemy.Worm:
-						enemyName = "Baby";
+						enemyName = Translations.EnemyProgression_Setup_6; //tr
 						return;
 					case Enemy.NormalMale:
-						enemyName = "Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_7; //tr
 						return;
 					case Enemy.NormalLeaderMale:
-						enemyName = "Cannibal Leader";
+						enemyName = Translations.EnemyProgression_Setup_8; //tr
 						return;
 					case Enemy.NormalFemale:
-						enemyName = "Cannibal Female";
+						enemyName = Translations.EnemyProgression_Setup_9; //tr
 						return;
 					case Enemy.NormalSkinnyMale:
-						enemyName = "Feral Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_10; //tr
 						return;
 					case Enemy.NormalSkinnyFemale:
-						enemyName = "Feral Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_10; //tr
 						return;
 					case Enemy.PaleMale:
-						enemyName = "Old Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_11; //tr
 						return;
 					case Enemy.PaleSkinnyMale:
-						enemyName = "Old Feral Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_12; //tr
 						return;
 					case Enemy.PaleSkinnedMale:
-						enemyName = "Cannibal Savage";
+						enemyName = Translations.EnemyProgression_Setup_13; //tr
 						return;
 					case Enemy.PaleSkinnedSkinnyMale:
-						enemyName = "Feral Cannibal Savage";
+						enemyName = Translations.EnemyProgression_Setup_14; //tr
 						return;
 					case Enemy.PaintedMale:
-						enemyName = "Tribal Cannibal";
+						enemyName = Translations.EnemyProgression_Setup_15; //tr
 						return;
 					case Enemy.PaintedLeaderMale:
-						enemyName = "Tribal Cannibal Leader";
+						enemyName = Translations.EnemyProgression_Setup_16; //tr
 						return;
 					case Enemy.PaintedFemale:
-						enemyName = "Tribal Cannibal Female";
+						enemyName = Translations.EnemyProgression_Setup_17; //tr
 						return;
 					case Enemy.Fireman:
-						enemyName = "Tribal Cannibal Firethrower";
+						enemyName = Translations.EnemyProgression_Setup_18; //tr
 						return;
 				}
 			}
