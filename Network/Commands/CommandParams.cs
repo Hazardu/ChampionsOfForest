@@ -139,7 +139,26 @@ namespace ChampionsOfForest.Network.CommandParams
 	[Serializable]
 	public struct params_SPELL_BALLLIGHTNING
 	{
-
+		public float Damage
+		{
+			get; set;
+		}
+		public uint ID
+		{
+			get; set;
+		}
+		public ulong casterID
+		{
+			get; set;
+		}
+		public bool ImmediateExplode
+		{
+			get; set;
+		}
+		public bool Crit
+		{
+			get; set;
+		}
 	}
 	[Serializable]
 	public struct params_SPELL_BALLLIGHTNING_REQUEST

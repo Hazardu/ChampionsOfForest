@@ -53,7 +53,6 @@ namespace ChampionsOfForest.Network
 
 				new RegisteredCommand("SPELL_BLACK_HOLE",
 				(r)=> {
-					Vector3 pos =r.ReadVector3()
 					BlackHole.Create(r.ReadVector3(), r.ReadStruct<params_SPELL_BLACK_HOLE>());
 				}),
 
@@ -153,23 +152,26 @@ namespace ChampionsOfForest.Network
 
 				new RegisteredCommand("SPELL_BALLLIGHTNING",
 				(r)=> {
-					Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-					Vector3 speed = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-					ulong playerID = r.ReadUInt64();
-
-					float dmg = r.ReadSingle();
-					uint id = r.ReadUInt32();
-					if (BallLightning.lastID < id)
-						BallLightning.lastID = id;
-					BallLightning.Create(pos, speed, dmg, id, playerID);
+					Vector3 pos = r.ReadVector3();
+					Vector3 speed = r.ReadVector3();
+					var param = r.ReadStruct<params_SPELL_BALLLIGHTNING>();
+					if (BallLightning.lastID < param.ID)
+						BallLightning.lastID = param.ID+1;
+					BallLightning.Create(pos, speed, param);
 				}),
 
 				new RegisteredCommand("SPELL_BALLLIGHTNING_REQUEST",
 				(r)=> {
-					var cmd = new CommandStream(SPELL_BALLLIGHTNING_REQUEST);
-					for (int i = 0; i < 7; i++)
-						cmd.Writer.Write(r.ReadSingle());
-					cmd.Writer.Write((++BallLightning.lastID));
+					var cmd = new CommandStream(SPELL_BALLLIGHTNING);
+					Vector3 pos = r.ReadVector3(), speed = r.ReadVector3();
+					var param = r.ReadStruct<params_SPELL_BALLLIGHTNING>();
+					if (BallLightning.lastID <= param.ID)
+						BallLightning.lastID = param.ID;
+					else
+						param.ID  =++BallLightning.lastID;
+					cmd.Write(pos);
+					cmd.Write(speed);
+					cmd.Write(param);
 					cmd.Send(NetworkManager.Target.Everyone);
 				}),
 

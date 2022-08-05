@@ -114,6 +114,7 @@ namespace ChampionsOfForest
 		public UnityEvent OnWeaponEquip = new UnityEvent();
 		public UnityEvent OnIgniteMelee = new UnityEvent();
 		public UnityEvent OnIgniteRanged = new UnityEvent();
+		public UnityEvent OnIgniteSpell = new UnityEvent();
 		public UnityEvent OnIgniteSelf = new UnityEvent();
 		public UnityEvent OnExtingishSelf = new UnityEvent();
 		public UnityEvent OnExplodeSelf = new UnityEvent();

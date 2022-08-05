@@ -267,7 +267,7 @@ namespace ChampionsOfForest
 				}
 				else
 				{
-					SpellActions.CastBallLightningVisual(transform.position, Vector3.down);
+					BallLightning.Create(transform.position, Vector3.down,);
 				}
 			}
 		}
