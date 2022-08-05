@@ -10,7 +10,7 @@ using TheForest.Utils;
 
 using UnityEngine;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Enemies
 {
 	public partial class EnemyProgression : MonoBehaviour
 	{

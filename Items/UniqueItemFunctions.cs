@@ -15,9 +15,9 @@ namespace ChampionsOfForest.Items
 				{
 					ResistDeathTimeStamp = Time.time;
 					LocalPlayer.Stats.Health = ModdedPlayer.Stats.TotalMaxHealth;
-					BuffDB.AddBuff(6, 82, 1, 5);
-					BuffDB.AddBuff(26, 108, 0.02f, 5);   //98% damage reduction
-					BuffDB.AddBuff(25, 99, 35, 5);     //+35 hp/s
+					BuffManager.GiveBuff(6, 82, 1, 5);
+					BuffManager.GiveBuff(26, 108, 0.02f, 5);   //98% damage reduction
+					BuffManager.GiveBuff(25, 99, 35, 5);     //+35 hp/s
 				}
 
 			}

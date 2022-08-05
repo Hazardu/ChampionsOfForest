@@ -23,7 +23,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (mainTriggerScript != null)
 			{
-				if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None && PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.Greatbow)
+				if (PlayerInventoryMod.EquippedModel != ItemTemplate.WeaponModelType.None && PlayerInventoryMod.EquippedModel != ItemTemplate.WeaponModelType.Greatbow)
 				{
 					CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
 					setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
@@ -246,7 +246,7 @@ namespace ChampionsOfForest.Player
 								answerStream.Close();
 							}
 						}
-						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == ItemTemplate.WeaponModelType.Hammer)
 						{
 							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 							{
@@ -322,7 +322,7 @@ namespace ChampionsOfForest.Player
 							progression.FireDebuff(2000, fireDmg, 14);
 
 						}
-						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == ItemTemplate.WeaponModelType.Hammer)
 							progression.Slow(40, ModdedPlayer.Stats.i_HammerStunAmount, ModdedPlayer.Stats.i_HammerStunDuration);
 
 						SpellActions.Bash(progression, outputdmg);

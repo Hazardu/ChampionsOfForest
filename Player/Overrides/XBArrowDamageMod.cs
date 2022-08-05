@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Player
 			}
 			if (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed)
 			{
-				crit = ModdedPlayer.Stats.Critted || (bia & ModdedPlayer.Stats.spell_bia_Crit);
+				crit = ModdedPlayer.Stats.RandomCritTrigger || (bia & ModdedPlayer.Stats.spell_bia_Crit);
 				if (crit)
 				{
 					OutputDmg *= (ModdedPlayer.Stats.critDamage) + (ModdedPlayer.Stats.projectileSize - 1) * 2.5f + 1;
@@ -432,7 +432,7 @@ namespace ChampionsOfForest.Player
 								AsyncHit.SendCommandDelayed(1, answerStream.ToArray(), NetworkManager.Target.OnlyServer);
 								answerStream.Close();
 							}
-							BuffDB.AddBuff(25, 91, lifePerSecond, 10);
+							BuffManager.GiveBuff(25, 91, lifePerSecond, 10);
 
 						}
 						else if (ModSettings.FriendlyFire)

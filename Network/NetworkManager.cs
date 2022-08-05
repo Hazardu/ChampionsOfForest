@@ -109,23 +109,23 @@ namespace ChampionsOfForest.Network
 			}
 		}
 
-		internal static void SendLine(byte[] bytearray, BoltConnection con)
-		{
-			if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
-			{
-				ReceiveLine(bytearray);
-			}
-			else
-			{
-				if (BoltNetwork.isRunning)
-				{
-					ChatEvent chatEvent = ChatEvent.Create(con);
-					chatEvent.Message = EncodeCommand(bytearray);
-					chatEvent.Sender = ChatBoxMod.ModNetworkID;
-					chatEvent.Send();
-				}
-			}
-		}
+		//internal static void SendLine(byte[] bytearray, BoltConnection con)
+		//{
+		//	if (GameSetup.IsSinglePlayer || !BoltNetwork.isRunning)
+		//	{
+		//		ReceiveLine(bytearray);
+		//	}
+		//	else
+		//	{
+		//		if (BoltNetwork.isRunning)
+		//		{
+		//			ChatEvent chatEvent = ChatEvent.Create(con);
+		//			chatEvent.Message = EncodeCommand(bytearray);
+		//			chatEvent.Sender = ChatBoxMod.ModNetworkID;
+		//			chatEvent.Send();
+		//		}
+		//	}
+		//}
 
 		private static byte[] DecodeCommand(string cmd)
 		{

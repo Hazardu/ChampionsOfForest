@@ -152,10 +152,7 @@ namespace ChampionsOfForest
 				guiMatrixBackup = GUI.matrix;
 				isMenuInteractable = true;
 
-				//Perks
-				PerkHeight = PerkHexagonSide * 2 * screenScale;
-				PerkWidth = PerkHexagonSide * 1.732050f * screenScale; //times sqrt(3)
-
+				
 				//HUD
 				HideHud = false;
 				HUDenergyLabelRect = new Rect(Screen.width - 500 * screenScale, Screen.height - 100 * screenScale, 500 * screenScale, 100 * screenScale);
@@ -294,39 +291,39 @@ namespace ChampionsOfForest
 
 									switch (item.type)
 									{
-										case BaseItem.ItemType.Helmet:
+										case ItemTemplate.ItemType.Helmet:
 											targetSlot = -2;
 											break;
 
-										case BaseItem.ItemType.ChestArmor:
+										case ItemTemplate.ItemType.ChestArmor:
 											targetSlot = -3;
 											break;
 
-										case BaseItem.ItemType.Pants:
+										case ItemTemplate.ItemType.Pants:
 											targetSlot = -4;
 											break;
 
-										case BaseItem.ItemType.Boot:
+										case ItemTemplate.ItemType.Boot:
 											targetSlot = -5;
 											break;
 
-										case BaseItem.ItemType.ShoulderArmor:
+										case ItemTemplate.ItemType.ShoulderArmor:
 											targetSlot = -6;
 											break;
 
-										case BaseItem.ItemType.Glove:
+										case ItemTemplate.ItemType.Glove:
 											targetSlot = -7;
 											break;
 
-										case BaseItem.ItemType.Amulet:
+										case ItemTemplate.ItemType.Amulet:
 											targetSlot = -8;
 											break;
 
-										case BaseItem.ItemType.Bracer:
+										case ItemTemplate.ItemType.Bracer:
 											targetSlot = -9;
 											break;
 
-										case BaseItem.ItemType.Ring:
+										case ItemTemplate.ItemType.Ring:
 											if (Inventory.Instance.ItemSlots[-10] == null)
 												targetSlot = -10;
 											else if (Inventory.Instance.ItemSlots[-11] == null)
@@ -335,13 +332,13 @@ namespace ChampionsOfForest
 												targetSlot = -10;
 											break;
 
-										case BaseItem.ItemType.Weapon:
+										case ItemTemplate.ItemType.Weapon:
 											targetSlot = -12;
 											break;
 
-										case BaseItem.ItemType.Quiver:
-										case BaseItem.ItemType.SpellScroll:
-										case BaseItem.ItemType.Shield:
+										case ItemTemplate.ItemType.Quiver:
+										case ItemTemplate.ItemType.SpellScroll:
+										case ItemTemplate.ItemType.Shield:
 											targetSlot = -13;
 											break;
 									}

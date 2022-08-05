@@ -67,8 +67,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 					if (LocalPlayer.Stats.Health - 1 > dmgPerTick)
 						LocalPlayer.Stats.Health -= dmgPerTick;
 
-					BuffDB.AddBuff(10, 72, 0.7f, 5);
-					BuffDB.AddBuff(21, 73, Time.deltaTime * damage / 30, 15);
+					BuffManager.GiveBuff(10, 72, 0.7f, 5);
+					BuffManager.GiveBuff(21, 73, Time.deltaTime * damage / 30, 15);
 				}
 			}
 			else

@@ -6,7 +6,7 @@ using TheForest.Utils;
 
 using UnityEngine;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Enemies
 {
 	public class ClientEnemyProgression
 	{

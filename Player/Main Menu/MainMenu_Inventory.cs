@@ -382,21 +382,21 @@ namespace ChampionsOfForest
 			for (int i = 0; i < StatRects.Length; i++)
 			{
 				GUI.color = RarityColors[item.Stats[i].Rarity];
-				GUI.Label(StatRects[i], item.Stats[i].Name, StatNameStyle);
-				double amount = item.Stats[i].Amount;
-				if (item.Stats[i].DisplayAsPercent)
+				GUI.Label(StatRects[i], item.Stats[i].name, StatNameStyle);
+				double amount = item.Stats[i].amount;
+				if (item.Stats[i].isPercent)
 				{
 					amount *= 100;
 				}
-				amount = Math.Round(amount, item.Stats[i].RoundingCount);
+				amount = Math.Round(amount, item.Stats[i].rounding);
 
-				if (item.Stats[i].DisplayAsPercent)
+				if (item.Stats[i].isPercent)
 				{
-					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount) + "%", StatValueStyle);
+					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].rounding) + "%", StatValueStyle);
 				}
 				else
 				{
-					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].RoundingCount), StatValueStyle);
+					GUI.Label(StatRects[i], amount.ToString("N" + item.Stats[i].rounding), StatValueStyle);
 				}
 			}
 			if (drawTotal)
@@ -456,8 +456,8 @@ namespace ChampionsOfForest
 						//object baseVarValue = item.Stats[i].GetVariable();
 						//dynamic castedValue = Convert.ChangeType(baseVarValue, item.Stats[i].variableType);
 
-						float statIncr = otherGrouped != null && otherGrouped.ContainsKey(item.Stats[i].StatID) ? -otherGrouped[item.Stats[i].StatID] : 0;
-						statIncr += grouped[item.Stats[i].StatID];
+						float statIncr = otherGrouped != null && otherGrouped.ContainsKey(item.Stats[i].id) ? -otherGrouped[item.Stats[i].id] : 0;
+						statIncr += grouped[item.Stats[i].id];
 						string text = "↑   +";
 						if (statIncr > 0)
 						{
@@ -468,11 +468,11 @@ namespace ChampionsOfForest
 							GUI.color = Color.red;
 							text = "↓   ";
 						}
-						if (item.Stats[i].DisplayAsPercent)
+						if (item.Stats[i].isPercent)
 							statIncr *= 100;
-						statIncr = (float)Math.Round(statIncr, item.Stats[i].RoundingCount);
+						statIncr = (float)Math.Round(statIncr, item.Stats[i].rounding);
 						text += statIncr.ToString("N");
-						if (item.Stats[i].DisplayAsPercent)
+						if (item.Stats[i].isPercent)
 							text += "%";
 
 						GUI.Label(compareRect, text, statCompareStyle);

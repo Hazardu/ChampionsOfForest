@@ -253,7 +253,7 @@ namespace ChampionsOfForest.Enemies
 										hitDamage = num;
 										if (x.abilities.Contains(EnemyProgression.Abilities.Poisonous))
 										{
-											BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
+											BuffManager.GiveBuff(3, 32, Mathf.Sqrt(num / 10) / 7, poisonDuration);
 										}
 										if (x.abilities.Contains(EnemyProgression.Abilities.Basher))
 										{
@@ -290,7 +290,7 @@ namespace ChampionsOfForest.Enemies
 										//POISON ATTACKS
 										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))
 										{
-											BuffDB.AddBuff(3, 32, Mathf.Sqrt(num / 10) / 10, poisonDuration);
+											BuffManager.GiveBuff(3, 32, Mathf.Sqrt(num / 10) / 10, poisonDuration);
 										}
 
 										//STUN ON HIT

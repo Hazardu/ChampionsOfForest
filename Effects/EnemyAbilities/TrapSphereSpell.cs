@@ -61,8 +61,8 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				if (mag > Radius * Radius)
 				{
 					playerTransform.position = Vector3.MoveTowards(playerTransform.position, transform.position, mag / 2 * Time.deltaTime);
-					BuffDB.AddBuff(5, 71, 0.6f, 5);
-					BuffDB.AddBuff(10, 72, 0.6f, 5);
+					BuffManager.GiveBuff(5, 71, 0.6f, 5);
+					BuffManager.GiveBuff(10, 72, 0.6f, 5);
 				}
 			}
 			else

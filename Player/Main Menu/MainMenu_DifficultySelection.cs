@@ -263,7 +263,7 @@ namespace ChampionsOfForest
 				}
 
 				//Bleeding out
-				if (ModSettings.killOnDowned)
+				if (ModSettings.KillOnDowned)
 				{
 					GUI.color = Color.red;
 					var r = new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale);
@@ -273,7 +273,7 @@ namespace ChampionsOfForest
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
-						ModSettings.killOnDowned = !ModSettings.killOnDowned;
+						ModSettings.KillOnDowned = !ModSettings.KillOnDowned;
 					}
 					else if (r.Contains(Instance.mousePos))
 					{
@@ -290,7 +290,7 @@ namespace ChampionsOfForest
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
-						ModSettings.killOnDowned = !ModSettings.killOnDowned;
+						ModSettings.KillOnDowned = !ModSettings.KillOnDowned;
 					}
 					else if (r.Contains(Instance.mousePos))
 					{

@@ -70,25 +70,25 @@ namespace ChampionsOfForest.Effects
 				LocalPlayer.Stats.Health += healing * Time.deltaTime;
 				if (giveCCImmunity)
 				{
-					BuffDB.AddBuff(BuffDB.BUFF.DEBUFF_IMMUNITY, 40002, 1, 3f);
-					BuffDB.AddBuff(6, 40001, 0, 3f);
+					BuffManager.GiveBuff(BuffManager.BuffType.DEBUFF_IMMUNITY, 40002, 1, 3f);
+					BuffManager.GiveBuff(6, 40001, 0, 3f);
 				}
 				if (damageTakenMult != 0f)
 				{
-					BuffDB.AddBuff(BuffDB.BUFF.TOUGHNESS, 40003, 1f - damageTakenMult, 1f);
+					BuffManager.GiveBuff(BuffManager.BuffType.TOUGHNESS, 40003, 1f - damageTakenMult, 1f);
 				}
 				if (damageDealtMult != 0f)
 				{
-					BuffDB.AddBuff(BuffDB.BUFF.DAMAGE_INCREASED, 40004, 1f + damageDealtMult, 1f);
+					BuffManager.GiveBuff(BuffManager.BuffType.DAMAGE_INCREASED, 40004, 1f + damageDealtMult, 1f);
 				
 				}
 				if (cooldownReduction != 0f)
 				{
-					BuffDB.AddBuff(BuffDB.BUFF.COOLDOWN_RATE, 40005, 1f + cooldownReduction, 1f);
+					BuffManager.GiveBuff(BuffManager.BuffType.COOLDOWN_RATE, 40005, 1f + cooldownReduction, 1f);
 				}
 				if (resourceReduction != 1f)
 				{
-					BuffDB.AddBuff(BuffDB.BUFF.RESOURCE_COST, 40006, cooldownReduction, 1f);
+					BuffManager.GiveBuff(BuffManager.BuffType.RESOURCE_COST, 40006, cooldownReduction, 1f);
 				}
 				if (regenEnergy)
 				{

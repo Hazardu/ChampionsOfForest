@@ -96,15 +96,15 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				if (ModdedPlayer.Stats.perk_blizzardSlowReduced)
 				{
-					BuffDB.AddBuff(1, 30, 0.8f, 1);
-					BuffDB.AddBuff(2, 31, 0.9f, 1);
-					BuffDB.AddBuff(21, 70, armorReduction * Time.deltaTime / 2, 10);
+					BuffManager.GiveBuff(1, 30, 0.8f, 1);
+					BuffManager.GiveBuff(2, 31, 0.9f, 1);
+					BuffManager.GiveBuff(21, 70, armorReduction * Time.deltaTime / 2, 10);
 				}
 				else
 				{
-					BuffDB.AddBuff(1, 30, 0.5f, 6);
-					BuffDB.AddBuff(2, 31, 0.25f, 6);
-					BuffDB.AddBuff(21, 70, armorReduction * Time.deltaTime, 20);
+					BuffManager.GiveBuff(1, 30, 0.5f, 6);
+					BuffManager.GiveBuff(2, 31, 0.25f, 6);
+					BuffManager.GiveBuff(21, 70, armorReduction * Time.deltaTime, 20);
 				}
 			}
 		}

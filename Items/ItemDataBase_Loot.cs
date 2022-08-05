@@ -101,7 +101,7 @@ namespace ChampionsOfForest
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
 			{
-				itemIdPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i, level, EnemyProgression.Enemy.All))).ToArray();
+				itemIdPool = itemsByRarities[rarity].Where(i => (AllowItemDrop(i, level, EnemyProgression.Enemy.All))).ToArray();
 				if (itemIdPool.Length == 0)
 				{
 					rarity--;
@@ -112,10 +112,10 @@ namespace ChampionsOfForest
 			}
 
 			int randomID = Random.Range(0, itemIdPool.Length);
-			Item item = new Item(ItemBases[itemIdPool[randomID]]);
+			Item item = new Item(itemTemplatesById[itemIdPool[randomID]]);
 
 			item.level = level;
-			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
+			if (item.ID == 42 || item.ID == 103 || item.type == ItemTemplate.ItemType.Material)
 				item.level = 1;
 			item.RollStats();
 			return item;
@@ -123,13 +123,13 @@ namespace ChampionsOfForest
 
 		public static bool AllowItemDrop(int i, in int level, EnemyProgression.Enemy e)
 		{
-			if (!ItemBases.ContainsKey(i))
+			if (!itemTemplatesById.ContainsKey(i))
 			{
 				return true;
 			}
-			if ((int)ItemBases[i].lootTable != 0)
-				return (ItemBases[i].lootTable & e) != 0 && ItemBases[i].minLevel <= level;
-			return ItemBases[i].minLevel <= level;
+			if ((int)itemTemplatesById[i].lootTable != 0)
+				return (itemTemplatesById[i].lootTable & e) != 0 && itemTemplatesById[i].minLevel <= level;
+			return itemTemplatesById[i].minLevel <= level;
 		}
 
 		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType, ModSettings.Difficulty difficulty, Vector3 pos)
@@ -143,7 +143,7 @@ namespace ChampionsOfForest
 			int[] itemIdPool = null;
 			while (itemIdPool == null)
 			{
-				itemIdPool = ItemRarityGroups[rarity].Where(i => (AllowItemDrop(i, level, EnemyProgression.Enemy.All))).ToArray();
+				itemIdPool = itemsByRarities[rarity].Where(i => (AllowItemDrop(i, level, EnemyProgression.Enemy.All))).ToArray();
 				if (itemIdPool.Length == 0)
 				{
 					rarity--;
@@ -154,10 +154,10 @@ namespace ChampionsOfForest
 			}
 
 			int randomID = Random.Range(0, itemIdPool.Length);
-			Item item = new Item(ItemBases[itemIdPool[randomID]]);
+			Item item = new Item(itemTemplatesById[itemIdPool[randomID]]);
 
 			item.level = level;
-			if (item.ID == 42 || item.ID == 103 || item.type == BaseItem.ItemType.Material)
+			if (item.ID == 42 || item.ID == 103 || item.type == ItemTemplate.ItemType.Material)
 				item.level = 1;
 			item.RollStats();
 			return item;

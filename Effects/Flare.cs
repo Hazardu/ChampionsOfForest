@@ -228,15 +228,15 @@ namespace ChampionsOfForest
 					if (fromEnemy)
 					{
 						LocalPlayer.Stats.HealthChange(-damageAmount * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
-						BuffDB.AddBuff(1, 5, slowAmount, 20);
+						BuffManager.GiveBuff(1, 5, slowAmount, 20);
 						LocalPlayer.Stats.Burn();
 					}
 					else
 					{
 						LocalPlayer.Stats.Health += healAmount * Time.deltaTime;
 						LocalPlayer.Stats.HealthTarget += healAmount * 1.5f * Time.deltaTime;
-						BuffDB.AddBuff(5, 6, boostAmount, 30);
-						BuffDB.AddBuff(26, 94, 0.5f, 10);
+						BuffManager.GiveBuff(5, 6, boostAmount, 30);
+						BuffManager.GiveBuff(26, 94, 0.5f, 10);
 					}
 				}
 			}

@@ -4,29 +4,26 @@ using System.Linq;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public partial class ItemDataBase
 	{
-		public static List<BaseItem> _Item_Bases;
-		public static Dictionary<int, BaseItem> ItemBases;
-		public static List<ItemStat> statList;
-		public static Dictionary<int, ItemStat> Stats;
-
-		private static Dictionary<int, List<int>> ItemRarityGroups;
+		public List<ItemTemplate> itemTemplates;
+		public Dictionary<int, ItemTemplate> itemTemplatesById;
+		public List<ItemStat> stats;
+		public Dictionary<int, ItemStat> statsById;
+		private Dictionary<int, List<ItemTemplate>> itemsByRarities;
 
 
 		//Called from Initializer
 
-		public static void Initialize()
+		public ItemDataBase()
 		{
-			_Item_Bases = new List<BaseItem>();
-			ItemBases = new Dictionary<int, BaseItem>();
-			statList = new List<ItemStat>();
-			Stats = new Dictionary<int, ItemStat>();
-			ItemRarityGroups = new Dictionary<int, List<int>>();
+			itemTemplates = new List<ItemTemplate>();
+			stats = new List<ItemStat>();
 			PopulateStats();
-			for (int i = 0; i < statList.Count; i++)
+			statsById = stats.ToDictionary(stat=> stat.id)
+			for (int i = 0; i < stats.Count; i++)
 			{
-				Stats.Add(statList[i].StatID, statList[i]);
+				statsById.Add(stats[i].id, stats[i]);
 			}
 			try
 			{
@@ -36,19 +33,19 @@ namespace ChampionsOfForest
 			{
 				CotfUtils.Log("Error with item " + ex.ToString());
 			}
-			ItemBases.Clear();
-			for (int i = 0; i < _Item_Bases.Count; i++)
+			itemTemplatesById.Clear();
+			for (int i = 0; i < itemTemplates.Count; i++)
 			{
 				try
 				{
-					ItemBases.Add(_Item_Bases[i].ID, _Item_Bases[i]);
-					if (ItemRarityGroups.ContainsKey(_Item_Bases[i].Rarity))
+					itemTemplatesById.Add(itemTemplates[i].ID, itemTemplates[i]);
+					if (itemsByRarities.ContainsKey(itemTemplates[i].Rarity))
 					{
-						ItemRarityGroups[_Item_Bases[i].Rarity].Add(_Item_Bases[i].ID);
+						itemsByRarities[itemTemplates[i].Rarity].Add(itemTemplates[i].ID);
 					}
 					else
 					{
-						ItemRarityGroups.Add(_Item_Bases[i].Rarity, new List<int>() { _Item_Bases[i].ID });
+						itemsByRarities.Add(itemTemplates[i].Rarity, new List<int>() { itemTemplates[i].ID });
 					}
 				}
 				catch (System.Exception ex)
@@ -65,23 +62,23 @@ namespace ChampionsOfForest
 		/// </summary>
 		public static void LogInfo()
 		{
-			string s = "There are " + Stats.Count + " stats:\n";
+			string s = "There are " + statsById.Count + " stats:\n";
 			for (int i = 0; i < 8; i++)
 			{
-				ItemStat[] stats = statList.Where(a => a.Rarity == i).ToArray();
+				ItemStat[] stats = stats.Where(a => a.Rarity == i).ToArray();
 				s += " • Rarity tier of stat[" + i + "] =  " + stats.Length;
 				foreach (ItemStat a in stats)
 				{
-					s += "\n\t • Stat \"" + a.Name + "  ID [" + a.StatID + "]\"";
+					s += "\n\t • Stat \"" + a.name + "  ID [" + a.id + "]\"";
 				}
 				s += "\n";
 			}
-			s += "\n\n\n There are " + ItemBases.Count + " items:\n";
+			s += "\n\n\n There are " + itemTemplatesById.Count + " items:\n";
 			for (int i = 0; i < 8; i++)
 			{
-				BaseItem[] items = _Item_Bases.Where(a => a.Rarity == i).ToArray();
+				ItemTemplate[] items = itemTemplates.Where(a => a.Rarity == i).ToArray();
 				s += " • Rarity tier of item [" + i + "] =  " + items.Length;
-				foreach (BaseItem a in items)
+				foreach (ItemTemplate a in items)
 				{
 					s += "\n\t • Item \"" + a.name + "    ID [" + a.ID + "]\"";
 				}
@@ -89,21 +86,21 @@ namespace ChampionsOfForest
 			}
 
 			s += "\n\n\nItem types:";
-			System.Array array = System.Enum.GetValues(typeof(BaseItem.ItemType));
+			System.Array array = System.Enum.GetValues(typeof(ItemTemplate.ItemType));
 			for (int i = 0; i < array.Length; i++)
 			{
-				BaseItem.ItemType t = (BaseItem.ItemType)array.GetValue(i);
+				ItemTemplate.ItemType t = (ItemTemplate.ItemType)array.GetValue(i);
 				
-				BaseItem[] items = _Item_Bases.Where(a => a.type == t).ToArray();
+				ItemTemplate[] items = itemTemplates.Where(a => a.type == t).ToArray();
 
 				s += "\n • Item type: [" + t.ToString() + "] = " + items.Length;
 				for (int b = 0; b < 8; b++)
 				{
-					BaseItem[] items2 = items.Where(a => a.Rarity == b).ToArray();
+					ItemTemplate[] items2 = items.Where(a => a.Rarity == b).ToArray();
 					s += "\n\t\t • RARITY " + b + " \"" + items2.Length + "\"";
 				}
 
-				foreach (BaseItem a in items)
+				foreach (ItemTemplate a in items)
 				{
 					s += "\n\t • Item \"" + a.name + "    ID [" + a.ID + "]    RARITY [" + a.Rarity + "]\"";
 				}
@@ -114,19 +111,19 @@ namespace ChampionsOfForest
 
 
 			var f = File.CreateText("items.csv");
-			f.WriteLine("ITEMS;" + ItemBases.Count);
-			for (int i = 0; i <=(int)BaseItem.ItemType.SpellScroll; i++)
+			f.WriteLine("ITEMS;" + itemTemplatesById.Count);
+			for (int i = 0; i <=(int)ItemTemplate.ItemType.SpellScroll; i++)
 			{
-				BaseItem.ItemType t = (BaseItem.ItemType)i;
-				var itemsByType = _Item_Bases.Where(a => a.type== t);
+				ItemTemplate.ItemType t = (ItemTemplate.ItemType)i;
+				var itemsByType = itemTemplates.Where(a => a.type== t);
 				f.WriteLine(t+";" + itemsByType.Count());
 
-				if (t == BaseItem.ItemType.Weapon)
+				if (t == ItemTemplate.ItemType.Weapon)
 				{
-					for (int j = 1; j <= (int)BaseItem.WeaponModelType.Greatbow; j++)
+					for (int j = 1; j <= (int)ItemTemplate.WeaponModelType.Greatbow; j++)
 					{
-						var weapons = itemsByType.Where(a => a.weaponModel == (BaseItem.WeaponModelType)j).OrderBy(a => a.ID + a.Rarity * 100000);
-						f.WriteLine(((BaseItem.WeaponModelType)j) + ";" + weapons.Count());
+						var weapons = itemsByType.Where(a => a.weaponModel == (ItemTemplate.WeaponModelType)j).OrderBy(a => a.ID + a.Rarity * 100000);
+						f.WriteLine(((ItemTemplate.WeaponModelType)j) + ";" + weapons.Count());
 						f.WriteLine("ID;RARITY;NAME;UNIQUE STAT;MIN LEVEL; MIN STATS QUANTITY;MAX STATS QUANTITY");
 						foreach (var weapon in weapons)
 						{
@@ -154,24 +151,24 @@ namespace ChampionsOfForest
 			f.Close();
 		}
 
-		public static void AddItem(BaseItem item)
+		public static void AddItem(ItemTemplate item)
 		{
-			_Item_Bases.Add(item);
+			itemTemplates.Add(item);
 		}
 
 		public static void AddStat(ItemStat item)
 		{
-			statList.Add(item);
+			stats.Add(item);
 		}
 
 		public static ItemStat StatByID(int id)
 		{
-			return ItemDataBase.Stats[id];
+			return ItemDataBase.statsById[id];
 		}
 
-		public static BaseItem ItemBaseByName(string name)
+		public static ItemTemplate ItemBaseByName(string name)
 		{
-			return ItemBases.Values.First(x => x.name == name);
+			return itemTemplatesById.Values.First(x => x.name == name);
 		}
 
 		public static void AddPercentage(ref float variable1, float f)

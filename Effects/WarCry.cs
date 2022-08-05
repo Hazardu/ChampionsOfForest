@@ -26,19 +26,19 @@ namespace ChampionsOfForest.Effects
 
 		public static void GiveEffect(float speed, float damage, bool giveEffect2, bool giveEffect3, int ArmorAmount, bool giveDmgRed )
 		{
-			BuffDB.AddBuff(5, 45, speed, 120);
-			BuffDB.AddBuff(14, 46, speed, 120);
+			BuffManager.GiveBuff(5, 45, speed, 120);
+			BuffManager.GiveBuff(14, 46, speed, 120);
 			if (giveEffect2)
 			{
-				BuffDB.AddBuff(9, 47, damage, 120);
+				BuffManager.GiveBuff(9, 47, damage, 120);
 			}
 			if (giveEffect3)
 			{
-				BuffDB.AddBuff(15, 48, ArmorAmount, 120);
+				BuffManager.GiveBuff(15, 48, ArmorAmount, 120);
 			}
 			if (giveDmgRed)
 			{
-				BuffDB.AddBuff(BuffDB.BUFF.TOUGHNESS, 110, damage-1f, 120);
+				BuffManager.GiveBuff(BuffManager.BuffType.TOUGHNESS, 110, damage-1f, 120);
 
 			}
 		}

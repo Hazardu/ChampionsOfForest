@@ -178,15 +178,15 @@ namespace ChampionsOfForest.Effects
 				if (isArcane)
 				{
 					//negative armor
-					BuffDB.AddBuff(21, 63, -dmg * 2, 30);
-					BuffDB.AddBuff(1, 64, 0.2f, 10);
-					BuffDB.AddBuff(2, 65, 0.2f, 10);
+					BuffManager.GiveBuff(21, 63, -dmg * 2, 30);
+					BuffManager.GiveBuff(1, 64, 0.2f, 10);
+					BuffManager.GiveBuff(2, 65, 0.2f, 10);
 					dmg *= 2;
 				}
 				else
 				{
-					BuffDB.AddBuff(1, 64, 0.7f, 6);
-					BuffDB.AddBuff(2, 65, 0.7f, 6);
+					BuffManager.GiveBuff(1, 64, 0.7f, 6);
+					BuffManager.GiveBuff(2, 65, 0.7f, 6);
 					LocalPlayer.Stats.Burn();
 				}
 				LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.Stats.magicDamageTaken)), false, PlayerStats.DamageType.Drowning);

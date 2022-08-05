@@ -19,13 +19,9 @@ namespace ChampionsOfForest.Player.Crafting
 		public CraftMode craftMode = CraftMode.None;
 		public ICraftingMode CurrentCraftingMode => craftingModes[(int)craftMode];
 
-		public static void Init()
-		{
-			instance = new CustomCrafting();
-		}
-
 		public CustomCrafting()
 		{
+			instance = new CustomCrafting();
 			craftingModes = new ICraftingMode[] { new Rerolling(), new Reforging(), new Polishing(), new Empowering(),new IndividualRerolling() };
 			ingredients = new CraftingIngredient[9];
 			for (int i = 0; i < 9; i++)

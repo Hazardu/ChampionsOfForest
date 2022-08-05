@@ -6,22 +6,6 @@ namespace ChampionsOfForest.Player
 {
 	public static class AutoPickupItems
 	{
-		private static Effects.SpellAimSphere aimSphere;
-
-		public static void Aim()
-		{
-			if (aimSphere == null)
-			{
-				aimSphere = new Effects.SpellAimSphere(new Color(1f, .55f, 0f, 0.5f), radius);
-			}
-			aimSphere.SetRadius(radius);
-			aimSphere.UpdatePosition(LocalPlayer.Transform.position);
-		}
-
-		public static void AimEnd()
-		{
-			aimSphere.Disable();
-		}
 
 		public static float radius = 7.5f;
 
@@ -52,25 +36,13 @@ namespace ChampionsOfForest.Player
 			for (int i = 0; i < hit.Length; i++)
 			{
 				PickUp pu = hit[i].transform.GetComponent<PickUp>();
-				if (pu != null)
-				{
-					Debug.Log("Found pickup in original object");
-				}
 				if (pu == null)
 				{
 					pu = hit[i].transform.GetComponentInParent<PickUp>();
-					if (pu != null)
-					{
-						Debug.Log("Found pickup in parent");
-					}
 				}
 				if (pu == null)
 				{
 					pu = hit[i].transform.GetComponentInChildren<PickUp>();
-					if (pu != null)
-					{
-						Debug.Log("Found pickup in child");
-					}
 				}
 
 				if (pu != null)

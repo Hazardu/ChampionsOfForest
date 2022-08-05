@@ -7,13 +7,6 @@ namespace ChampionsOfForest
 {
 	public static class CotfUtils
 	{
-		//removes any non ascii characters from a name of the player
-		public static string TrimNonAscii(string value)
-		{
-			string pattern = "[^ -~]+";
-			Regex reg_exp = new Regex(pattern);
-			return reg_exp.Replace(value, "a");
-		}
 
 		public static void Log(string s, bool logFile = false)
 		{
@@ -38,6 +31,16 @@ namespace ChampionsOfForest
 				s += ListAllChildren(child, prefix + "  ");
 			}
 			return s;
+		}
+
+		public static float DamageReduction(int armor)
+		{
+			armor = Mathf.Max(armor, 0);
+
+			float a = armor;
+			float b = (armor + 500f);
+
+			return Mathf.Pow(Mathf.Clamp01(a / b), 2f);
 		}
 	}
 

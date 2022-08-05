@@ -133,11 +133,11 @@ namespace ChampionsOfForest.Player
 				{
 					float f = ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive;
 					float energy = ModdedPlayer.Stats.TotalMaxEnergy * f * 0.05f * 0.1f;
-					BuffDB.AddBuff(BuffDB.BUFF.ENERGY_LEAK, 109, -energy, 10f);
+					BuffManager.GiveBuff(BuffManager.BuffType.ENERGY_LEAK, 109, -energy, 10f);
 					if (ModdedPlayer.Stats.spell_frenzy_active_critChance.Value != 0.0f)
 					{
 						float damage = f * ModdedPlayer.Stats.spell_frenzy_active_critChance.Value;
-						BuffDB.AddBuff(BuffDB.BUFF.CRIT_CHANCE, 109, 1.0f + damage, 10f);
+						BuffManager.GiveBuff(BuffManager.BuffType.CRIT_CHANCE, 109, 1.0f + damage, 10f);
 
 					}
 					ModdedPlayer.Stats.attackSpeed.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyAtkSpeed;
@@ -155,12 +155,12 @@ namespace ChampionsOfForest.Player
 			new Spell(20, 137, 4, 50, 30, Translations.SpellDataBase_38/*og:Focus*/, () => Translations.SpellDataBase_37(ModdedPlayer.Stats.spell_focusOnHS.ToString(), ModdedPlayer.Stats.spell_focusSlowAmount, ModdedPlayer.Stats.spell_focusOnBS, "25%", 5)/*og:Passive: When landing a headshot, next projectile will deal 50% more damage and slow the enemy by 20%. When landing a body shot, next projectile will deal only 15% more damage, but attack speed is increased.\nActive: Gain 15% critical hit chance for 5 seconds*/)//tr
 			{
 				passive = x => ModdedPlayer.Stats.spell_focus.value = x,
-				active = () => BuffDB.AddBuff(28, 102, 1.25f, 5f)
+				active = () => BuffManager.GiveBuff(28, 102, 1.25f, 5f)
 			};
 			new Spell(21, 140, 8, 35, 60, Translations.SpellDataBase_40/*og:Parry*/, () => Translations.SpellDataBase_39(ModdedPlayer.Stats.spell_parryDamageScaling.ToString(), ModdedPlayer.Stats.spell_parryBuffDuration, "50%", 10)/*og:Passive: When parrying an enemy, deal magic damage to enemies around the target. Additionally, gain energy, heal yourself for a small amount and get stun immunity for 10 seconds after parrying.\nActive: Gain 50% damage reduction for 10 seconds*/)//tr
 			{
 				passive = x => ModdedPlayer.Stats.spell_parry.value = x,
-				active = () => BuffDB.AddBuff(29, 103, 0.5f, 10f)
+				active = () => BuffManager.GiveBuff(29, 103, 0.5f, 10f)
 
 			};
 			new Spell(22, 141, 50, 500, 300, Translations.SpellDataBase_42/*og:Cataclysm*/, () => Translations.SpellDataBase_41(ModdedPlayer.Stats.spell_cataclysmDamageScaling.ToString()))//tr

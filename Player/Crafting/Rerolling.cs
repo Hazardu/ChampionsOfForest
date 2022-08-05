@@ -76,9 +76,9 @@ namespace ChampionsOfForest.Player.Crafting
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
+							string amount = stat.amount.ToString((stat.isPercent ? "P" : "N") + stat.rounding);
 							GUI.color = MainMenu.RarityColors[stat.Rarity];
-							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
+							GUI.Label(statRect, ind + ".  " + stat.name, styles[0]);
 							GUI.color = Color.white;
 							ind++;
 

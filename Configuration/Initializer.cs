@@ -5,7 +5,9 @@ using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
 using ChampionsOfForest.Localization;
+using ChampionsOfForest.Perks;
 using ChampionsOfForest.Player;
+using ChampionsOfForest.Player.Buffs;
 using ChampionsOfForest.Player.Crafting;
 using ChampionsOfForest.Player.Spells;
 using ChampionsOfForest.Res;
@@ -15,7 +17,7 @@ using ModAPI.Attributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Configuration
 {
 	public class Initializer
 	{
@@ -39,7 +41,6 @@ namespace ChampionsOfForest
 					go.AddComponent<ModReferences>();
 					ItemDataBase.Initialize();
 					EnemyManager.Initialize();
-					Network.NetworkManager.instance.onGetMessage += Network.Commands.OnCommand;
 					ExpEvents.Initialize();
 					return;
 				}
@@ -80,15 +81,14 @@ namespace ChampionsOfForest
 
 
 					// go.AddComponent<Crafting>();
-					Network.CommandInitializer.Init();
-					CustomCrafting.Init();
-					BuffDB.FillBuffList();
+					new CustomCrafting();
+					new SpellActions();
+					new BuffManager();
 					ItemDataBase.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
-					Network.NetworkManager.instance.onGetMessage += Network.Commands.OnCommand;
 					Buildings.InitBuildings();
-					PerkDatabase.FillPerkList();
+					new PerkDatabase();
 					ExpEvents.Initialize();
 					Portal.InitializePortals();
 					CoopCustomWeapons.Init();

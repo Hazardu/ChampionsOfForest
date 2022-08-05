@@ -5,7 +5,7 @@ using ChampionsOfForest.Network;
 
 using UnityEngine;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Enemies
 {
 	public partial class EnemyProgression : MonoBehaviour
 	{

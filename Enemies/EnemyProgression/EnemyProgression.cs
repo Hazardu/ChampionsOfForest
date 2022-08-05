@@ -12,7 +12,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Enemies
 {
 	public partial class EnemyProgression : MonoBehaviour
 	{
@@ -407,7 +407,7 @@ namespace ChampionsOfForest
 					for (int i = 0; i < pc; i++)
 					{
 						//Drop megan only amulet
-						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3, ItemPickUp.DropSource.EnemyOnDeath);
+						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.itemTemplatesById[80], 1, -1), transform.position + Vector3.up * 3, ItemPickUp.DropSource.EnemyOnDeath);
 					}
 				}
 				else if (abilities.Count >= 3)

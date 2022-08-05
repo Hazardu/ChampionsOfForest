@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
+using ChampionsOfForest.Network;
+using ChampionsOfForest.Network.CommandParams;
+
 using TheForest.Utils;
 
 namespace ChampionsOfForest
@@ -25,8 +28,8 @@ namespace ChampionsOfForest
 		public static bool DifficultyChosen = false;
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
-		public static bool killOnDowned = false;
-		public static bool friendlyFireMagic = false;
+		public static bool KillOnDowned = false;
+		public static bool FriendlyFireMagic = false;
 		public static bool AllowRandomCaveSpawn = true;
 		public static bool AllowCaveRespawn = true;
 		public static int CaveMaxAdditionalEnemies = 1;	
@@ -77,32 +80,33 @@ namespace ChampionsOfForest
 		{
 			if (GameSetup.IsMpServer)
 			{
-				using (MemoryStream answerStream = new MemoryStream())
-				{
-					using (BinaryWriter w = new BinaryWriter(answerStream))
-					{
-						w.Write(2);
-						w.Write((int)ModSettings.difficulty);
-						w.Write(ModSettings.FriendlyFire);
-						w.Write((int)ModSettings.dropsOnDeath);
-						w.Write(ModSettings.killOnDowned);
-						w.Close();
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-					answerStream.Close();
-				}
+				var cmd = new CommandStream(Commands.CommandType.DIFFICULTY_INFO_ANSWER);
+				cmd.Write(
+					   new params_DIFFICULTY_INFO_ANSWER(
+					(int)difficulty,
+					(int)dropsOnDeath,
+					(int)lootLevelPolicy,
+					ExpMultiplier,
+					EnemyDamageMultiplier,
+					FriendlyFireDamage,
+					FriendlyFire,
+					KillOnDowned,
+					FriendlyFireMagic
+					));
+				cmd.Send(NetworkManager.Target.Clients);
 			}
 		}
 
 		const string PATH = "Mods/Champions of the Forest/Settings.save";
 		public static void SaveSettings()
 		{
-			using (MemoryStream stream = new MemoryStream())
+		
+			using (FileStream stream = new FileStream())
 			{
 				using (BinaryWriter buf = new BinaryWriter(stream))
 				{
-					buf.Write(FriendlyFire);
-					buf.Write(killOnDowned);
+					buf.write(FriendlyFire);
+					buf.Write(KillOnDowned);
 					buf.Write(DropQuantityMultiplier);
 					buf.Write(DropChanceMultiplier);
 					buf.Write(ExpMultiplier);
@@ -132,7 +136,7 @@ namespace ChampionsOfForest
 						using (BinaryReader buf = new BinaryReader(stream))
 						{
 							FriendlyFire = buf.ReadBoolean();
-							killOnDowned = buf.ReadBoolean();
+							KillOnDowned = buf.ReadBoolean();
 							DropQuantityMultiplier = buf.ReadSingle();
 							DropChanceMultiplier = buf.ReadSingle();
 							ExpMultiplier = buf.ReadSingle();

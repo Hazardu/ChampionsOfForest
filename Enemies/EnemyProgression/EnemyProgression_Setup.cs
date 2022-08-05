@@ -7,7 +7,7 @@ using ChampionsOfForest.Localization;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Enemies
 {
 	public partial class EnemyProgression : MonoBehaviour
 	{

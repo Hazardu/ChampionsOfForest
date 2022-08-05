@@ -168,7 +168,7 @@
   <ItemGroup>
     <Compile Include="CotfUtils.cs" />
     <Compile Include="Configuration\DebugFeatures.cs" />
-    <Compile Include="DedicatedServer\COTFDS.cs" />
+    <Compile Include="Configuration\DedicatedServer\COTFDS.cs" />
     <Compile Include="Effects\BallLightning.cs" />
     <Compile Include="Effects\Berserker.cs" />
     <Compile Include="Effects\BlackFlame.cs" />
@@ -191,9 +191,9 @@
     <Compile Include="Effects\TheFart.cs" />
     <Compile Include="Effects\WarCry.cs" />
     <Compile Include="Enemies\EnemyFallingFix.cs" />
-    <Compile Include="Enemies\ClientEnemy.cs" />
-    <Compile Include="Enemies\EnemyAbilities\Avenger.cs" />
-    <Compile Include="Enemies\EnemyAbilities\FireAura.cs" />
+    <Compile Include="Enemies\EnemyProgression\ClientEnemy.cs" />
+    <Compile Include="Effects\EnemyAbilities\Avenger.cs" />
+    <Compile Include="Effects\EnemyAbilities\FireAura.cs" />
     <Compile Include="Enemies\EnemyCorpse.cs" />
     <Compile Include="Enemies\EnemyDebuff.cs" />
     <Compile Include="Enemies\EnemyProgression\EnemyProgression_Damage.cs" />
@@ -218,12 +218,16 @@
     <Compile Include="Items\Sets\ItemSets.cs" />
     <Compile Include="Items\TheForestItemDBMod.cs" />
     <Compile Include="Items\UniqueItemFunctions.cs" />
+    <Compile Include="Network\Commands\CommandParams.cs" />
     <Compile Include="Network\Commands\CommandUtils.cs" />
     <Compile Include="Network\ModdedClient.cs" />
     <Compile Include="Network\Commands\CommandList.cs" />
     <Compile Include="Network\Commands\Commands.cs" />
     <Compile Include="Network\Commands\CommandStream.cs" />
     <Compile Include="Network\NetworkUtils.cs" />
+    <Compile Include="Player\Buffs\BuffTemplate.cs" />
+    <Compile Include="Player\Buffs\Buff_Buffs.cs" />
+    <Compile Include="Player\Buffs\Buff_Debuffs.cs" />
     <Compile Include="Player\Crafting\CraftingIngredient.cs" />
     <Compile Include="Player\Crafting\CraftingInterface.cs" />
     <Compile Include="Player\Crafting\Empowering.cs" />
@@ -248,7 +252,7 @@
     <Compile Include="Player\ModdedPlayer\Stats\BaseClasses\INetworkStatStorage.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\BaseClasses\INetworkSyncedPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\BaseClasses\IPlayerStat.cs" />
-    <Compile Include="Player\ModdedPlayer\ModdedPlayer_Stats_Arithmetics.cs" />
+    <Compile Include="Player\ModdedPlayer\Stats\ModdedPlayer_Stats_Arithmetics.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiOperationPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiplicativeNetworkSyncedPlayerStat.cs" />
     <Compile Include="Player\ModdedPlayer\Stats\MultiplicativePlayerStat.cs" />
@@ -274,18 +278,19 @@
     <Compile Include="Player\PlayerUtils.cs" />
     <Compile Include="Player\RCoroutines.cs" />
     <Compile Include="Player\Spells\ActiveSpellManager.cs" />
-    <Compile Include="Player\Spells\ForceGrab.cs" />
+    <Compile Include="Player\Spells\Blink.cs" />
+    <Compile Include="Player\Spells\Sanctuary.cs" />
     <Compile Include="Res\Buildings.cs" />
-    <Compile Include="Enemies\ClientEnemyProgression.cs" />
-    <Compile Include="Enemies\EnemyAbilities\MeteorSpawner.cs" />
+    <Compile Include="Enemies\EnemyProgression\ClientEnemyProgression.cs" />
+    <Compile Include="Effects\EnemyAbilities\MeteorSpawner.cs" />
     <Compile Include="Enemies\EnemyHitTriggerMod.cs" />
-    <Compile Include="Enemies\EnemyAbilities\EnemyLaser.cs" />
+    <Compile Include="Effects\EnemyAbilities\EnemyLaser.cs" />
     <Compile Include="Enemies\EnemyManager.cs" />
-    <Compile Include="Enemies\EnemyAbilities\EnemyLaserBeam.cs" />
-    <Compile Include="Enemies\EnemyAbilities\Meteor.cs" />
-    <Compile Include="Enemies\EnemyAbilities\RootingProjectile.cs" />
-    <Compile Include="Enemies\EnemyAbilities\SnowAura.cs" />
-    <Compile Include="Enemies\EnemyAbilities\TrapSphereSpell.cs" />
+    <Compile Include="Effects\EnemyAbilities\EnemyLaserBeam.cs" />
+    <Compile Include="Effects\EnemyAbilities\Meteor.cs" />
+    <Compile Include="Effects\EnemyAbilities\RootSpell.cs" />
+    <Compile Include="Effects\EnemyAbilities\SnowAura.cs" />
+    <Compile Include="Effects\EnemyAbilities\TrapSphereSpell.cs" />
     <Compile Include="Enemies\WormHealthMod.cs" />
     <Compile Include="Items\BaseItem.cs" />
     <Compile Include="Enemies\EnemyHealthMod.cs" />
@@ -303,13 +308,13 @@
     <Compile Include="Effects\BlackHole.cs" />
     <Compile Include="Network\CoopServerCallbacksMod.cs" />
     <Compile Include="Player\Overrides\XBArrowDamageMod.cs" />
-    <Compile Include="Player\BuffDataBase.cs" />
+    <Compile Include="Player\Buffs\BuffManager.cs" />
     <Compile Include="Network\Commands\CommandReader.cs" />
     <Compile Include="Player\Overrides\CrossBowControllerMod.cs" />
     <Compile Include="Player\CustomWeapon.cs" />
     <Compile Include="Player\Overrides\FPCharacterMod.cs" />
     <Compile Include="Effects\HealingDome.cs" />
-    <Compile Include="Player\Inventory.cs" />
+    <Compile Include="Items\Inventory.cs" />
     <Compile Include="Player\Main Menu\MainMenu.cs" />
     <Compile Include="Network\ChatBoxMod.cs" />
     <Compile Include="Network\NetworkManager.cs" />
@@ -329,8 +334,8 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="TranslationManager.cs" />
     <Compile Include="Translations.cs" />
-    <Compile Include="TrapHitMod.cs" />
-    <Compile Include="TrapTriggerMod.cs" />
+    <Compile Include="Player\Overrides\TrapHitMod.cs" />
+    <Compile Include="Player\Overrides\TrapTriggerMod.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,7 +9,7 @@ namespace ChampionsOfForest
 		{
 			if (ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value)
 			{
-				BuffDB.AddBuff(14, 81, 2.5f, 8);
+				BuffManager.GiveBuff(14, 81, 2.5f, 8);
 			}
 			COTFEvents.Instance.OnAttackRanged.Invoke();
 			COTFEvents.Instance.OnAttackRangedCrossbow.Invoke();

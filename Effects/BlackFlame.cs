@@ -140,7 +140,7 @@ namespace ChampionsOfForest.Effects
 				}
 				if (GiveDamageBuff)
 				{
-					BuffDB.AddBuff(9, 44, 1.33f, 1f);
+					BuffManager.GiveBuff(9, 44, 1.33f, 1f);
 				}
 			}
 		}

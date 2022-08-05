@@ -11,7 +11,7 @@ using TheForest.Utils;
 
 using UnityEngine;
 
-using static ChampionsOfForest.Player.BuffDB;
+using static ChampionsOfForest.Player.BuffManager;
 
 using ResourceLoader = ChampionsOfForest.Res.ResourceLoader;
 

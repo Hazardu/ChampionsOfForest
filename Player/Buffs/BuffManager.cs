@@ -4,117 +4,131 @@ using ChampionsOfForest.Effects;
 
 using UnityEngine;
 
-namespace ChampionsOfForest.Player
+namespace ChampionsOfForest.Player.Buffs
 {
-	public static class BuffDB
+	public partial class BuffManager
 	{
-		public enum BUFF
+		struct AppliedBuff
 		{
-			MOV_SPEED_REDUCTION = 1,
-			ATK_SPEED_REDUCTION,
-			POISON,
-			ROOT_IMMUNITY,
-			MOV_SPEED_INCREASED,
-			STUN_IMMUNITY,
-			DEBUFF_IMMUNITY,
-			DEBUFF_RESISTANCE,
-			DAMAGE_INCREASED,
-			DAMAGE_DECREASED,
-			STAMINA_REGEN,
-			ITEM_DEATH_PACT,
-			MELEE_DAMAGE_INCREASED,
-			ATTACK_SPEED_INCREASED,
-			ARMOR,
-			SKILL_GOLDEN_SKIN,
-			SKILL_BERSERK,
-			ENERGY_LEAK,
-			SKILL_FRENZY,
-			SKILL_PREVENT_DEATH_COOLDOWN,
-			ARMOR_LOSS,
-			MELEE_FLAT_DAMAGE_INCREASE,
-			SKILL_PARRY_STACK,
-			CRIT_DAMAGE,
-			HEALTH_REGEN,
-			TOUGHNESS,
-			SKILL_FRENZY_FURY_SWIPES,
-			CRIT_CHANCE,
-			DODGE_CHANCE,
-			COOLDOWN_RATE,
-			RESOURCE_COST,
+			public BuffTemplate buff;
+			float time, value;
+			int source;
+		}
+
+		List<AppliedBuff> effects;
+		List<BuffTemplate> templates;
+
+		const int MAX_ACTIVE_BUFFS = 100;
+		public BuffManager()
+		{
+			templates = new List<BuffTemplate>();
+			effects = new List<AppliedBuff>(MAX_ACTIVE_BUFFS);
+			InitBuffs();
+			InitDebuffs();
+		}
+
+		public bool EndBuff(BuffTemplate template, int source)
+		{
+		
+		}
+		public bool EndBuff(BuffTemplate template)
+		{
+
+		}
+		public bool EndBuff(int source)
+		{
+
+		}
+		public bool EndBuff(BuffType source)
+		{
+
+		}
+		public bool EndBuff(DebuffType source)
+		{
+
+		}
+
+		public bool GiveBuff(BuffType type, float amount, float duration)
+		{
+
+		}
+		public bool GiveBuff(BuffType type, float amount, float duration, int source)
+		{
+
 		}
 
 
-		public static Dictionary<int, Buff> activeBuffs = new Dictionary<int, Buff>();
-		public static Dictionary<int, Buff> BuffsByID = new Dictionary<int, Buff>();
-		public static bool ForceEndBuff(int source)
+		public bool GiveDebuff(DebuffType type, float amount, float duration)
 		{
-			if (activeBuffs.TryGetValue(source, out Buff b))
-			{
-				b.ForceEndBuff(source);
-				return true;
-			}
-			return false;
-		}
-		public static bool AddBuff(BUFF id, int source, float amount, float duration)
-		{
-			return AddBuff((int)id, source, amount, duration);
-		}
-		public static bool AddBuff(int id, int source, float amount, float duration)
-		{
-			try
-			{
-				if (BuffsByID.ContainsKey(id))
-				{
-					if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 1 && (ModdedPlayer.Stats.debuffImmunity > 0 || ModdedPlayer.Stats.debuffResistance > 0))
-						return false;
-					if (BuffsByID[id].isNegative && BuffsByID[id].DispellAmount <= 2 && (ModdedPlayer.Stats.debuffImmunity > 0))
-						return false;
-					if (activeBuffs.ContainsKey(source))
-					{
-						activeBuffs[source].duration = duration;
-						if (activeBuffs[source].OnAddOverrideAmount)
-						{
-							activeBuffs[source].amount = amount;
-						}
-						else
-						{
-							if (activeBuffs[source].AccumulateEffect)
-							{
-								activeBuffs[source].amount += amount;
-							}
-							else if (activeBuffs[source].amount < amount)
-							{
-								activeBuffs[source].amount = amount;
-							}
-						}
-						return true;
-					}
-					else
-					{
-						Buff b = new Buff(id, amount, duration);
-						activeBuffs.Add(source, b);
-						if (b.OnStart != null)
-						{
-							b.OnStart(b.amount);
-						}
 
-						return true;
-					}
-				}
-				else
-				{
-					ModAPI.Log.Write("Couldnt add a buff, no buff with id " + id + " in the database");
-					return false;
-				}
-			}
-			catch (System.Exception e)
-			{
-				ModAPI.Log.Write("Error when adding buff... " + e.ToString());
-			}
-			return false;
+		}
+		public bool GiveDebuff(DebuffType type, float amount, float duration, int source)
+		{
+
 		}
 
-		public static void FillBuffList()
+
+
+		//public static bool GiveBuff(BuffType id, int source, float amount, float duration)
+		//{
+		//	return GiveBuff((int)id, source, amount, duration);
+		//}
+		//public static bool GiveBuff(int id, int source, float amount, float duration)
+		//{
+		//	try
+		//	{
+		//		if (BuffsByID.ContainsKey(id))
+		//		{
+		//			if (BuffsByID[id].isNegative && BuffsByID[id].dispellThreshold <= 1 && (ModdedPlayer.Stats.debuffImmunity > 0 || ModdedPlayer.Stats.debuffResistance > 0))
+		//				return false;
+		//			if (BuffsByID[id].isNegative && BuffsByID[id].dispellThreshold <= 2 && (ModdedPlayer.Stats.debuffImmunity > 0))
+		//				return false;
+		//			if (activeBuffs.ContainsKey(source))
+		//			{
+		//				activeBuffs[source].duration = duration;
+		//				if (activeBuffs[source].OnAddOverrideAmount)
+		//				{
+		//					activeBuffs[source].amount = amount;
+		//				}
+		//				else
+		//				{
+		//					if (activeBuffs[source].accumulateEffect)
+		//					{
+		//						activeBuffs[source].amount += amount;
+		//					}
+		//					else if (activeBuffs[source].amount < amount)
+		//					{
+		//						activeBuffs[source].amount = amount;
+		//					}
+		//				}
+		//				return true;
+		//			}
+		//			else
+		//			{
+		//				Buff b = new Buff(id, amount, duration);
+		//				activeBuffs.Add(source, b);
+		//				if (b.OnStart != null)
+		//				{
+		//					b.OnStart(b.amount);
+		//				}
+
+		//				return true;
+		//			}
+		//		}
+		//		else
+		//		{
+		//			ModAPI.Log.Write("Couldnt add a buff, no buff with id " + id + " in the database");
+		//			return false;
+		//		}
+		//	}
+		//	catch (System.Exception e)
+		//	{
+		//		ModAPI.Log.Write("Error when adding buff... " + e.ToString());
+		//	}
+		//	return false;
+		//}
+
+		public void FillBuffList()
 		{
 			try
 			{
@@ -216,89 +230,6 @@ namespace ChampionsOfForest.Player
 			catch (System.Exception ex)
 			{
 				ModAPI.Log.Write(ex.ToString());
-			}
-		}
-
-		public class Buff
-		{
-			public int _ID;
-			public float amount;
-			public float duration;
-			public string BuffName;
-			public bool isNegative;
-			public bool AccumulateEffect;
-
-			public delegate void onBuffEnd(float f);
-
-			public delegate void onBuffStart(float f);
-
-			public onBuffEnd OnEnd;
-			public onBuffStart OnStart;
-			public int DispellAmount;
-			public bool DisplayAsPercent = true;
-			public bool DisplayAmount = true;
-			public bool OnAddOverrideAmount = false;
-			public int IconID;
-
-			public Buff(int id, float amount, float duration)
-			{
-				_ID = id;
-				Buff b = BuffDB.BuffsByID[id];
-				OnEnd = b.OnEnd;
-				OnStart = b.OnStart;
-				BuffName = b.BuffName;
-				isNegative = b.isNegative;
-				DispellAmount = b.DispellAmount;
-				AccumulateEffect = b.AccumulateEffect;
-				OnAddOverrideAmount = b.OnAddOverrideAmount;
-				DisplayAsPercent = b.DisplayAsPercent;
-				this.amount = amount;
-				this.duration = duration;
-			}
-
-			public Buff(int BuffID, int iconID, string name, bool IsNegative, bool accumulate, int dispellamount = 0, onBuffEnd END = null, onBuffStart START = null)
-			{
-				_ID = BuffID;
-				AccumulateEffect = accumulate;
-				isNegative = IsNegative;
-				BuffName = name;
-				OnEnd = END;
-				OnStart = START;
-				DispellAmount = dispellamount;
-				amount = 1;
-				duration = 1;
-				IconID = iconID;
-				BuffDB.BuffsByID.Add(BuffID, this);
-			}
-
-			public void ForceEndBuff(int source)
-			{
-				BuffDB.activeBuffs.Remove(source);
-				if (OnEnd != null)
-				{
-					OnEnd(amount);
-				}
-			}
-
-			/// <summary>
-			/// determines if the buff is already over. Call this in ModdedPlayer update
-			/// </summary>
-			public void UpdateBuff(int source)
-			{
-				if (isNegative && DispellAmount <= 1 && (ModdedPlayer.Stats.debuffImmunity > 0 || ModdedPlayer.Stats.debuffResistance > 0))
-					duration = 0;
-				if (isNegative && DispellAmount <= 2 && (ModdedPlayer.Stats.debuffImmunity > 0))
-					duration = 0;
-
-				if (duration > 0)
-				{
-					duration -= Time.deltaTime;
-				}
-				else
-				{
-					BuffDB.activeBuffs.Remove(source);
-					OnEnd?.Invoke(amount);
-				}
 			}
 		}
 	}

@@ -123,13 +123,13 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_parryDmgBonus;
 			public readonly AdditivePlayerStat<float> spell_parryBuffDamage;
 			//healing dome
-			public readonly BooleanPlayerStat spell_healingDomeGivesImmunity;
-			public readonly BooleanPlayerStat spell_healingDomeRegEnergy;
-			public readonly AdditivePlayerStat<float> spell_healingDomeDuration;
-			public readonly AdditivePlayerStat<float> spell_healingDomeCooldownRate;
-			public readonly AdditivePlayerStat<float> spell_healingDomeSpellCostReduction;
-			public readonly AdditivePlayerStat<float> spell_healingDomeDamageIncrease;
-			public readonly AdditivePlayerStat<float> spell_healingDomeDamageResistance;
+			public readonly BooleanPlayerStat spell_sanctuaryGivesImmunity;
+			public readonly BooleanPlayerStat spell_sanctuaryRegEnergy;
+			public readonly AdditivePlayerStat<float> spell_sanctuaryDuration;
+			public readonly AdditivePlayerStat<float> spell_sanctuaryCooldownRate;
+			public readonly AdditivePlayerStat<float> spell_sanctuarySpellCostReduction;
+			public readonly AdditivePlayerStat<float> spell_sanctuaryDamageIncrease;
+			public readonly AdditivePlayerStat<float> spell_sanctuaryDamageResistance;
 			//flare 	
 			public readonly AdditivePlayerStat<float> spell_flareDamage;
 			public readonly AdditivePlayerStat<float> spell_flareDamageScaling;
@@ -438,13 +438,13 @@ namespace ChampionsOfForest.Player
 				this.spell_parryDmgBonus = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				this.spell_parryBuffDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				//healing dome
-				this.spell_healingDomeGivesImmunity = new BooleanPlayerStat(false);
-				this.spell_healingDomeRegEnergy = new BooleanPlayerStat(false);
-				this.spell_healingDomeDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
-				this.spell_healingDomeCooldownRate= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
-				this.spell_healingDomeSpellCostReduction= new AdditivePlayerStat<float>(1, addfloat, substractfloat);
-				this.spell_healingDomeDamageIncrease= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
-				this.spell_healingDomeDamageResistance= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_sanctuaryGivesImmunity = new BooleanPlayerStat(false);
+				this.spell_sanctuaryRegEnergy = new BooleanPlayerStat(false);
+				this.spell_sanctuaryDuration = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
+				this.spell_sanctuaryCooldownRate= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_sanctuarySpellCostReduction= new AdditivePlayerStat<float>(1, addfloat, substractfloat);
+				this.spell_sanctuaryDamageIncrease= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
+				this.spell_sanctuaryDamageResistance= new AdditivePlayerStat<float>(0, addfloat, substractfloat);
 				//flare 	
 				this.spell_flareDamage = new AdditivePlayerStat<float>(40, addfloat, substractfloat);
 				this.spell_flareDamageScaling = new AdditivePlayerStat<float>(1.5f, addfloat, substractfloat, "P0");
@@ -656,14 +656,7 @@ namespace ChampionsOfForest.Player
 					return x;
 				}
 			}
-			public float TotalMagicDamageMultiplier
-			{
-				get
-				{
-					float f = spellDmgFromInt.Value * intelligence.Value;
-					return (1 + f) * spellIncreasedDmg.Value * allDamage.Value;
-				}
-			}
+		
 			public float SpellCostToStamina => 1 - spellCostEnergyCost;
 			public float TotalThorns => thorns.Value + thornsPerStrenght * strength.Value + thornsPerVit * vitality.Value;
 			public float TotalThornsDamage => TotalThorns * thornsDmgMult.Value * meleeIncreasedDmg * allDamage;
@@ -673,15 +666,16 @@ namespace ChampionsOfForest.Player
 			public float TotalEnergyRecoveryMultiplier => 1 + (1 + intelligence * energyRecoveryFromInt) * allRecoveryMult * staminaPerSecRate;
 
 
-			public float MeleeDamageMult => allDamage.Value * meleeIncreasedDmg.Value * (1 + (strength * meleeDmgFromStr));
-			public float RangedDamageMult => allDamage.Value * rangedIncreasedDmg.Value * (1 + (agility * rangedDmgFromAgi)) * (perk_projectileDamageIncreasedBySize ? 1 + (projectileSize.Value - 1) * 2 : 1f);
-			public float SpellDamageMult => allDamage.Value * spellIncreasedDmg.Value * (1 + intelligence * spellDmgFromInt);
+			public float MeleeDamageMult => PlayerUtils.MeleeDamageMult();
+			public float RangedDamageMult => PlayerUtils.RangedDamageMult();
+			public float SpellDamageMult => PlayerUtils.SpellDamageMult();
 
 			public int TotalMeleeArmorPiercing => allArmorPiercing + meleeArmorPiercing;
 			public int TotalRangedArmorPiercing => allArmorPiercing + rangedArmorPiercing;
 			public int TotalThornsArmorPiercing => Mathf.RoundToInt(allArmorPiercing * thornsArmorPiercing);
-			public bool Critted => Random.value < critChance;
-			public float RandomCritDamage => Random.value < critChance ? 1f + critDamage : 1f;
+
+			public bool RandomCritTrigger => Random.value < critChance;
+			public float RandomCritDamage => RandomCritTrigger ? 1f + critDamage : 1f;
 
 
 		}

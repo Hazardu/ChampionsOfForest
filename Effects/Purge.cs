@@ -45,19 +45,19 @@ namespace ChampionsOfForest.Effects
 
 		private static void PurgeLocalPlayer(bool heal, bool bonusDamage)
 		{
-			int[] keys = BuffDB.activeBuffs.Keys.ToArray();
+			int[] keys = BuffManager.activeBuffs.Keys.ToArray();
 			int a = heal ? 1 : 0;
 			for (int i = 0; i < keys.Length; i++)
 			{
-				if (BuffDB.activeBuffs[keys[i]].isNegative)
+				if (BuffManager.activeBuffs[keys[i]].isNegative)
 				{
-					BuffDB.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
+					BuffManager.activeBuffs[keys[i]].ForceEndBuff(keys[i]);
 				}
 			}
 
 			ModdedPlayer.instance.StunDuration = 0;
 			ModdedPlayer.instance.RootDuration = 0;
-			BuffDB.AddBuff(7, 98, 1, 3f);
+			BuffManager.GiveBuff(7, 98, 1, 3f);
 
 			if (heal)
 			{
@@ -65,7 +65,7 @@ namespace ChampionsOfForest.Effects
 				if (bonusDamage)
 				{
 					float buffAmount = 1 + (healAmount / ModdedPlayer.Stats.TotalMaxHealth) * 3;
-					BuffDB.AddBuff(9, 90, buffAmount, 10f);
+					BuffManager.GiveBuff(9, 90, buffAmount, 10f);
 				}
 				healAmount *= 0.4f * ModdedPlayer.Stats.allRecoveryMult;
 				LocalPlayer.Stats.Health += healAmount;

@@ -51,9 +51,9 @@ namespace ChampionsOfForest.Player.Crafting
 					if (validRecipe)
 					{
 						var stat = CraftingHandler.changedItem.i.Stats[selectedStat];
-						if (stat.StatID > 3000)
+						if (stat.id > 3000)
 						{
-							CraftingHandler.changedItem.i.Stats[selectedStat] = new ItemStat(ItemDataBase.Stats[3000]); //set to empty socket
+							CraftingHandler.changedItem.i.Stats[selectedStat] = new ItemStat(ItemDataBase.statsById[3000]); //set to empty socket
 						}
 						else
 						{
@@ -61,11 +61,11 @@ namespace ChampionsOfForest.Player.Crafting
 							int random = UnityEngine.Random.Range(0, options.Count);
 							{
 								ItemStat newStat = new ItemStat(options[random], CraftingHandler.changedItem.i.level);
-								newStat.Amount *= CraftingHandler.changedItem.i.GetRarityMultiplier();
+								newStat.amount *= CraftingHandler.changedItem.i.GetRarityMultiplier();
 								newStat.possibleStatsIndex = stat.possibleStatsIndex;
-								if (newStat.ValueCap != 0)
+								if (newStat.valueCap != 0)
 								{
-									newStat.Amount = Mathf.Min(newStat.Amount, newStat.ValueCap);
+									newStat.amount = Mathf.Min(newStat.amount, newStat.valueCap);
 								}
 								CraftingHandler.changedItem.i.Stats[selectedStat] = newStat;
 								CraftingHandler.changedItem.i.SortStats();
@@ -107,16 +107,16 @@ namespace ChampionsOfForest.Player.Crafting
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
+							string amount = stat.amount.ToString((stat.isPercent ? "P" : "N") + stat.rounding);
 
 							GUI.color = MainMenu.RarityColors[stat.Rarity];
 							if (selectedStat == ind)
 							{
-								GUI.Label(statRect, "• " + stat.Name + " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
+								GUI.Label(statRect, "• " + stat.name + " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
 							}
 							else
 							{
-								if (GUI.Button(statRect, stat.Name, styles[0]))
+								if (GUI.Button(statRect, stat.name, styles[0]))
 								{
 									selectedStat = ind;
 								}
@@ -140,7 +140,7 @@ namespace ChampionsOfForest.Player.Crafting
 					{
 						if (validRecipe)
 						{
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*og:Empty socket*/ : Translations.IndividualRerolling_2/*og:Reroll stat*/, styles[2])) //tr
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].id > 3000 ? Translations.IndividualRerolling_3/*og:Empty socket*/ : Translations.IndividualRerolling_2/*og:Reroll stat*/, styles[2])) //tr
 							{
 								Craft();
 							}
@@ -188,7 +188,7 @@ namespace ChampionsOfForest.Player.Crafting
 								string optionsStr = Translations.IndividualRerolling_6/*og:Possible stats:\n*/; //tr
 								foreach (var stat1 in options)
 								{
-									optionsStr += stat1.Name + '\t';
+									optionsStr += stat1.name + '\t';
 								}
 								GUI.Label(new Rect(x, ypos, w, Screen.height - x), optionsStr, new GUIStyle(styles[0]) { alignment = TextAnchor.UpperLeft, fontSize = (int)(12 * screenScale), wordWrap = true });
 							}

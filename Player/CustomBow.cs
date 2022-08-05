@@ -74,14 +74,14 @@ namespace ChampionsOfForest
 					{
 						w.Write(28);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write((int)BaseItem.WeaponModelType.Greatbow);
+						w.Write((int)ItemTemplate.WeaponModelType.Greatbow);
 						w.Close();
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
-			PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+			PlayerInventoryMod.ToEquipWeaponType = ItemTemplate.WeaponModelType.None;
 		}
 
 		private void OnDisable()
@@ -95,7 +95,7 @@ namespace ChampionsOfForest
 					{
 						w.Write(28);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write((int)BaseItem.WeaponModelType.None);
+						w.Write((int)ItemTemplate.WeaponModelType.None);
 						w.Close();
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);

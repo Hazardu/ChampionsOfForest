@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class BaseItem
+	public class ItemTemplate
 	{
 		public enum ItemType
 		{
@@ -46,7 +46,7 @@ namespace ChampionsOfForest
 		//Drop settings
 		public EnemyProgression.Enemy lootTable = EnemyProgression.Enemy.All;
 
-		public BaseItem()
+		public ItemTemplate()
 		{
 		}
 
@@ -55,7 +55,7 @@ namespace ChampionsOfForest
 			1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,21,22,23,24,25,26,31,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56,57,59,60,61,62,63,64,65,66,67
 		};
 
-		public BaseItem(params int[][] possibleStats)
+		public ItemTemplate(params int[][] possibleStats)
 		{
 			PossibleStats = new List<List<ItemStat>>();
 			foreach (int[] a in possibleStats)
@@ -71,21 +71,21 @@ namespace ChampionsOfForest
 					{
 						foreach (int c in commonstatIds)
 						{
-							list.Add(new ItemStat(ItemDataBase.Stats[c]));
+							list.Add(new ItemStat(ItemDataBase.statsById[c]));
 						}
 					}
 					else
 					{
-						list.Add(new ItemStat(ItemDataBase.Stats[statID]));
+						list.Add(new ItemStat(ItemDataBase.statsById[statID]));
 					}
 				}
 				PossibleStats.Add(list);
 			}
-			ID = ItemDataBase._Item_Bases.Count;
-			ItemDataBase._Item_Bases.Add(this);
+			ID = ItemDataBase.itemTemplates.Count;
+			ItemDataBase.itemTemplates.Add(this);
 		}
 
-		public BaseItem(params ItemDataBase.Stat[][] possibleStats)
+		public ItemTemplate(params ItemDataBase.Stat[][] possibleStats)
 		{
 			PossibleStats = new List<List<ItemStat>>();
 			foreach (var statRow in possibleStats)
@@ -102,25 +102,25 @@ namespace ChampionsOfForest
 					{
 						foreach (int c in commonstatIds)
 						{
-							list.Add(new ItemStat(ItemDataBase.Stats[c]));
+							list.Add(new ItemStat(ItemDataBase.statsById[c]));
 						}
 					}
 					else
 					{
-						list.Add(new ItemStat(ItemDataBase.Stats[statID]));
+						list.Add(new ItemStat(ItemDataBase.statsById[statID]));
 					}
 				}
 				PossibleStats.Add(list);
 			}
-			ID = ItemDataBase._Item_Bases.Count;
-			ItemDataBase._Item_Bases.Add(this);
+			ID = ItemDataBase.itemTemplates.Count;
+			ItemDataBase.itemTemplates.Add(this);
 		}
 
-		public BaseItem(List<List<ItemStat>> possibleStats, int rarity, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+		public ItemTemplate(List<List<ItemStat>> possibleStats, int rarity, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
 		{
 			PossibleStats = possibleStats;
 			Rarity = rarity;
-			ID = ItemDataBase._Item_Bases.Count;
+			ID = ItemDataBase.itemTemplates.Count;
 			this.StackSize = StackSize;
 			type = itemType;
 			PickUpAll = pickupAll;
@@ -131,11 +131,11 @@ namespace ChampionsOfForest
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();
-			ItemDataBase._Item_Bases.Add(this);
+			ItemDataBase.itemTemplates.Add(this);
 			icon = texture;
 		}
 
-		public BaseItem(int[][] possibleStats, int rarity, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+		public ItemTemplate(int[][] possibleStats, int rarity, int StackSize, ItemType itemType, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
 		{
 			PossibleStats = new List<List<ItemStat>>();
 			foreach (int[] a in possibleStats)
@@ -143,12 +143,12 @@ namespace ChampionsOfForest
 				List<ItemStat> list = new List<ItemStat>();
 				foreach (int b in a)
 				{
-					list.Add(b == 0 ? null : ItemDataBase.Stats[b]);
+					list.Add(b == 0 ? null : ItemDataBase.statsById[b]);
 				}
 				PossibleStats.Add(list);
 			}
 			Rarity = rarity;
-			ID = ItemDataBase._Item_Bases.Count;
+			ID = ItemDataBase.itemTemplates.Count;
 			this.StackSize = StackSize;
 			type = itemType;
 			PickUpAll = pickupAll;
@@ -159,11 +159,11 @@ namespace ChampionsOfForest
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();
-			ItemDataBase._Item_Bases.Add(this);
+			ItemDataBase.itemTemplates.Add(this);
 			icon = texture;
 		}
 
-		public BaseItem(int[][] possibleStats, int rarity, int iD, int StackSize, WeaponModelType weaponModel, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
+		public ItemTemplate(int[][] possibleStats, int rarity, int iD, int StackSize, WeaponModelType weaponModel, string name, string description, string lore, string tooltip, int minlevel, int maxlevel, Texture2D texture, bool pickupAll = false)
 		{
 			PossibleStats = new List<List<ItemStat>>();
 			foreach (int[] a in possibleStats)
@@ -171,7 +171,7 @@ namespace ChampionsOfForest
 				List<ItemStat> list = new List<ItemStat>();
 				foreach (int b in a)
 				{
-					list.Add(b == 0 ? null : ItemDataBase.Stats[b]);
+					list.Add(b == 0 ? null : ItemDataBase.statsById[b]);
 				}
 				PossibleStats.Add(list);
 			}
@@ -188,7 +188,7 @@ namespace ChampionsOfForest
 			this.minLevel = minlevel;
 			this.maxLevel = maxlevel;
 			LootsFromAssignDefault();
-			ItemDataBase._Item_Bases.Add(this);
+			ItemDataBase.itemTemplates.Add(this);
 			icon = texture;
 		}
 

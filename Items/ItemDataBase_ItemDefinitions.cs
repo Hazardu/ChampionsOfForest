@@ -13,7 +13,7 @@ namespace ChampionsOfForest
 	{
 		public static void PopulateItems()
 		{
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] { 34 },
 				new int[] {43,0,39,59,67 },
@@ -27,10 +27,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {34 },
 				new int[] {34,0,40,41 },
@@ -46,10 +46,10 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {34 },
 				new int[] {34,40,41 },
@@ -65,10 +65,10 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {34 },
 				new int[] {3,2 },
@@ -84,10 +84,10 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 			  new int[] {34 },
 				new int[] {34,39,41,11,57 },
@@ -104,10 +104,10 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {34 },
 				new int[] {34,3,2,11 },
@@ -124,10 +124,10 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 			  new int[] {25,22 },
 			  new int[] {11,1,3,17 },
@@ -146,10 +146,10 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			}.DropSettings_OnlyArmsy();
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	 {
 				new int[] {42,0 },
 				new int[] {40,41,26,25,67 },
@@ -164,10 +164,10 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {39,40,41,42,43,24,25,26 },
 				new int[] {39,40,41,42,43,24,25,26,44 },
@@ -183,10 +183,10 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {39,40,41,42},
 				new int[] {39,40,41,42},
@@ -203,10 +203,10 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {1,2,4,6,8,9},
 				new int[] {1,11,65},
@@ -224,10 +224,10 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	  {
 				new int[] {43,0 },
 				new int[] {43,39,40,41,42 },
@@ -241,10 +241,10 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {1000,1001,1002},
 				new int[] {1000,1001,1002,1003,1004,0,0,0,0},
@@ -259,10 +259,10 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					{
 				new int[] {5 },
 				new int[] {43,16,0,41 },
@@ -277,10 +277,10 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {1,2,3,4,5,6,65},
@@ -297,10 +297,10 @@ namespace ChampionsOfForest
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5,3,1 },
 				new int[] {5 },
@@ -316,10 +316,10 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {5,3,4,2,1 },
@@ -335,10 +335,10 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			BaseItem baseItem1 = new BaseItem(new int[][]
+			ItemTemplate baseItem1 = new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {16 },
@@ -355,11 +355,11 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			baseItem1.PossibleStats[1][0].Multipier = 2.5f;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {65 },
@@ -377,10 +377,10 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {12,13},
@@ -398,10 +398,10 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {5 },
 				new int[] {23,26,2 },
@@ -422,10 +422,10 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {47 },
 				new int[] {4,29 },
@@ -449,12 +449,12 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 				onEquip = () => ModdedPlayer.Stats.spell_cataclysmArcane.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_cataclysmArcane.value = false
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					{
 				new int[] {39,40,41,42,44,8,14,49 },
 				new int[] {39,40,41,42,44,8,14,49 },
@@ -470,11 +470,11 @@ namespace ChampionsOfForest
 				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {25 },
 				new int[] {25 ,62,63,64},
@@ -492,11 +492,11 @@ namespace ChampionsOfForest
 				maxLevel = 27,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {25 },
 				new int[] {6,49},
@@ -516,11 +516,11 @@ namespace ChampionsOfForest
 				maxLevel = 52,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {25,1,3 },
 				new int[] {25,22,1,3 },
@@ -540,11 +540,11 @@ namespace ChampionsOfForest
 				maxLevel = 61,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4 },
 				new int[] {1,2,3,15,4,0,0,0 },
@@ -568,7 +568,7 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => { ModdedPlayer.Stats.i_SmokeyCrossbowQuiver.value = true; ModdedPlayer.Stats.perk_crossbowDamageMult.Multiply(5); },
 				onUnequip = () =>
@@ -577,7 +577,7 @@ namespace ChampionsOfForest
 					ModdedPlayer.Stats.perk_crossbowDamageMult.Divide(5);
 				},
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {0,42 },
 				new int[] {50 },
@@ -591,10 +591,10 @@ namespace ChampionsOfForest
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	{
 				new int[] {1,2,3,4,0,42 },
 				new int[] {0,42 },
@@ -610,10 +610,10 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	 {
 				new int[] {16},
 				new int[] {16},
@@ -630,10 +630,10 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {5,6,7,8,0,0,0},
 				new int[] {43},
@@ -645,10 +645,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {5,6,7,8},
 				new int[] {43},
@@ -660,10 +660,10 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {16},
 				new int[] {1,2,3,4},
@@ -683,12 +683,12 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(40); ModdedPlayer.Stats.spell_blinkDamage.Add(60); },
 				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(40); ModdedPlayer.Stats.spell_blinkDamage.Substract(60); },
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					 {
 				new int[] {39,49,5,6,7,8,0,0,0},
 				new int[] {43,0},
@@ -703,10 +703,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {2000},
 				new int[] {2001},
@@ -730,10 +730,10 @@ namespace ChampionsOfForest
 				maxLevel = 11,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {39,40,41,42,43,12,13},
 				  })
@@ -744,10 +744,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {-1},
 				new int[] {39,40,41,42,43,12,13},
@@ -759,10 +759,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {63},
 				new int[] {-1},
@@ -777,10 +777,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					 {
 				new int[] {39,40,41,42,43},
 				new int[] {-1},
@@ -793,10 +793,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					{
 				new int[] {39,40,41,42,43},
 				new int[] {43},
@@ -808,10 +808,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {39,40,41,42,43},
 				new int[] {43},
@@ -824,10 +824,10 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {39,40,41,42,43},
 				new int[] {16},
@@ -841,10 +841,10 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(94),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					 {
 				new int[] {32},
 					 })
@@ -856,10 +856,10 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = true,
 				StackSize = 100,
-				type = BaseItem.ItemType.Other,
+				type = ItemTemplate.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {33},
 			})
@@ -871,10 +871,10 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = true,
 				StackSize = 1,
-				type = BaseItem.ItemType.Other,
+				type = ItemTemplate.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 				new int[] {1,2},
 				new int[] {1,2,3,5,6},
@@ -891,11 +891,11 @@ namespace ChampionsOfForest
 				maxLevel = 16,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4,5,6},
 				new int[] {1,2,3,4,5,6,65},
@@ -911,10 +911,10 @@ namespace ChampionsOfForest
 				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {59 },
 				new int[] {21 },
@@ -932,10 +932,10 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85), //icon ids, don't worry about that
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1},
 				new int[] {1,57,18,36},
@@ -953,10 +953,10 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {3},
 				new int[] {3,31,6,7,8,9},
@@ -974,11 +974,11 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {2},
 				new int[] {12,13,8,9, },
@@ -996,10 +996,10 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {4},
 				new int[] {12,13,21,24,6},
@@ -1017,11 +1017,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 			//Silver Rings---------------------------------------------------------------------------
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {1},
 				new int[] {22,25,12,13},
@@ -1037,11 +1037,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {3},
 				new int[] {7,10,31,5, },
@@ -1057,11 +1057,11 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {2},
 				new int[] {12,13,51,8,9, },
@@ -1077,11 +1077,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {4},
 				new int[] { 12, 13, 21, 24,12, 13,21,24,0},
@@ -1097,12 +1097,12 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
 			//Steel Rings-------------------------------------------------------------------
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				 new int[] {1},
 				 new int[] {12,13,65},
@@ -1117,11 +1117,11 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {3},
 				new int[] {7,10,31,5,65},
@@ -1136,11 +1136,11 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {2},
 				new int[] {8,9, 12,13,51,57},
@@ -1155,11 +1155,11 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {4},
 				new int[] {12,13,21,24,6},
@@ -1174,13 +1174,13 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
 			//One Ring to rule them all----------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {1,3,2,4},
 				new int[] {12,13},
@@ -1210,13 +1210,13 @@ namespace ChampionsOfForest
 				maxLevel = 30,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
 			//Golden Lockets---------------------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {1},
 			new int[] {12,13},
@@ -1233,11 +1233,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {3},
 			new int[] {5,6,7},
@@ -1254,11 +1254,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {2},
 			new int[] {12,13,51,52,66,8,9,},
@@ -1275,11 +1275,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {4},
 			new int[] {12,13,21,24},
@@ -1296,13 +1296,13 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
 			//Silver Lockets---------------------------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {1},
 			new int[] {12,13},
@@ -1319,11 +1319,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {3},
 			new int[] {7,10,31,5,},
@@ -1340,11 +1340,11 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {2},
 			new int[] {12,13,51,52,66,8,9,6,},
@@ -1361,11 +1361,11 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {4},
 			new int[] {12,13,21,24},
@@ -1382,13 +1382,13 @@ namespace ChampionsOfForest
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
 			// Emerald Pendant-----------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {1},
 			new int[] {12,13},
@@ -1406,11 +1406,11 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {3},
 			new int[] {7,10,31,5},
@@ -1428,11 +1428,11 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {2},
 			new int[] {8,9,12,13,51,52,66},
@@ -1451,11 +1451,11 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {4},
 			new int[] {29,37,21,24,46,56,19},
@@ -1474,13 +1474,13 @@ namespace ChampionsOfForest
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
 			// Diamond Pendant-----------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {1},
 			new int[] {12,13},
@@ -1499,11 +1499,11 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {3},
 			new int[] {5,6,7,8,9,10},
@@ -1523,11 +1523,11 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {2},
 			new int[] {8,9,12,13,51,52,66},
@@ -1547,11 +1547,11 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {4},
 			new int[] {12,13,21,24},
@@ -1572,13 +1572,13 @@ namespace ChampionsOfForest
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 
 			//Rare Amulets -----------------------------------------------------------------------------------------
 
-			var armsyFingerNecklace = new BaseItem(new int[][]
+			var armsyFingerNecklace = new ItemTemplate(new int[][]
 			{
 			new int[] {1},
 			new int[] {65},
@@ -1598,14 +1598,14 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 
 			};
 			armsyFingerNecklace.DropSettings_OnlyArmsy();
 			armsyFingerNecklace.PossibleStats[0][0].Multipier = 2;
 			armsyFingerNecklace.PossibleStats[1][0].Multipier = 2;
-			var virginiaHeartPedant = new BaseItem(new int[][]
+			var virginiaHeartPedant = new ItemTemplate(new int[][]
 			{
 			new int[] {2},
 			new int[] {23},
@@ -1626,14 +1626,14 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 			virginiaHeartPedant.DropSettings_OnlyVags();
 			virginiaHeartPedant.PossibleStats[0][0].Multipier = 2;
 			virginiaHeartPedant.PossibleStats[1][0].Multipier = 2.25f;
 
-			var cowmanToeNecklace = new BaseItem(new int[][]
+			var cowmanToeNecklace = new ItemTemplate(new int[][]
 			{
 			new int[] {3},
 			new int[] {31,6},
@@ -1654,13 +1654,13 @@ namespace ChampionsOfForest
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
 			cowmanToeNecklace.DropSettings_OnlyCow();
 			cowmanToeNecklace.PossibleStats[0][0].Multipier = 3;
 			cowmanToeNecklace.PossibleStats[1][0].Multipier = 2;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {47},
 			new int[] {4,0},
@@ -1685,7 +1685,7 @@ namespace ChampionsOfForest
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_infinityLoop.value = false,
@@ -1693,7 +1693,7 @@ namespace ChampionsOfForest
 
 			//Boss drop Amulet----------------------------------------------------------------------------------------
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			new int[] {1,2,4},
 			new int[] {12,13},
@@ -1716,11 +1716,11 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			}.DropSettings_OnlyMegan();
 
-			BaseItem RelicHammer = new BaseItem(new int[][]
+			ItemTemplate RelicHammer = new ItemTemplate(new int[][]
 			{
 				new int[] {25 },
 				new int[] {18 },
@@ -1736,13 +1736,13 @@ namespace ChampionsOfForest
 				maxLevel = 22,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 			};
 			RelicHammer.PossibleStats[1][0].Multipier = -4;
 
-			BaseItem GreaterHammer = new BaseItem(new int[][]
+			ItemTemplate GreaterHammer = new ItemTemplate(new int[][]
 		{
 				new int[] {25 },
 				new int[] {18 },
@@ -1761,13 +1761,13 @@ namespace ChampionsOfForest
 				maxLevel = 35,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 			};
 			GreaterHammer.PossibleStats[1][0].Multipier = -3;
 			//Item 0/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {2,6,4},
@@ -1780,12 +1780,12 @@ namespace ChampionsOfForest
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
 
 			//Item 1/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {40,41,42},
@@ -1799,12 +1799,12 @@ namespace ChampionsOfForest
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
 
 			//Item 2/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {26},
 					new int[] {23,2,54},
@@ -1820,12 +1820,12 @@ namespace ChampionsOfForest
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
 
 			//Item 3/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {26,23},
 					new int[] {24,21},
@@ -1841,12 +1841,12 @@ namespace ChampionsOfForest
 				maxLevel = 11,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
 
 			//Item 4/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {23},
@@ -1865,12 +1865,12 @@ namespace ChampionsOfForest
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 			};
 
 			//Item 5/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {37, 24,47},
 					new int[] {42,6,17,61},
@@ -1885,11 +1885,11 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16,43},
 				new int[] {43,39,40,41,42},
@@ -1904,12 +1904,12 @@ namespace ChampionsOfForest
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
 			//Item 1/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {1,2,3,4},
@@ -1924,12 +1924,12 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
 			//Item 2/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16,},
 				new int[] {1,2,3,4},
@@ -1946,12 +1946,12 @@ namespace ChampionsOfForest
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
 			//Item 3/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {19},
@@ -1967,12 +1967,12 @@ namespace ChampionsOfForest
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
 			//Item 4/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4},
 				new int[] {1,5},
@@ -1994,14 +1994,14 @@ namespace ChampionsOfForest
 				maxLevel = 28,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply(4.5f); ModdedPlayer.Stats.i_HammerStunAmount.Multiply(2); },
 				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(4.5f); ModdedPlayer.Stats.i_HammerStunAmount.Divide(2); },
 			};
 
 			//Item 5/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {34},
@@ -2019,12 +2019,12 @@ namespace ChampionsOfForest
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
 			//Item 6/7
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {1,2,3,4,16,17},
@@ -2047,12 +2047,12 @@ namespace ChampionsOfForest
 				maxLevel = 15,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => ModdedPlayer.Stats.i_HexedPantsOfMrM_Enabled.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_HexedPantsOfMrM_Enabled.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {39,40,41,42,43},
 new int[] {39,40,41,42,43},
@@ -2065,12 +2065,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
 			//Item 1/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {16},
 new int[] {16},
@@ -2086,12 +2086,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 7,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
 			//Item 2/6
-			BaseItem Heavy_Shoulder_Plates = new BaseItem(new int[][]
+			ItemTemplate Heavy_Shoulder_Plates = new ItemTemplate(new int[][]
 			{
 				new int[] {34},
 				new int[] {18},
@@ -2111,7 +2111,7 @@ new int[] {39,40,41,42,43},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 			Heavy_Shoulder_Plates.PossibleStats[0][0].Multipier = -1;
@@ -2119,7 +2119,7 @@ new int[] {39,40,41,42,43},
 			Heavy_Shoulder_Plates.PossibleStats[2][0].Multipier = 3;
 
 			//Item 3/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {21,22,23,24,25,26},
 				new int[] {16},
@@ -2135,12 +2135,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
 			//Item 4/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {22,25},
 				new int[] {1,2,3,4},
@@ -2158,12 +2158,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
 			//Item 5/6
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {11},
 				new int[] {1,2,3,4},
@@ -2188,12 +2188,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () => ModdedPlayer.Stats.i_DeathPact_Enabled.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_DeathPact_Enabled.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {56},
 				new int[] {-1},
@@ -2214,10 +2214,10 @@ new int[] {39,40,41,42,43},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 						 {
 						 })
 			{
@@ -2230,12 +2230,12 @@ new int[] {39,40,41,42,43},
 				maxLevel = 2,
 				CanConsume = true,
 				StackSize = 100,
-				type = BaseItem.ItemType.Other,
+				type = ItemTemplate.ItemType.Other,
 				icon = Res.ResourceLoader.GetTexture(105),
 				onEquip = ModdedPlayer.Respec
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {1,2,3,4,57},
 new int[] {16,17,14},
@@ -2251,12 +2251,12 @@ new int[] {5,6,9,8,10,12,13,14,},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
 			//Item 1/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {1,11,5,7},
 new int[] {57,2,3,4,5,6,7,8,10,11},
@@ -2272,12 +2272,12 @@ new int[] {50},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
 			//Item 2/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {16},
 new int[] {16,50},
@@ -2295,12 +2295,12 @@ new int[] {39,40,41,42,43,50,57},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
 			//Item 3/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {15,14},
 new int[] {2,3,4,1,41,42,57},
@@ -2319,11 +2319,11 @@ new int[] {16,7,8,22,23,25,26},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 new int[] {18},
 new int[] {0,0,0,0,62,63,64},
@@ -2336,12 +2336,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			}.PossibleStats[0][0].Multipier = -3;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {-1},
@@ -2357,14 +2357,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_warCryGiveArmor.value = false,
 			}.PossibleStats[0][0].Multipier = 2;
 
 			//Item 1/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {31,7,8,9,10},
@@ -2386,7 +2386,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () =>
 				{
@@ -2401,7 +2401,7 @@ new int[] {0,0,0,0,62,63,64},
 			}.PossibleStats[0][0].Multipier = 5;
 
 			//Item 2/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {1},
@@ -2418,12 +2418,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
 			//Item 3/5
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,31,36,37,38,43,44,45,46,47,49,50,53,54,55,57},
 				new int[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,31,36,37,38,43,44,45,46,47,49,50,53,54,55,57},
@@ -2436,12 +2436,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
 			//Item 4/5
-			BaseItem mask = new BaseItem(new int[][]
+			ItemTemplate mask = new ItemTemplate(new int[][]
 			 {
 				new int[] {18},
 				new int[] {22,23,21},
@@ -2459,7 +2459,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 			mask.PossibleStats[2][0].Multipier = -4;
@@ -2468,7 +2468,7 @@ new int[] {0,0,0,0,62,63,64},
 			mask.PossibleStats[1][1].Multipier = 2.5f;
 			mask.PossibleStats[1][2].Multipier = 2.5f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {47,49,37,38},
 				new int[] {42,4},
@@ -2484,10 +2484,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {57},
 				new int[] {1,2,3,4},
@@ -2510,12 +2510,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(94),
 				onEquip = () => ModdedPlayer.Stats.spell_portalDuration.Add(570),
 				onUnequip = () => ModdedPlayer.Stats.spell_portalDuration.Substract(570),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {57},
 				new int[] {1,2,3,4},
@@ -2537,13 +2537,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Add(15),
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDuration.Substract(15),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {24,4},
 				new int[] {26,4},
@@ -2566,13 +2566,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.i_CrossfireQuiver.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_CrossfireQuiver.value = false,
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {44},
 				new int[] {44,8},
@@ -2588,11 +2588,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {11},
 				new int[] {-1},
@@ -2610,12 +2610,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 10,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
 			//Item 1/2
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {-1},
 				new int[] {15},
@@ -2634,10 +2634,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 					new int[] {2005},
 					new int[] {-1},
@@ -2656,12 +2656,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 40,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 				onEquip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Add(250f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(2); },
 				onUnequip = () => { ModdedPlayer.Stats.spell_snapDamageScaling.Substract(250f); ModdedPlayer.Stats.spell_snapFreezeDuration.Add(2); }
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 					new int[] {2006},
 					new int[] {57,1,2,3,4},
@@ -2679,10 +2679,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[]{1,2,3,4},
 				new int[]{18},
@@ -2696,11 +2696,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 17,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 1.6f;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[]{1,26,22},
 				new int[]{18},
@@ -2715,12 +2715,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 25,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 2.5f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[]{1,26,22},
 				new int[]{18},
@@ -2737,11 +2737,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 36,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 2.5f;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					  {
 				new int[]{26,22},
 				new int[]{63},
@@ -2759,12 +2759,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			}.PossibleStats[1][0].Multipier = 3;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {1,2,3,4},
 				new int[] {-1},
@@ -2783,10 +2783,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {1,2,3,4},
 				new int[] {-1},
@@ -2805,10 +2805,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101), //icon ids, don't worry about that
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 			  new int[]{0,39}
 		  })
@@ -2819,11 +2819,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 24,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4 },
 				new int[] {1,2,3,15,4,0,0,0 },
@@ -2845,12 +2845,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.spell_focusOnAtkSpeedDuration.Add(16),
 				onUnequip = () => ModdedPlayer.Stats.spell_focusOnAtkSpeedDuration.Substract(16),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {25 },
 				new int[] {22,1,18,},
@@ -2875,14 +2875,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(15),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(15),
 			}.PossibleStats[0][0].Multipier = 5;
 
-			BaseItem jaggedRipper = new BaseItem(new int[][]
+			ItemTemplate jaggedRipper = new ItemTemplate(new int[][]
 			{
 				new int[] {1,2,3,4,57,},
 				new int[]{18},
@@ -2905,15 +2905,15 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 				onEquip = () => ModdedPlayer.Stats.spell_bashBleedChance.Add(0.3f),
 				onUnequip = () => ModdedPlayer.Stats.spell_bashBleedChance.Substract(0.3f),
 			};
 			jaggedRipper.PossibleStats[1][0].Multipier = 2;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					 {
 						new int[] {25 },
 						new int[] {22,},
@@ -2937,13 +2937,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 5,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 				onEquip = () => ModdedPlayer.Stats.spell_bashLifesteal.Add(0.02f),
 				onUnequip = () => ModdedPlayer.Stats.spell_bashLifesteal.Substract(0.02f),
 			}.PossibleStats[0][0].Multipier = 3;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {25 },
 				new int[] {22 },
@@ -2966,8 +2966,8 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () =>
 				{
@@ -2981,7 +2981,7 @@ new int[] {0,0,0,0,62,63,64},
 				},
 			}.PossibleStats[0][0].Multipier = 3.25f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			 new int[] {11},
 				new int[] {65},
@@ -3004,13 +3004,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 				onEquip = () => ModdedPlayer.Stats.spell_chanceToParryOnHit.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_chanceToParryOnHit.value = false,
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	 {
 			 new int[] {1},
 				new int[] {12,3,16,45,46},
@@ -3034,14 +3034,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 				onEquip = () => ModdedPlayer.Stats.i_KingQruiesSword.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_KingQruiesSword.value = false,
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
@@ -3064,12 +3064,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 				onEquip = () => ModdedPlayer.Stats.i_SoraBracers.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_SoraBracers.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 			 new int[] {18},
 				new int[] {60,0},
@@ -3087,12 +3087,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 			}.PossibleStats[0][0].Multipier = -1.55f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 			 new int[] {18},
 				new int[] {61},
@@ -3114,14 +3114,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_greatBowIgnites.value = false,
 			}.PossibleStats[0][0].Multipier = -1.7f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 			 new int[] {18},
 				new int[] {61,48},
@@ -3146,14 +3146,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Add(100),
 				onUnequip = () => ModdedPlayer.Stats.spell_bia_HealthDmMult.Substract(100),
 			}.PossibleStats[0][0].Multipier = -1.7f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 			 new int[] {18},
 
@@ -3167,12 +3167,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 28,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 			}.PossibleStats[0][0].Multipier = -2.7f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
 			 new int[] {2,3,4,5,6,11,12,13,15,23,26,51,60,44,49,48},
@@ -3197,12 +3197,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => ModdedPlayer.Stats.i_HazardCrown.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_HazardCrown.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {39,40,41,42,43,4},
 				new int[] {4,6,24,21,16,3,42,43,49},
@@ -3217,10 +3217,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
@@ -3235,10 +3235,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
 				new int[] {2,12,13,22,25,40,43,54},
@@ -3253,10 +3253,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {3,5,6,7,8,9,10,11,14,15,16},
 				new int[] {7,16,18,0,0},
@@ -3273,10 +3273,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				 {
 				new int[] {39,40,41,42,43,4},
 				new int[] {4,6,24,21,16,3,42,43,49},
@@ -3291,10 +3291,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {2,12,13,23,26,40,43,54},
 				new int[] {2,12,13,23,26,40,43,60,62,63,51,52,66},
@@ -3309,10 +3309,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {1,16,5,6,18,39,14,22,25,53,62,63,57,45},
 				new int[] {2,12,13,23,26,40,43,54},
@@ -3327,10 +3327,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {3,5,6,7,8,9,10,11,14,15,16},
 				new int[] {7,16,18,0,0},
@@ -3347,10 +3347,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {-1},
@@ -3368,10 +3368,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {34},
@@ -3389,10 +3389,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 				  {
 				new int[] {62,63,64,55,54,53,48,30,29,28,27},
 				new int[] {34},
@@ -3413,12 +3413,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 				onEquip = () => ModdedPlayer.Stats.i_isGreed.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_isGreed.value = false,
 			};
-			BaseItem titaniumleggins = new BaseItem(new int[][]
+			ItemTemplate titaniumleggins = new ItemTemplate(new int[][]
 			 {
 				new int[] { 16},
 				new int[] {31},
@@ -3437,12 +3437,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 			titaniumleggins.PossibleStats[0][0].Multipier = 3;
 			titaniumleggins.PossibleStats[1][0].Multipier = 1.5f;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 	 {
 				new int[] {42,39,40,41,43,0,0 },
 				new int[] {16,24,25,26,5,6,7,8,9,10,11,12,13,14,15,17,18,55,60,61,62,63,64,0,0,0 },
@@ -3457,11 +3457,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {4,3,6},
 				new int[] {21,24,16 },
@@ -3484,12 +3484,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 				onEquip = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueMultiplicative *= 2f; ModdedPlayer.Stats.spellCost.valueMultiplicative *= 2f; },
 				onUnequip = () => { ModdedPlayer.Stats.spellIncreasedDmg.valueMultiplicative /= 2f; ModdedPlayer.Stats.spellCost.valueMultiplicative /= 2f; }
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			  {
 				new int[] {34 },
 				new int[] {34,5,1,2,4,3,2,11 },
@@ -3507,10 +3507,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {16},
 				new int[] {16,18,57,53},
@@ -3530,11 +3530,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			}.PossibleStats[0][0].Multipier = 2;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 					new int[] {4},
 					new int[] {6,4,3,44},
@@ -3553,11 +3553,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {16},
 				new int[] {1,2,3,4},
@@ -3575,10 +3575,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		 {
 				new int[] {16},
 				new int[] {1,2,3,4,57,53,54,55},
@@ -3600,12 +3600,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 				onEquip = () => ModdedPlayer.Stats.i_isWindArmor.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_isWindArmor.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {11},
 				new int[] {22,23,21},
@@ -3624,11 +3624,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 				new int[] {1,2,3,4,5,6,57},
 				new int[] {-1},
@@ -3644,10 +3644,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {47 },
 				new int[] {4,29 },
@@ -3672,12 +3672,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 				onEquip = () => ModdedPlayer.Stats.i_sparkOfLightAfterDark.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_sparkOfLightAfterDark.value = false
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {21,22,23,24,25,26,1,2,4},
 				new int[] {12,13,11,47},
@@ -3702,11 +3702,11 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_purgeDamageBonus.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_purgeDamageBonus.value = false,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			}.DropSettings_OnlyCannibals();
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 			 new int[] {18},
 				new int[] {61,48},
@@ -3731,14 +3731,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_EruptionBow.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_EruptionBow.value = false,
 			}.PossibleStats[0][0].Multipier = -1.6f;
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		{
 			 new int[] {18},
 				new int[] {61,48},
@@ -3763,13 +3763,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 				onEquip = () => ModdedPlayer.Stats.i_ArchangelBow.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_ArchangelBow.value = false,
 			}.PossibleStats[0][0].Multipier = -2f;
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {1,4 },
 				new int[] {1,3,5,6,49 },
@@ -3788,11 +3788,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 27,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(89),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {48 },
 				new int[] {23,26,2 },
@@ -3819,10 +3819,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.perk_trueAimUpgrade.value = true,
 				onUnequip = () => ModdedPlayer.Stats.perk_trueAimUpgrade.value = false,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			 {
 				new int[] {65 },
 				new int[] {1 },
@@ -3850,11 +3850,11 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.thornsDmgMult.valueMultiplicative *= 2,
 				onUnequip = () => ModdedPlayer.Stats.thornsDmgMult.valueMultiplicative /= 2,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 						 {
 				new int[] {1 },
 						 })
@@ -3866,11 +3866,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 16,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					  {
 				new int[] {1 },
 				new int[] {25,0 },
@@ -3886,21 +3886,21 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 24,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
 
 			//Feathers
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_346/*og:Crude Feather*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Weapon, 1).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Boot, 1).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Helmet, 1).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -3908,18 +3908,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_348/*og:Soft Feather*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -3927,18 +3927,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_349/*og:Ornate Feather*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -3946,19 +3946,19 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_350/*og:Wonderful Feather*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 1).ToString("N"),                        //tr
+				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.ChestArmor, 1).ToString("N"),                        //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -3966,18 +3966,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_351/*og:White Crow's Feather*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
-				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 1).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_582/*og:If equipped on a weapon, increases ranged damage by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Weapon, 1).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_583/*og:If equipped on boots, increases movement speed by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Boot, 1).ToString("P") + "\n" +              //tr
+				Translations.ItemDataBase_ItemDefinitions_584/*og:If equipped on a helmet, increases critical hit chance by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Helmet, 1).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_585/*og:If equipped on accessories, increases ranged armor piercing by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Amulet, 1).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_586/*og:If equipped in other slots, increases agility by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.ChestArmor, 1).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -3985,21 +3985,21 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 1,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(185),
 			};
 
 			//-------------- Shark teeth
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_352/*og:Reef Shark*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
-				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
+				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4007,18 +4007,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_353/*og:Tiger Shark Tooth*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
-				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
+				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4026,18 +4026,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_354/*og:Whale Shark Tooth*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
-				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
+				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4045,19 +4045,19 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_355/*og:Great White Shark Tooth*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
-				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
+				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4065,18 +4065,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_356/*og:Megalodon's Tooth*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
-				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
-				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 2).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_587/*og:If equipped on a weapon, increases melee damage by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Weapon, 2).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_588/*og:If equipped on boots, decreases damage taken by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Boot, 2).ToString("P") + "\n" +                   //tr
+				Translations.ItemDataBase_ItemDefinitions_589/*og:If equipped on a helmet, increases cattack speed by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Helmet, 2).ToString("P") + "\n" +         //tr
+				Translations.ItemDataBase_ItemDefinitions_590/*og:If equipped on accessories, increases melee armor piercing by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Amulet, 2).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_591/*og:If equipped in other slots, increases strength by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.ChestArmor, 2).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4084,21 +4084,21 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 2,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(186),
 			};
 
 			//------------- Sapphires
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_357/*og:Uncut Sapphire*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4106,18 +4106,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_358/*og:Clear Sapphire*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4125,18 +4125,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_359/*og:Shiny Sapphire*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4144,19 +4144,19 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_360/*og:Enchanted Sapphire*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4164,18 +4164,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_361/*og:Celestial Sapphire*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
-				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
-				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 3).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_592/*og:If equipped on a weapon, increases magic damage by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Weapon, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_593/*og:If equipped on boots, decreases spell cost by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Boot, 3).ToString("P") + "\n" +          //tr
+				Translations.ItemDataBase_ItemDefinitions_594/*og:If equipped on a helmet, decreases spell cooldown by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Helmet, 3).ToString("P") + "\n" +     //tr
+				Translations.ItemDataBase_ItemDefinitions_595/*og:If equipped on accessories, increases energy on hit by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Amulet, 3).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_596/*og:If equipped in other slots, increases intelligence by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.ChestArmor, 3).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4183,20 +4183,20 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 3,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(187),
 			};
 
 			// -------- Moonstones
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_362/*og:Uncut Moonstone*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
-				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4204,18 +4204,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_363/*og:Clear Moonstone*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
-				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4223,18 +4223,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_364/*og:Shiny Moonstone*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
-				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 				minLevel = 20,
@@ -4242,19 +4242,19 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_365/*og:Enchanted Moonstone*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
-				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4262,18 +4262,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_366/*og:Celestial Moonstone*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
-				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
-				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
-				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 4).ToString("N"), //tr
+				Translations.ItemDataBase_ItemDefinitions_597/*og:If equipped on a weapon, increases all healing by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Weapon, 4).ToString("P") + "\n" +        //tr
+				Translations.ItemDataBase_ItemDefinitions_598/*og:If equipped on boots, increases magic find by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Boot, 4).ToString("P") + "\n" +            //tr
+				Translations.ItemDataBase_ItemDefinitions_599/*og:If equipped on a helmet, increases experience gained by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Helmet, 4).ToString("P") + "\n" +  //tr
+				Translations.ItemDataBase_ItemDefinitions_600/*og:If equipped on accessories, increases life per second by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Amulet, 4).ToString("N") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_601/*og:If equipped in other slots, increases vitality by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.ChestArmor, 4).ToString("N"), //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4281,21 +4281,21 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 4,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(188),
 			};
 
 			// ----------------- Ores
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_367/*og:Lead Ore*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
-				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(3, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
+				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
+				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(3, ItemTemplate.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 3,
 				minLevel = 20,
@@ -4303,18 +4303,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_368/*og:Vanadium Ore*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
-				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(4, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
+				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
+				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(4, ItemTemplate.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 4,
 				minLevel = 20,
@@ -4322,18 +4322,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_369/*og:Titanium Ore*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
-				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(5, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
+				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
+				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(5, ItemTemplate.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 5,
 
@@ -4342,19 +4342,19 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_370/*og:Chromium Ore*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
-				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(6, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
+				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
+				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(6, ItemTemplate.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 6,
 				minLevel = 20,
@@ -4362,18 +4362,18 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_371/*og:Tungsten Ore*/, //tr
 				description =
-				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Boot, 5).ToString("P") + "\n" + //tr
-				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
-				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
-				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(7, BaseItem.ItemType.ChestArmor, 5).ToString("N"),           //tr
+				Translations.ItemDataBase_ItemDefinitions_602/*og:If equipped on a weapon, increases crit damage by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Weapon, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_603/*og:If equipped on boots, increases resistance to magic by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Boot, 5).ToString("P") + "\n" + //tr
+				Translations.ItemDataBase_ItemDefinitions_604/*og:If equipped on a helmet, increases health by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Helmet, 5).ToString("P") + "\n" +           //tr
+				Translations.ItemDataBase_ItemDefinitions_605/*og:If equipped on accessories, increases thorns by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.Amulet, 5).ToString("N") + "\n" +    //tr
+				Translations.ItemDataBase_ItemDefinitions_606/*og:If equipped in other slots, increases armor by */ + StatActions.GetSocketedStatAmount(7, ItemTemplate.ItemType.ChestArmor, 5).ToString("N"),           //tr
 				uniqueStat = Translations.ItemDataBase_ItemDefinitions_347/*og:Materials can be put inside empty sockets to add stats to items*/, //tr
 				Rarity = 7,
 				minLevel = 20,
@@ -4381,12 +4381,12 @@ new int[] {0,0,0,0,62,63,64},
 				CanConsume = false,
 				StackSize = 100,
 				subtype = 5,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(184),
 			};
 
 			//This is the new better way of defining items, no longer uses item ids, now uses enum like in C++, the enum is Stats, you can find it in ItemDataBase_StatDefinitons.cs
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MELEEDMGFROMSTR},
 				new [] {STRENGTH},
@@ -4405,11 +4405,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 34,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH},
 				new [] {STRENGTH,ALLATTRIBUTES,MELEEARMORPIERCING,MELEEDAMAGEINCREASE,COOLDOWNREDUCTION,SPELLDAMAGEINCREASE},
@@ -4435,10 +4435,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.thornsPerVit.Add(9),
 				onUnequip = () => ModdedPlayer.Stats.thornsPerVit.Substract(9),
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 		  {
 				new int[] {1000},
 				new int[] {1001},
@@ -4459,10 +4459,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 33,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {INTELLIGENCE,AGILITY},
 				new [] {MAGICFIND,SPELLDAMAGEINCREASE,BASESPELLDAMAGE},
@@ -4488,10 +4488,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Add(16.66f),
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowDamageScaling.Substract(16.66f),
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {INTELLIGENCE,AGILITY},
 				new [] {CRITICALHITCHANCE},
@@ -4517,10 +4517,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(3),
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(3),
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 					 {
 				new int[] {39,0},
 				new int[] {43,0},
@@ -4536,10 +4536,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {RANGEDARMORPIERCING},
 				new [] {AGILITY},
@@ -4556,11 +4556,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 34,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH},
 				new [] {MAXIMUMLIFE, VITALITY,PERCENTMAXIMUMLIFE},
@@ -4582,11 +4582,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 			{
-				var SomeItem = new BaseItem(new Stat[][]
+				var SomeItem = new ItemTemplate(new Stat[][]
 					{
 				new [] {STRENGTH},
 				new [] {MAXIMUMLIFE, VITALITY,MAXHEALTHFROMVIT,PERCENTMAXIMUMLIFE},
@@ -4603,13 +4603,13 @@ new int[] {0,0,0,0,62,63,64},
 					maxLevel = 3,
 					CanConsume = false,
 					StackSize = 1,
-					type = BaseItem.ItemType.ChestArmor,
+					type = ItemTemplate.ItemType.ChestArmor,
 					icon = Res.ResourceLoader.GetTexture(96),
 				};
 				SomeItem.PossibleStats[0][0].Multipier = 2;
 			}
 			{
-				var demoVestItem = new BaseItem(new Stat[][]
+				var demoVestItem = new ItemTemplate(new Stat[][]
 					{
 				new [] {EXPLOSIONDAMAGE},
 				new [] {AGILITY,INTELLIGENCE, ALLATTRIBUTES},
@@ -4629,13 +4629,13 @@ new int[] {0,0,0,0,62,63,64},
 					maxLevel = 3,
 					CanConsume = false,
 					StackSize = 1,
-					type = BaseItem.ItemType.ChestArmor,
+					type = ItemTemplate.ItemType.ChestArmor,
 					icon = Res.ResourceLoader.GetTexture(96),
 				};
 				demoVestItem.PossibleStats[0][0].Multipier = 7;
 
 			}
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH,ALLATTRIBUTES,BASEMELEEDAMAGE},
 				new [] {MAXIMUMLIFE, VITALITY,DAMAGEREDUCTION,MELEEWEAPONRANGE},
@@ -4654,10 +4654,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALLATTRIBUTES,STRENGTH,AGILITY,INTELLIGENCE},
 				new [] {MAXIMUMLIFE, VITALITY,STRENGTH,INTELLIGENCE},
@@ -4676,11 +4676,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ATTACKSPEED},
 				new [] {RANGEDDAMAGEINCREASE,RANGEDDMGFROMAGI},
@@ -4699,13 +4699,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 12,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Greatbow,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Greatbow,
 				icon = Res.ResourceLoader.GetTexture(170),
 
 			}.PossibleStats[0][0].Multipier = -2f;
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH,LESSERSTRENGTH},
 				new [] {MAXIMUMLIFE, VITALITY,MELEEDMGFROMSTR,ARMOR},
@@ -4720,10 +4720,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MELEEDAMAGEINCREASE,MELEEDMGFROMSTR},
 				new [] {MAXIMUMLIFE, VITALITY,MELEEDAMAGEINCREASE,BASEMELEEDAMAGE},
@@ -4740,10 +4740,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH},
 				new [] {MAXIMUMLIFE, VITALITY},
@@ -4759,10 +4759,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {EXPLOSIONDAMAGE},
 				new [] {ALL},
@@ -4785,10 +4785,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 			}.PossibleStats[0][0].Multipier = 7f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH,VITALITY,AGILITY,ALLATTRIBUTES,INTELLIGENCE},
 				new [] {MAXENERGYFROMAGI,MELEEDMGFROMSTR,SPELLDMGFROMINT,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT},
@@ -4813,10 +4813,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ARMOR},
 				new [] {MAXIMUMLIFE, VITALITY},
@@ -4840,10 +4840,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ARMOR},
 				new [] {MAXIMUMLIFE, VITALITY},
@@ -4867,10 +4867,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -4893,10 +4893,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -4917,10 +4917,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {MAXIMUMLIFE, VITALITY,ARMOR},
@@ -4937,11 +4937,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {EXPLOSIONDAMAGE},
 				new [] {EXPLOSIONDAMAGE},
@@ -4962,11 +4962,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 4,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {CRITICALHITCHANCE},
 				new [] {MAGICFIND,NONE,EXPGAIN},
@@ -4987,10 +4987,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {SPELLDAMAGEINCREASE},
 				new [] {INTELLIGENCE},
@@ -5010,10 +5010,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MELEEDMGFROMSTR,ALLATTRIBUTES,STAMINAPERSECOND,STAMINAREGENERATION,DODGECHANCE},
 				new [] {STRENGTH,LESSERSTRENGTH,VITALITY,ARMOR},
@@ -5033,10 +5033,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 14,
 				CanConsume = false,
 				StackSize = 1,   //stacking in inventory like in mc, one means single item
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 			new [] {STRENGTH},
 			new [] {MOVEMENTSPEED,DODGECHANCE,DAMAGEREDUCTION},
@@ -5058,10 +5058,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH,BASEMELEEDAMAGE,MELEEDAMAGEINCREASE,ATTACKSPEED},
 				new [] {MOVEMENTSPEED,DODGECHANCE,DAMAGEREDUCTION},
@@ -5082,11 +5082,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90), //icon ids, don't worry about that
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {AGILITY,RANGEDDAMAGEINCREASE},
 				new [] {ALLATTRIBUTES, ARMOR,PERCENTMAXIMUMLIFE},
@@ -5100,10 +5100,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {INTELLIGENCE},
 				new [] {ALLATTRIBUTES, ARMOR,ENERGYONHIT},
@@ -5117,10 +5117,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {SPEARDAMAGE},
 				new [] {AGILITY},
@@ -5133,11 +5133,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 16,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 			new [] {INTELLIGENCE},
 			new [] {DODGECHANCE,DAMAGEREDUCTION},
@@ -5159,10 +5159,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ATTACKSPEED},
 				new [] {BASESPELLDAMAGE},
@@ -5186,15 +5186,15 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.LongSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.LongSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(15),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(15),
 			}.PossibleStats[0][0].Multipier = 1.5f;
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { ARMOR },
 				new[] { MOVEMENTSPEED},
@@ -5219,13 +5219,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 				onEquip = () => AkagiSet.Equip(),
 				onUnequip = () => AkagiSet.Unequip(),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { INTELLIGENCE,NONE },
 				new[] { ARMOR },
@@ -5249,13 +5249,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => AkagiSet.Equip(),
 				onUnequip = () => AkagiSet.Unequip(),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { INTELLIGENCE,NONE },
 				new[] { ARMOR },
@@ -5279,13 +5279,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 				onEquip = () => AkagiSet.Equip(),
 				onUnequip = () => AkagiSet.Unequip(),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { INTELLIGENCE,NONE },
 				new[] { ARMOR },
@@ -5309,13 +5309,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => AkagiSet.Equip(),
 				onUnequip = () => AkagiSet.Unequip(),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new[] { INTELLIGENCE,NONE },
 				new[] { ARMOR },
@@ -5339,12 +5339,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () => COTFEvents.Instance.OnHitMelee.AddListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 				onUnequip = () => COTFEvents.Instance.OnHitMelee.RemoveListener(UniqueItemFunctions.EnemyBleedForPlayerHP),
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_436/*og:Socket Drill*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_437/*og:A convienient one use tool*/, //tr
@@ -5355,12 +5355,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(190),
 				onConsume = x =>
 				{
 					int socketMax = StatActions.GetMaxSocketAmountOnItem(in x.type);
-					int socketCurrent = x.Stats.Count(y => y.StatID >= 3000);
+					int socketCurrent = x.Stats.Count(y => y.id >= 3000);
 					if (socketCurrent < socketMax)
 					{
 						x.Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
@@ -5369,7 +5369,7 @@ new int[] {0,0,0,0,62,63,64},
 					return false;
 				}
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { MOVEMENTSPEED},
 				new[] { INTELLIGENCE,STRENGTH,AGILITY },
@@ -5387,13 +5387,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 18,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 				onEquip = () => ModdedPlayer.Stats.movementSpeed.Multiply(-1.2f),
 				onUnequip = () => ModdedPlayer.Stats.movementSpeed.Divide(-1.2f)
 			}.PossibleStats[0][0].Multipier = 3;
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { JUMPPOWER},
 				new[] { LESSERAGILITY},
@@ -5410,10 +5410,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { JUMPPOWER},
 				new[] { AGILITY},
@@ -5430,10 +5430,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {11},
 				new int[] {16},
@@ -5474,10 +5474,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 60,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {BASESPELLDAMAGE,BASERANGEDDAMAGE,BASEMELEEDAMAGE},
@@ -5493,12 +5493,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(2),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(2),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL},
 				new [] {ALL},
@@ -5515,12 +5515,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(3),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(3),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -5538,12 +5538,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Add(4),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyMaxStacks.Substract(4),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		 {
 				new [] {ALL},
 				new [] {ALL},
@@ -5560,13 +5560,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 				onEquip = () => { ModdedPlayer.Stats.spell_blinkRange.Add(25); },
 				onUnequip = () => { ModdedPlayer.Stats.spell_blinkRange.Substract(25); },
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 	 {
 				new [] {ALL},
 				new [] {ALL},
@@ -5584,12 +5584,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 90,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(101),
 				onEquip = () => ModdedPlayer.Stats.i_infinityLoop.value = true,
 				onUnequip = () => ModdedPlayer.Stats.i_infinityLoop.value = false,
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {25 },
 				new int[] {18 },
@@ -5607,14 +5607,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 35,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.3f),
 				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.3f),
 			};
 
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 				new int[] {25 },
 				new int[] {18 },
@@ -5633,13 +5633,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 35,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () => ModdedPlayer.Stats.chanceToWeaken.Add(0.45f),
 				onUnequip = () => ModdedPlayer.Stats.chanceToWeaken.Substract(0.45f),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -5658,13 +5658,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 35,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Hammer,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Hammer,
 				icon = Res.ResourceLoader.GetTexture(109),
 				onEquip = () => { ModdedPlayer.Stats.smashDamage.Multiply(3f); },
 				onUnequip = () => { ModdedPlayer.Stats.smashDamage.Divide(3f); },
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {LIFEONHIT},
@@ -5679,12 +5679,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 				onEquip = () => COTFEvents.Instance.OnHitEnemy.AddListener(UniqueItemFunctions.Gain1EnergyOnHit),
 				onUnequip = () => COTFEvents.Instance.OnHitEnemy.RemoveListener(UniqueItemFunctions.Gain1EnergyOnHit),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -5703,12 +5703,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Ring,
+				type = ItemTemplate.ItemType.Ring,
 				icon = Res.ResourceLoader.GetTexture(90),
 				onEquip = () => COTFEvents.Instance.OnHitEnemy.AddListener(UniqueItemFunctions.Gain10EnergyOnHit),
 				onUnequip = () => COTFEvents.Instance.OnHitEnemy.RemoveListener(UniqueItemFunctions.Gain10EnergyOnHit),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
 				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
@@ -5726,10 +5726,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(1),
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(1),
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100)
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
 				new [] {SPELLDAMAGEINCREASE,INTELLIGENCE,BASESPELLDAMAGE},
@@ -5750,10 +5750,10 @@ new int[] {0,0,0,0,62,63,64},
 				StackSize = 1,
 				onEquip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Add(2),
 				onUnequip = () => ModdedPlayer.Stats.spell_magicArrowVolleyCount.Substract(2),
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100)
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {34,18,17,16,15,14,60,61,55,},
@@ -5768,12 +5768,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.15f),
 				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.15f),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {34,18,17,16,15,14,60,61,55,},
@@ -5790,12 +5790,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.2f),
 				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.2f),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {23},
@@ -5813,12 +5813,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.25f),
 				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.25f),
 			};
-			new BaseItem(new int[][]
+			new ItemTemplate(new int[][]
 			{
 					new int[] {23,26},
 					new int[] {23},
@@ -5837,13 +5837,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 20,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Quiver,
+				type = ItemTemplate.ItemType.Quiver,
 				icon = Res.ResourceLoader.GetTexture(98),
 				onEquip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Add(0.4f),
 				onUnequip = () => ModdedPlayer.Stats.perk_projectileNoConsumeChance.Substract(0.4f),
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_482/*og:Enzyme STR/34*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -5853,17 +5853,17 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(193),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)INTELLIGENCE || y.StatID == (int)AGILITY
-													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERINTELLIGENCE || y.StatID == (int)LESSERAGILITY
-													 || y.StatID == (int)BASERANGEDDAMAGE || y.StatID == (int)BASESPELLDAMAGE
-													 || y.StatID == (int)RANGEDDAMAGEINCREASE || y.StatID == (int)SPELLDAMAGEINCREASE).ToArray();
+					var stats = x.Stats.Where(y => y.id == (int)VITALITY || y.id == (int)INTELLIGENCE || y.id == (int)AGILITY
+													 || y.id == (int)LESSERVITALITY || y.id == (int)LESSERINTELLIGENCE || y.id == (int)LESSERAGILITY
+													 || y.id == (int)BASERANGEDDAMAGE || y.id == (int)BASESPELLDAMAGE
+													 || y.id == (int)RANGEDDAMAGEINCREASE || y.id == (int)SPELLDAMAGEINCREASE).ToArray();
 
 					int c = stats.Count();
 
@@ -5875,7 +5875,7 @@ new int[] {0,0,0,0,62,63,64},
 					int index = x.Stats.IndexOf(stat);
 
 					ItemStat newStat;
-					Stat statID = (Stat)stat.StatID;
+					Stat statID = (Stat)stat.id;
 					switch (statID)
 					{
 						case VITALITY:
@@ -5899,13 +5899,13 @@ new int[] {0,0,0,0,62,63,64},
 						default:
 							return false;
 					}
-					newStat.Amount = stat.Amount;
+					newStat.amount = stat.amount;
 					newStat.possibleStatsIndex = stat.possibleStatsIndex;
 					x.Stats[index] = newStat;
 					return true;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_485/*og:Enzyme INT/33*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -5915,17 +5915,17 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(191),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)AGILITY
-													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERAGILITY
-													 || y.StatID == (int)BASERANGEDDAMAGE || y.StatID == (int)BASEMELEEDAMAGE
-													 || y.StatID == (int)RANGEDDAMAGEINCREASE || y.StatID == (int)MELEEDAMAGEINCREASE).ToArray();
+					var stats = x.Stats.Where(y => y.id == (int)VITALITY || y.id == (int)STRENGTH || y.id == (int)AGILITY
+													 || y.id == (int)LESSERVITALITY || y.id == (int)LESSERSTRENGTH || y.id == (int)LESSERAGILITY
+													 || y.id == (int)BASERANGEDDAMAGE || y.id == (int)BASEMELEEDAMAGE
+													 || y.id == (int)RANGEDDAMAGEINCREASE || y.id == (int)MELEEDAMAGEINCREASE).ToArray();
 
 					int c = stats.Count();
 
@@ -5937,7 +5937,7 @@ new int[] {0,0,0,0,62,63,64},
 					int index = x.Stats.IndexOf(stat);
 
 					ItemStat newStat;
-					Stat statID = (Stat)stat.StatID;
+					Stat statID = (Stat)stat.id;
 					switch (statID)
 					{
 						case VITALITY:
@@ -5961,13 +5961,13 @@ new int[] {0,0,0,0,62,63,64},
 						default:
 							return false;
 					}
-					newStat.Amount = stat.Amount;
+					newStat.amount = stat.amount;
 					newStat.possibleStatsIndex = stat.possibleStatsIndex;
 					x.Stats[index] = newStat;
 					return true;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_487/*og:Enzyme AGI/39*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -5977,17 +5977,17 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(192),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)INTELLIGENCE
-													 || y.StatID == (int)LESSERVITALITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERINTELLIGENCE
-													 || y.StatID == (int)BASESPELLDAMAGE || y.StatID == (int)BASEMELEEDAMAGE
-													 || y.StatID == (int)SPELLDAMAGEINCREASE || y.StatID == (int)MELEEDAMAGEINCREASE).ToArray();
+					var stats = x.Stats.Where(y => y.id == (int)VITALITY || y.id == (int)STRENGTH || y.id == (int)INTELLIGENCE
+													 || y.id == (int)LESSERVITALITY || y.id == (int)LESSERSTRENGTH || y.id == (int)LESSERINTELLIGENCE
+													 || y.id == (int)BASESPELLDAMAGE || y.id == (int)BASEMELEEDAMAGE
+													 || y.id == (int)SPELLDAMAGEINCREASE || y.id == (int)MELEEDAMAGEINCREASE).ToArray();
 
 					int c = stats.Count();
 
@@ -5999,7 +5999,7 @@ new int[] {0,0,0,0,62,63,64},
 					int index = x.Stats.IndexOf(stat);
 
 					ItemStat newStat;
-					Stat statID = (Stat)stat.StatID;
+					Stat statID = (Stat)stat.id;
 					switch (statID)
 					{
 						case VITALITY:
@@ -6023,14 +6023,14 @@ new int[] {0,0,0,0,62,63,64},
 						default:
 							return false;
 					}
-					newStat.Amount = stat.Amount;
+					newStat.amount = stat.amount;
 					newStat.possibleStatsIndex = stat.possibleStatsIndex;
 					x.Stats[index] = newStat;
 					return true;
 				}
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_489/*og:Enzyme VIT/449*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6040,15 +6040,15 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(199),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y => y.StatID == (int)VITALITY || y.StatID == (int)STRENGTH || y.StatID == (int)INTELLIGENCE
-													 || y.StatID == (int)LESSERAGILITY || y.StatID == (int)LESSERSTRENGTH || y.StatID == (int)LESSERINTELLIGENCE).ToArray();
+					var stats = x.Stats.Where(y => y.id == (int)VITALITY || y.id == (int)STRENGTH || y.id == (int)INTELLIGENCE
+													 || y.id == (int)LESSERAGILITY || y.id == (int)LESSERSTRENGTH || y.id == (int)LESSERINTELLIGENCE).ToArray();
 
 					int c = stats.Count();
 
@@ -6060,7 +6060,7 @@ new int[] {0,0,0,0,62,63,64},
 					int index = x.Stats.IndexOf(stat);
 
 					ItemStat newStat;
-					Stat statID = (Stat)stat.StatID;
+					Stat statID = (Stat)stat.id;
 					switch (statID)
 					{
 						case AGILITY:
@@ -6076,13 +6076,13 @@ new int[] {0,0,0,0,62,63,64},
 						default:
 							return false;
 					}
-					newStat.Amount = stat.Amount;
+					newStat.amount = stat.amount;
 					newStat.possibleStatsIndex = stat.possibleStatsIndex;
 					x.Stats[index] = newStat;
 					return true;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_491/*og:Stomach Acid*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6092,20 +6092,20 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(198),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.RemoveAll(y => y.Amount < 0);
+					var stats = x.Stats.RemoveAll(y => y.amount < 0);
 					if (stats > 0)
 						return true;
 					return false;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_493/*og:Elite Stomach Acid*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6115,26 +6115,26 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(198),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 
-					var stats = x.Stats.Where(y => y.Amount < 0).ToList();
+					var stats = x.Stats.Where(y => y.amount < 0).ToList();
 					if (stats.Count > 0)
 					{
 						for (int i = 0; i < stats.Count; i++)
 						{
-							stats[i].Amount *= -1;
+							stats[i].amount *= -1;
 						}
 						return true;
 					}
 					return false;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_495/*og:Crimson Solution*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6144,14 +6144,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(196),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+					if (itemType == ItemTemplate.ItemType.Other || itemType == ItemTemplate.ItemType.Material || x.Amount > 1)
 						return false;
 					if (Player.Inventory.Instance.ItemSlots.ContainsValue(x))
 					{
@@ -6159,14 +6159,14 @@ new int[] {0,0,0,0,62,63,64},
 						{
 							if (Player.Inventory.Instance.ItemSlots[slotIndex] == x)
 							{
-								var options = ItemDataBase.ItemBases.Where(y => y.Value.Rarity == 7 && y.Value.type == itemType && (itemType != BaseItem.ItemType.Weapon || y.Value.weaponModel == x.weaponModel)).Select(y => y.Key).ToList();
+								var options = ItemDataBase.itemTemplatesById.Where(y => y.Value.Rarity == 7 && y.Value.type == itemType && (itemType != ItemTemplate.ItemType.Weapon || y.Value.weaponModel == x.weaponModel)).Select(y => y.Key).ToList();
 								if (options.Count == 0)
 								{
 									ModAPI.Log.Write("No tier 7 items for type: " + itemType);
 									return false;
 								}
 								var random = options[UnityEngine.Random.Range(0, options.Count)];
-								Item item = new Item(ItemDataBase.ItemBases[random], 1, 0, false)
+								Item item = new Item(ItemDataBase.itemTemplatesById[random], 1, 0, false)
 								{
 									level = x.level
 								};
@@ -6180,7 +6180,7 @@ new int[] {0,0,0,0,62,63,64},
 				}
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_497/*og:Weak Armor Hardening Mixture*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6190,16 +6190,16 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(197),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+					if (itemType == ItemTemplate.ItemType.Other || itemType == ItemTemplate.ItemType.Material || x.Amount > 1)
 						return false;
-					if (!x.Stats.Any(y => y.StatID == (int)ARMOR || y.StatID == (int)LESSERARMOR))
+					if (!x.Stats.Any(y => y.id == (int)ARMOR || y.id == (int)LESSERARMOR))
 					{
 						ItemStat stat = new ItemStat(StatByID((int)ARMOR), x.level);
 						x.Stats.Add(stat);
@@ -6209,7 +6209,7 @@ new int[] {0,0,0,0,62,63,64},
 				}
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_499/*og:Upgraded Armor Hardening Mixture*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6219,16 +6219,16 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(197),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+					if (itemType == ItemTemplate.ItemType.Other || itemType == ItemTemplate.ItemType.Material || x.Amount > 1)
 						return false;
-					if (!x.Stats.Any(y => y.StatID == (int)DAMAGEREDUCTION))
+					if (!x.Stats.Any(y => y.id == (int)DAMAGEREDUCTION))
 					{
 						ItemStat stat = new ItemStat(StatByID((int)DAMAGEREDUCTION), x.level);
 						x.Stats.Add(stat);
@@ -6238,7 +6238,7 @@ new int[] {0,0,0,0,62,63,64},
 				}
 			};
 
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_501/*og:Chaos Water*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6248,14 +6248,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(195),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1 || x.Rarity > 5)
+					if (itemType == ItemTemplate.ItemType.Other || itemType == ItemTemplate.ItemType.Material || x.Amount > 1 || x.Rarity > 5)
 						return false;
 					if (x.Stats.Count > 1)
 					{
@@ -6265,7 +6265,7 @@ new int[] {0,0,0,0,62,63,64},
 					return false;
 				}
 			};
-			new BaseItem(new int[][] { })
+			new ItemTemplate(new int[][] { })
 			{
 				name = Translations.ItemDataBase_ItemDefinitions_503/*og:Upgraded Chaos Water*/, //tr
 				description = Translations.ItemDataBase_ItemDefinitions_483/*og:A substance which results in surprising changes to gear*/, //tr
@@ -6275,14 +6275,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 100,
-				type = BaseItem.ItemType.Material,
+				type = ItemTemplate.ItemType.Material,
 				icon = Res.ResourceLoader.GetTexture(194),
 				onConsume = x =>
 				{
 					if (x.Equipped)
 						return false;
 					var itemType = x.type;
-					if (itemType == BaseItem.ItemType.Other || itemType == BaseItem.ItemType.Material || x.Amount > 1)
+					if (itemType == ItemTemplate.ItemType.Other || itemType == ItemTemplate.ItemType.Material || x.Amount > 1)
 						return false;
 					if (x.Stats.Count > 1)
 					{
@@ -6292,7 +6292,7 @@ new int[] {0,0,0,0,62,63,64},
 					return false;
 				}
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			 {
 				new [] {SPELLCOSTREDUCTION,MELEEDAMAGEINCREASE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION, RANGEDDMGFROMAGI, ATTACKSPEED},
 				new [] {AGILITY,LESSERAGILITY},
@@ -6312,14 +6312,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 36,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 				onEquip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(2.5f),
 				onUnequip = () => ModdedPlayer.Stats.perk_bulletDamageMult.Divide(2.5f),
 			}.PossibleStats[0][0].Multipier = -1f;
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			 {
 				new [] {SPELLCOSTREDUCTION,BASESPELLDAMAGE,SPELLDAMAGEINCREASE,COOLDOWNREDUCTION,DAMAGEREDUCTION},
 				new [] {ATTACKSPEED,PROJECTILESIZE,PROJECTILESPEED},
@@ -6342,13 +6342,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 36,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Axe,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Axe,
 				icon = Res.ResourceLoader.GetTexture(138),
 				onEquip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Multiply(6f); ModdedPlayer.Stats.perk_bulletCritChance.Add(0.5f); },
 				onUnequip = () => { ModdedPlayer.Stats.perk_bulletDamageMult.Divide(6f); ModdedPlayer.Stats.perk_bulletCritChance.Substract(0.5f); },
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		 {
 				new [] {ARMORPIERCING,MELEEARMORPIERCING,NONE},
 				new [] {BLOCK,NONE},
@@ -6369,11 +6369,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 52,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		 {
 				new [] {ARMORPIERCING,MELEEARMORPIERCING},
 				new [] {BLOCK,NONE},
@@ -6396,14 +6396,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 52,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.Add(2.00f),
 				onUnequip = () => ModdedPlayer.Stats.spell_bashDamageDebuffAmount.Substract(2.00f),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		 {
 				new[] { ARMORPIERCING, MELEEARMORPIERCING },
 				new[] { BLOCK,STRENGTH},
@@ -6426,12 +6426,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 				onEquip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.69f),
 				onUnequip = () => ModdedPlayer.Stats.spell_frenzyDmg.Add(0.69f),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		 {
 				new[] { ARMOR,BASEMELEEDAMAGE },
 				new[] { BLOCK},
@@ -6448,10 +6448,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 2,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {FIREDAMAGE},
 				new [] {MAXIMUMENERGY,MAXIMUMLIFE,PERCENTMAXIMUMENERGY,PERCENTMAXIMUMLIFE},
@@ -6469,13 +6469,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => ModdedPlayer.Stats.fireDuration.Add(2f),
 				onUnequip = () => ModdedPlayer.Stats.fireDuration.Substract(2f),
 			}.PossibleStats[0][0].Multipier = 2;
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {FIREDAMAGE},
 				new [] {SPELLDMGFROMINT,MELEEDMGFROMSTR,RANGEDDMGFROMAGI},
@@ -6497,14 +6497,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 6,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 				onEquip = () => { ModdedPlayer.Stats.fireDuration.Add(7f); ModdedPlayer.Stats.fireTickRate.Add(3f); },
 				onUnequip = () => { ModdedPlayer.Stats.fireDuration.Substract(7f); ModdedPlayer.Stats.fireTickRate.Substract(3f); },
 			}.PossibleStats[0][0].Multipier = 5;
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {FIREDAMAGE},
 				new [] {ARMOR,DODGECHANCE},
@@ -6528,7 +6528,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 8,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 				onEquip = () =>
 				{
@@ -6541,7 +6541,7 @@ new int[] {0,0,0,0,62,63,64},
 					ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(4.5f);
 				},
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {SPELLDMGFROMINT},
 				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT},
@@ -6561,12 +6561,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 				onEquip = () => ModdedPlayer.Stats.spell_fireboltDamageScaling.Add(3),
 				onUnequip = () => ModdedPlayer.Stats.spell_fireboltDamageScaling.Substract(3),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {SPELLDMGFROMINT},
 				new [] {MAXENERGYFROMAGI,MAXHEALTHFROMVIT},
@@ -6590,12 +6590,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 1,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.SpellScroll,
+				type = ItemTemplate.ItemType.SpellScroll,
 				icon = Res.ResourceLoader.GetTexture(110),
 				onEquip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value = true,
 				onUnequip = () => ModdedPlayer.Stats.spell_blinkDoExplosion.value = false,
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {STRENGTH},
 				new [] {MELEEDAMAGEINCREASE},
@@ -6616,14 +6616,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 34,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.Polearm,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.Polearm,
 				icon = Res.ResourceLoader.GetTexture(181),
 			}.PossibleStats[0][0].Multipier = 6;
 
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED,ATTACKSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6640,10 +6640,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6660,10 +6660,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6681,10 +6681,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6704,11 +6704,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6730,11 +6730,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {MOVEMENTSPEED,ATTACKSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6752,10 +6752,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6774,10 +6774,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -6797,10 +6797,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6823,11 +6823,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {BLOCK},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6851,12 +6851,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Shield,
+				type = ItemTemplate.ItemType.Shield,
 				icon = Res.ResourceLoader.GetTexture(99),
 			}.PossibleStats[0][0].Multipier = 2f;
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {MOVEMENTSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6873,10 +6873,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			}.PossibleStats[0][0].Multipier = 1.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6894,10 +6894,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6916,10 +6916,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6940,11 +6940,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED},
 				new [] {ALL,EXPGAIN,MAGICFIND},
@@ -6967,14 +6967,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
 
 
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
@@ -6990,10 +6990,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7010,10 +7010,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7031,10 +7031,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7054,11 +7054,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7080,13 +7080,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
 
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
@@ -7103,10 +7103,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7124,10 +7124,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7146,10 +7146,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7170,11 +7170,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7197,11 +7197,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
@@ -7217,10 +7217,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7237,10 +7237,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7258,10 +7258,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7282,11 +7282,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7309,11 +7309,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
@@ -7329,10 +7329,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7349,10 +7349,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7370,10 +7370,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7393,11 +7393,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7419,12 +7419,12 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL},
@@ -7441,10 +7441,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			}.PossibleStats[0][0].Multipier = -0.3f;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7462,10 +7462,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7484,10 +7484,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {ALL,MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7508,11 +7508,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,RANGEDDMGFROMAGI,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7535,11 +7535,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7567,10 +7567,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Helmet,
+				type = ItemTemplate.ItemType.Helmet,
 				icon = Res.ResourceLoader.GetTexture(91),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 		{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7597,11 +7597,11 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ChestArmor,
+				type = ItemTemplate.ItemType.ChestArmor,
 				icon = Res.ResourceLoader.GetTexture(96),
 			};
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7632,10 +7632,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.ShoulderArmor,
+				type = ItemTemplate.ItemType.ShoulderArmor,
 				icon = Res.ResourceLoader.GetTexture(95),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7666,10 +7666,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {MOVEMENTSPEED},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7698,10 +7698,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Boot,
+				type = ItemTemplate.ItemType.Boot,
 				icon = Res.ResourceLoader.GetTexture(85),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7732,10 +7732,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Glove,
+				type = ItemTemplate.ItemType.Glove,
 				icon = Res.ResourceLoader.GetTexture(86),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL,EXPGAIN,MAGICFIND},
 				new [] {MELEEDMGFROMSTR,MAXENERGYFROMAGI,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT,SPELLDMGFROMINT},
@@ -7764,10 +7764,10 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {CRITICALHITDAMAGE},
 				new [] {STRENGTH,VITALITY,INTELLIGENCE,AGILITY },
@@ -7793,7 +7793,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 28,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Pants,
+				type = ItemTemplate.ItemType.Pants,
 				icon = Res.ResourceLoader.GetTexture(87),
 				onEquip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Add(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
 				onUnequip = () => { ModdedPlayer.Stats.spell_frenzy_active_critChance.Substract(0.05f); ModdedPlayer.Stats.spell_frenzyAtkSpeed.Add(0.05f); },
@@ -7801,7 +7801,7 @@ new int[] {0,0,0,0,62,63,64},
 
 
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
 				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
@@ -7829,13 +7829,13 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_berserkDamage.Add(3f),
 				onUnequip = () => ModdedPlayer.Stats.spell_berserkDamage.Substract(3f),
 			}.PossibleStats[0][0].Multipier = 5;
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {BASEMELEEDAMAGE,BASESPELLDAMAGE},
 				new [] {BASEMELEEDAMAGE, NONE},
@@ -7858,14 +7858,14 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Weapon,
-				weaponModel = BaseItem.WeaponModelType.GreatSword,
+				type = ItemTemplate.ItemType.Weapon,
+				weaponModel = ItemTemplate.WeaponModelType.GreatSword,
 				icon = Res.ResourceLoader.GetTexture(88),
 				onEquip = () => ModdedPlayer.Stats.spell_berserkDamage.Add(1f),
 				onUnequip = () => ModdedPlayer.Stats.spell_berserkDamage.Substract(1f),
 			}.PossibleStats[0][0].Multipier = 2;
 
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {ALL},
 				new [] {ALL},
@@ -7883,7 +7883,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 9,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () =>
 				{
@@ -7896,7 +7896,7 @@ new int[] {0,0,0,0,62,63,64},
 					ModdedPlayer.Stats.spell_berserkMovementSpeed.Substract(0.3f);
 				},
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new [] {STRENGTH,VITALITY,AGILITY,ALLATTRIBUTES,INTELLIGENCE},
 				new [] {MAXENERGYFROMAGI,MELEEDMGFROMSTR,SPELLDMGFROMINT,RANGEDDMGFROMAGI,MAXHEALTHFROMVIT},
@@ -7923,7 +7923,7 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 62,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Amulet,
+				type = ItemTemplate.ItemType.Amulet,
 				icon = Res.ResourceLoader.GetTexture(100),
 				onEquip = () =>
 				{
@@ -7936,7 +7936,7 @@ new int[] {0,0,0,0,62,63,64},
 					ModdedPlayer.Stats.spell_berserkMovementSpeed.Substract(1f);
 				},
 			};
-			new BaseItem(new Stat[][]
+			new ItemTemplate(new Stat[][]
 			{
 				new[] { LIFEPERSECOND },
 				new[] { ARMOR, NONE, ALLHEALINGPERCENT },
@@ -7960,17 +7960,17 @@ new int[] {0,0,0,0,62,63,64},
 				maxLevel = 3,
 				CanConsume = false,
 				StackSize = 1,
-				type = BaseItem.ItemType.Bracer,
+				type = ItemTemplate.ItemType.Bracer,
 				icon = Res.ResourceLoader.GetTexture(93),
 				onEquip = () =>
 				{
-					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Add(1.0f);
-					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Substract(0.4f);
+					ModdedPlayer.Stats.spell_sanctuaryCooldownRate.Add(1.0f);
+					ModdedPlayer.Stats.spell_sanctuarySpellCostReduction.Substract(0.4f);
 				},
 				onUnequip = () =>
 				{
-					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Substract(1.0f);
-					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Add(0.4f);
+					ModdedPlayer.Stats.spell_sanctuaryCooldownRate.Substract(1.0f);
+					ModdedPlayer.Stats.spell_sanctuarySpellCostReduction.Add(0.4f);
 				},
 			};
 		}

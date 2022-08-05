@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				LocalPlayer.Stats.Hit(Damage, false, PlayerStats.DamageType.Fire);
 				ModdedPlayer.instance.Stun(3f);
-				BuffDB.AddBuff(21, 69, Damage/3, 60);
+				BuffManager.GiveBuff(21, 69, Damage/3, 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
 			
 			}

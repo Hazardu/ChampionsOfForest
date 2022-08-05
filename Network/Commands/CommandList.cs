@@ -15,6 +15,7 @@ using UnityEngine;
 
 
 using static ChampionsOfForest.Network.Commands.CommandType;
+using ChampionsOfForest.Network.CommandParams;
 
 namespace ChampionsOfForest.Network
 {
@@ -38,28 +39,22 @@ namespace ChampionsOfForest.Network
 
 				new RegisteredCommand("DIFFICULTY_INFO_ANSWER",
 				(r)=> {
-					int index = r.ReadInt32();
-					ModSettings.FriendlyFire = r.ReadBoolean();
-					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)r.ReadInt32();
-					ModSettings.killOnDowned = r.ReadBoolean();
-					ModSettings.difficulty = (ModSettings.Difficulty)index;
-					if (!ModSettings.DifficultyChosen)
-					{
-						LocalPlayer.FpCharacter.UnLockView();
-						LocalPlayer.FpCharacter.MovementLocked = false;
-						Cheats.GodMode = false;
-						MainMenu.Instance.ClearDiffSelectionObjects();
-					}
-					ModSettings.DifficultyChosen = true;
-					ModSettings.friendlyFireMagic = r.ReadBoolean();
-					ModSettings.FriendlyFireDamage= r.ReadSingle();
+					var str = r.ReadStruct<params_DIFFICULTY_INFO_ANSWER>();
+					ModSettings.DifficultyChosen=true;
+					ModSettings.difficulty = (ModSettings.Difficulty)str.Difficulty;
+					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)str.DropsOnDeath;
+					ModSettings.ExpMultiplier = str.ExpMultiplier;
+					ModSettings.EnemyDamageMultiplier = str.EnemyDamageMultiplier;
+					ModSettings.FriendlyFireDamage = str.FriendlyFireDamage;
+					ModSettings.FriendlyFire = str.FriendlyFire;
+					ModSettings.KillOnDowned = str.KillOnDowned;
+					ModSettings.FriendlyFireMagic = str.FriendlyFire;
 				}),
 
 				new RegisteredCommand("SPELL_BLACK_HOLE",
 				(r)=> {
-					Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-					bool fromNPC = r.ReadBoolean();
-					BlackHole.Create(pos,fromNPC, r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadUInt64());
+					Vector3 pos =r.ReadVector3()
+					BlackHole.Create(r.ReadVector3(), r.ReadStruct<params_SPELL_BLACK_HOLE>());
 				}),
 
 				new RegisteredCommand("SPELL_SANCTUARY",
@@ -274,7 +269,7 @@ namespace ChampionsOfForest.Network
 
 				new RegisteredCommand("ITEM_SPAWN_PICKUP",
 				(r)=> {
-					BaseItem baseItem = ItemDataBase.ItemBases[r.ReadInt32()];
+					ItemTemplate baseItem = ItemDataBase.itemTemplatesById[r.ReadInt32()];
 					Item item = new Item(baseItem, 1, 0, false);   //reading first value, id
 					ulong id = r.ReadUInt64();
 					int itemLvl = r.ReadInt32();
@@ -284,9 +279,9 @@ namespace ChampionsOfForest.Network
 					int dropSource = r.ReadInt32();
 					while (r.BaseStream.Position != r.BaseStream.Length)
 					{
-						ItemStat stat = new ItemStat(ItemDataBase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
+						ItemStat stat = new ItemStat(ItemDataBase.statsById[r.ReadInt32()], itemLvl, r.ReadInt32())
 						{
-							Amount = r.ReadSingle()
+							amount = r.ReadSingle()
 						};
 						item.Stats.Add(stat);
 					}
@@ -427,7 +422,7 @@ namespace ChampionsOfForest.Network
 						int source = r.ReadInt32();
 						float amount = r.ReadSingle();
 						float duration = r.ReadSingle();
-						BuffDB.AddBuff(3, source, amount, duration);
+						BuffManager.GiveBuff(3, source, amount, duration);
 					}
 				}),
 
@@ -619,7 +614,7 @@ namespace ChampionsOfForest.Network
 					if (ModdedPlayer.PlayerID == r.ReadUInt64())
 					{
 						//creating the item.
-						Item item = new Item(ItemDataBase.ItemBases[r.ReadInt32()], r.ReadInt32(), 0, false)
+						Item item = new Item(ItemDataBase.itemTemplatesById[r.ReadInt32()], r.ReadInt32(), 0, false)
 						{
 							level = r.ReadInt32()
 						};
@@ -629,9 +624,9 @@ namespace ChampionsOfForest.Network
 						{
 							int statId = r.ReadInt32();
 							int statPoolIdx = r.ReadInt32();
-							ItemStat stat = new ItemStat(ItemDataBase.Stats[statId], 1, statPoolIdx)
+							ItemStat stat = new ItemStat(ItemDataBase.statsById[statId], 1, statPoolIdx)
 							{
-								Amount = r.ReadSingle()
+								amount = r.ReadSingle()
 							};
 							item.Stats.Add(stat);
 						}
@@ -774,8 +769,8 @@ namespace ChampionsOfForest.Network
 					ulong playerId = r.ReadUInt64();
 					if (ModdedPlayer.PlayerID == playerId)
 					{
-						BuffDB.AddBuff(25, 91, r.ReadSingle(), 10);
-						BuffDB.AddBuff(9, 92, 1.35f, 30);
+						BuffManager.GiveBuff(25, 91, r.ReadSingle(), 10);
+						BuffManager.GiveBuff(9, 92, 1.35f, 30);
 						LocalPlayer.Stats.Energy += ModdedPlayer.Stats.TotalMaxEnergy / 10f;
 						ModdedPlayer.instance.damageAbsorbAmounts[2] = r.ReadSingle();
 					}
@@ -785,7 +780,7 @@ namespace ChampionsOfForest.Network
 				(r)=> {
 					ulong playerId = r.ReadUInt64();
 					if (ModdedPlayer.PlayerID == playerId)
-						BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
+						BuffManager.GiveBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
 				}),
 
 				new RegisteredCommand("BUFF_ADD_AOE",
@@ -793,12 +788,12 @@ namespace ChampionsOfForest.Network
 					var vector = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 					var dist = r.ReadSingle();
 					if ((vector - LocalPlayer.Transform.position).sqrMagnitude <= dist * dist)
-						BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
+						BuffManager.GiveBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
 				}),
 
 				new RegisteredCommand("BUFF_ADD_GLOBAL",
 				(r)=> {
-					BuffDB.AddBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
+					BuffManager.GiveBuff(r.ReadInt32(), r.ReadInt32(), r.ReadSingle(), r.ReadSingle());
 				}),
 
 			};

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class Item : BaseItem
+	public class Item : ItemTemplate
 	{
 		public int Amount;
 		public bool Equipped;
@@ -24,10 +24,10 @@ namespace ChampionsOfForest
 			var grouped = new Dictionary<int, List<float>>();
 			foreach (var stat in Stats)
 			{
-				if (grouped.ContainsKey(stat.StatID))
-					grouped[stat.StatID].Add(stat.Amount);
+				if (grouped.ContainsKey(stat.id))
+					grouped[stat.id].Add(stat.amount);
 				else
-					grouped.Add(stat.StatID, new List<float>() { stat.Amount });
+					grouped.Add(stat.id, new List<float>() { stat.amount });
 			}
 			groupedStats = new Dictionary<int, float>(grouped.Count);
 			foreach (var group in grouped)
@@ -60,14 +60,14 @@ namespace ChampionsOfForest
 
 					return returnval;
 				}
-				else if (this.Stats.Any(x => x.StatID == 3000))
+				else if (this.Stats.Any(x => x.id == 3000))
 				{
 					if (Equipped)
 					{
 						OnUnequip();
 					}
 
-					int statindex = Stats.FindIndex(x => x.StatID == 3000);
+					int statindex = Stats.FindIndex(x => x.id == 3000);
 					Stats[statindex] = StatActions.GetSocketedStat(other.Rarity, this.type, other.subtype);
 					OnEquip();
 					return true;
@@ -203,35 +203,35 @@ namespace ChampionsOfForest
 		{
 			switch (this.type)
 			{
-				case BaseItem.ItemType.Shield:
+				case ItemTemplate.ItemType.Shield:
 					return Translations.Item_1/*og:Shield*/;    //tr
-				case BaseItem.ItemType.Quiver:
+				case ItemTemplate.ItemType.Quiver:
 					return Translations.Item_2/*og:Quiver*/;    //tr
-				case BaseItem.ItemType.Weapon:
+				case ItemTemplate.ItemType.Weapon:
 					return Translations.Item_3/*og:Weapon*/;    //tr
-				case BaseItem.ItemType.Other:
+				case ItemTemplate.ItemType.Other:
 					return Translations.Item_4/*og:Other*/; //tr
-				case BaseItem.ItemType.Material:
+				case ItemTemplate.ItemType.Material:
 					return Translations.Item_5/*og:Material*/;      //tr
-				case BaseItem.ItemType.Helmet:
+				case ItemTemplate.ItemType.Helmet:
 					return Translations.Item_6/*og:Helmet*/;    //tr
-				case BaseItem.ItemType.Boot:
+				case ItemTemplate.ItemType.Boot:
 					return Translations.Item_7/*og:Boots*/; //tr
-				case BaseItem.ItemType.Pants:
+				case ItemTemplate.ItemType.Pants:
 					return Translations.Item_8/*og:Pants*/; //tr
-				case BaseItem.ItemType.ChestArmor:
+				case ItemTemplate.ItemType.ChestArmor:
 					return Translations.Item_9/*og:Chest armor*/;   //tr
-				case BaseItem.ItemType.ShoulderArmor:
+				case ItemTemplate.ItemType.ShoulderArmor:
 					return Translations.Item_10/*og:Shoulder armor*/;    //tr
-				case BaseItem.ItemType.Glove:
+				case ItemTemplate.ItemType.Glove:
 					return Translations.Item_11/*og:Gloves*/;    //tr
-				case BaseItem.ItemType.Bracer:
+				case ItemTemplate.ItemType.Bracer:
 					return Translations.Item_12/*og:Bracers*/;   //tr
-				case BaseItem.ItemType.Amulet:
+				case ItemTemplate.ItemType.Amulet:
 					return Translations.Item_13/*og:Amulet*/;    //tr
-				case BaseItem.ItemType.Ring:
+				case ItemTemplate.ItemType.Ring:
 					return Translations.Item_14/*og:Ring*/;  //tr
-				case BaseItem.ItemType.SpellScroll:
+				case ItemTemplate.ItemType.SpellScroll:
 					return Translations.Item_15/*og:Scroll*/;    //tr		
 				default:
 					return type.ToString();
@@ -246,7 +246,7 @@ namespace ChampionsOfForest
 		/// <summary>
 		/// creates a item based on a BaseItem object, rolls values
 		/// </summary>
-		public Item(BaseItem b, int amount = 1, int increasedLevel = 0, bool roll = true)
+		public Item(ItemTemplate b, int amount = 1, int increasedLevel = 0, bool roll = true)
 		{
 			base.description = b.description;
 			base.minLevel = b.minLevel;
@@ -352,10 +352,10 @@ namespace ChampionsOfForest
 				if (PS[random] != null)
 				{
 					ItemStat stat = new ItemStat(PS[random], level);
-					stat.Amount *= GetRarityMultiplier();
-					if (stat.ValueCap != 0)
+					stat.amount *= GetRarityMultiplier();
+					if (stat.valueCap != 0)
 					{
-						stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
+						stat.amount = Mathf.Min(stat.amount, stat.valueCap);
 					}
 					stat.possibleStatsIndex = i;
 					Stats.Add(stat);
@@ -387,9 +387,9 @@ namespace ChampionsOfForest
 			Equipped = true;
 			foreach (ItemStat item in Stats)
 			{
-				if (item.Amount != 0)
+				if (item.amount != 0)
 				{
-					item.OnEquip?.Invoke(item.Amount);
+					item.OnEquip?.Invoke(item.amount);
 				}
 			}
 			onEquip?.Invoke();
@@ -400,9 +400,9 @@ namespace ChampionsOfForest
 			Equipped = false;
 			foreach (ItemStat item in Stats)
 			{
-				if (item.Amount != 0)
+				if (item.amount != 0)
 				{
-					item.OnUnequip(item.Amount);
+					item.OnUnequip(item.amount);
 				}
 			}
 			onUnequip?.Invoke();
@@ -415,9 +415,9 @@ namespace ChampionsOfForest
 				onEquip?.Invoke();
 				foreach (ItemStat item in Stats)
 				{
-					if (item.Amount != 0)
+					if (item.amount != 0)
 					{
-						item.OnConsume(item.Amount);
+						item.OnConsume(item.amount);
 					}
 				}
 				return true;

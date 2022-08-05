@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Effects
 		private static int setbonusAmount;
 		public static void Cast()
 		{
-			BuffDB.AddBuff(17, 50, 0,ModdedPlayer.Stats.spell_berserkDuration);
+			BuffManager.GiveBuff(17, 50, 0,ModdedPlayer.Stats.spell_berserkDuration);
 		}
 
 		public static void OnEnable()
@@ -39,7 +39,7 @@ namespace ChampionsOfForest.Effects
 			ModdedPlayer.Stats.maxHealthMult.Divide(ModdedPlayer.Stats.spell_berserkMaxHP);
 			ModdedPlayer.Stats.allDamageTaken.Divide( 2f);
 			if (ModdedPlayer.Stats.i_setcount_BerserkSet < 2)
-				BuffDB.AddBuff(18, 51, LocalPlayer.Stats.Energy, 15);
+				BuffManager.GiveBuff(18, 51, LocalPlayer.Stats.Energy, 15);
 		}
 
 		public static void Effect()
@@ -56,13 +56,13 @@ namespace ChampionsOfForest.Effects
 				{
 					setbonusAmount = bonus;
 					float buff = 0.35f * bonus + 1;
-					BuffDB.ForceEndBuff(106);
-					BuffDB.AddBuff(9, 106, buff, 3f);
+					BuffManager.ForceEndBuff(106);
+					BuffManager.GiveBuff(9, 106, buff, 3f);
 					if (ModdedPlayer.Stats.i_setcount_BerserkSet >= 5)
 					{
 						if (bonus <= 15)
-							BuffDB.ForceEndBuff(107);
-						BuffDB.AddBuff(14, 107, 0.3f * bonus, ModdedPlayer.Stats.spell_berserkDuration - bonus);
+							BuffManager.ForceEndBuff(107);
+						BuffManager.GiveBuff(14, 107, 0.3f * bonus, ModdedPlayer.Stats.spell_berserkDuration - bonus);
 					}
 				}
 

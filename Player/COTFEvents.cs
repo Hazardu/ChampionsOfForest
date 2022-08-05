@@ -7,7 +7,7 @@ namespace ChampionsOfForest
 	{
 		public static COTFEvents Instance;
 		[Serializable]
-		public class GotHitByEnemyParams
+		public struct GotHitByEnemyParams
 		{
 			public float damage;
 			public bool ignoreArmor;
@@ -25,7 +25,7 @@ namespace ChampionsOfForest
 		{
 		}
 		[Serializable]
-		public class GotHitParams
+		public struct GotHitParams
 		{
 			public float damage;
 			public bool ignoreArmor;
@@ -42,7 +42,7 @@ namespace ChampionsOfForest
 		}
 
 		[Serializable]
-		public class HitOtherParams
+		public struct HitOtherParams
 		{
 			public float damage;
 			public bool isCrit;
@@ -62,7 +62,7 @@ namespace ChampionsOfForest
 		{
 		}
 		[Serializable]
-		public class HeadshotParams
+		public struct HeadshotParams
 		{
 			public float damage;
 			public object hitTarget;
@@ -106,6 +106,7 @@ namespace ChampionsOfForest
 		public UnityEvent OnAttackRangedCrossbow = new UnityEvent();
 		public UnityEvent OnAttackMelee = new UnityEvent();
 		public UnityEvent OnAnySpellCast = new UnityEvent();
+		public UnityEvent OnFireSpellCast = new UnityEvent();
 		public UnityEvent OnChanneledSpellCast = new UnityEvent();
 		public UnityEvent OnJump = new UnityEvent();
 		public UnityEvent OnSprint = new UnityEvent();
@@ -116,9 +117,13 @@ namespace ChampionsOfForest
 		public UnityEvent OnIgniteSelf = new UnityEvent();
 		public UnityEvent OnExtingishSelf = new UnityEvent();
 		public UnityEvent OnExplodeSelf = new UnityEvent();
+		public UnityEvent OnDebuffApplied = new UnityEvent();
+		public UnityEvent OnBuffApplied = new UnityEvent();
+		public UnityEvent OnCorpseHit = new UnityEvent();
 
-		public static void ClearEvents()
+		public void ClearEvents()
 		{
+#error Rework this
 			if(Instance==null)
 				Instance = new COTFEvents();
 			try
@@ -132,30 +137,25 @@ namespace ChampionsOfForest
 					{
 						var fieldUE = (field as UnityEvent);
 						fieldUE.RemoveAllListeners();
-						//fieldUE.AddListener(new UnityAction(() => Debug.Log("Event triggered: " + item.Name)));
 						
 					}
 					else if (field is HitOtherEvent)
 					{
 						var fieldUE = (field as HitOtherEvent);
 						fieldUE.RemoveAllListeners();
-						//fieldUE.AddListener(new UnityAction<HitOtherParams>((x) => Debug.Log("Event triggered: " + item.Name)));
 
 					}else if (field is GotHitEvent)
 					{
 						var fieldUE = (field as GotHitEvent);
 						fieldUE.RemoveAllListeners();
-						//fieldUE.AddListener(new UnityAction<GotHitParams>((x) => Debug.Log("Event triggered: " + item.Name)));
 					}else if (field is GotHitByEnemyEvent)
 					{
 						var fieldUE = (field as GotHitByEnemyEvent);
 						fieldUE.RemoveAllListeners();
-						//fieldUE.AddListener(new UnityAction<GotHitByEnemyParams>((x) => Debug.Log("Event triggered: " + item.Name)));
 					}else if (field is HeadshotEvent)
 					{
 						var fieldUE = (field as HeadshotEvent);
 						fieldUE.RemoveAllListeners();
-						//fieldUE.AddListener(new UnityAction<HeadshotParams>((x) => Debug.Log("Event triggered: " + item.Name)));
 					}
 				}
 

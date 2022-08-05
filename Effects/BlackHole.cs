@@ -5,7 +5,9 @@ using System.IO;
 using BuilderCore;
 
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Network;
+using ChampionsOfForest.Network.CommandParams;
 using ChampionsOfForest.Player;
 
 using TheForest.Utils;
@@ -16,47 +18,30 @@ namespace ChampionsOfForest
 {
 	public class BlackHole : MonoBehaviour
 	{
-		public static void Create(Vector3 pos, bool fromNPC, float damage, float duration, float radius, float pullforce, ulong casterID)
+		public static void Create(Vector3 pos, params_SPELL_BLACK_HOLE param)
 		{
 			GameObject go = Core.Instantiate(401, pos);
 			BlackHole b = go.AddComponent<BlackHole>();
-			b.damage = damage;
-			b.FromEnemy = fromNPC;
-			b.duration = duration;
-			b.radius = radius;
-			b.pullForce = pullforce;
+		}
+		public static void Create(Vector3 pos, bool fromNPC, float damage, float duration, float radius, float pullforce, ulong casterID)
+		{
 
-			if (fromNPC)
-			{
-				go.GetComponent<Light>().color = Color.red;
-			}
-			else
-			{
-				if (!string.IsNullOrEmpty(SparkOfLightAfterDarkness_PlayerID))
-				{
-					b.doSparkOfLight = true;
-					b.casterID = SparkOfLightAfterDarkness_PlayerID;
-				}
-			}
+
 		}
 
-		public bool FromEnemy;
-		public float pullForce;
-		public float damage;
-		public float duration;
-		public float radius;
-		public const float rotationSpeed = 20f;
+		private float damage, duration, radius, pullforce;
+		private ulong casterID;
+		private bool hostile, explode, giveDamageBuff, stun, damagePlayer;
+
 		private float scale;
-		public SphereCollider col;
+		private float lifetime;
+
+		public const float rotationSpeed = 20f;
 		private Dictionary<Transform, EnemyProgression> caughtEnemies;
 		public static Material particleMaterial;
 		private ParticleSystem sys;
-		private float lifetime;
 		private GameObject particleGO;
-
 		public bool startDone = false;
-		private bool doSparkOfLight;
-		private string casterID;
 
 		private IEnumerator Start()
 		{
@@ -68,93 +53,90 @@ namespace ChampionsOfForest
 			source.maxDistance = 150f;
 			source.Play();
 			RealisticBlackHoleEffect.Add(transform);
-			if (particleMaterial == null)
+			damagePlayer = false;
+			if (hostile)
 			{
-				particleMaterial = Core.CreateMaterial(new BuildingData()
-				{
-					MainTexture = Res.ResourceLoader.instance.LoadedTextures[22],
-					Metalic = 0.2f,
-					Smoothness = 0.6f,
-					renderMode = BuildingData.RenderMode.Cutout
-				});
-			}
-			if (FromEnemy)
-			{
+				damagePlayer = true;
 				transform.localScale = Vector3.zero;
 				yield return new WaitForSeconds(1.5f);
 			}
+			else if(ModSettings.FriendlyFire && ModSettings.FriendlyFireMagic)
+			{
+				if (casterID != ModdedPlayer.PlayerID)
+				{
+					damagePlayer = true;
+				}
+			}
 			Destroy(gameObject, duration);
-			if (!FromEnemy && !GameSetup.IsMpClient)
+			if (!hostile && !GameSetup.IsMpClient)
 			{
 				caughtEnemies = new Dictionary<Transform, EnemyProgression>();
 			}
-			if (GameSetup.IsMpClient)
-			{
-				if (col != null)
-				{
-					Destroy(col);
-				}
-			}
-			else
-			{
-				col = gameObject.AddComponent<SphereCollider>();
-				col.radius = radius;
-				col.isTrigger = true;
-			}
 			scale = 0;
-			particleGO = new GameObject("BlackHoleParticles") { transform = { position = transform.position } };
-			particleGO.transform.SetParent(transform);
-			sys = particleGO.AddComponent<ParticleSystem>();
-			ParticleSystem.ShapeModule shape = sys.shape;
-			shape.shapeType = ParticleSystemShapeType.SphereShell;
-			shape.radius = radius * 2;
-			//shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
-			//shape.length = 0;
-			ParticleSystem.MainModule main = sys.main;
-			main.startSpeed = -radius * 4;
-			main.startLifetime = 0.5f;
-			main.loop = true;
-			main.prewarm = false;
-			main.startSize = 0.4f;
-			main.maxParticles = 500;
+			//if (particleMaterial == null)
+			//{
+			//	particleMaterial = Core.CreateMaterial(new BuildingData()
+			//	{
+			//		MainTexture = Res.ResourceLoader.instance.LoadedTextures[22],
+			//		Metalic = 0.2f,
+			//		Smoothness = 0.6f,
+			//		renderMode = BuildingData.RenderMode.Cutout
+			//	});
+			//}
+			//particleGO = new GameObject("BlackHoleParticles") { transform = { position = transform.position } };
+			//particleGO.transform.SetParent(transform);
+			//sys = particleGO.AddComponent<ParticleSystem>();
+			//ParticleSystem.ShapeModule shape = sys.shape;
+			//shape.shapeType = ParticleSystemShapeType.SphereShell;
+			//shape.radius = radius * 2;
+			////shape.radiusMode = ParticleSystemShapeMultiModeValue.Random;
+			////shape.length = 0;
+			//ParticleSystem.MainModule main = sys.main;
+			//main.startSpeed = -radius * 4;
+			//main.startLifetime = 0.5f;
+			//main.loop = true;
+			//main.prewarm = false;
+			//main.startSize = 0.4f;
+			//main.maxParticles = 500;
 
-			ParticleSystem.EmissionModule emission = sys.emission;
-			emission.enabled = true;
-			emission.rateOverTime = 500;
-			Renderer rend = sys.GetComponent<Renderer>();
-			rend.material = particleMaterial;
+			//ParticleSystem.EmissionModule emission = sys.emission;
+			//emission.enabled = true;
+			//emission.rateOverTime = 500;
+			//Renderer rend = sys.GetComponent<Renderer>();
+			//rend.material = particleMaterial;
 
-			WindZone wz = gameObject.AddComponent<WindZone>();
-			wz.radius = radius * 2;
-			wz.mode = WindZoneMode.Spherical;
-			wz.windMain = 40;
+			//WindZone wz = gameObject.AddComponent<WindZone>();
+			//wz.radius = radius * 2;
+			//wz.mode = WindZoneMode.Spherical;
+			//wz.windMain = 40;
 			startDone = true;
 			StartCoroutine(HitEverySecond());
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 			if (!startDone)
 				return;
-			lifetime += Time.deltaTime;
+			lifetime += Time.fixedDeltaTime;
 
-			scale = Mathf.Clamp(scale + Time.deltaTime * radius * 1.5f / duration / 2, 0, radius / 5);
-			transform.localScale = Vector3.one * scale / 3;
+			scale = Mathf.Clamp(scale + Time.fixedDeltaTime * radius * 1.5f / duration / 2, 0, radius / 5);
+			transform.localScale = Vector3.one * scale / 4;
 			RaycastHit[] hits = Physics.SphereCastAll(transform.position, scale * 5, Vector3.one, scale * 5, -10);
 			foreach (RaycastHit hit in hits)
 			{
 				Rigidbody rb = hit.rigidbody;
 				if (rb != null)
 				{
-					if (rb != LocalPlayer.Rigidbody || (FromEnemy && !ModdedPlayer.Stats.perk_blackholePullImmune))
+					if (rb != LocalPlayer.Rigidbody || 
+						(hostile || damagePlayer) && (!ModdedPlayer.Stats.perk_blackholePullImmune || ModdedPlayer.Stats.stunImmunity > 0))
 					{
 						Vector3 force = transform.position - rb.position;
 						force *= 20 / force.magnitude;
-						force *= pullForce;
+						force *= pullforce;
 						rb.AddForce(force);
 					}
 				}
-				if (!GameSetup.IsMpClient && !FromEnemy)
+				if (!GameSetup.IsMpClient && !hostile)
 				{
 					if (hit.transform.tag == "enemyCollide")
 					{
@@ -172,14 +154,14 @@ namespace ChampionsOfForest
 
 			transform.Translate(Vector3.up * 1.55f * Time.deltaTime * (duration - lifetime) / duration);
 			transform.Rotate(Vector3.up * rotationSpeed);
-			if (FromEnemy)
+			if (hostile || damagePlayer)
 			{
-				if (!ModdedPlayer.Stats.perk_blackholePullImmune)
+				if (!ModdedPlayer.Stats.perk_blackholePullImmune && ModdedPlayer.Stats.stunImmunity == 0)
 				{
-						if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
-						{
-							Pull(LocalPlayer.Transform);
-						}
+					if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 5 * scale * 5)
+					{
+						Pull(LocalPlayer.Transform);
+					}
 				}
 			}
 			else if (!GameSetup.IsMpClient)
@@ -196,22 +178,24 @@ namespace ChampionsOfForest
 
 		private IEnumerator HitEverySecond()
 		{
-			while (!FromEnemy)
+			while (true)
 			{
-				StartCoroutine(HitEnemies());
-				yield return new WaitForSeconds(0.5f);
-			}
-			while (FromEnemy)
-			{
-				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
+
+				if (!hostile && !GameSetup.IsMpClient)
 				{
-					LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.magicDamageTaken * 0.5f);
+					StartCoroutine(HitEnemies());
 					yield return new WaitForSeconds(0.5f);
 				}
-				else
+				if (hostile || damagePlayer)
 				{
-					yield return null;
+					if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
+					{
+						ModdedPlayer.instance.HitMagic(-damage * ModdedPlayer.Stats.allDamageTaken * ModdedPlayer.Stats.magicDamageTaken * 0.5f);
+						yield return new WaitForSeconds(0.5f);
+					}
 				}
+				yield return null;
+
 			}
 		}
 
@@ -221,16 +205,16 @@ namespace ChampionsOfForest
 			{
 				if (t.Value != null)
 				{
-						t.Value.HitMagic(damage);
-						yield return null;
-					
+					t.Value.HitMagic(damage);
+					yield return null;
+
 				}
 			}
 		}
 
 		private void Pull(Transform t)
 		{
-			t.Translate(Vector3.Normalize(t.position - transform.position) * pullForce * -Time.deltaTime, Space.World);
+			t.Translate(Vector3.Normalize(t.position - transform.position) * pullforce * -Time.deltaTime, Space.World);
 		}
 
 		private static AudioSource blackholeSound;

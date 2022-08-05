@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ChampionsOfForest.Localization;
+using ChampionsOfForest.Perks;
 using ChampionsOfForest.Player;
 
 using UnityEngine;
@@ -14,53 +15,17 @@ namespace ChampionsOfForest
 	{
 		private Perk.PerkCategory _perkpage = Perk.PerkCategory.MeleeOffense;
 		private readonly float[] _perkCategorySizes = new float[6];
-		private int[] DisplayedPerkIDs = new int[0];
 		private Vector2 currentPerkOffset;
 		private Vector2 targetPerkOffset;
 		private float _perkDetailAlpha;
 		private float _timeToBuyPerk;
 
 		private const float PerkHexagonSide = 60;
-		private float PerkHeight;
-		private float PerkWidth;
+		private float PerkHeight => PerkHexagonSide * 2 * screenScale;
+;
+		private float PerkWidth => PerkHexagonSide * 1.732050f * screenScale;
 		private float zoomAmount = 1, zoomTarget = 1;
-		private bool PerkRequirementsMet(Perk perk)
-		{
-			if (perk.unlockRequirement == null)
-			{
-				return true;
-			}
-
-			for (int i = 0; i < perk.unlockRequirement.Length; i++)
-			{
-				if (!PerkDatabase.perks[perk.unlockRequirement[i]].isBought)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
-		private bool PerkEnabled(Perk perk)
-		{
-			if (perk.unlockPath.Length == 0)
-			{
-				return true;
-			}
-
-			for (int i = 0; i < perk.unlockPath.Length; i++)
-			{
-				if (perk.unlockPath[i] == -1)
-				{
-					return true;
-				}
-				else if (PerkDatabase.perks[perk.unlockPath[i]].isBought)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+	
 
 		private bool Hovered;
 		private bool Buying;
@@ -141,14 +106,15 @@ namespace ChampionsOfForest
 			Hovered = false;
 			Buying = false;
 			SelectedPerk = null;
-			for (int i = 0; i < DisplayedPerkIDs.Length; i++)
+			for (int i = 0; i < PerkDatabase.perks.Count; i++)
 			{
+				if(PerkDatabase)
 				DrawPerk(DisplayedPerkIDs[i]);
 			}
 			if (SelectedPerk != null)
 			{
 				Rect r = new Rect(selectedPerk_Rect);
-				Perk p = SelectedPerk;
+				Perk p = PerkDatabase.perks[SelectedPerk_ID];
 				Hovered = true;
 				r.center = SelectedPerk_center;
 				if (_perkDetailAlpha == 0)
@@ -181,9 +147,9 @@ namespace ChampionsOfForest
 						GUI.color = ModdedPlayer.instance.MutationPoints < p.cost ? Color.red : Color.white;
 
 						GUI.Label(Cost, Translations.MainMenu_Perks_2/*og:Cost*/ + //tr
-							": " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
+							" " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = Color.white;
-						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
+						if (Input.GetMouseButton(0) && p.BuyRequirementsMet)
 						{
 							_timeToBuyPerk += Time.unscaledDeltaTime;
 							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
@@ -218,10 +184,10 @@ namespace ChampionsOfForest
 							{
 								if (PerkDatabase.perks[SelectedPerk_ID].stackable)
 								{
-									PerkDatabase.perks[SelectedPerk_ID].boughtTimes++;
+									PerkDatabase.perks[SelectedPerk_ID].purchaseCount++;
 								}
 								PerkDatabase.perks[SelectedPerk_ID].isBought = true;
-								PerkDatabase.perks[SelectedPerk_ID].OnBuy();
+								PerkDatabase.perks[SelectedPerk_ID].UpdateDescription();
 
 								ModdedPlayer.instance.MutationPoints -= p.cost;
 								PerkDatabase.perks[SelectedPerk_ID].onApply();
@@ -304,7 +270,6 @@ namespace ChampionsOfForest
 					_perkpage = (Perk.PerkCategory)menus.GetValue(i);
 					targetPerkOffset = wholeScreenRect.center;
 					currentPerkOffset = targetPerkOffset;
-					DisplayedPerkIDs = PerkDatabase.perks.Where(p => p.category == _perkpage).Select(p => p.id).ToArray();
 					zoomAmount = 1f;
 					zoomTarget = 1f;
 				}
@@ -321,7 +286,7 @@ namespace ChampionsOfForest
 		{
 			Perk p = PerkDatabase.perks[a];
 
-			bool unlocked = !p.Locked;
+			bool unlocked = p.AnyUnlockPathBought && p.AllRequirementsBought;
 			
 			
 
@@ -373,22 +338,18 @@ namespace ChampionsOfForest
 				if (p.stackable)
 				{
 					GUI.color = Color.black;
-					GUI.Label(r, p.boughtTimes.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale * zoomAmount), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
+					GUI.Label(r, p.purchaseCount.ToString(), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(40 * screenScale * zoomAmount), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow, alignment = TextAnchor.MiddleCenter });
 				}
 				GUI.color = Color.white;
 			}
 			else
 			{
 				if (!unlocked)
-					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.25f);
+					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.45f);
 				else
 					GUI.color = Color.gray;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));
 				GUI.color = Color.white;
-			}
-			if (p.texture != null)
-			{
-				GUI.DrawTexture(r, p.texture);
 			}
 			float distsquared = (mousePos - r.center).sqrMagnitude;
 			if (r.Contains(mousePos) && distsquared < PerkHexagonSide * PerkHexagonSide * 0.81f * zoomAmount)

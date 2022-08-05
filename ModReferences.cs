@@ -19,10 +19,8 @@ namespace ChampionsOfForest
 		private float MFindRequestCooldown = 300;
 		public static Material bloodInfusedMaterial;
 		private static ModReferences instance;
-		public static ClientItemPicker ItemPicker => ClientItemPicker.Instance;
 
 		public static Transform rightHandTransform = null;
-
 		private void Start()
 		{
 			instance = this;
@@ -152,15 +150,6 @@ namespace ChampionsOfForest
 			}
 		}
 
-		public static float DamageReduction(int armor)
-		{
-			armor = Mathf.Max(armor, 0);
-
-			float a = armor;
-			float b = (armor + 500f);
-
-			return Mathf.Pow(Mathf.Clamp01(a/b),2f);
-		}
 
 		//invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself
 		//im trying splitting to more classes

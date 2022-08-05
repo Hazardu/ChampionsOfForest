@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class ItemStat
+	public class ItemStatTemplate
 	{
+		
+
+
 		public class StatCompare
 		{
 			public readonly Func<List<float>, float> CalculateValues;
@@ -16,31 +19,32 @@ namespace ChampionsOfForest
 			}
 		}
 
-		public float LevelPow = 1;
-		public float ValueCap = 0;
-		public int StatID = 0;
-		public string Name = "";
-		public int Rarity = 0;
-		public float MinAmount = 0;
-		public float MaxAmount = 0;
-		public float Amount = 1;
-		public float Multipier = 1;
-		public bool DisplayAsPercent = false;
-		public int RoundingCount;
+		public readonly float levelScaling = 1;
+		public readonly float valueCap = 0;
+		public readonly int id = 0;
+		public readonly string name = "";
+		public readonly Color color;
+		public readonly float rangeMin = 0;
+		public readonly float rangeMax = 0;
+		public readonly float multipier = 1;
+		public readonly bool isPercent = false;
+		public readonly int rounding;
+		public readonly Func<string> GetTotalStat;
+		public readonly Action<float> OnEquip, OnUnequip;
+		private readonly StatCompare comparing;
+
+	}
+
+
+	public class ItemStat
+	{
+
+		public readonly ItemStatTemplate template;
+
+
 		public int possibleStatsIndex = -1;
-		private StatCompare comparing;
-		public Func<string> GetTotalStat; 
-		public delegate void OnEquipDelegate(float f);
+		public float amount = 1;
 
-		public OnEquipDelegate OnEquip;
-
-		public delegate void OnUnequipDelegate(float f);
-
-		public OnUnequipDelegate OnUnequip;
-
-		public delegate void OnConsumeDelegate(float f);
-
-		public OnConsumeDelegate OnConsume;
 
 		//public delegate object VariableReturnDelegate();
 		//public VariableReturnDelegate GetVariable;
@@ -62,11 +66,11 @@ namespace ChampionsOfForest
 		public ItemStat(int id, float Min, float Max, float LvlPower, string name, StatCompare comparingMethod, int rarity,Func<string> getValueFunc, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
 		{
 			comparing = comparingMethod;
-			LevelPow = LvlPower;
-			StatID = id;
+			levelScaling = LvlPower;
+			this.id = id;
 			MaxAmount = Max;
-			MinAmount = Min;
-			Name = name;
+			rangeMin = Min;
+			this.name = name;
 			Rarity = rarity;
 			OnEquip = onEquip;
 			OnUnequip = onUnequip;
@@ -77,26 +81,26 @@ namespace ChampionsOfForest
 
 		public ItemStat(ItemStat s, int level = 1, int possibleStatsIdx= -1)
 		{
-			Name = s.Name;
-			LevelPow = s.LevelPow;
-			StatID = s.StatID;
+			name = s.name;
+			levelScaling = s.levelScaling;
+			id = s.id;
 			Rarity = s.Rarity;
-			MinAmount = s.MinAmount;
+			rangeMin = s.rangeMin;
 			MaxAmount = s.MaxAmount;
 			OnEquip = s.OnEquip;
 			OnUnequip = s.OnUnequip;
 			OnConsume = s.OnConsume;
-			RoundingCount = s.RoundingCount;
-			DisplayAsPercent = s.DisplayAsPercent;
+			rounding = s.rounding;
+			isPercent = s.isPercent;
 			GetTotalStat = s.GetTotalStat;
-			this.ValueCap = s.ValueCap;
-				this.Multipier = s.Multipier;
-			Amount = RollValue(level);
-			if (ValueCap != 0)
+			this.valueCap = s.valueCap;
+				this.multipier = s.multipier;
+			amount = RollValue(level);
+			if (valueCap != 0)
 			{
-				Amount = Mathf.Min(ValueCap, Amount);
+				amount = Mathf.Min(valueCap, amount);
 			}
-			Amount *= Multipier;
+			amount *= multipier;
 			possibleStatsIndex = possibleStatsIdx;
 		}
 
@@ -107,43 +111,43 @@ namespace ChampionsOfForest
 		public float RollValue(int level = 1)
 		{
 			float mult = 1;
-			if (LevelPow != 0)
+			if (levelScaling != 0)
 			{
-				mult = Mathf.Pow(level, LevelPow);
+				mult = Mathf.Pow(level, levelScaling);
 			}
-			float f = UnityEngine.Random.Range(MinAmount, MaxAmount) * mult;
+			float f = UnityEngine.Random.Range(rangeMin, MaxAmount) * mult;
 			return f;
 		}
 
 		public string GetMaxValue(int level,float rarityMult)
 		{
-			string formatting = (DisplayAsPercent ? "P" : "N" )+ RoundingCount;
+			string formatting = (isPercent ? "P" : "N" )+ rounding;
 			float mult = 1;
-			if (LevelPow != 0)
+			if (levelScaling != 0)
 			{
-				mult = Mathf.Pow(level, LevelPow);
+				mult = Mathf.Pow(level, levelScaling);
 			}
 			float f =  MaxAmount * mult*rarityMult;
-			if (ValueCap != 0)
-				return (Mathf.Min(f, ValueCap)*Multipier).ToString(formatting);
+			if (valueCap != 0)
+				return (Mathf.Min(f, valueCap)*multipier).ToString(formatting);
 			else
-				return (f* Multipier).ToString(formatting);
+				return (f* multipier).ToString(formatting);
 		}
 
 		public string GetMinValue(int level, float rarityMult)
 		{
-			string formatting =( DisplayAsPercent ? "P" : "N" )+ RoundingCount;
+			string formatting =( isPercent ? "P" : "N" )+ rounding;
 
 			float mult = 1;
-			if (LevelPow != 0)
+			if (levelScaling != 0)
 			{
-				mult = Mathf.Pow(level, LevelPow);
+				mult = Mathf.Pow(level, levelScaling);
 			}
-			float f = MinAmount * mult * rarityMult;
-			if (ValueCap != 0)
-				return (Mathf.Min(f, ValueCap) * Multipier).ToString(formatting);
+			float f = rangeMin * mult * rarityMult;
+			if (valueCap != 0)
+				return (Mathf.Min(f, valueCap) * multipier).ToString(formatting);
 			else
-				return (f * Multipier).ToString(formatting);
+				return (f * multipier).ToString(formatting);
 		}
 	}
 }

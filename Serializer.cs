@@ -86,7 +86,7 @@ namespace ChampionsOfForest
 						int AMO = buf.ReadInt32();
 						int StatCount = buf.ReadInt32();
 
-						Item LoadedItem = new Item(ItemDataBase.ItemBases[ID], AMO, 0, false)
+						Item LoadedItem = new Item(ItemDataBase.itemTemplatesById[ID], AMO, 0, false)
 						{
 							level = LVL
 						};
@@ -97,9 +97,9 @@ namespace ChampionsOfForest
 							int statgroupID = buf.ReadInt32();
 							float statAMO = buf.ReadSingle();
 
-							ItemStat stat = new ItemStat(ItemDataBase.Stats[statID],1,statgroupID)
+							ItemStat stat = new ItemStat(ItemDataBase.statsById[statID],1,statgroupID)
 							{
-								Amount = statAMO
+								amount = statAMO
 							};
 
 							LoadedItem.Stats.Add(stat);
@@ -125,7 +125,7 @@ namespace ChampionsOfForest
 					{
 						if (isBought)
 						{
-							PerkDatabase.perks[id].boughtTimes = applyCount;
+							PerkDatabase.perks[id].applyCount = applyCount;
 							if (applyCount == 0)
 							{
 								PerkDatabase.perks[id].isApplied = true;
@@ -139,7 +139,7 @@ namespace ChampionsOfForest
 								}
 								PerkDatabase.perks[id].isApplied = true;
 							}
-							PerkDatabase.perks[id].OnBuy();
+							PerkDatabase.perks[id].UpdateDescription();
 						}
 					}
 					catch (System.Exception ex)
@@ -233,9 +233,9 @@ namespace ChampionsOfForest
 					//save every stat
 					for (int i = 0; i < item.Value.Stats.Count; i++)
 					{
-						buf.Write(item.Value.Stats[i].StatID);
+						buf.Write(item.Value.Stats[i].id);
 						buf.Write(item.Value.Stats[i].possibleStatsIndex);
-						buf.Write(item.Value.Stats[i].Amount);
+						buf.Write(item.Value.Stats[i].amount);
 					}
 				}
 				else
@@ -250,7 +250,7 @@ namespace ChampionsOfForest
 			{
 				buf.Write(item.id);
 				buf.Write(item.isBought);
-				buf.Write(item.boughtTimes);
+				buf.Write(item.applyCount);
 			}
 
 			//saving bought spells

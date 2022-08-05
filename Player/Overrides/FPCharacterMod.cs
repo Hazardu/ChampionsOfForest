@@ -73,9 +73,9 @@ namespace ChampionsOfForest.Player
 			if (ModdedPlayer.Stats.perk_bunnyHop)
 			{
 				if (ModdedPlayer.Stats.perk_bunnyHopUpgrade)
-					BuffDB.AddBuff(5, 87, 1.6f, 0.75f * ModdedPlayer.Stats.jumpPower);
+					BuffManager.GiveBuff(5, 87, 1.6f, 0.75f * ModdedPlayer.Stats.jumpPower);
 				else
-					BuffDB.AddBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.Stats.jumpPower);
+					BuffManager.GiveBuff(5, 87, 1.25f, 0.5f * ModdedPlayer.Stats.jumpPower);
 			}
 			if ((LocalPlayer.AnimControl.doShellRideMode || LocalPlayer.AnimControl.flyingGlider) && this.prevVelocityXZ.magnitude > 32f)
 			{

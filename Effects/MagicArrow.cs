@@ -56,7 +56,7 @@ namespace ChampionsOfForest.Effects
 			return a;
 		}
 
-		public string casterID;
+		public ulong casterID;
 
 		public float Damage;
 		public float DebuffDuration;

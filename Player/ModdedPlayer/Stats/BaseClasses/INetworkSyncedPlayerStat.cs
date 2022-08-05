@@ -1,5 +1,7 @@
 ﻿using System.IO;
 
+using ChampionsOfForest.Network;
+
 namespace ChampionsOfForest.Player
 {
 	public interface INetworkSyncedPlayerStat
@@ -10,7 +12,7 @@ namespace ChampionsOfForest.Player
 		}
 		void ValueChanged();
 		void WriteToCommand(BinaryWriter writer);
-		void ReceivedOtherPlayerChange(BinaryReader reader);
+		void ReceivedOtherPlayerChange(CommandReader reader);
 		void PlayerDisconnected();
 
 	}

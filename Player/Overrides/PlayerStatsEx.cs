@@ -699,10 +699,10 @@ namespace ChampionsOfForest
 			BleedBehavior.BloodReductionRatio = Health / ModdedPlayer.Stats.TotalMaxHealth;
 		}
 
-		//armor now only can absorb 70% of the damage taken;
+		//armor now only can absorb 90% of the damage taken;
 		public override int HitArmor(int damage)
 		{
-			int pureDmg = Mathf.RoundToInt(damage * 0.3f);
+			int pureDmg = Mathf.RoundToInt(damage * 0.9f);
 
 			return base.HitArmor(damage - pureDmg) + pureDmg;
 		}
@@ -758,9 +758,9 @@ namespace ChampionsOfForest
 					if (ModdedPlayer.Stats.i_isWindArmor)
 					{
 						//grant buffs;
-						BuffDB.AddBuff(5, 84, 1.2f, 30);
-						BuffDB.AddBuff(9, 85, 1.35f, 10);
-						BuffDB.AddBuff(15, 86, 2000, 10);
+						BuffManager.GiveBuff(5, 84, 1.2f, 30);
+						BuffManager.GiveBuff(9, 85, 1.35f, 10);
+						BuffManager.GiveBuff(15, 86, 2000, 10);
 						HealthTarget += ModdedPlayer.Stats.TotalMaxHealth * 0.05f;
 					}
 					Sfx.PlayWhoosh();
@@ -792,7 +792,7 @@ namespace ChampionsOfForest
 				f = Mathf.Max(0, f - ModdedPlayer.Stats.block);
 			}
 			if (ModdedPlayer.Stats.i_KingQruiesSword)
-				BuffDB.AddBuff(22, 80, f, 1);
+				BuffManager.GiveBuff(22, 80, f, 1);
 			CotfUtils.Log("Tanked damage: " + f, true);
 			base.Hit(damage, ignoreArmor, type);
 		}
@@ -924,11 +924,11 @@ namespace ChampionsOfForest
 				if (ModdedPlayer.Stats.perk_nearDeathExperienceUnlocked && !ModdedPlayer.Stats.perk_nearDeathExperienceTriggered)
 				{
 					Health = ModdedPlayer.Stats.TotalMaxHealth;
-					BuffDB.AddBuff(20, 61, 0, 300);
-					BuffDB.AddBuff(6, 82, 1, 10);
-					BuffDB.AddBuff(26, 83, 0.1f, 10);   //90% damage reduction
-					BuffDB.AddBuff(25, 99, 35, 10);     //+35 hp/s
-					BuffDB.AddBuff(11, 100, 10, 10);        //+10 ep/s
+					BuffManager.GiveBuff(20, 61, 0, 300);
+					BuffManager.GiveBuff(6, 82, 1, 10);
+					BuffManager.GiveBuff(26, 83, 0.1f, 10);   //90% damage reduction
+					BuffManager.GiveBuff(25, 99, 35, 10);     //+35 hp/s
+					BuffManager.GiveBuff(11, 100, 10, 10);        //+10 ep/s
 					return;
 				}
 
@@ -957,7 +957,7 @@ namespace ChampionsOfForest
 
 				this.Dead = true;
 				this.Player.enabled = false;
-				if (ModSettings.killOnDowned)
+				if (ModSettings.KillOnDowned)
 					TheForest.Save.PlayerRespawnMP.KillPlayer();
 				else
 					this.FallDownDead();

@@ -3,28 +3,30 @@
 using ChampionsOfForest.Effects;
 using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
+using ChampionsOfForest.Player;
 
 using TheForest.Utils;
 
 using UnityEngine;
 
-using static ChampionsOfForest.Player.Perk;
+using static ChampionsOfForest.Perks.Perk;
 
-namespace ChampionsOfForest.Player
+namespace ChampionsOfForest.Perks
 {
 	public class PerkDatabase
 	{
-		public static List<Perk> perks = new List<Perk>();
-
-		public static void FillPerkList()
+		public static List<Perk> Perks => instance.perks;
+		private static PerkDatabase instance;
+		private readonly List<Perk> perks = new List<Perk>();
+		public PerkDatabase()
 		{
-			perks.Clear();
+			instance = this;
+			perks = new List<Perk>();
 			new Perk()
 			{
 				onApply = () => ModdedPlayer.Stats.meleeDmgFromStr.valueAdditive += 0.01f,
 
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -41,7 +43,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.spellDmgFromInt.valueAdditive += 0.01f,
 
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -58,7 +59,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.rangedDmgFromAgi.valueAdditive += 0.01f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -75,7 +75,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.002f,
 
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -92,7 +91,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.maxEnergyFromAgi.valueAdditive += 0.5f,
 
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -109,7 +107,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.maxHealthFromVit.valueAdditive += 2f,
 
 				category = PerkCategory.Defense,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 0,
@@ -126,7 +123,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.allRecoveryMult.Add(0.1f),
 
 				category = PerkCategory.Support,
-				texture = null,
 				unlockPath = new int[] { -1 },
 				levelReq = 1,
 				cost = 1,
@@ -147,7 +143,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.perk_hungerRate.valueMultiplicative *= 0.7f; ModdedPlayer.Stats.perk_thirstRate.valueMultiplicative *= 0.7f; },
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { 4 },
 				levelReq = 5,
 				cost = 1,
@@ -170,7 +165,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.staminaRecoveryperSecond.Add(0.5f),
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { 4 },
 				levelReq = 5,
 				cost = 1,
@@ -187,7 +181,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.meleeFlatDmg.valueAdditive += 5,
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 0, 10 },
 				levelReq = 4,
 				cost = 1,
@@ -208,7 +201,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive += 0.1f,
 
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 0, 9, 11 },
 				levelReq = 4,
 				cost = 1,
@@ -224,7 +216,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.strength.Add(20),
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 0, 10 },
 				levelReq = 4,
 				cost = 1,
@@ -240,7 +231,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.rangedFlatDmg.valueAdditive += 8,
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 2 },
 				levelReq = 4,
 				cost = 1,
@@ -260,7 +250,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.projectileSize.valueAdditive += 0.05f,
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 2 },
 				levelReq = 4,
 				cost = 1,
@@ -281,7 +270,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.projectileSpeed.valueAdditive += 0.05f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 2 },
 				levelReq = 4,
 				cost = 1,
@@ -302,7 +290,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.spellCostEnergyCost.Multiply(0.85f),
 
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 1 },
 				levelReq = 4,
 				cost = 1,
@@ -319,7 +306,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.spellCost.valueMultiplicative *= 1 - 0.09f,
 
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 1 },
 				levelReq = 7,
 				cost = 1,
@@ -348,7 +334,6 @@ namespace ChampionsOfForest.Player
 				},
 
 				category = PerkCategory.Defense,
-				texture = null,
 				unlockPath = new int[] { 5 },
 				levelReq = 8,
 				cost = 1,
@@ -1115,7 +1100,7 @@ namespace ChampionsOfForest.Player
 				posX = -10.5f,
 				posY = 0,
 				name = Translations.PerkDatabase_121,
-				originalDescription = Translations.PerkDatabase_122(6,4,2),
+				originalDescription = Translations.PerkDatabase_122(6, 4, 2),
 				textureVariation = 0,
 				stackable = true,
 			};
@@ -1137,7 +1122,10 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5); ModdedPlayer.instance.AddExtraItemCapacity(82, 50);
+				onApply = () =>
+				{
+					ModdedPlayer.instance.AddExtraItemCapacity(new int[] { 177, 71, 56 }, 5);
+					ModdedPlayer.instance.AddExtraItemCapacity(82, 50);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.FlintlockAmmo, true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.CrossbowAmmo, true);
 					MoreCraftingReceipes.SetCustomReceipeUnlockState(MoreCraftingReceipes.CustomReceipe.ModernArrows, true);
@@ -1152,7 +1140,7 @@ namespace ChampionsOfForest.Player
 				posX = -12.5f,
 				posY = 0,
 				name = Translations.PerkDatabase_125,
-				originalDescription = Translations.PerkDatabase_126(5,50),
+				originalDescription = Translations.PerkDatabase_126(5, 50),
 				textureVariation = 0,
 				stackable = true,
 			};
@@ -1221,23 +1209,23 @@ namespace ChampionsOfForest.Player
 				textureVariation = 0,
 				stackable = false,
 			};
-
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.spell_healingDomeGivesImmunity.value = true,
+				onApply = () => ModdedPlayer.Stats.spell_sanctuaryRegEnergy.value = true,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 40 },
-				levelReq = 35,
+				levelReq = 15,
 				cost = 1,
 				scale = 1,
-				posX = -4f,
-				posY = 0.75f,
-				name = Translations.PerkDatabase_135,
-				originalDescription = Translations.PerkDatabase_136,
+				posX = -4.5f,
+				posY = 1.5f,
+				name = Translations.PerkDatabase_225,
+				originalDescription = Translations.PerkDatabase_226,
 				textureVariation = 0,
 				stackable = false,
 			};
+
 			new Perk()
 			{
 				onApply = () => BlackFlame.GiveDamageBuff = true,
@@ -1316,7 +1304,7 @@ namespace ChampionsOfForest.Player
 				 {
 					 float f1 = Mathf.Pow(1.35f, x) - 1.0f;
 					 float f2 = Mathf.Pow(1.7f, x) - 1.0f;
-					 return Translations.PerkDatabase_148(f1.ToString("P2"),f2.ToString("P2"));
+					 return Translations.PerkDatabase_148(f1.ToString("P2"), f2.ToString("P2"));
 				 }
 			};
 			new Perk()
@@ -1462,7 +1450,7 @@ namespace ChampionsOfForest.Player
 				posY = -1.5f,
 				name = Translations.PerkDatabase_165,
 				originalDescription = Translations.PerkDatabase_166(2),
-				updateDescription = x => Translations.PerkDatabase_167( (10 * Mathf.Pow(2 * x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")),
+				updateDescription = x => Translations.PerkDatabase_167((10 * Mathf.Pow(2 * x, 1.75f)).ToString("N"), (10 * Mathf.Pow((2 + 2 * x), 1.75f)).ToString("N")),
 				textureVariation = 0,
 				stackable = true,
 			};
@@ -1622,7 +1610,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = -1.5f,
 				name = Translations.PerkDatabase_181,
-				originalDescription = Translations.PerkDatabase_182("100%",10,5),
+				originalDescription = Translations.PerkDatabase_182("100%", 10, 5),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -1718,7 +1706,7 @@ namespace ChampionsOfForest.Player
 				posX = 3.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_193,
-				originalDescription = Translations.PerkDatabase_196("30%","50%"),
+				originalDescription = Translations.PerkDatabase_196("30%", "50%"),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -1734,7 +1722,7 @@ namespace ChampionsOfForest.Player
 				posX = 4.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_195,
-				originalDescription = Translations.PerkDatabase_196("50%","75%"),
+				originalDescription = Translations.PerkDatabase_196("50%", "75%"),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -1767,7 +1755,7 @@ namespace ChampionsOfForest.Player
 				posY = -2.25f,
 				name = Translations.PerkDatabase_199,
 				originalDescription = Translations.PerkDatabase_200(BlackFlame.afterburn_chance.ToString("P"),
-					(BlackFlame.afterburn_debuff_amount-1).ToString("P"),BlackFlame.afterburn_duration),
+					(BlackFlame.afterburn_debuff_amount - 1).ToString("P"), BlackFlame.afterburn_duration),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -1856,7 +1844,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.energyRecoveryFromInt.valueAdditive += 0.001f,
 
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { 21 },
 				levelReq = 30,
 				cost = 1,
@@ -1966,17 +1953,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.spell_healingDomeRegEnergy.value = true,
+				onApply = () => ModdedPlayer.Stats.spell_sanctuaryGivesImmunity.value = true,
 
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 68 },
-				levelReq = 15,
+				levelReq = 35,
 				cost = 1,
 				scale = 1,
-				posX = -4.5f,
-				posY = 1.5f,
-				name = Translations.PerkDatabase_225,
-				originalDescription = Translations.PerkDatabase_226,
+				posX = -4f,
+				posY = 0.75f,
+				name = Translations.PerkDatabase_135,
+				originalDescription = Translations.PerkDatabase_136,
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -2065,7 +2052,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => { ModdedPlayer.Stats.allDamageTaken.Multiply(1.12f); ModdedPlayer.Stats.allDamage.Add(0.12f); },
 
 				category = PerkCategory.Defense,
-				texture = null,
 				unlockPath = new int[] { 5 },
 				levelReq = 8,
 				cost = 1,
@@ -2089,7 +2075,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.value = true,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 13 },
 				levelReq = 32,
 				cost = 1,
@@ -2107,7 +2092,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_bunnyHop.value = true,
 
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { 27 },
 				levelReq = 4,
 				cost = 1,
@@ -2124,7 +2108,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.weaponRange.valueMultiplicative *= 1.1f,
 
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 22 },
 				levelReq = 4,
 				cost = 1,
@@ -2141,7 +2124,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.chanceToBleed.valueAdditive += 0.07f,
 
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 78, 79 },
 				levelReq = 30,
 				cost = 1,
@@ -2158,7 +2140,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.chanceToWeaken.valueAdditive += 0.07f,
 
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 71, 22 },
 				levelReq = 30,
 				cost = 1,
@@ -2175,7 +2156,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearCritChance.valueAdditive += 0.36f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 64 },
 				levelReq = 30,
 				cost = 1,
@@ -2192,7 +2172,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearCritChance.valueAdditive += 0.15f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 125 },
 				levelReq = 33,
 				cost = 1,
@@ -2209,7 +2188,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive += 0.40f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 126 },
 				levelReq = 34,
 				cost = 2,
@@ -2226,7 +2204,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearhellChance.valueAdditive += 0.06f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 127 },
 				levelReq = 53,
 				cost = 1,
@@ -2237,14 +2214,13 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_259("6%"),
 				textureVariation = 0, //0 or 1
 				stackable = true,
-				updateDescription = x =>Translations.PerkDatabase_443((x * 0.06f + 0.4f).ToString("P"))//tr
+				updateDescription = x => Translations.PerkDatabase_443((x * 0.06f + 0.4f).ToString("P"))//tr
 			};
 			new Perk()
 			{
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearDamageMult.valueMultiplicative *= 2f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 126 },
 				levelReq = 50,
 				cost = 1,
@@ -2261,7 +2237,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_bulletCritChance.valueAdditive += 0.2f,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 65 },
 				levelReq = 45,
 				cost = 1,
@@ -2269,7 +2244,7 @@ namespace ChampionsOfForest.Player
 				posX = 2f,
 				posY = -2.25f,
 				name = Translations.PerkDatabase_262,
-				originalDescription = Translations.PerkDatabase_263("20%","30%"),
+				originalDescription = Translations.PerkDatabase_263("20%", "30%"),
 				textureVariation = 0, //0 or 1
 				stackable = false,
 			};
@@ -2278,7 +2253,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_thrownSpearExtraArmorReduction.value = true,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 127, 129 },
 				levelReq = 35,
 				cost = 2,
@@ -2295,7 +2269,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_bunnyHopUpgrade.value = true,
 
 				category = PerkCategory.Utility,
-				texture = null,
 				unlockPath = new int[] { 121 },
 				levelReq = 55,
 				cost = 2,
@@ -2311,7 +2284,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1.7f; ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *= 0.9f; ModdedPlayer.Stats.rangedIncreasedDmg.Multiply(0.80f); },
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2327,7 +2299,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 0.75f; ModdedPlayer.Stats.meleeIncreasedDmg.Multiply(2); },
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2343,7 +2314,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive += 3.5f; ModdedPlayer.Stats.rangedIncreasedDmg.valueMultiplicative *= 0; },
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2351,17 +2321,19 @@ namespace ChampionsOfForest.Player
 				posX = 7.5f,
 				posY = 0f,
 				name = Translations.PerkDatabase_272,
-				originalDescription = Translations.PerkDatabase_273(0,"350%"),
+				originalDescription = Translations.PerkDatabase_273(0, "350%"),
 				textureVariation = 1, //0 or 1
 				stackable = false,
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive += 0.25f; ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1.25f;
+				onApply = () =>
+				{
+					ModdedPlayer.Stats.meleeIncreasedDmg.valueAdditive += 0.25f;
+					ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1.25f;
 					ModdedPlayer.Stats.weaponRange.Multiply(1.25f);
 				},
 				category = PerkCategory.MeleeOffense,
-				texture = null,
 				unlockPath = new int[] { 79 },
 				levelReq = 60,
 				cost = 2,
@@ -2377,7 +2349,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.rangedIncreasedDmg.valueMultiplicative *= 2f; ModdedPlayer.Stats.meleeIncreasedDmg.valueMultiplicative *= 0.01f; },
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2393,7 +2364,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.rangedIncreasedDmg.valueAdditive += 2.0f; ModdedPlayer.Stats.movementSpeed.valueMultiplicative *= 0.75f; ModdedPlayer.Stats.jumpPower.valueAdditive -= 0.65f; },
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2407,13 +2377,16 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1.5f;
+				onApply = () =>
+				{
+					ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 1.5f;
 					ModdedPlayer.Stats.projectileSize.valueMultiplicative *= 1.5f;
 					ModdedPlayer.Stats.projectileSpeed.valueMultiplicative *= 1.5f;
 					ModdedPlayer.Stats.critDamage.Add(0.5f);
-					ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 0.8f; ModdedPlayer.Stats.spellCost.Multiply(3); },
+					ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 0.8f;
+					ModdedPlayer.Stats.spellCost.Multiply(3);
+				},
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2421,7 +2394,7 @@ namespace ChampionsOfForest.Player
 				posX = 9f,
 				posY = -0.75f,
 				name = Translations.PerkDatabase_268,
-				originalDescription = Translations.PerkDatabase_279("50%","20%", "200%"),
+				originalDescription = Translations.PerkDatabase_279("50%", "20%", "200%"),
 				textureVariation = 1, //0 or 1
 				stackable = false,
 			};
@@ -2430,7 +2403,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.maxEnergyMult.Multiply(0.65f); ModdedPlayer.Stats.staminaPerSecRate.Multiply(0.65f); ModdedPlayer.Stats.spellIncreasedDmg.Multiply(2); },
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2446,7 +2418,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.attackSpeed.valueMultiplicative *= 0.6f; ModdedPlayer.Stats.cooldown.valueMultiplicative *= 0.5f; },
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2462,7 +2433,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => { ModdedPlayer.Stats.meleeFlatDmg.valueMultiplicative *= 0.5f; ModdedPlayer.Stats.rangedFlatDmg.valueMultiplicative *= 0.5f; ModdedPlayer.Stats.spellIncreasedDmg.Add(4f); },
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 89 },
 				levelReq = 77,
 				cost = 2,
@@ -2592,7 +2562,7 @@ namespace ChampionsOfForest.Player
 				posX = 4.5f,
 				posY = -1.5f,
 				name = Translations.PerkDatabase_300,
-				originalDescription = Translations.PerkDatabase_301("25%",2),
+				originalDescription = Translations.PerkDatabase_301("25%", 2),
 				textureVariation = 0,
 				stackable = true,
 				updateDescription = x =>
@@ -2640,7 +2610,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed.value = true,
 
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 14 },
 				levelReq = 30,
 				cost = 1,
@@ -2717,7 +2686,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_316("15%"),
 				textureVariation = 0,
 				stackable = true,
-				updateDescription = x =>Translations.PerkDatabase_317( (x * 0.15f).ToString("P"))
+				updateDescription = x => Translations.PerkDatabase_317((x * 0.15f).ToString("P"))
 			};
 			new Perk()
 			{
@@ -2760,7 +2729,7 @@ namespace ChampionsOfForest.Player
 				posX = -3.5f,
 				posY = -1.5f,
 				name = Translations.PerkDatabase_322,
-				originalDescription = Translations.PerkDatabase_323(1,1.5f),
+				originalDescription = Translations.PerkDatabase_323(1, 1.5f),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3014,7 +2983,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.spell_healingDomeDuration.valueAdditive += 50,
+				onApply = () => ModdedPlayer.Stats.spell_sanctuaryDuration.valueAdditive += 50,
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 113 },
 				levelReq = 44,
@@ -3180,7 +3149,7 @@ namespace ChampionsOfForest.Player
 				posX = -3f,
 				posY = 0.75f,
 				name = Translations.PerkDatabase_376,
-				originalDescription = Translations.PerkDatabase_377(1,1,2),
+				originalDescription = Translations.PerkDatabase_377(1, 1, 2),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3213,7 +3182,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_381("50%"),
 				textureVariation = 0,
 				stackable = true,
-				updateDescription = x =>Translations.PerkDatabase_382((x * 0.5f).ToString("P"))
+				updateDescription = x => Translations.PerkDatabase_382((x * 0.5f).ToString("P"))
 			};
 			new Perk()
 			{
@@ -3313,7 +3282,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_394("20%"),
 				textureVariation = 0,
 				stackable = true,
-				updateDescription = x => Translations.PerkDatabase_382( (x * 0.20f).ToString("P"))
+				updateDescription = x => Translations.PerkDatabase_382((x * 0.20f).ToString("P"))
 			};
 			new Perk()
 			{
@@ -3344,7 +3313,7 @@ namespace ChampionsOfForest.Player
 				originalDescription = Translations.PerkDatabase_398("20%"),
 				textureVariation = 0,
 				stackable = true,
-				updateDescription = x => Translations.PerkDatabase_382( (x * 0.2f).ToString("P"))
+				updateDescription = x => Translations.PerkDatabase_382((x * 0.2f).ToString("P"))
 			};
 			new Perk()
 			{
@@ -3497,7 +3466,6 @@ namespace ChampionsOfForest.Player
 				onApply = () => ModdedPlayer.Stats.spell_taunt_speedChange.Multiply(0.5f * 0.4f),
 
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 15 },
 				levelReq = 10,
 				cost = 1,
@@ -3513,7 +3481,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.spell_taunt_pullEnemiesIn.value = true,
 				category = PerkCategory.MagicOffense,
-				texture = null,
 				unlockPath = new int[] { 206 },
 				levelReq = 60,
 				cost = 1,
@@ -3543,7 +3510,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.spell_parryAttackSpeed.Add(2.0f) ,
+				onApply = () => ModdedPlayer.Stats.spell_parryAttackSpeed.Add(2.0f),
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 78 },
 				levelReq = 30,
@@ -3552,7 +3519,7 @@ namespace ChampionsOfForest.Player
 				posX = 4.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_421,
-				originalDescription = Translations.PerkDatabase_422("200%",5),
+				originalDescription = Translations.PerkDatabase_422("200%", 5),
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3602,7 +3569,7 @@ namespace ChampionsOfForest.Player
 				levelReq = 17,
 				cost = 1,
 				scale = 1,
-				posX = 6f,
+				posX = 5f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_425,
 				originalDescription = Translations.PerkDatabase_426("40%", "30"),
@@ -3660,25 +3627,24 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () =>
 				{
-					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(8);
+					ModdedPlayer.Stats.spell_fireboltEnergyCost.Substract(30);
 				},
 				category = PerkCategory.MagicOffense,
 				unlockPath = new int[] { 212 },
 				levelReq = 60,
 				cost = 1,
 				scale = 1,
-				posX = 5f,
+				posX = 6f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_435,
-				originalDescription = Translations.PerkDatabase_436(8,10),
+				originalDescription = Translations.PerkDatabase_436(30, 10),
 				textureVariation = 0,
 				stackable = false,
 			};
 			new Perk()
 			{
-				onApply = () => ModdedPlayer.Stats.rangedIncreasedDmg.Add(0.08f),
+				onApply = () => ModdedPlayer.Stats.rangedIncreasedDmg.Add(0.1f),
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 2 },
 				levelReq = 16,
 				cost = 1,
@@ -3686,7 +3652,7 @@ namespace ChampionsOfForest.Player
 				posX = 1.5f,
 				posY = 1.5f,
 				name = Translations.PerkDatabase_437,
-				originalDescription = Translations.PerkDatabase_438("8%"),
+				originalDescription = Translations.PerkDatabase_438("10%"),
 				textureVariation = 0, //0 or 1
 				stackable = false,
 
@@ -3695,7 +3661,6 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () => ModdedPlayer.Stats.critDamage.Add(0.4f),
 				category = PerkCategory.RangedOffense,
-				texture = null,
 				unlockPath = new int[] { 217 },
 				levelReq = 36,
 				cost = 1,
@@ -3756,7 +3721,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => COTFEvents.Instance.OnDodge.AddListener(() => ModdedPlayer.instance.damageAbsorbAmounts[0] += ModdedPlayer.Stats.TotalMaxHealth* 0.5f),
+				onApply = () => COTFEvents.Instance.OnDodge.AddListener(() => ModdedPlayer.instance.damageAbsorbAmounts[0] += ModdedPlayer.Stats.TotalMaxHealth * 0.5f),
 
 				category = PerkCategory.Defense,
 				unlockPath = new int[] { 36 },
@@ -3803,9 +3768,10 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => { 
-					ModdedPlayer.Stats.spell_healingDomeDamageIncrease.Add(0.2f);
-					ModdedPlayer.Stats.spell_healingDomeDamageResistance.Add(0.7f);
+				onApply = () =>
+				{
+					ModdedPlayer.Stats.spell_sanctuaryDamageIncrease.Add(0.2f);
+					ModdedPlayer.Stats.spell_sanctuaryDamageResistance.Add(0.7f);
 				},
 
 				category = PerkCategory.Support,
@@ -3816,7 +3782,7 @@ namespace ChampionsOfForest.Player
 				posX = -5f,
 				posY = 2.25f,
 				name = Translations.PerkDatabase_452,//tr
-				originalDescription = Translations.PerkDatabase_453("20%","70%"),//tr
+				originalDescription = Translations.PerkDatabase_453("20%", "70%"),//tr
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3824,8 +3790,8 @@ namespace ChampionsOfForest.Player
 			{
 				onApply = () =>
 				{
-					ModdedPlayer.Stats.spell_healingDomeCooldownRate.Add(0.25f);
-					ModdedPlayer.Stats.spell_healingDomeSpellCostReduction.Add(0.30f);
+					ModdedPlayer.Stats.spell_sanctuaryCooldownRate.Add(0.25f);
+					ModdedPlayer.Stats.spell_sanctuarySpellCostReduction.Add(0.30f);
 				},
 				category = PerkCategory.Support,
 				unlockPath = new int[] { 113 },

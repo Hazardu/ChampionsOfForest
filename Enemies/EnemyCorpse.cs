@@ -5,6 +5,7 @@
 		protected override void Start()
 		{
 			base.Start();
+			COTFEvents.Instance.OnChanneledSpellCast
 		}
 	}
 }

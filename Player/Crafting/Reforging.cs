@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Player.Crafting
 					if (validRecipe)
 					{
 						int lvl = CraftingHandler.changedItem.i.level;
-						var v = ItemDataBase.ItemBases.Where(x => x.Value.ID != CraftingHandler.changedItem.i.ID && x.Value.Rarity == CraftingHandler.changedItem.i.Rarity).Select(x => x.Value).ToArray();
+						var v = ItemDataBase.itemTemplatesById.Where(x => x.Value.ID != CraftingHandler.changedItem.i.ID && x.Value.Rarity == CraftingHandler.changedItem.i.Rarity).Select(x => x.Value).ToArray();
 						var ib = v[UnityEngine.Random.Range(0, v.Length)];
 
 						var newItem = new Item(ib, 1, 0, false)
@@ -91,9 +91,9 @@ namespace ChampionsOfForest.Player.Crafting
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
+							string amount = stat.amount.ToString((stat.isPercent ? "P" : "N") + stat.rounding);
 							GUI.color = MainMenu.RarityColors[stat.Rarity];
-							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
+							GUI.Label(statRect, ind + ".  " + stat.name, styles[0]);
 							GUI.color = Color.white;
 							ind++;
 

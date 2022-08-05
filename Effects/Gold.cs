@@ -6,7 +6,7 @@ using TheForest.Utils;
 
 using UnityEngine;
 
-using static ChampionsOfForest.Player.BuffDB;
+using static ChampionsOfForest.Player.BuffManager;
 
 namespace ChampionsOfForest.Effects
 {
@@ -20,7 +20,7 @@ namespace ChampionsOfForest.Effects
 
 		public static void Cast()
 		{
-			AddBuff(16, 39, 1, Duration);
+			GiveBuff(16, 39, 1, Duration);
 		}
 
 		public static void Enable()
