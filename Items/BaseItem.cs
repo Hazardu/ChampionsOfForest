@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ChampionsOfForest.Effects.Sound_Effects;
+using ChampionsOfForest.Enemies;
 
 using UnityEngine;
 

@@ -18,7 +18,7 @@ namespace ChampionsOfForest
 			itemTemplates = new List<ItemTemplate>();
 			stats = new List<ItemStat>();
 			PopulateStats();
-			statsById = stats.ToDictionary(stat=> stat.id)
+			statsById = stats.ToDictionary(stat => stat.id);
 			for (int i = 0; i < stats.Count; i++)
 			{
 				statsById.Add(stats[i].id, stats[i]);
@@ -31,12 +31,12 @@ namespace ChampionsOfForest
 			{
 				CotfUtils.Log("Error with item " + ex.ToString());
 			}
-			itemTemplatesById.Clear();
+			itemTemplates.Clear();
 			for (int i = 0; i < itemTemplates.Count; i++)
 			{
 				try
 				{
-					itemTemplatesById.Add(itemTemplates[i].ID, itemTemplates[i]);
+					itemTemplates.Add(itemTemplates[i]);
 					if (itemsByRarities.ContainsKey(itemTemplates[i].Rarity))
 					{
 						itemsByRarities[itemTemplates[i].Rarity].Add(itemTemplates[i].ID);
@@ -71,7 +71,7 @@ namespace ChampionsOfForest
 				}
 				s += "\n";
 			}
-			s += "\n\n\n There are " + itemTemplatesById.Count + " items:\n";
+			s += "\n\n\n There are " + itemTemplates.Count + " items:\n";
 			for (int i = 0; i < 8; i++)
 			{
 				ItemTemplate[] items = itemTemplates.Where(a => a.Rarity == i).ToArray();
@@ -109,7 +109,7 @@ namespace ChampionsOfForest
 
 
 			var f = File.CreateText("items.csv");
-			f.WriteLine("ITEMS;" + itemTemplatesById.Count);
+			f.WriteLine("ITEMS;" + itemTemplates.Count);
 			for (int i = 0; i <=(int)ItemTemplate.ItemType.SpellScroll; i++)
 			{
 				ItemTemplate.ItemType t = (ItemTemplate.ItemType)i;

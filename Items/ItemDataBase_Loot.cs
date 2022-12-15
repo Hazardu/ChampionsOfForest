@@ -113,7 +113,7 @@ namespace ChampionsOfForest
 			}
 
 			int randomID = Random.Range(0, itemIdPool.Length);
-			Item item = new Item(itemTemplatesById[itemIdPool[randomID]]);
+			Item item = new Item(itemTemplates[itemIdPool[randomID]]);
 
 			item.level = level;
 			if (item.ID == 42 || item.ID == 103 || item.type == ItemTemplate.ItemType.Material)
@@ -182,7 +182,7 @@ namespace ChampionsOfForest
 						if (dif > 0 || Random.value < 0.05f)
 						{
 							rarity = 3;
-							if (w > 360 && (Random.value < 0.5f + 0.22 * mf + 0.034f * dif) || dif > 8 && Random.value < 0.70f)
+							if (w > 360 && (Random.value < 0.5f + 0.22 * mf + 0.034f * dif) )
 							{
 								if (dif > 1 || Random.value < 0.02f)
 								{

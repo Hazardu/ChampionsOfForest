@@ -272,6 +272,7 @@ namespace ChampionsOfForest.Enemies
 
 		public bool OnDie()
 		{
+#error check whether the setup is complete, mark as setup complete false on enable
 			try
 			{
 				DamageOverTimeList.Clear();
@@ -389,7 +390,7 @@ namespace ChampionsOfForest.Enemies
 			}
 			catch (Exception ex)
 			{
-				ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex);
+
 			}
 
 			return true;
