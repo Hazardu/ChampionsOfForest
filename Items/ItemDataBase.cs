@@ -7,12 +7,10 @@ namespace ChampionsOfForest
 	public partial class ItemDataBase
 	{
 		public List<ItemTemplate> itemTemplates;
-		public Dictionary<int, ItemTemplate> itemTemplatesById;
 		public List<ItemStat> stats;
-		public Dictionary<int, ItemStat> statsById;
+		private readonly Dictionary<int, ItemStat> statsById;
 		private Dictionary<int, List<ItemTemplate>> itemsByRarities;
-
-
+		
 		//Called from Initializer
 
 		public ItemDataBase()
@@ -166,11 +164,7 @@ namespace ChampionsOfForest
 			return ItemDataBase.statsById[id];
 		}
 
-		public static ItemTemplate ItemBaseByName(string name)
-		{
-			return itemTemplatesById.Values.First(x => x.name == name);
-		}
-
+	
 		public static void AddPercentage(ref float variable1, float f)
 		{
 			variable1 += ((1 - variable1) * f);
@@ -180,5 +174,15 @@ namespace ChampionsOfForest
 		{
 			variable1 -= ((1 - variable1) * f);
 		}
+
+		public ItemTemplate GetItemTemplate(int id)
+		{
+			return itemTemplates[id];
+		}
+		public ItemTemplate GetItemTemplate(string name)
+		{
+			return itemTemplates.First(x => x.name == name);
+		}
+
 	}
 }

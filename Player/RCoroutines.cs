@@ -1,39 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+
+using ChampionsOfForest.Enemies;
+
 using TheForest.Items.Inventory;
 using TheForest.Items.World;
 using TheForest.Utils;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
 	public class RCoroutines : MonoBehaviour
 	{
-		private static RCoroutines i;
+		public static RCoroutines Instance
+		{
+			get; private set;
+		}
 
 		private void Start()
 		{
-			i = this;
+			Instance = this;
 		}
 
-		//public IEnumerator ProjectileMultihit(Transform target,float dmg,bool headshot, UnityAction dmgScript, int invcationCount )
-		//{
-		//	for (int i = 0; i < invcationCount; i++)
-		//	{
-		//		yield return null;
-		//		dmgScript.Invoke();
-		//		ModdedPlayer.instance.DoAreaDamage(target.root, dmg);
-		//		ModdedPlayer.instance.OnHit();
-		//		ModdedPlayer.instance.OnHit_Ranged(target);
-		//	}
-		//}
+		public IEnumerator RepeatFunction(int invocationCount, Action action)
+		{
+			for (int i = 0; i < invocationCount; i++)
+			{
+				action();
+				yield return null;
+			}
+		}
 
-		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty,ModSettings.Difficulty difficulty, Vector3 position)
+		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy killedEnemyType, long bounty, ModSettings.Difficulty difficulty, Vector3 position)
 		{
 			for (int i = 0; i < count; i++)
 			{
 				yield return null;
-				yield return null;
-				Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(bounty, type,difficulty, position), position + Vector3.up * (2f + i / 4) + Random.Range(-1, 1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right, ItemPickUp.DropSource.EnemyOnDeath);
+				Network.NetworkUtils.SendItemDrop(ItemDataBase.GetRandomItem(bounty, killedEnemyType, difficulty, position), position + Vector3.up * (2f + i / 4) + Random.Range(-1, 1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right, ItemPickUp.DropSource.EnemyOnDeath);
 			}
 		}
 
@@ -154,7 +158,7 @@ namespace ChampionsOfForest.Player
 					GameObject projectileObject = (!(bool)component || component.gameObject.activeSelf) ? Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation) : Object.Instantiate(itemCache2._ammoPrefabs.GetPrefabForBonus(inventoryItemView.ActiveBonus, true).gameObject, pos, rotation);
 
 					projectileObject.transform.localScale *= ModdedPlayer.Stats.projectileSize;
-					
+
 
 					try
 					{
@@ -231,8 +235,8 @@ namespace ChampionsOfForest.Player
 								else if (col is BoxCollider)
 								{
 									var bcol = ((BoxCollider)col);
-									bcol.size =new Vector3(bcol.size.x, bcol.size.y * ModdedPlayer.Stats.projectileSpeed, bcol.size.z );
-								}	
+									bcol.size = new Vector3(bcol.size.x, bcol.size.y * ModdedPlayer.Stats.projectileSpeed, bcol.size.z);
+								}
 								else
 									Debug.LogError("No collider on projectile");
 								if (GreatBow.isEnabled)
@@ -240,8 +244,8 @@ namespace ChampionsOfForest.Player
 									proj_force *= 1.1f;
 									proj_rb.useGravity = false;
 								}
-								
-							
+
+
 								proj_rb.AddForce(proj_force);
 							}
 							if (LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._bowId))

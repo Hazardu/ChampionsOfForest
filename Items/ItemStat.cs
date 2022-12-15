@@ -6,18 +6,6 @@ namespace ChampionsOfForest
 {
 	public class ItemStatTemplate
 	{
-		
-
-
-		public class StatCompare
-		{
-			public readonly Func<List<float>, float> CalculateValues;
-
-			public StatCompare(Func<List<float>, float> calculateValues)
-			{
-				CalculateValues = calculateValues;
-			}
-		}
 
 		public readonly float levelScaling = 1;
 		public readonly float valueCap = 0;
@@ -29,9 +17,36 @@ namespace ChampionsOfForest
 		public readonly float multipier = 1;
 		public readonly bool isPercent = false;
 		public readonly int rounding;
-		public readonly Func<string> GetTotalStat;
 		public readonly Action<float> OnEquip, OnUnequip;
-		private readonly StatCompare comparing;
+
+
+		public ItemStatTemplate(float levelScaling, 
+			float valueCap, 
+			int id,
+			string name, 
+			Color color,
+			float rangeMin, 
+			float rangeMax,
+			Action<float> onEquip,
+			Action<float> onUnequip,
+			float multipier = 1,
+			int rounding = 0, 
+			bool isPercent = false)
+		{
+			this.levelScaling = levelScaling;
+			this.valueCap = valueCap;
+			this.id = id;
+			this.name = name;
+			this.color = color;
+			this.rangeMin = rangeMin;
+			this.rangeMax = rangeMax;
+			this.multipier = multipier;
+			this.isPercent = isPercent;
+			this.rounding = rounding;
+			OnEquip = onEquip;
+			OnUnequip = onUnequip;
+		}
+
 
 	}
 
@@ -40,19 +55,13 @@ namespace ChampionsOfForest
 	{
 
 		public readonly ItemStatTemplate template;
-
+		public int ID => template.id;
 
 		public int possibleStatsIndex = -1;
 		public float amount = 1;
+		public float multipier = 1;
+		public float Multipier => multipier * template.multipier;
 
-
-		//public delegate object VariableReturnDelegate();
-		//public VariableReturnDelegate GetVariable;
-		//public Type variableType;
-		public float EvaluateTotalIncrease(List<float> amounts)
-		{
-			return comparing.CalculateValues(amounts);
-		}
 
 		/// <summary>
 		/// Creates new itemStat and adds it to the database
@@ -63,7 +72,7 @@ namespace ChampionsOfForest
 		/// <param name="name">Name of the stat, what should be displayed in the item context menu</param>
 		/// <param name="rarity">range 0-7</param>
 		/// <param name="LvlPower">How much should it increase per level(min max values will be powered to this amount)</param>
-		public ItemStat(int id, float Min, float Max, float LvlPower, string name, StatCompare comparingMethod, int rarity,Func<string> getValueFunc, OnEquipDelegate onEquip = null, OnUnequipDelegate onUnequip = null, OnConsumeDelegate onConsume = null)
+		public ItemStat(int id, float Min, float Max, float LvlPower, string name, ItemStatTemplate.StatCompare comparingMethod, int rarity,Func<string> getValueFunc, Action onEquip = null, Action onUnequip = null)
 		{
 			comparing = comparingMethod;
 			levelScaling = LvlPower;
@@ -74,33 +83,15 @@ namespace ChampionsOfForest
 			Rarity = rarity;
 			OnEquip = onEquip;
 			OnUnequip = onUnequip;
-			OnConsume = onConsume;
 			GetTotalStat = getValueFunc;
 			ItemDataBase.AddStat(this);
 		}
 
-		public ItemStat(ItemStat s, int level = 1, int possibleStatsIdx= -1)
+		public ItemStat(ItemStat other, int level = 1, int possibleStatsIdx= -1)
 		{
-			name = s.name;
-			levelScaling = s.levelScaling;
-			id = s.id;
-			Rarity = s.Rarity;
-			rangeMin = s.rangeMin;
-			MaxAmount = s.MaxAmount;
-			OnEquip = s.OnEquip;
-			OnUnequip = s.OnUnequip;
-			OnConsume = s.OnConsume;
-			rounding = s.rounding;
-			isPercent = s.isPercent;
-			GetTotalStat = s.GetTotalStat;
-			this.valueCap = s.valueCap;
-				this.multipier = s.multipier;
+			this.template = other.template;
+				this.multipier = other.multipier;
 			amount = RollValue(level);
-			if (valueCap != 0)
-			{
-				amount = Mathf.Min(valueCap, amount);
-			}
-			amount *= multipier;
 			possibleStatsIndex = possibleStatsIdx;
 		}
 
@@ -111,11 +102,16 @@ namespace ChampionsOfForest
 		public float RollValue(int level = 1)
 		{
 			float mult = 1;
-			if (levelScaling != 0)
+			if (template.levelScaling != 0)
 			{
-				mult = Mathf.Pow(level, levelScaling);
+				mult = Mathf.Pow(level, template.levelScaling);
 			}
-			float f = UnityEngine.Random.Range(rangeMin, MaxAmount) * mult;
+			float f = UnityEngine.Random.Range(template.rangeMin, template.rangeMax) * mult;
+			if (template.valueCap != 0)
+			{
+				amount = Mathf.Min(template.valueCap, amount);
+			}
+			amount *= Multipier;
 			return f;
 		}
 

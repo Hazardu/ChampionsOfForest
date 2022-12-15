@@ -9,9 +9,9 @@ using static ChampionsOfForest.ItemDataBase.Stat;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public partial class ItemDataBase
 	{
-		public static void PopulateItems()
+		public void PopulateItems()
 		{
 			new ItemTemplate(new int[][]
 			{

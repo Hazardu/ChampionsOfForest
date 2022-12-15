@@ -127,7 +127,7 @@ namespace ChampionsOfForest.Network
 		//	}
 		//}
 
-		private static byte[] DecodeCommand(string cmd)
+		internal static byte[] DecodeCommand(string cmd)
 		{
 			var a = cmd.ToCharArray();
 			var b = new byte[a.Length];
@@ -138,7 +138,7 @@ namespace ChampionsOfForest.Network
 			return b;
 		}
 
-		private static string EncodeCommand(byte[] b)
+		internal static string EncodeCommand(byte[] b)
 		{
 			string s = string.Empty;
 			for (int i = 0; i < b.Length; i++)

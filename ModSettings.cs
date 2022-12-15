@@ -55,7 +55,7 @@ namespace ChampionsOfForest
 		public static bool AllowElites = true;
 		public static LootLevelPolicy lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
 
-		public static void Reset()
+		public static void Default()
 		{
 			DropQuantityMultiplier = 1;
 			DropChanceMultiplier = 1;
@@ -85,7 +85,6 @@ namespace ChampionsOfForest
 					   new params_DIFFICULTY_INFO_ANSWER(
 					(int)difficulty,
 					(int)dropsOnDeath,
-					(int)lootLevelPolicy,
 					ExpMultiplier,
 					EnemyDamageMultiplier,
 					FriendlyFireDamage,
@@ -101,11 +100,11 @@ namespace ChampionsOfForest
 		public static void SaveSettings()
 		{
 		
-			using (FileStream stream = new FileStream())
+			using (FileStream stream = new FileStream(PATH, FileMode.OpenOrCreate))
 			{
 				using (BinaryWriter buf = new BinaryWriter(stream))
 				{
-					buf.write(FriendlyFire);
+					buf.Write(FriendlyFire);
 					buf.Write(KillOnDowned);
 					buf.Write(DropQuantityMultiplier);
 					buf.Write(DropChanceMultiplier);
@@ -122,7 +121,6 @@ namespace ChampionsOfForest
 					buf.Write(AllowCaveRespawn);
 					buf.Write(CaveMaxAdditionalEnemies);
 					buf.Write(CaveRespawnDelay);
-					File.WriteAllBytes(PATH, stream.ToArray());
 				}
 			}
 		}

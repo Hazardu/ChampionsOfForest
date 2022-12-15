@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ChampionsOfForest.Player;
+
+using UnityEngine;
 
 namespace ChampionsOfForest.Effects
 {
@@ -63,7 +65,30 @@ namespace ChampionsOfForest.Effects
 			opacity = 0;
 		}
 
-		private const float maxOpacity = 0.5f, regainOpacityRate = 0.1f;
+		public static float GetMultishotCost(int level)
+		{
+			return 7f * Mathf.Pow(level, 1.5f) * ModdedPlayer.Stats.spell_multishotCost;
+		}
+		public static int GetMultishotProjectileCount()
+		{
+			int projectileCount = ModdedPlayer.Stats.perk_defaultProjectileCount;
+			if (Multishot.IsOn)
+			{
+				bool sufficientEnergy =  SpellCaster.RemoveStamina(GetMultishotCost(ModdedPlayer.Stats.perk_multishotProjectileCount));
+				if (sufficientEnergy)
+				{
+					projectileCount += ModdedPlayer.Stats.perk_multishotProjectileCount;
+				}
+				else
+				{
+					Multishot.IsOn = false;
+					Multishot.localPlayerInstance.SetActive(false);
+				}
+			}
+			return projectileCount;
+		}
+
+		private const float maxOpacity = 0.35f, regainOpacityRate = 0.07f;
 
 		private void Update()
 		{
@@ -77,15 +102,10 @@ namespace ChampionsOfForest.Effects
 				opacity += Time.deltaTime * regainOpacityRate;
 				mat.SetColor("_TintColor", new Color(0.0f, 0.3f * opacity, 0.2f * opacity, 0.05f * opacity));
 			}
-			else if (opacity > maxOpacity)
-			{
-				opacity -= Time.deltaTime * regainOpacityRate;
-				mat.SetColor("_TintColor", new Color(0.0f, 0.3f * opacity, 0.2f * opacity, 0.05f * opacity));
-			}
 		}
 		private void OnEnable()
 		{
-			opacity = 1.2f;
+			opacity = maxOpacity;
 		}
 	}
 }

@@ -227,6 +227,8 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat spell_bia_TripleDmg;
 			public readonly BooleanPlayerStat spell_bia_Stun;
 			public readonly BooleanPlayerStat spell_bia_Crit;
+			public readonly AdditivePlayerStat<int> spell_bia_buffedProjectileCount;
+			public readonly AdditivePlayerStat<int> spell_bia_buffedProjectileCountCurrent;
 			//roaring cheeks
 			public readonly AdditivePlayerStat<float> spell_fartRadius;
 			public readonly AdditivePlayerStat<float> spell_fartKnockback;
@@ -249,6 +251,8 @@ namespace ChampionsOfForest.Player
 			public readonly AdditivePlayerStat<float> spell_berserkAttackSpeed;
 			public readonly AdditivePlayerStat<float> spell_berserkMaxHP;
 
+			public readonly MultiplicativePlayerStat<float> spell_multishotCost;
+
 
 			//perks
 			public readonly BooleanPlayerStat perk_fireDmgIncreaseOnHit;
@@ -268,6 +272,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> perk_crossbowDamageMult;
 			public readonly MultiplicativePlayerStat<float> perk_bowDamageMult;
 			public readonly AdditivePlayerStat<int> perk_multishotProjectileCount;
+			public readonly AdditivePlayerStat<int> perk_defaultProjectileCount;
 			public readonly MultiplicativePlayerStat<float> perk_multishotDamagePennalty;
 			public readonly BooleanPlayerStat perk_nearDeathExperienceTriggered;
 			public readonly BooleanPlayerStat perk_nearDeathExperienceUnlocked;
@@ -296,23 +301,14 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat perk_chargedAtkKnockback;
 
 			//items
-			public readonly BooleanPlayerStat i_greatBowIgnites;
-			public readonly BooleanPlayerStat i_SmokeyCrossbowQuiver;
-			public readonly BooleanPlayerStat i_CrossfireQuiver;
-			public readonly BooleanPlayerStat i_HazardCrown;
-			public readonly AdditivePlayerStat<int> i_HazardCrownBonus;
-			public readonly BooleanPlayerStat i_HammerStun;
+
 			public readonly MultiplicativePlayerStat<float> i_HammerStunDuration;
 			public readonly MultiplicativePlayerStat<float> i_HammerStunAmount;
 			public readonly MultiplicativePlayerStat<float> smashDamage;
 			public readonly BooleanPlayerStat i_HexedPantsOfMrM_Enabled;
 			public readonly BooleanPlayerStat i_DeathPact_Enabled;
-			public readonly BooleanPlayerStat i_EruptionBow;
-			public readonly BooleanPlayerStat i_ArchangelBow;
 			public readonly BooleanPlayerStat i_isGreed;
 			public readonly BooleanPlayerStat i_KingQruiesSword;
-			public readonly BooleanPlayerStat i_SoraBracers;
-			public readonly BooleanPlayerStat i_isWindArmor;
 			public readonly BooleanPlayerStat i_sparkOfLightAfterDark;
 			public readonly BooleanPlayerStat i_infinityLoop;
 			public readonly AdditivePlayerStat<int> i_setcount_AkagisSet;
@@ -535,13 +531,15 @@ namespace ChampionsOfForest.Player
 				this.spell_cataclysmRadius = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_cataclysmArcane = new BooleanPlayerStat(false);
 				//blood infused arrow
-				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(0.1f, addfloat, substractfloat, "P0");
+				this.spell_bia_SpellDmMult = new AdditivePlayerStat<float>(0.2f, addfloat, substractfloat, "P0");
 				this.spell_bia_HealthDmMult = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				this.spell_bia_HealthTaken = new AdditivePlayerStat<float>(0.65f, addfloat, substractfloat, "P0");
 				this.spell_bia_AccumulatedDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
 				this.spell_bia_TripleDmg = new BooleanPlayerStat(false);
 				this.spell_bia_Stun = new BooleanPlayerStat(false);
 				this.spell_bia_Crit = new BooleanPlayerStat(false);
+				this.spell_bia_buffedProjectileCount = new AdditivePlayerStat<int>(1, addint, substractint);
+				this.spell_bia_buffedProjectileCountCurrent = new AdditivePlayerStat<int>(0, addint, substractint);
 				//roaring cheeks
 				this.spell_fartRadius = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartKnockback = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
@@ -564,6 +562,8 @@ namespace ChampionsOfForest.Player
 				this.spell_berserkAttackSpeed = new AdditivePlayerStat<float>(1.25f, addfloat, substractfloat);
 				this.spell_berserkMaxHP = new AdditivePlayerStat<float>(1f, addfloat, substractfloat);
 
+				this.spell_multishotCost = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+
 				//perks
 				this.perk_fireDmgIncreaseOnHit = new BooleanPlayerStat(false);
 				this.perk_parryCounterStrikeDamage = new AdditivePlayerStat<float>(0f, addfloat, substractfloat);
@@ -582,6 +582,7 @@ namespace ChampionsOfForest.Player
 				this.perk_crossbowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_bowDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_multishotProjectileCount = new AdditivePlayerStat<int>(1, addint, substractint);
+				this.perk_defaultProjectileCount = new AdditivePlayerStat<int>(1, addint, substractint);
 				this.perk_multishotDamagePennalty = new MultiplicativePlayerStat<float>(0.75f, addfloat, substractfloat);
 				this.perk_nearDeathExperienceTriggered = new BooleanPlayerStat(false);
 				this.perk_nearDeathExperienceUnlocked = new BooleanPlayerStat(false);

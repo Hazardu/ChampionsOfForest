@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public partial class ItemDataBase
 	{
 		public enum Stat
 		{
@@ -102,7 +102,7 @@ namespace ChampionsOfForest
 			EMPTYSOCKET = 3000,
 		}
 
-		public static void PopulateStats()
+		public void PopulateStats()
 		{
 			var scAdd = new ItemStat.StatCompare(x => { return x.Sum(); });
 			var scMult = new ItemStat.StatCompare(x =>
@@ -129,7 +129,7 @@ namespace ChampionsOfForest
 
 			int i = 1;
 			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_4/*og:Strength*/, scAdd, 4, //tr
-				()=>ModdedPlayer.Stats.strength.GetFormattedAmount(), StatActions.AddStrength, StatActions.RemoveStrength, StatActions.AddStrength);
+				()=>ModdedPlayer.Stats.strength.GetFormattedAmount(), ModdedPlayer.Stats.strength.Add, ModdedPlayer.Stats.strength.Substract);
 			i++;
 			new ItemStat(i, 1.5f, 2.5f, 0.89f, Translations.MainMenu_Guide_6/*og:Agility*/, scAdd, 4, () => ModdedPlayer.Stats.agility.GetFormattedAmount(), StatActions.AddAgility, StatActions.RemoveAgility, StatActions.AddAgility); //tr
 			i++;
@@ -153,7 +153,7 @@ namespace ChampionsOfForest
 			i++;
 			new ItemStat(i, 0.008f, 0.014f, 0.25f, Translations.ItemDataBase_StatDefinitions_7/*og:Critical Hit Chance*/, scAdd, 6, () => ModdedPlayer.Stats.critChance.GetFormattedAmount(), StatActions.AddCritChance, StatActions.RemoveCritChance, StatActions.AddCritChance) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 0.25f }; //tr
 			i++;
-			new ItemStat(i, 0.0028f, 0.0039f, 1.25f, Translations.MainMenu_Guide_46, scAdd, 6, () => ModdedPlayer.Stats.critDamage.GetFormattedAmount(), StatActions.AddCritDamage, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 10f };//tr
+			new ItemStat(i, 0.0028f, 0.0039f, 1.25f, Translations.MainMenu_Guide_46, scAdd, 6, () => ModdedPlayer.Stats.critDamage.GetFormattedAmount(), ModdedPlayer.Stats.critDamage.Add, StatActions.RemoveCritDamage, StatActions.AddCritDamage) { DisplayAsPercent = true, RoundingCount = 1, ValueCap = 10f };//tr
 			i++;
 			new ItemStat(i, 0.07f, 0.1f, 1f, Translations.ItemDataBase_StatDefinitions_8/*og:Life on hit*/, scAdd, 4, () => ModdedPlayer.Stats.healthOnHit.GetFormattedAmount(), StatActions.AddLifeOnHit, StatActions.RemoveLifeOnHit, StatActions.AddLifeOnHit); //tr
 			i++;

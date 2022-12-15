@@ -18,7 +18,6 @@ namespace ChampionsOfForest.Localization
 		public Translations()
 		{
 			instance = this;
-
 		}
 		private static readonly Dictionary<string, string> localizationLang = new Dictionary<string, string>()
 		{

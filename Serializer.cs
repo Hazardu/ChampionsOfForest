@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
+using ChampionsOfForest.Perks;
 using ChampionsOfForest.Player;
 
 using TheForest.Save;
@@ -86,7 +87,7 @@ namespace ChampionsOfForest
 						int AMO = buf.ReadInt32();
 						int StatCount = buf.ReadInt32();
 
-						Item LoadedItem = new Item(ItemDataBase.itemTemplatesById[ID], AMO, 0, false)
+						Item LoadedItem = new Item(ItemDataBase.ItemBaseByName[ID], AMO, 0, false)
 						{
 							level = LVL
 						};
@@ -120,31 +121,31 @@ namespace ChampionsOfForest
 					int id = buf.ReadInt32();
 					bool isBought = buf.ReadBoolean();
 					int applyCount = buf.ReadInt32();
-					PerkDatabase.perks[id].isBought = isBought;
+					PerkDatabase.Perks[id].isBought = isBought;
 					try
 					{
 						if (isBought)
 						{
-							PerkDatabase.perks[id].applyCount = applyCount;
+							PerkDatabase.Perks[id].applyCount = applyCount;
 							if (applyCount == 0)
 							{
-								PerkDatabase.perks[id].isApplied = true;
-								PerkDatabase.perks[id].onApply();
+								PerkDatabase.Perks[id].isApplied = true;
+								PerkDatabase.Perks[id].onApply();
 							}
 							else
 							{
 								for (int a = 0; a < applyCount; a++)
 								{
-									PerkDatabase.perks[id].onApply();
+									PerkDatabase.Perks[id].onApply();
 								}
-								PerkDatabase.perks[id].isApplied = true;
+								PerkDatabase.Perks[id].isApplied = true;
 							}
-							PerkDatabase.perks[id].UpdateDescription();
+							PerkDatabase.Perks[id].UpdateDescription();
 						}
 					}
 					catch (System.Exception ex)
 					{
-						ModAPI.Log.Write($"Loading perks exception: id = {id}, isBought = {isBought}, applycount ={applyCount}\n" + ex);
+						ModAPI.Log.Write($"Loading Perks exception: id = {id}, isBought = {isBought}, applycount ={applyCount}\n" + ex);
 						
 					}
 					
@@ -244,9 +245,9 @@ namespace ChampionsOfForest
 				}
 			}
 
-			//saving perks
-			buf.Write(PerkDatabase.perks.Count);
-			foreach (Perk item in PerkDatabase.perks)
+			//saving Perks
+			buf.Write(PerkDatabase.Perks.Count);
+			foreach (Perk item in PerkDatabase.Perks)
 			{
 				buf.Write(item.id);
 				buf.Write(item.isBought);
@@ -325,7 +326,7 @@ namespace ChampionsOfForest
 
 			DoLoad(path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems);
 
-			//waiting for buffs and perks to apply
+			//waiting for buffs and Perks to apply
 			yield return new WaitForSeconds(5f);
 
 			ModdedPlayer.ResetAllStats();

@@ -1009,7 +1009,7 @@ namespace ChampionsOfForest.Player
 		{
 			if ((level % 10) == 0 && level > 1)
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
+				var item = new Item(ItemDataBase.ItemByName("Heart of Purity"));
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -1018,7 +1018,7 @@ namespace ChampionsOfForest.Player
 			}
 			else if (level >= 10 && level % 20 == 5)
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Greater Mutated Heart"));
+				var item = new Item(ItemDataBase.ItemByName("Greater Mutated Heart"));
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -1359,25 +1359,6 @@ namespace ChampionsOfForest.Player
 			ResetAllStats();
 		}
 
-		public static int RangedRepetitions()
-		{
-			int repeats = 1;
-			if (Multishot.IsOn)
-			{
-				bool b = Stats.i_SoraBracers ? SpellCaster.RemoveStamina(7 * Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f)) : SpellCaster.RemoveStamina(10 * Mathf.Pow(Stats.perk_multishotProjectileCount, 1.75f));
-				if (b)
-				{
-					repeats += Stats.perk_multishotProjectileCount;
-					if (Stats.i_SoraBracers)
-						repeats += 4;
-				}
-				else
-				{
-					Multishot.IsOn = false;
-					Multishot.localPlayerInstance.SetActive(false);
-				}
-			}
-			return repeats;
-		}
+		
 	}
 }

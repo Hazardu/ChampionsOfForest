@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using ChampionsOfForest.Enemies;
 using ChampionsOfForest.Player;
 
 using TheForest.Utils;
@@ -11,9 +12,9 @@ using Random = UnityEngine.Random;
 
 namespace ChampionsOfForest
 {
-	public static partial class ItemDataBase
+	public partial class ItemDataBase
 	{
-		private static int GetLevel(Vector3 pos)
+		private int GetLootLevel(Vector3 pos)
 		{
 			int level;
 			{
@@ -90,9 +91,9 @@ namespace ChampionsOfForest
 			}
 			return level;
 		}
-		public static Item GetRandomItem(float Worth, Vector3 pos)
+		public Item GetRandomItem(float Worth, Vector3 pos)
 		{
-			int level = GetLevel(pos);
+			int level = GetLootLevel(pos);
 			float w = Worth;
 			w *= ModdedPlayer.Stats.magicFind.Value;
 
@@ -121,7 +122,7 @@ namespace ChampionsOfForest
 			return item;
 		}
 
-		public static bool AllowItemDrop(int i, in int level, EnemyProgression.Enemy e)
+		public bool AllowItemDrop(int i, in int level, EnemyProgression.Enemy e)
 		{
 			if (!itemTemplatesById.ContainsKey(i))
 			{
@@ -132,9 +133,9 @@ namespace ChampionsOfForest
 			return itemTemplatesById[i].minLevel <= level;
 		}
 
-		public static Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType, ModSettings.Difficulty difficulty, Vector3 pos)
+		public Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType, ModSettings.Difficulty difficulty, Vector3 pos)
 		{
-			int level = GetLevel(pos);
+			int level = GetLootLevel(pos);
 			float w = Worth / (level);
 			w *= ModdedPlayer.Stats.magicFind.Value;
 
@@ -163,7 +164,7 @@ namespace ChampionsOfForest
 			return item;
 		}
 
-		public static int GetRarity(float w, ModSettings.Difficulty difficulty)
+		public int GetRarity(float w, ModSettings.Difficulty difficulty)
 		{
 			int dif = (int)difficulty;
 			int rarity = 0;

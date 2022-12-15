@@ -50,9 +50,6 @@ namespace ChampionsOfForest.Player.Crafting
 						else
 						{
 							stat.amount = stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-							if (stat.valueCap != 0)
-								stat.amount = Mathf.Min(stat.amount, stat.valueCap);
-							stat.amount *= stat.multipier;
 						}
 						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)

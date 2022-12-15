@@ -366,7 +366,7 @@ namespace ChampionsOfForest
 
 				if (GUI.Button(new Rect(Screen.width*0.5f - 250 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), Translations.MainMenu_DifficultySelection_31)) //tr
 				{
-					ModSettings.Reset();
+					ModSettings.Default();
 				}
 			}
 
