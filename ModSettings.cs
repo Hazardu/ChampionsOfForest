@@ -144,7 +144,7 @@ namespace ChampionsOfForest
 							AllowRandomCaveSpawn = buf.ReadBoolean();
 							AllowCaveRespawn = buf.ReadBoolean();
 							CaveMaxAdditionalEnemies = buf.ReadInt32();
-							CaveRespawnDelay = buf.ReadInt32();
+							CaveRespawnDelay = buf.ReadSingle();
 						}
 					}
 				}
