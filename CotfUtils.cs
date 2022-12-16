@@ -33,13 +33,14 @@ namespace ChampionsOfForest
 			return s;
 		}
 
-		public static float DamageReduction(int armor)
+
+
+
+		public static float GetArmorEffectiveness(int armor)
 		{
 			armor = Mathf.Max(armor, 0);
-
 			float a = armor;
-			float b = (armor + 500f);
-
+			float b = (armor + 400f);
 			return Mathf.Pow(Mathf.Clamp01(a / b), 2f);
 		}
 	}

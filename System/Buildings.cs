@@ -2,27 +2,11 @@
 
 using UnityEngine;
 
-namespace ChampionsOfForest.Res
+namespace ChampionsOfForest.System
 {
 	//creates prefabs using Builder core
 	public class Buildings
 	{
-		private void Test()
-		{
-			GameObject gameObject = null;
-
-			Material mat = Core.CreateMaterial(
-				new BuildingData()
-				{
-					Smoothness = 1,
-					MainColor = Color.red,
-					Metalic = 1,
-					EmissionColor = new Color(0.3f, 0f, 0f)
-				});
-
-			gameObject.GetComponent<Renderer>().material = mat;
-		}
-
 		public static void InitBuildings()
 		{
 			Building blackHole = new Building()

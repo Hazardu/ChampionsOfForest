@@ -573,14 +573,14 @@ namespace ChampionsOfForest
 																																									  //drawing difficulty raise lower buttons
 				if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
 				{
-					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*og:Raise Difficulty*/, chgDiffBtnStyle))	  //tr
+					if ((int)ModSettings.difficulty < (int)ModSettings.GlobalDifficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*og:Raise Difficulty*/, chgDiffBtnStyle))	  //tr
 					{
 						//raise difficulty
 						difficultyCooldown = 30;
 						ModSettings.difficulty++;
 						ModSettings.BroadCastSettingsToClients();
 					}
-					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*og:Lower Difficulty*/, chgDiffBtnStyle))     //tr
+					if (ModSettings.difficulty > (int)ModSettings.GlobalDifficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*og:Lower Difficulty*/, chgDiffBtnStyle))     //tr
 					{
 						//lower difficulty
 						difficultyCooldown = 30;

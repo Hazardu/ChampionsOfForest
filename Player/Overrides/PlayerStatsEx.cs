@@ -939,15 +939,15 @@ namespace ChampionsOfForest
 					COTFEvents.Instance.OnDeath.Invoke();
 					switch (ModSettings.dropsOnDeath)
 					{
-						case ModSettings.DropsOnDeathMode.All:
+						case ModSettings.PlayerDropsOnDeath.All:
 							Inventory.Instance.DropAll();
 							break;
 
-						case ModSettings.DropsOnDeathMode.Equipped:
+						case ModSettings.PlayerDropsOnDeath.Equipped:
 							Inventory.Instance.DropEquipped();
 							break;
 
-						case ModSettings.DropsOnDeathMode.NonEquipped:
+						case ModSettings.PlayerDropsOnDeath.NonEquipped:
 							Inventory.Instance.DropNonEquipped();
 							break;
 					}

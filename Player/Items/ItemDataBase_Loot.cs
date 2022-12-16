@@ -133,7 +133,7 @@ namespace ChampionsOfForest
 			return itemTemplatesById[i].minLevel <= level;
 		}
 
-		public Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType, ModSettings.Difficulty difficulty, Vector3 pos)
+		public Item GetRandomItem(float Worth, EnemyProgression.Enemy killedEnemyType, ModSettings.GlobalDifficulty difficulty, Vector3 pos)
 		{
 			int level = GetLootLevel(pos);
 			float w = Worth / (level);
@@ -164,7 +164,7 @@ namespace ChampionsOfForest
 			return item;
 		}
 
-		public int GetRarity(float w, ModSettings.Difficulty difficulty)
+		public int GetRarity(float w, ModSettings.GlobalDifficulty difficulty)
 		{
 			int dif = (int)difficulty;
 			int rarity = 0;

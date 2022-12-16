@@ -186,8 +186,8 @@ namespace ChampionsOfForest
 						if (GUI.Button(r, "", ButtonStyle))
 						{
 							ModSettings.DifficultyChosen = true;
-							Array values = Enum.GetValues(typeof(ModSettings.Difficulty));
-							ModSettings.difficulty = (ModSettings.Difficulty)values.GetValue(ii);
+							Array values = Enum.GetValues(typeof(ModSettings.GlobalDifficulty));
+							ModSettings.difficulty = (ModSettings.GlobalDifficulty)values.GetValue(ii);
 							LocalPlayer.FpCharacter.UnLockView();
 							LocalPlayer.FpCharacter.MovementLocked = false;
 							Cheats.GodMode = false;
@@ -301,19 +301,19 @@ namespace ChampionsOfForest
 				//Drops on death
 				switch (ModSettings.dropsOnDeath)
 				{
-					case ModSettings.DropsOnDeathMode.All:
+					case ModSettings.PlayerDropsOnDeath.All:
 						GUI.color = Color.red;
 						break;
 
-					case ModSettings.DropsOnDeathMode.Equipped:
+					case ModSettings.PlayerDropsOnDeath.Equipped:
 						GUI.color = Color.yellow;
 						break;
 
-					case ModSettings.DropsOnDeathMode.NonEquipped:
+					case ModSettings.PlayerDropsOnDeath.NonEquipped:
 						GUI.color = Color.cyan;
 						break;
 
-					case ModSettings.DropsOnDeathMode.Disabled:
+					case ModSettings.PlayerDropsOnDeath.Disabled:
 						GUI.color = Color.gray;
 						break;
 
@@ -328,7 +328,7 @@ namespace ChampionsOfForest
 				{
 					int i = (int)ModSettings.dropsOnDeath + 1;
 					i %= 4;
-					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)i;
+					ModSettings.dropsOnDeath = (ModSettings.PlayerDropsOnDeath)i;
 				}
 
 

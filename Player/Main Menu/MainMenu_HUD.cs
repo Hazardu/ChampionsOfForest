@@ -443,7 +443,7 @@ namespace ChampionsOfForest
 										DrawScannedEnemyLabel(Translations.MainMenu_Guide_100/*og:Armor reduction*/ + //tr
 											": -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									}
-									else if (cp.Armor > 10 && ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
+									else if (cp.Armor > 10 && ModSettings.difficulty <= ModSettings.GlobalDifficulty.Veteran)
 									{
 										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
 										GUI.Label(rOffset, Translations.MainMenu_HUD_29, smallinfoStyle);//tr
@@ -458,7 +458,7 @@ namespace ChampionsOfForest
 									DrawScannedEnemyLabel(Translations.MainMenu_HUD_30 + Translations.MainMenu_Guide_1 + cp.Damage.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
 									y += screenScale * 60;
 									DrawScannedEnemyLabel(Translations.MainMenu_HUD_31 + Translations.MainMenu_Guide_1 + cp.ExpBounty.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);//tr
-									if (ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
+									if (ModSettings.difficulty <= ModSettings.GlobalDifficulty.Veteran)
 									{
 										Rect rOffset = new Rect(origin.x + slide + 255f * screenScale, origin.y + y, 250 * screenScale, 65 * screenScale);
 										rOffset.x -= 10;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ChampionsOfForest.Res
+namespace ChampionsOfForest.System
 {
 	public class ResourceInitializer
 	{

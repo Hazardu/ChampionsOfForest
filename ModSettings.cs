@@ -10,12 +10,12 @@ namespace ChampionsOfForest
 {
 	public class ModSettings
 	{
-		public enum Difficulty
+		public enum GlobalDifficulty
 		{
 			Easy, Veteran, Elite, Master, Challenge1, Challenge2, Challenge3, Challenge4, Challenge5, Challenge6, Hell
 		}
 
-		public enum DropsOnDeathMode
+		public enum PlayerDropsOnDeath
 		{
 			All, Equipped, Disabled, NonEquipped
 		}
@@ -23,8 +23,8 @@ namespace ChampionsOfForest
 		{
 			HighestPlayerLevel, AverageLevel, LowestLevel, ClosestPlayer, HostLevel
 		}
-		public static Difficulty difficulty = Difficulty.Easy;
-		public static DropsOnDeathMode dropsOnDeath = DropsOnDeathMode.Disabled;
+		public static GlobalDifficulty difficulty = GlobalDifficulty.Easy;
+		public static PlayerDropsOnDeath dropsOnDeath = PlayerDropsOnDeath.Disabled;
 		public static bool DifficultyChosen = false;
 		public static bool FriendlyFire = true;
 		public static bool IsDedicated = false;
@@ -34,13 +34,11 @@ namespace ChampionsOfForest
 		public static bool AllowCaveRespawn = true;
 		public static int CaveMaxAdditionalEnemies = 1;	
 		public static float CaveRespawnDelay = 1;
-
 		public static string Version;
 		public const bool RequiresNewFiles = false;
 		public const bool ALLNewFiles = false;
 		public const bool RequiresNewSave = true;
 		public const string RequiresNewSaveVersion = "1.6.0.2";
-
 		public static readonly List<int> outdatedFiles = new List<int>();
 
 		public static float DropQuantityMultiplier = 1;
@@ -144,7 +142,7 @@ namespace ChampionsOfForest
 							EnemyArmorMultiplier = buf.ReadSingle();
 							EnemySpeedMultiplier = buf.ReadSingle();
 							AllowElites = buf.ReadBoolean();
-							dropsOnDeath = (DropsOnDeathMode)buf.ReadInt32();
+							dropsOnDeath = (PlayerDropsOnDeath)buf.ReadInt32();
 							lootLevelPolicy = (LootLevelPolicy)buf.ReadInt32();
 							AllowRandomCaveSpawn = buf.ReadBoolean();
 							AllowCaveRespawn = buf.ReadBoolean();

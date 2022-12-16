@@ -41,8 +41,8 @@ namespace ChampionsOfForest.Network
 				(r)=> {
 					var str = r.ReadStruct<params_DIFFICULTY_INFO_ANSWER>();
 					ModSettings.DifficultyChosen=true;
-					ModSettings.difficulty = (ModSettings.Difficulty)str.Difficulty;
-					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathMode)str.DropsOnDeath;
+					ModSettings.difficulty = (ModSettings.GlobalDifficulty)str.Difficulty;
+					ModSettings.dropsOnDeath = (ModSettings.PlayerDropsOnDeath)str.DropsOnDeath;
 					ModSettings.ExpMultiplier = str.ExpMultiplier;
 					ModSettings.EnemyDamageMultiplier = str.EnemyDamageMultiplier;
 					ModSettings.FriendlyFireDamage = str.FriendlyFireDamage;

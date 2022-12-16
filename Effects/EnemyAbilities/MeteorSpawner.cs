@@ -38,47 +38,47 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			int Damage = 10;
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Easy:
+				case ModSettings.GlobalDifficulty.Easy:
 					Damage = Random.Range(40, 50);
 					break;
 
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GlobalDifficulty.Veteran:
 					Damage = Random.Range(100, 150);
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GlobalDifficulty.Elite:
 					Damage = Random.Range(300, 355);
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GlobalDifficulty.Master:
 					Damage = Random.Range(660, 700);
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GlobalDifficulty.Challenge1:
 					Damage = 10000;
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GlobalDifficulty.Challenge2:
 					Damage = 20000;
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GlobalDifficulty.Challenge3:
 					Damage = 40000;
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GlobalDifficulty.Challenge4:
 					Damage = 80000;
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GlobalDifficulty.Challenge5:
 					Damage = 90000;
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GlobalDifficulty.Challenge6:
 					Damage = 100000;
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GlobalDifficulty.Hell:
 					Damage = 110000;
 					break;
 			}

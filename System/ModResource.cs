@@ -1,6 +1,6 @@
-﻿namespace ChampionsOfForest.Res
+﻿namespace ChampionsOfForest.System
 {
-	public class Resource
+	public class ModResource
 	{
 		public const bool CompressTexture = true;
 		public const string url = "https://modapi.survivetheforest.net/uploads/objects/7/";
@@ -17,7 +17,7 @@
 		public int ID;
 
 
-		public Resource(int id, string FileName)
+		public ModResource(int id, string FileName)
 		{
 			ID = id;
 			fileName = FileName;
@@ -44,7 +44,7 @@
 
 		}
 
-		public Resource(int id, string FileName, ResourceType t)
+		public ModResource(int id, string FileName, ResourceType t)
 		{
 			ID = id;
 			fileName = FileName;

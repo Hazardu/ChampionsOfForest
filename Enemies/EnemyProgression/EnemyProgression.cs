@@ -91,7 +91,7 @@ namespace ChampionsOfForest.Enemies
 		public Avenger avengerability;
 		private float timeOfDeath;
 		private Color normalColor;
-		private ModSettings.Difficulty setupDifficulty;
+		private ModSettings.GlobalDifficulty setupDifficulty;
 		public enum Abilities
 		{
 			Steadfast, BossSteadfast, EliteSteadfast, Blizzard, Radiance, Chains, BlackHole, Trapper, Juggernaut, Gargantuan, Tiny, ExtraDamage, ExtraHealth, Basher, Warp, RainEmpowerment, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm

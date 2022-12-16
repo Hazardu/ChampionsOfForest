@@ -73,43 +73,43 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GlobalDifficulty.Veteran:
 					dmg = Random.Range(85, 105);
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GlobalDifficulty.Elite:
 					dmg = Random.Range(221, 234);
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GlobalDifficulty.Master:
 					dmg = Random.Range(444, 470);
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GlobalDifficulty.Challenge1:
 					dmg = 4124;
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GlobalDifficulty.Challenge2:
 					dmg = 15653;
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GlobalDifficulty.Challenge3:
 					dmg = 72346;
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GlobalDifficulty.Challenge4:
 					dmg = 85932;
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GlobalDifficulty.Challenge5:
 					dmg = 124636;
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GlobalDifficulty.Challenge6:
 					dmg = 164636;
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GlobalDifficulty.Hell:
 					dmg = 224636;
 					break;
 			}

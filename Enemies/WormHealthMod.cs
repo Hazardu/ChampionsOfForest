@@ -52,39 +52,39 @@ namespace ChampionsOfForest.Enemies
 					long Exp;
 					switch (ModSettings.difficulty)
 					{
-						case ModSettings.Difficulty.Easy:
+						case ModSettings.GlobalDifficulty.Easy:
 							Exp = 5000;
 							break;
 
-						case ModSettings.Difficulty.Veteran:
+						case ModSettings.GlobalDifficulty.Veteran:
 							Exp = 20000;
 							break;
 
-						case ModSettings.Difficulty.Elite:
+						case ModSettings.GlobalDifficulty.Elite:
 							Exp = 100000;
 							break;
 
-						case ModSettings.Difficulty.Master:
+						case ModSettings.GlobalDifficulty.Master:
 							Exp = 3000000;
 							break;
 
-						case ModSettings.Difficulty.Challenge1:
+						case ModSettings.GlobalDifficulty.Challenge1:
 							Exp = 50000000;
 							break;
 
-						case ModSettings.Difficulty.Challenge2:
+						case ModSettings.GlobalDifficulty.Challenge2:
 							Exp = 100000000;
 							break;
 
-						case ModSettings.Difficulty.Challenge3:
+						case ModSettings.GlobalDifficulty.Challenge3:
 							Exp = 500000000;
 							break;
 
-						case ModSettings.Difficulty.Challenge4:
+						case ModSettings.GlobalDifficulty.Challenge4:
 							Exp = 1000000000;
 							break;
 
-						case ModSettings.Difficulty.Challenge5:
+						case ModSettings.GlobalDifficulty.Challenge5:
 							Exp = 5000000000;
 							break;
 
@@ -149,40 +149,40 @@ namespace ChampionsOfForest.Enemies
 						int damage = 85;
 						switch (ModSettings.difficulty)
 						{
-							case ModSettings.Difficulty.Veteran:
+							case ModSettings.GlobalDifficulty.Veteran:
 								damage = 150;
 								break;
 
-							case ModSettings.Difficulty.Elite:
+							case ModSettings.GlobalDifficulty.Elite:
 								damage = 230;
 								break;
 
-							case ModSettings.Difficulty.Master:
+							case ModSettings.GlobalDifficulty.Master:
 								damage = 360;
 								break;
 
-							case ModSettings.Difficulty.Challenge1:
+							case ModSettings.GlobalDifficulty.Challenge1:
 								damage = 1500;
 								break;
 
-							case ModSettings.Difficulty.Challenge2:
+							case ModSettings.GlobalDifficulty.Challenge2:
 								damage = 5000;
 								break;
 
-							case ModSettings.Difficulty.Challenge3:
+							case ModSettings.GlobalDifficulty.Challenge3:
 								damage = 12000;
 								break;
 
-							case ModSettings.Difficulty.Challenge4:
+							case ModSettings.GlobalDifficulty.Challenge4:
 								damage = 20000;
 								break;
 
-							case ModSettings.Difficulty.Challenge5:
+							case ModSettings.GlobalDifficulty.Challenge5:
 								damage = 30000;
 								break;
 
-							case ModSettings.Difficulty.Challenge6:
-							case ModSettings.Difficulty.Hell:
+							case ModSettings.GlobalDifficulty.Challenge6:
+							case ModSettings.GlobalDifficulty.Hell:
 								damage = 40000;
 								break;
 						}

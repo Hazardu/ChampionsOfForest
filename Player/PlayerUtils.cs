@@ -94,7 +94,7 @@
 		{
 			float toughness = maxHP + block;
 			toughness /= dmgTaken;
-			toughness /= 1f - CotfUtils.DamageReduction(armor);
+			toughness /= 1f - CotfUtils.GetArmorEffectiveness(armor);
 			toughness /= getHitChance;
 			toughness /= magicDamageTaken / 2f + 0.5f;
 			return toughness;

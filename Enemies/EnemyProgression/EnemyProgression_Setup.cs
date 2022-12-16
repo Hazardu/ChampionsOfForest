@@ -60,14 +60,14 @@ namespace ChampionsOfForest.Enemies
 			DamageOverTimeList = new List<DoT>();
 			abilities = new List<Abilities>();
 
-			bool isElite = (Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && ModSettings.AllowElites;
+			bool isElite = (Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.GlobalDifficulty.Hell) && ModSettings.AllowElites;
 			SetType(ref isElite);
 
 
 			//picking abilities
 			if (isElite)
 			{
-				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? Random.Range(3,   7) : 2;
+				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.GlobalDifficulty.Veteran ? Random.Range(3,   7) : 2;
 				if (AIScript.creepy_boss)
 				{
 					abilityAmount = 10;
@@ -128,7 +128,7 @@ namespace ChampionsOfForest.Enemies
 					}
 					else if (ab == Abilities.ArcaneCataclysm || ab == Abilities.BlackHole || ab == Abilities.FireCataclysm || ab == Abilities.Meteor)
 					{
-						if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Master)
+						if ((int)ModSettings.difficulty < (int)ModSettings.GlobalDifficulty.Master)
 							canAdd = false;
 					}
 					if (abilities.Contains(ab))
@@ -576,56 +576,56 @@ namespace ChampionsOfForest.Enemies
 
 			switch (ModSettings.difficulty)
 			{
-				case ModSettings.Difficulty.Easy:
+				case ModSettings.GlobalDifficulty.Easy:
 					level = Random.Range(1, 4);
 					break;
 
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GlobalDifficulty.Veteran:
 					level = Random.Range(10, 14);
 
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GlobalDifficulty.Elite:
 					level = Random.Range(20, 25);
 
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GlobalDifficulty.Master:
 					level = Random.Range(30, 40);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GlobalDifficulty.Challenge1:
 					level = Random.Range(50, 60);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GlobalDifficulty.Challenge2:
 					level = Random.Range(89, 92);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GlobalDifficulty.Challenge3:
 					level = Random.Range(100, 101);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GlobalDifficulty.Challenge4:
 					level = Random.Range(130, 133);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GlobalDifficulty.Challenge5:
 					level = Random.Range(160, 165);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GlobalDifficulty.Challenge6:
 					level = 200;
 
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GlobalDifficulty.Hell:
 					level = 300;
 
 					break;

@@ -219,7 +219,7 @@ namespace ChampionsOfForest.Network
 
 
 
-		public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, ModSettings.Difficulty difficulty, Vector3 position)
+		public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty, ModSettings.GlobalDifficulty difficulty, Vector3 position)
 		{
 			RCoroutines.Instance.StartCoroutine(RCoroutines.Instance.AsyncSendRandomItemDrops(count, type, bounty, difficulty, position));
 		}

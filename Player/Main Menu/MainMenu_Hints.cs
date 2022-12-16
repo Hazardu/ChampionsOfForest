@@ -57,7 +57,7 @@ ModAPI.Input.GetKeyBindingAsString("EquipWeapon")),
 			new STuple<Func<bool>, string>(()=> true , Translations.MainMenu_Hints_28), //tr
 		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , Translations.MainMenu_Hints_29), //tr
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 35 , Translations.MainMenu_Hints_30), //tr
-			new STuple<Func<bool>, string>(()=> ModSettings.difficulty >= ModSettings.Difficulty.Elite , Translations.MainMenu_Hints_31), //tr
+			new STuple<Func<bool>, string>(()=> ModSettings.difficulty >= ModSettings.GlobalDifficulty.Elite , Translations.MainMenu_Hints_31), //tr
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.Stats.explosionDamage.GetAmount() > 2 , Translations.MainMenu_Hints_32), //tr
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 60 && !PerkDatabase.perks[89].isBought, Translations.MainMenu_Hints_33), //tr
 

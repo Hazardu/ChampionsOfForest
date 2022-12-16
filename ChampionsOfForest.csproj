@@ -21,8 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="BaseModLib">
       <HintPath>../../../libs/BaseModLib.dll</HintPath>
@@ -202,22 +201,22 @@
     <Compile Include="Enemies\enemySearchMod.cs" />
     <Compile Include="Enemies\mutantFamilyMod.cs" />
     <Compile Include="Enemies\MutantTypeSetupEX.cs" />
-    <Compile Include="ExpSources\AnimalExp.cs" />
-    <Compile Include="ExpSources\CutBush2AddExp.cs" />
-    <Compile Include="ExpSources\CutBush3AddExp.cs" />
-    <Compile Include="ExpSources\CutBushAddExp.cs" />
-    <Compile Include="ExpSources\CutEffigyMod.cs" />
-    <Compile Include="ExpSources\ExpEvents.cs" />
-    <Compile Include="ExpSources\FishEX.cs" />
-    <Compile Include="Fun\Cheats.cs" />
-    <Compile Include="Fun\SpaceX.cs" />
-    <Compile Include="Items\MoreCraftingReceipes.cs" />
-    <Compile Include="Items\ItemDataBase_ItemDefinitions.cs" />
-    <Compile Include="Items\ItemDataBase_Loot.cs" />
-    <Compile Include="Items\ItemDataBase_StatDefinitions.cs" />
-    <Compile Include="Items\Sets\ItemSets.cs" />
-    <Compile Include="Items\TheForestItemDBMod.cs" />
-    <Compile Include="Items\UniqueItemFunctions.cs" />
+    <Compile Include="Player\ExpSources\AnimalExp.cs" />
+    <Compile Include="Player\ExpSources\CutBush2AddExp.cs" />
+    <Compile Include="Player\ExpSources\CutBush3AddExp.cs" />
+    <Compile Include="Player\ExpSources\CutBushAddExp.cs" />
+    <Compile Include="Player\ExpSources\CutEffigyMod.cs" />
+    <Compile Include="Player\ExpSources\ExpEvents.cs" />
+    <Compile Include="Player\ExpSources\FishEX.cs" />
+    <Compile Include="Configuration\Cheats.cs" />
+    <Compile Include="Player\Overrides\SpaceX.cs" />
+    <Compile Include="Player\Items\MoreCraftingReceipes.cs" />
+    <Compile Include="Player\Items\ItemDataBase_ItemDefinitions.cs" />
+    <Compile Include="Player\Items\ItemDataBase_Loot.cs" />
+    <Compile Include="Player\Items\ItemDataBase_StatDefinitions.cs" />
+    <Compile Include="Player\Items\Sets\ItemSets.cs" />
+    <Compile Include="Player\Items\TheForestItemDBMod.cs" />
+    <Compile Include="Player\Items\UniqueItemFunctions.cs" />
     <Compile Include="Network\Commands\CommandParams.cs" />
     <Compile Include="Network\Commands\CommandUtils.cs" />
     <Compile Include="Network\ModdedClient.cs" />
@@ -280,7 +279,7 @@
     <Compile Include="Player\Spells\ActiveSpellManager.cs" />
     <Compile Include="Player\Spells\Blink.cs" />
     <Compile Include="Player\Spells\Sanctuary.cs" />
-    <Compile Include="Res\Buildings.cs" />
+    <Compile Include="System\Buildings.cs" />
     <Compile Include="Enemies\EnemyProgression\ClientEnemyProgression.cs" />
     <Compile Include="Effects\EnemyAbilities\MeteorSpawner.cs" />
     <Compile Include="Enemies\EnemyHitTriggerMod.cs" />
@@ -292,18 +291,17 @@
     <Compile Include="Effects\EnemyAbilities\SnowAura.cs" />
     <Compile Include="Effects\EnemyAbilities\TrapSphereSpell.cs" />
     <Compile Include="Enemies\WormHealthMod.cs" />
-    <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Player\Items\BaseItem.cs" />
     <Compile Include="Enemies\EnemyHealthMod.cs" />
     <Compile Include="Enemies\EnemyProgression\EnemyProgression.cs" />
     <Compile Include="Configuration\Initializer.cs" />
-    <Compile Include="Items\Item.cs" />
-    <Compile Include="Items\ItemDataBase.cs" />
-    <Compile Include="Items\ItemPicker.cs" />
-    <Compile Include="Items\ItemPickUp.cs" />
-    <Compile Include="Items\ItemStat.cs" />
-    <Compile Include="Items\PickUpManager.cs" />
-    <Compile Include="Items\StatActions.cs" />
-    <Compile Include="ModReferences.cs" />
+    <Compile Include="Player\Items\Item.cs" />
+    <Compile Include="Player\Items\ItemDataBase.cs" />
+    <Compile Include="Player\Items\ItemPicker.cs" />
+    <Compile Include="Player\Items\ItemPickUp.cs" />
+    <Compile Include="Player\Items\ItemStat.cs" />
+    <Compile Include="Player\Items\PickUpManager.cs" />
+    <Compile Include="Player\Items\StatActions.cs" />
     <Compile Include="ModSettings.cs" />
     <Compile Include="Effects\BlackHole.cs" />
     <Compile Include="Network\CoopServerCallbacksMod.cs" />
@@ -314,7 +312,7 @@
     <Compile Include="Player\CustomWeapon.cs" />
     <Compile Include="Player\Overrides\FPCharacterMod.cs" />
     <Compile Include="Effects\HealingDome.cs" />
-    <Compile Include="Items\Inventory.cs" />
+    <Compile Include="Player\Items\Inventory.cs" />
     <Compile Include="Player\Main Menu\MainMenu.cs" />
     <Compile Include="Network\ChatBoxMod.cs" />
     <Compile Include="Network\NetworkManager.cs" />
@@ -328,12 +326,13 @@
     <Compile Include="Player\Spells\SpellCaster.cs" />
     <Compile Include="Player\Spells\SpellDataBase.cs" />
     <Compile Include="Player\Overrides\WeaponInfoMod.cs" />
-    <Compile Include="Res\Resource.cs" />
-    <Compile Include="Res\ResourceInitializer.cs" />
-    <Compile Include="Res\ResourceLoader.cs" />
+    <Compile Include="System\ModResource.cs" />
+    <Compile Include="System\ResourceInitializer.cs" />
+    <Compile Include="System\ResourceList.cs" />
+    <Compile Include="System\ResourceLoader.cs" />
     <Compile Include="Serializer.cs" />
-    <Compile Include="TranslationManager.cs" />
-    <Compile Include="Translations.cs" />
+    <Compile Include="Configuration\Localization\TranslationManager.cs" />
+    <Compile Include="Configuration\Localization\Translations.cs" />
     <Compile Include="Player\Overrides\TrapHitMod.cs" />
     <Compile Include="Player\Overrides\TrapTriggerMod.cs" />
   </ItemGroup>

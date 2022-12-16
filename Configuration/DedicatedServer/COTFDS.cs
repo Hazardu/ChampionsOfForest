@@ -16,7 +16,7 @@ namespace ChampionsOfForest.DedicatedServer
 				var difficultyRegex = new Regex(@"(?<=Difficulty=)\d+");
 				var friendlyFireRegex = new Regex(@"(?<=FriendlyFire=)\d+");
 
-				ModSettings.difficulty = (ModSettings.Difficulty)(int.Parse(difficultyRegex.Match(content).Value));
+				ModSettings.difficulty = (ModSettings.GlobalDifficulty)(int.Parse(difficultyRegex.Match(content).Value));
 				ModSettings.FriendlyFire = difficultyRegex.Match(content).Value == "1";
 				ModSettings.DifficultyChosen = true;
 			}
