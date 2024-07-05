@@ -366,6 +366,7 @@ namespace ChampionsOfForest
 				DropLoot();
 				if (GameSetup.IsMpServer)
 				{
+					ModAPI.Console.Write("There are " + ModReferences.Players.Count + " players on the server");
 					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 					{
 						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -402,12 +403,12 @@ namespace ChampionsOfForest
 				int itemCount = Random.Range(2, 4);
 				if (AIScript.creepy_boss)
 				{
-					itemCount += 30;
+					itemCount += 100;
 					int pc = ModReferences.Players.Count;
 					for (int i = 0; i < pc; i++)
 					{
 						//Drop megan only amulet
-						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80], 1, -1), transform.position + Vector3.up * 3, ItemPickUp.DropSource.EnemyOnDeath);
+						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80]), LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.EnemyOnDeath);
 					}
 				}
 				else if (abilities.Count >= 3)
@@ -831,12 +832,12 @@ namespace ChampionsOfForest
 
 					if (blackholeCD <= 0)
 					{
-						SetAbilityCooldown(1.0f, 2f);
+						SetAbilityCooldown(1.0f, 3f);
 
-						float damage = Mathf.Pow(level, 2f) * 10;
-						float duration = 7.5f;
-						float radius = 21 + 3 * level / 14;
-						float pullforce = 35;
+						float damage = Mathf.Pow(level, 1.7f) * 10;
+						float duration = 5.5f;
+						float radius = 21 + 2 * Mathf.Sqrt(level);
+						float pullforce = 30;
 						if (BoltNetwork.isRunning)
 						{
 							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())

@@ -268,25 +268,34 @@ namespace ChampionsOfForest
 		{
 			Slow(143, slowAmount, duration);
 			DmgTakenDebuff(143, 1.75f, duration);
-			setup.ai?.resetCombatParams();
-
-			this.setup.pmCombat.enabled = true;
-			if (setup.aiManager)
+			try
 			{
-				this.setup.aiManager.setAggressiveCombat();
-				this.setup.aiManager.setCaveCombat();   //the most agressive combat mode
+			
+				setup.ai?.resetCombatParams();
+
+				this.setup.pmCombat.enabled = true;
+				if (setup.aiManager)
+				{
+					this.setup.aiManager.setAggressiveCombat();
+					this.setup.aiManager.setCaveCombat();   //the most agressive combat mode
+				}
+				if (setup.pmBrain)
+				{
+					this.setup.pmBrain.SendEvent("toSetAggressive");
+					this.setup.pmBrain.SendEvent("toActivateFSM");
+					this.setup.pmBrain.FsmVariables.GetFsmBool("playerIsRed").Value = false;
+				}
+				if(setup.worldSearch)
+					setup.worldSearch.setEncounterType();
+				if (setup.familyFunctions)
+					setup.familyFunctions.SendMessage("TauntFamily", duration);
+				if(setup.search)
+					setup.search.GetComponent<Enemies.enemySearchMod>()?.Taunt(player, duration);
 			}
-			if (setup.pmBrain)
+			catch (System.Exception ex)
 			{
-				this.setup.pmBrain.SendEvent("toSetAggressive");
-				this.setup.pmBrain.SendEvent("toActivateFSM");
-				this.setup.pmBrain.FsmVariables.GetFsmBool("playerIsRed").Value = false;
+
 			}
-			setup.worldSearch?.setEncounterType();
-			setup.familyFunctions?.SendMessage("TauntFamily", duration);
-
-			setup.search?.GetComponent<Enemies.enemySearchMod>()?.Taunt(player, duration);
-
 		}
 	}
 }

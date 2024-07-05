@@ -6,8 +6,8 @@ namespace ChampionsOfForest.Player
 	{
 		public class ModdedPlayerStats
 		{
-			public const float baseHealth = 50f;
-			public const float baseEnergy = 50f;
+			public const float baseHealth = 100f;
+			public const float baseEnergy = 100f;
 			public const float baseStaminaRecovery = 4f;
 
 			public readonly AdditivePlayerStat<int> strength;
@@ -238,6 +238,7 @@ namespace ChampionsOfForest.Player
 			public readonly MultiplicativePlayerStat<float> spell_taunt_speedChange;
 			public readonly BooleanPlayerStat spell_taunt_pullEnemiesIn;
 			//snow storm
+			public readonly AdditivePlayerStat<float> spell_snowstormDmgScaling;
 			public readonly AdditivePlayerStat<float> spell_snowstormMaxCharge;
 			public readonly AdditivePlayerStat<float> spell_snowstormDamageMult;
 			public readonly MultiplicativePlayerStat<float> spell_snowstormHitDelay;
@@ -279,6 +280,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat perk_isShieldAutocast;
 			public readonly BooleanPlayerStat perk_parryAnything;
 			public readonly BooleanPlayerStat perk_blackholePullImmune;
+			public readonly MultiplicativePlayerStat<float> perk_meteorDamageTaken;
 			public readonly BooleanPlayerStat perk_blizzardSlowReduced;
 			public readonly BooleanPlayerStat perk_trueAim;
 			public readonly BooleanPlayerStat perk_trueAimUpgrade;
@@ -294,6 +296,7 @@ namespace ChampionsOfForest.Player
 			public readonly BooleanPlayerStat perk_danceOfFiregodAtkCap;
 			public readonly BooleanPlayerStat perk_doubleStickHarvesting;
 			public readonly BooleanPlayerStat perk_chargedAtkKnockback;
+
 
 			//items
 			public readonly BooleanPlayerStat i_greatBowIgnites;
@@ -418,8 +421,8 @@ namespace ChampionsOfForest.Player
 				//spells
 
 				//blink
-				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(10.0f, addfloat, substractfloat);
-				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(1f, addfloat, substractfloat, "P0");
+				this.spell_fireboltEnergyCost = new AdditivePlayerStat<float>(5.0f, addfloat, substractfloat);
+				this.spell_fireboltDamageScaling = new AdditivePlayerStat<float>(1.2f, addfloat, substractfloat, "P0");
 				this.spell_blinkRange = new AdditivePlayerStat<float>(15.0f, addfloat, substractfloat);
 				this.spell_blinkDamageScaling = new AdditivePlayerStat<float>(3.0f, addfloat, substractfloat, "P0");
 				this.spell_blinkDamage = new AdditivePlayerStat<float>(0, addfloat, substractfloat);
@@ -546,7 +549,7 @@ namespace ChampionsOfForest.Player
 				this.spell_fartRadius = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartKnockback = new AdditivePlayerStat<float>(2f, addfloat, substractfloat);
 				this.spell_fartSlow = new AdditivePlayerStat<float>(0.8f, addfloat, substractfloat, "P0");
-				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(25f, addfloat, substractfloat);
+				this.spell_fartDebuffDuration = new AdditivePlayerStat<float>(30f, addfloat, substractfloat);
 				this.spell_fartBaseDmg = new AdditivePlayerStat<float>(50f, addfloat, substractfloat);
 				this.spell_fartDamageScaling = new AdditivePlayerStat<float>(5f, addfloat, substractfloat);
 				//taunt
@@ -554,6 +557,7 @@ namespace ChampionsOfForest.Player
 				this.spell_taunt_pullEnemiesIn = new BooleanPlayerStat(false);
 
 				this.spell_snowstormMaxCharge = new AdditivePlayerStat<float>(10, addfloat, substractfloat);
+				this.spell_snowstormDmgScaling = new AdditivePlayerStat<float>(0.4f, addfloat, substractfloat);
 				this.spell_snowstormDamageMult = new AdditivePlayerStat<float>(1, addfloat, substractfloat, "P0");
 				this.spell_snowstormHitDelay = new MultiplicativePlayerStat<float>(0.5f, multfloat, dividefloat);
 				this.spell_snowstormPullEnemiesIn = new BooleanPlayerStat(false);
@@ -570,6 +574,7 @@ namespace ChampionsOfForest.Player
 				this.perk_turboRaftOwners = new AdditiveNetworkSyncedPlayerStat<int>(0, addint, substractint);
 				this.perk_RaftSpeedMultipier = new AdditiveNetworkSyncedPlayerStat<float>(0, addfloat, dividefloat, "P0");
 				this.perk_thirstRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
+				this.perk_meteorDamageTaken = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_hungerRate = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
 				this.perk_projectileNoConsumeChance = new AdditivePlayerStat<float>(0f, addfloat, substractfloat, "P0");
 				this.perk_thrownSpearDamageMult = new MultiplicativePlayerStat<float>(1, multfloat, dividefloat, "P0");
@@ -674,7 +679,7 @@ namespace ChampionsOfForest.Player
 
 
 			public float MeleeDamageMult => allDamage.Value * meleeIncreasedDmg.Value * (1 + (strength * meleeDmgFromStr));
-			public float RangedDamageMult => allDamage.Value * rangedIncreasedDmg.Value * (1 + (agility * rangedDmgFromAgi)) * (perk_projectileDamageIncreasedBySize ? 1 + (projectileSize.Value - 1) * 2 : 1f);
+			public float RangedDamageMult => allDamage.Value * rangedIncreasedDmg.Value * (1 + (agility * rangedDmgFromAgi)) * (perk_projectileDamageIncreasedBySize ? 1 + (projectileSize.Value - 1) : 1f);
 			public float SpellDamageMult => allDamage.Value * spellIncreasedDmg.Value * (1 + intelligence * spellDmgFromInt);
 
 			public int TotalMeleeArmorPiercing => allArmorPiercing + meleeArmorPiercing;

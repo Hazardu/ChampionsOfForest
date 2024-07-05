@@ -61,7 +61,7 @@ namespace ChampionsOfForest.Effects
 		private void Update()
 		{
 			timeShift += Time.deltaTime * 2.3f;
-			transform.localScale = Vector3.one * (radius + Mathf.Sin(timeShift * 3.14f * 6f));
+			transform.localScale = Vector3.one * (radius + Mathf.Sin(timeShift * 0.8f)/4f);
 
 			if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < radius * radius)
 			{

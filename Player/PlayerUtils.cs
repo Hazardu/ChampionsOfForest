@@ -45,7 +45,7 @@
 			if (greatbow)
 				dps *= 1.75f;
 			dps *= atkSpeed * ModdedPlayer.Stats.attackSpeed;
-			dps *= 1 + (ModdedPlayer.Stats.critChance * ModdedPlayer.Stats.critDamage + (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed.value ? (ModdedPlayer.Stats.projectileSize - 1) * 2.5f : 0));
+			dps *= 1 + (ModdedPlayer.Stats.critChance * ModdedPlayer.Stats.critDamage + (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySpeed.value ? (ModdedPlayer.Stats.projectileSpeed - 1) * 1f : 0));
 
 			return dps;
 		}

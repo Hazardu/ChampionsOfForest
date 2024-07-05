@@ -204,35 +204,35 @@ namespace ChampionsOfForest
 			switch (this.type)
 			{
 				case BaseItem.ItemType.Shield:
-					return Translations.Item_1/*og:Shield*/;    //tr
+					return Translations.Item_1/*Shield*/;    //tr
 				case BaseItem.ItemType.Quiver:
-					return Translations.Item_2/*og:Quiver*/;    //tr
+					return Translations.Item_2/*Quiver*/;    //tr
 				case BaseItem.ItemType.Weapon:
-					return Translations.Item_3/*og:Weapon*/;    //tr
+					return Translations.Item_3/*Weapon*/;    //tr
 				case BaseItem.ItemType.Other:
-					return Translations.Item_4/*og:Other*/; //tr
+					return Translations.Item_4/*Other*/; //tr
 				case BaseItem.ItemType.Material:
-					return Translations.Item_5/*og:Material*/;      //tr
+					return Translations.Item_5/*Material*/;      //tr
 				case BaseItem.ItemType.Helmet:
-					return Translations.Item_6/*og:Helmet*/;    //tr
+					return Translations.Item_6/*Helmet*/;    //tr
 				case BaseItem.ItemType.Boot:
-					return Translations.Item_7/*og:Boots*/; //tr
+					return Translations.Item_7/*Boots*/; //tr
 				case BaseItem.ItemType.Pants:
-					return Translations.Item_8/*og:Pants*/; //tr
+					return Translations.Item_8/*Pants*/; //tr
 				case BaseItem.ItemType.ChestArmor:
-					return Translations.Item_9/*og:Chest armor*/;   //tr
+					return Translations.Item_9/*Chest armor*/;   //tr
 				case BaseItem.ItemType.ShoulderArmor:
-					return Translations.Item_10/*og:Shoulder armor*/;    //tr
+					return Translations.Item_10/*Shoulder armor*/;    //tr
 				case BaseItem.ItemType.Glove:
-					return Translations.Item_11/*og:Gloves*/;    //tr
+					return Translations.Item_11/*Gloves*/;    //tr
 				case BaseItem.ItemType.Bracer:
-					return Translations.Item_12/*og:Bracers*/;   //tr
+					return Translations.Item_12/*Bracers*/;   //tr
 				case BaseItem.ItemType.Amulet:
-					return Translations.Item_13/*og:Amulet*/;    //tr
+					return Translations.Item_13/*Amulet*/;    //tr
 				case BaseItem.ItemType.Ring:
-					return Translations.Item_14/*og:Ring*/;  //tr
+					return Translations.Item_14/*Ring*/;  //tr
 				case BaseItem.ItemType.SpellScroll:
-					return Translations.Item_15/*og:Scroll*/;    //tr		
+					return Translations.Item_15/*Scroll*/;    //tr		
 				default:
 					return type.ToString();
 			}

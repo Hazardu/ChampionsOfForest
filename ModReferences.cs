@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ModAPI;
+
 using TheForest.Utils;
 
 using UnityEngine;
@@ -47,6 +49,7 @@ namespace ChampionsOfForest
 				{
 					InvokeRepeating("UpdateLevelData", 1, 1);
 				}
+				PlayerLevels.Clear();
 			}
 			else
 			{
@@ -96,6 +99,8 @@ namespace ChampionsOfForest
 		}
 		public static void RemoveUnusedPlayerLevels()
 		{
+			//todo fix this
+
 			List<string> stringsToRemove = new List<string>();
 			foreach (var item in PlayerLevels)
 			{
@@ -104,10 +109,11 @@ namespace ChampionsOfForest
 					stringsToRemove.Add(item.Key);
 				}
 			}
-			foreach (var item in stringsToRemove)
-			{
-				PlayerLevels.Remove(item);
-			}
+			ModAPI.Console.Write("Removing old player level data: count=" + stringsToRemove.Count);
+			//foreach (var item in stringsToRemove)
+			//{
+			//	PlayerLevels.Remove(item);
+			//}
 		}
 
 		public static void RequestAllPlayerLevels()
@@ -177,10 +183,14 @@ namespace ChampionsOfForest
 			}
 			else
 			{
-				PlayerLevels.Clear();
+				//PlayerLevels.Clear();
 			}
 		}
-
+		public static void Reset()
+		{
+			instance.MFindRequestCooldown = 0;
+			instance.LevelRequestCooldown= 0;
+		} 
 		public static void Host_RequestLevels()
 		{
 			if (GameSetup.IsMpServer)

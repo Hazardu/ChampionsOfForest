@@ -167,8 +167,7 @@ namespace ChampionsOfForest
 		{
 			int dif = (int)difficulty;
 			int rarity = 0;
-			float mf = ModdedPlayer.Stats.magicFind.Value - 1;
-			mf /= 2f;
+			float mf = Mathf.Sqrt(ModdedPlayer.Stats.magicFind.Value) - 1;
 			if ((w > 20 && Random.value < 0.70f + 0.45 * mf + dif * 0.075) || (dif > 5 && w > 2000))
 			{
 				rarity = 1;
@@ -196,7 +195,7 @@ namespace ChampionsOfForest
 												if (dif > 3 || Random.value < 0.05f)
 												{
 													rarity = 6;
-													if (w > 5000 && (Random.value < 0.04f + 0.025 * mf))
+													if (w > 5000 && (Random.value < 0.04f + 0.01 * mf))
 													{
 														if (dif > 4 || Random.value < 0.001f)
 														{

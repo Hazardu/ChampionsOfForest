@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using ChampionsOfForest.Player;
@@ -18,13 +19,14 @@ namespace ChampionsOfForest.Effects
 		private static Material mat1;
 		private static Material mat2;
 		public static GameObject instanceLocalPlayer;
+		public static Component[] particleSystems;
 
 		public static bool GiveDamageBuff;
 		public static bool GiveAfterburn;
 		public const float afterburn_duration = 20f,
 			afterburn_debuff_amount = 1.8f,
 			afterburn_chance = 0.10f;
-		public static GameObject Create()
+		public static STuple<GameObject, Component[]> Create()
 		{
 			AnimationCurve sizecurve = new AnimationCurve(new Keyframe(0, 0, 5.129462f, 5.129462f), new Keyframe(0.2449522f, 1, 0, 0), new Keyframe(1, 0, -1.242162f, -1.242162f));
 			if (mat1 == null)
@@ -43,8 +45,9 @@ namespace ChampionsOfForest.Effects
 			}
 
 			GameObject go = new GameObject("__BlackFlames__");
-
+			Component[] comps = new Component[2];
 			ParticleSystem ps = go.AddComponent<ParticleSystem>();
+			comps[0] = ps;
 			ParticleSystem.MainModule main = ps.main;
 			ParticleSystem.EmissionModule emission = ps.emission;
 			ParticleSystem.ShapeModule shape = ps.shape;
@@ -77,6 +80,7 @@ namespace ChampionsOfForest.Effects
 
 			GameObject go2 = GameObject.Instantiate(go, go.transform);
 			ParticleSystem ps2 = go.GetComponent<ParticleSystem>();
+			comps[1] = ps2;
 			ParticleSystemRenderer rend2 = go.GetComponent<ParticleSystemRenderer>();
 			ParticleSystem.MainModule main2 = ps2.main;
 			main2.startColor = new Color(0, 0.15f, 1, 0.623f);
@@ -91,9 +95,9 @@ namespace ChampionsOfForest.Effects
 			light.type = LightType.Point;
 			light.range = 20;
 			light.color = new Color(0.6f, 0.3f, 1f);
-			light.intensity = 0.6f;
+			light.intensity = 0.4f;
 
-			return go;
+			return new STuple<GameObject, Component[]>(go, comps);
 		}
 
 		public static bool IsOn = false;
@@ -118,7 +122,9 @@ namespace ChampionsOfForest.Effects
 			yield return null;
 			if (instanceLocalPlayer == null)
 			{
-				instanceLocalPlayer = Create();
+				var created = Create();
+				instanceLocalPlayer = created.item0;
+				particleSystems = created.item1;
 				instanceLocalPlayer.transform.position = ModReferences.rightHandTransform.position;
 				instanceLocalPlayer.transform.rotation = ModReferences.rightHandTransform.rotation;
 				instanceLocalPlayer.transform.parent = ModReferences.rightHandTransform;
@@ -130,8 +136,8 @@ namespace ChampionsOfForest.Effects
 		{
 			if (IsOn)
 			{
-				if (ModdedPlayer.Stats.perk_danceOfFiregod)
-					SpellCaster.RemoveStamina(Cost * 0.75f * LocalPlayer.Rigidbody.velocity.magnitude * Time.deltaTime);
+				if (ModdedPlayer.Stats.perk_danceOfFiregod.value)
+					SpellCaster.RemoveStamina(Cost * 0.75f * Math.Max(LocalPlayer.Rigidbody.velocity.magnitude,0.5f) * Time.deltaTime);
 				else
 					SpellCaster.RemoveStamina(Cost * Time.deltaTime);
 				if (LocalPlayer.Stats.Stamina < 5)
@@ -149,6 +155,20 @@ namespace ChampionsOfForest.Effects
 		{
 			IsOn = !IsOn;
 			instanceLocalPlayer.SetActive(IsOn);
+			if (MainMenu.Instance.HideObtrusiveSkillEffects)
+			{
+				foreach (var ps in particleSystems)
+				{
+					ps.SetActiveSelfSafe(false);
+				}
+			}
+			else
+			{
+				foreach (var ps in particleSystems)
+				{
+					ps.SetActiveSelfSafe(IsOn);
+				}
+			}
 			if (BoltNetwork.isRunning)
 			{
 				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -185,7 +205,7 @@ namespace ChampionsOfForest.Effects
 				}
 				else
 				{
-					GameObject go = Create();
+					GameObject go = Create().item0;
 					go.transform.parent = t;
 
 					go.transform.position = t.position;

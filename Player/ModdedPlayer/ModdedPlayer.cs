@@ -862,6 +862,7 @@ namespace ChampionsOfForest.Player
 						activeBuffs[98].amount = 0;
 				}
 			}
+			
 		}
 
 		public int FurySwipesDmg;

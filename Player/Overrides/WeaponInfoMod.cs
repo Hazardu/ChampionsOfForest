@@ -139,7 +139,6 @@ namespace ChampionsOfForest.Player
 				
 				ModdedPlayer.instance.OnHit();
 				ModdedPlayer.instance.OnHit_Melee(other.transform);
-
 				if (GameSetup.IsMpClient)
 				{
 					BoltEntity entity = other.GetComponentInParent<BoltEntity>();
@@ -164,6 +163,7 @@ namespace ChampionsOfForest.Player
 							COTFEvents.Instance.OnIgniteMelee.Invoke();
 						phe.explosion = fsmJumpAttackBool.Value && LocalPlayer.FpCharacter.jumpingTimer > 1.2f && !chainSaw;
 						phe.Send();
+						ModdedPlayer.instance.OnHitEffectsClient(entity, outputdmg);
 
 						ulong packed = entity.networkId.PackedValue;
 						if (ModdedPlayer.Stats.TotalMeleeArmorPiercing > 0)
@@ -180,7 +180,7 @@ namespace ChampionsOfForest.Player
 									w.Write(dir.x);
 									w.Write(dir.y);
 									w.Write(dir.z);
-									w.Write(1f);
+									w.Write(6f);
 									w.Close();
 								}
 								NetworkManager.SendLine(stream.ToArray(), NetworkManager.Target.OnlyServer);
@@ -284,6 +284,7 @@ namespace ChampionsOfForest.Player
 
 
 						progression.HitPhysical(outputdmg);
+						ModdedPlayer.instance.OnHitEffectsHost(progression, outputdmg);
 
 						progression.HealthScript.getCombo(3);
 						var hitDirection = animator.GetInteger("hitDirection");
@@ -302,7 +303,7 @@ namespace ChampionsOfForest.Player
 						if ((hitReactions.kingHitBool || fsmHeavyAttackBool.Value) && ModdedPlayer.Stats.perk_chargedAtkKnockback)
 						{
 							Vector3 dir = other.transform.position - LocalPlayer.Transform.position;
-							progression.AddKnockbackByDistance(dir, 1);
+							progression.AddKnockbackByDistance(dir, 6);
 						}
 
 						if (BlackFlame.IsOn)

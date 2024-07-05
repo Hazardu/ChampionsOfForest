@@ -55,31 +55,31 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 					break;
 
 				case ModSettings.Difficulty.Challenge1:
-					Damage = 10000;
+					Damage = 3000;
 					break;
 
 				case ModSettings.Difficulty.Challenge2:
-					Damage = 20000;
+					Damage = 9000;
 					break;
 
 				case ModSettings.Difficulty.Challenge3:
-					Damage = 40000;
+					Damage = 14000;
 					break;
 
 				case ModSettings.Difficulty.Challenge4:
-					Damage = 80000;
+					Damage = 25000;
 					break;
 
 				case ModSettings.Difficulty.Challenge5:
-					Damage = 90000;
+					Damage = 50000;
 					break;
 
 				case ModSettings.Difficulty.Challenge6:
-					Damage = 100000;
+					Damage = 65000;
 					break;
 
 				case ModSettings.Difficulty.Hell:
-					Damage = 110000;
+					Damage = 75000;
 					break;
 			}
 
@@ -96,8 +96,10 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			for (int i = 0; i < x; i++)
 			{
 				GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				go.transform.localScale *= 5.5f;
+				go.transform.localScale *= 4f;
+
 				Light l = go.AddComponent<Light>();
+				l.type = LightType.Spot;
 				l.intensity = 1.3f;
 				l.range = 40;
 				l.color = Color.red;
@@ -108,7 +110,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 				Meteor metorComponent = go.AddComponent<Meteor>();
 				metorComponent.Damage = Damage;
 				metorComponent.soundEmitter = emitter;
-				yield return new WaitForSeconds((float)random.Next(10, 35) / 100f);
+				yield return new WaitForSeconds((float)random.Next(10, 45) / 100f);
 			}
 		}
 	}

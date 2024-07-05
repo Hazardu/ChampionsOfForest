@@ -14,8 +14,10 @@ namespace ChampionsOfForest.Player
 		public bool isApplied = false;
 
 		public delegate void OnApply();
+		public delegate bool CanBuy();
 
 		public OnApply onApply;
+		public CanBuy canBuy;
 
 		public delegate string OnPucharseDescriptionUpdate(int level);
 
@@ -64,6 +66,7 @@ namespace ChampionsOfForest.Player
 			id = PerkDatabase.perks.Count;
 			isApplied = false;
 			PerkDatabase.perks.Add(this);
+			canBuy = null;
 		}
 
 		public Perk()
@@ -72,6 +75,8 @@ namespace ChampionsOfForest.Player
 
 			id = PerkDatabase.perks.Count;
 			PerkDatabase.perks.Add(this);
+			canBuy = null;
+
 		}
 
 		public Perk(string name, string description, int inheritIDs, float x, float y, PerkCategory category, float size, int levelRequirement, OnApply applyMethods)
@@ -89,6 +94,8 @@ namespace ChampionsOfForest.Player
 			id = PerkDatabase.perks.Count;
 			isApplied = false;
 			PerkDatabase.perks.Add(this);
+			canBuy = null;
+
 		}
 
 		public void OnBuy()

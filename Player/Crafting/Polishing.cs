@@ -69,7 +69,7 @@ namespace ChampionsOfForest.Player.Crafting
 
 			public void DrawUI(in float x, in float w, in float screenScale, in GUIStyle[] styles)
 			{
-				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), Translations.Polishing_1/*og:Item to enhance a stat*/, styles[3]); //tr
+				GUI.Label(new Rect(x, (CustomCrafting.CRAFTINGBAR_HEIGHT + 5) * screenScale, w, 26 * screenScale), Translations.Polishing_1/*Item to enhance a stat*/, styles[3]); //tr
 				MainMenu.Instance.CraftingIngredientBox(new Rect(x + w / 2 - 75 * screenScale, (CustomCrafting.CRAFTINGBAR_HEIGHT + 40) * screenScale, 150 * screenScale, 150 * screenScale), CustomCrafting.instance.changedItem);
 				float ypos = (CustomCrafting.CRAFTINGBAR_HEIGHT + 190) * screenScale;
 				if (CustomCrafting.instance.changedItem.i != null)
@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player.Crafting
 						if (validRecipe)
 						{
 
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*og:Empty socket*/ : Translations.Polishing_2/*og:Reroll stat value*/, styles[2])) //tr
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*Empty socket*/ : Translations.Polishing_2/*Reroll stat value*/, styles[2])) //tr
 							{
 								Craft();
 							}
@@ -129,7 +129,7 @@ namespace ChampionsOfForest.Player.Crafting
 						else
 						{
 							GUI.color = Color.gray;
-							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), Translations.IndividualRerolling_4/*og:Select a Stat*/, styles[2]); //tr
+							GUI.Label(new Rect(x, ypos, w, 40 * screenScale), Translations.IndividualRerolling_4/*Select a Stat*/, styles[2]); //tr
 							GUI.color = Color.white;
 							ypos += 50 * screenScale;
 						}

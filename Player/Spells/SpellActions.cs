@@ -1024,7 +1024,7 @@ portal_postPickingPos:
 		public static void CastCataclysm()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
-			BuffDB.AddBuff(1, 66, 0.1f, 2.5f);
+			BuffDB.AddBuff(1, 66, 0.025f, 2f);
 			float dmg = ModdedPlayer.Stats.spell_cataclysmDamage + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_cataclysmDamageScaling;
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.fireDamage;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -1064,7 +1064,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.spell_bia_TripleDmg)
 			{
 				ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive *= 3;
-				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy / 100, 10);
+				BuffDB.AddBuff(18, 95, ModdedPlayer.Stats.TotalMaxEnergy * ModdedPlayer.Stats.spellCost / 1000f, 10);
 			}
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;

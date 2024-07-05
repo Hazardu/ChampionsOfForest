@@ -238,7 +238,7 @@ namespace ChampionsOfForest
 				}
 
 				ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
-				pickup.lifetime = (int)dropSource;
+				pickup.lifetime = (int)dropSource + item.Rarity * item.Rarity * 2;
 				pickup.item = item;
 				pickup.amount = amount;
 				pickup.ID = id;

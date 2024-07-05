@@ -49,7 +49,7 @@ namespace ChampionsOfForest
 		public static float EnemySpeedMultiplier = 1;
 		public static bool AllowElites = true;
 		public static LootLevelPolicy lootLevelPolicy = LootLevelPolicy.HighestPlayerLevel;
-
+		public static int LootFilterMinRarity = 0;
 		public static void Reset()
 		{
 			DropQuantityMultiplier = 1;
@@ -66,7 +66,7 @@ namespace ChampionsOfForest
 			AllowCaveRespawn = true;
 			CaveMaxAdditionalEnemies = 1;
 			CaveRespawnDelay = 1;
-
+			LootFilterMinRarity = 0;
 		}
 
 
@@ -115,6 +115,7 @@ namespace ChampionsOfForest
 					buf.Write(AllowCaveRespawn);
 					buf.Write(CaveMaxAdditionalEnemies);
 					buf.Write(CaveRespawnDelay);
+					buf.Write(LootFilterMinRarity);
 					File.WriteAllBytes(PATH, stream.ToArray());
 				}
 			}
@@ -145,6 +146,7 @@ namespace ChampionsOfForest
 							AllowCaveRespawn = buf.ReadBoolean();
 							CaveMaxAdditionalEnemies = buf.ReadInt32();
 							CaveRespawnDelay = buf.ReadSingle();
+							LootFilterMinRarity = buf.ReadInt32();
 						}
 					}
 				}

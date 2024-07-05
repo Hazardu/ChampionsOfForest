@@ -30,7 +30,6 @@ namespace ChampionsOfForest
 			PlayerDeath = 900,
 			Effigy = 30,
 		}
-
 		private void Start()
 		{
 			if (mainCam == null)
@@ -51,7 +50,7 @@ namespace ChampionsOfForest
 			rb.drag = 2.1f;
 			rb.angularDrag = 0.01f;
 			rb.isKinematic = true;
-			Invoke("UnlockPhysics", 1f);
+			Invoke("UnlockPhysics", 0.5f + Random.value);
 			src = gameObject.AddComponent<AudioSource>();
 			src.spatialBlend = 1f;
 			src.maxDistance = 150f;
@@ -103,7 +102,10 @@ namespace ChampionsOfForest
 				{
 					if (lifetime < 61)
 					{
-						GUI.DrawTexture(new Rect(r.x, r.y, r.width * lifetime / 60f, 14 * MainMenu.Instance.screenScale), Texture2D.whiteTexture);
+
+						Rect expirationRect = new Rect(r.x, r.y, r.width * lifetime / 60f, 14 * MainMenu.Instance.screenScale);
+						GUI.DrawTexture(expirationRect, Texture2D.whiteTexture);
+						GUI.Label(new Rect(r.x, r.y, r.width, 14 * MainMenu.Instance.screenScale), "disappearing in " + lifetime.ToString("N") + "s", new GUIStyle(GUI.skin.label) { font = MainMenu.Instance.mainFont, fontSize = Mathf.RoundToInt(11 * MainMenu.Instance.screenScale), alignment = TextAnchor.UpperCenter });
 					}
 				}
 
@@ -171,7 +173,8 @@ namespace ChampionsOfForest
 
 		public void OnDestroy()
 		{
-			GlobalSFX.Play(GlobalSFX.SFX.Pickup);
+			if((LocalPlayer.Transform.position-transform.position).sqrMagnitude < 250f)
+				GlobalSFX.Play(GlobalSFX.SFX.Pickup);
 		}
 
 		private void Update()

@@ -81,7 +81,7 @@ namespace ChampionsOfForest
 			if (FromEnemy)
 			{
 				transform.localScale = Vector3.zero;
-				yield return new WaitForSeconds(1.5f);
+				yield return new WaitForSeconds(1.7f);
 			}
 			Destroy(gameObject, duration);
 			if (!FromEnemy && !GameSetup.IsMpClient)
@@ -205,7 +205,10 @@ namespace ChampionsOfForest
 			{
 				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
 				{
-					LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.magicDamageTaken * 0.5f);
+					if (Random.value <= ModdedPlayer.Stats.getHitChance)
+						LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.magicDamageTaken * 0.5f);
+					else
+						COTFEvents.Instance.OnDodge.Invoke();
 					yield return new WaitForSeconds(0.5f);
 				}
 				else

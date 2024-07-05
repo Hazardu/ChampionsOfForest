@@ -118,7 +118,7 @@ namespace ChampionsOfForest
 				//model = Instantiate(modelPrefab);
 				model = new GameObject();
 				model.transform.parent = bow.parent;
-				model.transform.localScale = Vector3.one * 1.5f;
+				model.transform.localScale = Vector3.one * 1.4f;
 				model.transform.localPosition = new Vector3(0, 0, 0.3f);
 				model.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
@@ -127,11 +127,10 @@ namespace ChampionsOfForest
 				Core.CreateMaterial(new BuildingData()
 				{
 					BumpMap = Res.ResourceLoader.GetTexture(168),
-					BumpScale = 1.4f,
-					Metalic = 0.6f,
-					Smoothness = 0.6f,
+					BumpScale = 1.2f,
+					Metalic = 0.84f,
+					Smoothness = 0.7f,
 					MainTexture = Res.ResourceLoader.GetTexture(169),
-					EmissionMap = Res.ResourceLoader.GetTexture(169),
 				});
 
 				Destroy(bow.gameObject);

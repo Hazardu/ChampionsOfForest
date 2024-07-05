@@ -88,7 +88,7 @@ namespace ChampionsOfForest.Player
 					var customPickup = hit[i].transform.gameObject.GetComponent<ItemPickUp>();
 					if (customPickup != null)
 					{
-						if(customPickup.item.Rarity>= minRarity)
+						if(customPickup.item.Rarity>= minRarity || customPickup.item.type == BaseItem.ItemType.Material || customPickup.item.type == BaseItem.ItemType.Other)
 							customPickup.PickUp();
 					}
 				}

@@ -113,8 +113,8 @@ namespace ChampionsOfForest.Effects
 					{
 						if (pullIn)
 						{
-							enemy.AddKnockbackByDistance(pos - enemy.transform.position, Vector3.Distance(pos, enemy.transform.position) * 2);
-							enemy.Taunt(player, duration, slow/2f);
+							enemy.AddKnockbackByDistance(pos - enemy.transform.position, Vector3.Distance(pos, enemy.transform.position) * 1.1f);
+							enemy.Taunt(player, duration, slow);
 
 						}
 						else

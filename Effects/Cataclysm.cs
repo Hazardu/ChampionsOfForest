@@ -115,7 +115,10 @@ namespace ChampionsOfForest.Effects
 				{
 					if (isFromEnemy)
 					{
-						SendHitFromEnemy();
+						if (UnityEngine.Random.value <= ModdedPlayer.Stats.getHitChance)
+							SendHitFromEnemy();
+						else
+							COTFEvents.Instance.OnDodge.Invoke();
 					}
 					else if (!BoltNetwork.isClient)
 					{

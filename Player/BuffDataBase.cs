@@ -41,6 +41,8 @@ namespace ChampionsOfForest.Player
 			DODGE_CHANCE,
 			COOLDOWN_RATE,
 			RESOURCE_COST,
+			ENERGY_REGEN
+
 		}
 
 
@@ -210,7 +212,7 @@ namespace ChampionsOfForest.Player
 				new Buff(30, 151, "Cooldown Rate", false, false, 0, f => ModdedPlayer.Stats.cooldownRate.Divide(f), f => ModdedPlayer.Stats.cooldownRate.Multiply(f)) { DisplayAsPercent = true };
 
 				new Buff(31, 151, "Resource Cost", false, false, 0, f => { ModdedPlayer.Stats.attackStaminaCost.Divide(f); ModdedPlayer.Stats.spellCost.Divide(f); }, f => { ModdedPlayer.Stats.attackStaminaCost.Multiply(f); ModdedPlayer.Stats.spellCost.Multiply(f); }) { DisplayAsPercent = true };
-
+				new Buff(32, 161, "Energy Regen", false, false, 1, f => ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive -= f, f => ModdedPlayer.Stats.energyRecoveryperSecond.valueAdditive += f) { DisplayAmount = false };
 
 			}
 			catch (System.Exception ex)

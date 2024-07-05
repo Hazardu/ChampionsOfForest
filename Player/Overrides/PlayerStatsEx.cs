@@ -766,6 +766,7 @@ namespace ChampionsOfForest
 					Sfx.PlayWhoosh();
 					return;
 				}
+
 			}
 			else
 			{

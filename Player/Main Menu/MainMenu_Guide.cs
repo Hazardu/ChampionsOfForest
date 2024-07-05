@@ -57,7 +57,7 @@ namespace ChampionsOfForest
 		{
 			if (BookPositionY < Screen.height && BookPositionY > -70 * screenScale)
 			{
-				Rect labelRect = new Rect(250 * screenScale + GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease) - 500 * screenScale, statStyle.fontSize);
+				Rect labelRect = new Rect(250 * screenScale + GuideWidthDecrease * screenScale + GuideMargin * screenScale, BookPositionY, (Screen.width - 2 * screenScale * (GuideMargin + GuideWidthDecrease) - 500 * screenScale)/2f, statStyle.fontSize);
 				GUI.Label(labelRect, statName, statStyle);
 				GUI.Label(labelRect, amount, statStyleAmount);
 				BookPositionY += statStyle.fontSize;
@@ -185,7 +185,7 @@ namespace ChampionsOfForest
 		private void DrawGuide()
 		{
 			GUI.Label(new Rect(0, 0, 300, 100), Translations.MainMenu_Guide_2 + Translations.MainMenu_Guide_1 + guidePage); 
-			int a = 0;
+			int a = -1;
 
 			Bookmarks.Clear();
 
@@ -407,7 +407,7 @@ namespace ChampionsOfForest
 				Header(Translations.MainMenu_Guide_65);
 				Space(10);
 
-				Stat(Translations.MainMenu_Guide_67, ModdedPlayer.Stats.RangedDamageMult.ToString("P"), Translations.MainMenu_Guide_66( (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P"), (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount() - 1).ToString("P"), (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? (ModdedPlayer.Stats.projectileSize.GetAmount() - 1) * 2 : 0f).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
+				Stat(Translations.MainMenu_Guide_67, ModdedPlayer.Stats.RangedDamageMult.ToString("P"), Translations.MainMenu_Guide_66( (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P"), (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount() - 1).ToString("P"), (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? (ModdedPlayer.Stats.projectileSize.GetAmount() - 1) : 0f).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
 				Stat(Translations.MainMenu_Guide_69, ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_69);
 				Stat(Translations.MainMenu_Guide_71, ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), Translations.MainMenu_Guide_71);
 				Stat(Translations.MainMenu_Guide_73, ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), Translations.MainMenu_Guide_73);
@@ -511,6 +511,15 @@ namespace ChampionsOfForest
 					Rect imageRect = new Rect(400 * screenScale, BookPositionY, Screen.width - 800 * screenScale, 60 * screenScale);
 					GUI.DrawTexture(imageRect, ResourceLoader.GetTexture(30));
 					BookPositionY += 70 * screenScale;
+
+					Header("Player Levels");
+					Space(10);
+
+					foreach (var pair in ModReferences.PlayerLevels)
+					{
+						Stat("Level of " + pair.Key, pair.Value.ToString("N"));
+
+					}
 				}
 				else
 				{

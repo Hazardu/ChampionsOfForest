@@ -169,7 +169,7 @@ namespace ChampionsOfForest
 
 					if (!p.isBought || p.stackable)
 					{
-						desctext = Translations.MainMenu_Perks_1/*og:Hold to buy*/ + "\n" + p.Description; //tr
+						desctext = Translations.MainMenu_Perks_1/*Hold to buy*/ + "\n" + p.Description; //tr
 						Rect LevelReq = new Rect(r.x - 440 * screenScale, r.y, 400 * screenScale, r.height);
 						Rect Cost = new Rect(r.xMax + 40 * screenScale, r.y, 400 * screenScale, r.height);
 						if (p.levelReq > ModdedPlayer.instance.level)
@@ -177,15 +177,16 @@ namespace ChampionsOfForest
 							GUI.color = Color.red;
 						}
 
-						GUI.Label(LevelReq, Translations.MainMenu_Inventory_16/*og:Level*/ + " " + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }); //tr
+						GUI.Label(LevelReq, Translations.MainMenu_Inventory_16/*Level*/ + " " + p.levelReq, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow }); //tr
 						GUI.color = ModdedPlayer.instance.MutationPoints < p.cost ? Color.red : Color.white;
 
-						GUI.Label(Cost, Translations.MainMenu_Perks_2/*og:Cost*/ + //tr
+						GUI.Label(Cost, Translations.MainMenu_Perks_2/*Cost*/ + //tr
 							": " + p.cost, new GUIStyle(GUI.skin.box) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(33 * screenScale), font = mainFont, fontStyle = FontStyle.Bold, richText = true, clipping = TextClipping.Overflow });
 						GUI.color = Color.white;
-						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level)
+						if (Input.GetMouseButton(0) && ModdedPlayer.instance.MutationPoints >= p.cost && PerkRequirementsMet(PerkDatabase.perks[SelectedPerk_ID]) && PerkEnabled(PerkDatabase.perks[SelectedPerk_ID]) && PerkDatabase.perks[SelectedPerk_ID].levelReq <= ModdedPlayer.instance.level && 
+							(PerkDatabase.perks[SelectedPerk_ID].canBuy == null || (PerkDatabase.perks[SelectedPerk_ID].canBuy != null && PerkDatabase.perks[SelectedPerk_ID].canBuy())))
 						{
-							_timeToBuyPerk += Time.unscaledDeltaTime;
+							_timeToBuyPerk += Time.unscaledDeltaTime * 1.2f;
 							if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
 							{
 								if (p.stackable )
@@ -272,27 +273,27 @@ namespace ChampionsOfForest
 				switch ((Perk.PerkCategory)menus.GetValue(i))
 				{
 					case Perk.PerkCategory.MeleeOffense:
-						content = Translations.MainMenu_Guide_58/*og:Melee*/;//tr
+						content = Translations.MainMenu_Guide_58/*Melee*/;//tr
 						break;
 
 					case Perk.PerkCategory.RangedOffense:
-						content = Translations.MainMenu_Guide_65/*og:Ranged*/;//tr
+						content = Translations.MainMenu_Guide_65/*Ranged*/;//tr
 						break;
 
 					case Perk.PerkCategory.MagicOffense:
-						content = Translations.MainMenu_Guide_90/*og:Magic*/;//tr
+						content = Translations.MainMenu_Guide_90/*Magic*/;//tr
 						break;
 
 					case Perk.PerkCategory.Defense:
-						content = Translations.MainMenu_Guide_12/*og:Defense*/;//tr
+						content = Translations.MainMenu_Guide_12/*Defense*/;//tr
 						break;
 
 					case Perk.PerkCategory.Support:
-						content = Translations.MainMenu_Perks_3/*og:Support*/;//tr
+						content = Translations.MainMenu_Perks_3/*Support*/;//tr
 						break;
 
 					case Perk.PerkCategory.Utility:
-						content = Translations.MainMenu_Perks_4/*og:Survival*/;//tr
+						content = Translations.MainMenu_Perks_4/*Survival*/;//tr
 						break;
 
 					default:
@@ -380,7 +381,7 @@ namespace ChampionsOfForest
 			else
 			{
 				if (!unlocked)
-					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.25f);
+					GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.45f);
 				else
 					GUI.color = Color.gray;
 				GUI.DrawTexture(r, ResourceLoader.GetTexture(p.textureVariation * 2 + 81));

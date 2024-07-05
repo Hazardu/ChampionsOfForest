@@ -3043,7 +3043,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_588 => instance._ItemDataBase_ItemDefinitions_588;
 		public string _ItemDataBase_ItemDefinitions_588 = "If equipped on boots, decreases damage taken by ";
 		public static string ItemDataBase_ItemDefinitions_589 => instance._ItemDataBase_ItemDefinitions_589;
-		public string _ItemDataBase_ItemDefinitions_589 = "If equipped on a helmet, increases cattack speed by ";
+		public string _ItemDataBase_ItemDefinitions_589 = "If equipped on a helmet, increases attack speed by ";
 		public static string ItemDataBase_ItemDefinitions_590 => instance._ItemDataBase_ItemDefinitions_590;
 		public string _ItemDataBase_ItemDefinitions_590 = "If equipped on accessories, increases melee armor piercing by ";
 		public static string ItemDataBase_ItemDefinitions_591 => instance._ItemDataBase_ItemDefinitions_591;
@@ -3085,7 +3085,7 @@ namespace ChampionsOfForest.Localization
 		public static string ItemDataBase_ItemDefinitions_609 => instance._ItemDataBase_ItemDefinitions_609;
 		public string _ItemDataBase_ItemDefinitions_609 = "Devil Dancers";
 		public static string ItemDataBase_ItemDefinitions_610 => instance._ItemDataBase_ItemDefinitions_610;
-		public string _ItemDataBase_ItemDefinitions_610 = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active.";
+		public string _ItemDataBase_ItemDefinitions_610 = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 3% attack speed per frenzy stack active.";
 		public static string ItemDataBase_ItemDefinitions_611 => instance._ItemDataBase_ItemDefinitions_611;
 		public string _ItemDataBase_ItemDefinitions_611 = "Call of the Ancients";
 		public static string ItemDataBase_ItemDefinitions_612(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_612, objects);
@@ -4821,7 +4821,7 @@ ItemDataBase_ItemDefinitions_585:: "If equipped on accessories, increases ranged
 ItemDataBase_ItemDefinitions_586:: "If equipped in other slots, increases agility by "
 ItemDataBase_ItemDefinitions_587:: "If equipped on a weapon, increases melee damage by "
 ItemDataBase_ItemDefinitions_588:: "If equipped on boots, decreases damage taken by "
-ItemDataBase_ItemDefinitions_589:: "If equipped on a helmet, increases cattack speed by "
+ItemDataBase_ItemDefinitions_589:: "If equipped on a helmet, increases attack speed by "
 ItemDataBase_ItemDefinitions_590:: "If equipped on accessories, increases melee armor piercing by "
 ItemDataBase_ItemDefinitions_591:: "If equipped in other slots, increases strength by "
 ItemDataBase_ItemDefinitions_592:: "If equipped on a weapon, increases magic damage by "

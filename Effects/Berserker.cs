@@ -62,7 +62,7 @@ namespace ChampionsOfForest.Effects
 					{
 						if (bonus <= 15)
 							BuffDB.ForceEndBuff(107);
-						BuffDB.AddBuff(14, 107, 0.3f * bonus, ModdedPlayer.Stats.spell_berserkDuration - bonus);
+						BuffDB.AddBuff(14, 107, 0.05f * bonus, ModdedPlayer.Stats.spell_berserkDuration - bonus);
 					}
 				}
 

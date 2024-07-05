@@ -80,6 +80,8 @@ namespace ChampionsOfForest.Fun
 			Debug.LogWarning("cotflistitems");
 			Debug.LogWarning("cotfliststats");
 			Debug.LogWarning("cotflogitemdatabase");
+			Debug.LogWarning("cotflistperks");
+
 		}
 
 		private void _cotfaddlevel(string param)
@@ -136,6 +138,26 @@ namespace ChampionsOfForest.Fun
 			Debug.Log(s);
 			ModAPI.Log.Write(s);
 		}
+		private void _cotflistperks(string param)
+		{
+			string s = "";
+			foreach (var item in PerkDatabase.perks)
+			{
+				s += string.Concat(new object[]
+				{
+					"[",
+					item.id,
+					"]  ",
+					item.name,
+					": ",
+					item.Description,
+					"\n"
+				});
+			}
+			Debug.Log(s);
+			ModAPI.Log.Write(s);
+		}
+
 
 		private void _cotfliststats(string param)
 		{

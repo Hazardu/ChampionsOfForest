@@ -22,13 +22,13 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 
 		private void Update()
 		{
-			transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30);
+			transform.Translate((Vector3.down * 2 + Vector3.forward) * Time.deltaTime * 30, Space.World);
 		}
 
 
 		private void Start()
 		{
-			
+			transform.rotation = Quaternion.LookRotation(Vector3.down * 2 + Vector3.forward);
 			soundEmitter.PlaySpawnSound();
 			Destroy(gameObject, 4);
 		}
@@ -40,7 +40,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			if (distance < 100)
 			{
 				soundEmitter.PlayExplosionSound();
-				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(30 / distance,0.5f));
+				LocalPlayer.HitReactions.enableFootShake(1, Math.Min(40 / distance,0.2f));
 			}
 			if (other.CompareTag("suitCase") || other.CompareTag("metalProp") || other.CompareTag("animalCollide") ||
 			    other.CompareTag("Fish") || other.CompareTag("Tree") || other.CompareTag("MidTree") ||
@@ -51,9 +51,10 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			}
 			else if (other.transform.root == LocalPlayer.Transform.root)
 			{
-				LocalPlayer.Stats.Hit(Damage, false, PlayerStats.DamageType.Fire);
-				ModdedPlayer.instance.Stun(3f);
-				BuffDB.AddBuff(21, 69, Damage/3, 60);
+
+				LocalPlayer.Stats.Hit((int)(Damage * ModdedPlayer.Stats.perk_meteorDamageTaken.Value), false, PlayerStats.DamageType.Fire);
+				ModdedPlayer.instance.Stun(5f);
+				BuffDB.AddBuff(21, 69, Damage/(6f* (2f-Random.value)), 60);
 				other.SendMessage("Burn", SendMessageOptions.DontRequireReceiver);
 			
 			}

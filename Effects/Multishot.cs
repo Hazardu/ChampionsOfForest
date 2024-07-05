@@ -71,6 +71,10 @@ namespace ChampionsOfForest.Effects
 			child1.Rotate(Vector3.forward * 90 * Time.deltaTime);
 			child2.Rotate(-Vector3.forward * 45 * Time.deltaTime);
 			child3.Rotate(Vector3.forward * 20 * Time.deltaTime);
+			if (MainMenu.Instance.HideObtrusiveSkillEffects)
+			{
+				opacity = 0;
+			}
 
 			if (opacity < maxOpacity)
 			{

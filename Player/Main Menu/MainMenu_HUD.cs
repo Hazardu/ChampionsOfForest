@@ -26,6 +26,7 @@ namespace ChampionsOfForest
 		private Transform scannedTransform;
 		private BoltEntity scannedEntity;
 		private bool HideHud = false;
+		public bool HideObtrusiveSkillEffects = false;
 		private float ProgressBarAmount = 0;
 		private Rect HUDenergyLabelRect;
 		private Rect HUDHealthLabelRect;
@@ -356,7 +357,7 @@ namespace ChampionsOfForest
 				string content = ModdedPlayer.instance.MassacreText;
 				if (ModdedPlayer.instance.MassacreKills > 5)
 				{
-					content += Translations.MainMenu_HUD_2/*og:\t*/ + ModdedPlayer.instance.MassacreKills + Translations.MainMenu_HUD_1/*og: kills*/; //tr
+					content += Translations.MainMenu_HUD_2/*\t*/ + ModdedPlayer.instance.MassacreKills + Translations.MainMenu_HUD_1/* kills*/; //tr
 				}
 
 				GUI.Label(CombatBarText, content, new GUIStyle(GUI.skin.label) { font = mainFont, fontSize = Mathf.FloorToInt(45 * screenScale), alignment = TextAnchor.UpperCenter, clipping = TextClipping.Overflow, richText = true, wordWrap = false });
@@ -425,7 +426,7 @@ namespace ChampionsOfForest
 								var slide = SmoothSlideIn(0.7f);
 								DrawScannedEnemyLabel(cp.EnemyName, new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 66 * screenScale), infoStyle);
 								y += screenScale * 60;
-								DrawScannedEnemyLabel(Translations.MainMenu_Inventory_16/*og:Level*/+ Translations.MainMenu_Guide_1/*og:: */ + cp.Level, new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
+								DrawScannedEnemyLabel(Translations.MainMenu_Inventory_16/*Level*/+ Translations.MainMenu_Guide_1/*: */ + cp.Level, new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
 								y += screenScale * 60;
 								if (ScanTime > 0.8f)
 								{
@@ -436,11 +437,11 @@ namespace ChampionsOfForest
 								if (ScanTime > 1.6f)
 								{
 									slide = SmoothSlideIn(1.8f);
-									DrawScannedEnemyLabel(Translations.MainMenu_Guide_17/*og:Armor*/ + Translations.MainMenu_Guide_1/*og:: */ + cp.Armor.ToString("N0"), new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
+									DrawScannedEnemyLabel(Translations.MainMenu_Guide_17/*Armor*/ + Translations.MainMenu_Guide_1/*: */ + cp.Armor.ToString("N0"), new Rect(origin.x + slide, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle); //tr
 									if (cp.ArmorReduction > 0)
 									{
 										y += screenScale * 40;
-										DrawScannedEnemyLabel(Translations.MainMenu_Guide_100/*og:Armor reduction*/ + //tr
+										DrawScannedEnemyLabel(Translations.MainMenu_Guide_100/*Armor reduction*/ + //tr
 											": -" + cp.ArmorReduction.ToString("N0"), new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), infoStyle);
 									}
 									else if (cp.Armor > 10 && ModSettings.difficulty <= ModSettings.Difficulty.Veteran)
@@ -471,7 +472,7 @@ namespace ChampionsOfForest
 									if (cp.Affixes.Length > 0)
 									{
 										DrawScannedEnemyLabel("☠️ " +
-											Translations.MainMenu_HUD_3/*og:ELITE*/ //tr
+											Translations.MainMenu_HUD_3/*ELITE*/ //tr
 											+ " ☠️", new Rect(origin.x, origin.y + y, 250 * screenScale, 65 * screenScale), new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(33 * screenScale), alignment = TextAnchor.MiddleRight });
 										y += screenScale * 30;
 										infoStyle.fontSize -= 4;
@@ -487,124 +488,124 @@ namespace ChampionsOfForest
 											switch (ability)
 											{
 												case EnemyProgression.Abilities.Poisonous:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_4/*og:Poisonous*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_4/*Poisonous*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_33, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Steadfast:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_5/*og:Steadfast*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_5/*Steadfast*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_34, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.BossSteadfast:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_6/*og:Boss Steadfast*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_6/*Boss Steadfast*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_35, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.EliteSteadfast:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_7/*og:Elite Steadfast*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_7/*Elite Steadfast*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_36, smallinfoStyle);//tr
 													break;
 												//case EnemyProgression.Abilities.Molten:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.Blizzard:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_8/*og:Blizzard*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_8/*Blizzard*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_37, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Radiance:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_9/*og:Radiance*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_9/*Radiance*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_38, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Chains:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_10/*og:Chains*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_10/*Chains*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_39, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.BlackHole:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_11/*og:Black Hole*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_11/*Black Hole*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_40, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Trapper:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_12/*og:Trapper*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_12/*Trapper*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_41, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Juggernaut:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_13/*og:Juggernaut*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_13/*Juggernaut*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_42, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Gargantuan:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_14/*og:Gargantuan*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_14/*Gargantuan*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_43, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Tiny:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_15/*og:Tiny*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_15/*Tiny*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_44, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.ExtraDamage:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_16/*og:Extra deadly*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_16/*Extra deadly*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_45, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.ExtraHealth:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_17/*og:Extra tough*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_17/*Extra tough*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_46, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Basher:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_18/*og:Basher*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_18/*Basher*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_47, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Warp:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_19/*og:Warp*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_19/*Warp*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_48, smallinfoStyle);//tr
 													break;
 												//case EnemyProgression.Abilities.Thunder:
 												//    DrawScannedEnemyLabel("Nothing yet", new Rect(origin.x, origin.y + y, 250 * rr, 55 * rr), infoStyle);
 												//    break;
 												case EnemyProgression.Abilities.RainEmpowerment:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_20/*og:Rain Empowerment*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_20/*Rain Empowerment*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_49, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Shielding:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_21/*og:Shielding*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_21/*Shielding*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_50, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Meteor:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_22/*og:Meteor*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_22/*Meteor*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_51, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Flare:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_23/*og:Flare*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_23/*Flare*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_52, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Undead:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_24/*og:Undead*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_24/*Undead*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_53, smallinfoStyle);//tr
 													break;
 
 												case EnemyProgression.Abilities.Laser:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_25/*og:Laser tower*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_25/*Laser tower*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_54, smallinfoStyle);//tr
 													break;
 												case EnemyProgression.Abilities.Avenger:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_26/*og:Avenger*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_26/*Avenger*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_55, smallinfoStyle);//tr
 													break;
 												case EnemyProgression.Abilities.Sacrifice:
-													DrawScannedEnemyLabel(Translations.MainMenu_HUD_27/*og:Sacrifice*/, rName, infoStyle); //tr
+													DrawScannedEnemyLabel(Translations.MainMenu_HUD_27/*Sacrifice*/, rName, infoStyle); //tr
 													GUI.Label(rDesc, Translations.MainMenu_HUD_56, smallinfoStyle);//tr
 													break;
 												default:
@@ -861,7 +862,7 @@ namespace ChampionsOfForest
 								}
 								else
 								{
-									localPlayerPing = new MarkEnemy(enemy.transform, Translations.MainMenu_HUD_28/*og:Enemy*/, false);//tr
+									localPlayerPing = new MarkEnemy(enemy.transform, Translations.MainMenu_HUD_28/*Enemy*/, false);//tr
 								}
 							}
 						}

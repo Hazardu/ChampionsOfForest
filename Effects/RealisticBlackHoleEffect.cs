@@ -11,7 +11,8 @@ namespace ChampionsOfForest.Effects
 
 		public static void Add(Transform tr)
 		{
-			instance.BH.Add(tr);
+			if(!MainMenu.Instance.HideObtrusiveSkillEffects)
+				instance.BH.Add(tr);
 		}
 
 		public float ratio = 0.5f;     // The ratio of the height to the length of the screen to display properly shader

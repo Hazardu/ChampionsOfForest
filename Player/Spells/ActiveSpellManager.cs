@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player.Spells
 		}
 		IEnumerator DealDamage()
 		{
-			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg / 3f;
+			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_snowstormDmgScaling;
 			dmg *= ModdedPlayer.Stats.SpellDamageMult;
 			float crit = ModdedPlayer.Stats.RandomCritDamage;
 			dmg *= crit;
@@ -184,6 +184,7 @@ namespace ChampionsOfForest.Player.Spells
 							phe.Target = entity;
 							phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
 							phe.Hit = DamageMath.GetSendableDamage(dmg);
+
 							phe.Send();
 							if (onHitEffectProcs < 6)
 							{
@@ -191,6 +192,7 @@ namespace ChampionsOfForest.Player.Spells
 									var hitContext = new COTFEvents.HitOtherParams(dmg, crit != 1, entity, this);
 									COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
 									COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
+									ModdedPlayer.instance.OnHitEffectsClient(entity, dmg);
 								}
 								ModdedPlayer.instance.OnHit();
 								onHitEffectProcs++;
@@ -226,8 +228,10 @@ namespace ChampionsOfForest.Player.Spells
 						prog.HitMagic(dmg);
 						prog.Slow(144, 0.2f, 0.85f);
 						prog.ReduceArmor(Mathf.CeilToInt(dmg / 100f));
+
 						if (onHitEffectProcs < 6)
 						{
+							ModdedPlayer.instance.OnHitEffectsHost(prog, dmg);
 							ModdedPlayer.instance.OnHit();
 							onHitEffectProcs++;
 
@@ -273,11 +277,13 @@ namespace ChampionsOfForest.Player.Spells
 					var posOffset = pos;
 					if (i > 0)
 						posOffset += 0.5f * right * (((i - 1) % 3) - 1);
-					float damage = ModdedPlayer.Stats.SpellDamageMult *(1f + ModdedPlayer.Stats.fireDamage) *  (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27 + ModdedPlayer.instance.FurySwipesDmg);
-					if (i > 0)
-					{
-						damage *= Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i);
-					}
+					float damage = ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27f + ModdedPlayer.instance.FurySwipesDmg;
+					damage = damage * ModdedPlayer.Stats.SpellDamageMult * (1.1f + ModdedPlayer.Stats.fireDamage);
+					damage = damage * ModdedPlayer.Stats.RandomCritDamage;
+					//if (i > 0)
+					//{
+					//	damage *= Mathf.Pow(ModdedPlayer.Stats.perk_multishotDamagePennalty, i);
+					//}
 					var o = instance.pool[instance.poolPos];
 					o.dmg = damage;
 					o.speedf = 70 * ModdedPlayer.Stats.projectileSpeed;
@@ -349,8 +355,8 @@ namespace ChampionsOfForest.Player.Spells
 			var l = o.AddComponent<Light>();
 			l.color = new Color(1, 0.6f, 0.2f);
 			l.type = LightType.Point;
-			l.intensity = 1;
-			l.range = 15f;
+			l.intensity = 0.6f;
+			l.range = 5f;
 			o.transform.localScale = Vector3.one * 0.1f;
 			var f = o.AddComponent<FireboltProjectile>();
 			o.SetActive(false);
@@ -481,6 +487,8 @@ namespace ChampionsOfForest.Player.Spells
 							phe.Target = entity;
 							phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
 							phe.Hit = DamageMath.GetSendableDamage(dmgOutput);
+							ModdedPlayer.instance.OnHitEffectsClient(entity, dmgOutput);
+
 							if (crit > 1)
 							{
 								int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
@@ -516,6 +524,7 @@ namespace ChampionsOfForest.Player.Spells
 								COTFEvents.Instance.OnHitSpell.Invoke(hitContext);
 								COTFEvents.Instance.OnHitEnemy.Invoke(hitContext);
 							}
+							ModdedPlayer.instance.OnHitEffectsHost(progression, dmgOutput);
 							progression.HitMagic(dmgOutput);
 							if (crit > 1)
 							{

@@ -65,7 +65,7 @@ namespace ChampionsOfForest.Player
 				crit = ModdedPlayer.Stats.Critted || (bia & ModdedPlayer.Stats.spell_bia_Crit);
 				if (crit)
 				{
-					OutputDmg *= (ModdedPlayer.Stats.critDamage) + (ModdedPlayer.Stats.projectileSize - 1) * 2.5f + 1;
+					OutputDmg *= (ModdedPlayer.Stats.critDamage) + (ModdedPlayer.Stats.projectileSpeed - 1) * 1f + 1;
 				}
 			}
 			else

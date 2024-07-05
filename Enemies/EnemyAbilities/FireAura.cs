@@ -35,6 +35,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		private void OnDisable()
 		{
 			isOn = false;
+			light.SetActiveSelfSafe(false);
 		}
 
 		public void TurnOn()
