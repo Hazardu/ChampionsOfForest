@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Network.Commands
 		public int level;
 		public float health;
 		public float maxHealth;
-		public int xp;
+		public long xp;
 	}
 
 	public struct BroadcastModSettings

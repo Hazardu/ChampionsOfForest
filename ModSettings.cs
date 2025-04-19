@@ -58,6 +58,8 @@ namespace ChampionsOfForest
 		int m_lootFilterMinRarity = -1;
 		bool m_combineHitMarkers = false;
 		bool m_fullNumberHitMarkers = false;
+		float m_keptExperienceAfterDeath = 0;
+		bool m_endMassacreAfterDeath = true;
 
 		// getters
 		public static DropsOnDeathModes DropsOnDeath => instance.m_dropsOnDeathMode;
@@ -88,6 +90,8 @@ namespace ChampionsOfForest
 		public static int LootFilterMinRarity => instance.m_lootFilterMinRarity;
 		public static bool CombineHitMarkers => instance.m_combineHitMarkers;
 		public static bool FullNumberHitMarkers => instance.m_fullNumberHitMarkers;
+		public static float KeptExperienceAfterDeath => instance.m_keptExperienceAfterDeath;
+		public static bool EndMassacreAfterDeath => instance.m_endMassacreAfterDeath;
 
 
 		// static properties
@@ -133,6 +137,8 @@ namespace ChampionsOfForest
 			m_lootFilterMinRarity = -1;
 			m_combineHitMarkers = false;
 			m_fullNumberHitMarkers = false;
+			m_keptExperienceAfterDeath = 0;
+			m_endMassacreAfterDeath = true;
 		}
 
 

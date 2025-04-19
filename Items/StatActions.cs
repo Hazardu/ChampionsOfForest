@@ -354,11 +354,7 @@ namespace ChampionsOfForest.Items
 		//    ModdedPlayer.Stats. .Substract( f;
 		//}
 
-		public static void PERMANENT_perkPointIncrease(float f)
-		{
-			ModdedPlayer.instance.PermanentBonusPerkPoints += Mathf.RoundToInt(f);
-			ModdedPlayer.instance.MutationPoints += Mathf.RoundToInt(f);
-		}
+	
 
 		public static void PERMANENT_expIncrease(float f)
 		{

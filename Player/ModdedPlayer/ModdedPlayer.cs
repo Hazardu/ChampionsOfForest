@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using Bolt;
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Network;
+using ChampionsOfForest.Network.Commands;
+
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -700,20 +703,23 @@ namespace ChampionsOfForest.Player
 
 				if (GameSetup.IsMultiplayer)
 				{
-					using (MemoryStream answerStream = new MemoryStream())
-					{
-						using (BinaryWriter w = new BinaryWriter(answerStream))
-						{
-							w.Write(19);
-							w.Write(ModReferences.ThisPlayerID);
-							w.Write(instance.level);
-							w.Close();
-						}
-						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
-						answerStream.Close();
-					}
+					SendPlayerState();
 				}
 			}
+		}
+
+		public void SendPlayerState()
+		{
+			COTFCommand<GetPlayerStateParams>.Send(NetworkManager.Target.Others, new GetPlayerStateParams()
+			{
+				entityNetworkID = LocalPlayer.Entity.networkId.PackedValue,
+				health = LocalPlayer.Stats.Health,
+				maxHealth = ModdedPlayer.Stats.TotalMaxHealth,
+				level = level,
+				playerID = ModReferences.ThisPlayerID,
+				xp = ExpCurrent
+
+			});
 		}
 
 		public void OnGetHit()
@@ -950,7 +956,7 @@ namespace ChampionsOfForest.Player
 		{
 			if ((level % 10) == 0 && level > 1)
 			{
-				var item = new Item(ItemDatabase.ItemBaseByName("Heart of Purity"));
+				var item = new Item(ItemDatabase.ItemBaseByName("Heart of Purity"), 1);
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -959,7 +965,7 @@ namespace ChampionsOfForest.Player
 			}
 			else if (level >= 10 && level % 20 == 5 )
 			{
-				var item = new Item(ItemDatabase.ItemBaseByName("Greater Mutated Heart"));
+				var item = new Item(ItemDatabase.ItemBaseByName("Greater Mutated Heart"), 1);
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
