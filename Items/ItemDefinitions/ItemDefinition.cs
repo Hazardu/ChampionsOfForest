@@ -38,7 +38,7 @@ namespace ChampionsOfForest.Items
 
 
 		public int id = 0;                      
-		public Rarity rarity = 0;                  
+		public Rarity rarity = 0;     
 		public ItemType type = ItemType.Other;          
 		public ItemSubtype subtype = ItemSubtype.None;
 		

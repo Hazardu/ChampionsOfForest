@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player.Crafting;
 
 using TheForest.Utils;

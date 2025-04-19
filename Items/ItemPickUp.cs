@@ -8,7 +8,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Items
 {
 	public class ItemPickUp : MonoBehaviour
 	{
@@ -27,7 +27,7 @@ namespace ChampionsOfForest
 		{
 			EnemyOnDeath = 120,
 			PlayerInventory = 60,
-			PlayerDeath = 900,
+			PlayerDeath = 2000,
 			Effigy = 30,
 		}
 		private void Start()
@@ -53,10 +53,11 @@ namespace ChampionsOfForest
 			Invoke("UnlockPhysics", 0.5f + Random.value);
 			src = gameObject.AddComponent<AudioSource>();
 			src.spatialBlend = 1f;
-			src.maxDistance = 150f;
+			src.maxDistance = 100f;
 			src.volume = 3;
 			src.clip = Res.ResourceLoader.instance.LoadedAudio[item.GetDropSoundID()];
-			src.Play(100UL);
+			src.pitch = item.GetInvSoundPitch();
+			src.Play(10UL);
 		}
 
 		public void EnableDisplay()
@@ -109,7 +110,7 @@ namespace ChampionsOfForest
 					}
 				}
 
-				GUI.color = new Color(MainMenu.RarityColors[item.rarity].r, MainMenu.RarityColors[item.rarity].g, MainMenu.RarityColors[item.rarity].b, displayTime);
+				GUI.color = new Color(item.RarityColor.r, item.RarityColor.g, item.RarityColor.b, displayTime);
 
 				GUIStyle style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.UpperCenter, font = MainMenu.Instance.mainFont, fontSize = Mathf.RoundToInt(40 * MainMenu.Instance.screenScale) };
 				float titleHeight = style.CalcHeight(new GUIContent(label), r.width);
@@ -148,7 +149,7 @@ namespace ChampionsOfForest
 					{
 						statsvalue = amount.ToString("N" + stat.roundingCount) + " ";
 					}
-					GUI.color = MainMenu.RarityColors[stat.rarity];
+					GUI.color = Color.white;
 					//Name
 					statStyle.alignment = TextAnchor.UpperLeft;
 

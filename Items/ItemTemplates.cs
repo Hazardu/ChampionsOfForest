@@ -6,7 +6,6 @@ using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
 using static ChampionsOfForest.Items.ItemDatabase.Stat;
-using static ChampionsOfForest.ItemDatabase;
 using static ChampionsOfForest.Items.ItemDatabase;
 
 namespace ChampionsOfForest.Items.ItemTemplates

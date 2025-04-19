@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 using Bolt;
+
+using ChampionsOfForest.Items;
+
 using TheForest.Utils;
 using UnityEngine;
 

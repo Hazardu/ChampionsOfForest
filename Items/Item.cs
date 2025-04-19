@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
@@ -12,7 +11,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Items
 {
 	public class Item : ItemDefinition
 	{
@@ -387,5 +386,19 @@ namespace ChampionsOfForest
 			}
 			return false;
 		}
+
+	
+
+		private readonly static RarityDisplayInfo[] rarityInfos = new RarityDisplayInfo[]
+		{
+			new RarityDisplayInfo(Rarity.Common, Color.white, Color.white, 0),
+			new RarityDisplayInfo(Rarity.Uncommon, new Color(0.1f,1f,0.1f), new Color(0.1f,1f,0.1f), 0.2f),	
+			new RarityDisplayInfo(Rarity.Magic, new Color(0.1f,0.5f,1f), new Color(0.1f,0.5f,1f), 0.4f),
+			new RarityDisplayInfo(Rarity.Rare, new Color(1f,1f,0.0f), new Color(1f,1f,0.0f), 0.6f),
+			new RarityDisplayInfo(Rarity.Legendary, new Color(0.74f,0.05f,0.05f), new Color(0.74f,0.05f,0.05f), 1f),
+		};
+		public Color RarityColor => rarityInfos[(int)rarity].color;
+		public Color GlowColor => rarityInfos[(int)rarity].glowColor;
+		public float GlowIntensity => rarityInfos[(int)rarity].glowIntensity;
 	}
 }

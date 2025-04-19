@@ -6,10 +6,10 @@ using ChampionsOfForest.Player;
 
 using UnityEngine;
 
-using static ChampionsOfForest.ItemDatabase;
-using static ChampionsOfForest.ItemStatBuilder;
+using static ChampionsOfForest.Items.ItemDatabase;
+using static ChampionsOfForest.Items.ItemStatBuilder;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Items
 {
 
 	public class ItemStatBuilder : ItemStat

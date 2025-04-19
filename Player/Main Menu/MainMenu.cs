@@ -95,17 +95,7 @@ namespace ChampionsOfForest
 
 		//a static variable for colors of items with different rarities
 		//affects item border in inventory, text color in pickup, particle effect color
-		public readonly static Color[] RarityColors = new Color[]
-		{
-			new Color(0.4f,0.4f,0.4f),
-			new Color(0.6f,0.6f,0.6f),
-			new Color(0.1f,0.1f,0.75f),
-			new Color(0.1f,0.5f,1f),
-			new Color(1,0.95f,0.1f),
-			new Color(1,0.5f,0f),
-			new Color(0.1f,1,0.3f),
-			new Color(0.74f,0.05f,0.05f),
-		};
+		
 
 		public enum OpenedMenuMode
 		{

@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Items
 {
 	public class ClientItemPicker : MonoBehaviour
 	{

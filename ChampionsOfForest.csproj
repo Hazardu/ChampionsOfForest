@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\RarityDisplayInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Configuration\DebugFeatures.cs" />
     <Compile Include="DedicatedServer\COTFDS.cs" />
