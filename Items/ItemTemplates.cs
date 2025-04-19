@@ -167,12 +167,11 @@ namespace ChampionsOfForest.Items.ItemTemplates
 			return this;
 		}
 
-		public ItemTemplateBuilder Consumable(string consumableDescriptiuon, OnItemConsume _onConsume)
+		public ItemTemplateBuilder Consumable(string consumableDescription, OnItemUsedOnAnother _onConsume)
 		{
-			onConsumeCallback = _onConsume;
-			uniqueStat = consumableDescriptiuon;
+			onUsedOnAnotherItemCallback = _onConsume;
+			uniqueStat = consumableDescription;
 			stackSize = 100;
-			canConsume = true;
 			return this;
 		}
 
@@ -762,14 +761,14 @@ namespace ChampionsOfForest.Items.ItemTemplates
 		}
 	}
 
-	public class Consumable : ItemTemplateBuilder
+	public class Heart : ItemTemplateBuilder
 	{
-		public Consumable()
+		public Heart()
 		{
 			type = ItemType.Other;
-			LevelRequirement(10);
+			LevelRequirement(1);
+			canConsume = true;
 			Icon(105);
-
 			Register();
 		}
 	}

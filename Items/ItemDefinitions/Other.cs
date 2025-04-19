@@ -21,7 +21,9 @@ namespace ChampionsOfForest.Items
 			//Rarity 0 (White)
 			//------------------------------------------------------
 
-			new Consumable();
+			new Heart()
+				.Name("Greater Mutated Heart")
+				.Consumable("Grants 1 additional perk point", () => );
 					
 
 

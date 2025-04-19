@@ -59,7 +59,7 @@ namespace ChampionsOfForest.Items
 			if (other.type == ItemType.SocketableGem
 				&& HasEmptySocket)
 			{
-				if (other.onConsumeCallback.Invoke(this))
+				if (other.onUsedOnAnotherItemCallback.Invoke(this))
 				{
 					//item was successfully socketed
 					currentEmptySockets--;
@@ -76,12 +76,12 @@ namespace ChampionsOfForest.Items
 			// materials can be used to upgrade items, reroll their values, etc
 			if (other.type == ItemType.Material)
 			{
-				if (other.onConsumeCallback != null)
+				if (other.onUsedOnAnotherItemCallback != null)
 				{
 					if (isEquipped)
 						OnUnequip();
 
-					bool returnval = other.onConsumeCallback.Invoke(this);
+					bool returnval = other.onUsedOnAnotherItemCallback.Invoke(this);
 					OnEquip();
 
 					return returnval;
@@ -184,12 +184,6 @@ namespace ChampionsOfForest.Items
 					case ItemType.Weapon:
 						return -12;
 
-					case ItemType.Other:
-						return -1;
-
-					case ItemType.Material:
-						return -1;
-
 					case ItemType.Helmet:
 						return -2;
 
@@ -259,6 +253,8 @@ namespace ChampionsOfForest.Items
 					return Translations.Item_14/*Ring*/;  //tr
 				case ItemDefinition.ItemType.SpellScroll:
 					return Translations.Item_15/*Scroll*/;    //tr		
+				case ItemDefinition.ItemType.Consumable:
+					return "Consumable";    //tr	
 				default:
 					return type.ToString();
 			}
@@ -290,10 +286,10 @@ namespace ChampionsOfForest.Items
 			this.type = itemDefinition.type;
 			this.stackSize = itemDefinition.stackSize;
 			this.icon = itemDefinition.icon;
-			this.onConsumeCallback = itemDefinition.onConsumeCallback;
-			this.canConsume = itemDefinition.canConsume;
+			this.onUsedOnAnotherItemCallback = itemDefinition.onUsedOnAnotherItemCallback;
 			this.subtype = itemDefinition.subtype;
 			this.lootTable = itemDefinition.lootTable;
+			this.lootWeight = itemDefinition.lootWeight;
 			isEquipped = false;
 			stats = new List<ItemStat>();
 		}
@@ -378,24 +374,13 @@ namespace ChampionsOfForest.Items
 			onUnequipCallback?.Invoke();
 		}
 
-		public bool OnConsume()
-		{
-			if (canConsume)
-			{
-				return onConsumeCallback.Invoke(this);
-			}
-			return false;
-		}
-
-	
-
 		private readonly static RarityDisplayInfo[] rarityInfos = new RarityDisplayInfo[]
 		{
 			new RarityDisplayInfo(Rarity.Common, Color.white, Color.white, 0),
 			new RarityDisplayInfo(Rarity.Uncommon, new Color(0.1f,1f,0.1f), new Color(0.1f,1f,0.1f), 0.2f),	
 			new RarityDisplayInfo(Rarity.Magic, new Color(0.1f,0.5f,1f), new Color(0.1f,0.5f,1f), 0.4f),
 			new RarityDisplayInfo(Rarity.Rare, new Color(1f,1f,0.0f), new Color(1f,1f,0.0f), 0.6f),
-			new RarityDisplayInfo(Rarity.Legendary, new Color(0.74f,0.05f,0.05f), new Color(0.74f,0.05f,0.05f), 1f),
+			new RarityDisplayInfo(Rarity.Legendary, new Color(0.94f,0.05f,0.05f), new Color(0.94f,0.05f,0.05f), 1f),
 		};
 		public Color RarityColor => rarityInfos[(int)rarity].color;
 		public Color GlowColor => rarityInfos[(int)rarity].glowColor;
