@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Bolt;
 
 using ChampionsOfForest.Items;
+using ChampionsOfForest.Network.Commands;
 
 using TheForest.Utils;
 using UnityEngine;
@@ -243,42 +244,12 @@ namespace ChampionsOfForest.Network
 		}
 		public static void SendHitmarker(Vector3 pos, float amount, Color c)
 		{
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-				{
-					w.Write(20);
-					w.Write(amount);
-					w.Write(pos.x);
-					w.Write(pos.y);
-					w.Write(pos.z);
-					w.Write(c.r);
-					w.Write(c.g);
-					w.Write(c.b);
-					w.Write(c.a);
-					w.Close();
-				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
-				answerStream.Close();
-			}
+			COTFCommand<CreateHitMarker>.Send(Target.Everyone, new CreateHitMarker(amount,pos,c))
 		}
 
-		public static void SendPlayerHitmarker(Vector3 pos, int amount)
+		public static void SendPlayerHitmarker(Vector3 pos, float amount)
 		{
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-				{
-					w.Write(21);
-					w.Write(amount);
-					w.Write(pos.x);
-					w.Write(pos.y);
-					w.Write(pos.z);
-					w.Close();
-				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
-				answerStream.Close();
-			}
+			SendHitmarker(pos, amount, Color.green);
 		}
 
 		/// <summary>

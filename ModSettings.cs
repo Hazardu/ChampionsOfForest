@@ -56,6 +56,8 @@ namespace ChampionsOfForest
 		float m_enemySpeedMultiplier = 1;
 		bool m_allowElites = true;
 		int m_lootFilterMinRarity = -1;
+		bool m_combineHitMarkers = false;
+		bool m_fullNumberHitMarkers = false;
 
 		// getters
 		public static DropsOnDeathModes DropsOnDeath => instance.m_dropsOnDeathMode;
@@ -84,6 +86,8 @@ namespace ChampionsOfForest
 		public static float EnemySpeedMultiplier => instance.m_enemySpeedMultiplier;
 		public static bool AllowElites => instance.m_allowElites;
 		public static int LootFilterMinRarity => instance.m_lootFilterMinRarity;
+		public static bool CombineHitMarkers => instance.m_combineHitMarkers;
+		public static bool FullNumberHitMarkers => instance.m_fullNumberHitMarkers;
 
 
 		// static properties
@@ -127,6 +131,8 @@ namespace ChampionsOfForest
 			m_enemySpeedMultiplier = 1;
 			m_allowElites = true;
 			m_lootFilterMinRarity = -1;
+			m_combineHitMarkers = false;
+			m_fullNumberHitMarkers = false;
 		}
 
 

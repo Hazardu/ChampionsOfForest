@@ -13,6 +13,7 @@ using ChampionsOfForest.Player;
 using TheForest.Utils;
 
 using UnityEngine;
+using ChampionsOfForest.Network.Commands;
 
 namespace ChampionsOfForest.Network
 {
@@ -273,7 +274,7 @@ namespace ChampionsOfForest.Network
 									}
 
 								case 4:
-									PickUpManager.RemovePickup(r.ReadUInt64());
+									//PickUpManager.RemovePickup(r.ReadUInt64());
 									break;
 
 								case 5:
@@ -544,28 +545,6 @@ namespace ChampionsOfForest.Network
 										break;
 									}
 
-								case 20:
-									{
-										if (ModSettings.IsDedicated)
-											return;
-
-										float amount = r.ReadSingle();
-										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-										Color c = new Color(r.ReadSingle(), r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-										MainMenu.CreateHitMarker(amount, pos, c);
-										break;
-									}
-
-								case 21:
-									{
-										if (ModSettings.IsDedicated)
-											return;
-
-										int amount = r.ReadInt32();
-										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-										new MainMenu.HitMarker(amount, pos, true);
-										break;
-									}
 
 								case 22:    //slow enemy by id
 									{
@@ -613,17 +592,7 @@ namespace ChampionsOfForest.Network
 													}
 												}
 											}
-											using (MemoryStream answerStream = new MemoryStream())
-											{
-												using (BinaryWriter w = new BinaryWriter(answerStream))
-												{
-													w.Write(4);
-													w.Write(itemID);
-													w.Close();
-												}
-												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
-												answerStream.Close();
-											}
+											COTFCommand<DestroyItemPickup>.Send(NetworkManager.Target.Others, new DestroyItemPickup(itemID));
 										}
 
 										break;
