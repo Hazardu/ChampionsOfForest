@@ -510,41 +510,6 @@ namespace ChampionsOfForest.Network
 										break;
 									}
 
-								case 18:
-									{
-										using (MemoryStream answerStream = new MemoryStream())
-										{
-											using (BinaryWriter w = new BinaryWriter(answerStream))
-											{
-												w.Write(19);
-												w.Write(ModReferences.ThisPlayerID);
-												w.Write(ModdedPlayer.instance.level);
-											}
-											NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
-										}
-
-										break;
-									}
-
-								case 19:
-									{
-										string packed = r.ReadString();
-										int level = r.ReadInt32();
-										if (ModReferences.PlayerLevels.ContainsKey(packed))
-										{
-											ModReferences.PlayerLevels[packed] = level;
-											ModReferences.UpdatePlayerLevel(packed, level);
-										}
-										else
-										{
-											ModReferences.PlayerLevels.Add(packed, level);
-											ModReferences.UpdatePlayerLevel(packed, level);
-
-										}
-
-										break;
-									}
-
 
 								case 22:    //slow enemy by id
 									{
