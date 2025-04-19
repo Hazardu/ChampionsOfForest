@@ -400,7 +400,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				onApply = () => StatActions.AddAllStats(5),
+				onApply = () => StatActions.AddAllAttributes(5),
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 3 },
 				levelReq = 1,
@@ -416,7 +416,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				onApply = () => StatActions.AddAllStats(15),
+				onApply = () => StatActions.AddAllAttributes(15),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 20 },
@@ -433,7 +433,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				onApply = () => StatActions.AddAttackSpeed(0.02f),
+				onApply = () => ModdedPlayer.Stats.attackSpeed.Add(0.02f),
 
 				category = PerkCategory.MeleeOffense,
 				unlockPath = new int[] { 11 },
@@ -508,7 +508,7 @@ namespace ChampionsOfForest.Player
 
 			new Perk()
 			{
-				onApply = () => StatActions.AddAllStats(10),
+				onApply = () => StatActions.AddAllAttributes(10),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 21 },
@@ -1902,8 +1902,7 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => StatActions.AddMagicFind(0.13f),
-
+				onApply = () => ModdedPlayer.Stats.magicFind_quantity.Add(0.1f),
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { -1 },
 				levelReq = 5,
@@ -1911,14 +1910,14 @@ namespace ChampionsOfForest.Player
 				scale = 1f,
 				posX = -0.75f,
 				posY = -1.1f,
-				name = Translations.PerkDatabase_217,
-				originalDescription = Translations.PerkDatabase_218("13%"),
+				name = "Loot Quantity",
+				originalDescription = "Increases the quantity of loot by 10%",
 				textureVariation = 0,
 				stackable = false,
 			};
 			new Perk()
 			{
-				onApply = () => StatActions.AddMagicFind(0.15f),
+				onApply = () => ModdedPlayer.Stats.magicFind_quality.Add(0.1f),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 109 },
@@ -1927,8 +1926,8 @@ namespace ChampionsOfForest.Player
 				scale = 1f,
 				posX = -1.25f,
 				posY = -1.85f,
-				name = Translations.PerkDatabase_219,
-				originalDescription = Translations.PerkDatabase_220("15%"),
+				name = "Looting Quality",
+				originalDescription = "Increases the quality of loot by 10%",
 				textureVariation = 0,
 				stackable = false,
 			};
@@ -3090,17 +3089,17 @@ namespace ChampionsOfForest.Player
 			};
 			new Perk()
 			{
-				onApply = () => StatActions.AddMagicFind(0.15f),
+				onApply = () => ModdedPlayer.Stats.magicFind_quality.Add(0.15f),
 
 				category = PerkCategory.Utility,
 				unlockPath = new int[] { 110 },
 				levelReq = 55,
-				cost = 2,
+				cost = 1,
 				scale = 1f,
 				posX = -1.75f,
 				posY = -2.6f,
-				name = Translations.PerkDatabase_366,
-				originalDescription = Translations.PerkDatabase_367("15%"),
+				name = "Loot Quality II",
+				originalDescription = "Increases the quality of looted items by 15%",
 				textureVariation = 0,
 				stackable = false,
 			};
