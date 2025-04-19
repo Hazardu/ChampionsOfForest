@@ -33,7 +33,7 @@ namespace ChampionsOfForest.Items
 				.Name("Bronze Locket")
 				.Description("")
 				.Rarity(0)
-				.Weight(5);
+				.Weight(5000);
 
 			new Amulet()
 				.AmuletStatSlot(1)
@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Items
 				.Name("Enchanted Golden Chain")
 				.Description("")
 				.Rarity(1)
-				.Weight(5);
+				.Weight(5000);
 
 			new Amulet()
 				.AmuletStatSlot(2)
@@ -72,7 +72,7 @@ namespace ChampionsOfForest.Items
 				.Name("Champion's Chain")
 				.Description("")
 				.Rarity(2)
-				.Weight(5);
+				.Weight(5000);
 
 			//------------------------------------------------------
 			//Rarity 3 (Yellow)

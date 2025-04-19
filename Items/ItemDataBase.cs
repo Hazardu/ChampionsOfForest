@@ -98,7 +98,7 @@ namespace ChampionsOfForest.Items
 				}
 				if (itemDef.lootWeight <= 0)
 				{
-					itemDef.lootWeight = 1;
+					itemDef.lootWeight = ItemDefinition.DefaultLootWeight;
 				}
 			}
 		}

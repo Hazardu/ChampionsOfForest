@@ -167,14 +167,6 @@ namespace ChampionsOfForest.Items.ItemTemplates
 			return this;
 		}
 
-		public ItemTemplateBuilder Consumable(string consumableDescription, OnItemUsedOnAnother _onConsume)
-		{
-			onUsedOnAnotherItemCallback = _onConsume;
-			uniqueStat = consumableDescription;
-			stackSize = 100;
-			return this;
-		}
-
 		public ItemTemplateBuilder Rarity(int r)
 		{
 			base.rarity = (Rarity)r;
@@ -763,13 +755,16 @@ namespace ChampionsOfForest.Items.ItemTemplates
 
 	public class Heart : ItemTemplateBuilder
 	{
-		public Heart()
+		public Heart(string effectDescription, OnItemUsed consumeEvent)
 		{
 			type = ItemType.Other;
 			LevelRequirement(1);
-			canConsume = true;
+
 			Icon(105);
 			Register();
+
+			onEquipCallback= consumeEvent;
+			uniqueStat = effectDescription;
 		}
 	}
 
