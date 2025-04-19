@@ -23,6 +23,8 @@ namespace ChampionsOfForest.Network.Commands
 		public ModSettings.GameDifficulty difficulty;
 		public bool dieOnDowned;
 		public bool friendlyFire;
+		public bool endMassacreAfterDeath;
+		public float expKeptAfterDeath;
 
 	}
 

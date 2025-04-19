@@ -152,6 +152,8 @@ namespace ChampionsOfForest
 					dropsOnDeath = instance.m_dropsOnDeathMode,
 					difficulty = instance.m_difficulty,
 					friendlyFire = instance.m_friendlyFire,
+					endMassacreAfterDeath = instance.m_endMassacreAfterDeath,
+					expKeptAfterDeath = instance.m_keptExperienceAfterDeath
 				});
 			}
 		}
@@ -163,6 +165,8 @@ namespace ChampionsOfForest
 			instance.m_dropsOnDeathMode = receivedSettings.dropsOnDeath;
 			instance.m_killOnDowned = receivedSettings.dieOnDowned;
 			instance.m_friendlyFire = receivedSettings.friendlyFire;
+			instance.m_endMassacreAfterDeath = receivedSettings.endMassacreAfterDeath;
+			instance.m_keptExperienceAfterDeath = receivedSettings.expKeptAfterDeath;
 
 			if (!ModSettings.DifficultyChosen)
 			{
