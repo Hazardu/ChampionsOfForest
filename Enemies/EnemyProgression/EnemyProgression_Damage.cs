@@ -71,47 +71,47 @@ namespace ChampionsOfForest
 				}
 				else if (shieldingCD <= 0)
 				{
-					switch (ModSettings.difficulty)
+					switch (ModSettings.Difficulty)
 					{
-						case ModSettings.Difficulty.Easy:
+						case ModSettings.GameDifficulty.Easy:
 							shieldingCD = 60;
 							break;
 
-						case ModSettings.Difficulty.Veteran:
+						case ModSettings.GameDifficulty.Veteran:
 							shieldingCD = 55;
 
 							break;
 
-						case ModSettings.Difficulty.Elite:
+						case ModSettings.GameDifficulty.Elite:
 							shieldingCD = 50;
 
 							break;
 
-						case ModSettings.Difficulty.Master:
+						case ModSettings.GameDifficulty.Master:
 							shieldingCD = 45;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge1:
+						case ModSettings.GameDifficulty.Challenge1:
 							shieldingCD = 40;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge2:
+						case ModSettings.GameDifficulty.Challenge2:
 							shieldingCD = 35;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge3:
+						case ModSettings.GameDifficulty.Challenge3:
 							shieldingCD = 30;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge4:
+						case ModSettings.GameDifficulty.Challenge4:
 							shieldingCD = 25;
 							break;
 
-						case ModSettings.Difficulty.Challenge5:
+						case ModSettings.GameDifficulty.Challenge5:
 							shieldingCD = 20;
 							break;
 
@@ -173,47 +173,47 @@ namespace ChampionsOfForest
 				}
 				else if (shieldingCD <= 0)
 				{
-					switch (ModSettings.difficulty)
+					switch (ModSettings.Difficulty)
 					{
-						case ModSettings.Difficulty.Easy:
+						case ModSettings.GameDifficulty.Easy:
 							shieldingCD = 60;
 							break;
 
-						case ModSettings.Difficulty.Veteran:
+						case ModSettings.GameDifficulty.Veteran:
 							shieldingCD = 55;
 
 							break;
 
-						case ModSettings.Difficulty.Elite:
+						case ModSettings.GameDifficulty.Elite:
 							shieldingCD = 50;
 
 							break;
 
-						case ModSettings.Difficulty.Master:
+						case ModSettings.GameDifficulty.Master:
 							shieldingCD = 45;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge1:
+						case ModSettings.GameDifficulty.Challenge1:
 							shieldingCD = 40;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge2:
+						case ModSettings.GameDifficulty.Challenge2:
 							shieldingCD = 35;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge3:
+						case ModSettings.GameDifficulty.Challenge3:
 							shieldingCD = 30;
 
 							break;
 
-						case ModSettings.Difficulty.Challenge4:
+						case ModSettings.GameDifficulty.Challenge4:
 							shieldingCD = 25;
 							break;
 
-						case ModSettings.Difficulty.Challenge5:
+						case ModSettings.GameDifficulty.Challenge5:
 							shieldingCD = 20;
 							break;
 

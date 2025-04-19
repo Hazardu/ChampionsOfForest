@@ -63,8 +63,8 @@ namespace ChampionsOfForest.Items
 
 		//Drop settings
 		public EnemyProgression.Enemy lootTable = EnemyProgression.Enemy.All;
-		public int lootWeight = 100; //weight of the item in loot table, used to calculate drop chance
-		
+		public int lootWeight = DefaultLootWeight; //weight of the item in loot table, used to calculate drop chance
+		public const int DefaultLootWeight = 1000;
 		public ItemDefinition()
 		{
 			statSlots = new List<StatSlot>();

@@ -59,14 +59,14 @@ namespace ChampionsOfForest
 			DamageOverTimeList = new List<DoT>();
 			abilities = new List<Abilities>();
 
-			bool isElite = (Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.difficulty == ModSettings.Difficulty.Hell) && ModSettings.AllowElites;
+			bool isElite = (Random.value < 0.1 || (AIScript.creepy_boss && !AIScript.girlFullyTransformed) || ModSettings.Difficulty == ModSettings.GameDifficulty.Hell) && ModSettings.AllowElites;
 			SetType(ref isElite);
 
 
 			//picking abilities
 			if (isElite)
 			{
-				int abilityAmount = (int)ModSettings.difficulty > (int)ModSettings.Difficulty.Veteran ? Random.Range(3,   7) : 2;
+				int abilityAmount = (int)ModSettings.Difficulty > (int)ModSettings.GameDifficulty.Veteran ? Random.Range(3,   7) : 2;
 				if (AIScript.creepy_boss)
 				{
 					abilityAmount = 10;
@@ -127,7 +127,7 @@ namespace ChampionsOfForest
 					}
 					else if (ab == Abilities.ArcaneCataclysm || ab == Abilities.BlackHole || ab == Abilities.FireCataclysm || ab == Abilities.Meteor)
 					{
-						if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Master)
+						if ((int)ModSettings.Difficulty < (int)ModSettings.GameDifficulty.Master)
 							canAdd = false;
 					}
 					if (abilities.Contains(ab))
@@ -148,7 +148,7 @@ namespace ChampionsOfForest
 
 			SetLevel();
 			RollName(isElite);
-			setupDifficulty = ModSettings.difficulty;
+			setupDifficulty = ModSettings.Difficulty;
 			//Assigning rest of stats
 			DamageMult = level < 65 ? 
 				(Mathf.Pow(2.7182818284f,level/6) + level) //e^(x/6) + x
@@ -372,7 +372,7 @@ namespace ChampionsOfForest
 		{
 			if (AIScript.creepy_boss)
 			{
-				enemyName = "Megan Cross";
+				enemyName = "Ultimate Champion Megan Cross";
 				return;
 			}
 			if (!isElite)
@@ -571,63 +571,64 @@ namespace ChampionsOfForest
 				}
 			}
 
-			switch (ModSettings.difficulty)
+			switch (ModSettings.Difficulty)
 			{
-				case ModSettings.Difficulty.Easy:
+				case ModSettings.GameDifficulty.Easy:
 					level = Random.Range(1, 4);
 					break;
 
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GameDifficulty.Veteran:
 					level = Random.Range(10, 14);
 
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GameDifficulty.Elite:
 					level = Random.Range(20, 25);
 
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GameDifficulty.Master:
 					level = Random.Range(30, 40);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GameDifficulty.Challenge1:
 					level = Random.Range(50, 60);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GameDifficulty.Challenge2:
 					level = Random.Range(89, 92);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GameDifficulty.Challenge3:
 					level = Random.Range(100, 101);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GameDifficulty.Challenge4:
 					level = Random.Range(130, 133);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GameDifficulty.Challenge5:
 					level = Random.Range(160, 165);
 
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GameDifficulty.Challenge6:
 					level = 200;
 
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GameDifficulty.Hell:
 					level = 300;
 
 					break;
 			}
-			level = Mathf.CeilToInt(level + extraLevels + ModSettings.EnemyLevelIncrease);
+			level = Mathf.CeilToInt(level + extraLevels + ModSettings.EnemyLevelIncreaseGlobal);
+			
 		}
 
 	

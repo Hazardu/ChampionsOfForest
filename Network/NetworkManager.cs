@@ -244,7 +244,7 @@ namespace ChampionsOfForest.Network
 		}
 		public static void SendHitmarker(Vector3 pos, float amount, Color c)
 		{
-			COTFCommand<CreateHitMarker>.Send(Target.Everyone, new CreateHitMarker(amount,pos,c))
+			COTFCommand<CreateHitMarker>.Send(Target.Everyone, new CreateHitMarker(amount, pos, c));
 		}
 
 		public static void SendPlayerHitmarker(Vector3 pos, float amount)

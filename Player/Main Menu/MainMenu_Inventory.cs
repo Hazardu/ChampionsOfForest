@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
@@ -35,7 +36,7 @@ namespace ChampionsOfForest
 				this.itemIndex = itemIndex;
 				this.i = Inventory.Instance.ItemSlots[itemIndex];
 				buttons = AvailableContextMenuButtons.drop |
-					(i.canConsume ? AvailableContextMenuButtons.consume : AvailableContextMenuButtons.none) |
+					(i.type == ItemDefinition.ItemType.Consumable ? AvailableContextMenuButtons.consume : AvailableContextMenuButtons.none) |
 					(i.stackedAmount > 1 ? AvailableContextMenuButtons.splitStack : AvailableContextMenuButtons.none);
 				buttonCount = buttons == (AvailableContextMenuButtons)0b111 ? 3 :
 							(buttons != (AvailableContextMenuButtons)0b100 ? 2 : 1);
@@ -264,7 +265,7 @@ namespace ChampionsOfForest
 
 		public void CraftingIngredientBox(Rect r, CustomCrafting.CraftingIngredient ingredient)
 		{
-			GUI.color = ingredient.i != null ? RarityColors[ingredient.i.rarity] : Color.white;
+			GUI.color = ingredient.i != null ? ingredient.i.RarityColor : Color.white;
 			GUI.DrawTexture(r, Res.ResourceLoader.instance.LoadedTextures[12]);
 
 			GUI.color = new Color(1, 1, 1, 1);
@@ -377,11 +378,11 @@ namespace ChampionsOfForest
 			}
 			GUI.color = new Color(1, 1, 1, 0.8f);
 			GUI.DrawTexture(descriptionBox, blackSquareTex);
-			GUI.color = RarityColors[item.rarity];
+			GUI.color = item.RarityColor;
 			GUI.Label(ItemNameRect, item.name, ItemNameStyle);
 			for (int i = 0; i < StatRects.Length; i++)
 			{
-				GUI.color = RarityColors[item.stats[i].rarity];
+				GUI.color = Color.white;
 				GUI.Label(StatRects[i], item.stats[i].name, StatNameStyle);
 				double amount = item.stats[i].amount;
 				if (item.stats[i].displayAsPercent)
@@ -619,7 +620,7 @@ namespace ChampionsOfForest
 
 			if (Inventory.Instance.ItemSlots[index] != null)
 			{
-				frameColor = RarityColors[Inventory.Instance.ItemSlots[index].rarity];
+				frameColor = Inventory.Instance.ItemSlots[index].RarityColor;
 				if (Inventory.Instance.ItemSlots[index].icon != null)
 				{
 					Rect itemRect = new Rect(r);
@@ -797,13 +798,11 @@ namespace ChampionsOfForest
 						if (!consumedsomething)
 						{
 							consumedsomething = true;
-							if (itemContextMenu.Value.i.OnConsume())
+							itemContextMenu.Value.i.OnEquip();
+							itemContextMenu.Value.i.stackedAmount--;
+							if (itemContextMenu.Value.i.stackedAmount <= 0)
 							{
-								itemContextMenu.Value.i.stackedAmount--;
-								if (itemContextMenu.Value.i.stackedAmount <= 0)
-								{
-									Inventory.Instance.ItemSlots[itemContextMenu.Value.itemIndex] = null;
-								}
+								Inventory.Instance.ItemSlots[itemContextMenu.Value.itemIndex] = null;
 							}
 							CloseItemContextMenu();
 							return;
@@ -832,8 +831,8 @@ namespace ChampionsOfForest
 							if (emptySlot != -1)
 							{
 								int amount = itemContextMenu.Value.i.stackedAmount / 2;
-								var itemClone = new Item(itemContextMenu.Value.i, amount, 0, false);
-								itemClone.level = itemContextMenu.Value.i.level;
+								var itemClone = new Item(itemContextMenu.Value.i, itemContextMenu.Value.i.level);
+								itemClone.stackedAmount = amount;
 								if (itemContextMenu.Value.i.stats != null)
 									itemClone.stats = new System.Collections.Generic.List<ItemStat>(itemContextMenu.Value.i.stats);
 

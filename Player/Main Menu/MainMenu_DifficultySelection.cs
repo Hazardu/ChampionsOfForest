@@ -171,7 +171,6 @@ namespace ChampionsOfForest
 				};
 			}
 
-			private readonly int[] highestObtainableLootTierPerLevel = { 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7 };
 
 			private void DrawDifficultyTabs()
 			{
@@ -187,7 +186,7 @@ namespace ChampionsOfForest
 						{
 							ModSettings.DifficultyChosen = true;
 							Array values = Enum.GetValues(typeof(ModSettings.GameDifficulty));
-							ModSettings.difficulty = (ModSettings.GameDifficulty)values.GetValue(ii);
+							ModSettings.Difficulty = (ModSettings.GameDifficulty)values.GetValue(ii);
 							LocalPlayer.FpCharacter.UnLockView();
 							LocalPlayer.FpCharacter.MovementLocked = false;
 							Cheats.GodMode = false;
@@ -204,7 +203,8 @@ namespace ChampionsOfForest
 						desc.height = 400 * screenScale;
 						desc.y = icon.yMax;
 
-						GUI.color = RarityColors[highestObtainableLootTierPerLevel[ii]];
+						//TODO - add colors for each difficulty
+						//GUI.color = RarityColors[highestObtainableLootTierPerLevel[ii]];
 						GUI.Label(name, DiffSel_Names[ii](), DiffNameStyle);
 						GUI.color = Color.white;
 						if (ii < 4)
@@ -263,7 +263,7 @@ namespace ChampionsOfForest
 				}
 
 				//Bleeding out
-				if (ModSettings.killOnDowned)
+				if (ModSettings.KillOnDowned)
 				{
 					GUI.color = Color.red;
 					var r = new Rect(Screen.width / 2 - 300 * screenScale, 170 * screenScale, 600 * screenScale, 50 * screenScale);
@@ -273,12 +273,13 @@ namespace ChampionsOfForest
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
-						ModSettings.killOnDowned = !ModSettings.killOnDowned;
+						ModSettings.KillOnDowned = !ModSettings.KillOnDowned;
 					}
 					else if (r.Contains(Instance.mousePos))
 					{
 						GUI.Label(new Rect(r.xMax, r.y, 600 * screenScale, 100f), Translations.MainMenu_DifficultySelection_9/*Instead of being downed, players instantly die*/);    //tr
 					}
+					GUI.color = Color.white;
 				}
 				else
 				{
@@ -290,7 +291,7 @@ namespace ChampionsOfForest
 						fontSize = Mathf.FloorToInt(20 * screenScale)
 					}))
 					{
-						ModSettings.killOnDowned = !ModSettings.killOnDowned;
+						ModSettings.KillOnDowned = !ModSettings.KillOnDowned;
 					}
 					else if (r.Contains(Instance.mousePos))
 					{
@@ -299,7 +300,7 @@ namespace ChampionsOfForest
 				}
 
 				//Drops on death
-				switch (ModSettings.dropsOnDeath)
+				switch (ModSettings.DropsOnDeath)
 				{
 					case ModSettings.DropsOnDeathModes.All:
 						GUI.color = Color.red;
@@ -309,7 +310,7 @@ namespace ChampionsOfForest
 						GUI.color = Color.yellow;
 						break;
 
-					case ModSettings.DropsOnDeathModes.NonEquipped:
+					case ModSettings.DropsOnDeathModes.Inventory:
 						GUI.color = Color.cyan;
 						break;
 
@@ -320,30 +321,30 @@ namespace ChampionsOfForest
 					default:
 						break;
 				}
-				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 70 * screenScale, 600 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_12/*Item drops on death: */ + ModSettings.dropsOnDeath, new GUIStyle(GUI.skin.button)    //tr
+				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 70 * screenScale, 600 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_12/*Item drops on death: */ + ModSettings.DropsOnDeath, new GUIStyle(GUI.skin.button)    //tr
 				{
 					font = mainFont,
 					fontSize = Mathf.FloorToInt(20 * screenScale)
 				}))
 				{
-					int i = (int)ModSettings.dropsOnDeath + 1;
-					i %= 4;
-					ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathModes)i;
+					int i = (int)ModSettings.DropsOnDeath + 1;
+					i %= (int)ModSettings.DropsOnDeathModes.Max;
+					ModSettings.DropsOnDeath = (ModSettings.DropsOnDeathModes)i;
 				}
 
 
 
 				GUI.color = Color.white;
 
-				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 220 * screenScale, 600 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_26 +  ModSettings.m_lootLevelRule, new GUIStyle(GUI.skin.button)    //tr
+				if (GUI.Button(new Rect(Screen.width / 2 - 300 * screenScale, 220 * screenScale, 600 * screenScale, 50 * screenScale), Translations.MainMenu_DifficultySelection_26 + ModSettings.LootLevelRule, new GUIStyle(GUI.skin.button)    //tr
 				{
 					font = mainFont,
 					fontSize = Mathf.FloorToInt(20 * screenScale)
 				}))
 				{
-					int i = (int)ModSettings.m_lootLevelRule + 1;
-					i %= 5;
-					ModSettings.m_lootLevelRule = (ModSettings.LootLevelRules)i;
+					int i = (int)ModSettings.LootLevelRule + 1;
+					i %= (int)ModSettings.LootLevelRules.Max;
+					ModSettings.LootLevelRule = (ModSettings.LootLevelRules)i;
 				}
 
 				float y = 350;
@@ -360,15 +361,15 @@ namespace ChampionsOfForest
 				if (ModSettings.AllowCaveRespawn)
 					DrawCheatOption(ref ModSettings.AllowRandomCaveSpawn, Translations.MainMenu_DifficultySelection_28, ref y);               //tr
 				if (ModSettings.AllowRandomCaveSpawn && ModSettings.AllowCaveRespawn)
-					DrawCheatOption(ref ModSettings.CaveMaxAdditionalEnemies, Translations.MainMenu_DifficultySelection_29, ref y,0,20);               //tr
+					DrawCheatOption(ref ModSettings.CaveMaxAdditionalEnemies, Translations.MainMenu_DifficultySelection_29, ref y, 0, 20);               //tr
 				if (ModSettings.AllowCaveRespawn)
 					DrawCheatOption(ref ModSettings.CaveRespawnDelay, Translations.MainMenu_DifficultySelection_30, ref y);               //tr
 
 				DrawCheatOptionLootFilter(ref ModSettings.LootFilterMinRarity, "Remove loot below rarirty (except materials)", ref y);               //tr
 
-				if (GUI.Button(new Rect(Screen.width*0.5f - 250 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), Translations.MainMenu_DifficultySelection_31)) //tr
+				if (GUI.Button(new Rect(Screen.width * 0.5f - 250 * screenScale, y * screenScale, 500 * screenScale, 40 * screenScale), Translations.MainMenu_DifficultySelection_31)) //tr
 				{
-					ModSettings.Reset();
+					ModSettings.instance.Reset();
 				}
 			}
 

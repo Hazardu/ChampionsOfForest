@@ -14,10 +14,11 @@ using TheForest.Utils;
 
 using UnityEngine;
 using ChampionsOfForest.Network.Commands;
+using ChampionsOfForest.Items;
 
 namespace ChampionsOfForest.Network
 {
-	
+
 	public class CommandReader
 	{
 		public delegate void CommandDelegate(BinaryReader r);
@@ -59,26 +60,7 @@ namespace ChampionsOfForest.Network
 										break;
 									}
 
-								case 2:
-									{
-										if (!GameSetup.IsMpClient || ModSettings.IsDedicated)
-											return;
 
-										int index = r.ReadInt32();
-										ModSettings.FriendlyFire = r.ReadBoolean();
-										ModSettings.dropsOnDeath = (ModSettings.DropsOnDeathModes)r.ReadInt32();
-										ModSettings.killOnDowned = r.ReadBoolean();
-										ModSettings.difficulty = (ModSettings.GameDifficulty)index;
-										if (!ModSettings.DifficultyChosen)
-										{
-											LocalPlayer.FpCharacter.UnLockView();
-											LocalPlayer.FpCharacter.MovementLocked = false;
-											Cheats.GodMode = false;
-											MainMenu.Instance.ClearDiffSelectionObjects();
-										}
-										ModSettings.DifficultyChosen = true;
-										break;
-									}
 
 								case 3:
 									{
@@ -91,7 +73,7 @@ namespace ChampionsOfForest.Network
 										else if (spellid == 2)
 										{
 											Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
-											HealingDome.CreateHealingDome(pos, 
+											HealingDome.CreateHealingDome(pos,
 												r.ReadSingle(),
 												r.ReadSingle(),
 												r.ReadBoolean(),
@@ -262,7 +244,7 @@ namespace ChampionsOfForest.Network
 												float slow = r.ReadSingle();
 												bool pullIn = r.ReadBoolean();
 												string playerID = r.ReadString();
-												var player = ModReferences.AllPlayerEntities.First(x => x.GetState<IPlayerState>().name == playerID);
+												var player = ModReferences.PlayerStates.GetPlayerState(playerID).entity;
 												if (player)
 												{
 													Taunt.Cast(pos, radius, player.gameObject, duration, slow, pullIn);
@@ -280,16 +262,15 @@ namespace ChampionsOfForest.Network
 								case 5:
 									{
 										var baseItem = ItemDatabase.itemLookup[r.ReadInt32()];
-										Item item = new Item(baseItem, 1, 0, false);   //reading first value, id
 										ulong id = r.ReadUInt64();
 										int itemLvl = r.ReadInt32();
-										item.level = itemLvl;
 										int amount = r.ReadInt32();
 										Vector3 pos = new Vector3(r.ReadSingle(), r.ReadSingle(), r.ReadSingle());
 										int dropSource = r.ReadInt32();
+										Item item = new Item(baseItem, itemLvl);
 										while (r.BaseStream.Position != r.BaseStream.Length)
 										{
-											ItemStat stat = new ItemStat(ItemDatabase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32())
+											ItemStat stat = new ItemStat(ItemDatabase.Stats[r.ReadInt32()], itemLvl, r.ReadInt32(), 0)
 											{
 												amount = r.ReadSingle()
 											};
@@ -569,9 +550,12 @@ namespace ChampionsOfForest.Network
 										if (ModReferences.ThisPlayerID == playerID)
 										{
 											//creating the item.
-											Item item = new Item(ItemDatabase.itemLookup[r.ReadInt32()], r.ReadInt32(), 0, false)
+											int itemID = r.ReadInt32();
+											int amount = r.ReadInt32();
+											int level = r.ReadInt32();
+											Item item = new Item(ItemDatabase.itemLookup[itemID], level)
 											{
-												level = r.ReadInt32()
+												stackedAmount = amount
 											};
 
 											//adding stats to the item
@@ -579,7 +563,7 @@ namespace ChampionsOfForest.Network
 											{
 												int statId = r.ReadInt32();
 												int statPoolIdx = r.ReadInt32();
-												ItemStat stat = new ItemStat(ItemDatabase.Stats[statId], 1, statPoolIdx)
+												ItemStat stat = new ItemStat(ItemDatabase.Stats[statId], 1, statPoolIdx, 0)
 												{
 													amount = r.ReadSingle()
 												};
@@ -613,21 +597,11 @@ namespace ChampionsOfForest.Network
 									{
 										string id = r.ReadString();
 										int weaponID = r.ReadInt32();
-										if (!ModReferences.PlayerHands.ContainsKey(id) || ModReferences.PlayerHands[id] == null)
+										var state = ModReferences.PlayerStates.GetPlayerState(id);
+										if (state != null)
 										{
-											ModReferences.FindHands();
+											CoopCustomWeapons.SetWeaponOn(state.hand, weaponID);
 										}
-
-										if (ModReferences.PlayerHands.ContainsKey(id))
-										{
-											CoopCustomWeapons.SetWeaponOn(ModReferences.PlayerHands[id], weaponID);
-											Console.WriteLine(ModReferences.PlayerHands[id].name);
-										}
-										else
-										{
-											Debug.LogWarning("NO HAND IN COMMAND READER");
-										}
-
 										break;
 									}
 
@@ -795,17 +769,17 @@ namespace ChampionsOfForest.Network
 													var pu = PickUpManager.PickUps[PickupID];
 													if (PlayerID == ModReferences.ThisPlayerID)
 													{
-														MainMenu.Instance.localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.rarity);
+														MainMenu.Instance.localPlayerPing = new MarkPickup(pu.transform, pu.item.name, (int) pu.item.rarity);
 													}
 													else
 													{
 														if (MainMenu.Instance.otherPlayerPings.ContainsKey(PlayerID))
 														{
-															MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkPickup(pu.transform, pu.item.name, pu.item.rarity);
+															MainMenu.Instance.otherPlayerPings[PlayerID] = new MarkPickup(pu.transform, pu.item.name, (int)pu.item.rarity);
 														}
 														else
 														{
-															MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkPickup(pu.transform, pu.item.name, pu.item.rarity));
+															MainMenu.Instance.otherPlayerPings.Add(PlayerID, new MarkPickup(pu.transform, pu.item.name, (int)pu.item.rarity));
 														}
 													}
 												}
@@ -950,7 +924,7 @@ namespace ChampionsOfForest.Network
 												NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Clients);
 												answerStream.Close();
 											}
-											UnityEngine.Debug.Log("CP request sent"); 
+											UnityEngine.Debug.Log("CP request sent");
 										}
 										else
 										{

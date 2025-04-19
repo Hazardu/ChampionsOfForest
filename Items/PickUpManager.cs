@@ -201,26 +201,16 @@ namespace ChampionsOfForest
 							break;
 					}
 
-					if (item.rarity > 2)
+					if ((int)item.rarity > 0)
 					{
 						Light l = spawn.AddComponent<Light>();
 						l.type = LightType.Point;
 						l.shadowStrength = 1;
-						l.color = MainMenu.RarityColors[item.rarity];
-						l.intensity = 1f;
+						l.color = item.GlowColor;
+						l.intensity = item.GlowIntensity;
 						l.range = 4f;
-						renderer.material.color = MainMenu.RarityColors[item.rarity];
-						if (item.rarity > 5)
-						{
-							l.range = 7f;
-							l.intensity = 1.7f;
-							l.cookieSize = 5f;
-							if (item.rarity == 7)
-							{
-								l.range = 12f;
-								l.intensity = 4f;
-							}
-						}
+						renderer.material.color = item.RarityColor;
+						
 					}
 
 					aftercolorsetup:
@@ -230,7 +220,7 @@ namespace ChampionsOfForest
 				}
 
 				ItemPickUp pickup = spawn.AddComponent<ItemPickUp>();
-				pickup.lifetime = (int)dropSource + item.rarity * item.rarity * 2;
+				pickup.lifetime = (int)dropSource;
 				pickup.item = item;
 				pickup.amount = amount;
 				pickup.ID = id;

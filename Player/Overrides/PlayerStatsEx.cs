@@ -948,7 +948,7 @@ namespace ChampionsOfForest
 							Inventory.Instance.DropEquipped();
 							break;
 
-						case ModSettings.DropsOnDeathModes.NonEquipped:
+						case ModSettings.DropsOnDeathModes.Inventory:
 							Inventory.Instance.DropNonEquipped();
 							break;
 					}

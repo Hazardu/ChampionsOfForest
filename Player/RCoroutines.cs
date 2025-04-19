@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+
+using ChampionsOfForest.Items;
+
 using TheForest.Items.Inventory;
 using TheForest.Items.World;
 using TheForest.Utils;
@@ -32,7 +35,7 @@ namespace ChampionsOfForest.Player
 			for (int i = 0; i < count; i++)
 			{
 				Item randomItem = ItemDatabase.GetRandomItem(bounty, type, difficulty, position);
-				if (randomItem.rarity >= ModSettings.LootFilterMinRarity || randomItem.type == ItemDefinition.ItemType.Material || randomItem.type == ItemDefinition.ItemType.Other)
+				if (randomItem.type == ItemDefinition.ItemType.Material || randomItem.type == ItemDefinition.ItemType.Other)
 				{
 					yield return null;
 					Network.NetworkManager.SendItemDrop(randomItem, position + Vector3.up * (2f + i / 10) + Random.Range(-1, 1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right, ItemPickUp.DropSource.EnemyOnDeath);

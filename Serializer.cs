@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 
 using TheForest.Save;
@@ -86,9 +87,9 @@ namespace ChampionsOfForest
 						int AMO = buf.ReadInt32();
 						int StatCount = buf.ReadInt32();
 
-						Item LoadedItem = new Item(ItemDatabase.itemLookup[ID], AMO, 0, false)
+						Item LoadedItem = new Item(ItemDatabase.itemLookup[ID], LVL)
 						{
-							level = LVL
+							stackedAmount = AMO
 						};
 
 						for (int a = 0; a < StatCount; a++)
@@ -97,7 +98,7 @@ namespace ChampionsOfForest
 							int statgroupID = buf.ReadInt32();
 							float statAMO = buf.ReadSingle();
 
-							ItemStat stat = new ItemStat(ItemDatabase.Stats[statID],1,statgroupID)
+							ItemStat stat = new ItemStat(ItemDatabase.Stats[statID], LVL, statgroupID, 0)
 							{
 								amount = statAMO
 							};

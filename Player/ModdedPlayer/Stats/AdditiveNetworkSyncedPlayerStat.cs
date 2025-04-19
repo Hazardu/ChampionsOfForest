@@ -73,10 +73,10 @@ namespace ChampionsOfForest.Player
 		public void PlayerDisconnected()
 		{
 			var keys = OtherPlayerValues.Keys;
-			var names = ModReferences.PlayerStates.Select(x => x.name).ToList();
+			var states = ModReferences.PlayerStates.All;
 			foreach (var key in keys)
 			{
-				if (!names.Contains(key))
+				if (!states.Any(x=> x.playerID == key))
 				{
 					OtherPlayerValues.Remove(key);
 				}

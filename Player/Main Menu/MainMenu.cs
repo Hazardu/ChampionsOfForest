@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
@@ -562,22 +563,22 @@ namespace ChampionsOfForest
 					center = center
 				};
 
-				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*Difficulty: */ + DiffSel_Names[(int)ModSettings.difficulty](), chgDiffLabelStyle);    //tr
+				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*Difficulty: */ + DiffSel_Names[(int)ModSettings.Difficulty](), chgDiffLabelStyle);    //tr
 																																									  //drawing difficulty raise lower buttons
 				if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
 				{
-					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*Raise Difficulty*/, chgDiffBtnStyle))	  //tr
+					if ((int)ModSettings.Difficulty < (int)ModSettings.GameDifficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*Raise Difficulty*/, chgDiffBtnStyle))	  //tr
 					{
 						//raise difficulty
 						difficultyCooldown = 30;
-						ModSettings.difficulty++;
+						ModSettings.Difficulty++;
 						ModSettings.BroadCastSettingsToClients();
 					}
-					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*Lower Difficulty*/, chgDiffBtnStyle))     //tr
+					if (ModSettings.Difficulty > (int)ModSettings.GameDifficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*Lower Difficulty*/, chgDiffBtnStyle))     //tr
 					{
 						//lower difficulty
 						difficultyCooldown = 30;
-						ModSettings.difficulty--;
+						ModSettings.Difficulty--;
 						ModSettings.BroadCastSettingsToClients();
 					}
 					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_26/*Change Options*/, chgDiffBtnStyle))    //tr

@@ -290,6 +290,7 @@ namespace ChampionsOfForest.Items
 			this.subtype = itemDefinition.subtype;
 			this.lootTable = itemDefinition.lootTable;
 			this.lootWeight = itemDefinition.lootWeight;
+			this.stackedAmount = 1;
 			isEquipped = false;
 			stats = new List<ItemStat>();
 		}

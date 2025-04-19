@@ -1,5 +1,6 @@
 ﻿using System;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 
 using UnityEngine;
@@ -23,15 +24,15 @@ namespace ChampionsOfForest.Player.Crafting
 					var stat = CraftingHandler.changedItem.i.stats[selectedStat];
 					if (stat.possibleStatsIndex == -1)
 						return false;
-					if (CraftingHandler.changedItem.i.statSlots[stat.possibleStatsIndex].Count < 2)
+					if (CraftingHandler.changedItem.i.statSlots[stat.possibleStatsIndex].options.Count < 2)
 						return false;
 					int itemCount = 0;
-					int rarity = CraftingHandler.changedItem.i.rarity;
+					int rarity = (int) CraftingHandler.changedItem.i.rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 					{
 						if (CraftingHandler.ingredients[i].i != null)
 						{
-							if (CraftingHandler.ingredients[i].i.rarity >= rarity)
+							if ((int)CraftingHandler.ingredients[i].i.rarity >= rarity)
 							{
 								itemCount++;
 							}
@@ -58,9 +59,9 @@ namespace ChampionsOfForest.Player.Crafting
 						else
 						{
 							var options = CraftingHandler.changedItem.i.statSlots[stat.possibleStatsIndex];
-							int random = UnityEngine.Random.Range(0, options.Count);
+							int random = UnityEngine.Random.Range(0, options.options.Count);
 							{
-								ItemStat newStat = new ItemStat(options[random], CraftingHandler.changedItem.i.level);
+								ItemStat newStat = new ItemStat(options.options[random], CraftingHandler.changedItem.i.level, stat.possibleStatsIndex, CraftingHandler.changedItem.i.GetRarityMultiplier());
 								newStat.amount *= CraftingHandler.changedItem.i.GetRarityMultiplier();
 								newStat.possibleStatsIndex = stat.possibleStatsIndex;
 								if (newStat.valueCap != 0)

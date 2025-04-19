@@ -710,7 +710,7 @@ namespace ChampionsOfForest.Player
 
 		public void SendPlayerState()
 		{
-			COTFCommand<GetPlayerStateParams>.Send(NetworkManager.Target.Others, new GetPlayerStateParams()
+			COTFCommand<GetPlayerStateParams>.Send(NetworkManager.Target.Everyone, new GetPlayerStateParams()
 			{
 				entityNetworkID = LocalPlayer.Entity.networkId.PackedValue,
 				health = LocalPlayer.Stats.Health,
