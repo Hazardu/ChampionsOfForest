@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using BuilderCore;
 
+using ChampionsOfForest.Items;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player

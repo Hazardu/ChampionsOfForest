@@ -36,18 +36,18 @@ namespace ChampionsOfForest.Items
 				if (GameSetup.IsMultiplayer)
 				{
 					var states = ModReferences.PlayerStates.All;
-					switch (ModSettings.m_lootLevelRule)
+					switch (ModSettings.LootLevelRule)
 					{
-						case ModSettings.LootLevelPolicy.HighestPlayerLevel:
+						case ModSettings.LootLevelRules.HighestPlayerLevel:
 							level = states.Max(x => x.level);
 							break;
-						case ModSettings.LootLevelPolicy.AverageLevel:
+						case ModSettings.LootLevelRules.AverageLevel:
 							level = (int)states.Average(x => (double)x.level);
 							break;
-						case ModSettings.LootLevelPolicy.LowestLevel:
+						case ModSettings.LootLevelRules.LowestLevel:
 							level = states.Min(x => x.level);
 							break;
-						case ModSettings.LootLevelPolicy.ClosestPlayer:
+						case ModSettings.LootLevelRules.ClosestPlayer:
 							{
 								level = ModdedPlayer.instance.level;
 								float dist = (LocalPlayer.Transform.position - pos).sqrMagnitude;
@@ -84,9 +84,9 @@ namespace ChampionsOfForest.Items
 				items = new List<ItemDefinition>();
 				foreach (var item in ItemRarityGroups[rarity])
 				{
-					if (itemLookup[item].minLevel <= level && itemLookup[item].lootTable != 0)
+					if (item.minLevel <= level)
 					{
-						items.Add(itemLookup[item]);
+						items.Add(item);
 					}
 				}
 			}

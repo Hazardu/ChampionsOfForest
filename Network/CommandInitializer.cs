@@ -22,6 +22,12 @@ namespace ChampionsOfForest.Network
 			COTFCommand<BroadcastModSettings>.Initialize(
 				param => ModSettings.ReceivedSettingsFromServer(param));
 
+			COTFCommand<DestroyItemPickup>.Initialize(
+				param => PickUpManager.RemovePickup(param.pickupID));
+
+			COTFCommand<CreateHitMarker>.Initialize(
+				param => MainMenu.CreateHitMarker(param.damage, param.GetPosition(), param.GetColor()));
+
 		}
 	}
 }

@@ -735,7 +735,7 @@ namespace ChampionsOfForest
 				amount = ModdedPlayer.instance.DealDamageToShield(-amount);
 				Health -= amount;
 				HealthTarget -= amount * 3;
-				Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)amount);
+				Network.NetworkManager.SendPlayerHitmarker(transform.position, amount);
 			}
 			else
 			{
@@ -948,7 +948,7 @@ namespace ChampionsOfForest
 							Inventory.Instance.DropEquipped();
 							break;
 
-						case ModSettings.DropsOnDeathModes.NonEquipped:
+						case ModSettings.DropsOnDeathModes.Inventory:
 							Inventory.Instance.DropNonEquipped();
 							break;
 					}

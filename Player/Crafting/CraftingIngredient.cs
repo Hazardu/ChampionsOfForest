@@ -1,4 +1,6 @@
-﻿namespace ChampionsOfForest.Player.Crafting
+﻿using ChampionsOfForest.Items;
+
+namespace ChampionsOfForest.Player.Crafting
 {
 	public partial class CustomCrafting
 	{

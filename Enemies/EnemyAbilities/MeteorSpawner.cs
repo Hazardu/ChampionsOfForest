@@ -36,49 +36,49 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 		{
 			System.Random random = new System.Random(seed);
 			int Damage = 10;
-			switch (ModSettings.difficulty)
+			switch (ModSettings.Difficulty) //todo make this a function dependent on enemy level instead of difficulty
 			{
-				case ModSettings.Difficulty.Easy:
+				case ModSettings.GameDifficulty.Easy:
 					Damage = Random.Range(40, 50);
 					break;
 
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GameDifficulty.Veteran:
 					Damage = Random.Range(100, 150);
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GameDifficulty.Elite:
 					Damage = Random.Range(300, 355);
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GameDifficulty.Master:
 					Damage = Random.Range(660, 700);
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GameDifficulty.Challenge1:
 					Damage = 3000;
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GameDifficulty.Challenge2:
 					Damage = 9000;
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GameDifficulty.Challenge3:
 					Damage = 14000;
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GameDifficulty.Challenge4:
 					Damage = 25000;
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GameDifficulty.Challenge5:
 					Damage = 50000;
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GameDifficulty.Challenge6:
 					Damage = 65000;
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GameDifficulty.Hell:
 					Damage = 75000;
 					break;
 			}

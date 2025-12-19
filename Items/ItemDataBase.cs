@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using static ChampionsOfForest.ItemDefinition;
+using static ChampionsOfForest.Items.ItemDefinition;
 using static TheForest.Items.World.PickUp;
 
 namespace ChampionsOfForest.Items
@@ -14,7 +14,7 @@ namespace ChampionsOfForest.Items
 		public static Dictionary<int, ItemDefinition> itemLookup;
 		public static Dictionary<int, ItemStat> Stats;
 
-		private static Dictionary<int, List<int>> ItemRarityGroups;
+		private static Dictionary<int, List<ItemDefinition>> ItemRarityGroups;
 
 
 		//Called from Initializer
@@ -27,7 +27,7 @@ namespace ChampionsOfForest.Items
 
 			itemLookup = new Dictionary<int, ItemDefinition>();
 			Stats = new Dictionary<int, ItemStat>();
-			ItemRarityGroups = new Dictionary<int, List<int>>();
+			ItemRarityGroups = new Dictionary<int, List<ItemDefinition>>();
 
 			PopulateStats();
 			
@@ -55,26 +55,22 @@ namespace ChampionsOfForest.Items
 				Utils.Log("Error with item " + ex.ToString());
 			}
 			itemLookup.Clear();
-			for (int i = 0; i < ItemTemplateStorage.Count; i++)
-			{
-				try
-				{
-					itemLookup.Add(ItemTemplateStorage[i].id, ItemTemplateStorage[i]);
-					if (ItemRarityGroups.ContainsKey(ItemTemplateStorage[i].rarity))
-					{
-						ItemRarityGroups[ItemTemplateStorage[i].rarity].Add(ItemTemplateStorage[i].id);
-					}
-					else
-					{
-						ItemRarityGroups.Add(ItemTemplateStorage[i].rarity, new List<int>() { ItemTemplateStorage[i].id });
-					}
-				}
-				catch (System.Exception ex)
-				{
-					ModAPI.Log.Write("Error with adding an item " + ex.ToString());
-				}
-			}
 
+			for (int i = 0;	i < (int) Rarity.Max; i++)
+			{
+				ItemRarityGroups.Add(i, new List<ItemDefinition>());
+
+			}
+			foreach (KeyValuePair<ItemType, List<ItemDefinition>> kvPair in ItemTemplateStorage)
+			{
+				List<ItemDefinition> items = kvPair.Value;
+				foreach (ItemDefinition item in items)
+				{
+					ItemRarityGroups[(int)item.rarity].Add(item);
+					itemLookup.Add(item.id, item);
+				}
+
+			}
 		}
 		
 		public static ItemStat StatByID(int id)
@@ -98,7 +94,7 @@ namespace ChampionsOfForest.Items
 				}
 				if (itemDef.lootWeight <= 0)
 				{
-					itemDef.lootWeight = 1;
+					itemDef.lootWeight = ItemDefinition.DefaultLootWeight;
 				}
 			}
 		}

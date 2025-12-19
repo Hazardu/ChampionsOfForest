@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 
 using TheForest;
@@ -37,10 +38,7 @@ namespace ChampionsOfForest.Fun
 
 		public static void CotfItem(int id, int level)
 		{
-			Item item = new Item(ItemDatabase.itemLookup[id], 1, 0, false)
-			{
-				level = level
-			};
+			Item item = new Item(ItemDatabase.itemLookup[id], level);
 			item.RollStats();
 			Inventory.Instance.AddItem(item);
 		}

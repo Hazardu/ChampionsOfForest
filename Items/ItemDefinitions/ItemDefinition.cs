@@ -21,7 +21,7 @@ namespace ChampionsOfForest.Items
 
 		public enum ItemType
 		{
-			Other, Shield, Quiver, Weapon, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring, SpellScroll, SocketableGem
+			Other, Shield, Quiver, Weapon, Material, Helmet, Boot, Pants, ChestArmor, ShoulderArmor, Glove, Bracer, Amulet, Ring, SpellScroll, SocketableGem, Consumable
 		}
 		public enum Rarity
 		{
@@ -34,16 +34,15 @@ namespace ChampionsOfForest.Items
 		};
 
 		public delegate void OnItemUsed();
-		public delegate bool OnItemConsume(Item other);
+		public delegate bool OnItemUsedOnAnother(Item other); // what happens when you drag and drop this item onto another
 
 
 		public int id = 0;                      
-		public Rarity rarity = 0;                  
+		public Rarity rarity = 0;     
 		public ItemType type = ItemType.Other;          
 		public ItemSubtype subtype = ItemSubtype.None;
 		
-		public bool canConsume = false;             
-		public OnItemConsume onConsumeCallback;
+		public OnItemUsedOnAnother onUsedOnAnotherItemCallback;
 		public OnItemUsed onEquipCallback, onUnequipCallback;
 		public List<StatSlot> statSlots;
 		public int maximumSocketSlots;
@@ -64,8 +63,8 @@ namespace ChampionsOfForest.Items
 
 		//Drop settings
 		public EnemyProgression.Enemy lootTable = EnemyProgression.Enemy.All;
-		public int lootWeight = 1; //weight of the item in loot table, used to calculate drop chance
-		
+		public int lootWeight = DefaultLootWeight; //weight of the item in loot table, used to calculate drop chance
+		public const int DefaultLootWeight = 1000;
 		public ItemDefinition()
 		{
 			statSlots = new List<StatSlot>();

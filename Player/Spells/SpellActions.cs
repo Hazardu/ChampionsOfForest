@@ -1069,7 +1069,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
 			Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.BloodInfusedArrow);
-			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
+			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, takenHP);
 		}
 
 		#endregion Blood Infused Arrow

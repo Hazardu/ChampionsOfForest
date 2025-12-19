@@ -6,7 +6,6 @@ using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
 using static ChampionsOfForest.Items.ItemDatabase.Stat;
-using static ChampionsOfForest.ItemDatabase;
 using static ChampionsOfForest.Items.ItemDatabase;
 
 namespace ChampionsOfForest.Items.ItemTemplates
@@ -165,15 +164,6 @@ namespace ChampionsOfForest.Items.ItemTemplates
 		{
 			minLevel = minimumLevel;
 			maxLevel = minimumLevel + 1;
-			return this;
-		}
-
-		public ItemTemplateBuilder Consumable(string consumableDescriptiuon, OnItemConsume _onConsume)
-		{
-			onConsumeCallback = _onConsume;
-			uniqueStat = consumableDescriptiuon;
-			stackSize = 100;
-			canConsume = true;
 			return this;
 		}
 
@@ -763,15 +753,18 @@ namespace ChampionsOfForest.Items.ItemTemplates
 		}
 	}
 
-	public class Consumable : ItemTemplateBuilder
+	public class Heart : ItemTemplateBuilder
 	{
-		public Consumable()
+		public Heart(string effectDescription, OnItemUsed consumeEvent)
 		{
 			type = ItemType.Other;
-			LevelRequirement(10);
-			Icon(105);
+			LevelRequirement(1);
 
+			Icon(105);
 			Register();
+
+			onEquipCallback= consumeEvent;
+			uniqueStat = effectDescription;
 		}
 	}
 

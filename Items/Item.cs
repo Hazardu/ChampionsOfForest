@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
@@ -12,7 +11,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-namespace ChampionsOfForest
+namespace ChampionsOfForest.Items
 {
 	public class Item : ItemDefinition
 	{
@@ -60,7 +59,7 @@ namespace ChampionsOfForest
 			if (other.type == ItemType.SocketableGem
 				&& HasEmptySocket)
 			{
-				if (other.onConsumeCallback.Invoke(this))
+				if (other.onUsedOnAnotherItemCallback.Invoke(this))
 				{
 					//item was successfully socketed
 					currentEmptySockets--;
@@ -77,12 +76,12 @@ namespace ChampionsOfForest
 			// materials can be used to upgrade items, reroll their values, etc
 			if (other.type == ItemType.Material)
 			{
-				if (other.onConsumeCallback != null)
+				if (other.onUsedOnAnotherItemCallback != null)
 				{
 					if (isEquipped)
 						OnUnequip();
 
-					bool returnval = other.onConsumeCallback.Invoke(this);
+					bool returnval = other.onUsedOnAnotherItemCallback.Invoke(this);
 					OnEquip();
 
 					return returnval;
@@ -185,12 +184,6 @@ namespace ChampionsOfForest
 					case ItemType.Weapon:
 						return -12;
 
-					case ItemType.Other:
-						return -1;
-
-					case ItemType.Material:
-						return -1;
-
 					case ItemType.Helmet:
 						return -2;
 
@@ -260,6 +253,8 @@ namespace ChampionsOfForest
 					return Translations.Item_14/*Ring*/;  //tr
 				case ItemDefinition.ItemType.SpellScroll:
 					return Translations.Item_15/*Scroll*/;    //tr		
+				case ItemDefinition.ItemType.Consumable:
+					return "Consumable";    //tr	
 				default:
 					return type.ToString();
 			}
@@ -291,10 +286,11 @@ namespace ChampionsOfForest
 			this.type = itemDefinition.type;
 			this.stackSize = itemDefinition.stackSize;
 			this.icon = itemDefinition.icon;
-			this.onConsumeCallback = itemDefinition.onConsumeCallback;
-			this.canConsume = itemDefinition.canConsume;
+			this.onUsedOnAnotherItemCallback = itemDefinition.onUsedOnAnotherItemCallback;
 			this.subtype = itemDefinition.subtype;
 			this.lootTable = itemDefinition.lootTable;
+			this.lootWeight = itemDefinition.lootWeight;
+			this.stackedAmount = 1;
 			isEquipped = false;
 			stats = new List<ItemStat>();
 		}
@@ -379,13 +375,16 @@ namespace ChampionsOfForest
 			onUnequipCallback?.Invoke();
 		}
 
-		public bool OnConsume()
+		private readonly static RarityDisplayInfo[] rarityInfos = new RarityDisplayInfo[]
 		{
-			if (canConsume)
-			{
-				return onConsumeCallback.Invoke(this);
-			}
-			return false;
-		}
+			new RarityDisplayInfo(Rarity.Common, Color.white, Color.white, 0),
+			new RarityDisplayInfo(Rarity.Uncommon, new Color(0.1f,1f,0.1f), new Color(0.1f,1f,0.1f), 0.2f),	
+			new RarityDisplayInfo(Rarity.Magic, new Color(0.1f,0.5f,1f), new Color(0.1f,0.5f,1f), 0.4f),
+			new RarityDisplayInfo(Rarity.Rare, new Color(1f,1f,0.0f), new Color(1f,1f,0.0f), 0.6f),
+			new RarityDisplayInfo(Rarity.Legendary, new Color(0.94f,0.05f,0.05f), new Color(0.94f,0.05f,0.05f), 1f),
+		};
+		public Color RarityColor => rarityInfos[(int)rarity].color;
+		public Color GlowColor => rarityInfos[(int)rarity].glowColor;
+		public float GlowIntensity => rarityInfos[(int)rarity].glowIntensity;
 	}
 }

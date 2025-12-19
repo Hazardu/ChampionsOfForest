@@ -33,6 +33,7 @@ namespace ChampionsOfForest.Player
 		}
 		public static void PlayerLeft()
 		{
+			//todo call this function somewhere
 			foreach (var stat in syncedStats)
 			{
 				stat.PlayerDisconnected();

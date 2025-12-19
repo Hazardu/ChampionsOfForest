@@ -71,45 +71,45 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			go.transform.LookAt(Direction);
 			int dmg = Random.Range(30, 40);
 
-			switch (ModSettings.difficulty)
+			switch (ModSettings.Difficulty)
 			{
-				case ModSettings.Difficulty.Veteran:
+				case ModSettings.GameDifficulty.Veteran:
 					dmg = Random.Range(85, 105);
 					break;
 
-				case ModSettings.Difficulty.Elite:
+				case ModSettings.GameDifficulty.Elite:
 					dmg = Random.Range(221, 234);
 					break;
 
-				case ModSettings.Difficulty.Master:
+				case ModSettings.GameDifficulty.Master:
 					dmg = Random.Range(444, 470);
 					break;
 
-				case ModSettings.Difficulty.Challenge1:
+				case ModSettings.GameDifficulty.Challenge1:
 					dmg = 4124;
 					break;
 
-				case ModSettings.Difficulty.Challenge2:
+				case ModSettings.GameDifficulty.Challenge2:
 					dmg = 15653;
 					break;
 
-				case ModSettings.Difficulty.Challenge3:
+				case ModSettings.GameDifficulty.Challenge3:
 					dmg = 72346;
 					break;
 
-				case ModSettings.Difficulty.Challenge4:
+				case ModSettings.GameDifficulty.Challenge4:
 					dmg = 85932;
 					break;
 
-				case ModSettings.Difficulty.Challenge5:
+				case ModSettings.GameDifficulty.Challenge5:
 					dmg = 124636;
 					break;
 
-				case ModSettings.Difficulty.Challenge6:
+				case ModSettings.GameDifficulty.Challenge6:
 					dmg = 164636;
 					break;
 
-				case ModSettings.Difficulty.Hell:
+				case ModSettings.GameDifficulty.Hell:
 					dmg = 224636;
 					break;
 			}

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Items;
 
 using TheForest.Items.Inventory;
 using TheForest.Utils;
