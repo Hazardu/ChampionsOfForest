@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player.Crafting;
 
 using TheForest.Utils;
@@ -25,7 +26,7 @@ namespace ChampionsOfForest.Player
 			if (Instance.ItemSlots.ContainsKey((int)slot))
 			{
 				var i = Instance.ItemSlots[(int)slot];
-				if (i != null && i.Equipped)
+				if (i != null && i.isEquipped)
 					return i;
 			}
 			return null;
@@ -77,11 +78,11 @@ namespace ChampionsOfForest.Player
 			{
 				if (item.Value != null)
 				{
-					if (item.Value.Equipped)
+					if (item.Value.isEquipped)
 					{
 						if (item.Key > -1)
 						{
-							item.Value.Equipped = false;
+							item.Value.isEquipped = false;
 							item.Value.OnUnequip();
 						}
 					}
@@ -91,7 +92,7 @@ namespace ChampionsOfForest.Player
 						{
 							//if (item.Value.level <= ModdedPlayer.instance.level)
 							{
-								item.Value.Equipped = true;
+								item.Value.isEquipped = true;
 								item.Value.OnEquip();
 							}
 						}
@@ -109,18 +110,18 @@ namespace ChampionsOfForest.Player
 			{
 				Item i = ItemSlots[key];
 
-				int amount = i.Amount;
-				i.Amount = 1;
+				int amount = i.stackedAmount;
+				i.stackedAmount = 1;
 				for (int ind = 0; ind < amount; ind++)
 				{
 					Network.NetworkManager.SendItemDrop(i, pos, ItemPickUp.DropSource.PlayerDeath);
 
 				}
 
-				if (ItemSlots[key].Equipped)
+				if (ItemSlots[key].isEquipped)
 				{
 					ItemSlots[key].OnUnequip();
-					ItemSlots[key].Equipped = false;
+					ItemSlots[key].isEquipped = false;
 				}
 				ItemSlots[key] = null;
 
@@ -135,15 +136,15 @@ namespace ChampionsOfForest.Player
 			{
 				Item i = ItemSlots[key];
 
-				amount = amount == 0 ? i.Amount : Mathf.Min(amount, i.Amount);
+				amount = amount == 0 ? i.stackedAmount : Mathf.Min(amount, i.stackedAmount);
 				Network.NetworkManager.SendItemDrop(i, LocalPlayer.Transform.position + Vector3.up * 1.5f + LocalPlayer.Transform.forward * 3, ItemPickUp.DropSource.PlayerInventory , amount);
-				ItemSlots[key].Amount -= amount;
-				if (ItemSlots[key].Amount <= 0)
+				ItemSlots[key].stackedAmount -= amount;
+				if (ItemSlots[key].stackedAmount <= 0)
 				{
-					if (ItemSlots[key].Equipped)
+					if (ItemSlots[key].isEquipped)
 					{
 						ItemSlots[key].OnUnequip();
-						ItemSlots[key].Equipped = false;
+						ItemSlots[key].isEquipped = false;
 					}
 					ItemSlots[key] = null;
 				}
@@ -250,18 +251,18 @@ namespace ChampionsOfForest.Player
 			{
 				if (ItemSlots[i] != null)
 				{
-					if (ItemSlots[i].ID == item.ID)
+					if (ItemSlots[i].id == item.id)
 					{
-						if (ItemSlots[i].StackSize >= amount + ItemSlots[i].Amount)
+						if (ItemSlots[i].stackSize >= amount + ItemSlots[i].stackedAmount)
 						{
-							ItemSlots[i].Amount += amount;
+							ItemSlots[i].stackedAmount += amount;
 							PickedUpNotification(ItemSlots[i].name);
 							amount = 0;
 						}
-						else if (ItemSlots[i].StackSize - ItemSlots[i].Amount > 0)
+						else if (ItemSlots[i].stackSize - ItemSlots[i].stackedAmount > 0)
 						{
-							int extrafit = ItemSlots[i].StackSize - ItemSlots[i].Amount;
-							ItemSlots[i].Amount = ItemSlots[i].StackSize;
+							int extrafit = ItemSlots[i].stackSize - ItemSlots[i].stackedAmount;
+							ItemSlots[i].stackedAmount = ItemSlots[i].stackSize;
 							amount -= extrafit;
 						}
 						if (amount <= 0)
@@ -276,7 +277,7 @@ namespace ChampionsOfForest.Player
 				if (ItemSlots[i] == null)
 				{
 					ItemSlots[i] = item;
-					ItemSlots[i].Amount = amount;
+					ItemSlots[i].stackedAmount = amount;
 					PickedUpNotification(ItemSlots[i].name);
 					return true;
 				}

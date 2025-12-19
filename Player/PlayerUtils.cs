@@ -12,13 +12,13 @@
 			float atkSpeed = 1;
 			if (equippedWeapon != null)
 			{
-				if (PlayerInventoryMod.customWeapons.ContainsKey(equippedWeapon.weaponModel))
+				if (PlayerInventoryMod.customWeapons.ContainsKey(equippedWeapon.subtype))
 				{
-					var cw = PlayerInventoryMod.customWeapons[equippedWeapon.weaponModel];
+					var cw = PlayerInventoryMod.customWeapons[equippedWeapon.subtype];
 					dmg = cw.damage;
 				}
 			}
-			float dps = dmg + ModdedPlayer.Stats.meleeFlatDmg;
+			float dps = dmg + ModdedPlayer.Stats.baseMeleeDamage;
 			dps *= ModdedPlayer.Stats.MeleeDamageMult;
 			dps *= atkSpeed * ModdedPlayer.Stats.attackSpeed;
 			dps *= 1 + (ModdedPlayer.Stats.critChance * ModdedPlayer.Stats.critDamage);
@@ -33,14 +33,14 @@
 			float atkSpeed = 1;
 			if (equippedWeapon != null)
 			{
-				greatbow = equippedWeapon.weaponModel == BaseItem.WeaponModelType.Greatbow;
+				greatbow = equippedWeapon.subtype == ItemDefinition.ItemSubtype.Greatbow;
 				if (greatbow)
 				{
 					dmg += 140;
 					atkSpeed = 0.2f;
 				}
 			}
-			float dps = dmg + ModdedPlayer.Stats.rangedFlatDmg;
+			float dps = dmg + ModdedPlayer.Stats.baseRangedDamage;
 			dps *= ModdedPlayer.Stats.RangedDamageMult;
 			if (greatbow)
 				dps *= 1.75f;
@@ -51,7 +51,7 @@
 		}
 		internal static float GetPlayerSpellDamageRating()
 		{
-			float dps = ModdedPlayer.Stats.spellFlatDmg +1;
+			float dps = ModdedPlayer.Stats.baseSpellDamage +1;
 			dps *= ModdedPlayer.Stats.SpellDamageMult;
 
 			return dps;

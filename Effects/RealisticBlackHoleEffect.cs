@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Effects
 			}
 			catch (System.Exception e)
 			{
-				CotfUtils.Log(e.ToString());
+				Utils.Log(e.ToString());
 			}
 		}
 

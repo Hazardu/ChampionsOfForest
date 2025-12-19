@@ -269,7 +269,7 @@ namespace ChampionsOfForest.Enemies
 											playerHitEnemy.Target = entity;
 											//this integer make the attack not stagger the enemy
 											playerHitEnemy.getAttackerType = 2000000;
-											playerHitEnemy.Hit = DamageMath.GetSendableDamage(ModdedPlayer.Stats.TotalThornsDamage);
+											playerHitEnemy.Hit = DamageUtils.GetSendableDamage(ModdedPlayer.Stats.TotalThornsDamage);
 											playerHitEnemy.Send();
 										}
 									}
@@ -285,7 +285,7 @@ namespace ChampionsOfForest.Enemies
 										num = EnemyProg.DamageAmp * EnemyProg.DebuffDmgMult + num - 20f;
 										
 										hitDamage = num;
-										CotfUtils.Log($"Damage dealt to player: d{hitDamage}  amp{EnemyProg.DamageAmp}  lv{EnemyProg.level}  php{hitDamage*100 / ModdedPlayer.Stats.TotalMaxHealth}%", true);
+										Utils.Log($"Damage dealt to player: d{hitDamage}  amp{EnemyProg.DamageAmp}  lv{EnemyProg.level}  php{hitDamage*100 / ModdedPlayer.Stats.TotalMaxHealth}%", true);
 
 										//POISON ATTACKS
 										if (EnemyProg.abilities.Contains(EnemyProgression.Abilities.Poisonous))

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 
 using Bolt;
+
+using ChampionsOfForest.Items;
+using ChampionsOfForest.Network.Commands;
+
 using TheForest.Utils;
 using UnityEngine;
 
@@ -33,28 +37,6 @@ namespace ChampionsOfForest.Network
 				Destroy(this);
 			}
 		}
-
-		private Dictionary<Type, int> registeredCommandIndexes;
-		private List<Action<object>> registeredCommandCallbacks;
-		public void RegisterCommand<T>(Action<T> onReceivedCallback)
-		{
-			if (registeredCommandIndexes.ContainsKey(typeof(T)))
-			{
-				ModAPI.Log.Write("Command already added: " + typeof(T));
-				return;
-			}
-			else
-			{
-				int index = registeredCommandCallbacks.Count;
-				registeredCommandIndexes.Add(typeof(T), index);
-				registeredCommandCallbacks.Add(x => onReceivedCallback.Invoke((T)x));
-			}
-
-
-		}
-
-
-
 
 
 		/// <summary>
@@ -212,7 +194,7 @@ namespace ChampionsOfForest.Network
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
 				{
 					w.Write(5);
-					w.Write(item.ID);
+					w.Write(item.id);
 					w.Write(id);
 					w.Write(item.level);
 					w.Write(amount);
@@ -220,11 +202,11 @@ namespace ChampionsOfForest.Network
 					w.Write(pos.y);
 					w.Write(pos.z);
 					w.Write((int)dropSource);
-					foreach (ItemStat stat in item.Stats)
+					foreach (ItemStat stat in item.stats)
 					{
-						w.Write(stat.StatID);
+						w.Write(stat.id);
 						w.Write(stat.possibleStatsIndex);
-						w.Write(stat.Amount);
+						w.Write(stat.amount);
 					}
 					w.Close();
 				}
@@ -241,14 +223,14 @@ namespace ChampionsOfForest.Network
 				{
 					w.Write(26);
 					w.Write(playerID);
-					w.Write(item.ID);
+					w.Write(item.id);
 					w.Write(amount);
 					w.Write(item.level);
-					foreach (ItemStat stat in item.Stats)
+					foreach (ItemStat stat in item.stats)
 					{
-						w.Write(stat.StatID);
+						w.Write(stat.id);
 						w.Write(stat.possibleStatsIndex);
-						w.Write(stat.Amount);
+						w.Write(stat.amount);
 					}
 					w.Close();
 				}
@@ -262,42 +244,12 @@ namespace ChampionsOfForest.Network
 		}
 		public static void SendHitmarker(Vector3 pos, float amount, Color c)
 		{
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-				{
-					w.Write(20);
-					w.Write(amount);
-					w.Write(pos.x);
-					w.Write(pos.y);
-					w.Write(pos.z);
-					w.Write(c.r);
-					w.Write(c.g);
-					w.Write(c.b);
-					w.Write(c.a);
-					w.Close();
-				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
-				answerStream.Close();
-			}
+			COTFCommand<CreateHitMarker>.Send(Target.Everyone, new CreateHitMarker(amount, pos, c));
 		}
 
-		public static void SendPlayerHitmarker(Vector3 pos, int amount)
+		public static void SendPlayerHitmarker(Vector3 pos, float amount)
 		{
-			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-			{
-				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-				{
-					w.Write(21);
-					w.Write(amount);
-					w.Write(pos.x);
-					w.Write(pos.y);
-					w.Write(pos.z);
-					w.Close();
-				}
-				SendLine(answerStream.ToArray(), Target.Everyone);
-				answerStream.Close();
-			}
+			SendHitmarker(pos, amount, Color.green);
 		}
 
 		/// <summary>

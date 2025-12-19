@@ -2,63 +2,43 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
+using UnityEngine.Windows.Speech;
+
 namespace ChampionsOfForest.Network
 {
 	public class COTFCommand<ParamT> where ParamT : struct
 	{
-		public int commandIndex;
-		public static COTFCommand<ParamT> instance;
+		public int commandIndex = 0;
+		private static COTFCommand<ParamT> instance;
 
-		static protected void Init(Type type)
+		public delegate void ReceivedDelegate(ParamT p);
+
+		private ReceivedDelegate receivedDelegate;
+
+		public static void Initialize(ReceivedDelegate receivedDelegate)
 		{
 			if (instance == null)
 			{
-				var o = (COTFCommand<ParamT>)Activator.CreateInstance(type);
-				instance = o;
+				instance = new COTFCommand<ParamT>();
 				instance.commandIndex = CommandReader.curr_cmd_index++;
-				CommandReader.commandsObjects_dict.Add(instance.commandIndex, type.GetMethod("Received", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public));
-				ModAPI.Log.Write($"command {instance.commandIndex} registered: {type}");
+				CommandReader.callbacks.Add(instance.commandIndex, COTFCommand<ParamT>.Received);
+				instance.receivedDelegate = receivedDelegate;
+
+				Type type = typeof(COTFCommand<ParamT>);
+				ModAPI.Log.Write($"command {instance.commandIndex} registered: {type.Name}");
 			}
 		}
 
-		static byte[] GetBytes(ParamT p)
-		{
-			int size = Marshal.SizeOf(p);
-			byte[] arr = new byte[size];
-			IntPtr ptr = Marshal.AllocHGlobal(size);
-			Marshal.StructureToPtr(p, ptr, true);
-			Marshal.Copy(ptr, arr, 0, size);
-			Marshal.FreeHGlobal(ptr);
-			return arr;
-		}
-		static ParamT GetParam(BinaryReader reader)
-		{
-			int size = Marshal.SizeOf(default(ParamT));
-			IntPtr ptr = Marshal.AllocHGlobal(size);
-			byte[] arr = reader.ReadBytes(size);
-			Marshal.Copy(arr, 0, ptr, size);
-			var param = (ParamT)Marshal.PtrToStructure(ptr, typeof(ParamT));
-			Marshal.FreeHGlobal(ptr);
-			return param;
-		}
+	
 
-		protected virtual void OnSendDataWrite(BinaryWriter w)
-		{
-		}
-
-		protected virtual void OnReceived(ParamT param, BinaryReader r)
-		{
-		}
-
-		public static void Send(NetworkManager.Target target, ParamT param)
+		public static void Send(NetworkManager.Target target, in ParamT param)
 		{
 			using (MemoryStream answerStream = new MemoryStream())
 			{
 				using (BinaryWriter w = new BinaryWriter(answerStream))
 				{
 					w.Write(instance.commandIndex);
-					w.Write(GetBytes(param));
-					instance.OnSendDataWrite(w);
+					w.Write(Utils.GetBytesFromObject(param));
 					w.Close();
 				}
 				NetworkManager.SendLine(answerStream.ToArray(), target);
@@ -72,8 +52,7 @@ namespace ChampionsOfForest.Network
 				using (BinaryWriter w = new BinaryWriter(answerStream))
 				{
 					w.Write(instance.commandIndex);
-					w.Write(GetBytes(param));
-					instance.OnSendDataWrite(w);
+					w.Write(Utils.GetBytesFromObject(param));
 					w.Close();
 				}
 				NetworkManager.SendLine(answerStream.ToArray(), target_connection);
@@ -82,8 +61,8 @@ namespace ChampionsOfForest.Network
 		}
 		public static void Received(BinaryReader r)
 		{
-			var p = GetParam(r);
-			instance.OnReceived(p, r);
+			ParamT p = Utils.GetObjectFromBytes<ParamT>(r);
+			instance.receivedDelegate.Invoke(p);
 			r.Close();
 		}
 	}

@@ -51,7 +51,7 @@ namespace ChampionsOfForest.Enemies.EnemyAbilities
 			{
 				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < 49)
 				{
-					float dmgPerTick = Time.deltaTime * damage * ModdedPlayer.Stats.allDamageTaken * ModdedPlayer.Stats.magicDamageTaken * ModReferences.DamageReduction((int)ModdedPlayer.Stats.TotalArmor);
+					float dmgPerTick = Time.deltaTime * damage * ModdedPlayer.Stats.allDamageTaken * ModdedPlayer.Stats.damageFromElites * ModReferences.DamageReduction((int)ModdedPlayer.Stats.TotalArmor);
 
 					if (LocalPlayer.Stats.Health - 1 > dmgPerTick)
 						LocalPlayer.Stats.Health -= dmgPerTick;

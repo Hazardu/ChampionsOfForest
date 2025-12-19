@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ChampionsOfForest.Items;
+
+using UnityEngine;
 
 namespace ChampionsOfForest.Player
 {
@@ -28,7 +30,7 @@ namespace ChampionsOfForest.Player
 
 		public float trailWidth = 0.14f;
 
-		public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float colliderScale = 1, float scale = 1, float damage = 5, float smashDamage = 15, float swingspeed = 1, float triedswingspeed = 1, float staminaDrain = 6, bool noTreeCut = false, float treeDamage = 1)
+		public CustomWeapon(ItemDefinition.ItemSubtype model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float colliderScale = 1, float scale = 1, float damage = 5, float smashDamage = 15, float swingspeed = 1, float triedswingspeed = 1, float staminaDrain = 6, bool noTreeCut = false, float treeDamage = 1)
 		{
 			this.damage = damage;
 			this.swingspeed = swingspeed;
@@ -49,7 +51,7 @@ namespace ChampionsOfForest.Player
 			PlayerInventoryMod.customWeapons.Add(model, this);
 		}
 
-		public CustomWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float scale = 1)
+		public CustomWeapon(ItemDefinition.ItemSubtype model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float scale = 1)
 		{
 			this.damage = 6;
 			this.swingspeed = 1;
@@ -70,7 +72,7 @@ namespace ChampionsOfForest.Player
 			PlayerInventoryMod.customWeapons.Add(model, this);
 		}
 
-		public CustomWeapon(BaseItem.WeaponModelType model, GameObject obj, TrailRenderer trail, Vector3 offset, Vector3 rotation, float scale = 1)
+		public CustomWeapon(ItemDefinition.ItemSubtype model, GameObject obj, TrailRenderer trail, Vector3 offset, Vector3 rotation, float scale = 1)
 		{
 			this.damage = 6;
 			this.swingspeed = 1;
@@ -89,7 +91,7 @@ namespace ChampionsOfForest.Player
 			PlayerInventoryMod.customWeapons.Add(model, this);
 		}
 
-		public CustomWeapon(BaseItem.WeaponModelType model, GameObject obj, Vector3 offset, Vector3 rotation, float scale = 1)
+		public CustomWeapon(ItemDefinition.ItemSubtype model, GameObject obj, Vector3 offset, Vector3 rotation, float scale = 1)
 		{
 			this.damage = 6;
 			this.swingspeed = 1;

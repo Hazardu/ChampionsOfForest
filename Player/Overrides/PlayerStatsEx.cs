@@ -510,7 +510,7 @@ namespace ChampionsOfForest
 				}
 				if (Health < HealthTarget)
 				{
-					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.Stats.TotalMaxHealth * 0.0025f + ModdedPlayer.Stats.healthRecoveryPerSecond) * (ModdedPlayer.Stats.healthPerSecRate + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
+					Health = Mathf.MoveTowards(Health, HealthTarget, (GameSettings.Survival.HealthRegenPerSecond + ModdedPlayer.Stats.TotalMaxHealth * 0.0025f + ModdedPlayer.Stats.lifeRegenBase) * (ModdedPlayer.Stats.lifeRegenMult + 1) * ModdedPlayer.Stats.allRecoveryMult * Time.deltaTime);
 
 					Scene.HudGui.HealthBarTarget.enabled = true;
 				}
@@ -551,7 +551,7 @@ namespace ChampionsOfForest
 					if (!LocalPlayer.FpCharacter.running && !(LocalPlayer.FpCharacter.recoveringFromRun > 0f))
 					{
 						Stamina += ModdedPlayer.Stats.TotalStaminaRecoveryAmount * Time.deltaTime;
-						Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
+						Energy += ModdedPlayer.Stats.energyRecoveryBase.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 					}
 					else if (LocalPlayer.FpCharacter.recoveringFromRun > 0f && Thirst < 1)
 					{
@@ -561,7 +561,7 @@ namespace ChampionsOfForest
 				else
 				{
 					Stamina = Energy;
-					Energy += ModdedPlayer.Stats.energyRecoveryperSecond.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
+					Energy += ModdedPlayer.Stats.energyRecoveryBase.Value * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier * Time.deltaTime;
 				}
 				if (CheckingBlood && Scene.SceneTracker.proxyAttackers.arrayList.Count > 0)
 				{
@@ -735,7 +735,7 @@ namespace ChampionsOfForest
 				amount = ModdedPlayer.instance.DealDamageToShield(-amount);
 				Health -= amount;
 				HealthTarget -= amount * 3;
-				Network.NetworkManager.SendPlayerHitmarker(transform.position, (int)amount);
+				Network.NetworkManager.SendPlayerHitmarker(transform.position, amount);
 			}
 			else
 			{
@@ -794,7 +794,7 @@ namespace ChampionsOfForest
 			}
 			if (ModdedPlayer.Stats.i_KingQruiesSword)
 				BuffDB.AddBuff(22, 80, f, 1);
-			CotfUtils.Log("Tanked damage: " + f, true);
+			Utils.Log("Tanked damage: " + f, true);
 			base.Hit(damage, ignoreArmor, type);
 		}
 
@@ -940,15 +940,15 @@ namespace ChampionsOfForest
 					COTFEvents.Instance.OnDeath.Invoke();
 					switch (ModSettings.dropsOnDeath)
 					{
-						case ModSettings.DropsOnDeathMode.All:
+						case ModSettings.DropsOnDeathModes.All:
 							Inventory.Instance.DropAll();
 							break;
 
-						case ModSettings.DropsOnDeathMode.Equipped:
+						case ModSettings.DropsOnDeathModes.Equipped:
 							Inventory.Instance.DropEquipped();
 							break;
 
-						case ModSettings.DropsOnDeathMode.NonEquipped:
+						case ModSettings.DropsOnDeathModes.Inventory:
 							Inventory.Instance.DropNonEquipped();
 							break;
 					}

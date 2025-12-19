@@ -338,7 +338,7 @@ namespace ChampionsOfForest
 				Stat(Translations.MainMenu_Guide_13, 
 					ModdedPlayer.Stats.TotalMaxHealth.ToString(),
 					Translations.MainMenu_Guide_14(
-					ModdedPlayer.ModdedPlayerStats.baseHealth, ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount(), ModdedPlayer.Stats.maxHealth.GetFormattedAmount(), ModdedPlayer.Stats.maxHealthMult.GetFormattedAmount()));
+					ModdedPlayer.ModdedPlayerStats.baseHealth, ModdedPlayer.Stats.maxHealthFromVit.GetAmount() * ModdedPlayer.Stats.vitality.GetAmount(), ModdedPlayer.Stats.maxLife.GetFormattedAmount(), ModdedPlayer.Stats.maxLifeMult.GetFormattedAmount()));
 
 				Stat(Translations.MainMenu_Guide_15, 
 					ModdedPlayer.Stats.TotalMaxEnergy.ToString(),
@@ -349,9 +349,9 @@ namespace ChampionsOfForest
 					ModdedPlayer.Stats.armor.GetFormattedAmount(),
 					Translations.MainMenu_Guide_18( 
 					ModReferences.DamageReduction(ModdedPlayer.Stats.armor.Value).ToString("P2")));
-				Stat(Translations.MainMenu_Guide_19, 
-					(1 - ModdedPlayer.Stats.magicDamageTaken.GetAmount()).ToString("P"),
-					Translations.MainMenu_Guide_20);  
+				Stat("Reduced damage from Elites", 
+					(1 - ModdedPlayer.Stats.damageFromElites.GetAmount()).ToString("P"),
+					"Decreases the damage taken from elite monsters and their abilities."); 
 				Stat(Translations.MainMenu_Guide_21, 
 					(1 - ModdedPlayer.Stats.getHitChance.GetAmount()).ToString("P"),
 					Translations.MainMenu_Guide_22);    
@@ -373,12 +373,12 @@ namespace ChampionsOfForest
 
 				Stat(Translations.MainMenu_Guide_133, (ModdedPlayer.Stats.TotalStaminaRecoveryAmount).ToString("N2"), //tr
 					Translations.MainMenu_Guide_35( 
-					ModdedPlayer.Stats.staminaRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.staminaPerSecRate.GetFormattedAmount()));
+					ModdedPlayer.Stats.energyRegenMult.GetAmount(), ModdedPlayer.Stats.staminaRegenBase.GetFormattedAmount()));
 
-				Stat(Translations.MainMenu_Guide_37, ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", Translations.MainMenu_Guide_36( ModdedPlayer.Stats.energyRecoveryperSecond.GetAmount(), ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier)); 
+				Stat(Translations.MainMenu_Guide_37, ModdedPlayer.Stats.energyRecoveryBase.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", Translations.MainMenu_Guide_36( ModdedPlayer.Stats.energyRecoveryBase.GetAmount(), ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier)); 
 				Stat(Translations.MainMenu_Guide_39, ModdedPlayer.Stats.energyOnHit.GetAmount() * ModdedPlayer.Stats.TotalStaminaRecoveryMultiplier + "", Translations.MainMenu_Guide_38( ModdedPlayer.Stats.energyOnHit.GetAmount()));
-				Stat(Translations.MainMenu_Guide_41, ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount() * (ModdedPlayer.Stats.healthPerSecRate.GetAmount()) * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", Translations.MainMenu_Guide_40( ModdedPlayer.Stats.healthRecoveryPerSecond.GetAmount(), ModdedPlayer.Stats.healthPerSecRate.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
-				Stat(Translations.MainMenu_Guide_43, ModdedPlayer.Stats.healthOnHit.GetAmount() * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", Translations.MainMenu_Guide_42( ModdedPlayer.Stats.healthOnHit.GetAmount(), ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
+				Stat(Translations.MainMenu_Guide_41, ModdedPlayer.Stats.lifeRegenBase.GetAmount() * (ModdedPlayer.Stats.lifeRegenMult.GetAmount()) * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", Translations.MainMenu_Guide_40( ModdedPlayer.Stats.lifeRegenBase.GetAmount(), ModdedPlayer.Stats.lifeRegenMult.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
+				Stat(Translations.MainMenu_Guide_43, ModdedPlayer.Stats.lifeOnHit.GetAmount() * ModdedPlayer.Stats.allRecoveryMult.GetAmount() + "", Translations.MainMenu_Guide_42( ModdedPlayer.Stats.lifeOnHit.GetAmount(), ModdedPlayer.Stats.allRecoveryMult.GetFormattedAmount(), ModdedPlayer.Stats.allRecoveryMult.GetAmount() - 1));
 
 				Space(60);
 				Header(Translations.MainMenu_Guide_44);
@@ -398,7 +398,7 @@ namespace ChampionsOfForest
 				Space(10);
 
 				Stat(Translations.MainMenu_Guide_60, ModdedPlayer.Stats.MeleeDamageMult.ToString("P"), Translations.MainMenu_Guide_59( ModdedPlayer.Stats.strength.GetAmount() * ModdedPlayer.Stats.meleeDmgFromStr.GetAmount() * 100, (ModdedPlayer.Stats.meleeIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
-				Stat(Translations.MainMenu_Guide_62, ModdedPlayer.Stats.meleeFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_62);
+				Stat(Translations.MainMenu_Guide_62, ModdedPlayer.Stats.baseMeleeDamage.GetFormattedAmount(), Translations.MainMenu_Guide_62);
 				Stat(Translations.MainMenu_Guide_63, ModdedPlayer.Stats.weaponRange.GetFormattedAmount());
 				Stat(Translations.MainMenu_Guide_64, ModdedPlayer.Stats.heavyAttackDmg.GetFormattedAmount());
 
@@ -408,7 +408,7 @@ namespace ChampionsOfForest
 				Space(10);
 
 				Stat(Translations.MainMenu_Guide_67, ModdedPlayer.Stats.RangedDamageMult.ToString("P"), Translations.MainMenu_Guide_66( (ModdedPlayer.Stats.agility.GetAmount() * ModdedPlayer.Stats.rangedDmgFromAgi.GetAmount()).ToString("P"), (ModdedPlayer.Stats.rangedIncreasedDmg.GetAmount() - 1).ToString("P"), (ModdedPlayer.Stats.perk_projectileDamageIncreasedBySize.GetAmount() ? (ModdedPlayer.Stats.projectileSize.GetAmount() - 1) : 0f).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
-				Stat(Translations.MainMenu_Guide_69, ModdedPlayer.Stats.rangedFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_69);
+				Stat(Translations.MainMenu_Guide_69, ModdedPlayer.Stats.baseRangedDamage.GetFormattedAmount(), Translations.MainMenu_Guide_69);
 				Stat(Translations.MainMenu_Guide_71, ModdedPlayer.Stats.projectileSpeed.GetFormattedAmount(), Translations.MainMenu_Guide_71);
 				Stat(Translations.MainMenu_Guide_73, ModdedPlayer.Stats.projectileSize.GetFormattedAmount(), Translations.MainMenu_Guide_73);
 				Stat(Translations.MainMenu_Guide_75, ModdedPlayer.Stats.headShotDamage.GetFormattedAmount(), Translations.MainMenu_Guide_75);
@@ -437,8 +437,8 @@ namespace ChampionsOfForest
 				Header(Translations.MainMenu_Guide_90);
 				Space(10);
 
-				Stat(Translations.MainMenu_Guide_92, ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), Translations.MainMenu_Guide_91( (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P"), (ModdedPlayer.Stats.spellIncreasedDmg - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
-				Stat(Translations.MainMenu_Guide_94, ModdedPlayer.Stats.spellFlatDmg.GetFormattedAmount(), Translations.MainMenu_Guide_94);
+				Stat(Translations.MainMenu_Guide_92, ModdedPlayer.Stats.TotalMagicDamageMultiplier.ToString("P"), Translations.MainMenu_Guide_91( (ModdedPlayer.Stats.intelligence.GetAmount() * ModdedPlayer.Stats.spellDmgFromInt.GetAmount()).ToString("P"), (ModdedPlayer.Stats.spellDamageMult - 1).ToString("P"), (ModdedPlayer.Stats.allDamage - 1).ToString("P")));
+				Stat(Translations.MainMenu_Guide_94, ModdedPlayer.Stats.baseSpellDamage.GetFormattedAmount(), Translations.MainMenu_Guide_94);
 				Stat(Translations.MainMenu_Guide_96, (1 - ModdedPlayer.Stats.spellCost.GetAmount()).ToString("P"), Translations.MainMenu_Guide_96);
 				Stat(Translations.MainMenu_Guide_98, ModdedPlayer.Stats.SpellCostToStamina.ToString("P"), Translations.MainMenu_Guide_98);
 				Stat(Translations.MainMenu_Guide_99, (1 - ModdedPlayer.Stats.cooldown.GetAmount()).ToString("P"));
@@ -459,7 +459,7 @@ namespace ChampionsOfForest
 				Header(Translations.MainMenu_Guide_107);
 				Space(10);
 
-				Stat(Translations.MainMenu_Guide_109, ModdedPlayer.Stats.movementSpeed.ToString(), Translations.MainMenu_Guide_108(FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.movementSpeed));
+				Stat(Translations.MainMenu_Guide_109, ModdedPlayer.Stats.mOVEMENT_SPEED.ToString(), Translations.MainMenu_Guide_108(FPCharacterMod.basewalkSpeed, FPCharacterMod.basewalkSpeed * ModdedPlayer.Stats.mOVEMENT_SPEED));
 				Stat(Translations.MainMenu_Guide_111, ModdedPlayer.Stats.jumpPower.ToString(), Translations.MainMenu_Guide_111);
 				Stat(Translations.MainMenu_Guide_113, (1 / ModdedPlayer.Stats.perk_hungerRate).ToString("P"), Translations.MainMenu_Guide_113);
 				Stat(Translations.MainMenu_Guide_115, (1 / ModdedPlayer.Stats.perk_thirstRate).ToString("P"), Translations.MainMenu_Guide_115);
@@ -468,8 +468,8 @@ namespace ChampionsOfForest
 				Stat(Translations.MainMenu_Guide_122, ModdedPlayer.Stats.timeBonusPerKill.ToString() +"s", Translations.MainMenu_Guide_121);
 				if (ModdedPlayer.Stats.perk_turboRaftOwners.GetAmount() > 0)
 					Stat(Translations.MainMenu_Guide_124, ModdedPlayer.Stats.perk_RaftSpeedMultipier.ToString(), Translations.MainMenu_Guide_124);
-				Stat(Translations.MainMenu_Guide_126, ModdedPlayer.Stats.magicFind.Value.ToString("P"), Translations.MainMenu_Guide_126);
-				foreach (var mfStat in ModdedPlayer.Stats.magicFind.OtherPlayerValues)
+				Stat(Translations.MainMenu_Guide_126, ModdedPlayer.Stats.magicFind_quantity.Value.ToString("P"), Translations.MainMenu_Guide_126);
+				foreach (var mfStat in ModdedPlayer.Stats.magicFind_quantity.OtherPlayerValues)
 				{
 					Stat(mfStat.Key + Translations.MainMenu_Guide_128, mfStat.Value.ToString("P"), Translations.MainMenu_Guide_128);
 				}

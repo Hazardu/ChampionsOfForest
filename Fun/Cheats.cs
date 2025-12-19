@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 
 using TheForest;
@@ -37,10 +38,7 @@ namespace ChampionsOfForest.Fun
 
 		public static void CotfItem(int id, int level)
 		{
-			Item item = new Item(ItemDataBase.ItemBases[id], 1, 0, false)
-			{
-				level = level
-			};
+			Item item = new Item(ItemDatabase.itemLookup[id], level);
 			item.RollStats();
 			Inventory.Instance.AddItem(item);
 		}
@@ -124,7 +122,7 @@ namespace ChampionsOfForest.Fun
 		private void _cotflistitems(string param)
 		{
 			string s = "";
-			foreach (var item in ItemDataBase.ItemBases)
+			foreach (var item in ItemDatabase.itemLookup)
 			{
 				s += string.Concat(new object[]
 				{
@@ -162,14 +160,14 @@ namespace ChampionsOfForest.Fun
 		private void _cotfliststats(string param)
 		{
 			string s = "";
-			foreach (var item in ItemDataBase.Stats)
+			foreach (var item in ItemDatabase.Stats)
 			{
 				s += string.Concat(new object[]
 				{
 					"[",
 					item.Key,
 					"]  ",
-					item.Value.Name,
+					item.Value.name,
 					"\n"
 				});
 			}
@@ -180,8 +178,8 @@ namespace ChampionsOfForest.Fun
 		private void _cotfsetdifficulty(string param)
 		{
 			int i = int.Parse(param);
-			ModSettings.difficulty = (ModSettings.Difficulty)i;
-			Debug.LogWarning("Difficulty changed to: " + (ModSettings.Difficulty)i);
+			ModSettings.difficulty = (ModSettings.GameDifficulty)i;
+			Debug.LogWarning("Difficulty changed to: " + (ModSettings.GameDifficulty)i);
 		}
 
 		private void _cotfspawnitem(string param)
@@ -197,7 +195,7 @@ namespace ChampionsOfForest.Fun
 
 		private void _cotfspawnitembyname(string param)
 		{
-			var matches = ItemDataBase.ItemBases.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.ID).ToArray();
+			var matches = ItemDatabase.itemLookup.Where(x => x.Value.name.ToLower().StartsWith(param)).Select(x => x.Value.id).ToArray();
 			if (matches.Length > 0)
 			{
 				CotfCheats.CotfItem(matches[0], ModdedPlayer.instance.level);
@@ -207,7 +205,7 @@ namespace ChampionsOfForest.Fun
 		}
         private void _cotflogitemdatabase(string param)
         {
-            ItemDataBase.LogInfo();
+            ItemDatabase.LogInfo();
         }
 		private void _sleep(string param)
 		{

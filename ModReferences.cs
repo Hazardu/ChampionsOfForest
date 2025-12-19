@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ChampionsOfForest.Network;
+using ChampionsOfForest.Network.Commands;
+using ChampionsOfForest.Player;
+
 using ModAPI;
 
 using TheForest.Utils;
@@ -10,21 +14,11 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	public class ModReferences : MonoBehaviour
+	public partial class ModReferences : MonoBehaviour
 	{
-		private float LevelRequestCooldown = 10;
-		private float MFindRequestCooldown = 300;
-		public static Material bloodInfusedMaterial;
-		private static ModReferences instance;
-		public static ClientItemPicker ItemPicker => ClientItemPicker.Instance;
-
-		public static List<IPlayerState> PlayerStates = new List<IPlayerState>();
 		
-		public static List<GameObject> Players
-		{
-			get;
-			private set;
-		}
+		private static ModReferences instance;
+		public static List<GameObject> Players => Scene.SceneTracker.allPlayers;
 
 		public static string ThisPlayerID
 		{
@@ -32,9 +26,6 @@ namespace ChampionsOfForest
 			private set;
 		}
 
-		public static List<BoltEntity> AllPlayerEntities = new List<BoltEntity>();
-		public static Dictionary<string, int> PlayerLevels = new Dictionary<string, int>();
-		public static Dictionary<string, Transform> PlayerHands = new Dictionary<string, Transform>();
 		public static Transform rightHandTransform = null;
 
 		private void Start()
@@ -42,24 +33,13 @@ namespace ChampionsOfForest
 			instance = this;
 			if (BoltNetwork.isRunning)
 			{
-				Players = new List<GameObject>();
 				StartCoroutine(InitPlayerID());
-				StartCoroutine(UpdateSetups());
-				if (GameSetup.IsMpServer && BoltNetwork.isRunning)
-				{
-					InvokeRepeating("UpdateLevelData", 1, 1);
-				}
-				PlayerLevels.Clear();
-			}
-			else
-			{
-				Players = new List<GameObject>() { LocalPlayer.GameObject };
 			}
 		}
 
-		public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type,long bounty, ModSettings.Difficulty difficulty, Vector3 position)
+		public static void SendRandomItemDrops(int count, EnemyProgression.Enemy type, long value, ModSettings.GameDifficulty difficulty, Vector3 position)
 		{
-			instance.StartCoroutine(Player.RCoroutines.i.AsyncSendRandomItemDrops(count, type, bounty,difficulty, position));
+			instance.StartCoroutine(Player.RCoroutines.i.AsyncSendRandomItemDrops(count, type, value, difficulty, position));
 		}
 
 		private IEnumerator InitPlayerID()
@@ -79,134 +59,22 @@ namespace ChampionsOfForest
 			}
 			ThisPlayerID = LocalPlayer.Entity.GetState<IPlayerState>().name;
 		}
-		float lastLevelCheckTimestamp;
-		private int lastPlayerLevelCount;
-		public static void UpdatePlayerLevel(string nameOfPlayer, int level)
-		{
-			for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
-			{
-				var state = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>().GetState<IPlayerState>();
-				if (state!= null)
-				{
-					if (state.name == nameOfPlayer)
-					{
-						Scene.SceneTracker.allPlayers[i].GetComponentInChildren<TheForest.UI.Multiplayer.PlayerName>().SendMessage("SetNameWithLevel",level);
-						break;
-					}
-				}
-			}
-			
-		}
-		public static void RemoveUnusedPlayerLevels()
-		{
-			//todo fix this
 
-			List<string> stringsToRemove = new List<string>();
-			foreach (var item in PlayerLevels)
-			{
-				if (!PlayerStates.Any(x => x.name == item.Key))
-				{
-					stringsToRemove.Add(item.Key);
-				}
-			}
-			ModAPI.Console.Write("Removing old player level data: count=" + stringsToRemove.Count);
-			//foreach (var item in stringsToRemove)
-			//{
-			//	PlayerLevels.Remove(item);
-			//}
-		}
+		public static ServerPlayerState PlayerStates = new ServerPlayerState();
 
-		public static void RequestAllPlayerLevels()
-		{
-			if (Time.time - instance.lastLevelCheckTimestamp > 120|| instance.lastPlayerLevelCount != Players.Count)
-			{
-				RemoveUnusedPlayerLevels();
-				instance.LevelRequestCooldown = 120;
-				instance.lastLevelCheckTimestamp = Time.time;
-				instance.lastPlayerLevelCount = Players.Count;
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(18);
-						w.Write("x");
-						w.Close();
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-					answerStream.Close();
-				}
-			}
-		}
 		private void UpdateLevelData()
 		{
-			if (Players.Count > 1)
+			COTFCommand<GetPlayerStateParams>.Send(NetworkManager.Target.Everyone, new GetPlayerStateParams()
 			{
-				LevelRequestCooldown -= 1;
-				if (LevelRequestCooldown < 0 || lastPlayerLevelCount != Players.Count)
-				{
-					LevelRequestCooldown = 120;
-					lastLevelCheckTimestamp = Time.time;
-					lastPlayerLevelCount = Players.Count;
-					RemoveUnusedPlayerLevels();
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-						{
-							w.Write(18);
-							w.Close();
-						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-						answerStream.Close();
-					}
-				}
-			
-				MFindRequestCooldown--;
-				if (MFindRequestCooldown <= 0)
-				{
-					using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-					{
-						using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-						{
-							w.Write(23);
-							w.Close();
-						}
-						Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Everyone);
-						answerStream.Close();
-					}
-					MFindRequestCooldown = 300;
-				}
+				playerID = ThisPlayerID,
+				level = ModdedPlayer.instance.level,
+				health = LocalPlayer.Stats.Health,
+				maxHealth = ModdedPlayer.Stats.TotalMaxHealth,
+				entityNetworkID = LocalPlayer.Entity.networkId.PackedValue
+			});
+		}
 
-				if (PlayerHands.ContainsValue(null))
-				{
-					PlayerHands.Clear();
-				}
-			}
-			else
-			{
-				//PlayerLevels.Clear();
-			}
-		}
-		public static void Reset()
-		{
-			instance.MFindRequestCooldown = 0;
-			instance.LevelRequestCooldown= 0;
-		} 
-		public static void Host_RequestLevels()
-		{
-			if (GameSetup.IsMpServer)
-			{
-				using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
-				{
-					using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
-					{
-						w.Write(18);
-						w.Close();
-					}
-					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Clients);
-					answerStream.Close();
-				}
-			}
-		}
+
 
 		public static float DamageReduction(int armor)
 		{
@@ -215,76 +83,10 @@ namespace ChampionsOfForest
 			float a = armor;
 			float b = (armor + 500f);
 
-			return Mathf.Pow(Mathf.Clamp01(a/b),2f);
+			return Mathf.Pow(Mathf.Clamp01(a / b), 2f);
 		}
 
-		//invalid il code error happens here. i have no clue why, so im randomly changing it so maybe it fixes itself
-		//im trying splitting to more classes
-		public static void FindHands()
-		{
-			PlayerHands.Clear();
-			for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
-			{
-				if (Scene.SceneTracker.allPlayers[i].transform.root != LocalPlayer.Transform)
-				{
-					//BoltEntity entity = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
-					//if (entity == null) continue;
-					//IPlayerState state = entity.GetState<IPlayerState>();
-					//if (state == null) continue;
 
-					string playerName = getName(Scene.SceneTracker.allPlayers[i]);
-					if (playerName != "")
-					{
-						Transform hand = FindDeepChild(Scene.SceneTracker.allPlayers[i].transform.root, "rightHandHeld");
-						if (hand != null)
-						{
-							PlayerHands.Add(playerName, hand.parent);
-						}
-					}
-				}
-			}
-		}
-
-		private static string getName(GameObject gameObject)
-		{
-			BoltEntity entity = gameObject.GetComponent<BoltEntity>();
-			if (entity == null)
-				return "";
-			else
-			{
-				IPlayerState state = entity.GetState<IPlayerState>();
-				if (state == null)
-					return "";
-				else
-					return state.name;
-			}
-		}
-
-		private IEnumerator UpdateSetups()
-		{
-			while (true)
-			{
-				yield return null;
-				if (Players.Any(x => x == null))
-				{
-					Players.Clear();
-					AllPlayerEntities.Clear();
-					PlayerStates.Clear();
-					Players.AddRange(Scene.SceneTracker.allPlayers);
-					for (int i = 0; i < Scene.SceneTracker.allPlayers.Count; i++)
-					{
-						BoltEntity b = Scene.SceneTracker.allPlayers[i].GetComponent<BoltEntity>();
-						if (b != null)
-						{
-							AllPlayerEntities.Add(b);
-							PlayerStates.Add(b.GetState<IPlayerState>());
-						}
-					}
-				}
-
-				yield return new WaitForSeconds(10);
-			}
-		}
 
 		public static Transform FindDeepChild(Transform aParent, string aName)
 		{
@@ -328,6 +130,27 @@ namespace ChampionsOfForest
 			foreach (Transform item in tr)
 			{
 				RecursiveComponentList(item, start);
+			}
+		}
+
+
+		private static Material _bloodMaterial;
+		public static Material BloodMaterial
+		{
+			get
+			{
+				if (_bloodMaterial == null)
+				{
+					_bloodMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
+					{
+						EmissionColor = new Color(0.3f, 0.1f, 0),
+						renderMode = BuilderCore.BuildingData.RenderMode.Fade,
+						MainColor = Color.red,
+						Metalic = 0.8f,
+						Smoothness = 0.8f,
+					});
+				}
+				return _bloodMaterial;
 			}
 		}
 	}

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using BuilderCore;
 
+using ChampionsOfForest.Items;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player
@@ -37,7 +39,7 @@ namespace ChampionsOfForest.Player
 		//    foreach (var pair in vals)
 		//    {
 		//     GUILayout.Label("---------------------------------------------------------------------------------------------------");
-		//            GUILayout.Label(((BaseItem.WeaponModelType)pair.Key).ToString());
+		//            GUILayout.Label(((BaseItem.ItemSubtype)pair.Key).ToString());
 		//           var val = pair.Value;
 		//            Vector3 of = prefabDatas[pair.Key].offset;
 		//            GUILayout.Label("offset: x:" + of.x + "  y:" + of.y + "  z:" + of.z);
@@ -71,14 +73,14 @@ namespace ChampionsOfForest.Player
 
 		public struct CustomWeaponPrefabData
 		{
-			public BaseItem.WeaponModelType model;
+			public ItemDefinition.ItemSubtype model;
 			public Vector3 offset;
 			public Vector3 rotation;
 			public Vector3 tip;
 			public float Scale;
 			public GameObject obj;
 
-			public CustomWeaponPrefabData(BaseItem.WeaponModelType model, Vector3 offset, Vector3 rotation, Vector3 tip, float scale, GameObject g)
+			public CustomWeaponPrefabData(ItemDefinition.ItemSubtype model, Vector3 offset, Vector3 rotation, Vector3 tip, float scale, GameObject g)
 			{
 				this.model = model;
 				this.offset = offset;
@@ -95,7 +97,7 @@ namespace ChampionsOfForest.Player
 			prefabs = new Dictionary<int, GameObject>();
 			prefabDatas = new Dictionary<int, CustomWeaponPrefabData>();
 			//longsword
-			AddWeapon(BaseItem.WeaponModelType.LongSword,
+			AddWeapon(ItemDefinition.ItemSubtype.LongSword,
 				51,
 				Core.CreateMaterial(
 					new BuildingData()
@@ -111,7 +113,7 @@ namespace ChampionsOfForest.Player
 				0.9f);
 
 			//great sword
-			AddWeapon(BaseItem.WeaponModelType.GreatSword,
+			AddWeapon(ItemDefinition.ItemSubtype.GreatSword,
 				52,
 				Core.CreateMaterial(
 					new BuildingData()
@@ -132,7 +134,7 @@ namespace ChampionsOfForest.Player
 				 1f);
 
 			//hammer
-			AddWeapon(BaseItem.WeaponModelType.Hammer,
+			AddWeapon(ItemDefinition.ItemSubtype.Hammer,
 					 108,
 					 Core.CreateMaterial(
 						 new BuildingData()
@@ -147,12 +149,12 @@ namespace ChampionsOfForest.Player
 					 new Vector3(0, 0, -2f),
 					 1f);
 
-			AddWeapon(BaseItem.WeaponModelType.Axe, Instantiate(Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab")),
+			AddWeapon(ItemDefinition.ItemSubtype.Axe, Instantiate(Res.ResourceLoader.GetAssetBundle(2001).LoadAsset<GameObject>("AxePrefab.prefab")),
 				new Vector3(-0.05901787f, -0.075443f, -1.6f),
 				new Vector3(0, 180, 0),
 				new Vector3(0, 0, 0),
 				1);
-			AddWeapon(BaseItem.WeaponModelType.Greatbow, 167,
+			AddWeapon(ItemDefinition.ItemSubtype.Greatbow, 167,
 			Core.CreateMaterial(new BuildingData()
 			{
 				BumpMap = Res.ResourceLoader.GetTexture(168),
@@ -166,7 +168,7 @@ namespace ChampionsOfForest.Player
 			instance = new GameObject().AddComponent<CoopCustomWeapons>();
 		}
 
-		public static void AddWeapon(BaseItem.WeaponModelType model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float Scale)
+		public static void AddWeapon(ItemDefinition.ItemSubtype model, int mesh, Material material, Vector3 offset, Vector3 rotation, Vector3 tip, float Scale)
 		{
 			try
 			{
@@ -198,7 +200,7 @@ namespace ChampionsOfForest.Player
 			}
 		}
 
-		public static void AddWeapon(BaseItem.WeaponModelType model, GameObject go, Vector3 offset, Vector3 rotation, Vector3 tip, float Scale)
+		public static void AddWeapon(ItemDefinition.ItemSubtype model, GameObject go, Vector3 offset, Vector3 rotation, Vector3 tip, float Scale)
 		{
 			try
 			{
@@ -253,7 +255,7 @@ namespace ChampionsOfForest.Player
 			objectsToDisable.Clear();
 
 			yield return null;
-			if (i != (int)BaseItem.WeaponModelType.None)
+			if (i != (int)ItemDefinition.ItemSubtype.None)
 			{
 				foreach (Transform child in handTransform)
 				{

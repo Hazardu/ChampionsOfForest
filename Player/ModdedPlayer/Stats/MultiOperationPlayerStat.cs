@@ -2,7 +2,7 @@
 
 namespace ChampionsOfForest.Player
 {
-	public class MultiOperationPlayerStat<T> : NumericPlayerStatBase<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
+	public class MultiOperationPlayerStat<T> : NumericPlayerStatBase<T>, IAdditiveStat<T>, IMultiplicativeStat<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 	{
 		protected Func<T, T, T> add;
 		protected Func<T, T, T> substract;
@@ -60,7 +60,7 @@ namespace ChampionsOfForest.Player
 			valueAdditive = add(valueAdditive, amount);
 			return Value;
 		}
-		public T Substract(T amount)
+		public T Sub(T amount)
 		{
 			valueAdditive = substract(valueAdditive, amount);
 			return Value;

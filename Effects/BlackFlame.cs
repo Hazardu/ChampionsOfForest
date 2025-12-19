@@ -14,18 +14,73 @@ namespace ChampionsOfForest.Effects
 	{
 		public static BlackFlame instance;
 		public static float DmgAmp = 1;
-		public static float FireDamageBonus => (30 + ModdedPlayer.Stats.spellFlatDmg / ModdedPlayer.Stats.spell_blackFlameDamageScaling) * ModdedPlayer.Stats.TotalMagicDamageMultiplier * DmgAmp / 3;
+		public static float FireDamageBonus => (30 + ModdedPlayer.Stats.baseSpellDamage / ModdedPlayer.Stats.spell_blackFlameDamageScaling) * ModdedPlayer.Stats.TotalMagicDamageMultiplier * DmgAmp / 3;
 
 		private static Material mat1;
 		private static Material mat2;
 		public static GameObject instanceLocalPlayer;
 		public static Component[] particleSystems;
 
+		public static bool IsOn = false;
+		public static float Cost = 20;
+
 		public static bool GiveDamageBuff;
 		public static bool GiveAfterburn;
 		public const float afterburn_duration = 20f,
 			afterburn_debuff_amount = 1.8f,
 			afterburn_chance = 0.10f;
+
+		private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
+
+
+
+		public void Start()
+		{
+			StartCoroutine(StartCoroutine());
+			if (instance == null)
+				instance = this;
+		}
+
+		public IEnumerator StartCoroutine()
+		{
+			yield return null;
+			yield return null;
+			while (ModReferences.rightHandTransform == null)
+			{
+				yield return null;
+				LocalPlayer.Inventory?.SendMessage("GetRightHand");
+			}
+			yield return null;
+			if (instanceLocalPlayer == null)
+			{
+				var created = Create();
+				instanceLocalPlayer = created.item0;
+				particleSystems = created.item1;
+				instanceLocalPlayer.transform.position = ModReferences.rightHandTransform.position;
+				instanceLocalPlayer.transform.rotation = ModReferences.rightHandTransform.rotation;
+				instanceLocalPlayer.transform.parent = ModReferences.rightHandTransform;
+				instanceLocalPlayer.SetActive(false);
+			}
+		}
+
+		private void Update()
+		{
+			if (IsOn)
+			{
+				if (ModdedPlayer.Stats.perk_danceOfFiregod.value)
+					SpellCaster.RemoveStamina(Cost * 0.75f * Math.Max(LocalPlayer.Rigidbody.velocity.magnitude, 0.5f) * Time.deltaTime);
+				else
+					SpellCaster.RemoveStamina(Cost * Time.deltaTime);
+				if (LocalPlayer.Stats.Stamina < 5)
+				{
+					Toggle();
+				}
+				if (GiveDamageBuff)
+				{
+					BuffDB.AddBuff(9, 44, 1.33f, 1f);
+				}
+			}
+		}
 		public static STuple<GameObject, Component[]> Create()
 		{
 			AnimationCurve sizecurve = new AnimationCurve(new Keyframe(0, 0, 5.129462f, 5.129462f), new Keyframe(0.2449522f, 1, 0, 0), new Keyframe(1, 0, -1.242162f, -1.242162f));
@@ -100,57 +155,6 @@ namespace ChampionsOfForest.Effects
 			return new STuple<GameObject, Component[]>(go, comps);
 		}
 
-		public static bool IsOn = false;
-		public static float Cost = 20;
-
-		public void Start()
-		{
-			StartCoroutine(StartCoroutine());
-			if (instance == null)
-				instance = this;
-		}
-
-		public IEnumerator StartCoroutine()
-		{
-			yield return null;
-			yield return null;
-			while (ModReferences.rightHandTransform == null)
-			{
-				yield return null;
-				LocalPlayer.Inventory?.SendMessage("GetRightHand");
-			}
-			yield return null;
-			if (instanceLocalPlayer == null)
-			{
-				var created = Create();
-				instanceLocalPlayer = created.item0;
-				particleSystems = created.item1;
-				instanceLocalPlayer.transform.position = ModReferences.rightHandTransform.position;
-				instanceLocalPlayer.transform.rotation = ModReferences.rightHandTransform.rotation;
-				instanceLocalPlayer.transform.parent = ModReferences.rightHandTransform;
-				instanceLocalPlayer.SetActive(false);
-			}
-		}
-
-		private void Update()
-		{
-			if (IsOn)
-			{
-				if (ModdedPlayer.Stats.perk_danceOfFiregod.value)
-					SpellCaster.RemoveStamina(Cost * 0.75f * Math.Max(LocalPlayer.Rigidbody.velocity.magnitude,0.5f) * Time.deltaTime);
-				else
-					SpellCaster.RemoveStamina(Cost * Time.deltaTime);
-				if (LocalPlayer.Stats.Stamina < 5)
-				{
-					Toggle();
-				}
-				if (GiveDamageBuff)
-				{
-					BuffDB.AddBuff(9, 44, 1.33f, 1f);
-				}
-			}
-		}
-
 		public static void Toggle()
 		{
 			IsOn = !IsOn;
@@ -187,18 +191,12 @@ namespace ChampionsOfForest.Effects
 			}
 		}
 
-		private static Dictionary<Transform, GameObject> blackFlamesClients = new Dictionary<Transform, GameObject>();
-
 		public static void ToggleOtherPlayer(string playerName, bool isOn)
 		{
-			//ModAPI.Console.Write("Toggling black flames for client " + playerName + isOn);
-			if (!ModReferences.PlayerHands.ContainsKey(playerName))
+			var playerState = ModReferences.PlayerStates.GetPlayerState(playerName);
+			if (playerState.hand != null)
 			{
-				ModReferences.FindHands();
-			}
-			if (ModReferences.PlayerHands.ContainsKey(playerName))
-			{
-				Transform t = ModReferences.PlayerHands[playerName];
+				Transform t = playerState.hand;
 				if (blackFlamesClients.ContainsKey(t))
 				{
 					blackFlamesClients[t].SetActive(isOn);

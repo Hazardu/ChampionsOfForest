@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace ChampionsOfForest.Player
 {
-	public class AdditiveNetworkSyncedPlayerStat<T> : NumericPlayerStatBase<T>, INetworkSyncedPlayerStat, INetworkStatStorage<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
+	public class AdditiveNetworkSyncedPlayerStat<T> : NumericPlayerStatBase<T>, INetworkSyncedPlayerStat, INetworkStatStorage<T>, IAdditiveStat<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 	{
 
 		protected Func<T, T, T> add, substract;
@@ -32,7 +32,7 @@ namespace ChampionsOfForest.Player
 			ValueChanged();
 			return Value;
 		}
-		public T Substract(T amount)
+		public T Sub(T amount)
 		{
 			valueAdditive = substract(valueAdditive, amount);
 			return Value;
@@ -73,10 +73,10 @@ namespace ChampionsOfForest.Player
 		public void PlayerDisconnected()
 		{
 			var keys = OtherPlayerValues.Keys;
-			var names = ModReferences.PlayerStates.Select(x => x.name).ToList();
+			var states = ModReferences.PlayerStates.All;
 			foreach (var key in keys)
 			{
-				if (!names.Contains(key))
+				if (!states.Any(x=> x.playerID == key))
 				{
 					OtherPlayerValues.Remove(key);
 				}

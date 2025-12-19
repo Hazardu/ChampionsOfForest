@@ -229,7 +229,7 @@ namespace ChampionsOfForest
 					{
 						if (Random.value <= ModdedPlayer.Stats.getHitChance)
 						{
-							LocalPlayer.Stats.HealthChange(-damageAmount * Time.deltaTime * ( ModdedPlayer.Stats.magicDamageTaken) * ModdedPlayer.Stats.allDamageTaken);
+							LocalPlayer.Stats.HealthChange(-damageAmount * Time.deltaTime * ( ModdedPlayer.Stats.damageFromElites) * ModdedPlayer.Stats.allDamageTaken);
 							BuffDB.AddBuff(1, 5, slowAmount, 20);
 							LocalPlayer.Stats.Burn();
 						}

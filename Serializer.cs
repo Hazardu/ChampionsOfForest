@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Player;
 
 using TheForest.Save;
@@ -32,7 +33,7 @@ namespace ChampionsOfForest
 
 		private void OnApplicationQuit()
 		{
-			EmergencySave();
+			ForceSave();
 		}
 
 		private void DoLoad(string path, out float HealthPercentage, out Dictionary<int, int> ExtraCarriedItems)
@@ -51,7 +52,7 @@ namespace ChampionsOfForest
 					var ver = Res.ResourceLoader.CompareVersion(version, ModSettings.RequiresNewSaveVersion);
 					if (ver == Res.ResourceLoader.Status.Newer)
 					{
-						CotfUtils.Log("last time cotf was played on this save was on version: " + version + "  \ndue to issues with this and following updates, new save will be used. Sorry for inconvenience");
+						Utils.Log("last time cotf was played on this save was on version: " + version + "  \ndue to issues with this and following updates, new save will be used. Sorry for inconvenience");
 						return;
 					}
 				}
@@ -86,9 +87,9 @@ namespace ChampionsOfForest
 						int AMO = buf.ReadInt32();
 						int StatCount = buf.ReadInt32();
 
-						Item LoadedItem = new Item(ItemDataBase.ItemBases[ID], AMO, 0, false)
+						Item LoadedItem = new Item(ItemDatabase.itemLookup[ID], LVL)
 						{
-							level = LVL
+							stackedAmount = AMO
 						};
 
 						for (int a = 0; a < StatCount; a++)
@@ -97,13 +98,12 @@ namespace ChampionsOfForest
 							int statgroupID = buf.ReadInt32();
 							float statAMO = buf.ReadSingle();
 
-							ItemStat stat = new ItemStat(ItemDataBase.Stats[statID],1,statgroupID)
+							ItemStat stat = new ItemStat(ItemDatabase.Stats[statID], LVL, statgroupID, 0)
 							{
-								Amount = statAMO
+								amount = statAMO
 							};
 
-							LoadedItem.Stats.Add(stat);
-							LoadedItem.SortStats();
+							LoadedItem.stats.Add(stat);
 						}
 						Inventory.Instance.ItemSlots[Slot] = LoadedItem;
 					}
@@ -226,16 +226,16 @@ namespace ChampionsOfForest
 					//save the slot id
 
 					//save individual item
-					buf.Write(item.Value.ID);
+					buf.Write(item.Value.id);
 					buf.Write(item.Value.level);
-					buf.Write(item.Value.Amount);
-					buf.Write(item.Value.Stats.Count);
+					buf.Write(item.Value.stackedAmount);
+					buf.Write(item.Value.stats.Count);
 					//save every stat
-					for (int i = 0; i < item.Value.Stats.Count; i++)
+					for (int i = 0; i < item.Value.stats.Count; i++)
 					{
-						buf.Write(item.Value.Stats[i].StatID);
-						buf.Write(item.Value.Stats[i].possibleStatsIndex);
-						buf.Write(item.Value.Stats[i].Amount);
+						buf.Write(item.Value.stats[i].id);
+						buf.Write(item.Value.stats[i].possibleStatsIndex);
+						buf.Write(item.Value.stats[i].amount);
 					}
 				}
 				else
@@ -346,7 +346,7 @@ namespace ChampionsOfForest
 			}
 		}
 
-		public static void EmergencySave() //previousely, clients would disconnect for no reason. Now obsolete
+		public static void ForceSave() //previousely, clients would disconnect for no reason. Now obsolete
 		{
 			if (GameSetup.IsMpClient)
 			{

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 
@@ -9,70 +9,96 @@ using TheForest.Utils;
 
 using UnityEngine;
 
-namespace ChampionsOfForest
+using Random = UnityEngine.Random;
+
+namespace ChampionsOfForest.Items
 {
-	public class Item : BaseItem
+	public class Item : ItemDefinition
 	{
-		public int Amount;
-		public bool Equipped;
-		public List<ItemStat> Stats = new List<ItemStat>();
+		public int level;
+		public int stackedAmount;
+		public bool isEquipped;
+		public List<ItemStat> stats = new List<ItemStat>();
+		public int currentEmptySockets;
+		public int currentMaxEmptySockets;
 
+		#region Grouping stats of the same id
 		private Dictionary<int, float> groupedStats;
-
 		private void GroupStats()
 		{
 			var grouped = new Dictionary<int, List<float>>();
-			foreach (var stat in Stats)
+			foreach (var stat in stats)
 			{
-				if (grouped.ContainsKey(stat.StatID))
-					grouped[stat.StatID].Add(stat.Amount);
+				if (grouped.ContainsKey(stat.id))
+					grouped[stat.id].Add(stat.amount);
 				else
-					grouped.Add(stat.StatID, new List<float>() { stat.Amount });
+					grouped.Add(stat.id, new List<float>() { stat.amount });
 			}
 			groupedStats = new Dictionary<int, float>(grouped.Count);
 			foreach (var group in grouped)
 			{
-				groupedStats.Add(group.Key, ItemDataBase.StatByID(group.Key).EvaluateTotalIncrease(group.Value));
+				groupedStats.Add(group.Key, ItemDatabase.StatByID(group.Key).EvaluateTotalIncrease(group.Value));
 			}
 		}
-
 		public Dictionary<int, float> GetGroupedStats()
 		{
-			if (Stats.Count == 0)
+			if (stats.Count == 0)
 				return null;
 			if (groupedStats == null)
 				GroupStats();
 			return groupedStats;
 		}
+		#endregion
 
+		public bool HasEmptySocket => currentEmptySockets > 0;
+
+		public bool PlaceItemInSocket(Item other)
+		{
+			if (other == null)
+				return false;
+			if (other.type == ItemType.SocketableGem
+				&& HasEmptySocket)
+			{
+				if (other.onUsedOnAnotherItemCallback.Invoke(this))
+				{
+					//item was successfully socketed
+					currentEmptySockets--;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		// called when another item is dragged and dropped on top of this item
 		public bool CombineItems(Item other)
 		{
-			//if other is a socketable item
+			// if other is a material
+			// materials can be used to upgrade items, reroll their values, etc
 			if (other.type == ItemType.Material)
 			{
-				if (other.onConsume != null)
+				if (other.onUsedOnAnotherItemCallback != null)
 				{
-					if (Equipped)
+					if (isEquipped)
 						OnUnequip();
 
-					bool returnval = other.onConsume.Invoke(this);
+					bool returnval = other.onUsedOnAnotherItemCallback.Invoke(this);
 					OnEquip();
 
 					return returnval;
 				}
-				else if (this.Stats.Any(x => x.StatID == 3000))
-				{
-					if (Equipped)
-					{
-						OnUnequip();
-					}
-
-					int statindex = Stats.FindIndex(x => x.StatID == 3000);
-					Stats[statindex] = StatActions.GetSocketedStat(other.Rarity, this.type, other.subtype);
-					OnEquip();
-					return true;
-				}
 			}
+			else if (other.type == ItemType.SocketableGem)
+			{
+				bool wasEquipped = isEquipped;
+				if (isEquipped)
+					OnUnequip();
+				PlaceItemInSocket(other);
+				if (wasEquipped)
+					OnEquip();
+
+				return true;
+			}
+
 			return false;
 		}
 
@@ -158,12 +184,6 @@ namespace ChampionsOfForest
 					case ItemType.Weapon:
 						return -12;
 
-					case ItemType.Other:
-						return -1;
-
-					case ItemType.Material:
-						return -1;
-
 					case ItemType.Helmet:
 						return -2;
 
@@ -203,36 +223,38 @@ namespace ChampionsOfForest
 		{
 			switch (this.type)
 			{
-				case BaseItem.ItemType.Shield:
+				case ItemDefinition.ItemType.Shield:
 					return Translations.Item_1/*Shield*/;    //tr
-				case BaseItem.ItemType.Quiver:
+				case ItemDefinition.ItemType.Quiver:
 					return Translations.Item_2/*Quiver*/;    //tr
-				case BaseItem.ItemType.Weapon:
+				case ItemDefinition.ItemType.Weapon:
 					return Translations.Item_3/*Weapon*/;    //tr
-				case BaseItem.ItemType.Other:
+				case ItemDefinition.ItemType.Other:
 					return Translations.Item_4/*Other*/; //tr
-				case BaseItem.ItemType.Material:
+				case ItemDefinition.ItemType.Material:
 					return Translations.Item_5/*Material*/;      //tr
-				case BaseItem.ItemType.Helmet:
+				case ItemDefinition.ItemType.Helmet:
 					return Translations.Item_6/*Helmet*/;    //tr
-				case BaseItem.ItemType.Boot:
+				case ItemDefinition.ItemType.Boot:
 					return Translations.Item_7/*Boots*/; //tr
-				case BaseItem.ItemType.Pants:
+				case ItemDefinition.ItemType.Pants:
 					return Translations.Item_8/*Pants*/; //tr
-				case BaseItem.ItemType.ChestArmor:
+				case ItemDefinition.ItemType.ChestArmor:
 					return Translations.Item_9/*Chest armor*/;   //tr
-				case BaseItem.ItemType.ShoulderArmor:
+				case ItemDefinition.ItemType.ShoulderArmor:
 					return Translations.Item_10/*Shoulder armor*/;    //tr
-				case BaseItem.ItemType.Glove:
+				case ItemDefinition.ItemType.Glove:
 					return Translations.Item_11/*Gloves*/;    //tr
-				case BaseItem.ItemType.Bracer:
+				case ItemDefinition.ItemType.Bracer:
 					return Translations.Item_12/*Bracers*/;   //tr
-				case BaseItem.ItemType.Amulet:
+				case ItemDefinition.ItemType.Amulet:
 					return Translations.Item_13/*Amulet*/;    //tr
-				case BaseItem.ItemType.Ring:
+				case ItemDefinition.ItemType.Ring:
 					return Translations.Item_14/*Ring*/;  //tr
-				case BaseItem.ItemType.SpellScroll:
+				case ItemDefinition.ItemType.SpellScroll:
 					return Translations.Item_15/*Scroll*/;    //tr		
+				case ItemDefinition.ItemType.Consumable:
+					return "Consumable";    //tr	
 				default:
 					return type.ToString();
 			}
@@ -246,183 +268,123 @@ namespace ChampionsOfForest
 		/// <summary>
 		/// creates a item based on a BaseItem object, rolls values
 		/// </summary>
-		public Item(BaseItem b, int amount = 1, int increasedLevel = 0, bool roll = true)
-		{
-			base.description = b.description;
-			base.minLevel = b.minLevel;
-			base.maxLevel = b.maxLevel;
-			if (increasedLevel != -1)
-			{
-				base.level = Random.Range(minLevel, maxLevel + 1) + increasedLevel;
-			}
-			else
-			{
-				int averageLevel;
-				if (GameSetup.IsMultiplayer)
-				{
-					int sum = ModReferences.PlayerLevels.Values.Sum();
-					int count = ModReferences.PlayerLevels.Values.Count;
+		/// 
 
-					if (!ModSettings.IsDedicated)
-					{
-						sum += ModdedPlayer.instance.level;
-						count++;
-					}
-					else
-					{
-						//ModAPI.Log.Write("Is dedicated server bool set to true.");
-					}
-					sum = Mathf.Max(1, sum);
-					count = Mathf.Max(1, count);
-					sum /= count;
-					averageLevel = sum;
-				}
-				else
-				{
-					averageLevel = ModdedPlayer.instance.level;
-				}
-				averageLevel = Mathf.Max(1, averageLevel);
-				base.level = averageLevel;
-			}
-			base.lore = b.lore;
-			base.name = b.name;
-			base.onEquip = b.onEquip;
-			base.onUnequip = b.onUnequip;
-			base.PossibleStats = b.PossibleStats;
-			base.Rarity = b.Rarity;
-			base.uniqueStat = b.uniqueStat;
-			base.ID = b.ID;
-			base.type = b.type;
-			base.StackSize = b.StackSize;
-			base.icon = b.icon;
-			base.onConsume = b.onConsume;
-			base.CanConsume = b.CanConsume;
-			base.weaponModel = b.weaponModel;
-			base.lootTable = b.lootTable;
-			base.subtype = b.subtype;
-			Amount = amount;
-			Equipped = false;
-			Stats = new List<ItemStat>();
-			if (roll)
-			{
-				RollStats();
-			}
+		public Item(ItemDefinition itemDefinition, int level)
+		{
+			this.level = level;
+			this.minLevel = itemDefinition.minLevel;
+			this.maxLevel = itemDefinition.maxLevel;
+			this.lore = itemDefinition.lore;
+			this.name = itemDefinition.name;
+			this.onEquipCallback = itemDefinition.onEquipCallback;
+			this.onUnequipCallback = itemDefinition.onUnequipCallback;
+			this.statSlots = itemDefinition.statSlots;
+			this.rarity = itemDefinition.rarity;
+			this.uniqueStat = itemDefinition.uniqueStat;
+			this.id = itemDefinition.id;
+			this.type = itemDefinition.type;
+			this.stackSize = itemDefinition.stackSize;
+			this.icon = itemDefinition.icon;
+			this.onUsedOnAnotherItemCallback = itemDefinition.onUsedOnAnotherItemCallback;
+			this.subtype = itemDefinition.subtype;
+			this.lootTable = itemDefinition.lootTable;
+			this.lootWeight = itemDefinition.lootWeight;
+			this.stackedAmount = 1;
+			isEquipped = false;
+			stats = new List<ItemStat>();
 		}
+
+		
+
 
 		public float GetRarityMultiplier()
 		{
-			switch (Rarity)
-			{
-				case 0:
-					return 0.5f;
-
-				case 1:
-					return 0.7f;
-
-				case 2:
-					return 1f;
-
-				case 3:
-					return 1.4f;
-
-				case 4:
-					return 2.3f;
-
-				case 5:
-					return 3.4f;
-
-				case 6:
-					return 4.5f;
-
-				case 7:
-					return 5.6f;
-			}
-			return 1;
+			return Mathf.Pow(1.3f, (int)rarity);
 		}
 
+		public bool isEquippable => destinationSlotID < -1;
 		//rolls 'amount' on every item stat on this object
 		public void RollStats()
 		{
 			groupedStats = null;
-			Stats.Clear();
-			int i = 0;
-			foreach (List<ItemStat> PS in PossibleStats)
-			{
-				int random = Random.Range(0, PS.Count);
-				if (PS[random] != null)
-				{
-					ItemStat stat = new ItemStat(PS[random], level);
-					stat.Amount *= GetRarityMultiplier();
-					if (stat.ValueCap != 0)
-					{
-						stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
-					}
-					stat.possibleStatsIndex = i;
-					Stats.Add(stat);
-				}
-				i++;
-			}
+			stats.Clear();
+			float rarityMult = GetRarityMultiplier();
 
-			if (this.destinationSlotID < -1 && this.level > 20 && Random.value <= 0.175f)
+			for (int i = 0; i < statSlots.Count; i++)
 			{
-				var socketAmount = StatActions.GetMaxSocketAmountOnItem(this.type);
-				if (socketAmount > 0)
+				StatSlot statSlot = statSlots[i];
+
+				if (Random.value <= statSlot.probability)
 				{
-					socketAmount = Random.Range(1, socketAmount + 1);
-					for (int j = 0; j < socketAmount; j++)
+					// roll a random stat from pool
+					int selected = Random.Range(0, statSlot.options.Count);
+
+					ItemStat newstat = new ItemStat(statSlot.options[selected], level, i, rarityMult);
+					//if (stats.Any(stat => stat.id == newstat.id)) // if stats should be grouped
+					//{
+					//	stats.First(stat => stat.id == newstat.id).amount += newstat.amount;
+					//}
+					//else
 					{
-						Stats.Add(new ItemStat(ItemDataBase.StatByID(3000)));
+						stats.Add(newstat);
 					}
 				}
 			}
-			SortStats();
 		}
-		public void SortStats()
+		public void RollSockets()
 		{
-			Stats = Stats.OrderBy(x => -x.Rarity).ToList();
+			if (minimumEmptySockets > 0 || (isEquippable && level >= ModSettings.MinimumLevelForSocketsToAppear && Random.value <= ModSettings.ChanceForFirstSocketToAppear))
+			{
+				int socketAmount = Math.Max(minimumEmptySockets,1);
+
+				while (Random.value <= ModSettings.ChanceForSubsequentSocketsToAppear && socketAmount < maximumSocketSlots)
+				{
+					socketAmount++;
+				}
+
+				currentMaxEmptySockets = socketAmount;
+				currentEmptySockets = socketAmount;
+
+			}
 		}
 
 		public void OnEquip()
 		{
-			Equipped = true;
-			foreach (ItemStat item in Stats)
+			isEquipped = true;
+			foreach (ItemStat item in stats)
 			{
-				if (item.Amount != 0)
+				if (item.amount != 0)
 				{
-					item.OnEquip?.Invoke(item.Amount);
+					item.OnEquip?.Invoke(item.amount);
 				}
 			}
-			onEquip?.Invoke();
+			onEquipCallback?.Invoke();
 		}
 
 		public void OnUnequip()
 		{
-			Equipped = false;
-			foreach (ItemStat item in Stats)
+			isEquipped = false;
+			foreach (ItemStat item in stats)
 			{
-				if (item.Amount != 0)
+				if (item.amount != 0)
 				{
-					item.OnUnequip(item.Amount);
+					item.OnUnequip(item.amount);
 				}
 			}
-			onUnequip?.Invoke();
+			onUnequipCallback?.Invoke();
 		}
 
-		public bool OnConsume()
+		private readonly static RarityDisplayInfo[] rarityInfos = new RarityDisplayInfo[]
 		{
-			if (CanConsume)
-			{
-				onEquip?.Invoke();
-				foreach (ItemStat item in Stats)
-				{
-					if (item.Amount != 0)
-					{
-						item.OnConsume(item.Amount);
-					}
-				}
-				return true;
-			}
-			return false;
-		}
+			new RarityDisplayInfo(Rarity.Common, Color.white, Color.white, 0),
+			new RarityDisplayInfo(Rarity.Uncommon, new Color(0.1f,1f,0.1f), new Color(0.1f,1f,0.1f), 0.2f),	
+			new RarityDisplayInfo(Rarity.Magic, new Color(0.1f,0.5f,1f), new Color(0.1f,0.5f,1f), 0.4f),
+			new RarityDisplayInfo(Rarity.Rare, new Color(1f,1f,0.0f), new Color(1f,1f,0.0f), 0.6f),
+			new RarityDisplayInfo(Rarity.Legendary, new Color(0.94f,0.05f,0.05f), new Color(0.94f,0.05f,0.05f), 1f),
+		};
+		public Color RarityColor => rarityInfos[(int)rarity].color;
+		public Color GlowColor => rarityInfos[(int)rarity].glowColor;
+		public float GlowIntensity => rarityInfos[(int)rarity].glowIntensity;
 	}
 }

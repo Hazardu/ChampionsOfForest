@@ -16,17 +16,17 @@ namespace ChampionsOfForest.Player.Crafting
 			{
 				get
 				{
-					if (CraftingHandler.changedItem.i == null || CraftingHandler.changedItem.i.Stats.Count <= selectedStat || selectedStat < 0)
+					if (CraftingHandler.changedItem.i == null || CraftingHandler.changedItem.i.stats.Count <= selectedStat || selectedStat < 0)
 						return false;
-					if (CraftingHandler.changedItem.i.Stats[selectedStat].StatID == 3000)
+					if (CraftingHandler.changedItem.i.stats[selectedStat].id == 3000)
 						return false;
 					int itemCount = 0;
-					int rarity = CraftingHandler.changedItem.i.Rarity;
+					int rarity = CraftingHandler.changedItem.i.rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 					{
 						if (CraftingHandler.ingredients[i].i != null)
 						{
-							if (CraftingHandler.ingredients[i].i.Rarity >= rarity)
+							if (CraftingHandler.ingredients[i].i.rarity >= rarity)
 								itemCount++;
 							else
 								return false;
@@ -42,17 +42,17 @@ namespace ChampionsOfForest.Player.Crafting
 				{
 					if (validRecipe)
 					{
-						var stat = CraftingHandler.changedItem.i.Stats[selectedStat];
-						if (stat.StatID > 3000)
+						var stat = CraftingHandler.changedItem.i.stats[selectedStat];
+						if (stat.id > 3000)
 						{
-							CraftingHandler.changedItem.i.Stats[selectedStat] = new ItemStat(ItemDataBase.Stats[3000]); //set to empty socket
+							CraftingHandler.changedItem.i.stats[selectedStat] = new ItemStat(ItemDatabase.Stats[3000]); //set to empty socket
 						}
 						else
 						{
-							stat.Amount = stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-							if (stat.ValueCap != 0)
-								stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
-							stat.Amount *= stat.Multipier;
+							stat.amount = stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
+							if (stat.valueCap != 0)
+								stat.amount = Mathf.Min(stat.amount, stat.valueCap);
+							stat.amount *= stat.multipier;
 						}
 						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 						for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
@@ -79,23 +79,23 @@ namespace ChampionsOfForest.Player.Crafting
 						float mult = CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
 
 						int ind = 0;
-						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.stats)
 						{
 							Rect statRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 26 * screenScale);
 							Rect valueMinMaxRect = new Rect(statRect.xMax + 15 * screenScale, ypos, statRect.width, statRect.height);
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
+							string amount = stat.amount.ToString((stat.displayAsPercent ? "P" : "N") + stat.roundingCount);
 
-							GUI.color = MainMenu.RarityColors[stat.Rarity];
+							GUI.color = MainMenu.RarityColors[stat.rarity];
 							if (selectedStat == ind)
 							{
-								GUI.Label(statRect, "• " + stat.Name + " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
+								GUI.Label(statRect, "• " + stat.name + " •", new GUIStyle(styles[0]) { fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(19 * screenScale) });
 							}
 							else
 							{
-								if (GUI.Button(statRect, stat.Name, styles[0]))
+								if (GUI.Button(statRect, stat.name, styles[0]))
 								{
 									selectedStat = ind;
 								}
@@ -120,7 +120,7 @@ namespace ChampionsOfForest.Player.Crafting
 						if (validRecipe)
 						{
 
-							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.Stats[selectedStat].StatID > 3000 ? Translations.IndividualRerolling_3/*Empty socket*/ : Translations.Polishing_2/*Reroll stat value*/, styles[2])) //tr
+							if (GUI.Button(new Rect(x, ypos, w, 40 * screenScale), CraftingHandler.changedItem.i.stats[selectedStat].id > 3000 ? Translations.IndividualRerolling_3/*Empty socket*/ : Translations.Polishing_2/*Reroll stat value*/, styles[2])) //tr
 							{
 								Craft();
 							}

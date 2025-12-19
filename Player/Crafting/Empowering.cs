@@ -1,5 +1,7 @@
 ﻿using System;
 
+using ChampionsOfForest.Items;
+
 using UnityEngine;
 
 namespace ChampionsOfForest.Player.Crafting
@@ -15,12 +17,12 @@ namespace ChampionsOfForest.Player.Crafting
 					if (CraftingHandler.changedItem.i == null || CraftingHandler.changedItem.i.destinationSlotID > -2)
 						return false;
 					int itemCount = 0;
-					int rarity = CraftingHandler.changedItem.i.Rarity;
+					int rarity = (int)CraftingHandler.changedItem.i.rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 					{
 						if (CraftingHandler.ingredients[i].i != null)
 						{
-							if (CraftingHandler.ingredients[i].i.Rarity >= rarity)
+							if ((int)CraftingHandler.ingredients[i].i.rarity >= rarity)
 							{
 								itemCount++;
 							}
@@ -41,14 +43,14 @@ namespace ChampionsOfForest.Player.Crafting
 					if (validRecipe)
 					{
 						CraftingHandler.changedItem.i.level = ModdedPlayer.instance.level;
-						foreach (var stat in CraftingHandler.changedItem.i.Stats)
+						foreach (var stat in CraftingHandler.changedItem.i.stats)
 						{
-							if (stat.StatID >= 3000)
+							if (stat.id >= 3000)
 								continue;
-							stat.Amount = stat.RollValue(CraftingHandler.changedItem.i.level) * CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-							if (stat.ValueCap != 0)
-								stat.Amount = Mathf.Min(stat.Amount, stat.ValueCap);
-							stat.Amount *= stat.Multipier;
+							stat.amount = stat.RollValue(CraftingHandler.changedItem.i.level, CustomCrafting.instance.changedItem.i.GetRarityMultiplier());
+							if (stat.valueCap != 0)
+								stat.amount = Mathf.Min(stat.amount, stat.valueCap);
+							stat.amount *= stat.multipier;
 						}
 						Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Purge);
 
@@ -75,22 +77,20 @@ namespace ChampionsOfForest.Player.Crafting
 					try
 					{
 						float mult = CustomCrafting.instance.changedItem.i.GetRarityMultiplier();
-						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.stats)
 						{
 							Rect statRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 26 * screenScale);
 							Rect valueMinMaxRect = new Rect(statRect.xMax + 15 * screenScale, ypos, statRect.width, statRect.height);
 							ypos += 26 * screenScale;
-							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level,mult) ;
-							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult)  ;
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
-							GUI.color = MainMenu.RarityColors[stat.Rarity];
-							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
-							GUI.color = Color.white;
+							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
+							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
+							string amount = stat.amount.ToString((stat.displayAsPercent ? "P" : "N") + stat.roundingCount);
+							GUI.Label(statRect, ind + ".  " + stat.name, styles[0]);
 							ind++;
-						
-								GUI.Label(statRect, amount, styles[1]);
-								GUI.Label(valueMinMaxRect, "[ " + minAmount+ " - " + maxAmount+" ]", styles[4]);
-						
+
+							GUI.Label(statRect, amount, styles[1]);
+							GUI.Label(valueMinMaxRect, "[" + minAmount + " - " + maxAmount + "]", styles[4]);
+
 						}
 					}
 					catch (Exception e)

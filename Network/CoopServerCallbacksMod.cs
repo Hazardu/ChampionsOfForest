@@ -49,19 +49,19 @@ namespace ChampionsOfForest.Network
 					{
 						enemy.HealthScript.Burn();
 					}
-					if (ev.getAttackerType == DamageMath.SILENTattackerType)
+					if (ev.getAttackerType == DamageUtils.SILENTattackerType)
 					{
 						//ghost hit
 						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
 						enemy.HitPhysicalSilent(damage);
 					}
-					else if (ev.getAttackerType == DamageMath.SILENTattackerTypeMagic)
+					else if (ev.getAttackerType == DamageUtils.SILENTattackerTypeMagic)
 					{
 						//ghost hit
 						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
 						enemy.HitMagic(damage);
 					}
-					else if (ev.getAttackerType == DamageMath.PURE)
+					else if (ev.getAttackerType == DamageUtils.PURE)
 					{
 						float damage = BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0);
 						enemy.HitPure(damage);
@@ -71,9 +71,9 @@ namespace ChampionsOfForest.Network
 						if (ev.Hit > 0)
 						{
 
-							float damage = ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
-							if (ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType)
-								ev.getAttackerType -= DamageMath.CONVERTEDFLOATattackerType;
+							float damage = ev.getAttackerType >= DamageUtils.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
+							if (ev.getAttackerType >= DamageUtils.CONVERTEDFLOATattackerType)
+								ev.getAttackerType -= DamageUtils.CONVERTEDFLOATattackerType;
 							//just in case i ever need this
 							//this is how to get the player object which raised the event (ev.RaisedBy.UserData as BoltEntity)
 							enemy.HealthScript.getAttackDirection(ev.getAttackerType);
@@ -142,7 +142,7 @@ namespace ChampionsOfForest.Network
 				{
 					transform.SendMessage("getStealthAttack", SendMessageOptions.DontRequireReceiver);
 				}
-				float dmg = ev.getAttackerType >= DamageMath.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
+				float dmg = ev.getAttackerType >= DamageUtils.CONVERTEDFLOATattackerType ? BitConverter.ToSingle(BitConverter.GetBytes(ev.Hit), 0) : ev.Hit;
 				if (ev.hitFallDown)
 				{
 					mutantHitReceiver componentInChildren5 = transform.GetComponentInChildren<mutantHitReceiver>();
@@ -250,18 +250,28 @@ namespace ChampionsOfForest.Network
 
 		}
 
+		public override void Disconnected(BoltConnection connection)
+		{
+			NetworkManager.SendText("IIA champion left", NetworkManager.Target.Everyone);
+			base.Disconnected(connection);
+		}
+
 
 	}
 
 	internal class CoopClientCallbacksMod : CoopClientCallbacks
 	{
 		public override void Disconnected(BoltConnection connection)
-			{
+		{
 			ModAPI.Console.Write("Saving client data to avoid item duping");
-			Serializer.EmergencySave();
+			Serializer.ForceSave();
 			base.Disconnected(connection);
+		}
+		public override void Connected(BoltConnection connection) 
+		{
+
+		}
 	}
-}
 
 	public class BoltConnectionEx : BoltConnection
 	{
@@ -301,7 +311,7 @@ namespace ChampionsOfForest.Network
 
 		public override void Disconnect()
 		{
-			Serializer.EmergencySave();
+			Serializer.ForceSave();
 			base.Disconnect();
 		}
 	}

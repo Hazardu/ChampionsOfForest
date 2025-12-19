@@ -2,7 +2,7 @@
 
 namespace ChampionsOfForest.Player
 {
-	public class MultiplicativePlayerStat<T> : NumericPlayerStatBase<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
+	public class MultiplicativePlayerStat<T> : NumericPlayerStatBase<T>, IMultiplicativeStat<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 	{
 		protected Func<T, T, T> mult;
 		protected Func<T, T, T> divide;

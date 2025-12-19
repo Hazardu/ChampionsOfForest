@@ -39,9 +39,9 @@ namespace ChampionsOfForest.ExpSources
 			}
 			if (!GameSetup.IsMpClient)
 			{
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(270,transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(310, transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(370, transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDatabase.GetRandomItem(270,transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDatabase.GetRandomItem(310, transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDatabase.GetRandomItem(370, transform.position), LocalPlayer.Transform.position + Vector3.up * 6f, ItemPickUp.DropSource.EnemyOnDeath);
 			}
 		}
 	}

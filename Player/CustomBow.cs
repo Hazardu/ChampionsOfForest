@@ -8,32 +8,6 @@ using UnityEngine;
 
 namespace ChampionsOfForest
 {
-	//   public class SomeFuckingBowControllerClass : BowController
-	//   {
-	//       CustomBowBase cbb;
-	//       protected override void OnEnable()
-	//       {
-	//           if (_bowItemId == 79)
-	//           {
-	//               if (cbb == null)
-	//               {
-	//                   cbb = gameObject.AddComponent<CustomBowBase>();
-	//               }
-	//           }
-	//           base.OnEnable();
-	//       }
-	//       protected override void Start()
-	//       {
-	//           if (_bowItemId == 79)
-	//           {
-	//               if (cbb == null)
-	//               {
-	//                   cbb = gameObject.AddComponent<CustomBowBase>();
-	//               }
-	//           }
-	//           base.Start();
-	//       }
-	//}
 	public class CustomBowBase : MonoBehaviour
 	{
 		public static GameObject baseBow;
@@ -74,14 +48,14 @@ namespace ChampionsOfForest
 					{
 						w.Write(28);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write((int)BaseItem.WeaponModelType.Greatbow);
+						w.Write((int)ItemDefinition.ItemSubtype.Greatbow);
 						w.Close();
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
 					answerStream.Close();
 				}
 			}
-			PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+			PlayerInventoryMod.ToEquipWeaponType = ItemDefinition.ItemSubtype.None;
 		}
 
 		private void OnDisable()
@@ -95,7 +69,7 @@ namespace ChampionsOfForest
 					{
 						w.Write(28);
 						w.Write(ModReferences.ThisPlayerID);
-						w.Write((int)BaseItem.WeaponModelType.None);
+						w.Write((int)ItemDefinition.ItemSubtype.None);
 						w.Close();
 					}
 					Network.NetworkManager.SendLine(answerStream.ToArray(), Network.NetworkManager.Target.Others);
@@ -134,7 +108,7 @@ namespace ChampionsOfForest
 				});
 
 				Destroy(bow.gameObject);
-				model.transform.localScale *= 1.1f;
+				//model.transform.localScale *= 1.1f;
 			}
 			catch (System.Exception e)
 			{

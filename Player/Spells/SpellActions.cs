@@ -60,7 +60,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (hit.transform.CompareTag("enemyCollide"))
 				{
-					float dmg = ModdedPlayer.Stats.spell_blinkDamage + ModdedPlayer.Stats.spellFlatDmg* ModdedPlayer.Stats.spell_blinkDamageScaling;
+					float dmg = ModdedPlayer.Stats.spell_blinkDamage + ModdedPlayer.Stats.baseSpellDamage* ModdedPlayer.Stats.spell_blinkDamageScaling;
 					dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 					if (GameSetup.IsMpClient)
 					{
@@ -72,8 +72,8 @@ namespace ChampionsOfForest.Player
 						{
 							PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
 							playerHitEnemy.hitFallDown = true;
-							playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
-							playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
+							playerHitEnemy.getAttackerType = DamageUtils.CONVERTEDFLOATattackerType;
+							playerHitEnemy.Hit = DamageUtils.GetSendableDamage(dmg);
 							playerHitEnemy.Send();
 						}
 					}
@@ -95,7 +95,7 @@ namespace ChampionsOfForest.Player
 			{
 				Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.Boom);
 				var raycastHitExplosion = Physics.OverlapSphere(blinkPoint, (blinkPoint - t.position).magnitude / 4f);
-				float dmg = ModdedPlayer.Stats.spell_blinkDamage + LocalPlayer.Rigidbody.velocity.magnitude * ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_blinkDamageScaling/7f;
+				float dmg = ModdedPlayer.Stats.spell_blinkDamage + LocalPlayer.Rigidbody.velocity.magnitude * ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_blinkDamageScaling/7f;
 				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.RandomCritDamage;
 				foreach (var hitCollider in raycastHitExplosion)
 				{
@@ -111,8 +111,8 @@ namespace ChampionsOfForest.Player
 							{
 								PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(enemyEntity);
 								playerHitEnemy.hitFallDown = true;
-								playerHitEnemy.getAttackerType = DamageMath.CONVERTEDFLOATattackerType;
-								playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmg);
+								playerHitEnemy.getAttackerType = DamageUtils.CONVERTEDFLOATattackerType;
+								playerHitEnemy.Hit = DamageUtils.GetSendableDamage(dmg);
 								playerHitEnemy.Send();
 							}
 						}
@@ -158,8 +158,8 @@ namespace ChampionsOfForest.Player
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			float radius = 14f;
-			float healing = (ModdedPlayer.Stats.healthRecoveryPerSecond * ModdedPlayer.Stats.healthRecoveryPerSecond * 10 + 43.5f)*ModdedPlayer.Stats.allRecoveryMult;
-			healing += ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.SpellDamageMult * 0.1f;
+			float healing = (ModdedPlayer.Stats.lifeRegenBase * ModdedPlayer.Stats.lifeRegenBase * 10 + 43.5f)*ModdedPlayer.Stats.allRecoveryMult;
+			healing += ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.SpellDamageMult * 0.1f;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
 				using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -187,12 +187,12 @@ namespace ChampionsOfForest.Player
 
 		public static void BUFF_MultMS(float f)
 		{
-			ModdedPlayer.Stats.movementSpeed.Multiply(f);
+			ModdedPlayer.Stats.mOVEMENT_SPEED.Multiply(f);
 		}
 
 		public static void BUFF_DivideMS(float f)
 		{
-			ModdedPlayer.Stats.movementSpeed.Divide(f);
+			ModdedPlayer.Stats.mOVEMENT_SPEED.Divide(f);
 		}
 
 		public static void BUFF_MultAS(float f)
@@ -209,13 +209,13 @@ namespace ChampionsOfForest.Player
 		public static void CastFlare()
 		{
 			Vector3 dir = LocalPlayer.Transform.position;
-			float dmg = ModdedPlayer.Stats.spell_flareDamage + ModdedPlayer.Stats.spellFlatDmg *ModdedPlayer.Stats.spell_flareDamageScaling;
+			float dmg = ModdedPlayer.Stats.spell_flareDamage + ModdedPlayer.Stats.baseSpellDamage *ModdedPlayer.Stats.spell_flareDamageScaling;
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier ;
 			float slow = ModdedPlayer.Stats.spell_flareSlow;
 			float boost = ModdedPlayer.Stats.spell_flareBoost;
 			float duration = ModdedPlayer.Stats.spell_flareDuration;
 			float radius = ModdedPlayer.Stats.spell_flareRadius;
-			float Healing = ModdedPlayer.Stats.spell_flareHeal + ModdedPlayer.Stats.spellFlatDmg / 20 + (ModdedPlayer.Stats.healthRecoveryPerSecond*2) * ModdedPlayer.Stats.healthPerSecRate;
+			float Healing = ModdedPlayer.Stats.spell_flareHeal + ModdedPlayer.Stats.baseSpellDamage / 20 + (ModdedPlayer.Stats.lifeRegenBase*2) * ModdedPlayer.Stats.lifeRegenMult;
 			Healing *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
@@ -276,7 +276,7 @@ namespace ChampionsOfForest.Player
 
 		public static void CreatePlayerBlackHole()
 		{
-			float damage = (ModdedPlayer.Stats.spell_blackhole_damage + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_blackhole_damageScaling) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+			float damage = (ModdedPlayer.Stats.spell_blackhole_damage + ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_blackhole_damageScaling) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			Transform t = Camera.main.transform;
 
 			Vector3 point = Vector3.zero;
@@ -355,9 +355,9 @@ namespace ChampionsOfForest.Player
 
 		public static void CastSustainShieldActive()
 		{
-			float max = ModdedPlayer.Stats.spell_shieldMax + ModdedPlayer.Stats.spellFlatDmg;
+			float max = ModdedPlayer.Stats.spell_shieldMax + ModdedPlayer.Stats.baseSpellDamage;
 			max *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
-			float gain = ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.spellFlatDmg / 35;
+			float gain = ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.baseSpellDamage / 35;
 			gain *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Clamp(ModdedPlayer.instance.damageAbsorbAmounts[1] + Time.deltaTime * gain, 0, max);
 			ShieldCastTime = Time.time;
@@ -374,7 +374,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (ShieldCastTime + ModdedPlayer.Stats.spell_shieldPersistanceLifetime < Time.time)
 				{
-					float loss = Time.deltaTime * (ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.spellFlatDmg / 5) * 5 * ModdedPlayer.Stats.spellFlatDmg;
+					float loss = Time.deltaTime * (ModdedPlayer.Stats.spell_shieldPerSecond + ModdedPlayer.Stats.baseSpellDamage / 5) * 5 * ModdedPlayer.Stats.baseSpellDamage;
 					ModdedPlayer.instance.damageAbsorbAmounts[1] = Mathf.Max(0, ModdedPlayer.instance.damageAbsorbAmounts[1] - loss);
 				}
 			}
@@ -573,7 +573,7 @@ portal_postPickingPos:
 		}
 		public static void CastMagicArrow(Vector3 pos, Vector3 dir)
 		{
-			float damage = 55 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_magicArrowDamageScaling + ModdedPlayer.Stats.rangedFlatDmg/ 2;
+			float damage = 55 + ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_magicArrowDamageScaling + ModdedPlayer.Stats.baseRangedDamage/ 2;
 			damage = damage * ModdedPlayer.Stats.TotalMagicDamageMultiplier * 2;
 			if (ModdedPlayer.Stats.spell_magicArrowCrit)
 				damage *= ModdedPlayer.Stats.RandomCritDamage;
@@ -637,7 +637,7 @@ portal_postPickingPos:
 		public static void CastSnapFreeze()
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
-			float dmg = 23 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_snapDamageScaling;
+			float dmg = 23 + ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_snapDamageScaling;
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			if (GameSetup.IsSinglePlayer)
 			{
@@ -671,7 +671,7 @@ portal_postPickingPos:
 
 		public static void CastBallLightning(Vector3 pos, Vector3 speed)
 		{
-			float dmg = ModdedPlayer.Stats.spell_ballLightning_Damage + (ModdedPlayer.Stats.spell_ballLightning_DamageScaling * ModdedPlayer.Stats.spellFlatDmg);
+			float dmg = ModdedPlayer.Stats.spell_ballLightning_Damage + (ModdedPlayer.Stats.spell_ballLightning_DamageScaling * ModdedPlayer.Stats.baseSpellDamage);
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			if (ModdedPlayer.Stats.spell_ballLightning_Crit)
 				dmg *= ModdedPlayer.Stats.RandomCritDamage;
@@ -944,11 +944,11 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.spell_parry)
 			{
 				BuffDB.AddBuff(6, 61, 1, ModdedPlayer.Stats.spell_parryBuffDuration);
-				float dmg = ModdedPlayer.Stats.spell_parryDamage + ModdedPlayer.Stats.spellFlatDmg;
+				float dmg = ModdedPlayer.Stats.spell_parryDamage + ModdedPlayer.Stats.baseSpellDamage;
 				dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier *ModdedPlayer.Stats.spell_parryDamageScaling;
 
-				float heal = ModdedPlayer.Stats.spell_parryHeal + ModdedPlayer.Stats.spellFlatDmg / 6 + ModdedPlayer.Stats.healthRecoveryPerSecond + ModdedPlayer.Stats.healthOnHit * 3;
-				heal *= ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.healthPerSecRate);
+				float heal = ModdedPlayer.Stats.spell_parryHeal + ModdedPlayer.Stats.baseSpellDamage / 6 + ModdedPlayer.Stats.lifeRegenBase + ModdedPlayer.Stats.lifeOnHit * 3;
+				heal *= ModdedPlayer.Stats.allRecoveryMult * (1 + ModdedPlayer.Stats.lifeRegenMult);
 				LocalPlayer.Stats.HealthTarget += heal;
 				ParrySound.Play(parryPos);
 				float energy = (ModdedPlayer.Stats.spell_parryEnergy + ModdedPlayer.Stats.energyOnHit * 10) * ModdedPlayer.Stats.TotalEnergyRecoveryMultiplier + + ModdedPlayer.Stats.TotalMaxEnergy / 5.5f;
@@ -1025,7 +1025,7 @@ portal_postPickingPos:
 		{
 			Vector3 pos = LocalPlayer.Transform.position;
 			BuffDB.AddBuff(1, 66, 0.025f, 2f);
-			float dmg = ModdedPlayer.Stats.spell_cataclysmDamage + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_cataclysmDamageScaling;
+			float dmg = ModdedPlayer.Stats.spell_cataclysmDamage + ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_cataclysmDamageScaling;
 			dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier * ModdedPlayer.Stats.fireDamage;
 			using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 			{
@@ -1060,7 +1060,7 @@ portal_postPickingPos:
 				takenHP = LocalPlayer.Stats.Health - 5;
 			LocalPlayer.Stats.Health -= takenHP;
 			LocalPlayer.Stats.HealthTarget -= takenHP;
-			ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive = (takenHP * ModdedPlayer.Stats.spell_bia_HealthDmMult + ModdedPlayer.Stats.spell_bia_SpellDmMult * ModdedPlayer.Stats.spellFlatDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+			ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive = (takenHP * ModdedPlayer.Stats.spell_bia_HealthDmMult + ModdedPlayer.Stats.spell_bia_SpellDmMult * ModdedPlayer.Stats.baseSpellDamage) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 			if (ModdedPlayer.Stats.spell_bia_TripleDmg)
 			{
 				ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive *= 3;
@@ -1069,7 +1069,7 @@ portal_postPickingPos:
 			if (ModdedPlayer.Stats.i_HazardCrown)
 				ModdedPlayer.Stats.i_HazardCrownBonus.valueAdditive = 5;
 			Effects.Sound_Effects.GlobalSFX.Play(Effects.Sound_Effects.GlobalSFX.SFX.BloodInfusedArrow);
-			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, (int)takenHP);
+			NetworkManager.SendPlayerHitmarker(LocalPlayer.Transform.position + Vector3.up, takenHP);
 		}
 
 		#endregion Blood Infused Arrow
@@ -1103,7 +1103,7 @@ portal_postPickingPos:
 				back.y -= 1.5f;
 				back.Normalize();
 				LocalPlayer.Rigidbody.AddForce(-back * 5, ForceMode.VelocityChange);
-				float dmg = (ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fartDamageScaling + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+				float dmg = (ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_fartDamageScaling + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 				if (GameSetup.IsMultiplayer)
 				{
 					System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
@@ -1134,7 +1134,7 @@ portal_postPickingPos:
 			}
 			else
 			{
-				float dmg = (ModdedPlayer.Stats.spellFlatDmg + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
+				float dmg = (ModdedPlayer.Stats.baseSpellDamage + fartBaseDmg) * ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 				BuffDB.AddBuff(1, 96, 0.4f, 7.175f);
 				TheFartCreator.FartWarmup(fartRadius, dmg, fartKnockback, fartSlow, fartDebuffDuration);
 			}

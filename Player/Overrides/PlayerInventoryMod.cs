@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Items;
 
 using TheForest.Items.Inventory;
 using TheForest.Utils;
@@ -26,9 +27,9 @@ namespace ChampionsOfForest.Player
 		public static Mesh noMesh;
 		public static Mesh originalMesh;
 		//public static TheForest.Items.Item.AnimatorVariables[] originalAnimVars;
-		public static Dictionary<BaseItem.WeaponModelType, CustomWeapon> customWeapons = new Dictionary<BaseItem.WeaponModelType, CustomWeapon>();
-		public static BaseItem.WeaponModelType ToEquipWeaponType = BaseItem.WeaponModelType.None;
-		public static BaseItem.WeaponModelType EquippedModel = BaseItem.WeaponModelType.None;
+		public static Dictionary<ItemDefinition.ItemSubtype, CustomWeapon> customWeapons = new Dictionary<ItemDefinition.ItemSubtype, CustomWeapon>();
+		public static ItemDefinition.ItemSubtype ToEquipWeaponType = ItemDefinition.ItemSubtype.None;
+		public static ItemDefinition.ItemSubtype EquippedModel = ItemDefinition.ItemSubtype.None;
 		public void GetRightHand()
 		{
 			ModReferences.rightHandTransform = this._itemViews[64]._heldWeaponInfo.transform.parent.gameObject.transform.parent.transform;
@@ -60,7 +61,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (GreatBow.instance != null)
 					GreatBow.instance.SetActive(false);
-				if (ToEquipWeaponType == BaseItem.WeaponModelType.None)
+				if (ToEquipWeaponType == ItemDefinition.ItemSubtype.None)
 				{
 					foreach (CustomWeapon item in customWeapons.Values)
 					{
@@ -70,15 +71,15 @@ namespace ChampionsOfForest.Player
 				}
 				if (itemView != null)
 				{
-					if (EquippedModel != BaseItem.WeaponModelType.None)
+					if (EquippedModel != ItemDefinition.ItemSubtype.None)
 					{
 						customWeapons[EquippedModel].objectToHide?.SetActive(true);
 					}
 					
-					EquippedModel = BaseItem.WeaponModelType.None;
+					EquippedModel = ItemDefinition.ItemSubtype.None;
 
 					//Send network event to display a custom weapon for other players
-					if (BoltNetwork.isRunning && ToEquipWeaponType != BaseItem.WeaponModelType.None)
+					if (BoltNetwork.isRunning && ToEquipWeaponType != ItemDefinition.ItemSubtype.None)
 					{
 						using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 						{
@@ -98,7 +99,7 @@ namespace ChampionsOfForest.Player
 					if (itemView.gameObject.name == "axePlane_Inv")
 					{
 
-						if (ToEquipWeaponType != BaseItem.WeaponModelType.None)
+						if (ToEquipWeaponType != ItemDefinition.ItemSubtype.None)
 						{
 							try
 							{
@@ -149,7 +150,7 @@ namespace ChampionsOfForest.Player
 					}
 					else if (itemView == _itemViews[158])	//spear
 					{
-						if (ToEquipWeaponType == BaseItem.WeaponModelType.Polearm)
+						if (ToEquipWeaponType == ItemDefinition.ItemSubtype.Polearm)
 						{
 							EquippedModel = ToEquipWeaponType;
 							try
@@ -190,7 +191,7 @@ namespace ChampionsOfForest.Player
 							itemView._heldWeaponInfo.staminaDrain = itemView._heldWeaponInfo.baseStaminaDrain;
 							itemView._heldWeaponInfo.noTreeCut = false;
 							itemView._heldWeaponInfo.spear = true;
-							customWeapons[BaseItem.WeaponModelType.Polearm].objectToHide.GetComponent<Renderer>().enabled = true;
+							customWeapons[ItemDefinition.ItemSubtype.Polearm].objectToHide.GetComponent<Renderer>().enabled = true;
 						}
 					}
 				}
@@ -200,7 +201,7 @@ namespace ChampionsOfForest.Player
 
 		protected override void ThrowProjectile()
 		{
-			if (EquippedModel == BaseItem.WeaponModelType.Polearm)
+			if (EquippedModel == ItemDefinition.ItemSubtype.Polearm)
 				return;
 			this._isThrowing = false;
 			InventoryItemView inventoryItemView = this._equipmentSlots[0];
@@ -226,21 +227,11 @@ namespace ChampionsOfForest.Player
 					gameObject.transform.localScale *= 1.5f;
 					force *= 2f;
 					component.useGravity = false;
-					if (ModReferences.bloodInfusedMaterial == null)
-					{
-						ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-						{
-							EmissionColor = new Color(0.4f, 0, 0),
-							renderMode = BuilderCore.BuildingData.RenderMode.Fade,
-							MainColor = Color.red,
-							Metalic = 1f,
-							Smoothness = 0.8f,
-						});
-					}
+					
 					//gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
 					var trail = gameObject.AddComponent<TrailRenderer>();
 					trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-					trail.material = ModReferences.bloodInfusedMaterial;
+					trail.material = ModReferences.BloodMaterial;
 					trail.widthMultiplier = 0.85f;
 					trail.time = 2f;
 					trail.autodestruct = false;
@@ -307,7 +298,7 @@ namespace ChampionsOfForest.Player
 
 			if (!IsRightHandEmpty() && !_isThrowing && !IsReloading && !blockRangedAttack && !IsSlotLocked(TheForest.Items.Item.EquipmentSlot.RightHand) && !LocalPlayer.Inventory.HasInSlot(TheForest.Items.Item.EquipmentSlot.RightHand, LocalPlayer.AnimControl._slingShotId))
 			{
-				if (EquippedModel != BaseItem.WeaponModelType.None && customWeapons.ContainsKey(EquippedModel))
+				if (EquippedModel != ItemDefinition.ItemSubtype.None && customWeapons.ContainsKey(EquippedModel))
 				{
 					customWeapons[EquippedModel].EnableTrail();
 				}
@@ -364,7 +355,7 @@ namespace ChampionsOfForest.Player
 		protected override void FireRangedWeapon()
 		{
 			var cache = _equipmentSlots[0].ItemCache;
-			if (EquippedModel == BaseItem.WeaponModelType.Polearm)
+			if (EquippedModel == ItemDefinition.ItemSubtype.Polearm)
 				return;
 			bool noconsume = ModdedPlayer.Stats.perk_projectileNoConsumeChance >= 0 && Random.value < ModdedPlayer.Stats.perk_projectileNoConsumeChance;
 			noconsume = noconsume || cache._maxAmount < 0 || RemoveItem(cache._ammoItemId, 1, false, true);
@@ -393,7 +384,7 @@ namespace ChampionsOfForest.Player
 		public void CreateCustomWeapons()
 		{
 			//long sword
-			new CustomWeapon(BaseItem.WeaponModelType.LongSword,
+			new CustomWeapon(ItemDefinition.ItemSubtype.LongSword,
 					51,
 					BuilderCore.Core.CreateMaterial(
 						new BuilderCore.BuildingData()
@@ -406,17 +397,17 @@ namespace ChampionsOfForest.Player
 					new Vector3(0.2f - 0.04347827f, -1.5f + 0.173913f, 0.3f - 0.05797101f),
 					new Vector3(0, -90, 0),
 					new Vector3(-0.2f, -2.3f, 0),
-					1.3f, 0.9f, 40, 80, 0.4f, 0.2f, 50, true, 5);
+					1.1f, 0.9f, 20, 25, 0.4f, 0.2f, 30, false, 3);
 
 			//great sword
-			new CustomWeapon(BaseItem.WeaponModelType.GreatSword,
+			new CustomWeapon(ItemDefinition.ItemSubtype.GreatSword,
 				52,
 				BuilderCore.Core.CreateMaterial(
 					new BuilderCore.BuildingData()
 					{
 						OcclusionStrenght = 0.75f,
-						Smoothness = 0.6f,
-						Metalic = 0.6f,
+						Smoothness = 0.5f,
+						Metalic = 0.5f,
 						MainTexture = Res.ResourceLoader.instance.LoadedTextures[61],
 						EmissionMap = Res.ResourceLoader.instance.LoadedTextures[62],
 						BumpMap = Res.ResourceLoader.instance.LoadedTextures[64],
@@ -427,23 +418,23 @@ namespace ChampionsOfForest.Player
 				new Vector3(0.15f - 0.03623189f, -2.13f - 0.0572464f, 0.19f - 0.1014493f),
 				new Vector3(180, 180, 90),
 				new Vector3(0, 0, -3.5f),
-				1.8f, 1f, 60, 90, 0.01f, 0.001f, 85, false, 5);
+				1.6f, 1f, 20, 30, 0.00f, 0.00f, 60, false, 10);
 
 			//hammer
-			new CustomWeapon(BaseItem.WeaponModelType.Hammer,
+			new CustomWeapon(ItemDefinition.ItemSubtype.Hammer,
 				   108,
 				   BuilderCore.Core.CreateMaterial(
 					   new BuilderCore.BuildingData()
 					   {
 						   Metalic = 0.86f,
 						   Smoothness = 0.66f,
-						   MainColor = new Color(0.2f, 0.2f, 0.2f),
+						   MainColor = new Color(0.7f, 0.7f, 0.76f),
 					   }
 					   ),
 				   new Vector3(0, 0, 0),
 				   new Vector3(0, 0, 90),
 				   new Vector3(0, 0, -2f),
-				   1.6f, 1f, 25, 250, 0f, 0f, 500, true, 6);
+				   1.2f, 1f, 75, 250, 0.1f, 0f, 300, false, 600);
 
 			var Axe_PlaneAxe = Instantiate(originalPlaneAxeModel, originalParent);
 			var Axe_Renderer = Axe_PlaneAxe.GetComponent<Renderer>();
@@ -464,16 +455,16 @@ namespace ChampionsOfForest.Player
 			axeObject.transform.localScale = Vector3.one;
 			var AxeTrail = axeObject.transform.GetChild(0).GetComponent<TrailRenderer>();
 			AxeTrail.transform.localPosition = new Vector3(0, -0.3f, 0);
-			new CustomWeapon(BaseItem.WeaponModelType.Axe, Axe_PlaneAxe, AxeTrail, AxeOffset, AxeRotation, 1)
+			new CustomWeapon(ItemDefinition.ItemSubtype.Axe, Axe_PlaneAxe, AxeTrail, AxeOffset, AxeRotation, 1)
 			{
 				blockTreeCut = false,
-				damage = 8,
-				smashDamage = 10,
+				damage = 10,
+				smashDamage = 25,
 				staminaDrain = 4,
 				swingspeed = 50,
 				treeDamage = 10,
 				tiredswingspeed = 50,
-				ColliderScale = 0.4f
+				ColliderScale = 0.5f
 			};
 			AxeTrail.gameObject.SetActive(false);
 			CreateCustomWeapons_Spears();
@@ -481,9 +472,9 @@ namespace ChampionsOfForest.Player
 
 		public void CreateCustomWeapons_Spears()
 		{
-			if (customWeapons.ContainsKey(BaseItem.WeaponModelType.Polearm) && customWeapons[BaseItem.WeaponModelType.Polearm].obj != null)
+			if (customWeapons.ContainsKey(ItemDefinition.ItemSubtype.Polearm) && customWeapons[ItemDefinition.ItemSubtype.Polearm].obj != null)
 			{
-				customWeapons.Remove(BaseItem.WeaponModelType.Polearm);
+				customWeapons.Remove(ItemDefinition.ItemSubtype.Polearm);
 			}
 			var original = _itemViews[158]._held;
 			//original.gameObject.SetActive(true);
@@ -504,7 +495,7 @@ namespace ChampionsOfForest.Player
 					modelClone.transform.localRotation = secondChild.localRotation;
 					modelClone.transform.Rotate(new Vector3(90, 0, 0));
 					modelClone.transform.localScale *= 0.7f / 3;
-					var polearm = new CustomWeapon(BaseItem.WeaponModelType.Polearm,
+					var polearm = new CustomWeapon(ItemDefinition.ItemSubtype.Polearm,
 						clone,
 						Vector3.zero,
 						new Vector3(0, 0, 0),
@@ -512,12 +503,12 @@ namespace ChampionsOfForest.Player
 					{
 						spearType = true,
 						tiredswingspeed = 20,
-						damage = 50f,
+						damage = 20f,
 						staminaDrain = 14,
 						blockTreeCut = false,
-						smashDamage = 350f,
-						swingspeed = 100,
-						ColliderScale = 3f,
+						smashDamage = 60f,
+						swingspeed = 50,
+						ColliderScale = 1f,
 						treeDamage = 1,
 						objectToHide = secondChild.gameObject
 					};

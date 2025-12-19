@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+
+using ChampionsOfForest.Items;
+
 using TheForest.Items.Inventory;
 using TheForest.Items.World;
 using TheForest.Utils;
@@ -27,12 +30,12 @@ namespace ChampionsOfForest.Player
 		//	}
 		//}
 
-		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty,ModSettings.Difficulty difficulty, Vector3 position)
+		public IEnumerator AsyncSendRandomItemDrops(int count, EnemyProgression.Enemy type, long bounty,ModSettings.GameDifficulty difficulty, Vector3 position)
 		{
 			for (int i = 0; i < count; i++)
 			{
-				Item randomItem = ItemDataBase.GetRandomItem(bounty, type, difficulty, position);
-				if (randomItem.Rarity >= ModSettings.LootFilterMinRarity || randomItem.type == BaseItem.ItemType.Material || randomItem.type == BaseItem.ItemType.Other)
+				Item randomItem = ItemDatabase.GetRandomItem(bounty, type, difficulty, position);
+				if (randomItem.type == ItemDefinition.ItemType.Material || randomItem.type == ItemDefinition.ItemType.Other)
 				{
 					yield return null;
 					Network.NetworkManager.SendItemDrop(randomItem, position + Vector3.up * (2f + i / 10) + Random.Range(-1, 1) * Vector3.forward + Random.Range(-1, 1) * Vector3.right, ItemPickUp.DropSource.EnemyOnDeath);
@@ -102,21 +105,11 @@ namespace ChampionsOfForest.Player
 						gameObject.transform.localScale *= 2f;
 						force *= 2f;
 						component.useGravity = false;
-						if (ModReferences.bloodInfusedMaterial == null)
-						{
-							ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-							{
-								EmissionColor = new Color(0.6f, 0.1f, 0),
-								renderMode = BuilderCore.BuildingData.RenderMode.Fade,
-								MainColor = Color.red,
-								Metalic = 1f,
-								Smoothness = 0.9f,
-							});
-						}
+						
 						//gameObject.GetComponent<Renderer>().material = bloodInfusedMaterial;
 						var trail = gameObject.AddComponent<TrailRenderer>();
 						trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-						trail.material = ModReferences.bloodInfusedMaterial;
+						trail.material = ModReferences.BloodMaterial;
 						trail.widthMultiplier = 0.55f;
 						trail.time = 1.25f;
 					}
@@ -186,20 +179,10 @@ namespace ChampionsOfForest.Player
 						{
 							forceMult *= 1.1f;
 							proj_rb.useGravity = false;
-							if (ModReferences.bloodInfusedMaterial == null)
-							{
-								ModReferences.bloodInfusedMaterial = BuilderCore.Core.CreateMaterial(new BuilderCore.BuildingData()
-								{
-									EmissionColor = new Color(0.6f, 0.1f, 0),
-									renderMode = BuilderCore.BuildingData.RenderMode.Opaque,
-									MainColor = Color.red,
-									Metalic = 1f,
-									Smoothness = 0.9f,
-								});
-							}
+							
 							var trail = projectileObject.AddComponent<TrailRenderer>();
 							trail.widthCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f, 0f, 0f), new Keyframe(0.5f, 1f, 0f, 0f), new Keyframe(1f, 0.006248474f, 0f, 0f), });
-							trail.material = ModReferences.bloodInfusedMaterial;
+							trail.material = ModReferences.BloodMaterial;
 							trail.widthMultiplier = 0.45f;
 							trail.time = 1.25f;
 							trail.autodestruct = false;

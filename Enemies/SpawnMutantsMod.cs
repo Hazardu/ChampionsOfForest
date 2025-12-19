@@ -34,8 +34,8 @@ namespace ChampionsOfForest.Enemies
 			if ((spawnInCave || sinkholeSpawn) && ModSettings.AllowCaveRespawn)
 			{
 				copy.gameObject.SetActive(true);
-				copy.InvokeRepeating("checkSpawn", 60f * ModSettings.CaveRespawnDelay, 4f);
-				CotfUtils.Log("Destroying spawner", true);
+				copy.InvokeRepeating("checkSpawn", ModSettings.CaveRespawnDelay, ModSettings.CaveRespawnDelay);
+				Utils.Log("Destroying spawner", true);
 			}
 			else if (copy != null)
 			{

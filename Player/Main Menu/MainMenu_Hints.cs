@@ -38,7 +38,7 @@ ModAPI.Input.GetKeyBindingAsString("MenuToggle")),
 			new STuple<Func<bool>, string>(()=>  SpellCaster.instance.infos.Any(x=>x.spell!=SpellDataBase.spellDictionary[27]), Translations.MainMenu_Hints_11), //tr
 			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 30 && SpellCaster.instance.infos.Any(x=>x.spell==null), Translations.MainMenu_Hints_12), //tr
 			new STuple<Func<bool>, string>(()=>  ModdedPlayer.instance.level >= 10 && PerkDatabase.perks.Any(x=>!x.isBought && x.cost==0 && x.levelReq<=ModdedPlayer.instance.level), Translations.MainMenu_Hints_13), //tr
-			new STuple<Func<bool>, string>(()=>  Inventory.Instance.ItemSlots[-12]!=null && Inventory.Instance.ItemSlots[-12].Equipped, Translations.MainMenu_Hints_14 + //tr
+			new STuple<Func<bool>, string>(()=>  Inventory.Instance.ItemSlots[-12]!=null && Inventory.Instance.ItemSlots[-12].isEquipped, Translations.MainMenu_Hints_14 + //tr
 ModAPI.Input.GetKeyBindingAsString("EquipWeapon")), 
 			new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level > 15 , Translations.MainMenu_Hints_15), //tr
 		new STuple<Func<bool>, string>(()=> ModdedPlayer.instance.level < 25 && ModdedPlayer.Stats.TotalMeleeArmorPiercing + ModdedPlayer.Stats.TotalRangedArmorPiercing < 15 , Translations.MainMenu_Hints_16), //tr

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
@@ -95,17 +96,7 @@ namespace ChampionsOfForest
 
 		//a static variable for colors of items with different rarities
 		//affects item border in inventory, text color in pickup, particle effect color
-		public readonly static Color[] RarityColors = new Color[]
-		{
-			new Color(0.4f,0.4f,0.4f),
-			new Color(0.6f,0.6f,0.6f),
-			new Color(0.1f,0.1f,0.75f),
-			new Color(0.1f,0.5f,1f),
-			new Color(1,0.95f,0.1f),
-			new Color(1,0.5f,0f),
-			new Color(0.1f,1,0.3f),
-			new Color(0.74f,0.05f,0.05f),
-		};
+		
 
 		public enum OpenedMenuMode
 		{
@@ -294,39 +285,39 @@ namespace ChampionsOfForest
 
 									switch (item.type)
 									{
-										case BaseItem.ItemType.Helmet:
+										case ItemDefinition.ItemType.Helmet:
 											targetSlot = -2;
 											break;
 
-										case BaseItem.ItemType.ChestArmor:
+										case ItemDefinition.ItemType.ChestArmor:
 											targetSlot = -3;
 											break;
 
-										case BaseItem.ItemType.Pants:
+										case ItemDefinition.ItemType.Pants:
 											targetSlot = -4;
 											break;
 
-										case BaseItem.ItemType.Boot:
+										case ItemDefinition.ItemType.Boot:
 											targetSlot = -5;
 											break;
 
-										case BaseItem.ItemType.ShoulderArmor:
+										case ItemDefinition.ItemType.ShoulderArmor:
 											targetSlot = -6;
 											break;
 
-										case BaseItem.ItemType.Glove:
+										case ItemDefinition.ItemType.Glove:
 											targetSlot = -7;
 											break;
 
-										case BaseItem.ItemType.Amulet:
+										case ItemDefinition.ItemType.Amulet:
 											targetSlot = -8;
 											break;
 
-										case BaseItem.ItemType.Bracer:
+										case ItemDefinition.ItemType.Bracer:
 											targetSlot = -9;
 											break;
 
-										case BaseItem.ItemType.Ring:
+										case ItemDefinition.ItemType.Ring:
 											if (Inventory.Instance.ItemSlots[-10] == null)
 												targetSlot = -10;
 											else if (Inventory.Instance.ItemSlots[-11] == null)
@@ -335,13 +326,13 @@ namespace ChampionsOfForest
 												targetSlot = -10;
 											break;
 
-										case BaseItem.ItemType.Weapon:
+										case ItemDefinition.ItemType.Weapon:
 											targetSlot = -12;
 											break;
 
-										case BaseItem.ItemType.Quiver:
-										case BaseItem.ItemType.SpellScroll:
-										case BaseItem.ItemType.Shield:
+										case ItemDefinition.ItemType.Quiver:
+										case ItemDefinition.ItemType.SpellScroll:
+										case ItemDefinition.ItemType.Shield:
 											targetSlot = -13;
 											break;
 									}
@@ -554,10 +545,10 @@ namespace ChampionsOfForest
 			{
 				if (isDragging)
 				{
-					if (DraggedItem.Equipped)
+					if (DraggedItem.isEquipped)
 					{
 						DraggedItem.OnUnequip();
-						Inventory.Instance.ItemSlots[DraggedItemIndex].Equipped = false;
+						Inventory.Instance.ItemSlots[DraggedItemIndex].isEquipped = false;
 					}
 					Inventory.Instance.DropItem(DraggedItemIndex);
 					DraggedItem = null;
@@ -572,22 +563,22 @@ namespace ChampionsOfForest
 					center = center
 				};
 
-				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*Difficulty: */ + DiffSel_Names[(int)ModSettings.difficulty](), chgDiffLabelStyle);    //tr
+				GUI.Label(new Rect(10 * screenScale, 10 * screenScale, 300, 100), Translations.MainMenu_23/*Difficulty: */ + DiffSel_Names[(int)ModSettings.Difficulty](), chgDiffLabelStyle);    //tr
 																																									  //drawing difficulty raise lower buttons
 				if (difficultyCooldown <= 0 && !GameSetup.IsMpClient)
 				{
-					if ((int)ModSettings.difficulty < (int)ModSettings.Difficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*Raise Difficulty*/, chgDiffBtnStyle))	  //tr
+					if ((int)ModSettings.Difficulty < (int)ModSettings.GameDifficulty.Hell && GUI.Button(new Rect(10 * screenScale, 90 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_24/*Raise Difficulty*/, chgDiffBtnStyle))	  //tr
 					{
 						//raise difficulty
 						difficultyCooldown = 30;
-						ModSettings.difficulty++;
+						ModSettings.Difficulty++;
 						ModSettings.BroadCastSettingsToClients();
 					}
-					if (ModSettings.difficulty > (int)ModSettings.Difficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*Lower Difficulty*/, chgDiffBtnStyle))     //tr
+					if (ModSettings.Difficulty > (int)ModSettings.GameDifficulty.Easy && GUI.Button(new Rect(10 * screenScale, 130 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_25/*Lower Difficulty*/, chgDiffBtnStyle))     //tr
 					{
 						//lower difficulty
 						difficultyCooldown = 30;
-						ModSettings.difficulty--;
+						ModSettings.Difficulty--;
 						ModSettings.BroadCastSettingsToClients();
 					}
 					if (GUI.Button(new Rect(10 * screenScale, 170 * screenScale, 200 * screenScale, 40 * screenScale), Translations.MainMenu_26/*Change Options*/, chgDiffBtnStyle))    //tr

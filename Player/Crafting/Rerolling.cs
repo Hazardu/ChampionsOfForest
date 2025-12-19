@@ -17,12 +17,12 @@ namespace ChampionsOfForest.Player.Crafting
 					if (CraftingHandler.changedItem.i == null)
 						return false;
 					int itemCount = 0;
-					int rarity = CraftingHandler.changedItem.i.Rarity;
+					int rarity = CraftingHandler.changedItem.i.rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 					{
 						if (CraftingHandler.ingredients[i].i != null)
 						{
-							if (CraftingHandler.ingredients[i].i.Rarity >= rarity)
+							if (CraftingHandler.ingredients[i].i.rarity >= rarity)
 							{
 								itemCount++;
 							}
@@ -69,16 +69,16 @@ namespace ChampionsOfForest.Player.Crafting
 					int ind = 1;
 					try
 					{
-						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.stats)
 						{
 							Rect statRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 26 * screenScale);
 							Rect valueMinMaxRect = new Rect(statRect.xMax + 15 * screenScale, ypos, statRect.width, statRect.height);
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
-							GUI.color = MainMenu.RarityColors[stat.Rarity];
-							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
+							string amount = stat.amount.ToString((stat.displayAsPercent ? "P" : "N") + stat.roundingCount);
+							GUI.color = MainMenu.RarityColors[stat.rarity];
+							GUI.Label(statRect, ind + ".  " + stat.name, styles[0]);
 							GUI.color = Color.white;
 							ind++;
 

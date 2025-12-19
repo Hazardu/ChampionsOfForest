@@ -31,7 +31,7 @@ namespace ChampionsOfForest.Effects
 			}
 			catch (Exception e)
 			{
-				CotfUtils.Log("Assign Prefabs error " + e.Message);
+				Utils.Log("Assign Prefabs error " + e.Message);
 			}
 		}
 
@@ -50,11 +50,11 @@ namespace ChampionsOfForest.Effects
 				c.duration = duration;
 				c.isFromEnemy = isFromEnemy;
 				c.isArcane = tornadoType == TornadoType.Arcane;
-				CotfUtils.Log("Created cataclysm");
+				Utils.Log("Created cataclysm");
 			}
 			catch (Exception e)
 			{
-				CotfUtils.Log("Creating cataclysm error " + e.Message);
+				Utils.Log("Creating cataclysm error " + e.Message);
 			}
 		}
 
@@ -82,12 +82,12 @@ namespace ChampionsOfForest.Effects
 				particleParent = transform.GetChild(1).gameObject;
 				particleParent.SetActive(false);
 				Invoke("EnableParticles", 2);
-				CotfUtils.Log("start cataclysm");
+				Utils.Log("start cataclysm");
 				dmg = (int)damage;
 			}
 			catch (Exception e)
 			{
-				CotfUtils.Log("Start cataclysm error " + e.Message);
+				Utils.Log("Start cataclysm error " + e.Message);
 			}
 		}
 
@@ -98,11 +98,11 @@ namespace ChampionsOfForest.Effects
 				particleParent.SetActive(true);
 				warmUpDone = true;
 				Invoke("End", duration);
-				CotfUtils.Log("enabled particles cataclysm");
+				Utils.Log("enabled particles cataclysm");
 			}
 			catch (Exception e)
 			{
-				CotfUtils.Log("Enabling particles cataclysm error " + e.Message);
+				Utils.Log("Enabling particles cataclysm error " + e.Message);
 			}
 		}
 
@@ -176,7 +176,7 @@ namespace ChampionsOfForest.Effects
 			float sqrMagnitude = (LocalPlayer.Transform.position - transform.position).sqrMagnitude;
 			if (sqrMagnitude < radius * radius)
 			{
-				int dmg = (int)(damage * (1 - ModdedPlayer.Stats.magicDamageTaken));
+				int dmg = (int)(damage * (ModdedPlayer.Stats.damageFromElites));
 
 				if (isArcane)
 				{
@@ -192,7 +192,7 @@ namespace ChampionsOfForest.Effects
 					BuffDB.AddBuff(2, 65, 0.7f, 6);
 					LocalPlayer.Stats.Burn();
 				}
-				LocalPlayer.Stats.Hit((int)(dmg * (1 - ModdedPlayer.Stats.magicDamageTaken)), false, PlayerStats.DamageType.Drowning);
+				LocalPlayer.Stats.Hit((int)(dmg * (ModdedPlayer.Stats.damageFromElites)), false, PlayerStats.DamageType.Drowning);
 			}
 		}
 
@@ -210,7 +210,7 @@ namespace ChampionsOfForest.Effects
 			}
 			catch (Exception e)
 			{
-				CotfUtils.Log("End cataclysm error " + e.Message);
+				Utils.Log("End cataclysm error " + e.Message);
 			}
 		}
 	}

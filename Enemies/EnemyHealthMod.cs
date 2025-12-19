@@ -139,7 +139,6 @@ namespace ChampionsOfForest
 
 					base.HitReal(i);
 				}
-				progression.armorReduction += i;
 			}
 		}
 

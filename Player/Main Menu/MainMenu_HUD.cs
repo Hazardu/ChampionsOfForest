@@ -73,19 +73,20 @@ namespace ChampionsOfForest
 		//Hit markers
 		public static void CreateHitMarker(float dmg, Vector3 p, Color color)
 		{
-			var marker = Instance.hitMarkers.Where(x => x.Player == false && (x.worldPosition - p).sqrMagnitude < 4 && x.color == color);
-			if (marker.Count() > 0)
+			if (ModSettings.CombineHitMarkers)
 			{
-				var m = marker.First();
-				m.lifetime = 4;
-				m.dmg += dmg;
-				m.txt = m.dmg.ToString("N0");
-				m.worldPosition = p;
+				var marker = Instance.hitMarkers.Where(x => x.Player == false && (x.worldPosition - p).sqrMagnitude < 4 && x.color == color);
+				if (marker.Count() > 0)
+				{
+					var m = marker.First();
+					m.lifetime = 4;
+					m.dmg += dmg;
+					m.txt = m.dmg.ToString("N0");
+					m.worldPosition = p;
+					return;
+				}
 			}
-			else
-			{
-				new HitMarker(dmg, p, color);
-			}
+			new HitMarker(dmg, p, color);
 		}
 
 		public readonly List<HitMarker> hitMarkers = new List<HitMarker>();
@@ -109,21 +110,31 @@ namespace ChampionsOfForest
 			{
 				color = c;
 				dmg = t;
-				txt = t.ToString("N0");
+				txt = DamageToString();
 				worldPosition = p;
 				lifetime = StartLifetime;
 				Instance.hitMarkers.Add(this);
 			}
 
-			public HitMarker(int t, Vector3 p, bool Player)
+
+			private static readonly string[] unitNames = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc" };
+			private string DamageToString()
 			{
-				txt = t.ToString("N0");
-				worldPosition = p;
-				lifetime = StartLifetime;
-				this.Player = Player;
-				if (Player)
-					color = new Color(0, 0.75f, 0, 0.75f);
-				Instance.hitMarkers.Add(this);
+				if(ModSettings.FullNumberHitMarkers)
+				{
+					return dmg.ToString("N0");
+				}
+
+				double damage = (double) dmg;
+				int unitIndex = 0;
+				int decCount = 0;
+				while (damage >= 1000 && unitIndex < unitNames.Length - 1)
+				{
+					damage /= 1000.0;
+					unitIndex++;
+					decCount = 3;
+				}
+				return damage.ToString("N" + decCount) + unitNames[unitIndex];
 			}
 		}
 
@@ -139,7 +150,7 @@ namespace ChampionsOfForest
 			t = 1.0f - t;
 			if (t < 0)
 				return 0f;
-			t = t * t * t*t;
+			t = t * t * t * t;
 
 			return t * -250f * screenScale;
 		}
@@ -185,8 +196,8 @@ namespace ChampionsOfForest
 						continue;
 					}
 					GUI.Label(r, hitMarkers[i].txt, new GUIStyle(HitmarkerStyle) { fontSize = Mathf.RoundToInt(size) });
-					
-					
+
+
 				}
 			}
 			GUI.color = Color.white;
@@ -661,7 +672,7 @@ namespace ChampionsOfForest
 						GUI.DrawTexture(scanRect, ResourceLoader.instance.LoadedTextures[24]);
 					}
 				}
-				catch (Exception ex)	
+				catch (Exception ex)
 				{
 					Debug.LogWarning(ex.ToString());
 				}
@@ -957,11 +968,11 @@ namespace ChampionsOfForest
 										NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
 										answerStream.Close();
 									}
-									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.rarity);
 								}
 								else
 								{
-									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.Rarity);
+									localPlayerPing = new MarkPickup(pu.transform, pu.item.name, pu.item.rarity);
 								}
 							}
 						}
@@ -1075,7 +1086,7 @@ namespace ChampionsOfForest
 			{
 				Vector3 pos = Camera.main.WorldToScreenPoint(previewPingPos);
 				pos.y = Screen.height - pos.y;
-				float size = Mathf.Clamp(700 / previewPingDist, 10, 40)/2;
+				float size = Mathf.Clamp(700 / previewPingDist, 10, 40) / 2;
 				size *= screenScale;
 				Rect r = previewPingType != MarkObject.PingType.Item ?
 					new Rect(0, 0, size * 3.34f, size)

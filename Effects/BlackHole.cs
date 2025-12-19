@@ -62,7 +62,7 @@ namespace ChampionsOfForest
 		{
 			AudioSource source = gameObject.AddComponent<AudioSource>();
 			source.clip = Res.ResourceLoader.instance.LoadedAudio[1000];
-			source.volume = 16;
+			source.volume = 5;
 			source.spatialBlend = 1f;
 			source.rolloffMode = AudioRolloffMode.Linear;
 			source.maxDistance = 150f;
@@ -203,12 +203,9 @@ namespace ChampionsOfForest
 			}
 			while (FromEnemy)
 			{
-				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * 4 * scale * 4)
+				if ((LocalPlayer.Transform.position - transform.position).sqrMagnitude < scale * scale * 2)
 				{
-					if (Random.value <= ModdedPlayer.Stats.getHitChance)
-						LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.magicDamageTaken * 0.5f);
-					else
-						COTFEvents.Instance.OnDodge.Invoke();
+					LocalPlayer.Stats.HealthChange(-damage * ModdedPlayer.Stats.allDamageTaken *  ModdedPlayer.Stats.damageFromElites * 0.5f);
 					yield return new WaitForSeconds(0.5f);
 				}
 				else
@@ -224,9 +221,8 @@ namespace ChampionsOfForest
 			{
 				if (t.Value != null)
 				{
-						t.Value.HitMagic(damage);
-						yield return null;
-					
+					t.Value.HitMagic(damage);
+					yield return null;
 				}
 			}
 		}

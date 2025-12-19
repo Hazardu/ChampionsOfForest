@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace ChampionsOfForest.Player
 {
-	public class MultiplicativeNetworkSyncedPlayerStat<T> : NumericPlayerStatBase<T>, INetworkSyncedPlayerStat, INetworkStatStorage<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
+	public class MultiplicativeNetworkSyncedPlayerStat<T> : NumericPlayerStatBase<T>, INetworkSyncedPlayerStat, INetworkStatStorage<T>, IMultiplicativeStat<T> where T : struct, IComparable, IComparable<T>, IEquatable<T>, IConvertible, IFormattable
 	{
 		protected Func<T, T, T> mult;
 		protected Func<T, T, T> divide;

@@ -28,7 +28,7 @@ namespace ChampionsOfForest.Player
 			pierceCount = 0;
 
 			//flat damage part
-			OutputDmg = damage + ModdedPlayer.Stats.rangedFlatDmg;
+			OutputDmg = damage + ModdedPlayer.Stats.baseRangedDamage;
 			if (ModdedPlayer.Stats.spell_seekingArrow)
 			{
 				OutputDmg += ModdedPlayer.Stats.spell_seekingArrow_DamageBonus.Value;
@@ -50,7 +50,7 @@ namespace ChampionsOfForest.Player
 				{
 					if (ModdedPlayer.Stats.i_HazardCrownBonus > 0)
 					{
-						ModdedPlayer.Stats.i_HazardCrownBonus.Substract(1);
+						ModdedPlayer.Stats.i_HazardCrownBonus.Sub(1);
 					}
 					else
 						ModdedPlayer.Stats.spell_bia_AccumulatedDamage.valueAdditive = 0;
@@ -327,7 +327,7 @@ namespace ChampionsOfForest.Player
 				if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 				{
 					int myID = 1000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-					float dmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+					float dmg = 1 + ModdedPlayer.Stats.baseSpellDamage / 3;
 					dmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 					dmg *= ModdedPlayer.Stats.fireDamage + 1;
 					dmg *= 0.3f;
@@ -418,7 +418,7 @@ namespace ChampionsOfForest.Player
 					{
 						if (ModdedPlayer.Stats.i_ArchangelBow && GreatBow.isEnabled)
 						{
-							float lifePerSecond = (ModdedPlayer.Stats.healthRecoveryPerSecond) * ModdedPlayer.Stats.allRecoveryMult * (ModdedPlayer.Stats.healthPerSecRate) * 2;
+							float lifePerSecond = (ModdedPlayer.Stats.lifeRegenBase) * ModdedPlayer.Stats.allRecoveryMult * (ModdedPlayer.Stats.lifeRegenMult) * 2;
 							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 							{
 								using (System.IO.BinaryWriter w = new System.IO.BinaryWriter(answerStream))
@@ -485,7 +485,7 @@ namespace ChampionsOfForest.Player
 								dmgUnclamped *= SpellActions.FocusOnBodyShot();
 							}
 
-							DamageMath.ReduceDamageToSendOverNet(dmgUnclamped, out int sendDamage, out int reps);
+							DamageUtils.ReduceDamageToSendOverNet(dmgUnclamped, out int sendDamage, out int reps);
 
 							HitPlayer HP = HitPlayer.Create(be, EntityTargets.Everyone);
 							HP.damage = sendDamage;
@@ -800,7 +800,7 @@ namespace ChampionsOfForest.Player
 							playerHitEnemy.getAttackDirection = 3;
 						}
 						playerHitEnemy.getAttackerType = 4;
-						playerHitEnemy.Hit = DamageMath.GetSendableDamage(dmgUnclamped);
+						playerHitEnemy.Hit = DamageUtils.GetSendableDamage(dmgUnclamped);
 						if ((GreatBow.isEnabled && ModdedPlayer.Stats.i_greatBowIgnites) || (ignite && Random.value < 0.5f))
 						{
 							COTFEvents.Instance.OnIgniteRanged.Invoke();
@@ -830,8 +830,8 @@ namespace ChampionsOfForest.Player
 							playerHitEnemy2.Burn = true;
 
 						}
-						playerHitEnemy2.Hit = DamageMath.GetSendableDamage(dmgUnclamped);
-						playerHitEnemy2.getAttackerType += DamageMath.CONVERTEDFLOATattackerType;
+						playerHitEnemy2.Hit = DamageUtils.GetSendableDamage(dmgUnclamped);
+						playerHitEnemy2.getAttackerType += DamageUtils.CONVERTEDFLOATattackerType;
 						playerHitEnemy2.Send();
 					}
 					goto afterdamage;

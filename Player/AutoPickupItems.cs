@@ -42,8 +42,8 @@ namespace ChampionsOfForest.Player
 				}
 				else
 				{
-					if (Player.Inventory.Instance.ItemSlots[i].Rarity < minRarity)
-						minRarity = Player.Inventory.Instance.ItemSlots[i].Rarity;
+					if (Player.Inventory.Instance.ItemSlots[i].rarity < minRarity)
+						minRarity = Player.Inventory.Instance.ItemSlots[i].rarity;
 				}
 			}
 
@@ -88,7 +88,7 @@ namespace ChampionsOfForest.Player
 					var customPickup = hit[i].transform.gameObject.GetComponent<ItemPickUp>();
 					if (customPickup != null)
 					{
-						if(customPickup.item.Rarity>= minRarity || customPickup.item.type == BaseItem.ItemType.Material || customPickup.item.type == BaseItem.ItemType.Other)
+						if(customPickup.item.rarity>= minRarity || customPickup.item.type == ItemDefinition.ItemType.Material || customPickup.item.type == ItemDefinition.ItemType.Other)
 							customPickup.PickUp();
 					}
 				}

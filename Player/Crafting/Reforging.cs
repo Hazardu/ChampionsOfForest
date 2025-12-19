@@ -20,12 +20,12 @@ namespace ChampionsOfForest.Player.Crafting
 					if (CraftingHandler.changedItem.i == null)
 						return false;
 					int itemCount = 0;
-					int rarity = CraftingHandler.changedItem.i.Rarity;
+					int rarity = CraftingHandler.changedItem.i.rarity;
 					for (int i = 0; i < CraftingHandler.ingredients.Length; i++)
 					{
 						if (CraftingHandler.ingredients[i].i != null)
 						{
-							if (CraftingHandler.ingredients[i].i.Rarity >= rarity)
+							if (CraftingHandler.ingredients[i].i.rarity >= rarity)
 							{
 								itemCount++;
 							}
@@ -46,7 +46,7 @@ namespace ChampionsOfForest.Player.Crafting
 					if (validRecipe)
 					{
 						int lvl = CraftingHandler.changedItem.i.level;
-						var v = ItemDataBase.ItemBases.Where(x => x.Value.ID != CraftingHandler.changedItem.i.ID && x.Value.Rarity == CraftingHandler.changedItem.i.Rarity).Select(x => x.Value).ToArray();
+						var v = ItemDatabase.itemLookup.Where(x => x.Value.id != CraftingHandler.changedItem.i.id && x.Value.rarity == CraftingHandler.changedItem.i.rarity).Select(x => x.Value).ToArray();
 						var ib = v[UnityEngine.Random.Range(0, v.Length)];
 
 						var newItem = new Item(ib, 1, 0, false)
@@ -82,18 +82,18 @@ namespace ChampionsOfForest.Player.Crafting
 
 						Rect nameRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 30 * screenScale);
 						ypos += 30 * screenScale;
-						GUI.color = MainMenu.RarityColors[CustomCrafting.instance.changedItem.i.Rarity];
+						GUI.color = MainMenu.RarityColors[CustomCrafting.instance.changedItem.i.rarity];
 						GUI.Label(nameRect, CustomCrafting.instance.changedItem.i.name, styles[3]);
-						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.Stats)
+						foreach (ItemStat stat in CustomCrafting.instance.changedItem.i.stats)
 						{
 							Rect statRect = new Rect(x + 10 * screenScale, ypos, w - 20 * screenScale, 26 * screenScale);
 							Rect valueMinMaxRect = new Rect(statRect.xMax + 15 * screenScale, ypos, statRect.width, statRect.height);
 							ypos += 26 * screenScale;
 							string maxAmount = stat.GetMaxValue(CraftingHandler.changedItem.i.level, mult);
 							string minAmount = stat.GetMinValue(CraftingHandler.changedItem.i.level, mult);
-							string amount = stat.Amount.ToString((stat.DisplayAsPercent ? "P" : "N") + stat.RoundingCount);
-							GUI.color = MainMenu.RarityColors[stat.Rarity];
-							GUI.Label(statRect, ind + ".  " + stat.Name, styles[0]);
+							string amount = stat.amount.ToString((stat.displayAsPercent ? "P" : "N") + stat.roundingCount);
+							GUI.color = MainMenu.RarityColors[stat.rarity];
+							GUI.Label(statRect, ind + ".  " + stat.name, styles[0]);
 							GUI.color = Color.white;
 							ind++;
 

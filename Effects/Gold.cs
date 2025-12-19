@@ -62,8 +62,8 @@ namespace ChampionsOfForest.Effects
 		public static void Disable()
 		{
 			renderer.material = originalMaterial;
-			ModdedPlayer.Stats.stunImmunity.Substract(1);
-			ModdedPlayer.Stats.debuffResistance.Substract(1);
+			ModdedPlayer.Stats.stunImmunity.Sub(1);
+			ModdedPlayer.Stats.debuffResistance.Sub(1);
 
 			ModdedPlayer.Stats.attackSpeed .Divide( 1.2f);
 			if (ModdedPlayer.Stats.perk_goldenResolve)

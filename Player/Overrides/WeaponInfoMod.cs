@@ -23,7 +23,7 @@ namespace ChampionsOfForest.Player
 		{
 			if (mainTriggerScript != null)
 			{
-				if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None && PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.Greatbow)
+				if (PlayerInventoryMod.EquippedModel != ItemDefinition.ItemSubtype.None && PlayerInventoryMod.EquippedModel != ItemDefinition.ItemSubtype.Greatbow)
 				{
 					CustomWeapon cw = PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel];
 					setup.pmStamina.FsmVariables.GetFsmFloat("notTiredSpeed").Value = animSpeed * cw.swingspeed;
@@ -119,7 +119,7 @@ namespace ChampionsOfForest.Player
 				outputdmg = smashDamage;
 			else
 				outputdmg = weaponDamage;
-			outputdmg += ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg();
+			outputdmg += ModdedPlayer.Stats.baseMeleeDamage + SpellActions.GetParryCounterStrikeDmg();
 			float critDmg = ModdedPlayer.Stats.RandomCritDamage;
 			outputdmg *= critDmg * ModdedPlayer.Stats.MeleeDamageMult;
 
@@ -151,8 +151,8 @@ namespace ChampionsOfForest.Player
 						}
 						var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 						phe.Target = entity;
-						phe.getAttackerType = 4 + DamageMath.CONVERTEDFLOATattackerType;
-						phe.Hit = DamageMath.GetSendableDamage(outputdmg);
+						phe.getAttackerType = 4 + DamageUtils.CONVERTEDFLOATattackerType;
+						phe.Hit = DamageUtils.GetSendableDamage(outputdmg);
 						phe.HitAxe = axe;
 						phe.hitFallDown = fsmHeavyAttackBool.Value && axe;
 						phe.getAttackDirection = animator.GetInteger("hitDirection");
@@ -227,7 +227,7 @@ namespace ChampionsOfForest.Player
 						if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 						{
 							int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-							float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+							float fireDmg = 1 + ModdedPlayer.Stats.baseSpellDamage / 3;
 							fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 							fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
 							fireDmg *= 0.35f;
@@ -246,7 +246,7 @@ namespace ChampionsOfForest.Player
 								answerStream.Close();
 							}
 						}
-						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == ItemDefinition.ItemSubtype.Hammer)
 						{
 							using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
 							{
@@ -316,14 +316,14 @@ namespace ChampionsOfForest.Player
 						if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 						{
 							int myID = 2000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-							float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+							float fireDmg = 1 + ModdedPlayer.Stats.baseSpellDamage / 3;
 							fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 							fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
 							fireDmg *= 0.35f;
 							progression.FireDebuff(2000, fireDmg, 14);
 
 						}
-						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == BaseItem.WeaponModelType.Hammer)
+						if (ModdedPlayer.Stats.i_HammerStun && PlayerInventoryMod.EquippedModel == ItemDefinition.ItemSubtype.Hammer)
 							progression.Slow(40, ModdedPlayer.Stats.i_HammerStunAmount, ModdedPlayer.Stats.i_HammerStunDuration);
 
 						SpellActions.Bash(progression, outputdmg);
@@ -356,7 +356,7 @@ namespace ChampionsOfForest.Player
 							ModdedPlayer.instance.OnHit();
 							ModdedPlayer.instance.OnHit_Melee(other.transform);
 
-							DamageMath.ReduceDamageToSendOverNet(2f * (WeaponDamage + ModdedPlayer.Stats.meleeFlatDmg + SpellActions.GetParryCounterStrikeDmg()) * ModdedPlayer.Stats.MeleeDamageMult * ModdedPlayer.Stats.RandomCritDamage, out int dmg, out int repetitions);
+							DamageUtils.ReduceDamageToSendOverNet(2f * (WeaponDamage + ModdedPlayer.Stats.baseMeleeDamage + SpellActions.GetParryCounterStrikeDmg()) * ModdedPlayer.Stats.MeleeDamageMult * ModdedPlayer.Stats.RandomCritDamage, out int dmg, out int repetitions);
 
 							HitPlayer hitPlayer = HitPlayer.Create(component3, EntityTargets.Everyone);
 							hitPlayer.damage = dmg;

@@ -162,7 +162,7 @@ namespace ChampionsOfForest.Player.Spells
 		}
 		IEnumerator DealDamage()
 		{
-			float dmg = 5 + ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_snowstormDmgScaling;
+			float dmg = 5 + ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_snowstormDmgScaling;
 			dmg *= ModdedPlayer.Stats.SpellDamageMult;
 			float crit = ModdedPlayer.Stats.RandomCritDamage;
 			dmg *= crit;
@@ -182,8 +182,8 @@ namespace ChampionsOfForest.Player.Spells
 
 							var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 							phe.Target = entity;
-							phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
-							phe.Hit = DamageMath.GetSendableDamage(dmg);
+							phe.getAttackerType = DamageUtils.SILENTattackerTypeMagic;
+							phe.Hit = DamageUtils.GetSendableDamage(dmg);
 
 							phe.Send();
 							if (onHitEffectProcs < 6)
@@ -277,7 +277,7 @@ namespace ChampionsOfForest.Player.Spells
 					var posOffset = pos;
 					if (i > 0)
 						posOffset += 0.5f * right * (((i - 1) % 3) - 1);
-					float damage = ModdedPlayer.Stats.spellFlatDmg * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27f + ModdedPlayer.instance.FurySwipesDmg;
+					float damage = ModdedPlayer.Stats.baseSpellDamage * ModdedPlayer.Stats.spell_fireboltDamageScaling + 27f + ModdedPlayer.instance.FurySwipesDmg;
 					damage = damage * ModdedPlayer.Stats.SpellDamageMult * (1.1f + ModdedPlayer.Stats.fireDamage);
 					damage = damage * ModdedPlayer.Stats.RandomCritDamage;
 					//if (i > 0)
@@ -485,14 +485,14 @@ namespace ChampionsOfForest.Player.Spells
 							}
 							var phe = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
 							phe.Target = entity;
-							phe.getAttackerType = DamageMath.SILENTattackerTypeMagic;
-							phe.Hit = DamageMath.GetSendableDamage(dmgOutput);
+							phe.getAttackerType = DamageUtils.SILENTattackerTypeMagic;
+							phe.Hit = DamageUtils.GetSendableDamage(dmgOutput);
 							ModdedPlayer.instance.OnHitEffectsClient(entity, dmgOutput);
 
 							if (crit > 1)
 							{
 								int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-								float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+								float fireDmg = 1 + ModdedPlayer.Stats.baseSpellDamage / 3;
 								fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 								fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
 								using (System.IO.MemoryStream answerStream = new System.IO.MemoryStream())
@@ -531,7 +531,7 @@ namespace ChampionsOfForest.Player.Spells
 								if (ModdedPlayer.Stats.perk_fireDmgIncreaseOnHit)
 								{
 									//int myID = 3000 + ModReferences.Players.IndexOf(LocalPlayer.GameObject);
-									float fireDmg = 1 + ModdedPlayer.Stats.spellFlatDmg / 3;
+									float fireDmg = 1 + ModdedPlayer.Stats.baseSpellDamage / 3;
 									fireDmg *= ModdedPlayer.Stats.TotalMagicDamageMultiplier;
 									fireDmg *= ModdedPlayer.Stats.fireDamage + 1;
 									progression.FireDebuff(3000, fireDmg, 14);

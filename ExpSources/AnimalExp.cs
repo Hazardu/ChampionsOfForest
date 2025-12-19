@@ -68,7 +68,7 @@ namespace ChampionsOfForest.ExpSources
 			if (xp > 82)
 			{
 				if(Random.value < 0.5f)
-					Network.NetworkManager.SendItemDrop(ItemDataBase.GetRandomItem(xp,transform.position), transform.position + Vector3.up * 4f, ItemPickUp.DropSource.EnemyOnDeath);
+					Network.NetworkManager.SendItemDrop(ItemDatabase.GetRandomItem(xp,transform.position), transform.position + Vector3.up * 4f, ItemPickUp.DropSource.EnemyOnDeath);
 
 			}
 			base.Die();

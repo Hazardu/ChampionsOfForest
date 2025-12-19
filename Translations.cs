@@ -180,10 +180,6 @@ namespace ChampionsOfForest.Localization
 		public string _MainMenu_Guide_17 = "Armor";
 		public static string MainMenu_Guide_18(params object[] objects) => string.Format(instance._MainMenu_Guide_18, objects);
 		public string _MainMenu_Guide_18 = "Armor provides physical damage reduction.\nPhysical damage reduction from armor is equal to {0}";
-		public static string MainMenu_Guide_19 => instance._MainMenu_Guide_19;
-		public string _MainMenu_Guide_19 = "Magic Resistance";
-		public static string MainMenu_Guide_20 => instance._MainMenu_Guide_20;
-		public string _MainMenu_Guide_20 = "Magic damage reduction. Decreases damage from enemy abilities.";
 		public static string MainMenu_Guide_21 => instance._MainMenu_Guide_21;
 		public string _MainMenu_Guide_21 = "Dodge Chance";
 		public static string MainMenu_Guide_22 => instance._MainMenu_Guide_22;
@@ -1703,1405 +1699,1405 @@ namespace ChampionsOfForest.Localization
 		public static string SpellDataBase_52 => instance._SpellDataBase_52;
 		public string _SpellDataBase_52 = "Snow Storm";
 
-		//ItemDataBase_StatDefinitions
-		public static string ItemDataBase_StatDefinitions_1 => instance._ItemDataBase_StatDefinitions_1;
-		public string _ItemDataBase_StatDefinitions_1 = "Health";
-		public static string ItemDataBase_StatDefinitions_2 => instance._ItemDataBase_StatDefinitions_2;
-		public string _ItemDataBase_StatDefinitions_2 = "Energy";
-		public static string ItemDataBase_StatDefinitions_3 => instance._ItemDataBase_StatDefinitions_3;
-		public string _ItemDataBase_StatDefinitions_3 = "Health/sec";
-		public static string ItemDataBase_StatDefinitions_4 => instance._ItemDataBase_StatDefinitions_4;
-		public string _ItemDataBase_StatDefinitions_4 = "Stamina/sec";
-		public static string ItemDataBase_StatDefinitions_5 => instance._ItemDataBase_StatDefinitions_5;
-		public string _ItemDataBase_StatDefinitions_5 = "Energy regen";
-		public static string ItemDataBase_StatDefinitions_6 => instance._ItemDataBase_StatDefinitions_6;
-		public string _ItemDataBase_StatDefinitions_6 = "Life regen";
-		public static string ItemDataBase_StatDefinitions_7 => instance._ItemDataBase_StatDefinitions_7;
-		public string _ItemDataBase_StatDefinitions_7 = "Critical hit chance";
-		public static string ItemDataBase_StatDefinitions_8 => instance._ItemDataBase_StatDefinitions_8;
-		public string _ItemDataBase_StatDefinitions_8 = "Life on hit";
-		public static string ItemDataBase_StatDefinitions_9 => instance._ItemDataBase_StatDefinitions_9;
-		public string _ItemDataBase_StatDefinitions_9 = "Dodge chance";
-		public static string ItemDataBase_StatDefinitions_10 => instance._ItemDataBase_StatDefinitions_10;
-		public string _ItemDataBase_StatDefinitions_10 = "Magic resistance";
-		public static string ItemDataBase_StatDefinitions_11 => instance._ItemDataBase_StatDefinitions_11;
-		public string _ItemDataBase_StatDefinitions_11 = "Experience";
-		public static string ItemDataBase_StatDefinitions_12 => instance._ItemDataBase_StatDefinitions_12;
-		public string _ItemDataBase_StatDefinitions_12 = "Spell damage";
-		public static string ItemDataBase_StatDefinitions_13 => instance._ItemDataBase_StatDefinitions_13;
-		public string _ItemDataBase_StatDefinitions_13 = "Melee damage";
-		public static string ItemDataBase_StatDefinitions_14 => instance._ItemDataBase_StatDefinitions_14;
-		public string _ItemDataBase_StatDefinitions_14 = "Ranged damage";
-		public static string ItemDataBase_StatDefinitions_15 => instance._ItemDataBase_StatDefinitions_15;
-		public string _ItemDataBase_StatDefinitions_15 = "Base spell damage";
-		public static string ItemDataBase_StatDefinitions_16 => instance._ItemDataBase_StatDefinitions_16;
-		public string _ItemDataBase_StatDefinitions_16 = "Base melee damage";
-		public static string ItemDataBase_StatDefinitions_17 => instance._ItemDataBase_StatDefinitions_17;
-		public string _ItemDataBase_StatDefinitions_17 = "Base ranged damage";
-		public static string ItemDataBase_StatDefinitions_18 => instance._ItemDataBase_StatDefinitions_18;
-		public string _ItemDataBase_StatDefinitions_18 = "Energy/agility";
-		public static string ItemDataBase_StatDefinitions_19 => instance._ItemDataBase_StatDefinitions_19;
-		public string _ItemDataBase_StatDefinitions_19 = "Health/vitality";
-		public static string ItemDataBase_StatDefinitions_20 => instance._ItemDataBase_StatDefinitions_20;
-		public string _ItemDataBase_StatDefinitions_20 = "Spell damage/intelligence";
-		public static string ItemDataBase_StatDefinitions_21 => instance._ItemDataBase_StatDefinitions_21;
-		public string _ItemDataBase_StatDefinitions_21 = "Melee damage/strength";
-		public static string ItemDataBase_StatDefinitions_22 => instance._ItemDataBase_StatDefinitions_22;
-		public string _ItemDataBase_StatDefinitions_22 = "Recovery";
-		public static string ItemDataBase_StatDefinitions_23 => instance._ItemDataBase_StatDefinitions_23;
-		public string _ItemDataBase_StatDefinitions_23 = "PERMANENT PERK POINTS";
-		public static string ItemDataBase_StatDefinitions_24 => instance._ItemDataBase_StatDefinitions_24;
-		public string _ItemDataBase_StatDefinitions_24 = " / ";
-		public static string ItemDataBase_StatDefinitions_25 => instance._ItemDataBase_StatDefinitions_25;
-		public string _ItemDataBase_StatDefinitions_25 = "EXPERIENCE";
-		public static string ItemDataBase_StatDefinitions_26 => instance._ItemDataBase_StatDefinitions_26;
-		public string _ItemDataBase_StatDefinitions_26 = "Weapon length";
-		public static string ItemDataBase_StatDefinitions_27 => instance._ItemDataBase_StatDefinitions_27;
-		public string _ItemDataBase_StatDefinitions_27 = "Attack cost reduction";
-		public static string ItemDataBase_StatDefinitions_28 => instance._ItemDataBase_StatDefinitions_28;
-		public string _ItemDataBase_StatDefinitions_28 = "Spell cost to stamina";
-		public static string ItemDataBase_StatDefinitions_29 => instance._ItemDataBase_StatDefinitions_29;
-		public string _ItemDataBase_StatDefinitions_29 = "Energy/sec";
-		public static string ItemDataBase_StatDefinitions_30 => instance._ItemDataBase_StatDefinitions_30;
-		public string _ItemDataBase_StatDefinitions_30 = "Ranged damage/agility";
-		public static string ItemDataBase_StatDefinitions_31 => instance._ItemDataBase_StatDefinitions_31;
-		public string _ItemDataBase_StatDefinitions_31 = "Melee armor piercing";
-		public static string ItemDataBase_StatDefinitions_32 => instance._ItemDataBase_StatDefinitions_32;
-		public string _ItemDataBase_StatDefinitions_32 = "Ranged armor piercing";
-		public static string ItemDataBase_StatDefinitions_33 => instance._ItemDataBase_StatDefinitions_33;
-		public string _ItemDataBase_StatDefinitions_33 = "Armor piercing";
-		public static string ItemDataBase_StatDefinitions_34 => instance._ItemDataBase_StatDefinitions_34;
-		public string _ItemDataBase_StatDefinitions_34 = "Refund points";
-		public static string ItemDataBase_StatDefinitions_35 => instance._ItemDataBase_StatDefinitions_35;
-		public string _ItemDataBase_StatDefinitions_35 = "Headshot damage";
-		public static string ItemDataBase_StatDefinitions_36 => instance._ItemDataBase_StatDefinitions_36;
-		public string _ItemDataBase_StatDefinitions_36 = "Fire damage";
-		public static string ItemDataBase_StatDefinitions_37 => instance._ItemDataBase_StatDefinitions_37;
-		public string _ItemDataBase_StatDefinitions_37 = "Chance on hit to slow";
-		public static string ItemDataBase_StatDefinitions_38 => instance._ItemDataBase_StatDefinitions_38;
-		public string _ItemDataBase_StatDefinitions_38 = "Chance on hit to bleed";
-		public static string ItemDataBase_StatDefinitions_39 => instance._ItemDataBase_StatDefinitions_39;
-		public string _ItemDataBase_StatDefinitions_39 = "Chance on hit to weaken";
-		public static string ItemDataBase_StatDefinitions_40 => instance._ItemDataBase_StatDefinitions_40;
-		public string _ItemDataBase_StatDefinitions_40 = "Dynamite & bomb damage";
-		public static string ItemDataBase_StatDefinitions_41 => instance._ItemDataBase_StatDefinitions_41;
-		public string _ItemDataBase_StatDefinitions_41 = "Spear damage";
-		public static string ItemDataBase_StatDefinitions_42 => instance._ItemDataBase_StatDefinitions_42;
-		public string _ItemDataBase_StatDefinitions_42 = "Extra carried Sticks";
-		public static string ItemDataBase_StatDefinitions_43 => instance._ItemDataBase_StatDefinitions_43;
-		public string _ItemDataBase_StatDefinitions_43 = "Extra carried Rocks";
-		public static string ItemDataBase_StatDefinitions_44 => instance._ItemDataBase_StatDefinitions_44;
-		public string _ItemDataBase_StatDefinitions_44 = "Extra carried Ropes";
-		public static string ItemDataBase_StatDefinitions_45 => instance._ItemDataBase_StatDefinitions_45;
-		public string _ItemDataBase_StatDefinitions_45 = " Soda: ";
-		public static string ItemDataBase_StatDefinitions_46 => instance._ItemDataBase_StatDefinitions_46;
-		public string _ItemDataBase_StatDefinitions_46 = "Booze: ";
-		public static string ItemDataBase_StatDefinitions_47 => instance._ItemDataBase_StatDefinitions_47;
-		public string _ItemDataBase_StatDefinitions_47 = "Extra carried Drinks";
-		public static string ItemDataBase_StatDefinitions_48 => instance._ItemDataBase_StatDefinitions_48;
-		public string _ItemDataBase_StatDefinitions_48 = "Extra carried Food";
-		public static string ItemDataBase_StatDefinitions_49 => instance._ItemDataBase_StatDefinitions_49;
-		public string _ItemDataBase_StatDefinitions_49 = "Black hole radius";
-		public static string ItemDataBase_StatDefinitions_50 => instance._ItemDataBase_StatDefinitions_50;
-		public string _ItemDataBase_StatDefinitions_50 = "Black hole lifetime";
-		public static string ItemDataBase_StatDefinitions_51 => instance._ItemDataBase_StatDefinitions_51;
-		public string _ItemDataBase_StatDefinitions_51 = "Black hole gravitational force";
-		public static string ItemDataBase_StatDefinitions_52 => instance._ItemDataBase_StatDefinitions_52;
-		public string _ItemDataBase_StatDefinitions_52 = "Black hole damage";
-		public static string ItemDataBase_StatDefinitions_53 => instance._ItemDataBase_StatDefinitions_53;
-		public string _ItemDataBase_StatDefinitions_53 = "Stun on hit";
-		public static string ItemDataBase_StatDefinitions_54 => instance._ItemDataBase_StatDefinitions_54;
-		public string _ItemDataBase_StatDefinitions_54 = "Snap freeze Duration";
-		public static string ItemDataBase_StatDefinitions_55 => instance._ItemDataBase_StatDefinitions_55;
-		public string _ItemDataBase_StatDefinitions_55 = "Raft speed";
-		public static string ItemDataBase_StatDefinitions_56 => instance._ItemDataBase_StatDefinitions_56;
-		public string _ItemDataBase_StatDefinitions_56 = "Empty socket";
-		public static string ItemDataBase_StatDefinitions_57 => instance._ItemDataBase_StatDefinitions_57;
-		public string _ItemDataBase_StatDefinitions_57 = "Socket: crit chance";
-		public static string ItemDataBase_StatDefinitions_58 => instance._ItemDataBase_StatDefinitions_58;
-		public string _ItemDataBase_StatDefinitions_58 = "Socket: agility";
-		public static string ItemDataBase_StatDefinitions_59 => instance._ItemDataBase_StatDefinitions_59;
-		public string _ItemDataBase_StatDefinitions_59 = "Socket: movement speed";
-		public static string ItemDataBase_StatDefinitions_60 => instance._ItemDataBase_StatDefinitions_60;
-		public string _ItemDataBase_StatDefinitions_60 = "Socket: ranged damage";
-		public static string ItemDataBase_StatDefinitions_61 => instance._ItemDataBase_StatDefinitions_61;
-		public string _ItemDataBase_StatDefinitions_61 = "Socket: ranged armor piercing";
-		public static string ItemDataBase_StatDefinitions_62 => instance._ItemDataBase_StatDefinitions_62;
-		public string _ItemDataBase_StatDefinitions_62 = "Socket: attack speed";
-		public static string ItemDataBase_StatDefinitions_63 => instance._ItemDataBase_StatDefinitions_63;
-		public string _ItemDataBase_StatDefinitions_63 = "Socket: strength";
-		public static string ItemDataBase_StatDefinitions_64 => instance._ItemDataBase_StatDefinitions_64;
-		public string _ItemDataBase_StatDefinitions_64 = "Socket: damage reduction";
-		public static string ItemDataBase_StatDefinitions_65 => instance._ItemDataBase_StatDefinitions_65;
-		public string _ItemDataBase_StatDefinitions_65 = "Socket: melee damage";
-		public static string ItemDataBase_StatDefinitions_66 => instance._ItemDataBase_StatDefinitions_66;
-		public string _ItemDataBase_StatDefinitions_66 = "Socket: melee armor piercing";
-		public static string ItemDataBase_StatDefinitions_67 => instance._ItemDataBase_StatDefinitions_67;
-		public string _ItemDataBase_StatDefinitions_67 = "Socket: cooldown reduction";
-		public static string ItemDataBase_StatDefinitions_68 => instance._ItemDataBase_StatDefinitions_68;
-		public string _ItemDataBase_StatDefinitions_68 = "Socket: intelligence";
-		public static string ItemDataBase_StatDefinitions_69 => instance._ItemDataBase_StatDefinitions_69;
-		public string _ItemDataBase_StatDefinitions_69 = "Socket: spell cost reduction";
-		public static string ItemDataBase_StatDefinitions_70 => instance._ItemDataBase_StatDefinitions_70;
-		public string _ItemDataBase_StatDefinitions_70 = "Socket: spell damage";
-		public static string ItemDataBase_StatDefinitions_71 => instance._ItemDataBase_StatDefinitions_71;
-		public string _ItemDataBase_StatDefinitions_71 = "Socket: energy on hit";
-		public static string ItemDataBase_StatDefinitions_72 => instance._ItemDataBase_StatDefinitions_72;
-		public string _ItemDataBase_StatDefinitions_72 = "Socket: experience gain";
-		public static string ItemDataBase_StatDefinitions_73 => instance._ItemDataBase_StatDefinitions_73;
-		public string _ItemDataBase_StatDefinitions_73 = "Socket: vitality ";
-		public static string ItemDataBase_StatDefinitions_74 => instance._ItemDataBase_StatDefinitions_74;
-		public string _ItemDataBase_StatDefinitions_74 = "Socket: magic find";
-		public static string ItemDataBase_StatDefinitions_75 => instance._ItemDataBase_StatDefinitions_75;
-		public string _ItemDataBase_StatDefinitions_75 = "Socket: all healing";
-		public static string ItemDataBase_StatDefinitions_76 => instance._ItemDataBase_StatDefinitions_76;
-		public string _ItemDataBase_StatDefinitions_76 = "Socket: life per second";
-		public static string ItemDataBase_StatDefinitions_77 => instance._ItemDataBase_StatDefinitions_77;
-		public string _ItemDataBase_StatDefinitions_77 = "Socket: maximum health ";
-		public static string ItemDataBase_StatDefinitions_78 => instance._ItemDataBase_StatDefinitions_78;
-		public string _ItemDataBase_StatDefinitions_78 = "Socket: armor ";
-		public static string ItemDataBase_StatDefinitions_79 => instance._ItemDataBase_StatDefinitions_79;
-		public string _ItemDataBase_StatDefinitions_79 = "Socket: Resistance to magic";
-		public static string ItemDataBase_StatDefinitions_80 => instance._ItemDataBase_StatDefinitions_80;
-		public string _ItemDataBase_StatDefinitions_80 = "Socket: crit damage";
-		public static string ItemDataBase_StatDefinitions_81 => instance._ItemDataBase_StatDefinitions_81;
-		public string _ItemDataBase_StatDefinitions_81 = "Socket: thorns";
+		//ItemDatabase_StatDefinitions
+		public static string ItemDatabase_StatDefinitions_1 => instance._ItemDatabase_StatDefinitions_1;
+		public string _ItemDatabase_StatDefinitions_1 = "Health";
+		public static string ItemDatabase_StatDefinitions_2 => instance._ItemDatabase_StatDefinitions_2;
+		public string _ItemDatabase_StatDefinitions_2 = "Energy";
+		public static string ItemDatabase_StatDefinitions_3 => instance._ItemDatabase_StatDefinitions_3;
+		public string _ItemDatabase_StatDefinitions_3 = "Health/sec";
+		public static string ItemDatabase_StatDefinitions_4 => instance._ItemDatabase_StatDefinitions_4;
+		public string _ItemDatabase_StatDefinitions_4 = "Stamina/sec";
+		public static string ItemDatabase_StatDefinitions_5 => instance._ItemDatabase_StatDefinitions_5;
+		public string _ItemDatabase_StatDefinitions_5 = "Energy regen";
+		public static string ItemDatabase_StatDefinitions_6 => instance._ItemDatabase_StatDefinitions_6;
+		public string _ItemDatabase_StatDefinitions_6 = "Life regen";
+		public static string ItemDatabase_StatDefinitions_7 => instance._ItemDatabase_StatDefinitions_7;
+		public string _ItemDatabase_StatDefinitions_7 = "Critical hit chance";
+		public static string ItemDatabase_StatDefinitions_8 => instance._ItemDatabase_StatDefinitions_8;
+		public string _ItemDatabase_StatDefinitions_8 = "Life on hit";
+		public static string ItemDatabase_StatDefinitions_9 => instance._ItemDatabase_StatDefinitions_9;
+		public string _ItemDatabase_StatDefinitions_9 = "Dodge chance";
+		public static string ItemDatabase_StatDefinitions_10 => instance._ItemDatabase_StatDefinitions_10;
+		public string _ItemDatabase_StatDefinitions_10 = "Magic resistance";
+		public static string ItemDatabase_StatDefinitions_11 => instance._ItemDatabase_StatDefinitions_11;
+		public string _ItemDatabase_StatDefinitions_11 = "Experience";
+		public static string ItemDatabase_StatDefinitions_12 => instance._ItemDatabase_StatDefinitions_12;
+		public string _ItemDatabase_StatDefinitions_12 = "Spell damage";
+		public static string ItemDatabase_StatDefinitions_13 => instance._ItemDatabase_StatDefinitions_13;
+		public string _ItemDatabase_StatDefinitions_13 = "Melee damage";
+		public static string ItemDatabase_StatDefinitions_14 => instance._ItemDatabase_StatDefinitions_14;
+		public string _ItemDatabase_StatDefinitions_14 = "Ranged damage";
+		public static string ItemDatabase_StatDefinitions_15 => instance._ItemDatabase_StatDefinitions_15;
+		public string _ItemDatabase_StatDefinitions_15 = "Base spell damage";
+		public static string ItemDatabase_StatDefinitions_16 => instance._ItemDatabase_StatDefinitions_16;
+		public string _ItemDatabase_StatDefinitions_16 = "Base melee damage";
+		public static string ItemDatabase_StatDefinitions_17 => instance._ItemDatabase_StatDefinitions_17;
+		public string _ItemDatabase_StatDefinitions_17 = "Base ranged damage";
+		public static string ItemDatabase_StatDefinitions_18 => instance._ItemDatabase_StatDefinitions_18;
+		public string _ItemDatabase_StatDefinitions_18 = "Energy/agility";
+		public static string ItemDatabase_StatDefinitions_19 => instance._ItemDatabase_StatDefinitions_19;
+		public string _ItemDatabase_StatDefinitions_19 = "Health/vitality";
+		public static string ItemDatabase_StatDefinitions_20 => instance._ItemDatabase_StatDefinitions_20;
+		public string _ItemDatabase_StatDefinitions_20 = "Spell damage/intelligence";
+		public static string ItemDatabase_StatDefinitions_21 => instance._ItemDatabase_StatDefinitions_21;
+		public string _ItemDatabase_StatDefinitions_21 = "Melee damage/strength";
+		public static string ItemDatabase_StatDefinitions_22 => instance._ItemDatabase_StatDefinitions_22;
+		public string _ItemDatabase_StatDefinitions_22 = "Recovery";
+		public static string ItemDatabase_StatDefinitions_23 => instance._ItemDatabase_StatDefinitions_23;
+		public string _ItemDatabase_StatDefinitions_23 = "PERMANENT PERK POINTS";
+		public static string ItemDatabase_StatDefinitions_24 => instance._ItemDatabase_StatDefinitions_24;
+		public string _ItemDatabase_StatDefinitions_24 = " / ";
+		public static string ItemDatabase_StatDefinitions_25 => instance._ItemDatabase_StatDefinitions_25;
+		public string _ItemDatabase_StatDefinitions_25 = "EXPERIENCE";
+		public static string ItemDatabase_StatDefinitions_26 => instance._ItemDatabase_StatDefinitions_26;
+		public string _ItemDatabase_StatDefinitions_26 = "Weapon length";
+		public static string ItemDatabase_StatDefinitions_27 => instance._ItemDatabase_StatDefinitions_27;
+		public string _ItemDatabase_StatDefinitions_27 = "Attack cost reduction";
+		public static string ItemDatabase_StatDefinitions_28 => instance._ItemDatabase_StatDefinitions_28;
+		public string _ItemDatabase_StatDefinitions_28 = "Spell cost to stamina";
+		public static string ItemDatabase_StatDefinitions_29 => instance._ItemDatabase_StatDefinitions_29;
+		public string _ItemDatabase_StatDefinitions_29 = "Energy/sec";
+		public static string ItemDatabase_StatDefinitions_30 => instance._ItemDatabase_StatDefinitions_30;
+		public string _ItemDatabase_StatDefinitions_30 = "Ranged damage/agility";
+		public static string ItemDatabase_StatDefinitions_31 => instance._ItemDatabase_StatDefinitions_31;
+		public string _ItemDatabase_StatDefinitions_31 = "Melee armor piercing";
+		public static string ItemDatabase_StatDefinitions_32 => instance._ItemDatabase_StatDefinitions_32;
+		public string _ItemDatabase_StatDefinitions_32 = "Ranged armor piercing";
+		public static string ItemDatabase_StatDefinitions_33 => instance._ItemDatabase_StatDefinitions_33;
+		public string _ItemDatabase_StatDefinitions_33 = "Armor piercing";
+		public static string ItemDatabase_StatDefinitions_34 => instance._ItemDatabase_StatDefinitions_34;
+		public string _ItemDatabase_StatDefinitions_34 = "Refund points";
+		public static string ItemDatabase_StatDefinitions_35 => instance._ItemDatabase_StatDefinitions_35;
+		public string _ItemDatabase_StatDefinitions_35 = "Headshot damage";
+		public static string ItemDatabase_StatDefinitions_36 => instance._ItemDatabase_StatDefinitions_36;
+		public string _ItemDatabase_StatDefinitions_36 = "Fire damage";
+		public static string ItemDatabase_StatDefinitions_37 => instance._ItemDatabase_StatDefinitions_37;
+		public string _ItemDatabase_StatDefinitions_37 = "Chance on hit to slow";
+		public static string ItemDatabase_StatDefinitions_38 => instance._ItemDatabase_StatDefinitions_38;
+		public string _ItemDatabase_StatDefinitions_38 = "Chance on hit to bleed";
+		public static string ItemDatabase_StatDefinitions_39 => instance._ItemDatabase_StatDefinitions_39;
+		public string _ItemDatabase_StatDefinitions_39 = "Chance on hit to weaken";
+		public static string ItemDatabase_StatDefinitions_40 => instance._ItemDatabase_StatDefinitions_40;
+		public string _ItemDatabase_StatDefinitions_40 = "Dynamite & bomb damage";
+		public static string ItemDatabase_StatDefinitions_41 => instance._ItemDatabase_StatDefinitions_41;
+		public string _ItemDatabase_StatDefinitions_41 = "Spear damage";
+		public static string ItemDatabase_StatDefinitions_42 => instance._ItemDatabase_StatDefinitions_42;
+		public string _ItemDatabase_StatDefinitions_42 = "Extra carried Sticks";
+		public static string ItemDatabase_StatDefinitions_43 => instance._ItemDatabase_StatDefinitions_43;
+		public string _ItemDatabase_StatDefinitions_43 = "Extra carried Rocks";
+		public static string ItemDatabase_StatDefinitions_44 => instance._ItemDatabase_StatDefinitions_44;
+		public string _ItemDatabase_StatDefinitions_44 = "Extra carried Ropes";
+		public static string ItemDatabase_StatDefinitions_45 => instance._ItemDatabase_StatDefinitions_45;
+		public string _ItemDatabase_StatDefinitions_45 = " Soda: ";
+		public static string ItemDatabase_StatDefinitions_46 => instance._ItemDatabase_StatDefinitions_46;
+		public string _ItemDatabase_StatDefinitions_46 = "Booze: ";
+		public static string ItemDatabase_StatDefinitions_47 => instance._ItemDatabase_StatDefinitions_47;
+		public string _ItemDatabase_StatDefinitions_47 = "Extra carried Drinks";
+		public static string ItemDatabase_StatDefinitions_48 => instance._ItemDatabase_StatDefinitions_48;
+		public string _ItemDatabase_StatDefinitions_48 = "Extra carried Food";
+		public static string ItemDatabase_StatDefinitions_49 => instance._ItemDatabase_StatDefinitions_49;
+		public string _ItemDatabase_StatDefinitions_49 = "Black hole radius";
+		public static string ItemDatabase_StatDefinitions_50 => instance._ItemDatabase_StatDefinitions_50;
+		public string _ItemDatabase_StatDefinitions_50 = "Black hole lifetime";
+		public static string ItemDatabase_StatDefinitions_51 => instance._ItemDatabase_StatDefinitions_51;
+		public string _ItemDatabase_StatDefinitions_51 = "Black hole gravitational force";
+		public static string ItemDatabase_StatDefinitions_52 => instance._ItemDatabase_StatDefinitions_52;
+		public string _ItemDatabase_StatDefinitions_52 = "Black hole damage";
+		public static string ItemDatabase_StatDefinitions_53 => instance._ItemDatabase_StatDefinitions_53;
+		public string _ItemDatabase_StatDefinitions_53 = "Stun on hit";
+		public static string ItemDatabase_StatDefinitions_54 => instance._ItemDatabase_StatDefinitions_54;
+		public string _ItemDatabase_StatDefinitions_54 = "Snap freeze Duration";
+		public static string ItemDatabase_StatDefinitions_55 => instance._ItemDatabase_StatDefinitions_55;
+		public string _ItemDatabase_StatDefinitions_55 = "Raft speed";
+		public static string ItemDatabase_StatDefinitions_56 => instance._ItemDatabase_StatDefinitions_56;
+		public string _ItemDatabase_StatDefinitions_56 = "Empty socket";
+		public static string ItemDatabase_StatDefinitions_57 => instance._ItemDatabase_StatDefinitions_57;
+		public string _ItemDatabase_StatDefinitions_57 = "Socket: crit chance";
+		public static string ItemDatabase_StatDefinitions_58 => instance._ItemDatabase_StatDefinitions_58;
+		public string _ItemDatabase_StatDefinitions_58 = "Socket: agility";
+		public static string ItemDatabase_StatDefinitions_59 => instance._ItemDatabase_StatDefinitions_59;
+		public string _ItemDatabase_StatDefinitions_59 = "Socket: movement speed";
+		public static string ItemDatabase_StatDefinitions_60 => instance._ItemDatabase_StatDefinitions_60;
+		public string _ItemDatabase_StatDefinitions_60 = "Socket: ranged damage";
+		public static string ItemDatabase_StatDefinitions_61 => instance._ItemDatabase_StatDefinitions_61;
+		public string _ItemDatabase_StatDefinitions_61 = "Socket: ranged armor piercing";
+		public static string ItemDatabase_StatDefinitions_62 => instance._ItemDatabase_StatDefinitions_62;
+		public string _ItemDatabase_StatDefinitions_62 = "Socket: attack speed";
+		public static string ItemDatabase_StatDefinitions_63 => instance._ItemDatabase_StatDefinitions_63;
+		public string _ItemDatabase_StatDefinitions_63 = "Socket: strength";
+		public static string ItemDatabase_StatDefinitions_64 => instance._ItemDatabase_StatDefinitions_64;
+		public string _ItemDatabase_StatDefinitions_64 = "Socket: damage reduction";
+		public static string ItemDatabase_StatDefinitions_65 => instance._ItemDatabase_StatDefinitions_65;
+		public string _ItemDatabase_StatDefinitions_65 = "Socket: melee damage";
+		public static string ItemDatabase_StatDefinitions_66 => instance._ItemDatabase_StatDefinitions_66;
+		public string _ItemDatabase_StatDefinitions_66 = "Socket: melee armor piercing";
+		public static string ItemDatabase_StatDefinitions_67 => instance._ItemDatabase_StatDefinitions_67;
+		public string _ItemDatabase_StatDefinitions_67 = "Socket: cooldown reduction";
+		public static string ItemDatabase_StatDefinitions_68 => instance._ItemDatabase_StatDefinitions_68;
+		public string _ItemDatabase_StatDefinitions_68 = "Socket: intelligence";
+		public static string ItemDatabase_StatDefinitions_69 => instance._ItemDatabase_StatDefinitions_69;
+		public string _ItemDatabase_StatDefinitions_69 = "Socket: spell cost reduction";
+		public static string ItemDatabase_StatDefinitions_70 => instance._ItemDatabase_StatDefinitions_70;
+		public string _ItemDatabase_StatDefinitions_70 = "Socket: spell damage";
+		public static string ItemDatabase_StatDefinitions_71 => instance._ItemDatabase_StatDefinitions_71;
+		public string _ItemDatabase_StatDefinitions_71 = "Socket: energy on hit";
+		public static string ItemDatabase_StatDefinitions_72 => instance._ItemDatabase_StatDefinitions_72;
+		public string _ItemDatabase_StatDefinitions_72 = "Socket: experience gain";
+		public static string ItemDatabase_StatDefinitions_73 => instance._ItemDatabase_StatDefinitions_73;
+		public string _ItemDatabase_StatDefinitions_73 = "Socket: vitality ";
+		public static string ItemDatabase_StatDefinitions_74 => instance._ItemDatabase_StatDefinitions_74;
+		public string _ItemDatabase_StatDefinitions_74 = "Socket: magic find";
+		public static string ItemDatabase_StatDefinitions_75 => instance._ItemDatabase_StatDefinitions_75;
+		public string _ItemDatabase_StatDefinitions_75 = "Socket: all healing";
+		public static string ItemDatabase_StatDefinitions_76 => instance._ItemDatabase_StatDefinitions_76;
+		public string _ItemDatabase_StatDefinitions_76 = "Socket: life per second";
+		public static string ItemDatabase_StatDefinitions_77 => instance._ItemDatabase_StatDefinitions_77;
+		public string _ItemDatabase_StatDefinitions_77 = "Socket: maximum health ";
+		public static string ItemDatabase_StatDefinitions_78 => instance._ItemDatabase_StatDefinitions_78;
+		public string _ItemDatabase_StatDefinitions_78 = "Socket: armor ";
+		public static string ItemDatabase_StatDefinitions_79 => instance._ItemDatabase_StatDefinitions_79;
+		public string _ItemDatabase_StatDefinitions_79 = "Socket: Resistance to magic";
+		public static string ItemDatabase_StatDefinitions_80 => instance._ItemDatabase_StatDefinitions_80;
+		public string _ItemDatabase_StatDefinitions_80 = "Socket: crit damage";
+		public static string ItemDatabase_StatDefinitions_81 => instance._ItemDatabase_StatDefinitions_81;
+		public string _ItemDatabase_StatDefinitions_81 = "Socket: thorns";
 
-		//ItemDataBase_ItemDefinitions
-		public static string ItemDataBase_ItemDefinitions_1 => instance._ItemDataBase_ItemDefinitions_1;
-		public string _ItemDataBase_ItemDefinitions_1 = "Broken Flip-Flops";
-		public static string ItemDataBase_ItemDefinitions_2 => instance._ItemDataBase_ItemDefinitions_2;
-		public string _ItemDataBase_ItemDefinitions_2 = "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner.";
-		public static string ItemDataBase_ItemDefinitions_3 => instance._ItemDataBase_ItemDefinitions_3;
-		public string _ItemDataBase_ItemDefinitions_3 = "Worn by one of the passengers of the plane that Eric also flew in.";
-		public static string ItemDataBase_ItemDefinitions_4 => instance._ItemDataBase_ItemDefinitions_4;
-		public string _ItemDataBase_ItemDefinitions_4 = "Old Boots";
-		public static string ItemDataBase_ItemDefinitions_5 => instance._ItemDataBase_ItemDefinitions_5;
-		public string _ItemDataBase_ItemDefinitions_5 = "A pair of old boots. They must have been lying here for ages.";
-		public static string ItemDataBase_ItemDefinitions_6 => instance._ItemDataBase_ItemDefinitions_6;
-		public string _ItemDataBase_ItemDefinitions_6 = "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal.";
-		public static string ItemDataBase_ItemDefinitions_7 => instance._ItemDataBase_ItemDefinitions_7;
-		public string _ItemDataBase_ItemDefinitions_7 = "Damaged Leather Boots";
-		public static string ItemDataBase_ItemDefinitions_8 => instance._ItemDataBase_ItemDefinitions_8;
-		public string _ItemDataBase_ItemDefinitions_8 = "A pair of leather boots. They look good and have only some scratches.";
-		public static string ItemDataBase_ItemDefinitions_9 => instance._ItemDataBase_ItemDefinitions_9;
-		public string _ItemDataBase_ItemDefinitions_9 = "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage.";
-		public static string ItemDataBase_ItemDefinitions_10 => instance._ItemDataBase_ItemDefinitions_10;
-		public string _ItemDataBase_ItemDefinitions_10 = "Sturdy Leather Boots";
-		public static string ItemDataBase_ItemDefinitions_11 => instance._ItemDataBase_ItemDefinitions_11;
-		public string _ItemDataBase_ItemDefinitions_11 = "A pair of leather boots. They are in a very good condition.";
-		public static string ItemDataBase_ItemDefinitions_12 => instance._ItemDataBase_ItemDefinitions_12;
-		public string _ItemDataBase_ItemDefinitions_12 = "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99.";
-		public static string ItemDataBase_ItemDefinitions_13 => instance._ItemDataBase_ItemDefinitions_13;
-		public string _ItemDataBase_ItemDefinitions_13 = "Damaged Army Boots";
-		public static string ItemDataBase_ItemDefinitions_14 => instance._ItemDataBase_ItemDefinitions_14;
-		public string _ItemDataBase_ItemDefinitions_14 = "Sturdy, hard, resistant but damaged boots.";
-		public static string ItemDataBase_ItemDefinitions_15 => instance._ItemDataBase_ItemDefinitions_15;
-		public string _ItemDataBase_ItemDefinitions_15 = "They look modern, almost too modern for everything here.";
-		public static string ItemDataBase_ItemDefinitions_16 => instance._ItemDataBase_ItemDefinitions_16;
-		public string _ItemDataBase_ItemDefinitions_16 = "Army Boots";
-		public static string ItemDataBase_ItemDefinitions_17 => instance._ItemDataBase_ItemDefinitions_17;
-		public string _ItemDataBase_ItemDefinitions_17 = "Sturdy, hard, resistant boots.";
-		public static string ItemDataBase_ItemDefinitions_18 => instance._ItemDataBase_ItemDefinitions_18;
-		public string _ItemDataBase_ItemDefinitions_18 = "Armsy Skin Footwear";
-		public static string ItemDataBase_ItemDefinitions_19 => instance._ItemDataBase_ItemDefinitions_19;
-		public string _ItemDataBase_ItemDefinitions_19 = "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin.";
-		public static string ItemDataBase_ItemDefinitions_20 => instance._ItemDataBase_ItemDefinitions_20;
-		public string _ItemDataBase_ItemDefinitions_20 = "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue.";
-		public static string ItemDataBase_ItemDefinitions_21 => instance._ItemDataBase_ItemDefinitions_21;
-		public string _ItemDataBase_ItemDefinitions_21 = "Finger Warmer";
-		public static string ItemDataBase_ItemDefinitions_22 => instance._ItemDataBase_ItemDefinitions_22;
-		public string _ItemDataBase_ItemDefinitions_22 = "A little glove to keep your fingers warm and cozy.";
-		public static string ItemDataBase_ItemDefinitions_23 => instance._ItemDataBase_ItemDefinitions_23;
-		public string _ItemDataBase_ItemDefinitions_23 = "Made of wool.";
-		public static string ItemDataBase_ItemDefinitions_24 => instance._ItemDataBase_ItemDefinitions_24;
-		public string _ItemDataBase_ItemDefinitions_24 = "Thick Rubber Glove";
-		public static string ItemDataBase_ItemDefinitions_25 => instance._ItemDataBase_ItemDefinitions_25;
-		public string _ItemDataBase_ItemDefinitions_25 = "A glove that helps get a better grip.";
-		public static string ItemDataBase_ItemDefinitions_26 => instance._ItemDataBase_ItemDefinitions_26;
-		public string _ItemDataBase_ItemDefinitions_26 = "Tribal Glove";
-		public static string ItemDataBase_ItemDefinitions_27 => instance._ItemDataBase_ItemDefinitions_27;
-		public string _ItemDataBase_ItemDefinitions_27 = "Offers medicore protection.";
-		public static string ItemDataBase_ItemDefinitions_28 => instance._ItemDataBase_ItemDefinitions_28;
-		public string _ItemDataBase_ItemDefinitions_28 = "Glove made out of thin bones, some may possibly be from a human.";
-		public static string ItemDataBase_ItemDefinitions_29 => instance._ItemDataBase_ItemDefinitions_29;
-		public string _ItemDataBase_ItemDefinitions_29 = "Tribe Leader Glove";
-		public static string ItemDataBase_ItemDefinitions_30 => instance._ItemDataBase_ItemDefinitions_30;
-		public string _ItemDataBase_ItemDefinitions_30 = "A glove that offers little protection but a lot of offensive stats.";
-		public static string ItemDataBase_ItemDefinitions_31 => instance._ItemDataBase_ItemDefinitions_31;
-		public string _ItemDataBase_ItemDefinitions_31 = "A glove made of bones, some have engravings of crosses.";
-		public static string ItemDataBase_ItemDefinitions_32 => instance._ItemDataBase_ItemDefinitions_32;
-		public string _ItemDataBase_ItemDefinitions_32 = "Worn Shorts";
-		public static string ItemDataBase_ItemDefinitions_33 => instance._ItemDataBase_ItemDefinitions_33;
-		public string _ItemDataBase_ItemDefinitions_33 = "Some protection for legs.";
-		public static string ItemDataBase_ItemDefinitions_34 => instance._ItemDataBase_ItemDefinitions_34;
-		public string _ItemDataBase_ItemDefinitions_34 = "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing.";
-		public static string ItemDataBase_ItemDefinitions_35 => instance._ItemDataBase_ItemDefinitions_35;
-		public string _ItemDataBase_ItemDefinitions_35 = "Cargo Shorts";
-		public static string ItemDataBase_ItemDefinitions_36 => instance._ItemDataBase_ItemDefinitions_36;
-		public string _ItemDataBase_ItemDefinitions_36 = "No protection at all but they allow to carry more items.";
-		public static string ItemDataBase_ItemDefinitions_37 => instance._ItemDataBase_ItemDefinitions_37;
-		public string _ItemDataBase_ItemDefinitions_37 = "They are ugly as hell tho";
-		public static string ItemDataBase_ItemDefinitions_38 => instance._ItemDataBase_ItemDefinitions_38;
-		public string _ItemDataBase_ItemDefinitions_38 = "Passenger's Jacket";
-		public static string ItemDataBase_ItemDefinitions_39 => instance._ItemDataBase_ItemDefinitions_39;
-		public string _ItemDataBase_ItemDefinitions_39 = "It's a little torn. ";
-		public static string ItemDataBase_ItemDefinitions_40 => instance._ItemDataBase_ItemDefinitions_40;
-		public string _ItemDataBase_ItemDefinitions_40 = "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead.";
-		public static string ItemDataBase_ItemDefinitions_41 => instance._ItemDataBase_ItemDefinitions_41;
-		public string _ItemDataBase_ItemDefinitions_41 = "Leather Jacket";
-		public static string ItemDataBase_ItemDefinitions_42 => instance._ItemDataBase_ItemDefinitions_42;
-		public string _ItemDataBase_ItemDefinitions_42 = "Offers little protection";
-		public static string ItemDataBase_ItemDefinitions_43 => instance._ItemDataBase_ItemDefinitions_43;
-		public string _ItemDataBase_ItemDefinitions_43 = "This jacket was in a baggage of one of the plane passengers";
-		public static string ItemDataBase_ItemDefinitions_44 => instance._ItemDataBase_ItemDefinitions_44;
-		public string _ItemDataBase_ItemDefinitions_44 = "Boar Skin Armor";
-		public static string ItemDataBase_ItemDefinitions_45 => instance._ItemDataBase_ItemDefinitions_45;
-		public string _ItemDataBase_ItemDefinitions_45 = "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies.";
-		public static string ItemDataBase_ItemDefinitions_46 => instance._ItemDataBase_ItemDefinitions_46;
-		public string _ItemDataBase_ItemDefinitions_46 = "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable.";
-		public static string ItemDataBase_ItemDefinitions_47 => instance._ItemDataBase_ItemDefinitions_47;
-		public string _ItemDataBase_ItemDefinitions_47 = "Crocodile Skin Armor";
-		public static string ItemDataBase_ItemDefinitions_48 => instance._ItemDataBase_ItemDefinitions_48;
-		public string _ItemDataBase_ItemDefinitions_48 = "Plate armour";
-		public static string ItemDataBase_ItemDefinitions_49 => instance._ItemDataBase_ItemDefinitions_49;
-		public string _ItemDataBase_ItemDefinitions_49 = "Bear Skin Armor";
-		public static string ItemDataBase_ItemDefinitions_50 => instance._ItemDataBase_ItemDefinitions_50;
-		public string _ItemDataBase_ItemDefinitions_50 = "Archer's Gear";
-		public static string ItemDataBase_ItemDefinitions_51 => instance._ItemDataBase_ItemDefinitions_51;
-		public string _ItemDataBase_ItemDefinitions_51 = "Hazard's Gear";
-		public static string ItemDataBase_ItemDefinitions_52 => instance._ItemDataBase_ItemDefinitions_52;
-		public string _ItemDataBase_ItemDefinitions_52 = "Mysterious robe";
-		public static string ItemDataBase_ItemDefinitions_53 => instance._ItemDataBase_ItemDefinitions_53;
-		public string _ItemDataBase_ItemDefinitions_53 = "Magic flows through the entirety of this object. It's made out of unknown material";
-		public static string ItemDataBase_ItemDefinitions_54 => instance._ItemDataBase_ItemDefinitions_54;
-		public string _ItemDataBase_ItemDefinitions_54 = "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine.";
-		public static string ItemDataBase_ItemDefinitions_55 => instance._ItemDataBase_ItemDefinitions_55;
-		public string _ItemDataBase_ItemDefinitions_55 = "Empowers cataclysm. The vortex turns blue, damage is increased, freezes enemies ";
-		public static string ItemDataBase_ItemDefinitions_56 => instance._ItemDataBase_ItemDefinitions_56;
-		public string _ItemDataBase_ItemDefinitions_56 = "Rusty Longsword";
-		public static string ItemDataBase_ItemDefinitions_57 => instance._ItemDataBase_ItemDefinitions_57;
-		public string _ItemDataBase_ItemDefinitions_57 = "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half.";
-		public static string ItemDataBase_ItemDefinitions_58 => instance._ItemDataBase_ItemDefinitions_58;
-		public string _ItemDataBase_ItemDefinitions_58 = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.";
-		public static string ItemDataBase_ItemDefinitions_59 => instance._ItemDataBase_ItemDefinitions_59;
-		public string _ItemDataBase_ItemDefinitions_59 = "Longsword";
-		public static string ItemDataBase_ItemDefinitions_60 => instance._ItemDataBase_ItemDefinitions_60;
-		public string _ItemDataBase_ItemDefinitions_60 = "Sharp and long";
-		public static string ItemDataBase_ItemDefinitions_61 => instance._ItemDataBase_ItemDefinitions_61;
-		public string _ItemDataBase_ItemDefinitions_61 = "The sword is in perfect contidion.";
-		public static string ItemDataBase_ItemDefinitions_62 => instance._ItemDataBase_ItemDefinitions_62;
-		public string _ItemDataBase_ItemDefinitions_62 = "Full Metal Sword";
-		public static string ItemDataBase_ItemDefinitions_63 => instance._ItemDataBase_ItemDefinitions_63;
-		public string _ItemDataBase_ItemDefinitions_63 = "It's sooo big...";
-		public static string ItemDataBase_ItemDefinitions_64 => instance._ItemDataBase_ItemDefinitions_64;
-		public string _ItemDataBase_ItemDefinitions_64 = "A normal human cannot lift this.";
-		public static string ItemDataBase_ItemDefinitions_65 => instance._ItemDataBase_ItemDefinitions_65;
-		public string _ItemDataBase_ItemDefinitions_65 = "The Leech";
-		public static string ItemDataBase_ItemDefinitions_66 => instance._ItemDataBase_ItemDefinitions_66;
-		public string _ItemDataBase_ItemDefinitions_66 = "Hey where did my health g- oh it's back...";
-		public static string ItemDataBase_ItemDefinitions_67 => instance._ItemDataBase_ItemDefinitions_67;
-		public string _ItemDataBase_ItemDefinitions_67 = "Smokey's Sacred Quiver";
-		public static string ItemDataBase_ItemDefinitions_68 => instance._ItemDataBase_ItemDefinitions_68;
-		public string _ItemDataBase_ItemDefinitions_68 = "SmokeyTheBear died because he never used this item.";
-		public static string ItemDataBase_ItemDefinitions_69 => instance._ItemDataBase_ItemDefinitions_69;
-		public string _ItemDataBase_ItemDefinitions_69 = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.";
-		public static string ItemDataBase_ItemDefinitions_70(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_70, objects);
-		public string _ItemDataBase_ItemDefinitions_70 = "Crossbows operate at <color=gold>{0}</color> speed and deal <color=gold>{1}</color> increased damage";
-		public static string ItemDataBase_ItemDefinitions_71 => instance._ItemDataBase_ItemDefinitions_71;
-		public string _ItemDataBase_ItemDefinitions_71 = "Broken shield";
-		public static string ItemDataBase_ItemDefinitions_72 => instance._ItemDataBase_ItemDefinitions_72;
-		public string _ItemDataBase_ItemDefinitions_72 = "Tower Shield";
-		public static string ItemDataBase_ItemDefinitions_73 => instance._ItemDataBase_ItemDefinitions_73;
-		public string _ItemDataBase_ItemDefinitions_73 = "Broken Leather Shoulder Armor";
-		public static string ItemDataBase_ItemDefinitions_74 => instance._ItemDataBase_ItemDefinitions_74;
-		public string _ItemDataBase_ItemDefinitions_74 = "Leather Shoulder Armor";
-		public static string ItemDataBase_ItemDefinitions_75 => instance._ItemDataBase_ItemDefinitions_75;
-		public string _ItemDataBase_ItemDefinitions_75 = "Phase Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_76 => instance._ItemDataBase_ItemDefinitions_76;
-		public string _ItemDataBase_ItemDefinitions_76 = "The distance of blink is increased by <color=gold>{}</color> meters, and blink now hits everything that you teleported through";
-		public static string ItemDataBase_ItemDefinitions_77 => instance._ItemDataBase_ItemDefinitions_77;
-		public string _ItemDataBase_ItemDefinitions_77 = "MAGA Cap";
-		public static string ItemDataBase_ItemDefinitions_78 => instance._ItemDataBase_ItemDefinitions_78;
-		public string _ItemDataBase_ItemDefinitions_78 = "Wearing this item channels the power of D.Trump to you";
-		public static string ItemDataBase_ItemDefinitions_79 => instance._ItemDataBase_ItemDefinitions_79;
-		public string _ItemDataBase_ItemDefinitions_79 = "... or does it?";
-		public static string ItemDataBase_ItemDefinitions_80 => instance._ItemDataBase_ItemDefinitions_80;
-		public string _ItemDataBase_ItemDefinitions_80 = "Hubble's Vision";
-		public static string ItemDataBase_ItemDefinitions_81 => instance._ItemDataBase_ItemDefinitions_81;
-		public string _ItemDataBase_ItemDefinitions_81 = "Wearing this item empowers your black hole spell";
-		public static string ItemDataBase_ItemDefinitions_82 => instance._ItemDataBase_ItemDefinitions_82;
-		public string _ItemDataBase_ItemDefinitions_82 = "Man, fuck gravity.";
-		public static string ItemDataBase_ItemDefinitions_83 => instance._ItemDataBase_ItemDefinitions_83;
-		public string _ItemDataBase_ItemDefinitions_83 = "Broken Loop";
-		public static string ItemDataBase_ItemDefinitions_84 => instance._ItemDataBase_ItemDefinitions_84;
-		public string _ItemDataBase_ItemDefinitions_84 = "Loop";
-		public static string ItemDataBase_ItemDefinitions_85 => instance._ItemDataBase_ItemDefinitions_85;
-		public string _ItemDataBase_ItemDefinitions_85 = "Toxic Ring";
-		public static string ItemDataBase_ItemDefinitions_86 => instance._ItemDataBase_ItemDefinitions_86;
-		public string _ItemDataBase_ItemDefinitions_86 = " comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
-		public static string ItemDataBase_ItemDefinitions_87 => instance._ItemDataBase_ItemDefinitions_87;
-		public string _ItemDataBase_ItemDefinitions_87 = "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
-		public static string ItemDataBase_ItemDefinitions_88 => instance._ItemDataBase_ItemDefinitions_88;
-		public string _ItemDataBase_ItemDefinitions_88 = "Scarf";
-		public static string ItemDataBase_ItemDefinitions_89 => instance._ItemDataBase_ItemDefinitions_89;
-		public string _ItemDataBase_ItemDefinitions_89 = "Damaged Bracer";
-		public static string ItemDataBase_ItemDefinitions_90 => instance._ItemDataBase_ItemDefinitions_90;
-		public string _ItemDataBase_ItemDefinitions_90 = "Worn Bracer";
-		public static string ItemDataBase_ItemDefinitions_91 => instance._ItemDataBase_ItemDefinitions_91;
-		public string _ItemDataBase_ItemDefinitions_91 = "Leather Bracer";
-		public static string ItemDataBase_ItemDefinitions_92 => instance._ItemDataBase_ItemDefinitions_92;
-		public string _ItemDataBase_ItemDefinitions_92 = "Greater Mutated Heart";
-		public static string ItemDataBase_ItemDefinitions_93 => instance._ItemDataBase_ItemDefinitions_93;
-		public string _ItemDataBase_ItemDefinitions_93 = "Can be consumed by right clicking it";
-		public static string ItemDataBase_ItemDefinitions_94 => instance._ItemDataBase_ItemDefinitions_94;
-		public string _ItemDataBase_ItemDefinitions_94 = "Lesser Mutated Heart";
-		public static string ItemDataBase_ItemDefinitions_95 => instance._ItemDataBase_ItemDefinitions_95;
-		public string _ItemDataBase_ItemDefinitions_95 = "Spiked ring";
-		public static string ItemDataBase_ItemDefinitions_96 => instance._ItemDataBase_ItemDefinitions_96;
-		public string _ItemDataBase_ItemDefinitions_96 = "Armor piercing for either melee or ranged weapons";
-		public static string ItemDataBase_ItemDefinitions_97 => instance._ItemDataBase_ItemDefinitions_97;
-		public string _ItemDataBase_ItemDefinitions_97 = "Piercer";
-		public static string ItemDataBase_ItemDefinitions_98 => instance._ItemDataBase_ItemDefinitions_98;
-		public string _ItemDataBase_ItemDefinitions_98 = "Moon Boots";
-		public static string ItemDataBase_ItemDefinitions_99 => instance._ItemDataBase_ItemDefinitions_99;
-		public string _ItemDataBase_ItemDefinitions_99 = "A pair of boots from the moon.";
-		public static string ItemDataBase_ItemDefinitions_100 => instance._ItemDataBase_ItemDefinitions_100;
-		public string _ItemDataBase_ItemDefinitions_100 = "It is said that the wearer will not take fall damage while wearing these boots and will jump like on the moon, I wouldn't trust it tough.";
-		public static string ItemDataBase_ItemDefinitions_101 => instance._ItemDataBase_ItemDefinitions_101;
-		public string _ItemDataBase_ItemDefinitions_101 = "Golden Ring of Strength";
-		public static string ItemDataBase_ItemDefinitions_102 => instance._ItemDataBase_ItemDefinitions_102;
-		public string _ItemDataBase_ItemDefinitions_102 = "A Ring of ancient times.";
-		public static string ItemDataBase_ItemDefinitions_103 => instance._ItemDataBase_ItemDefinitions_103;
-		public string _ItemDataBase_ItemDefinitions_103 = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_104 => instance._ItemDataBase_ItemDefinitions_104;
-		public string _ItemDataBase_ItemDefinitions_104 = "Golden Ring of Vitality";
-		public static string ItemDataBase_ItemDefinitions_105 => instance._ItemDataBase_ItemDefinitions_105;
-		public string _ItemDataBase_ItemDefinitions_105 = "Golden Ring of Agility";
-		public static string ItemDataBase_ItemDefinitions_106 => instance._ItemDataBase_ItemDefinitions_106;
-		public string _ItemDataBase_ItemDefinitions_106 = "Golden Ring of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_107 => instance._ItemDataBase_ItemDefinitions_107;
-		public string _ItemDataBase_ItemDefinitions_107 = "Silver Ring of Strength";
-		public static string ItemDataBase_ItemDefinitions_108 => instance._ItemDataBase_ItemDefinitions_108;
-		public string _ItemDataBase_ItemDefinitions_108 = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_109 => instance._ItemDataBase_ItemDefinitions_109;
-		public string _ItemDataBase_ItemDefinitions_109 = "Silver Ring of Vitality";
-		public static string ItemDataBase_ItemDefinitions_110 => instance._ItemDataBase_ItemDefinitions_110;
-		public string _ItemDataBase_ItemDefinitions_110 = "Silver Ring of Agility";
-		public static string ItemDataBase_ItemDefinitions_111 => instance._ItemDataBase_ItemDefinitions_111;
-		public string _ItemDataBase_ItemDefinitions_111 = "Silver Ring of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_112 => instance._ItemDataBase_ItemDefinitions_112;
-		public string _ItemDataBase_ItemDefinitions_112 = "Steel Ring of Strength";
-		public static string ItemDataBase_ItemDefinitions_113 => instance._ItemDataBase_ItemDefinitions_113;
-		public string _ItemDataBase_ItemDefinitions_113 = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_114 => instance._ItemDataBase_ItemDefinitions_114;
-		public string _ItemDataBase_ItemDefinitions_114 = "Steel Ring of Vitality";
-		public static string ItemDataBase_ItemDefinitions_115 => instance._ItemDataBase_ItemDefinitions_115;
-		public string _ItemDataBase_ItemDefinitions_115 = "Steel Ring of Agility";
-		public static string ItemDataBase_ItemDefinitions_116 => instance._ItemDataBase_ItemDefinitions_116;
-		public string _ItemDataBase_ItemDefinitions_116 = "Steel Ring of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_117 => instance._ItemDataBase_ItemDefinitions_117;
-		public string _ItemDataBase_ItemDefinitions_117 = "The One Ring To Rule Them All";
-		public static string ItemDataBase_ItemDefinitions_118 => instance._ItemDataBase_ItemDefinitions_118;
-		public string _ItemDataBase_ItemDefinitions_118 = "An Ancient magical Ring of great power.";
-		public static string ItemDataBase_ItemDefinitions_119 => instance._ItemDataBase_ItemDefinitions_119;
-		public string _ItemDataBase_ItemDefinitions_119 = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?";
-		public static string ItemDataBase_ItemDefinitions_120 => instance._ItemDataBase_ItemDefinitions_120;
-		public string _ItemDataBase_ItemDefinitions_120 = "Attracts unwanted attention of an unknown entity.";
-		public static string ItemDataBase_ItemDefinitions_121 => instance._ItemDataBase_ItemDefinitions_121;
-		public string _ItemDataBase_ItemDefinitions_121 = "Golden Locket of Strength";
-		public static string ItemDataBase_ItemDefinitions_122 => instance._ItemDataBase_ItemDefinitions_122;
-		public string _ItemDataBase_ItemDefinitions_122 = "A Locket of ancient times.";
-		public static string ItemDataBase_ItemDefinitions_123 => instance._ItemDataBase_ItemDefinitions_123;
-		public string _ItemDataBase_ItemDefinitions_123 = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_124 => instance._ItemDataBase_ItemDefinitions_124;
-		public string _ItemDataBase_ItemDefinitions_124 = "Golden Locket of Vitality";
-		public static string ItemDataBase_ItemDefinitions_125 => instance._ItemDataBase_ItemDefinitions_125;
-		public string _ItemDataBase_ItemDefinitions_125 = "Golden Locket of Agility";
-		public static string ItemDataBase_ItemDefinitions_126 => instance._ItemDataBase_ItemDefinitions_126;
-		public string _ItemDataBase_ItemDefinitions_126 = "Golden Locket of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_127 => instance._ItemDataBase_ItemDefinitions_127;
-		public string _ItemDataBase_ItemDefinitions_127 = "Silver Locket of Strength";
-		public static string ItemDataBase_ItemDefinitions_128 => instance._ItemDataBase_ItemDefinitions_128;
-		public string _ItemDataBase_ItemDefinitions_128 = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_129 => instance._ItemDataBase_ItemDefinitions_129;
-		public string _ItemDataBase_ItemDefinitions_129 = "Silver Locket of Vitality";
-		public static string ItemDataBase_ItemDefinitions_130 => instance._ItemDataBase_ItemDefinitions_130;
-		public string _ItemDataBase_ItemDefinitions_130 = "Silver Locket of Agility";
-		public static string ItemDataBase_ItemDefinitions_131 => instance._ItemDataBase_ItemDefinitions_131;
-		public string _ItemDataBase_ItemDefinitions_131 = "Silver Locket of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_132 => instance._ItemDataBase_ItemDefinitions_132;
-		public string _ItemDataBase_ItemDefinitions_132 = "Emerald Pendant of Strength";
-		public static string ItemDataBase_ItemDefinitions_133 => instance._ItemDataBase_ItemDefinitions_133;
-		public string _ItemDataBase_ItemDefinitions_133 = "A Pendant of ancient times.";
-		public static string ItemDataBase_ItemDefinitions_134 => instance._ItemDataBase_ItemDefinitions_134;
-		public string _ItemDataBase_ItemDefinitions_134 = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_135 => instance._ItemDataBase_ItemDefinitions_135;
-		public string _ItemDataBase_ItemDefinitions_135 = "Emerald Pendant of Vitality";
-		public static string ItemDataBase_ItemDefinitions_136 => instance._ItemDataBase_ItemDefinitions_136;
-		public string _ItemDataBase_ItemDefinitions_136 = "Emerald Pendant of Agility";
-		public static string ItemDataBase_ItemDefinitions_137 => instance._ItemDataBase_ItemDefinitions_137;
-		public string _ItemDataBase_ItemDefinitions_137 = "Emerald Pendant of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_138 => instance._ItemDataBase_ItemDefinitions_138;
-		public string _ItemDataBase_ItemDefinitions_138 = "Diamond Pendant of Strength";
-		public static string ItemDataBase_ItemDefinitions_139 => instance._ItemDataBase_ItemDefinitions_139;
-		public string _ItemDataBase_ItemDefinitions_139 = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.";
-		public static string ItemDataBase_ItemDefinitions_140 => instance._ItemDataBase_ItemDefinitions_140;
-		public string _ItemDataBase_ItemDefinitions_140 = "Diamond Pendant of Vitality";
-		public static string ItemDataBase_ItemDefinitions_141 => instance._ItemDataBase_ItemDefinitions_141;
-		public string _ItemDataBase_ItemDefinitions_141 = "Diamond Pendant of Agility";
-		public static string ItemDataBase_ItemDefinitions_142 => instance._ItemDataBase_ItemDefinitions_142;
-		public string _ItemDataBase_ItemDefinitions_142 = "Diamond Pendant of Intelligence";
-		public static string ItemDataBase_ItemDefinitions_143 => instance._ItemDataBase_ItemDefinitions_143;
-		public string _ItemDataBase_ItemDefinitions_143 = "Armsy Finger Necklace";
-		public static string ItemDataBase_ItemDefinitions_144 => instance._ItemDataBase_ItemDefinitions_144;
-		public string _ItemDataBase_ItemDefinitions_144 = "A Necklace decorated with armsy fingertips.";
-		public static string ItemDataBase_ItemDefinitions_145 => instance._ItemDataBase_ItemDefinitions_145;
-		public string _ItemDataBase_ItemDefinitions_145 = "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh.";
-		public static string ItemDataBase_ItemDefinitions_146 => instance._ItemDataBase_ItemDefinitions_146;
-		public string _ItemDataBase_ItemDefinitions_146 = "Virginia Heart Pendant";
-		public static string ItemDataBase_ItemDefinitions_147 => instance._ItemDataBase_ItemDefinitions_147;
-		public string _ItemDataBase_ItemDefinitions_147 = "A Pendant of a petrified Virginia heart.";
-		public static string ItemDataBase_ItemDefinitions_148 => instance._ItemDataBase_ItemDefinitions_148;
-		public string _ItemDataBase_ItemDefinitions_148 = "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality.";
-		public static string ItemDataBase_ItemDefinitions_149 => instance._ItemDataBase_ItemDefinitions_149;
-		public string _ItemDataBase_ItemDefinitions_149 = "Cowman Toe Necklace";
-		public static string ItemDataBase_ItemDefinitions_150 => instance._ItemDataBase_ItemDefinitions_150;
-		public string _ItemDataBase_ItemDefinitions_150 = "A Necklace decorated with cowman toes.";
-		public static string ItemDataBase_ItemDefinitions_151 => instance._ItemDataBase_ItemDefinitions_151;
-		public string _ItemDataBase_ItemDefinitions_151 = "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility.";
-		public static string ItemDataBase_ItemDefinitions_152 => instance._ItemDataBase_ItemDefinitions_152;
-		public string _ItemDataBase_ItemDefinitions_152 = "Pendant of Perpetual Rebirth";
-		public static string ItemDataBase_ItemDefinitions_153 => instance._ItemDataBase_ItemDefinitions_153;
-		public string _ItemDataBase_ItemDefinitions_153 = "A Pendant of a shrunken babyhead.";
-		public static string ItemDataBase_ItemDefinitions_154 => instance._ItemDataBase_ItemDefinitions_154;
-		public string _ItemDataBase_ItemDefinitions_154 = "A pedant of great power. Obtainable only from babies or crafting";
-		public static string ItemDataBase_ItemDefinitions_155(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_155, objects);
-		public string _ItemDataBase_ItemDefinitions_155 = "decrease a random cooldown by {0} second whenever you hit something with melee or ranged attack.";
-		public static string ItemDataBase_ItemDefinitions_156 => instance._ItemDataBase_ItemDefinitions_156;
-		public string _ItemDataBase_ItemDefinitions_156 = "Megan's Locket";
-		public static string ItemDataBase_ItemDefinitions_157 => instance._ItemDataBase_ItemDefinitions_157;
-		public string _ItemDataBase_ItemDefinitions_157 = "The Locket Megan wore.";
-		public static string ItemDataBase_ItemDefinitions_158 => instance._ItemDataBase_ItemDefinitions_158;
-		public string _ItemDataBase_ItemDefinitions_158 = "Megan wore this Locket, it has a picture of her mom in it.";
-		public static string ItemDataBase_ItemDefinitions_159 => instance._ItemDataBase_ItemDefinitions_159;
-		public string _ItemDataBase_ItemDefinitions_159 = "Relic Hammer";
-		public static string ItemDataBase_ItemDefinitions_160 => instance._ItemDataBase_ItemDefinitions_160;
-		public string _ItemDataBase_ItemDefinitions_160 = "It's slow and weak.";
-		public static string ItemDataBase_ItemDefinitions_161 => instance._ItemDataBase_ItemDefinitions_161;
-		public string _ItemDataBase_ItemDefinitions_161 = "Slows on hit";
-		public static string ItemDataBase_ItemDefinitions_162 => instance._ItemDataBase_ItemDefinitions_162;
-		public string _ItemDataBase_ItemDefinitions_162 = "Black Hammer";
-		public static string ItemDataBase_ItemDefinitions_163 => instance._ItemDataBase_ItemDefinitions_163;
-		public string _ItemDataBase_ItemDefinitions_163 = "It's slow but with enough strength i can make it a very deadly tool";
-		public static string ItemDataBase_ItemDefinitions_164 => instance._ItemDataBase_ItemDefinitions_164;
-		public string _ItemDataBase_ItemDefinitions_164 = "Potato Sack";
-		public static string ItemDataBase_ItemDefinitions_165 => instance._ItemDataBase_ItemDefinitions_165;
-		public string _ItemDataBase_ItemDefinitions_165 = "Can be used as a quiver";
-		public static string ItemDataBase_ItemDefinitions_166 => instance._ItemDataBase_ItemDefinitions_166;
-		public string _ItemDataBase_ItemDefinitions_166 = "Rabbit Skin Quiver";
-		public static string ItemDataBase_ItemDefinitions_167 => instance._ItemDataBase_ItemDefinitions_167;
-		public string _ItemDataBase_ItemDefinitions_167 = "Hollow Log";
-		public static string ItemDataBase_ItemDefinitions_168 => instance._ItemDataBase_ItemDefinitions_168;
-		public string _ItemDataBase_ItemDefinitions_168 = "It allows for faster drawing of arrow than a cloth quiver";
-		public static string ItemDataBase_ItemDefinitions_169 => instance._ItemDataBase_ItemDefinitions_169;
-		public string _ItemDataBase_ItemDefinitions_169 = "Spellbound Quiver";
-		public static string ItemDataBase_ItemDefinitions_170 => instance._ItemDataBase_ItemDefinitions_170;
-		public string _ItemDataBase_ItemDefinitions_170 = "Long Lost Quiver";
-		public static string ItemDataBase_ItemDefinitions_171 => instance._ItemDataBase_ItemDefinitions_171;
-		public string _ItemDataBase_ItemDefinitions_171 = "Spell Scroll";
-		public static string ItemDataBase_ItemDefinitions_172 => instance._ItemDataBase_ItemDefinitions_172;
-		public string _ItemDataBase_ItemDefinitions_172 = "Contains a lot of information on how to properly cast spells to achieve better results";
-		public static string ItemDataBase_ItemDefinitions_173 => instance._ItemDataBase_ItemDefinitions_173;
-		public string _ItemDataBase_ItemDefinitions_173 = "Cloth Pants";
-		public static string ItemDataBase_ItemDefinitions_174 => instance._ItemDataBase_ItemDefinitions_174;
-		public string _ItemDataBase_ItemDefinitions_174 = "Offer little protction";
-		public static string ItemDataBase_ItemDefinitions_175 => instance._ItemDataBase_ItemDefinitions_175;
-		public string _ItemDataBase_ItemDefinitions_175 = "Rough Hide Leggins";
-		public static string ItemDataBase_ItemDefinitions_176 => instance._ItemDataBase_ItemDefinitions_176;
-		public string _ItemDataBase_ItemDefinitions_176 = "Plate Leggins";
-		public static string ItemDataBase_ItemDefinitions_177 => instance._ItemDataBase_ItemDefinitions_177;
-		public string _ItemDataBase_ItemDefinitions_177 = "Sage's Robes";
-		public static string ItemDataBase_ItemDefinitions_178 => instance._ItemDataBase_ItemDefinitions_178;
-		public string _ItemDataBase_ItemDefinitions_178 = "Hammer Jammers";
-		public static string ItemDataBase_ItemDefinitions_179(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_179, objects);
-		public string _ItemDataBase_ItemDefinitions_179 = "Damage of your smash attack is increased by <color=gold>{0}</color>, hammer stun duration is doubled";
-		public static string ItemDataBase_ItemDefinitions_180 => instance._ItemDataBase_ItemDefinitions_180;
-		public string _ItemDataBase_ItemDefinitions_180 = "Pirate Pants";
-		public static string ItemDataBase_ItemDefinitions_181 => instance._ItemDataBase_ItemDefinitions_181;
-		public string _ItemDataBase_ItemDefinitions_181 = "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection.";
-		public static string ItemDataBase_ItemDefinitions_182 => instance._ItemDataBase_ItemDefinitions_182;
-		public string _ItemDataBase_ItemDefinitions_182 = "Hexed Pants of Mr M.";
-		public static string ItemDataBase_ItemDefinitions_183 => instance._ItemDataBase_ItemDefinitions_183;
-		public string _ItemDataBase_ItemDefinitions_183 = "They look like yoga pants but for a man the size of a wardrobe";
-		public static string ItemDataBase_ItemDefinitions_184 => instance._ItemDataBase_ItemDefinitions_184;
-		public string _ItemDataBase_ItemDefinitions_184 = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.";
-		public static string ItemDataBase_ItemDefinitions_185(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_185, objects);
-		public string _ItemDataBase_ItemDefinitions_185 = "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second.";
-		public static string ItemDataBase_ItemDefinitions_186 => instance._ItemDataBase_ItemDefinitions_186;
-		public string _ItemDataBase_ItemDefinitions_186 = "Leather Mantle";
-		public static string ItemDataBase_ItemDefinitions_187 => instance._ItemDataBase_ItemDefinitions_187;
-		public string _ItemDataBase_ItemDefinitions_187 = "A piece of cloth to give protection from ";
-		public static string ItemDataBase_ItemDefinitions_188 => instance._ItemDataBase_ItemDefinitions_188;
-		public string _ItemDataBase_ItemDefinitions_188 = "Shoulder Guards";
-		public static string ItemDataBase_ItemDefinitions_189 => instance._ItemDataBase_ItemDefinitions_189;
-		public string _ItemDataBase_ItemDefinitions_189 = "Medium armor piece.";
-		public static string ItemDataBase_ItemDefinitions_190 => instance._ItemDataBase_ItemDefinitions_190;
-		public string _ItemDataBase_ItemDefinitions_190 = "Heavy armor";
-		public static string ItemDataBase_ItemDefinitions_191 => instance._ItemDataBase_ItemDefinitions_191;
-		public string _ItemDataBase_ItemDefinitions_191 = "Heavy Shoulder Plates";
-		public static string ItemDataBase_ItemDefinitions_192 => instance._ItemDataBase_ItemDefinitions_192;
-		public string _ItemDataBase_ItemDefinitions_192 = "Heavy armor piece. They offer great protection at the cost of attack speed and movement speed decrease";
-		public static string ItemDataBase_ItemDefinitions_193 => instance._ItemDataBase_ItemDefinitions_193;
-		public string _ItemDataBase_ItemDefinitions_193 = "Etched Mantle";
-		public static string ItemDataBase_ItemDefinitions_194 => instance._ItemDataBase_ItemDefinitions_194;
-		public string _ItemDataBase_ItemDefinitions_194 = "Those pauldrons empower wearer's combat skill";
-		public static string ItemDataBase_ItemDefinitions_195 => instance._ItemDataBase_ItemDefinitions_195;
-		public string _ItemDataBase_ItemDefinitions_195 = "Assassins Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_196 => instance._ItemDataBase_ItemDefinitions_196;
-		public string _ItemDataBase_ItemDefinitions_196 = "Death Pact";
-		public static string ItemDataBase_ItemDefinitions_197 => instance._ItemDataBase_ItemDefinitions_197;
-		public string _ItemDataBase_ItemDefinitions_197 = "Find the greatest strength on the border of life and death.";
-		public static string ItemDataBase_ItemDefinitions_198(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_198, objects);
-		public string _ItemDataBase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
-		public static string ItemDataBase_ItemDefinitions_199 => instance._ItemDataBase_ItemDefinitions_199;
-		public string _ItemDataBase_ItemDefinitions_199 = "Maximale Qualitot";
-		public static string ItemDataBase_ItemDefinitions_200 => instance._ItemDataBase_ItemDefinitions_200;
-		public string _ItemDataBase_ItemDefinitions_200 = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.";
-		public static string ItemDataBase_ItemDefinitions_201 => instance._ItemDataBase_ItemDefinitions_201;
-		public string _ItemDataBase_ItemDefinitions_201 = "Heart of Purity";
-		public static string ItemDataBase_ItemDefinitions_202 => instance._ItemDataBase_ItemDefinitions_202;
-		public string _ItemDataBase_ItemDefinitions_202 = "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points";
-		public static string ItemDataBase_ItemDefinitions_203 => instance._ItemDataBase_ItemDefinitions_203;
-		public string _ItemDataBase_ItemDefinitions_203 = "This powerful relic contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth.";
-		public static string ItemDataBase_ItemDefinitions_204 => instance._ItemDataBase_ItemDefinitions_204;
-		public string _ItemDataBase_ItemDefinitions_204 = "Can be consumed by right clicking it. ";
-		public static string ItemDataBase_ItemDefinitions_205 => instance._ItemDataBase_ItemDefinitions_205;
-		public string _ItemDataBase_ItemDefinitions_205 = "Round Shield";
-		public static string ItemDataBase_ItemDefinitions_206 => instance._ItemDataBase_ItemDefinitions_206;
-		public string _ItemDataBase_ItemDefinitions_206 = "A sturdy shield made of wood and reinforced with iron.";
-		public static string ItemDataBase_ItemDefinitions_207 => instance._ItemDataBase_ItemDefinitions_207;
-		public string _ItemDataBase_ItemDefinitions_207 = "Old Buckler";
-		public static string ItemDataBase_ItemDefinitions_208 => instance._ItemDataBase_ItemDefinitions_208;
-		public string _ItemDataBase_ItemDefinitions_208 = "An old shield.";
-		public static string ItemDataBase_ItemDefinitions_209 => instance._ItemDataBase_ItemDefinitions_209;
-		public string _ItemDataBase_ItemDefinitions_209 = "This item has a lot of scratches that look like they were made by something with sharp claws.";
-		public static string ItemDataBase_ItemDefinitions_210 => instance._ItemDataBase_ItemDefinitions_210;
-		public string _ItemDataBase_ItemDefinitions_210 = "Dark Oak Shield";
-		public static string ItemDataBase_ItemDefinitions_211 => instance._ItemDataBase_ItemDefinitions_211;
-		public string _ItemDataBase_ItemDefinitions_211 = "Bone Shield";
-		public static string ItemDataBase_ItemDefinitions_212 => instance._ItemDataBase_ItemDefinitions_212;
-		public string _ItemDataBase_ItemDefinitions_212 = "A shield made of bones, held together by thick steel wire.";
-		public static string ItemDataBase_ItemDefinitions_213 => instance._ItemDataBase_ItemDefinitions_213;
-		public string _ItemDataBase_ItemDefinitions_213 = "Dull Longsword";
-		public static string ItemDataBase_ItemDefinitions_214 => instance._ItemDataBase_ItemDefinitions_214;
-		public string _ItemDataBase_ItemDefinitions_214 = "It's round on the edges";
-		public static string ItemDataBase_ItemDefinitions_215 => instance._ItemDataBase_ItemDefinitions_215;
-		public string _ItemDataBase_ItemDefinitions_215 = "Iron Horn";
-		public static string ItemDataBase_ItemDefinitions_216(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_216, objects);
-		public string _ItemDataBase_ItemDefinitions_216 = "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>{0}</color> of your armor";
-		public static string ItemDataBase_ItemDefinitions_217 => instance._ItemDataBase_ItemDefinitions_217;
-		public string _ItemDataBase_ItemDefinitions_217 = "The Great Iron Horn";
-		public static string ItemDataBase_ItemDefinitions_218 => instance._ItemDataBase_ItemDefinitions_218;
-		public string _ItemDataBase_ItemDefinitions_218 = "Horned Helmet";
-		public static string ItemDataBase_ItemDefinitions_219 => instance._ItemDataBase_ItemDefinitions_219;
-		public string _ItemDataBase_ItemDefinitions_219 = "A viking helmet";
-		public static string ItemDataBase_ItemDefinitions_220 => instance._ItemDataBase_ItemDefinitions_220;
-		public string _ItemDataBase_ItemDefinitions_220 = "Mask";
-		public static string ItemDataBase_ItemDefinitions_221 => instance._ItemDataBase_ItemDefinitions_221;
-		public string _ItemDataBase_ItemDefinitions_221 = "Mask of Madness";
-		public static string ItemDataBase_ItemDefinitions_222 => instance._ItemDataBase_ItemDefinitions_222;
-		public string _ItemDataBase_ItemDefinitions_222 = "Old Scroll";
-		public static string ItemDataBase_ItemDefinitions_223 => instance._ItemDataBase_ItemDefinitions_223;
-		public string _ItemDataBase_ItemDefinitions_223 = "Wormhole Stabilizators";
-		public static string ItemDataBase_ItemDefinitions_224 => instance._ItemDataBase_ItemDefinitions_224;
-		public string _ItemDataBase_ItemDefinitions_224 = "High-tech gear";
-		public static string ItemDataBase_ItemDefinitions_225 => instance._ItemDataBase_ItemDefinitions_225;
-		public string _ItemDataBase_ItemDefinitions_225 = "Hazard remember to put some fucking lore in here, don't leave it like this!";
-		public static string ItemDataBase_ItemDefinitions_226(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_226, objects);
-		public string _ItemDataBase_ItemDefinitions_226 = "Increases the duration of a portal by <color=gold>{0}</color> seconds";
-		public static string ItemDataBase_ItemDefinitions_227 => instance._ItemDataBase_ItemDefinitions_227;
-		public string _ItemDataBase_ItemDefinitions_227 = "Cripplers";
-		public static string ItemDataBase_ItemDefinitions_228(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_228, objects);
-		public string _ItemDataBase_ItemDefinitions_228 = "Increases the duration of a magic arrow's negative effect by <color=gold>{0}</color> seconds";
-		public static string ItemDataBase_ItemDefinitions_229 => instance._ItemDataBase_ItemDefinitions_229;
-		public string _ItemDataBase_ItemDefinitions_229 = "Crossfire";
-		public static string ItemDataBase_ItemDefinitions_230 => instance._ItemDataBase_ItemDefinitions_230;
-		public string _ItemDataBase_ItemDefinitions_230 = "Infused with powerful magic. This item is a dangerous tool of destruction.";
-		public static string ItemDataBase_ItemDefinitions_231 => instance._ItemDataBase_ItemDefinitions_231;
-		public string _ItemDataBase_ItemDefinitions_231 = "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <color=gold>2</color> seconds, but can be interval can be shortened with cooldown reduction.";
-		public static string ItemDataBase_ItemDefinitions_232 => instance._ItemDataBase_ItemDefinitions_232;
-		public string _ItemDataBase_ItemDefinitions_232 = "Scroll of Recovery";
-		public static string ItemDataBase_ItemDefinitions_233 => instance._ItemDataBase_ItemDefinitions_233;
-		public string _ItemDataBase_ItemDefinitions_233 = "Recovers health and stamina";
-		public static string ItemDataBase_ItemDefinitions_234 => instance._ItemDataBase_ItemDefinitions_234;
-		public string _ItemDataBase_ItemDefinitions_234 = "Tiara";
-		public static string ItemDataBase_ItemDefinitions_235 => instance._ItemDataBase_ItemDefinitions_235;
-		public string _ItemDataBase_ItemDefinitions_235 = "A beautiful tiara ";
-		public static string ItemDataBase_ItemDefinitions_236 => instance._ItemDataBase_ItemDefinitions_236;
-		public string _ItemDataBase_ItemDefinitions_236 = "This tiara may not provide much protection, but it sure is pretty";
-		public static string ItemDataBase_ItemDefinitions_237 => instance._ItemDataBase_ItemDefinitions_237;
-		public string _ItemDataBase_ItemDefinitions_237 = "Shiny";
-		public static string ItemDataBase_ItemDefinitions_238 => instance._ItemDataBase_ItemDefinitions_238;
-		public string _ItemDataBase_ItemDefinitions_238 = "Chastity belt";
-		public static string ItemDataBase_ItemDefinitions_239 => instance._ItemDataBase_ItemDefinitions_239;
-		public string _ItemDataBase_ItemDefinitions_239 = "Dodge those fukbois";
-		public static string ItemDataBase_ItemDefinitions_240 => instance._ItemDataBase_ItemDefinitions_240;
-		public string _ItemDataBase_ItemDefinitions_240 = "This belt will stop those cheeky cannibals and armsies from getting into your pants";
-		public static string ItemDataBase_ItemDefinitions_241(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_241, objects);
-		public string _ItemDataBase_ItemDefinitions_241 = " <color=gold>{0}</color> damage reduction while sleeping";
-		public static string ItemDataBase_ItemDefinitions_242 => instance._ItemDataBase_ItemDefinitions_242;
-		public string _ItemDataBase_ItemDefinitions_242 = "Ice Scroll";
-		public static string ItemDataBase_ItemDefinitions_243 => instance._ItemDataBase_ItemDefinitions_243;
-		public string _ItemDataBase_ItemDefinitions_243 = "A spell surrounded by flying shards of ice, contains tramendous power of cold.";
-		public static string ItemDataBase_ItemDefinitions_244 => instance._ItemDataBase_ItemDefinitions_244;
-		public string _ItemDataBase_ItemDefinitions_244 = "Created at the top of the mountain.";
-		public static string ItemDataBase_ItemDefinitions_245 => instance._ItemDataBase_ItemDefinitions_245;
-		public string _ItemDataBase_ItemDefinitions_245 = "Motorboat Modification Blueprints";
-		public static string ItemDataBase_ItemDefinitions_246 => instance._ItemDataBase_ItemDefinitions_246;
-		public string _ItemDataBase_ItemDefinitions_246 = "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts.";
-		public static string ItemDataBase_ItemDefinitions_247 => instance._ItemDataBase_ItemDefinitions_247;
-		public string _ItemDataBase_ItemDefinitions_247 = "Who did this lmao.";
-		public static string ItemDataBase_ItemDefinitions_248 => instance._ItemDataBase_ItemDefinitions_248;
-		public string _ItemDataBase_ItemDefinitions_248 = "Axe of Swiftness";
-		public static string ItemDataBase_ItemDefinitions_249 => instance._ItemDataBase_ItemDefinitions_249;
-		public string _ItemDataBase_ItemDefinitions_249 = "Severer";
-		public static string ItemDataBase_ItemDefinitions_250 => instance._ItemDataBase_ItemDefinitions_250;
-		public string _ItemDataBase_ItemDefinitions_250 = "Golden Axe of Fortune";
-		public static string ItemDataBase_ItemDefinitions_251 => instance._ItemDataBase_ItemDefinitions_251;
-		public string _ItemDataBase_ItemDefinitions_251 = "Axe of Misfortune";
-		public static string ItemDataBase_ItemDefinitions_252 => instance._ItemDataBase_ItemDefinitions_252;
-		public string _ItemDataBase_ItemDefinitions_252 = "Misfortunate are the ones on the recieving end. They will bleed a lot";
-		public static string ItemDataBase_ItemDefinitions_253 => instance._ItemDataBase_ItemDefinitions_253;
-		public string _ItemDataBase_ItemDefinitions_253 = "Golden Ring";
-		public static string ItemDataBase_ItemDefinitions_254 => instance._ItemDataBase_ItemDefinitions_254;
-		public string _ItemDataBase_ItemDefinitions_254 = "Golden Locket";
-		public static string ItemDataBase_ItemDefinitions_255 => instance._ItemDataBase_ItemDefinitions_255;
-		public string _ItemDataBase_ItemDefinitions_255 = "Dull Axe";
-		public static string ItemDataBase_ItemDefinitions_256 => instance._ItemDataBase_ItemDefinitions_256;
-		public string _ItemDataBase_ItemDefinitions_256 = "Precise Adjustments";
-		public static string ItemDataBase_ItemDefinitions_257(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_257, objects);
-		public string _ItemDataBase_ItemDefinitions_257 = "Focus attack speed buff duration is increased by <color=gold>{0}</color> seconds";
-		public static string ItemDataBase_ItemDefinitions_258 => instance._ItemDataBase_ItemDefinitions_258;
-		public string _ItemDataBase_ItemDefinitions_258 = "Rage";
-		public static string ItemDataBase_ItemDefinitions_259(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_259, objects);
-		public string _ItemDataBase_ItemDefinitions_259 = "Increases maximum stacks of frenzy by <color=gold>{0}</color>";
-		public static string ItemDataBase_ItemDefinitions_260 => instance._ItemDataBase_ItemDefinitions_260;
-		public string _ItemDataBase_ItemDefinitions_260 = "Swords go brrrrrrttt";
-		public static string ItemDataBase_ItemDefinitions_261 => instance._ItemDataBase_ItemDefinitions_261;
-		public string _ItemDataBase_ItemDefinitions_261 = "Jagged Edge";
-		public static string ItemDataBase_ItemDefinitions_262(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_262, objects);
-		public string _ItemDataBase_ItemDefinitions_262 = "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow";
-		public static string ItemDataBase_ItemDefinitions_263 => instance._ItemDataBase_ItemDefinitions_263;
-		public string _ItemDataBase_ItemDefinitions_263 = "Bloodthirster";
-		public static string ItemDataBase_ItemDefinitions_264 => instance._ItemDataBase_ItemDefinitions_264;
-		public string _ItemDataBase_ItemDefinitions_264 = "Drenched in blood of many unfortunate foes.";
-		public static string ItemDataBase_ItemDefinitions_265(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_265, objects);
-		public string _ItemDataBase_ItemDefinitions_265 = "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health";
-		public static string ItemDataBase_ItemDefinitions_266 => instance._ItemDataBase_ItemDefinitions_266;
-		public string _ItemDataBase_ItemDefinitions_266 = "Frost Giant";
-		public static string ItemDataBase_ItemDefinitions_267 => instance._ItemDataBase_ItemDefinitions_267;
-		public string _ItemDataBase_ItemDefinitions_267 = "Melee hits freeze enemies";
-		public static string ItemDataBase_ItemDefinitions_268 => instance._ItemDataBase_ItemDefinitions_268;
-		public string _ItemDataBase_ItemDefinitions_268 = "Alexander's Shield";
-		public static string ItemDataBase_ItemDefinitions_269 => instance._ItemDataBase_ItemDefinitions_269;
-		public string _ItemDataBase_ItemDefinitions_269 = "Parry has a chance to be casted when getting it. Requires parry to be equipped";
-		public static string ItemDataBase_ItemDefinitions_270 => instance._ItemDataBase_ItemDefinitions_270;
-		public string _ItemDataBase_ItemDefinitions_270 = "King Qruies";
-		public static string ItemDataBase_ItemDefinitions_271 => instance._ItemDataBase_ItemDefinitions_271;
-		public string _ItemDataBase_ItemDefinitions_271 = "A mighty sword seeking for it's owner";
-		public static string ItemDataBase_ItemDefinitions_272 => instance._ItemDataBase_ItemDefinitions_272;
-		public string _ItemDataBase_ItemDefinitions_272 = "Gain additional melee damage equal to the last instance of physical damage taken.";
-		public static string ItemDataBase_ItemDefinitions_273 => instance._ItemDataBase_ItemDefinitions_273;
-		public string _ItemDataBase_ItemDefinitions_273 = "Grip of Sora";
-		public static string ItemDataBase_ItemDefinitions_274 => instance._ItemDataBase_ItemDefinitions_274;
-		public string _ItemDataBase_ItemDefinitions_274 = "Look, a porcupine! -Sora";
-		public static string ItemDataBase_ItemDefinitions_275(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_275, objects);
-		public string _ItemDataBase_ItemDefinitions_275 = "Multishot drains <color=gold>{0}</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot";
-		public static string ItemDataBase_ItemDefinitions_276 => instance._ItemDataBase_ItemDefinitions_276;
-		public string _ItemDataBase_ItemDefinitions_276 = "Ancient Greatbow";
-		public static string ItemDataBase_ItemDefinitions_277 => instance._ItemDataBase_ItemDefinitions_277;
-		public string _ItemDataBase_ItemDefinitions_277 = "A massive and slow bow, deals extra damage";
-		public static string ItemDataBase_ItemDefinitions_278 => instance._ItemDataBase_ItemDefinitions_278;
-		public string _ItemDataBase_ItemDefinitions_278 = "Phoenix's Death";
-		public static string ItemDataBase_ItemDefinitions_279 => instance._ItemDataBase_ItemDefinitions_279;
-		public string _ItemDataBase_ItemDefinitions_279 = "Ignites enemies on hit";
-		public static string ItemDataBase_ItemDefinitions_280 => instance._ItemDataBase_ItemDefinitions_280;
-		public string _ItemDataBase_ItemDefinitions_280 = "Soulstring";
-		public static string ItemDataBase_ItemDefinitions_281 => instance._ItemDataBase_ItemDefinitions_281;
-		public string _ItemDataBase_ItemDefinitions_281 = "A massive and slow bow";
-		public static string ItemDataBase_ItemDefinitions_282(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_282, objects);
-		public string _ItemDataBase_ItemDefinitions_282 = "Blood infused arrow now deals additional <color=gold>{0}</color> points of damage per health consumed";
-		public static string ItemDataBase_ItemDefinitions_283 => instance._ItemDataBase_ItemDefinitions_283;
-		public string _ItemDataBase_ItemDefinitions_283 = "Greatbow";
-		public static string ItemDataBase_ItemDefinitions_284 => instance._ItemDataBase_ItemDefinitions_284;
-		public string _ItemDataBase_ItemDefinitions_284 = "Withered Crown";
-		public static string ItemDataBase_ItemDefinitions_285 => instance._ItemDataBase_ItemDefinitions_285;
-		public string _ItemDataBase_ItemDefinitions_285 = "Worn by Hazard.";
-		public static string ItemDataBase_ItemDefinitions_286(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_286, objects);
-		public string _ItemDataBase_ItemDefinitions_286 = "A single cast of blood infused arrow affects <color=gold>{0}</color> more projectiles";
-		public static string ItemDataBase_ItemDefinitions_287 => instance._ItemDataBase_ItemDefinitions_287;
-		public string _ItemDataBase_ItemDefinitions_287 = "Novice Magic Caster's Bracers";
-		public static string ItemDataBase_ItemDefinitions_288 => instance._ItemDataBase_ItemDefinitions_288;
-		public string _ItemDataBase_ItemDefinitions_288 = "Ranger's Bracers";
-		public static string ItemDataBase_ItemDefinitions_289 => instance._ItemDataBase_ItemDefinitions_289;
-		public string _ItemDataBase_ItemDefinitions_289 = "Swordsman's Bracers";
-		public static string ItemDataBase_ItemDefinitions_290 => instance._ItemDataBase_ItemDefinitions_290;
-		public string _ItemDataBase_ItemDefinitions_290 = "Healer's Bracers";
-		public static string ItemDataBase_ItemDefinitions_291 => instance._ItemDataBase_ItemDefinitions_291;
-		public string _ItemDataBase_ItemDefinitions_291 = "Novice Magic Caster's Gloves";
-		public static string ItemDataBase_ItemDefinitions_292 => instance._ItemDataBase_ItemDefinitions_292;
-		public string _ItemDataBase_ItemDefinitions_292 = "Ranger's Gloves";
-		public static string ItemDataBase_ItemDefinitions_293 => instance._ItemDataBase_ItemDefinitions_293;
-		public string _ItemDataBase_ItemDefinitions_293 = "Swordsman's Gloves";
-		public static string ItemDataBase_ItemDefinitions_294 => instance._ItemDataBase_ItemDefinitions_294;
-		public string _ItemDataBase_ItemDefinitions_294 = "Healer's Gloves";
-		public static string ItemDataBase_ItemDefinitions_295 => instance._ItemDataBase_ItemDefinitions_295;
-		public string _ItemDataBase_ItemDefinitions_295 = "Fate Gloves";
-		public static string ItemDataBase_ItemDefinitions_296 => instance._ItemDataBase_ItemDefinitions_296;
-		public string _ItemDataBase_ItemDefinitions_296 = "Fate Boots";
-		public static string ItemDataBase_ItemDefinitions_297 => instance._ItemDataBase_ItemDefinitions_297;
-		public string _ItemDataBase_ItemDefinitions_297 = "Greed";
-		public static string ItemDataBase_ItemDefinitions_298 => instance._ItemDataBase_ItemDefinitions_298;
-		public string _ItemDataBase_ItemDefinitions_298 = "Automatically casts wide reach every second";
-		public static string ItemDataBase_ItemDefinitions_299 => instance._ItemDataBase_ItemDefinitions_299;
-		public string _ItemDataBase_ItemDefinitions_299 = "Titanium Leggins";
-		public static string ItemDataBase_ItemDefinitions_300 => instance._ItemDataBase_ItemDefinitions_300;
-		public string _ItemDataBase_ItemDefinitions_300 = "Heavily armored leg protection. Suffers from the same weaknesses as spartan armor.";
-		public static string ItemDataBase_ItemDefinitions_301 => instance._ItemDataBase_ItemDefinitions_301;
-		public string _ItemDataBase_ItemDefinitions_301 = "Iron Gauntlet";
-		public static string ItemDataBase_ItemDefinitions_302 => instance._ItemDataBase_ItemDefinitions_302;
-		public string _ItemDataBase_ItemDefinitions_302 = "Magefist";
-		public static string ItemDataBase_ItemDefinitions_303 => instance._ItemDataBase_ItemDefinitions_303;
-		public string _ItemDataBase_ItemDefinitions_303 = "Gloves that amplify magic";
-		public static string ItemDataBase_ItemDefinitions_304 => instance._ItemDataBase_ItemDefinitions_304;
-		public string _ItemDataBase_ItemDefinitions_304 = "Spells deal <color=gold>double</color> damage but have double the energy cost";
-		public static string ItemDataBase_ItemDefinitions_305 => instance._ItemDataBase_ItemDefinitions_305;
-		public string _ItemDataBase_ItemDefinitions_305 = "Armored Boots";
-		public static string ItemDataBase_ItemDefinitions_306 => instance._ItemDataBase_ItemDefinitions_306;
-		public string _ItemDataBase_ItemDefinitions_306 = "Heavily armored, resistant to damage boots.";
-		public static string ItemDataBase_ItemDefinitions_307 => instance._ItemDataBase_ItemDefinitions_307;
-		public string _ItemDataBase_ItemDefinitions_307 = "Broken Protector";
-		public static string ItemDataBase_ItemDefinitions_308 => instance._ItemDataBase_ItemDefinitions_308;
-		public string _ItemDataBase_ItemDefinitions_308 = "This shield failed to protect those behind it.";
-		public static string ItemDataBase_ItemDefinitions_309 => instance._ItemDataBase_ItemDefinitions_309;
-		public string _ItemDataBase_ItemDefinitions_309 = "Forbidden Scroll";
-		public static string ItemDataBase_ItemDefinitions_310 => instance._ItemDataBase_ItemDefinitions_310;
-		public string _ItemDataBase_ItemDefinitions_310 = "Too powerful to be kept.";
-		public static string ItemDataBase_ItemDefinitions_311 => instance._ItemDataBase_ItemDefinitions_311;
-		public string _ItemDataBase_ItemDefinitions_311 = "Doom Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_312 => instance._ItemDataBase_ItemDefinitions_312;
-		public string _ItemDataBase_ItemDefinitions_312 = "Despite the cool name, they are completely normal pair of shoulder armor.";
-		public static string ItemDataBase_ItemDefinitions_313 => instance._ItemDataBase_ItemDefinitions_313;
-		public string _ItemDataBase_ItemDefinitions_313 = "Wind armor";
-		public static string ItemDataBase_ItemDefinitions_314 => instance._ItemDataBase_ItemDefinitions_314;
-		public string _ItemDataBase_ItemDefinitions_314 = "Run fast like the wind";
-		public static string ItemDataBase_ItemDefinitions_315(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_315, objects);
-		public string _ItemDataBase_ItemDefinitions_315 = "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health";
-		public static string ItemDataBase_ItemDefinitions_316 => instance._ItemDataBase_ItemDefinitions_316;
-		public string _ItemDataBase_ItemDefinitions_316 = "Crusader Helmet";
-		public static string ItemDataBase_ItemDefinitions_317 => instance._ItemDataBase_ItemDefinitions_317;
-		public string _ItemDataBase_ItemDefinitions_317 = "You're talking mad shit for someone within crusading distance";
-		public static string ItemDataBase_ItemDefinitions_318 => instance._ItemDataBase_ItemDefinitions_318;
-		public string _ItemDataBase_ItemDefinitions_318 = "Hood";
-		public static string ItemDataBase_ItemDefinitions_319 => instance._ItemDataBase_ItemDefinitions_319;
-		public string _ItemDataBase_ItemDefinitions_319 = "Hats provide usefull stat bonuses";
-		public static string ItemDataBase_ItemDefinitions_320 => instance._ItemDataBase_ItemDefinitions_320;
-		public string _ItemDataBase_ItemDefinitions_320 = "The Spark of Light in The Darkness";
-		public static string ItemDataBase_ItemDefinitions_321 => instance._ItemDataBase_ItemDefinitions_321;
-		public string _ItemDataBase_ItemDefinitions_321 = "Magic Scroll of great quality";
-		public static string ItemDataBase_ItemDefinitions_322 => instance._ItemDataBase_ItemDefinitions_322;
-		public string _ItemDataBase_ItemDefinitions_322 = "Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll.";
-		public static string ItemDataBase_ItemDefinitions_323(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_323, objects);
-		public string _ItemDataBase_ItemDefinitions_323 = "If a black hole hits {0} or more enemies during it's lifetime, a ball lightning is summoned after it ends.";
-		public static string ItemDataBase_ItemDefinitions_324 => instance._ItemDataBase_ItemDefinitions_324;
-		public string _ItemDataBase_ItemDefinitions_324 = "Purgatory";
-		public static string ItemDataBase_ItemDefinitions_325 => instance._ItemDataBase_ItemDefinitions_325;
-		public string _ItemDataBase_ItemDefinitions_325 = "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer";
-		public static string ItemDataBase_ItemDefinitions_326 => instance._ItemDataBase_ItemDefinitions_326;
-		public string _ItemDataBase_ItemDefinitions_326 = "Ring made of Netherrite";
-		public static string ItemDataBase_ItemDefinitions_327(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_327, objects);
-		public string _ItemDataBase_ItemDefinitions_327 = "Purge increases all of your damage based on missing health. Up to {0}";
-		public static string ItemDataBase_ItemDefinitions_328 => instance._ItemDataBase_ItemDefinitions_328;
-		public string _ItemDataBase_ItemDefinitions_328 = "Eruption";
-		public static string ItemDataBase_ItemDefinitions_329 => instance._ItemDataBase_ItemDefinitions_329;
-		public string _ItemDataBase_ItemDefinitions_329 = "Incarnation of devastation";
-		public static string ItemDataBase_ItemDefinitions_330 => instance._ItemDataBase_ItemDefinitions_330;
-		public string _ItemDataBase_ItemDefinitions_330 = "Headshots cause explosions";
-		public static string ItemDataBase_ItemDefinitions_331 => instance._ItemDataBase_ItemDefinitions_331;
-		public string _ItemDataBase_ItemDefinitions_331 = "Archangel";
-		public static string ItemDataBase_ItemDefinitions_332 => instance._ItemDataBase_ItemDefinitions_332;
-		public string _ItemDataBase_ItemDefinitions_332 = "Spread the goodness";
-		public static string ItemDataBase_ItemDefinitions_333(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_333, objects);
-		public string _ItemDataBase_ItemDefinitions_333 = "Shooting another player causes them to be greatly empowered for {0} seconds";
-		public static string ItemDataBase_ItemDefinitions_334 => instance._ItemDataBase_ItemDefinitions_334;
-		public string _ItemDataBase_ItemDefinitions_334 = "The Executioner";
-		public static string ItemDataBase_ItemDefinitions_335 => instance._ItemDataBase_ItemDefinitions_335;
-		public string _ItemDataBase_ItemDefinitions_335 = "A sword for decapitating";
-		public static string ItemDataBase_ItemDefinitions_336 => instance._ItemDataBase_ItemDefinitions_336;
-		public string _ItemDataBase_ItemDefinitions_336 = "Moon Cuirass";
-		public static string ItemDataBase_ItemDefinitions_337 => instance._ItemDataBase_ItemDefinitions_337;
-		public string _ItemDataBase_ItemDefinitions_337 = "A piece of armor designed for an archer. ";
-		public static string ItemDataBase_ItemDefinitions_338(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_338, objects);
-		public string _ItemDataBase_ItemDefinitions_338 = "Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than {0} feet deals tenfold damage, and hits the enemy two extra times";
-		public static string ItemDataBase_ItemDefinitions_339 => instance._ItemDataBase_ItemDefinitions_339;
-		public string _ItemDataBase_ItemDefinitions_339 = "Thornmail";
-		public static string ItemDataBase_ItemDefinitions_340 => instance._ItemDataBase_ItemDefinitions_340;
-		public string _ItemDataBase_ItemDefinitions_340 = "Spiked death on the outside, really comfy on the inside";
-		public static string ItemDataBase_ItemDefinitions_341 => instance._ItemDataBase_ItemDefinitions_341;
-		public string _ItemDataBase_ItemDefinitions_341 = "Thorns deal double damage";
-		public static string ItemDataBase_ItemDefinitions_342 => instance._ItemDataBase_ItemDefinitions_342;
-		public string _ItemDataBase_ItemDefinitions_342 = "Rusty Polearm";
-		public static string ItemDataBase_ItemDefinitions_343 => instance._ItemDataBase_ItemDefinitions_343;
-		public string _ItemDataBase_ItemDefinitions_343 = "Used by the Ubersreik Five";
-		public static string ItemDataBase_ItemDefinitions_344 => instance._ItemDataBase_ItemDefinitions_344;
-		public string _ItemDataBase_ItemDefinitions_344 = "Giant Polearm";
-		public static string ItemDataBase_ItemDefinitions_345 => instance._ItemDataBase_ItemDefinitions_345;
-		public string _ItemDataBase_ItemDefinitions_345 = "Used by the Sir Kruber";
-		public static string ItemDataBase_ItemDefinitions_346 => instance._ItemDataBase_ItemDefinitions_346;
-		public string _ItemDataBase_ItemDefinitions_346 = "Crude Feather";
-		public static string ItemDataBase_ItemDefinitions_347 => instance._ItemDataBase_ItemDefinitions_347;
-		public string _ItemDataBase_ItemDefinitions_347 = "Materials can be put inside empty sockets to add stats to items";
-		public static string ItemDataBase_ItemDefinitions_348 => instance._ItemDataBase_ItemDefinitions_348;
-		public string _ItemDataBase_ItemDefinitions_348 = "Soft Feather";
-		public static string ItemDataBase_ItemDefinitions_349 => instance._ItemDataBase_ItemDefinitions_349;
-		public string _ItemDataBase_ItemDefinitions_349 = "Ornate Feather";
-		public static string ItemDataBase_ItemDefinitions_350 => instance._ItemDataBase_ItemDefinitions_350;
-		public string _ItemDataBase_ItemDefinitions_350 = "Wonderful Feather";
-		public static string ItemDataBase_ItemDefinitions_351 => instance._ItemDataBase_ItemDefinitions_351;
-		public string _ItemDataBase_ItemDefinitions_351 = "White Crow's Feather";
-		public static string ItemDataBase_ItemDefinitions_352 => instance._ItemDataBase_ItemDefinitions_352;
-		public string _ItemDataBase_ItemDefinitions_352 = "Reef Shark";
-		public static string ItemDataBase_ItemDefinitions_353 => instance._ItemDataBase_ItemDefinitions_353;
-		public string _ItemDataBase_ItemDefinitions_353 = "Tiger Shark Tooth";
-		public static string ItemDataBase_ItemDefinitions_354 => instance._ItemDataBase_ItemDefinitions_354;
-		public string _ItemDataBase_ItemDefinitions_354 = "Whale Shark Tooth";
-		public static string ItemDataBase_ItemDefinitions_355 => instance._ItemDataBase_ItemDefinitions_355;
-		public string _ItemDataBase_ItemDefinitions_355 = "Great White Shark Tooth";
-		public static string ItemDataBase_ItemDefinitions_356 => instance._ItemDataBase_ItemDefinitions_356;
-		public string _ItemDataBase_ItemDefinitions_356 = "Megalodon's Tooth";
-		public static string ItemDataBase_ItemDefinitions_357 => instance._ItemDataBase_ItemDefinitions_357;
-		public string _ItemDataBase_ItemDefinitions_357 = "Uncut Sapphire";
-		public static string ItemDataBase_ItemDefinitions_358 => instance._ItemDataBase_ItemDefinitions_358;
-		public string _ItemDataBase_ItemDefinitions_358 = "Clear Sapphire";
-		public static string ItemDataBase_ItemDefinitions_359 => instance._ItemDataBase_ItemDefinitions_359;
-		public string _ItemDataBase_ItemDefinitions_359 = "Shiny Sapphire";
-		public static string ItemDataBase_ItemDefinitions_360 => instance._ItemDataBase_ItemDefinitions_360;
-		public string _ItemDataBase_ItemDefinitions_360 = "Enchanted Sapphire";
-		public static string ItemDataBase_ItemDefinitions_361 => instance._ItemDataBase_ItemDefinitions_361;
-		public string _ItemDataBase_ItemDefinitions_361 = "Celestial Sapphire";
-		public static string ItemDataBase_ItemDefinitions_362 => instance._ItemDataBase_ItemDefinitions_362;
-		public string _ItemDataBase_ItemDefinitions_362 = "Uncut Moonstone";
-		public static string ItemDataBase_ItemDefinitions_363 => instance._ItemDataBase_ItemDefinitions_363;
-		public string _ItemDataBase_ItemDefinitions_363 = "Clear Moonstone";
-		public static string ItemDataBase_ItemDefinitions_364 => instance._ItemDataBase_ItemDefinitions_364;
-		public string _ItemDataBase_ItemDefinitions_364 = "Shiny Moonstone";
-		public static string ItemDataBase_ItemDefinitions_365 => instance._ItemDataBase_ItemDefinitions_365;
-		public string _ItemDataBase_ItemDefinitions_365 = "Enchanted Moonstone";
-		public static string ItemDataBase_ItemDefinitions_366 => instance._ItemDataBase_ItemDefinitions_366;
-		public string _ItemDataBase_ItemDefinitions_366 = "Celestial Moonstone";
-		public static string ItemDataBase_ItemDefinitions_367 => instance._ItemDataBase_ItemDefinitions_367;
-		public string _ItemDataBase_ItemDefinitions_367 = "Lead Ore";
-		public static string ItemDataBase_ItemDefinitions_368 => instance._ItemDataBase_ItemDefinitions_368;
-		public string _ItemDataBase_ItemDefinitions_368 = "Vanadium Ore";
-		public static string ItemDataBase_ItemDefinitions_369 => instance._ItemDataBase_ItemDefinitions_369;
-		public string _ItemDataBase_ItemDefinitions_369 = "Titanium Ore";
-		public static string ItemDataBase_ItemDefinitions_370 => instance._ItemDataBase_ItemDefinitions_370;
-		public string _ItemDataBase_ItemDefinitions_370 = "Chromium Ore";
-		public static string ItemDataBase_ItemDefinitions_371 => instance._ItemDataBase_ItemDefinitions_371;
-		public string _ItemDataBase_ItemDefinitions_371 = "Tungsten Ore";
-		public static string ItemDataBase_ItemDefinitions_372 => instance._ItemDataBase_ItemDefinitions_372;
-		public string _ItemDataBase_ItemDefinitions_372 = "Knife on a stick";
-		public static string ItemDataBase_ItemDefinitions_373 => instance._ItemDataBase_ItemDefinitions_373;
-		public string _ItemDataBase_ItemDefinitions_373 = "Kasper named this item, his fault";
-		public static string ItemDataBase_ItemDefinitions_374 => instance._ItemDataBase_ItemDefinitions_374;
-		public string _ItemDataBase_ItemDefinitions_374 = "Fists of Nails";
-		public static string ItemDataBase_ItemDefinitions_375 => instance._ItemDataBase_ItemDefinitions_375;
-		public string _ItemDataBase_ItemDefinitions_375 = "Swiss sheese makers";
-		public static string ItemDataBase_ItemDefinitions_376(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_376, objects);
-		public string _ItemDataBase_ItemDefinitions_376 = "Gain {0} thorns per vitality";
-		public static string ItemDataBase_ItemDefinitions_377 => instance._ItemDataBase_ItemDefinitions_377;
-		public string _ItemDataBase_ItemDefinitions_377 = "Cargo Shorts MK2";
-		public static string ItemDataBase_ItemDefinitions_378 => instance._ItemDataBase_ItemDefinitions_378;
-		public string _ItemDataBase_ItemDefinitions_378 = "Deepest pockets out there";
-		public static string ItemDataBase_ItemDefinitions_379 => instance._ItemDataBase_ItemDefinitions_379;
-		public string _ItemDataBase_ItemDefinitions_379 = "Improved cargo pants. Twice as many pockets, and since they didnt fit on the outside, they are inside. They are still ugly as hell tho";
-		public static string ItemDataBase_ItemDefinitions_380 => instance._ItemDataBase_ItemDefinitions_380;
-		public string _ItemDataBase_ItemDefinitions_380 = "Aezyn";
-		public static string ItemDataBase_ItemDefinitions_381 => instance._ItemDataBase_ItemDefinitions_381;
-		public string _ItemDataBase_ItemDefinitions_381 = "Enchanted with magic as strong as power swing. It's purpose? Hit harder.";
-		public static string ItemDataBase_ItemDefinitions_382(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_382, objects);
-		public string _ItemDataBase_ItemDefinitions_382 = "Magic arrow damage scaling is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_383 => instance._ItemDataBase_ItemDefinitions_383;
-		public string _ItemDataBase_ItemDefinitions_383 = "Punny's Reflective Ring";
-		public static string ItemDataBase_ItemDefinitions_384 => instance._ItemDataBase_ItemDefinitions_384;
-		public string _ItemDataBase_ItemDefinitions_384 = "Magic arrow is shot in volleys. This effect can stack.";
-		public static string ItemDataBase_ItemDefinitions_385 => instance._ItemDataBase_ItemDefinitions_385;
-		public string _ItemDataBase_ItemDefinitions_385 = "Eyepatch";
-		public static string ItemDataBase_ItemDefinitions_386 => instance._ItemDataBase_ItemDefinitions_386;
-		public string _ItemDataBase_ItemDefinitions_386 = "A wise man once said:";
-		public static string ItemDataBase_ItemDefinitions_387 => instance._ItemDataBase_ItemDefinitions_387;
-		public string _ItemDataBase_ItemDefinitions_387 = "Everyone thinks I'm just a one-eyed bloody monster, god damnit... (sobbing)";
-		public static string ItemDataBase_ItemDefinitions_388 => instance._ItemDataBase_ItemDefinitions_388;
-		public string _ItemDataBase_ItemDefinitions_388 = "Explosion damage is also applied when performing jump attacks";
-		public static string ItemDataBase_ItemDefinitions_389 => instance._ItemDataBase_ItemDefinitions_389;
-		public string _ItemDataBase_ItemDefinitions_389 = "Javelin";
-		public static string ItemDataBase_ItemDefinitions_390 => instance._ItemDataBase_ItemDefinitions_390;
-		public string _ItemDataBase_ItemDefinitions_390 = "Warplate";
-		public static string ItemDataBase_ItemDefinitions_391 => instance._ItemDataBase_ItemDefinitions_391;
-		public string _ItemDataBase_ItemDefinitions_391 = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.";
-		public static string ItemDataBase_ItemDefinitions_392 => instance._ItemDataBase_ItemDefinitions_392;
-		public string _ItemDataBase_ItemDefinitions_392 = "Strength comes from the power of will, the stronger the will the stronger you are";
-		public static string ItemDataBase_ItemDefinitions_393 => instance._ItemDataBase_ItemDefinitions_393;
-		public string _ItemDataBase_ItemDefinitions_393 = "Torso of Strength";
-		public static string ItemDataBase_ItemDefinitions_394 => instance._ItemDataBase_ItemDefinitions_394;
-		public string _ItemDataBase_ItemDefinitions_394 = "Demoman's Vest";
-		public static string ItemDataBase_ItemDefinitions_395 => instance._ItemDataBase_ItemDefinitions_395;
-		public string _ItemDataBase_ItemDefinitions_395 = "What makes me a good demoman? If I were a bad demoman, I wouldn't be sittin' here discussin' it with you, now would I?! LET'S DO IT! Not one of you's gonna survive this! One crossed wire, one wayward pinch of potassium chlorate, one errant twitch, and KA-BLOOIE! I got a manky eye. I'm a black Scottish cyclops. They got more fecking sea monsters in the great Lochett Ness than they got the likes of me. So! T'all you fine dandies, so proud, so cocksure, prancin' about with your heads full of eyeballs... come and get me, I say! I'll be waitin' on you with a whiff of the old brimstone! I'm a Grimm bloody fable with an unhappy bloody end! Oh, they're going to have to glue you back together...IN HELL!";
-		public static string ItemDataBase_ItemDefinitions_396 => instance._ItemDataBase_ItemDefinitions_396;
-		public string _ItemDataBase_ItemDefinitions_396 = "Brawler's Gloves";
-		public static string ItemDataBase_ItemDefinitions_397 => instance._ItemDataBase_ItemDefinitions_397;
-		public string _ItemDataBase_ItemDefinitions_397 = "Nail Gloves";
-		public static string ItemDataBase_ItemDefinitions_398 => instance._ItemDataBase_ItemDefinitions_398;
-		public string _ItemDataBase_ItemDefinitions_398 = "Enchanted with the power of penetration. It's purpose? Hit harder.";
-		public static string ItemDataBase_ItemDefinitions_399 => instance._ItemDataBase_ItemDefinitions_399;
-		public string _ItemDataBase_ItemDefinitions_399 = "Hand-held Ballista";
-		public static string ItemDataBase_ItemDefinitions_400 => instance._ItemDataBase_ItemDefinitions_400;
-		public string _ItemDataBase_ItemDefinitions_400 = "Kuldars's Scarf";
-		public static string ItemDataBase_ItemDefinitions_401 => instance._ItemDataBase_ItemDefinitions_401;
-		public string _ItemDataBase_ItemDefinitions_401 = "Strength comes from the power of will";
-		public static string ItemDataBase_ItemDefinitions_402 => instance._ItemDataBase_ItemDefinitions_402;
-		public string _ItemDataBase_ItemDefinitions_402 = "Sword Devil's Scarf";
-		public static string ItemDataBase_ItemDefinitions_403 => instance._ItemDataBase_ItemDefinitions_403;
-		public string _ItemDataBase_ItemDefinitions_403 = "Peasant's Scarf";
-		public static string ItemDataBase_ItemDefinitions_404 => instance._ItemDataBase_ItemDefinitions_404;
-		public string _ItemDataBase_ItemDefinitions_404 = "Bombastinc Choker";
-		public static string ItemDataBase_ItemDefinitions_405 => instance._ItemDataBase_ItemDefinitions_405;
-		public string _ItemDataBase_ItemDefinitions_405 = "Explosive Touch";
-		public static string ItemDataBase_ItemDefinitions_406 => instance._ItemDataBase_ItemDefinitions_406;
-		public string _ItemDataBase_ItemDefinitions_406 = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master";
-		public static string ItemDataBase_ItemDefinitions_407 => instance._ItemDataBase_ItemDefinitions_407;
-		public string _ItemDataBase_ItemDefinitions_407 = "Strength comes from the power of will, the stronger the will the stronger the explosion";
-		public static string ItemDataBase_ItemDefinitions_408 => instance._ItemDataBase_ItemDefinitions_408;
-		public string _ItemDataBase_ItemDefinitions_408 = "Volatile Bracers";
-		public static string ItemDataBase_ItemDefinitions_409 => instance._ItemDataBase_ItemDefinitions_409;
-		public string _ItemDataBase_ItemDefinitions_409 = "Volatile Helmet";
-		public static string ItemDataBase_ItemDefinitions_410 => instance._ItemDataBase_ItemDefinitions_410;
-		public string _ItemDataBase_ItemDefinitions_410 = "Gunpowder filled socks";
-		public static string ItemDataBase_ItemDefinitions_411 => instance._ItemDataBase_ItemDefinitions_411;
-		public string _ItemDataBase_ItemDefinitions_411 = "Red Skirt";
-		public static string ItemDataBase_ItemDefinitions_412 => instance._ItemDataBase_ItemDefinitions_412;
-		public string _ItemDataBase_ItemDefinitions_412 = "Gunpowder Boxers";
-		public static string ItemDataBase_ItemDefinitions_413 => instance._ItemDataBase_ItemDefinitions_413;
-		public string _ItemDataBase_ItemDefinitions_413 = "Jihad Vest";
-		public static string ItemDataBase_ItemDefinitions_414 => instance._ItemDataBase_ItemDefinitions_414;
-		public string _ItemDataBase_ItemDefinitions_414 = "Ring of Fortune";
-		public static string ItemDataBase_ItemDefinitions_415 => instance._ItemDataBase_ItemDefinitions_415;
-		public string _ItemDataBase_ItemDefinitions_415 = "Mana Ring";
-		public static string ItemDataBase_ItemDefinitions_416 => instance._ItemDataBase_ItemDefinitions_416;
-		public string _ItemDataBase_ItemDefinitions_416 = "Life Ring";
-		public static string ItemDataBase_ItemDefinitions_417 => instance._ItemDataBase_ItemDefinitions_417;
-		public string _ItemDataBase_ItemDefinitions_417 = "Moritz's Gear";
-		public static string ItemDataBase_ItemDefinitions_418 => instance._ItemDataBase_ItemDefinitions_418;
-		public string _ItemDataBase_ItemDefinitions_418 = "Band of Hurting";
-		public static string ItemDataBase_ItemDefinitions_419 => instance._ItemDataBase_ItemDefinitions_419;
-		public string _ItemDataBase_ItemDefinitions_419 = "A ring for a warrior";
-		public static string ItemDataBase_ItemDefinitions_420 => instance._ItemDataBase_ItemDefinitions_420;
-		public string _ItemDataBase_ItemDefinitions_420 = "Straw Hat";
-		public static string ItemDataBase_ItemDefinitions_421 => instance._ItemDataBase_ItemDefinitions_421;
-		public string _ItemDataBase_ItemDefinitions_421 = "Rusty Javelin";
-		public static string ItemDataBase_ItemDefinitions_422 => instance._ItemDataBase_ItemDefinitions_422;
-		public string _ItemDataBase_ItemDefinitions_422 = "Star Robe";
-		public static string ItemDataBase_ItemDefinitions_423 => instance._ItemDataBase_ItemDefinitions_423;
-		public string _ItemDataBase_ItemDefinitions_423 = "Anger";
-		public static string ItemDataBase_ItemDefinitions_424 => instance._ItemDataBase_ItemDefinitions_424;
-		public string _ItemDataBase_ItemDefinitions_424 = "Downscaled version of Greatsword Rage, made to be wielded by flimsy wizards";
-		public static string ItemDataBase_ItemDefinitions_425(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_425, objects);
-		public string _ItemDataBase_ItemDefinitions_425 = "Increases maximum stacks of frenzy by {0}";
-		public static string ItemDataBase_ItemDefinitions_426 => instance._ItemDataBase_ItemDefinitions_426;
-		public string _ItemDataBase_ItemDefinitions_426 = "Yuki-Onna Strides";
-		public static string ItemDataBase_ItemDefinitions_427(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_427, objects);
-		public string _ItemDataBase_ItemDefinitions_427 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_428 => instance._ItemDataBase_ItemDefinitions_428;
-		public string _ItemDataBase_ItemDefinitions_428 = "Boots looted off a snow demon";
-		public static string ItemDataBase_ItemDefinitions_429(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_429, objects);
-		public string _ItemDataBase_ItemDefinitions_429 = "Increses snowstorm damage by {0}";
-		public static string ItemDataBase_ItemDefinitions_430 => instance._ItemDataBase_ItemDefinitions_430;
-		public string _ItemDataBase_ItemDefinitions_430 = "Yuki-Onna Greaves";
-		public static string ItemDataBase_ItemDefinitions_431 => instance._ItemDataBase_ItemDefinitions_431;
-		public string _ItemDataBase_ItemDefinitions_431 = "Yuki-Onna Kimono";
-		public static string ItemDataBase_ItemDefinitions_432 => instance._ItemDataBase_ItemDefinitions_432;
-		public string _ItemDataBase_ItemDefinitions_432 = "Yuki-Onna's Headdress";
-		public static string ItemDataBase_ItemDefinitions_433(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_433, objects);
-		public string _ItemDataBase_ItemDefinitions_433 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}";
-		public static string ItemDataBase_ItemDefinitions_434 => instance._ItemDataBase_ItemDefinitions_434;
-		public string _ItemDataBase_ItemDefinitions_434 = "Lama Mega's Blood Bag";
-		public static string ItemDataBase_ItemDefinitions_435(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_435, objects);
-		public string _ItemDataBase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds";
-		public static string ItemDataBase_ItemDefinitions_436 => instance._ItemDataBase_ItemDefinitions_436;
-		public string _ItemDataBase_ItemDefinitions_436 = "Socket Drill";
-		public static string ItemDataBase_ItemDefinitions_437 => instance._ItemDataBase_ItemDefinitions_437;
-		public string _ItemDataBase_ItemDefinitions_437 = "A convienient one use tool";
-		public static string ItemDataBase_ItemDefinitions_438 => instance._ItemDataBase_ItemDefinitions_438;
-		public string _ItemDataBase_ItemDefinitions_438 = "What's a drill doing here in a place full of primitive tribes?";
-		public static string ItemDataBase_ItemDefinitions_439 => instance._ItemDataBase_ItemDefinitions_439;
-		public string _ItemDataBase_ItemDefinitions_439 = "Adds one socket to an item, unless the item can't have any more sockets.";
-		public static string ItemDataBase_ItemDefinitions_440 => instance._ItemDataBase_ItemDefinitions_440;
-		public string _ItemDataBase_ItemDefinitions_440 = "Moonwalkers";
-		public static string ItemDataBase_ItemDefinitions_441 => instance._ItemDataBase_ItemDefinitions_441;
-		public string _ItemDataBase_ItemDefinitions_441 = "Cha cha real smooth.";
-		public static string ItemDataBase_ItemDefinitions_442 => instance._ItemDataBase_ItemDefinitions_442;
-		public string _ItemDataBase_ItemDefinitions_442 = "Inverts movement";
-		public static string ItemDataBase_ItemDefinitions_443 => instance._ItemDataBase_ItemDefinitions_443;
-		public string _ItemDataBase_ItemDefinitions_443 = "Rabbit Ears Hairband";
-		public static string ItemDataBase_ItemDefinitions_444 => instance._ItemDataBase_ItemDefinitions_444;
-		public string _ItemDataBase_ItemDefinitions_444 = "Cute";
-		public static string ItemDataBase_ItemDefinitions_445 => instance._ItemDataBase_ItemDefinitions_445;
-		public string _ItemDataBase_ItemDefinitions_445 = "Bunny Ears Hairband";
-		public static string ItemDataBase_ItemDefinitions_446 => instance._ItemDataBase_ItemDefinitions_446;
-		public string _ItemDataBase_ItemDefinitions_446 = "Iron plate full of holes";
-		public static string ItemDataBase_ItemDefinitions_447 => instance._ItemDataBase_ItemDefinitions_447;
-		public string _ItemDataBase_ItemDefinitions_447 = "The integrity of this item is questionable";
-		public static string ItemDataBase_ItemDefinitions_448 => instance._ItemDataBase_ItemDefinitions_448;
-		public string _ItemDataBase_ItemDefinitions_448 = "Small Tribal Necklace";
-		public static string ItemDataBase_ItemDefinitions_449(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_449, objects);
-		public string _ItemDataBase_ItemDefinitions_449 = "Increases maximum stacks of frenzy by {0}";
-		public static string ItemDataBase_ItemDefinitions_450 => instance._ItemDataBase_ItemDefinitions_450;
-		public string _ItemDataBase_ItemDefinitions_450 = "Tribal Necklace";
-		public static string ItemDataBase_ItemDefinitions_451(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_451, objects);
-		public string _ItemDataBase_ItemDefinitions_451 = "Increases maximum stacks of frenzy by {0}";
-		public static string ItemDataBase_ItemDefinitions_452 => instance._ItemDataBase_ItemDefinitions_452;
-		public string _ItemDataBase_ItemDefinitions_452 = "Warlord Necklace";
-		public static string ItemDataBase_ItemDefinitions_453(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_453, objects);
-		public string _ItemDataBase_ItemDefinitions_453 = "Increases maximum stacks of frenzy by {0}";
-		public static string ItemDataBase_ItemDefinitions_454 => instance._ItemDataBase_ItemDefinitions_454;
-		public string _ItemDataBase_ItemDefinitions_454 = "Travel Band";
-		public static string ItemDataBase_ItemDefinitions_455(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_455, objects);
-		public string _ItemDataBase_ItemDefinitions_455 = "The distance of blink is increased by <color=gold>{0}</color> feet";
-		public static string ItemDataBase_ItemDefinitions_456 => instance._ItemDataBase_ItemDefinitions_456;
-		public string _ItemDataBase_ItemDefinitions_456 = "Destroyed Void Shard";
-		public static string ItemDataBase_ItemDefinitions_457 => instance._ItemDataBase_ItemDefinitions_457;
-		public string _ItemDataBase_ItemDefinitions_457 = "Only a fraction of its previous might remains";
-		public static string ItemDataBase_ItemDefinitions_458(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_458, objects);
-		public string _ItemDataBase_ItemDefinitions_458 = "Decrease the cooldown of one ability by {0} second whenever you hit something with melee or ranged attack.";
-		public static string ItemDataBase_ItemDefinitions_459 => instance._ItemDataBase_ItemDefinitions_459;
-		public string _ItemDataBase_ItemDefinitions_459 = "Famine Hammer";
-		public static string ItemDataBase_ItemDefinitions_460(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_460, objects);
-		public string _ItemDataBase_ItemDefinitions_460 = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_461 => instance._ItemDataBase_ItemDefinitions_461;
-		public string _ItemDataBase_ItemDefinitions_461 = "Curse Hammer";
-		public static string ItemDataBase_ItemDefinitions_462 => instance._ItemDataBase_ItemDefinitions_462;
-		public string _ItemDataBase_ItemDefinitions_462 = "Omnious Weapon";
-		public static string ItemDataBase_ItemDefinitions_463(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_463, objects);
-		public string _ItemDataBase_ItemDefinitions_463 = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_464 => instance._ItemDataBase_ItemDefinitions_464;
-		public string _ItemDataBase_ItemDefinitions_464 = "Smasher";
-		public static string ItemDataBase_ItemDefinitions_465 => instance._ItemDataBase_ItemDefinitions_465;
-		public string _ItemDataBase_ItemDefinitions_465 = "Smash damage is increased tripled";
-		public static string ItemDataBase_ItemDefinitions_466 => instance._ItemDataBase_ItemDefinitions_466;
-		public string _ItemDataBase_ItemDefinitions_466 = "Vampiric Band";
-		public static string ItemDataBase_ItemDefinitions_467(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_467, objects);
-		public string _ItemDataBase_ItemDefinitions_467 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
-		public static string ItemDataBase_ItemDefinitions_468 => instance._ItemDataBase_ItemDefinitions_468;
-		public string _ItemDataBase_ItemDefinitions_468 = "Vampire Ring";
-		public static string ItemDataBase_ItemDefinitions_469(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_469, objects);
-		public string _ItemDataBase_ItemDefinitions_469 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
-		public static string ItemDataBase_ItemDefinitions_470 => instance._ItemDataBase_ItemDefinitions_470;
-		public string _ItemDataBase_ItemDefinitions_470 = "Tricksters Scarf";
-		public static string ItemDataBase_ItemDefinitions_471(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_471, objects);
-		public string _ItemDataBase_ItemDefinitions_471 = "Magic arrow shoots {0} additional arrow.";
-		public static string ItemDataBase_ItemDefinitions_472 => instance._ItemDataBase_ItemDefinitions_472;
-		public string _ItemDataBase_ItemDefinitions_472 = "Magus' Necktie";
-		public static string ItemDataBase_ItemDefinitions_473(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_473, objects);
-		public string _ItemDataBase_ItemDefinitions_473 = "Magic arrow shoots {0} additional arrows.";
-		public static string ItemDataBase_ItemDefinitions_474 => instance._ItemDataBase_ItemDefinitions_474;
-		public string _ItemDataBase_ItemDefinitions_474 = "Discounted Knockoff Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_475(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_475, objects);
-		public string _ItemDataBase_ItemDefinitions_475 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
-		public static string ItemDataBase_ItemDefinitions_476 => instance._ItemDataBase_ItemDefinitions_476;
-		public string _ItemDataBase_ItemDefinitions_476 = "Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_477(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_477, objects);
-		public string _ItemDataBase_ItemDefinitions_477 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
-		public static string ItemDataBase_ItemDefinitions_478 => instance._ItemDataBase_ItemDefinitions_478;
-		public string _ItemDataBase_ItemDefinitions_478 = "Improved Magic Quiver";
-		public static string ItemDataBase_ItemDefinitions_479(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_479, objects);
-		public string _ItemDataBase_ItemDefinitions_479 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
-		public static string ItemDataBase_ItemDefinitions_480 => instance._ItemDataBase_ItemDefinitions_480;
-		public string _ItemDataBase_ItemDefinitions_480 = "Factory Quiver";
-		public static string ItemDataBase_ItemDefinitions_481(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_481, objects);
-		public string _ItemDataBase_ItemDefinitions_481 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
-		public static string ItemDataBase_ItemDefinitions_482 => instance._ItemDataBase_ItemDefinitions_482;
-		public string _ItemDataBase_ItemDefinitions_482 = "Enzyme STR/34";
-		public static string ItemDataBase_ItemDefinitions_483 => instance._ItemDataBase_ItemDefinitions_483;
-		public string _ItemDataBase_ItemDefinitions_483 = "A substance which results in surprising changes to gear";
-		public static string ItemDataBase_ItemDefinitions_484 => instance._ItemDataBase_ItemDefinitions_484;
-		public string _ItemDataBase_ItemDefinitions_484 = "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>";
-		public static string ItemDataBase_ItemDefinitions_485 => instance._ItemDataBase_ItemDefinitions_485;
-		public string _ItemDataBase_ItemDefinitions_485 = "Enzyme INT/33";
-		public static string ItemDataBase_ItemDefinitions_486 => instance._ItemDataBase_ItemDefinitions_486;
-		public string _ItemDataBase_ItemDefinitions_486 = "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>";
-		public static string ItemDataBase_ItemDefinitions_487 => instance._ItemDataBase_ItemDefinitions_487;
-		public string _ItemDataBase_ItemDefinitions_487 = "Enzyme AGI/39";
-		public static string ItemDataBase_ItemDefinitions_488 => instance._ItemDataBase_ItemDefinitions_488;
-		public string _ItemDataBase_ItemDefinitions_488 = "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>";
-		public static string ItemDataBase_ItemDefinitions_489 => instance._ItemDataBase_ItemDefinitions_489;
-		public string _ItemDataBase_ItemDefinitions_489 = "Enzyme VIT/449";
-		public static string ItemDataBase_ItemDefinitions_490 => instance._ItemDataBase_ItemDefinitions_490;
-		public string _ItemDataBase_ItemDefinitions_490 = "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>";
-		public static string ItemDataBase_ItemDefinitions_491 => instance._ItemDataBase_ItemDefinitions_491;
-		public string _ItemDataBase_ItemDefinitions_491 = "Stomach Acid";
-		public static string ItemDataBase_ItemDefinitions_492 => instance._ItemDataBase_ItemDefinitions_492;
-		public string _ItemDataBase_ItemDefinitions_492 = "Removes all stats with negative values from an item";
-		public static string ItemDataBase_ItemDefinitions_493 => instance._ItemDataBase_ItemDefinitions_493;
-		public string _ItemDataBase_ItemDefinitions_493 = "Elite Stomach Acid";
-		public static string ItemDataBase_ItemDefinitions_494 => instance._ItemDataBase_ItemDefinitions_494;
-		public string _ItemDataBase_ItemDefinitions_494 = "Changes negative stat values into positive values on an item";
-		public static string ItemDataBase_ItemDefinitions_495 => instance._ItemDataBase_ItemDefinitions_495;
-		public string _ItemDataBase_ItemDefinitions_495 = "Crimson Solution";
-		public static string ItemDataBase_ItemDefinitions_496 => instance._ItemDataBase_ItemDefinitions_496;
-		public string _ItemDataBase_ItemDefinitions_496 = "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity";
-		public static string ItemDataBase_ItemDefinitions_497 => instance._ItemDataBase_ItemDefinitions_497;
-		public string _ItemDataBase_ItemDefinitions_497 = "Weak Armor Hardening Mixture";
-		public static string ItemDataBase_ItemDefinitions_498 => instance._ItemDataBase_ItemDefinitions_498;
-		public string _ItemDataBase_ItemDefinitions_498 = "Adds Armor Stat to a piece of equipment if the item does not already have it";
-		public static string ItemDataBase_ItemDefinitions_499 => instance._ItemDataBase_ItemDefinitions_499;
-		public string _ItemDataBase_ItemDefinitions_499 = "Upgraded Armor Hardening Mixture";
-		public static string ItemDataBase_ItemDefinitions_500 => instance._ItemDataBase_ItemDefinitions_500;
-		public string _ItemDataBase_ItemDefinitions_500 = "Adds Damage Reduction Stat to a piece of equipment if the item does not already have it";
-		public static string ItemDataBase_ItemDefinitions_501 => instance._ItemDataBase_ItemDefinitions_501;
-		public string _ItemDataBase_ItemDefinitions_501 = "Chaos Water";
-		public static string ItemDataBase_ItemDefinitions_502 => instance._ItemDataBase_ItemDefinitions_502;
-		public string _ItemDataBase_ItemDefinitions_502 = "Rerolls all stats on an item of rarity no higher than orange";
-		public static string ItemDataBase_ItemDefinitions_503 => instance._ItemDataBase_ItemDefinitions_503;
-		public string _ItemDataBase_ItemDefinitions_503 = "Upgraded Chaos Water";
-		public static string ItemDataBase_ItemDefinitions_504 => instance._ItemDataBase_ItemDefinitions_504;
-		public string _ItemDataBase_ItemDefinitions_504 = "Rerolls all stats on an item of any rarity";
-		public static string ItemDataBase_ItemDefinitions_505 => instance._ItemDataBase_ItemDefinitions_505;
-		public string _ItemDataBase_ItemDefinitions_505 = "Gun Blade";
-		public static string ItemDataBase_ItemDefinitions_506(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_506, objects);
-		public string _ItemDataBase_ItemDefinitions_506 = "Increases pistol damage by <color=red>{0}</color>";
-		public static string ItemDataBase_ItemDefinitions_507 => instance._ItemDataBase_ItemDefinitions_507;
-		public string _ItemDataBase_ItemDefinitions_507 = "Sharpshooter's Axe";
-		public static string ItemDataBase_ItemDefinitions_508(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_508, objects);
-		public string _ItemDataBase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=gold>{0}</color> and pistol damage by <color=gold>{1}</color>";
-		public static string ItemDataBase_ItemDefinitions_509 => instance._ItemDataBase_ItemDefinitions_509;
-		public string _ItemDataBase_ItemDefinitions_509 = "Shield Blade";
-		public static string ItemDataBase_ItemDefinitions_510 => instance._ItemDataBase_ItemDefinitions_510;
-		public string _ItemDataBase_ItemDefinitions_510 = "So large can be used as a shield";
-		public static string ItemDataBase_ItemDefinitions_511 => instance._ItemDataBase_ItemDefinitions_511;
-		public string _ItemDataBase_ItemDefinitions_511 = "A normal human cannot lift this weapon.";
-		public static string ItemDataBase_ItemDefinitions_512 => instance._ItemDataBase_ItemDefinitions_512;
-		public string _ItemDataBase_ItemDefinitions_512 = "Blunt Blade for Bashing Skulls";
-		public static string ItemDataBase_ItemDefinitions_513(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_513, objects);
-		public string _ItemDataBase_ItemDefinitions_513 = "Bash damage debuff on enemies is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_514 => instance._ItemDataBase_ItemDefinitions_514;
-		public string _ItemDataBase_ItemDefinitions_514 = "Madman's Legacy";
-		public static string ItemDataBase_ItemDefinitions_515(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_515, objects);
-		public string _ItemDataBase_ItemDefinitions_515 = "Frenzy damage per stack is increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_516 => instance._ItemDataBase_ItemDefinitions_516;
-		public string _ItemDataBase_ItemDefinitions_516 = "Buckler";
-		public static string ItemDataBase_ItemDefinitions_517 => instance._ItemDataBase_ItemDefinitions_517;
-		public string _ItemDataBase_ItemDefinitions_517 = "Pyromancy Mask";
-		public static string ItemDataBase_ItemDefinitions_518(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_518, objects);
-		public string _ItemDataBase_ItemDefinitions_518 = "Ignited enemies burn for {0} longer.";
-		public static string ItemDataBase_ItemDefinitions_519 => instance._ItemDataBase_ItemDefinitions_519;
-		public string _ItemDataBase_ItemDefinitions_519 = "Ember Mask";
-		public static string ItemDataBase_ItemDefinitions_520(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_520, objects);
-		public string _ItemDataBase_ItemDefinitions_520 = "Ignited enemies burn for {0} longer and fire ticks thrice as fast.";
-		public static string ItemDataBase_ItemDefinitions_521 => instance._ItemDataBase_ItemDefinitions_521;
-		public string _ItemDataBase_ItemDefinitions_521 = "Flame Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_522(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_522, objects);
-		public string _ItemDataBase_ItemDefinitions_522 = "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}";
-		public static string ItemDataBase_ItemDefinitions_523 => instance._ItemDataBase_ItemDefinitions_523;
-		public string _ItemDataBase_ItemDefinitions_523 = "Ancient Scroll";
-		public static string ItemDataBase_ItemDefinitions_524 => instance._ItemDataBase_ItemDefinitions_524;
-		public string _ItemDataBase_ItemDefinitions_524 = "Guide on Tearing Spacetime";
-		public static string ItemDataBase_ItemDefinitions_525 => instance._ItemDataBase_ItemDefinitions_525;
-		public string _ItemDataBase_ItemDefinitions_525 = "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink";
-		public static string ItemDataBase_ItemDefinitions_526 => instance._ItemDataBase_ItemDefinitions_526;
-		public string _ItemDataBase_ItemDefinitions_526 = "300th Spear";
-		public static string ItemDataBase_ItemDefinitions_527 => instance._ItemDataBase_ItemDefinitions_527;
-		public string _ItemDataBase_ItemDefinitions_527 = "Stone Pauldrons";
-		public static string ItemDataBase_ItemDefinitions_528(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_528, objects);
-		public string _ItemDataBase_ItemDefinitions_528 = "All damage increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_529 => instance._ItemDataBase_ItemDefinitions_529;
-		public string _ItemDataBase_ItemDefinitions_529 = "Iron Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_530(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_530, objects);
-		public string _ItemDataBase_ItemDefinitions_530 = "All damage increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_531 => instance._ItemDataBase_ItemDefinitions_531;
-		public string _ItemDataBase_ItemDefinitions_531 = "Steel Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_532(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_532, objects);
-		public string _ItemDataBase_ItemDefinitions_532 = "All damage increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_533 => instance._ItemDataBase_ItemDefinitions_533;
-		public string _ItemDataBase_ItemDefinitions_533 = "Battle scarred Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_534(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_534, objects);
-		public string _ItemDataBase_ItemDefinitions_534 = "All damage increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_535 => instance._ItemDataBase_ItemDefinitions_535;
-		public string _ItemDataBase_ItemDefinitions_535 = "Mystery Shoulder Pads";
-		public static string ItemDataBase_ItemDefinitions_536(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_536, objects);
-		public string _ItemDataBase_ItemDefinitions_536 = "All damage increased by {0}";
-		public static string ItemDataBase_ItemDefinitions_537 => instance._ItemDataBase_ItemDefinitions_537;
-		public string _ItemDataBase_ItemDefinitions_537 = "Stone Shield";
-		public static string ItemDataBase_ItemDefinitions_538 => instance._ItemDataBase_ItemDefinitions_538;
-		public string _ItemDataBase_ItemDefinitions_538 = "Iron Shield";
-		public static string ItemDataBase_ItemDefinitions_539 => instance._ItemDataBase_ItemDefinitions_539;
-		public string _ItemDataBase_ItemDefinitions_539 = "Steel Tower Shield";
-		public static string ItemDataBase_ItemDefinitions_540 => instance._ItemDataBase_ItemDefinitions_540;
-		public string _ItemDataBase_ItemDefinitions_540 = "Guardian";
-		public static string ItemDataBase_ItemDefinitions_541 => instance._ItemDataBase_ItemDefinitions_541;
-		public string _ItemDataBase_ItemDefinitions_541 = "Mystery Shield";
-		public static string ItemDataBase_ItemDefinitions_542 => instance._ItemDataBase_ItemDefinitions_542;
-		public string _ItemDataBase_ItemDefinitions_542 = "Light Boot";
-		public static string ItemDataBase_ItemDefinitions_543 => instance._ItemDataBase_ItemDefinitions_543;
-		public string _ItemDataBase_ItemDefinitions_543 = "Iron Boots";
-		public static string ItemDataBase_ItemDefinitions_544 => instance._ItemDataBase_ItemDefinitions_544;
-		public string _ItemDataBase_ItemDefinitions_544 = "Steel Boots";
-		public static string ItemDataBase_ItemDefinitions_545 => instance._ItemDataBase_ItemDefinitions_545;
-		public string _ItemDataBase_ItemDefinitions_545 = "Threads";
-		public static string ItemDataBase_ItemDefinitions_546 => instance._ItemDataBase_ItemDefinitions_546;
-		public string _ItemDataBase_ItemDefinitions_546 = "Mystery Boots";
-		public static string ItemDataBase_ItemDefinitions_547 => instance._ItemDataBase_ItemDefinitions_547;
-		public string _ItemDataBase_ItemDefinitions_547 = "Wraps";
-		public static string ItemDataBase_ItemDefinitions_548 => instance._ItemDataBase_ItemDefinitions_548;
-		public string _ItemDataBase_ItemDefinitions_548 = "Steel Gauntlet";
-		public static string ItemDataBase_ItemDefinitions_549 => instance._ItemDataBase_ItemDefinitions_549;
-		public string _ItemDataBase_ItemDefinitions_549 = "Titanium Gauntlet";
-		public static string ItemDataBase_ItemDefinitions_550 => instance._ItemDataBase_ItemDefinitions_550;
-		public string _ItemDataBase_ItemDefinitions_550 = "Mystery Gauntlet";
-		public static string ItemDataBase_ItemDefinitions_551 => instance._ItemDataBase_ItemDefinitions_551;
-		public string _ItemDataBase_ItemDefinitions_551 = "Leather Tasset";
-		public static string ItemDataBase_ItemDefinitions_552 => instance._ItemDataBase_ItemDefinitions_552;
-		public string _ItemDataBase_ItemDefinitions_552 = "Iron Tasset";
-		public static string ItemDataBase_ItemDefinitions_553 => instance._ItemDataBase_ItemDefinitions_553;
-		public string _ItemDataBase_ItemDefinitions_553 = "Steel Tasset";
-		public static string ItemDataBase_ItemDefinitions_554 => instance._ItemDataBase_ItemDefinitions_554;
-		public string _ItemDataBase_ItemDefinitions_554 = "Black Steel Leggins";
-		public static string ItemDataBase_ItemDefinitions_555 => instance._ItemDataBase_ItemDefinitions_555;
-		public string _ItemDataBase_ItemDefinitions_555 = "Mystery Leggins";
-		public static string ItemDataBase_ItemDefinitions_556 => instance._ItemDataBase_ItemDefinitions_556;
-		public string _ItemDataBase_ItemDefinitions_556 = "Leather Vest";
-		public static string ItemDataBase_ItemDefinitions_557 => instance._ItemDataBase_ItemDefinitions_557;
-		public string _ItemDataBase_ItemDefinitions_557 = "Iron Breastplate";
-		public static string ItemDataBase_ItemDefinitions_558 => instance._ItemDataBase_ItemDefinitions_558;
-		public string _ItemDataBase_ItemDefinitions_558 = "Steel Breastplate";
-		public static string ItemDataBase_ItemDefinitions_559 => instance._ItemDataBase_ItemDefinitions_559;
-		public string _ItemDataBase_ItemDefinitions_559 = "Silver Armor";
-		public static string ItemDataBase_ItemDefinitions_560 => instance._ItemDataBase_ItemDefinitions_560;
-		public string _ItemDataBase_ItemDefinitions_560 = "Mystery Breastplate";
-		public static string ItemDataBase_ItemDefinitions_561 => instance._ItemDataBase_ItemDefinitions_561;
-		public string _ItemDataBase_ItemDefinitions_561 = "Cloth Band";
-		public static string ItemDataBase_ItemDefinitions_562 => instance._ItemDataBase_ItemDefinitions_562;
-		public string _ItemDataBase_ItemDefinitions_562 = "Iron Wristguard";
-		public static string ItemDataBase_ItemDefinitions_563 => instance._ItemDataBase_ItemDefinitions_563;
-		public string _ItemDataBase_ItemDefinitions_563 = "Steel Wristguard";
-		public static string ItemDataBase_ItemDefinitions_564 => instance._ItemDataBase_ItemDefinitions_564;
-		public string _ItemDataBase_ItemDefinitions_564 = "Baron Wristguards";
-		public static string ItemDataBase_ItemDefinitions_565 => instance._ItemDataBase_ItemDefinitions_565;
-		public string _ItemDataBase_ItemDefinitions_565 = "Mystery Wristguards";
-		public static string ItemDataBase_ItemDefinitions_566 => instance._ItemDataBase_ItemDefinitions_566;
-		public string _ItemDataBase_ItemDefinitions_566 = "Iron Helmet";
-		public static string ItemDataBase_ItemDefinitions_567 => instance._ItemDataBase_ItemDefinitions_567;
-		public string _ItemDataBase_ItemDefinitions_567 = "Steel Helmet";
-		public static string ItemDataBase_ItemDefinitions_568 => instance._ItemDataBase_ItemDefinitions_568;
-		public string _ItemDataBase_ItemDefinitions_568 = "Armored Hood";
-		public static string ItemDataBase_ItemDefinitions_569 => instance._ItemDataBase_ItemDefinitions_569;
-		public string _ItemDataBase_ItemDefinitions_569 = "Mystery Helmet";
-		public static string ItemDataBase_ItemDefinitions_570 => instance._ItemDataBase_ItemDefinitions_570;
-		public string _ItemDataBase_ItemDefinitions_570 = "Yorium's Gaze";
-		public static string ItemDataBase_ItemDefinitions_571(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_571, objects);
-		public string _ItemDataBase_ItemDefinitions_571 = "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved.";
-		public static string ItemDataBase_ItemDefinitions_572(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_572, objects);
-		public string _ItemDataBase_ItemDefinitions_572 = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration.";
-		public static string ItemDataBase_ItemDefinitions_573 => instance._ItemDataBase_ItemDefinitions_573;
-		public string _ItemDataBase_ItemDefinitions_573 = "Yorium's Ruthlessness";
-		public static string ItemDataBase_ItemDefinitions_574 => instance._ItemDataBase_ItemDefinitions_574;
-		public string _ItemDataBase_ItemDefinitions_574 = "Yorium's Burden";
-		public static string ItemDataBase_ItemDefinitions_575 => instance._ItemDataBase_ItemDefinitions_575;
-		public string _ItemDataBase_ItemDefinitions_575 = "Yorium's Resolve";
-		public static string ItemDataBase_ItemDefinitions_576 => instance._ItemDataBase_ItemDefinitions_576;
-		public string _ItemDataBase_ItemDefinitions_576 = "Atomic Augmentation";
-		public static string ItemDataBase_ItemDefinitions_577 => instance._ItemDataBase_ItemDefinitions_577;
-		public string _ItemDataBase_ItemDefinitions_577 = "Yorium's Assault";
-		public static string ItemDataBase_ItemDefinitions_578 => instance._ItemDataBase_ItemDefinitions_578;
-		public string _ItemDataBase_ItemDefinitions_578 = "Undying Promise";
-		public static string ItemDataBase_ItemDefinitions_579(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_579, objects);
-		public string _ItemDataBase_ItemDefinitions_579 = "Resist lethal damage on a {0} minute cooldown";
-		public static string ItemDataBase_ItemDefinitions_581(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_581, objects);
-		public string _ItemDataBase_ItemDefinitions_581 = "Snap freeze damage scaling is increased by {0} and the slow duration is increased by {1} seconds";
-		public static string ItemDataBase_ItemDefinitions_582 => instance._ItemDataBase_ItemDefinitions_582;
-		public string _ItemDataBase_ItemDefinitions_582 = "If equipped on a weapon, increases ranged damage by ";
-		public static string ItemDataBase_ItemDefinitions_583 => instance._ItemDataBase_ItemDefinitions_583;
-		public string _ItemDataBase_ItemDefinitions_583 = "If equipped on boots, increases movement speed by ";
-		public static string ItemDataBase_ItemDefinitions_584 => instance._ItemDataBase_ItemDefinitions_584;
-		public string _ItemDataBase_ItemDefinitions_584 = "If equipped on a helmet, increases critical hit chance by ";
-		public static string ItemDataBase_ItemDefinitions_585 => instance._ItemDataBase_ItemDefinitions_585;
-		public string _ItemDataBase_ItemDefinitions_585 = "If equipped on accessories, increases ranged armor piercing by ";
-		public static string ItemDataBase_ItemDefinitions_586 => instance._ItemDataBase_ItemDefinitions_586;
-		public string _ItemDataBase_ItemDefinitions_586 = "If equipped in other slots, increases agility by ";
-		public static string ItemDataBase_ItemDefinitions_587 => instance._ItemDataBase_ItemDefinitions_587;
-		public string _ItemDataBase_ItemDefinitions_587 = "If equipped on a weapon, increases melee damage by ";
-		public static string ItemDataBase_ItemDefinitions_588 => instance._ItemDataBase_ItemDefinitions_588;
-		public string _ItemDataBase_ItemDefinitions_588 = "If equipped on boots, decreases damage taken by ";
-		public static string ItemDataBase_ItemDefinitions_589 => instance._ItemDataBase_ItemDefinitions_589;
-		public string _ItemDataBase_ItemDefinitions_589 = "If equipped on a helmet, increases attack speed by ";
-		public static string ItemDataBase_ItemDefinitions_590 => instance._ItemDataBase_ItemDefinitions_590;
-		public string _ItemDataBase_ItemDefinitions_590 = "If equipped on accessories, increases melee armor piercing by ";
-		public static string ItemDataBase_ItemDefinitions_591 => instance._ItemDataBase_ItemDefinitions_591;
-		public string _ItemDataBase_ItemDefinitions_591 = "If equipped in other slots, increases strength by ";
-		public static string ItemDataBase_ItemDefinitions_592 => instance._ItemDataBase_ItemDefinitions_592;
-		public string _ItemDataBase_ItemDefinitions_592 = "If equipped on a weapon, increases magic damage by ";
-		public static string ItemDataBase_ItemDefinitions_593 => instance._ItemDataBase_ItemDefinitions_593;
-		public string _ItemDataBase_ItemDefinitions_593 = "If equipped on boots, decreases spell cost by ";
-		public static string ItemDataBase_ItemDefinitions_594 => instance._ItemDataBase_ItemDefinitions_594;
-		public string _ItemDataBase_ItemDefinitions_594 = "If equipped on a helmet, decreases spell cooldown by ";
-		public static string ItemDataBase_ItemDefinitions_595 => instance._ItemDataBase_ItemDefinitions_595;
-		public string _ItemDataBase_ItemDefinitions_595 = "If equipped on accessories, increases energy on hit by ";
-		public static string ItemDataBase_ItemDefinitions_596 => instance._ItemDataBase_ItemDefinitions_596;
-		public string _ItemDataBase_ItemDefinitions_596 = "If equipped in other slots, increases intelligence by ";
-		public static string ItemDataBase_ItemDefinitions_597 => instance._ItemDataBase_ItemDefinitions_597;
-		public string _ItemDataBase_ItemDefinitions_597 = "If equipped on a weapon, increases all healing by ";
-		public static string ItemDataBase_ItemDefinitions_598 => instance._ItemDataBase_ItemDefinitions_598;
-		public string _ItemDataBase_ItemDefinitions_598 = "If equipped on boots, increases magic find by ";
-		public static string ItemDataBase_ItemDefinitions_599 => instance._ItemDataBase_ItemDefinitions_599;
-		public string _ItemDataBase_ItemDefinitions_599 = "If equipped on a helmet, increases experience gained by ";
-		public static string ItemDataBase_ItemDefinitions_600 => instance._ItemDataBase_ItemDefinitions_600;
-		public string _ItemDataBase_ItemDefinitions_600 = "If equipped on accessories, increases life per second by ";
-		public static string ItemDataBase_ItemDefinitions_601 => instance._ItemDataBase_ItemDefinitions_601;
-		public string _ItemDataBase_ItemDefinitions_601 = "If equipped in other slots, increases vitality by ";
-		public static string ItemDataBase_ItemDefinitions_602 => instance._ItemDataBase_ItemDefinitions_602;
-		public string _ItemDataBase_ItemDefinitions_602 = "If equipped on a weapon, increases crit damage by ";
-		public static string ItemDataBase_ItemDefinitions_603 => instance._ItemDataBase_ItemDefinitions_603;
-		public string _ItemDataBase_ItemDefinitions_603 = "If equipped on boots, increases resistance to magic by ";
-		public static string ItemDataBase_ItemDefinitions_604 => instance._ItemDataBase_ItemDefinitions_604;
-		public string _ItemDataBase_ItemDefinitions_604 = "If equipped on a helmet, increases health by ";
-		public static string ItemDataBase_ItemDefinitions_605 => instance._ItemDataBase_ItemDefinitions_605;
-		public string _ItemDataBase_ItemDefinitions_605 = "If equipped on accessories, increases thorns by ";
-		public static string ItemDataBase_ItemDefinitions_606 => instance._ItemDataBase_ItemDefinitions_606;
-		public string _ItemDataBase_ItemDefinitions_606 = "If equipped in other slots, increases armor by ";
-		public static string ItemDataBase_ItemDefinitions_607 => instance._ItemDataBase_ItemDefinitions_607;
-		public string _ItemDataBase_ItemDefinitions_607 = "Firebolt deals increased damage";
-		public static string ItemDataBase_ItemDefinitions_608 => instance._ItemDataBase_ItemDefinitions_608;
-		public string _ItemDataBase_ItemDefinitions_608 = "\nWarcry gives damage resistance.";
-		public static string ItemDataBase_ItemDefinitions_609 => instance._ItemDataBase_ItemDefinitions_609;
-		public string _ItemDataBase_ItemDefinitions_609 = "Devil Dancers";
-		public static string ItemDataBase_ItemDefinitions_610 => instance._ItemDataBase_ItemDefinitions_610;
-		public string _ItemDataBase_ItemDefinitions_610 = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 3% attack speed per frenzy stack active.";
-		public static string ItemDataBase_ItemDefinitions_611 => instance._ItemDataBase_ItemDefinitions_611;
-		public string _ItemDataBase_ItemDefinitions_611 = "Call of the Ancients";
-		public static string ItemDataBase_ItemDefinitions_612(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_612, objects);
-		public string _ItemDataBase_ItemDefinitions_612 = "Berserk increases all damage by additional <color=gold>{0}</color>";
-		public static string ItemDataBase_ItemDefinitions_613 => instance._ItemDataBase_ItemDefinitions_613;
-		public string _ItemDataBase_ItemDefinitions_613 = "Berserker's Wrath";
-		public static string ItemDataBase_ItemDefinitions_614 => instance._ItemDataBase_ItemDefinitions_614;
-		public string _ItemDataBase_ItemDefinitions_614 = "Viking Amulet";
-		public static string ItemDataBase_ItemDefinitions_615(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_615, objects);
-		public string _ItemDataBase_ItemDefinitions_615 = "Increases attack and movement speed during berserk by <color=gold>{0}</color>";
-		public static string ItemDataBase_ItemDefinitions_616 => instance._ItemDataBase_ItemDefinitions_616;
-		public string _ItemDataBase_ItemDefinitions_616 = "Pedant of Skallagrim";
-		public static string ItemDataBase_ItemDefinitions_617 => instance._ItemDataBase_ItemDefinitions_617;
-		public string _ItemDataBase_ItemDefinitions_617 = "Wristguards of The Sanctuary Keeper";
-		public static string ItemDataBase_ItemDefinitions_618(params object[] objects) => string.Format(instance._ItemDataBase_ItemDefinitions_618, objects);
-		public string _ItemDataBase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
+		//ItemDatabase_ItemDefinitions
+		public static string ItemDatabase_ItemDefinitions_1 => instance._ItemDatabase_ItemDefinitions_1;
+		public string _ItemDatabase_ItemDefinitions_1 = "Broken Flip-Flops";
+		public static string ItemDatabase_ItemDefinitions_2 => instance._ItemDatabase_ItemDefinitions_2;
+		public string _ItemDatabase_ItemDefinitions_2 = "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner.";
+		public static string ItemDatabase_ItemDefinitions_3 => instance._ItemDatabase_ItemDefinitions_3;
+		public string _ItemDatabase_ItemDefinitions_3 = "Worn by one of the passengers of the plane that Eric also flew in.";
+		public static string ItemDatabase_ItemDefinitions_4 => instance._ItemDatabase_ItemDefinitions_4;
+		public string _ItemDatabase_ItemDefinitions_4 = "Old Boots";
+		public static string ItemDatabase_ItemDefinitions_5 => instance._ItemDatabase_ItemDefinitions_5;
+		public string _ItemDatabase_ItemDefinitions_5 = "A pair of old boots. They must have been lying here for ages.";
+		public static string ItemDatabase_ItemDefinitions_6 => instance._ItemDatabase_ItemDefinitions_6;
+		public string _ItemDatabase_ItemDefinitions_6 = "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal.";
+		public static string ItemDatabase_ItemDefinitions_7 => instance._ItemDatabase_ItemDefinitions_7;
+		public string _ItemDatabase_ItemDefinitions_7 = "Damaged Leather Boots";
+		public static string ItemDatabase_ItemDefinitions_8 => instance._ItemDatabase_ItemDefinitions_8;
+		public string _ItemDatabase_ItemDefinitions_8 = "A pair of leather boots. They look good and have only some scratches.";
+		public static string ItemDatabase_ItemDefinitions_9 => instance._ItemDatabase_ItemDefinitions_9;
+		public string _ItemDatabase_ItemDefinitions_9 = "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage.";
+		public static string ItemDatabase_ItemDefinitions_10 => instance._ItemDatabase_ItemDefinitions_10;
+		public string _ItemDatabase_ItemDefinitions_10 = "Sturdy Leather Boots";
+		public static string ItemDatabase_ItemDefinitions_11 => instance._ItemDatabase_ItemDefinitions_11;
+		public string _ItemDatabase_ItemDefinitions_11 = "A pair of leather boots. They are in a very good condition.";
+		public static string ItemDatabase_ItemDefinitions_12 => instance._ItemDatabase_ItemDefinitions_12;
+		public string _ItemDatabase_ItemDefinitions_12 = "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99.";
+		public static string ItemDatabase_ItemDefinitions_13 => instance._ItemDatabase_ItemDefinitions_13;
+		public string _ItemDatabase_ItemDefinitions_13 = "Damaged Army Boots";
+		public static string ItemDatabase_ItemDefinitions_14 => instance._ItemDatabase_ItemDefinitions_14;
+		public string _ItemDatabase_ItemDefinitions_14 = "Sturdy, hard, resistant but damaged boots.";
+		public static string ItemDatabase_ItemDefinitions_15 => instance._ItemDatabase_ItemDefinitions_15;
+		public string _ItemDatabase_ItemDefinitions_15 = "They look modern, almost too modern for everything here.";
+		public static string ItemDatabase_ItemDefinitions_16 => instance._ItemDatabase_ItemDefinitions_16;
+		public string _ItemDatabase_ItemDefinitions_16 = "Army Boots";
+		public static string ItemDatabase_ItemDefinitions_17 => instance._ItemDatabase_ItemDefinitions_17;
+		public string _ItemDatabase_ItemDefinitions_17 = "Sturdy, hard, resistant boots.";
+		public static string ItemDatabase_ItemDefinitions_18 => instance._ItemDatabase_ItemDefinitions_18;
+		public string _ItemDatabase_ItemDefinitions_18 = "Armsy Skin Footwear";
+		public static string ItemDatabase_ItemDefinitions_19 => instance._ItemDatabase_ItemDefinitions_19;
+		public string _ItemDatabase_ItemDefinitions_19 = "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin.";
+		public static string ItemDatabase_ItemDefinitions_20 => instance._ItemDatabase_ItemDefinitions_20;
+		public string _ItemDatabase_ItemDefinitions_20 = "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue.";
+		public static string ItemDatabase_ItemDefinitions_21 => instance._ItemDatabase_ItemDefinitions_21;
+		public string _ItemDatabase_ItemDefinitions_21 = "Finger Warmer";
+		public static string ItemDatabase_ItemDefinitions_22 => instance._ItemDatabase_ItemDefinitions_22;
+		public string _ItemDatabase_ItemDefinitions_22 = "A little glove to keep your fingers warm and cozy.";
+		public static string ItemDatabase_ItemDefinitions_23 => instance._ItemDatabase_ItemDefinitions_23;
+		public string _ItemDatabase_ItemDefinitions_23 = "Made of wool.";
+		public static string ItemDatabase_ItemDefinitions_24 => instance._ItemDatabase_ItemDefinitions_24;
+		public string _ItemDatabase_ItemDefinitions_24 = "Thick Rubber Glove";
+		public static string ItemDatabase_ItemDefinitions_25 => instance._ItemDatabase_ItemDefinitions_25;
+		public string _ItemDatabase_ItemDefinitions_25 = "A glove that helps get a better grip.";
+		public static string ItemDatabase_ItemDefinitions_26 => instance._ItemDatabase_ItemDefinitions_26;
+		public string _ItemDatabase_ItemDefinitions_26 = "Tribal Glove";
+		public static string ItemDatabase_ItemDefinitions_27 => instance._ItemDatabase_ItemDefinitions_27;
+		public string _ItemDatabase_ItemDefinitions_27 = "Offers medicore protection.";
+		public static string ItemDatabase_ItemDefinitions_28 => instance._ItemDatabase_ItemDefinitions_28;
+		public string _ItemDatabase_ItemDefinitions_28 = "Glove made out of thin bones, some may possibly be from a human.";
+		public static string ItemDatabase_ItemDefinitions_29 => instance._ItemDatabase_ItemDefinitions_29;
+		public string _ItemDatabase_ItemDefinitions_29 = "Tribe Leader Glove";
+		public static string ItemDatabase_ItemDefinitions_30 => instance._ItemDatabase_ItemDefinitions_30;
+		public string _ItemDatabase_ItemDefinitions_30 = "A glove that offers little protection but a lot of offensive stats.";
+		public static string ItemDatabase_ItemDefinitions_31 => instance._ItemDatabase_ItemDefinitions_31;
+		public string _ItemDatabase_ItemDefinitions_31 = "A glove made of bones, some have engravings of crosses.";
+		public static string ItemDatabase_ItemDefinitions_32 => instance._ItemDatabase_ItemDefinitions_32;
+		public string _ItemDatabase_ItemDefinitions_32 = "Worn Shorts";
+		public static string ItemDatabase_ItemDefinitions_33 => instance._ItemDatabase_ItemDefinitions_33;
+		public string _ItemDatabase_ItemDefinitions_33 = "Some protection for legs.";
+		public static string ItemDatabase_ItemDefinitions_34 => instance._ItemDatabase_ItemDefinitions_34;
+		public string _ItemDatabase_ItemDefinitions_34 = "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing.";
+		public static string ItemDatabase_ItemDefinitions_35 => instance._ItemDatabase_ItemDefinitions_35;
+		public string _ItemDatabase_ItemDefinitions_35 = "Cargo Shorts";
+		public static string ItemDatabase_ItemDefinitions_36 => instance._ItemDatabase_ItemDefinitions_36;
+		public string _ItemDatabase_ItemDefinitions_36 = "No protection at all but they allow to carry more items.";
+		public static string ItemDatabase_ItemDefinitions_37 => instance._ItemDatabase_ItemDefinitions_37;
+		public string _ItemDatabase_ItemDefinitions_37 = "They are ugly as hell tho";
+		public static string ItemDatabase_ItemDefinitions_38 => instance._ItemDatabase_ItemDefinitions_38;
+		public string _ItemDatabase_ItemDefinitions_38 = "Passenger's Jacket";
+		public static string ItemDatabase_ItemDefinitions_39 => instance._ItemDatabase_ItemDefinitions_39;
+		public string _ItemDatabase_ItemDefinitions_39 = "It's a little torn. ";
+		public static string ItemDatabase_ItemDefinitions_40 => instance._ItemDatabase_ItemDefinitions_40;
+		public string _ItemDatabase_ItemDefinitions_40 = "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead.";
+		public static string ItemDatabase_ItemDefinitions_41 => instance._ItemDatabase_ItemDefinitions_41;
+		public string _ItemDatabase_ItemDefinitions_41 = "Leather Jacket";
+		public static string ItemDatabase_ItemDefinitions_42 => instance._ItemDatabase_ItemDefinitions_42;
+		public string _ItemDatabase_ItemDefinitions_42 = "Offers little protection";
+		public static string ItemDatabase_ItemDefinitions_43 => instance._ItemDatabase_ItemDefinitions_43;
+		public string _ItemDatabase_ItemDefinitions_43 = "This jacket was in a baggage of one of the plane passengers";
+		public static string ItemDatabase_ItemDefinitions_44 => instance._ItemDatabase_ItemDefinitions_44;
+		public string _ItemDatabase_ItemDefinitions_44 = "Boar Skin Armor";
+		public static string ItemDatabase_ItemDefinitions_45 => instance._ItemDatabase_ItemDefinitions_45;
+		public string _ItemDatabase_ItemDefinitions_45 = "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies.";
+		public static string ItemDatabase_ItemDefinitions_46 => instance._ItemDatabase_ItemDefinitions_46;
+		public string _ItemDatabase_ItemDefinitions_46 = "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable.";
+		public static string ItemDatabase_ItemDefinitions_47 => instance._ItemDatabase_ItemDefinitions_47;
+		public string _ItemDatabase_ItemDefinitions_47 = "Crocodile Skin Armor";
+		public static string ItemDatabase_ItemDefinitions_48 => instance._ItemDatabase_ItemDefinitions_48;
+		public string _ItemDatabase_ItemDefinitions_48 = "Plate armour";
+		public static string ItemDatabase_ItemDefinitions_49 => instance._ItemDatabase_ItemDefinitions_49;
+		public string _ItemDatabase_ItemDefinitions_49 = "Bear Skin Armor";
+		public static string ItemDatabase_ItemDefinitions_50 => instance._ItemDatabase_ItemDefinitions_50;
+		public string _ItemDatabase_ItemDefinitions_50 = "Archer's Gear";
+		public static string ItemDatabase_ItemDefinitions_51 => instance._ItemDatabase_ItemDefinitions_51;
+		public string _ItemDatabase_ItemDefinitions_51 = "Hazard's Gear";
+		public static string ItemDatabase_ItemDefinitions_52 => instance._ItemDatabase_ItemDefinitions_52;
+		public string _ItemDatabase_ItemDefinitions_52 = "Mysterious robe";
+		public static string ItemDatabase_ItemDefinitions_53 => instance._ItemDatabase_ItemDefinitions_53;
+		public string _ItemDatabase_ItemDefinitions_53 = "Magic flows through the entirety of this object. It's made out of unknown material";
+		public static string ItemDatabase_ItemDefinitions_54 => instance._ItemDatabase_ItemDefinitions_54;
+		public string _ItemDatabase_ItemDefinitions_54 = "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine.";
+		public static string ItemDatabase_ItemDefinitions_55 => instance._ItemDatabase_ItemDefinitions_55;
+		public string _ItemDatabase_ItemDefinitions_55 = "Empowers cataclysm. The vortex turns blue, damage is increased, freezes enemies ";
+		public static string ItemDatabase_ItemDefinitions_56 => instance._ItemDatabase_ItemDefinitions_56;
+		public string _ItemDatabase_ItemDefinitions_56 = "Rusty Longsword";
+		public static string ItemDatabase_ItemDefinitions_57 => instance._ItemDatabase_ItemDefinitions_57;
+		public string _ItemDatabase_ItemDefinitions_57 = "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half.";
+		public static string ItemDatabase_ItemDefinitions_58 => instance._ItemDatabase_ItemDefinitions_58;
+		public string _ItemDatabase_ItemDefinitions_58 = "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration.";
+		public static string ItemDatabase_ItemDefinitions_59 => instance._ItemDatabase_ItemDefinitions_59;
+		public string _ItemDatabase_ItemDefinitions_59 = "Longsword";
+		public static string ItemDatabase_ItemDefinitions_60 => instance._ItemDatabase_ItemDefinitions_60;
+		public string _ItemDatabase_ItemDefinitions_60 = "Sharp and long";
+		public static string ItemDatabase_ItemDefinitions_61 => instance._ItemDatabase_ItemDefinitions_61;
+		public string _ItemDatabase_ItemDefinitions_61 = "The sword is in perfect contidion.";
+		public static string ItemDatabase_ItemDefinitions_62 => instance._ItemDatabase_ItemDefinitions_62;
+		public string _ItemDatabase_ItemDefinitions_62 = "Full Metal Sword";
+		public static string ItemDatabase_ItemDefinitions_63 => instance._ItemDatabase_ItemDefinitions_63;
+		public string _ItemDatabase_ItemDefinitions_63 = "It's sooo big...";
+		public static string ItemDatabase_ItemDefinitions_64 => instance._ItemDatabase_ItemDefinitions_64;
+		public string _ItemDatabase_ItemDefinitions_64 = "A normal human cannot lift this.";
+		public static string ItemDatabase_ItemDefinitions_65 => instance._ItemDatabase_ItemDefinitions_65;
+		public string _ItemDatabase_ItemDefinitions_65 = "The Leech";
+		public static string ItemDatabase_ItemDefinitions_66 => instance._ItemDatabase_ItemDefinitions_66;
+		public string _ItemDatabase_ItemDefinitions_66 = "Hey where did my health g- oh it's back...";
+		public static string ItemDatabase_ItemDefinitions_67 => instance._ItemDatabase_ItemDefinitions_67;
+		public string _ItemDatabase_ItemDefinitions_67 = "Smokey's Sacred Quiver";
+		public static string ItemDatabase_ItemDefinitions_68 => instance._ItemDatabase_ItemDefinitions_68;
+		public string _ItemDatabase_ItemDefinitions_68 = "SmokeyTheBear died because he never used this item.";
+		public static string ItemDatabase_ItemDefinitions_69 => instance._ItemDatabase_ItemDefinitions_69;
+		public string _ItemDatabase_ItemDefinitions_69 = "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants.";
+		public static string ItemDatabase_ItemDefinitions_70(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_70, objects);
+		public string _ItemDatabase_ItemDefinitions_70 = "Crossbows operate at <color=gold>{0}</color> speed and deal <color=gold>{1}</color> increased damage";
+		public static string ItemDatabase_ItemDefinitions_71 => instance._ItemDatabase_ItemDefinitions_71;
+		public string _ItemDatabase_ItemDefinitions_71 = "Broken shield";
+		public static string ItemDatabase_ItemDefinitions_72 => instance._ItemDatabase_ItemDefinitions_72;
+		public string _ItemDatabase_ItemDefinitions_72 = "Tower Shield";
+		public static string ItemDatabase_ItemDefinitions_73 => instance._ItemDatabase_ItemDefinitions_73;
+		public string _ItemDatabase_ItemDefinitions_73 = "Broken Leather Shoulder Armor";
+		public static string ItemDatabase_ItemDefinitions_74 => instance._ItemDatabase_ItemDefinitions_74;
+		public string _ItemDatabase_ItemDefinitions_74 = "Leather Shoulder Armor";
+		public static string ItemDatabase_ItemDefinitions_75 => instance._ItemDatabase_ItemDefinitions_75;
+		public string _ItemDatabase_ItemDefinitions_75 = "Phase Pauldrons";
+		public static string ItemDatabase_ItemDefinitions_76 => instance._ItemDatabase_ItemDefinitions_76;
+		public string _ItemDatabase_ItemDefinitions_76 = "The distance of blink is increased by <color=gold>{}</color> meters, and blink now hits everything that you teleported through";
+		public static string ItemDatabase_ItemDefinitions_77 => instance._ItemDatabase_ItemDefinitions_77;
+		public string _ItemDatabase_ItemDefinitions_77 = "MAGA Cap";
+		public static string ItemDatabase_ItemDefinitions_78 => instance._ItemDatabase_ItemDefinitions_78;
+		public string _ItemDatabase_ItemDefinitions_78 = "Wearing this item channels the power of D.Trump to you";
+		public static string ItemDatabase_ItemDefinitions_79 => instance._ItemDatabase_ItemDefinitions_79;
+		public string _ItemDatabase_ItemDefinitions_79 = "... or does it?";
+		public static string ItemDatabase_ItemDefinitions_80 => instance._ItemDatabase_ItemDefinitions_80;
+		public string _ItemDatabase_ItemDefinitions_80 = "Hubble's Vision";
+		public static string ItemDatabase_ItemDefinitions_81 => instance._ItemDatabase_ItemDefinitions_81;
+		public string _ItemDatabase_ItemDefinitions_81 = "Wearing this item empowers your black hole spell";
+		public static string ItemDatabase_ItemDefinitions_82 => instance._ItemDatabase_ItemDefinitions_82;
+		public string _ItemDatabase_ItemDefinitions_82 = "Man, fuck gravity.";
+		public static string ItemDatabase_ItemDefinitions_83 => instance._ItemDatabase_ItemDefinitions_83;
+		public string _ItemDatabase_ItemDefinitions_83 = "Broken Loop";
+		public static string ItemDatabase_ItemDefinitions_84 => instance._ItemDatabase_ItemDefinitions_84;
+		public string _ItemDatabase_ItemDefinitions_84 = "Loop";
+		public static string ItemDatabase_ItemDefinitions_85 => instance._ItemDatabase_ItemDefinitions_85;
+		public string _ItemDatabase_ItemDefinitions_85 = "Toxic Ring";
+		public static string ItemDatabase_ItemDefinitions_86 => instance._ItemDatabase_ItemDefinitions_86;
+		public string _ItemDatabase_ItemDefinitions_86 = " comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
+		public static string ItemDatabase_ItemDefinitions_87 => instance._ItemDatabase_ItemDefinitions_87;
+		public string _ItemDatabase_ItemDefinitions_87 = "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.";
+		public static string ItemDatabase_ItemDefinitions_88 => instance._ItemDatabase_ItemDefinitions_88;
+		public string _ItemDatabase_ItemDefinitions_88 = "Scarf";
+		public static string ItemDatabase_ItemDefinitions_89 => instance._ItemDatabase_ItemDefinitions_89;
+		public string _ItemDatabase_ItemDefinitions_89 = "Damaged Bracer";
+		public static string ItemDatabase_ItemDefinitions_90 => instance._ItemDatabase_ItemDefinitions_90;
+		public string _ItemDatabase_ItemDefinitions_90 = "Worn Bracer";
+		public static string ItemDatabase_ItemDefinitions_91 => instance._ItemDatabase_ItemDefinitions_91;
+		public string _ItemDatabase_ItemDefinitions_91 = "Leather Bracer";
+		public static string ItemDatabase_ItemDefinitions_92 => instance._ItemDatabase_ItemDefinitions_92;
+		public string _ItemDatabase_ItemDefinitions_92 = "Greater Mutated Heart";
+		public static string ItemDatabase_ItemDefinitions_93 => instance._ItemDatabase_ItemDefinitions_93;
+		public string _ItemDatabase_ItemDefinitions_93 = "Can be consumed by right clicking it";
+		public static string ItemDatabase_ItemDefinitions_94 => instance._ItemDatabase_ItemDefinitions_94;
+		public string _ItemDatabase_ItemDefinitions_94 = "Lesser Mutated Heart";
+		public static string ItemDatabase_ItemDefinitions_95 => instance._ItemDatabase_ItemDefinitions_95;
+		public string _ItemDatabase_ItemDefinitions_95 = "Spiked ring";
+		public static string ItemDatabase_ItemDefinitions_96 => instance._ItemDatabase_ItemDefinitions_96;
+		public string _ItemDatabase_ItemDefinitions_96 = "Armor piercing for either melee or ranged weapons";
+		public static string ItemDatabase_ItemDefinitions_97 => instance._ItemDatabase_ItemDefinitions_97;
+		public string _ItemDatabase_ItemDefinitions_97 = "Piercer";
+		public static string ItemDatabase_ItemDefinitions_98 => instance._ItemDatabase_ItemDefinitions_98;
+		public string _ItemDatabase_ItemDefinitions_98 = "Moon Boots";
+		public static string ItemDatabase_ItemDefinitions_99 => instance._ItemDatabase_ItemDefinitions_99;
+		public string _ItemDatabase_ItemDefinitions_99 = "A pair of boots from the moon.";
+		public static string ItemDatabase_ItemDefinitions_100 => instance._ItemDatabase_ItemDefinitions_100;
+		public string _ItemDatabase_ItemDefinitions_100 = "It is said that the wearer will not take fall damage while wearing these boots and will jump like on the moon, I wouldn't trust it tough.";
+		public static string ItemDatabase_ItemDefinitions_101 => instance._ItemDatabase_ItemDefinitions_101;
+		public string _ItemDatabase_ItemDefinitions_101 = "Golden Ring of Strength";
+		public static string ItemDatabase_ItemDefinitions_102 => instance._ItemDatabase_ItemDefinitions_102;
+		public string _ItemDatabase_ItemDefinitions_102 = "A Ring of ancient times.";
+		public static string ItemDatabase_ItemDefinitions_103 => instance._ItemDatabase_ItemDefinitions_103;
+		public string _ItemDatabase_ItemDefinitions_103 = "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_104 => instance._ItemDatabase_ItemDefinitions_104;
+		public string _ItemDatabase_ItemDefinitions_104 = "Golden Ring of Vitality";
+		public static string ItemDatabase_ItemDefinitions_105 => instance._ItemDatabase_ItemDefinitions_105;
+		public string _ItemDatabase_ItemDefinitions_105 = "Golden Ring of Agility";
+		public static string ItemDatabase_ItemDefinitions_106 => instance._ItemDatabase_ItemDefinitions_106;
+		public string _ItemDatabase_ItemDefinitions_106 = "Golden Ring of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_107 => instance._ItemDatabase_ItemDefinitions_107;
+		public string _ItemDatabase_ItemDefinitions_107 = "Silver Ring of Strength";
+		public static string ItemDatabase_ItemDefinitions_108 => instance._ItemDatabase_ItemDefinitions_108;
+		public string _ItemDatabase_ItemDefinitions_108 = "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_109 => instance._ItemDatabase_ItemDefinitions_109;
+		public string _ItemDatabase_ItemDefinitions_109 = "Silver Ring of Vitality";
+		public static string ItemDatabase_ItemDefinitions_110 => instance._ItemDatabase_ItemDefinitions_110;
+		public string _ItemDatabase_ItemDefinitions_110 = "Silver Ring of Agility";
+		public static string ItemDatabase_ItemDefinitions_111 => instance._ItemDatabase_ItemDefinitions_111;
+		public string _ItemDatabase_ItemDefinitions_111 = "Silver Ring of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_112 => instance._ItemDatabase_ItemDefinitions_112;
+		public string _ItemDatabase_ItemDefinitions_112 = "Steel Ring of Strength";
+		public static string ItemDatabase_ItemDefinitions_113 => instance._ItemDatabase_ItemDefinitions_113;
+		public string _ItemDatabase_ItemDefinitions_113 = "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_114 => instance._ItemDatabase_ItemDefinitions_114;
+		public string _ItemDatabase_ItemDefinitions_114 = "Steel Ring of Vitality";
+		public static string ItemDatabase_ItemDefinitions_115 => instance._ItemDatabase_ItemDefinitions_115;
+		public string _ItemDatabase_ItemDefinitions_115 = "Steel Ring of Agility";
+		public static string ItemDatabase_ItemDefinitions_116 => instance._ItemDatabase_ItemDefinitions_116;
+		public string _ItemDatabase_ItemDefinitions_116 = "Steel Ring of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_117 => instance._ItemDatabase_ItemDefinitions_117;
+		public string _ItemDatabase_ItemDefinitions_117 = "The One Ring To Rule Them All";
+		public static string ItemDatabase_ItemDefinitions_118 => instance._ItemDatabase_ItemDefinitions_118;
+		public string _ItemDatabase_ItemDefinitions_118 = "An Ancient magical Ring of great power.";
+		public static string ItemDatabase_ItemDefinitions_119 => instance._ItemDatabase_ItemDefinitions_119;
+		public string _ItemDatabase_ItemDefinitions_119 = "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?";
+		public static string ItemDatabase_ItemDefinitions_120 => instance._ItemDatabase_ItemDefinitions_120;
+		public string _ItemDatabase_ItemDefinitions_120 = "Attracts unwanted attention of an unknown entity.";
+		public static string ItemDatabase_ItemDefinitions_121 => instance._ItemDatabase_ItemDefinitions_121;
+		public string _ItemDatabase_ItemDefinitions_121 = "Golden Locket of Strength";
+		public static string ItemDatabase_ItemDefinitions_122 => instance._ItemDatabase_ItemDefinitions_122;
+		public string _ItemDatabase_ItemDefinitions_122 = "A Locket of ancient times.";
+		public static string ItemDatabase_ItemDefinitions_123 => instance._ItemDatabase_ItemDefinitions_123;
+		public string _ItemDatabase_ItemDefinitions_123 = "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_124 => instance._ItemDatabase_ItemDefinitions_124;
+		public string _ItemDatabase_ItemDefinitions_124 = "Golden Locket of Vitality";
+		public static string ItemDatabase_ItemDefinitions_125 => instance._ItemDatabase_ItemDefinitions_125;
+		public string _ItemDatabase_ItemDefinitions_125 = "Golden Locket of Agility";
+		public static string ItemDatabase_ItemDefinitions_126 => instance._ItemDatabase_ItemDefinitions_126;
+		public string _ItemDatabase_ItemDefinitions_126 = "Golden Locket of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_127 => instance._ItemDatabase_ItemDefinitions_127;
+		public string _ItemDatabase_ItemDefinitions_127 = "Silver Locket of Strength";
+		public static string ItemDatabase_ItemDefinitions_128 => instance._ItemDatabase_ItemDefinitions_128;
+		public string _ItemDatabase_ItemDefinitions_128 = "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_129 => instance._ItemDatabase_ItemDefinitions_129;
+		public string _ItemDatabase_ItemDefinitions_129 = "Silver Locket of Vitality";
+		public static string ItemDatabase_ItemDefinitions_130 => instance._ItemDatabase_ItemDefinitions_130;
+		public string _ItemDatabase_ItemDefinitions_130 = "Silver Locket of Agility";
+		public static string ItemDatabase_ItemDefinitions_131 => instance._ItemDatabase_ItemDefinitions_131;
+		public string _ItemDatabase_ItemDefinitions_131 = "Silver Locket of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_132 => instance._ItemDatabase_ItemDefinitions_132;
+		public string _ItemDatabase_ItemDefinitions_132 = "Emerald Pendant of Strength";
+		public static string ItemDatabase_ItemDefinitions_133 => instance._ItemDatabase_ItemDefinitions_133;
+		public string _ItemDatabase_ItemDefinitions_133 = "A Pendant of ancient times.";
+		public static string ItemDatabase_ItemDefinitions_134 => instance._ItemDatabase_ItemDefinitions_134;
+		public string _ItemDatabase_ItemDefinitions_134 = "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_135 => instance._ItemDatabase_ItemDefinitions_135;
+		public string _ItemDatabase_ItemDefinitions_135 = "Emerald Pendant of Vitality";
+		public static string ItemDatabase_ItemDefinitions_136 => instance._ItemDatabase_ItemDefinitions_136;
+		public string _ItemDatabase_ItemDefinitions_136 = "Emerald Pendant of Agility";
+		public static string ItemDatabase_ItemDefinitions_137 => instance._ItemDatabase_ItemDefinitions_137;
+		public string _ItemDatabase_ItemDefinitions_137 = "Emerald Pendant of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_138 => instance._ItemDatabase_ItemDefinitions_138;
+		public string _ItemDatabase_ItemDefinitions_138 = "Diamond Pendant of Strength";
+		public static string ItemDatabase_ItemDefinitions_139 => instance._ItemDatabase_ItemDefinitions_139;
+		public string _ItemDatabase_ItemDefinitions_139 = "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch.";
+		public static string ItemDatabase_ItemDefinitions_140 => instance._ItemDatabase_ItemDefinitions_140;
+		public string _ItemDatabase_ItemDefinitions_140 = "Diamond Pendant of Vitality";
+		public static string ItemDatabase_ItemDefinitions_141 => instance._ItemDatabase_ItemDefinitions_141;
+		public string _ItemDatabase_ItemDefinitions_141 = "Diamond Pendant of Agility";
+		public static string ItemDatabase_ItemDefinitions_142 => instance._ItemDatabase_ItemDefinitions_142;
+		public string _ItemDatabase_ItemDefinitions_142 = "Diamond Pendant of Intelligence";
+		public static string ItemDatabase_ItemDefinitions_143 => instance._ItemDatabase_ItemDefinitions_143;
+		public string _ItemDatabase_ItemDefinitions_143 = "Armsy Finger Necklace";
+		public static string ItemDatabase_ItemDefinitions_144 => instance._ItemDatabase_ItemDefinitions_144;
+		public string _ItemDatabase_ItemDefinitions_144 = "A Necklace decorated with armsy fingertips.";
+		public static string ItemDatabase_ItemDefinitions_145 => instance._ItemDatabase_ItemDefinitions_145;
+		public string _ItemDatabase_ItemDefinitions_145 = "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh.";
+		public static string ItemDatabase_ItemDefinitions_146 => instance._ItemDatabase_ItemDefinitions_146;
+		public string _ItemDatabase_ItemDefinitions_146 = "Virginia Heart Pendant";
+		public static string ItemDatabase_ItemDefinitions_147 => instance._ItemDatabase_ItemDefinitions_147;
+		public string _ItemDatabase_ItemDefinitions_147 = "A Pendant of a petrified Virginia heart.";
+		public static string ItemDatabase_ItemDefinitions_148 => instance._ItemDatabase_ItemDefinitions_148;
+		public string _ItemDatabase_ItemDefinitions_148 = "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality.";
+		public static string ItemDatabase_ItemDefinitions_149 => instance._ItemDatabase_ItemDefinitions_149;
+		public string _ItemDatabase_ItemDefinitions_149 = "Cowman Toe Necklace";
+		public static string ItemDatabase_ItemDefinitions_150 => instance._ItemDatabase_ItemDefinitions_150;
+		public string _ItemDatabase_ItemDefinitions_150 = "A Necklace decorated with cowman toes.";
+		public static string ItemDatabase_ItemDefinitions_151 => instance._ItemDatabase_ItemDefinitions_151;
+		public string _ItemDatabase_ItemDefinitions_151 = "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility.";
+		public static string ItemDatabase_ItemDefinitions_152 => instance._ItemDatabase_ItemDefinitions_152;
+		public string _ItemDatabase_ItemDefinitions_152 = "Pendant of Perpetual Rebirth";
+		public static string ItemDatabase_ItemDefinitions_153 => instance._ItemDatabase_ItemDefinitions_153;
+		public string _ItemDatabase_ItemDefinitions_153 = "A Pendant of a shrunken babyhead.";
+		public static string ItemDatabase_ItemDefinitions_154 => instance._ItemDatabase_ItemDefinitions_154;
+		public string _ItemDatabase_ItemDefinitions_154 = "A pedant of great power. Obtainable only from babies or crafting";
+		public static string ItemDatabase_ItemDefinitions_155(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_155, objects);
+		public string _ItemDatabase_ItemDefinitions_155 = "decrease a random cooldown by {0} second whenever you hit something with melee or ranged attack.";
+		public static string ItemDatabase_ItemDefinitions_156 => instance._ItemDatabase_ItemDefinitions_156;
+		public string _ItemDatabase_ItemDefinitions_156 = "Megan's Locket";
+		public static string ItemDatabase_ItemDefinitions_157 => instance._ItemDatabase_ItemDefinitions_157;
+		public string _ItemDatabase_ItemDefinitions_157 = "The Locket Megan wore.";
+		public static string ItemDatabase_ItemDefinitions_158 => instance._ItemDatabase_ItemDefinitions_158;
+		public string _ItemDatabase_ItemDefinitions_158 = "Megan wore this Locket, it has a picture of her mom in it.";
+		public static string ItemDatabase_ItemDefinitions_159 => instance._ItemDatabase_ItemDefinitions_159;
+		public string _ItemDatabase_ItemDefinitions_159 = "Relic Hammer";
+		public static string ItemDatabase_ItemDefinitions_160 => instance._ItemDatabase_ItemDefinitions_160;
+		public string _ItemDatabase_ItemDefinitions_160 = "It's slow and weak.";
+		public static string ItemDatabase_ItemDefinitions_161 => instance._ItemDatabase_ItemDefinitions_161;
+		public string _ItemDatabase_ItemDefinitions_161 = "Slows on hit";
+		public static string ItemDatabase_ItemDefinitions_162 => instance._ItemDatabase_ItemDefinitions_162;
+		public string _ItemDatabase_ItemDefinitions_162 = "Black Hammer";
+		public static string ItemDatabase_ItemDefinitions_163 => instance._ItemDatabase_ItemDefinitions_163;
+		public string _ItemDatabase_ItemDefinitions_163 = "It's slow but with enough strength i can make it a very deadly tool";
+		public static string ItemDatabase_ItemDefinitions_164 => instance._ItemDatabase_ItemDefinitions_164;
+		public string _ItemDatabase_ItemDefinitions_164 = "Potato Sack";
+		public static string ItemDatabase_ItemDefinitions_165 => instance._ItemDatabase_ItemDefinitions_165;
+		public string _ItemDatabase_ItemDefinitions_165 = "Can be used as a quiver";
+		public static string ItemDatabase_ItemDefinitions_166 => instance._ItemDatabase_ItemDefinitions_166;
+		public string _ItemDatabase_ItemDefinitions_166 = "Rabbit Skin Quiver";
+		public static string ItemDatabase_ItemDefinitions_167 => instance._ItemDatabase_ItemDefinitions_167;
+		public string _ItemDatabase_ItemDefinitions_167 = "Hollow Log";
+		public static string ItemDatabase_ItemDefinitions_168 => instance._ItemDatabase_ItemDefinitions_168;
+		public string _ItemDatabase_ItemDefinitions_168 = "It allows for faster drawing of arrow than a cloth quiver";
+		public static string ItemDatabase_ItemDefinitions_169 => instance._ItemDatabase_ItemDefinitions_169;
+		public string _ItemDatabase_ItemDefinitions_169 = "Spellbound Quiver";
+		public static string ItemDatabase_ItemDefinitions_170 => instance._ItemDatabase_ItemDefinitions_170;
+		public string _ItemDatabase_ItemDefinitions_170 = "Long Lost Quiver";
+		public static string ItemDatabase_ItemDefinitions_171 => instance._ItemDatabase_ItemDefinitions_171;
+		public string _ItemDatabase_ItemDefinitions_171 = "Spell Scroll";
+		public static string ItemDatabase_ItemDefinitions_172 => instance._ItemDatabase_ItemDefinitions_172;
+		public string _ItemDatabase_ItemDefinitions_172 = "Contains a lot of information on how to properly cast spells to achieve better results";
+		public static string ItemDatabase_ItemDefinitions_173 => instance._ItemDatabase_ItemDefinitions_173;
+		public string _ItemDatabase_ItemDefinitions_173 = "Cloth Pants";
+		public static string ItemDatabase_ItemDefinitions_174 => instance._ItemDatabase_ItemDefinitions_174;
+		public string _ItemDatabase_ItemDefinitions_174 = "Offer little protction";
+		public static string ItemDatabase_ItemDefinitions_175 => instance._ItemDatabase_ItemDefinitions_175;
+		public string _ItemDatabase_ItemDefinitions_175 = "Rough Hide Leggins";
+		public static string ItemDatabase_ItemDefinitions_176 => instance._ItemDatabase_ItemDefinitions_176;
+		public string _ItemDatabase_ItemDefinitions_176 = "Plate Leggins";
+		public static string ItemDatabase_ItemDefinitions_177 => instance._ItemDatabase_ItemDefinitions_177;
+		public string _ItemDatabase_ItemDefinitions_177 = "Sage's Robes";
+		public static string ItemDatabase_ItemDefinitions_178 => instance._ItemDatabase_ItemDefinitions_178;
+		public string _ItemDatabase_ItemDefinitions_178 = "Hammer Jammers";
+		public static string ItemDatabase_ItemDefinitions_179(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_179, objects);
+		public string _ItemDatabase_ItemDefinitions_179 = "Damage of your smash attack is increased by <color=gold>{0}</color>, hammer stun duration is doubled";
+		public static string ItemDatabase_ItemDefinitions_180 => instance._ItemDatabase_ItemDefinitions_180;
+		public string _ItemDatabase_ItemDefinitions_180 = "Pirate Pants";
+		public static string ItemDatabase_ItemDefinitions_181 => instance._ItemDatabase_ItemDefinitions_181;
+		public string _ItemDatabase_ItemDefinitions_181 = "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection.";
+		public static string ItemDatabase_ItemDefinitions_182 => instance._ItemDatabase_ItemDefinitions_182;
+		public string _ItemDatabase_ItemDefinitions_182 = "Hexed Pants of Mr M.";
+		public static string ItemDatabase_ItemDefinitions_183 => instance._ItemDatabase_ItemDefinitions_183;
+		public string _ItemDatabase_ItemDefinitions_183 = "They look like yoga pants but for a man the size of a wardrobe";
+		public static string ItemDatabase_ItemDefinitions_184 => instance._ItemDatabase_ItemDefinitions_184;
+		public string _ItemDatabase_ItemDefinitions_184 = "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise.";
+		public static string ItemDatabase_ItemDefinitions_185(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_185, objects);
+		public string _ItemDatabase_ItemDefinitions_185 = "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second.";
+		public static string ItemDatabase_ItemDefinitions_186 => instance._ItemDatabase_ItemDefinitions_186;
+		public string _ItemDatabase_ItemDefinitions_186 = "Leather Mantle";
+		public static string ItemDatabase_ItemDefinitions_187 => instance._ItemDatabase_ItemDefinitions_187;
+		public string _ItemDatabase_ItemDefinitions_187 = "A piece of cloth to give protection from ";
+		public static string ItemDatabase_ItemDefinitions_188 => instance._ItemDatabase_ItemDefinitions_188;
+		public string _ItemDatabase_ItemDefinitions_188 = "Shoulder Guards";
+		public static string ItemDatabase_ItemDefinitions_189 => instance._ItemDatabase_ItemDefinitions_189;
+		public string _ItemDatabase_ItemDefinitions_189 = "Medium armor piece.";
+		public static string ItemDatabase_ItemDefinitions_190 => instance._ItemDatabase_ItemDefinitions_190;
+		public string _ItemDatabase_ItemDefinitions_190 = "Heavy armor";
+		public static string ItemDatabase_ItemDefinitions_191 => instance._ItemDatabase_ItemDefinitions_191;
+		public string _ItemDatabase_ItemDefinitions_191 = "Heavy Shoulder Plates";
+		public static string ItemDatabase_ItemDefinitions_192 => instance._ItemDatabase_ItemDefinitions_192;
+		public string _ItemDatabase_ItemDefinitions_192 = "Heavy armor piece. They offer great protection at the cost of attack speed and movement speed decrease";
+		public static string ItemDatabase_ItemDefinitions_193 => instance._ItemDatabase_ItemDefinitions_193;
+		public string _ItemDatabase_ItemDefinitions_193 = "Etched Mantle";
+		public static string ItemDatabase_ItemDefinitions_194 => instance._ItemDatabase_ItemDefinitions_194;
+		public string _ItemDatabase_ItemDefinitions_194 = "Those pauldrons empower wearer's combat skill";
+		public static string ItemDatabase_ItemDefinitions_195 => instance._ItemDatabase_ItemDefinitions_195;
+		public string _ItemDatabase_ItemDefinitions_195 = "Assassins Pauldrons";
+		public static string ItemDatabase_ItemDefinitions_196 => instance._ItemDatabase_ItemDefinitions_196;
+		public string _ItemDatabase_ItemDefinitions_196 = "Death Pact";
+		public static string ItemDatabase_ItemDefinitions_197 => instance._ItemDatabase_ItemDefinitions_197;
+		public string _ItemDatabase_ItemDefinitions_197 = "Find the greatest strength on the border of life and death.";
+		public static string ItemDatabase_ItemDefinitions_198(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_198, objects);
+		public string _ItemDatabase_ItemDefinitions_198 = "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you.";
+		public static string ItemDatabase_ItemDefinitions_199 => instance._ItemDatabase_ItemDefinitions_199;
+		public string _ItemDatabase_ItemDefinitions_199 = "Maximale Qualitot";
+		public static string ItemDatabase_ItemDefinitions_200 => instance._ItemDatabase_ItemDefinitions_200;
+		public string _ItemDatabase_ItemDefinitions_200 = "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable.";
+		public static string ItemDatabase_ItemDefinitions_201 => instance._ItemDatabase_ItemDefinitions_201;
+		public string _ItemDatabase_ItemDefinitions_201 = "Heart of Purity";
+		public static string ItemDatabase_ItemDefinitions_202 => instance._ItemDatabase_ItemDefinitions_202;
+		public string _ItemDatabase_ItemDefinitions_202 = "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points";
+		public static string ItemDatabase_ItemDefinitions_203 => instance._ItemDatabase_ItemDefinitions_203;
+		public string _ItemDatabase_ItemDefinitions_203 = "This powerful relic contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth.";
+		public static string ItemDatabase_ItemDefinitions_204 => instance._ItemDatabase_ItemDefinitions_204;
+		public string _ItemDatabase_ItemDefinitions_204 = "Can be consumed by right clicking it. ";
+		public static string ItemDatabase_ItemDefinitions_205 => instance._ItemDatabase_ItemDefinitions_205;
+		public string _ItemDatabase_ItemDefinitions_205 = "Round Shield";
+		public static string ItemDatabase_ItemDefinitions_206 => instance._ItemDatabase_ItemDefinitions_206;
+		public string _ItemDatabase_ItemDefinitions_206 = "A sturdy shield made of wood and reinforced with iron.";
+		public static string ItemDatabase_ItemDefinitions_207 => instance._ItemDatabase_ItemDefinitions_207;
+		public string _ItemDatabase_ItemDefinitions_207 = "Old Buckler";
+		public static string ItemDatabase_ItemDefinitions_208 => instance._ItemDatabase_ItemDefinitions_208;
+		public string _ItemDatabase_ItemDefinitions_208 = "An old shield.";
+		public static string ItemDatabase_ItemDefinitions_209 => instance._ItemDatabase_ItemDefinitions_209;
+		public string _ItemDatabase_ItemDefinitions_209 = "This item has a lot of scratches that look like they were made by something with sharp claws.";
+		public static string ItemDatabase_ItemDefinitions_210 => instance._ItemDatabase_ItemDefinitions_210;
+		public string _ItemDatabase_ItemDefinitions_210 = "Dark Oak Shield";
+		public static string ItemDatabase_ItemDefinitions_211 => instance._ItemDatabase_ItemDefinitions_211;
+		public string _ItemDatabase_ItemDefinitions_211 = "Bone Shield";
+		public static string ItemDatabase_ItemDefinitions_212 => instance._ItemDatabase_ItemDefinitions_212;
+		public string _ItemDatabase_ItemDefinitions_212 = "A shield made of bones, held together by thick steel wire.";
+		public static string ItemDatabase_ItemDefinitions_213 => instance._ItemDatabase_ItemDefinitions_213;
+		public string _ItemDatabase_ItemDefinitions_213 = "Dull Longsword";
+		public static string ItemDatabase_ItemDefinitions_214 => instance._ItemDatabase_ItemDefinitions_214;
+		public string _ItemDatabase_ItemDefinitions_214 = "It's round on the edges";
+		public static string ItemDatabase_ItemDefinitions_215 => instance._ItemDatabase_ItemDefinitions_215;
+		public string _ItemDatabase_ItemDefinitions_215 = "Iron Horn";
+		public static string ItemDatabase_ItemDefinitions_216(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_216, objects);
+		public string _ItemDatabase_ItemDefinitions_216 = "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>{0}</color> of your armor";
+		public static string ItemDatabase_ItemDefinitions_217 => instance._ItemDatabase_ItemDefinitions_217;
+		public string _ItemDatabase_ItemDefinitions_217 = "The Great Iron Horn";
+		public static string ItemDatabase_ItemDefinitions_218 => instance._ItemDatabase_ItemDefinitions_218;
+		public string _ItemDatabase_ItemDefinitions_218 = "Horned Helmet";
+		public static string ItemDatabase_ItemDefinitions_219 => instance._ItemDatabase_ItemDefinitions_219;
+		public string _ItemDatabase_ItemDefinitions_219 = "A viking helmet";
+		public static string ItemDatabase_ItemDefinitions_220 => instance._ItemDatabase_ItemDefinitions_220;
+		public string _ItemDatabase_ItemDefinitions_220 = "Mask";
+		public static string ItemDatabase_ItemDefinitions_221 => instance._ItemDatabase_ItemDefinitions_221;
+		public string _ItemDatabase_ItemDefinitions_221 = "Mask of Madness";
+		public static string ItemDatabase_ItemDefinitions_222 => instance._ItemDatabase_ItemDefinitions_222;
+		public string _ItemDatabase_ItemDefinitions_222 = "Old Scroll";
+		public static string ItemDatabase_ItemDefinitions_223 => instance._ItemDatabase_ItemDefinitions_223;
+		public string _ItemDatabase_ItemDefinitions_223 = "Wormhole Stabilizators";
+		public static string ItemDatabase_ItemDefinitions_224 => instance._ItemDatabase_ItemDefinitions_224;
+		public string _ItemDatabase_ItemDefinitions_224 = "High-tech gear";
+		public static string ItemDatabase_ItemDefinitions_225 => instance._ItemDatabase_ItemDefinitions_225;
+		public string _ItemDatabase_ItemDefinitions_225 = "Hazard remember to put some fucking lore in here, don't leave it like this!";
+		public static string ItemDatabase_ItemDefinitions_226(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_226, objects);
+		public string _ItemDatabase_ItemDefinitions_226 = "Increases the duration of a portal by <color=gold>{0}</color> seconds";
+		public static string ItemDatabase_ItemDefinitions_227 => instance._ItemDatabase_ItemDefinitions_227;
+		public string _ItemDatabase_ItemDefinitions_227 = "Cripplers";
+		public static string ItemDatabase_ItemDefinitions_228(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_228, objects);
+		public string _ItemDatabase_ItemDefinitions_228 = "Increases the duration of a magic arrow's negative effect by <color=gold>{0}</color> seconds";
+		public static string ItemDatabase_ItemDefinitions_229 => instance._ItemDatabase_ItemDefinitions_229;
+		public string _ItemDatabase_ItemDefinitions_229 = "Crossfire";
+		public static string ItemDatabase_ItemDefinitions_230 => instance._ItemDatabase_ItemDefinitions_230;
+		public string _ItemDatabase_ItemDefinitions_230 = "Infused with powerful magic. This item is a dangerous tool of destruction.";
+		public static string ItemDatabase_ItemDefinitions_231 => instance._ItemDatabase_ItemDefinitions_231;
+		public string _ItemDatabase_ItemDefinitions_231 = "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <color=gold>2</color> seconds, but can be interval can be shortened with cooldown reduction.";
+		public static string ItemDatabase_ItemDefinitions_232 => instance._ItemDatabase_ItemDefinitions_232;
+		public string _ItemDatabase_ItemDefinitions_232 = "Scroll of Recovery";
+		public static string ItemDatabase_ItemDefinitions_233 => instance._ItemDatabase_ItemDefinitions_233;
+		public string _ItemDatabase_ItemDefinitions_233 = "Recovers health and stamina";
+		public static string ItemDatabase_ItemDefinitions_234 => instance._ItemDatabase_ItemDefinitions_234;
+		public string _ItemDatabase_ItemDefinitions_234 = "Tiara";
+		public static string ItemDatabase_ItemDefinitions_235 => instance._ItemDatabase_ItemDefinitions_235;
+		public string _ItemDatabase_ItemDefinitions_235 = "A beautiful tiara ";
+		public static string ItemDatabase_ItemDefinitions_236 => instance._ItemDatabase_ItemDefinitions_236;
+		public string _ItemDatabase_ItemDefinitions_236 = "This tiara may not provide much protection, but it sure is pretty";
+		public static string ItemDatabase_ItemDefinitions_237 => instance._ItemDatabase_ItemDefinitions_237;
+		public string _ItemDatabase_ItemDefinitions_237 = "Shiny";
+		public static string ItemDatabase_ItemDefinitions_238 => instance._ItemDatabase_ItemDefinitions_238;
+		public string _ItemDatabase_ItemDefinitions_238 = "Chastity belt";
+		public static string ItemDatabase_ItemDefinitions_239 => instance._ItemDatabase_ItemDefinitions_239;
+		public string _ItemDatabase_ItemDefinitions_239 = "Dodge those fukbois";
+		public static string ItemDatabase_ItemDefinitions_240 => instance._ItemDatabase_ItemDefinitions_240;
+		public string _ItemDatabase_ItemDefinitions_240 = "This belt will stop those cheeky cannibals and armsies from getting into your pants";
+		public static string ItemDatabase_ItemDefinitions_241(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_241, objects);
+		public string _ItemDatabase_ItemDefinitions_241 = " <color=gold>{0}</color> damage reduction while sleeping";
+		public static string ItemDatabase_ItemDefinitions_242 => instance._ItemDatabase_ItemDefinitions_242;
+		public string _ItemDatabase_ItemDefinitions_242 = "Ice Scroll";
+		public static string ItemDatabase_ItemDefinitions_243 => instance._ItemDatabase_ItemDefinitions_243;
+		public string _ItemDatabase_ItemDefinitions_243 = "A spell surrounded by flying shards of ice, contains tramendous power of cold.";
+		public static string ItemDatabase_ItemDefinitions_244 => instance._ItemDatabase_ItemDefinitions_244;
+		public string _ItemDatabase_ItemDefinitions_244 = "Created at the top of the mountain.";
+		public static string ItemDatabase_ItemDefinitions_245 => instance._ItemDatabase_ItemDefinitions_245;
+		public string _ItemDatabase_ItemDefinitions_245 = "Motorboat Modification Blueprints";
+		public static string ItemDatabase_ItemDefinitions_246 => instance._ItemDatabase_ItemDefinitions_246;
+		public string _ItemDatabase_ItemDefinitions_246 = "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts.";
+		public static string ItemDatabase_ItemDefinitions_247 => instance._ItemDatabase_ItemDefinitions_247;
+		public string _ItemDatabase_ItemDefinitions_247 = "Who did this lmao.";
+		public static string ItemDatabase_ItemDefinitions_248 => instance._ItemDatabase_ItemDefinitions_248;
+		public string _ItemDatabase_ItemDefinitions_248 = "Axe of Swiftness";
+		public static string ItemDatabase_ItemDefinitions_249 => instance._ItemDatabase_ItemDefinitions_249;
+		public string _ItemDatabase_ItemDefinitions_249 = "Severer";
+		public static string ItemDatabase_ItemDefinitions_250 => instance._ItemDatabase_ItemDefinitions_250;
+		public string _ItemDatabase_ItemDefinitions_250 = "Golden Axe of Fortune";
+		public static string ItemDatabase_ItemDefinitions_251 => instance._ItemDatabase_ItemDefinitions_251;
+		public string _ItemDatabase_ItemDefinitions_251 = "Axe of Misfortune";
+		public static string ItemDatabase_ItemDefinitions_252 => instance._ItemDatabase_ItemDefinitions_252;
+		public string _ItemDatabase_ItemDefinitions_252 = "Misfortunate are the ones on the recieving end. They will bleed a lot";
+		public static string ItemDatabase_ItemDefinitions_253 => instance._ItemDatabase_ItemDefinitions_253;
+		public string _ItemDatabase_ItemDefinitions_253 = "Golden Ring";
+		public static string ItemDatabase_ItemDefinitions_254 => instance._ItemDatabase_ItemDefinitions_254;
+		public string _ItemDatabase_ItemDefinitions_254 = "Golden Locket";
+		public static string ItemDatabase_ItemDefinitions_255 => instance._ItemDatabase_ItemDefinitions_255;
+		public string _ItemDatabase_ItemDefinitions_255 = "Dull Axe";
+		public static string ItemDatabase_ItemDefinitions_256 => instance._ItemDatabase_ItemDefinitions_256;
+		public string _ItemDatabase_ItemDefinitions_256 = "Precise Adjustments";
+		public static string ItemDatabase_ItemDefinitions_257(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_257, objects);
+		public string _ItemDatabase_ItemDefinitions_257 = "Focus attack speed buff duration is increased by <color=gold>{0}</color> seconds";
+		public static string ItemDatabase_ItemDefinitions_258 => instance._ItemDatabase_ItemDefinitions_258;
+		public string _ItemDatabase_ItemDefinitions_258 = "Rage";
+		public static string ItemDatabase_ItemDefinitions_259(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_259, objects);
+		public string _ItemDatabase_ItemDefinitions_259 = "Increases maximum stacks of frenzy by <color=gold>{0}</color>";
+		public static string ItemDatabase_ItemDefinitions_260 => instance._ItemDatabase_ItemDefinitions_260;
+		public string _ItemDatabase_ItemDefinitions_260 = "Swords go brrrrrrttt";
+		public static string ItemDatabase_ItemDefinitions_261 => instance._ItemDatabase_ItemDefinitions_261;
+		public string _ItemDatabase_ItemDefinitions_261 = "Jagged Edge";
+		public static string ItemDatabase_ItemDefinitions_262(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_262, objects);
+		public string _ItemDatabase_ItemDefinitions_262 = "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow";
+		public static string ItemDatabase_ItemDefinitions_263 => instance._ItemDatabase_ItemDefinitions_263;
+		public string _ItemDatabase_ItemDefinitions_263 = "Bloodthirster";
+		public static string ItemDatabase_ItemDefinitions_264 => instance._ItemDatabase_ItemDefinitions_264;
+		public string _ItemDatabase_ItemDefinitions_264 = "Drenched in blood of many unfortunate foes.";
+		public static string ItemDatabase_ItemDefinitions_265(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_265, objects);
+		public string _ItemDatabase_ItemDefinitions_265 = "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health";
+		public static string ItemDatabase_ItemDefinitions_266 => instance._ItemDatabase_ItemDefinitions_266;
+		public string _ItemDatabase_ItemDefinitions_266 = "Frost Giant";
+		public static string ItemDatabase_ItemDefinitions_267 => instance._ItemDatabase_ItemDefinitions_267;
+		public string _ItemDatabase_ItemDefinitions_267 = "Melee hits freeze enemies";
+		public static string ItemDatabase_ItemDefinitions_268 => instance._ItemDatabase_ItemDefinitions_268;
+		public string _ItemDatabase_ItemDefinitions_268 = "Alexander's Shield";
+		public static string ItemDatabase_ItemDefinitions_269 => instance._ItemDatabase_ItemDefinitions_269;
+		public string _ItemDatabase_ItemDefinitions_269 = "Parry has a chance to be casted when getting it. Requires parry to be equipped";
+		public static string ItemDatabase_ItemDefinitions_270 => instance._ItemDatabase_ItemDefinitions_270;
+		public string _ItemDatabase_ItemDefinitions_270 = "King Qruies";
+		public static string ItemDatabase_ItemDefinitions_271 => instance._ItemDatabase_ItemDefinitions_271;
+		public string _ItemDatabase_ItemDefinitions_271 = "A mighty sword seeking for it's owner";
+		public static string ItemDatabase_ItemDefinitions_272 => instance._ItemDatabase_ItemDefinitions_272;
+		public string _ItemDatabase_ItemDefinitions_272 = "Gain additional melee damage equal to the last instance of physical damage taken.";
+		public static string ItemDatabase_ItemDefinitions_273 => instance._ItemDatabase_ItemDefinitions_273;
+		public string _ItemDatabase_ItemDefinitions_273 = "Grip of Sora";
+		public static string ItemDatabase_ItemDefinitions_274 => instance._ItemDatabase_ItemDefinitions_274;
+		public string _ItemDatabase_ItemDefinitions_274 = "Look, a porcupine! -Sora";
+		public static string ItemDatabase_ItemDefinitions_275(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_275, objects);
+		public string _ItemDatabase_ItemDefinitions_275 = "Multishot drains <color=gold>{0}</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot";
+		public static string ItemDatabase_ItemDefinitions_276 => instance._ItemDatabase_ItemDefinitions_276;
+		public string _ItemDatabase_ItemDefinitions_276 = "Ancient Greatbow";
+		public static string ItemDatabase_ItemDefinitions_277 => instance._ItemDatabase_ItemDefinitions_277;
+		public string _ItemDatabase_ItemDefinitions_277 = "A massive and slow bow, deals extra damage";
+		public static string ItemDatabase_ItemDefinitions_278 => instance._ItemDatabase_ItemDefinitions_278;
+		public string _ItemDatabase_ItemDefinitions_278 = "Phoenix's Death";
+		public static string ItemDatabase_ItemDefinitions_279 => instance._ItemDatabase_ItemDefinitions_279;
+		public string _ItemDatabase_ItemDefinitions_279 = "Ignites enemies on hit";
+		public static string ItemDatabase_ItemDefinitions_280 => instance._ItemDatabase_ItemDefinitions_280;
+		public string _ItemDatabase_ItemDefinitions_280 = "Soulstring";
+		public static string ItemDatabase_ItemDefinitions_281 => instance._ItemDatabase_ItemDefinitions_281;
+		public string _ItemDatabase_ItemDefinitions_281 = "A massive and slow bow";
+		public static string ItemDatabase_ItemDefinitions_282(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_282, objects);
+		public string _ItemDatabase_ItemDefinitions_282 = "Blood infused arrow now deals additional <color=gold>{0}</color> points of damage per health consumed";
+		public static string ItemDatabase_ItemDefinitions_283 => instance._ItemDatabase_ItemDefinitions_283;
+		public string _ItemDatabase_ItemDefinitions_283 = "Greatbow";
+		public static string ItemDatabase_ItemDefinitions_284 => instance._ItemDatabase_ItemDefinitions_284;
+		public string _ItemDatabase_ItemDefinitions_284 = "Withered Crown";
+		public static string ItemDatabase_ItemDefinitions_285 => instance._ItemDatabase_ItemDefinitions_285;
+		public string _ItemDatabase_ItemDefinitions_285 = "Worn by Hazard.";
+		public static string ItemDatabase_ItemDefinitions_286(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_286, objects);
+		public string _ItemDatabase_ItemDefinitions_286 = "A single cast of blood infused arrow affects <color=gold>{0}</color> more projectiles";
+		public static string ItemDatabase_ItemDefinitions_287 => instance._ItemDatabase_ItemDefinitions_287;
+		public string _ItemDatabase_ItemDefinitions_287 = "Novice Magic Caster's Bracers";
+		public static string ItemDatabase_ItemDefinitions_288 => instance._ItemDatabase_ItemDefinitions_288;
+		public string _ItemDatabase_ItemDefinitions_288 = "Ranger's Bracers";
+		public static string ItemDatabase_ItemDefinitions_289 => instance._ItemDatabase_ItemDefinitions_289;
+		public string _ItemDatabase_ItemDefinitions_289 = "Swordsman's Bracers";
+		public static string ItemDatabase_ItemDefinitions_290 => instance._ItemDatabase_ItemDefinitions_290;
+		public string _ItemDatabase_ItemDefinitions_290 = "Healer's Bracers";
+		public static string ItemDatabase_ItemDefinitions_291 => instance._ItemDatabase_ItemDefinitions_291;
+		public string _ItemDatabase_ItemDefinitions_291 = "Novice Magic Caster's Gloves";
+		public static string ItemDatabase_ItemDefinitions_292 => instance._ItemDatabase_ItemDefinitions_292;
+		public string _ItemDatabase_ItemDefinitions_292 = "Ranger's Gloves";
+		public static string ItemDatabase_ItemDefinitions_293 => instance._ItemDatabase_ItemDefinitions_293;
+		public string _ItemDatabase_ItemDefinitions_293 = "Swordsman's Gloves";
+		public static string ItemDatabase_ItemDefinitions_294 => instance._ItemDatabase_ItemDefinitions_294;
+		public string _ItemDatabase_ItemDefinitions_294 = "Healer's Gloves";
+		public static string ItemDatabase_ItemDefinitions_295 => instance._ItemDatabase_ItemDefinitions_295;
+		public string _ItemDatabase_ItemDefinitions_295 = "Fate Gloves";
+		public static string ItemDatabase_ItemDefinitions_296 => instance._ItemDatabase_ItemDefinitions_296;
+		public string _ItemDatabase_ItemDefinitions_296 = "Fate Boots";
+		public static string ItemDatabase_ItemDefinitions_297 => instance._ItemDatabase_ItemDefinitions_297;
+		public string _ItemDatabase_ItemDefinitions_297 = "Greed";
+		public static string ItemDatabase_ItemDefinitions_298 => instance._ItemDatabase_ItemDefinitions_298;
+		public string _ItemDatabase_ItemDefinitions_298 = "Automatically casts wide reach every second";
+		public static string ItemDatabase_ItemDefinitions_299 => instance._ItemDatabase_ItemDefinitions_299;
+		public string _ItemDatabase_ItemDefinitions_299 = "Titanium Leggins";
+		public static string ItemDatabase_ItemDefinitions_300 => instance._ItemDatabase_ItemDefinitions_300;
+		public string _ItemDatabase_ItemDefinitions_300 = "Heavily armored leg protection. Suffers from the same weaknesses as spartan armor.";
+		public static string ItemDatabase_ItemDefinitions_301 => instance._ItemDatabase_ItemDefinitions_301;
+		public string _ItemDatabase_ItemDefinitions_301 = "Iron Gauntlet";
+		public static string ItemDatabase_ItemDefinitions_302 => instance._ItemDatabase_ItemDefinitions_302;
+		public string _ItemDatabase_ItemDefinitions_302 = "Magefist";
+		public static string ItemDatabase_ItemDefinitions_303 => instance._ItemDatabase_ItemDefinitions_303;
+		public string _ItemDatabase_ItemDefinitions_303 = "Gloves that amplify magic";
+		public static string ItemDatabase_ItemDefinitions_304 => instance._ItemDatabase_ItemDefinitions_304;
+		public string _ItemDatabase_ItemDefinitions_304 = "Spells deal <color=gold>double</color> damage but have double the energy cost";
+		public static string ItemDatabase_ItemDefinitions_305 => instance._ItemDatabase_ItemDefinitions_305;
+		public string _ItemDatabase_ItemDefinitions_305 = "Armored Boots";
+		public static string ItemDatabase_ItemDefinitions_306 => instance._ItemDatabase_ItemDefinitions_306;
+		public string _ItemDatabase_ItemDefinitions_306 = "Heavily armored, resistant to damage boots.";
+		public static string ItemDatabase_ItemDefinitions_307 => instance._ItemDatabase_ItemDefinitions_307;
+		public string _ItemDatabase_ItemDefinitions_307 = "Broken Protector";
+		public static string ItemDatabase_ItemDefinitions_308 => instance._ItemDatabase_ItemDefinitions_308;
+		public string _ItemDatabase_ItemDefinitions_308 = "This shield failed to protect those behind it.";
+		public static string ItemDatabase_ItemDefinitions_309 => instance._ItemDatabase_ItemDefinitions_309;
+		public string _ItemDatabase_ItemDefinitions_309 = "Forbidden Scroll";
+		public static string ItemDatabase_ItemDefinitions_310 => instance._ItemDatabase_ItemDefinitions_310;
+		public string _ItemDatabase_ItemDefinitions_310 = "Too powerful to be kept.";
+		public static string ItemDatabase_ItemDefinitions_311 => instance._ItemDatabase_ItemDefinitions_311;
+		public string _ItemDatabase_ItemDefinitions_311 = "Doom Pauldrons";
+		public static string ItemDatabase_ItemDefinitions_312 => instance._ItemDatabase_ItemDefinitions_312;
+		public string _ItemDatabase_ItemDefinitions_312 = "Despite the cool name, they are completely normal pair of shoulder armor.";
+		public static string ItemDatabase_ItemDefinitions_313 => instance._ItemDatabase_ItemDefinitions_313;
+		public string _ItemDatabase_ItemDefinitions_313 = "Wind armor";
+		public static string ItemDatabase_ItemDefinitions_314 => instance._ItemDatabase_ItemDefinitions_314;
+		public string _ItemDatabase_ItemDefinitions_314 = "Run fast like the wind";
+		public static string ItemDatabase_ItemDefinitions_315(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_315, objects);
+		public string _ItemDatabase_ItemDefinitions_315 = "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health";
+		public static string ItemDatabase_ItemDefinitions_316 => instance._ItemDatabase_ItemDefinitions_316;
+		public string _ItemDatabase_ItemDefinitions_316 = "Crusader Helmet";
+		public static string ItemDatabase_ItemDefinitions_317 => instance._ItemDatabase_ItemDefinitions_317;
+		public string _ItemDatabase_ItemDefinitions_317 = "You're talking mad shit for someone within crusading distance";
+		public static string ItemDatabase_ItemDefinitions_318 => instance._ItemDatabase_ItemDefinitions_318;
+		public string _ItemDatabase_ItemDefinitions_318 = "Hood";
+		public static string ItemDatabase_ItemDefinitions_319 => instance._ItemDatabase_ItemDefinitions_319;
+		public string _ItemDatabase_ItemDefinitions_319 = "Hats provide usefull stat bonuses";
+		public static string ItemDatabase_ItemDefinitions_320 => instance._ItemDatabase_ItemDefinitions_320;
+		public string _ItemDatabase_ItemDefinitions_320 = "The Spark of Light in The Darkness";
+		public static string ItemDatabase_ItemDefinitions_321 => instance._ItemDatabase_ItemDefinitions_321;
+		public string _ItemDatabase_ItemDefinitions_321 = "Magic Scroll of great quality";
+		public static string ItemDatabase_ItemDefinitions_322 => instance._ItemDatabase_ItemDefinitions_322;
+		public string _ItemDatabase_ItemDefinitions_322 = "Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll.";
+		public static string ItemDatabase_ItemDefinitions_323(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_323, objects);
+		public string _ItemDatabase_ItemDefinitions_323 = "If a black hole hits {0} or more enemies during it's lifetime, a ball lightning is summoned after it ends.";
+		public static string ItemDatabase_ItemDefinitions_324 => instance._ItemDatabase_ItemDefinitions_324;
+		public string _ItemDatabase_ItemDefinitions_324 = "Purgatory";
+		public static string ItemDatabase_ItemDefinitions_325 => instance._ItemDatabase_ItemDefinitions_325;
+		public string _ItemDatabase_ItemDefinitions_325 = "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer";
+		public static string ItemDatabase_ItemDefinitions_326 => instance._ItemDatabase_ItemDefinitions_326;
+		public string _ItemDatabase_ItemDefinitions_326 = "Ring made of Netherrite";
+		public static string ItemDatabase_ItemDefinitions_327(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_327, objects);
+		public string _ItemDatabase_ItemDefinitions_327 = "Purge increases all of your damage based on missing health. Up to {0}";
+		public static string ItemDatabase_ItemDefinitions_328 => instance._ItemDatabase_ItemDefinitions_328;
+		public string _ItemDatabase_ItemDefinitions_328 = "Eruption";
+		public static string ItemDatabase_ItemDefinitions_329 => instance._ItemDatabase_ItemDefinitions_329;
+		public string _ItemDatabase_ItemDefinitions_329 = "Incarnation of devastation";
+		public static string ItemDatabase_ItemDefinitions_330 => instance._ItemDatabase_ItemDefinitions_330;
+		public string _ItemDatabase_ItemDefinitions_330 = "Headshots cause explosions";
+		public static string ItemDatabase_ItemDefinitions_331 => instance._ItemDatabase_ItemDefinitions_331;
+		public string _ItemDatabase_ItemDefinitions_331 = "Archangel";
+		public static string ItemDatabase_ItemDefinitions_332 => instance._ItemDatabase_ItemDefinitions_332;
+		public string _ItemDatabase_ItemDefinitions_332 = "Spread the goodness";
+		public static string ItemDatabase_ItemDefinitions_333(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_333, objects);
+		public string _ItemDatabase_ItemDefinitions_333 = "Shooting another player causes them to be greatly empowered for {0} seconds";
+		public static string ItemDatabase_ItemDefinitions_334 => instance._ItemDatabase_ItemDefinitions_334;
+		public string _ItemDatabase_ItemDefinitions_334 = "The Executioner";
+		public static string ItemDatabase_ItemDefinitions_335 => instance._ItemDatabase_ItemDefinitions_335;
+		public string _ItemDatabase_ItemDefinitions_335 = "A sword for decapitating";
+		public static string ItemDatabase_ItemDefinitions_336 => instance._ItemDatabase_ItemDefinitions_336;
+		public string _ItemDatabase_ItemDefinitions_336 = "Moon Cuirass";
+		public static string ItemDatabase_ItemDefinitions_337 => instance._ItemDatabase_ItemDefinitions_337;
+		public string _ItemDatabase_ItemDefinitions_337 = "A piece of armor designed for an archer. ";
+		public static string ItemDatabase_ItemDefinitions_338(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_338, objects);
+		public string _ItemDatabase_ItemDefinitions_338 = "Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than {0} feet deals tenfold damage, and hits the enemy two extra times";
+		public static string ItemDatabase_ItemDefinitions_339 => instance._ItemDatabase_ItemDefinitions_339;
+		public string _ItemDatabase_ItemDefinitions_339 = "Thornmail";
+		public static string ItemDatabase_ItemDefinitions_340 => instance._ItemDatabase_ItemDefinitions_340;
+		public string _ItemDatabase_ItemDefinitions_340 = "Spiked death on the outside, really comfy on the inside";
+		public static string ItemDatabase_ItemDefinitions_341 => instance._ItemDatabase_ItemDefinitions_341;
+		public string _ItemDatabase_ItemDefinitions_341 = "Thorns deal double damage";
+		public static string ItemDatabase_ItemDefinitions_342 => instance._ItemDatabase_ItemDefinitions_342;
+		public string _ItemDatabase_ItemDefinitions_342 = "Rusty Polearm";
+		public static string ItemDatabase_ItemDefinitions_343 => instance._ItemDatabase_ItemDefinitions_343;
+		public string _ItemDatabase_ItemDefinitions_343 = "Used by the Ubersreik Five";
+		public static string ItemDatabase_ItemDefinitions_344 => instance._ItemDatabase_ItemDefinitions_344;
+		public string _ItemDatabase_ItemDefinitions_344 = "Giant Polearm";
+		public static string ItemDatabase_ItemDefinitions_345 => instance._ItemDatabase_ItemDefinitions_345;
+		public string _ItemDatabase_ItemDefinitions_345 = "Used by the Sir Kruber";
+		public static string ItemDatabase_ItemDefinitions_346 => instance._ItemDatabase_ItemDefinitions_346;
+		public string _ItemDatabase_ItemDefinitions_346 = "Crude Feather";
+		public static string ItemDatabase_ItemDefinitions_347 => instance._ItemDatabase_ItemDefinitions_347;
+		public string _ItemDatabase_ItemDefinitions_347 = "Materials can be put inside empty sockets to add stats to items";
+		public static string ItemDatabase_ItemDefinitions_348 => instance._ItemDatabase_ItemDefinitions_348;
+		public string _ItemDatabase_ItemDefinitions_348 = "Soft Feather";
+		public static string ItemDatabase_ItemDefinitions_349 => instance._ItemDatabase_ItemDefinitions_349;
+		public string _ItemDatabase_ItemDefinitions_349 = "Ornate Feather";
+		public static string ItemDatabase_ItemDefinitions_350 => instance._ItemDatabase_ItemDefinitions_350;
+		public string _ItemDatabase_ItemDefinitions_350 = "Wonderful Feather";
+		public static string ItemDatabase_ItemDefinitions_351 => instance._ItemDatabase_ItemDefinitions_351;
+		public string _ItemDatabase_ItemDefinitions_351 = "White Crow's Feather";
+		public static string ItemDatabase_ItemDefinitions_352 => instance._ItemDatabase_ItemDefinitions_352;
+		public string _ItemDatabase_ItemDefinitions_352 = "Reef Shark";
+		public static string ItemDatabase_ItemDefinitions_353 => instance._ItemDatabase_ItemDefinitions_353;
+		public string _ItemDatabase_ItemDefinitions_353 = "Tiger Shark Tooth";
+		public static string ItemDatabase_ItemDefinitions_354 => instance._ItemDatabase_ItemDefinitions_354;
+		public string _ItemDatabase_ItemDefinitions_354 = "Whale Shark Tooth";
+		public static string ItemDatabase_ItemDefinitions_355 => instance._ItemDatabase_ItemDefinitions_355;
+		public string _ItemDatabase_ItemDefinitions_355 = "Great White Shark Tooth";
+		public static string ItemDatabase_ItemDefinitions_356 => instance._ItemDatabase_ItemDefinitions_356;
+		public string _ItemDatabase_ItemDefinitions_356 = "Megalodon's Tooth";
+		public static string ItemDatabase_ItemDefinitions_357 => instance._ItemDatabase_ItemDefinitions_357;
+		public string _ItemDatabase_ItemDefinitions_357 = "Uncut Sapphire";
+		public static string ItemDatabase_ItemDefinitions_358 => instance._ItemDatabase_ItemDefinitions_358;
+		public string _ItemDatabase_ItemDefinitions_358 = "Clear Sapphire";
+		public static string ItemDatabase_ItemDefinitions_359 => instance._ItemDatabase_ItemDefinitions_359;
+		public string _ItemDatabase_ItemDefinitions_359 = "Shiny Sapphire";
+		public static string ItemDatabase_ItemDefinitions_360 => instance._ItemDatabase_ItemDefinitions_360;
+		public string _ItemDatabase_ItemDefinitions_360 = "Enchanted Sapphire";
+		public static string ItemDatabase_ItemDefinitions_361 => instance._ItemDatabase_ItemDefinitions_361;
+		public string _ItemDatabase_ItemDefinitions_361 = "Celestial Sapphire";
+		public static string ItemDatabase_ItemDefinitions_362 => instance._ItemDatabase_ItemDefinitions_362;
+		public string _ItemDatabase_ItemDefinitions_362 = "Uncut Moonstone";
+		public static string ItemDatabase_ItemDefinitions_363 => instance._ItemDatabase_ItemDefinitions_363;
+		public string _ItemDatabase_ItemDefinitions_363 = "Clear Moonstone";
+		public static string ItemDatabase_ItemDefinitions_364 => instance._ItemDatabase_ItemDefinitions_364;
+		public string _ItemDatabase_ItemDefinitions_364 = "Shiny Moonstone";
+		public static string ItemDatabase_ItemDefinitions_365 => instance._ItemDatabase_ItemDefinitions_365;
+		public string _ItemDatabase_ItemDefinitions_365 = "Enchanted Moonstone";
+		public static string ItemDatabase_ItemDefinitions_366 => instance._ItemDatabase_ItemDefinitions_366;
+		public string _ItemDatabase_ItemDefinitions_366 = "Celestial Moonstone";
+		public static string ItemDatabase_ItemDefinitions_367 => instance._ItemDatabase_ItemDefinitions_367;
+		public string _ItemDatabase_ItemDefinitions_367 = "Lead Ore";
+		public static string ItemDatabase_ItemDefinitions_368 => instance._ItemDatabase_ItemDefinitions_368;
+		public string _ItemDatabase_ItemDefinitions_368 = "Vanadium Ore";
+		public static string ItemDatabase_ItemDefinitions_369 => instance._ItemDatabase_ItemDefinitions_369;
+		public string _ItemDatabase_ItemDefinitions_369 = "Titanium Ore";
+		public static string ItemDatabase_ItemDefinitions_370 => instance._ItemDatabase_ItemDefinitions_370;
+		public string _ItemDatabase_ItemDefinitions_370 = "Chromium Ore";
+		public static string ItemDatabase_ItemDefinitions_371 => instance._ItemDatabase_ItemDefinitions_371;
+		public string _ItemDatabase_ItemDefinitions_371 = "Tungsten Ore";
+		public static string ItemDatabase_ItemDefinitions_372 => instance._ItemDatabase_ItemDefinitions_372;
+		public string _ItemDatabase_ItemDefinitions_372 = "Knife on a stick";
+		public static string ItemDatabase_ItemDefinitions_373 => instance._ItemDatabase_ItemDefinitions_373;
+		public string _ItemDatabase_ItemDefinitions_373 = "Kasper named this item, his fault";
+		public static string ItemDatabase_ItemDefinitions_374 => instance._ItemDatabase_ItemDefinitions_374;
+		public string _ItemDatabase_ItemDefinitions_374 = "Fists of Nails";
+		public static string ItemDatabase_ItemDefinitions_375 => instance._ItemDatabase_ItemDefinitions_375;
+		public string _ItemDatabase_ItemDefinitions_375 = "Swiss sheese makers";
+		public static string ItemDatabase_ItemDefinitions_376(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_376, objects);
+		public string _ItemDatabase_ItemDefinitions_376 = "Gain {0} thorns per vitality";
+		public static string ItemDatabase_ItemDefinitions_377 => instance._ItemDatabase_ItemDefinitions_377;
+		public string _ItemDatabase_ItemDefinitions_377 = "Cargo Shorts MK2";
+		public static string ItemDatabase_ItemDefinitions_378 => instance._ItemDatabase_ItemDefinitions_378;
+		public string _ItemDatabase_ItemDefinitions_378 = "Deepest pockets out there";
+		public static string ItemDatabase_ItemDefinitions_379 => instance._ItemDatabase_ItemDefinitions_379;
+		public string _ItemDatabase_ItemDefinitions_379 = "Improved cargo pants. Twice as many pockets, and since they didnt fit on the outside, they are inside. They are still ugly as hell tho";
+		public static string ItemDatabase_ItemDefinitions_380 => instance._ItemDatabase_ItemDefinitions_380;
+		public string _ItemDatabase_ItemDefinitions_380 = "Aezyn";
+		public static string ItemDatabase_ItemDefinitions_381 => instance._ItemDatabase_ItemDefinitions_381;
+		public string _ItemDatabase_ItemDefinitions_381 = "Enchanted with magic as strong as power swing. It's purpose? Hit harder.";
+		public static string ItemDatabase_ItemDefinitions_382(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_382, objects);
+		public string _ItemDatabase_ItemDefinitions_382 = "Magic arrow damage scaling is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_383 => instance._ItemDatabase_ItemDefinitions_383;
+		public string _ItemDatabase_ItemDefinitions_383 = "Punny's Reflective Ring";
+		public static string ItemDatabase_ItemDefinitions_384 => instance._ItemDatabase_ItemDefinitions_384;
+		public string _ItemDatabase_ItemDefinitions_384 = "Magic arrow is shot in volleys. This effect can stack.";
+		public static string ItemDatabase_ItemDefinitions_385 => instance._ItemDatabase_ItemDefinitions_385;
+		public string _ItemDatabase_ItemDefinitions_385 = "Eyepatch";
+		public static string ItemDatabase_ItemDefinitions_386 => instance._ItemDatabase_ItemDefinitions_386;
+		public string _ItemDatabase_ItemDefinitions_386 = "A wise man once said:";
+		public static string ItemDatabase_ItemDefinitions_387 => instance._ItemDatabase_ItemDefinitions_387;
+		public string _ItemDatabase_ItemDefinitions_387 = "Everyone thinks I'm just a one-eyed bloody monster, god damnit... (sobbing)";
+		public static string ItemDatabase_ItemDefinitions_388 => instance._ItemDatabase_ItemDefinitions_388;
+		public string _ItemDatabase_ItemDefinitions_388 = "Explosion damage is also applied when performing jump attacks";
+		public static string ItemDatabase_ItemDefinitions_389 => instance._ItemDatabase_ItemDefinitions_389;
+		public string _ItemDatabase_ItemDefinitions_389 = "Javelin";
+		public static string ItemDatabase_ItemDefinitions_390 => instance._ItemDatabase_ItemDefinitions_390;
+		public string _ItemDatabase_ItemDefinitions_390 = "Warplate";
+		public static string ItemDatabase_ItemDefinitions_391 => instance._ItemDatabase_ItemDefinitions_391;
+		public string _ItemDatabase_ItemDefinitions_391 = "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy.";
+		public static string ItemDatabase_ItemDefinitions_392 => instance._ItemDatabase_ItemDefinitions_392;
+		public string _ItemDatabase_ItemDefinitions_392 = "Strength comes from the power of will, the stronger the will the stronger you are";
+		public static string ItemDatabase_ItemDefinitions_393 => instance._ItemDatabase_ItemDefinitions_393;
+		public string _ItemDatabase_ItemDefinitions_393 = "Torso of Strength";
+		public static string ItemDatabase_ItemDefinitions_394 => instance._ItemDatabase_ItemDefinitions_394;
+		public string _ItemDatabase_ItemDefinitions_394 = "Demoman's Vest";
+		public static string ItemDatabase_ItemDefinitions_395 => instance._ItemDatabase_ItemDefinitions_395;
+		public string _ItemDatabase_ItemDefinitions_395 = "What makes me a good demoman? If I were a bad demoman, I wouldn't be sittin' here discussin' it with you, now would I?! LET'S DO IT! Not one of you's gonna survive this! One crossed wire, one wayward pinch of potassium chlorate, one errant twitch, and KA-BLOOIE! I got a manky eye. I'm a black Scottish cyclops. They got more fecking sea monsters in the great Lochett Ness than they got the likes of me. So! T'all you fine dandies, so proud, so cocksure, prancin' about with your heads full of eyeballs... come and get me, I say! I'll be waitin' on you with a whiff of the old brimstone! I'm a Grimm bloody fable with an unhappy bloody end! Oh, they're going to have to glue you back together...IN HELL!";
+		public static string ItemDatabase_ItemDefinitions_396 => instance._ItemDatabase_ItemDefinitions_396;
+		public string _ItemDatabase_ItemDefinitions_396 = "Brawler's Gloves";
+		public static string ItemDatabase_ItemDefinitions_397 => instance._ItemDatabase_ItemDefinitions_397;
+		public string _ItemDatabase_ItemDefinitions_397 = "Nail Gloves";
+		public static string ItemDatabase_ItemDefinitions_398 => instance._ItemDatabase_ItemDefinitions_398;
+		public string _ItemDatabase_ItemDefinitions_398 = "Enchanted with the power of penetration. It's purpose? Hit harder.";
+		public static string ItemDatabase_ItemDefinitions_399 => instance._ItemDatabase_ItemDefinitions_399;
+		public string _ItemDatabase_ItemDefinitions_399 = "Hand-held Ballista";
+		public static string ItemDatabase_ItemDefinitions_400 => instance._ItemDatabase_ItemDefinitions_400;
+		public string _ItemDatabase_ItemDefinitions_400 = "Kuldars's Scarf";
+		public static string ItemDatabase_ItemDefinitions_401 => instance._ItemDatabase_ItemDefinitions_401;
+		public string _ItemDatabase_ItemDefinitions_401 = "Strength comes from the power of will";
+		public static string ItemDatabase_ItemDefinitions_402 => instance._ItemDatabase_ItemDefinitions_402;
+		public string _ItemDatabase_ItemDefinitions_402 = "Sword Devil's Scarf";
+		public static string ItemDatabase_ItemDefinitions_403 => instance._ItemDatabase_ItemDefinitions_403;
+		public string _ItemDatabase_ItemDefinitions_403 = "Peasant's Scarf";
+		public static string ItemDatabase_ItemDefinitions_404 => instance._ItemDatabase_ItemDefinitions_404;
+		public string _ItemDatabase_ItemDefinitions_404 = "Bombastinc Choker";
+		public static string ItemDatabase_ItemDefinitions_405 => instance._ItemDatabase_ItemDefinitions_405;
+		public string _ItemDatabase_ItemDefinitions_405 = "Explosive Touch";
+		public static string ItemDatabase_ItemDefinitions_406 => instance._ItemDatabase_ItemDefinitions_406;
+		public string _ItemDatabase_ItemDefinitions_406 = "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master";
+		public static string ItemDatabase_ItemDefinitions_407 => instance._ItemDatabase_ItemDefinitions_407;
+		public string _ItemDatabase_ItemDefinitions_407 = "Strength comes from the power of will, the stronger the will the stronger the explosion";
+		public static string ItemDatabase_ItemDefinitions_408 => instance._ItemDatabase_ItemDefinitions_408;
+		public string _ItemDatabase_ItemDefinitions_408 = "Volatile Bracers";
+		public static string ItemDatabase_ItemDefinitions_409 => instance._ItemDatabase_ItemDefinitions_409;
+		public string _ItemDatabase_ItemDefinitions_409 = "Volatile Helmet";
+		public static string ItemDatabase_ItemDefinitions_410 => instance._ItemDatabase_ItemDefinitions_410;
+		public string _ItemDatabase_ItemDefinitions_410 = "Gunpowder filled socks";
+		public static string ItemDatabase_ItemDefinitions_411 => instance._ItemDatabase_ItemDefinitions_411;
+		public string _ItemDatabase_ItemDefinitions_411 = "Red Skirt";
+		public static string ItemDatabase_ItemDefinitions_412 => instance._ItemDatabase_ItemDefinitions_412;
+		public string _ItemDatabase_ItemDefinitions_412 = "Gunpowder Boxers";
+		public static string ItemDatabase_ItemDefinitions_413 => instance._ItemDatabase_ItemDefinitions_413;
+		public string _ItemDatabase_ItemDefinitions_413 = "Jihad Vest";
+		public static string ItemDatabase_ItemDefinitions_414 => instance._ItemDatabase_ItemDefinitions_414;
+		public string _ItemDatabase_ItemDefinitions_414 = "Ring of Fortune";
+		public static string ItemDatabase_ItemDefinitions_415 => instance._ItemDatabase_ItemDefinitions_415;
+		public string _ItemDatabase_ItemDefinitions_415 = "Mana Ring";
+		public static string ItemDatabase_ItemDefinitions_416 => instance._ItemDatabase_ItemDefinitions_416;
+		public string _ItemDatabase_ItemDefinitions_416 = "Life Ring";
+		public static string ItemDatabase_ItemDefinitions_417 => instance._ItemDatabase_ItemDefinitions_417;
+		public string _ItemDatabase_ItemDefinitions_417 = "Moritz's Gear";
+		public static string ItemDatabase_ItemDefinitions_418 => instance._ItemDatabase_ItemDefinitions_418;
+		public string _ItemDatabase_ItemDefinitions_418 = "Band of Hurting";
+		public static string ItemDatabase_ItemDefinitions_419 => instance._ItemDatabase_ItemDefinitions_419;
+		public string _ItemDatabase_ItemDefinitions_419 = "A ring for a warrior";
+		public static string ItemDatabase_ItemDefinitions_420 => instance._ItemDatabase_ItemDefinitions_420;
+		public string _ItemDatabase_ItemDefinitions_420 = "Straw Hat";
+		public static string ItemDatabase_ItemDefinitions_421 => instance._ItemDatabase_ItemDefinitions_421;
+		public string _ItemDatabase_ItemDefinitions_421 = "Rusty Javelin";
+		public static string ItemDatabase_ItemDefinitions_422 => instance._ItemDatabase_ItemDefinitions_422;
+		public string _ItemDatabase_ItemDefinitions_422 = "Star Robe";
+		public static string ItemDatabase_ItemDefinitions_423 => instance._ItemDatabase_ItemDefinitions_423;
+		public string _ItemDatabase_ItemDefinitions_423 = "Anger";
+		public static string ItemDatabase_ItemDefinitions_424 => instance._ItemDatabase_ItemDefinitions_424;
+		public string _ItemDatabase_ItemDefinitions_424 = "Downscaled version of Greatsword Rage, made to be wielded by flimsy wizards";
+		public static string ItemDatabase_ItemDefinitions_425(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_425, objects);
+		public string _ItemDatabase_ItemDefinitions_425 = "Increases maximum stacks of frenzy by {0}";
+		public static string ItemDatabase_ItemDefinitions_426 => instance._ItemDatabase_ItemDefinitions_426;
+		public string _ItemDatabase_ItemDefinitions_426 = "Yuki-Onna Strides";
+		public static string ItemDatabase_ItemDefinitions_427(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_427, objects);
+		public string _ItemDatabase_ItemDefinitions_427 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_428 => instance._ItemDatabase_ItemDefinitions_428;
+		public string _ItemDatabase_ItemDefinitions_428 = "Boots looted off a snow demon";
+		public static string ItemDatabase_ItemDefinitions_429(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_429, objects);
+		public string _ItemDatabase_ItemDefinitions_429 = "Increses snowstorm damage by {0}";
+		public static string ItemDatabase_ItemDefinitions_430 => instance._ItemDatabase_ItemDefinitions_430;
+		public string _ItemDatabase_ItemDefinitions_430 = "Yuki-Onna Greaves";
+		public static string ItemDatabase_ItemDefinitions_431 => instance._ItemDatabase_ItemDefinitions_431;
+		public string _ItemDatabase_ItemDefinitions_431 = "Yuki-Onna Kimono";
+		public static string ItemDatabase_ItemDefinitions_432 => instance._ItemDatabase_ItemDefinitions_432;
+		public string _ItemDatabase_ItemDefinitions_432 = "Yuki-Onna's Headdress";
+		public static string ItemDatabase_ItemDefinitions_433(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_433, objects);
+		public string _ItemDatabase_ItemDefinitions_433 = "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}";
+		public static string ItemDatabase_ItemDefinitions_434 => instance._ItemDatabase_ItemDefinitions_434;
+		public string _ItemDatabase_ItemDefinitions_434 = "Lama Mega's Blood Bag";
+		public static string ItemDatabase_ItemDefinitions_435(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_435, objects);
+		public string _ItemDatabase_ItemDefinitions_435 = "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds";
+		public static string ItemDatabase_ItemDefinitions_436 => instance._ItemDatabase_ItemDefinitions_436;
+		public string _ItemDatabase_ItemDefinitions_436 = "Socket Drill";
+		public static string ItemDatabase_ItemDefinitions_437 => instance._ItemDatabase_ItemDefinitions_437;
+		public string _ItemDatabase_ItemDefinitions_437 = "A convienient one use tool";
+		public static string ItemDatabase_ItemDefinitions_438 => instance._ItemDatabase_ItemDefinitions_438;
+		public string _ItemDatabase_ItemDefinitions_438 = "What's a drill doing here in a place full of primitive tribes?";
+		public static string ItemDatabase_ItemDefinitions_439 => instance._ItemDatabase_ItemDefinitions_439;
+		public string _ItemDatabase_ItemDefinitions_439 = "Adds one socket to an item, unless the item can't have any more sockets.";
+		public static string ItemDatabase_ItemDefinitions_440 => instance._ItemDatabase_ItemDefinitions_440;
+		public string _ItemDatabase_ItemDefinitions_440 = "Moonwalkers";
+		public static string ItemDatabase_ItemDefinitions_441 => instance._ItemDatabase_ItemDefinitions_441;
+		public string _ItemDatabase_ItemDefinitions_441 = "Cha cha real smooth.";
+		public static string ItemDatabase_ItemDefinitions_442 => instance._ItemDatabase_ItemDefinitions_442;
+		public string _ItemDatabase_ItemDefinitions_442 = "Inverts movement";
+		public static string ItemDatabase_ItemDefinitions_443 => instance._ItemDatabase_ItemDefinitions_443;
+		public string _ItemDatabase_ItemDefinitions_443 = "Rabbit Ears Hairband";
+		public static string ItemDatabase_ItemDefinitions_444 => instance._ItemDatabase_ItemDefinitions_444;
+		public string _ItemDatabase_ItemDefinitions_444 = "Cute";
+		public static string ItemDatabase_ItemDefinitions_445 => instance._ItemDatabase_ItemDefinitions_445;
+		public string _ItemDatabase_ItemDefinitions_445 = "Bunny Ears Hairband";
+		public static string ItemDatabase_ItemDefinitions_446 => instance._ItemDatabase_ItemDefinitions_446;
+		public string _ItemDatabase_ItemDefinitions_446 = "Iron plate full of holes";
+		public static string ItemDatabase_ItemDefinitions_447 => instance._ItemDatabase_ItemDefinitions_447;
+		public string _ItemDatabase_ItemDefinitions_447 = "The integrity of this item is questionable";
+		public static string ItemDatabase_ItemDefinitions_448 => instance._ItemDatabase_ItemDefinitions_448;
+		public string _ItemDatabase_ItemDefinitions_448 = "Small Tribal Necklace";
+		public static string ItemDatabase_ItemDefinitions_449(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_449, objects);
+		public string _ItemDatabase_ItemDefinitions_449 = "Increases maximum stacks of frenzy by {0}";
+		public static string ItemDatabase_ItemDefinitions_450 => instance._ItemDatabase_ItemDefinitions_450;
+		public string _ItemDatabase_ItemDefinitions_450 = "Tribal Necklace";
+		public static string ItemDatabase_ItemDefinitions_451(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_451, objects);
+		public string _ItemDatabase_ItemDefinitions_451 = "Increases maximum stacks of frenzy by {0}";
+		public static string ItemDatabase_ItemDefinitions_452 => instance._ItemDatabase_ItemDefinitions_452;
+		public string _ItemDatabase_ItemDefinitions_452 = "Warlord Necklace";
+		public static string ItemDatabase_ItemDefinitions_453(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_453, objects);
+		public string _ItemDatabase_ItemDefinitions_453 = "Increases maximum stacks of frenzy by {0}";
+		public static string ItemDatabase_ItemDefinitions_454 => instance._ItemDatabase_ItemDefinitions_454;
+		public string _ItemDatabase_ItemDefinitions_454 = "Travel Band";
+		public static string ItemDatabase_ItemDefinitions_455(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_455, objects);
+		public string _ItemDatabase_ItemDefinitions_455 = "The distance of blink is increased by <color=gold>{0}</color> feet";
+		public static string ItemDatabase_ItemDefinitions_456 => instance._ItemDatabase_ItemDefinitions_456;
+		public string _ItemDatabase_ItemDefinitions_456 = "Destroyed Void Shard";
+		public static string ItemDatabase_ItemDefinitions_457 => instance._ItemDatabase_ItemDefinitions_457;
+		public string _ItemDatabase_ItemDefinitions_457 = "Only a fraction of its previous might remains";
+		public static string ItemDatabase_ItemDefinitions_458(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_458, objects);
+		public string _ItemDatabase_ItemDefinitions_458 = "Decrease the cooldown of one ability by {0} second whenever you hit something with melee or ranged attack.";
+		public static string ItemDatabase_ItemDefinitions_459 => instance._ItemDatabase_ItemDefinitions_459;
+		public string _ItemDatabase_ItemDefinitions_459 = "Famine Hammer";
+		public static string ItemDatabase_ItemDefinitions_460(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_460, objects);
+		public string _ItemDatabase_ItemDefinitions_460 = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_461 => instance._ItemDatabase_ItemDefinitions_461;
+		public string _ItemDatabase_ItemDefinitions_461 = "Curse Hammer";
+		public static string ItemDatabase_ItemDefinitions_462 => instance._ItemDatabase_ItemDefinitions_462;
+		public string _ItemDatabase_ItemDefinitions_462 = "Omnious Weapon";
+		public static string ItemDatabase_ItemDefinitions_463(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_463, objects);
+		public string _ItemDatabase_ItemDefinitions_463 = "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_464 => instance._ItemDatabase_ItemDefinitions_464;
+		public string _ItemDatabase_ItemDefinitions_464 = "Smasher";
+		public static string ItemDatabase_ItemDefinitions_465 => instance._ItemDatabase_ItemDefinitions_465;
+		public string _ItemDatabase_ItemDefinitions_465 = "Smash damage is increased tripled";
+		public static string ItemDatabase_ItemDefinitions_466 => instance._ItemDatabase_ItemDefinitions_466;
+		public string _ItemDatabase_ItemDefinitions_466 = "Vampiric Band";
+		public static string ItemDatabase_ItemDefinitions_467(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_467, objects);
+		public string _ItemDatabase_ItemDefinitions_467 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
+		public static string ItemDatabase_ItemDefinitions_468 => instance._ItemDatabase_ItemDefinitions_468;
+		public string _ItemDatabase_ItemDefinitions_468 = "Vampire Ring";
+		public static string ItemDatabase_ItemDefinitions_469(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_469, objects);
+		public string _ItemDatabase_ItemDefinitions_469 = "Gain {0} stamina on ranged and melee hit or double that amount on critical hits";
+		public static string ItemDatabase_ItemDefinitions_470 => instance._ItemDatabase_ItemDefinitions_470;
+		public string _ItemDatabase_ItemDefinitions_470 = "Tricksters Scarf";
+		public static string ItemDatabase_ItemDefinitions_471(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_471, objects);
+		public string _ItemDatabase_ItemDefinitions_471 = "Magic arrow shoots {0} additional arrow.";
+		public static string ItemDatabase_ItemDefinitions_472 => instance._ItemDatabase_ItemDefinitions_472;
+		public string _ItemDatabase_ItemDefinitions_472 = "Magus' Necktie";
+		public static string ItemDatabase_ItemDefinitions_473(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_473, objects);
+		public string _ItemDatabase_ItemDefinitions_473 = "Magic arrow shoots {0} additional arrows.";
+		public static string ItemDatabase_ItemDefinitions_474 => instance._ItemDatabase_ItemDefinitions_474;
+		public string _ItemDatabase_ItemDefinitions_474 = "Discounted Knockoff Magic Quiver";
+		public static string ItemDatabase_ItemDefinitions_475(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_475, objects);
+		public string _ItemDatabase_ItemDefinitions_475 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
+		public static string ItemDatabase_ItemDefinitions_476 => instance._ItemDatabase_ItemDefinitions_476;
+		public string _ItemDatabase_ItemDefinitions_476 = "Magic Quiver";
+		public static string ItemDatabase_ItemDefinitions_477(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_477, objects);
+		public string _ItemDatabase_ItemDefinitions_477 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
+		public static string ItemDatabase_ItemDefinitions_478 => instance._ItemDatabase_ItemDefinitions_478;
+		public string _ItemDatabase_ItemDefinitions_478 = "Improved Magic Quiver";
+		public static string ItemDatabase_ItemDefinitions_479(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_479, objects);
+		public string _ItemDatabase_ItemDefinitions_479 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
+		public static string ItemDatabase_ItemDefinitions_480 => instance._ItemDatabase_ItemDefinitions_480;
+		public string _ItemDatabase_ItemDefinitions_480 = "Factory Quiver";
+		public static string ItemDatabase_ItemDefinitions_481(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_481, objects);
+		public string _ItemDatabase_ItemDefinitions_481 = "There's a {0} increased chance to not consume ammo when firing a projectile.";
+		public static string ItemDatabase_ItemDefinitions_482 => instance._ItemDatabase_ItemDefinitions_482;
+		public string _ItemDatabase_ItemDefinitions_482 = "Enzyme STR/34";
+		public static string ItemDatabase_ItemDefinitions_483 => instance._ItemDatabase_ItemDefinitions_483;
+		public string _ItemDatabase_ItemDefinitions_483 = "A substance which results in surprising changes to gear";
+		public static string ItemDatabase_ItemDefinitions_484 => instance._ItemDatabase_ItemDefinitions_484;
+		public string _ItemDatabase_ItemDefinitions_484 = "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>";
+		public static string ItemDatabase_ItemDefinitions_485 => instance._ItemDatabase_ItemDefinitions_485;
+		public string _ItemDatabase_ItemDefinitions_485 = "Enzyme INT/33";
+		public static string ItemDatabase_ItemDefinitions_486 => instance._ItemDatabase_ItemDefinitions_486;
+		public string _ItemDatabase_ItemDefinitions_486 = "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>";
+		public static string ItemDatabase_ItemDefinitions_487 => instance._ItemDatabase_ItemDefinitions_487;
+		public string _ItemDatabase_ItemDefinitions_487 = "Enzyme AGI/39";
+		public static string ItemDatabase_ItemDefinitions_488 => instance._ItemDatabase_ItemDefinitions_488;
+		public string _ItemDatabase_ItemDefinitions_488 = "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>";
+		public static string ItemDatabase_ItemDefinitions_489 => instance._ItemDatabase_ItemDefinitions_489;
+		public string _ItemDatabase_ItemDefinitions_489 = "Enzyme VIT/449";
+		public static string ItemDatabase_ItemDefinitions_490 => instance._ItemDatabase_ItemDefinitions_490;
+		public string _ItemDatabase_ItemDefinitions_490 = "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>";
+		public static string ItemDatabase_ItemDefinitions_491 => instance._ItemDatabase_ItemDefinitions_491;
+		public string _ItemDatabase_ItemDefinitions_491 = "Stomach Acid";
+		public static string ItemDatabase_ItemDefinitions_492 => instance._ItemDatabase_ItemDefinitions_492;
+		public string _ItemDatabase_ItemDefinitions_492 = "Removes all stats with negative values from an item";
+		public static string ItemDatabase_ItemDefinitions_493 => instance._ItemDatabase_ItemDefinitions_493;
+		public string _ItemDatabase_ItemDefinitions_493 = "Elite Stomach Acid";
+		public static string ItemDatabase_ItemDefinitions_494 => instance._ItemDatabase_ItemDefinitions_494;
+		public string _ItemDatabase_ItemDefinitions_494 = "Changes negative stat values into positive values on an item";
+		public static string ItemDatabase_ItemDefinitions_495 => instance._ItemDatabase_ItemDefinitions_495;
+		public string _ItemDatabase_ItemDefinitions_495 = "Crimson Solution";
+		public static string ItemDatabase_ItemDefinitions_496 => instance._ItemDatabase_ItemDefinitions_496;
+		public string _ItemDatabase_ItemDefinitions_496 = "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity";
+		public static string ItemDatabase_ItemDefinitions_497 => instance._ItemDatabase_ItemDefinitions_497;
+		public string _ItemDatabase_ItemDefinitions_497 = "Weak Armor Hardening Mixture";
+		public static string ItemDatabase_ItemDefinitions_498 => instance._ItemDatabase_ItemDefinitions_498;
+		public string _ItemDatabase_ItemDefinitions_498 = "Adds Armor Stat to a piece of equipment if the item does not already have it";
+		public static string ItemDatabase_ItemDefinitions_499 => instance._ItemDatabase_ItemDefinitions_499;
+		public string _ItemDatabase_ItemDefinitions_499 = "Upgraded Armor Hardening Mixture";
+		public static string ItemDatabase_ItemDefinitions_500 => instance._ItemDatabase_ItemDefinitions_500;
+		public string _ItemDatabase_ItemDefinitions_500 = "Adds Damage Reduction Stat to a piece of equipment if the item does not already have it";
+		public static string ItemDatabase_ItemDefinitions_501 => instance._ItemDatabase_ItemDefinitions_501;
+		public string _ItemDatabase_ItemDefinitions_501 = "Chaos Water";
+		public static string ItemDatabase_ItemDefinitions_502 => instance._ItemDatabase_ItemDefinitions_502;
+		public string _ItemDatabase_ItemDefinitions_502 = "Rerolls all stats on an item of rarity no higher than orange";
+		public static string ItemDatabase_ItemDefinitions_503 => instance._ItemDatabase_ItemDefinitions_503;
+		public string _ItemDatabase_ItemDefinitions_503 = "Upgraded Chaos Water";
+		public static string ItemDatabase_ItemDefinitions_504 => instance._ItemDatabase_ItemDefinitions_504;
+		public string _ItemDatabase_ItemDefinitions_504 = "Rerolls all stats on an item of any rarity";
+		public static string ItemDatabase_ItemDefinitions_505 => instance._ItemDatabase_ItemDefinitions_505;
+		public string _ItemDatabase_ItemDefinitions_505 = "Gun Blade";
+		public static string ItemDatabase_ItemDefinitions_506(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_506, objects);
+		public string _ItemDatabase_ItemDefinitions_506 = "Increases pistol damage by <color=red>{0}</color>";
+		public static string ItemDatabase_ItemDefinitions_507 => instance._ItemDatabase_ItemDefinitions_507;
+		public string _ItemDatabase_ItemDefinitions_507 = "Sharpshooter's Axe";
+		public static string ItemDatabase_ItemDefinitions_508(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_508, objects);
+		public string _ItemDatabase_ItemDefinitions_508 = "Increases pistol headshot chance by <color=gold>{0}</color> and pistol damage by <color=gold>{1}</color>";
+		public static string ItemDatabase_ItemDefinitions_509 => instance._ItemDatabase_ItemDefinitions_509;
+		public string _ItemDatabase_ItemDefinitions_509 = "Shield Blade";
+		public static string ItemDatabase_ItemDefinitions_510 => instance._ItemDatabase_ItemDefinitions_510;
+		public string _ItemDatabase_ItemDefinitions_510 = "So large can be used as a shield";
+		public static string ItemDatabase_ItemDefinitions_511 => instance._ItemDatabase_ItemDefinitions_511;
+		public string _ItemDatabase_ItemDefinitions_511 = "A normal human cannot lift this weapon.";
+		public static string ItemDatabase_ItemDefinitions_512 => instance._ItemDatabase_ItemDefinitions_512;
+		public string _ItemDatabase_ItemDefinitions_512 = "Blunt Blade for Bashing Skulls";
+		public static string ItemDatabase_ItemDefinitions_513(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_513, objects);
+		public string _ItemDatabase_ItemDefinitions_513 = "Bash damage debuff on enemies is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_514 => instance._ItemDatabase_ItemDefinitions_514;
+		public string _ItemDatabase_ItemDefinitions_514 = "Madman's Legacy";
+		public static string ItemDatabase_ItemDefinitions_515(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_515, objects);
+		public string _ItemDatabase_ItemDefinitions_515 = "Frenzy damage per stack is increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_516 => instance._ItemDatabase_ItemDefinitions_516;
+		public string _ItemDatabase_ItemDefinitions_516 = "Buckler";
+		public static string ItemDatabase_ItemDefinitions_517 => instance._ItemDatabase_ItemDefinitions_517;
+		public string _ItemDatabase_ItemDefinitions_517 = "Pyromancy Mask";
+		public static string ItemDatabase_ItemDefinitions_518(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_518, objects);
+		public string _ItemDatabase_ItemDefinitions_518 = "Ignited enemies burn for {0} longer.";
+		public static string ItemDatabase_ItemDefinitions_519 => instance._ItemDatabase_ItemDefinitions_519;
+		public string _ItemDatabase_ItemDefinitions_519 = "Ember Mask";
+		public static string ItemDatabase_ItemDefinitions_520(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_520, objects);
+		public string _ItemDatabase_ItemDefinitions_520 = "Ignited enemies burn for {0} longer and fire ticks thrice as fast.";
+		public static string ItemDatabase_ItemDefinitions_521 => instance._ItemDatabase_ItemDefinitions_521;
+		public string _ItemDatabase_ItemDefinitions_521 = "Flame Pauldrons";
+		public static string ItemDatabase_ItemDefinitions_522(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_522, objects);
+		public string _ItemDatabase_ItemDefinitions_522 = "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}";
+		public static string ItemDatabase_ItemDefinitions_523 => instance._ItemDatabase_ItemDefinitions_523;
+		public string _ItemDatabase_ItemDefinitions_523 = "Ancient Scroll";
+		public static string ItemDatabase_ItemDefinitions_524 => instance._ItemDatabase_ItemDefinitions_524;
+		public string _ItemDatabase_ItemDefinitions_524 = "Guide on Tearing Spacetime";
+		public static string ItemDatabase_ItemDefinitions_525 => instance._ItemDatabase_ItemDefinitions_525;
+		public string _ItemDatabase_ItemDefinitions_525 = "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink";
+		public static string ItemDatabase_ItemDefinitions_526 => instance._ItemDatabase_ItemDefinitions_526;
+		public string _ItemDatabase_ItemDefinitions_526 = "300th Spear";
+		public static string ItemDatabase_ItemDefinitions_527 => instance._ItemDatabase_ItemDefinitions_527;
+		public string _ItemDatabase_ItemDefinitions_527 = "Stone Pauldrons";
+		public static string ItemDatabase_ItemDefinitions_528(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_528, objects);
+		public string _ItemDatabase_ItemDefinitions_528 = "All damage increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_529 => instance._ItemDatabase_ItemDefinitions_529;
+		public string _ItemDatabase_ItemDefinitions_529 = "Iron Shoulder Pads";
+		public static string ItemDatabase_ItemDefinitions_530(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_530, objects);
+		public string _ItemDatabase_ItemDefinitions_530 = "All damage increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_531 => instance._ItemDatabase_ItemDefinitions_531;
+		public string _ItemDatabase_ItemDefinitions_531 = "Steel Shoulder Pads";
+		public static string ItemDatabase_ItemDefinitions_532(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_532, objects);
+		public string _ItemDatabase_ItemDefinitions_532 = "All damage increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_533 => instance._ItemDatabase_ItemDefinitions_533;
+		public string _ItemDatabase_ItemDefinitions_533 = "Battle scarred Shoulder Pads";
+		public static string ItemDatabase_ItemDefinitions_534(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_534, objects);
+		public string _ItemDatabase_ItemDefinitions_534 = "All damage increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_535 => instance._ItemDatabase_ItemDefinitions_535;
+		public string _ItemDatabase_ItemDefinitions_535 = "Mystery Shoulder Pads";
+		public static string ItemDatabase_ItemDefinitions_536(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_536, objects);
+		public string _ItemDatabase_ItemDefinitions_536 = "All damage increased by {0}";
+		public static string ItemDatabase_ItemDefinitions_537 => instance._ItemDatabase_ItemDefinitions_537;
+		public string _ItemDatabase_ItemDefinitions_537 = "Stone Shield";
+		public static string ItemDatabase_ItemDefinitions_538 => instance._ItemDatabase_ItemDefinitions_538;
+		public string _ItemDatabase_ItemDefinitions_538 = "Iron Shield";
+		public static string ItemDatabase_ItemDefinitions_539 => instance._ItemDatabase_ItemDefinitions_539;
+		public string _ItemDatabase_ItemDefinitions_539 = "Steel Tower Shield";
+		public static string ItemDatabase_ItemDefinitions_540 => instance._ItemDatabase_ItemDefinitions_540;
+		public string _ItemDatabase_ItemDefinitions_540 = "Guardian";
+		public static string ItemDatabase_ItemDefinitions_541 => instance._ItemDatabase_ItemDefinitions_541;
+		public string _ItemDatabase_ItemDefinitions_541 = "Mystery Shield";
+		public static string ItemDatabase_ItemDefinitions_542 => instance._ItemDatabase_ItemDefinitions_542;
+		public string _ItemDatabase_ItemDefinitions_542 = "Light Boot";
+		public static string ItemDatabase_ItemDefinitions_543 => instance._ItemDatabase_ItemDefinitions_543;
+		public string _ItemDatabase_ItemDefinitions_543 = "Iron Boots";
+		public static string ItemDatabase_ItemDefinitions_544 => instance._ItemDatabase_ItemDefinitions_544;
+		public string _ItemDatabase_ItemDefinitions_544 = "Steel Boots";
+		public static string ItemDatabase_ItemDefinitions_545 => instance._ItemDatabase_ItemDefinitions_545;
+		public string _ItemDatabase_ItemDefinitions_545 = "Threads";
+		public static string ItemDatabase_ItemDefinitions_546 => instance._ItemDatabase_ItemDefinitions_546;
+		public string _ItemDatabase_ItemDefinitions_546 = "Mystery Boots";
+		public static string ItemDatabase_ItemDefinitions_547 => instance._ItemDatabase_ItemDefinitions_547;
+		public string _ItemDatabase_ItemDefinitions_547 = "Wraps";
+		public static string ItemDatabase_ItemDefinitions_548 => instance._ItemDatabase_ItemDefinitions_548;
+		public string _ItemDatabase_ItemDefinitions_548 = "Steel Gauntlet";
+		public static string ItemDatabase_ItemDefinitions_549 => instance._ItemDatabase_ItemDefinitions_549;
+		public string _ItemDatabase_ItemDefinitions_549 = "Titanium Gauntlet";
+		public static string ItemDatabase_ItemDefinitions_550 => instance._ItemDatabase_ItemDefinitions_550;
+		public string _ItemDatabase_ItemDefinitions_550 = "Mystery Gauntlet";
+		public static string ItemDatabase_ItemDefinitions_551 => instance._ItemDatabase_ItemDefinitions_551;
+		public string _ItemDatabase_ItemDefinitions_551 = "Leather Tasset";
+		public static string ItemDatabase_ItemDefinitions_552 => instance._ItemDatabase_ItemDefinitions_552;
+		public string _ItemDatabase_ItemDefinitions_552 = "Iron Tasset";
+		public static string ItemDatabase_ItemDefinitions_553 => instance._ItemDatabase_ItemDefinitions_553;
+		public string _ItemDatabase_ItemDefinitions_553 = "Steel Tasset";
+		public static string ItemDatabase_ItemDefinitions_554 => instance._ItemDatabase_ItemDefinitions_554;
+		public string _ItemDatabase_ItemDefinitions_554 = "Black Steel Leggins";
+		public static string ItemDatabase_ItemDefinitions_555 => instance._ItemDatabase_ItemDefinitions_555;
+		public string _ItemDatabase_ItemDefinitions_555 = "Mystery Leggins";
+		public static string ItemDatabase_ItemDefinitions_556 => instance._ItemDatabase_ItemDefinitions_556;
+		public string _ItemDatabase_ItemDefinitions_556 = "Leather Vest";
+		public static string ItemDatabase_ItemDefinitions_557 => instance._ItemDatabase_ItemDefinitions_557;
+		public string _ItemDatabase_ItemDefinitions_557 = "Iron Breastplate";
+		public static string ItemDatabase_ItemDefinitions_558 => instance._ItemDatabase_ItemDefinitions_558;
+		public string _ItemDatabase_ItemDefinitions_558 = "Steel Breastplate";
+		public static string ItemDatabase_ItemDefinitions_559 => instance._ItemDatabase_ItemDefinitions_559;
+		public string _ItemDatabase_ItemDefinitions_559 = "Silver Armor";
+		public static string ItemDatabase_ItemDefinitions_560 => instance._ItemDatabase_ItemDefinitions_560;
+		public string _ItemDatabase_ItemDefinitions_560 = "Mystery Breastplate";
+		public static string ItemDatabase_ItemDefinitions_561 => instance._ItemDatabase_ItemDefinitions_561;
+		public string _ItemDatabase_ItemDefinitions_561 = "Cloth Band";
+		public static string ItemDatabase_ItemDefinitions_562 => instance._ItemDatabase_ItemDefinitions_562;
+		public string _ItemDatabase_ItemDefinitions_562 = "Iron Wristguard";
+		public static string ItemDatabase_ItemDefinitions_563 => instance._ItemDatabase_ItemDefinitions_563;
+		public string _ItemDatabase_ItemDefinitions_563 = "Steel Wristguard";
+		public static string ItemDatabase_ItemDefinitions_564 => instance._ItemDatabase_ItemDefinitions_564;
+		public string _ItemDatabase_ItemDefinitions_564 = "Baron Wristguards";
+		public static string ItemDatabase_ItemDefinitions_565 => instance._ItemDatabase_ItemDefinitions_565;
+		public string _ItemDatabase_ItemDefinitions_565 = "Mystery Wristguards";
+		public static string ItemDatabase_ItemDefinitions_566 => instance._ItemDatabase_ItemDefinitions_566;
+		public string _ItemDatabase_ItemDefinitions_566 = "Iron Helmet";
+		public static string ItemDatabase_ItemDefinitions_567 => instance._ItemDatabase_ItemDefinitions_567;
+		public string _ItemDatabase_ItemDefinitions_567 = "Steel Helmet";
+		public static string ItemDatabase_ItemDefinitions_568 => instance._ItemDatabase_ItemDefinitions_568;
+		public string _ItemDatabase_ItemDefinitions_568 = "Armored Hood";
+		public static string ItemDatabase_ItemDefinitions_569 => instance._ItemDatabase_ItemDefinitions_569;
+		public string _ItemDatabase_ItemDefinitions_569 = "Mystery Helmet";
+		public static string ItemDatabase_ItemDefinitions_570 => instance._ItemDatabase_ItemDefinitions_570;
+		public string _ItemDatabase_ItemDefinitions_570 = "Yorium's Gaze";
+		public static string ItemDatabase_ItemDefinitions_571(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_571, objects);
+		public string _ItemDatabase_ItemDefinitions_571 = "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved.";
+		public static string ItemDatabase_ItemDefinitions_572(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_572, objects);
+		public string _ItemDatabase_ItemDefinitions_572 = "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration.";
+		public static string ItemDatabase_ItemDefinitions_573 => instance._ItemDatabase_ItemDefinitions_573;
+		public string _ItemDatabase_ItemDefinitions_573 = "Yorium's Ruthlessness";
+		public static string ItemDatabase_ItemDefinitions_574 => instance._ItemDatabase_ItemDefinitions_574;
+		public string _ItemDatabase_ItemDefinitions_574 = "Yorium's Burden";
+		public static string ItemDatabase_ItemDefinitions_575 => instance._ItemDatabase_ItemDefinitions_575;
+		public string _ItemDatabase_ItemDefinitions_575 = "Yorium's Resolve";
+		public static string ItemDatabase_ItemDefinitions_576 => instance._ItemDatabase_ItemDefinitions_576;
+		public string _ItemDatabase_ItemDefinitions_576 = "Atomic Augmentation";
+		public static string ItemDatabase_ItemDefinitions_577 => instance._ItemDatabase_ItemDefinitions_577;
+		public string _ItemDatabase_ItemDefinitions_577 = "Yorium's Assault";
+		public static string ItemDatabase_ItemDefinitions_578 => instance._ItemDatabase_ItemDefinitions_578;
+		public string _ItemDatabase_ItemDefinitions_578 = "Undying Promise";
+		public static string ItemDatabase_ItemDefinitions_579(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_579, objects);
+		public string _ItemDatabase_ItemDefinitions_579 = "Resist lethal damage on a {0} minute cooldown";
+		public static string ItemDatabase_ItemDefinitions_581(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_581, objects);
+		public string _ItemDatabase_ItemDefinitions_581 = "Snap freeze damage scaling is increased by {0} and the slow duration is increased by {1} seconds";
+		public static string ItemDatabase_ItemDefinitions_582 => instance._ItemDatabase_ItemDefinitions_582;
+		public string _ItemDatabase_ItemDefinitions_582 = "If equipped on a weapon, increases ranged damage by ";
+		public static string ItemDatabase_ItemDefinitions_583 => instance._ItemDatabase_ItemDefinitions_583;
+		public string _ItemDatabase_ItemDefinitions_583 = "If equipped on boots, increases movement speed by ";
+		public static string ItemDatabase_ItemDefinitions_584 => instance._ItemDatabase_ItemDefinitions_584;
+		public string _ItemDatabase_ItemDefinitions_584 = "If equipped on a helmet, increases critical hit chance by ";
+		public static string ItemDatabase_ItemDefinitions_585 => instance._ItemDatabase_ItemDefinitions_585;
+		public string _ItemDatabase_ItemDefinitions_585 = "If equipped on accessories, increases ranged armor piercing by ";
+		public static string ItemDatabase_ItemDefinitions_586 => instance._ItemDatabase_ItemDefinitions_586;
+		public string _ItemDatabase_ItemDefinitions_586 = "If equipped in other slots, increases agility by ";
+		public static string ItemDatabase_ItemDefinitions_587 => instance._ItemDatabase_ItemDefinitions_587;
+		public string _ItemDatabase_ItemDefinitions_587 = "If equipped on a weapon, increases melee damage by ";
+		public static string ItemDatabase_ItemDefinitions_588 => instance._ItemDatabase_ItemDefinitions_588;
+		public string _ItemDatabase_ItemDefinitions_588 = "If equipped on boots, decreases damage taken by ";
+		public static string ItemDatabase_ItemDefinitions_589 => instance._ItemDatabase_ItemDefinitions_589;
+		public string _ItemDatabase_ItemDefinitions_589 = "If equipped on a helmet, increases attack speed by ";
+		public static string ItemDatabase_ItemDefinitions_590 => instance._ItemDatabase_ItemDefinitions_590;
+		public string _ItemDatabase_ItemDefinitions_590 = "If equipped on accessories, increases melee armor piercing by ";
+		public static string ItemDatabase_ItemDefinitions_591 => instance._ItemDatabase_ItemDefinitions_591;
+		public string _ItemDatabase_ItemDefinitions_591 = "If equipped in other slots, increases strength by ";
+		public static string ItemDatabase_ItemDefinitions_592 => instance._ItemDatabase_ItemDefinitions_592;
+		public string _ItemDatabase_ItemDefinitions_592 = "If equipped on a weapon, increases magic damage by ";
+		public static string ItemDatabase_ItemDefinitions_593 => instance._ItemDatabase_ItemDefinitions_593;
+		public string _ItemDatabase_ItemDefinitions_593 = "If equipped on boots, decreases spell cost by ";
+		public static string ItemDatabase_ItemDefinitions_594 => instance._ItemDatabase_ItemDefinitions_594;
+		public string _ItemDatabase_ItemDefinitions_594 = "If equipped on a helmet, decreases spell cooldown by ";
+		public static string ItemDatabase_ItemDefinitions_595 => instance._ItemDatabase_ItemDefinitions_595;
+		public string _ItemDatabase_ItemDefinitions_595 = "If equipped on accessories, increases energy on hit by ";
+		public static string ItemDatabase_ItemDefinitions_596 => instance._ItemDatabase_ItemDefinitions_596;
+		public string _ItemDatabase_ItemDefinitions_596 = "If equipped in other slots, increases intelligence by ";
+		public static string ItemDatabase_ItemDefinitions_597 => instance._ItemDatabase_ItemDefinitions_597;
+		public string _ItemDatabase_ItemDefinitions_597 = "If equipped on a weapon, increases all healing by ";
+		public static string ItemDatabase_ItemDefinitions_598 => instance._ItemDatabase_ItemDefinitions_598;
+		public string _ItemDatabase_ItemDefinitions_598 = "If equipped on boots, increases magic find by ";
+		public static string ItemDatabase_ItemDefinitions_599 => instance._ItemDatabase_ItemDefinitions_599;
+		public string _ItemDatabase_ItemDefinitions_599 = "If equipped on a helmet, increases experience gained by ";
+		public static string ItemDatabase_ItemDefinitions_600 => instance._ItemDatabase_ItemDefinitions_600;
+		public string _ItemDatabase_ItemDefinitions_600 = "If equipped on accessories, increases life per second by ";
+		public static string ItemDatabase_ItemDefinitions_601 => instance._ItemDatabase_ItemDefinitions_601;
+		public string _ItemDatabase_ItemDefinitions_601 = "If equipped in other slots, increases vitality by ";
+		public static string ItemDatabase_ItemDefinitions_602 => instance._ItemDatabase_ItemDefinitions_602;
+		public string _ItemDatabase_ItemDefinitions_602 = "If equipped on a weapon, increases crit damage by ";
+		public static string ItemDatabase_ItemDefinitions_603 => instance._ItemDatabase_ItemDefinitions_603;
+		public string _ItemDatabase_ItemDefinitions_603 = "If equipped on boots, increases resistance to magic by ";
+		public static string ItemDatabase_ItemDefinitions_604 => instance._ItemDatabase_ItemDefinitions_604;
+		public string _ItemDatabase_ItemDefinitions_604 = "If equipped on a helmet, increases health by ";
+		public static string ItemDatabase_ItemDefinitions_605 => instance._ItemDatabase_ItemDefinitions_605;
+		public string _ItemDatabase_ItemDefinitions_605 = "If equipped on accessories, increases thorns by ";
+		public static string ItemDatabase_ItemDefinitions_606 => instance._ItemDatabase_ItemDefinitions_606;
+		public string _ItemDatabase_ItemDefinitions_606 = "If equipped in other slots, increases armor by ";
+		public static string ItemDatabase_ItemDefinitions_607 => instance._ItemDatabase_ItemDefinitions_607;
+		public string _ItemDatabase_ItemDefinitions_607 = "Firebolt deals increased damage";
+		public static string ItemDatabase_ItemDefinitions_608 => instance._ItemDatabase_ItemDefinitions_608;
+		public string _ItemDatabase_ItemDefinitions_608 = "\nWarcry gives damage resistance.";
+		public static string ItemDatabase_ItemDefinitions_609 => instance._ItemDatabase_ItemDefinitions_609;
+		public string _ItemDatabase_ItemDefinitions_609 = "Devil Dancers";
+		public static string ItemDatabase_ItemDefinitions_610 => instance._ItemDatabase_ItemDefinitions_610;
+		public string _ItemDatabase_ItemDefinitions_610 = "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 3% attack speed per frenzy stack active.";
+		public static string ItemDatabase_ItemDefinitions_611 => instance._ItemDatabase_ItemDefinitions_611;
+		public string _ItemDatabase_ItemDefinitions_611 = "Call of the Ancients";
+		public static string ItemDatabase_ItemDefinitions_612(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_612, objects);
+		public string _ItemDatabase_ItemDefinitions_612 = "Berserk increases all damage by additional <color=gold>{0}</color>";
+		public static string ItemDatabase_ItemDefinitions_613 => instance._ItemDatabase_ItemDefinitions_613;
+		public string _ItemDatabase_ItemDefinitions_613 = "Berserker's Wrath";
+		public static string ItemDatabase_ItemDefinitions_614 => instance._ItemDatabase_ItemDefinitions_614;
+		public string _ItemDatabase_ItemDefinitions_614 = "Viking Amulet";
+		public static string ItemDatabase_ItemDefinitions_615(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_615, objects);
+		public string _ItemDatabase_ItemDefinitions_615 = "Increases attack and movement speed during berserk by <color=gold>{0}</color>";
+		public static string ItemDatabase_ItemDefinitions_616 => instance._ItemDatabase_ItemDefinitions_616;
+		public string _ItemDatabase_ItemDefinitions_616 = "Pedant of Skallagrim";
+		public static string ItemDatabase_ItemDefinitions_617 => instance._ItemDatabase_ItemDefinitions_617;
+		public string _ItemDatabase_ItemDefinitions_617 = "Wristguards of The Sanctuary Keeper";
+		public static string ItemDatabase_ItemDefinitions_618(params object[] objects) => string.Format(instance._ItemDatabase_ItemDefinitions_618, objects);
+		public string _ItemDatabase_ItemDefinitions_618 = "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources";
 
 		//MainMenu_Hints
 		public static string MainMenu_Hints_1 => instance._MainMenu_Hints_1;
@@ -3290,9 +3286,9 @@ namespace ChampionsOfForest.Localization
 
         //Player\Spells\SpellDataBase.cs
 
-        //Items\ItemDataBase_StatDefinitions.cs
+        //Items\ItemDatabase_StatDefinitions.cs
 
-        //Items\ItemDataBase_ItemDefinitions.cs
+        //Items\ItemDatabase_ItemDefinitions.cs
 
         //Items\Item.cs
 
@@ -4153,704 +4149,704 @@ SpellDataBase_49:: "Puts your weapon away and instead allows you to shoot fireba
 SpellDataBase_50:: "Firebolt"
 SpellDataBase_51:: "Puts your weapon away and instead allows you to summon bone chilling blizzard around you that progressively gets stronger. After {0} seconds spell reaches maximum power - damage and radius is at it's peak\nAttacks twice per second, frost seeps into enemy armor reducing it by a fraction of damage dealt"
 SpellDataBase_52:: "Snow Storm"
-ItemDataBase_StatDefinitions_1:: "Health"
-ItemDataBase_StatDefinitions_2:: "Energy"
-ItemDataBase_StatDefinitions_3:: "Health/sec"
-ItemDataBase_StatDefinitions_4:: "Stamina/sec"
-ItemDataBase_StatDefinitions_5:: "Energy regen"
-ItemDataBase_StatDefinitions_6:: "Life regen"
-ItemDataBase_StatDefinitions_7:: "Critical hit chance"
-ItemDataBase_StatDefinitions_8:: "Life on hit"
-ItemDataBase_StatDefinitions_9:: "Dodge chance"
-ItemDataBase_StatDefinitions_10:: "Magic resistance"
-ItemDataBase_StatDefinitions_11:: "Experience"
-ItemDataBase_StatDefinitions_12:: "Spell damage"
-ItemDataBase_StatDefinitions_13:: "Melee damage"
-ItemDataBase_StatDefinitions_14:: "Ranged damage"
-ItemDataBase_StatDefinitions_15:: "Base spell damage"
-ItemDataBase_StatDefinitions_16:: "Base melee damage"
-ItemDataBase_StatDefinitions_17:: "Base ranged damage"
-ItemDataBase_StatDefinitions_18:: "Energy/agility"
-ItemDataBase_StatDefinitions_19:: "Health/vitality"
-ItemDataBase_StatDefinitions_20:: "Spell damage/intelligence"
-ItemDataBase_StatDefinitions_21:: "Melee damage/strength"
-ItemDataBase_StatDefinitions_22:: "Recovery"
-ItemDataBase_StatDefinitions_23:: "PERMANENT PERK POINTS"
-ItemDataBase_StatDefinitions_24:: " / "
-ItemDataBase_StatDefinitions_25:: "EXPERIENCE"
-ItemDataBase_StatDefinitions_26:: "Weapon length"
-ItemDataBase_StatDefinitions_27:: "Attack cost reduction"
-ItemDataBase_StatDefinitions_28:: "Spell cost to stamina"
-ItemDataBase_StatDefinitions_29:: "Energy/sec"
-ItemDataBase_StatDefinitions_30:: "Ranged damage/agility"
-ItemDataBase_StatDefinitions_31:: "Melee armor piercing"
-ItemDataBase_StatDefinitions_32:: "Ranged armor piercing"
-ItemDataBase_StatDefinitions_33:: "Armor piercing"
-ItemDataBase_StatDefinitions_34:: "Refund points"
-ItemDataBase_StatDefinitions_35:: "Headshot damage"
-ItemDataBase_StatDefinitions_36:: "Fire damage"
-ItemDataBase_StatDefinitions_37:: "Chance on hit to slow"
-ItemDataBase_StatDefinitions_38:: "Chance on hit to bleed"
-ItemDataBase_StatDefinitions_39:: "Chance on hit to weaken"
-ItemDataBase_StatDefinitions_40:: "Dynamite & bomb damage"
-ItemDataBase_StatDefinitions_41:: "Spear damage"
-ItemDataBase_StatDefinitions_42:: "Extra carried Sticks"
-ItemDataBase_StatDefinitions_43:: "Extra carried Rocks"
-ItemDataBase_StatDefinitions_44:: "Extra carried Ropes"
-ItemDataBase_StatDefinitions_45:: " Soda: "
-ItemDataBase_StatDefinitions_46:: "Booze: "
-ItemDataBase_StatDefinitions_47:: "Extra carried Drinks"
-ItemDataBase_StatDefinitions_48:: "Extra carried Food"
-ItemDataBase_StatDefinitions_49:: "Black hole radius"
-ItemDataBase_StatDefinitions_50:: "Black hole lifetime"
-ItemDataBase_StatDefinitions_51:: "Black hole gravitational force"
-ItemDataBase_StatDefinitions_52:: "Black hole damage"
-ItemDataBase_StatDefinitions_53:: "Stun on hit"
-ItemDataBase_StatDefinitions_54:: "Snap freeze Duration"
-ItemDataBase_StatDefinitions_55:: "Raft speed"
-ItemDataBase_StatDefinitions_56:: "Empty socket"
-ItemDataBase_StatDefinitions_57:: "Socket: crit chance"
-ItemDataBase_StatDefinitions_58:: "Socket: agility"
-ItemDataBase_StatDefinitions_59:: "Socket: movement speed"
-ItemDataBase_StatDefinitions_60:: "Socket: ranged damage"
-ItemDataBase_StatDefinitions_61:: "Socket: ranged armor piercing"
-ItemDataBase_StatDefinitions_62:: "Socket: attack speed"
-ItemDataBase_StatDefinitions_63:: "Socket: strength"
-ItemDataBase_StatDefinitions_64:: "Socket: damage reduction"
-ItemDataBase_StatDefinitions_65:: "Socket: melee damage"
-ItemDataBase_StatDefinitions_66:: "Socket: melee armor piercing"
-ItemDataBase_StatDefinitions_67:: "Socket: cooldown reduction"
-ItemDataBase_StatDefinitions_68:: "Socket: intelligence"
-ItemDataBase_StatDefinitions_69:: "Socket: spell cost reduction"
-ItemDataBase_StatDefinitions_70:: "Socket: spell damage"
-ItemDataBase_StatDefinitions_71:: "Socket: energy on hit"
-ItemDataBase_StatDefinitions_72:: "Socket: experience gain"
-ItemDataBase_StatDefinitions_73:: "Socket: vitality "
-ItemDataBase_StatDefinitions_74:: "Socket: magic find"
-ItemDataBase_StatDefinitions_75:: "Socket: all healing"
-ItemDataBase_StatDefinitions_76:: "Socket: life per second"
-ItemDataBase_StatDefinitions_77:: "Socket: maximum health "
-ItemDataBase_StatDefinitions_78:: "Socket: armor "
-ItemDataBase_StatDefinitions_79:: "Socket: Resistance to magic"
-ItemDataBase_StatDefinitions_80:: "Socket: crit damage"
-ItemDataBase_StatDefinitions_81:: "Socket: thorns"
-ItemDataBase_ItemDefinitions_1:: "Broken Flip-Flops"
-ItemDataBase_ItemDefinitions_2:: "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner."
-ItemDataBase_ItemDefinitions_3:: "Worn by one of the passengers of the plane that Eric also flew in."
-ItemDataBase_ItemDefinitions_4:: "Old Boots"
-ItemDataBase_ItemDefinitions_5:: "A pair of old boots. They must have been lying here for ages."
-ItemDataBase_ItemDefinitions_6:: "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal."
-ItemDataBase_ItemDefinitions_7:: "Damaged Leather Boots"
-ItemDataBase_ItemDefinitions_8:: "A pair of leather boots. They look good and have only some scratches."
-ItemDataBase_ItemDefinitions_9:: "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage."
-ItemDataBase_ItemDefinitions_10:: "Sturdy Leather Boots"
-ItemDataBase_ItemDefinitions_11:: "A pair of leather boots. They are in a very good condition."
-ItemDataBase_ItemDefinitions_12:: "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99."
-ItemDataBase_ItemDefinitions_13:: "Damaged Army Boots"
-ItemDataBase_ItemDefinitions_14:: "Sturdy, hard, resistant but damaged boots."
-ItemDataBase_ItemDefinitions_15:: "They look modern, almost too modern for everything here."
-ItemDataBase_ItemDefinitions_16:: "Army Boots"
-ItemDataBase_ItemDefinitions_17:: "Sturdy, hard, resistant boots."
-ItemDataBase_ItemDefinitions_18:: "Armsy Skin Footwear"
-ItemDataBase_ItemDefinitions_19:: "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin."
-ItemDataBase_ItemDefinitions_20:: "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue."
-ItemDataBase_ItemDefinitions_21:: "Finger Warmer"
-ItemDataBase_ItemDefinitions_22:: "A little glove to keep your fingers warm and cozy."
-ItemDataBase_ItemDefinitions_23:: "Made of wool."
-ItemDataBase_ItemDefinitions_24:: "Thick Rubber Glove"
-ItemDataBase_ItemDefinitions_25:: "A glove that helps get a better grip."
-ItemDataBase_ItemDefinitions_26:: "Tribal Glove"
-ItemDataBase_ItemDefinitions_27:: "Offers medicore protection."
-ItemDataBase_ItemDefinitions_28:: "Glove made out of thin bones, some may possibly be from a human."
-ItemDataBase_ItemDefinitions_29:: "Tribe Leader Glove"
-ItemDataBase_ItemDefinitions_30:: "A glove that offers little protection but a lot of offensive stats."
-ItemDataBase_ItemDefinitions_31:: "A glove made of bones, some have engravings of crosses."
-ItemDataBase_ItemDefinitions_32:: "Worn Shorts"
-ItemDataBase_ItemDefinitions_33:: "Some protection for legs."
-ItemDataBase_ItemDefinitions_34:: "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing."
-ItemDataBase_ItemDefinitions_35:: "Cargo Shorts"
-ItemDataBase_ItemDefinitions_36:: "No protection at all but they allow to carry more items."
-ItemDataBase_ItemDefinitions_37:: "They are ugly as hell tho"
-ItemDataBase_ItemDefinitions_38:: "Passenger's Jacket"
-ItemDataBase_ItemDefinitions_39:: "It's a little torn. "
-ItemDataBase_ItemDefinitions_40:: "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead."
-ItemDataBase_ItemDefinitions_41:: "Leather Jacket"
-ItemDataBase_ItemDefinitions_42:: "Offers little protection"
-ItemDataBase_ItemDefinitions_43:: "This jacket was in a baggage of one of the plane passengers"
-ItemDataBase_ItemDefinitions_44:: "Boar Skin Armor"
-ItemDataBase_ItemDefinitions_45:: "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies."
-ItemDataBase_ItemDefinitions_46:: "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable."
-ItemDataBase_ItemDefinitions_47:: "Crocodile Skin Armor"
-ItemDataBase_ItemDefinitions_48:: "Plate armour"
-ItemDataBase_ItemDefinitions_49:: "Bear Skin Armor"
-ItemDataBase_ItemDefinitions_50:: "Archer's Gear"
-ItemDataBase_ItemDefinitions_51:: "Hazard's Gear"
-ItemDataBase_ItemDefinitions_52:: "Mysterious robe"
-ItemDataBase_ItemDefinitions_53:: "Magic flows through the entirety of this object. It's made out of unknown material"
-ItemDataBase_ItemDefinitions_54:: "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine."
-ItemDataBase_ItemDefinitions_55:: "Empowers cataclysm. The vortex turns blue, damage is increased, freezes enemies "
-ItemDataBase_ItemDefinitions_56:: "Rusty Longsword"
-ItemDataBase_ItemDefinitions_57:: "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half."
-ItemDataBase_ItemDefinitions_58:: "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration."
-ItemDataBase_ItemDefinitions_59:: "Longsword"
-ItemDataBase_ItemDefinitions_60:: "Sharp and long"
-ItemDataBase_ItemDefinitions_61:: "The sword is in perfect contidion."
-ItemDataBase_ItemDefinitions_62:: "Full Metal Sword"
-ItemDataBase_ItemDefinitions_63:: "It's sooo big..."
-ItemDataBase_ItemDefinitions_64:: "A normal human cannot lift this."
-ItemDataBase_ItemDefinitions_65:: "The Leech"
-ItemDataBase_ItemDefinitions_66:: "Hey where did my health g- oh it's back..."
-ItemDataBase_ItemDefinitions_67:: "Smokey's Sacred Quiver"
-ItemDataBase_ItemDefinitions_68:: "SmokeyTheBear died because he never used this item."
-ItemDataBase_ItemDefinitions_69:: "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants."
-ItemDataBase_ItemDefinitions_70:: "Crossbows operate at <color=gold>{0}</color> speed and deal <color=gold>{1}</color> increased damage"
-ItemDataBase_ItemDefinitions_71:: "Broken shield"
-ItemDataBase_ItemDefinitions_72:: "Tower Shield"
-ItemDataBase_ItemDefinitions_73:: "Broken Leather Shoulder Armor"
-ItemDataBase_ItemDefinitions_74:: "Leather Shoulder Armor"
-ItemDataBase_ItemDefinitions_75:: "Phase Pauldrons"
-ItemDataBase_ItemDefinitions_76:: "The distance of blink is increased by <color=gold>{}</color> meters, and blink now hits everything that you teleported through"
-ItemDataBase_ItemDefinitions_77:: "MAGA Cap"
-ItemDataBase_ItemDefinitions_78:: "Wearing this item channels the power of D.Trump to you"
-ItemDataBase_ItemDefinitions_79:: "... or does it?"
-ItemDataBase_ItemDefinitions_80:: "Hubble's Vision"
-ItemDataBase_ItemDefinitions_81:: "Wearing this item empowers your black hole spell"
-ItemDataBase_ItemDefinitions_82:: "Man, fuck gravity."
-ItemDataBase_ItemDefinitions_83:: "Broken Loop"
-ItemDataBase_ItemDefinitions_84:: "Loop"
-ItemDataBase_ItemDefinitions_85:: "Toxic Ring"
-ItemDataBase_ItemDefinitions_86:: " comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo."
-ItemDataBase_ItemDefinitions_87:: "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo."
-ItemDataBase_ItemDefinitions_88:: "Scarf"
-ItemDataBase_ItemDefinitions_89:: "Damaged Bracer"
-ItemDataBase_ItemDefinitions_90:: "Worn Bracer"
-ItemDataBase_ItemDefinitions_91:: "Leather Bracer"
-ItemDataBase_ItemDefinitions_92:: "Greater Mutated Heart"
-ItemDataBase_ItemDefinitions_93:: "Can be consumed by right clicking it"
-ItemDataBase_ItemDefinitions_94:: "Lesser Mutated Heart"
-ItemDataBase_ItemDefinitions_95:: "Spiked ring"
-ItemDataBase_ItemDefinitions_96:: "Armor piercing for either melee or ranged weapons"
-ItemDataBase_ItemDefinitions_97:: "Piercer"
-ItemDataBase_ItemDefinitions_98:: "Moon Boots"
-ItemDataBase_ItemDefinitions_99:: "A pair of boots from the moon."
-ItemDataBase_ItemDefinitions_100:: "It is said that the wearer will not take fall damage while wearing these boots and will jump like on the moon, I wouldn't trust it tough."
-ItemDataBase_ItemDefinitions_101:: "Golden Ring of Strength"
-ItemDataBase_ItemDefinitions_102:: "A Ring of ancient times."
-ItemDataBase_ItemDefinitions_103:: "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_104:: "Golden Ring of Vitality"
-ItemDataBase_ItemDefinitions_105:: "Golden Ring of Agility"
-ItemDataBase_ItemDefinitions_106:: "Golden Ring of Intelligence"
-ItemDataBase_ItemDefinitions_107:: "Silver Ring of Strength"
-ItemDataBase_ItemDefinitions_108:: "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_109:: "Silver Ring of Vitality"
-ItemDataBase_ItemDefinitions_110:: "Silver Ring of Agility"
-ItemDataBase_ItemDefinitions_111:: "Silver Ring of Intelligence"
-ItemDataBase_ItemDefinitions_112:: "Steel Ring of Strength"
-ItemDataBase_ItemDefinitions_113:: "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_114:: "Steel Ring of Vitality"
-ItemDataBase_ItemDefinitions_115:: "Steel Ring of Agility"
-ItemDataBase_ItemDefinitions_116:: "Steel Ring of Intelligence"
-ItemDataBase_ItemDefinitions_117:: "The One Ring To Rule Them All"
-ItemDataBase_ItemDefinitions_118:: "An Ancient magical Ring of great power."
-ItemDataBase_ItemDefinitions_119:: "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?"
-ItemDataBase_ItemDefinitions_120:: "Attracts unwanted attention of an unknown entity."
-ItemDataBase_ItemDefinitions_121:: "Golden Locket of Strength"
-ItemDataBase_ItemDefinitions_122:: "A Locket of ancient times."
-ItemDataBase_ItemDefinitions_123:: "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_124:: "Golden Locket of Vitality"
-ItemDataBase_ItemDefinitions_125:: "Golden Locket of Agility"
-ItemDataBase_ItemDefinitions_126:: "Golden Locket of Intelligence"
-ItemDataBase_ItemDefinitions_127:: "Silver Locket of Strength"
-ItemDataBase_ItemDefinitions_128:: "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_129:: "Silver Locket of Vitality"
-ItemDataBase_ItemDefinitions_130:: "Silver Locket of Agility"
-ItemDataBase_ItemDefinitions_131:: "Silver Locket of Intelligence"
-ItemDataBase_ItemDefinitions_132:: "Emerald Pendant of Strength"
-ItemDataBase_ItemDefinitions_133:: "A Pendant of ancient times."
-ItemDataBase_ItemDefinitions_134:: "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_135:: "Emerald Pendant of Vitality"
-ItemDataBase_ItemDefinitions_136:: "Emerald Pendant of Agility"
-ItemDataBase_ItemDefinitions_137:: "Emerald Pendant of Intelligence"
-ItemDataBase_ItemDefinitions_138:: "Diamond Pendant of Strength"
-ItemDataBase_ItemDefinitions_139:: "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch."
-ItemDataBase_ItemDefinitions_140:: "Diamond Pendant of Vitality"
-ItemDataBase_ItemDefinitions_141:: "Diamond Pendant of Agility"
-ItemDataBase_ItemDefinitions_142:: "Diamond Pendant of Intelligence"
-ItemDataBase_ItemDefinitions_143:: "Armsy Finger Necklace"
-ItemDataBase_ItemDefinitions_144:: "A Necklace decorated with armsy fingertips."
-ItemDataBase_ItemDefinitions_145:: "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh."
-ItemDataBase_ItemDefinitions_146:: "Virginia Heart Pendant"
-ItemDataBase_ItemDefinitions_147:: "A Pendant of a petrified Virginia heart."
-ItemDataBase_ItemDefinitions_148:: "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality."
-ItemDataBase_ItemDefinitions_149:: "Cowman Toe Necklace"
-ItemDataBase_ItemDefinitions_150:: "A Necklace decorated with cowman toes."
-ItemDataBase_ItemDefinitions_151:: "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility."
-ItemDataBase_ItemDefinitions_152:: "Pendant of Perpetual Rebirth"
-ItemDataBase_ItemDefinitions_153:: "A Pendant of a shrunken babyhead."
-ItemDataBase_ItemDefinitions_154:: "A pedant of great power. Obtainable only from babies or crafting"
-ItemDataBase_ItemDefinitions_155:: "decrease a random cooldown by {0} second whenever you hit something with melee or ranged attack."
-ItemDataBase_ItemDefinitions_156:: "Megan's Locket"
-ItemDataBase_ItemDefinitions_157:: "The Locket Megan wore."
-ItemDataBase_ItemDefinitions_158:: "Megan wore this Locket, it has a picture of her mom in it."
-ItemDataBase_ItemDefinitions_159:: "Relic Hammer"
-ItemDataBase_ItemDefinitions_160:: "It's slow and weak."
-ItemDataBase_ItemDefinitions_161:: "Slows on hit"
-ItemDataBase_ItemDefinitions_162:: "Black Hammer"
-ItemDataBase_ItemDefinitions_163:: "It's slow but with enough strength i can make it a very deadly tool"
-ItemDataBase_ItemDefinitions_164:: "Potato Sack"
-ItemDataBase_ItemDefinitions_165:: "Can be used as a quiver"
-ItemDataBase_ItemDefinitions_166:: "Rabbit Skin Quiver"
-ItemDataBase_ItemDefinitions_167:: "Hollow Log"
-ItemDataBase_ItemDefinitions_168:: "It allows for faster drawing of arrow than a cloth quiver"
-ItemDataBase_ItemDefinitions_169:: "Spellbound Quiver"
-ItemDataBase_ItemDefinitions_170:: "Long Lost Quiver"
-ItemDataBase_ItemDefinitions_171:: "Spell Scroll"
-ItemDataBase_ItemDefinitions_172:: "Contains a lot of information on how to properly cast spells to achieve better results"
-ItemDataBase_ItemDefinitions_173:: "Cloth Pants"
-ItemDataBase_ItemDefinitions_174:: "Offer little protction"
-ItemDataBase_ItemDefinitions_175:: "Rough Hide Leggins"
-ItemDataBase_ItemDefinitions_176:: "Plate Leggins"
-ItemDataBase_ItemDefinitions_177:: "Sage's Robes"
-ItemDataBase_ItemDefinitions_178:: "Hammer Jammers"
-ItemDataBase_ItemDefinitions_179:: "Damage of your smash attack is increased by <color=gold>{0}</color>, hammer stun duration is doubled"
-ItemDataBase_ItemDefinitions_180:: "Pirate Pants"
-ItemDataBase_ItemDefinitions_181:: "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection."
-ItemDataBase_ItemDefinitions_182:: "Hexed Pants of Mr M."
-ItemDataBase_ItemDefinitions_183:: "They look like yoga pants but for a man the size of a wardrobe"
-ItemDataBase_ItemDefinitions_184:: "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise."
-ItemDataBase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second."
-ItemDataBase_ItemDefinitions_186:: "Leather Mantle"
-ItemDataBase_ItemDefinitions_187:: "A piece of cloth to give protection from "
-ItemDataBase_ItemDefinitions_188:: "Shoulder Guards"
-ItemDataBase_ItemDefinitions_189:: "Medium armor piece."
-ItemDataBase_ItemDefinitions_190:: "Heavy armor"
-ItemDataBase_ItemDefinitions_191:: "Heavy Shoulder Plates"
-ItemDataBase_ItemDefinitions_192:: "Heavy armor piece. They offer great protection at the cost of attack speed and movement speed decrease"
-ItemDataBase_ItemDefinitions_193:: "Etched Mantle"
-ItemDataBase_ItemDefinitions_194:: "Those pauldrons empower wearer's combat skill"
-ItemDataBase_ItemDefinitions_195:: "Assassins Pauldrons"
-ItemDataBase_ItemDefinitions_196:: "Death Pact"
-ItemDataBase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
-ItemDataBase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you."
-ItemDataBase_ItemDefinitions_199:: "Maximale Qualitot"
-ItemDataBase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
-ItemDataBase_ItemDefinitions_201:: "Heart of Purity"
-ItemDataBase_ItemDefinitions_202:: "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points"
-ItemDataBase_ItemDefinitions_203:: "This powerful relic contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth."
-ItemDataBase_ItemDefinitions_204:: "Can be consumed by right clicking it. "
-ItemDataBase_ItemDefinitions_205:: "Round Shield"
-ItemDataBase_ItemDefinitions_206:: "A sturdy shield made of wood and reinforced with iron."
-ItemDataBase_ItemDefinitions_207:: "Old Buckler"
-ItemDataBase_ItemDefinitions_208:: "An old shield."
-ItemDataBase_ItemDefinitions_209:: "This item has a lot of scratches that look like they were made by something with sharp claws."
-ItemDataBase_ItemDefinitions_210:: "Dark Oak Shield"
-ItemDataBase_ItemDefinitions_211:: "Bone Shield"
-ItemDataBase_ItemDefinitions_212:: "A shield made of bones, held together by thick steel wire."
-ItemDataBase_ItemDefinitions_213:: "Dull Longsword"
-ItemDataBase_ItemDefinitions_214:: "It's round on the edges"
-ItemDataBase_ItemDefinitions_215:: "Iron Horn"
-ItemDataBase_ItemDefinitions_216:: "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>{0}</color> of your armor"
-ItemDataBase_ItemDefinitions_217:: "The Great Iron Horn"
-ItemDataBase_ItemDefinitions_218:: "Horned Helmet"
-ItemDataBase_ItemDefinitions_219:: "A viking helmet"
-ItemDataBase_ItemDefinitions_220:: "Mask"
-ItemDataBase_ItemDefinitions_221:: "Mask of Madness"
-ItemDataBase_ItemDefinitions_222:: "Old Scroll"
-ItemDataBase_ItemDefinitions_223:: "Wormhole Stabilizators"
-ItemDataBase_ItemDefinitions_224:: "High-tech gear"
-ItemDataBase_ItemDefinitions_225:: "Hazard remember to put some fucking lore in here, don't leave it like this!"
-ItemDataBase_ItemDefinitions_226:: "Increases the duration of a portal by <color=gold>{0}</color> seconds"
-ItemDataBase_ItemDefinitions_227:: "Cripplers"
-ItemDataBase_ItemDefinitions_228:: "Increases the duration of a magic arrow's negative effect by <color=gold>{0}</color> seconds"
-ItemDataBase_ItemDefinitions_229:: "Crossfire"
-ItemDataBase_ItemDefinitions_230:: "Infused with powerful magic. This item is a dangerous tool of destruction."
-ItemDataBase_ItemDefinitions_231:: "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <color=gold>2</color> seconds, but can be interval can be shortened with cooldown reduction."
-ItemDataBase_ItemDefinitions_232:: "Scroll of Recovery"
-ItemDataBase_ItemDefinitions_233:: "Recovers health and stamina"
-ItemDataBase_ItemDefinitions_234:: "Tiara"
-ItemDataBase_ItemDefinitions_235:: "A beautiful tiara "
-ItemDataBase_ItemDefinitions_236:: "This tiara may not provide much protection, but it sure is pretty"
-ItemDataBase_ItemDefinitions_237:: "Shiny"
-ItemDataBase_ItemDefinitions_238:: "Chastity belt"
-ItemDataBase_ItemDefinitions_239:: "Dodge those fukbois"
-ItemDataBase_ItemDefinitions_240:: "This belt will stop those cheeky cannibals and armsies from getting into your pants"
-ItemDataBase_ItemDefinitions_241:: " <color=gold>{0}</color> damage reduction while sleeping"
-ItemDataBase_ItemDefinitions_242:: "Ice Scroll"
-ItemDataBase_ItemDefinitions_243:: "A spell surrounded by flying shards of ice, contains tramendous power of cold."
-ItemDataBase_ItemDefinitions_244:: "Created at the top of the mountain."
-ItemDataBase_ItemDefinitions_245:: "Motorboat Modification Blueprints"
-ItemDataBase_ItemDefinitions_246:: "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts."
-ItemDataBase_ItemDefinitions_247:: "Who did this lmao."
-ItemDataBase_ItemDefinitions_248:: "Axe of Swiftness"
-ItemDataBase_ItemDefinitions_249:: "Severer"
-ItemDataBase_ItemDefinitions_250:: "Golden Axe of Fortune"
-ItemDataBase_ItemDefinitions_251:: "Axe of Misfortune"
-ItemDataBase_ItemDefinitions_252:: "Misfortunate are the ones on the recieving end. They will bleed a lot"
-ItemDataBase_ItemDefinitions_253:: "Golden Ring"
-ItemDataBase_ItemDefinitions_254:: "Golden Locket"
-ItemDataBase_ItemDefinitions_255:: "Dull Axe"
-ItemDataBase_ItemDefinitions_256:: "Precise Adjustments"
-ItemDataBase_ItemDefinitions_257:: "Focus attack speed buff duration is increased by <color=gold>{0}</color> seconds"
-ItemDataBase_ItemDefinitions_258:: "Rage"
-ItemDataBase_ItemDefinitions_259:: "Increases maximum stacks of frenzy by <color=gold>{0}</color>"
-ItemDataBase_ItemDefinitions_260:: "Swords go brrrrrrttt"
-ItemDataBase_ItemDefinitions_261:: "Jagged Edge"
-ItemDataBase_ItemDefinitions_262:: "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow"
-ItemDataBase_ItemDefinitions_263:: "Bloodthirster"
-ItemDataBase_ItemDefinitions_264:: "Drenched in blood of many unfortunate foes."
-ItemDataBase_ItemDefinitions_265:: "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health"
-ItemDataBase_ItemDefinitions_266:: "Frost Giant"
-ItemDataBase_ItemDefinitions_267:: "Melee hits freeze enemies"
-ItemDataBase_ItemDefinitions_268:: "Alexander's Shield"
-ItemDataBase_ItemDefinitions_269:: "Parry has a chance to be casted when getting it. Requires parry to be equipped"
-ItemDataBase_ItemDefinitions_270:: "King Qruies"
-ItemDataBase_ItemDefinitions_271:: "A mighty sword seeking for it's owner"
-ItemDataBase_ItemDefinitions_272:: "Gain additional melee damage equal to the last instance of physical damage taken."
-ItemDataBase_ItemDefinitions_273:: "Grip of Sora"
-ItemDataBase_ItemDefinitions_274:: "Look, a porcupine! -Sora"
-ItemDataBase_ItemDefinitions_275:: "Multishot drains <color=gold>{0}</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot"
-ItemDataBase_ItemDefinitions_276:: "Ancient Greatbow"
-ItemDataBase_ItemDefinitions_277:: "A massive and slow bow, deals extra damage"
-ItemDataBase_ItemDefinitions_278:: "Phoenix's Death"
-ItemDataBase_ItemDefinitions_279:: "Ignites enemies on hit"
-ItemDataBase_ItemDefinitions_280:: "Soulstring"
-ItemDataBase_ItemDefinitions_281:: "A massive and slow bow"
-ItemDataBase_ItemDefinitions_282:: "Blood infused arrow now deals additional <color=gold>{0}</color> points of damage per health consumed"
-ItemDataBase_ItemDefinitions_283:: "Greatbow"
-ItemDataBase_ItemDefinitions_284:: "Withered Crown"
-ItemDataBase_ItemDefinitions_285:: "Worn by Hazard."
-ItemDataBase_ItemDefinitions_286:: "A single cast of blood infused arrow affects <color=gold>{0}</color> more projectiles"
-ItemDataBase_ItemDefinitions_287:: "Novice Magic Caster's Bracers"
-ItemDataBase_ItemDefinitions_288:: "Ranger's Bracers"
-ItemDataBase_ItemDefinitions_289:: "Swordsman's Bracers"
-ItemDataBase_ItemDefinitions_290:: "Healer's Bracers"
-ItemDataBase_ItemDefinitions_291:: "Novice Magic Caster's Gloves"
-ItemDataBase_ItemDefinitions_292:: "Ranger's Gloves"
-ItemDataBase_ItemDefinitions_293:: "Swordsman's Gloves"
-ItemDataBase_ItemDefinitions_294:: "Healer's Gloves"
-ItemDataBase_ItemDefinitions_295:: "Fate Gloves"
-ItemDataBase_ItemDefinitions_296:: "Fate Boots"
-ItemDataBase_ItemDefinitions_297:: "Greed"
-ItemDataBase_ItemDefinitions_298:: "Automatically casts wide reach every second"
-ItemDataBase_ItemDefinitions_299:: "Titanium Leggins"
-ItemDataBase_ItemDefinitions_300:: "Heavily armored leg protection. Suffers from the same weaknesses as spartan armor."
-ItemDataBase_ItemDefinitions_301:: "Iron Gauntlet"
-ItemDataBase_ItemDefinitions_302:: "Magefist"
-ItemDataBase_ItemDefinitions_303:: "Gloves that amplify magic"
-ItemDataBase_ItemDefinitions_304:: "Spells deal <color=gold>double</color> damage but have double the energy cost"
-ItemDataBase_ItemDefinitions_305:: "Armored Boots"
-ItemDataBase_ItemDefinitions_306:: "Heavily armored, resistant to damage boots."
-ItemDataBase_ItemDefinitions_307:: "Broken Protector"
-ItemDataBase_ItemDefinitions_308:: "This shield failed to protect those behind it."
-ItemDataBase_ItemDefinitions_309:: "Forbidden Scroll"
-ItemDataBase_ItemDefinitions_310:: "Too powerful to be kept."
-ItemDataBase_ItemDefinitions_311:: "Doom Pauldrons"
-ItemDataBase_ItemDefinitions_312:: "Despite the cool name, they are completely normal pair of shoulder armor."
-ItemDataBase_ItemDefinitions_313:: "Wind armor"
-ItemDataBase_ItemDefinitions_314:: "Run fast like the wind"
-ItemDataBase_ItemDefinitions_315:: "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health"
-ItemDataBase_ItemDefinitions_316:: "Crusader Helmet"
-ItemDataBase_ItemDefinitions_317:: "You're talking mad shit for someone within crusading distance"
-ItemDataBase_ItemDefinitions_318:: "Hood"
-ItemDataBase_ItemDefinitions_319:: "Hats provide usefull stat bonuses"
-ItemDataBase_ItemDefinitions_320:: "The Spark of Light in The Darkness"
-ItemDataBase_ItemDefinitions_321:: "Magic Scroll of great quality"
-ItemDataBase_ItemDefinitions_322:: "Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll."
-ItemDataBase_ItemDefinitions_323:: "If a black hole hits {0} or more enemies during it's lifetime, a ball lightning is summoned after it ends."
-ItemDataBase_ItemDefinitions_324:: "Purgatory"
-ItemDataBase_ItemDefinitions_325:: "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer"
-ItemDataBase_ItemDefinitions_326:: "Ring made of Netherrite"
-ItemDataBase_ItemDefinitions_327:: "Purge increases all of your damage based on missing health. Up to {0}"
-ItemDataBase_ItemDefinitions_328:: "Eruption"
-ItemDataBase_ItemDefinitions_329:: "Incarnation of devastation"
-ItemDataBase_ItemDefinitions_330:: "Headshots cause explosions"
-ItemDataBase_ItemDefinitions_331:: "Archangel"
-ItemDataBase_ItemDefinitions_332:: "Spread the goodness"
-ItemDataBase_ItemDefinitions_333:: "Shooting another player causes them to be greatly empowered for {0} seconds"
-ItemDataBase_ItemDefinitions_334:: "The Executioner"
-ItemDataBase_ItemDefinitions_335:: "A sword for decapitating"
-ItemDataBase_ItemDefinitions_336:: "Moon Cuirass"
-ItemDataBase_ItemDefinitions_337:: "A piece of armor designed for an archer. "
-ItemDataBase_ItemDefinitions_338:: "Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than {0} feet deals tenfold damage, and hits the enemy two extra times"
-ItemDataBase_ItemDefinitions_339:: "Thornmail"
-ItemDataBase_ItemDefinitions_340:: "Spiked death on the outside, really comfy on the inside"
-ItemDataBase_ItemDefinitions_341:: "Thorns deal double damage"
-ItemDataBase_ItemDefinitions_342:: "Rusty Polearm"
-ItemDataBase_ItemDefinitions_343:: "Used by the Ubersreik Five"
-ItemDataBase_ItemDefinitions_344:: "Giant Polearm"
-ItemDataBase_ItemDefinitions_345:: "Used by the Sir Kruber"
-ItemDataBase_ItemDefinitions_346:: "Crude Feather"
-ItemDataBase_ItemDefinitions_347:: "Materials can be put inside empty sockets to add stats to items"
-ItemDataBase_ItemDefinitions_348:: "Soft Feather"
-ItemDataBase_ItemDefinitions_349:: "Ornate Feather"
-ItemDataBase_ItemDefinitions_350:: "Wonderful Feather"
-ItemDataBase_ItemDefinitions_351:: "White Crow's Feather"
-ItemDataBase_ItemDefinitions_352:: "Reef Shark"
-ItemDataBase_ItemDefinitions_353:: "Tiger Shark Tooth"
-ItemDataBase_ItemDefinitions_354:: "Whale Shark Tooth"
-ItemDataBase_ItemDefinitions_355:: "Great White Shark Tooth"
-ItemDataBase_ItemDefinitions_356:: "Megalodon's Tooth"
-ItemDataBase_ItemDefinitions_357:: "Uncut Sapphire"
-ItemDataBase_ItemDefinitions_358:: "Clear Sapphire"
-ItemDataBase_ItemDefinitions_359:: "Shiny Sapphire"
-ItemDataBase_ItemDefinitions_360:: "Enchanted Sapphire"
-ItemDataBase_ItemDefinitions_361:: "Celestial Sapphire"
-ItemDataBase_ItemDefinitions_362:: "Uncut Moonstone"
-ItemDataBase_ItemDefinitions_363:: "Clear Moonstone"
-ItemDataBase_ItemDefinitions_364:: "Shiny Moonstone"
-ItemDataBase_ItemDefinitions_365:: "Enchanted Moonstone"
-ItemDataBase_ItemDefinitions_366:: "Celestial Moonstone"
-ItemDataBase_ItemDefinitions_367:: "Lead Ore"
-ItemDataBase_ItemDefinitions_368:: "Vanadium Ore"
-ItemDataBase_ItemDefinitions_369:: "Titanium Ore"
-ItemDataBase_ItemDefinitions_370:: "Chromium Ore"
-ItemDataBase_ItemDefinitions_371:: "Tungsten Ore"
-ItemDataBase_ItemDefinitions_372:: "Knife on a stick"
-ItemDataBase_ItemDefinitions_373:: "Kasper named this item, his fault"
-ItemDataBase_ItemDefinitions_374:: "Fists of Nails"
-ItemDataBase_ItemDefinitions_375:: "Swiss sheese makers"
-ItemDataBase_ItemDefinitions_376:: "Gain {0} thorns per vitality"
-ItemDataBase_ItemDefinitions_377:: "Cargo Shorts MK2"
-ItemDataBase_ItemDefinitions_378:: "Deepest pockets out there"
-ItemDataBase_ItemDefinitions_379:: "Improved cargo pants. Twice as many pockets, and since they didnt fit on the outside, they are inside. They are still ugly as hell tho"
-ItemDataBase_ItemDefinitions_380:: "Aezyn"
-ItemDataBase_ItemDefinitions_381:: "Enchanted with magic as strong as power swing. It's purpose? Hit harder."
-ItemDataBase_ItemDefinitions_382:: "Magic arrow damage scaling is increased by {0}"
-ItemDataBase_ItemDefinitions_383:: "Punny's Reflective Ring"
-ItemDataBase_ItemDefinitions_384:: "Magic arrow is shot in volleys. This effect can stack."
-ItemDataBase_ItemDefinitions_385:: "Eyepatch"
-ItemDataBase_ItemDefinitions_386:: "A wise man once said:"
-ItemDataBase_ItemDefinitions_387:: "Everyone thinks I'm just a one-eyed bloody monster, god damnit... (sobbing)"
-ItemDataBase_ItemDefinitions_388:: "Explosion damage is also applied when performing jump attacks"
-ItemDataBase_ItemDefinitions_389:: "Javelin"
-ItemDataBase_ItemDefinitions_390:: "Warplate"
-ItemDataBase_ItemDefinitions_391:: "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy."
-ItemDataBase_ItemDefinitions_392:: "Strength comes from the power of will, the stronger the will the stronger you are"
-ItemDataBase_ItemDefinitions_393:: "Torso of Strength"
-ItemDataBase_ItemDefinitions_394:: "Demoman's Vest"
-ItemDataBase_ItemDefinitions_395:: "What makes me a good demoman? If I were a bad demoman, I wouldn't be sittin' here discussin' it with you, now would I?! LET'S DO IT! Not one of you's gonna survive this! One crossed wire, one wayward pinch of potassium chlorate, one errant twitch, and KA-BLOOIE! I got a manky eye. I'm a black Scottish cyclops. They got more fecking sea monsters in the great Lochett Ness than they got the likes of me. So! T'all you fine dandies, so proud, so cocksure, prancin' about with your heads full of eyeballs... come and get me, I say! I'll be waitin' on you with a whiff of the old brimstone! I'm a Grimm bloody fable with an unhappy bloody end! Oh, they're going to have to glue you back together...IN HELL!"
-ItemDataBase_ItemDefinitions_396:: "Brawler's Gloves"
-ItemDataBase_ItemDefinitions_397:: "Nail Gloves"
-ItemDataBase_ItemDefinitions_398:: "Enchanted with the power of penetration. It's purpose? Hit harder."
-ItemDataBase_ItemDefinitions_399:: "Hand-held Ballista"
-ItemDataBase_ItemDefinitions_400:: "Kuldars's Scarf"
-ItemDataBase_ItemDefinitions_401:: "Strength comes from the power of will"
-ItemDataBase_ItemDefinitions_402:: "Sword Devil's Scarf"
-ItemDataBase_ItemDefinitions_403:: "Peasant's Scarf"
-ItemDataBase_ItemDefinitions_404:: "Bombastinc Choker"
-ItemDataBase_ItemDefinitions_405:: "Explosive Touch"
-ItemDataBase_ItemDefinitions_406:: "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master"
-ItemDataBase_ItemDefinitions_407:: "Strength comes from the power of will, the stronger the will the stronger the explosion"
-ItemDataBase_ItemDefinitions_408:: "Volatile Bracers"
-ItemDataBase_ItemDefinitions_409:: "Volatile Helmet"
-ItemDataBase_ItemDefinitions_410:: "Gunpowder filled socks"
-ItemDataBase_ItemDefinitions_411:: "Red Skirt"
-ItemDataBase_ItemDefinitions_412:: "Gunpowder Boxers"
-ItemDataBase_ItemDefinitions_413:: "Jihad Vest"
-ItemDataBase_ItemDefinitions_414:: "Ring of Fortune"
-ItemDataBase_ItemDefinitions_415:: "Mana Ring"
-ItemDataBase_ItemDefinitions_416:: "Life Ring"
-ItemDataBase_ItemDefinitions_417:: "Moritz's Gear"
-ItemDataBase_ItemDefinitions_418:: "Band of Hurting"
-ItemDataBase_ItemDefinitions_419:: "A ring for a warrior"
-ItemDataBase_ItemDefinitions_420:: "Straw Hat"
-ItemDataBase_ItemDefinitions_421:: "Rusty Javelin"
-ItemDataBase_ItemDefinitions_422:: "Star Robe"
-ItemDataBase_ItemDefinitions_423:: "Anger"
-ItemDataBase_ItemDefinitions_424:: "Downscaled version of Greatsword Rage, made to be wielded by flimsy wizards"
-ItemDataBase_ItemDefinitions_425:: "Increases maximum stacks of frenzy by {0}"
-ItemDataBase_ItemDefinitions_426:: "Yuki-Onna Strides"
-ItemDataBase_ItemDefinitions_427:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0}"
-ItemDataBase_ItemDefinitions_428:: "Boots looted off a snow demon"
-ItemDataBase_ItemDefinitions_429:: "Increses snowstorm damage by {0}"
-ItemDataBase_ItemDefinitions_430:: "Yuki-Onna Greaves"
-ItemDataBase_ItemDefinitions_431:: "Yuki-Onna Kimono"
-ItemDataBase_ItemDefinitions_432:: "Yuki-Onna's Headdress"
-ItemDataBase_ItemDefinitions_433:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}"
-ItemDataBase_ItemDefinitions_434:: "Lama Mega's Blood Bag"
-ItemDataBase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds"
-ItemDataBase_ItemDefinitions_436:: "Socket Drill"
-ItemDataBase_ItemDefinitions_437:: "A convienient one use tool"
-ItemDataBase_ItemDefinitions_438:: "What's a drill doing here in a place full of primitive tribes?"
-ItemDataBase_ItemDefinitions_439:: "Adds one socket to an item, unless the item can't have any more sockets."
-ItemDataBase_ItemDefinitions_440:: "Moonwalkers"
-ItemDataBase_ItemDefinitions_441:: "Cha cha real smooth."
-ItemDataBase_ItemDefinitions_442:: "Inverts movement"
-ItemDataBase_ItemDefinitions_443:: "Rabbit Ears Hairband"
-ItemDataBase_ItemDefinitions_444:: "Cute"
-ItemDataBase_ItemDefinitions_445:: "Bunny Ears Hairband"
-ItemDataBase_ItemDefinitions_446:: "Iron plate full of holes"
-ItemDataBase_ItemDefinitions_447:: "The integrity of this item is questionable"
-ItemDataBase_ItemDefinitions_448:: "Small Tribal Necklace"
-ItemDataBase_ItemDefinitions_449:: "Increases maximum stacks of frenzy by {0}"
-ItemDataBase_ItemDefinitions_450:: "Tribal Necklace"
-ItemDataBase_ItemDefinitions_451:: "Increases maximum stacks of frenzy by {0}"
-ItemDataBase_ItemDefinitions_452:: "Warlord Necklace"
-ItemDataBase_ItemDefinitions_453:: "Increases maximum stacks of frenzy by {0}"
-ItemDataBase_ItemDefinitions_454:: "Travel Band"
-ItemDataBase_ItemDefinitions_455:: "The distance of blink is increased by <color=gold>{0}</color> feet"
-ItemDataBase_ItemDefinitions_456:: "Destroyed Void Shard"
-ItemDataBase_ItemDefinitions_457:: "Only a fraction of its previous might remains"
-ItemDataBase_ItemDefinitions_458:: "Decrease the cooldown of one ability by {0} second whenever you hit something with melee or ranged attack."
-ItemDataBase_ItemDefinitions_459:: "Famine Hammer"
-ItemDataBase_ItemDefinitions_460:: "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}"
-ItemDataBase_ItemDefinitions_461:: "Curse Hammer"
-ItemDataBase_ItemDefinitions_462:: "Omnious Weapon"
-ItemDataBase_ItemDefinitions_463:: "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}"
-ItemDataBase_ItemDefinitions_464:: "Smasher"
-ItemDataBase_ItemDefinitions_465:: "Smash damage is increased tripled"
-ItemDataBase_ItemDefinitions_466:: "Vampiric Band"
-ItemDataBase_ItemDefinitions_467:: "Gain {0} stamina on ranged and melee hit or double that amount on critical hits"
-ItemDataBase_ItemDefinitions_468:: "Vampire Ring"
-ItemDataBase_ItemDefinitions_469:: "Gain {0} stamina on ranged and melee hit or double that amount on critical hits"
-ItemDataBase_ItemDefinitions_470:: "Tricksters Scarf"
-ItemDataBase_ItemDefinitions_471:: "Magic arrow shoots {0} additional arrow."
-ItemDataBase_ItemDefinitions_472:: "Magus' Necktie"
-ItemDataBase_ItemDefinitions_473:: "Magic arrow shoots {0} additional arrows."
-ItemDataBase_ItemDefinitions_474:: "Discounted Knockoff Magic Quiver"
-ItemDataBase_ItemDefinitions_475:: "There's a {0} increased chance to not consume ammo when firing a projectile."
-ItemDataBase_ItemDefinitions_476:: "Magic Quiver"
-ItemDataBase_ItemDefinitions_477:: "There's a {0} increased chance to not consume ammo when firing a projectile."
-ItemDataBase_ItemDefinitions_478:: "Improved Magic Quiver"
-ItemDataBase_ItemDefinitions_479:: "There's a {0} increased chance to not consume ammo when firing a projectile."
-ItemDataBase_ItemDefinitions_480:: "Factory Quiver"
-ItemDataBase_ItemDefinitions_481:: "There's a {0} increased chance to not consume ammo when firing a projectile."
-ItemDataBase_ItemDefinitions_482:: "Enzyme STR/34"
-ItemDataBase_ItemDefinitions_483:: "A substance which results in surprising changes to gear"
-ItemDataBase_ItemDefinitions_484:: "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>"
-ItemDataBase_ItemDefinitions_485:: "Enzyme INT/33"
-ItemDataBase_ItemDefinitions_486:: "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>"
-ItemDataBase_ItemDefinitions_487:: "Enzyme AGI/39"
-ItemDataBase_ItemDefinitions_488:: "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>"
-ItemDataBase_ItemDefinitions_489:: "Enzyme VIT/449"
-ItemDataBase_ItemDefinitions_490:: "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>"
-ItemDataBase_ItemDefinitions_491:: "Stomach Acid"
-ItemDataBase_ItemDefinitions_492:: "Removes all stats with negative values from an item"
-ItemDataBase_ItemDefinitions_493:: "Elite Stomach Acid"
-ItemDataBase_ItemDefinitions_494:: "Changes negative stat values into positive values on an item"
-ItemDataBase_ItemDefinitions_495:: "Crimson Solution"
-ItemDataBase_ItemDefinitions_496:: "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity"
-ItemDataBase_ItemDefinitions_497:: "Weak Armor Hardening Mixture"
-ItemDataBase_ItemDefinitions_498:: "Adds Armor Stat to a piece of equipment if the item does not already have it"
-ItemDataBase_ItemDefinitions_499:: "Upgraded Armor Hardening Mixture"
-ItemDataBase_ItemDefinitions_500:: "Adds Damage Reduction Stat to a piece of equipment if the item does not already have it"
-ItemDataBase_ItemDefinitions_501:: "Chaos Water"
-ItemDataBase_ItemDefinitions_502:: "Rerolls all stats on an item of rarity no higher than orange"
-ItemDataBase_ItemDefinitions_503:: "Upgraded Chaos Water"
-ItemDataBase_ItemDefinitions_504:: "Rerolls all stats on an item of any rarity"
-ItemDataBase_ItemDefinitions_505:: "Gun Blade"
-ItemDataBase_ItemDefinitions_506:: "Increases pistol damage by <color=red>{0}</color>"
-ItemDataBase_ItemDefinitions_507:: "Sharpshooter's Axe"
-ItemDataBase_ItemDefinitions_508:: "Increases pistol headshot chance by <color=gold>{0}</color> and pistol damage by <color=gold>{1}</color>"
-ItemDataBase_ItemDefinitions_509:: "Shield Blade"
-ItemDataBase_ItemDefinitions_510:: "So large can be used as a shield"
-ItemDataBase_ItemDefinitions_511:: "A normal human cannot lift this weapon."
-ItemDataBase_ItemDefinitions_512:: "Blunt Blade for Bashing Skulls"
-ItemDataBase_ItemDefinitions_513:: "Bash damage debuff on enemies is increased by {0}"
-ItemDataBase_ItemDefinitions_514:: "Madman's Legacy"
-ItemDataBase_ItemDefinitions_515:: "Frenzy damage per stack is increased by {0}"
-ItemDataBase_ItemDefinitions_516:: "Buckler"
-ItemDataBase_ItemDefinitions_517:: "Pyromancy Mask"
-ItemDataBase_ItemDefinitions_518:: "Ignited enemies burn for {0} longer."
-ItemDataBase_ItemDefinitions_519:: "Ember Mask"
-ItemDataBase_ItemDefinitions_520:: "Ignited enemies burn for {0} longer and fire ticks thrice as fast."
-ItemDataBase_ItemDefinitions_521:: "Flame Pauldrons"
-ItemDataBase_ItemDefinitions_522:: "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}"
-ItemDataBase_ItemDefinitions_523:: "Ancient Scroll"
-ItemDataBase_ItemDefinitions_524:: "Guide on Tearing Spacetime"
-ItemDataBase_ItemDefinitions_525:: "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink"
-ItemDataBase_ItemDefinitions_526:: "300th Spear"
-ItemDataBase_ItemDefinitions_527:: "Stone Pauldrons"
-ItemDataBase_ItemDefinitions_528:: "All damage increased by {0}"
-ItemDataBase_ItemDefinitions_529:: "Iron Shoulder Pads"
-ItemDataBase_ItemDefinitions_530:: "All damage increased by {0}"
-ItemDataBase_ItemDefinitions_531:: "Steel Shoulder Pads"
-ItemDataBase_ItemDefinitions_532:: "All damage increased by {0}"
-ItemDataBase_ItemDefinitions_533:: "Battle scarred Shoulder Pads"
-ItemDataBase_ItemDefinitions_534:: "All damage increased by {0}"
-ItemDataBase_ItemDefinitions_535:: "Mystery Shoulder Pads"
-ItemDataBase_ItemDefinitions_536:: "All damage increased by {0}"
-ItemDataBase_ItemDefinitions_537:: "Stone Shield"
-ItemDataBase_ItemDefinitions_538:: "Iron Shield"
-ItemDataBase_ItemDefinitions_539:: "Steel Tower Shield"
-ItemDataBase_ItemDefinitions_540:: "Guardian"
-ItemDataBase_ItemDefinitions_541:: "Mystery Shield"
-ItemDataBase_ItemDefinitions_542:: "Light Boot"
-ItemDataBase_ItemDefinitions_543:: "Iron Boots"
-ItemDataBase_ItemDefinitions_544:: "Steel Boots"
-ItemDataBase_ItemDefinitions_545:: "Threads"
-ItemDataBase_ItemDefinitions_546:: "Mystery Boots"
-ItemDataBase_ItemDefinitions_547:: "Wraps"
-ItemDataBase_ItemDefinitions_548:: "Steel Gauntlet"
-ItemDataBase_ItemDefinitions_549:: "Titanium Gauntlet"
-ItemDataBase_ItemDefinitions_550:: "Mystery Gauntlet"
-ItemDataBase_ItemDefinitions_551:: "Leather Tasset"
-ItemDataBase_ItemDefinitions_552:: "Iron Tasset"
-ItemDataBase_ItemDefinitions_553:: "Steel Tasset"
-ItemDataBase_ItemDefinitions_554:: "Black Steel Leggins"
-ItemDataBase_ItemDefinitions_555:: "Mystery Leggins"
-ItemDataBase_ItemDefinitions_556:: "Leather Vest"
-ItemDataBase_ItemDefinitions_557:: "Iron Breastplate"
-ItemDataBase_ItemDefinitions_558:: "Steel Breastplate"
-ItemDataBase_ItemDefinitions_559:: "Silver Armor"
-ItemDataBase_ItemDefinitions_560:: "Mystery Breastplate"
-ItemDataBase_ItemDefinitions_561:: "Cloth Band"
-ItemDataBase_ItemDefinitions_562:: "Iron Wristguard"
-ItemDataBase_ItemDefinitions_563:: "Steel Wristguard"
-ItemDataBase_ItemDefinitions_564:: "Baron Wristguards"
-ItemDataBase_ItemDefinitions_565:: "Mystery Wristguards"
-ItemDataBase_ItemDefinitions_566:: "Iron Helmet"
-ItemDataBase_ItemDefinitions_567:: "Steel Helmet"
-ItemDataBase_ItemDefinitions_568:: "Armored Hood"
-ItemDataBase_ItemDefinitions_569:: "Mystery Helmet"
-ItemDataBase_ItemDefinitions_570:: "Yorium's Gaze"
-ItemDataBase_ItemDefinitions_571:: "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved."
-ItemDataBase_ItemDefinitions_572:: "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration."
-ItemDataBase_ItemDefinitions_573:: "Yorium's Ruthlessness"
-ItemDataBase_ItemDefinitions_574:: "Yorium's Burden"
-ItemDataBase_ItemDefinitions_575:: "Yorium's Resolve"
-ItemDataBase_ItemDefinitions_576:: "Atomic Augmentation"
-ItemDataBase_ItemDefinitions_577:: "Yorium's Assault"
-ItemDataBase_ItemDefinitions_578:: "Undying Promise"
-ItemDataBase_ItemDefinitions_579:: "Resist lethal damage on a {0} minute cooldown"
-ItemDataBase_ItemDefinitions_581:: "Snap freeze damage scaling is increased by {0} and the slow duration is increased by {1} seconds"
-ItemDataBase_ItemDefinitions_582:: "If equipped on a weapon, increases ranged damage by "
-ItemDataBase_ItemDefinitions_583:: "If equipped on boots, increases movement speed by "
-ItemDataBase_ItemDefinitions_584:: "If equipped on a helmet, increases critical hit chance by "
-ItemDataBase_ItemDefinitions_585:: "If equipped on accessories, increases ranged armor piercing by "
-ItemDataBase_ItemDefinitions_586:: "If equipped in other slots, increases agility by "
-ItemDataBase_ItemDefinitions_587:: "If equipped on a weapon, increases melee damage by "
-ItemDataBase_ItemDefinitions_588:: "If equipped on boots, decreases damage taken by "
-ItemDataBase_ItemDefinitions_589:: "If equipped on a helmet, increases attack speed by "
-ItemDataBase_ItemDefinitions_590:: "If equipped on accessories, increases melee armor piercing by "
-ItemDataBase_ItemDefinitions_591:: "If equipped in other slots, increases strength by "
-ItemDataBase_ItemDefinitions_592:: "If equipped on a weapon, increases magic damage by "
-ItemDataBase_ItemDefinitions_593:: "If equipped on boots, decreases spell cost by "
-ItemDataBase_ItemDefinitions_594:: "If equipped on a helmet, decreases spell cooldown by "
-ItemDataBase_ItemDefinitions_595:: "If equipped on accessories, increases energy on hit by "
-ItemDataBase_ItemDefinitions_596:: "If equipped in other slots, increases intelligence by "
-ItemDataBase_ItemDefinitions_597:: "If equipped on a weapon, increases all healing by "
-ItemDataBase_ItemDefinitions_598:: "If equipped on boots, increases magic find by "
-ItemDataBase_ItemDefinitions_599:: "If equipped on a helmet, increases experience gained by "
-ItemDataBase_ItemDefinitions_600:: "If equipped on accessories, increases life per second by "
-ItemDataBase_ItemDefinitions_601:: "If equipped in other slots, increases vitality by "
-ItemDataBase_ItemDefinitions_602:: "If equipped on a weapon, increases crit damage by "
-ItemDataBase_ItemDefinitions_603:: "If equipped on boots, increases resistance to magic by "
-ItemDataBase_ItemDefinitions_604:: "If equipped on a helmet, increases health by "
-ItemDataBase_ItemDefinitions_605:: "If equipped on accessories, increases thorns by "
-ItemDataBase_ItemDefinitions_606:: "If equipped in other slots, increases armor by "
-ItemDataBase_ItemDefinitions_607:: "Firebolt deals increased damage"
-ItemDataBase_ItemDefinitions_608:: "\nWarcry gives damage resistance."
-ItemDataBase_ItemDefinitions_609:: "Devil Dancers"
-ItemDataBase_ItemDefinitions_610:: "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active."
-ItemDataBase_ItemDefinitions_611:: "Call of the Ancients"
-ItemDataBase_ItemDefinitions_612:: "Berserk increases all damage by additional <color=gold>{0}</color>"
-ItemDataBase_ItemDefinitions_613:: "Berserker's Wrath"
-ItemDataBase_ItemDefinitions_614:: "Viking Amulet"
-ItemDataBase_ItemDefinitions_615:: "Increases attack and movement speed during berserk by <color=gold>{0}</color>"
-ItemDataBase_ItemDefinitions_616:: "Pedant of Skallagrim"
-ItemDataBase_ItemDefinitions_617:: "Wristguards of The Sanctuary Keeper"
-ItemDataBase_ItemDefinitions_618:: "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources"
+ItemDatabase_StatDefinitions_1:: "Health"
+ItemDatabase_StatDefinitions_2:: "Energy"
+ItemDatabase_StatDefinitions_3:: "Health/sec"
+ItemDatabase_StatDefinitions_4:: "Stamina/sec"
+ItemDatabase_StatDefinitions_5:: "Energy regen"
+ItemDatabase_StatDefinitions_6:: "Life regen"
+ItemDatabase_StatDefinitions_7:: "Critical hit chance"
+ItemDatabase_StatDefinitions_8:: "Life on hit"
+ItemDatabase_StatDefinitions_9:: "Dodge chance"
+ItemDatabase_StatDefinitions_10:: "Magic resistance"
+ItemDatabase_StatDefinitions_11:: "Experience"
+ItemDatabase_StatDefinitions_12:: "Spell damage"
+ItemDatabase_StatDefinitions_13:: "Melee damage"
+ItemDatabase_StatDefinitions_14:: "Ranged damage"
+ItemDatabase_StatDefinitions_15:: "Base spell damage"
+ItemDatabase_StatDefinitions_16:: "Base melee damage"
+ItemDatabase_StatDefinitions_17:: "Base ranged damage"
+ItemDatabase_StatDefinitions_18:: "Energy/agility"
+ItemDatabase_StatDefinitions_19:: "Health/vitality"
+ItemDatabase_StatDefinitions_20:: "Spell damage/intelligence"
+ItemDatabase_StatDefinitions_21:: "Melee damage/strength"
+ItemDatabase_StatDefinitions_22:: "Recovery"
+ItemDatabase_StatDefinitions_23:: "PERMANENT PERK POINTS"
+ItemDatabase_StatDefinitions_24:: " / "
+ItemDatabase_StatDefinitions_25:: "EXPERIENCE"
+ItemDatabase_StatDefinitions_26:: "Weapon length"
+ItemDatabase_StatDefinitions_27:: "Attack cost reduction"
+ItemDatabase_StatDefinitions_28:: "Spell cost to stamina"
+ItemDatabase_StatDefinitions_29:: "Energy/sec"
+ItemDatabase_StatDefinitions_30:: "Ranged damage/agility"
+ItemDatabase_StatDefinitions_31:: "Melee armor piercing"
+ItemDatabase_StatDefinitions_32:: "Ranged armor piercing"
+ItemDatabase_StatDefinitions_33:: "Armor piercing"
+ItemDatabase_StatDefinitions_34:: "Refund points"
+ItemDatabase_StatDefinitions_35:: "Headshot damage"
+ItemDatabase_StatDefinitions_36:: "Fire damage"
+ItemDatabase_StatDefinitions_37:: "Chance on hit to slow"
+ItemDatabase_StatDefinitions_38:: "Chance on hit to bleed"
+ItemDatabase_StatDefinitions_39:: "Chance on hit to weaken"
+ItemDatabase_StatDefinitions_40:: "Dynamite & bomb damage"
+ItemDatabase_StatDefinitions_41:: "Spear damage"
+ItemDatabase_StatDefinitions_42:: "Extra carried Sticks"
+ItemDatabase_StatDefinitions_43:: "Extra carried Rocks"
+ItemDatabase_StatDefinitions_44:: "Extra carried Ropes"
+ItemDatabase_StatDefinitions_45:: " Soda: "
+ItemDatabase_StatDefinitions_46:: "Booze: "
+ItemDatabase_StatDefinitions_47:: "Extra carried Drinks"
+ItemDatabase_StatDefinitions_48:: "Extra carried Food"
+ItemDatabase_StatDefinitions_49:: "Black hole radius"
+ItemDatabase_StatDefinitions_50:: "Black hole lifetime"
+ItemDatabase_StatDefinitions_51:: "Black hole gravitational force"
+ItemDatabase_StatDefinitions_52:: "Black hole damage"
+ItemDatabase_StatDefinitions_53:: "Stun on hit"
+ItemDatabase_StatDefinitions_54:: "Snap freeze Duration"
+ItemDatabase_StatDefinitions_55:: "Raft speed"
+ItemDatabase_StatDefinitions_56:: "Empty socket"
+ItemDatabase_StatDefinitions_57:: "Socket: crit chance"
+ItemDatabase_StatDefinitions_58:: "Socket: agility"
+ItemDatabase_StatDefinitions_59:: "Socket: movement speed"
+ItemDatabase_StatDefinitions_60:: "Socket: ranged damage"
+ItemDatabase_StatDefinitions_61:: "Socket: ranged armor piercing"
+ItemDatabase_StatDefinitions_62:: "Socket: attack speed"
+ItemDatabase_StatDefinitions_63:: "Socket: strength"
+ItemDatabase_StatDefinitions_64:: "Socket: damage reduction"
+ItemDatabase_StatDefinitions_65:: "Socket: melee damage"
+ItemDatabase_StatDefinitions_66:: "Socket: melee armor piercing"
+ItemDatabase_StatDefinitions_67:: "Socket: cooldown reduction"
+ItemDatabase_StatDefinitions_68:: "Socket: intelligence"
+ItemDatabase_StatDefinitions_69:: "Socket: spell cost reduction"
+ItemDatabase_StatDefinitions_70:: "Socket: spell damage"
+ItemDatabase_StatDefinitions_71:: "Socket: energy on hit"
+ItemDatabase_StatDefinitions_72:: "Socket: experience gain"
+ItemDatabase_StatDefinitions_73:: "Socket: vitality "
+ItemDatabase_StatDefinitions_74:: "Socket: magic find"
+ItemDatabase_StatDefinitions_75:: "Socket: all healing"
+ItemDatabase_StatDefinitions_76:: "Socket: life per second"
+ItemDatabase_StatDefinitions_77:: "Socket: maximum health "
+ItemDatabase_StatDefinitions_78:: "Socket: armor "
+ItemDatabase_StatDefinitions_79:: "Socket: Resistance to magic"
+ItemDatabase_StatDefinitions_80:: "Socket: crit damage"
+ItemDatabase_StatDefinitions_81:: "Socket: thorns"
+ItemDatabase_ItemDefinitions_1:: "Broken Flip-Flops"
+ItemDatabase_ItemDefinitions_2:: "A pair of damaged shoes. Judging by their condition, i can imagine what happened to their owner."
+ItemDatabase_ItemDefinitions_3:: "Worn by one of the passengers of the plane that Eric also flew in."
+ItemDatabase_ItemDefinitions_4:: "Old Boots"
+ItemDatabase_ItemDefinitions_5:: "A pair of old boots. They must have been lying here for ages."
+ItemDatabase_ItemDefinitions_6:: "Found on the Peninsula, but judging by their condition, they belong neither to a plane passenger nor a cannibal."
+ItemDatabase_ItemDefinitions_7:: "Damaged Leather Boots"
+ItemDatabase_ItemDefinitions_8:: "A pair of leather boots. They look good and have only some scratches."
+ItemDatabase_ItemDefinitions_9:: "They arrived to the Peninsula the same way Eric did. Since they were in a baggage, they avoided a lot of damage."
+ItemDatabase_ItemDefinitions_10:: "Sturdy Leather Boots"
+ItemDatabase_ItemDefinitions_11:: "A pair of leather boots. They are in a very good condition."
+ItemDatabase_ItemDefinitions_12:: "They arrived to the Peninsula the same way Eric did. Eric found them undamaged in their original box. They still had a pricetag - $419,99."
+ItemDatabase_ItemDefinitions_13:: "Damaged Army Boots"
+ItemDatabase_ItemDefinitions_14:: "Sturdy, hard, resistant but damaged boots."
+ItemDatabase_ItemDefinitions_15:: "They look modern, almost too modern for everything here."
+ItemDatabase_ItemDefinitions_16:: "Army Boots"
+ItemDatabase_ItemDefinitions_17:: "Sturdy, hard, resistant boots."
+ItemDatabase_ItemDefinitions_18:: "Armsy Skin Footwear"
+ItemDatabase_ItemDefinitions_19:: "Severed armsy legs, with all of their insides removed. All thats left is dried mutated skin."
+ItemDatabase_ItemDefinitions_20:: "Armsy, the second heaviest of the mutants needs very resistant skin. It often drags its legs on the ground when it moves. The skin on their legs grew very thick, and has bone tissue mixed with skin tissue."
+ItemDatabase_ItemDefinitions_21:: "Finger Warmer"
+ItemDatabase_ItemDefinitions_22:: "A little glove to keep your fingers warm and cozy."
+ItemDatabase_ItemDefinitions_23:: "Made of wool."
+ItemDatabase_ItemDefinitions_24:: "Thick Rubber Glove"
+ItemDatabase_ItemDefinitions_25:: "A glove that helps get a better grip."
+ItemDatabase_ItemDefinitions_26:: "Tribal Glove"
+ItemDatabase_ItemDefinitions_27:: "Offers medicore protection."
+ItemDatabase_ItemDefinitions_28:: "Glove made out of thin bones, some may possibly be from a human."
+ItemDatabase_ItemDefinitions_29:: "Tribe Leader Glove"
+ItemDatabase_ItemDefinitions_30:: "A glove that offers little protection but a lot of offensive stats."
+ItemDatabase_ItemDefinitions_31:: "A glove made of bones, some have engravings of crosses."
+ItemDatabase_ItemDefinitions_32:: "Worn Shorts"
+ItemDatabase_ItemDefinitions_33:: "Some protection for legs."
+ItemDatabase_ItemDefinitions_34:: "Short, made out of cheap thin fabric, and on top of that they are damaged. But its better than nothing."
+ItemDatabase_ItemDefinitions_35:: "Cargo Shorts"
+ItemDatabase_ItemDefinitions_36:: "No protection at all but they allow to carry more items."
+ItemDatabase_ItemDefinitions_37:: "They are ugly as hell tho"
+ItemDatabase_ItemDefinitions_38:: "Passenger's Jacket"
+ItemDatabase_ItemDefinitions_39:: "It's a little torn. "
+ItemDatabase_ItemDefinitions_40:: "This jacket was worn by Preston A. the 34th passenger on the plane. Eric talked to him at the airport. Guy was odd, and now he's dead."
+ItemDatabase_ItemDefinitions_41:: "Leather Jacket"
+ItemDatabase_ItemDefinitions_42:: "Offers little protection"
+ItemDatabase_ItemDefinitions_43:: "This jacket was in a baggage of one of the plane passengers"
+ItemDatabase_ItemDefinitions_44:: "Boar Skin Armor"
+ItemDatabase_ItemDefinitions_45:: "It's made from a skin of a huge individual. It's heavy and thick, and surely can protect from attacks of weaker enemies."
+ItemDatabase_ItemDefinitions_46:: "Boar, one of the animals on the peninsula, is rather rare and it's skin is very durable."
+ItemDatabase_ItemDefinitions_47:: "Crocodile Skin Armor"
+ItemDatabase_ItemDefinitions_48:: "Plate armour"
+ItemDatabase_ItemDefinitions_49:: "Bear Skin Armor"
+ItemDatabase_ItemDefinitions_50:: "Archer's Gear"
+ItemDatabase_ItemDefinitions_51:: "Hazard's Gear"
+ItemDatabase_ItemDefinitions_52:: "Mysterious robe"
+ItemDatabase_ItemDefinitions_53:: "Magic flows through the entirety of this object. It's made out of unknown material"
+ItemDatabase_ItemDefinitions_54:: "Robe looks like it was created yesterday, but its older than the oldest of mankinds' civilizations. Simply looking at it sends chills down the spine."
+ItemDatabase_ItemDefinitions_55:: "Empowers cataclysm. The vortex turns blue, damage is increased, freezes enemies "
+ItemDatabase_ItemDefinitions_56:: "Rusty Longsword"
+ItemDatabase_ItemDefinitions_57:: "A long, very heavy sword. Edge got dull over time. Still, it's in a condition that allows me to slice some enemies in half."
+ItemDatabase_ItemDefinitions_58:: "The sword appears to be from medieval ages, through it's not. It was made a lot later. It never was used as a weapon in battles, because it was merely a decoration."
+ItemDatabase_ItemDefinitions_59:: "Longsword"
+ItemDatabase_ItemDefinitions_60:: "Sharp and long"
+ItemDatabase_ItemDefinitions_61:: "The sword is in perfect contidion."
+ItemDatabase_ItemDefinitions_62:: "Full Metal Sword"
+ItemDatabase_ItemDefinitions_63:: "It's sooo big..."
+ItemDatabase_ItemDefinitions_64:: "A normal human cannot lift this."
+ItemDatabase_ItemDefinitions_65:: "The Leech"
+ItemDatabase_ItemDefinitions_66:: "Hey where did my health g- oh it's back..."
+ItemDatabase_ItemDefinitions_67:: "Smokey's Sacred Quiver"
+ItemDatabase_ItemDefinitions_68:: "SmokeyTheBear died because he never used this item."
+ItemDatabase_ItemDefinitions_69:: "Smokey was the friend of allmighty Hazard, who can materialize any kind of weapon at the snap of his fingers. Hazard remebered Smokey's favourite playstyle and he gave him this as a gift to purge the sh** out of mutants."
+ItemDatabase_ItemDefinitions_70:: "Crossbows operate at <color=gold>{0}</color> speed and deal <color=gold>{1}</color> increased damage"
+ItemDatabase_ItemDefinitions_71:: "Broken shield"
+ItemDatabase_ItemDefinitions_72:: "Tower Shield"
+ItemDatabase_ItemDefinitions_73:: "Broken Leather Shoulder Armor"
+ItemDatabase_ItemDefinitions_74:: "Leather Shoulder Armor"
+ItemDatabase_ItemDefinitions_75:: "Phase Pauldrons"
+ItemDatabase_ItemDefinitions_76:: "The distance of blink is increased by <color=gold>{}</color> meters, and blink now hits everything that you teleported through"
+ItemDatabase_ItemDefinitions_77:: "MAGA Cap"
+ItemDatabase_ItemDefinitions_78:: "Wearing this item channels the power of D.Trump to you"
+ItemDatabase_ItemDefinitions_79:: "... or does it?"
+ItemDatabase_ItemDefinitions_80:: "Hubble's Vision"
+ItemDatabase_ItemDefinitions_81:: "Wearing this item empowers your black hole spell"
+ItemDatabase_ItemDefinitions_82:: "Man, fuck gravity."
+ItemDatabase_ItemDefinitions_83:: "Broken Loop"
+ItemDatabase_ItemDefinitions_84:: "Loop"
+ItemDatabase_ItemDefinitions_85:: "Toxic Ring"
+ItemDatabase_ItemDefinitions_86:: " comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo."
+ItemDatabase_ItemDefinitions_87:: "What the fuck did you just fucking say about me, you little bitch? I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I'm the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little \"clever\" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo."
+ItemDatabase_ItemDefinitions_88:: "Scarf"
+ItemDatabase_ItemDefinitions_89:: "Damaged Bracer"
+ItemDatabase_ItemDefinitions_90:: "Worn Bracer"
+ItemDatabase_ItemDefinitions_91:: "Leather Bracer"
+ItemDatabase_ItemDefinitions_92:: "Greater Mutated Heart"
+ItemDatabase_ItemDefinitions_93:: "Can be consumed by right clicking it"
+ItemDatabase_ItemDefinitions_94:: "Lesser Mutated Heart"
+ItemDatabase_ItemDefinitions_95:: "Spiked ring"
+ItemDatabase_ItemDefinitions_96:: "Armor piercing for either melee or ranged weapons"
+ItemDatabase_ItemDefinitions_97:: "Piercer"
+ItemDatabase_ItemDefinitions_98:: "Moon Boots"
+ItemDatabase_ItemDefinitions_99:: "A pair of boots from the moon."
+ItemDatabase_ItemDefinitions_100:: "It is said that the wearer will not take fall damage while wearing these boots and will jump like on the moon, I wouldn't trust it tough."
+ItemDatabase_ItemDefinitions_101:: "Golden Ring of Strength"
+ItemDatabase_ItemDefinitions_102:: "A Ring of ancient times."
+ItemDatabase_ItemDefinitions_103:: "A Golden Ring that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_104:: "Golden Ring of Vitality"
+ItemDatabase_ItemDefinitions_105:: "Golden Ring of Agility"
+ItemDatabase_ItemDefinitions_106:: "Golden Ring of Intelligence"
+ItemDatabase_ItemDefinitions_107:: "Silver Ring of Strength"
+ItemDatabase_ItemDefinitions_108:: "A Silver Ring that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_109:: "Silver Ring of Vitality"
+ItemDatabase_ItemDefinitions_110:: "Silver Ring of Agility"
+ItemDatabase_ItemDefinitions_111:: "Silver Ring of Intelligence"
+ItemDatabase_ItemDefinitions_112:: "Steel Ring of Strength"
+ItemDatabase_ItemDefinitions_113:: "A Steel Ring that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_114:: "Steel Ring of Vitality"
+ItemDatabase_ItemDefinitions_115:: "Steel Ring of Agility"
+ItemDatabase_ItemDefinitions_116:: "Steel Ring of Intelligence"
+ItemDatabase_ItemDefinitions_117:: "The One Ring To Rule Them All"
+ItemDatabase_ItemDefinitions_118:: "An Ancient magical Ring of great power."
+ItemDatabase_ItemDefinitions_119:: "It looks like and ordinay ring, but a strange energy is surrounding it. The Ring is said to have been found inside a volcanic rock by an archeologist, who went mad and isolated himself on the peninsula many years ago. But that's just a fairy tale, ring?"
+ItemDatabase_ItemDefinitions_120:: "Attracts unwanted attention of an unknown entity."
+ItemDatabase_ItemDefinitions_121:: "Golden Locket of Strength"
+ItemDatabase_ItemDefinitions_122:: "A Locket of ancient times."
+ItemDatabase_ItemDefinitions_123:: "A Golden Locket that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_124:: "Golden Locket of Vitality"
+ItemDatabase_ItemDefinitions_125:: "Golden Locket of Agility"
+ItemDatabase_ItemDefinitions_126:: "Golden Locket of Intelligence"
+ItemDatabase_ItemDefinitions_127:: "Silver Locket of Strength"
+ItemDatabase_ItemDefinitions_128:: "A Silver Locket that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_129:: "Silver Locket of Vitality"
+ItemDatabase_ItemDefinitions_130:: "Silver Locket of Agility"
+ItemDatabase_ItemDefinitions_131:: "Silver Locket of Intelligence"
+ItemDatabase_ItemDefinitions_132:: "Emerald Pendant of Strength"
+ItemDatabase_ItemDefinitions_133:: "A Pendant of ancient times."
+ItemDatabase_ItemDefinitions_134:: "An Emerald Pendant that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_135:: "Emerald Pendant of Vitality"
+ItemDatabase_ItemDefinitions_136:: "Emerald Pendant of Agility"
+ItemDatabase_ItemDefinitions_137:: "Emerald Pendant of Intelligence"
+ItemDatabase_ItemDefinitions_138:: "Diamond Pendant of Strength"
+ItemDatabase_ItemDefinitions_139:: "A Diamond Pendant that looks simple and elegant, yet it feels powerfull to the touch."
+ItemDatabase_ItemDefinitions_140:: "Diamond Pendant of Vitality"
+ItemDatabase_ItemDefinitions_141:: "Diamond Pendant of Agility"
+ItemDatabase_ItemDefinitions_142:: "Diamond Pendant of Intelligence"
+ItemDatabase_ItemDefinitions_143:: "Armsy Finger Necklace"
+ItemDatabase_ItemDefinitions_144:: "A Necklace decorated with armsy fingertips."
+ItemDatabase_ItemDefinitions_145:: "A Necklace made from the fingertips of an armsy, yeilding it's raw power and strentgh."
+ItemDatabase_ItemDefinitions_146:: "Virginia Heart Pendant"
+ItemDatabase_ItemDefinitions_147:: "A Pendant of a petrified Virginia heart."
+ItemDatabase_ItemDefinitions_148:: "A Pendant made from a petrified Virginia heart, yeilding it's love and Vitality."
+ItemDatabase_ItemDefinitions_149:: "Cowman Toe Necklace"
+ItemDatabase_ItemDefinitions_150:: "A Necklace decorated with cowman toes."
+ItemDatabase_ItemDefinitions_151:: "A Necklace made from the fingertips of an armsy, yeilding it's speed and agility."
+ItemDatabase_ItemDefinitions_152:: "Pendant of Perpetual Rebirth"
+ItemDatabase_ItemDefinitions_153:: "A Pendant of a shrunken babyhead."
+ItemDatabase_ItemDefinitions_154:: "A pedant of great power. Obtainable only from babies or crafting"
+ItemDatabase_ItemDefinitions_155:: "decrease a random cooldown by {0} second whenever you hit something with melee or ranged attack."
+ItemDatabase_ItemDefinitions_156:: "Megan's Locket"
+ItemDatabase_ItemDefinitions_157:: "The Locket Megan wore."
+ItemDatabase_ItemDefinitions_158:: "Megan wore this Locket, it has a picture of her mom in it."
+ItemDatabase_ItemDefinitions_159:: "Relic Hammer"
+ItemDatabase_ItemDefinitions_160:: "It's slow and weak."
+ItemDatabase_ItemDefinitions_161:: "Slows on hit"
+ItemDatabase_ItemDefinitions_162:: "Black Hammer"
+ItemDatabase_ItemDefinitions_163:: "It's slow but with enough strength i can make it a very deadly tool"
+ItemDatabase_ItemDefinitions_164:: "Potato Sack"
+ItemDatabase_ItemDefinitions_165:: "Can be used as a quiver"
+ItemDatabase_ItemDefinitions_166:: "Rabbit Skin Quiver"
+ItemDatabase_ItemDefinitions_167:: "Hollow Log"
+ItemDatabase_ItemDefinitions_168:: "It allows for faster drawing of arrow than a cloth quiver"
+ItemDatabase_ItemDefinitions_169:: "Spellbound Quiver"
+ItemDatabase_ItemDefinitions_170:: "Long Lost Quiver"
+ItemDatabase_ItemDefinitions_171:: "Spell Scroll"
+ItemDatabase_ItemDefinitions_172:: "Contains a lot of information on how to properly cast spells to achieve better results"
+ItemDatabase_ItemDefinitions_173:: "Cloth Pants"
+ItemDatabase_ItemDefinitions_174:: "Offer little protction"
+ItemDatabase_ItemDefinitions_175:: "Rough Hide Leggins"
+ItemDatabase_ItemDefinitions_176:: "Plate Leggins"
+ItemDatabase_ItemDefinitions_177:: "Sage's Robes"
+ItemDatabase_ItemDefinitions_178:: "Hammer Jammers"
+ItemDatabase_ItemDefinitions_179:: "Damage of your smash attack is increased by <color=gold>{0}</color>, hammer stun duration is doubled"
+ItemDatabase_ItemDefinitions_180:: "Pirate Pants"
+ItemDatabase_ItemDefinitions_181:: "Those pants are ligh and comfortable. They offer plenty of mobility but lack in protection."
+ItemDatabase_ItemDefinitions_182:: "Hexed Pants of Mr M."
+ItemDatabase_ItemDefinitions_183:: "They look like yoga pants but for a man the size of a wardrobe"
+ItemDatabase_ItemDefinitions_184:: "Once upon a time there was a man who was in a basement and fed himself with nothing but nuggets. He got so obese that friends and family started worrying. Hazard noticed this man and cursed his pants to force him to excercise."
+ItemDatabase_ItemDefinitions_185:: "While moving, energy regeneration and damage is increased by <color=gold>{0}</color>. While standing still for longer than a second, you loose {1} of max health per second."
+ItemDatabase_ItemDefinitions_186:: "Leather Mantle"
+ItemDatabase_ItemDefinitions_187:: "A piece of cloth to give protection from "
+ItemDatabase_ItemDefinitions_188:: "Shoulder Guards"
+ItemDatabase_ItemDefinitions_189:: "Medium armor piece."
+ItemDatabase_ItemDefinitions_190:: "Heavy armor"
+ItemDatabase_ItemDefinitions_191:: "Heavy Shoulder Plates"
+ItemDatabase_ItemDefinitions_192:: "Heavy armor piece. They offer great protection at the cost of attack speed and movement speed decrease"
+ItemDatabase_ItemDefinitions_193:: "Etched Mantle"
+ItemDatabase_ItemDefinitions_194:: "Those pauldrons empower wearer's combat skill"
+ItemDatabase_ItemDefinitions_195:: "Assassins Pauldrons"
+ItemDatabase_ItemDefinitions_196:: "Death Pact"
+ItemDatabase_ItemDefinitions_197:: "Find the greatest strength on the border of life and death."
+ItemDatabase_ItemDefinitions_198:: "Every attack you make decreases your health by <color=gold>{0}</color> of max health. For every percent of missing health you gain {1} damage amplification. This damage cannot kill you."
+ItemDatabase_ItemDefinitions_199:: "Maximale Qualitot"
+ItemDatabase_ItemDefinitions_200:: "A platinum ring with the most expensive jewels engraved on it. It's quality is uncomparable."
+ItemDatabase_ItemDefinitions_201:: "Heart of Purity"
+ItemDatabase_ItemDefinitions_202:: "A object filled with both destructive and creative energy. Allows to re-assign all spent mutation points"
+ItemDatabase_ItemDefinitions_203:: "This powerful relic contains so much power, that it can kill anything and force it to come back to life, resulting in it's rebirth."
+ItemDatabase_ItemDefinitions_204:: "Can be consumed by right clicking it. "
+ItemDatabase_ItemDefinitions_205:: "Round Shield"
+ItemDatabase_ItemDefinitions_206:: "A sturdy shield made of wood and reinforced with iron."
+ItemDatabase_ItemDefinitions_207:: "Old Buckler"
+ItemDatabase_ItemDefinitions_208:: "An old shield."
+ItemDatabase_ItemDefinitions_209:: "This item has a lot of scratches that look like they were made by something with sharp claws."
+ItemDatabase_ItemDefinitions_210:: "Dark Oak Shield"
+ItemDatabase_ItemDefinitions_211:: "Bone Shield"
+ItemDatabase_ItemDefinitions_212:: "A shield made of bones, held together by thick steel wire."
+ItemDatabase_ItemDefinitions_213:: "Dull Longsword"
+ItemDatabase_ItemDefinitions_214:: "It's round on the edges"
+ItemDatabase_ItemDefinitions_215:: "Iron Horn"
+ItemDatabase_ItemDefinitions_216:: "When using Warcry, you and all allies recieve armor bonus equal to <color=gold>{0}</color> of your armor"
+ItemDatabase_ItemDefinitions_217:: "The Great Iron Horn"
+ItemDatabase_ItemDefinitions_218:: "Horned Helmet"
+ItemDatabase_ItemDefinitions_219:: "A viking helmet"
+ItemDatabase_ItemDefinitions_220:: "Mask"
+ItemDatabase_ItemDefinitions_221:: "Mask of Madness"
+ItemDatabase_ItemDefinitions_222:: "Old Scroll"
+ItemDatabase_ItemDefinitions_223:: "Wormhole Stabilizators"
+ItemDatabase_ItemDefinitions_224:: "High-tech gear"
+ItemDatabase_ItemDefinitions_225:: "Hazard remember to put some fucking lore in here, don't leave it like this!"
+ItemDatabase_ItemDefinitions_226:: "Increases the duration of a portal by <color=gold>{0}</color> seconds"
+ItemDatabase_ItemDefinitions_227:: "Cripplers"
+ItemDatabase_ItemDefinitions_228:: "Increases the duration of a magic arrow's negative effect by <color=gold>{0}</color> seconds"
+ItemDatabase_ItemDefinitions_229:: "Crossfire"
+ItemDatabase_ItemDefinitions_230:: "Infused with powerful magic. This item is a dangerous tool of destruction."
+ItemDatabase_ItemDefinitions_231:: "When hitting an enemy with a projectile, create a magic arrow pointed at the enemy and shoot it without using in energy. This effect may occur once every <color=gold>2</color> seconds, but can be interval can be shortened with cooldown reduction."
+ItemDatabase_ItemDefinitions_232:: "Scroll of Recovery"
+ItemDatabase_ItemDefinitions_233:: "Recovers health and stamina"
+ItemDatabase_ItemDefinitions_234:: "Tiara"
+ItemDatabase_ItemDefinitions_235:: "A beautiful tiara "
+ItemDatabase_ItemDefinitions_236:: "This tiara may not provide much protection, but it sure is pretty"
+ItemDatabase_ItemDefinitions_237:: "Shiny"
+ItemDatabase_ItemDefinitions_238:: "Chastity belt"
+ItemDatabase_ItemDefinitions_239:: "Dodge those fukbois"
+ItemDatabase_ItemDefinitions_240:: "This belt will stop those cheeky cannibals and armsies from getting into your pants"
+ItemDatabase_ItemDefinitions_241:: " <color=gold>{0}</color> damage reduction while sleeping"
+ItemDatabase_ItemDefinitions_242:: "Ice Scroll"
+ItemDatabase_ItemDefinitions_243:: "A spell surrounded by flying shards of ice, contains tramendous power of cold."
+ItemDatabase_ItemDefinitions_244:: "Created at the top of the mountain."
+ItemDatabase_ItemDefinitions_245:: "Motorboat Modification Blueprints"
+ItemDatabase_ItemDefinitions_246:: "Sheet of paper that allows to turn any raft into a high speed. Increases carry amount and increases speed of rafts."
+ItemDatabase_ItemDefinitions_247:: "Who did this lmao."
+ItemDatabase_ItemDefinitions_248:: "Axe of Swiftness"
+ItemDatabase_ItemDefinitions_249:: "Severer"
+ItemDatabase_ItemDefinitions_250:: "Golden Axe of Fortune"
+ItemDatabase_ItemDefinitions_251:: "Axe of Misfortune"
+ItemDatabase_ItemDefinitions_252:: "Misfortunate are the ones on the recieving end. They will bleed a lot"
+ItemDatabase_ItemDefinitions_253:: "Golden Ring"
+ItemDatabase_ItemDefinitions_254:: "Golden Locket"
+ItemDatabase_ItemDefinitions_255:: "Dull Axe"
+ItemDatabase_ItemDefinitions_256:: "Precise Adjustments"
+ItemDatabase_ItemDefinitions_257:: "Focus attack speed buff duration is increased by <color=gold>{0}</color> seconds"
+ItemDatabase_ItemDefinitions_258:: "Rage"
+ItemDatabase_ItemDefinitions_259:: "Increases maximum stacks of frenzy by <color=gold>{0}</color>"
+ItemDatabase_ItemDefinitions_260:: "Swords go brrrrrrttt"
+ItemDatabase_ItemDefinitions_261:: "Jagged Edge"
+ItemDatabase_ItemDefinitions_262:: "Bash has <color=gold>{0}</color> a chance to make enemies to bleed for <color=gold>{1}</color> of damage dealt per second for duration of slow"
+ItemDatabase_ItemDefinitions_263:: "Bloodthirster"
+ItemDatabase_ItemDefinitions_264:: "Drenched in blood of many unfortunate foes."
+ItemDatabase_ItemDefinitions_265:: "Bash lifesteals <color=gold>{0}</color> of damage dealt into energy and health"
+ItemDatabase_ItemDefinitions_266:: "Frost Giant"
+ItemDatabase_ItemDefinitions_267:: "Melee hits freeze enemies"
+ItemDatabase_ItemDefinitions_268:: "Alexander's Shield"
+ItemDatabase_ItemDefinitions_269:: "Parry has a chance to be casted when getting it. Requires parry to be equipped"
+ItemDatabase_ItemDefinitions_270:: "King Qruies"
+ItemDatabase_ItemDefinitions_271:: "A mighty sword seeking for it's owner"
+ItemDatabase_ItemDefinitions_272:: "Gain additional melee damage equal to the last instance of physical damage taken."
+ItemDatabase_ItemDefinitions_273:: "Grip of Sora"
+ItemDatabase_ItemDefinitions_274:: "Look, a porcupine! -Sora"
+ItemDatabase_ItemDefinitions_275:: "Multishot drains <color=gold>{0}</color> less energy and shoots <color=gold>+4</color> projectiles. Additional projectiles do not increase the cost of multishot"
+ItemDatabase_ItemDefinitions_276:: "Ancient Greatbow"
+ItemDatabase_ItemDefinitions_277:: "A massive and slow bow, deals extra damage"
+ItemDatabase_ItemDefinitions_278:: "Phoenix's Death"
+ItemDatabase_ItemDefinitions_279:: "Ignites enemies on hit"
+ItemDatabase_ItemDefinitions_280:: "Soulstring"
+ItemDatabase_ItemDefinitions_281:: "A massive and slow bow"
+ItemDatabase_ItemDefinitions_282:: "Blood infused arrow now deals additional <color=gold>{0}</color> points of damage per health consumed"
+ItemDatabase_ItemDefinitions_283:: "Greatbow"
+ItemDatabase_ItemDefinitions_284:: "Withered Crown"
+ItemDatabase_ItemDefinitions_285:: "Worn by Hazard."
+ItemDatabase_ItemDefinitions_286:: "A single cast of blood infused arrow affects <color=gold>{0}</color> more projectiles"
+ItemDatabase_ItemDefinitions_287:: "Novice Magic Caster's Bracers"
+ItemDatabase_ItemDefinitions_288:: "Ranger's Bracers"
+ItemDatabase_ItemDefinitions_289:: "Swordsman's Bracers"
+ItemDatabase_ItemDefinitions_290:: "Healer's Bracers"
+ItemDatabase_ItemDefinitions_291:: "Novice Magic Caster's Gloves"
+ItemDatabase_ItemDefinitions_292:: "Ranger's Gloves"
+ItemDatabase_ItemDefinitions_293:: "Swordsman's Gloves"
+ItemDatabase_ItemDefinitions_294:: "Healer's Gloves"
+ItemDatabase_ItemDefinitions_295:: "Fate Gloves"
+ItemDatabase_ItemDefinitions_296:: "Fate Boots"
+ItemDatabase_ItemDefinitions_297:: "Greed"
+ItemDatabase_ItemDefinitions_298:: "Automatically casts wide reach every second"
+ItemDatabase_ItemDefinitions_299:: "Titanium Leggins"
+ItemDatabase_ItemDefinitions_300:: "Heavily armored leg protection. Suffers from the same weaknesses as spartan armor."
+ItemDatabase_ItemDefinitions_301:: "Iron Gauntlet"
+ItemDatabase_ItemDefinitions_302:: "Magefist"
+ItemDatabase_ItemDefinitions_303:: "Gloves that amplify magic"
+ItemDatabase_ItemDefinitions_304:: "Spells deal <color=gold>double</color> damage but have double the energy cost"
+ItemDatabase_ItemDefinitions_305:: "Armored Boots"
+ItemDatabase_ItemDefinitions_306:: "Heavily armored, resistant to damage boots."
+ItemDatabase_ItemDefinitions_307:: "Broken Protector"
+ItemDatabase_ItemDefinitions_308:: "This shield failed to protect those behind it."
+ItemDatabase_ItemDefinitions_309:: "Forbidden Scroll"
+ItemDatabase_ItemDefinitions_310:: "Too powerful to be kept."
+ItemDatabase_ItemDefinitions_311:: "Doom Pauldrons"
+ItemDatabase_ItemDefinitions_312:: "Despite the cool name, they are completely normal pair of shoulder armor."
+ItemDatabase_ItemDefinitions_313:: "Wind armor"
+ItemDatabase_ItemDefinitions_314:: "Run fast like the wind"
+ItemDatabase_ItemDefinitions_315:: "Upon dodging an attack, gain {0} movement speed, {1} damage, {2} armor, and heal for {3} of your maximum health"
+ItemDatabase_ItemDefinitions_316:: "Crusader Helmet"
+ItemDatabase_ItemDefinitions_317:: "You're talking mad shit for someone within crusading distance"
+ItemDatabase_ItemDefinitions_318:: "Hood"
+ItemDatabase_ItemDefinitions_319:: "Hats provide usefull stat bonuses"
+ItemDatabase_ItemDefinitions_320:: "The Spark of Light in The Darkness"
+ItemDatabase_ItemDefinitions_321:: "Magic Scroll of great quality"
+ItemDatabase_ItemDefinitions_322:: "Written in a language i canno't understand. Decyphering this text is impossible, so is the full utilization of the scroll."
+ItemDatabase_ItemDefinitions_323:: "If a black hole hits {0} or more enemies during it's lifetime, a ball lightning is summoned after it ends."
+ItemDatabase_ItemDefinitions_324:: "Purgatory"
+ItemDatabase_ItemDefinitions_325:: "Golden ring with a bone chilling feel about it. This thing will only bring harm, but not to the wearer"
+ItemDatabase_ItemDefinitions_326:: "Ring made of Netherrite"
+ItemDatabase_ItemDefinitions_327:: "Purge increases all of your damage based on missing health. Up to {0}"
+ItemDatabase_ItemDefinitions_328:: "Eruption"
+ItemDatabase_ItemDefinitions_329:: "Incarnation of devastation"
+ItemDatabase_ItemDefinitions_330:: "Headshots cause explosions"
+ItemDatabase_ItemDefinitions_331:: "Archangel"
+ItemDatabase_ItemDefinitions_332:: "Spread the goodness"
+ItemDatabase_ItemDefinitions_333:: "Shooting another player causes them to be greatly empowered for {0} seconds"
+ItemDatabase_ItemDefinitions_334:: "The Executioner"
+ItemDatabase_ItemDefinitions_335:: "A sword for decapitating"
+ItemDatabase_ItemDefinitions_336:: "Moon Cuirass"
+ItemDatabase_ItemDefinitions_337:: "A piece of armor designed for an archer. "
+ItemDatabase_ItemDefinitions_338:: "Landing a headshot with an arrow without the homing effect of seeking arrow at a distance greater than {0} feet deals tenfold damage, and hits the enemy two extra times"
+ItemDatabase_ItemDefinitions_339:: "Thornmail"
+ItemDatabase_ItemDefinitions_340:: "Spiked death on the outside, really comfy on the inside"
+ItemDatabase_ItemDefinitions_341:: "Thorns deal double damage"
+ItemDatabase_ItemDefinitions_342:: "Rusty Polearm"
+ItemDatabase_ItemDefinitions_343:: "Used by the Ubersreik Five"
+ItemDatabase_ItemDefinitions_344:: "Giant Polearm"
+ItemDatabase_ItemDefinitions_345:: "Used by the Sir Kruber"
+ItemDatabase_ItemDefinitions_346:: "Crude Feather"
+ItemDatabase_ItemDefinitions_347:: "Materials can be put inside empty sockets to add stats to items"
+ItemDatabase_ItemDefinitions_348:: "Soft Feather"
+ItemDatabase_ItemDefinitions_349:: "Ornate Feather"
+ItemDatabase_ItemDefinitions_350:: "Wonderful Feather"
+ItemDatabase_ItemDefinitions_351:: "White Crow's Feather"
+ItemDatabase_ItemDefinitions_352:: "Reef Shark"
+ItemDatabase_ItemDefinitions_353:: "Tiger Shark Tooth"
+ItemDatabase_ItemDefinitions_354:: "Whale Shark Tooth"
+ItemDatabase_ItemDefinitions_355:: "Great White Shark Tooth"
+ItemDatabase_ItemDefinitions_356:: "Megalodon's Tooth"
+ItemDatabase_ItemDefinitions_357:: "Uncut Sapphire"
+ItemDatabase_ItemDefinitions_358:: "Clear Sapphire"
+ItemDatabase_ItemDefinitions_359:: "Shiny Sapphire"
+ItemDatabase_ItemDefinitions_360:: "Enchanted Sapphire"
+ItemDatabase_ItemDefinitions_361:: "Celestial Sapphire"
+ItemDatabase_ItemDefinitions_362:: "Uncut Moonstone"
+ItemDatabase_ItemDefinitions_363:: "Clear Moonstone"
+ItemDatabase_ItemDefinitions_364:: "Shiny Moonstone"
+ItemDatabase_ItemDefinitions_365:: "Enchanted Moonstone"
+ItemDatabase_ItemDefinitions_366:: "Celestial Moonstone"
+ItemDatabase_ItemDefinitions_367:: "Lead Ore"
+ItemDatabase_ItemDefinitions_368:: "Vanadium Ore"
+ItemDatabase_ItemDefinitions_369:: "Titanium Ore"
+ItemDatabase_ItemDefinitions_370:: "Chromium Ore"
+ItemDatabase_ItemDefinitions_371:: "Tungsten Ore"
+ItemDatabase_ItemDefinitions_372:: "Knife on a stick"
+ItemDatabase_ItemDefinitions_373:: "Kasper named this item, his fault"
+ItemDatabase_ItemDefinitions_374:: "Fists of Nails"
+ItemDatabase_ItemDefinitions_375:: "Swiss sheese makers"
+ItemDatabase_ItemDefinitions_376:: "Gain {0} thorns per vitality"
+ItemDatabase_ItemDefinitions_377:: "Cargo Shorts MK2"
+ItemDatabase_ItemDefinitions_378:: "Deepest pockets out there"
+ItemDatabase_ItemDefinitions_379:: "Improved cargo pants. Twice as many pockets, and since they didnt fit on the outside, they are inside. They are still ugly as hell tho"
+ItemDatabase_ItemDefinitions_380:: "Aezyn"
+ItemDatabase_ItemDefinitions_381:: "Enchanted with magic as strong as power swing. It's purpose? Hit harder."
+ItemDatabase_ItemDefinitions_382:: "Magic arrow damage scaling is increased by {0}"
+ItemDatabase_ItemDefinitions_383:: "Punny's Reflective Ring"
+ItemDatabase_ItemDefinitions_384:: "Magic arrow is shot in volleys. This effect can stack."
+ItemDatabase_ItemDefinitions_385:: "Eyepatch"
+ItemDatabase_ItemDefinitions_386:: "A wise man once said:"
+ItemDatabase_ItemDefinitions_387:: "Everyone thinks I'm just a one-eyed bloody monster, god damnit... (sobbing)"
+ItemDatabase_ItemDefinitions_388:: "Explosion damage is also applied when performing jump attacks"
+ItemDatabase_ItemDefinitions_389:: "Javelin"
+ItemDatabase_ItemDefinitions_390:: "Warplate"
+ItemDatabase_ItemDefinitions_391:: "Enchanted with the power of the GOD's armor. It's purpose? Hit harder, daddy."
+ItemDatabase_ItemDefinitions_392:: "Strength comes from the power of will, the stronger the will the stronger you are"
+ItemDatabase_ItemDefinitions_393:: "Torso of Strength"
+ItemDatabase_ItemDefinitions_394:: "Demoman's Vest"
+ItemDatabase_ItemDefinitions_395:: "What makes me a good demoman? If I were a bad demoman, I wouldn't be sittin' here discussin' it with you, now would I?! LET'S DO IT! Not one of you's gonna survive this! One crossed wire, one wayward pinch of potassium chlorate, one errant twitch, and KA-BLOOIE! I got a manky eye. I'm a black Scottish cyclops. They got more fecking sea monsters in the great Lochett Ness than they got the likes of me. So! T'all you fine dandies, so proud, so cocksure, prancin' about with your heads full of eyeballs... come and get me, I say! I'll be waitin' on you with a whiff of the old brimstone! I'm a Grimm bloody fable with an unhappy bloody end! Oh, they're going to have to glue you back together...IN HELL!"
+ItemDatabase_ItemDefinitions_396:: "Brawler's Gloves"
+ItemDatabase_ItemDefinitions_397:: "Nail Gloves"
+ItemDatabase_ItemDefinitions_398:: "Enchanted with the power of penetration. It's purpose? Hit harder."
+ItemDatabase_ItemDefinitions_399:: "Hand-held Ballista"
+ItemDatabase_ItemDefinitions_400:: "Kuldars's Scarf"
+ItemDatabase_ItemDefinitions_401:: "Strength comes from the power of will"
+ItemDatabase_ItemDefinitions_402:: "Sword Devil's Scarf"
+ItemDatabase_ItemDefinitions_403:: "Peasant's Scarf"
+ItemDatabase_ItemDefinitions_404:: "Bombastinc Choker"
+ItemDatabase_ItemDefinitions_405:: "Explosive Touch"
+ItemDatabase_ItemDefinitions_406:: "Enchanted with the power of the explosions armor. It's purpose? Become the true explosion master"
+ItemDatabase_ItemDefinitions_407:: "Strength comes from the power of will, the stronger the will the stronger the explosion"
+ItemDatabase_ItemDefinitions_408:: "Volatile Bracers"
+ItemDatabase_ItemDefinitions_409:: "Volatile Helmet"
+ItemDatabase_ItemDefinitions_410:: "Gunpowder filled socks"
+ItemDatabase_ItemDefinitions_411:: "Red Skirt"
+ItemDatabase_ItemDefinitions_412:: "Gunpowder Boxers"
+ItemDatabase_ItemDefinitions_413:: "Jihad Vest"
+ItemDatabase_ItemDefinitions_414:: "Ring of Fortune"
+ItemDatabase_ItemDefinitions_415:: "Mana Ring"
+ItemDatabase_ItemDefinitions_416:: "Life Ring"
+ItemDatabase_ItemDefinitions_417:: "Moritz's Gear"
+ItemDatabase_ItemDefinitions_418:: "Band of Hurting"
+ItemDatabase_ItemDefinitions_419:: "A ring for a warrior"
+ItemDatabase_ItemDefinitions_420:: "Straw Hat"
+ItemDatabase_ItemDefinitions_421:: "Rusty Javelin"
+ItemDatabase_ItemDefinitions_422:: "Star Robe"
+ItemDatabase_ItemDefinitions_423:: "Anger"
+ItemDatabase_ItemDefinitions_424:: "Downscaled version of Greatsword Rage, made to be wielded by flimsy wizards"
+ItemDatabase_ItemDefinitions_425:: "Increases maximum stacks of frenzy by {0}"
+ItemDatabase_ItemDefinitions_426:: "Yuki-Onna Strides"
+ItemDatabase_ItemDefinitions_427:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0}"
+ItemDatabase_ItemDefinitions_428:: "Boots looted off a snow demon"
+ItemDatabase_ItemDefinitions_429:: "Increses snowstorm damage by {0}"
+ItemDatabase_ItemDefinitions_430:: "Yuki-Onna Greaves"
+ItemDatabase_ItemDefinitions_431:: "Yuki-Onna Kimono"
+ItemDatabase_ItemDefinitions_432:: "Yuki-Onna's Headdress"
+ItemDatabase_ItemDefinitions_433:: "Set Piece:\n2 Pieces- Snow Storm pulls enemies towards you\n3 Pieces - Snow Storm radius, maximum damage, spell cost is doubled, but charge rate is slower\n4 Pieces - Snow storm hit frequency is increased by {0} and damage is increased by {1}"
+ItemDatabase_ItemDefinitions_434:: "Lama Mega's Blood Bag"
+ItemDatabase_ItemDefinitions_435:: "Melee hits cause enemies to bleed for <color=gold>{0}</color> of your health as damage for {1} seconds"
+ItemDatabase_ItemDefinitions_436:: "Socket Drill"
+ItemDatabase_ItemDefinitions_437:: "A convienient one use tool"
+ItemDatabase_ItemDefinitions_438:: "What's a drill doing here in a place full of primitive tribes?"
+ItemDatabase_ItemDefinitions_439:: "Adds one socket to an item, unless the item can't have any more sockets."
+ItemDatabase_ItemDefinitions_440:: "Moonwalkers"
+ItemDatabase_ItemDefinitions_441:: "Cha cha real smooth."
+ItemDatabase_ItemDefinitions_442:: "Inverts movement"
+ItemDatabase_ItemDefinitions_443:: "Rabbit Ears Hairband"
+ItemDatabase_ItemDefinitions_444:: "Cute"
+ItemDatabase_ItemDefinitions_445:: "Bunny Ears Hairband"
+ItemDatabase_ItemDefinitions_446:: "Iron plate full of holes"
+ItemDatabase_ItemDefinitions_447:: "The integrity of this item is questionable"
+ItemDatabase_ItemDefinitions_448:: "Small Tribal Necklace"
+ItemDatabase_ItemDefinitions_449:: "Increases maximum stacks of frenzy by {0}"
+ItemDatabase_ItemDefinitions_450:: "Tribal Necklace"
+ItemDatabase_ItemDefinitions_451:: "Increases maximum stacks of frenzy by {0}"
+ItemDatabase_ItemDefinitions_452:: "Warlord Necklace"
+ItemDatabase_ItemDefinitions_453:: "Increases maximum stacks of frenzy by {0}"
+ItemDatabase_ItemDefinitions_454:: "Travel Band"
+ItemDatabase_ItemDefinitions_455:: "The distance of blink is increased by <color=gold>{0}</color> feet"
+ItemDatabase_ItemDefinitions_456:: "Destroyed Void Shard"
+ItemDatabase_ItemDefinitions_457:: "Only a fraction of its previous might remains"
+ItemDatabase_ItemDefinitions_458:: "Decrease the cooldown of one ability by {0} second whenever you hit something with melee or ranged attack."
+ItemDatabase_ItemDefinitions_459:: "Famine Hammer"
+ItemDatabase_ItemDefinitions_460:: "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}"
+ItemDatabase_ItemDefinitions_461:: "Curse Hammer"
+ItemDatabase_ItemDefinitions_462:: "Omnious Weapon"
+ItemDatabase_ItemDefinitions_463:: "Chance to weaken enemies, causing them to take more damage from all attacks, is increased by {0}"
+ItemDatabase_ItemDefinitions_464:: "Smasher"
+ItemDatabase_ItemDefinitions_465:: "Smash damage is increased tripled"
+ItemDatabase_ItemDefinitions_466:: "Vampiric Band"
+ItemDatabase_ItemDefinitions_467:: "Gain {0} stamina on ranged and melee hit or double that amount on critical hits"
+ItemDatabase_ItemDefinitions_468:: "Vampire Ring"
+ItemDatabase_ItemDefinitions_469:: "Gain {0} stamina on ranged and melee hit or double that amount on critical hits"
+ItemDatabase_ItemDefinitions_470:: "Tricksters Scarf"
+ItemDatabase_ItemDefinitions_471:: "Magic arrow shoots {0} additional arrow."
+ItemDatabase_ItemDefinitions_472:: "Magus' Necktie"
+ItemDatabase_ItemDefinitions_473:: "Magic arrow shoots {0} additional arrows."
+ItemDatabase_ItemDefinitions_474:: "Discounted Knockoff Magic Quiver"
+ItemDatabase_ItemDefinitions_475:: "There's a {0} increased chance to not consume ammo when firing a projectile."
+ItemDatabase_ItemDefinitions_476:: "Magic Quiver"
+ItemDatabase_ItemDefinitions_477:: "There's a {0} increased chance to not consume ammo when firing a projectile."
+ItemDatabase_ItemDefinitions_478:: "Improved Magic Quiver"
+ItemDatabase_ItemDefinitions_479:: "There's a {0} increased chance to not consume ammo when firing a projectile."
+ItemDatabase_ItemDefinitions_480:: "Factory Quiver"
+ItemDatabase_ItemDefinitions_481:: "There's a {0} increased chance to not consume ammo when firing a projectile."
+ItemDatabase_ItemDefinitions_482:: "Enzyme STR/34"
+ItemDatabase_ItemDefinitions_483:: "A substance which results in surprising changes to gear"
+ItemDatabase_ItemDefinitions_484:: "Changes Vitality, Agility or Intelligence stat on an item to <color=red>Strength</color> or changes Ranged or Spell damage stat to <color=red>Melee Damage</color>"
+ItemDatabase_ItemDefinitions_485:: "Enzyme INT/33"
+ItemDatabase_ItemDefinitions_486:: "Changes Vitality, Agility or Strength stat on an item to <color=red>Intelligence</color> or changes Ranged or Melee damage stat to <color=red>Spell Damage</color>"
+ItemDatabase_ItemDefinitions_487:: "Enzyme AGI/39"
+ItemDatabase_ItemDefinitions_488:: "Changes Vitality, Intelligence or Strength stat on an item to <color=red>Agility</color> or changes Melee or Spell damage stat to <color=red>Ranged Damage</color>"
+ItemDatabase_ItemDefinitions_489:: "Enzyme VIT/449"
+ItemDatabase_ItemDefinitions_490:: "Changes Agility, Intelligence or Strength stat on an item to <color=red>Vitality</color>"
+ItemDatabase_ItemDefinitions_491:: "Stomach Acid"
+ItemDatabase_ItemDefinitions_492:: "Removes all stats with negative values from an item"
+ItemDatabase_ItemDefinitions_493:: "Elite Stomach Acid"
+ItemDatabase_ItemDefinitions_494:: "Changes negative stat values into positive values on an item"
+ItemDatabase_ItemDefinitions_495:: "Crimson Solution"
+ItemDatabase_ItemDefinitions_496:: "Upgrades item of any rarity to one of the same type but of <color=red>Legendary</color> rarity"
+ItemDatabase_ItemDefinitions_497:: "Weak Armor Hardening Mixture"
+ItemDatabase_ItemDefinitions_498:: "Adds Armor Stat to a piece of equipment if the item does not already have it"
+ItemDatabase_ItemDefinitions_499:: "Upgraded Armor Hardening Mixture"
+ItemDatabase_ItemDefinitions_500:: "Adds Damage Reduction Stat to a piece of equipment if the item does not already have it"
+ItemDatabase_ItemDefinitions_501:: "Chaos Water"
+ItemDatabase_ItemDefinitions_502:: "Rerolls all stats on an item of rarity no higher than orange"
+ItemDatabase_ItemDefinitions_503:: "Upgraded Chaos Water"
+ItemDatabase_ItemDefinitions_504:: "Rerolls all stats on an item of any rarity"
+ItemDatabase_ItemDefinitions_505:: "Gun Blade"
+ItemDatabase_ItemDefinitions_506:: "Increases pistol damage by <color=red>{0}</color>"
+ItemDatabase_ItemDefinitions_507:: "Sharpshooter's Axe"
+ItemDatabase_ItemDefinitions_508:: "Increases pistol headshot chance by <color=gold>{0}</color> and pistol damage by <color=gold>{1}</color>"
+ItemDatabase_ItemDefinitions_509:: "Shield Blade"
+ItemDatabase_ItemDefinitions_510:: "So large can be used as a shield"
+ItemDatabase_ItemDefinitions_511:: "A normal human cannot lift this weapon."
+ItemDatabase_ItemDefinitions_512:: "Blunt Blade for Bashing Skulls"
+ItemDatabase_ItemDefinitions_513:: "Bash damage debuff on enemies is increased by {0}"
+ItemDatabase_ItemDefinitions_514:: "Madman's Legacy"
+ItemDatabase_ItemDefinitions_515:: "Frenzy damage per stack is increased by {0}"
+ItemDatabase_ItemDefinitions_516:: "Buckler"
+ItemDatabase_ItemDefinitions_517:: "Pyromancy Mask"
+ItemDatabase_ItemDefinitions_518:: "Ignited enemies burn for {0} longer."
+ItemDatabase_ItemDefinitions_519:: "Ember Mask"
+ItemDatabase_ItemDefinitions_520:: "Ignited enemies burn for {0} longer and fire ticks thrice as fast."
+ItemDatabase_ItemDefinitions_521:: "Flame Pauldrons"
+ItemDatabase_ItemDefinitions_522:: "Firebolt costs {0} additional energy to cast and its damage scaling is increased by {1}"
+ItemDatabase_ItemDefinitions_523:: "Ancient Scroll"
+ItemDatabase_ItemDefinitions_524:: "Guide on Tearing Spacetime"
+ItemDatabase_ItemDefinitions_525:: "Blink creates an explosion at the exit point, and the damage of the explosion is increased by velocity and the radius is increased by the distance of blink"
+ItemDatabase_ItemDefinitions_526:: "300th Spear"
+ItemDatabase_ItemDefinitions_527:: "Stone Pauldrons"
+ItemDatabase_ItemDefinitions_528:: "All damage increased by {0}"
+ItemDatabase_ItemDefinitions_529:: "Iron Shoulder Pads"
+ItemDatabase_ItemDefinitions_530:: "All damage increased by {0}"
+ItemDatabase_ItemDefinitions_531:: "Steel Shoulder Pads"
+ItemDatabase_ItemDefinitions_532:: "All damage increased by {0}"
+ItemDatabase_ItemDefinitions_533:: "Battle scarred Shoulder Pads"
+ItemDatabase_ItemDefinitions_534:: "All damage increased by {0}"
+ItemDatabase_ItemDefinitions_535:: "Mystery Shoulder Pads"
+ItemDatabase_ItemDefinitions_536:: "All damage increased by {0}"
+ItemDatabase_ItemDefinitions_537:: "Stone Shield"
+ItemDatabase_ItemDefinitions_538:: "Iron Shield"
+ItemDatabase_ItemDefinitions_539:: "Steel Tower Shield"
+ItemDatabase_ItemDefinitions_540:: "Guardian"
+ItemDatabase_ItemDefinitions_541:: "Mystery Shield"
+ItemDatabase_ItemDefinitions_542:: "Light Boot"
+ItemDatabase_ItemDefinitions_543:: "Iron Boots"
+ItemDatabase_ItemDefinitions_544:: "Steel Boots"
+ItemDatabase_ItemDefinitions_545:: "Threads"
+ItemDatabase_ItemDefinitions_546:: "Mystery Boots"
+ItemDatabase_ItemDefinitions_547:: "Wraps"
+ItemDatabase_ItemDefinitions_548:: "Steel Gauntlet"
+ItemDatabase_ItemDefinitions_549:: "Titanium Gauntlet"
+ItemDatabase_ItemDefinitions_550:: "Mystery Gauntlet"
+ItemDatabase_ItemDefinitions_551:: "Leather Tasset"
+ItemDatabase_ItemDefinitions_552:: "Iron Tasset"
+ItemDatabase_ItemDefinitions_553:: "Steel Tasset"
+ItemDatabase_ItemDefinitions_554:: "Black Steel Leggins"
+ItemDatabase_ItemDefinitions_555:: "Mystery Leggins"
+ItemDatabase_ItemDefinitions_556:: "Leather Vest"
+ItemDatabase_ItemDefinitions_557:: "Iron Breastplate"
+ItemDatabase_ItemDefinitions_558:: "Steel Breastplate"
+ItemDatabase_ItemDefinitions_559:: "Silver Armor"
+ItemDatabase_ItemDefinitions_560:: "Mystery Breastplate"
+ItemDatabase_ItemDefinitions_561:: "Cloth Band"
+ItemDatabase_ItemDefinitions_562:: "Iron Wristguard"
+ItemDatabase_ItemDefinitions_563:: "Steel Wristguard"
+ItemDatabase_ItemDefinitions_564:: "Baron Wristguards"
+ItemDatabase_ItemDefinitions_565:: "Mystery Wristguards"
+ItemDatabase_ItemDefinitions_566:: "Iron Helmet"
+ItemDatabase_ItemDefinitions_567:: "Steel Helmet"
+ItemDatabase_ItemDefinitions_568:: "Armored Hood"
+ItemDatabase_ItemDefinitions_569:: "Mystery Helmet"
+ItemDatabase_ItemDefinitions_570:: "Yorium's Gaze"
+ItemDatabase_ItemDefinitions_571:: "SET PIECE. Melee weapon range is increased by {0}, attack cost in stamina is halved."
+ItemDatabase_ItemDefinitions_572:: "Set Piece:\n2 Pieces- Berserk does not apply exhaustion when it ends\n3 Pieces - Berserk duration is increased by {0} seconds\n4 Pieces - Each second of berserk being in effect increases damage by {1}.\n5 Pieces - For the first {2} seconds of Berserk attack speed increases by {3} per second, and lasts till the end of the spell's duration."
+ItemDatabase_ItemDefinitions_573:: "Yorium's Ruthlessness"
+ItemDatabase_ItemDefinitions_574:: "Yorium's Burden"
+ItemDatabase_ItemDefinitions_575:: "Yorium's Resolve"
+ItemDatabase_ItemDefinitions_576:: "Atomic Augmentation"
+ItemDatabase_ItemDefinitions_577:: "Yorium's Assault"
+ItemDatabase_ItemDefinitions_578:: "Undying Promise"
+ItemDatabase_ItemDefinitions_579:: "Resist lethal damage on a {0} minute cooldown"
+ItemDatabase_ItemDefinitions_581:: "Snap freeze damage scaling is increased by {0} and the slow duration is increased by {1} seconds"
+ItemDatabase_ItemDefinitions_582:: "If equipped on a weapon, increases ranged damage by "
+ItemDatabase_ItemDefinitions_583:: "If equipped on boots, increases movement speed by "
+ItemDatabase_ItemDefinitions_584:: "If equipped on a helmet, increases critical hit chance by "
+ItemDatabase_ItemDefinitions_585:: "If equipped on accessories, increases ranged armor piercing by "
+ItemDatabase_ItemDefinitions_586:: "If equipped in other slots, increases agility by "
+ItemDatabase_ItemDefinitions_587:: "If equipped on a weapon, increases melee damage by "
+ItemDatabase_ItemDefinitions_588:: "If equipped on boots, decreases damage taken by "
+ItemDatabase_ItemDefinitions_589:: "If equipped on a helmet, increases attack speed by "
+ItemDatabase_ItemDefinitions_590:: "If equipped on accessories, increases melee armor piercing by "
+ItemDatabase_ItemDefinitions_591:: "If equipped in other slots, increases strength by "
+ItemDatabase_ItemDefinitions_592:: "If equipped on a weapon, increases magic damage by "
+ItemDatabase_ItemDefinitions_593:: "If equipped on boots, decreases spell cost by "
+ItemDatabase_ItemDefinitions_594:: "If equipped on a helmet, decreases spell cooldown by "
+ItemDatabase_ItemDefinitions_595:: "If equipped on accessories, increases energy on hit by "
+ItemDatabase_ItemDefinitions_596:: "If equipped in other slots, increases intelligence by "
+ItemDatabase_ItemDefinitions_597:: "If equipped on a weapon, increases all healing by "
+ItemDatabase_ItemDefinitions_598:: "If equipped on boots, increases magic find by "
+ItemDatabase_ItemDefinitions_599:: "If equipped on a helmet, increases experience gained by "
+ItemDatabase_ItemDefinitions_600:: "If equipped on accessories, increases life per second by "
+ItemDatabase_ItemDefinitions_601:: "If equipped in other slots, increases vitality by "
+ItemDatabase_ItemDefinitions_602:: "If equipped on a weapon, increases crit damage by "
+ItemDatabase_ItemDefinitions_603:: "If equipped on boots, increases resistance to magic by "
+ItemDatabase_ItemDefinitions_604:: "If equipped on a helmet, increases health by "
+ItemDatabase_ItemDefinitions_605:: "If equipped on accessories, increases thorns by "
+ItemDatabase_ItemDefinitions_606:: "If equipped in other slots, increases armor by "
+ItemDatabase_ItemDefinitions_607:: "Firebolt deals increased damage"
+ItemDatabase_ItemDefinitions_608:: "\nWarcry gives damage resistance."
+ItemDatabase_ItemDefinitions_609:: "Devil Dancers"
+ItemDatabase_ItemDefinitions_610:: "When consuming frenzy stacks, gain 5% crit chance for 10 seconds for every stack consumed. Gain 5% attack speed per frenzy stack active."
+ItemDatabase_ItemDefinitions_611:: "Call of the Ancients"
+ItemDatabase_ItemDefinitions_612:: "Berserk increases all damage by additional <color=gold>{0}</color>"
+ItemDatabase_ItemDefinitions_613:: "Berserker's Wrath"
+ItemDatabase_ItemDefinitions_614:: "Viking Amulet"
+ItemDatabase_ItemDefinitions_615:: "Increases attack and movement speed during berserk by <color=gold>{0}</color>"
+ItemDatabase_ItemDefinitions_616:: "Pedant of Skallagrim"
+ItemDatabase_ItemDefinitions_617:: "Wristguards of The Sanctuary Keeper"
+ItemDatabase_ItemDefinitions_618:: "Allies inside Sanctuary have <color=gold>{0}</color> increased cooldown rate and attacks use <color=gold>{1}</color> less resources"
 MainMenu_Hints_1:: "Gain experience by hunting"
 MainMenu_Hints_2:: "Experience is shared between players"
 MainMenu_Hints_3:: "Gain experience by killing enemies"

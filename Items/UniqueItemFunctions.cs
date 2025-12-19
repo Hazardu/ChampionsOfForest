@@ -53,7 +53,7 @@ namespace ChampionsOfForest.Items
 			else
 			{
 				EnemyProgression prog = param.hitTarget as EnemyProgression;
-				prog.DoDoT(ModdedPlayer.Stats.maxHealth*150f, 15f);
+				prog.DoDoT(ModdedPlayer.Stats.maxLife*150f, 15f);
 
 			}
 		}

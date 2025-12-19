@@ -4,6 +4,7 @@ using ChampionsOfForest.Effects;
 using ChampionsOfForest.Effects.Sound_Effects;
 using ChampionsOfForest.Enemies.EnemyAbilities;
 using ChampionsOfForest.ExpSources;
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Player;
 using ChampionsOfForest.Player.Crafting;
@@ -37,7 +38,7 @@ namespace ChampionsOfForest
 					new GameObject("NetworkManagerObj").AddComponent<Network.NetworkManager>();
 					GameObject go = new GameObject("Playerobj");
 					go.AddComponent<ModReferences>();
-					ItemDataBase.Initialize();
+					ItemDatabase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;
 					ExpEvents.Initialize();
@@ -83,7 +84,7 @@ namespace ChampionsOfForest
 					Network.CommandInitializer.Init();
 					CustomCrafting.Init();
 					BuffDB.FillBuffList();
-					ItemDataBase.Initialize();
+					ItemDatabase.Initialize();
 					SpellDataBase.Initialize();
 					EnemyManager.Initialize();
 					Network.NetworkManager.instance.onGetMessage += Network.CommandReader.OnCommand;

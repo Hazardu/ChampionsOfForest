@@ -143,7 +143,7 @@ namespace ChampionsOfForest.Player
 					ModdedPlayer.Stats.attackSpeed.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyAtkSpeed;
 					ModdedPlayer.Stats.allDamage.valueMultiplicative /= 1 + f * ModdedPlayer.Stats.spell_frenzyDmg;
 					if (ModdedPlayer.Stats.spell_frenzyMS)
-						ModdedPlayer.Stats.movementSpeed.valueMultiplicative /= 1 + f * 0.05f;
+						ModdedPlayer.Stats.mOVEMENT_SPEED.valueMultiplicative /= 1 + f * 0.05f;
 
 					ModdedPlayer.Stats.spell_frenzyStacks.valueAdditive = 0;
 				}

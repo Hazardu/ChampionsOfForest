@@ -91,7 +91,7 @@ namespace ChampionsOfForest
 		public Avenger avengerability;
 		private float timeOfDeath;
 		private Color normalColor;
-		private ModSettings.Difficulty setupDifficulty;
+		private ModSettings.GameDifficulty setupDifficulty;
 		public enum Abilities
 		{
 			Steadfast, BossSteadfast, EliteSteadfast, Blizzard, Radiance, Chains, BlackHole, Trapper, Juggernaut, Gargantuan, Tiny, ExtraDamage, ExtraHealth, Basher, Warp, RainEmpowerment, Shielding, Meteor, Flare, Undead, Laser, Poisonous, Sacrifice, Avenger, FireCataclysm, ArcaneCataclysm
@@ -121,7 +121,7 @@ namespace ChampionsOfForest
 			PaintedMale = 0b1000000000000000000,
 			PaintedLeaderMale = 0b10000000000000000000,
 			PaintedFemale = 0b100000000000000000000,
-			Fireman = 0b1000000000000000000000
+			Fireman =	0b1000000000000000000000,
 		};
 
 		#endregion Variables
@@ -390,7 +390,7 @@ namespace ChampionsOfForest
 			}
 			catch (Exception ex)
 			{
-				ModAPI.Log.Write("DIEING ENEMY EXCEPTION  " + ex);
+				ModAPI.Log.Write("DYING ENEMY EXCEPTION  " + ex);
 			}
 
 			return true;
@@ -398,7 +398,7 @@ namespace ChampionsOfForest
 		private void DropLoot()
 		{
 
-			if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ModdedPlayer.Stats.magicFind.Value || AIScript.creepy_boss || abilities.Count > 0)
+			if (Random.value <= 0.1f * ModSettings.DropChanceMultiplier * ModdedPlayer.Stats.magicFind_quantity.Value || AIScript.creepy_boss || abilities.Count > 0)
 			{
 				int itemCount = Random.Range(2, 4);
 				if (AIScript.creepy_boss)
@@ -407,8 +407,8 @@ namespace ChampionsOfForest
 					int pc = ModReferences.Players.Count;
 					for (int i = 0; i < pc; i++)
 					{
-						//Drop megan only amulet
-						Network.NetworkManager.SendItemDrop(new Item(ItemDataBase.ItemBases[80]), LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.EnemyOnDeath);
+						////Drop megan only amulet
+						//Network.NetworkManager.SendItemDrop(new Item(ItemDatabase.itemLookup[80]), LocalPlayer.Transform.position + Vector3.up * 2, ItemPickUp.DropSource.EnemyOnDeath);
 					}
 				}
 				else if (abilities.Count >= 3)

@@ -136,7 +136,7 @@ namespace ChampionsOfForest
 					GUI.Label(r, $"Client distance = {Vector3.Distance(rulerEnd, LocalPlayer.Transform.position)}\nLineLen = {Vector3.Distance(rulerStart, rulerEnd)}");
 				}
 			}
-			if (PlayerInventoryMod.EquippedModel != BaseItem.WeaponModelType.None)
+			if (PlayerInventoryMod.EquippedModel != BaseItem.ItemSubtype.None)
 			{
 				GUI.Label(new Rect(600, 300, 500, 30), "Offset");
 				GUI.Label(new Rect(600, 330, 100, 30), PlayerInventoryMod.customWeapons[PlayerInventoryMod.EquippedModel].offset.x.ToString());

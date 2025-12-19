@@ -50,13 +50,13 @@ namespace ChampionsOfForest.Player
 		protected override void HandleWalkingSpeedOptions()
 		{
 			base.HandleWalkingSpeedOptions();
-			speed *= ModdedPlayer.Stats.movementSpeed;
+			speed *= ModdedPlayer.Stats.mOVEMENT_SPEED;
 		}
 
 		protected override void HandleRunningStaminaAndSpeed()
 		{
 			base.HandleRunningStaminaAndSpeed();
-			speed *= ModdedPlayer.Stats.movementSpeed;
+			speed *= ModdedPlayer.Stats.mOVEMENT_SPEED;
 			COTFEvents.Instance.OnSprint.Invoke();
 
 		}

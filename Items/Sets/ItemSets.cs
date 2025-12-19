@@ -31,15 +31,15 @@ namespace ChampionsOfForest.Items.Sets
 					ModdedPlayer.Stats.spell_snowstormPullEnemiesIn.value = false;
 					break;
 				case 3:
-					ModdedPlayer.Stats.spell_snowstormMaxCharge.Substract(10);
+					ModdedPlayer.Stats.spell_snowstormMaxCharge.Sub(10);
 					break;
 				case 4:
 					ModdedPlayer.Stats.spell_snowstormHitDelay.Divide(0.5f);
-					ModdedPlayer.Stats.spell_snowstormDamageMult.Substract(3f);
+					ModdedPlayer.Stats.spell_snowstormDamageMult.Sub(3f);
 					break;
 			}
-			ModdedPlayer.Stats.i_setcount_AkagisSet.Substract(1);
-			ModdedPlayer.Stats.spell_snowstormDamageMult.Substract(0.5f);
+			ModdedPlayer.Stats.i_setcount_AkagisSet.Sub(1);
+			ModdedPlayer.Stats.spell_snowstormDamageMult.Sub(0.5f);
 		}
 	}
 	public static class BerserkSet
@@ -61,12 +61,12 @@ namespace ChampionsOfForest.Items.Sets
 			switch (ModdedPlayer.Stats.i_setcount_BerserkSet.Value)
 			{
 				case 3:
-					ModdedPlayer.Stats.spell_berserkDuration.Substract(15);
+					ModdedPlayer.Stats.spell_berserkDuration.Sub(15);
 					break;
 			}
 			ModdedPlayer.Stats.weaponRange.Divide(1.3f);
 			ModdedPlayer.Stats.attackStaminaCost.Divide(0.5f);
-			ModdedPlayer.Stats.i_setcount_BerserkSet.Substract(1);
+			ModdedPlayer.Stats.i_setcount_BerserkSet.Sub(1);
 
 		}
 	}

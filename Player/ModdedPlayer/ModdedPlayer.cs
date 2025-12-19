@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using Bolt;
 using ChampionsOfForest.Effects;
+using ChampionsOfForest.Items;
 using ChampionsOfForest.Localization;
 using ChampionsOfForest.Network;
+using ChampionsOfForest.Network.Commands;
+
 using TheForest.Utils;
 using UnityEngine;
 using static ChampionsOfForest.Player.BuffDB;
@@ -22,13 +25,8 @@ namespace ChampionsOfForest.Player
 		public static ModdedPlayer instance = null;
 
 
-
-
 		public int level = 1;
 
-
-	
-	
 		public float basejumpPower;
 		public long ExpCurrent = 0;
 		public long ExpGoal = 1;
@@ -39,11 +37,6 @@ namespace ChampionsOfForest.Player
 		public string MassacreText = "";
 		public float MassacreMultiplier = 1;
 		public float TimeUntillMassacreReset;
-
-		
-
-
-		
 
 		public float DamageAbsorbAmount
 		{
@@ -61,11 +54,6 @@ namespace ChampionsOfForest.Player
 		public float[] damageAbsorbAmounts = new float[3];//every unique source of shielding gets their own slot here, if its not unique it uses [0]
 														  //[1] is channeled shield spell;
 
-
-
-		
-	
-		
 		
 		public Dictionary<int, int> GeneratedResources = new Dictionary<int, int>();
 
@@ -80,9 +68,6 @@ namespace ChampionsOfForest.Player
 		//Death Pact shoulders
 
 
-
-
-
 		public float lostArmor = 0;
 
 
@@ -90,8 +75,6 @@ namespace ChampionsOfForest.Player
 		public float _lastCrossfireTime;
 		public float _HexedPantsOfMrM_StandTime;
 		public float _DeathPact_Amount = 1;
-
-
 
 
 		public Dictionary<int, ExtraItemCapacity> ExtraCarryingCapactity = new Dictionary<int, ExtraItemCapacity>();
@@ -321,12 +304,12 @@ namespace ChampionsOfForest.Player
 		{
 			if (ModAPI.Input.GetButtonDown("EquipWeapon"))
 			{
-				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].Equipped)
+				if (Inventory.Instance.ItemSlots[-12] != null && Inventory.Instance.ItemSlots[-12].isEquipped)
 				{
-					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemSlots[-12].weaponModel;
-					switch (Inventory.Instance.ItemSlots[-12].weaponModel)
+					PlayerInventoryMod.ToEquipWeaponType = Inventory.Instance.ItemSlots[-12].subtype;
+					switch (Inventory.Instance.ItemSlots[-12].subtype)
 					{
-						case BaseItem.WeaponModelType.Polearm:
+						case ItemDefinition.ItemSubtype.Polearm:
 							if (LocalPlayer.Inventory.AmountOf(56) <= 0)
 							{
 								LocalPlayer.Inventory.AddItem(56);
@@ -335,7 +318,7 @@ namespace ChampionsOfForest.Player
 							LocalPlayer.Inventory.Equip(56, false);
 							break;
 
-						case BaseItem.WeaponModelType.Greatbow:
+						case ItemDefinition.ItemSubtype.Greatbow:
 							if (LocalPlayer.Inventory.AmountOf(79) <= 0)
 							{
 								LocalPlayer.Inventory.AddItem(79);
@@ -343,7 +326,7 @@ namespace ChampionsOfForest.Player
 							LocalPlayer.Inventory.StashEquipedWeapon(false);
 							if (CustomBowBase.baseBow == null)
 							{
-								PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+								PlayerInventoryMod.ToEquipWeaponType = ItemDefinition.ItemSubtype.None;
 								LocalPlayer.Inventory.Equip(79, false);
 							}
 							else if (LocalPlayer.Inventory.Equip(79, false))
@@ -378,7 +361,7 @@ namespace ChampionsOfForest.Player
 							break;
 					}
 
-					PlayerInventoryMod.ToEquipWeaponType = BaseItem.WeaponModelType.None;
+					PlayerInventoryMod.ToEquipWeaponType = ItemDefinition.ItemSubtype.None;
 				}
 			}
 			try
@@ -416,7 +399,7 @@ namespace ChampionsOfForest.Player
 				}
 				if (dmgPerSecond != 0)
 				{
-					dmgPerSecond *=  stats.magicDamageTaken;
+					dmgPerSecond *= stats.damageFromElites;
 					dmgPerSecond *= Stats.allDamageTaken;
 					LocalPlayer.Stats.Health -= dmgPerSecond * Time.deltaTime;
 					LocalPlayer.Stats.HealthTarget -= dmgPerSecond * Time.deltaTime * 2;
@@ -460,11 +443,11 @@ namespace ChampionsOfForest.Player
 				{
 					if (LocalPlayer.Stats.Health < LocalPlayer.Stats.HealthTarget)
 					{
-						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond* (stats.healthPerSecRate) * stats.allRecoveryMult;
+						LocalPlayer.Stats.Health += stats.lifeRegenBase* (stats.lifeRegenMult) * stats.allRecoveryMult;
 					}
 					else
 					{
-						LocalPlayer.Stats.Health += stats.healthRecoveryPerSecond * (stats.healthPerSecRate) * stats.allRecoveryMult / 10;
+						LocalPlayer.Stats.Health += stats.lifeRegenBase * (stats.lifeRegenMult) * stats.allRecoveryMult / 10;
 					}
 				}
 
@@ -672,16 +655,13 @@ namespace ChampionsOfForest.Player
 			{
 				return;
 			}
-			duration *= stats.magicDamageTaken;
 			LocalPlayer.HitReactions.enableFootShake(1, 0.6f);
-
 			Stats.stunned.value = true;
 			if (StunDuration < duration)
 			{
 				StunDuration = duration;
 			}
 			COTFEvents.Instance.OnStun.Invoke();
-
 		}
 
 		public void AddKillExperience(long Amount)
@@ -723,20 +703,23 @@ namespace ChampionsOfForest.Player
 
 				if (GameSetup.IsMultiplayer)
 				{
-					using (MemoryStream answerStream = new MemoryStream())
-					{
-						using (BinaryWriter w = new BinaryWriter(answerStream))
-						{
-							w.Write(19);
-							w.Write(ModReferences.ThisPlayerID);
-							w.Write(instance.level);
-							w.Close();
-						}
-						NetworkManager.SendLine(answerStream.ToArray(), NetworkManager.Target.Others);
-						answerStream.Close();
-					}
+					SendPlayerState();
 				}
 			}
+		}
+
+		public void SendPlayerState()
+		{
+			COTFCommand<GetPlayerStateParams>.Send(NetworkManager.Target.Everyone, new GetPlayerStateParams()
+			{
+				entityNetworkID = LocalPlayer.Entity.networkId.PackedValue,
+				health = LocalPlayer.Stats.Health,
+				maxHealth = ModdedPlayer.Stats.TotalMaxHealth,
+				level = level,
+				playerID = ModReferences.ThisPlayerID,
+				xp = ExpCurrent
+
+			});
 		}
 
 		public void OnGetHit()
@@ -750,8 +733,8 @@ namespace ChampionsOfForest.Player
 		public void OnHit()
 		{
 			
-			LocalPlayer.Stats.HealthTarget +=stats.healthOnHit *stats.allRecoveryMult;
-			LocalPlayer.Stats.Health += stats.healthOnHit * stats.allRecoveryMult;
+			LocalPlayer.Stats.HealthTarget +=stats.lifeOnHit *stats.allRecoveryMult;
+			LocalPlayer.Stats.Health += stats.lifeOnHit * stats.allRecoveryMult;
 			LocalPlayer.Stats.Energy += stats.energyOnHit * stats.TotalEnergyRecoveryMultiplier;
 			LocalPlayer.Stats.Stamina += stats.staminaOnHit * Stats.TotalEnergyRecoveryMultiplier;
 			SpellActions.OnFrenzyAttack();
@@ -845,18 +828,18 @@ namespace ChampionsOfForest.Player
 				if (hit == FurySwipesLastHit)
 				{
 					FurySwipesDmg += 10;
-					Stats.rangedFlatDmg.valueAdditive += 10;
-					Stats.spellFlatDmg.valueAdditive += 10;
-					Stats.meleeFlatDmg.valueAdditive += 10;
+					Stats.baseRangedDamage.valueAdditive += 10;
+					Stats.baseSpellDamage.valueAdditive += 10;
+					Stats.baseMeleeDamage.valueAdditive += 10;
 					AddBuff(27, 98, 10, 60);
 
 				}
 				else
 				{
 					FurySwipesLastHit = hit;
-					Stats.rangedFlatDmg.valueAdditive -= FurySwipesDmg;
-					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
-					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.baseRangedDamage.valueAdditive -= FurySwipesDmg;
+					Stats.baseSpellDamage.valueAdditive -= FurySwipesDmg;
+					Stats.baseMeleeDamage.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
 					if (activeBuffs.ContainsKey(98))
 						activeBuffs[98].amount = 0;
@@ -877,18 +860,18 @@ namespace ChampionsOfForest.Player
 				if (hit == FurySwipesLastHit)
 				{
 					FurySwipesDmg += 100;
-					Stats.rangedFlatDmg.valueAdditive += 100;
-					Stats.spellFlatDmg.valueAdditive +=100;
-					Stats.meleeFlatDmg.valueAdditive += 100;
+					Stats.baseRangedDamage.valueAdditive += 100;
+					Stats.baseSpellDamage.valueAdditive +=100;
+					Stats.baseMeleeDamage.valueAdditive += 100;
 					AddBuff(27, 98, 100, 60);
 
 				}
 				else
 				{
 					FurySwipesLastHit = hit;
-					Stats.rangedFlatDmg.valueAdditive -= FurySwipesDmg;
-					Stats.spellFlatDmg.valueAdditive -= FurySwipesDmg;
-					Stats.meleeFlatDmg.valueAdditive -= FurySwipesDmg;
+					Stats.baseRangedDamage.valueAdditive -= FurySwipesDmg;
+					Stats.baseSpellDamage.valueAdditive -= FurySwipesDmg;
+					Stats.baseMeleeDamage.valueAdditive -= FurySwipesDmg;
 					FurySwipesDmg = 0;
 					if (activeBuffs.ContainsKey(98))
 						activeBuffs[98].amount = 0;
@@ -936,8 +919,8 @@ namespace ChampionsOfForest.Player
 								if (entity != null)
 								{
 									PlayerHitEnemy playerHitEnemy = PlayerHitEnemy.Create(GlobalTargets.OnlyServer);
-									playerHitEnemy.Hit =  DamageMath.GetSendableDamage( d);
-									playerHitEnemy.getAttackerType = DamageMath.SILENTattackerType;		//silent hit
+									playerHitEnemy.Hit =  DamageUtils.GetSendableDamage( d);
+									playerHitEnemy.getAttackerType = DamageUtils.SILENTattackerType;		//silent hit
 									playerHitEnemy.Target = entity;
 									playerHitEnemy.Send();
 								}
@@ -973,7 +956,7 @@ namespace ChampionsOfForest.Player
 		{
 			if ((level % 10) == 0 && level > 1)
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Heart of Purity"));
+				var item = new Item(ItemDatabase.ItemBaseByName("Heart of Purity"), 1);
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -982,7 +965,7 @@ namespace ChampionsOfForest.Player
 			}
 			else if (level >= 10 && level % 20 == 5 )
 			{
-				var item = new Item(ItemDataBase.ItemBaseByName("Greater Mutated Heart"));
+				var item = new Item(ItemDatabase.ItemBaseByName("Greater Mutated Heart"), 1);
 				item.level = 1;
 				if (!Inventory.Instance.AddItem(item))
 				{
@@ -1181,15 +1164,15 @@ namespace ChampionsOfForest.Player
 			{
 				if (item.Value == null)
 					continue;
-				if (item.Value.Equipped)
+				if (item.Value.isEquipped)
 				{
-					item.Value.onUnequip?.Invoke();
-					item.Value.Equipped = false;
-					foreach (var stat in item.Value.Stats)
+					item.Value.onUnequipCallback?.Invoke();
+					item.Value.isEquipped = false;
+					foreach (var stat in item.Value.stats)
 					{
 						try
 						{
-							stat.OnUnequip?.Invoke(stat.Amount);
+							stat.OnUnequip?.Invoke(stat.amount);
 						}
 						catch (Exception e)
 						{
@@ -1265,7 +1248,7 @@ namespace ChampionsOfForest.Player
 			{
 				if (Inventory.Instance.ItemSlots[key] != null)
 				{
-					Inventory.Instance.ItemSlots[key].Equipped = false;
+					Inventory.Instance.ItemSlots[key].isEquipped = false;
 					
 				}
 			}
